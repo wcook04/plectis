@@ -49,10 +49,11 @@ coefficient structure alone cannot supply the conclusion.</p>
 is equivalent to a cofinal carry condition; Problem 243 has eventual
 Sylvester recurrence under a bounded or summable negative error; Problem
 251 has the prime-gap identity and a tail-shift equivalence; Problem 269
-has three-prime height and kernel-minor identities; Problem 1041 has
-local Newton-flow and ray-separation results; and Problem 1049 has an
-exact rational-base tail recurrence together with a checked height
-region. None closes its Erdős problem.</p>
+has three-prime height and kernel-minor identities; Problem 1041 has an
+ordinary all-degree trinomial radial theorem and a sharp critical-value
+mean, with Lean Newton-flow and ray-separation inputs; and Problem 1049
+has an exact rational-base tail recurrence together with a checked
+height region. None closes its Erdős problem.</p>
 <section id="problem-by-problem-guide" class="level3">
 <h3>Problem-by-problem guide</h3>
 <p><strong><a href="https://www.erdosproblems.com/68">#68</a>.</strong>
@@ -64,44 +65,58 @@ non-unit factorial carries. The isolation pin is
 incomparable. The cofinal carries are not produced.</p>
 <p><strong><a
 href="https://www.erdosproblems.com/243">#243</a>.</strong> After
-Koizumi’s normalised vanishing, a bounded or summably small negative
-centred error forces eventual Sylvester recurrence. The unbounded
-mixed-sign regime and the original endpoint remain open.</p>
+Koizumi’s normalised vanishing, a bound on the upward steps of the
+unreduced integer numerator forces eventual Sylvester recurrence; a
+bound on the numerator itself is not required. Unbounded upward
+excursions of that numerator, and the original endpoint, remain
+open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/249">#249</a>.</strong> Exact
-dyadic-kernel rank <code>2^e + 1</code>, denominator exclusion to about
-<code>7.96 × 10³⁴</code>, diagonal certificates through
-<code>t ≤ 82</code>, conditional actual-LCM and harmonic-pivot routes,
-and scoped no-go theorems. No cofinal producer reaching irrationality is
-proved.</p>
+href="https://www.erdosproblems.com/249">#249</a>.</strong>
+Bounded-residue series <code>A_m</code> are irrational for every
+<code>m ≥ 3</code>, with a complete rationality classification at dyadic
+moduli (ordinary mathematics in the short note, §2; not Lean).
+Separately: exact dyadic-kernel rank <code>2^e + 1</code>, denominator
+exclusion to about <code>7.96 × 10³⁴</code>, diagonal certificates
+through <code>t ≤ 82</code>, conditional actual-LCM and harmonic-pivot
+routes, and scoped no-go theorems. No cofinal producer reaching
+irrationality of the original series is proved.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/251">#251</a>.</strong> A
-coefficient-only countermodel and a sparse rationalising perturbation
-show that polynomial growth, nonperiodicity, and eventual fixed-modulus
-congruences do not force irrationality. The prime-to-gap identity is
-Tao’s (7 October 2025); Lean formalises it with an elementary polynomial
-prime bound, not the prime-number theorem. A prime-specific cofinal tail
-witness is still missing.</p>
+href="https://www.erdosproblems.com/251">#251</a>.</strong> A sparse
+perturbation of the prime gaps can have a rational dyadic sum while
+retaining the prime growth scale, every fixed eventual congruence, and
+asymptotically the same short-block statistics. The later positions are
+not asserted to be prime. This is complementary to Land’s conditional
+result, not a refutation. Lean checks an elementary pair-and-buffer
+core; the full schedule and block-law estimates are ordinary
+mathematics, not a separately published
+<code>SparseRationalisation.md</code>. The original problem remains
+open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/257">#257</a>.</strong> Full-support
-irrationality in every integer base <code>b ≥ 2</code>,
-structured-support theorems under summability, eventually-periodic
-coefficient results, and Lebesgue measure one for the base-2 Mersenne
-achievement set. Irrationality for every infinite support and the
-<code>1/2</code> and <code>1/21</code> branches remain open.</p>
+href="https://www.erdosproblems.com/257">#257</a>.</strong> For every
+infinite reciprocal-summable support, the Mersenne subseries is
+irrational at every integer base <code>b ≥ 2</code> (short paper §2;
+ordinary averaging argument, not Lean). Erdős stated that
+coprimality-free extension. Full-support irrationality at every integer
+base is classical (Erdős 1948) and Lean-checked here, as are
+pairwise-coprime summable-reciprocal support and Lebesgue measure one
+for the base-2 achievement set. Irrationality for every infinite support
+and the <code>1/2</code> and <code>1/21</code> branches remain open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/269">#269</a>.</strong> Three-prime
-height identity, nonsingular kernel minors, the <code>(2,3,5)</code>
-minor <code>-1/15</code>, and conditional carry observers. The two-prime
-transcendence argument is Steve Fan’s (26 June 2026) and is not a Lean
-theorem. The actual-series carry bridge and three-prime irrationality
-remain open.</p>
+href="https://www.erdosproblems.com/269">#269</a>.</strong> Steve Fan’s
+two-prime factorisation (26 June 2026) is his and is not a Lean theorem.
+At three primes, one binary carry produces nonsingular selected kernel
+minors of every order. The actual-series reduction is given; the
+source-specific cofinal escape remains unproved. Three-prime
+irrationality remains open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/1041">#1041</a>.</strong>
-Newton-flow value decay under stated hypotheses, arbitrarily small
-translations that separate ray arguments, and perturbative root
-retention. A length-<code>&lt;2</code> curve and the hub that would make
-one remain open.</p>
+href="https://www.erdosproblems.com/1041">#1041</a>.</strong> Every
+monic trinomial with roots in the open unit disc has radial
+root-to-origin segments inside <code>{|f|&lt;1}</code>, so any two roots
+join through the origin with length less than <code>2</code>.
+Separately, a sharp Poisson critical-value mean holds on the closed unit
+disc. Both are ordinary proofs. Lean checks Newton-flow decay,
+ray-separating translations, and perturbative root retention. The
+unrestricted path problem remains open.</p>
 <p><strong><a
 href="https://www.erdosproblems.com/1049">#1049</a>.</strong> Ordinary
 proof that <code>F(31/4)</code> and its positive powers are irrational
@@ -554,12 +569,13 @@ claims registry: <code>eventually_periodic_negative_no_go</code>). Its
 exact hypotheses include <code>2 ≤ a(n)</code>,
 <code>0 &lt; e(N+n) &lt; a(N+n)</code>, the denominator, tail, and shape
 recurrences, and positive-period/positive-drift equations. It does not
-cover arbitrary mixed-sign or unbounded negative behaviour, so the open
-boundary remains.</li>
-<li>The Comparator interface
-<code>no_cofinallyBoundedNegative_of_normalizedVanishes</code> makes
-another conditional no-go exact: with <code>a(n) &gt; 1</code>, positive
-<code>C</code> and <code>magnitude</code>, the coupled recurrences
+cover unbounded upward excursions of the unreduced numerator, so the
+open boundary remains.</li>
+<li>A separately declared Comparator interface
+<code>no_cofinallyBoundedNegative_of_normalizedVanishes</code> restates
+another conditional no-go under a fixed axiom budget: with
+<code>a(n) &gt; 1</code>, positive <code>C</code> and
+<code>magnitude</code>, the coupled recurrences
 <code>C(n+1) + D(n) = a(n)·C(n)</code> and
 <code>D(n+1) = a(n)·D(n)</code>, a bounded rise
 <code>C(n+1) ≤ C(n) + B</code>, normalized vanishing
@@ -568,9 +584,12 @@ another conditional no-go exact: with <code>a(n) &gt; 1</code>, positive
 are inconsistent
 (<code>ErdosProblems/Erdos243/ReciprocalTailRigidity.lean</code>). Every
 dynamical, positivity, bounded-rise, and vanishing assumption remains
-explicit; this does not close the original mixed-sign regime (claims
-registry: <code>bounded_negative_exclusion</code>; source coordinate:
-<code>ErdosProblems/Erdos243/ReciprocalTailRigidity.lean:1748</code>).</li>
+explicit; this does not close unbounded upward excursions of the
+unreduced numerator (claims registry:
+<code>bounded_negative_exclusion</code>; source coordinate:
+<code>ErdosProblems/Erdos243/ReciprocalTailRigidity.lean:1748</code>).
+The interface is not a fresh passing receipt for this release
+commit.</li>
 <li>A distinct signed recovery family makes the centered mechanism
 executable: <code>boundedNegativePart_eventually_zero</code> assumes
 <code>a(n)&gt;1</code>, <code>C(n)&gt;0</code>, the exact natural
@@ -582,14 +601,17 @@ strict <code>|E(n)|&lt;C(n)</code>, a uniform lower bound
 nonzero next tail,
 <code>sylvesterNext_eventually_of_centered_zero</code> recovers the
 Sylvester recurrence. The latter two declarations are mechanism evidence
-for this one family, not separate rows. This is not reciprocal-tail
-irrationality: the unbounded mixed-sign negative branch and
-prime-specific producer remain open (Comparator wrapper:
-<code>ExternalVerification/Challenge.lean:96-109</code>; source
+for this one family, not separate rows. The analytic passage from the
+reciprocal series to these hypotheses is ordinary mathematics, not an
+end-to-end Lean proof. This is not reciprocal-tail irrationality:
+unbounded upward excursions of the unreduced numerator remain open. The
+selected statement has a separately declared Comparator interface; that
+is not a fresh passing receipt for this release commit (Comparator
+wrapper: <code>ExternalVerification/Challenge.lean:96-109</code>; source
 <code>ErdosProblems/Erdos243/ReciprocalTailRigidity.lean:2265</code>,
 with supporting declarations at <code>:1837</code> and
 <code>:1799</code>).</li>
-<li>Open: the unbounded mixed-sign regime.</li>
+<li>Open: unbounded upward excursions of the unreduced numerator.</li>
 </ul>
 <p><strong>#249 — is <code>∑ φ(n)/2ⁿ</code> irrational? (reviewed
 core)</strong></p>
@@ -907,6 +929,17 @@ exponential-dominance limit; the Comparator interface does not assert
 that infinite limit. Its coefficients are synthetic, not actual prime
 gaps, so this is a methodological no-go and not an unconditional #251
 refutation.</li>
+<li>A sparse congruence-preserving perturbation of the actual prime gaps
+can make the dyadic sum rational while retaining the prime growth scale,
+eventual fixed-modulus congruences, and short-block statistics at the
+stated scale. Lean checks the elementary pair identities, buffer, and
+abstract filling core (<code>SparseRationalisationCore.lean</code>). The
+full schedule and block-law transfer are ordinary proofs in Proposition
+1.1 of the short paper; they are not Lean- or Comparator-verified, and
+there is no separately published <code>SparseRationalisation.md</code>.
+End-to-end sparse candidate sources are labelled UNRUN. The later
+positions are not asserted to be prime, and the construction does not
+refute Land.</li>
 <li>Open: cofinally many adjacent index pairs with small tail shifts and
 differing gaps; each smallness condition constrains a complete infinite
 tail.</li>
@@ -1071,10 +1104,11 @@ a rank-two kernel obstruction
 Comparator theorem <code>kernel_235_minor_eq_neg_one_fifteen</code>
 identifies the smallest displayed <code>2,3,5</code> kernel minor as
 exactly <code>-1/15</code>. This rules out the displayed rank-one route
-only; it does not imply irrationality and does not supply the missing
-rationality-to-irrationality bridge.</p></li>
-<li><p>Open: any three-prime case; the rationality-to-carry bridge and
-the cofinal window escape.</p></li>
+only; it does not imply irrationality. The paper’s stronger ordinary
+result is that selected minors of every order are nonsingular; that rank
+theorem is not Comparator-checked.</p></li>
+<li><p>Open: any three-prime case. The actual-series reduction is given;
+the source-specific cofinal escape remains unproved.</p></li>
 <li><p>The finite residue contradiction and conditional cofinal-window
 carry extinction are indexed as
 <code>three_prime_finite_residue_contradiction</code> and
@@ -1112,22 +1146,24 @@ denominator-dependent short bound
 (<code>ExternalVerification/Challenge.lean:498-509</code>;
 <code>ErdosProblems/Erdos269/RestrictedFloorSum.lean:629-654</code>).
 Its hard step is the cofinal window expansion against that bound. The
-escape producer and the bridge from the actual three-prime running-LCM
-series (or its rationality) to this carry remain unproved, so this is no
-#269 endpoint or irrationality proof; it is distinct from the finite
-residue and weighted-phase observers. <strong>#1041 — short connections
-inside polynomial lemniscates?</strong></p></li>
-<li><p>The source-only frontier now has the sharper endpoint socket: on
-the ray-separated locus, prove <code>min_c L(c) ≤ 2</code> over
-admissible hubs. Its attachment and lower-semicontinuity reductions
-would then give the parent theorem; the degree-five <code>SPOKE-5</code>
-instance would settle that degree. This is not a Lean or Comparator
-theorem: hub selection, path containment, and the degree-five supply
-remain open, while the earlier minimum-critical and aggregate shortcuts
-are refuted
-(<code>research_corpus/Erdos1041/FRONTIER.md</code>).</p></li>
-<li><p>Lean checks the supporting inputs: quantitative root retention
-under constant perturbation
+actual-series reduction is given; the source-specific cofinal escape
+remains unproved, so this is no #269 endpoint or irrationality proof; it
+is distinct from the finite residue and weighted-phase observers.
+<strong>#1041 — short connections inside polynomial
+lemniscates?</strong></p></li>
+<li><p>Ordinary all-degree theorem: every monic trinomial
+<code>z^n + a z^m + b</code> with roots in the open unit disc has each
+root-to-origin segment inside <code>{|f|&lt;1}</code>, so any two roots
+join through the origin with length less than <code>2</code>. This is
+coefficient-restricted, not a solution of the unrestricted path
+problem.</p></li>
+<li><p>Ordinary sharp critical-value mean: for monic
+degree-<code>n</code> polynomials with zeros in the closed unit disc,
+<code>∑_{j=1}^{n-1} |f(c_j)|^{2/(n-1)} ≤ n-1</code>, with equality for
+<code>z^n − λ</code> when <code>|λ| = 1</code>. The bound controls
+critical values, not connectors.</p></li>
+<li><p>Lean checks supporting Newton-flow inputs: quantitative root
+retention under constant perturbation
 (<code>constant_perturbation_roots_in_unitDisk</code>,
 <code>ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean:287</code>)
 and arbitrarily small translations separating all pairwise ray
@@ -1138,12 +1174,14 @@ common shift of norm <code>&lt; ε</code> making every value nonzero and
 every positive-ray argument distinct (<code>:197</code>). The
 exponential-decay connection equation is a hypothesis of the local
 ray-separation consumer, not a theorem (<code>:315</code>).</p></li>
-<li><p>The note’s main independent contribution is prose, not Lean: a
-specific invalid three-ended local block at an interior Morse saddle in
-a recent manuscript’s load-bearing Proposition 12 — identified as a
-proof gap, not a counterexample.</p></li>
-<li><p>Open: repair or refute that decomposition; the planar topology
-and length bookkeeping.</p></li>
+<li><p>A Cassini example refutes the printed global tree budget of a
+March 2026 manuscript’s Proposition 12; that obstruction is not a
+disproof of Erdős #1041. The source-only frontier still records hub
+selection on the ray-separated locus as an open parent carrier
+(<code>research_corpus/Erdos1041/FRONTIER.md</code>).</p></li>
+<li><p>Open: unrestricted connectors; the problem remains open. A
+reported degree-seven counterexample announcement is a separate external
+claim.</p></li>
 <li><p>Current-source boundary: the committed <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/research_corpus/Erdos1041/FRONTIER.md"><code>research_corpus/Erdos1041/FRONTIER.md</code></a>
 is the dated route for later source-only research evidence. Read it

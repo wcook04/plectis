@@ -569,12 +569,12 @@ and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">liminf</mi><mrow><mi>N</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub></mrow><mrow><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow></mfrac><mo>≥</mo><mfrac><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \liminf_{N\to\infty}\frac{\log L_N}{N^{3/2}\log N}
 \ge\frac{2\sqrt2}{3}.\label{res:lcm-growth}
-\end{equation}</annotation></semantics></math> The extended-real
-statement, with the real exponent
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>,
-is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42">common
-denominator growth liminf</a>. For a terminal block of
+\end{equation}</annotation></semantics></math> The LCM asymptotic is
+proved here by an ordinary mathematical argument. The linked asymptotic
+Lean files are proof candidates and are not being cited as kernel
+verification. The finite-block inequality has a separate Lean source, <a
+href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529">finite
+terminal-block inequality</a>. For a terminal block of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 terms, the product–lcm–gcd inequality and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>j</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(i!-1,j!-1)\mid j!/i!-1</annotation></semantics></math>
@@ -607,7 +607,15 @@ class="citation" data-cites="lai"></span>. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P=0</annotation></semantics></math>,
 the lcm is only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">N!</annotation></semantics></math>.
-These are common-denominator estimates. In particular,
+These are common-denominator estimates. Consecutive denominators
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(N-1)!-1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N!-1</annotation></semantics></math>
+are already coprime for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">N\ge3</annotation></semantics></math>,
+so the qualitative failure of common-denominator clearing follows from
+two terms; the estimate above is the quantitative growth statement. In
+particular,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">L_N(S-H_N)\to\infty</annotation></semantics></math>,
 so multiplying the prefix by its full lcm cannot make its positive tail
 small.</p>
@@ -928,12 +936,13 @@ finite source</a>. The inherited generic lemmas in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/TailIdealCertificate.lean">tail
 ideal certificate</a> assume the lcm envelope; they do not formalise the
 factorial arithmetic. The growth liminf is the ordinary asymptotic
-consequence of the finite terminal-block inequality; its eventual form,
-with the constant
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2\sqrt2/3</annotation></semantics></math>,
-is checked in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean">complete
-asymptotics</a>.</p>
+consequence of the finite terminal-block inequality cited above. The
+associated <a
+href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean">asymptotic</a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean">liminf</a>
+Lean files are proof candidates and are not being cited as kernel
+verification.</p>
 <p>The Comparator isolation pin for the carry equivalences is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean">factorial
 gap plateau core</a>. <a

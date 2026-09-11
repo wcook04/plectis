@@ -72,64 +72,77 @@ Reciprocal-tail rigidity · <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.pdf">short paper</a>
 · <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf">longer
-paper</a>. After Koizumi’s normalised vanishing, a bounded or summably
-small negative centred error forces eventual Sylvester recurrence. The
-unbounded mixed-sign regime remains open. Duverney (2001) and the
-Tao–Kovac line are prior art on the page; cubic-rate vanishing is not
+paper</a>. After Koizumi’s normalised vanishing, a bound on the upward
+steps of the unreduced integer numerator forces eventual Sylvester
+recurrence; the numerator itself need not be assumed bounded. Unbounded
+upward excursions of that numerator remain open. Duverney (2001) and the
+Tao–Kovač line are prior art on the page; cubic-rate vanishing is not
 claimed as empty-page news.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/249">#249</a></strong> · Binary
 totient series · <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/249/erdos-249-binary-totient-series.pdf">short paper</a> ·
 <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/249/erdos249-totient-reasoning-surface.pdf">longer
-paper</a>. Exact dyadic-kernel rank <code>2^e + 1</code>, denominator
-exclusion to about <code>7.96 × 10³⁴</code>, diagonal certificates
-through <code>t ≤ 82</code>, and no-go theorems for the shortcuts. This
-is not an infinite witness for irrationality.</li>
+paper</a>. Bounded-residue series <code>A_m</code> are irrational for
+<code>m ≥ 3</code>, with a complete dyadic-modulus classification (<a
+href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/249/erdos-249-binary-totient-series.pdf">§2</a>; ordinary
+mathematics, not Lean). Separately: exact dyadic-kernel rank
+<code>2^e + 1</code>, denominator exclusion to about
+<code>7.96 × 10³⁴</code>, diagonal certificates through
+<code>t ≤ 82</code>, and no-go theorems for the shortcuts. This is not
+an infinite witness for irrationality.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/251">#251</a></strong> · Prime-gap
 dyadic series · <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.pdf">short paper</a> ·
 <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.pdf">longer
-paper</a>. The strongest supported lead is a coefficient-only
-countermodel and a sparse rationalising perturbation. The prime-to-gap
-identity is already Tao’s (summation by parts on the forum, 7 October
-2025); this checkout checks it without the prime-number theorem. The
-cofinal small-mismatch tail witness remains open.</li>
+paper</a>. A sparse perturbation of the prime gaps can have a rational
+dyadic sum while retaining the prime growth scale, every fixed eventual
+congruence, and asymptotically the same short-block statistics. The
+later positions are not asserted to be prime. This is complementary to
+Land’s conditional result, not a refutation; the original problem
+remains open.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/257">#257</a></strong> ·
 Mersenne-support subseries · <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf">short
 paper</a> · <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf">longer
-paper</a>. Full-support irrationality in every integer base
-<code>b ≥ 2</code> is Lean. Pairwise-coprime plus summable-reciprocal
-support is Lean. A reciprocal-summable theorem without coprimality is
-ordinary in the short paper. Arbitrary infinite support, and the
-<code>1/2</code> and <code>1/21</code> branches, remain open and are
-kept distinct from those theorems.</li>
+paper</a>. For every infinite reciprocal-summable support, the Mersenne
+subseries is irrational at every integer base <code>b ≥ 2</code> (short
+paper §2; ordinary mathematics, not Lean). Erdős stated that
+coprimality-free extension; the note writes out an averaging proof.
+Full-support irrationality at every integer base is classical (Erdős
+1948) and Lean-checked here. Pairwise-coprime plus summable-reciprocal
+support is Lean. Arbitrary infinite support, and the <code>1/2</code>
+and <code>1/21</code> branches, remain open.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/269">#269</a></strong> · Three-prime
 running LCM · <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/269/erdos-269-three-prime-running-lcm.pdf">short paper</a> ·
 <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.pdf">longer
-paper</a>. Three-prime height identity, nonsingular kernel minors, and
-the <code>(2,3,5)</code> minor <code>-1/15</code>. The two-prime
-transcendence argument is Steve Fan’s (<a
+paper</a>. Steve Fan’s two-prime factorisation (<a
 href="https://www.erdosproblems.com/forum/thread/269">erdosproblems.com/269</a>,
-26 June 2026); no priority or Lean theorem is claimed for that. Three or
-more primes remain open.</li>
+26 June 2026) is his; no priority or Lean theorem is claimed for it. At
+three primes, one binary carry produces nonsingular selected kernel
+minors of every order. The actual-series reduction is given; the
+source-specific cofinal escape remains unproved. Three-prime
+irrationality remains open.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/1041">#1041</a></strong> ·
 Lemniscates and Newton flow · <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.pdf">short paper</a>
 · <a href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.pdf">longer
-paper</a>. Newton-flow decay, ray-separating translations, and
-perturbative root retention are Lean. Three solved-family kernels are
-Comparator-checked. All-degree trinomials, the <code>13/25</code>
-certificate, the Poisson mean, and the length-<code>&lt;2</code>
-assemblies are ordinary. Forum discussion of a degree-7 counterexample
-is not a theorem of this repository.</li>
+paper</a>. Every monic trinomial <code>z^n + a z^m + b</code> with roots
+in the open unit disc has each root-to-origin segment inside
+<code>{|f|&lt;1}</code>, so any two roots join through the origin with
+length less than <code>2</code>. Separately, a sharp Poisson
+critical-value mean holds for zeros in the closed unit disc. Both are
+ordinary proofs. Lean checks Newton-flow decay, ray-separating
+translations, and perturbative root retention; three solved-family
+kernels are Comparator-checked. The unrestricted path problem remains
+open. Forum discussion of a degree-7 counterexample is a reported
+external claim, not a theorem of this repository.</li>
 <li><strong><a
 href="https://www.erdosproblems.com/1049">#1049</a></strong> ·
 Rational-base Lambert series · <a

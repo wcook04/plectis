@@ -486,6 +486,19 @@ bound suffices under the quadratic-limit assumption. Since $A_n\mid P_n$,
 this also implies Corollary~\ref{res:originalbounded}: multiplication by
 a factor in $(0,1]$ preserves an upper bound, including at negative values.
 
+Duverney proved a conditional signed form of the problem itself: for signs
+$\epsilon_n\in\{-1,1\}$, if $\sum_{n\ge0}(a_{n+1}/a_n^{2}-1)$ converges,
+then the reciprocal sum with numerators $\epsilon_n$ is rational if and
+only if
+\[
+ a_{n+1}=a_n^2-(\epsilon_{n+1}/\epsilon_n)a_n
+             +\epsilon_{n+2}/\epsilon_{n+1}
+\]
+for all large $n$~\cite[Corollary~3.2, p.~287]{duverney2001}. Absolute
+convergence is a stronger sufficient specialisation, not the hypothesis
+printed in that corollary. The all-positive specialisation is the form
+relevant here.
+
 The divisor constraint also survives integral numerator coefficients:
 $d=(a_n-1)U_n-b_nL_n$ is divisible by every divisor of both $U_n,L_n$.
 The already-proved coefficient-uniform variant gives bounded LCM height
@@ -516,7 +529,8 @@ The same finite-difference extraction excludes every nonintegral
 $\lambda>1$ under the rate
 $a_n^2/a_{n+1}=1+\lambda/n+o(n^{-\lambda})$: eventual polynomial growth
 would force its degree to equal $\lambda$. These rates lie outside
-Koizumi's $1+o(1/n)$ hypothesis \cite[Remark~3]{koizumi2025}.
+Koizumi's $1+o(1/n)$ hypothesis \cite[Remark~3]{koizumi2025}, and they make
+Duverney's signed series $\sum_n(a_{n+1}/a_n^{2}-1)$ diverge.
 
 There is also an admitted quantitative extension. Under the hypotheses of
 Theorem~\ref{res:bounded} other than (5), put

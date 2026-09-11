@@ -433,8 +433,11 @@ The following elementary estimate quantifies this cost:
 \liminf_{N\to\infty}\frac{\log L_N}{N^{3/2}\log N}
 \ge\frac{2\sqrt2}{3}.\label{res:lcm-growth}
 \end{equation}
-The extended-real statement, with the real exponent $3/2$, is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42}{common denominator growth liminf}.
+The LCM asymptotic is proved here by an ordinary mathematical argument.
+The linked asymptotic Lean files are proof candidates and are not being
+cited as kernel verification.  The finite-block inequality has a separate
+Lean source,
+\href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{finite terminal-block inequality}.
 For a terminal block of $k$ terms, the product--lcm--gcd inequality and
 $\gcd(i!-1,j!-1)\mid j!/i!-1$ give
 \[
@@ -454,7 +457,10 @@ The argument uses
 \]
 the additional $O_P(k^2\log N)$ loss is lower order.  The subtraction identity
 is recorded by Lai~\cite[(2.5)]{lai}.  For $P=0$, the lcm is only $N!$.
-These are common-denominator estimates.  In particular,
+These are common-denominator estimates.  Consecutive denominators
+$(N-1)!-1$ and $N!-1$ are already coprime for $N\ge3$, so the qualitative
+failure of common-denominator clearing follows from two terms; the estimate
+above is the quantitative growth statement.  In particular,
 $L_N(S-H_N)\to\infty$, so multiplying the prefix by its full lcm cannot
 make its positive tail small.
 
@@ -687,10 +693,12 @@ ordinary proofs with exact checks in \href{https://github.com/wcook04/plectis-er
 The finite-source checks are in \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/scripts/check_finite_source.py}{check finite source}.
 The inherited generic lemmas in \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/TailIdealCertificate.lean}{tail ideal certificate} assume
 the lcm envelope; they do not formalise the factorial arithmetic.
-The growth liminf is the
-ordinary asymptotic consequence of the finite terminal-block inequality; its
-eventual form, with the constant $2\sqrt2/3$, is checked in
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean}{complete asymptotics}.
+The growth liminf is the ordinary asymptotic consequence of the finite
+terminal-block inequality cited above.  The associated
+\href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean}{asymptotic}
+and
+\href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean}{liminf}
+Lean files are proof candidates and are not being cited as kernel verification.
 
 The Comparator isolation pin for the carry equivalences is
 \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean}{factorial gap plateau core}.  \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialZeroPlateau.lean}{factorial zero plateau} is the

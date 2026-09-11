@@ -206,7 +206,7 @@ grouped by the problem whose note they serve.
 
   **Boundary.** The hypotheses are positive rational terms plus an eventual inequality; they do not cover unrestricted #243, mixed-sign state orbits, the release's Lean results, or any novelty/priority claim.
 
-- K. Koizumi, [*Irrationality of the reciprocal sum of doubly exponential sequences* (Integers 26 (2026), A28)](https://math.colgate.edu/~integers/aa28/aa28.pdf); [arXiv:2504.05933](https://arxiv.org/abs/2504.05933) ([read source closure](primary-sources/reciprocal-tail/koizumi-2026-source-closure.md))
+- J. Koizumi, [*Irrationality of the reciprocal sum of doubly exponential sequences* (Integers 26 (2026), A28)](https://math.colgate.edu/~integers/aa28/aa28.pdf); [arXiv:2504.05933](https://arxiv.org/abs/2504.05933) ([read source closure](primary-sources/reciprocal-tail/koizumi-2026-source-closure.md))
 
   Supplies normalised vanishing for the canonical orbit, the sole hypothesis of the note's headline conditional theorems not proved in Lean; the published Lemma 3 and Proposition 1(2) (the preprint-v1 Lemma 13 and Proposition 19(2)) are conceded in-note as prior art for the note's absorption and descent lemmas.
 

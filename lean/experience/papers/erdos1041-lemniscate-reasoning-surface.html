@@ -6,56 +6,54 @@
   </header>
   <div class="lean-paper__body" data-source="../../../paper/1041/erdos1041-lemniscate-reasoning-surface.tex">
 <blockquote>
-<p><strong>Contribution.</strong> The paper proves the
-Erdős–Herzog–Piranian conclusion for every monic trinomial in every
-degree, with the radial inequalities kernel-checked; a quantitative
-connector at a separated simple critical value, whose threshold
+<p><strong>Contribution.</strong> The paper gives an ordinary all-degree
+path theorem for every monic trinomial, a separately ordinary sharp
+critical-value mean, a quantitative connector at a separated simple
+critical value whose threshold
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">S=2</annotation></semantics></math>
 reaches every degree
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge 3</annotation></semantics></math>
-through Pólya’s area inequality and Crane’s sharp polynomial-image
-bound; a short contained connector whenever the least critical-value
-modulus is at most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">13/25</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge 3</annotation></semantics></math>,
+a short contained connector whenever the least critical-value modulus is
+at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">13/25</annotation></semantics></math>,
 a constant-factor connector of length at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>71</mn><mi>/</mi><mn>10</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>μ</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">(71/10)\mu^{1/n}</annotation></semantics></math>
 inside
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>2</mn><mi>μ</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|\le 2\mu\}</annotation></semantics></math>
-with no hypothesis at all, together with arity and capacity corollaries
-that reach the target constant; the full degree-three case; a sharp
-all-degree collinear theorem; a complete primitive sparse quintic
-theorem; and translated cubic quotient-fibre theorems in every degree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>2</mn><mi>μ</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|\le 2\mu\}</annotation></semantics></math>,
+the full degree-three case, a sharp all-degree collinear theorem, a
+complete primitive sparse quintic theorem, and translated cubic
+quotient-fibre theorems in every degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>q</mi></mrow><annotation encoding="application/x-tex">3q</annotation></semantics></math>.
-It also checks exponential Newton-value decay, positive-ray collision
-interfaces, finite translation avoidance, and quantified root retention,
-and records the current near-Fekete residual.</p>
-<p><strong>Relation to the open problem.</strong> The separation regime,
-the two threshold-free theorems, the degree-three theorem and the three
-solved-family assemblies are ordinary mathematics without kernel-checked
-authority. The
+Lean checks exponential Newton-value decay, positive-ray collision
+interfaces, finite translation avoidance, and quantified root retention.
+Exact obstruction examples, including a Cassini counterexample to the
+printed global tree budget, show why those estimates cannot be promoted
+to a general connector theorem.</p>
+<p><strong>Relation to the open problem.</strong> The trinomial paths,
+the Poisson critical-value mean, the separation regime, the two
+threshold-free theorems, the degree-three theorem and the solved-family
+path assemblies are ordinary mathematics. The
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">13/25</annotation></semantics></math>
 threshold, the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>71</mn><mi>/</mi><mn>10</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(71/10)</annotation></semantics></math>
 constant and the degree-three theorem have no formal endpoint in the
 pinned corpus, and the regime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn><mi>/</mi><mn>25</mn><mo>&lt;</mo><mi>μ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">13/25&lt;\mu&lt;1</annotation></semantics></math>
-is untouched by the threshold argument. The separation argument excludes
-near-tied critical values and multiple saddles. The checked dynamical
-and perturbative inputs do not repair the global topology and metric
-gluing in the complementary strata, so Problem #1041 remains open. The
-degree-five target and the no-go witnesses are boundaries around the
-open theorem and close nothing.</p>
-<p><strong>Executable review object.</strong> Comparator selects the
-trinomial theorem, the finite-family small-translation theorem, the
-quantified root-retention theorem and three solved-family kernels.
-Critical-value separation, including its threshold analysis, has no
-corresponding formal endpoint in the pinned corpus. Each formal endpoint
-routes to the exact paper result and boundary it supports; the
-covering-space and area argument and the frontier section remain
-ordinary evidence classes. The repository’s external-verification job
-compares these exact Lean propositions with separately declared
-challenge statements and an axiom budget, then asks Lean’s kernel to
-check the submitted proofs. The <a
+is untouched by the threshold argument. The checked dynamical and
+perturbative inputs do not construct unrestricted connectors, so
+Problem #1041 remains open. A reported degree-seven counterexample
+announcement is a separate external claim, not a theorem of this
+record.</p>
+<p><strong>Executable review object.</strong> Comparator checks three
+solved-family kernels (collinear, primitive quintic, translated cubic
+fibres), not the ordinary length-below-two assemblies. Critical-value
+separation, including its threshold analysis, has no corresponding
+formal endpoint in the pinned corpus. <code>PaperTrinomial.lean</code>
+and <code>PaperCriticalValueMeanR10.lean</code> are not cited as
+kernel-checked complete statements. The repository’s
+external-verification job compares these exact Lean propositions with
+separately declared challenge statements and an axiom budget, then asks
+Lean’s kernel to check the submitted proofs. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/formalization.yaml">formalisation
 manifest</a> and the commit-bound CI receipt record that check; they do
 not assess novelty, significance, or whether the original problem is
@@ -149,15 +147,16 @@ that the flow lines need not organise into connected trees, and on 26
 March 2026 the manuscript’s author agreed that the statement of
 Proposition 12 itself, not only its printed proof, is incorrect, and set
 the strategy aside. Section  records an independent diagnosis of the
-same failure through the local three-ended saddle model, together with
-possible repairs. No counterexample to the proposition is exhibited
-there. Pendyala’s independent June 2026 preprint <span class="citation"
-data-cites="june2026"><a href="#ref-8">[8]</a></span> proves the degree-four case through a
-finite four-point radial lemma and a short polygonal connector. That is
-the degree-four result directly comparable to the root-pair problem.
-Together with the cubic theorem established here, it settles these two
-degrees; it does not supply the general-degree conclusion. The
-all-degree estimates below hold in every degree
+same local saddle defect, together with the Cassini obstruction to the
+printed global tree budget. That obstruction refutes the load-bearing
+metric estimate, not Erdős #1041. Pendyala’s independent June 2026
+preprint <span class="citation" data-cites="june2026"><a href="#ref-8">[8]</a></span> proves the
+degree-four case through a finite four-point radial lemma and a short
+polygonal connector. That is the degree-four result directly comparable
+to the root-pair problem. Together with the cubic theorem established
+here, it settles these two degrees; it does not supply the
+general-degree conclusion. The all-degree estimates below hold in every
+degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>,
 under a hypothesis on the least critical-value modulus or under no root
 or threshold hypothesis at all, at the cost of a larger constant or a
@@ -187,16 +186,15 @@ lemniscate.</p>
 <tr>
 <td class="ta-l">Every monic trinomial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mi>n</mi></msup><mo>+</mo><mi>a</mi><msup><mi>z</mi><mi>m</mi></msup><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">z^n+az^m+b</annotation></semantics></math></td>
-<td class="ta-l"> Kernel-checked inequalities; ordinary
-concatenation</td>
+<td class="ta-l"> Ordinary all-degree theorem</td>
 <td class="ta-l">
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>m</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1\le m&lt;n</annotation></semantics></math>
 and every zero in the open unit disc; the middle coefficient is
 unrestricted and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>b</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|b|&lt;1</annotation></semantics></math>
-comes from Vieta. Lean checks the two radial inequalities and the metric
-budget; joining the two segments into one path is an ordinary step. Two
-intermediate coefficients break the radial mechanism.</td>
+comes from Vieta. The radial inequalities and the two-segment path are
+ordinary mathematics; <code>PaperTrinomial.lean</code> is not in this
+checkout. Two intermediate coefficients break the radial mechanism.</td>
 </tr>
 <tr>
 <td class="ta-l">Separated critical value,
@@ -261,16 +259,19 @@ and multiple saddles are excluded.</td>
 </tr>
 <tr>
 <td class="ta-l">Critical-value budget in every degree</td>
-<td class="ta-l"> Ordinary theorem; checked analytic
-assembly</td>
+<td class="ta-l"> Ordinary theorem</td>
 <td class="ta-l">
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">\sum_j|f(c_j)|^{1/n}\le(n-1)R</annotation></semantics></math>
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R\ge0</annotation></semantics></math>;
-the repaired aggregate, smoke, and 320 named axiom prints pass. No
-inverse-ray length estimate is implied.</td>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R\ge0</annotation></semantics></math>,
+with the sharper Poisson mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>≤</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum_j|f(c_j)|^{2/(n-1)}\le n-1</annotation></semantics></math>
+on the closed unit disc. The complete mean is ordinary mathematics, not
+a kernel-checked assembly of
+<code>PaperCriticalValueMeanR10.lean</code>. No inverse-ray length
+estimate is implied.</td>
 </tr>
 <tr>
 <td class="ta-l">Coefficient energy to path length</td>
@@ -357,11 +358,16 @@ the unrestricted concyclic case remains open.</td>
 <tr>
 <td class="ta-l">Unrestricted proof of <span
 class="citation" data-cites="march2026"></span></td>
-<td class="ta-l"> Proof gap</td>
+<td class="ta-l"> Printed tree budget false</td>
 <td class="ta-l"> Proposition 12 uses a false three-ended
-local saddle block; located publicly by Tao (25 March 2026), conceded by
-the author at statement level (26 March 2026). No counterexample is
-exhibited.</td>
+local saddle block, and the Cassini polynomial
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">z^2-a^2</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>9</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">a=9/10</annotation></semantics></math>
+refutes the printed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>
+spanning-tree estimate. A different route cannot retain that
+coefficient. This does not refute Erdős #1041.</td>
 </tr>
 <tr>
 <td class="ta-l">Constant-translation ray separation and
@@ -2856,9 +2862,10 @@ for every
 including its equality case. Its quadratic form gives the stronger bound
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>R</mi><mrow><mn>2</mn><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}.</annotation></semantics></math>
 The displayed mean, and the stronger Poisson form
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>R</mi><mrow><mn>2</mn><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>R</mi><mrow><mn>2</mn><mi>n</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)},</annotation></semantics></math>
 are ordinary mathematics in this record.
-<code>PaperCriticalValueMeanR10.lean</code> is not cited as a kernel-checked complete statement.</p>
+<code>PaperCriticalValueMeanR10.lean</code> is not cited as a
+kernel-checked complete statement.</p>
 <p>The stronger exponent controls concentration of the critical values.
 For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R&gt;0</annotation></semantics></math>,
@@ -3381,6 +3388,31 @@ with
 \tag{5.1}\label{eq:prop12-bound}</annotation></semantics></math> The
 final theorem uses this estimate, so the issue below cannot be bypassed
 by calling the proposition auxiliary.</p>
+<p>The estimate itself is false. Take the Cassini polynomial
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">f_a(z)=z^2-a^2</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>9</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">a=9/10</annotation></semantics></math>.
+Its component contains the two roots at distance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">9/5</annotation></semantics></math>
+and satisfies the relevant Morse and critical-value hypotheses. Direct
+level-length calculation gives the upper majorant
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi></mrow></msqrt><mo>−</mo><mi>a</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>&lt;</mo><mfrac><mn>41</mn><mn>25</mn></mfrac></mrow><annotation encoding="application/x-tex">4\bigl(\sqrt{a^2+a}-a\bigr)&lt;\frac{41}{25}</annotation></semantics></math>
+for the right side of  before
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>,
+whereas every connected set containing both roots has length at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">9/5</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mi>/</mi><mn>5</mn><mo>−</mo><mn>41</mn><mi>/</mi><mn>25</mn><mo>=</mo><mn>4</mn><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">9/5-41/25=4/25</annotation></semantics></math>,
+choosing a smaller positive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
+contradicts the assertion. Thus neither a different local saddle
+neighbourhood nor a perfect topological decomposition can recover the
+printed coefficient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>.
+The exact inequality and its abstract tree-budget contradiction are
+checked in <code>ErdosProblems.Erdos1041.CassiniTreeBudget</code>; the
+level-length majorant is an explicit analytic input, not a
+kernel-checked integral evaluation.</p>
 <p>At an interior index-one critical point
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
 the proof invokes a Morse chart
@@ -3402,14 +3434,15 @@ and two components of
 A global component argument cannot delete one local sector from a disc
 already contained in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.</p>
-<p>This diagnoses a proof step, not the proposition’s statement. A
-repair might cut an adjoining regular annulus along a separatrix or
-regular flow arc before forming the block, retain a four-pronged saddle
-neighbourhood and change the assembly, or replace the local construction
-by the ray-cut decomposition proposed below. Any repair must prove that
-its connector cost can be made arbitrarily small uniformly in the
-attachment points and that the repaired blocks still assemble to an
-embedded tree satisfying . The shorter descriptions of the same
+<p>This independently diagnoses a proof step, but the Cassini witness
+above also refutes the proposition’s printed metric statement. A
+different route might cut an adjoining regular annulus along a
+separatrix or regular flow arc before forming the block, retain a
+four-pronged saddle neighbourhood and change the assembly, or replace
+the local construction by the ray-cut decomposition proposed below. But
+no repair can retain ; it must pay a positive attachment cost, select
+only one short pair instead of spanning every root, or use a different
+global metric inequality. The shorter descriptions of the same
 three-ended block do not repair the four-sector topology.</p>
 <p>Corollary  supplies one independent input for a different route:
 distinct critical-value arguments exclude saddle-to-saddle Newton
@@ -3468,18 +3501,19 @@ class="level3 unnumbered">
 <h3 class="unnumbered">1. Repair or refute the saddle block</h3>
 <div class="problem">
 <p><strong>Problem 28</strong> (corrected local saddle assembly). <em>
-Under the hypotheses of Proposition 12, replace the invalid three-ended
-local model by a four-pronged block or by a block formed after a
-specified annular cut. Prove that for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\eta&gt;0</annotation></semantics></math>
-its connector has total Euclidean length below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>,
-uniformly over the selected attachment points, and that the corrected
-blocks assemble to an embedded tree satisfying
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">len</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>G</mi><mi>ε</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><msubsup><mo>∫</mo><mrow><mn>2</mn><mi>α</mi></mrow><mi>∞</mi></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><mi>ε</mi><mo>;</mo></mrow><annotation encoding="application/x-tex">\operatorname{len}(G_\varepsilon)
- \le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\varepsilon;</annotation></semantics></math>
-or give a polynomial or harmonic planar counterexample to that
-statement.</em></p>
+The printed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2\pi)</annotation></semantics></math>
+spanning-tree estimate of Proposition 12 is false: the Cassini
+polynomial
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">z^2-a^2</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>9</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">a=9/10</annotation></semantics></math>
+makes the proposed tree budget strictly shorter than the distance
+between its roots. Any later argument must pay a positive attachment
+cost, select only one short pair instead of spanning every root, or use
+a different global metric inequality. A four-pronged or cut-annulus
+local model may still be useful for another estimate, but it cannot
+recover .</em></p>
 </div>
 <p>The full-disc model
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x^2-y^2</annotation></semantics></math>,
@@ -3720,16 +3754,16 @@ with the threshold
 reaching every degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>
 by Corollary . Theorem  settles the whole trinomial family in every
-degree, and its radial inequalities are kernel-checked. All five are
-ordinary proofs at the level of the assembled path. Their Lean
-companions check named numerical, algebraic and power-series steps
-inside them, the degree-three companion lies outside the pinned
-formal-source library and carries no kernel receipt in this release, and
-the univalent branch, the area bounds and the certificate chain remain
-ordinary mathematics. The source now publicly verifies the Newton
-kernel, finite ray avoidance and quantitative constant-translation root
-control; the coefficient perturbation, corrected planar decomposition
-and metric gluing remain the exact unresolved producers.</p>
+degree by an ordinary radial argument. All five are ordinary proofs at
+the level of the assembled path. Their Lean companions check named
+numerical, algebraic and power-series steps inside them, the
+degree-three companion lies outside the pinned formal-source library and
+carries no kernel receipt in this release, and the univalent branch, the
+area bounds and the certificate chain remain ordinary mathematics. The
+source now publicly verifies the Newton kernel, finite ray avoidance and
+quantitative constant-translation root control; the coefficient
+perturbation, corrected planar decomposition and metric gluing remain
+the exact unresolved producers.</p>
 </section>
 </section>
 <section id="statements-and-declarations" class="level2 unnumbered">
@@ -3741,9 +3775,9 @@ is the Newton value equation, the exponential first integral, the
 consumer form of ray separation, the finite planar-avoidance theorem,
 quantitative constant-translation root retention, and the ray-collision
 parameterisation. The decomposition and length statements of § are not
-proved. The diagnosis of Proposition 12 in § concerns its printed local
-saddle construction; it does not refute the proposition’s statement. The
-search results of § are computations.</p>
+proved. The diagnosis of Proposition 12 in § records both the invalid
+local saddle block and the Cassini obstruction to the printed global
+tree budget. The search results of § are computations.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>

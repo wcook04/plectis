@@ -248,7 +248,6 @@ Taking logarithms of the resulting divisibility gives \eqref{long68:eq:segment}.
  \liminf_{N\to\infty}\frac{\log \Lc_N}{N^{3/2}\log N}
  \ \ge\ \frac{2\sqrt2}{3}.
 \]
-  The historical manuscript cites \path{Erdos68/PaperCompleteLiminf.lean}, line 42. This module is absent from the retained source pin; this citation does not establish kernel verification at that pin.
 \end{theorem}
 
 \begin{proof}
@@ -276,8 +275,12 @@ The right-hand side is maximised at $\alpha=\sqrt2$, with value
 $\sqrt2-\tfrac{2\sqrt2}{6}=\tfrac{2\sqrt2}{3}$.
 \end{proof}
 
-The proof is an ordinary proof and is not kernel-checked.  Its two
-ingredients are Lemmas~\ref{long68:res:product-lcm} and~\ref{long68:res:gap-gcd}, and it
+The LCM asymptotic is proved here by an ordinary mathematical argument and
+is not kernel-checked.  The associated asymptotic Lean files are proof
+candidates and are not being cited as kernel verification.  The finite-block
+inequality has a separate Lean source,
+\href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{finite terminal-block inequality}.
+Its two ingredients are Lemmas~\ref{long68:res:product-lcm} and~\ref{long68:res:gap-gcd}, and it
 needs no factorial-congruence multiplicity theorem.  A weaker exponent
 $4/3$ follows instead from Theorem~12 of Garaev, Luca and Shparlinski
 \cite[arXiv v1, Thm.~12, p.~16]{garaev-luca-shparlinski}, which bounds by
@@ -299,11 +302,18 @@ $N^{3/2}$, so the finite ratio falls short of the limit by about
 $\sqrt2/\log N$.
 
 Theorem~\ref{long68:res:lcm-growth} is a statement about $\Lc_N$ and not about
-$\den(H_N)$.  Theorem~\ref{long68:res:prime-pole} and the cancellations at $139$ and
+$\den(H_N)$.  Consecutive denominators $(N-1)!-1$ and $N!-1$ are already
+coprime for $N\ge3$, so the qualitative failure of common-denominator
+clearing follows from two terms; the estimate is the quantitative growth
+statement.  Theorem~\ref{long68:res:prime-pole} and the cancellations at $139$ and
 $2593$ show why the substitution fails: a prime may occupy the common
-denominator and be absent from the reduced one.  Bounding the reduced
+denominator and be absent from the reduced one.  One cancelled prime is not
+an asymptotic cancellation theorem.  Bounding the reduced
 denominator from below at every index is a stronger assertion, and it is
 exactly what an irrationality proof through the clearing-scale route needs.
+That stronger assertion has not been shown to follow from rationality of
+$\Ser$ alone; it would require an extra small-tail hypothesis such as
+$d_N(\Ser-H_N)<1$.
 
 \section{Carries and the rationality boundary}\label{long68:sec:carry}
 
@@ -814,7 +824,6 @@ $M(t)<(R(t)+1)!-1$ for all sufficiently large $t$.  Then
 \[
  \liminf_{t\to\infty}\frac{R(t)+1}{t^3}\ \ge\ \frac{16}{9}.
 \]
-  The historical manuscript cites \path{Erdos68/PaperCompleteLiminf.lean}, line 54. This module is absent from the retained source pin; this citation does not establish kernel verification at that pin.
 \end{corollary}
 
 \begin{proof}
@@ -838,8 +847,9 @@ constraint of the channel argument is compatible with equality
 $9(R+1)=16t^3$ for $t\ge4$, so that constraint alone cannot force a strict
 finite endpoint at $16/9$.  The two statements are separate, and
 Corollary~\ref{long68:res:radius-constant} rests on the ordinary proof of
-Theorem~\ref{long68:res:lcm-growth}; the kernel-checked finite theorem does not
-carry it.
+Theorem~\ref{long68:res:lcm-growth}; the finite-block Lean source does not
+carry the asymptotic deduction, and the asymptotic Lean files are proof
+candidates rather than kernel verification.
 
 The congruence \eqref{long68:eq:channel-congruence} also explains the prime-channel
 corrector.
@@ -1085,7 +1095,9 @@ The formal counterparts below are checked by the Lean~4 kernel against
 Mathlib at source snapshot \texttt{\commitshort}, with no \texttt{sorry},
 added axioms, or unchecked evaluation.  Theorem~\ref{long68:res:lcm-growth} and
 Corollary~\ref{long68:res:radius-constant} are ordinary proofs given in full above
-and are not kernel-checked.  The two prefix cancellations, the index-$52$
+and are not kernel-checked; the associated asymptotic Lean files are proof
+candidates.  The finite-block inequality is the separate Lean source
+\href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{finite terminal-block inequality}.  The two prefix cancellations, the index-$52$
 example and the continued-fraction enclosure are finite integer calculations
 with the procedures displayed above.  The carry census through $300000$ is a
 separate exact-interval computation with the receipt named in
@@ -1721,13 +1733,13 @@ Cofinal zero-branch or large private-factor hypotheses imply the required irrati
 \subsection{Factorial lcm growth}
 \textbf{Reader position.} 48 of 70; display band: frontier.  Formal editorial disposition: hold.  These are separate classifications.
 
-\textbf{Reader entry.} A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.
+\textbf{Reader entry.} An elementary terminal-block argument gives $\liminf\log L_N/(N^{3/2}\log N)\ge 2\sqrt2/3$ for the lcm of factorial-gap denominators. The displayed bound needs no external multiplicity theorem.
 
-A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.
+An elementary terminal-block argument gives a lower bound of order $N^{3/2}\log N$ for the lcm of factorial-gap denominators. The displayed bound is ordinary mathematics. An older, weaker multiplicity-based route is historical context only. The linked asymptotic Lean files are proof candidates and are not cited as kernel verification. The finite-block inequality has a separate Lean source.
 
-\textbf{Authority and reach.} paper argument plus cited theorem; paper plus external theorem.
+\textbf{Authority and reach.} ordinary mathematical argument.
 
-\textbf{Exact boundary.} Comparator cannot certify the cited input or authored deduction.
+\textbf{Exact boundary.} The LCM asymptotic is an ordinary paper proof, not a Lean-checked theorem. Comparator cannot certify the authored deduction. The bound does not decide irrationality.
 
 \textbf{Result-atom population.} 3 of 681 public coordinates. The public atom catalog groups them under this family.
 

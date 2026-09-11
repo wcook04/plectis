@@ -204,7 +204,7 @@
     "subject_kind": "problem",
     "form": "Problem note",
     "pages": 20,
-    "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
+    "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
     "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
     "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
     "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
@@ -416,7 +416,7 @@
       "subject_kind": "problem",
       "form": "Problem note",
       "pages": 20,
-      "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
+      "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
       "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
       "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
       "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
@@ -627,8 +627,8 @@
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 46,
-      "question": "What is the complete Newton-flow, structured-family, and proof-gap record for Erdős #1041, and what global gluing remains?",
+      "pages": 47,
+      "question": "What is the complete short-path, critical-value, solved-family, and obstruction record for Erdős #1041, and what remains of the unrestricted path problem?",
       "precis": "A longer record of the same programme: ordinary all-degree trinomial paths, a sharp critical-value mean, solved-family kernels, Newton-flow checks, and exact obstructions including a Cassini counterexample to the printed global tree budget. It does not resolve unrestricted Erdős #1041.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
       "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
@@ -651,9 +651,9 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "aae864d2959adb4e4e858c2a754e2061325aa07ea4102120758464feb444cb4b",
+        "source_sha256": "01f87bf717645f87a08e25cd5aa718705dc026c65041eafc9e73ecda14cca5df",
         "publication_manifest_match": true,
-        "mathml_node_count": 1231,
+        "mathml_node_count": 1244,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -677,8 +677,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "bcaa5947f8d8c48d8cbe5f54d49c259a3ade28c0af6e1c29a98b3702adb517af",
-        "html_exact_tex_sha256": "9c0afacf0df8bcf942a9af05b53c3d7fb7014029c492b12899e376f7b2449189"
+        "html_mathml_sha256": "8d77dc74871a8ef89c2d099e3e1435f27fadc6f6a76e3344f6ba0d0c87792d90",
+        "html_exact_tex_sha256": "f4621b166de55465f87b9443b226454fff2475a47a80a7e276ba293343d4c097"
       },
       "sections": [
         {

@@ -41,13 +41,10 @@ For every infinite set $A$ of positive integers with $\sum_{a\in A}1/a<\infty$,
 we give a complete proof that $\sum_{a\in A}(b^a-1)^{-1}$ is irrational
 at every integer base $b\ge2$.  Averaging modular divisor atoms produces
 arbitrarily small positive displacements, which rationality would confine
-to a fixed lattice.  Two extensions accommodate divergent reciprocal mass:
-prime-power weights and positive fractional divisor covers.  Their classes
-are incomparable, but a common finite averaging estimate combines them
-and yields supports in neither class.  A logarithmic incidence invariant
-quantifies the cost of every positive cover.  Finite denominator periods
-and the actual greedy return inequality delimit the remaining arithmetic
-problem.  Universal irrationality remains unresolved.
+to a fixed lattice.  Erd\H{o}s stated this coprimality-free extension; the
+all-base quantifier is already his.  Finite denominator periods and the
+actual greedy return inequality delimit the remaining arithmetic problem.
+Universal irrationality remains unresolved.
 \end{abstract}
 
 \section{Introduction and main results}\label{sec:problem}
@@ -99,10 +96,10 @@ Thus arbitrary infinite thinnings of the powerful integers are included.
 Is $X_A(2)$ irrational for every infinite $A\subseteq\Npos$?
 \end{problem}
 Theorem~\ref{res:reciprocal-support} excludes the entire
-reciprocal-summable region.  Section~\ref{sec:eight-return-extensions}
-gives two different extensions into the reciprocal-divergent region.
-The final section retains the actual arithmetic constraint for a proposed
-rational value.
+reciprocal-summable region.  Later sections record claimed extensions
+into the reciprocal-divergent region; those arguments are not
+independently assessable from this checkout.  The final section retains
+the actual arithmetic constraint for a proposed rational value.
 
 Erd\H{o}s proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the details
@@ -166,17 +163,23 @@ Theorem~\ref{res:reciprocal-support} directly at every integer base.
 
 The order of limits is essential: the observation length tends to infinity
 with the modulus fixed, and only then does the modulus increase.
-Reciprocal summability controls both interchanges.  Beyond that hypothesis,
-the next arguments replace the summable majorant or use a finite estimate
-which remains effective as the modulus changes.
+Reciprocal summability controls both interchanges.
+
+Section~2 contains the complete reciprocal-summable support argument.
+Several stronger extensions in later sections refer to proof supplements
+that are not linked in this public checkout.  Their exposition is therefore
+incomplete here, and they are not promoted as independently assessable
+results of this release.
 
 \section{Extensions beyond reciprocal summability}
 \label{sec:eight-return-extensions}
 
-The two criteria use different controls on the same positive displacement.
-Both remain valid for arbitrary infinite thinnings.  The finite estimate
-in Section~\ref{sec:common-kernel} will put their error terms on one
-observation scheme and prove the mixed extension.
+The two criteria below use different controls on the same positive
+displacement.  The estimates named in this section are not independently
+checkable from the files in this checkout: the cited supplements and
+\texttt{MixedSupportSynchronisation.md} are absent from the public
+packet.  The statements are retained as claimed extensions, not as
+results of this release.
 
 \subsection{Divisibility-weighted and quantitative criteria}
 For a finite nonempty prime set $P$, let
@@ -205,15 +208,16 @@ $P$-parts is at most $2QW/M$, where $W$ is the sum in
 the exponential denominator.  This produces arbitrarily small positive
 shifted-atom displacements.  The integral lattice gap then gives
 irrationality, and the binary atom comparison gives every larger base.
-The supplement gives all truncation estimates and an explicit
-reciprocal-divergent host with gaps $O(\log\log a)$.
+The named truncation estimates and an explicit reciprocal-divergent host
+with gaps $O(\log\log a)$ are referred to a supplement that is not in this
+checkout.
 
 A quantitative consequence also admits reciprocal-divergent supports.
 Put $H_A(x)=\sum_{a\in A,\ a\le x}1/a$, $T_0=2$, $T_{j+1}=2^{T_j}$,
 and $\ell(x)=\min\{j:x\le T_j\}$.  The condition
 $H_A(x)=o(\ell(x))$ implies all-base irrationality.  The proof and the
-sharper rational-phase lower bound are in the analytic proof supplement;
-no positive density of $A$ is required.
+sharper rational-phase lower bound are referred to an analytic supplement
+that is not in this checkout; no positive density of $A$ is required.
 
 \subsection{A finite estimate on common observation scales}\label{sec:common-kernel}
 For $1<B\le2$, positive integers $L,d,M$, and $R\ge0$, put
@@ -317,7 +321,8 @@ $\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2<\infty$.
 There is a squarefree support $A^\star$ satisfying
 \eqref{eq:strengthened-cover} for which every cover with that older cost,
 and every finite-prime weighted criterion, fails.  Its complete construction
-is in the accompanying \emph{Strengthened Variable-Exponent Cover} proof.
+is referred to \emph{Strengthened Variable-Exponent Cover}, which is not in
+this checkout.
 
 \subsection{What every positive cover must pay}
 The strengthening has a cover-independent boundary.  For finite $F$, write
@@ -366,12 +371,18 @@ direction, disjoint prime blocks with reciprocal mass of order $2^k$,
 placed in frames $\{2^kd:d\mid M_k\}$, give a support $A_W$ satisfying
 \eqref{eq:weighted-return}; its first logarithmic moments diverge,
 so \eqref{eq:cover-log-obstruction} excludes every strengthened cover.
-Exact constructions and the scalar minimisation are in the accompanying
-\emph{First Logarithmic Moment of Positive Covers} proof.
+Exact constructions and the scalar minimisation are referred to
+\emph{First Logarithmic Moment of Positive Covers}, which is not in this
+checkout.
 These comparisons concern the individual sufficient classes.
 
 \subsection{Combining the two support criteria}
-\begin{theorem}[mixed weighted and cover supports]\label{res:mixed-supports}
+The following mixed statement is a claimed extension.  Its complete
+parameter schedule is referred to
+\texttt{ErdosProblems/Erdos257/MixedSupportSynchronisation.md}, which is
+not in this public checkout, so the argument is not independently
+assessable here and is not a result of this release.
+\begin{theorem}[mixed weighted and cover supports; claimed, complete argument not in this checkout]\label{res:mixed-supports}
 Suppose $E$ has finite weighted mass \eqref{eq:weighted-return} for a
 finite nonempty prime set, and $V$ admits a strengthened positive cover
 \eqref{eq:strengthened-cover}.  Then $X_A(b)$ is irrational for every
@@ -387,9 +398,9 @@ exactly the same finite measure, with factor $1+4Q/M$.
 Choose the two tail budgets so that the mean of their normalised sum is
 less than one.  One common sample then makes both displacements small.
 Infinitude supplies strict positivity and the rational lattice excludes
-rationality.  The full estimates and parameter schedule are in
+rationality.  The full estimates and parameter schedule are referred to
 \texttt{ErdosProblems/Erdos257/MixedSupportSynchronisation.md},
-Theorems~2.1 and~5.1.
+Theorems~2.1 and~5.1, which are not in this checkout.
 \end{proof}
 
 In particular, every infinite subset of $A_W\cup A^\star$ has irrational
@@ -405,16 +416,17 @@ proof of that baseline case.
 
 
 \paragraph{The prime-power regime.}
-A separate ordinary argument proves irrationality for every infinite
+A further claimed extension would give irrationality for every infinite
 subset of the prime powers, at every integer base, including fixed
-dilations and finite modifications.  Its analytic input is
+dilations and finite modifications.  Its intended analytic input is
 Tao--Ter\"av\"ainen~\cite[Theorem~3.1]{taoteravainen2025}.
-The proof uses the reciprocal mass of the selected primes as its scale,
-so arbitrarily slow divergence is retained; higher prime powers produce
-errors only on prime-square events.  The equidistribution, small-prime,
-progression and exceptional-set hypotheses are checked in the supplement.
-The full-prime theorem and the authors' stated full-prime-power extension
-are theirs; no priority claim is made for the returned thinning argument.
+The argument would use the reciprocal mass of the selected primes as its
+scale, so arbitrarily slow divergence is retained; higher prime powers
+produce errors only on prime-square events.  The equidistribution,
+small-prime, progression and exceptional-set hypotheses are referred to a
+supplement that is not in this checkout.  The full-prime theorem and the
+authors' stated full-prime-power extension are theirs.  No arbitrary
+thinning argument is promoted from this release.
 
 The actual greedy membership problem is treated in
 Section~\ref{sec:actual-repairs}; its repair inequality has a different
@@ -538,8 +550,8 @@ member of $A$.  Already for the dilated prime support $2\mathcal P$,
 where covariance is taken over a common arithmetic period.
 Thus multiplicative size conditions alone do not supply the independence
 used by the prime argument.  The accompanying \emph{Prime-Incidence
-Boundary} proof identifies the exact dilation condition and accumulated
-covariance error.
+Boundary} proof is not in this checkout; it is not an independently
+assessable result of this release.
 
 \section{Unique coding and arithmetic membership}\label{sec:geometry}
 Let $w_n=(2^n-1)^{-1}$ and
@@ -774,15 +786,15 @@ note and has no Lean counterpart in this checkout: the filenames
 is \texttt{\commitshort}; later counterparts are identified separately rather
 than attributed to that checkpoint.
 
-The weighted and cover arguments, the mixed theorem and the cost
-separations use the accompanying ordinary proofs:
-\emph{Strengthened Variable-Exponent Cover},
+The weighted and cover arguments, the mixed theorem, the cost
+separations, and the prime-power thinning argument refer to ordinary
+proofs that are not linked in this public checkout
+(\emph{Strengthened Variable-Exponent Cover},
 \emph{First Logarithmic Moment of Positive Covers},
-\emph{Mixed Support Synchronisation} and \emph{Prime-Incidence Boundary}.
-The mixed proof's complete parameter schedule is in
-\texttt{MixedSupportSynchronisation.md}, Sections 3--5.
-The analytic proof supplement also contains the tower-scale reciprocal-mass
-criterion and the prime-power thinning argument.
+\emph{Mixed Support Synchronisation},
+\emph{Prime-Incidence Boundary}, and the analytic proof supplement).
+Those extensions are therefore not independently assessable here and are
+not promoted as results of this release.
 No universal irrationality conclusion is asserted.
 
 \appendix

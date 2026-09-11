@@ -34,16 +34,16 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "1936c57e8582583f6fe9d343ec3a6113bcc6ff9496660f9e5368dcc3004f5d2a",
+        "source_sha256": "eb70d357aa30937dd68d4f69d67c746787406f178b193faf6147c0d8f8efe546",
         "publication_manifest_match": true,
-        "mathml_node_count": 302,
+        "mathml_node_count": 303,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "13806beccc202627c62b04211aa075f72e651de8f386291c4108f14065f677fd",
-        "html_exact_tex_sha256": "ed267e494f0b55983c0cc82c062f2e65eb65e06b62505b593ff1363a23e48537"
+        "html_mathml_sha256": "b20f6fbac80439b0a1e22abd786a66650a4b155fe50b3a5a2c3b76e7cbc45cb4",
+        "html_exact_tex_sha256": "00b1d25438a5506240d2d4539c4c20b504e819a1f40061f91b66c59d3ce3c367"
       },
       "sections": [
         {
@@ -169,16 +169,16 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "b9d16f7c4a74e464c574ddc9d6bddd66856043dcb9ea4c0333a2a3cc7538a824",
+        "source_sha256": "05154a339954078b531faddc04a459796ac00ce45a32e01b4516cba23fea6b24",
         "publication_manifest_match": true,
-        "mathml_node_count": 876,
+        "mathml_node_count": 883,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "3f1649b06d1fbf5729f329d4af51ce3e07aec1ec513bed428bd15997f8a7e106",
-        "html_exact_tex_sha256": "7f7293721efcfb8180ae0a90c4da7aba42e6e5c7e25ae591beb60771da05a661"
+        "html_mathml_sha256": "8e8d8c20083f1cf8014c3a86dc12122b1139aa4e7e9afa4585d07e3ae606742b",
+        "html_exact_tex_sha256": "c5490cb0d4b3f07100b2db31ba75447082cfd393376be09823cee3f1e5c497a3"
       },
       "sections": [
         {
@@ -399,16 +399,16 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "fea6aad3e5f426a5db882289a6cefe39705a8d1f3fede1949a8ae96fdbb2a364",
+        "source_sha256": "ad2e77ffca32e73f22345a2024030a7dcb06fa24badd0d3fc1aa07bebbb00b31",
         "publication_manifest_match": true,
-        "mathml_node_count": 251,
+        "mathml_node_count": 257,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "84c4a922eab972d6db69acd624be34c6a61f3b80c2a5cd49832596b6e97c4638",
-        "html_exact_tex_sha256": "2d89b8b9e7f39ca54ab9588466704e68dcebed90f3c480e4333275951b5c3014"
+        "html_mathml_sha256": "4df8d286a41789689eebb72002272e1356528bef2e7fb1a0f264b1acbaf986a9",
+        "html_exact_tex_sha256": "59f07a45a2a2a4e0947cca309bbe050974c9d5e8e2a582380d20d18cb38794de"
       },
       "sections": [
         {
@@ -920,7 +920,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 11,
+      "pages": 10,
       "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
       "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -944,16 +944,16 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "90203db78575ef6c90c4ae9905af9ee8f3ad4dd267117278ea1db1827263a204",
+        "source_sha256": "380370196f593ac3031abb53ef70b32599a02f6db3f03da470144d866e785053",
         "publication_manifest_match": true,
-        "mathml_node_count": 318,
+        "mathml_node_count": 319,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "d48e87e91feaaa3fcadacc2c94310d23b6f4d906eb83bd7c8c93eee771517ed5",
-        "html_exact_tex_sha256": "7da53b4cb4c0e29d50f67104282fada131842a437834eb166aabcaba1cf43593"
+        "html_mathml_sha256": "3cb8d20acd032d26e32684a9cda545c110c59d19b1abb0592fa582c392f4aad2",
+        "html_exact_tex_sha256": "4b1a1851fdf78cead8d6cc4f16c7cb9dfd6f0835d7af32489f89e2f47a555874"
       },
       "sections": [
         {
@@ -1044,9 +1044,9 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "2fc7b2e5730e31868b749698e42bf5f904687a6f918261aac3e77b4dfef7f031",
+        "source_sha256": "e56ae41b7c9c25babd97b581554f2b160d352cb0ce7fd42114a07b0c4d656739",
         "publication_manifest_match": true,
-        "mathml_node_count": 2893,
+        "mathml_node_count": 2892,
         "raw_math_fallback_count": 6,
         "warnings": {
           "mathml": [
@@ -1095,8 +1095,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "0d4569d47d4497c56f9636e2a2963a1f2c08cc6bcf4fcf296933a01dbf2cf0ef",
-        "html_exact_tex_sha256": "10fe3251e8d4134b3cc58e0d13747d34a12aebbf742a98c8a2c005d9b2a18eb0"
+        "html_mathml_sha256": "8ad3a473ccde338036d820a072e8404b7cee7eaa5c3e46d7634fb22368d50f3b",
+        "html_exact_tex_sha256": "ec03fef6364aee80fcb539bba09d275b6133e28d8fb9e0551c4308b47860eaca"
       },
       "sections": [
         {
@@ -1877,7 +1877,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "a0e8c41005bd3725a432285f21e8d4199351de6b3378fe13c2b1e4376d5cf38e",
+        "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
         "publication_manifest_match": true,
         "mathml_node_count": 496,
         "raw_math_fallback_count": 1,
@@ -1898,8 +1898,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "e08ddc92f18bf3bbd51cf5c163b29eec0da4346d3462c2bdc24a6c9e96ac1048",
-        "html_exact_tex_sha256": "beb7294a0650af54391141305f25e1db369fc400e7c29dc930601c2dc3b6bc2b"
+        "html_mathml_sha256": "9a1f85903251ebca627f37ac101b5d41d7910448a2b33386733645cb8a095798",
+        "html_exact_tex_sha256": "b1451f9430480528d64c1a3ec76c0a18c333254b3d837e4316b24dfdcdb963d1"
       },
       "sections": [
         {
@@ -2373,7 +2373,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "8f3d6d9404a32d5fd6c4a9375ad7c5e1aea90f4d10cbe749791a6511b4f76ae8",
+        "source_sha256": "f27f8d97ce9f9bd83318ac3a97f4acbe7fc9072c9246dd2ef147dbfa63f07b66",
         "publication_manifest_match": true,
         "mathml_node_count": 344,
         "raw_math_fallback_count": 3,
@@ -2398,8 +2398,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "94285bcd5f254948dfa5daa172b5ed8ef1c190203fdbc3420502c540f8f8dd8a",
-        "html_exact_tex_sha256": "94181e767623c6140f3d227bfe62ad8035abb51730db55f3df476822fb476e83"
+        "html_mathml_sha256": "787b7d67023ce88b9b954d7e6da8665963ad4fa7f04616b644201c76a104360b",
+        "html_exact_tex_sha256": "47961c5a720ad676682c48ec9417b05ae7d510194622bbc8cd921aaaaf7629de"
       },
       "sections": [
         {
@@ -2525,9 +2525,9 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "797fb0abede0eb1f7bbfb7c0b4b685434ae602f5b91a7146e7232b4abdd0dcb1",
+        "source_sha256": "3d5423ea1b7d8a516bd96504f24d6247147794b033141e79da630a38c92ca15b",
         "publication_manifest_match": true,
-        "mathml_node_count": 2919,
+        "mathml_node_count": 2917,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -2539,8 +2539,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "10d6262e32e18c7c1311f9447b9a673368118dcc7f5ce27452d8ccd6aa262c79",
-        "html_exact_tex_sha256": "044331359f6eb24452a6b042d7309d3836aa0e2bc7c75462db817a0f9a78d46e"
+        "html_mathml_sha256": "585e6e64ad8d89b8825587c3d3aa259563b84cb4e01369c4425fa691927a1ddd",
+        "html_exact_tex_sha256": "bde36cf903e779a3ee14180e3696b84234771a8a5b0d31cd00dc341c22244653"
       },
       "sections": [
         {
@@ -3261,9 +3261,9 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "1f2937f1a7fe54f8e6962491818cc026696a9408454dff82da23a49b0805ca71",
+        "source_sha256": "23abd4b4078595fb95353374852d90f379765ffd468f2e5cc316b721b8012f9a",
         "publication_manifest_match": true,
-        "mathml_node_count": 967,
+        "mathml_node_count": 968,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -3278,8 +3278,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "285b54a8d7184b95748798a4aa0e5b16a47bebb62fe107e3fb292773cce3ff6a",
-        "html_exact_tex_sha256": "c83d5d38feb3fdb45f7e13e0a54d316051820846f05d8d09cf8e804f53b6128b"
+        "html_mathml_sha256": "4a1a58dcc5efd25b03007b14c72b74a4c203b873ddc3f5169f4da80dcb326354",
+        "html_exact_tex_sha256": "f58ff8efb6197e38aea3e874ed2fac2d53a88f0d66b593ffba1e1657da4fcd6d"
       },
       "sections": [
         {
@@ -3515,16 +3515,16 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "323f5f00208cba1dca1ea5198f9e6af38d026cb7001e838ee06b6f8ecbd9daf5",
+        "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
         "publication_manifest_match": true,
-        "mathml_node_count": 258,
+        "mathml_node_count": 260,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "be9d10ede0db57e44d6dbc4f283857ce26c38d54c7d0b115055f1c438bfe349c",
-        "html_exact_tex_sha256": "93f5cae4abc26fbaaae795088fdd9d641bef3efa86ab86b6cb0d8f353a1528fc"
+        "html_mathml_sha256": "de28a0e82bbaf368614340255188c808bec0af1ce587e582ccb6b5d39dd64213",
+        "html_exact_tex_sha256": "59283092a45358afa09d17968b920707df75786be9f0e9cbb23185eac1111651"
       },
       "sections": [
         {
@@ -3612,7 +3612,7 @@
       "subject_kind": "problem",
       "form": "Problem note",
       "pages": 20,
-      "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
+      "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
       "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
       "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
       "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
@@ -3816,8 +3816,8 @@
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 46,
-      "question": "What is the complete Newton-flow, structured-family, and proof-gap record for Erdős #1041, and what global gluing remains?",
+      "pages": 47,
+      "question": "What is the complete short-path, critical-value, solved-family, and obstruction record for Erdős #1041, and what remains of the unrestricted path problem?",
       "precis": "A longer record of the same programme: ordinary all-degree trinomial paths, a sharp critical-value mean, solved-family kernels, Newton-flow checks, and exact obstructions including a Cassini counterexample to the printed global tree budget. It does not resolve unrestricted Erdős #1041.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
       "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
@@ -3840,9 +3840,9 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "aae864d2959adb4e4e858c2a754e2061325aa07ea4102120758464feb444cb4b",
+        "source_sha256": "01f87bf717645f87a08e25cd5aa718705dc026c65041eafc9e73ecda14cca5df",
         "publication_manifest_match": true,
-        "mathml_node_count": 1231,
+        "mathml_node_count": 1244,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -3866,8 +3866,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "bcaa5947f8d8c48d8cbe5f54d49c259a3ade28c0af6e1c29a98b3702adb517af",
-        "html_exact_tex_sha256": "9c0afacf0df8bcf942a9af05b53c3d7fb7014029c492b12899e376f7b2449189"
+        "html_mathml_sha256": "8d77dc74871a8ef89c2d099e3e1435f27fadc6f6a76e3344f6ba0d0c87792d90",
+        "html_exact_tex_sha256": "f4621b166de55465f87b9443b226454fff2475a47a80a7e276ba293343d4c097"
       },
       "sections": [
         {
@@ -4203,7 +4203,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "e21d5550496ce09d01c83c15f48116d27a2afc2cf78259ea695dc86e5fa97211",
+        "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
         "publication_manifest_match": true,
         "mathml_node_count": 405,
         "raw_math_fallback_count": 0,
@@ -4211,8 +4211,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "9f9ef8b8890c1209e5850edf638557135ffd264cd9ab168e0088e7d4d60b7bc4",
-        "html_exact_tex_sha256": "5a4f7a15eacbbe41a87799c6c7c85ddbcad9de612128714bc89e98bf64f36806"
+        "html_mathml_sha256": "074b00fb1cfde2de769fffa73a405e4a7b1ea5efe2c47ea6bbc7ce6d42395e29",
+        "html_exact_tex_sha256": "a2ce665d5ffdcefd5b268b9c44f4ba3ce905fd8bc309d665bcfe36bbe5dae03b"
       },
       "sections": [
         {
@@ -4353,7 +4353,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 17,
         "renderer_fingerprint": "68395684e8d7d8b0",
-        "source_sha256": "1d116a3e0779eebb83bac8518d4dc88fcfed5162797e590983ce7b603d67f268",
+        "source_sha256": "a5c09456c0438ac64804182b66110e2a1de6b0993918a82676d77347d34c7f62",
         "publication_manifest_match": true,
         "mathml_node_count": 1538,
         "raw_math_fallback_count": 0,

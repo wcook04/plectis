@@ -71,11 +71,10 @@ class="math inline" data-term-auto="off">\(X_A(2)\)</span> irrational for every 
 </div>
 <p>Theorem <span
 class="math inline" data-term-auto="off">\(\ref{res:reciprocal-support}\)</span> excludes the
-entire reciprocal-summable region. Section <span
-class="math inline" data-term-auto="off">\(\ref{sec:eight-return-extensions}\)</span> gives
-two different extensions into the reciprocal-divergent region. The final
-section retains the actual arithmetic constraint for a proposed rational
-value.</p>
+entire reciprocal-summable region. Later sections record claimed
+extensions into the reciprocal-divergent region; those arguments are not
+independently assessable from this checkout. The final section retains
+the actual arithmetic constraint for a proposed rational value.</p>
 <p>Erdős proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the
 details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-5">[5]</a></span>.
@@ -154,17 +153,21 @@ class="math inline" data-term-auto="off">\(\ref{res:reciprocal-support}\)</span>
 every integer base.</p>
 <p>The order of limits is essential: the observation length tends to
 infinity with the modulus fixed, and only then does the modulus
-increase. Reciprocal summability controls both interchanges. Beyond that
-hypothesis, the next arguments replace the summable majorant or use a
-finite estimate which remains effective as the modulus changes.</p>
+increase. Reciprocal summability controls both interchanges.</p>
+<p>Section 2 contains the complete reciprocal-summable support argument.
+Several stronger extensions in later sections refer to proof supplements
+that are not linked in this public checkout. Their exposition is
+therefore incomplete here, and they are not promoted as independently
+assessable results of this release.</p>
 </section>
 <section id="sec:eight-return-extensions" class="level2">
 <h2>Extensions beyond reciprocal summability</h2>
-<p>The two criteria use different controls on the same positive
-displacement. Both remain valid for arbitrary infinite thinnings. The
-finite estimate in Section <span
-class="math inline" data-term-auto="off">\(\ref{sec:common-kernel}\)</span> will put their
-error terms on one observation scheme and prove the mixed extension.</p>
+<p>The two criteria below use different controls on the same positive
+displacement. The estimates named in this section are not independently
+checkable from the files in this checkout: the cited supplements and
+<code>MixedSupportSynchronisation.md</code> are absent from the public
+packet. The statements are retained as claimed extensions, not as
+results of this release.</p>
 <section id="divisibility-weighted-and-quantitative-criteria"
 class="level3">
 <h3>Divisibility-weighted and quantitative criteria</h3>
@@ -204,9 +207,10 @@ class="math inline" data-term-auto="off">\(\eqref{eq:weighted-return}\)</span>; 
 large-part contribution is suppressed by the exponential denominator.
 This produces arbitrarily small positive shifted-atom displacements. The
 integral lattice gap then gives irrationality, and the binary atom
-comparison gives every larger base. The supplement gives all truncation
-estimates and an explicit reciprocal-divergent host with gaps <span
-class="math inline" data-term-auto="off">\(O(\log\log a)\)</span>.</p>
+comparison gives every larger base. The named truncation estimates and
+an explicit reciprocal-divergent host with gaps <span
+class="math inline" data-term-auto="off">\(O(\log\log a)\)</span> are referred to a
+supplement that is not in this checkout.</p>
 <p>A quantitative consequence also admits reciprocal-divergent supports.
 Put <span class="math inline" data-term-auto="off">\(H_A(x)=\sum_{a\in A,\ a\le
 x}1/a\)</span>, <span class="math inline" data-term-auto="off">\(T_0=2\)</span>, <span
@@ -214,8 +218,9 @@ class="math inline" data-term-auto="off">\(T_{j+1}=2^{T_j}\)</span>, and <span
 class="math inline" data-term-auto="off">\(\ell(x)=\min\{j:x\le T_j\}\)</span>. The condition
 <span class="math inline" data-term-auto="off">\(H_A(x)=o(\ell(x))\)</span> implies all-base
 irrationality. The proof and the sharper rational-phase lower bound are
-in the analytic proof supplement; no positive density of <span
-class="math inline" data-term-auto="off">\(A\)</span> is required.</p>
+referred to an analytic supplement that is not in this checkout; no
+positive density of <span class="math inline" data-term-auto="off">\(A\)</span> is
+required.</p>
 </section>
 <section id="sec:common-kernel" class="level3">
 <h3>A finite estimate on common observation scales</h3>
@@ -350,8 +355,9 @@ There is a squarefree support <span
 class="math inline" data-term-auto="off">\(A^\star\)</span> satisfying <span
 class="math inline" data-term-auto="off">\(\eqref{eq:strengthened-cover}\)</span> for which
 every cover with that older cost, and every finite-prime weighted
-criterion, fails. Its complete construction is in the accompanying
-<em>Strengthened Variable-Exponent Cover</em> proof.</p>
+criterion, fails. Its complete construction is referred to
+<em>Strengthened Variable-Exponent Cover</em>, which is not in this
+checkout.</p>
 </section>
 <section id="what-every-positive-cover-must-pay" class="level3">
 <h3>What every positive cover must pay</h3>
@@ -421,18 +427,24 @@ class="math inline" data-term-auto="off">\(\eqref{eq:weighted-return}\)</span>; 
 logarithmic moments diverge, so <span
 class="math inline" data-term-auto="off">\(\eqref{eq:cover-log-obstruction}\)</span> excludes
 every strengthened cover. Exact constructions and the scalar
-minimisation are in the accompanying <em>First Logarithmic Moment of
-Positive Covers</em> proof. These comparisons concern the individual
-sufficient classes.</p>
+minimisation are referred to <em>First Logarithmic Moment of Positive
+Covers</em>, which is not in this checkout. These comparisons concern
+the individual sufficient classes.</p>
 </section>
 <section id="combining-the-two-support-criteria" class="level3">
 <h3>Combining the two support criteria</h3>
+<p>The following mixed statement is a claimed extension. Its complete
+parameter schedule is referred to
+<code>ErdosProblems/Erdos257/MixedSupportSynchronisation.md</code>,
+which is not in this public checkout, so the argument is not
+independently assessable here and is not a result of this release.</p>
 <div class="theorem">
-<p><strong>Theorem 4</strong> (mixed weighted and cover supports). <em>
-Suppose <span class="math inline" data-term-auto="off">\(E\)</span> has finite weighted mass
-<span class="math inline" data-term-auto="off">\(\eqref{eq:weighted-return}\)</span> for a
-finite nonempty prime set, and <span class="math inline" data-term-auto="off">\(V\)</span>
-admits a strengthened positive cover <span
+<p><strong>Theorem 4</strong> (mixed weighted and cover supports;
+claimed, complete argument not in this checkout). <em> Suppose <span
+class="math inline" data-term-auto="off">\(E\)</span> has finite weighted mass <span
+class="math inline" data-term-auto="off">\(\eqref{eq:weighted-return}\)</span> for a finite
+nonempty prime set, and <span class="math inline" data-term-auto="off">\(V\)</span> admits a
+strengthened positive cover <span
 class="math inline" data-term-auto="off">\(\eqref{eq:strengthened-cover}\)</span>. Then <span
 class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for every infinite
 <span class="math inline" data-term-auto="off">\(A\subseteq E\cup V\)</span> and every
@@ -452,9 +464,9 @@ factor <span class="math inline" data-term-auto="off">\(1+4Q/M\)</span>. Choose 
 budgets so that the mean of their normalised sum is less than one. One
 common sample then makes both displacements small. Infinitude supplies
 strict positivity and the rational lattice excludes rationality. The
-full estimates and parameter schedule are in
+full estimates and parameter schedule are referred to
 <code>ErdosProblems/Erdos257/MixedSupportSynchronisation.md</code>,
-Theorems 2.1 and 5.1. ◻</p>
+Theorems 2.1 and 5.1, which are not in this checkout. ◻</p>
 </div>
 <p>In particular, every infinite subset of <span
 class="math inline" data-term-auto="off">\(A_W\cup A^\star\)</span> has irrational subseries
@@ -471,17 +483,18 @@ class="math inline" data-term-auto="off">\(\ref{res:reciprocal-support}\)</span>
 direct proof of that baseline case.</p>
 <section id="the-prime-power-regime." class="level5">
 <h5>The prime-power regime.</h5>
-<p>A separate ordinary argument proves irrationality for every infinite
-subset of the prime powers, at every integer base, including fixed
-dilations and finite modifications. Its analytic input is
+<p>A further claimed extension would give irrationality for every
+infinite subset of the prime powers, at every integer base, including
+fixed dilations and finite modifications. Its intended analytic input is
 Tao–Teräväinen <span class="citation"
-data-cites="taoteravainen2025"><a href="#ref-2">[2]</a></span>. The proof uses the reciprocal
-mass of the selected primes as its scale, so arbitrarily slow divergence
-is retained; higher prime powers produce errors only on prime-square
-events. The equidistribution, small-prime, progression and
-exceptional-set hypotheses are checked in the supplement. The full-prime
-theorem and the authors’ stated full-prime-power extension are theirs;
-no priority claim is made for the returned thinning argument.</p>
+data-cites="taoteravainen2025"><a href="#ref-2">[2]</a></span>. The argument would use the
+reciprocal mass of the selected primes as its scale, so arbitrarily slow
+divergence is retained; higher prime powers produce errors only on
+prime-square events. The equidistribution, small-prime, progression and
+exceptional-set hypotheses are referred to a supplement that is not in
+this checkout. The full-prime theorem and the authors’ stated
+full-prime-power extension are theirs. No arbitrary thinning argument is
+promoted from this release.</p>
 <p>The actual greedy membership problem is treated in Section <span
 class="math inline" data-term-auto="off">\(\ref{sec:actual-repairs}\)</span>; its repair
 inequality has a different logical role from the sufficient
@@ -635,9 +648,9 @@ n},{\bf1}_{2q\mid n})
 <p>where covariance
 is taken over a common arithmetic period. Thus multiplicative size
 conditions alone do not supply the independence used by the prime
-argument. The accompanying <em>Prime-Incidence Boundary</em> proof
-identifies the exact dilation condition and accumulated covariance
-error.</p>
+argument. The accompanying <em>Prime-Incidence Boundary</em> proof is
+not in this checkout; it is not an independently assessable result of
+this release.</p>
 </section>
 <section id="sec:geometry" class="level2">
 <h2>Unique coding and arithmetic membership</h2>
@@ -912,15 +925,15 @@ checkout: the filenames
 <code>GreedyRepairCriterion.lean</code> are not present. The source
 checkpoint is <code>99f4bf47422a</code>; later counterparts are
 identified separately rather than attributed to that checkpoint.</p>
-<p>The weighted and cover arguments, the mixed theorem and the cost
-separations use the accompanying ordinary proofs: <em>Strengthened
+<p>The weighted and cover arguments, the mixed theorem, the cost
+separations, and the prime-power thinning argument refer to ordinary
+proofs that are not linked in this public checkout (<em>Strengthened
 Variable-Exponent Cover</em>, <em>First Logarithmic Moment of Positive
-Covers</em>, <em>Mixed Support Synchronisation</em> and
-<em>Prime-Incidence Boundary</em>. The mixed proof’s complete parameter
-schedule is in <code>MixedSupportSynchronisation.md</code>, Sections
-3–5. The analytic proof supplement also contains the tower-scale
-reciprocal-mass criterion and the prime-power thinning argument. No
-universal irrationality conclusion is asserted.</p>
+Covers</em>, <em>Mixed Support Synchronisation</em>, <em>Prime-Incidence
+Boundary</em>, and the analytic proof supplement). Those extensions are
+therefore not independently assessable here and are not promoted as
+results of this release. No universal irrationality conclusion is
+asserted.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>

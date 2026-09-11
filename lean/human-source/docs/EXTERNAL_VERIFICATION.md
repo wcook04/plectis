@@ -266,9 +266,9 @@ Exact registry keys and Comparator routing are listed separately.
   *Evidence.* finite computation · Lean finite theorem plus external exact certificate
 
 - **Factorial lcm growth**<br>
-  A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.<br>
-  **Boundary.** Comparator cannot certify the cited input or authored deduction.<br>
-  *Evidence.* paper plus external theorem · paper argument plus cited theorem
+  An elementary terminal-block argument gives liminf log L_N / (N^{3/2} log N) ≥ 2√2/3 for the lcm of factorial-gap denominators. The displayed bound needs no external multiplicity theorem; an older, weaker multiplicity-based route is historical context only.<br>
+  **Boundary.** The LCM asymptotic is an ordinary paper proof, not a Lean-checked theorem. Linked asymptotic Lean files are proof candidates and are not cited as kernel verification. The finite-block inequality has a separate Lean source. Comparator cannot certify the authored deduction. The bound does not decide irrationality.<br>
+  *Evidence.* ordinary paper argument · ordinary mathematical argument
 
 </details>
 
@@ -1052,14 +1052,14 @@ This is Palomar's source-current reader order, not review-matrix or Comparator r
    - **Why here.** Below the #251 small-mismatch route because the source-specific cofinal escape remains unproved, but above medium finite #269 machinery because the exact residue-window contradiction is the endpoint consumer that such machinery must feed. The actual-series reduction is given.
    - **Source.** <code>Erdos249257.ExternalVerification.no_positive_reducedCarry_of_cofinalLocalWindowEscape</code> in [Lean](../lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean)
    - **Boundary.** The representative assumes b,m : ℕ → ℕ, shortBound : ℕ → ℕ → ℕ, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : ℤ) d(n) − (B : ℤ) (m n : ℤ) and Int.natAbs (d n) ≤ shortBound B n; it then gives False. The absorbed-carry bridge additionally assumes smoothFactor ≠ 0, c n = smoothFactor * d n, and the corresponding exact absorbed recurrence, then cancels that factor to the same reduced consumer. The representative remains a conditional consumer for arbitrary words. For the actual three-prime word, the rationality-to-reduced-carry bridge is established separately; the source-specific cofinal escape producer is not proved. This is not a #269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families.
-   - **Relation.** `mechanism_support_for` `weighted_phase_carry_observer`: The residue/coboundary split exposes finite carry data but does not supply the cofinal escape or actual-series bridge.
+   - **Relation.** `mechanism_support_for` `weighted_phase_carry_observer`: The residue/coboundary split exposes finite carry data but does not supply the cofinal escape.
    - **Relation.** `contrary_evidence_for` `rank_two_kernel_no_go`: The finite kernel is not rank one, ruling out a tempting separable shortcut without producing carry escape.
 
 2. **Weighted phase carry observer** (`weighted_phase_carry_observer`; deep mechanism and classification; source disposition `represented`)
    - **Why here.** The exact residue-digit/coboundary decomposition is the committed representative of the weighted-phase observer family; it does not transport the separate finite-dimensional factorization or imply the #269 endpoint.
    - **Source.** <code>Erdos249257.ExternalVerification.carry_eq_residueDigit_add_coboundary</code> in [Lean](../verification/ExternalVerification/Statements.lean)
    - **Boundary.** The recurrence supplies a finite residue coordinate but leaves an uncontrolled integral quotient coboundary; it proves neither a finite-state quotient nor a literal infinite realised span. Finite realised span requires an explicit factorisation through a finite-dimensional function-faithful observer, and scalar evaluation alone is insufficient. No irrationality conclusion follows from this observer alone. The actual rationality-to-positive-reduced-carry bridge is established separately; cofinal local-window escape remains open.
-   - **Relation.** `mechanism_support_for` `conditional_carry_escape`: The residue/coboundary split exposes finite carry data but does not supply the cofinal escape or actual-series bridge.
+   - **Relation.** `mechanism_support_for` `conditional_carry_escape`: The residue/coboundary split exposes finite carry data but does not supply the cofinal escape.
 
 3. **Rank two kernel no go** (`rank_two_kernel_no_go`; natural friction and no-go; source disposition `rejected`)
    - **Why here.** A checked minor obstruction rules out rank one in a displayed finite kernel, but failure of rank one does not imply irrationality.
@@ -1068,7 +1068,7 @@ This is Palomar's source-current reader order, not review-matrix or Comparator r
    - **Relation.** `contrary_evidence_for` `conditional_carry_escape`: The finite kernel is not rank one, ruling out a tempting separable shortcut without producing carry escape.
 
 4. **Height fibre and shell** (`height_fibre_and_shell`; deep mechanism and classification; source disposition `represented`)
-   - **Why here.** The finite height-fibre normal form and smooth-shell bound are substantive three-prime structure, but they do not produce the divisibility bridge consumed by the carry frontier.
+   - **Why here.** The finite height-fibre normal form and smooth-shell bound are substantive three-prime structure, but they do not produce the source-specific cofinal escape. The actual-series reduction is given separately.
    - **Source authority.** Canonical review family `height_fibre_and_shell` in [claims](../docs/claims.json)
    - **Boundary.** These fibre bounds are counting input, not an escape producer. The separate actual-series divisibility bridge is established.
 

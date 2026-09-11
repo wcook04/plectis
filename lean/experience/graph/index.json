@@ -1793,7 +1793,7 @@
     {
       "id": "review-family:erdos_68:factorial_lcm_growth",
       "kind": "comparator_review_family",
-      "label": "A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.",
+      "label": "An elementary terminal-block argument gives liminf log L_N / (N^{3/2} log N) ≥ 2√2/3 for the lcm of factorial-gap denominators. The displayed bound needs no external multiplicity theorem; an older, weaker multiplicity-based route is historical context only.",
       "source_github": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json"
     },
     {

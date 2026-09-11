@@ -286,8 +286,8 @@ class="math inline" data-term-auto="off">\(\ref{prop:parity}\)</span> are the fo
 reader should carry into the next section: the corpus’s best cofinal
 information is half a certificate, its best rank information runs the
 wrong way, its reformulations are equivalences rather than reductions,
-and every purely qualitative property of the coefficient word is
-satisfied by a rational countermodel.</p>
+and the listed size bound, parity and aperiodicity of the coefficient
+word are satisfied by a rational countermodel.</p>
 </section>
 </section>
 <section id="sec:wall" class="level2">
@@ -1008,11 +1008,13 @@ class="math inline" data-term-auto="off">\(\ref{obs:pointwise}\)</span>, an obse
 and not a theorem, shows that every single-index producer has failed to
 be supplied at even one large index, while this route’s missing input is
 a block average and therefore never requires naming a good index.</p>
-<p>B1’s real contribution is narrower but still load-bearing: it proves
-that the finite deposits can never be extended into a proof, so the gap
-between the census and the obligation is a gap in kind, not in degree.
-That is a genuine no-go about method, of the same species as a
-relativization barrier. It is not a selector.</p>
+<p>B1’s real contribution is narrower but still load-bearing: no finite
+deposit by itself proves the cofinal assertion. Extending the deposit is
+not a substitute for a uniform arithmetic argument; a new theorem that
+propagates finite information could change the situation. The gap
+between the census and the obligation is therefore a gap in kind for the
+method actually used, not a proof that every possible proof is
+impossible. It is not a selector.</p>
 </div>
 <div class="rem">
 <p><em>Remark 27</em> (Evidence in both directions). Weak supporting
@@ -1150,24 +1152,24 @@ unpacked,</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[N + 2td + 2 \;&lt;\;
 \mathrm{windowDiscrepancy}(td,N,td) \bmod 2^{td}
   \;&lt;\; 2^{td} - (N + 2td + 2).\]</span></div>
-<p>It implies <span
+<p>It is equivalent to <span
 class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\)</span>.
 <code>coord:period-ray</code> <span><span
 class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Lean]</span></span></p>
 </div>
-<p>This is the shortest fully stated open inequality the programme has
-produced. Its evasion of B2 is recorded on disk rather than argued: its
-ambient parent <span
-class="math inline" data-term-auto="off">\(\mathrm{PeriodMultipleKillSupply}\)</span> is
-<em>proved</em> equivalent to <span
-class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\)</span> and <span
-class="math inline" data-term-auto="off">\(\mathrm{ApFullDepthEscape}\)</span> implies it (),
-so it is at least as strong, and possibly strictly stronger — the file’s
-own docstring records “sufficient for irrationality; not known
-necessary”. Being possibly strictly stronger, certificate completeness
-cannot collapse it back. It evades B1 (both <span
-class="math inline" data-term-auto="off">\(N\)</span> and <span
+<p>For the actual totient series, <span
+class="math inline" data-term-auto="off">\(\mathrm{ApFullDepthEscape}\)</span> is equivalent
+to irrationality, by the full-depth amplification argument of the short
+note (Theorem 3.1 there; ). For a fixed pair <span
+class="math inline" data-term-auto="off">\((d,N)\)</span>, a nonintegral tail difference
+supplies a certificate in every sufficiently late adjacent pair of
+multipliers. The missing arithmetic input is a nonintegral seed for
+every relevant pair, not a converse implication for the depth-locked
+condition. This remains an exact reformulation of the open problem, not
+a proof of it. An older one-direction lemma () is still on disk; it is
+not the current classification.</p>
+<p>It evades B1 (both <span class="math inline" data-term-auto="off">\(N\)</span> and <span
 class="math inline" data-term-auto="off">\(t\)</span> unbounded), B4 (locking depth to the
 period means the entire word accumulates and no letter is prescribed),
 B5 and B6 (no state, no rank). Its substance is pure anti-concentration:
@@ -5063,12 +5065,12 @@ class="math inline" data-term-auto="off">\(r.\mathrm{den}\mid 2^{300}(2^h-1)\)</
 odd denominator classes, including the Cole factors of <span
 class="math inline" data-term-auto="off">\(2^{67}-1\)</span> and the Mersenne prime <span
 class="math inline" data-term-auto="off">\(2^{127}-1\)</span>. One of the eight is certified
-at its own locked depth <span class="math inline" data-term-auto="off">\(L=h=67\)</span>, the
-concrete instance of the sufficient (not known necessary)
-depth-equals-period form <span
-class="math inline" data-term-auto="off">\(\mathrm{ApFullDepthEscape}\)</span>.
-<code>coord:other:lcm-period-multiple</code> — eight finite exclusions,
-not evidence toward the cofinal supply.</p>
+at its own locked depth <span class="math inline" data-term-auto="off">\(L=h=67\)</span>, a
+concrete instance of the depth-equals-period form <span
+class="math inline" data-term-auto="off">\(\mathrm{ApFullDepthEscape}\)</span> (equivalent to
+irrationality; this is one finite certificate, not a seed for every
+pair). <code>coord:other:lcm-period-multiple</code> — eight finite
+exclusions, not evidence toward the cofinal supply.</p>
 </div>
 </section>
 <section id="strict-prime-orbit-escape-a-sharper-reduction"
@@ -8117,9 +8119,10 @@ irrationality — is itself a well-defined finite piece of work.</p>
 \mathrm{certifiedKill}(td,\,N,\,td),\]</span></div>
 <p>unpacked, <span
 class="math inline" data-term-auto="off">\((N+2td+2:\mathbb{Z})&lt;D(td,N,td)\bmod
-2^{td}&lt;2^{td}-(N+2td+2)\)</span>. , consumer , ambient equivalence .
-It is the shortest fully stated open inequality the programme has
-produced.</p>
+2^{td}&lt;2^{td}-(N+2td+2)\)</span>. , consumer , ambient equivalence ,
+equivalence . The depth-locked condition is equivalent to irrationality;
+the remaining gap is a nonintegral seed for every ray and basepoint, not
+an unknown converse.</p>
 </section>
 <section
 id="what-it-says-an-anti-self-similarity-statement-about-the-digits-of-s-alone."

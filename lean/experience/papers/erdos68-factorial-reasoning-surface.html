@@ -327,10 +327,7 @@ Taking logarithms of the resulting divisibility gives . ◻</p>
 <div class="theorem">
 <p><strong>Theorem 7</strong> (common-denominator growth). <em>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">liminf</mi><mrow><mi>N</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub></mrow><mrow><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow></mfrac><mspace width="0.222em"></mspace><mo>≥</mo><mspace width="0.222em"></mspace><mfrac><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\liminf_{N\to\infty}\frac{\log L_N}{N^{3/2}\log N}
- \ \ge\ \frac{2\sqrt2}{3}.</annotation></semantics></math> The
-historical manuscript cites , line 42. This module is absent from the
-retained source pin; this citation does not establish kernel
-verification at that pin.</em></p>
+ \ \ge\ \frac{2\sqrt2}{3}.</annotation></semantics></math></em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Fix
@@ -375,9 +372,13 @@ right-hand side is maximised at
 with value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt><mo>−</mo><mstyle displaystyle="false"><mfrac><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow><mn>6</mn></mfrac></mstyle><mo>=</mo><mstyle displaystyle="false"><mfrac><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow><mn>3</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\sqrt2-\tfrac{2\sqrt2}{6}=\tfrac{2\sqrt2}{3}</annotation></semantics></math>. ◻</p>
 </div>
-<p>The proof is an ordinary proof and is not kernel-checked. Its two
-ingredients are Lemmas  and , and it needs no factorial-congruence
-multiplicity theorem. A weaker exponent
+<p>The LCM asymptotic is proved here by an ordinary mathematical
+argument and is not kernel-checked. The associated asymptotic Lean files
+are proof candidates and are not being cited as kernel verification. The
+finite-block inequality has a separate Lean source, <a
+href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529">finite
+terminal-block inequality</a>. Its two ingredients are Lemmas  and , and
+it needs no factorial-congruence multiplicity theorem. A weaker exponent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/3</annotation></semantics></math>
 follows instead from Theorem 12 of Garaev, Luca and Shparlinski <span
 class="citation" data-cites="garaev-luca-shparlinski"></span>, which
@@ -419,15 +420,27 @@ so the finite ratio falls short of the limit by about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>N</mi></msub><annotation encoding="application/x-tex">L_N</annotation></semantics></math>
 and not about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{den}(H_N)</annotation></semantics></math>.
-Theorem  and the cancellations at
+Consecutive denominators
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(N-1)!-1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N!-1</annotation></semantics></math>
+are already coprime for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">N\ge3</annotation></semantics></math>,
+so the qualitative failure of common-denominator clearing follows from
+two terms; the estimate is the quantitative growth statement. Theorem 
+and the cancellations at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>139</mn><annotation encoding="application/x-tex">139</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2593</mn><annotation encoding="application/x-tex">2593</annotation></semantics></math>
 show why the substitution fails: a prime may occupy the common
-denominator and be absent from the reduced one. Bounding the reduced
-denominator from below at every index is a stronger assertion, and it is
-exactly what an irrationality proof through the clearing-scale route
-needs.</p>
+denominator and be absent from the reduced one. One cancelled prime is
+not an asymptotic cancellation theorem. Bounding the reduced denominator
+from below at every index is a stronger assertion, and it is exactly
+what an irrationality proof through the clearing-scale route needs. That
+stronger assertion has not been shown to follow from rationality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+alone; it would require an extra small-tail hypothesis such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d_N(S-H_N)&lt;1</annotation></semantics></math>.</p>
 </section>
 <section id="long68:sec:carry" class="level2">
 <h2>Carries and the rationality boundary</h2>
@@ -1264,10 +1277,7 @@ and
 for all sufficiently large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
 Then
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">liminf</mi><mrow><mi>t</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><msup><mi>t</mi><mn>3</mn></msup></mfrac><mspace width="0.222em"></mspace><mo>≥</mo><mspace width="0.222em"></mspace><mfrac><mn>16</mn><mn>9</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\liminf_{t\to\infty}\frac{R(t)+1}{t^3}\ \ge\ \frac{16}{9}.</annotation></semantics></math>
-The historical manuscript cites , line 54. This module is absent from
-the retained source pin; this citation does not establish kernel
-verification at that pin.</em></p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">liminf</mi><mrow><mi>t</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><msup><mi>t</mi><mn>3</mn></msup></mfrac><mspace width="0.222em"></mspace><mo>≥</mo><mspace width="0.222em"></mspace><mfrac><mn>16</mn><mn>9</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\liminf_{t\to\infty}\frac{R(t)+1}{t^3}\ \ge\ \frac{16}{9}.</annotation></semantics></math></em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Put
@@ -1312,8 +1322,9 @@ for
 so that constraint alone cannot force a strict finite endpoint at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mi>/</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">16/9</annotation></semantics></math>.
 The two statements are separate, and Corollary  rests on the ordinary
-proof of Theorem ; the kernel-checked finite theorem does not carry
-it.</p>
+proof of Theorem ; the finite-block Lean source does not carry the
+asymptotic deduction, and the asymptotic Lean files are proof candidates
+rather than kernel verification.</p>
 <p>The congruence also explains the prime-channel corrector.</p>
 <div class="theorem">
 <p><strong>Theorem 19</strong> (two-term prime channel corrector). <em>
@@ -1744,7 +1755,10 @@ denominator has
 against Mathlib at source snapshot <code>92b88dc1bbe0</code>, with no
 <code>sorry</code>, added axioms, or unchecked evaluation. Theorem  and
 Corollary  are ordinary proofs given in full above and are not
-kernel-checked. The two prefix cancellations, the
+kernel-checked; the associated asymptotic Lean files are proof
+candidates. The finite-block inequality is the separate Lean source <a
+href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529">finite
+terminal-block inequality</a>. The two prefix cancellations, the
 index-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>52</mn><annotation encoding="application/x-tex">52</annotation></semantics></math>
 example and the continued-fraction enclosure are finite integer
 calculations with the procedures displayed above. The carry census
@@ -2893,15 +2907,23 @@ to the short note.</p>
 <p><strong>Reader position.</strong> 48 of 70; display band: frontier.
 Formal editorial disposition: hold. These are separate
 classifications.</p>
-<p><strong>Reader entry.</strong> A paper deduction gives a lower bound
-for the lcm of factorial-gap denominators using an external multiplicity
-theorem.</p>
-<p>A paper deduction gives a lower bound for the lcm of factorial-gap
-denominators using an external multiplicity theorem.</p>
-<p><strong>Authority and reach.</strong> paper argument plus cited
-theorem; paper plus external theorem.</p>
-<p><strong>Exact boundary.</strong> Comparator cannot certify the cited
-input or authored deduction.</p>
+<p><strong>Reader entry.</strong> An elementary terminal-block argument
+gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">liminf</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>2</mn><msqrt><mn>2</mn></msqrt><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\liminf\log L_N/(N^{3/2}\log N)\ge 2\sqrt2/3</annotation></semantics></math>
+for the lcm of factorial-gap denominators. The displayed bound needs no
+external multiplicity theorem.</p>
+<p>An elementary terminal-block argument gives a lower bound of order
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N^{3/2}\log N</annotation></semantics></math>
+for the lcm of factorial-gap denominators. The displayed bound is
+ordinary mathematics. An older, weaker multiplicity-based route is
+historical context only. The linked asymptotic Lean files are proof
+candidates and are not cited as kernel verification. The finite-block
+inequality has a separate Lean source.</p>
+<p><strong>Authority and reach.</strong> ordinary mathematical
+argument.</p>
+<p><strong>Exact boundary.</strong> The LCM asymptotic is an ordinary
+paper proof, not a Lean-checked theorem. Comparator cannot certify the
+authored deduction. The bound does not decide irrationality.</p>
 <p><strong>Result-atom population.</strong> 3 of 681 public coordinates.
 The public atom catalog groups them under this family.</p>
 <p><strong>Comparator assurance.</strong> not applicable to comparator;

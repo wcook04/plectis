@@ -173,8 +173,10 @@ meet one changed coefficient, so the total variation error is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>ε</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_\varepsilon(m/\log\log X)</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">m=o(\log\log X)</annotation></semantics></math>.
-The full schedule and endpoint estimates are given in the companion
-sparse-rationalisation proof. ◻</p>
+The identities used above are the Lean-checked elementary core; the
+explicit spacing and block-law estimates in this paragraph are ordinary
+mathematics. There is no separately published companion file
+<code>SparseRationalisation.md</code>. ◻</p>
 </div>
 <p>Every bounded test of these blocks has the same asymptotic empirical
 average. A density-zero witness family can lie inside the changed
@@ -1711,9 +1713,12 @@ responsible.</p>
 <p>For Proposition , the pair identities, congruence buffer and abstract
 variable-alphabet filling are checked in
 <code>SparseRationalisationCore.lean</code>. The schedule, upper Banach
-density, and block-law transfer are ordinary proofs, given in the Construction
-paragraph of that proposition; they are not Lean- or Comparator-verified.
-There is no separately published <code>SparseRationalisation.md</code>.</p>
+density, and block-law transfer are ordinary proofs, given in the
+Construction paragraph of that proposition; they are not Lean- or
+Comparator-verified. There is no separately published companion file
+<code>SparseRationalisation.md</code>. End-to-end sparse candidate
+sources in the repository are labelled UNRUN and are not presented as
+checked theorems.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>

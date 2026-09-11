@@ -30,17 +30,6 @@ Problem~\#249}
 \maketitle
 \noteprovenance
 
-\begin{problem}[first-harmonic anti-concentration on supplier fibres]
-\label{prob:firstharmonic}
-For each $h\ge1$, do there exist $s\ge1$ and $0<\eta<1$ such that, for every
-$X_0$, there are $X,L$ with
-\[
- \max(X_0,1)\le X,\qquad h\le L-s,\qquad
- 16(2X+h+L+2)\le2^L,
-\]
-for which the four bounds below hold?
-\end{problem}
-
 \begin{abstract}
 For every $e\ge1$, the dyadic sections of Euler's totient through level $e$
 have rational rank $2^e+1$. The two zero-residue sections and the odd-residue
@@ -559,6 +548,31 @@ Finite evaluation ranks and the all-level carry lower bound remain distinct.
 The long record retains the separate continued-fraction bounds
 $q\ge2^{39989}$ and $q>10^{12038}$ under rationality, alongside the
 Lean-checked Farey exclusion. Neither implies the universal gap.
+
+The remaining first-harmonic obligation is a four-term pivot budget,
+not an opening statement of this note. Write
+\[
+ \operatorname{Re}\,\mathrm{pivotCenteredCorrelation}\le\tfrac{14}{25}X,
+ \quad
+ \lVert\mathrm{pivotFiberMean}\rVert\le\tfrac1{100}X,
+ \quad
+ \lVert\mathrm{pivotBad}\rVert\le\tfrac1{100}X,
+ \quad
+ \lVert\mathrm{pivotNonSupplier}\rVert\le\tfrac8{25}X.
+\]
+\begin{problem}[first-harmonic anti-concentration on supplier fibres]
+\label{prob:firstharmonic}
+For each $h\ge1$, do there exist $s\ge1$ and $0<\eta<1$ such that, for every
+$X_0$, there are $X,L$ with
+\[
+ \max(X_0,1)\le X,\qquad h\le L-s,\qquad
+ 16(2X+h+L+2)\le2^L,
+\]
+for which those four bounds hold?
+\end{problem}
+The quantities are defined with the
+\mword{Erdos249257/FirstHarmonicPivot.lean}{543}{PivotBudgetAt}{budget condition}
+in the long record. This note does not prove them.
 \appendix
 \section{Guide to the formal sources}\label{app:sources}
 

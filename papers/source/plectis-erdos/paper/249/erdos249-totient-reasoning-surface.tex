@@ -435,9 +435,9 @@ sum at \texttt{:359}, aperiodicity at \texttt{:487}, parity match at \texttt{:19
 Propositions~\ref{prop:sign}--\ref{prop:parity} are the four facts a reader
 should carry into the next section: the corpus's best cofinal information is
 half a certificate, its best rank information runs the wrong way, its
-reformulations are equivalences rather than reductions, and every purely
-qualitative property of the coefficient word is satisfied by a rational
-countermodel.
+reformulations are equivalences rather than reductions, and the listed size
+bound, parity and aperiodicity of the coefficient word are satisfied by a
+rational countermodel.
 
 \section{The wall}
 \label{sec:wall}
@@ -994,10 +994,12 @@ requires naming a good index.
 
 \par\medskip
 
-B1's real contribution is narrower but still load-bearing: it proves that the finite deposits can never be extended into a
-proof, so the gap between the census and the obligation is a gap in kind, not
-in degree. That is a genuine no-go about method, of the same species as a
-relativization barrier. It is not a selector.
+B1's real contribution is narrower but still load-bearing: no finite deposit
+by itself proves the cofinal assertion. Extending the deposit is not a
+substitute for a uniform arithmetic argument; a new theorem that propagates
+finite information could change the situation. The gap between the census and
+the obligation is therefore a gap in kind for the method actually used, not a
+proof that every possible proof is impossible. It is not a selector.
 \end{rem}
 
 \begin{rem}[Evidence in both directions]
@@ -1109,20 +1111,25 @@ $\mathrm{certifiedKill}(td,\,N,\,td)$; unpacked,
   N + 2td + 2 \;<\; \mathrm{windowDiscrepancy}(td,N,td) \bmod 2^{td}
   \;<\; 2^{td} - (N + 2td + 2).
 \]
-It implies $\mathrm{Irrational}(S)$.
+It is equivalent to $\mathrm{Irrational}(S)$.
 \coord{period-ray} \scale{cofinal} \ev{Lean}
 \lean{ApFullDepthEscape}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:441}
-\lean{irrational\_totient\_series\_of\_apFullDepthEscape}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:450}
+\lean{apFullDepthEscape\_iff\_irrational}{ErdosProblems/Erdos249/FullDepthRayAmplifier.lean:406}
 \end{defn}
 
-This is the shortest fully stated open inequality the programme has produced.
-Its evasion of B2 is recorded on disk rather than argued: its ambient parent
-$\mathrm{PeriodMultipleKillSupply}$ is \emph{proved} equivalent to
-$\mathrm{Irrational}(S)$ and $\mathrm{ApFullDepthEscape}$ implies it
-(\lean{periodMultipleKillSupply\_of\_apFullDepthEscape}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:444}),
-so it is at least as strong, and possibly strictly stronger --- the file's own
-docstring records ``sufficient for irrationality; not known necessary''. Being
-possibly strictly stronger, certificate completeness cannot collapse it back.
+For the actual totient series, $\mathrm{ApFullDepthEscape}$ is equivalent to
+irrationality, by the full-depth amplification argument of the short note
+(Theorem~3.1 there;
+\lean{apFullDepthEscape\_iff\_irrational}{ErdosProblems/Erdos249/FullDepthRayAmplifier.lean:406}).
+For a fixed pair $(d,N)$, a nonintegral tail difference supplies a certificate
+in every sufficiently late adjacent pair of multipliers. The missing
+arithmetic input is a nonintegral seed for every relevant pair, not a converse
+implication for the depth-locked condition. This remains an exact
+reformulation of the open problem, not a proof of it. An older one-direction
+lemma
+(\lean{irrational\_totient\_series\_of\_apFullDepthEscape}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:450})
+is still on disk; it is not the current classification.
+
 It evades B1 (both $N$ and $t$ unbounded), B4 (locking depth to the period
 means the entire word accumulates and no letter is prescribed), B5 and B6 (no
 state, no rank). Its substance is pure anti-concentration: via
@@ -3419,9 +3426,10 @@ periods the diagonal bank could not reach ($67,81,97,101,121,125,127,128$,
 all at basepoint $N=300$), each yielding $S\ne r$ for every $r$ with
 $r.\mathrm{den}\mid 2^{300}(2^h-1)$ --- new odd denominator classes,
 including the Cole factors of $2^{67}-1$ and the Mersenne prime $2^{127}-1$.
-One of the eight is certified at its own locked depth $L=h=67$, the concrete
-instance of the sufficient (not known necessary) depth-equals-period form
-$\mathrm{ApFullDepthEscape}$.
+One of the eight is certified at its own locked depth $L=h=67$, a concrete
+instance of the depth-equals-period form $\mathrm{ApFullDepthEscape}$
+(equivalent to irrationality; this is one finite certificate, not a seed for
+every pair).
 \lean{ErdosProblems.Erdos249.PeriodMultipleEscape.certifiedKill_67_300}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:471}
 \quad \lean{ErdosProblems.Erdos249.PeriodMultipleEscape.certifiedKill_127_300}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:490}
 \quad \lean{ErdosProblems.Erdos249.PeriodMultipleEscape.certifiedKill_67_300_fullDepth}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:498}
@@ -6241,9 +6249,12 @@ unpacked, $(N+2td+2:\Z)<D(td,N,td)\bmod 2^{td}<2^{td}-(N+2td+2)$.
 consumer
 \lean{ErdosProblems.\allowbreak Erdos249.\allowbreak PeriodMultipleEscape.\allowbreak irrational_totient_\allowbreak series_of_apFullDepthEscape}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:450},
 ambient equivalence
-\lean{ErdosProblems.\allowbreak Erdos249.\allowbreak PeriodMultipleEscape.\allowbreak periodMultipleKillSupply_iff_irrational}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:432}
-\quad \ev{Open} \quad \scale{cofinal}. It is the shortest fully stated open
-inequality the programme has produced.
+\lean{ErdosProblems.\allowbreak Erdos249.\allowbreak PeriodMultipleEscape.\allowbreak periodMultipleKillSupply_iff_irrational}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:432},
+equivalence
+\lean{ErdosProblems.\allowbreak Erdos249.\allowbreak FullDepthRayAmplifier.\allowbreak apFullDepthEscape_iff_irrational}{ErdosProblems/Erdos249/FullDepthRayAmplifier.lean:406}
+\quad \ev{Open} \quad \scale{cofinal}. The depth-locked condition is
+equivalent to irrationality; the remaining gap is a nonintegral seed for every
+ray and basepoint, not an unknown converse.
 
 \paragraph{What it says: an anti-self-similarity statement about the digits
 of $S$ alone.}

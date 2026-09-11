@@ -759,12 +759,17 @@ yields the corresponding finite denominator exclusion.<br>
 <strong>Boundary.</strong> Finite computation does not change the
 cofinal quantifier.<br> <em>Evidence.</em> finite computation · Lean
 finite theorem plus external exact certificate</p></li>
-<li><p><strong>Factorial lcm growth</strong><br> A paper deduction gives
-a lower bound for the lcm of factorial-gap denominators using an
-external multiplicity theorem.<br> <strong>Boundary.</strong> Comparator
-cannot certify the cited input or authored deduction.<br>
-<em>Evidence.</em> paper plus external theorem · paper argument plus
-cited theorem</p></li>
+<li><p><strong>Factorial lcm growth</strong><br> An elementary
+terminal-block argument gives liminf log L_N / (N^{3/2} log N) ≥ 2√2/3
+for the lcm of factorial-gap denominators. The displayed bound needs no
+external multiplicity theorem; an older, weaker multiplicity-based route
+is historical context only.<br> <strong>Boundary.</strong> The LCM
+asymptotic is an ordinary paper proof, not a Lean-checked theorem.
+Linked asymptotic Lean files are proof candidates and are not cited as
+kernel verification. The finite-block inequality has a separate Lean
+source. Comparator cannot certify the authored deduction. The bound does
+not decide irrationality.<br> <em>Evidence.</em> ordinary paper argument
+· ordinary mathematical argument</p></li>
 </ul>
 </details>
 <details>
@@ -2383,10 +2388,10 @@ unequally.</p>
 source disposition <code>subordinate</code>)
 <ul>
 <li><strong>Why here.</strong> Below the #251 small-mismatch route
-because the source-specific cofinal escape remains unproved, but above medium
-finite #269 machinery because the exact residue-window contradiction is
-the endpoint consumer that such machinery must feed. The actual-series
-reduction is given.</li>
+because the source-specific cofinal escape remains unproved, but above
+medium finite #269 machinery because the exact residue-window
+contradiction is the endpoint consumer that such machinery must feed.
+The actual-series reduction is given.</li>
 <li><strong>Source.</strong>
 <code>Erdos249257.ExternalVerification.no_positive_reducedCarry_of_cofinalLocalWindowEscape</code>
 in <a
@@ -2408,8 +2413,7 @@ claim is made. It is one conditional window-carry family, distinct from
 the finite residue, rank-two, and weighted-phase observer families.</li>
 <li><strong>Relation.</strong> <code>mechanism_support_for</code>
 <code>weighted_phase_carry_observer</code>: The residue/coboundary split
-exposes finite carry data but does not supply the cofinal escape or
-actual-series bridge.</li>
+exposes finite carry data but does not supply the cofinal escape.</li>
 <li><strong>Relation.</strong> <code>contrary_evidence_for</code>
 <code>rank_two_kernel_no_go</code>: The finite kernel is not rank one,
 ruling out a tempting separable shortcut without producing carry
@@ -2438,8 +2442,7 @@ is established separately; cofinal local-window escape remains
 open.</li>
 <li><strong>Relation.</strong> <code>mechanism_support_for</code>
 <code>conditional_carry_escape</code>: The residue/coboundary split
-exposes finite carry data but does not supply the cofinal escape or
-actual-series bridge.</li>
+exposes finite carry data but does not supply the cofinal escape.</li>
 </ul></li>
 <li><strong>Rank two kernel no go</strong>
 (<code>rank_two_kernel_no_go</code>; natural friction and no-go; source
@@ -2465,7 +2468,8 @@ source disposition <code>represented</code>)
 <ul>
 <li><strong>Why here.</strong> The finite height-fibre normal form and
 smooth-shell bound are substantive three-prime structure, but they do
-not produce the divisibility bridge consumed by the carry frontier.</li>
+not produce the source-specific cofinal escape. The actual-series
+reduction is given separately.</li>
 <li><strong>Source authority.</strong> Canonical review family
 <code>height_fibre_and_shell</code> in <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/docs/claims.json">claims</a></li>
@@ -2789,7 +2793,10 @@ three halves.</p>
 transfer of the integer-base clearing argument forces a
 power-versus-linear inequality, and that this inequality is impossible
 at base three halves.</p>
-<p><strong>Open boundary.</strong> The universal rational-base conjecture, including the case 3/2, remains open. The 31/4 power family has an ordinary proof in the paper; it is not an end-to-end Lean theorem.</p>
+<p><strong>Open boundary.</strong> The universal rational-base
+conjecture, including the case 3/2, remains open. The 31/4 power family
+has an ordinary proof in the paper; it is not an end-to-end Lean
+theorem.</p>
 <p><strong>Read.</strong> <a
 href="https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/1049/erdos-1049-rational-base-lambert.pdf">Programme
 paper</a> · <a

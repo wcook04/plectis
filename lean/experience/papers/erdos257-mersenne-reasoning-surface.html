@@ -202,18 +202,20 @@ frequently nonzero</td>
 </tbody>
 </table>
 </div>
-<p>Two facts about this table are worth a specialist’s attention more
-than any single row. First, the base restriction of the classical
-results is gone: the
+<p>Full-support irrationality for every integer base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
+is classical (Erdős, 1948). The contribution recorded here is its Lean
+formalisation and the explicitly delimited structured-support
+developments, not a new extension from base two to arbitrary integer
+bases. Each support family retains its stated hypotheses; none
+establishes irrationality for every infinite support. The
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b=2</annotation></semantics></math>
-case of the first row recovers Erdős’s 1948 irrationality theorem for
-the Erdős–Borwein constant
+case of the first row recovers the Erdős–Borwein constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E = \sum_{n \ge 1} 1/(2^n-1)</annotation></semantics></math>
-as a one-line corollary, and every row holds for all
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b \ge 2</annotation></semantics></math>.
-Second, and more important, row lies inside a two-axis box — divisor
-independence plus a global reciprocal-tail budget — and the box is not
-an accident of effort. That is Barrier .</p>
+as a one-line corollary of that classical theorem. Separately, row lies
+inside a two-axis box — divisor independence plus a global
+reciprocal-tail budget — and the box is not an accident of effort. That
+is Barrier .</p>
 <p>The one conditional extension worth naming is , which strictly
 generalises pairwise coprimality (cores may be arbitrary divisors of one
 fixed
@@ -445,9 +447,11 @@ of it. That is the honest summary, and expert readers have said so. The
 claim of this section is that the reformulations are not a hundred
 separate failures. They are repeated measurements of obstruction, taken
 in different coordinates, and once they are assembled the obstruction
-has a describable shape. A systematic elimination that says exactly
-which classes of argument cannot work, and why, is a result about the
-problem; a reformulation is not. The elimination is what follows.</p>
+has a describable shape. A record of which attacks were tried, which
+landed calculations obstructed them, and which hypotheses remain, is a
+result about the problem; a reformulation is not. That record follows.
+It does not claim an impossibility theorem for every method in a named
+class.</p>
 <p>The generating fact is a single structural one, and it is not a
 convenience of the formalisation.</p>
 <div class="obs">
@@ -473,11 +477,14 @@ class="sans-serif">[Math]</span></span><br />
 <strong>Sites:</strong> , , .</p>
 </div>
 <p>All six barriers below are consequences of Observation  in different
-directions: there is nothing to choose (), nothing weaker to prove (),
-nothing to average over (), no information at the available scales (),
-no certificate in the provable direction (), and, on the universal side,
-no way to make a general support satisfy the certificate engine’s first
-hypothesis ().</p>
+directions: the recorded witness space is a singleton (), the listed
+sufficient conditions are equivalent to the goal rather than strictly
+weaker (), measure and category disagree on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
+(), the available information sits at the wrong scale for the
+short-window bound (), survival certificates point the wrong way for
+membership (), and, on the universal side, a general support need not
+satisfy the certificate engine’s first hypothesis ().</p>
 </section>
 <section id="bar:canon" class="level3">
 <h3>Barrier 1: canonicalisation — the witness space is a singleton</h3>
@@ -731,12 +738,14 @@ class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">[Math]</span></span></em></p>
 </div>
-<p><strong>Rules out.</strong> Every strategy of the form “the full
-problem is hard, so prove this weaker sufficient condition instead”. In
-particular the specific hope that mutually witnesses at different
-endpoints buy flexibility is void, and reading the
+<p><strong>Scope of the equivalences.</strong> These conditions are
+equivalent to membership, not strictly weaker substitutes. Equivalence
+does not make a formulation useless as an invariant, but it does mean
+that proving any of them is the same problem as (H). The equivalent
+conditions remain unproved. In particular, mutually witnesses at
+different endpoints do not buy a weaker sufficient condition, and the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="normal">Π</mi><mn>2</mn><mn>0</mn></msubsup><annotation encoding="application/x-tex">\Pi^0_2</annotation></semantics></math>
-shape of these sockets as evidence of extra room is an error.</p>
+shape of these sockets is not evidence of extra room.</p>
 <p><strong>Scope limit, preserved exactly.</strong> Item (a) does extend
 to every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
@@ -907,28 +916,43 @@ and therefore proves nothing. Membership asserts survival at rank
 (Theorem ), an infinite conjunction with no finite sub-conjunction
 implying it. ◻</p>
 </div>
-<p><strong>Rules out.</strong> Any programme whose plan is “extend the
-certified depth”. Pushing the truncation rung to
+<p><strong>Finite search versus infinite survival.</strong> Survival
+through any tested finite depth does not by itself establish membership.
+A discovered fatal-gap certificate would establish non-membership, while
+a proved uniform invariant could establish membership. Extending the
+computation — the truncation rung to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><mn>23</mn></mrow><annotation encoding="application/x-tex">J = 23</annotation></semantics></math>,
 the seam to row
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>6</mn></msup><annotation encoding="application/x-tex">10^6</annotation></semantics></math>,
 or the macro receipt to depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>8</mn></msup><annotation encoding="application/x-tex">10^8</annotation></semantics></math>
-cannot in principle decide the branch — each raises a lower bound on a
-death rank which, if the supported branch is correct, does not
-exist.</p>
-<p><strong>Explains.</strong> Every certificate the programme owns is of
-this one type. The certified depths grew by roughly two orders of
-magnitude across the recorded history with no change whatsoever in
-decision status; that is not a coincidence to be pushed through, it is
-the theorem above being observed empirically. Accumulated survival is
-not convergence toward proof.</p>
+— can therefore produce evidence or a decisive obstruction, but
+additional surviving prefixes are not a proof of infinite survival. If
+the supported branch is correct, each such extension merely raises a
+lower bound on a death rank that does not exist.</p>
+<p><strong>Explains.</strong> Every certificate the programme currently
+owns is of the survival type. The certified depths grew by roughly two
+orders of magnitude across the recorded history with no change in
+membership status. Accumulated survival is not, by itself, convergence
+toward a membership proof.</p>
 </section>
 <section id="bar:measure" class="level3">
 <h3>Barrier 5: measure and category point in opposite directions</h3>
 <div class="prop">
-<p><strong>Proposition 20</strong> (The two soft heuristics contradict
-each other; <span class="smallcaps">proved</span>). <em>
+<p><strong>Proposition 20</strong> (Achievement-set geometry does not
+decide rational-target membership). <em> The achievement set has
+positive measure and is nowhere dense (Theorem ). Neither fact alone
+decides membership of a specified rational. Injectivity fixes the
+support of an achievable value, but it does not exclude averaging over
+indices, shifts, residues, observation scales or auxiliary
+constructions. The recorded calculations obstruct the particular models
+and estimates analysed here; no impossibility theorem for all
+probabilistic, measure-theoretic or averaging methods is claimed.
+<code>coord:achievement-set</code> <span><span
+class="sans-serif">scale:uniform</span></span> <span><span
+class="sans-serif">[Math]</span></span></em></p>
+</div>
+<p>The geometry itself is Lean-checked in Theorem :
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
 has Lebesgue measure exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
@@ -936,44 +960,25 @@ inside an ambient span of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>≈</mo><mn>1.6067</mn></mrow><annotation encoding="application/x-tex">E \approx 1.6067</annotation></semantics></math>,
 a relative density of about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>62</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">62\%</annotation></semantics></math>,
-and is simultaneously nowhere dense, perfect and totally disconnected
-(Theorem ). Hence the measure heuristic — “a random point lies in
+and is simultaneously nowhere dense, perfect and totally disconnected.
+Those facts may hold together. They do not yield competing theorems
+about specified rationals. Showing that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
-with probability
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>0.62</mn></mrow><annotation encoding="application/x-tex">\approx 0.62</annotation></semantics></math>”
-— predicts #257 , while the category heuristic —
-“<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
-is meagre, so a generic point misses it” — predicts #257 .
-<code>coord:achievement-set</code> <span><span
-class="sans-serif">scale:uniform</span></span> <span><span
-class="sans-serif">[Lean]</span></span></em></p>
-</div>
-<p><strong>Rules out.</strong> Every soft argument: measure-theoretic,
-Baire-category, metric number theory (almost-all / almost-none), and
-probabilistic digit models. The two standard notions of “typical”
-disagree on this object, so neither can be the mechanism. Worse, by
-injectivity of the digit coding (Observation ) there is no ensemble of
-candidate representations to average over: each rational has exactly one
-candidate support, so counting, second-moment and pigeonhole arguments
-have nothing to range over. It also rules out deciding (U) by showing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
-is “small”: it is not small — it is
+is “small” cannot decide (U) by measure: it is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>62</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">62\%</annotation></semantics></math>
-of its ambient interval by measure.</p>
-<p><strong>Explains.</strong> The programme’s own probabilistic estimate
-sits squarely on the losing side of this split: under a
+of its ambient interval.</p>
+<p><strong>Recorded models.</strong> Under a
 Bernoulli<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1/2)</annotation></semantics></math>
 digit model the expected number of counterexamples with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">n \ge 32</annotation></semantics></math>
 is about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2 \times 10^{-4}</annotation></semantics></math>,
-i.e. the model predicts
+so that model predicts
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn><mo>∈</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">1/2 \in \mathcal{A}</annotation></semantics></math>.
-That estimate is worth exactly as much as the model, and the model is a
+The estimate is worth exactly as much as the model, and the model is a
 measure-side object that cannot see a specific point of a nowhere-dense
-set having Lebesgue measure exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-<span><span class="sans-serif">[Cert]</span></span></p>
+set of measure one. <span><span
+class="sans-serif">[Cert]</span></span></p>
 </section>
 <section id="bar:box" class="level3">
 <h3>Barrier 6: the two-axis certificate box (universal direction)</h3>
@@ -9792,16 +9797,22 @@ of the Mersenne weights, which forces the digit coding to be injective
 witness space to a singleton, and makes the static adversarial tier
 coincide with the dynamic greedy orbit. That structure is rigid, not
 random. So the honest description is a hybrid: a rigid skeleton with a
-pseudorandom digit stream running along it. The rigidity is why every
-soft method fails (there is no ensemble to average over:
+pseudorandom digit stream running along it. The rigidity constrains
+representation uniqueness. It does not by itself exclude averaging over
+indices, shifts, residues, observation scales or auxiliary
+constructions.
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>
 has Lebesgue measure exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
 inside an interval of length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>≈</mo><mn>1.6067</mn></mrow><annotation encoding="application/x-tex">E\approx1.6067</annotation></semantics></math>
-and is nowhere dense, and the two standard notions of “typical” disagree
-on it); the pseudorandomness is why every arithmetic method returns no
-information.</p>
+and is nowhere dense, so the two standard notions of “typical” disagree
+on it; neither fact decides membership of a specified rational. The
+recorded calculations obstruct the particular models and estimates
+analysed here; no impossibility theorem for all probabilistic,
+measure-theoretic or averaging methods is claimed. Separately, the
+observed lack of arithmetic bias is why the specific arithmetic methods
+recorded here returned no information.</p>
 </section>
 <section
 id="the-universal-branch-reads-differently-and-this-weakens-the-one-wall-thesis"
@@ -9832,18 +9843,21 @@ determine</h4>
 <p>It does not determine whether a short proof exists. Nothing in a
 catalogue of failed methods bounds the length of a successful one, and
 this document should not pretend otherwise.</p>
-<p>It does determine, with proof rather than inference, where a short
-proof cannot be. It cannot proceed by finite inspection, by
-fixed-precision arithmetic, by a bounded carry state, by a measure or
-category argument, by an irrationality-measure bound on
+<p>It records, with proof rather than inference, several closed routes.
+Fixed-precision arithmetic and a bounded carry state are obstructed by
+the landed no-go theorems cited above. An irrationality-measure bound on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
-or any constant of that type, or — on the universal side, as of
-Proposition  — by instantiating the present block-certificate engine at
-a general support. Each of those is closed with a mechanism, and a
-mechanism is reusable in a way that a failed attempt is not. That is the
-contribution: not a proof, and not a reduction, but a map of the region
-in which a proof cannot live, drawn tightly enough that the remaining
-region is small and its coordinates are named.</p>
+does not classify a specified rational in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math>.
+Instantiating the present block-certificate engine at a general support
+is blocked, on the universal side, by Proposition . Survival through any
+tested finite depth does not by itself establish membership; a fatal-gap
+certificate would establish non-membership. These facts do not decide
+rational-target membership, and they do not yield an impossibility
+theorem for all probabilistic, measure-theoretic or averaging methods.
+Each recorded obstruction is reusable in a way that a failed attempt is
+not. That is the contribution: not a proof, not a reduction, and not a
+map of every region in which a proof cannot live.</p>
 </section>
 </section>
 </section>

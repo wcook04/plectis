@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates · Plectis maths</title>
-  <meta name="description" content="This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp…">
+  <meta name="description" content="This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value…">
   <link rel="canonical" href="https://wcook04.github.io/plectis/maths/papers/erdos-1041-lemniscate-newton-flow.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Plectis">
   <meta property="og:title" content="Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates · Plectis maths">
-  <meta property="og:description" content="This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp…">
+  <meta property="og:description" content="This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value…">
   <meta property="og:url" content="https://wcook04.github.io/plectis/maths/papers/erdos-1041-lemniscate-newton-flow.html">
   <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta property="og:image:width" content="1792">
@@ -17,7 +17,7 @@
   <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates · Plectis maths">
-  <meta name="twitter:description" content="This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp…">
+  <meta name="twitter:description" content="This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value…">
   <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
@@ -93,22 +93,21 @@
 
       <div class="paper-precis">
         <p class="eyebrow">Pr&eacute;cis</p>
-        <p>This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.</p>
-      
+        <p>This note gives ordinary <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a> for explicit short-path families, led by all-degree <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> trinomials, and separately <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-establish" data-term="establish" data-term-auto="1">establishes</a> a sharp critical-value mean. It records which subsidiary <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statements</a> have <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>. Exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstruction</a> examples show why the radial and critical-value estimates cannot be silently promoted to a general connector <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>. The work does not resolve unrestricted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1041</a>; the recent degree-seven <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> announcement is a separate <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-external" data-term="external" data-term-auto="1">external</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>.</p>
       </div>
 
       <div class="authority-card">
-        <p><b>This paper owns</b> the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem</p>
-        <p><b>It is not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> for</b> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> validity, which belongs to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> by the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">pinned kernel</a>, or a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solution</a> to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1041</a>, which <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>.</p>
+        <p><b>This paper owns</b> the problem-specific <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-exposition" data-term="exposition" data-term-auto="1">exposition</a> for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1041</a>: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>, and exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstructions</a> that prevent promoting those estimates to a general connector <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>.</p>
+        <p><b>It is not <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a> for</b> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> validity, which belongs to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> by the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">pinned kernel</a>, or a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-solution" data-term="solution" data-term-auto="1">solution</a> to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1041</a>, which <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remains open</a>.</p>
       </div>
 
       <div class="paper-stage">
 <article class="lean-paper" data-paper-id="erdos-1041-lemniscate-newton-flow" data-math-mode="mathjax">
   <div class="lean-paper__body" data-source="../../../paper/1041/erdos-1041-lemniscate-newton-flow.tex">
 <section id="sec:trinomial" class="level2">
-<h2><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">Monic</a> trinomials, in every degree</h2>
+<h2><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">Monic</a> trinomials, in every degree</h2>
 <div class="theorem">
-<p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1</strong> (all-degree <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> trinomials). <em> Let
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 1</strong> (all-degree <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic</a> trinomials). <em> Let
 <span class="math inline" data-term-auto="off">\(1\le m&lt;n\)</span> and <span
 class="math display" data-term-auto="off">\[f(z)=z^n+az^m+b,\]</span> with every zero in the
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-unit-disc" data-term="unit_disc" data-term-auto="1">open unit disc</a>. For any zero <span class="math inline" data-term-auto="off">\(\zeta\)</span>,
@@ -135,14 +134,14 @@ class="math display" data-term-auto="off">\[|f(t\zeta)|\le |b|(1-t^m)+|\zeta|^n(
 <p>At <span class="math inline" data-term-auto="off">\(t=1\)</span> the
 value is zero. Concatenating the two segments gives length <span
 class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span>. The displayed
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> in this note.
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-statement" data-term="statement" data-term-auto="1">statement</a> is ordinary <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> in this note.
 <code>PaperTrinomial.lean</code> is not in this checkout. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>
 Newton-flow decay, ray/translation geometry and root retention in
 <code>NewtonFlowRaySeparation.lean</code>, and solved-family kernels
 rather than this all-degree trinomial assembly. ◻</p>
 </div>
 <section id="a-finite-convex-certificate." class="level5">
-<h5>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> convex <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</h5>
+<h5>A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> convex <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>.</h5>
 <p>For <span class="math inline" data-term-auto="off">\(f(z)=\sum_{k=0}^n a_kz^k\)</span> and
 <span class="math inline" data-term-auto="off">\(f(\zeta)=0\)</span>, put <span
 class="math inline" data-term-auto="off">\(S_j=\sum_{k=0}^j a_k\zeta^k\)</span>. Abel
@@ -152,14 +151,14 @@ class="math display" data-term-auto="off">\[f(t\zeta)=\sum_{j=0}^{n-1}(t^j-t^{j+
 <p>For <span class="math inline" data-term-auto="off">\(0\le t&lt;1\)</span>, the normalised
 value <span class="math inline" data-term-auto="off">\(f(t\zeta)/(1-t^n)\)</span> lies in the
 convex hull of <span class="math inline" data-term-auto="off">\(S_0,\ldots,S_{n-1}\)</span>.
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">Bounds</a> on these <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> values therefore certify a whole segment.
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">Bounds</a> on these <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finitely many</a> values therefore certify a whole segment.
 In the trinomial case the distinct <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">control</a> values are <span
 class="math inline" data-term-auto="off">\(b\)</span> and <span
 class="math inline" data-term-auto="off">\(-\zeta^n\)</span>, both strictly inside the unit
 disc. With more <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-term" data-term="term" data-term-auto="1">terms</a>, the additional <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-partial-sum" data-term="partial_sum" data-term-auto="1">partial sums</a> need their own
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounds</a>.</p>
 <div class="proposition">
-<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 2</strong> (prescribed-spoke guardrail). <em>
+<p><strong><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">Proposition</a> 2</strong> (prescribed-spoke guardrail). <em>
 There exist <span class="math inline" data-term-auto="off">\(r\in(0,1)\)</span> for which
 every zero of <span class="math display" data-term-auto="off">\[f_r(z)=z^6+\tfrac15 r^2
 z^4-\tfrac15 r^4 z^2-r^6\]</span> lies in the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-unit-disc" data-term="unit_disc" data-term-auto="1">open unit disc</a>, yet the
@@ -213,7 +212,7 @@ sparse families retain the <a class="narrative-ref narrative-ref--term is-term-f
 class="math inline" data-term-auto="off">\(2\)</span>.</p>
 <p>Two constructions organise the general estimates. Averaging inverse
 lifts and boundary arcs converts area into a freely selected connector.
-Resolving a simple <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> gives a holomorphic inverse whose Dirichlet
+Resolving a simple <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-morse-saddle" data-term="morse_saddle" data-term-auto="1">saddle</a> gives a holomorphic inverse whose Dirichlet
 energy <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-control" data-term="control" data-term-auto="1">controls</a> its diameter trace. The weighted free-point <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>
 isolates a complementary critical-value estimate. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-section" data-term="section" data-term-auto="1">Section</a> <span
 class="math inline" data-term-auto="off">\(\ref{sec:open}\)</span> states the remaining
@@ -240,7 +239,7 @@ length strictly less than <span
 class="math inline" data-term-auto="off">\(2\)</span>.</em></p>
 </div>
 <div class="corollary">
-<p><strong>Corollary 5</strong> (scale-free <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a>). <em> Every
+<p><strong>Corollary 5</strong> (scale-free <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-connect" data-term="connect" data-term-auto="1">connection</a>). <em> Every
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-squarefree" data-term="squarefree" data-term-auto="1">squarefree</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-monic" data-term="monic" data-term-auto="1">monic polynomial</a> of degree <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span> has two distinct <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a> joined in
 <span class="math inline" data-term-auto="off">\(\{|f|&lt;(25/13)\mu\}\)</span> by a curve of
@@ -261,7 +260,7 @@ of an arbitrary curve under <span class="math inline" data-term-auto="off">\(z\m
 h+cz\)</span>, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperMetricScaling.lean#L40">the
 affine transport of a contained rectifiable connector</a>; the
-low-critical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> remains ordinary. For <span
+low-critical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-input" data-term="input" data-term-auto="1">input</a> remains ordinary. For <span
 class="math inline" data-term-auto="off">\(n\ge3\)</span>, <span
 class="math inline" data-term-auto="off">\((25/13)^{1/n}\le(25/13)^{1/3}&lt;5/4\)</span>. For
 <span class="math inline" data-term-auto="off">\(n=2\)</span>, the segment between the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-root" data-term="root" data-term-auto="1">roots</a>
@@ -438,7 +437,7 @@ argument.</p>
 </section>
 </section>
 <section id="sec:critical-proximity" class="level2">
-<h2>Critical proximity and straight-path <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstructions</a></h2>
+<h2>Critical proximity and straight-path <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstructions</a></h2>
 <p>The strongest <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> that applies in every degree is
 a sharp metric selection principle at a critical point. It consumes the
 complete logarithmic-derivative balance rather than a degree-specific
@@ -531,7 +530,7 @@ class="math inline" data-term-auto="off">\(h\)</span>; two different fibre point
 through <span class="math inline" data-term-auto="off">\(h\)</span> with length <span
 class="math inline" data-term-auto="off">\(2|y|&lt;2\)</span>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> root-of-unity
 mean-square argument and fibre assembly are ordinary, not hidden <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>.</p>
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>.</p>
 </section>
 <section id="primitive-sparse-quintics" class="level3">
 <h3>Primitive sparse quintics</h3>
@@ -731,7 +730,7 @@ coefficientwise regimes hold exactly (<em>first
 merge exact convenient thresholds</em>), while the live uniform radius
 <span class="math inline" data-term-auto="off">\(4/3\)</span> is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.lean">disk
-family critical value separation</a>. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> entry is <a
+family critical value separation</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> entry is <a
 href="https://github.com/wcook04/plectis-erdos/tree/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ExternalVerification1041FirstMergeCriticalValueSeparation">the
 first-merge critical-value separation Comparator</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> does not
 prove the analytic <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">hypothesis</a> <span
@@ -747,7 +746,7 @@ inverse-<a class="narrative-ref narrative-ref--term is-term-again" href="../../d
 </section>
 <section id="sec:exact-obstructions" class="level2">
 <h2>Three exact covering <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-barrier" data-term="barrier" data-term-auto="1">obstructions</a></h2>
-<p>None of the following is a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1041</a>. Each kills
+<p>None of the following is a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1041</a>. Each kills
 a covering reading of a sufficient regime. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-rational" data-term="rational" data-term-auto="1">Rational</a> cores are <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> in
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/RevisionR2ExactCores.lean">revision
@@ -808,7 +807,7 @@ normalised capacity <span class="math inline" data-term-auto="off">\(1\)</span>.
 </section>
 <section id="sec:newton" class="level2">
 <h2>The Newton value <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equation" data-term="equation" data-term-auto="1">equation</a></h2>
-<p>Away from the critical set, define the complex <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-newton-flow" data-term="newton_flow" data-term-auto="1">Newton field</a></p>
+<p>Away from the critical set, define the complex <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-newton-flow" data-term="newton_flow" data-term-auto="1">Newton field</a></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[N(z)=-\frac{f(z)}{f&#39;(z)} .\]</span></div>
 <p>Let <span
@@ -869,7 +868,7 @@ class="math inline" data-term-auto="off">\(n-1\)</span> points modulo the circle
 on their positions in the plane.</p>
 <p>The cost of that condition is also <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>, and it is small.</p>
 <div class="theorem">
-<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 19</strong> (ray-collision <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a>). <em> Let <span
+<p><strong><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">Theorem</a> 19</strong> (ray-collision <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-locus" data-term="locus" data-term-auto="1">locus</a>). <em> Let <span
 class="math inline" data-term-auto="off">\(a\ne b\)</span> be complex. Every common
 translation <span class="math inline" data-term-auto="off">\(\beta\)</span> for which <span
 class="math inline" data-term-auto="off">\(a+\beta\)</span> and <span
@@ -1371,7 +1370,7 @@ class="math display" data-term-auto="off">\[\min_{\substack{f&#39;(c)=0\\|f(c)|\
 curves, this canonical minimum is an upper <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bound</a> for <span
 class="math inline" data-term-auto="off">\(\Lambda\)</span>. <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equality" data-term="equality" data-term-auto="1">Equality</a> between the two
 minimisations is not assumed. The ordinary slit-sheet construction
-closes its stated generic topology problem; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalising</a> that
+closes its stated generic topology problem; <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formalising</a> that
 construction remains a separate task.</p>
 </section>
 <section id="the-attachment-obstruction-is-quantitative."
@@ -1468,7 +1467,7 @@ uniqueness or <a class="narrative-ref narrative-ref--term is-term-again" href=".
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formalisation" data-term="formalisation" data-term-auto="1">formal sources</a></h2>
-<p>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a>
+<p>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a>
 <code>ErdosProblems.Erdos1041.NewtonFlowRaySeparation</code> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a>
 contains the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> for this note. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-search" data-term="search" data-term-auto="1">search</a> of §<span
 class="math inline" data-term-auto="off">\(\ref{sec:finite}\)</span> is
@@ -1592,7 +1591,7 @@ class="uri">https://archive.org/details/sitzungsbericht1928preu</a>.</p></li>
           <a class="btn btn--ghost btn--file" href="../../papers/source/plectis-erdos/paper/1041/erdos-1041-lemniscate-newton-flow.tex"><span class="btn__format">TeX</span>Open the LaTeX source</a>
           <a href="../problems/erdos_1041.html">Problem dossier</a>
         </div>
-        <p class="maths-receipt maths-receipt--inline">Rendered from the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a> at <code>sha256:2e811f496be4e927</code>. It <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">matched</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a>, so the PDF above, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a>, and this page are one manuscript. Redeploying the site regenerates this page from whatever the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> holds at that moment.</p>
+        <p class="maths-receipt maths-receipt--inline">Rendered from the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a> at <code>sha256:2e811f496be4e927</code>. It <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-match" data-term="match" data-term-auto="1">matched</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-published" data-term="published" data-term-auto="1">published</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a>, so the PDF above, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-latex" data-term="latex" data-term-auto="1">LaTeX</a>, and this page are one manuscript. Redeploying the site regenerates this page from whatever the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-public" data-term="public" data-term-auto="1">public</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> holds at that moment.</p>
       </div>
       </div>
     </main>
