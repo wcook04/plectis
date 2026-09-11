@@ -2128,7 +2128,7 @@
     "problem_id": "erdos_1041",
     "landing_role": "mathematics",
     "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
-    "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.",
+    "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; a Cassini example refutes the printed global tree budget; that obstruction is not a disproof of Erdős #1041. The global topology and length gluing remain open.",
     "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
     "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
     "first_pass": [
@@ -3444,7 +3444,7 @@
     "problem_id": "erdos_1041",
     "landing_role": "mathematics",
     "question": "Which Newton-flow separation facts are checked for Erdős #1041, and what exactly fails in the recent claimed global decomposition?",
-    "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.",
+    "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; a Cassini example refutes the printed global tree budget; that obstruction is not a disproof of Erdős #1041. The global topology and length gluing remain open.",
     "owns": "the problem-specific exposition for Erdős #1041: Newton-flow ray separation, perturbation inputs, the exact printed proof gap, and the ranked topology and metric repair questions",
     "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
     "first_pass": [
@@ -5453,7 +5453,7 @@
       "length_class": "short",
       "pages": 20,
       "title": "Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates",
-      "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; the proposition is not refuted and may admit a four-pronged or cut-annulus repair. The global topology and length gluing remain open.",
+      "precis": "Along the complex Newton field, Lean checks that the polynomial value decays as exp(-t) and therefore stays on one oriented ray. It formalises the resulting no-connection criterion, the exact translation ray-collision locus, finite-line avoidance, and a root-retention bound. A recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle, diagnosed here independently and matching Tao's public account of the same defect; a Cassini example refutes the printed global tree budget; that obstruction is not a disproof of Erdős #1041. The global topology and length gluing remain open.",
       "site_html": "maths/papers/erdos-1041-lemniscate-newton-flow.html",
       "hosted_pdf_path": "papers/erdos-1041-lemniscate-newton-flow.pdf",
       "public_pdf_url": "https://wcook04.github.io/plectis/papers/erdos-1041-lemniscate-newton-flow.pdf",
@@ -5549,8 +5549,8 @@
      ],
      "what_is_not_checked": [
       "Erdos Problem 1041 in unrestricted degree.",
-      "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block.",
-      "A proof or counterexample for Proposition 12 itself; a four-pronged or cut-annulus repair may still exist.",
+      "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block, and a Cassini example refutes the printed global tree budget.",
+      "A repair of Proposition 12 that retains the printed 1/(2π) spanning-tree coefficient; any later argument must change the metric inequality.",
       "A perturbation theorem that first makes critical values injective while preserving the relevant lemniscate component, collars, and strict length slack.",
       "The global planar decomposition and metric gluing needed to obtain a curve of length less than two."
      ],
@@ -44979,7 +44979,7 @@
     },
     "reviewed": false,
     "granularity": "problem_index_boundary_bullet",
-    "statement": "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block.",
+    "statement": "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block, and a Cassini example refutes the printed global tree budget.",
     "status": "explicitly_not_checked",
     "evidence_authority": "explicitly_outside_what_was_checked",
     "evidence_resolution": "negative_statement_no_evidence_needed",
@@ -45007,7 +45007,7 @@
     },
     "reviewed": false,
     "granularity": "problem_index_boundary_bullet",
-    "statement": "A proof or counterexample for Proposition 12 itself; a four-pronged or cut-annulus repair may still exist.",
+    "statement": "A repair of Proposition 12 that retains the printed 1/(2π) spanning-tree coefficient; any later argument must change the metric inequality.",
     "status": "explicitly_not_checked",
     "evidence_authority": "explicitly_outside_what_was_checked",
     "evidence_resolution": "negative_statement_no_evidence_needed",
@@ -74162,8 +74162,8 @@
        ],
        "what_is_not_checked": [
         "Erdos Problem 1041 in unrestricted degree.",
-        "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block.",
-        "A proof or counterexample for Proposition 12 itself; a four-pronged or cut-annulus repair may still exist.",
+        "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block, and a Cassini example refutes the printed global tree budget.",
+        "A repair of Proposition 12 that retains the printed 1/(2π) spanning-tree coefficient; any later argument must change the metric inequality.",
         "A perturbation theorem that first makes critical values injective while preserving the relevant lemniscate component, collars, and strict length slack.",
         "The global planar decomposition and metric gluing needed to obtain a curve of length less than two."
        ],
@@ -95749,7 +95749,7 @@
     "reader_preview_basis": "first_sentence",
     "card_definition": "Non-degeneracy is what pins the number of directions leaving the point. An argument that assumes the wrong number of local branches at a saddle can be locally invalid while looking right globally.",
     "reader_rule": "Morse is a hypothesis about curvature at the point, not a description of the whole surface.",
-    "deep_definition": "The Erdős #1041 note reports that a recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle. This was diagnosed here independently and matches Tao's public account of the same defect. The proposition is not refuted and may admit a repair.",
+    "deep_definition": "The Erdős #1041 note reports that a recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle. This was diagnosed here independently and matches Tao's public account of the same defect. A Cassini example refutes the printed global tree budget; that obstruction is not a disproof of Erdős #1041.",
     "scope_note": "Applies to a critical point of a smooth real function, in the sense of Morse theory.",
     "example": "The origin is a Morse saddle for x squared minus y squared.",
     "example_route": null,
@@ -113099,8 +113099,8 @@
     ],
     "what_is_not_checked": [
      "Erdos Problem 1041 in unrestricted degree.",
-     "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block.",
-     "A proof or counterexample for Proposition 12 itself; a four-pronged or cut-annulus repair may still exist.",
+     "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block, and a Cassini example refutes the printed global tree budget.",
+     "A repair of Proposition 12 that retains the printed 1/(2π) spanning-tree coefficient; any later argument must change the metric inequality.",
      "A perturbation theorem that first makes critical values injective while preserving the relevant lemniscate component, collars, and strict length slack.",
      "The global planar decomposition and metric gluing needed to obtain a curve of length less than two."
     ],

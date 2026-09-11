@@ -150720,7 +150720,7 @@
       ],
       "anchor": "glossary-morse-saddle",
       "card_definition": "Non-degeneracy is what pins the number of directions leaving the point. An argument that assumes the wrong number of local branches at a saddle can be locally invalid while looking right globally.",
-      "deep_definition": "The Erd\u0151s #1041 note reports that a recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle. This was diagnosed here independently and matches Tao's public account of the same defect. The proposition is not refuted and may admit a repair.",
+      "deep_definition": "The Erd\u0151s #1041 note reports that a recent manuscript's load-bearing Proposition 12 uses an invalid three-ended local block at an interior Morse saddle. This was diagnosed here independently and matches Tao's public account of the same defect. A Cassini example refutes the printed global tree budget; that obstruction is not a disproof of Erdős #1041.",
       "definition_profile": "public_contextual_gloss",
       "disposition": "active",
       "evidence_commands": [],
