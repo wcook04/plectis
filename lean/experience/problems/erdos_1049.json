@@ -24,7 +24,7 @@
     "At n = 0, the Amdeberhan-Zeilberger q-Apery operator applied to Van Assche's moving diagonal has residual -p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2), which is strictly negative and nonzero for every real p > 1."
   ],
   "what_is_not_checked": [
-    "Irrationality at base three halves, or for any rational base.",
+    "The universal rational-base conjecture, including the case 3/2, remains open. The 31/4 power family has an ordinary proof in the paper; it is not an end-to-end Lean theorem.",
     "The published analytic height theorem, which is cited and used as an external result and is not formalised here.",
     "The all-scale Heine-Zudilin coefficient construction at rational base three halves; the primary source assumes an integer base.",
     "The source analytic irrationality theorem inside the 81/200 height region; only its elementary parameter specialisations are formalised.",
