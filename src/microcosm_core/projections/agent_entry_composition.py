@@ -3706,8 +3706,8 @@ def _whole_system_assessment_route() -> dict[str, Any]:
             "boundary": "Papers own exposition, not executable or proof authority.",
         },
         "companion_repository": {
-            "id": "plectis-lean-erdos249-257",
-            "url": "https://github.com/wcook04/plectis-lean-erdos249-257",
+            "id": "plectis-erdos",
+            "url": "https://github.com/wcook04/plectis-erdos",
             "owns": (
                 "Machine-checked theorem status, mathematical progress, exact "
                 "open propositions, and paper-to-Lean claims."
@@ -4623,7 +4623,7 @@ def validate_agent_entry_composition(payload: dict[str, Any]) -> dict[str, Any]:
             message="Whole-system route must expose both paper inventories and their command.",
         )
     if (
-        companion.get("id") != "plectis-lean-erdos249-257"
+        companion.get("id") != "plectis-erdos"
         or "scripts/query_corpus.py --ask"
         not in str(companion.get("entry_in_companion_clone") or "")
     ):

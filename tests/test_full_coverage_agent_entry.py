@@ -34,8 +34,8 @@ def test_self_model_covers_all_families_and_names_lean_companion() -> None:
 
     assert family_total == pack["code_lens_health"]["organ_count"]
     assert len(pack["major_subsystems"]) == 7
-    assert pack["companion_repository"]["name"] == "plectis-lean-erdos249-257"
-    assert "github.com/wcook04/plectis-lean-erdos249-257" in (
+    assert pack["companion_repository"]["name"] == "plectis-erdos"
+    assert "github.com/wcook04/plectis-erdos" in (
         pack["companion_repository"]["repository"]
     )
     assert "companion, not dependency" in (
@@ -59,7 +59,7 @@ def test_text_self_model_does_not_hide_coverage_or_companion() -> None:
         assert f"{row['family']}: {row['organ_count']} organs" in card
     for row in pack["family_highlights"]:
         assert row["display_name"] in card
-    assert "plectis-lean-erdos249-257" in card
+    assert "plectis-erdos" in card
     assert "--profile whole_substrate_map" in card
 
 
@@ -76,7 +76,7 @@ def test_committed_read_pack_builder_is_deterministic_and_complete(
     assert "compile_ms" not in cached
     assert len(cached["family_highlights"]) == 7
     assert cached["companion_repository"]["name"] == (
-        "plectis-lean-erdos249-257"
+        "plectis-erdos"
     )
 
 
@@ -106,7 +106,7 @@ def test_paper_questions_route_to_complete_question_first_guide() -> None:
         "claim-faithful-publication-systems",
     ]
     assert guide["companion_repository"]["name"] == (
-        "plectis-lean-erdos249-257"
+        "plectis-erdos"
     )
     assert all(row["preferred_read_path"] for row in guide["paper_index"])
     for row in guide["paper_index"]:

@@ -29,7 +29,7 @@
     "open_problem_solution_claimed": false
   },
   "refresh": {
-    "local_command": "PYTHONPATH=src python3 scripts/check_lean_companion_snapshot.py --write --upstream-root ../plectis-lean-erdos249-257",
+    "local_command": "PYTHONPATH=src python3 scripts/check_lean_companion_snapshot.py --write --upstream-root ../plectis-erdos",
     "source_fields": [
       "docs/orientation.json::scale",
       "docs/orientation.json::authority_posture",

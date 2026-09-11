@@ -12,6 +12,16 @@ from microcosm_core.validators.lean_companion_snapshot import (
 
 PLECTIS_ROOT = Path(__file__).resolve().parents[1]
 
+def _companion_checkout() -> Path:
+    parent = PLECTIS_ROOT.parent
+    for name in ("plectis-erdos", "plectis-lean-erdos249-257"):
+        candidate = parent / name
+        if (candidate / ".git").exists():
+            return candidate
+    return parent / "plectis-erdos"
+
+
+
 
 def _fixture_root(tmp_path: Path) -> Path:
     root = tmp_path / "plectis"
@@ -42,7 +52,7 @@ def test_real_lean_companion_snapshot_is_bound_to_readme() -> None:
 
 
 def test_upstream_checkout_matches_recorded_public_commit() -> None:
-    upstream_root = PLECTIS_ROOT.parent / "plectis-lean-erdos249-257"
+    upstream_root = _companion_checkout()
     if not (upstream_root / ".git").exists():
         return
     receipt = validate_lean_companion_snapshot(
@@ -131,7 +141,7 @@ def test_blocks_open_problem_claim_once_a_problem_stops_being_open(
 
 
 def test_problem_inventory_tracks_the_companion_registry(tmp_path: Path) -> None:
-    upstream_root = PLECTIS_ROOT.parent / "plectis-lean-erdos249-257"
+    upstream_root = _companion_checkout()
     if not (upstream_root / ".git").exists():
         return
     root = _fixture_root(tmp_path)
@@ -166,7 +176,7 @@ def test_blocks_authority_ceiling_overclaim(tmp_path: Path) -> None:
 
 
 def test_refresh_tracks_public_ref_and_is_idempotent(tmp_path: Path) -> None:
-    upstream_root = PLECTIS_ROOT.parent / "plectis-lean-erdos249-257"
+    upstream_root = _companion_checkout()
     if not (upstream_root / ".git").exists():
         return
     root = _fixture_root(tmp_path)

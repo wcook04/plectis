@@ -76,8 +76,8 @@ PUBLIC_CEILING_DO_NOT_CLAIM = (
     "or investment advice, release authority, or whole-system correctness."
 )
 LEAN_COMPANION_REPOSITORY: dict[str, Any] = {
-    "name": "plectis-lean-erdos249-257",
-    "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
+    "name": "plectis-erdos",
+    "repository": "https://github.com/wcook04/plectis-erdos",
     "role": (
         "self-contained machine-checked mathematics companion; owns theorem status, "
         "mathematical progress, exact open propositions, and paper-to-Lean claims"

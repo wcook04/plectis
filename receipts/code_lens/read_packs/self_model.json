@@ -73,9 +73,9 @@
   "companion_repository": {
     "authority_boundary": "Do not infer Lean proof authority from Plectis organs or require a sibling checkout to comprehend or run Plectis.",
     "first_command_in_companion_clone": "python3 scripts/query_corpus.py --ask \"What is in this repository?\"",
-    "name": "plectis-lean-erdos249-257",
+    "name": "plectis-erdos",
     "relationship": "companion, not dependency: Plectis demonstrates runnable system machinery; the Lean repository demonstrates the public formal-mathematics corpus",
-    "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
+    "repository": "https://github.com/wcook04/plectis-erdos",
     "role": "self-contained machine-checked mathematics companion; owns theorem status, mathematical progress, exact open propositions, and paper-to-Lean claims"
   },
   "context_profile": "operating_picture",
