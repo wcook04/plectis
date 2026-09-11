@@ -702,13 +702,17 @@ html.scripting .paper-stage .math-display:not(:has(mjx-container)) {
   text-decoration: none;
 }
 .paper-stage a.math-ref:hover { text-decoration: underline; }
-.paper-stage a[href*="github.com"] {
+.paper-stage a[href*="github.com"],
+.paper-stage a[data-github],
+.paper-stage a[href^="#lean-module"] {
   color: inherit;
   text-decoration: underline dotted;
   text-decoration-color: color-mix(in srgb, var(--muted) 75%, transparent);
   text-underline-offset: 0.18em;
 }
-.paper-stage a[href*="github.com"]:hover {
+.paper-stage a[href*="github.com"]:hover,
+.paper-stage a[data-github]:hover,
+.paper-stage a[href^="#lean-module"]:hover {
   color: var(--accent);
   text-decoration-color: var(--accent);
 }
