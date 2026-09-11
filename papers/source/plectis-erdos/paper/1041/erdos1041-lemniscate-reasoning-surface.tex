@@ -103,8 +103,9 @@ critical-value budget alone does not bound its length.
 \begin{paperresult}{Solved families and two all-degree regimes}
 \textbf{Trinomials.} Theorem~\ref{res:trinomial-all-degree} settles the
 Erd\H{o}s--Herzog--Piranian conclusion for every monic trinomial in every
-degree, with a prescribed path and an unrestricted middle coefficient.  Its
-inequalities are checked by the Lean kernel.
+degree, with a prescribed path and an unrestricted middle coefficient.  The
+statement is ordinary mathematics; \texttt{PaperTrinomial.lean} is not in this
+checkout.
 \textbf{Separated critical values.}
 Theorem~\ref{res:critical-value-separation} bounds the length of the resolved
 inverse-ray connector at a simple isolated critical value, and
@@ -125,36 +126,33 @@ require another construction.  An admissible-hub selector is one sufficient
 route to the target; no characterization of every possible solution is proved.
 \end{paperresult}
 
-\externalreviewobject{The paper proves the Erd\H{o}s--Herzog--Piranian
-conclusion for every monic trinomial in every degree, with the radial
-inequalities kernel-checked; a quantitative connector at a separated simple
-critical value, whose threshold $S=2$ reaches every degree $n\ge3$ through
-P\'olya's area inequality and Crane's sharp polynomial-image bound; a short
-contained connector whenever the least critical-value modulus is at most
-$13/25$; a constant-factor connector of length at most $(71/10)\mu^{1/n}$
-inside $\{|f|\le2\mu\}$ with no hypothesis at all, together with arity and
-capacity corollaries that reach the target constant; the full degree-three
-case; a sharp all-degree collinear theorem; a complete primitive sparse
-quintic theorem; and translated cubic quotient-fibre theorems in every degree
-$3q$.  It also checks exponential Newton-value decay, positive-ray collision
-interfaces, finite translation avoidance, and quantified root retention, and
-records the current near-Fekete residual.}{The separation regime, the two
-threshold-free theorems, the degree-three theorem and the three solved-family
-assemblies are ordinary mathematics without kernel-checked authority.  The
-$13/25$ threshold, the $(71/10)$ constant and the degree-three theorem have no
-formal endpoint in the pinned corpus, and the regime $13/25<\mu<1$ is
-untouched by the threshold argument.  The separation argument excludes
-near-tied critical values and multiple saddles.  The checked dynamical and
-perturbative inputs do not repair the global topology and metric gluing in the
-complementary strata, so Problem~\#1041 remains open.  The degree-five target
-and the no-go witnesses are boundaries around the open theorem and close
-nothing.}{Comparator selects the trinomial theorem, the finite-family
-small-translation theorem, the quantified root-retention theorem and three
-solved-family kernels.  Critical-value separation, including its threshold
-analysis, has no corresponding formal endpoint in the pinned corpus.  Each
-formal endpoint routes to the exact paper result and boundary it supports; the
-covering-space and area argument and the frontier section remain ordinary
-evidence classes.}
+\externalreviewobject{The paper gives an ordinary all-degree path theorem for
+every monic trinomial, a separately ordinary sharp critical-value mean, a
+quantitative connector at a separated simple critical value whose threshold
+$S=2$ reaches every degree $n\ge3$, a short contained connector whenever the
+least critical-value modulus is at most $13/25$, a constant-factor connector
+of length at most $(71/10)\mu^{1/n}$ inside $\{|f|\le2\mu\}$, the full
+degree-three case, a sharp all-degree collinear theorem, a complete primitive
+sparse quintic theorem, and translated cubic quotient-fibre theorems in every
+degree $3q$.  Lean checks exponential Newton-value decay, positive-ray
+collision interfaces, finite translation avoidance, and quantified root
+retention.  Exact obstruction examples, including a Cassini counterexample to
+the printed global tree budget, show why those estimates cannot be promoted to
+a general connector theorem.}{The trinomial paths, the Poisson critical-value
+mean, the separation regime, the two threshold-free theorems, the
+degree-three theorem and the solved-family path assemblies are ordinary
+mathematics.  The $13/25$ threshold, the $(71/10)$ constant and the
+degree-three theorem have no formal endpoint in the pinned corpus, and the
+regime $13/25<\mu<1$ is untouched by the threshold argument.  The checked
+dynamical and perturbative inputs do not construct unrestricted connectors, so
+Problem~\#1041 remains open.  A reported degree-seven counterexample
+announcement is a separate external claim, not a theorem of this record.}
+{Comparator checks three solved-family kernels (collinear, primitive quintic,
+translated cubic fibres), not the ordinary length-below-two assemblies.
+Critical-value separation, including its threshold analysis, has no
+corresponding formal endpoint in the pinned corpus.  \texttt{PaperTrinomial.lean}
+and \texttt{PaperCriticalValueMeanR10.lean} are not cited as kernel-checked
+complete statements.}
 
 The two selected perturbation interfaces have the following exact boundaries.
 For a finite type $\iota$, an injective family of critical values
@@ -216,9 +214,9 @@ observed that the invocation of Lemma~8 there is unjustified and that the flow
 lines need not organise into connected trees, and on 26 March 2026 the
 manuscript's author agreed that the statement of Proposition~12 itself, not
 only its printed proof, is incorrect, and set the strategy aside.  Section~\ref{sec:gap}
-records an independent diagnosis of the same failure through the local
-three-ended saddle model, together with possible repairs.  No counterexample
-to the proposition is exhibited there.  Pendyala's independent June 2026
+records an independent diagnosis of the same local saddle defect, together
+with the Cassini obstruction to the printed global tree budget.  That
+obstruction refutes the load-bearing metric estimate, not Erdős \#1041.  Pendyala's independent June 2026
 preprint \cite[Thm.~1, p.~1]{june2026} proves the degree-four case through a
 finite four-point radial lemma and a short polygonal connector.  That is the
 degree-four result directly comparable to the root-pair problem. Together
@@ -244,13 +242,13 @@ We study the Newton flow whose trajectories foliate the lemniscate.
 Statement & Status & Exact boundary \\
 \midrule
 Erd\H{o}s \#1041 & Open & No proof is claimed. \\
-Every monic trinomial $z^n+az^m+b$ & Kernel-checked inequalities; ordinary concatenation & $1\le m<n$ and every zero in the open unit disc; the middle coefficient is unrestricted and $|b|<1$ comes from Vieta.  Lean checks the two radial inequalities and the metric budget; joining the two segments into one path is an ordinary step.  Two intermediate coefficients break the radial mechanism. \\
+Every monic trinomial $z^n+az^m+b$ & Ordinary all-degree theorem & $1\le m<n$ and every zero in the open unit disc; the middle coefficient is unrestricted and $|b|<1$ comes from Vieta.  The radial inequalities and the two-segment path are ordinary mathematics; \texttt{PaperTrinomial.lean} is not in this checkout.  Two intermediate coefficients break the radial mechanism. \\
 Separated critical value, $S=2$, $n\ge3$ & Ordinary all-degree theorem & A simple selected saddle with $|1-f(d)/v|\ge2$ at every other critical point; the continuation, injectivity and area arguments are ordinary, and near ties and multiple saddles are excluded.  No existence of a separated critical value is asserted. \\
 Low critical value $\mu\le13/25$ & Ordinary all-degree theorem with an exact rational certificate & Squarefree monic, $n\ge2$, least critical-value modulus at most $13/25$; no hypothesis on root locations, component arity or component capacity.  The analytic chain and the certificate are ordinary; nothing here is Lean-checked; the regime $13/25<\mu<1$ is untouched. \\
 Unconditional constant factor $(71/10)\mu^{1/n}$ & Ordinary all-degree theorem & Monic, $n\ge2$, no further hypothesis; containment is $\{|f|\le2\mu\}$; the target set is $\{|f|<1\}$, and the constant $71/10$ exceeds the target $2$.  Degree two is the separate exact case with constant $2$. \\
 Degree three & Ordinary theorem, complete for that degree & Roots in the open unit disc, listed with multiplicity; the two selected roots are distinct in the squarefree case.  The spoke identity and its norm bound have a Lean companion in the research corpus, outside the pinned formal-source library. \\
 Critical-value separation, general $S$ & Ordinary all-degree theorem & A simple nonzero hub and $(2S^2/n)^{1/n}\log(S/(S-1))<1$; the threshold, covering and area arguments remain ordinary; near ties and multiple saddles are excluded. \\
-Critical-value budget in every degree & Ordinary theorem; checked analytic assembly & $\sum_j|f(c_j)|^{1/n}\le(n-1)R$ for every $n\ge2$ and $R\ge0$; the repaired aggregate, smoke, and 320 named axiom prints pass. No inverse-ray length estimate is implied. \\
+Critical-value budget in every degree & Ordinary theorem & $\sum_j|f(c_j)|^{1/n}\le(n-1)R$ for every $n\ge2$ and $R\ge0$, with the sharper Poisson mean $\sum_j|f(c_j)|^{2/(n-1)}\le n-1$ on the closed unit disc.  The complete mean is ordinary mathematics, not a kernel-checked assembly of \texttt{PaperCriticalValueMeanR10.lean}.  No inverse-ray length estimate is implied. \\
 Coefficient energy to path length & Checked & Termwise differentiation and the length integral of the actual power series; the inverse branch and area bound must be supplied. \\
 Uniform central free-point region & Checked & Every positive number of points; $|c_i|\le\sqrt{1-e^{-2}}$, with no additional series hypotheses. \\
 Newton value equation $w'=-w$ & Checked & Away from critical points, along any trajectory tangent to $-f/f'$. \\
@@ -261,7 +259,7 @@ Quartic case & Cited & Proved in \cite[Thm.~1, p.~1]{june2026}; does not extend 
 Translated quartic quotient fibres & Ordinary theorem with a Lean-checked metric kernel & For $f(z)=P((z-h)^q)$, $P$ monic quartic and $q\ge2$; Pendyala supplies the quartic geometry, while Lean checks the root-lift density, exact primitive, and strict endpoint budget. \\
 Signed-moment cyclic tetranomials & Lean-checked two-index safe-spoke theorem & For an indexed finite root family of $g(w)=w^m+aw^r+bw^s+c$, an exact signed $L^2$ moment budget selects two distinct indices whose complete spokes are safe; distinct root values require injectivity of the indexing map. \\
 Concyclic zeros with $2\rho^n\le1$ & Ordinary proof; finite exact and numerical checks & Distinct-root theorem; not Lean checked; the unrestricted concyclic case remains open. \\
-Unrestricted proof of \cite[Theorem~1, p.~1]{march2026} & Proof gap & Proposition~12 uses a false three-ended local saddle block; located publicly by Tao (25 March 2026), conceded by the author at statement level (26 March 2026).  No counterexample is exhibited. \\
+Unrestricted proof of \cite[Theorem~1, p.~1]{march2026} & Printed tree budget false & Proposition~12 uses a false three-ended local saddle block, and the Cassini polynomial $z^2-a^2$ at $a=9/10$ refutes the printed $1/(2\pi)$ spanning-tree estimate.  A different route cannot retain that coefficient.  This does not refute Erdős \#1041. \\
 Constant-translation ray separation and root retention & Checked & After critical-value injectivity, arbitrary small ray avoidance and an explicit unit-disc margin. \\
 Coefficient perturbation and slack stability & Open & Must first create injective critical values and preserve the component, collars and length budget. \\
 Reeb decomposition and length fan-in & Open & The two surviving producers. \\
@@ -1780,14 +1778,13 @@ stronger bound
 \[
  \sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}.
 \]
-The checked endpoints are the
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101}{critical-value mean identity}
-and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L121}{all-degree critical-value power budget};
-the
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L85}{critical-disc moment bound}
-gives all moments $0<t\le2/(n-1)$. Their source-bound compilation and named
-axiom checks pass.
+The displayed mean, and the stronger Poisson form
+\[
+ \sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)},
+\]
+are ordinary mathematics in this record.
+\texttt{PaperCriticalValueMeanR10.lean} is not cited as a kernel-checked
+complete statement.
 
 The stronger exponent controls concentration of the critical values.
 For $R>0$, write $r_j=|f(c_j)|^{1/n}$ and $p=n/(n-1)$. Then
@@ -2175,6 +2172,22 @@ $G_\varepsilon\subset V$ with
 The final theorem uses this estimate, so the issue below cannot be bypassed by
 calling the proposition auxiliary.
 
+The estimate itself is false.  Take the Cassini polynomial
+$f_a(z)=z^2-a^2$ at $a=9/10$.  Its component contains the two roots at distance
+$9/5$ and satisfies the relevant Morse and critical-value hypotheses.  Direct
+level-length calculation gives the upper majorant
+\[
+  4\bigl(\sqrt{a^2+a}-a\bigr)<\frac{41}{25}
+\]
+for the right side of~\eqref{eq:prop12-bound} before $\varepsilon$, whereas
+every connected set containing both roots has length at least $9/5$.  Since
+$9/5-41/25=4/25$, choosing a smaller positive $\varepsilon$ contradicts the
+assertion.  Thus neither a different local saddle neighbourhood nor a perfect
+topological decomposition can recover the printed coefficient $1/(2\pi)$.
+The exact inequality and its abstract tree-budget contradiction are checked in
+\texttt{ErdosProblems.Erdos1041.CassiniTreeBudget}; the level-length majorant is
+an explicit analytic input, not a kernel-checked integral evaluation.
+
 At an interior index-one critical point $p$, the proof invokes a Morse chart
 \[
  u=\mu+x^2-y^2
@@ -2187,13 +2200,14 @@ has four sectors: two components of $u>\mu$ and two components of $u<\mu$.
 A global component argument cannot delete one local sector from a disc already
 contained in $V$.
 
-This diagnoses a proof step, not the proposition's statement.  A repair might
+This independently diagnoses a proof step, but the Cassini witness above also
+refutes the proposition's printed metric statement.  A different route might
 cut an adjoining regular annulus along a separatrix or regular flow arc before
 forming the block, retain a four-pronged saddle neighbourhood and change the
 assembly, or replace the local construction by the ray-cut decomposition
-proposed below.  Any repair must prove that its connector cost can be made
-arbitrarily small uniformly in the attachment points and that the repaired
-blocks still assemble to an embedded tree satisfying~\eqref{eq:prop12-bound}.
+proposed below.  But no repair can retain~\eqref{eq:prop12-bound}; it must pay a
+positive attachment cost, select only one short pair instead of spanning every
+root, or use a different global metric inequality.
 The shorter descriptions of the same three-ended block do not repair the
 four-sector topology.
 
@@ -2243,16 +2257,13 @@ decisive answer to any one of them.
 \subsection*{1. Repair or refute the saddle block}
 
 \begin{problem}[corrected local saddle assembly]\label{prob:saddle1041}
-Under the hypotheses of Proposition~12, replace the invalid three-ended local
-model by a four-pronged block or by a block formed after a specified annular
-cut.  Prove that for every $\eta>0$ its connector has total Euclidean length
-below $\eta$, uniformly over the selected attachment points, and that the
-corrected blocks assemble to an embedded tree satisfying
-\[
- \operatorname{len}(G_\varepsilon)
- \le\frac1{2\pi}\int_{2\alpha}^{\infty}P_V(t)\,dt+\varepsilon;
-\]
-or give a polynomial or harmonic planar counterexample to that statement.
+The printed $1/(2\pi)$ spanning-tree estimate of Proposition~12 is false: the
+Cassini polynomial $z^2-a^2$ at $a=9/10$ makes the proposed tree budget
+strictly shorter than the distance between its roots.  Any later argument must
+pay a positive attachment cost, select only one short pair instead of spanning
+every root, or use a different global metric inequality.  A four-pronged or
+cut-annulus local model may still be useful for another estimate, but it cannot
+recover~\eqref{eq:prop12-bound}.
 \end{problem}
 
 The full-disc model $x^2-y^2$, an annulus in which lower branches rejoin, two
@@ -2432,7 +2443,7 @@ every degree and is conditional on the critical-value separation $S$, with the
 threshold $S=2$ reaching every degree $n\ge3$ by
 Corollary~\ref{res:critical-value-thresholds}.
 Theorem~\ref{res:trinomial-all-degree} settles the whole trinomial family in
-every degree, and its radial inequalities are kernel-checked.  All five are
+every degree by an ordinary radial argument.  All five are
 ordinary proofs at the level of the assembled path.  Their Lean companions check named numerical, algebraic and
 power-series steps inside them, the degree-three companion lies outside the
 pinned formal-source library and carries no kernel receipt in this release,
@@ -2451,9 +2462,9 @@ core is the Newton value equation, the exponential first integral, the consumer
 form of ray separation, the finite planar-avoidance theorem, quantitative
 constant-translation root retention, and the ray-collision parameterisation.  The
 decomposition and length statements of \S\ref{sec:open} are not proved.  The
-diagnosis of Proposition~12 in \S\ref{sec:gap} concerns its printed local
-saddle construction; it does not refute the proposition's statement.  The
-search results of \S\ref{sec:finite} are computations.
+diagnosis of Proposition~12 in \S\ref{sec:gap} records both the invalid local
+saddle block and the Cassini obstruction to the printed global tree budget.
+The search results of \S\ref{sec:finite} are computations.
 
 \appendix
 \section{Guide to the formal sources}\label{app:sources}

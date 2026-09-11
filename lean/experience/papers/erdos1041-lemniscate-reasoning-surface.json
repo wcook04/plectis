@@ -7,7 +7,7 @@
   "form": "Reasoning surface",
   "pages": 46,
   "question": "What is the complete Newton-flow, structured-family, and proof-gap record for Erdős #1041, and what global gluing remains?",
-  "precis": "A claim-bounded complete reasoning record for Erdős #1041. It retains Newton-flow decay, ray separation, translation geometry, root retention, solved structured families, the diagnosed saddle-argument defect, and every registered family. The general spanning-tree topology and metric gluing remain open.",
+  "precis": "A longer record of the same programme: ordinary all-degree trinomial paths, a sharp critical-value mean, solved-family kernels, Newton-flow checks, and exact obstructions including a Cassini counterexample to the printed global tree budget. It does not resolve unrestricted Erdős #1041.",
   "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
   "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
   "problem_id": "erdos_1041",
