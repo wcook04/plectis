@@ -258,7 +258,7 @@
       "pdf_byte_count": 106440,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:problem",
@@ -558,17 +558,22 @@
       "pdf_byte_count": 196740,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
-            "id": "sec:problem",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long68:sec:carry",
+            "title": "Carries and the rationality boundary",
+            "line": 211
           },
           {
-            "id": "sec:open",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long68:sec:finite",
+            "title": "Finite denominator exclusions",
+            "line": 688
+          },
+          {
+            "id": "long68:sec:open",
+            "title": "The remaining arithmetic inputs",
+            "line": 725
           },
           {
             "id": "sec:erdos-68-complete-family-map",
@@ -576,7 +581,7 @@
             "line": 1149
           }
         ],
-        "unresolved_count": 2
+        "unresolved_count": 0
       }
     },
     {
@@ -733,7 +738,7 @@
       "pdf_byte_count": 101394,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:problem",
@@ -744,6 +749,11 @@
             "id": "sec:bounded",
             "title": "Proof of bounded-negative rigidity",
             "line": 83
+          },
+          {
+            "id": "sec:barrier",
+            "title": "The first-crossing obstruction",
+            "line": 165
           },
           {
             "id": "sec:open",
@@ -1250,22 +1260,22 @@
       "pdf_byte_count": 283167,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
-            "id": "sec:problem",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long243:sec:cubicrate",
+            "title": "An unconditional irrationality theorem",
+            "line": 39
           },
           {
-            "id": "sec:bounded",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long243:sec:bounded",
+            "title": "Excluding a bounded negative part",
+            "line": 1316
           },
           {
-            "id": "sec:open",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long243:sec:open",
+            "title": "Complements and further questions",
+            "line": 1409
           },
           {
             "id": "sec:erdos-243-complete-family-map",
@@ -1273,7 +1283,7 @@
             "line": 1675
           }
         ],
-        "unresolved_count": 3
+        "unresolved_count": 0
       }
     },
     {
@@ -1398,7 +1408,7 @@
       "pdf_byte_count": 108537,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:results",
@@ -1406,17 +1416,22 @@
             "line": 13
           },
           {
-            "id": "sec:ask",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "sec:carry-rank",
+            "title": "The actual series and the remaining residue gap",
+            "line": 190
           },
           {
-            "id": "sec:open",
-            "title": "Antecedents and proof record",
-            "line": 354
+            "id": "sec:frontier",
+            "title": "A single canonical endpoint",
+            "line": 270
+          },
+          {
+            "id": "sec:nogo",
+            "title": "Information that does not force the gap",
+            "line": 313
           }
         ],
-        "unresolved_count": 1
+        "unresolved_count": 0
       }
     },
     {
@@ -2371,8 +2386,13 @@
       "pdf_byte_count": 732000,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
+          {
+            "id": "the-unconditional-record",
+            "title": "The unconditional record",
+            "line": 80
+          },
           {
             "id": "sec:wall",
             "title": "The wall",
@@ -2382,6 +2402,11 @@
             "id": "sec:survivors",
             "title": "What the wall does not block",
             "line": 338
+          },
+          {
+            "id": "what-is-open-stated-exactly",
+            "title": "What is open, stated exactly",
+            "line": 4552
           }
         ],
         "unresolved_count": 0
@@ -2595,7 +2620,7 @@
       "pdf_byte_count": 144438,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:problem",
@@ -2608,9 +2633,9 @@
             "line": 376
           },
           {
-            "id": "sec:no-go",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "sec:local-certificate",
+            "title": "Two adjacent small shifts cannot both be integral",
+            "line": 553
           },
           {
             "id": "sec:open",
@@ -2618,7 +2643,7 @@
             "line": 665
           }
         ],
-        "unresolved_count": 1
+        "unresolved_count": 0
       }
     },
     {
@@ -2979,13 +3004,8 @@
       "pdf_byte_count": 223191,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
-          {
-            "id": "long251:sec:problem",
-            "title": "Introduction",
-            "line": 36
-          },
           {
             "id": "long251:sec:tail",
             "title": "The tail recurrence and the exact criteria",
@@ -3170,12 +3190,17 @@
       "pdf_byte_count": 131057,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
-            "id": "sec:period",
-            "title": "Finite-support denominator periods",
-            "line": 278
+            "id": "sec:problem",
+            "title": "Introduction and main results",
+            "line": 15
+          },
+          {
+            "id": "sec:reciprocal-support",
+            "title": "Reciprocal-summable supports at every integer base",
+            "line": 69
           },
           {
             "id": "sec:map",
@@ -3183,17 +3208,12 @@
             "line": 320
           },
           {
-            "id": "sec:ask",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
-          },
-          {
             "id": "sec:open",
             "title": "Further questions",
             "line": 422
           }
         ],
-        "unresolved_count": 1
+        "unresolved_count": 0
       }
     },
     {
@@ -4076,7 +4096,7 @@
       "pdf_byte_count": 667155,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:257-problem",
@@ -4092,6 +4112,11 @@
             "id": "sec:257-survivors",
             "title": "What the wall does not block",
             "line": 353
+          },
+          {
+            "id": "what-is-open-stated-exactly",
+            "title": "What is open, stated exactly",
+            "line": 3652
           }
         ],
         "unresolved_count": 0
@@ -4389,27 +4414,22 @@
       "pdf_byte_count": 224016,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
-            "id": "sec:problem",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long269:sec:problem",
+            "title": "The problem, and what is settled",
+            "line": 19
           },
           {
-            "id": "sec:lcm",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long269:sec:rank",
+            "title": "The rank phase transition",
+            "line": 245
           },
           {
-            "id": "sec:escape",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
-          },
-          {
-            "id": "sec:open",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long269:sec:open",
+            "title": "The remaining arithmetic questions",
+            "line": 801
           },
           {
             "id": "sec:erdos-269-complete-family-map",
@@ -4417,7 +4437,7 @@
             "line": 1125
           }
         ],
-        "unresolved_count": 4
+        "unresolved_count": 0
       }
     },
     {
@@ -4562,12 +4582,17 @@
       "pdf_byte_count": 102571,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:problem",
             "title": "Introduction",
             "line": 13
+          },
+          {
+            "id": "sec:rank",
+            "title": "The binary carry and arbitrary-order rank",
+            "line": 30
           },
           {
             "id": "sec:lcm",
@@ -4578,14 +4603,9 @@
             "id": "sec:escape",
             "title": "A window test and the remaining arithmetic",
             "line": 343
-          },
-          {
-            "id": "sec:open",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
           }
         ],
-        "unresolved_count": 1
+        "unresolved_count": 0
       }
     },
     {
@@ -4832,17 +4852,17 @@
       "pdf_byte_count": 148691,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
-            "id": "sec:problem",
-            "title": "The problem and the general regimes",
-            "line": 64
+            "id": "sec:trinomial",
+            "title": "Monic trinomials, in every degree",
+            "line": 13
           },
           {
-            "id": "sec:newton",
-            "title": "The Newton value equation",
-            "line": 373
+            "id": "sec:constant-factor",
+            "title": "Low critical values and a uniform path bound",
+            "line": 80
           },
           {
             "id": "sec:gap",
@@ -5270,27 +5290,22 @@
       "pdf_byte_count": 283077,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
-            "id": "sec:problem",
-            "title": "The problem",
-            "line": 53
+            "id": "sec:low-critical-closure",
+            "title": "An unconditional regime: a small least critical value",
+            "line": 178
           },
           {
-            "id": "sec:newton",
-            "title": "The Newton value equation",
-            "line": 1225
+            "id": "sec:solved-polynomial-families",
+            "title": "Three exact solved polynomial families",
+            "line": 618
           },
           {
             "id": "sec:gap",
             "title": "A proof gap in the unrestricted argument",
             "line": 1283
-          },
-          {
-            "id": "sec:open",
-            "title": "Complements and further questions",
-            "line": 1326
           },
           {
             "id": "sec:erdos-1041-complete-family-map",
@@ -5455,7 +5470,7 @@
       "pdf_byte_count": 117596,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:problem",
@@ -5463,14 +5478,14 @@
             "line": 19
           },
           {
-            "id": "sec:primitive",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "sec:rational-base-irrationality",
+            "title": "A rational base at which F is irrational",
+            "line": 39
           },
           {
-            "id": "sec:endpoints",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "sec:hankel-order",
+            "title": "Exact normalized-Hankel order in Zudilin\u2019s construction",
+            "line": 293
           },
           {
             "id": "sec:open",
@@ -5478,7 +5493,7 @@
             "line": 375
           }
         ],
-        "unresolved_count": 2
+        "unresolved_count": 0
       }
     },
     {
@@ -5881,27 +5896,22 @@
       "pdf_byte_count": 297611,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
-            "id": "sec:problem",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long1049:sec:region",
+            "title": "The region b^{\\mu}<a and the base 31/4",
+            "line": 155
           },
           {
-            "id": "sec:primitive",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long1049:sec:hankel-order",
+            "title": "The sharp q-order of the normalised Hankel determinant",
+            "line": 685
           },
           {
-            "id": "sec:endpoints",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
-          },
-          {
-            "id": "sec:open",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long1049:sec:open",
+            "title": "Complements and further questions",
+            "line": 1403
           },
           {
             "id": "sec:erdos-1049-complete-family-map",
@@ -5909,7 +5919,7 @@
             "line": 1655
           }
         ],
-        "unresolved_count": 4
+        "unresolved_count": 0
       }
     },
     {
@@ -6240,7 +6250,7 @@
       "pdf_byte_count": 140892,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:lifecycle",
@@ -6248,9 +6258,14 @@
             "line": 98
           },
           {
-            "id": "sec:public",
-            "title": "The public Lean repository",
-            "line": 316
+            "id": "sec:mathloop",
+            "title": "The mathematical reasoning loop",
+            "line": 226
+          },
+          {
+            "id": "sec:example",
+            "title": "One complete boundary: finite is not unbounded",
+            "line": 390
           },
           {
             "id": "sec:routes",
@@ -6438,7 +6453,7 @@
       "pdf_byte_count": 83169,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:problem",
@@ -6446,9 +6461,9 @@
             "line": 31
           },
           {
-            "id": "sec:layers",
-            "title": "Four views of the mathematical library",
-            "line": 49
+            "id": "sec:tour",
+            "title": "A short tour with exact follow-up queries",
+            "line": 84
           },
           {
             "id": "sec:authority",
@@ -6456,9 +6471,9 @@
             "line": 110
           },
           {
-            "id": "sec:incremental",
-            "title": "Compilation after comprehension",
-            "line": 131
+            "id": "sec:dogfood",
+            "title": "A replayed case study",
+            "line": 143
           },
           {
             "id": "sec:limits",
@@ -6701,17 +6716,12 @@
       "pdf_byte_count": 133310,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:strategy",
             "title": "The strategy",
             "line": 33
-          },
-          {
-            "id": "sec:object",
-            "title": "The public research object",
-            "line": 153
           },
           {
             "id": "sec:protocol",
@@ -6724,14 +6734,9 @@
             "line": 216
           },
           {
-            "id": "sec:security",
-            "title": "Running contributed code safely",
-            "line": 290
-          },
-          {
-            "id": "sec:growth",
-            "title": "Participation and growth",
-            "line": 364
+            "id": "sec:local-to-general",
+            "title": "The local-to-general track",
+            "line": 462
           },
           {
             "id": "sec:limits",
@@ -6979,7 +6984,7 @@
       "pdf_byte_count": 127739,
       "first_pass": {
         "stated_by_the_paper": false,
-        "provenance": "editorial selection; this paper states no reading route of its own",
+        "provenance": "editorial selection for this guide",
         "sections": [
           {
             "id": "sec:problem",
@@ -6987,9 +6992,19 @@
             "line": 15
           },
           {
+            "id": "sec:early-example",
+            "title": "One public test before the general design",
+            "line": 55
+          },
+          {
             "id": "sec:distinctions",
             "title": "Five distinctions",
             "line": 168
+          },
+          {
+            "id": "sec:stronger",
+            "title": "What stronger evidence would look like",
+            "line": 283
           }
         ],
         "unresolved_count": 0
