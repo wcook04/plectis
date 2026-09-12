@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from microcosm_core.skeptic_flight_recorder import (
@@ -206,9 +207,14 @@ def test_skeptic_flight_recorder_is_publicly_discoverable() -> None:
         "$(FLIGHT_RECORDER_VERIFY_DIR) --root ."
     ) in makefile
 
-    assert "make flight-recorder" in readme
-    assert "make flight-recorder-verify" in readme
-    assert "without rerunning the substrate" in readme
-    assert "blocked/non-zero commands as preserved evidence" in readme
-    assert "does not authorize release, standards" in readme
-    assert "provider calls, proof correctness" in readme
+    # The README links to the runnable instructions; it need not repeat the
+    # maintainer commands. Require an actual link and inspect its destination.
+    guide_ref = "docs/maintainers/validation.md"
+    assert re.search(rf"\[[^\]\n]+\]\({re.escape(guide_ref)}(?:#[^)\s]+)?\)", readme)
+    guide = (MICROCOSM_ROOT / guide_ref).read_text(encoding="utf-8")
+    assert "make flight-recorder" in guide
+    assert "make flight-recorder-verify" in guide
+    normalized_guide = " ".join(guide.split())
+    assert "without rerunning the substrate" in normalized_guide
+    assert "blocked/non-zero command evidence" in normalized_guide
+    assert "does not authorize release" in normalized_guide
