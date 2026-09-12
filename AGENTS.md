@@ -55,7 +55,7 @@ inventory: the components show what runs, and the papers state what may be
 concluded from that, which is the narrower thing.
 
 **Asked to turn an open question into an expert handoff?** Read
-[`HYPOTHESIS_HANDOFF.md`](HYPOTHESIS_HANDOFF.md), then validate the worked
+[`docs/guides/hypothesis-handoffs.md`](docs/guides/hypothesis-handoffs.md), then validate the worked
 packet with:
 
 ```bash

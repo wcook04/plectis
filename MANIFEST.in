@@ -10,11 +10,11 @@ include AXIOMS.md
 include CHANGELOG.md
 include CITATION.cff
 include CLAUDE.md
-include CONSTITUTION.md
+include docs/governance/public-boundary.md
 include CONTRIBUTING.md
 include FIRST_ACTION.md
 include GEMINI.md
-include HYPOTHESIS_HANDOFF.md
+include docs/guides/hypothesis-handoffs.md
 include LICENSE
 include Makefile
 include NOTICE
@@ -22,7 +22,7 @@ include ORGANS.md
 include PRINCIPLES.md
 include PROVENANCE.md
 include QUICKSTART.md
-include RELEASE_DISCIPLINE.md
+include docs/governance/release-discipline.md
 include RELEASE_REVIEW.md
 include README.md
 include SECURITY.md

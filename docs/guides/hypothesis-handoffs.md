@@ -8,7 +8,7 @@ references between records, then prints it in a readable form.
 
 ## The worked question
 
-The [example file](examples/hypothesis_handoff/independent_evaluation.json)
+The [example file](../../examples/hypothesis_handoff/independent_evaluation.json)
 asks whether evaluator-selected cases would expose a different Plectis failure
 profile from the example cases supplied by the author. The tentative leading hypothesis
 is that they would reveal more failures and more kinds of failure. The
@@ -27,7 +27,7 @@ intentionally weaker than claiming that an independent evaluation has occurred.
 ## Run the example
 
 Use Python 3.11 or newer from the clone root. No package installation or model
-account is needed. The [quickstart](QUICKSTART.md#1-first-result) gives the clone
+account is needed. The [quickstart](../../QUICKSTART.md#1-first-result) gives the clone
 command and shell setup. In a macOS/Linux shell or WSL, run:
 
 ```sh
@@ -58,7 +58,7 @@ In the file, a *discriminator* is a proposed observation or experiment that
 the author thinks would distinguish hypotheses. A *result map* lists possible
 outcomes and the hypothesis IDs each would support.
 
-The [validator](src/microcosm_core/hypothesis_handoff.py) requires:
+The [validator](../../src/microcosm_core/hypothesis_handoff.py) requires:
 
 - nonempty required fields, a leading hypothesis marked `tentative`, and
   entries describing support and contrary or missing observations;
@@ -95,9 +95,9 @@ Your current expectation is not itself evidence. The command does not estimate
 a probability or change a claim's status. Independently verify and review an
 expert's response before using it to change a public claim. The `declared_gap`
 field describes one known gap, following the
-[Self-Ignorance Coverage Ledger](paper_modules/self_ignorance_coverage_ledger.md):
+[Self-Ignorance Coverage Ledger](../../paper_modules/self_ignorance_coverage_ledger.md):
 naming one known gap must never imply that no other gap exists.
 
-The [existing tests](tests/test_hypothesis_handoff.py) include invalid IDs,
+The [existing tests](../../tests/test_hypothesis_handoff.py) include invalid IDs,
 missing outcomes and paths containing `..`. For other examples, return to the
-[documentation index](docs/README.md).
+[documentation index](../README.md).

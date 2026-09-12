@@ -58,11 +58,9 @@ where = ["src"]
   "ARCHITECTURE.md",
   "AXIOMS.md",
   "CLAUDE.md",
-  "CONSTITUTION.md",
   "CONTRIBUTING.md",
   "FIRST_ACTION.md",
   "GEMINI.md",
-  "HYPOTHESIS_HANDOFF.md",
   "LICENSE",
   "MANIFEST.in",
   "Makefile",
@@ -71,7 +69,6 @@ where = ["src"]
   "PRINCIPLES.md",
   "PROVENANCE.md",
   "QUICKSTART.md",
-  "RELEASE_DISCIPLINE.md",
   "RELEASE_REVIEW.md",
   "README.md",
   "SECURITY.md",
@@ -79,6 +76,8 @@ where = ["src"]
   "bootstrap.sh",
   "pyproject.toml"
 ]
+"share/plectis/docs/governance" = ["docs/governance/*.md"]
+"share/plectis/docs/guides" = ["docs/guides/*.md"]
 "share/plectis/examples/hypothesis_handoff" = ["examples/hypothesis_handoff/*.json"]
 "share/plectis/.github" = [".github/PULL_REQUEST_TEMPLATE.md", ".github/copilot-instructions.md"]
 "share/plectis/.github/workflows" = [".github/workflows/*.yml"]
