@@ -25,6 +25,7 @@ _LINKED_SIBLINGS = (
     "ARCHITECTURE.md",
     "docs/papers/README.md",
     "docs/README.md",
+    "docs/UNDERSTANDING_PLECTIS.md",
     "ORGANS.md",
     "AGENTS.md",
     "RELEASE_REVIEW.md",

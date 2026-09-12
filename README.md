@@ -67,16 +67,19 @@ one runnable part of the toolkit; a receipt is the file recording what happened
 when it ran. The [component browser](https://wcook04.github.io/plectis/docs/components.html)
 lets you pick a part that interests you and see its input, code and result.
 
-For software engineers and computer scientists, [Architecture](ARCHITECTURE.md)
-explains how the parts fit together. If you work on AI agents or evaluations,
+For software engineers and computer scientists, [Understanding Plectis](docs/UNDERSTANDING_PLECTIS.md)
+follows one example from input through code, result and checks. The
+[architecture map](ARCHITECTURE.md) shows the wider implementation.
+If you work on AI agents or evaluations,
 start with [agent reliability and safety replays](ORGANS.md#agent-reliability--safety-replays):
 worked cases of failures such as prompt injection and poisoned memory, with
 local checks. Each case says how much its example can establish.
 
 For mathematics, go straight to the [Lean companion](https://github.com/wcook04/plectis-erdos).
 It has the problem papers and proofs, and its own reading guide. You can read
-either repository on its own. The [full route map](#choose-a-route) below
-also covers papers, source review and contributions.
+either repository on its own. The [documentation hub](docs/README.md) gives
+the reading order for explanations, tutorials and technical reference. The
+[full route map](#choose-a-route) below also covers papers, source review and contributions.
 
 ## What you get
 
@@ -239,7 +242,7 @@ read.
 | You want to | Go to | What you get |
 |---|---|---|
 | Run the first local example | [Quickstart](QUICKSTART.md) | The shortest path to a working local run. |
-| Understand how it works | [Architecture](ARCHITECTURE.md) | The runtime loop, the evidence loop, and the component families. |
+| Understand how it works | [Understanding Plectis](docs/UNDERSTANDING_PLECTIS.md), then [Architecture](ARCHITECTURE.md) | One example through the code and its checks, followed by the complete implementation map. |
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
 | Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | Every component's real mechanism, one line each. |
 | Verify a specific claim before trusting it | `comprehend --first-action` | The owning component, its authority ceiling, and the command that tests it. |
