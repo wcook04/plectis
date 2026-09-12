@@ -2982,24 +2982,24 @@
         "provenance": "editorial selection; this paper states no reading route of its own",
         "sections": [
           {
-            "id": "sec:problem",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long251:sec:problem",
+            "title": "Introduction",
+            "line": 36
           },
           {
-            "id": "sec:tail",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long251:sec:tail",
+            "title": "The tail recurrence and the exact criteria",
+            "line": 229
           },
           {
-            "id": "sec:no-go",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long251:sec:obstructions",
+            "title": "What cannot supply the missing input",
+            "line": 523
           },
           {
-            "id": "sec:open",
-            "resolved": false,
-            "reason": "label not present in the current manuscript"
+            "id": "long251:sec:open",
+            "title": "The remaining obligation",
+            "line": 769
           },
           {
             "id": "sec:erdos-251-complete-family-map",
@@ -3007,7 +3007,7 @@
             "line": 1105
           }
         ],
-        "unresolved_count": 4
+        "unresolved_count": 0
       }
     },
     {
@@ -5949,7 +5949,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/claim-faithful-publication-systems-paper.md",
       "local_source": "docs/papers/mirror/claim-faithful-publication-systems-paper.tex",
-      "source_sha256": "sha256:65e0568a4e9bf919a0ab2ab8fb244fc8e1cadf04d1193ac68e763c6a48d0b8de",
+      "source_sha256": "sha256:b9545fb66986ec0a316b37c3d5660c82ecf4f4bb21ef47a5e85575eba75e41d5",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex",
@@ -5970,8 +5970,8 @@
         },
         {
           "level": 4,
-          "id": "the-novelty-claim-and-its-ceiling.",
-          "title": "The novelty claim and its ceiling.",
+          "id": "contribution-and-scope.",
+          "title": "Contribution and scope.",
           "line": 57
         },
         {
@@ -5982,14 +5982,14 @@
         },
         {
           "level": 4,
-          "id": "a-problem-is-a-mathematical-world-not-a-folder.",
-          "title": "A problem is a mathematical world, not a folder.",
+          "id": "problem-neighbourhoods.",
+          "title": "Problem neighbourhoods.",
           "line": 69
         },
         {
           "level": 4,
-          "id": "authority-is-separated-before-it-is-recombined.",
-          "title": "Authority is separated before it is recombined.",
+          "id": "separate-permissions-and-evidence.",
+          "title": "Separate permissions and evidence.",
           "line": 75
         },
         {
@@ -6060,14 +6060,14 @@
         },
         {
           "level": 4,
-          "id": "failure-modes-are-mathematical-outputs.",
-          "title": "Failure modes are mathematical outputs.",
+          "id": "negative-evidence.",
+          "title": "Negative evidence.",
           "line": 244
         },
         {
           "level": 2,
-          "id": "three-oracles-not-one",
-          "title": "Three oracles, not one",
+          "id": "status-formal-acceptance-and-mathematical-judgement",
+          "title": "Status, formal acceptance, and mathematical judgement",
           "line": 250
         },
         {
@@ -6108,14 +6108,14 @@
         },
         {
           "level": 2,
-          "id": "comparator-an-exact-statement-firewall",
-          "title": "Comparator: an exact-statement firewall",
+          "id": "comparator-selected-statement-interfaces",
+          "title": "Comparator: selected statement interfaces",
           "line": 350
         },
         {
           "level": 2,
-          "id": "review-selection-and-what-the-palomar-registry-is-not",
-          "title": "Review selection, and what the Palomar registry is not",
+          "id": "review-selection-and-the-palomar-registry",
+          "title": "Review selection and the Palomar registry",
           "line": 358
         },
         {
@@ -6162,8 +6162,8 @@
         },
         {
           "level": 2,
-          "id": "the-no-go-graph-as-a-new-mathematical-object",
-          "title": "The no-go graph as a new mathematical object",
+          "id": "using-the-no-go-graph",
+          "title": "Using the no-go graph",
           "line": 524
         },
         {
@@ -6218,26 +6218,26 @@
           "level": 1,
           "id": "app:repro",
           "title": "Reproducibility",
-          "line": 592
+          "line": 590
         },
         {
           "level": 4,
           "id": "public-first-contact.",
           "title": "Public first contact.",
-          "line": 596
+          "line": 594
         },
         {
           "level": 4,
           "id": "source-versions-and-coverage.",
           "title": "Source versions and coverage.",
-          "line": 607
+          "line": 605
         }
       ],
       "citations_rendered": 18,
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/claim-faithful-publication-systems-paper.pdf",
-      "pdf_sha256": "sha256:f9b42369c2711eff28ae90c64867d15b115b5038309a7bef703fd385d05b9025",
-      "pdf_byte_count": 149236,
+      "pdf_sha256": "sha256:c52978bc22f5e3e8f808d3cdb7961b6f53a20b1e659f8e054c79b2cd90b8e20c",
+      "pdf_byte_count": 140892,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",
@@ -6506,7 +6506,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/open-source-mathematics-strategy.md",
       "local_source": "docs/papers/mirror/open-source-mathematics-strategy.tex",
-      "source_sha256": "sha256:11dab7fa4e76fd7642a961fec474e3587308e65681904fe639f1aa70329af2b2",
+      "source_sha256": "sha256:2d9a5105294b7a86d4af400299034d94a56a563479978947bce2943f0cbd995c",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex",
@@ -6533,8 +6533,8 @@
         },
         {
           "level": 2,
-          "id": "two-coupled-goals-not-one-endless-agent",
-          "title": "Two coupled goals, not one endless agent",
+          "id": "discovery-and-stewardship",
+          "title": "Discovery and stewardship",
           "line": 57
         },
         {
@@ -6588,13 +6588,13 @@
         {
           "level": 1,
           "id": "sec:security",
-          "title": "Distributed compute without distributed authority",
+          "title": "Running contributed code safely",
           "line": 290
         },
         {
           "level": 1,
           "id": "sec:prior",
-          "title": "Precedents and the missing composition",
+          "title": "Precedents",
           "line": 306
         },
         {
@@ -6673,32 +6673,32 @@
           "level": 1,
           "id": "sec:execution",
           "title": "Execution order",
-          "line": 531
+          "line": 529
         },
         {
           "level": 1,
           "id": "sec:conclusion",
-          "title": "Conclusion",
-          "line": 553
+          "title": "The next test",
+          "line": 551
         },
         {
           "level": 1,
           "id": "app:routes",
           "title": "Public entry routes",
-          "line": 563
+          "line": 559
         },
         {
           "level": 1,
           "id": "declaration-of-generative-ai-use",
           "title": "Declaration of generative AI use",
-          "line": 597
+          "line": 593
         }
       ],
       "citations_rendered": 24,
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/open-source-mathematics-strategy.pdf",
-      "pdf_sha256": "sha256:05f7e56059bc1f2bfe681d292c7e59226c03ac3b98fd2166e7cff9d7d7224f39",
-      "pdf_byte_count": 137297,
+      "pdf_sha256": "sha256:e08033526a31e3f3f6ea47824c52f1b98b9c536c4c01eb9692ea9e23c9954ae7",
+      "pdf_byte_count": 133310,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",
@@ -6725,7 +6725,7 @@
           },
           {
             "id": "sec:security",
-            "title": "Distributed compute without distributed authority",
+            "title": "Running contributed code safely",
             "line": 290
           },
           {
@@ -6779,7 +6779,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
-      "source_sha256": "sha256:a2d2789f40a5d4d2171cb3d5afff9aac63afbf0ff1bee348677514c184226fc0",
+      "source_sha256": "sha256:eee3b04d7b98c8aceaa5c1af8a2773c4de8b31b91d66f33dca05eb35715e0615",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
@@ -6886,97 +6886,97 @@
           "level": 2,
           "id": "a-falsifiable-comparison",
           "title": "A falsifiable comparison",
-          "line": 306
+          "line": 308
         },
         {
           "level": 2,
           "id": "sec:hypothesis-handoff",
           "title": "From an open question to a falsifiable handoff",
-          "line": 314
+          "line": 316
         },
         {
           "level": 2,
           "id": "how-the-record-should-age",
           "title": "How the record should age",
-          "line": 342
+          "line": 344
         },
         {
           "level": 1,
           "id": "sec:conclusion",
           "title": "Conclusion",
-          "line": 350
+          "line": 352
         },
         {
           "level": 1,
           "id": "sec:appendix",
           "title": "Dated reproduction record",
-          "line": 360
+          "line": 362
         },
         {
           "level": 4,
           "id": "a-first-review.",
           "title": "A first review.",
-          "line": 368
+          "line": 370
         },
         {
           "level": 4,
           "id": "names.",
           "title": "Names.",
-          "line": 395
+          "line": 397
         },
         {
           "level": 4,
           "id": "getting-the-code-and-running-without-installing.",
           "title": "Getting the code and running without installing.",
-          "line": 401
+          "line": 403
         },
         {
           "level": 4,
           "id": "installing.",
           "title": "Installing.",
-          "line": 416
+          "line": 418
         },
         {
           "level": 4,
           "id": "the-worked-example.",
           "title": "The worked example.",
-          "line": 427
+          "line": 429
         },
         {
           "level": 4,
           "id": "a-second-python-version.",
           "title": "A second Python version.",
-          "line": 433
+          "line": 435
         },
         {
           "level": 4,
           "id": "project-wide-checks.",
           "title": "Project-wide checks.",
-          "line": 439
+          "line": 441
         },
         {
           "level": 1,
           "id": "statements-and-declarations",
           "title": "Statements and declarations",
-          "line": 445
+          "line": 447
         },
         {
           "level": 4,
           "id": "declaration-of-generative-ai-use.",
           "title": "Declaration of generative AI use.",
-          "line": 449
+          "line": 451
         },
         {
           "level": 4,
           "id": "authority-boundary.",
           "title": "Authority boundary.",
-          "line": 455
+          "line": 457
         }
       ],
-      "citations_rendered": 19,
+      "citations_rendered": 20,
       "local_pdf": "plectis-public-system.pdf",
-      "pdf_sha256": "sha256:540ef11cc735ad71de6e58e8a1b7c0ffa821d7834737ba7cc4ce10dc599eb6e8",
-      "pdf_byte_count": 126641,
+      "pdf_sha256": "sha256:1b1418e3612bd45345ff34feda4f69ed7103879149f4cdf5c2daf9d76d8f2478",
+      "pdf_byte_count": 127739,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",

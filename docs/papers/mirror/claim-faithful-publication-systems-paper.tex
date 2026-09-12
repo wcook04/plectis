@@ -39,49 +39,40 @@
 \fontsize{9.2pt}{11pt}\selectfont
 
 \begin{abstract}
-This paper presents an executable architecture for AI-assisted mathematics
-under proof abundance. It separates six things that are commonly collapsed:
-cognition authority, permission to change shared state, validation capacity,
-evidence class, public-claim authority, and reviewer attention. Work advances
-only when the next gate matches the evidence. A failed route may change later
-search or validation without being relabelled as a theorem.
+This paper describes an implemented architecture for AI-assisted mathematics
+under proof abundance. It separates reasoning scope, permission to change
+shared state, validation capacity, evidence class, public-claim authority,
+and reviewer attention. Each transition requires evidence appropriate to the
+next stage. Recorded failures can inform later search and validation; their evidential
+value depends on what the attempt established.
 
-The architecture organises work around \emph{problem-sized mathematical
-worlds}, not isolated theorem files. Each world joins formal declarations,
-experiments, source literature, failed mechanisms, open obligations, and a
-reviewed public boundary. Formal dependencies, authored mathematical meaning,
-and public claims remain separate graphs, so a dense connection cannot make a
-claim stronger. In the private workbench, an agent enters a world through a compiled comprehension
-packet: it federates the corpora by content digest, states the endpoint and
-claim ceiling before any route, separates proved results from open producers
-and closed routes, and declares both what it omitted and when it exceeded its
-context budget. The contribution is an implemented architecture that connects
-research state, scoped changes, formal checks, and public explanation while
-keeping their evidential roles distinct; the related-work section compares it
-with neighbouring systems along stated dimensions and claims no priority.
+Work is organised around \emph{problem-sized mathematical worlds}: formal
+declarations, experiments, source literature, failed mechanisms, open
+obligations, and a reviewed public boundary. Formal dependencies, authored
+mathematical meaning, and public claims have separate graphs. In the private
+workbench, a compiled comprehension packet gives an agent the endpoint and
+claim ceiling before proposing a route. It federates corpora by content
+digest, distinguishes proved results from open producers and closed routes,
+and reports omissions and exceeded context budgets. The contribution is the
+connection between research state, scoped changes, formal checks, and public
+explanation, with their evidential roles kept distinct. The related-work
+comparison claims no priority.
 
-The mathematical workflow keeps conjecture, computation, formal proof,
-interpretation, public wording, and external review distinct. Computation may
-reject a route or supply finite evidence; it does not prove an unbounded
-theorem. Lean verifies that a proof establishes the formal statement written in
-the source; it does not verify whether that statement captures the intended
-mathematics or whether the paper describes it
-well. Comparator checks selected propositions and their axiom boundary; a
-local review-selection layer prepares result families for external
-registration and review. Neither decides novelty, importance, acceptance, or
-whether an open problem has been solved.
+Computation can reject a route or supply finite evidence. Lean checks a proof
+of the formal statement in the source; mathematical review must still
+establish that the statement captures the intended problem and that the paper
+describes it accurately. Comparator checks selected propositions and their
+axiom boundary. Local review selection prepares result families for external
+registration and review. These checks leave novelty, importance, acceptance,
+and open-problem status to separate assessments.
 
-The public repository is a self-contained output whose Lean source, claim
-record, papers, navigation, and release checks can be inspected from a fresh
-clone. A worked example follows a finite certificate for Erd\H{o}s Problem 249
-and shows why a checked finite range cannot become an unbounded conclusion.
-This is a working prototype rather than a validated multi-user service. As of
-31 August 2026, the author had not recorded a completed external cold-clone use
-or an accepted external contribution.
-The rule is simple: each stage may pass forward only the claim its evidence
-supports, together with the boundary it does not cross. All eight problems
-remain open.
-The paper does not claim a solution to any of them.
+The public repository supplies Lean source, a claim record, papers,
+navigation, and release checks that can be inspected from a fresh clone. A
+worked example follows a finite certificate for Erd\H{o}s Problem 249 through
+the checks that prevent an unbounded public claim. The system is a working
+prototype; multi-user use has not been validated. As of 31 August 2026, the
+author had recorded neither a completed external cold-clone use nor an
+accepted external contribution. All eight problems remain open.
 \end{abstract}
 
 \begin{paperresult}{Main contribution and claim ceiling}
@@ -110,12 +101,11 @@ different questions immediately arise.
       the result?
 \end{enumerate}
 
-No single test answers all six. A numerical experiment can expose a false
-conjecture without proving a universal one. Lean can certify a theorem while
-remaining silent about the prose around it. A release checker can preserve a
-reviewed sentence without making the review correct. External attention can
-signal interest without validating a proof. The architecture exists to keep
-these questions separate while allowing work to move between them.
+These questions require different tests. A numerical experiment can expose a
+false conjecture; Lean checks a formal theorem; a release checker preserves a
+recorded decision about wording. None settles the other questions, and
+external attention alone does not validate a proof. The architecture records
+how work passes between these stages.
 
 The \href{\repobase}{public repository studied here} contains Lean source,
 papers, and release machinery around eight open Erd\H{o}s problems. At this
@@ -138,46 +128,46 @@ correspondence from a finite certificate to its public limitation. The
 clone-local map; the private mechanisms below describe the production design
 and are not additional services that a reader must install.
 
-\paragraph{The novelty claim and its ceiling.}
-This paper does not claim to have invented agents, queues, file locks, theorem
-graphs, Lean checking, pull requests, or credit records. Its candidate
-contribution is an executable \emph{claim-transition architecture}. It models
-reasoning, mutation, validation, interpretation, publication, and review as
-separately scarce and separately authorised operations. The operations are
-recombined only at explicit fan-in gates. The same machinery carries proofs,
-counterexamples, no-gos, and unresolved obligations while preserving their
-different evidence classes. Crucially, a local failure may alter the next
-agent's route, context, lease, experiment, or validator, but never the truth
-status of a mathematical statement.
+\paragraph{Contribution and scope.}
+The proposed contribution is an executable \emph{claim-transition
+architecture}, assembled from established components including agents,
+queues, file locks, theorem graphs, Lean checking, pull requests, and credit
+records. Reasoning, mutation, validation, interpretation, publication, and
+review have separate resource limits and permissions. Explicit fan-in gates
+bring their outputs together. Proofs, counterexamples, no-gos, and unresolved
+obligations pass through the same machinery with their evidence classes
+preserved. A local failure can change a later agent's route, context, lease,
+experiment, or validator without changing a mathematical statement's truth
+status.
 
-Four status words are used deliberately. \emph{Implemented} means source and
-an executable check or receipt exist. \emph{Projection} means a generated view
-over more authoritative records. \emph{Inactive} means implemented machinery
-was not running at the reported snapshot. \emph{Hypothesis} means a proposed
-experiment, not a reported capability. Thus the router, work leases, corpus
-maps, Lean gates, Comparator, review-selection records, and release checks are
-implemented; dashboards and graph views are projections; the resident
-maintenance daemon was inactive at one recorded snapshot; and mass
-frontier-model mining or training on the no-go graph remain hypotheses.
+Four terms distinguish implementation from proposed use. \emph{Implemented}
+means that source and an executable check or receipt exist. \emph{Projection}
+is a generated view over more authoritative records. \emph{Inactive} means
+that implemented machinery was not running at the reported snapshot.
+\emph{Hypothesis} denotes a proposed experiment. The router, work leases,
+corpus maps, Lean gates, Comparator, review-selection records, and release
+checks are implemented; dashboards and graph views are projections. The
+resident maintenance daemon was inactive at one recorded snapshot. Mass
+frontier-model mining and training on the no-go graph remain hypotheses.
 
 \subsection{Two architectural claims}
 
-\paragraph{A problem is a mathematical world, not a folder.}
-For an agent, the useful unit is neither the repository nor one theorem. It is
-a bounded neighbourhood inside a problem-sized world. The neighbourhood begins
-with the exact endpoint and current claim ceiling, then selects established
-premises, nearby declarations, open producers, consumers, alternative
-coordinates, executable experiments, scoped falsifiers and no-gos, source
-literature, and public boundaries. Every returned edge says why it exists and
-what authority it lacks; the packet says what it omitted and where to expand.
-This makes deep corpora navigable without converting file proximity, lexical
-similarity, or model interpretation into proof.
+\paragraph{Problem neighbourhoods.}
+An agent works in a bounded neighbourhood of a problem-sized world. The
+neighbourhood starts with the exact endpoint and current claim ceiling, then
+selects established premises, nearby declarations, open producers, consumers,
+alternative coordinates, executable experiments, scoped falsifiers and
+no-gos, source literature, and public boundaries. Each edge records its basis
+and evidential limits; the packet lists omissions and expansion routes. File
+proximity, lexical similarity, and model interpretation help navigation but
+supply no proof.
 
-\paragraph{Authority is separated before it is recombined.}
-The architecture treats six resources as non-fungible. More reasoning cannot
-buy a write lease; a write cannot buy a Lean receipt; a Lean receipt cannot buy
-semantic correctness; approved wording cannot buy novelty or community
-acceptance. They meet only through typed artefacts at an explicit gate.
+\paragraph{Separate permissions and evidence.}
+The architecture treats six resources as non-fungible. Reasoning scope does
+not confer a write lease, and a write still requires validation. A Lean
+receipt establishes formal acceptance, leaving semantic review, novelty, and
+community acceptance to their respective gates. Typed artefacts record these
+transitions.
 
 \begin{table}[!ht]
 \centering\scriptsize
@@ -200,23 +190,22 @@ Reviewer attention & Ranked packet and recorded human outcome & Proof authority 
 \label{tab:nonfungible}
 \end{table}
 
-There are consequently two coupled graphs with a guarded crossing. Mathematical
-evidence changes the mathematical graph: theorem, counterexample, no-go, or
-bounded experiment, each with its own class. Operational evidence changes the
-control graph: a route miss, stale view, repeated workaround, validation
-failure, or resource conflict may justify a new router, skill, check, or
-standard after a generalisation guard. Reviewed claim and publication artefacts
-connect the two. Neither graph may rewrite the other by implication.
+Mathematical and operational evidence update different graphs. The
+mathematical graph records theorems, counterexamples, no-gos, and bounded
+experiments with their evidence classes. The control graph records route
+misses, stale views, repeated workarounds, validation failures, and resource
+conflicts. After a generalisation guard, these may justify changes to a
+router, skill, check, or standard. Reviewed claims and publication artefacts
+connect the graphs without allowing either to determine the other's
+conclusions.
 
 \section{The whole lifecycle in one picture}\label{sec:lifecycle}
 \papersectiontarget{systems-lifecycle}
 
-Figure~\ref{fig:lifecycle} shows the main path. It is a loop rather than a
-one-way publishing pipeline: failed proofs, reviewer objections, and public
-drift can all return a precise lesson to an earlier stage. What may move
-backward is information about an error or a better method. What may not move
-backward is authority: a paper cannot make an unproved statement true, and an
-external review route cannot alter what Lean checked.
+Figure~\ref{fig:lifecycle} shows the main path and its feedback loop. Failed
+proofs, reviewer objections, and public drift can inform earlier stages by
+identifying errors or better methods. This feedback does not alter what Lean
+checked or make an unproved statement true.
 
 \begin{figure}[!t]
 \centering
@@ -328,34 +317,31 @@ solved.}
 
 The stable roles are orientation, bounded discovery, Lean validation,
 consequence propagation, return packaging, proposal, and maintainer adoption.
-Problem admission and manuscript revision have their own bounded lifecycles.
-The live \repolink{skills/README.md}{skill catalogue} lists the current entry
-names and routes to their definitions; those definitions own the executable
-details. This paper owns the lifecycle and the authority boundary.
+Problem admission and manuscript revision have separate lifecycles. The
+\repolink{skills/README.md}{skill catalogue} lists the current entry names and
+links to definitions containing the executable details.
 
 \section{The private workbench}\label{sec:private}
 
 \subsection{Disk is shared memory}
 
-The private system does not treat a chat transcript as the project. Durable
-state lives in files: source code, structured records, append-only events,
-generated views, validation receipts, and authored explanations. A conversation
-may propose a change, but the file and its governing checker determine whether
-the change exists. This makes work resumable across agents and time: the next
-agent reads a bounded current-state packet and the relevant sources rather than
-trusting a summary of an earlier conversation.
+Durable project state lives in source files, structured records, append-only
+events, generated views, validation receipts, and authored explanations.
+Conversations propose changes; files and their governing checkers determine
+whether those changes exist. To resume work, the next agent reads a bounded
+current-state packet and the relevant sources, so it need not rely on a
+summary of an earlier conversation.
 
-Different file classes carry different authority. Raw operator language
-preserves what was asked. Work records say what has been claimed and by whom.
-Source files contain implementations and proofs. Receipts record what actually
-ran. Authored papers explain; generated indexes help readers navigate. A
-generated projection is therefore a map of the territory, not the territory's
-source of truth.
+File classes have distinct roles. Raw operator language preserves the
+request, and work records identify the claimed work and its owner. Source
+files contain implementations and proofs; receipts record what ran. Authored
+papers explain the work, while generated indexes provide navigation back to
+the governing records.
 
-At entry, a deterministic router selects a small context packet for the task.
-The packet gives candidate objects, authority boundaries, relevant standards,
-and legal next actions. This ``small map before large source'' rule reduces
-blind search without pretending that a summary is proof.
+At entry, a deterministic router selects a small context packet containing
+candidate objects, authority boundaries, relevant standards, and permitted
+next actions. The packet guides source inspection; its summary has no proof
+authority.
 
 \subsection{Type A and Type B}
 
@@ -391,11 +377,10 @@ access.}
 \label{tab:typeab}
 \end{table}
 
-This separation has two benefits. External reasoning can be used without
-pretending it observed private state, and local mutation stays attached to
-tests, paths, and receipts. It also prevents a common category error: calling
-every delegated worker Type B, or treating Type B as a cheaper or less capable
-kind of intelligence.
+Type B output can inform research without being treated as an observation of
+private state. Type A changes remain attached to their paths, tests, and
+receipts. Delegation alone does not make a worker Type B: its access to the
+repository determines the role.
 
 \subsection{Concurrency without shared-state confusion}
 
@@ -406,64 +391,55 @@ lease. Independent claims may proceed concurrently; overlapping claims must be
 coordinated or deferred. Fan-out is followed by a fan-in barrier where the
 results are compared, validated, and integrated.
 
-Coordination state is written to append-only ledgers and immutable receipts,
-not inferred from who last spoke in chat. Generated status pages are read
-models over those records. This gives three distinct facts: an agent may be
-running, its proposed change may exist, and its change may have passed the
-owner's gate. None implies the next. Bounded job counts and focused Lean builds
-also prevent concurrency from exhausting the machine or making two builds
-corrupt each other's evidence.
+Append-only ledgers and immutable receipts record coordination state, and
+generated status pages present views over them. They distinguish an active
+agent from an existing change and an accepted change. Bounded job counts and
+focused Lean builds limit resource use and prevent concurrent builds from
+corrupting one another's evidence.
 
 \subsection{The control plane is executable}
 
-The router projects a typed option surface over skills, standards, paper
-modules, live work, and source artefacts, then
-selects a task-conditioned packet before large sources are opened. A cold
-agent can move from a one-line flag to a short card, a working context, and
-finally the authority-bearing file. Each compression layer carries its source,
-safe drill-down, and authority posture. Context selection is therefore an
-inspectable operation rather than an invisible choice by the language model.
+The router exposes typed entries for skills, standards, paper modules, live
+work, and source artefacts. It selects a task-conditioned packet before the
+agent opens large sources. A cold agent can proceed from a one-line flag to
+a short card, a working context, and finally the governing file. Each layer
+identifies its source, expansion route, and authority, making the selection
+of context inspectable.
 
-The work ledger separates past work from present permission. Completed,
-reopened, and superseded work are append-only lifecycle events. Live claims are
-short leases over exact paths or work objects. Directory claims collide with
-their children; expired leases lose authority unconditionally; a crashed
-holder leaves an expiry and dirty-handoff record rather than silently
-disappearing. A generated cohort view may report activity, collisions, and
-unknown scope, but it cannot grant a write. Thus ``an agent mentioned this
-file'', ``an agent holds this file'', and ``a change to this file was accepted''
-remain different statements.
+The work ledger records completed, reopened, and superseded work as
+append-only lifecycle events. Present permission comes from short leases over
+exact paths or work objects. Directory claims collide with their children;
+expired leases lose authority unconditionally. A crashed holder leaves an
+expiry and dirty-handoff record. Generated cohort views report activity,
+collisions, and unknown scope, but cannot grant permission to write.
 
-An additional resident-runtime layer, called metabolism, turns repository
-events into bounded maintenance jobs. One daemon owns a SQLite store in
-write-ahead-log mode with events, jobs, runs, provider budgets, heartbeats, and
-temporal blackboard claims. Hooks, filesystem scans, provider interruptions,
-and explicit commands feed the same store. Stable digests collapse duplicate
-events; an allowlist limits what may execute; cooldowns smooth provider use;
-expired owners are recoverable; and a single-resident guard prevents two
-schedulers from fighting over the queue. Status pages are projections over the
-store, never repair authority. During one snapshot used for this revision the
-status surface correctly reported the daemon as not running while queued jobs
-remained visible. The substrate exists and preserves work, but ``always-on
-architecture'' is not the same claim as ``currently healthy service''.
+A resident-runtime layer called metabolism turns repository events into
+bounded maintenance jobs. One daemon owns a SQLite store in write-ahead-log
+mode containing events, jobs, runs, provider budgets, heartbeats, and temporal
+blackboard claims. Hooks, filesystem scans, provider interruptions, and
+explicit commands feed the store. Stable digests deduplicate events; an
+allowlist limits execution; cooldowns regulate provider use. Expired owners
+are recoverable, and a single-resident guard prevents competing schedulers.
+Status pages report the store's state without authorising repairs. At one
+snapshot used for this revision, the status surface reported the daemon as
+not running while queued jobs remained visible. That snapshot demonstrates
+persistent state in the implemented machinery, not an active maintenance
+service.
 
-The operating loop is deliberately plain: observe the current state, classify
-the task, route it to an owner, claim the work, act, validate, record the
-result, propagate any reusable lesson, then observe again. ``Continuous'' work
-means repeating that loop with explicit checkpoints. It does not mean allowing
-an agent to mutate indefinitely without a new receipt.
+The operating loop observes the current state, classifies the task, routes it
+to an owner, claims the work, acts, validates, records the result, propagates
+reusable lessons, and observes again. Continuous work repeats this loop with
+explicit checkpoints and a new receipt for each advance.
 
 \subsection{What continuous mathematical work looks like}
 
-A continuous goal is not a request to repeat the same prompt forever. It is a
-durable research object with a fixed ultimate question, a mutable frontier,
-and an explicit claim ceiling. Each new run resumes from the latest accepted
-state: the sources already read, the routes already killed, the computations
-already interpreted, the formal obligations still open, and the precise
-statement that remains unproved. The agent then selects the highest-value
-available transition in that state. It may close a lemma, produce a
-counterexample, sharpen a reduction, repair a source claim, or expose a
-smaller obstruction. Merely producing more activity is not a transition.
+A continuous goal records a fixed research question, a changing frontier, and
+an explicit claim ceiling. Each run resumes from the latest accepted state:
+sources read, routes ruled out, computations interpreted, formal obligations
+still open, and the precise statement that remains unproved. The agent
+selects the highest-value available transition, such as closing a lemma,
+producing a counterexample, sharpening a reduction, repairing a source claim,
+or isolating a smaller obstruction.
 
 The public continuation interface makes part of this design inspectable.
 \repolink{scripts/continue_research.py}{The continuation program}
@@ -476,38 +452,31 @@ check. Persistence here means that the next contributor can recover the
 question, starting source, attempted work, and evidence without recovering the
 original conversation.
 
-A compressed trace has an observation boundary. A missing path or worker
-outcome in a summary is not evidence that no change occurred. Repository
-state, command results, diffs, formal builds, and commit objects must settle
-that question. Completeness is therefore an explicit field in the workbench's
-design, not an impression created by fluent prose. Private activity traces
-are production records; this paper does not use their event counts as public
-evidence of throughput or successful mathematical progress.
+A compressed trace can omit paths or worker outcomes. Repository state,
+command results, diffs, formal builds, and commit objects must establish
+whether a change occurred. The workbench therefore records completeness
+explicitly. Private activity traces document production; their event counts
+are not used here as public evidence of throughput or mathematical progress.
 
-The design interleaves search and validation, retains scoped failed routes,
-and permits concurrency when work can be separated. Every claimed advance
-must cross from a narrative of activity into an authority-bearing artefact and
-receipt. A run may stop
-because the next step needs an unavailable validator, a human decision, or a
-new idea. It must then preserve a useful re-entry point rather than manufacture
-busywork or quietly weaken the endpoint. Long-running computation is likewise
-not a reason to poll idly when an independent proof, source, exposition, or
-adversarial lane remains safe to advance.
+Search and validation are interleaved, with scoped failed routes retained and
+concurrent work permitted where tasks can be separated. A claimed advance
+requires the relevant artefact and receipt. If an unavailable validator, a
+human decision, or a new idea is needed, the run preserves its endpoint and a
+re-entry point. During long computations, an agent can advance independent
+proof, source, exposition, or adversarial work where it is safe to do so.
 
 \subsection{Coupled continuous goals: discovery and stewardship}
 \papersectiontarget{systems-coupled-goals}
 
-One continuous goal is not enough for a moving mathematical corpus. A
-problem-directed miner can remain close to the proof frontier, yet that same
-proximity makes it a poor sole judge of whether a new lemma is routine,
-whether an older theorem is stronger, or where the result belongs in a paper.
-The implementation therefore admits two coupled goals with different
-responsibilities. The \emph{discovery goal} reads the current problem world,
-runs discriminating computations, attempts proofs, records falsifiers, and
-returns the smallest stable mathematical delta. The \emph{stewardship goal}
-reads that delta against the whole source-current corpus, composes related
-declarations into coherent result families, and reconciles their downstream
-uses. Neither role receives the other's authority.
+Discovery and stewardship address different scales of the corpus. A
+problem-directed miner works near the proof frontier; assessing whether its
+new lemma is routine, weaker than an older theorem, or prominent enough to
+lead a paper requires a wider view. The \emph{discovery goal} reads the current
+problem world, runs discriminating computations, attempts proofs, records
+falsifiers, and returns the smallest stable mathematical delta. The
+\emph{stewardship goal} compares that delta with the current corpus, groups
+related declarations into result families, and reconciles downstream uses.
+The two roles retain separate responsibilities and authority.
 
 \begin{figure}[!t]
 \centering
@@ -560,35 +529,29 @@ significant but mechanically unready, fully checked but mathematically
 routine, or ideal as a worked example without being the corpus's strongest
 theorem. No single scalar or status is allowed to decide all four questions.
 
-This is also a second checking layer, but not a second proof authority. The
-steward may detect that a purported advance merely restates the open problem,
-that several theorem names express one result, that a paper has buried a
-stronger theorem, that Comparator exposes a weaker interface, or that a
-Palomar packet omits the hard mechanism. It may then narrow, regroup,
-reorder, or defer the projection. It may not turn significance, repeated
-agreement, or polished exposition into a proof. Lean validation, intended-
-meaning review, prior-art assessment, and community acceptance remain
-distinct gates.
+The steward can detect that a purported advance restates the open problem,
+that several theorem names express one result, or that a paper buries a
+stronger theorem. It can also find weaker Comparator interfaces and Palomar
+packets that omit the hard mechanism. It may narrow, regroup, reorder, or
+defer these presentations. Such judgements do not supply a second proof
+authority: Lean validation, intended-meaning review, prior-art assessment, and
+community acceptance remain separate.
 
 The clone-local
 \repolink{skills/run-coupled-research-goals/SKILL.md}{coupled-goals skill}
-specifies this division using
+specifies the division through
 \repolink{skills/mine-open-problem/SKILL.md}{bounded discovery} and
-\repolink{skills/propagate-research-consequences/SKILL.md}{consequence propagation}
-as separate jobs with source-pinned hand-offs. These are instructions for an
-agent or controller, not a resident scheduler. A single agent may execute the
-two jobs sequentially; two tasks,
-machines, models, or people may also hold the roles. The separation is logical,
-not a requirement to buy two computers.
+\repolink{skills/propagate-research-consequences/SKILL.md}{consequence propagation},
+with source-pinned hand-offs between the jobs. The skill instructs an agent or
+controller; it supplies no resident scheduler. One agent can perform the jobs
+sequentially, or separate tasks, machines, models, or people can hold the roles.
 
-The prescribed coupling is event-driven. A newly landed theorem, counterexample,
-authority change, paper correction, or external review outcome supplies the
-trigger for a stewardship pass. Its output is a source-pinned appraisal and a changed
-consumer or frontier disposition, not a recurring status report. That output
-may in turn direct discovery toward a stronger target, a missing
-hypothesis, a counterexample request, or the cheapest discriminating
-computation. If neither the mathematical frontier nor a downstream consumer
-has changed, both goals yield rather than polling one another.
+A landed theorem, counterexample, authority change, paper correction, or
+external review outcome triggers a stewardship pass. The pass produces a
+source-pinned appraisal and a changed consumer or frontier disposition. This
+can direct discovery towards a stronger target, a missing hypothesis, a
+counterexample request, or a cheap discriminating computation. When neither
+the frontier nor a downstream consumer has changed, both goals yield.
 
 Before either role begins, \texttt{explain-public-system} provides a separate
 cold-clone orientation job. An agent can read the public corpus and companion
@@ -601,13 +564,12 @@ cannot promote its own summary into proof or acceptance.
 \section{The mathematical reasoning loop}\label{sec:mathloop}
 \papersectiontarget{systems-mathloop}
 
-The mathematical lane begins before Lean. A problem is first stated in ordinary
-mathematical language, with its known status and source. Candidate mechanisms
-are then generated and ranked. Rank is based on mathematical signal---endpoint
-proximity, depth of mechanism, independence from other routes, usefulness for
-future work, and overclaim risk---rather than theorem count or ease of
-formalisation. Attention is deliberately unequal: a decisive obstruction or a
-close conditional reduction may deserve more work than many routine lemmas.
+Mathematical work starts by stating the problem in ordinary language with its
+known status and source. Candidate mechanisms are ranked by endpoint
+proximity, depth, independence from other routes, usefulness for future work,
+and overclaim risk. Theorem count and ease of formalisation do not determine
+that ranking. A decisive obstruction or close conditional reduction may
+deserve more attention than many routine lemmas.
 
 \subsection{Experiments are route selectors}
 
@@ -624,23 +586,20 @@ a successful numerical approximation does not become an exact equality. Failed
 experiments are kept when they prune a natural route; otherwise later agents
 pay to repeat the same mistake.
 
-\paragraph{Failure modes are mathematical outputs.}
-The system distinguishes three kinds of negative evidence. A failed agent
-attempt says only that one search path did not close. A counterexample can
-refute a conjecture on its exact domain. A Lean no-go theorem can rule out a
-whole strategy class under explicit hypotheses. The last two may be as
-valuable as a positive lemma: they prevent repeated work and reveal which new
-ingredient an endpoint requires. This corpus therefore keeps deep
-problem-specific reasoning surfaces, proof gaps, coefficient-only and
-fixed-precision obstructions, and corrected statements beside successful
-theorems. Every no-go keeps its scope visible; failure of one mechanism is not
-failure of every possible proof.
+\paragraph{Negative evidence.}
+A failed agent attempt records an uncompleted search path. A counterexample
+refutes a conjecture on its stated domain, while a Lean no-go theorem rules
+out a strategy class under explicit hypotheses. Counterexamples and no-gos
+can prevent repeated work and identify a missing ingredient for the endpoint.
+The corpus keeps problem-specific reasoning, proof gaps, coefficient-only
+and fixed-precision obstructions, and corrected statements alongside proved
+theorems. Each no-go retains its scope, so the failure of one mechanism does
+not rule out other proofs.
 
-\subsection{Three oracles, not one}
+\subsection{Status, formal acceptance, and mathematical judgement}
 
-Experiments are route selectors; they do not become a fourth oracle.
-The workflow separates three answers that are often compressed into the word
-``verified''.
+The workflow distinguishes three senses of ``verified''. Experiments guide
+route selection without supplying any of these judgements by themselves.
 
 \begin{enumerate}
 \item A \emph{status oracle} says what a public registry or the literature
@@ -655,39 +614,32 @@ The second can be mechanical. The first can become stale. The third remains a
 mathematical and scholarly judgement. A successful Lean build without statement
 reconciliation is therefore not the end of the reasoning process.
 
-The learning loop grows the corpus it reasons over. An agent first navigates
-the existing Lean and semantic graph, then uses proof search and bounded
-computation to probe promising gaps and patterns that may be too distributed
-for an unaided manual scan. The checking pass records the kernel result,
-reconciles formal and informal statements, and packages either a theorem, a
-counterexample, or a diagnosed failure. Accepted nodes and edges become inputs
-to the next search; whether they improve it is an evaluation question.
-Reusable process lessons can change heuristics and context, never mathematical
-truth. When a mechanism comes from the literature, its annex
-record, locator, and public citation preserve the original authorship and
-claim scope while Lean checks only the new formal statement. Thus the cycle
-is: ground sources, navigate, compute, conjecture, formalise, interpret,
-publish, and return the enlarged graph to the next iteration.
+Each iteration begins with the existing Lean and semantic graph. Proof search
+and bounded computation probe gaps and patterns that may be too distributed
+for an unaided manual scan. A checking pass records the kernel result,
+reconciles formal and informal statements, and packages a theorem,
+counterexample, or diagnosed failure. Accepted nodes and edges inform the
+next search; whether they improve it remains an evaluation question. Reusable
+process lessons can change heuristics and context, without changing
+mathematical truth. For mechanisms drawn from the literature, annex records,
+locators, and public citations retain the original authorship and claim scope.
+Lean checks the new formal statement.
 
 \subsection{From local progress to reusable mathematics}
 
-Problem-sized worlds are deliberately local, but their useful by-products
-need not remain local. A lemma discovered while attacking one Erd\H{o}s problem
-may encode a comparison principle, finite combinatorial device, analytic
-estimate, or Lean interface that belongs in a wider mathematical library. The
-system therefore distinguishes \emph{process up-propagation}---a lesson that
-improves how later agents work---from \emph{mathematical
-canonicalisation}---the conversion of a local result into a reusable theorem.
+A lemma found in one Erd\H{o}s problem may yield a comparison principle,
+finite combinatorial device, analytic estimate, or Lean interface useful in a
+wider library. The system distinguishes \emph{process up-propagation}, which
+improves how later agents work, from \emph{mathematical canonicalisation},
+which develops a local result into a reusable theorem.
 
-Canonicalisation is a second research act, not a change of filename. It asks
-which hypotheses the proof really uses, removes problem-specific coordinates,
-searches for prior art and existing library interfaces, and states a natural
-general theorem for which the motivating local result is an explicit
-specialisation. The candidate is then attacked again: dropped hypotheses need
-counterexample tests, the general proof needs its own exact check, and at least
-one genuine additional consumer or explanatory use should be identified.
-Broader syntax without broader mathematical use is not yet a canonical
-result.
+Canonicalisation requires examining which hypotheses the proof uses, removing
+problem-specific coordinates, checking prior art and existing library
+interfaces, and stating a natural general theorem. The local result should
+be an explicit specialisation. Dropped hypotheses require counterexample
+tests, and the general proof needs its own exact check. At least one additional
+consumer or explanatory use should establish the value of the generalisation;
+broader notation alone is insufficient.
 
 This yields three statuses that must not be collapsed: checked inside one
 problem world; proposed as reusable mathematics; and suitable for an external
@@ -707,19 +659,17 @@ participation and credit protocol.
 
 \subsection{Problem-sized Lean worlds and bounded theorem neighbourhoods}
 
-Large formal corpora need several maps because ``everything is indexed'' is
-not the same as ``everything is understood.'' The
+The public corpus provides several maps. The
 \repolink{docs/declaration_atlas.json}{declaration atlas} locates statements.
-The \repolink{scripts/query_corpus.py}{dependency queries} distinguish module
+\repolink{scripts/query_corpus.py}{Dependency queries} distinguish module
 imports from constant references extracted from elaborated Lean declarations;
-an unavailable or stale extraction is not evidence that a dependency is absent.
-The \repolink{docs/semantic/README.md}{authored semantic layer} explains a
-statement's mathematical role, including specialisation, transport, and scoped
-obstruction. The \repolink{docs/claims.json}{claim record} connects selected
-results to reviewed wording and exact open propositions. These maps answer
-different questions about the same source. A dependency can guide premise
-selection without establishing an authored analogy; an analogy can suggest a
-proof without supplying one.
+unavailable or stale extraction cannot establish that a dependency is absent. The
+\repolink{docs/semantic/README.md}{authored semantic layer} explains
+mathematical roles such as specialisation, transport, and scoped obstruction.
+The \repolink{docs/claims.json}{claim record} connects selected results to
+reviewed wording and exact open propositions. A dependency can guide premise
+selection without establishing an authored analogy, and an analogy can
+suggest a proof without supplying one.
 
 The public Problem 1041 materials illustrate why these distinctions matter.
 The \repolink{docs/problems.json}{problem index} identifies the integrated
@@ -735,17 +685,15 @@ claim are different objects. The declaration and semantic inventories expose
 their respective coverage; generated certificate families make raw theorem
 counts a poor measure of mathematical value.
 
-An agent does not receive this world as one prompt. First the problem cockpit
-fixes the endpoint, status, claim ceiling, and canonical frontier. It keeps open
-producers distinct from the target so a promising route cannot silently replace
-the problem. Next a bounded neighbourhood selects the strongest relevant
-results, exact source coordinates, imports, consumers, alternative formulations,
-experiments, counterexamples, no-gos, and literature. It labels every item by
-evidence class and emits an omission receipt with an expansion route. This is
-designed omission, not exhaustive loading: a bounded answer must expose how to
-recover the source outside its selection. When an exact path is claimed, a local connection card can put its
-prerequisites, sibling mechanisms, consumers, falsifiers, and validation target
-before broader retrieval.
+The problem cockpit first fixes the endpoint, status, claim ceiling, and
+canonical frontier. It distinguishes open producers from the target, so a
+promising route does not replace the problem. A bounded neighbourhood then
+selects the strongest relevant results, exact source coordinates, imports, consumers,
+alternative formulations, experiments, counterexamples, no-gos, and
+literature. Each item has an evidence class. An omission receipt records what
+was excluded and how to retrieve it. For an exact claimed path, a local
+connection card can present prerequisites, sibling mechanisms, consumers,
+falsifiers, and the validation target before broader retrieval.
 
 \subsection{Comprehension before the mathematics}
 \papersectiontarget{systems-comprehension}
@@ -769,13 +717,12 @@ imports guide inspection, and a build plan selects validation. These routes
 help an agent choose what to inspect or run; passing their structural checks
 does not establish a mathematical claim.
 
-Federation works by identity. Each corpus keeps its own authority and nothing
-is copied into a central index. The compiler holds a compact descriptor and a
-content fingerprint for the private projection and for every attached public
-checkout, and it opens an attached exhaustive atlas only after those identities
-reconcile and the bounded route has failed to answer. It never rebuilds the
-expensive Lean microcosm. Every packet names the corpora it consulted and the
-digests at which it saw them.
+Each corpus retains its own authority. The compiler stores compact
+descriptors and content fingerprints for the private projection and attached
+public checkouts, without copying them into a central index. It opens an
+attached exhaustive atlas only after the identities reconcile and bounded
+retrieval fails to answer the query. It does not rebuild the expensive Lean
+microcosm. Every packet names the corpora consulted and their digests.
 
 The packet leads with the endpoint. A problem cockpit fixes the target
 statement, its status, the claim ceiling, and the current claim frontier,
@@ -788,31 +735,28 @@ concept neighbourhoods, and premise or obligation ancestry, and exact imports,
 authored arguments, generated navigation, lexical references, and semantic
 inference remain visibly different edge classes.
 
-Above that material sits an inference workspace: an exact commitment plane for
-source coordinates and statements, a strategy plane whose unit of branching is
-a coherent premise group, and an adversary plane for the falsifiers a branch
-must survive. Its commitments are invalidated whenever a corpus fingerprint
-moves. It states its own boundary in every packet, that only Lean, an exact
-counterexample, or an owner verifier receipt may change the status of a claim.
-The workspace plans inference and concludes nothing.
+An inference workspace organises this material in three planes. The exact
+commitment plane holds source coordinates and statements. The strategy plane
+branches over coherent premise groups, and the adversary plane records the
+falsifiers each branch must survive. A changed corpus fingerprint invalidates
+the commitments. Every packet states the limit of this planning workspace:
+only Lean, an exact counterexample, or an owner verifier receipt may change
+a claim's status.
 
-Two refusals are as important as the retrieval. A query naming no theorem,
-declaration, or claim is reported as unanchored, and its consumer is told to
-name one before treating any route as target-specific, so a vague question does
-not receive a specific frontier. A packet over its requested context budget
-says so and exits non-zero instead of truncating quietly: it reports the
-requested and estimated token counts, names the planes it dropped, and gives
-the command that restores them. An omitted adversary plane appears as an
-omission with an expansion route, never as an absence of falsifiers.
+The compiler reports a query as unanchored if it names no theorem,
+declaration, or claim. Its consumer must name one before treating a route as
+target-specific. A packet that exceeds its requested context budget exits
+non-zero, reports requested and estimated token counts, lists dropped planes,
+and gives commands to restore them. If the adversary plane was omitted, the
+packet records that omission and an expansion route; it does not report an
+absence of falsifiers.
 
-This is orientation, not understanding. A packet can be well formed over
-corpora it identified correctly and still select a weak mechanism, omit the
-governing obstruction, or carry an authored interpretation that is
-mathematically wrong. The supported claim is narrower: an agent entering a
-corpus of this depth receives a bounded starting state that names its sources
-by digest, labels its evidence, and declares its own omissions, and no part of
-that state carries proof authority. Whether agents working from such a packet
-produce better mathematics than agents without one is not measured here.
+A correctly identified and well-formed packet can still select a weak
+mechanism, omit the governing obstruction, or carry a mathematically mistaken
+interpretation. The supported claim concerns its starting state:
+bounded context with source digests, evidence classes, and declared
+omissions. The packet has no proof authority. This paper does not measure
+whether it helps agents produce better mathematics.
 
 \subsection{Consequence propagation}
 
@@ -847,15 +791,14 @@ alter the durable control plane without altering mathematical truth.
 \section{The public Lean repository}\label{sec:public}
 \papersectiontarget{systems-public}
 
-The public checkout begins at a deliberate boundary. It contains every file
-needed to inspect its claims and replay its checks. It does not call back into
-the private workbench, and no public theorem depends on an unpublished private
-lemma. A build also needs the public toolchain and dependency versions recorded
-by \repolink{lean-toolchain}{lean-toolchain} and
-\repolink{lake-manifest.json}{lake-manifest.json}; a fresh checkout may need to
-download them. Self-contained here concerns source and authority, not an
-offline installation. The larger workflow is provenance: it explains
-production, not truth.
+The public checkout contains the source needed to inspect its claims and
+replay its checks, with no calls to the private workbench or unpublished
+private lemmas. Builds also require the public toolchain and dependency
+versions recorded by \repolink{lean-toolchain}{lean-toolchain} and
+\repolink{lake-manifest.json}{lake-manifest.json}, which a fresh checkout may
+need to download. Self-contained therefore describes the source and its
+authority, rather than an offline installation. The private workflow remains
+production provenance.
 
 The repository has two Lean roots. The reviewed root contains the established
 249/257 publication lane. The problem-owned expansion root contains work on six
@@ -864,7 +807,7 @@ are checked by the same Lean kernel, but kernel acceptance does not automaticall
 promote a declaration into a reviewed public claim. Promotion is a separate
 change to the claim record and exposition.
 
-The main public sources have deliberately separate jobs:
+The public sources divide responsibility as follows:
 
 \begin{table}[H]
 \centering\small
@@ -906,49 +849,44 @@ authority from the other, and neither is a public mirror of the private root.
 
 \section{Comparator, Palomar, and publication}\label{sec:assurance}
 
-\subsection{Comparator: an exact-statement firewall}
+\subsection{Comparator: selected statement interfaces}
 
-Comparator protects a narrow but important boundary. Selected propositions are
-declared again in a challenge module without their proofs. A solution module
-must provide terms of those exact types. The
-\repolink{verification/comparator.json}{configuration} names the permitted
-axioms, modules, and runtime receipt; the
+Comparator requires selected propositions to be stated again in a challenge
+module without their proofs. A solution module must provide terms of those
+exact types. The \repolink{verification/comparator.json}{configuration}
+names the permitted axioms, modules, and runtime receipt; the
 \repolink{docs/EXTERNAL_VERIFICATION.md}{verification guide} explains their
-separate roles. A named altered statement must fail,
-which checks that the harness has not become vacuous.
+roles. A named altered statement must fail, testing that the harness is not
+vacuous.
 
-Comparator therefore answers: ``Does the proof-bearing corpus still implement
-this separately stated Lean interface under this axiom budget?'' It does not
-answer whether the interface is the right translation of an informal problem,
-whether the theorem is new or important, or whether an independent human has
-reviewed the proof. ``Comparator-checked'' is accurate; ``independently
-verified'' is not.
+The check establishes that the proof-bearing corpus implements the separately
+stated Lean interface under the specified axiom budget. It leaves the
+translation from informal mathematics, novelty, importance, and independent
+human review unresolved. The appropriate description is
+``Comparator-checked''; the receipt alone does not establish independent
+verification.
 
-\subsection{Review selection, and what the Palomar registry is not}
+\subsection{Review selection and the Palomar registry}
 
-Comparator's roster is an evidence inventory, not a ranking. A local
-review-selection layer adds the missing editorial step. It groups declarations
-into result families, ranks them by mathematical signal, keeps the hard
-mechanism and surviving boundary adjacent, and selects a small review
-portfolio. The
+Comparator inventories evidence. Local review selection groups declarations
+into result families and ranks them by mathematical signal to choose a small
+portfolio for review. Each packet keeps the hard mechanism beside the
+surviving boundary. The
 \repolink{docs/verification/PALOMAR_QUALIFICATION.md}{qualification record}
-can say that the local packet satisfies its structural requirements. The
+records whether the packet satisfies its structural requirements. The
 \repolink{docs/PALOMAR_RESULT_SHOWCASE.json}{local selection record}
-uses Palomar's name
-because selected families may then be submitted to the external Palomar
-registry of Lean-verified mathematics. Palomar's own documentation describes
-mechanical proof checks and automated editorial filtering; it performs no human
-peer review and does not rank significance. Local qualification, registry
-inclusion, and human mathematical review are different events. None, by
-itself, establishes broad acceptance or significance within the mathematical
-community.
+uses Palomar's name because selected families may be submitted to its external
+registry of Lean-verified mathematics. Palomar documents mechanical proof
+checks and automated editorial filtering, without human peer review or
+significance ranking. Local qualification, registry inclusion, and human
+mathematical review are separate events; none alone establishes broad
+community acceptance or significance.
 
-This separation matters under proof abundance. Counting theorems rewards
-generated volume and routine closure. The local selection instead asks which result changes
-the mathematical picture, which conditional route is closest to an endpoint,
-which obstruction prevents wasted work, and which explanation will help an
-expert assess the claim. The ranking may guide attention; it cannot alter proof
-status.
+The local ranking asks which result changes the mathematical picture, which
+conditional route approaches an endpoint, which obstruction saves repeated
+work, and which explanation would help an expert assess the claim. These
+criteria direct attention without altering proof status or rewarding theorem
+count and generated volume by themselves.
 
 \subsection{Publication and propagation}
 
@@ -963,13 +901,12 @@ check the recorded relationships. Release policy requires both the Lean build
 and the public-surface checks; the Python release program does not itself
 elaborate Lean.
 
-The return path is equally important. A proof failure may improve a
-formalisation heuristic. A counterexample may close a family of tempting
-routes. A reviewer objection may require a narrower public claim. A release
-drift may create a stronger check. Those lessons propagate to the smallest
-durable owner---a theorem, experiment record, skill, standard, route, or claim
-boundary. They do not rewrite raw intent, generated views, or mathematical
-status by implication.
+Failures and review feed back into the appropriate owner. A proof failure can
+change a formalisation heuristic, a counterexample can close a route, a
+reviewer objection can narrow a claim, and release drift can prompt a new
+check. The resulting change belongs in a theorem, experiment record, skill,
+standard, route, or claim boundary. It must not rewrite raw intent, generated
+views, or mathematical status by implication.
 
 \subsection{From formal checking to mathematical use}
 
@@ -984,14 +921,11 @@ the contribution and release paths support attributable publication. Digestion,
 acceptance, and canonicalisation remain achievements of the mathematical
 community, never local status fields.
 
-This mapping also explains the unusual emphasis on failure. Tao warns that
-AI-polished exposition can erase the natural friction that tells a reader
-where the real mathematical difficulty lies. The reasoning surfaces and no-go
-graph preserve that friction deliberately: false starts, corrected claims,
-missing producers, and formal obstructions remain adjacent to the successful
-theorems. The purpose is not to display internal noise. It is to transmit the
-shape of the problem so another mathematician can understand why the surviving
-boundary is hard and where a genuinely new idea must enter.
+Tao warns that polished AI exposition can erase the friction that reveals
+where the mathematical difficulty lies. The reasoning surfaces and no-go graph
+retain false starts, corrected claims, missing producers, and formal
+obstructions alongside the successful theorems. They help a reader understand
+why the surviving boundary is difficult and where a new idea is needed.
 
 Paper authoring itself participates in this loop. As the mathematical and
 control graphs change, agents assemble and revise problem papers, architecture
@@ -1016,17 +950,15 @@ remain separate forms of evidence.
 
 This manuscript is a reflexive example: it was rewritten by the system while
 agents inspected the mechanisms it describes, then compiled and checked as a
-public artefact. That reflexivity is provenance, not validation. A system does
-not independently review itself merely by producing a clear account of itself.
+public artefact. Self-authorship records production and supplies no independent
+validation; a clear account does not constitute an independent review.
 
-The remaining design choices follow the same programme. Tool use is disclosed;
-models are not listed as authors; human contributors retain differentiated
-credit; references and source paths are inspectable; automatic checks filter
-work without impersonating peer review; and theorem counts do not determine
-value. The repository turns those recommendations into an implementation
-experiment: it asks how a small project can
-prepare for proof abundance without confusing abundant output with collective
-mathematical progress.
+Tool use is disclosed and models are not listed as authors. Human
+contributors receive differentiated credit, and references and source paths
+remain inspectable. Automatic checks filter work without replacing peer
+review; theorem counts do not determine mathematical value. These choices
+make the repository an implementation experiment in preparing a small
+project for proof abundance.
 
 \section{One complete boundary: finite is not unbounded}\label{sec:example}
 
@@ -1072,55 +1004,48 @@ It does not prove the missing implication from the finite
 range to the unbounded statement. No matter how large a fixed checked bound is,
 a larger cutoff exists.
 
-This example passes through every layer. Computation constructs finite data.
-Lean checks the certificate predicate and the finite theorem. The formal graph
-records its dependencies. The semantic graph identifies its role. The claim
-record states the finite range and names the unbounded requirement as open.
-The paper explains why the quantifiers differ. Comparator checks selected exact
-interfaces. The local review selection may rank the result family for review. The release checker
-requires the limitation to remain visible.
+The example connects the layers directly. Computation constructs the finite
+data that Lean checks through the certificate predicate and finite theorem.
+The formal graph records dependencies and the semantic graph describes the
+result's role. The claim record fixes the finite range and the open unbounded
+requirement, whose quantifier difference the paper explains. Comparator
+checks selected exact interfaces; local review selection may rank the family;
+the release checker requires the limitation to remain visible.
 
-The last check was added because the boundary once escaped. A historical README
-edit changed a clause saying that the finite cases did \emph{not} supply the
-open requirement into one saying that they completed it. Lean was untouched,
-and the release checker passed because that prose relationship had not been
-registered. After the relationship was added to the claim record, a deliberately
-false copy was rejected. This is evidence for one failure and repair. It is not
-a detection rate, a proof that every claim-bearing sentence is registered, or
-an evaluation of mathematical review quality.
+A historical README edit exposed a gap in the last check. It replaced a
+clause saying that the finite cases did \emph{not} supply the open requirement
+with one saying that they completed it. Lean was unchanged. The release
+checker passed because the prose relationship was unregistered; after it was
+added to the claim record, the checker rejected a deliberately false copy.
+This demonstrates one failure and repair, without measuring detection rate,
+coverage of claim-bearing prose, or mathematical review quality.
 
-The historical study was narrower than a benchmark. In that study, nine of the
-ten edits were rejected. One escaped because the relationship had not been registered. The
-original run logs were not retained. The edits were authored by the checker's
-author. After the relationship was registered, only the escaped edit was
-reconstructed against the repaired checklist. The other nine edits were not
-rerun against the extended checklist. The finite theorem makes no
-\(t=83\) or cofinal claim. These limitations are part of the evidence, not
-footnotes to be discarded after the repair.
+Nine of the ten edits were rejected. One escaped because the relationship
+had not been registered. The original run logs were not retained. The edits
+were authored by the checker's author. Only the escaped edit was reconstructed
+after the repair. The other nine edits were not rerun against the extended
+checklist. The finite theorem makes no \(t=83\) or cofinal claim.
 The \repolink{docs/publication_evidence.json}{historical evidence record}
-marks a coverage boundary, not a reliability score. The
+documents this coverage boundary. The
 \repolink{research/experiments/publication_mutations.json}{reconstruction manifest}
 and \repolink{scripts/run_publication_mutations.py}{mutation harness}
-make the registered test edits inspectable; they are not the missing original
-run logs.
-The post-repair witness accepts the current README and
-rejects a test copy containing the false clause.
+make the registered edits inspectable but do not replace the missing original
+logs. The post-repair witness accepts the current README and rejects a test
+copy containing the false clause.
 
-The same architecture handles other shapes of progress. Problem 257 separates
-a theorem for full-support representations from a stronger arbitrary-support
-statement that remains open. Problem 68 has an exact carry-based equivalence
-but no theorem producing the required carries. Problem 251 has an exact series
-reformulation rather than an irrationality proof, and Problem 243 records a
-conditional recovery theorem whose premises remain part of the public claim.
-A counterexample or corrected statement, as in the 1041 lane, is also a
-first-class result. The publication rule is identical in every case: preserve
+Other lanes illustrate different claim boundaries. Problem 257 has a theorem
+for full-support representations; the stronger arbitrary-support statement
+remains open. Problem 68 has an exact carry-based equivalence without a
+theorem producing the required carries. Problem 251 gives an exact series
+reformulation without an irrationality proof, and Problem 243 gives a conditional recovery theorem whose
+premises remain in the public claim. The 1041 lane also records a
+counterexample and corrected statement. In each case, publication preserves
 the quantifiers, premises, and nearest stronger open statement.
 
 \section{Inspection routes}\label{sec:routes}
 
-A reader can inspect the public system through short, question-shaped routes.
-The labels below link to repository paths; the paper does not print the full
-URLs.
+The following routes lead from common inspection questions to the relevant
+public sources.
 
 \begin{table}[H]
 \centering\small
@@ -1179,24 +1104,21 @@ The architecture supports a chain of narrow conclusions:
       the named revision.
 \end{enumerate}
 
-Joining these receipts improves traceability, but it does not create a seventh,
-stronger oracle. In particular, the architecture does not establish that the
-formalisation is the uniquely right one, the review is independent, the result
-is novel or significant, the registered boundary is complete, or an open
-Erd\H{o}s problem is solved. A coordinated but mistaken edit to source, record,
-and prose can still make every structural comparison agree. Unregistered prose
-can still overclaim. Literature status can still change.
+Together, the receipts trace a result through the system. They do not establish
+that its formalisation is uniquely right, its review independent, its
+contribution novel or significant, or its registered boundary complete. They
+also do not establish a solution to an open Erd\H{o}s problem. A coordinated
+mistake in source, record, and prose can satisfy every structural comparison.
+Unregistered prose can overclaim, and literature status can change.
 
-The system reduces these risks by keeping sources plural, boundaries explicit,
-and negative tests close to high-risk claims. It does not claim to eliminate
-human judgement. It does not technically force a second independent
-mathematician to review the result. This is the same limit encountered in
-assurance cases: a formal notation can record an asserted support relationship
-without proving that the evidence is true or sufficient for the top claim
+Multiple sources, explicit boundaries, and negative tests near high-risk
+claims help expose these errors. Mathematical judgement remains necessary,
+and the system does not require a second independent mathematician. Assurance
+cases have a similar limit: their notation can record a claimed support
+relationship without proving that the evidence is true or sufficient
 \cite{gsn}.
 
-A reader can keep those limits straight by asking, for any capability named
-in this paper, which of four kinds of support stands behind it.
+A capability described in this paper may have any of four kinds of support:
 
 \begin{center}
 \small
@@ -1219,43 +1141,35 @@ External outcome & Another researcher reproduces, adopts, corrects, or builds on
 
 \subsection{Clone, attach compute, and mine bounded results}
 
-The public repository is more than a static archive. A fresh clone fixes a
-Lean toolchain, exposes the supported roots, names reviewed claims and open
-boundaries, and provides query and release programs. An external researcher
-can attach any agent runner to those public interfaces, launch independent
-workers on disjoint theorem or experiment lanes, and submit candidate changes
-through the same proof and publication gates. More compute increases the
-number and diversity of attempts; it does not relax the meaning of a passing
-receipt.
+A fresh public clone fixes a Lean toolchain, exposes supported roots, records
+reviewed claims and open boundaries, and supplies query and release programs.
+An external researcher can attach an agent runner to these interfaces, assign
+disjoint theorem or experiment lanes, and submit candidate changes through the
+proof and publication gates. Added compute can increase the number and
+diversity of attempts without changing what a passing receipt means.
 
-This suggests a ``result mining'' mode. Workers select bounded frontier
-objects, explore proofs, counterexamples, computations, or literature, and
-return exact artefacts. Fan-in then checks Lean, reconciles statements, records
-negative evidence, and ranks the mathematically strongest surviving result
-families. The useful unit is not a model answer or a theorem count. It is a
-result packet with provenance, scope, formal status, mathematical role, and a
-nearest stronger open statement. Local review selection can allocate scarce
-expert attention to those packets; Comparator can protect selected exact
-interfaces; neither is replaced by scale.
+In the proposed ``result mining'' mode, workers select bounded frontier
+objects and return proof attempts, counterexamples, computations, or
+literature findings as exact artefacts. Fan-in checks Lean, reconciles
+statements, records negative evidence, and ranks the strongest surviving
+result families. Each result packet carries provenance, scope, formal status,
+mathematical role, and a nearest stronger open statement. Local selection
+allocates review attention to these packets, while Comparator protects
+selected exact interfaces.
 
-At scale, fan-in is a persistent stewardship role rather than an end-of-run
-cleanup task. It consumes each stable delta, compares it with the complete
-candidate universe, updates the paper hierarchy and assurance interfaces when
-warranted, and returns a newly ranked frontier to the mining fleet. Several
-miners may therefore share one stewardship goal, and one steward may consume
-results from several problems, provided every write and mathematical object
-still has one owner. The steward is allowed to say that a large run produced
-no new mathematical family, or that a short negative result should outrank
-many formal lemmas. This prevents compute volume and theorem count from
-becoming accidental editorial policy.
+At scale, stewardship would handle each stable delta as it arrives. It
+compares the delta with the candidate universe, updates the paper hierarchy
+and assurance interfaces when warranted, and returns a ranked frontier to the
+workers. Several miners can share one stewardship goal, and one steward can
+cover several problems, provided every write and mathematical object retains
+one owner. A large run may produce no new mathematical family; a short
+negative result may deserve more prominence than many formal lemmas.
 
-Fleet size and validation capacity are deliberately different variables. In
-principle, many logical agents can search disjoint mathematical neighbourhoods;
-in practice, the controller admits work according to path conflicts, memory,
-CPU, disk pressure, and the expected value of the lane. Cheap reading and
-computation may fan out widely while mutation remains path-leased and heavy
-Lean work is narrower. This prevents ``more agents'' from meaning ``more
-processes contending for the same compiler and checkout.''
+The controller admits work according to path conflicts, memory, CPU, disk
+pressure, and the expected value of the lane. Many agents can in principle
+search disjoint mathematical neighbourhoods, while practical limits differ by
+activity. Reading and cheap computation can run widely; changes require path
+leases, and heavy Lean validation has narrower capacity.
 
 Public Lean validation uses
 \repolink{scripts/validation_singleflight.py}{single-flight request coordination}:
@@ -1277,13 +1191,10 @@ collected later. This lets a controller advance independent work while an
 admitted build runs. A deferral reports resource availability, not a failed
 mathematical theorem.
 
-There are consequently four separate scaling limits: logical search width,
-safe concurrent mutation, mechanical validation throughput, and scarce expert
-review. Path leases govern the second, validation admission governs the third, and
-review-selection ranking governs the fourth. Fan-in joins their outputs only after
-the appropriate receipts exist. This separation is what allows additional
-models and compute to enlarge exploration without silently enlarging any
-model's authority.
+Scaling therefore has four limits: logical search width, safe concurrent
+mutation, validation throughput, and expert review. Path leases govern
+mutation, admission controls validation, and result ranking directs reviewer
+attention. Fan-in integrates the outputs once the required receipts exist.
 
 The return path is already public. A person can fork or clone the repository,
 work from a named public commit, and open a pull request or research-progress
@@ -1314,28 +1225,25 @@ made here are tested by the
 \papersectionlink{cold-clone-to-proof-receipt.pdf}%
 {cold-clone-problem}{cold-clone case study}.
 
-The current public clone supplies the mathematical corpus and its gates. The
-full private orchestration layer is not yet distributed as a turnkey public
-service, so mass multi-provider mining is a design target rather than a
-reported benchmark. The important point is that the public interfaces do not
-depend on one private scheduler. A laboratory with many frontier models can
-replace the producer while retaining the same evidence boundary.
+The public clone supplies the mathematical corpus and its gates. The full
+private orchestration layer is not distributed as a turnkey service, and
+mass multi-provider mining remains a design target without a reported
+benchmark. Public interfaces allow a laboratory to use another scheduler or
+producer while retaining the evidence boundary.
 
 No outside contributor had completed this path by 31 August 2026. The
 cross-paper links, clone-local skills, and pull-request route are therefore
 implemented prototype interfaces whose usability remains an external test.
 
-\subsection{The no-go graph as a new mathematical object}
+\subsection{Using the no-go graph}
 
-A mature corpus should not represent progress as a list of proved theorems.
-Its graph should contain at least the following node classes: endpoint
-problems; conjectures and reformulations; proposed mechanisms; computations;
-formal lemmas; counterexamples; no-go theorems; reviewed claims; and unresolved
-obligations. Edges should distinguish implication, equivalence, dependency,
-refutation, obstruction of a strategy, weakening, generalisation, experimental
-support, formalisation, and publication. A no-go then occupies a precise place:
-it closes one region of mechanism space while exposing the boundary around
-nearby variants that remain viable.
+The proposed graph records endpoint problems, conjectures and reformulations,
+mechanisms, computations, formal lemmas, counterexamples, no-go theorems,
+reviewed claims, and unresolved obligations. Its edges distinguish implication,
+equivalence, dependency, refutation, obstruction of a strategy, weakening,
+generalisation, experimental support, formalisation, and publication. A
+no-go rules out a class of mechanisms while leaving nearby variants to be
+examined separately.
 
 As this negative and positive graph grows, several new uses become testable.
 A model may navigate around already closed strategy families, identify a small
@@ -1358,32 +1266,29 @@ important mathematical space.
 
 \subsection{An experimental agenda}
 
-The next evaluation should ask more than how many theorems additional compute
-produces. It should compare graph-aware and graph-blind agents on frontier
-selection, repeated-dead-end rate, time to a useful obstruction, premise
+Evaluation should compare agents with and without graph context on frontier
+selection, repeated dead ends, time to a useful obstruction, premise
 discovery, proof completion, and calibration of public claims. It should test
-transfer between unrelated mathematical domains as well as between neighbouring
-Erd\H{o}s problems. Independent teams should replay result packets and review
-whether no-go edges are scoped correctly. The central scaling question is
-whether an increasingly rich map of what works and what cannot work makes
-future reasoning more efficient and more original, or merely makes the system
-more confident about the territory it already knows.
+transfer between unrelated mathematical domains as well as neighbouring
+Erd\H{o}s problems. Independent teams should replay result packets and assess
+the scope of no-go edges. The question is whether the accumulated graph
+improves the efficiency and originality of later reasoning, including on
+mathematics beyond the corpus already mapped.
 
 \section{Relation to other approaches}\label{sec:related}
 \small
 
 \paragraph{Theorem-proving agents.}
-This architecture is not a new proof-search algorithm. LeanDojo and Pantograph
-provide programmatic Lean environments and proof-state interaction
-\cite{leandojo,pantograph}. OpenProver already combines a planner, parallel
-workers, independent verifiers, compact working memory, a larger repository,
-and Lean feedback \cite{openprover}. Agent Hunt already studies concurrent
+LeanDojo and Pantograph provide programmatic Lean environments and proof-state
+interaction \cite{leandojo,pantograph}. OpenProver combines a planner,
+parallel workers, independent verifiers, compact working memory, a larger
+repository, and Lean feedback \cite{openprover}. Agent Hunt studies concurrent
 formalisation with locks, bounties, guarded ownership, and collaborative
 agents \cite{agenthunt}. DreamProver learns a compact reusable lemma library
-through wake--sleep cycles \cite{dreamprover}. These are baselines for proof
-interaction, parallel search, and learned proof memory. Here those mechanisms
-sit upstream of a different question: after a proof is found, what exactly may
-move into a reviewed public claim?
+through wake--sleep cycles \cite{dreamprover}. These systems provide baselines
+for proof interaction, parallel search, and learned proof memory. The present
+architecture contributes no new proof-search algorithm; it addresses the
+subsequent transition from a found proof to a reviewed public claim.
 
 \paragraph{Graphs and checked exposition.}
 Proof blueprints connect informal proof plans to named Lean declarations.
@@ -1403,24 +1308,23 @@ The present architecture uses models throughout production but assigns none of
 them final semantic authority. Their output becomes evidence or a candidate
 until a source-specific gate accepts it.
 
-Checked-document and traceability systems make heterogeneous relationships
-explicit. Isabelle/DOF places formal and informal material in a typed checked
-document \cite{isadof}; requirements traceability follows commitments across
-development and revision \cite{gotel}. This repository keeps prose unrestricted
-and records selected public boundaries separately. That choice makes adoption
-simple, but leaves unregistered prose outside the checker.
+Isabelle/DOF places formal and informal material in a typed checked document
+\cite{isadof}; requirements traceability follows commitments across
+development and revision \cite{gotel}. This repository leaves prose
+unrestricted and records selected public boundaries separately, so
+unregistered prose remains outside the checker.
 
 \paragraph{Auditable scientific agents.}
-HEP makes hypotheses, evidence, belief updates, lineage, and resolution states
-explicit in an append-only registry \cite{hep}. Symposium proposes immutable
+HEP records hypotheses, evidence, belief updates, lineage, and resolution
+states in an append-only registry \cite{hep}. Symposium proposes immutable
 community publication histories with attributable artefacts, declared
 evidence, assumptions, and purpose-sensitive arguments \cite{symposium}.
-EurekAgent treats permissions, artefacts, budgets, and human supervision as
-first-class parts of an agent environment \cite{eurekagent}. Persistent records
-and environment design are therefore not unique to this system. The narrower
-distinction here is between authorities that must not be collapsed:
-experimental evidence, kernel acceptance, reviewed interpretation,
-exact-statement assurance, editorial selection, and public release.
+EurekAgent includes permissions, artefacts, budgets, and human supervision in
+its agent environment \cite{eurekagent}. These precedents establish the role
+of persistent records and environment design. The comparison here concerns
+the separation of experimental evidence, kernel acceptance, reviewed
+interpretation, exact-statement assurance, editorial selection, and public
+release.
 
 Mutation testing asks whether a test distinguishes a seeded fault from the
 original program \cite{demillo,jiaharman}. The deliberately false boundary in
@@ -1429,19 +1333,18 @@ the system's author and were not run as a controlled external evaluation, they
 show that particular checks can fail; they do not measure overall adequacy.
 
 \paragraph{Contribution and limits.}
-The contribution is architectural composition, not a claim that each component
-was invented here and not evidence of better proof-search performance. The
-system joins a private authority-aware workbench to a self-contained public
-Lean repository, then keeps formal dependencies, semantic interpretation,
-reviewed claims, Comparator interfaces, review selection, and release
-relationships visibly separate. It also carries deeply investigated failure
-modes and formal no-gos through the same public path as positive theorems,
-without discarding the stronger endpoint that survives. Failure logging and
-hypothesis refutation have precedents; among the systems compared here, the
-distinctive contribution is their integration with formal obstruction results,
-claim ceilings, and publication assurance. The evidence is a detailed design
-and worked reconstruction from one evolving corpus. It is not a controlled
-comparison, an independent audit, or a general reliability estimate.
+The contribution combines existing components into an architecture joining a
+private workbench and a self-contained public Lean repository. Formal
+dependencies, semantic interpretation, reviewed claims, Comparator
+interfaces, review selection, and release relationships have separate
+records. Failure modes and formal no-gos pass through the publication process
+with positive theorems, while retaining the stronger endpoint that remains
+open. Failure logging and hypothesis refutation have precedents; the
+comparison here concerns their integration with formal obstruction results,
+claim ceilings, and publication assurance. Evidence comes from the design
+and a worked reconstruction in one evolving corpus. It provides neither a
+controlled performance comparison nor an independent audit or general
+reliability estimate.
 
 \paragraph{Scaling beyond this corpus.}
 The design is not tied to Erd\H{o}s problems. A new domain needs stable result
@@ -1459,35 +1362,27 @@ edge to change mathematical truth by itself.
 
 \section{Conclusion}\label{sec:conclusion}
 
-The architecture has two central claims. First, an AI mathematics system must
-navigate problem-sized mathematical worlds rather than treat a large Lean
-repository as a bag of files or one prompt. Second, scaling search safely
-requires reasoning scope, mutation permission, validator capacity, evidence
-class, public-claim permission, and reviewer attention to remain non-fungible
-until an explicit fan-in gate. Together these properties make the architecture
-a claim-transition operating system with a prover as one component.
+This architecture organises AI-assisted research around bounded
+neighbourhoods in problem-sized mathematical worlds. At each transition from
+search to public wording, it records the evidence, the person or program
+authorised to assess it, and the stronger statement that remains open.
+Reasoning scope, mutation permission, validator capacity, evidence class,
+public-claim permission, and reviewer attention have separate gates.
 
-The boundaries follow immediately. Questions are not work records. Work
-records are not experiments. Experiments are not proofs. Lean proofs are not
-interpretations. Interpretations are not public claims. Public claims are not
-independent review. Review is not community acceptance.
+The private workbench supports durable research and concurrent changes.
+Type A agents work on claimed paths under checks; Type B agents return
+bounded reasoning from web chat. Experiments help choose routes, and Lean
+checks formal statements. Graphs support navigation, Comparator checks
+selected interfaces, and local selection prepares results for review. The
+external Palomar registry checks and filters submissions. Source, claims,
+papers, and release receipts are published in a self-contained clone.
 
-The private workbench makes the early stages durable and concurrent. Type A
-actors mutate live substrate under claims and checks; Type B actors contribute
-bounded external reasoning without hidden write authority. Computational
-experiments prune and prioritise routes. Lean supplies exact formal authority.
-Graphs make a large corpus navigable without collapsing inventory into meaning.
-Comparator checks exact statement interfaces. Local review selection directs
-scarce review attention, and the external Palomar registry checks and filters
-what is submitted to it. The public repository then packages source, claims, papers, and
-release receipts into a clone that stands on its own.
-
-The useful result is not an automatic mathematician and not a universal
-publication verifier. It is a system in which the evidence for a claim, the
-person or program allowed to judge it, and the stronger statement that remains
-open are all visible at the point where the claim moves forward. That is what
-lets an AI-assisted research process scale without turning accumulated output
-into accumulated ambiguity.
+The worked example shows how these records preserve a finite theorem's
+boundary through publication, including the repair of one escaped overclaim.
+It does not establish an automatic mathematician or a verifier for arbitrary
+publication claims. Intended meaning still requires mathematical judgement;
+independent review, community understanding, and acceptance require evidence
+beyond the producing system.
 
 \appendix
 \small

@@ -91,7 +91,7 @@ Sections on results and limitations (selected for this guide): [Introduction](fu
 
 [full text](full-text/erdos251-prime-gap-reasoning-surface.md) · [PDF](mirror/erdos251-prime-gap-reasoning-surface.pdf) · [LaTeX source](https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex) · 51 sections · `erdos251-prime-gap-reasoning-surface` · mirror to this repository
 
-Sections on results and limitations (selected for this guide): [Complete result-family map](full-text/erdos251-prime-gap-reasoning-surface.md#sec:erdos-251-complete-family-map).
+Sections on results and limitations (selected for this guide): [Introduction](full-text/erdos251-prime-gap-reasoning-surface.md#long251:sec:problem), [The tail recurrence and the exact criteria](full-text/erdos251-prime-gap-reasoning-surface.md#long251:sec:tail), [What cannot supply the missing input](full-text/erdos251-prime-gap-reasoning-surface.md#long251:sec:obstructions), [The remaining obligation](full-text/erdos251-prime-gap-reasoning-surface.md#long251:sec:open), [Complete result-family map](full-text/erdos251-prime-gap-reasoning-surface.md#sec:erdos-251-complete-family-map).
 
 ### Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?
 
@@ -179,7 +179,7 @@ Sections on results and limitations (selected for this guide): [The cold-clone p
 
 [full text](full-text/open-source-mathematics-strategy.md) · [PDF](mirror/open-source-mathematics-strategy.pdf) · [LaTeX source](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex) · 30 sections · `open-source-mathematics-strategy` · mirror to this repository
 
-Sections on results and limitations (selected for this guide): [The strategy](full-text/open-source-mathematics-strategy.md#sec:strategy), [The public research object](full-text/open-source-mathematics-strategy.md#sec:object), [The contribution protocol](full-text/open-source-mathematics-strategy.md#sec:protocol), [From an agent claim to mathematical attention](full-text/open-source-mathematics-strategy.md#sec:attention), [Distributed compute without distributed authority](full-text/open-source-mathematics-strategy.md#sec:security), [Participation and growth](full-text/open-source-mathematics-strategy.md#sec:growth), [Limits and governance](full-text/open-source-mathematics-strategy.md#sec:limits).
+Sections on results and limitations (selected for this guide): [The strategy](full-text/open-source-mathematics-strategy.md#sec:strategy), [The public research object](full-text/open-source-mathematics-strategy.md#sec:object), [The contribution protocol](full-text/open-source-mathematics-strategy.md#sec:protocol), [From an agent claim to mathematical attention](full-text/open-source-mathematics-strategy.md#sec:attention), [Running contributed code safely](full-text/open-source-mathematics-strategy.md#sec:security), [Participation and growth](full-text/open-source-mathematics-strategy.md#sec:growth), [Limits and governance](full-text/open-source-mathematics-strategy.md#sec:limits).
 
 ### What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?
 
