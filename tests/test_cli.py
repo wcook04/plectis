@@ -1863,6 +1863,66 @@ def test_cli_tour_card_relative_external_project_writes_caller_project_state(
     ] == "pass"
 
 
+@pytest.mark.parametrize(
+    "command",
+    (
+        ["index"],
+        ["architecture"],
+        ["tour", "--format", "json"],
+    ),
+)
+@pytest.mark.parametrize("invalid_kind", ("missing", "file"))
+def test_cli_project_commands_reject_invalid_project_directories_without_writing(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    command: list[str],
+    invalid_kind: str,
+) -> None:
+    project = tmp_path / f"{invalid_kind} project"
+    if invalid_kind == "file":
+        project.write_text("not a project directory\n", encoding="utf-8")
+
+    rc = cli.main([*command, str(project)])
+    captured = capsys.readouterr()
+
+    assert rc == 2
+    assert captured.out == ""
+    expected = (
+        "project directory does not exist"
+        if invalid_kind == "missing"
+        else "project path is not a directory"
+    )
+    assert expected in captured.err
+    assert str(project) in captured.err
+    if invalid_kind == "missing":
+        assert not project.exists()
+    else:
+        assert project.read_text(encoding="utf-8") == "not a project directory\n"
+
+
+def test_cli_project_directory_boundary_preserves_spaces_and_explicit_init(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    monkeypatch.setenv("HOME", str(tmp_path))
+    existing_project = tmp_path / "existing project with spaces"
+    existing_project.mkdir()
+    (existing_project / "README.md").write_text("# Scratch\n", encoding="utf-8")
+
+    assert cli.main(["index", "~/existing project with spaces"]) == 0
+    index_payload = json.loads(capsys.readouterr().out)
+    assert index_payload["file_count"] == 1
+    assert (existing_project / ".microcosm/catalog.json").is_file()
+
+    new_project = tmp_path / "new project with spaces"
+    assert not new_project.exists()
+    assert cli.main(["init", str(new_project)]) == 0
+    init_payload = json.loads(capsys.readouterr().out)
+    assert init_payload["project_id"] == new_project.name
+    assert (new_project / ".microcosm/project_manifest.json").is_file()
+
+
 def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
