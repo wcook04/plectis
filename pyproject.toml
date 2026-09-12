@@ -60,8 +60,6 @@ where = ["src"]
   "CLAUDE.md",
   "CONSTITUTION.md",
   "CONTRIBUTING.md",
-  "CODEX.md",
-  "CURSOR.md",
   "FIRST_ACTION.md",
   "GEMINI.md",
   "HYPOTHESIS_HANDOFF.md",
