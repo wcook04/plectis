@@ -1,4 +1,4 @@
-# Copilot Instructions - Microcosm Substrate Adapter
+# Copilot Instructions - Plectis adapter
 
 This is a thin adapter for GitHub Copilot, which may load it beside `AGENTS.md`,
 `CLAUDE.md`, and `GEMINI.md` in no fixed order, so it states no rule of its own:

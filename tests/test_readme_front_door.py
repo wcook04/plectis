@@ -24,6 +24,7 @@ _LINKED_SIBLINGS = (
     "QUICKSTART.md",
     "ARCHITECTURE.md",
     "docs/papers/README.md",
+    "docs/README.md",
     "ORGANS.md",
     "AGENTS.md",
     "RELEASE_REVIEW.md",

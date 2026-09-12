@@ -1,4 +1,4 @@
-# CLAUDE.md - Microcosm Substrate Adapter
+# CLAUDE.md - Plectis adapter
 
 @AGENTS.override.md
 

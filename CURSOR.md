@@ -1,4 +1,4 @@
-# CURSOR.md - Microcosm Substrate Adapter
+# CURSOR.md - Plectis adapter
 
 This is a thin adapter for Cursor-style agents. Read `AGENTS.override.md` as the
 compact cold-clone entry; `AGENTS.md` remains the deep public mutation contract.

@@ -1,14 +1,9 @@
 # Plectis
 
 [Website](https://wcook04.github.io/plectis/) ·
-[Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) ·
-[The Plectis paper (PDF)](plectis-public-system.pdf) ·
-[Paper guide](docs/papers/README.md) ·
-[Mathematics companion](https://github.com/wcook04/plectis-erdos) ·
-[Hypothesis handoffs](HYPOTHESIS_HANDOFF.md) ·
 [Quickstart](QUICKSTART.md) ·
-[Contributing](CONTRIBUTING.md) ·
-[All public work](https://wcook04.github.io/)
+[Documentation](docs/README.md) ·
+[Contributing](CONTRIBUTING.md)
 
 **Plectis is a public Python toolkit of 88 mechanisms taken from the research
 and engineering system I built with AI coding agents.** That system exists so
@@ -47,38 +42,16 @@ why the corpus is built the way it is: every component has to leave evidence a
 separate check can read, because the author's own confidence is not the thing
 being offered.
 
-The companion mathematics repository,
-[plectis-erdos](https://github.com/wcook04/plectis-erdos), contains the Lean
-source, papers, recorded failed approaches and continuation workflows for eight
-open Erdős problems: #68, #243, #249, #251, #257, #269, #1041, and #1049. All
-eight remain open. A mathematics task needs only that repository; a software
-task needs only this one. The recorded walkthroughs on the
-[website](https://wcook04.github.io/plectis/#demo-videos) show the private
-interface itself. The three share one origin; each is assessed from its own
-evidence, and none of them establishes the reliability of the private system.
+For the argument behind the toolkit, read [the Plectis paper](plectis-public-system.pdf).
+The [paper guide](docs/papers/README.md) introduces the wider corpus, with PDFs
+and searchable text available in the clone.
 
-For Plectis itself, start with [the Plectis paper](plectis-public-system.pdf).
-For a mathematical problem or result, browse the
-[maths pages](https://wcook04.github.io/plectis/maths/) for the papers,
-then use the [Lean repository](https://github.com/wcook04/plectis-erdos#readme)
-and its per-problem map of strongest checked results,
-[RESULTS.md](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md),
-then choose its problem-specific paper. Read
-[the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
-for the boundary between a Lean theorem and a public claim about that theorem.
-The clone-local [`docs/papers/`](docs/papers/) directory carries the active
-paper corpus as PDFs and searchable text, so reading it does not require the
-website.
-
-For the wider scholarly corpus, start with the clone-local
-[paper guide](docs/papers/README.md), or ask the machine route:
-
-```bash
-PYTHONPATH=src python3 -m plectis comprehend --slice papers --format text
-```
-
-It says what each paper owns, what it cannot establish, and which short
-sequence fits your question. You do not need to read every paper.
+The [mathematics companion](https://github.com/wcook04/plectis-erdos) contains
+papers and Lean proofs around eight open Erdős problems. A maths task needs
+only that repository; a software task needs only this one. The
+[companion guide below](#companion-project-eight-open-erdős-problems-in-lean-4)
+explains where to start. [Recorded walkthroughs](https://wcook04.github.io/plectis/#demo-videos)
+show the private interface; they do not establish its reliability.
 
 ## What you get
 
@@ -374,7 +347,7 @@ the broader test suite runs.
 - [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
   how that repository keeps its public claims matched to what the Lean kernel
   checked; the same publication discipline Plectis applies to software.
-- [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/6f41f392be83c15a7a70d0dc808a51891ad784ce):
+- [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/841c6c4d3fdfc3be9acf95bc3c7bc43b5f81616b):
   the recorded public source snapshot contains 1,274 Lean modules and 153,502
   theorem-like declarations, checked by the pinned kernel; start from
   `docs/ORIENTATION.md`. These are scale and navigation counts, not separate

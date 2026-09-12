@@ -84,7 +84,7 @@ PUBLIC_TESTS += tests/test_readme_front_door.py
 
 help:
 	@printf '%s\n' \
-		"Microcosm public repo commands:" \
+		"Plectis commands:" \
 		"  make install             create temp venv and install test extras" \
 		"  make test                run public entry and safety tests" \
 		"  make test-all            run full suite with pytest receipt writes blocked" \

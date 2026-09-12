@@ -3,7 +3,7 @@
 One shared contract, two profiles:
 
     python_research_tool              (Plectis itself, default)
-    formalised_mathematics_artifact   (e.g. the plectis-lean-erdos249-257 repo)
+    formalised_mathematics_artifact   (e.g. the plectis-erdos repo)
 
 The profile checks the *presentation* contract a stranger meets: a small
 classified root, a human README with a runnable first screen, a bounded
