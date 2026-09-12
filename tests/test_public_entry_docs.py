@@ -82,7 +82,7 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
     # tests/test_quickstart_docs.py), and the full review manual moved to
     # docs/maintainers/validation.md. This test now guards that split: the
     # quickstart keeps the cold-clone essentials, and the manual truths that
-    # left the quickstart survive verbatim on the maintainer runbook.
+    # left the quickstart remain available in the maintainer runbook.
     quickstart_path = MICROCOSM_ROOT / "QUICKSTART.md"
     readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     quickstart = quickstart_path.read_text(encoding="utf-8")
@@ -119,9 +119,10 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "plectis hello --reader skeptical_reviewer .",
         "plectis hello --reader agent .",
         "plectis hello --reader domain_specialist .",
-        "`cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch",
-        "`reviewer` to the safety/evals branch",
-        "`agent` / `type-a-agent` to the repo-reading agent branch",
+        "`cold-cloner`",
+        "`skeptical-reviewer`",
+        "`type-a-agent`",
+        "`domain-specialist`",
         "generated organ specialty index",
         "plectis first-screen --card .",
         "plectis status --card .",
@@ -133,13 +134,14 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "workingness: clear",
         "served status: pass",
         ".microcosm/smoke/",
-        "without dumping the full cards into CI logs",
+        "scripts/check_smoke_outputs.py",
         "python3 -m plectis",
         "python3 -m microcosm_core` remains the compatibility spelling",
         "pip install -e '.[test]'",
         "/project/observatory-card",
         "/workingness-card",
-        "open `/workingness` only when you need the full per-organ failure-envelope map",
+        "`/workingness`",
+        "`/project/first-screen-full`",
         "plectis evidence inspect . .microcosm/evidence/routes.json",
         "--limit 0",
         "make standalone-export EXPORT_OUT=/tmp/plectis-export",
@@ -231,7 +233,7 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "plectis authority --card",
         "plectis workingness --card",
         "plectis legibility-scorecard",
-        "without dumping the full cards into CI logs",
+        "scripts/check_smoke_outputs.py",
     ):
         assert " ".join(phrase.split()) in normalized_validation_runbook, phrase
 

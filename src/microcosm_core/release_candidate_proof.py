@@ -66,18 +66,20 @@ REVIEW_DOC_REL = "RELEASE_REVIEW.md"
 WORK_DIR_TOKEN = "<work-dir>"
 EXPORT_OUT_TOKEN = "<export-out>"
 WORK_ROOT_TOKEN = "<work-root>"
-# Honest provenance posture: no public release artifact exists yet, so nothing
-# here is externally signed or attested. Verification is internal consistency
-# with digest-bound evidence, never third-party provenance.
+# This packet has no external signature or attestation. The legacy status
+# identifier does not describe which GitHub releases have been published.
 EXTERNAL_SIGNATURE_STATUS = "absent_public_release_not_yet_attested"
 PROOF_BOUNDARY = (
-    "proves the goal-shaped first-action encounter is distribution-true "
-    "across checkout, install, and export; does not authorize release, "
-    "publication, provider calls, source mutation, domain correctness, "
-    "or whole-system correctness. Verification proves the packet is "
-    "internally consistent with its digest-bound evidence; it does not "
-    "prove the run happened as recorded — rerun the generator to "
-    "re-establish provenance"
+    "the generator compares the component ID and suggested command and validator "
+    "returned for one question in a checkout, installed package, and export "
+    "with the saved demonstration; command comparisons normalize whitespace "
+    "and recognized invocation prefixes. It does not run the suggested "
+    "finance command or validator. Verification compares recorded file hashes "
+    "and recomputed results with the packet; it does not prove the run happened "
+    "as recorded. Rerun generation to obtain results from your own run. "
+    "A passing result does not establish forecast accuracy or whole-system "
+    "correctness, and does not authorize release, publication, provider calls, "
+    "or source mutation"
 )
 # The reviewer-facing failure taxonomy: every named way a proof or its
 # verification goes red, with what each one does and does not mean. Single
@@ -88,111 +90,113 @@ FAILURE_INTERPRETATIONS: tuple[dict[str, str], ...] = (
         "code": "context_encounter_blocked",
         "surface": "generate",
         "meaning": (
-            "one distribution context did not produce the complete "
-            "first-action contract; that context's failed_checks names each "
-            "missed obligation and evidence_refs points at the raw bytes"
+            "a lookup, scenario test, or fresh-install package smoke did not "
+            "meet the required conditions; open that context's failed_checks "
+            "and the output files listed in evidence_refs"
         ),
         "does_not_mean": (
-            "the whole repository is broken — read the named context's "
-            "evidence before concluding anything wider"
+            "that every component failed; this result concerns the listed "
+            "lookup, scenario-test, or package-install conditions in that copy"
         ),
     },
     {
         "code": "cross_context_agreement_blocked",
         "surface": "generate",
         "meaning": (
-            "the contexts resolved the hero goal to different owners, "
-            "commands, or validators — the installed or exported product "
-            "differs from the checkout"
+            "the three copies did not return the same nonempty component ID, "
+            "command action, and validator action; compare owner_organ_ids, "
+            "command_semantic_actions, and validator_semantic_actions"
         ),
         "does_not_mean": (
-            "a tampered packet; agreement failures are honest divergence "
-            "evidence, preserved for review"
+            "that someone altered the saved files; these returned values can "
+            "differ in an otherwise correctly recorded run"
         ),
     },
     {
         "code": "expectation_policy_blocked",
         "surface": "generate",
         "meaning": (
-            "the agreed encounter does not match the committed demonstration "
-            "(owner, command, or validator drifted, or the committed demo "
-            "receipt is missing from the tree)"
+            "at least one returned component ID, command action, or validator "
+            "action differs from the saved demonstration, or that "
+            "demonstration is missing; read expectation_policy.failed_checks"
         ),
         "does_not_mean": (
-            "cross-context divergence — the contexts can agree with each "
-            "other and still differ from what the artifact promised"
+            "that the three copies differ from each other; all three can "
+            "return the same values and still differ from the demonstration"
         ),
     },
     {
         "code": "private_path_leak",
         "surface": "generate_or_verify",
         "meaning": (
-            "a written evidence file carries a private absolute path, so the "
-            "packet refuses to present itself as public-safe"
+            "the path scan found a private absolute-path pattern in a written "
+            "file; inspect the reported file and matched text before sharing it"
         ),
         "does_not_mean": (
-            "a security breach — the usual cause is a subprocess echoing an "
-            "absolute workspace path into scanned output"
+            "that an account was compromised or that an output was published; "
+            "the scan detects text in local files"
         ),
     },
     {
         "code": "source_mutation_seen",
         "surface": "generate_or_verify",
         "meaning": (
-            "tracked source changed while the proof ran, so the run is not a "
-            "clean witness (concurrent edits in a busy tree also trip this)"
+            "the source-mutation record does not show an unchanged source "
+            "tree; inspect its changed, added, and removed file counts"
         ),
         "does_not_mean": (
-            "the proof machinery mutated the tree — rerun in a quiet window "
-            "before suspecting the substrate"
+            "which process changed a file; another editor or command may "
+            "have written to the checkout during the run"
         ),
     },
     {
         "code": "packet_stale",
         "surface": "verify",
         "meaning": (
-            "the packet is missing, unparseable, schema-mismatched, missing "
-            "referenced evidence, or asserting an authority/signature posture "
-            "this lane does not grant — regenerate before reviewing"
+            "a required file or field is missing, JSON cannot be parsed, "
+            "the schema differs, or a permission/signature field has an "
+            "unexpected value; read the verification checks for the exact reason"
         ),
         "does_not_mean": (
-            "evidence forgery — staleness is the no-packet / wrong-version / "
-            "wrong-posture class, not the tampered-bytes class"
+            "that someone deliberately forged a result; the listed condition "
+            "does not identify its cause"
         ),
     },
     {
         "code": "digest_mismatch",
         "surface": "verify",
         "meaning": (
-            "stored claims diverge from the digest-bound evidence: tampered "
-            "bytes, a forged block, or a doctored status"
+            "a recomputed hash or result differs from the value recorded in "
+            "the packet; inspect the named verification check and regenerate "
+            "the files before relying on them"
         ),
         "does_not_mean": (
-            "an infrastructure flake — treat the packet as untrusted and "
-            "regenerate it"
+            "that the mismatch was deliberate; the comparison alone cannot "
+            "distinguish an edit, corruption, or a recording error"
         ),
     },
     {
         "code": "concurrent_churn_possible",
         "surface": "verify",
         "meaning": (
-            "the mutation receipt shows tracked files changed during the "
-            "run — most likely a concurrent writer, not the proof itself"
+            "the recorded changed_count, added_count, or removed_count is "
+            "nonzero; compare the source before and after the run"
         ),
-        "does_not_mean": "deliberate tampering",
+        "does_not_mean": "which process wrote the files or whether it did so deliberately",
     },
     {
         "code": "packet_valid",
         "surface": "verify",
         "meaning": (
-            "every digest re-hashed, every derived block re-derived, no "
-            "private-path leak: the packet is internally consistent with its "
-            "evidence"
+            "the stored hashes and results match the saved files, the path "
+            "scan found no forbidden text, and the required fields have "
+            "their expected values; also read the generator's status, which "
+            "can be blocked in a valid packet"
         ),
         "does_not_mean": (
-            "release authorization, domain correctness, or proof that the "
-            "run happened as recorded — rerun the generator to re-establish "
-            "provenance"
+            "permission to publish, forecast accuracy, or proof of who ran "
+            "the commands or when; rerun generation for results from your "
+            "own environment"
         ),
     },
 )
@@ -1103,11 +1107,11 @@ def _human_card(packet: dict[str, Any]) -> str:
         (
             "- Cross-context agreement: "
             f"`{agreement['status']}` (owner identical: "
-            f"`{agreement['owner_organ_id_identical']}`, command identical: "
+            f"`{agreement['owner_organ_id_identical']}`, normalized command identical: "
             f"`{agreement['command_identical']}`)"
         ),
         (
-            "- Source files mutated by this proof run: "
+            "- Source files changed during this run: "
             f"`{integrity['source_mutation_check']['source_files_mutated']}`"
         ),
         (
@@ -1119,11 +1123,13 @@ def _human_card(packet: dict[str, Any]) -> str:
         "## Claim under review",
         "",
         (
-            "This packet claims exactly one thing: in the source checkout, a "
-            "fresh package install, and the standalone export, the hero goal "
-            "resolved to the complete first-action contract the committed "
-            "demonstration promises — same owner, same first command, same "
-            "validator. Nothing else is claimed."
+            "This review compares the component ID and suggested command "
+            "and validator returned for one query in a checkout, installed "
+            "package, and export with the saved demonstration. Component IDs "
+            "must match exactly. Command comparisons normalize whitespace "
+            "and recognized invocation prefixes before comparing the "
+            "remaining command and arguments. The comparison does not run "
+            "the suggested finance command or validator."
         ),
         "",
         f"- Expected owner: `{expectation.get('expected_owner_organ_id')}`",

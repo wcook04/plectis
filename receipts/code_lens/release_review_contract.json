@@ -1,9 +1,9 @@
 {
   "artifact_subjects": [
     {
-      "bytes": 37571,
+      "bytes": 37905,
       "ref": "FIRST_ACTION.md",
-      "sha256": "e2eb163a569dd01febd36732f7c52b2a3ca66b589eaf72df03b6e8bc9079d62a"
+      "sha256": "1a2ed162ed77bd3971512d01fb2591a337e2d5fadd0b97d7e07a01fa1c46c3f1"
     },
     {
       "bytes": 58010,
@@ -12,9 +12,9 @@
     }
   ],
   "assay_requirements": [
-    "the first-action assay exits zero in every context",
-    "the assay reports zero source-body leaks",
-    "the assay reports itself not degraded"
+    "the recorded exit code is zero (using the combined package-smoke exit code in fresh_install, as explained above)",
+    "source_body_leaks equals 0 in the scenario-test JSON",
+    "degraded is not true in the scenario-test JSON"
   ],
   "commands": {
     "generate": [
@@ -61,77 +61,77 @@
   "failure_interpretations": [
     {
       "code": "context_encounter_blocked",
-      "does_not_mean": "the whole repository is broken \u2014 read the named context's evidence before concluding anything wider",
-      "meaning": "one distribution context did not produce the complete first-action contract; that context's failed_checks names each missed obligation and evidence_refs points at the raw bytes",
+      "does_not_mean": "that every component failed; this result concerns the listed lookup, scenario-test, or package-install conditions in that copy",
+      "meaning": "a lookup, scenario test, or fresh-install package smoke did not meet the required conditions; open that context's failed_checks and the output files listed in evidence_refs",
       "surface": "generate"
     },
     {
       "code": "cross_context_agreement_blocked",
-      "does_not_mean": "a tampered packet; agreement failures are honest divergence evidence, preserved for review",
-      "meaning": "the contexts resolved the hero goal to different owners, commands, or validators \u2014 the installed or exported product differs from the checkout",
+      "does_not_mean": "that someone altered the saved files; these returned values can differ in an otherwise correctly recorded run",
+      "meaning": "the three copies did not return the same nonempty component ID, command action, and validator action; compare owner_organ_ids, command_semantic_actions, and validator_semantic_actions",
       "surface": "generate"
     },
     {
       "code": "expectation_policy_blocked",
-      "does_not_mean": "cross-context divergence \u2014 the contexts can agree with each other and still differ from what the artifact promised",
-      "meaning": "the agreed encounter does not match the committed demonstration (owner, command, or validator drifted, or the committed demo receipt is missing from the tree)",
+      "does_not_mean": "that the three copies differ from each other; all three can return the same values and still differ from the demonstration",
+      "meaning": "at least one returned component ID, command action, or validator action differs from the saved demonstration, or that demonstration is missing; read expectation_policy.failed_checks",
       "surface": "generate"
     },
     {
       "code": "private_path_leak",
-      "does_not_mean": "a security breach \u2014 the usual cause is a subprocess echoing an absolute workspace path into scanned output",
-      "meaning": "a written evidence file carries a private absolute path, so the packet refuses to present itself as public-safe",
+      "does_not_mean": "that an account was compromised or that an output was published; the scan detects text in local files",
+      "meaning": "the path scan found a private absolute-path pattern in a written file; inspect the reported file and matched text before sharing it",
       "surface": "generate_or_verify"
     },
     {
       "code": "source_mutation_seen",
-      "does_not_mean": "the proof machinery mutated the tree \u2014 rerun in a quiet window before suspecting the substrate",
-      "meaning": "tracked source changed while the proof ran, so the run is not a clean witness (concurrent edits in a busy tree also trip this)",
+      "does_not_mean": "which process changed a file; another editor or command may have written to the checkout during the run",
+      "meaning": "the source-mutation record does not show an unchanged source tree; inspect its changed, added, and removed file counts",
       "surface": "generate_or_verify"
     },
     {
       "code": "packet_stale",
-      "does_not_mean": "evidence forgery \u2014 staleness is the no-packet / wrong-version / wrong-posture class, not the tampered-bytes class",
-      "meaning": "the packet is missing, unparseable, schema-mismatched, missing referenced evidence, or asserting an authority/signature posture this lane does not grant \u2014 regenerate before reviewing",
+      "does_not_mean": "that someone deliberately forged a result; the listed condition does not identify its cause",
+      "meaning": "a required file or field is missing, JSON cannot be parsed, the schema differs, or a permission/signature field has an unexpected value; read the verification checks for the exact reason",
       "surface": "verify"
     },
     {
       "code": "digest_mismatch",
-      "does_not_mean": "an infrastructure flake \u2014 treat the packet as untrusted and regenerate it",
-      "meaning": "stored claims diverge from the digest-bound evidence: tampered bytes, a forged block, or a doctored status",
+      "does_not_mean": "that the mismatch was deliberate; the comparison alone cannot distinguish an edit, corruption, or a recording error",
+      "meaning": "a recomputed hash or result differs from the value recorded in the packet; inspect the named verification check and regenerate the files before relying on them",
       "surface": "verify"
     },
     {
       "code": "concurrent_churn_possible",
-      "does_not_mean": "deliberate tampering",
-      "meaning": "the mutation receipt shows tracked files changed during the run \u2014 most likely a concurrent writer, not the proof itself",
+      "does_not_mean": "which process wrote the files or whether it did so deliberately",
+      "meaning": "the recorded changed_count, added_count, or removed_count is nonzero; compare the source before and after the run",
       "surface": "verify"
     },
     {
       "code": "packet_valid",
-      "does_not_mean": "release authorization, domain correctness, or proof that the run happened as recorded \u2014 rerun the generator to re-establish provenance",
-      "meaning": "every digest re-hashed, every derived block re-derived, no private-path leak: the packet is internally consistent with its evidence",
+      "does_not_mean": "permission to publish, forecast accuracy, or proof of who ran the commands or when; rerun generation for results from your own environment",
+      "meaning": "the stored hashes and results match the saved files, the path scan found no forbidden text, and the required fields have their expected values; also read the generator's status, which can be blocked in a valid packet",
       "surface": "verify"
     }
   ],
   "generated_by": "scripts/build_release_review.py",
   "hero_goal": "How do I evaluate the finance forecasting system?",
   "integrity_requirements": [
-    "no private absolute path may appear in any written evidence file",
-    "no tracked source file may change while the proof runs",
-    "provider credential environment keys are never available to proof subprocesses",
-    "the fresh-install context must scrub PYTHONPATH and import from the venv, not a shadowing checkout",
-    "install and export work trees live under a transient work root outside the source root (an in-tree work root is refused at allocation) and are removed after evidence copy unless --keep-work is passed",
-    "captured evidence and recorded argv refer to transient work locations only by the symbolic tokens <work-dir>, <export-out>, and <work-root>, never by absolute host paths; the source root and home directory are never normalized away, so a product output echoing them still fails the scan"
+    "scan saved files for the source-root and home-directory strings and the patterns in `FORBIDDEN_OUTPUT_NEEDLES`; a match prevents a passing result",
+    "compare source-file hashes before and after the run and record changed, added, and removed files; this detects changes rather than preventing another process from writing",
+    "remove environment keys whose names contain a marker in `PROVIDER_ENV_MARKERS`, ignoring case; examples include `OPENAI`, `API_KEY`, and `SECRET`. This name-based filter does not detect credentials stored under other names or in files",
+    "remove `PYTHONPATH` for the package-install subprocess so its commands import the installed package",
+    "create temporary install and export directories outside the source root, refuse an in-tree work root, and remove those directories after copying the output unless `--keep-work` is passed",
+    "replace temporary work locations in saved output and recorded arguments with `<work-dir>`, `<export-out>`, and `<work-root>` before calculating hashes. Do not replace the source-root or home-directory strings: the path scan must still detect them"
   ],
   "nonclaims": [
-    "not release authorization or publication approval",
-    "not a security audit or a secure-artifact claim",
-    "not domain correctness of any component's outputs",
-    "not whole-system correctness",
-    "not agent success beyond the committed first-action assay battery",
-    "not externally signed or attested provenance",
-    "not equivalence with any private system"
+    "A passing result does not give you permission to publish a release.",
+    "This review does not establish that the package is secure.",
+    "It does not establish forecast accuracy or the correctness of another component's output.",
+    "It does not establish that every part of Plectis works correctly.",
+    "It does not show how an agent will perform outside the supplied scenario tests.",
+    "The packet has no external signature proving who recorded the run or when.",
+    "Matching results in these three copies do not establish equivalence with a private system."
   ],
   "outputs": {
     "human_card": "release-candidate-proof-card.md",
@@ -144,7 +144,7 @@
     "generate_status": "pass",
     "verify_status": "packet_valid"
   },
-  "proof_boundary": "proves the goal-shaped first-action encounter is distribution-true across checkout, install, and export; does not authorize release, publication, provider calls, source mutation, domain correctness, or whole-system correctness. Verification proves the packet is internally consistent with its digest-bound evidence; it does not prove the run happened as recorded \u2014 rerun the generator to re-establish provenance",
+  "proof_boundary": "the generator compares the component ID and suggested command and validator returned for one question in a checkout, installed package, and export with the saved demonstration; command comparisons normalize whitespace and recognized invocation prefixes. It does not run the suggested finance command or validator. Verification compares recorded file hashes and recomputed results with the packet; it does not prove the run happened as recorded. Rerun generation to obtain results from your own run. A passing result does not establish forecast accuracy or whole-system correctness, and does not authorize release, publication, provider calls, or source mutation",
   "publication_binding": "publication_artifact_not_yet_bound",
   "refresh_command": "PYTHONPATH=src python3 scripts/build_release_review.py --write",
   "schema_version": "microcosm_release_review_contract_v1"

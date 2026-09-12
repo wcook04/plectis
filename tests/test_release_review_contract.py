@@ -98,17 +98,26 @@ def test_review_contract_answers_the_reviewer_questions() -> None:
         assert command in text, command
     # The nonclaims and the no-rerun boundary are load-bearing: the contract
     # must say what it cannot prove, in the artifact, not in chat.
-    assert "not release authorization or publication approval" in text
-    assert "not externally signed or attested provenance" in text
+    assert "does not give you permission to publish a release" in text
+    assert "no external signature proving who recorded the run or when" in text
     assert EXTERNAL_SIGNATURE_STATUS in text
     assert "does not prove the run happened as recorded" in text
-    # One obvious cold-review command with hermetic-regeneration semantics,
-    # while the no-rerun verify boundary stays separately named.
-    assert "one cold-review command" in text
-    assert "regenerates the proof packet fresh" in text
-    assert "without rerunning anything" in text
+    # Describe the actual lookup comparison, including the distinction between
+    # validating its output fields and running the command returned in them.
+    claim = text.split("## The claim under review", 1)[1].split("## ", 1)[0]
+    assert "Component IDs must match exactly" in claim
+    assert "normalize whitespace and remove recognized invocation prefixes" in claim
+    assert "does not execute the suggested finance command or validator" in claim
+    assert "`command_exit_zero` refers to the lookup command's exit code" in text
+    assert "both `command_exit_zero` and `assay_exit_zero` use the single exit code" in text
+    assert "installation or another console-command test can make both false" in text
+    assert "`make release-review` first runs `make release-candidate-proof`" in text
+    assert "Verification does not rerun the recorded commands" in text
+    assert "generator status of `blocked` into a pass" in text
+    assert "no public release artifact has been published" not in text.lower()
+    assert "This review packet has no external signature or attestation" in text
     assert "downloadable AI handoff packets" in text
-    assert "deployment-packet evidence" in text
+    assert "`make release-review` does not run it" in text
     assert "PYTHONPATH=src python3 -m microcosm_core public-site-parity" in text
     # The work-root and normalization obligations are part of the contract:
     # transient work never sits in-tree and reaches evidence only as tokens.

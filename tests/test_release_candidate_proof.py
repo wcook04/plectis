@@ -524,6 +524,40 @@ def test_release_candidate_proof_round_trip(tmp_path: Path) -> None:
     assert refused["status"] == "digest_mismatch"
 
 
+def test_verifier_accepts_saved_packet_with_previous_boundary_prose(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """An explanatory-text revision must not invalidate an older saved run."""
+    old_boundary = (
+        "proves the goal-shaped first-action encounter is distribution-true "
+        "across checkout, install, and export; does not authorize release, "
+        "publication, provider calls, source mutation, domain correctness, "
+        "or whole-system correctness. Verification proves the packet is "
+        "internally consistent with its digest-bound evidence; it does not "
+        "prove the run happened as recorded — rerun the generator to "
+        "re-establish provenance"
+    )
+    root = _fake_root(tmp_path)
+    out_dir = root / ".microcosm/release-candidate-proof"
+    with monkeypatch.context() as previous_version:
+        previous_version.setattr(release_candidate_proof, "PROOF_BOUNDARY", old_boundary)
+        packet = build_release_candidate_proof(
+            root=root, out_dir=out_dir, python_executable="python",
+            runner=_release_candidate_fake_runner(),
+            generated_at="2026-06-10T00:00:00+00:00",
+        )
+    assert packet["proof_boundary"] == old_boundary
+    assert release_candidate_proof.PROOF_BOUNDARY != old_boundary
+    packet_bytes = (out_dir / release_candidate_proof.PACKET_FILENAME).read_bytes()
+    card_bytes = (out_dir / release_candidate_proof.CARD_FILENAME).read_bytes()
+    receipt = verify_release_candidate_proof(
+        packet_dir=out_dir, root=root, write_receipt=False,
+    )
+    assert receipt["status"] == "packet_valid"
+    assert (out_dir / release_candidate_proof.PACKET_FILENAME).read_bytes() == packet_bytes
+    assert (out_dir / release_candidate_proof.CARD_FILENAME).read_bytes() == card_bytes
+
+
 def test_release_candidate_proof_blocks_on_cross_context_divergence(
     tmp_path: Path,
 ) -> None:
@@ -1230,5 +1264,7 @@ def test_release_candidate_proof_is_publicly_discoverable() -> None:
     review = (MICROCOSM_ROOT / review_ref).read_text(encoding="utf-8")
     assert "make release-candidate-proof" in review
     assert "make release-candidate-proof-verify" in review
-    assert "distribution-true" in review
+    for context_id in ("source_checkout", "fresh_install", "standalone_export"):
+        assert f"`{context_id}`" in review
+    assert "compares the component ID and suggested command and validator" in review
     assert "does not authorize release" in review

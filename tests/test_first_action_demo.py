@@ -168,12 +168,10 @@ def test_demo_dirty_footprint_rows_carry_no_footprint_variant() -> None:
 def test_demo_doc_carries_marker_sections_and_no_leaks() -> None:
     text = (_ROOT / demo_mod.DOC_REL).read_text()
     assert demo_mod.GENERATED_MARKER in text
-    assert "public executable cross-section" in text
-    assert "88 bounded components" in text
-    assert "goal-localization layer over that mechanism atlas" in text
-    assert text.index("public executable cross-section") < text.index(
-        "one safe, runnable first action"
-    )
+    # Keep the component map and runnable lookup discoverable without pinning
+    # the introductory wording or implying the lookup executes its suggestion.
+    assert "(ORGANS.md)" in text
+    assert 'PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>" --format text' in text
     assert "| Goal | Resolved via | Owner | First action |" in text
     # Every authored section must render; nothing may fall into the
     # unsectioned bucket.
