@@ -31,9 +31,15 @@ PYTHONPATH=src python3 -m plectis tour --format text .
 ```
 
 That reads the project, picks a route through it, writes an inspectable record
-beside it, and prints what it did — in about a tenth of a second, with your
-source files unchanged. Installing is optional and covered under
-[Install](#install); it only buys the shorter `plectis` command name.
+beside it, and prints what it did, with your source files unchanged. This first
+run shows the shared project-reading and recording loop. You choose and run
+individual components separately.
+
+Installing is optional and covered under [Install](#install). Wherever this
+page abbreviates a command to `plectis`, you can use
+`PYTHONPATH=src python3 -m plectis` from the clone instead. The examples use a
+macOS or Linux shell; in Windows PowerShell, set `$env:PYTHONPATH = 'src'`
+first, then use `python -m plectis`.
 
 **How this was built, and why it is built the way it is.** One person sets the
 direction; large-language-model agents write and maintain most of the code.
@@ -53,10 +59,29 @@ only that repository; a software task needs only this one. The
 explains where to start. [Recorded walkthroughs](https://wcook04.github.io/plectis/#demo-videos)
 show the private interface; they do not establish its reliability.
 
+## Where to start
+
+If you are just looking around, the [website tour](https://wcook04.github.io/plectis/docs/tour.html)
+explains the project without asking you to install anything. A component is
+one runnable part of the toolkit; a receipt is the file recording what happened
+when it ran. The [component browser](https://wcook04.github.io/plectis/docs/components.html)
+lets you pick a part that interests you and see its input, code and result.
+
+For software engineers and computer scientists, [Architecture](ARCHITECTURE.md)
+explains how the parts fit together. If you work on AI agents or evaluations,
+start with [agent reliability and safety replays](ORGANS.md#agent-reliability--safety-replays):
+worked cases of failures such as prompt injection and poisoned memory, with
+local checks. Each case says how much its example can establish.
+
+For mathematics, go straight to the [Lean companion](https://github.com/wcook04/plectis-erdos).
+It has the problem papers and proofs, and its own reading guide. You can read
+either repository on its own. The [full route map](#choose-a-route) below
+also covers papers, source review and contributions.
+
 ## What you get
 
-Plectis is a local Python toolkit plus an executable reference corpus. In
-practice that means five things you can do in the first five minutes:
+Plectis is a local Python toolkit plus an executable reference corpus. Here
+are some ways to use it:
 
 1. **Point it at a project.** `plectis tour --format text <project>` reads the
    project, picks a route through it, writes an inspectable record beside it,
@@ -68,7 +93,7 @@ practice that means five things you can do in the first five minutes:
    can execute locally.
 3. **Test a specific claim before trusting it.**
    `plectis comprehend --first-action "<claim to verify>" --format text`
-   routes any question to the owning component, the command that tests it, and
+   looks for a matching component, the command that tests it, and
    the stated limit of the result.
 4. **Reproduce the verification floor.** `make ci` runs the same install,
    test, and smoke path GitHub Actions runs; `./bootstrap.sh` is the
@@ -79,7 +104,7 @@ practice that means five things you can do in the first five minutes:
    them, and a checked landing path. Validate the worked example with:
 
    ```sh
-   plectis hypothesis-handoff --input examples/hypothesis_handoff/independent_evaluation.json --format text
+   PYTHONPATH=src python3 -m plectis hypothesis-handoff --input examples/hypothesis_handoff/independent_evaluation.json --format text
    ```
 
 Every component carries the same contract: a runner, source loci, an evidence
@@ -94,8 +119,10 @@ advisory until its declared checks and release path pass.
 From a clone, point it at any repository and ask for the plain-text summary:
 
 ```bash
-plectis tour --format text .
+PYTHONPATH=src python3 -m plectis tour --format text .
 ```
+
+Example output; the file count and selected route depend on the project:
 
 ```text
 Plectis read 5283 project files and wrote a local record.  repo -> .microcosm
@@ -122,25 +149,26 @@ The record is built to be checked rather than trusted:
 The same record as a machine-readable card:
 
 ```bash
-plectis tour --card .
+PYTHONPATH=src python3 -m plectis tour --card .
 ```
 
 ## Install
 
-Every command in this README runs from a clone without installing anything
-(Python 3.11 or newer, no third-party runtime dependencies):
+You can run the toolkit directly from a clone with Python 3.11 or newer and
+no third-party runtime dependencies:
 
 ```bash
 PYTHONPATH=src python3 -m plectis tour --format text .
 ```
 
-Installing buys the shorter `plectis` command name. Install into a virtual
-environment, which behaves the same on every platform:
+Installing gives you the shorter `plectis` command name. On macOS or Linux,
+create a virtual environment and activate it in the shell where you will work:
 
 ```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install .
 .venv/bin/plectis tour --format text .
+source .venv/bin/activate
 ```
 
 A system Python installed by Homebrew, Debian, or Ubuntu refuses
@@ -162,11 +190,9 @@ through a project, a work layer that records reversible transactions, and an
 evidence layer that binds every consequential claim to a receipt. Components
 plug into that spine rather than shipping their own.
 
-Read Plectis in this order: **mechanisms -> evidence discipline -> local
-runtime**. If the record layer sounds like the product, the project has been
-underclaimed and underread. If a validator result sounds like release, proof,
-security, finance, provider, mutation, or private-system authority, it has
-been overclaimed and overread.
+To inspect a component, follow its input through the code to the result, then
+read the check and its stated limit. The shared runtime records that work so
+you can retrace it.
 
 The full picture, with the runtime loop and the component families on one
 shared path, is in [Architecture](ARCHITECTURE.md) and as an
@@ -212,7 +238,7 @@ read.
 
 | You want to | Go to | What you get |
 |---|---|---|
-| Run the first local witness | [Quickstart](QUICKSTART.md) | The shortest path to a working local run. |
+| Run the first local example | [Quickstart](QUICKSTART.md) | The shortest path to a working local run. |
 | Understand how it works | [Architecture](ARCHITECTURE.md) | The runtime loop, the evidence loop, and the component families. |
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
 | Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | Every component's real mechanism, one line each. |
@@ -222,7 +248,7 @@ read.
 | Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-erdos) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for the eight open Erdős problems named above. |
 | Watch it being used rather than read about it | [Demo videos](https://wcook04.github.io/plectis/#demo-videos) | Recorded walkthroughs of the system in use, on the website. |
 | Click through the corpus instead of cloning | [Component browser](https://wcook04.github.io/plectis/docs/components.html) · [Paper browser](https://wcook04.github.io/plectis/docs/papers.html) | The same 88 components and the paper corpus as browsable pages, no install. |
-| Hand the whole thing to a reviewer or a model at once | [Review packet](https://wcook04.github.io/plectis/plectis-ai-review-packet.json) · [reader digest](https://wcook04.github.io/plectis/plectis-ai-reader-digest.json) | One 14.4 MB JSON carrying the public cross-section for a single reading pass; the digest is the smaller cut for pasting. |
+| Give a reviewer or model the public context | [Reader digest](https://wcook04.github.io/plectis/plectis-ai-reader-digest.json) · [full review packet](https://wcook04.github.io/plectis/plectis-ai-review-packet.json) | Start with the smaller digest; the full packet includes the source and evidence for a deeper reading pass. |
 | See the rest of the work this belongs to | [wcook04.github.io](https://wcook04.github.io/) | The front door across the software, the Lean mathematics, the papers, and the films. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | How to raise an issue safely, and the verification floor for changes. |
@@ -230,8 +256,8 @@ read.
 The two `comprehend` routes in full:
 
 ```bash
-plectis comprehend --slice mechanism --format text
-plectis comprehend --first-action "<claim to verify>" --format text
+PYTHONPATH=src python3 -m plectis comprehend --slice mechanism --format text
+PYTHONPATH=src python3 -m plectis comprehend --first-action "<claim to verify>" --format text
 ```
 
 ## Scope and limitations
