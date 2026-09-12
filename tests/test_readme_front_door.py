@@ -12,6 +12,8 @@ import re
 import shutil
 from pathlib import Path
 
+import pytest
+
 from microcosm_core.validators.readme_front_door import validate_readme_front_door
 
 
@@ -26,8 +28,10 @@ _LINKED_SIBLINGS = (
     "docs/papers/README.md",
     "docs/README.md",
     "docs/UNDERSTANDING_PLECTIS.md",
+    "docs/maintainers/validation.md",
     "ORGANS.md",
     "AGENTS.md",
+    "AGENTS.override.md",
     "RELEASE_REVIEW.md",
     "SOURCE_STATUS.md",
     "CONTRIBUTING.md",
@@ -64,6 +68,27 @@ def _mutate(root: Path, old: str, new: str) -> None:
     text = readme.read_text(encoding="utf-8")
     assert old in text, f"fixture precondition: {old!r} present in README"
     readme.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+
+def _replace_hero_promise(root: Path, replacement: str) -> None:
+    text = (root / "README.md").read_text(encoding="utf-8")
+    promise = re.search(r"\*\*(.+?)\*\*", text, re.DOTALL)
+    assert promise is not None
+    _mutate(root, promise.group(0), replacement)
+
+
+def _replace_paragraph(root: Path, marker: str, replacement: str) -> None:
+    text = (root / "README.md").read_text(encoding="utf-8")
+    paragraphs = [p for p in re.split(r"\n\s*\n", text) if marker in p]
+    assert len(paragraphs) == 1, f"one paragraph must contain {marker!r}"
+    _mutate(root, paragraphs[0], replacement)
+
+
+def _replace_section(root: Path, heading: str, replacement: str) -> None:
+    text = (root / "README.md").read_text(encoding="utf-8")
+    section = re.search(rf"(?ms)^## {re.escape(heading)}\n.*?(?=^## |\Z)", text)
+    assert section is not None
+    _mutate(root, section.group(0), f"## {heading}\n\n{replacement}\n\n")
 
 
 def test_real_readme_satisfies_front_door_contract() -> None:
@@ -218,11 +243,7 @@ def test_blocks_broken_link(tmp_path: Path) -> None:
 def test_blocks_former_name_in_hero(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     # inject the compatibility state dir into the hero promise
-    _mutate(
-        root,
-        "writes an inspectable record beside it",
-        "writes an inspectable record into .microcosm/",
-    )
+    _replace_hero_promise(root, "**Plectis includes runnable programs and writes .microcosm/ records.**")
     receipt = validate_readme_front_door(root)
     assert "README_HERO_ONTOLOGY_LEAK" in receipt["blocking_codes"]
     assert "compatibility-state-dir" in receipt["findings"]["hero_banned_terms"]
@@ -259,11 +280,7 @@ def test_blocks_json_only_witness(tmp_path: Path) -> None:
 
 def test_blocks_local_record_primary_frame(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
-    _mutate(
-        root,
-        "**Plectis is a public Python toolkit of 88 mechanisms",
-        "**Plectis is a local evidence router.**  It publishes 88 mechanisms",
-    )
+    _replace_hero_promise(root, "**Plectis is a local evidence router.** It publishes runnable programs.")
     receipt = validate_readme_front_door(root)
     assert "README_FRONT_DOOR_LOCAL_ONLY_FRAME" in receipt["blocking_codes"]
     assert (
@@ -278,11 +295,10 @@ def test_blocks_record_layer_before_mechanisms(tmp_path: Path) -> None:
     # the front door still leads with what Plectis writes rather than what it
     # publishes, which is the property the read order forbids.
     root = _front_door_tree(tmp_path)
-    _mutate(
+    _replace_hero_promise(
         root,
-        "**Plectis is a public Python toolkit of 88 mechanisms",
         "**Plectis writes an inspectable record of any project you point it at.**"
-        "  It also publishes 88 runnable mechanisms",
+        " It also publishes runnable programs.",
     )
     receipt = validate_readme_front_door(root)
     assert "README_FRONT_DOOR_LOCAL_ONLY_FRAME" in receipt["blocking_codes"]
@@ -292,55 +308,135 @@ def test_blocks_record_layer_before_mechanisms(tmp_path: Path) -> None:
     )
 
 
-def test_blocks_missing_claim_grammar_read_order(tmp_path: Path) -> None:
+def test_opening_can_call_components_programs(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
-    _mutate(
+    _replace_hero_promise(
         root,
-        "To inspect a component, follow its input through the code to the result, then\n"
-        "read the check and its stated limit. The shared runtime records that work so\n"
-        "you can retrace it.",
-        "Read Plectis by running the tour first.",
-    )
-    receipt = validate_readme_front_door(root)
-    assert "README_FRONT_DOOR_CLAIM_GRAMMAR_MISSING" in receipt["blocking_codes"]
-    assert (
-        "mechanism-evidence-runtime-read-order"
-        in receipt["findings"]["front_door_claim_grammar_missing"]
-    )
-
-
-def test_reading_journey_allows_plain_language_without_slogan(tmp_path: Path) -> None:
-    root = _front_door_tree(tmp_path)
-    _mutate(
-        root,
-        "To inspect a component, follow its input through the code to the result, then\n"
-        "read the check and its stated limit. The shared runtime records that work so\n"
-        "you can retrace it.",
-        "Choose a component. Inspect its input and code, then the result. Read the\n"
-        "check and the limit it states. The runtime records the work for inspection.",
+        "**Plectis provides programs for comparing forecasts and trying Lean proofs.** "
+        "Their output includes an inspectable record.",
     )
     receipt = validate_readme_front_door(root)
     assert receipt["status"] == "pass", receipt["blocking_codes"]
 
 
-def test_reading_journey_requires_evidence_before_record(tmp_path: Path) -> None:
+@pytest.mark.parametrize(
+    "anchor",
+    [
+        "entry--reveal",
+        "architecture--navigation",
+        "formal-math--proof",
+        "agent-reliability--safety-replays",
+        "research--science-replays",
+        "import-projection--drift",
+        "work-landing--continuity",
+    ],
+)
+def test_requires_a_link_to_each_family(tmp_path: Path, anchor: str) -> None:
     root = _front_door_tree(tmp_path)
-    _mutate(root, "read the check and its stated limit.", "trust the result.")
+    readme = root / "README.md"
+    # Keep all prose and an existing destination. Only access to the selected
+    # family is removed, even if its name appears throughout the README.
+    text = readme.read_text(encoding="utf-8")
+    assert f"ORGANS.md#{anchor}" in text
+    readme.write_text(text.replace(f"ORGANS.md#{anchor}", "ORGANS.md"), encoding="utf-8")
     receipt = validate_readme_front_door(root)
-    assert "mechanism-evidence-runtime-read-order" in receipt["findings"][
+    assert anchor in receipt["findings"]["front_door_family_routes_missing"]
+
+
+def test_blocks_missing_component_inspection_guidance(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _replace_section(root, "How it works", "Run the tour first, then browse the examples.")
+    receipt = validate_readme_front_door(root)
+    assert "README_FRONT_DOOR_CLAIM_GRAMMAR_MISSING" in receipt["blocking_codes"]
+    assert (
+        "component-inspection-guidance"
+        in receipt["findings"]["front_door_claim_grammar_missing"]
+    )
+
+
+def test_reading_journey_allows_different_order_and_concrete_verbs(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _replace_section(
+        root,
+        "How it works",
+        "Start with an example's expected output and its test. Open the input data\n"
+        "and the function that produces the output, then compare what you observe.",
+    )
+    receipt = validate_readme_front_door(root)
+    assert receipt["status"] == "pass", receipt["blocking_codes"]
+
+
+def test_inspection_guidance_requires_a_way_to_evaluate_the_result(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _replace_section(
+        root,
+        "How it works",
+        "Open the component input and source code. Trust the result it produces.",
+    )
+    receipt = validate_readme_front_door(root)
+    assert "component-inspection-guidance" in receipt["findings"][
         "front_door_claim_grammar_missing"
     ]
 
 
-def test_blocks_missing_family_specific_claim_ceiling(tmp_path: Path) -> None:
+def test_scattered_nouns_do_not_replace_component_instructions(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
-    _mutate(root, "not theorem-proof authority", "not vague authority")
+    _replace_section(
+        root,
+        "How it works",
+        "Choose a component.\n\nInput data is included.\n\nThe source is readable.\n\n"
+        "There is output.\n\nTests are included.",
+    )
+    receipt = validate_readme_front_door(root)
+    assert "component-inspection-guidance" in receipt["findings"]["front_door_claim_grammar_missing"]
+
+
+def test_reversed_service_and_affiliation_claims_do_not_satisfy_limits(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _replace_paragraph(
+        root,
+        "not a hosted service",
+        "Plectis is a hosted service and a production security product. It has\n"
+        "model-provider affiliation and endorsement.",
+    )
+    receipt = validate_readme_front_door(root)
+    missing = receipt["findings"]["front_door_claim_grammar_missing"]
+    assert "hosted-service-ceiling" in missing
+    assert "production-security-ceiling" in missing
+    assert "provider-affiliation-ceiling" in missing
+
+
+def test_reversed_reader_permission_does_not_satisfy_limits(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    readme = root / "README.md"
+    text = readme.read_text(encoding="utf-8")
+    assert text.count("do not gain permission") == 2
+    readme.write_text(text.replace("do not gain permission", "gain permission"), encoding="utf-8")
+    receipt = validate_readme_front_door(root)
+    assert "release-authority-ceiling" in receipt["findings"]["front_door_claim_grammar_missing"]
+    assert "projection-drift-family-ceiling" in receipt["findings"]["front_door_family_ceilings_missing"]
+    assert "work-continuity-family-ceiling" in receipt["findings"]["front_door_family_ceilings_missing"]
+
+
+@pytest.mark.parametrize(
+    ("marker", "missing"),
+    [
+        ("**Formal proof:**", "formal-proof-family-ceiling"),
+        ("**Agent safety:**", "agent-safety-family-ceiling"),
+        ("**Research and forecasting:**", "research-family-ceiling"),
+        ("**Generated files:**", "projection-drift-family-ceiling"),
+        ("**Recording and resuming work:**", "work-continuity-family-ceiling"),
+    ],
+)
+def test_blocks_missing_family_specific_limit(tmp_path: Path, marker: str, missing: str) -> None:
+    root = _front_door_tree(tmp_path)
+    text = (root / "README.md").read_text(encoding="utf-8")
+    item = re.search(rf"(?m)^- {re.escape(marker)}.*(?:\n  .*|\n[^\n-].*)*", text)
+    assert item is not None
+    _mutate(root, item.group(0), f"- {marker} See the component list for examples.")
     receipt = validate_readme_front_door(root)
     assert "README_FRONT_DOOR_FAMILY_CEILING_MISSING" in receipt["blocking_codes"]
-    assert (
-        "formal-proof-family-ceiling"
-        in receipt["findings"]["front_door_family_ceilings_missing"]
-    )
+    assert missing in receipt["findings"]["front_door_family_ceilings_missing"]
 
 
 def test_blocks_stale_front_door_component_count(tmp_path: Path) -> None:
