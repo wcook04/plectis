@@ -1,47 +1,74 @@
 # Plectis documentation
 
-Plectis is a Python toolkit and a collection of runnable research components.
-Start with one question or one component; you do not need to read the whole
-repository.
+The [repository README](../README.md) is the overview and starting point.
+This page is the reading order behind it: choose what you want to understand
+or do, then follow that route as far as you need. You can read the explanations
+and papers without installing anything.
 
 ## Start
 
-- [Repository overview](../README.md): what the toolkit does and a two-command tour.
-- [Quickstart](../QUICKSTART.md): installation and a first local run.
-- [Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map): browse the components by area.
+| What you came for | Read or run first | What you should have afterwards |
+|---|---|---|
+| Understand what Plectis is | [Understanding Plectis](UNDERSTANDING_PLECTIS.md) | The two uses of the toolkit, the terms used in the code, and one example followed from input to result. |
+| Try it on your computer | [Quickstart](../QUICKSTART.md) | A local run and a record you can inspect, with no package installation required. |
+| Find a component in your field | [Component specialties](../ORGANS.md#find-your-specialty) or the [interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) | The component's code, example, checks and stated limits. |
+| Read the argument and evidence | [Paper guide](papers/README.md) | A paper chosen by the question it answers, with a PDF and searchable text. |
+| Read the mathematics | [Lean companion](https://github.com/wcook04/plectis-erdos) | Problem papers, theorem statements and Lean proofs in the repository that owns them. |
+
+If you are new to the project, the explanation and one quickstart run are
+enough before choosing a component. The complete architecture and component
+inventory are there when you want to follow the implementation further.
 
 ## Read and explore
 
-- [The Plectis paper](../plectis-public-system.pdf): the argument, evidence and limits of the public toolkit.
-- [Paper guide](papers/README.md): the wider corpus, with local PDFs and searchable text. Follow each paper's current reading path when a mirror is marked stale.
-- [Paper source and build guide](../paper/README.md): how to check and build the Plectis paper.
-- [Hypothesis handoffs](../HYPOTHESIS_HANDOFF.md): turn an open question into a testable request for expert review.
-- [Maths companion](https://github.com/wcook04/plectis-erdos): papers and Lean source for eight open Erdős problems.
-- [All public work](https://wcook04.github.io/): the other projects and walkthroughs.
+[Understanding Plectis](UNDERSTANDING_PLECTIS.md) follows a prompt-injection
+example through the actual files and explains what its passing result means.
+The [generated architecture](../ARCHITECTURE.md) then maps the shared runtime,
+registries and components, and [the component map](../ORGANS.md) gives the
+individual runners and evidence. These are different depths of the same system.
+
+For the research argument, start with the [paper guide](papers/README.md).
+The [Plectis paper](../plectis-public-system.pdf) discusses the public toolkit;
+the guide also routes to the wider corpus, with local PDFs and searchable text.
+Follow each paper's current reading path when a mirror is marked stale.
+[Paper source and build instructions](../paper/README.md) are for checking or
+rebuilding a manuscript.
+
+[Hypothesis handoffs](../HYPOTHESIS_HANDOFF.md) explain a further use: writing
+down an open question, the alternatives and the evidence that would distinguish
+them so an expert has a concrete request to answer. For other projects and
+walkthroughs, see [all public work](https://wcook04.github.io/).
 
 ## Contribute and maintain
 
-- [Contributing](../CONTRIBUTING.md): changes, corrections and review.
-- [Validation runbook](maintainers/validation.md): smoke checks, isolated tests, drift checks and exports.
-- [Security runbook](maintainers/security-runbook.md): local checks and reporting.
-- [CLI decomposition plan](maintainers/cli-decomposition.md): the plan for splitting the command module.
-- [Root migration plan](maintainers/root-migration-plan.md): dependencies to update when moving generated documents and runtime inputs.
+Start with [Contributing](../CONTRIBUTING.md) for changes, corrections and
+review. The runbooks answer narrower questions:
+
+- [Validation](maintainers/validation.md): choose smoke checks, isolated tests,
+  drift checks or a standalone export, and interpret their results.
+- [Security](maintainers/security-runbook.md): run the local checks and report
+  a security issue.
+- [CLI decomposition plan](maintainers/cli-decomposition.md): the proposed split
+  of the command module, for contributors working on that code.
+- [Root migration plan](maintainers/root-migration-plan.md): dependencies to
+  update before moving generated documents or runtime inputs.
 
 ## Reference
 
-These maps are generated from the source and still live at the root:
+These maps are generated from source. Their root paths are also used by tools
+and incoming links, so they remain at those paths:
 
 | Document | Use it to |
 |---|---|
-| [System map](../ORGANS.md) | Find a component, its runner and supporting evidence. |
-| [Architecture](../ARCHITECTURE.md) | Understand how the components fit together. |
-| [Agent task routes](../AGENT_ROUTES.md) | Find the tools for a coding task. |
+| [Architecture](../ARCHITECTURE.md) | Trace the shared runtime and the complete component relationships. |
+| [Component map](../ORGANS.md) | Find a component, its runner and supporting evidence. |
+| [Agent task routes](../AGENT_ROUTES.md) | Find the tools and source owners for a coding task. |
 | [First action examples](../FIRST_ACTION.md) | See how a goal becomes a concrete first command. |
 | [Release review](../RELEASE_REVIEW.md) | Inspect the recorded release checks and limits. |
 
-`src/` contains the Python package; `examples/` contains worked uses;
-`tests/` contains checks. `core/`, `standards/` and `paper_modules/` describe
-the components and their contracts. `atlas/` contains generated navigation;
-`fixtures/` and `receipts/` contain the inputs and records used to test claims.
-Agent instructions and compatibility filenames at the root serve coding
-tools; the overview and this index are the routes for human readers.
+For a repository-aware coding agent, [AGENTS.override.md](../AGENTS.override.md)
+is the compact entry contract and [AGENTS.md](../AGENTS.md) has the deeper
+mutation rules. A human reader can stay with the guides above.
+
+The [source directory map](UNDERSTANDING_PLECTIS.md#where-the-files-fit) explains
+`src/`, `examples/`, `tests/`, the JSON registries and the generated documents.

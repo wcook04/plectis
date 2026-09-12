@@ -1,19 +1,19 @@
 # Contributing
 
-Contributions and error reports are welcome. Good contributions:
+Contributions and error reports are welcome. You do not need to understand the
+whole toolkit to improve one example, challenge a check or explain a component
+more clearly. Useful contributions include:
 
-- improve runnable public substrate: CLI behaviour, validators, standards,
-  fixtures, receipts, tests, examples, and card-first documentation;
-- import real non-secret macro bodies when they can be copied with
-  provenance, bounded claims, and a validator or receipt that proves the
-  boundary;
-- delete, demote, or label surfaces that imply fake progress, release
-  readiness, or authority beyond their receipt.
+- fixing a command, adding a test case or making an example easier to run;
+- improving an explanation or a route through the documentation;
+- showing where a passing check fails to support the claim made for it;
+- adding a working mechanism with its source history, runnable example,
+  tests and an explicit account of what the result establishes.
 
-Before choosing a file to edit, use the README's
-[Choose a route](README.md#choose-a-route) table as the contributor routing
-layer; the commands below are validation lanes after that route, not a
-replacement for it.
+If you are still choosing where to start, [Understanding Plectis](docs/UNDERSTANDING_PLECTIS.md)
+follows one component through its inputs, code and checks. The README's
+[Choose a route](README.md#choose-a-route) table helps you find another area.
+Pick one concrete discrepancy or improvement and keep the change focused on it.
 
 ## Reporting a discrepancy
 
@@ -37,14 +37,18 @@ excludes the difficult part of a task.
 
 ## Development setup
 
-Before installing anything, `./bootstrap.sh` probes the clone's fixture and
-boundary floor and writes ignored `.microcosm/cold_clone_probe.json` evidence
-(`./bootstrap.sh --dry-run` previews the exact command first). Then:
+Clone the repository, check that its prepared examples work, then install the
+development tools. These commands use a macOS or Linux shell (or WSL):
 
 ```bash
 git clone https://github.com/wcook04/plectis && cd plectis
+./bootstrap.sh
 VENV=/tmp/plectis-dev-venv make install
 ```
+
+`./bootstrap.sh` runs the clone's prepared example and boundary checks, and
+writes ignored `.microcosm/cold_clone_probe.json` evidence. Use
+`./bootstrap.sh --dry-run` to preview the command first.
 
 `make install` creates a checkout-keyed temporary venv and installs the
 `[test]` extra there (pytest, requests, NumPy, pandas), so a clean clone does
@@ -54,7 +58,7 @@ stable interpreter path such as `/tmp/plectis-dev-venv/bin/plectis hello .`.
 ## Tests and validation
 
 ```bash
-make check      # sub-second organ-registry preflight, run on every save
+make check      # registry and proof-trust preflight
 make test       # public entry and safety tests
 make ci         # the GitHub Actions floor: test + smoke + package-smoke
 make validate   # ci plus the doctrine-lattice drift check (maintainer gate)
@@ -87,6 +91,24 @@ exported-clone validation) are documented in
 Do not hand-edit them; change the source and regenerate (for the atlas:
 `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`). Tests compare
 committed output to live regeneration and fail on drift.
+
+## Documentation changes
+
+The [documentation hub](docs/README.md) separates explanations, runnable
+guides and reference. Give a new page a clear reader and purpose, link it from
+the relevant guide, and include a next step. Define unfamiliar project terms
+where a reader first needs them; [the short terminology guide](docs/UNDERSTANDING_PLECTIS.md#the-terms-used-in-the-repository)
+is there for reference.
+
+Run the commands you add as a reader would, from a clone without an activated
+development environment. Check relative links and section anchors. Keep the
+author's meaning and qualifications when editing prose, and check any changed
+claim against the code and evidence it describes. The existing first-contact
+tests are a useful starting point:
+
+```bash
+PYTHONPATH=src /tmp/plectis-dev-venv/bin/python -m pytest tests/test_documented_first_contact_commands.py tests/test_public_entry_docs.py
+```
 
 ## Pull requests
 
