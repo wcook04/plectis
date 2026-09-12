@@ -52,6 +52,7 @@ DEFAULT_INCLUDE_REFS = (
     "ANTI_PRINCIPLES.md",
     "ARCHITECTURE.md",
     "AXIOMS.md",
+    "CITATION.cff",
     "CLAUDE.md",
     "CONSTITUTION.md",
     "CONTRIBUTING.md",
@@ -77,9 +78,12 @@ DEFAULT_INCLUDE_REFS = (
     "atlas",
     "bootstrap.sh",
     "core",
+    "docs",
     "examples",
     "fixtures",
+    "paper",
     "paper_modules",
+    "plectis-public-system.pdf",
     "pyproject.toml",
     "receipts",
     "scripts",
@@ -90,6 +94,12 @@ DEFAULT_INCLUDE_REFS = (
 )
 STANDALONE_REQUIRED_PUBLIC_REFS = (
     "README.md",
+    "CITATION.cff",
+    "docs/README.md",
+    "docs/UNDERSTANDING_PLECTIS.md",
+    "docs/papers/README.md",
+    "paper/README.md",
+    "plectis-public-system.pdf",
     "LICENSE",
     "NOTICE",
     "PROVENANCE.md",
@@ -521,12 +531,16 @@ def _public_role(rel: str) -> str:
         return "entry_packet"
     if top == "core":
         return "authority_or_registry"
+    if top == "docs":
+        return "public_documentation"
     if top == "examples":
         return "example_evidence"
     if top == "fixtures":
         return "fixture"
     if top == "paper_modules":
         return "public_paper_module"
+    if top == "paper" or rel == "plectis-public-system.pdf":
+        return "public_manuscript"
     if top == "receipts":
         return "receipt_evidence"
     if top == "scripts":
