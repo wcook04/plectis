@@ -584,6 +584,10 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     )
 
     target = out / release_export.ARTIFACT_DIR_NAME
+    # Older source trees may retain local adapters; default exports omit them.
+    for adapter in ("CODEX.md", "CURSOR.md"):
+        assert (root / adapter).is_file()
+        assert not (target / adapter).exists()
     written_receipt = json.loads(
         (target / release_export.RELEASE_RECEIPT_REF).read_text(encoding="utf-8")
     )
@@ -811,8 +815,6 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
             "NOTICE",
             "PROVENANCE.md",
             "CLAUDE.md",
-            "CODEX.md",
-            "CURSOR.md",
             "GEMINI.md",
             ".github/copilot-instructions.md",
             "AGENTS.md",

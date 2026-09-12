@@ -17,8 +17,6 @@ COMPACT_ENTRY = ROOT / "AGENTS.override.md"
 # `AGENTS.md`, and adds no authority of its own.
 PROVIDER_ADAPTERS = (
     "CLAUDE.md",
-    "CODEX.md",
-    "CURSOR.md",
     "GEMINI.md",
     ".github/copilot-instructions.md",
 )
@@ -86,3 +84,11 @@ def test_compact_entry_ships_in_packages_and_standalone_exports() -> None:
         assert f'"{rel}"' in pyproject, rel
         assert f"include {rel}" in manifest, rel
         assert rel in release_export.STANDALONE_REQUIRED_PUBLIC_REFS, rel
+
+    # Codex and Cursor use the native AGENTS files; duplicate stubs do not ship.
+    for rel in ("CODEX.md", "CURSOR.md"):
+        assert not (ROOT / rel).exists(), rel
+        assert f'"{rel}"' not in pyproject, rel
+        assert f"include {rel}" not in manifest, rel
+        assert rel not in release_export.DEFAULT_INCLUDE_REFS, rel
+        assert rel not in release_export.STANDALONE_REQUIRED_PUBLIC_REFS, rel

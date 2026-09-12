@@ -1798,8 +1798,6 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
         ("QUICKSTART", "QUICKSTART.md"),
         ("AGENTS", "AGENTS.md"),
         ("CLAUDE adapter", "CLAUDE.md"),
-        ("CODEX adapter", "CODEX.md"),
-        ("CURSOR adapter", "CURSOR.md"),
         ("GEMINI adapter", "GEMINI.md"),
         ("Copilot adapter", ".github/copilot-instructions.md"),
         ("first-action demonstration", "FIRST_ACTION.md"),
@@ -1823,8 +1821,6 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
     )
     for rel in (
         "CLAUDE.md",
-        "CODEX.md",
-        "CURSOR.md",
         "GEMINI.md",
         ".github/copilot-instructions.md",
     ):
@@ -1890,8 +1886,6 @@ def test_entry_surfaces_route_mechanism_preflight_before_assessment() -> None:
         assert preflight in text, f"{rel} dropped the mechanism preflight command"
     for rel in (
         "CLAUDE.md",
-        "CODEX.md",
-        "CURSOR.md",
         "GEMINI.md",
         ".github/copilot-instructions.md",
     ):
@@ -1976,8 +1970,6 @@ _COMPREHEND_GOAL = "find the formal-math proof organs"
 
 _ENTRY_DOCS_FOR_COMPREHEND_PARITY = (
     "CLAUDE.md",
-    "CODEX.md",
-    "CURSOR.md",
     "GEMINI.md",
     ".github/copilot-instructions.md",
     "AGENTS.md",

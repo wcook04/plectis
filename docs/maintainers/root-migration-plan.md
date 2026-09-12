@@ -72,17 +72,34 @@ substitution-ledger splices.
 
 ### Tier 4: adapter stubs
 
-Fold `CODEX.md` / `CURSOR.md` into `AGENTS.md` prose (their tools read
-`AGENTS.md` natively) or move under `docs/agents/`; update the stub tests
-(`test_agent_entry_bootloader_budget.py`, `test_package_data_contract.py`,
-`test_public_entry_docs.py`), release_export lists, packaging, and the
-`runtime_shell.py` route string that names `CODEX.md`. `CLAUDE.md` stays at
-root (tool-required).
+`CODEX.md` and `CURSOR.md` have been removed from the public root. Their
+commands and limits already appear in `AGENTS.override.md` and `AGENTS.md`;
+Codex and Cursor can read the native `AGENTS` files. `CLAUDE.md`, `GEMINI.md`
+and `.github/copilot-instructions.md` remain for tools that use those names.
+
+The removal changes the default and required export lists in
+`src/microcosm_core/release_export.py`, the root data files in `pyproject.toml`,
+`MANIFEST.in`, and the root exceptions in `scripts/public_repo_profile.py`.
+The tests that use these files are `test_compact_agent_entry.py`,
+`test_agent_entry_bootloader_budget.py`, `test_package_data_contract.py`,
+`test_public_entry_docs.py` and `test_release_export.py`. The export test keeps
+the old stubs in its input directory and verifies that neither is copied.
+
+The older private export source retains its local adapter files but omits them
+from packages and default standalone exports. Its packaging, exporter and
+exported tests are updated separately from the public checkout.
+
+`runtime_shell.py` still includes `CODEX.md::Task Ledger capture reflex` in
+`source_projection_refs`. That reference names the private source of the
+recording rule; the runtime does not open the removed public adapter. It and
+the corresponding historical receipt remain unchanged. Other historical
+fixtures, copied source modules and release inventories likewise retain the
+filenames they recorded.
 
 ## Acceptance
 
 - `make ci` green at every tier; `make validate` green at tiers 2-3.
 - `scripts/public_repo_profile.py --mode python_research_tool` root-allowlist
-  exceptions shrink tier by tier and reach zero after tier 4.
+  exceptions shrink as each tier lands and reach zero after all four tiers.
 - No frozen receipt is hand-edited; regeneration receipts land through their
   owner commands.
