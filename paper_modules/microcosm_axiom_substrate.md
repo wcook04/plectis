@@ -45,7 +45,7 @@ Microcosm axiom/principle surfaces:
 - `AXIOMS.md`
 - `PRINCIPLES.md`
 - `ANTI_PRINCIPLES.md`
-- `RELEASE_DISCIPLINE.md`
+- `docs/governance/release-discipline.md`
 - `core/axiom_organ_routing.json`
 - `core/organ_evidence_classes.json`
 - `standards/std_microcosm_axiom.json`
@@ -199,7 +199,7 @@ prose.
   a resolved validator code-locus edge.
 - Axiom doctrine surfaces:
   `AXIOMS.md`, `PRINCIPLES.md`, `ANTI_PRINCIPLES.md`, and
-  `RELEASE_DISCIPLINE.md` are reader-facing doctrine references for the axiom
+  `docs/governance/release-discipline.md` are reader-facing doctrine references for the axiom
   proof boundary. They do not become paper-module edges without a capsule row.
 - Axiom routing source:
   `core/axiom_organ_routing.json` owns support/frontier rows for axiom evidence

@@ -46,7 +46,7 @@ PYTHON_TOOL_ALLOWED = {
     # look for that exact path and read nothing else by default.
     "AGENTS.md", "AGENTS.override.md", "CLAUDE.md", "CHANGELOG.md",
     "CITATION.cff", "CONTRIBUTING.md", "GEMINI.md",
-    "HYPOTHESIS_HANDOFF.md", "LICENSE", "MANIFEST.in", "Makefile", "NOTICE",
+    "LICENSE", "MANIFEST.in", "Makefile", "NOTICE",
     "QUICKSTART.md", "README.md", "SECURITY.md", "bootstrap.sh", "pyproject.toml",
     "assets", "atlas", "core", "docs", "examples", "fixtures", "paper",
     "paper_modules", "plectis-public-system.pdf",
@@ -59,8 +59,8 @@ PYTHON_TOOL_CLASSIFIED_EXCEPTIONS = {
     name: "docs/maintainers/root-migration-plan.md"
     for name in (
         "AGENT_ROUTES.md", "ANTI_PRINCIPLES.md", "ARCHITECTURE.md", "AXIOMS.md",
-        "CONSTITUTION.md", "FIRST_ACTION.md",
-        "ORGANS.md", "PRINCIPLES.md", "PROVENANCE.md", "RELEASE_DISCIPLINE.md",
+        "FIRST_ACTION.md",
+        "ORGANS.md", "PRINCIPLES.md", "PROVENANCE.md",
         "RELEASE_REVIEW.md", "SOURCE_STATUS.md",
     )
 }

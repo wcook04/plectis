@@ -188,7 +188,7 @@ def test_source_distribution_manifest_keeps_public_repo_entry_surface() -> None:
         "include CONTRIBUTING.md",
         "include FIRST_ACTION.md",
         "include GEMINI.md",
-        "include HYPOTHESIS_HANDOFF.md",
+        "include docs/guides/hypothesis-handoffs.md",
         "include ARCHITECTURE.md",
         "include ORGANS.md",
         "include Makefile",
@@ -232,11 +232,9 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "ARCHITECTURE.md",
         "AXIOMS.md",
         "CLAUDE.md",
-        "CONSTITUTION.md",
         "CONTRIBUTING.md",
         "FIRST_ACTION.md",
         "GEMINI.md",
-        "HYPOTHESIS_HANDOFF.md",
         "LICENSE",
         "MANIFEST.in",
         "Makefile",
@@ -245,7 +243,6 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "PRINCIPLES.md",
         "PROVENANCE.md",
         "QUICKSTART.md",
-        "RELEASE_DISCIPLINE.md",
         "RELEASE_REVIEW.md",
         "README.md",
         "SECURITY.md",
@@ -254,6 +251,8 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "pyproject.toml",
     ]
     assert data_files["share/plectis/core"] == ["core/*.json"]
+    assert data_files["share/plectis/docs/governance"] == ["docs/governance/*.md"]
+    assert data_files["share/plectis/docs/guides"] == ["docs/guides/*.md"]
     assert data_files["share/plectis/.github/workflows"] == [
         ".github/workflows/*.yml"
     ]
