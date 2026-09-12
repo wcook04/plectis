@@ -25,10 +25,60 @@ descriptively in development records.
 - Not released: private macro-root state, raw seed, private ledgers, browser or
   provider state, account/session material, credentials, recipient-send state,
   private personal data, and any unexported internal annex material.
-- License: Apache License, Version 2.0, as carried by `LICENSE`.
+- License: Apache License, Version 2.0, as carried by [LICENSE](LICENSE).
 - Copyright notice: `Copyright 2026 William Cook`.
-- Evidence spine: git history, source files, generated receipts, and validation
-  commands in this repository.
+- Development history: commits in this repository, source files, and the import
+  records described below. [Release review](RELEASE_REVIEW.md) links the saved
+  command results and explains how to reproduce the listed runs.
+
+## Follow one imported file
+
+The [import ledger](core/substrate_substitution_ledger.json) describes which
+components use copied files, adapted files, or validators over example inputs.
+For `pattern_binding_contract`, its `source_module_manifest_refs` field links
+to [this file manifest](examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json).
+Each row in the manifest describes one included file and records its original
+path, public copy path, and hashes.
+
+For example, the row named
+`pattern_binding_route_readiness_validator_tool_body_import` points to
+[this copied Python validator](examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_tool/tools/meta/factory/check_extracted_pattern_route_readiness.py).
+Its `path` is relative to the manifest's directory. `target_sha256` is the
+recorded SHA-256 hash of the public copy. The older `target_ref` includes the
+former `microcosm-substrate/` directory prefix; use `path` to find the file in
+this clone.
+
+You can compare that one public file with its recorded hash from the clone root
+with Python 3.11 or newer. No package installation is needed; the command reads
+the two files and prints the comparison without writing output files:
+
+```bash
+python3 - <<'PY'
+import hashlib
+import json
+from pathlib import Path
+
+manifest = Path("examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json")
+rows = json.loads(manifest.read_text())["modules"]
+row = next(r for r in rows if r["module_id"] == "pattern_binding_route_readiness_validator_tool_body_import")
+target = manifest.parent / row["path"]
+matches = hashlib.sha256(target.read_bytes()).hexdigest() == row["target_sha256"]
+print(f"target_hash_matches: {matches}")
+raise SystemExit(0 if matches else 1)
+PY
+```
+
+At public commit `27c537e6`, this prints `target_hash_matches: True` and exits
+with code 0. A different hash prints `False` and exits with code 1. This compares
+one file with one saved hash; it does not establish that every import record
+matches the current public files.
+
+The `source_ref`, `source_sha256`, and `source_to_target_relation` fields record
+the stated private origin and import relationship. A reader without the private
+original can inspect that account and the public copy, but cannot independently
+compare the copy with the private original. Hash equality also does not
+establish authorship or permission to copy; the licensing and attribution
+requirements below still apply.
 
 ## Third-Party Material
 
