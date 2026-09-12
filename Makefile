@@ -77,6 +77,16 @@ PUBLIC_TESTS += tests/test_quickstart_docs.py
 PUBLIC_TESTS += tests/test_readme_front_door.py
 PUBLIC_TESTS += tests/test_cli.py::test_cli_project_commands_reject_invalid_project_directories_without_writing
 PUBLIC_TESTS += tests/test_cli.py::test_cli_project_directory_boundary_preserves_spaces_and_explicit_init
+PUBLIC_TESTS += tests/test_cli.py::test_package_metadata_describes_runtime_spine
+PUBLIC_TESTS += tests/test_cli.py::test_cli_authority_smoke
+PUBLIC_TESTS += tests/test_cli.py::test_cli_tour_card_smoke
+PUBLIC_TESTS += tests/test_runtime_shell.py::test_runtime_shell_tour_card_is_compact_public_safe
+PUBLIC_TESTS += tests/test_project_substrate.py::test_reference_execution_case_binds_returned_work_id_not_first_closed
+PUBLIC_TESTS += tests/test_bridge_phase_continuity_runtime.py::test_bridge_phase_continuity_accepts_exact_release_export_stubs
+PUBLIC_TESTS += tests/test_bridge_phase_continuity_runtime.py::test_bridge_phase_continuity_rejects_unverified_release_substitutions
+PUBLIC_TESTS += tests/test_bridge_phase_continuity_runtime.py::test_bridge_phase_continuity_original_modules_retain_digest_verification
+PUBLIC_TESTS += tests/test_cli.py::test_cli_bridge_phase_continuity_runtime_accepts_card_flag
+PUBLIC_TESTS += tests/test_cli.py::test_root_doc_command_spans_include_microcosm_entrypoint
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card

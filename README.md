@@ -244,9 +244,9 @@ read.
 | Run the first local example | [Quickstart](QUICKSTART.md) | The shortest path to a working local run. |
 | Understand how it works | [Understanding Plectis](docs/UNDERSTANDING_PLECTIS.md), then [Architecture](ARCHITECTURE.md) | One example through the code and its checks, followed by the complete implementation map. |
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
-| Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | Every component's real mechanism, one line each. |
-| Verify a specific claim before trusting it | `comprehend --first-action` | The owning component, its authority ceiling, and the command that tests it. |
-| Choose a paper without scanning the library | [Paper guide](docs/papers/README.md) · `comprehend --slice papers` | A question-first route across all active papers, including their evidence boundaries and companion-repository handoff. |
+| Inspect what each component computes, verifies, or rejects | `plectis comprehend --slice mechanism` | Every component's real mechanism, one line each. |
+| Verify a specific claim before trusting it | `plectis comprehend --first-action` | The owning component, its authority ceiling, and the command that tests it. |
+| Choose a paper without scanning the library | [Paper guide](docs/papers/README.md) · `plectis comprehend --slice papers` | A question-first route across all active papers, including their evidence boundaries and companion-repository handoff. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
 | Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-erdos) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for the eight open Erdős problems named above. |
 | Watch it being used rather than read about it | [Demo videos](https://wcook04.github.io/plectis/#demo-videos) | Recorded walkthroughs of the system in use, on the website. |

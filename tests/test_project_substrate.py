@@ -2060,8 +2060,12 @@ def test_reference_execution_case_binds_returned_work_id_not_first_closed(
     assay = tour_card["tour_command_causality_coverage_assay"]
     assert (
         assay["schema_version"]
-        == "microcosm_tour_command_causality_coverage_assay_v1"
+        == "microcosm_tour_command_causality_coverage_assay_compact_v1"
     )
+    assert assay["full_assay_ref"] == (
+        "plectis tour <project>::tour_command_causality_coverage_assay"
+    )
+    assert assay["omission_receipt"]["drilldown"] == "plectis tour <project>"
     assert assay["status"] == "partial"
     assert assay["public_witness_command_root_status"] == "not_command_rooted"
     assert assay["tour_command_has_returned_work_id"] is False
@@ -2083,6 +2087,7 @@ def test_reference_execution_case_binds_returned_work_id_not_first_closed(
     assert assay["tour_command_root_gap_count"] == 6
     assert assay["tour_command_root_blocking_gap_count"] == 5
     gap_by_id = {row["gap_id"]: row for row in assay["tour_command_root_gap_matrix"]}
+    assert all("requirement" not in row for row in gap_by_id.values())
     assert gap_by_id["tour_returned_root_handle"]["status"] == "missing"
     assert gap_by_id["tour_invocation_envelope"]["status"] == "missing"
     assert (
@@ -2129,6 +2134,7 @@ def test_reference_execution_case_binds_returned_work_id_not_first_closed(
     assert assay["classification_matrix"][1]["state_delta_refs_verified"] is True
     assert assay["classification_matrix"][1]["state_delta_scope_verified"] is True
     assert assay["classification_matrix"][2]["scope"] == "ambient_route_history"
+    assert all("rule" not in row for row in assay["classification_matrix"])
     assert assay["authority_ceiling"]["tour_command_public_occurrence_witness"] is False
     assert (
         assay["authority_ceiling"][
@@ -2146,6 +2152,17 @@ def test_reference_execution_case_binds_returned_work_id_not_first_closed(
     assert full_assay["tour_command_has_returned_work_id"] is False
     assert full_assay["project_compile_state_written"] is True
     assert full_assay["cached_state_reused"] is False
+    assert full_assay["schema_version"] == (
+        "microcosm_tour_command_causality_coverage_assay_v1"
+    )
+    assert all(
+        "requirement" in row
+        for row in full_assay["tour_command_root_gap_matrix"]
+    )
+    assert "predicate_coverage_sources" in full_assay
+    assert "rule" in full_assay["classification_matrix"][0]
+    assert "rule" not in full_assay["classification_matrix"][1]
+    assert "rule" in full_assay["classification_matrix"][2]
     assert full_assay["selected_work_reference_case_status"] == "pass"
     assert full_assay["selected_work_reference_verification_status"] == "pass"
     assert full_assay["tour_command_root_gap_count"] == 6

@@ -23,7 +23,7 @@ PYTHONPATH=src python3 -m plectis tour --card .
 PYTHONPATH=src python3 -m plectis hello .
 ```
 
-`tour --card` returns the machine-readable result; `hello` gives a no-write
+`plectis tour --card` returns the machine-readable result; `hello` gives a no-write
 orientation card. In PowerShell, set `$env:PYTHONPATH = "src"` and use
 `python -m plectis` in place of `PYTHONPATH=src python3 -m plectis`.
 

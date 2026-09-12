@@ -2898,6 +2898,21 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     card = shell.tour_card("examples/runtime_shell/demo_project")
 
     encoded = json.dumps(card, sort_keys=True)
+    assert len(encoded) < 23000
+    assert card["command_reference_execution_case"]["verification_status"] in {
+        "pass",
+        "not_run",
+    }
+    compact_assay = card["tour_command_causality_coverage_assay"]
+    assert compact_assay["full_assay_ref"] == (
+        "plectis tour <project>::tour_command_causality_coverage_assay"
+    )
+    assert compact_assay["public_witness_command_root_status"] == (
+        "not_command_rooted"
+    )
+    assert compact_assay["authority_ceiling"][
+        "tour_command_public_occurrence_witness"
+    ] is False
     body_floor_blocked = (
         card["surface_statuses"].get("macro_body_import_floor") != "pass"
     )
@@ -2906,12 +2921,12 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["schema_version"] == "microcosm_tour_command_speed_card_v1"
     assert card["status"] == expected_status
     assert card["card_status"] == expected_card_status
-    assert card["command"] == "microcosm tour --card <project>"
-    assert card["source_command"] == "microcosm tour <project>"
-    assert card["drilldown_command"] == "microcosm tour <project>"
+    assert card["command"] == "plectis tour --card <project>"
+    assert card["source_command"] == "plectis tour <project>"
+    assert card["drilldown_command"] == "plectis tour <project>"
     assert card["endpoint"] == "/tour"
     assert card["source_files_mutated"] is False
-    assert card["first_screen"]["primary_command"] == "microcosm tour --card <project>"
+    assert card["first_screen"]["primary_command"] == "plectis tour --card <project>"
     assert "reader_routes" not in card["first_screen"]
     assert card["first_screen"]["reader_routes_ref"] == (
         "atlas/entry_packet.json::reader_first_screen_routes"
@@ -2945,7 +2960,7 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
         "microcosm_tour_card_first_contact_surface_refs_v1"
     )
     assert first_contact_refs["source_ref"] == (
-        "microcosm first-screen <project>::first_contact_surface_refs"
+        "plectis first-screen <project>::first_contact_surface_refs"
     )
     assert first_contact_refs["surface_count"] == 8
     assert set(first_contact_refs["surfaces"]) == {
@@ -3002,9 +3017,9 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert card["observatory"]["status_card_endpoint"] == "/project/status"
     assert card["observatory"]["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
-    assert card["status_card"]["command"] == "microcosm status --card <project>"
+    assert card["status_card"]["command"] == "plectis status --card <project>"
     assert card["first_screen"]["minimal_step_count"] == 10
     assert card["surface_statuses"]["compile"] == "pass"
     assert card["surface_statuses"]["first_screen"] == "pass"
@@ -3028,7 +3043,7 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
         assert "validation_refs" not in body_floor_block["defect_preview"][0]
     else:
         assert card["blocking_surface_ids"] == []
-    assert card["workingness"]["command"] == "microcosm workingness --card"
+    assert card["workingness"]["command"] == "plectis workingness --card"
     assert card["macro_body_import_floor"]["status"] == (
         "blocked" if body_floor_blocked else "pass"
     )
@@ -3047,11 +3062,11 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
         "preexisting_public_tour_receipt_is_drilldown_only": True,
     }
     assert card["next_commands"] == [
-        "microcosm status --card examples/runtime_shell/demo_project",
-        "microcosm workingness --card",
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm observe --card examples/runtime_shell/demo_project",
-        "microcosm tour examples/runtime_shell/demo_project",
+        "plectis status --card examples/runtime_shell/demo_project",
+        "plectis workingness --card",
+        "plectis proof-lab --out /tmp/microcosm-proof-lab",
+        "plectis observe --card examples/runtime_shell/demo_project",
+        "plectis tour examples/runtime_shell/demo_project",
     ]
     assert card["source_checkout_next_commands"] == [
         (
@@ -3095,7 +3110,6 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert "command_path" not in card
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
-    assert len(encoded) < 14500
     if receipt_before is None:
         assert not public_tour_receipt.exists()
     else:

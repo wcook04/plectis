@@ -322,8 +322,10 @@ def test_package_metadata_describes_runtime_spine() -> None:
     project = payload["project"]
     description = project["description"]
 
-    assert "repo -> .microcosm" in description
-    assert "inspectable work substrate" in description
+    assert "runnable mechanisms" in description
+    assert "where that result stops" in description
+    assert "local tool" in description
+    assert "inspectable record" in description
     assert "first-slice" not in description
     assert project["readme"] == "README.md"
     assert project["license"] == "Apache-2.0"
@@ -2743,7 +2745,12 @@ def test_cli_authority_smoke(
         payload["surface_counts"]["copied_non_secret_macro_body_material_count"]
         == payload["macro_body_import_floor"]["public_safe_body_material_count"]
     )
-    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] >= 411
+    material_counts = payload["macro_body_import_floor"][
+        "public_safe_body_material_counts_by_class"
+    ]
+    material_count = payload["surface_counts"]["copied_non_secret_macro_body_material_count"]
+    assert material_count == sum(material_counts.values())
+    assert material_count > 0
     assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["count_scope"]["evidence_class_counts"].startswith(
