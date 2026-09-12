@@ -204,11 +204,8 @@ def _readme_companion_block(payload: dict[str, Any]) -> str:
                 f"{int(scale['theorem_like_count']):,}"
             ),
             "  theorem-like declarations, checked by the pinned kernel; start from",
-            "  `docs/ORIENTATION.md`. These are scale and navigation counts, not separate",
-            (
-                f"  mathematical claims; `{latest_tag}` remains the tagged "
-                "citation anchor."
-            ),
+            "  `docs/ORIENTATION.md`. These counts include library declarations; they do",
+            f"  not count solutions to Erdős problems. `{latest_tag}` remains the version to cite.",
             # The release bullet is inside the managed block because it names
             # the same tag. It used to sit outside it, so a refresh updated the
             # sentence above and left this line pointing at an older release --
@@ -217,7 +214,7 @@ def _readme_companion_block(payload: dict[str, Any]) -> str:
                 f"- [**Release {latest_tag}**]"
                 f"({repository}/releases/tag/{latest_tag}):"
             ),
-            "  the tagged, citable scholarly artefact and citation anchor.",
+            "  the version to cite when referring to that release.",
         ]
     )
 
@@ -237,8 +234,9 @@ def refresh_lean_companion_snapshot(
 
     readme = readme_path.read_text(encoding="utf-8")
     block_pattern = re.compile(
-        r"(?ms)^- \[\*\*Browse the Lean source\*\*\].*?citable scholarly "
-        r"artefact and citation anchor\.\n"
+        r"(?m)^- \[\*\*Browse the Lean source\*\*\][^\n]*\n"
+        r"(?:[ \t]+[^\n]*\n)*"
+        r"- \[\*\*Release [^\n]*\n(?:[ \t]+[^\n]*(?:\n|$))*"
     )
     if block_pattern.search(readme) is None:
         raise ValueError("README Lean companion block is missing")
@@ -261,23 +259,30 @@ def refresh_lean_companion_snapshot(
     return receipt
 
 
-def _expected_readme_fragments(payload: dict[str, Any]) -> list[str]:
+def _expected_readme_fragments(payload: dict[str, Any]) -> list[tuple[str, ...]]:
+    """Require bound facts and explicit limits, allowing either prose edition."""
     upstream = payload["upstream"]
     scale = payload["scale"]
     repository = str(upstream["repository"]).rstrip("/")
     public_ref = str(upstream["public_ref"])
     latest_tag = str(upstream["latest_tag"])
     return [
-        f"{repository}/tree/{public_ref}",
+        (f"{repository}/tree/{public_ref}",),
         (
             f"the recorded public source snapshot contains "
             f"{int(scale['module_count']):,} Lean modules and "
-            f"{int(scale['theorem_like_count']):,}"
+            f"{int(scale['theorem_like_count']):,}",
         ),
-        "theorem-like declarations, checked by the pinned kernel",
-        "These are scale and navigation counts, not separate",
-        "mathematical claims",
-        f"`{latest_tag}` remains the tagged citation anchor",
+        ("theorem-like declarations, checked by the pinned kernel",),
+        (
+            "These are scale and navigation counts, not separate mathematical claims",
+            "These counts include library declarations; they do not count solutions to Erdős problems",
+        ),
+        (
+            f"`{latest_tag}` remains the tagged citation anchor",
+            f"`{latest_tag}` remains the version to cite",
+        ),
+        (f"{repository}/releases/tag/{latest_tag}",),
     ]
 
 
@@ -555,11 +560,12 @@ def validate_lean_companion_snapshot(
 
         if readme_path.is_file():
             readme = readme_path.read_text(encoding="utf-8")
+            normalized_readme = " ".join(readme.split())
             try:
                 missing = [
-                    fragment
-                    for fragment in _expected_readme_fragments(payload)
-                    if fragment not in readme
+                    " or ".join(alternatives)
+                    for alternatives in _expected_readme_fragments(payload)
+                    if not any(fragment in normalized_readme for fragment in alternatives)
                 ]
             except (KeyError, TypeError, ValueError) as exc:
                 errors.append(
