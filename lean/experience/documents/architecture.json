@@ -4,21 +4,22 @@
   "title": "Repository architecture",
   "role": "system_explanation",
   "reading_order": 140,
-  "source_path": "ARCHITECTURE.md",
+  "source_path": "docs/ARCHITECTURE.md",
   "routes": {
     "html_mathml": "documents/architecture.html",
     "html_exact_tex": "documents/architecture.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ARCHITECTURE.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md"
   },
   "render_contract": {
+    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "7ca8beb92b479c881bc78d34d83ec11f004cbd7bd2790539a2074fd97b8e4512",
+    "source_sha256": "394478725ffffc46a76749925dad522a1ca9e4ff43f83880a6ca4701ba399da2",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +28,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "3e0165507f39da44c26eeb3a2da3db8998e9793fdeda14ba01832bd7e4ad6834",
-    "html_exact_tex_sha256": "1cbb0c15c95362ee8895c713c95e3b405ac9a5bfa4a25796d2e89d08559b222a"
+    "html_mathml_sha256": "65ee5d2dc0717ec59bf27a631a69a71fa68b989d2c27613591031126099695c8",
+    "html_exact_tex_sha256": "261a70eb508002fee7cf4aad2442a8b697dcefa3173457b5f2e9b061f53ed420"
   },
   "sections": [
     {

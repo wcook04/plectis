@@ -11,14 +11,15 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/README.md"
   },
   "render_contract": {
+    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "0b3e9ee447b85e9e66918b727350e7203a60a74dc195e092609d38f2a4dba646",
+    "source_sha256": "da0ac0da9b370dfa5d468039420f01bf363452ea5e57528d45c9c27fef50394e",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,15 +28,10 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "15c400f6f553102dfbc2ffdb7b6e165ce9982d054e18a4ad96e94d2879da8242",
-    "html_exact_tex_sha256": "3f78a418b60e1bf9153a1dd62223ff15b2fcfb6a46cd5be5328a5fa1cac38a61"
+    "html_mathml_sha256": "f0949422b34bfca49de9c27db40fb276badbd682cf30fb19261f47db7acc897f",
+    "html_exact_tex_sha256": "9a4cccc102aad45fc8d2a3a0d1fadf54c9a23c42f444abf48d0b2a4c6b0baaff"
   },
   "sections": [
-    {
-      "level": 2,
-      "anchor": null,
-      "label": "Why this exists"
-    },
     {
       "level": 2,
       "anchor": null,
@@ -44,47 +40,12 @@
     {
       "level": 2,
       "anchor": null,
+      "label": "Why this exists"
+    },
+    {
+      "level": 2,
+      "anchor": null,
       "label": "Problem papers"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "#68: Factorial-denominator irrationality"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "#243: Reciprocal-tail rigidity"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "#249: Binary totient series"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "#251: Prime-gap dyadic series"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "#257: Mersenne-support subseries"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "#269: Three-prime running LCM"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "#1041: Lemniscates and Newton flow"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "#1049: Rational-base Lambert series"
     },
     {
       "level": 2,
@@ -114,7 +75,7 @@
     {
       "level": 2,
       "anchor": null,
-      "label": "The wider project"
+      "label": "About the project"
     },
     {
       "level": 2,

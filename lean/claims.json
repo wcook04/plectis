@@ -1,6 +1,6 @@
 {
   "schema": "erdos249257-claims/3",
-  "comment": "Single owner of release identity, mathematical claim status, typed remaining-open propositions, and the machine-readable paper map. Human surfaces (README, paper, SCOPE.md, CITATION.cff) project from this file; Lean remains proof authority, docs/methodology.json owns claim-transition rules, and scripts/check_release.py fails the build when a checked projection or graph edge drifts.",
+  "comment": "Single owner of release identity, mathematical claim status, typed remaining-open propositions, and the machine-readable paper map. Human surfaces (README, paper, docs/SCOPE.md, CITATION.cff) project from this file; Lean remains proof authority, docs/methodology.json owns claim-transition rules, and scripts/check_release.py fails the build when a checked projection or graph edge drifts.",
   "machine_readable_paper": {
     "schema": "erdos249257-machine-readable-paper/1",
     "purpose": "Give humans and agent harnesses one bounded map from the open problems and paper argument to claim status, Lean declarations, module dependencies, validation, and explicit non-claims.",
@@ -9,7 +9,7 @@
       "docs/claims.json for release identity, status taxonomy, remaining-open propositions, coordinates, and navigation relationships",
       "docs/methodology.json for mathematical methodology and claim-transition requirements",
       "the authored exposition for mathematical explanation",
-      "README.md, SCOPE.md, docs/SOURCE_MAP.md, and docs/WAVE_INDEX.md as reader projections"
+      "README.md, docs/SCOPE.md, docs/SOURCE_MAP.md, and docs/reference/WAVE_INDEX.md as reader projections"
     ],
     "projection_boundary": "The module graph records exact internal Lean imports. The argument graph is an authored navigation map, not an additional proof object and not a novelty or priority claim.",
     "entrypoints": [
@@ -27,7 +27,7 @@
         ],
         "read": [
           "docs/orientation.json",
-          "SCOPE.md"
+          "docs/SCOPE.md"
         ],
         "query_steps": [
           "python3 scripts/query_corpus.py --format card",
@@ -80,8 +80,8 @@
           "prioritize semantic population from the papers"
         ],
         "read": [
-          "docs/AGENT_WORKBENCH.md",
-          "docs/SEMANTIC_COMPILER.md",
+          "docs/agents/AGENT_WORKBENCH.md",
+          "docs/agents/SEMANTIC_COMPILER.md",
           "docs/semantic/lab/README.md"
         ],
         "query_steps": [
@@ -138,7 +138,7 @@
         ],
         "read": [
           "docs/orientation.json",
-          "SCOPE.md"
+          "docs/SCOPE.md"
         ],
         "query_steps": [
           "python3 scripts/query_corpus.py --status <claim_status>",
@@ -204,7 +204,7 @@
         "authority_owners": [
           "docs/claims.json::machine_readable_paper.argument_graph",
           "docs/SOURCE_MAP.md",
-          "docs/WAVE_INDEX.md"
+          "docs/reference/WAVE_INDEX.md"
         ],
         "adjacent_handle_classes": [
           "claim_id",
@@ -876,8 +876,8 @@
           "what remains open"
         ],
         "read": [
-          "METHODOLOGY.md",
-          "SCOPE.md"
+          "docs/METHODOLOGY.md",
+          "docs/SCOPE.md"
         ],
         "query_steps": [
           "python3 scripts/query_corpus.py --open <remaining_open_proposition_id>",
@@ -887,7 +887,7 @@
         "authority_owners": [
           "docs/methodology.json",
           "docs/claims.json::remaining_open_propositions",
-          "SCOPE.md"
+          "docs/SCOPE.md"
         ],
         "adjacent_handle_classes": [
           "open_proposition_id",
@@ -906,7 +906,7 @@
           "how do I verify this"
         ],
         "read": [
-          "AGENTS.md",
+          "docs/agents/AGENT_GUIDE.md",
           "CONTRIBUTING.md"
         ],
         "query_steps": [
@@ -1768,7 +1768,7 @@
       },
       {
         "id": "human_methodology_projection",
-        "path": "METHODOLOGY.md",
+        "path": "docs/METHODOLOGY.md",
         "role": "Generated human projection of the mathematical methodology and claim-transition rules in docs/methodology.json.",
         "authority": "projection_of_docs_methodology_not_proof_authority",
         "build": "python3 scripts/build_methodology.py",
@@ -15373,7 +15373,7 @@
       "verification/comparator.json",
       "docs/external_verification_packet.json",
       "docs/EXTERNAL_VERIFICATION.md",
-      "docs/OUTREACH_EVIDENCE_CAPSULES.md"
+      "docs/reference/OUTREACH_EVIDENCE_CAPSULES.md"
     ]
   },
   "remaining_open_propositions": [

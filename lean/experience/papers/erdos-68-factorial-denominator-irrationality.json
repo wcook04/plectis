@@ -9,7 +9,7 @@
   "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
   "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
   "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #68, which remains open",
   "problem_id": "erdos_68",
   "routes": {
     "html_mathml": "papers/erdos-68-factorial-denominator-irrationality.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "eb70d357aa30937dd68d4f69d67c746787406f178b193faf6147c0d8f8efe546",
     "publication_manifest_match": true,
     "mathml_node_count": 303,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "aa7fa86431547b895304091a0334e599abd1556a43d0959ebf07ce9e61f143c4",
-    "html_exact_tex_sha256": "25a6f0c844acd49af9ed2291070727124a9afe1bf0a30d2a426de6bc9eb3ee75"
+    "html_exact_tex_sha256": "181ef4ba8eb59adf43e6128ccc6e3c629e0a99458e64f9a2f7c6079022480ad8"
   },
   "sections": [
     {

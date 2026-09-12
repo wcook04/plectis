@@ -9,7 +9,7 @@
   "question": "What is the complete checked and failed-route record for Erdős #68, and which cofinal producer is still missing?",
   "precis": "A claim-bounded complete reasoning record for Erdős #68. It retains the factorial-successor and carry normal forms, channel and projection mechanisms, exact finite denominator evidence, failed routes, and every registered family in the shared reader order. No cofinal divisibility-miss producer is proved, so irrationality remains open.",
   "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #68, which remains open",
   "problem_id": "erdos_68",
   "routes": {
     "html_mathml": "papers/erdos68-factorial-reasoning-surface.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "05154a339954078b531faddc04a459796ac00ce45a32e01b4516cba23fea6b24",
     "publication_manifest_match": true,
     "mathml_node_count": 883,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "ecee1171fc8d7a54220c6dfad7cf7dcf0332a4985c823d8acd423627c809421c",
-    "html_exact_tex_sha256": "ce29c50bb936cedefa70b2764b546ed2904c39ff692bfdcc813e87d5c8c6cf24"
+    "html_exact_tex_sha256": "5341982f69c06ebc2952813a730f75565903cc35c4f0fb882a047739099215b4"
   },
   "sections": [
     {

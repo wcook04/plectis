@@ -2,20 +2,20 @@
   "schema": "plectis_packet_identity_sidecar_v1",
   "describes": "plectis-ai-review-packet.json",
   "how_to_use": "Run sha256 over your downloaded file and compare it with exact_byte_sha256 below. Equal means you hold this build. Different means you hold another one, and its own numbers are the ones that apply to it -- not these.",
-  "exact_byte_sha256": "sha256:d6efa72d33aba62c0c12e5ec29f15f668fd648fe67ee45d1beaaa21384dba73f",
-  "byte_count": 16407895,
-  "payload_sha256_excluding_identity": "sha256:5c0e6126da1fcd6e5074122c22872f97b1585d1a2adb5a67089d46296c5ec1b1",
-  "source_fingerprint": "6428bef0fcd34152606175fb16608a8a",
+  "exact_byte_sha256": "sha256:d218e779b72f228c7183b05a32da21157436297959abca18dfff317b96cee065",
+  "byte_count": 17026502,
+  "payload_sha256_excluding_identity": "sha256:0769aef2f4a54d92b172382af45fb08c13388ef0d74dbab7776e4d1d06830c35",
+  "source_fingerprint": "380f0ce127eff4e0fbc75cb166f7acdf",
   "packet_schema": "microcosm_ai_review_packet_v2",
-  "lean_release_version": "0.9.0",
+  "lean_release_version": "0.10.0",
   "formal_source_ref": "92b88dc1bbe099aa73bcc900c3c405e9ba5c2334",
   "formal_source_public_tag": "formal-source-2026-09-10-r2",
   "repository_heads_at_build": {
-    "plectis": "a5b7d4c5c91b1b6b004f9c86e84536825b87f592",
-    "plectis-lean-erdos249-257": "6a8e8c4d4652176ab5f6ba36d0d517f0334effe3"
+    "plectis": "3d5f32b64d6ac967c9293174b4bd2fcd9c66b81c",
+    "plectis-erdos": "d56e107981537de90b00c713c04a9850cbd52bfa"
   },
-  "source_integrity": "verified_current",
-  "suggested_local_filename": "plectis-ai-review-packet-0.9.0-r2-92b88dc.json",
+  "source_integrity": null,
+  "suggested_local_filename": "plectis-ai-review-packet-0.10.0-r2-92b88dc.json",
   "why_a_sidecar_and_not_a_second_copy": "Publishing the packet again under a versioned name would cost 14 MB to answer a question a digest answers in a kilobyte, and would put two large files on the host that must never drift apart. The versioned name is a convention for saving it locally, which is where copies actually get confused.",
   "stable_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json"
 }

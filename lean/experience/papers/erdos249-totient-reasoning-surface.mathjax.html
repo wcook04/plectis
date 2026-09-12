@@ -131,7 +131,7 @@ sound: it forces <span class="math inline" data-term-auto="off">\(R_{N+h} - R_N 
 \mathbb{Z}\)</span>, and in fact certificates are <em>complete</em> for
 non-integrality (). The entire #249 side of the programme therefore
 reduces to one obligation.</p>
-<div class="defn">
+<div class="defn" id="defn:sep">
 <p><strong>Definition 2</strong> (The supply obligation <span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> — the exact open target).</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{Sep}
@@ -161,7 +161,7 @@ the centre of its dyadic arc, at full arithmetic resolution.</p>
 <p>The following hold with no irrationality hypothesis. They are the
 results a specialist should know before reading further; each is stated
 at the scale at which it is actually proved.</p>
-<div class="thm">
+<div class="thm" id="thm:denom">
 <p><strong>Theorem 3</strong> (Denominator exclusion — the headline
 unconditional fact). <em> If <span class="math inline" data-term-auto="off">\(S \in
 \mathbb{Q}\)</span> then its reduced denominator exceeds <span
@@ -186,7 +186,7 @@ no period apparatus. Its own open continuation is whether <span
 class="math inline" data-term-auto="off">\(\sup_K (b+d)(K) = \infty\)</span>; that would
 close #249 through this theorem’s consumer. <span><span
 class="sans-serif">[Open]</span></span></p>
-<div class="prop">
+<div class="prop" id="prop:deposits">
 <p><strong>Proposition 4</strong> (Finite certificate deposits). <em>
 <span class="math inline" data-term-auto="off">\(\mathrm{certifiedKill}\)</span> has been
 verified at: the <span class="math inline" data-term-auto="off">\(28\)</span> diagonal
@@ -206,7 +206,7 @@ L\)</span>. <code>coord:binary-digit</code> <span><span
 class="sans-serif">scale:fixed</span></span> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:sign">
 <p><strong>Proposition 5</strong> (Cofinal positivity, and why it is
 exactly half a certificate). <em> The true actual-LCM tail difference is
 strictly positive for every <span class="math inline" data-term-auto="off">\(a \ge
@@ -220,7 +220,7 @@ inequalities a certificate needs and provably cannot supply the other.
 class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:rank">
 <p><strong>Proposition 6</strong> (Rationality forces unbounded carry
 rank). <em> If <span class="math inline" data-term-auto="off">\(S\)</span> is rational then,
 for every <span class="math inline" data-term-auto="off">\(e\)</span>, the dyadic
@@ -236,7 +236,7 @@ Dirichlet (), so the full family spans an infinite-dimensional space ().
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:period-not-rank">
 <p><strong>Proposition 7</strong> (What rationality actually buys, and
 what it does not). <em> Rationality gives uniform eventual periodicity
 of the carry’s dyadic sections modulo <span
@@ -247,7 +247,7 @@ class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span>-rank bound on the
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:iffs">
 <p><strong>Proposition 8</strong> (Exact reformulations that do not move
 the truth value). <em> Several re-encodings are proved
 <em>equivalent</em> to <span
@@ -259,7 +259,7 @@ window-separated-pairs predicate (). <code>coord:binary-digit</code>
 <span><span class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:parity">
 <p><strong>Proposition 9</strong> (A rational sequence indistinguishable
 from <span class="math inline" data-term-auto="off">\(\varphi\)</span> by every coarse
 invariant). <em> There is <span class="math inline" data-term-auto="off">\(c : \mathbb{N}\to
@@ -280,7 +280,7 @@ match at <code>:194</code>; <code>#print axioms</code> clean).
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
-<p>Propositions <a class="math-ref" href="#prop:sign">prop:sign</a>–<a class="math-ref" href="#prop:parity">prop:parity</a> are the four facts a
+<p>Propositions <a class="math-ref" href="#prop:sign">5</a>–<a class="math-ref" href="#prop:parity">9</a> are the four facts a
 reader should carry into the next section: the corpus’s best cofinal
 information is half a certificate, its best rank information runs the
 wrong way, its reformulations are equivalences rather than reductions,
@@ -306,7 +306,7 @@ exactly the bounds that make an argument finite.</em></p>
 <section id="the-plane-the-barriers-live-on" class="level3">
 <h3>The plane the barriers live on</h3>
 <p>Fix two axes for a hypothetical proof of <span
-class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> (Definition <a class="math-ref" href="#defn:sep">defn:sep</a>): the <em>range</em> of
+class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> (Definition <a class="math-ref" href="#defn:sep">2</a>): the <em>range</em> of
 indices at which it consults <span
 class="math inline" data-term-auto="off">\(\varphi\)</span>, and the <em>resolution</em> at
 which it consults them. Two derived axes matter as well: the size of the
@@ -317,13 +317,13 @@ chosen index or as an <em>average</em> over a block.</p>
 <ul>
 <li><p>The quadrant [full resolution <span
 class="math inline" data-term-auto="off">\(\times\)</span> bounded range] is closed by
-Theorem <a class="math-ref" href="#thm:gamma">thm:gamma</a> (B1): <span
+Theorem <a class="math-ref" href="#thm:gamma">13</a> (B1): <span
 class="math inline" data-term-auto="off">\(\varphi\)</span> may be pinned exactly on <span
 class="math inline" data-term-auto="off">\([1,B]\)</span> and the series can still be
 rational.</p></li>
 <li><p>The complementary quadrant [coarse resolution <span
 class="math inline" data-term-auto="off">\(\times\)</span> unbounded range] is closed by
-Proposition <a class="math-ref" href="#prop:parity">prop:parity</a> (B7):
+Proposition <a class="math-ref" href="#prop:parity">9</a> (B7):
 <span class="math inline" data-term-auto="off">\(\varphi\)</span>’s parity may be pinned at
 <em>every</em> index, together with boundedness, <span
 class="math inline" data-term-auto="off">\(c(n) \le n\)</span>, and arbitrarily strong
@@ -342,8 +342,8 @@ result in the corpus has ever promoted.</p></li>
 </ul>
 <p>The corpus’s own results partition along these axes perfectly, which
 is the first evidence that the axes are the right ones. Every
-unconditional <em>finite</em> deposit (Proposition <a class="math-ref" href="#prop:deposits">prop:deposits</a>, the <span
-class="math inline" data-term-auto="off">\(K=240\)</span> Farey rung of Theorem <a class="math-ref" href="#thm:denom">thm:denom</a>, the actual-LCM orbits at
+unconditional <em>finite</em> deposit (Proposition <a class="math-ref" href="#prop:deposits">4</a>, the <span
+class="math inline" data-term-auto="off">\(K=240\)</span> Farey rung of Theorem <a class="math-ref" href="#thm:denom">3</a>, the actual-LCM orbits at
 <span class="math inline" data-term-auto="off">\(a = 4\)</span> and <span
 class="math inline" data-term-auto="off">\(a = 6\)</span>) sits at full resolution and
 bounded range, so B1 says extending them is evidence forever and proof
@@ -351,7 +351,7 @@ never. Every unconditional <em>cofinal</em> theorem (letterwise
 positivity for all <span class="math inline" data-term-auto="off">\(a \ge 8\)</span>, the
 tail bounds from <span class="math inline" data-term-auto="off">\(\varphi(m) \le m\)</span>,
 unbounded Mersenne-shadow denominator growth) sits at coarse resolution
-and unbounded range, and Proposition <a class="math-ref" href="#prop:sign">prop:sign</a> proves in the corpus’s
+and unbounded range, and Proposition <a class="math-ref" href="#prop:sign">5</a> proves in the corpus’s
 own coordinate that this is exactly half a certificate.</p>
 </section>
 <section id="b1-the-finite-inspection-barrier-as-a-theorem"
@@ -373,8 +373,8 @@ class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> with <span
 class="math inline" data-term-auto="off">\(A_c\)</span> in place of <span
 class="math inline" data-term-auto="off">\(\mathrm{windowDiscrepancy}\)</span>. For <span
 class="math inline" data-term-auto="off">\(c = \varphi\)</span> these are the objects of
-Definition <a class="math-ref" href="#defn:sep">defn:sep</a>.</p>
-<div class="lem">
+Definition <a class="math-ref" href="#defn:sep">2</a>.</p>
+<div class="lem" id="lem:gsound">
 <p><strong>Lemma 10</strong> (Generic soundness). <em> <span
 class="math inline" data-term-auto="off">\(\mathrm{Kill}_c(h,N,L) \Rightarrow R^{c}_{N+h} -
 R^{c}_{N} \notin \mathbb{Z}\)</span>. <code>coord:binary-digit</code>
@@ -398,7 +398,7 @@ class="math inline" data-term-auto="off">\(0\)</span> or of <span
 class="math inline" data-term-auto="off">\(2^{L}\)</span>, contradicting <span
 class="math inline" data-term-auto="off">\(\mathrm{Kill}_c\)</span>. ◻</p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:gperiod">
 <p><strong>Lemma 11</strong> (Generic tail-period law). <em> If <span
 class="math inline" data-term-auto="off">\(T_c = p/(2^{e}m)\)</span> with <span
 class="math inline" data-term-auto="off">\(m\)</span> positive and odd, and if <span
@@ -421,16 +421,16 @@ because <span class="math inline" data-term-auto="off">\(2^{e} \mid 2^{N}\)</spa
 class="math inline" data-term-auto="off">\(m \mid 2^{h}-1\)</span>. ◻</p>
 </div>
 <div class="rem">
-<p><em>Remark 12</em>. Lemmas <a class="math-ref" href="#lem:gsound">lem:gsound</a> and <a class="math-ref" href="#lem:gperiod">lem:gperiod</a> are elementary and are
+<p><em>Remark 12</em>. Lemmas <a class="math-ref" href="#lem:gsound">10</a> and <a class="math-ref" href="#lem:gperiod">11</a> are elementary and are
 stated here in ordinary mathematics. Their <span
 class="math inline" data-term-auto="off">\(\varphi\)</span>-instances are Lean theorems (, ),
 and the generic tail-period direction exists on disk inside ; a generic
-<em>named</em> theorem of the form of Lemma <a class="math-ref" href="#lem:gperiod">lem:gperiod</a> does not exist in
+<em>named</em> theorem of the form of Lemma <a class="math-ref" href="#lem:gperiod">11</a> does not exist in
 either tree. The composition below is mechanical but unformalised, and
 is flagged <span><span class="sans-serif">[Math]</span></span>
 throughout for that reason.</p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:gamma">
 <p><strong>Theorem 13</strong> (B1, the <span
 class="math inline" data-term-auto="off">\(\gamma\)</span>-splice: finite inspection cannot
 certify the supply). <em> Let <span class="math inline" data-term-auto="off">\(B \ge
@@ -499,10 +499,10 @@ reduced denominator is exactly <span
 class="math inline" data-term-auto="off">\(2^{P}-1\)</span>. For (iv), the odd part of the
 denominator is <span class="math inline" data-term-auto="off">\(m = 2^{P}-1\)</span> and
 <span class="math inline" data-term-auto="off">\(\mathrm{ord}_m(2) = P\)</span>, while <span
-class="math inline" data-term-auto="off">\(v_2(\mathrm{den}) \le B\)</span>. By Lemma <a class="math-ref" href="#lem:gperiod">lem:gperiod</a>, <span
+class="math inline" data-term-auto="off">\(v_2(\mathrm{den}) \le B\)</span>. By Lemma <a class="math-ref" href="#lem:gperiod">11</a>, <span
 class="math inline" data-term-auto="off">\(R^{\gamma}_{N+P} - R^{\gamma}_{N} \in
 \mathbb{Z}\)</span> for every <span class="math inline" data-term-auto="off">\(N \ge
-B\)</span>, so by Lemma <a class="math-ref" href="#lem:gsound">lem:gsound</a> no <span
+B\)</span>, so by Lemma <a class="math-ref" href="#lem:gsound">10</a> no <span
 class="math inline" data-term-auto="off">\(\mathrm{Kill}_\gamma(P,N,L)\)</span> holds for any
 <span class="math inline" data-term-auto="off">\(N \ge B\)</span> and any <span
 class="math inline" data-term-auto="off">\(L\)</span>. Taking <span class="math inline" data-term-auto="off">\(N_0
@@ -510,12 +510,12 @@ class="math inline" data-term-auto="off">\(L\)</span>. Taking <span class="math 
 class="math inline" data-term-auto="off">\(\mathrm{Sep}_\gamma\)</span> at <span
 class="math inline" data-term-auto="off">\(h = P\)</span>. ◻</p>
 </div>
-<div class="cor">
+<div class="cor" id="cor:b1">
 <p><strong>Corollary 14</strong> (What B1 rules out). <em> No proof rule
 that is uniform over all coefficient sequences <span
 class="math inline" data-term-auto="off">\(c(n)\le n\)</span> can establish <span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> from a single fixed prefix
-<span class="math inline" data-term-auto="off">\(\{c(n):n\le B\}\)</span>: Theorem <a class="math-ref" href="#thm:gamma">thm:gamma</a> supplies a rational
+<span class="math inline" data-term-auto="off">\(\{c(n):n\le B\}\)</span>: Theorem <a class="math-ref" href="#thm:gamma">13</a> supplies a rational
 countermodel with that same prefix. This does <em>not</em> invalidate an
 argument that uses the fixed arithmetic sequence <span
 class="math inline" data-term-auto="off">\(\varphi\)</span> together with compatible
@@ -525,9 +525,9 @@ class="math inline" data-term-auto="off">\(B\)</span>, not one sequence agreeing
 class="math inline" data-term-auto="off">\(\varphi\)</span> at every <span
 class="math inline" data-term-auto="off">\(B\)</span>.</em></p>
 </div>
-<div class="rem">
+<div class="rem" id="rem:b1-scope">
 <p><em>Remark 15</em> (Scope discipline — what B1 does <em>not</em>
-say). Theorem <a class="math-ref" href="#thm:gamma">thm:gamma</a> is a
+say). Theorem <a class="math-ref" href="#thm:gamma">13</a> is a
 statement about proof method, not about <span
 class="math inline" data-term-auto="off">\(\varphi\)</span>. It does not touch <span
 class="math inline" data-term-auto="off">\(S\)</span>, and it does not suggest that <span
@@ -545,7 +545,7 @@ forces <span class="math inline" data-term-auto="off">\(2(N{+}h{+}L{+}2) &lt;
 Conflating them would overstate B1.</p>
 </div>
 <p>The Lean-formalised sibling of the same mechanism — a lacunary
-zero-valued coboundary splice — is Proposition <a class="math-ref" href="#prop:parity">prop:parity</a>, which is B7. B1 and B7
+zero-valued coboundary splice — is Proposition <a class="math-ref" href="#prop:parity">9</a>, which is B7. B1 and B7
 are the two object-level witnesses of the wall, one along each axis.</p>
 </section>
 <section id="b2b7" class="level3">
@@ -556,7 +556,7 @@ with its status never blurred. <em>Proved</em> means there is a theorem
 elimination. <em>Observed pattern</em> means an audit over the corpus:
 real evidence, not a theorem, and it is never used as a premise
 elsewhere in this document.</p>
-<div class="prop">
+<div class="prop" id="prop:b2">
 <p><strong>Proposition 16</strong> (B2, route-collapse: intermediate
 targets are not waypoints). <em> <strong>Status: proved</strong> (Lean,
 three independent mechanisms).</em></p>
@@ -619,7 +619,7 @@ stalls at <span class="math inline" data-term-auto="off">\(q_0\)</span> precisel
 class="math inline" data-term-auto="off">\(S = a/q_0\)</span>. It should not be cited as an
 equivalence. <span><span class="sans-serif">[Math]</span></span></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:b3">
 <p><strong>Proposition 18</strong> (B3, no free promotion). <em>
 <strong>Status: observed pattern (an audit, not a theorem).</strong>
 Across the corpus’s proved results, no bounded or partial result has a
@@ -644,7 +644,7 @@ the <em>most favourable</em> subset. <code>coord:audit</code>
 <span><span class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Cert]</span></span></em></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:pointwise">
 <p><em>Observation 19</em> (The sharpest signal in the audit). Every
 not-promotable #249-supply row asks for a <em>pointwise</em> fact at a
 specially chosen index: one large <span class="math inline" data-term-auto="off">\(a\)</span>
@@ -661,7 +661,7 @@ whose missing input is not of that shape is the first-harmonic gap — an
 survivor in §<a class="math-ref" href="#sec:survivors">4</a>.
 It is evidence, not proof.</p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:b4">
 <p><strong>Proposition 20</strong> (B4, amplitude versus radius: residue
 engineering is self-defeating). <em> <strong>Status: proved</strong>
 (Lean construction plus an unconditional arithmetic margin). A
@@ -690,7 +690,7 @@ class="math inline" data-term-auto="off">\(K\)</span>. <code>coord:two-adic-puls
 <span><span class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Lean]</span></span> </em></p>
 </div>
-<div class="rem">
+<div class="rem" id="rem:b4">
 <p><em>Remark 21</em> (B4’s own recorded repair, and its scope). Two
 further Lean facts show that prescribing <em>letters</em> is exhausted:
 the full terminal dyadic staircase is unconditionally impossible — its
@@ -717,7 +717,7 @@ class="math inline" data-term-auto="off">\(2^{L}\)</span> — is an inference fr
 instance plus the linear growth bound, not itself a theorem on disk.
 <span><span class="sans-serif">[Math]</span></span></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:b5">
 <p><strong>Proposition 22</strong> (B5, bounded state and local
 signatures). <em> <strong>Status: proved</strong> (three Lean theorems,
 all problem-agnostic).</em></p>
@@ -752,7 +752,7 @@ identically. <code>coord:carry-orbit</code> <span><span
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:b6">
 <p><strong>Proposition 23</strong> (B6, no finite linear compression).
 <em> <strong>Status: proved for four independent truncations</strong>
 (Lean), with the honest limit stated below. Every natural finite
@@ -761,7 +761,7 @@ truncation of the totient kernel has trivial kernel:</em></p>
 <li><p><em><em>Dyadic.</em> The canonical family of <span
 class="math inline" data-term-auto="off">\(2^{e}+1\)</span> dyadic channels is linearly
 independent over <span class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span> at
-every depth (Proposition <a class="math-ref" href="#prop:rank">prop:rank</a>), and the natural repair
+every depth (Proposition <a class="math-ref" href="#prop:rank">6</a>), and the natural repair
 — a bounded compressed-adjoint certificate — is impossible (, structure
 at <code>:1039</code>).</em></p></li>
 <li><p><em><em>Möbius incidence.</em> <span
@@ -798,16 +798,16 @@ limit:</strong> this is four checked truncations, not a proof that no
 finite-linear shortcut exists. Its correct reading is the one the source
 module gives: any winning finite-linear shortcut must live in a
 genuinely different coordinate or use a growing-parameter construction.
-The reason the barrier bites is Proposition <a class="math-ref" href="#prop:period-not-rank">prop:period-not-rank</a>: what
+The reason the barrier bites is Proposition <a class="math-ref" href="#prop:period-not-rank">7</a>: what
 rationality actually buys is periodicity, and periodicity provably does
 not promote to a rank bound. <code>coord:carry-rank</code> <span><span
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:b7">
 <p><strong>Proposition 24</strong> (B7, the coarse-invariant barrier).
 <em> <strong>Status: proved</strong> (Lean, <code>#print axioms</code>
-clean). This is Proposition <a class="math-ref" href="#prop:parity">prop:parity</a> read as an elimination.
+clean). This is Proposition <a class="math-ref" href="#prop:parity">9</a> read as an elimination.
 <strong>Rules out:</strong> any proof of #249 whose hypothesis set on
 the coefficient word lies inside {uniform boundedness, <span
 class="math inline" data-term-auto="off">\(c(n) \le n\)</span>, agreement with <span
@@ -854,13 +854,13 @@ for each we state the exact statement it needs, which barrier it evades,
 and <em>why</em> the evasion is structural rather than accidental. Two
 of the five are demoted explicitly, because they evade every
 <em>proved</em> barrier while sitting squarely inside the class that the
-strongest <em>observed</em> pattern (Observation <a class="math-ref" href="#obs:pointwise">obs:pointwise</a>) indicts. None of the
+strongest <em>observed</em> pattern (Observation <a class="math-ref" href="#obs:pointwise">19</a>) indicts. None of the
 five is a proof, and none is close to one; what has changed is that the
 space of things to try is no longer large.</p>
 <section id="survivor-1-the-first-harmonic-block-cancellation-bound"
 class="level3">
 <h3>Survivor 1: the first-harmonic block cancellation bound</h3>
-<div class="defn">
+<div class="defn" id="defn:fh">
 <p><strong>Definition 25</strong> (The open analytic obligation). Write
 <span class="math inline" data-term-auto="off">\(e(x) := \exp(2\pi i x)\)</span> and <span
 class="math inline" data-term-auto="off">\(\mathrm{windowFirstExp}(h,N,L) :=
@@ -919,7 +919,7 @@ class="math inline" data-term-auto="off">\([1,B]\)</span> constrains it.</p></li
 prover may choose the sample</em>: the converse proof selects <span
 class="math inline" data-term-auto="off">\(T = \{N, N{+}1\}\)</span> and meets the threshold
 with <span class="math inline" data-term-auto="off">\(\delta = 9/10\)</span> supplied by
-irrationality plus doubling expansivity (Proposition <a class="math-ref" href="#prop:b2">prop:b2</a>(b)). Definition <a class="math-ref" href="#defn:fh">defn:fh</a> admits no sample choice:
+irrationality plus doubling expansivity (Proposition <a class="math-ref" href="#prop:b2">16</a>(b)). Definition <a class="math-ref" href="#defn:fh">25</a> admits no sample choice:
 the sum ranges over all of <span class="math inline" data-term-auto="off">\([X,2X)\)</span>
 at one common depth <span class="math inline" data-term-auto="off">\(L\)</span>. Since <span
 class="math inline" data-term-auto="off">\(\neg\,\mathrm{certifiedKill}(h,N,L)\)</span>
@@ -941,7 +941,7 @@ collapse-exposed variant. Attack the full-block form.</p></li>
 character of the <em>accumulated</em> weighted word, never an individual
 letter. Nothing is prescribed at any position, so the self-defeating
 cost that kills Dirichlet residue engineering does not arise. B4’s own
-recorded repair (Remark <a class="math-ref" href="#rem:b4">rem:b4</a>) is to impose the structure
+recorded repair (Remark <a class="math-ref" href="#rem:b4">21</a>) is to impose the structure
 on the word rather than on one delta, which is exactly what a block
 exponential-sum bound does.</p></li>
 <li><p><strong>B5, B6, B7.</strong> No carry state is summarised and no
@@ -968,7 +968,7 @@ class="math inline" data-term-auto="off">\(h\)</span> or <span
 class="math inline" data-term-auto="off">\(L\)</span>; there is no case analysis and no
 table.</p></li>
 </ul>
-<div class="rem">
+<div class="rem" id="rem:b1-not-selector">
 <p><em>Remark 26</em> (Does B1 <em>select</em> this route? No.). It is
 tempting to say the finite-inspection theorem points at analysis. It
 does not. B1 says any proof must use <span
@@ -983,7 +983,7 @@ not discriminate.</p>
 only mechanism the corpus ever found for reaching full resolution at
 unbounded range by <em>prescribing</em> values, and its own stated
 repair is accumulation over the word — which is what an exponential sum
-measures; and (2) Observation <a class="math-ref" href="#obs:pointwise">obs:pointwise</a>, an observed pattern
+measures; and (2) Observation <a class="math-ref" href="#obs:pointwise">19</a>, an observed pattern
 and not a theorem, shows that every single-index producer has failed to
 be supplied at even one large index, while this route’s missing input is
 a block average and therefore never requires naming a good index.</p>
@@ -1017,7 +1017,7 @@ robustly central and any equidistribution claim will be delicate.
 the block sum at a largest-prime pivot into centred correlation,
 fibre-mean, bad-cofactor and non-supplier contributions and bound the
 four separately.</p>
-<div class="defn">
+<div class="defn" id="defn:pivot">
 <p><strong>Definition 28</strong> (<span
 class="math inline" data-term-auto="off">\(\mathrm{DTWPivotResidualDecorrelation}\)</span>).
 For every <span class="math inline" data-term-auto="off">\(h &gt; 0\)</span> there are <span
@@ -1076,7 +1076,7 @@ id="survivor-3-uniform-quantitative-escape-at-cofinally-many-primes"
 class="level3">
 <h3>Survivor 3: uniform quantitative escape at cofinally many
 primes</h3>
-<div class="defn">
+<div class="defn" id="defn:primegap">
 <p><strong>Definition 29</strong> (<span
 class="math inline" data-term-auto="off">\(\mathrm{DTWNaturalPrimeTailOrbitStrictGap}\)</span>).
 For every <span class="math inline" data-term-auto="off">\(h \ge 1\)</span> and every <span
@@ -1101,14 +1101,14 @@ class="sans-serif">[Lean]</span></span> </p>
 a statement about the true real tail difference at unbounded prime
 positions, with no letters prescribed, no bounded state, no rank, no
 coarse coefficient-word invariant. It evades B2 by the <em>second</em>
-of the two exemptions in Proposition <a class="math-ref" href="#prop:b2">prop:b2</a> — not by denying sample
+of the two exemptions in Proposition <a class="math-ref" href="#prop:b2">16</a> — not by denying sample
 choice, but by demanding a <em>uniform margin</em>. Irrationality gives
 non-integrality of every tail difference and supplies no lower bound
 whatever on distance to <span class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span>;
 certificate completeness therefore cannot manufacture this
 predicate.</p>
 <p><strong>Honest demotion.</strong> This is a <em>pointwise</em>
-producer: it requires naming a good prime, and Observation <a class="math-ref" href="#obs:pointwise">obs:pointwise</a> records that no
+producer: it requires naming a good prime, and Observation <a class="math-ref" href="#obs:pointwise">19</a> records that no
 pointwise producer in this corpus has ever been supplied at even one
 large index, across seven independent attempts. It evades every proved
 barrier while sitting inside the class the strongest observed pattern
@@ -1118,7 +1118,7 @@ class="sans-serif">[Open]</span></span></p>
 </section>
 <section id="survivor-4-depth-locked-full-depth-escape" class="level3">
 <h3>Survivor 4: depth-locked full-depth escape</h3>
-<div class="defn">
+<div class="defn" id="defn:apfde">
 <p><strong>Definition 30</strong> (<span
 class="math inline" data-term-auto="off">\(\mathrm{ApFullDepthEscape}\)</span>). For every
 <span class="math inline" data-term-auto="off">\(d \ge 1\)</span> and every <span
@@ -1157,14 +1157,14 @@ condition is automatic once <span class="math inline" data-term-auto="off">\(h\)
 large, so nothing but the residue’s position is at stake.</p>
 <p><strong>Honest demotion,</strong> identical to Survivor 3: it is a
 pointwise producer and names an index. It is listed because it is the
-cleanest target for computational exploration — with Theorem <a class="math-ref" href="#thm:gamma">thm:gamma</a> as the standing reminder
+cleanest target for computational exploration — with Theorem <a class="math-ref" href="#thm:gamma">13</a> as the standing reminder
 that no amount of such exploration becomes a proof. <span><span
 class="sans-serif">[Open]</span></span></p>
 </section>
 <section id="survivor-5-the-rationality-side-rank-upper-bound"
 class="level3">
 <h3>Survivor 5: the rationality-side rank upper bound</h3>
-<div class="defn">
+<div class="defn" id="defn:rankupper">
 <p><strong>Definition 31</strong> (The coordinate-disjoint obligation).
 Either: there is <span class="math inline" data-term-auto="off">\(C\)</span> such that for
 every <span class="math inline" data-term-auto="off">\(c : \mathbb{N}\to \mathbb{N}\)</span>
@@ -1180,7 +1180,7 @@ class="math inline" data-term-auto="off">\(\dim_{\mathbb{Q}}
 class="math inline" data-term-auto="off">\(g(e)\)</span> growing strictly slower than <span
 class="math inline" data-term-auto="off">\(2^{e}-1\)</span> in place of <span
 class="math inline" data-term-auto="off">\(C\)</span>. Either version contradicts the proved
-floor of Proposition <a class="math-ref" href="#prop:rank">prop:rank</a> and closes #249.
+floor of Proposition <a class="math-ref" href="#prop:rank">6</a> and closes #249.
 <code>coord:carry-rank</code> <span><span
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Open]</span></span></p>
@@ -1192,13 +1192,13 @@ class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> in any vocabula
 B1 and B4 entirely (no window, no letters, no prescribed residues) and
 B5 (linear algebra over the whole orbit, not a bounded-state summary).
 The scale side is finished and uniform in <span
-class="math inline" data-term-auto="off">\(e\)</span> (Proposition <a class="math-ref" href="#prop:rank">prop:rank</a>).</p>
+class="math inline" data-term-auto="off">\(e\)</span> (Proposition <a class="math-ref" href="#prop:rank">6</a>).</p>
 <p><strong>Honest flag, and it is severe.</strong> B6 partly indicts
 this route from inside. The most natural approach to the upper bound is
 dead (), and what rationality actually buys — uniform eventual
 periodicity of the carry’s dyadic sections mod <span
 class="math inline" data-term-auto="off">\(v\)</span> — provably does not promote to a <span
-class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span>-rank bound (Proposition <a class="math-ref" href="#prop:period-not-rank">prop:period-not-rank</a>). So this
+class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span>-rank bound (Proposition <a class="math-ref" href="#prop:period-not-rank">7</a>). So this
 survivor is genuinely coordinate-disjoint from everything else, which is
 its whole value, but its obvious approach is closed and the missing
 input is a rigidity theorem nobody has stated.</p>
@@ -1216,7 +1216,7 @@ material.</p>
 class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> is fixed or bounded,
 although the corpus also contains uniform and cofinal structural
 theorems. Those stronger-scale results do not produce <span
-class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span>, and Theorem <a class="math-ref" href="#thm:gamma">thm:gamma</a> shows why extending
+class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span>, and Theorem <a class="math-ref" href="#thm:gamma">13</a> shows why extending
 bounded verification does not establish the cofinal statement. The
 coordinate tags are equally literal: the <span
 class="math inline" data-term-auto="off">\(\gamma\)</span>-splice concerns
@@ -1251,7 +1251,7 @@ class="sans-serif">[Open]</span></span> where that is the honest
 status.</p>
 <section id="the-object" class="level3">
 <h3>The object</h3>
-<div class="defn">
+<div class="defn" id="defn:S">
 <p><strong>Definition 32</strong> (The Erdős–249 constant). Let <span
 class="math inline" data-term-auto="off">\(\varphi\)</span> denote Euler’s totient function.
 Define</p>
@@ -1285,7 +1285,7 @@ instances are catalogued here, §<a class="math-ref" href="#ssec:certtable">6.7<
 </section>
 <section id="the-binary-digit-reduction" class="level3">
 <h3>The binary-digit reduction</h3>
-<div class="prop">
+<div class="prop" id="prop:shift">
 <p><strong>Proposition 34</strong> (Digit-shift identity). <em> For
 every <span class="math inline" data-term-auto="off">\(N : \mathbb{N}\)</span>, </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -1326,7 +1326,7 @@ denominator should it happen to be rational. It is obtained by a
 completely elementary Farey/mediant argument, entirely free of any
 certificate or period apparatus, and is therefore logically independent
 of the open certificate-supply obligation.</p>
-<div class="lem">
+<div class="lem" id="lem:farey">
 <p><strong>Lemma 35</strong> (Farey gap, fully general). <em> For
 integers <span class="math inline" data-term-auto="off">\(a,b,c,d,r,s\)</span> with <span
 class="math inline" data-term-auto="off">\(b&gt;0\)</span>, <span
@@ -1344,7 +1344,7 @@ class="sans-serif">[Lean]</span></span> </em></p>
 <p>This lemma is a classical Stern–Brocot fact with zero totient or
 Mersenne content; it is the generic engine underneath every Farey-gap
 bound in the corpus, for either open problem.</p>
-<div class="prop">
+<div class="prop" id="prop:gapwindow">
 <p><strong>Proposition 36</strong> (The wave-17 gap certificate at
 window <span class="math inline" data-term-auto="off">\(K=240\)</span>). <em> Let <span
 class="math inline" data-term-auto="off">\(V\)</span> be the explicit committed totient
@@ -1364,7 +1364,7 @@ explicit unimodular Farey neighbours. <code>coord:farey</code>
 <span><span class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:denom-record">
 <p><strong>Theorem 37</strong> (Erdős #249 denominator exclusion — the
 headline unconditional result). <em> For every <span
 class="math inline" data-term-auto="off">\(p \in \mathbb{Q}\)</span> with reduced denominator
@@ -1379,18 +1379,18 @@ class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> </em></p>
 </div>
 <div class="rem">
-<p><em>Remark 38</em> (What this does and does not say). Theorem <a class="math-ref" href="#thm:denom-record">thm:denom-record</a> is a complete,
+<p><em>Remark 38</em> (What this does and does not say). Theorem <a class="math-ref" href="#thm:denom-record">37</a> is a complete,
 unconditional finite fact: no rational of small denominator equals <span
 class="math inline" data-term-auto="off">\(S\)</span>. It says nothing about arbitrarily
 large denominators and is not itself a route to irrationality. The
-docstring behind Proposition <a class="math-ref" href="#prop:gapwindow">prop:gapwindow</a> states the honest
+docstring behind Proposition <a class="math-ref" href="#prop:gapwindow">36</a> states the honest
 open question this leaves: whether <span class="math inline" data-term-auto="off">\(\sup_K
 (b+d)(K)\)</span> (the growing analogue of <span
 class="math inline" data-term-auto="off">\(Q_0\)</span> as the window <span
 class="math inline" data-term-auto="off">\(K\)</span> grows) is unbounded as <span
 class="math inline" data-term-auto="off">\(K \to \infty\)</span> — which would close #249
 through this theorem’s consumer, entirely independently of the
-certificate-supply obligation of Proposition <a class="math-ref" href="#prop:shift">prop:shift</a>. <span><span
+certificate-supply obligation of Proposition <a class="math-ref" href="#prop:shift">34</a>. <span><span
 class="sans-serif">[Open]</span></span>; not claimed or proved anywhere
 in the corpus.</p>
 </div>
@@ -1402,7 +1402,7 @@ mechanism: <span class="math inline" data-term-auto="off">\(4838 \to 2^{22} \to
 2.49\times10^{17}\)</span> (window <span
 class="math inline" data-term-auto="off">\(K=120\)</span>) <span class="math inline" data-term-auto="off">\(\to
 Q_0\)</span> (window <span class="math inline" data-term-auto="off">\(K=240\)</span>). Each
-rung is a finite, independently checked instance of Lemma <a class="math-ref" href="#lem:farey">lem:farey</a> and Proposition <a class="math-ref" href="#prop:gapwindow">prop:gapwindow</a>’s pattern at a
+rung is a finite, independently checked instance of Lemma <a class="math-ref" href="#lem:farey">35</a> and Proposition <a class="math-ref" href="#prop:gapwindow">36</a>’s pattern at a
 larger <span class="math inline" data-term-auto="off">\(K\)</span>; none is claimed to
 extrapolate.</p>
 </div>
@@ -1410,12 +1410,12 @@ extrapolate.</p>
 <section id="ssec:coprime" class="level3">
 <h3>The same record, transported: the Möbius-square and
 coprimality-probability forms</h3>
-<p>The exact finite Farey record behind Theorem <a class="math-ref" href="#thm:denom-record">thm:denom-record</a> is not tied to the
+<p>The exact finite Farey record behind Theorem <a class="math-ref" href="#thm:denom-record">37</a> is not tied to the
 <span class="math inline" data-term-auto="off">\(\varphi(n)/2^n\)</span> presentation of
 <span class="math inline" data-term-auto="off">\(S\)</span>; it transfers verbatim to two
 other exact reformulations of the same constant, at exactly half the
 bound.</p>
-<div class="prop">
+<div class="prop" id="prop:coprime">
 <p><strong>Proposition 40</strong> (Fair-coin coprimality form). <em>
 Let <span class="math inline" data-term-auto="off">\(X,Y\)</span> be independent random
 variables with <span
@@ -1440,7 +1440,7 @@ class="math inline" data-term-auto="off">\(n=0,1\)</span>. <code>coord:probabili
 <span><span class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:gcdlayer">
 <p><strong>Proposition 41</strong> (The gcd-layer normalisation). <em>
 For independent fair-coin waiting times as above, <span
 class="math inline" data-term-auto="off">\(\sum_{g\ge1}\Pr(\gcd(X,Y)=g)=1\)</span> exactly;
@@ -1450,7 +1450,7 @@ class="math inline" data-term-auto="off">\(\Pr(d\mid X \wedge d\mid Y) =
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:denomcoprime">
 <p><strong>Theorem 42</strong> (Denominator exclusion for the
 coprimality-probability form). <em> Let </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[Q_1
@@ -1466,10 +1466,10 @@ equal to <span class="math inline" data-term-auto="off">\(a/d\)</span>.
 class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:denommobsq">
 <p><strong>Theorem 43</strong> (Denominator exclusion for the
 Möbius-square form). <em> With <span class="math inline" data-term-auto="off">\(Q_1\)</span>
-as in Theorem <a class="math-ref" href="#thm:denomcoprime">thm:denomcoprime</a>: for every <span
+as in Theorem <a class="math-ref" href="#thm:denomcoprime">42</a>: for every <span
 class="math inline" data-term-auto="off">\(a\in\mathbb{Z}\)</span>, <span
 class="math inline" data-term-auto="off">\(d\in\mathbb{N}\)</span> with <span
 class="math inline" data-term-auto="off">\(0&lt;d\le Q_1\)</span>, the signed series <span
@@ -1501,9 +1501,9 @@ class="math inline" data-term-auto="off">\(d\)</span> value of <span
 class="math inline" data-term-auto="off">\(T\)</span> with <span class="math inline" data-term-auto="off">\(d\le
 Q_1\)</span> yields a denominator dividing <span
 class="math inline" data-term-auto="off">\(2d\le Q_0\)</span> for <span
-class="math inline" data-term-auto="off">\(S\)</span>). Theorems <a class="math-ref" href="#thm:denomcoprime">thm:denomcoprime</a> and <a class="math-ref" href="#thm:denommobsq">thm:denommobsq</a> are therefore the
-<em>same</em> finite Farey record as Theorem <a class="math-ref" href="#thm:denom-record">thm:denom-record</a>, transported
-through Proposition <a class="math-ref" href="#prop:coprime">prop:coprime</a> and Proposition <a class="math-ref" href="#prop:mobsq">prop:mobsq</a> respectively — not
+class="math inline" data-term-auto="off">\(S\)</span>). Theorems <a class="math-ref" href="#thm:denomcoprime">42</a> and <a class="math-ref" href="#thm:denommobsq">43</a> are therefore the
+<em>same</em> finite Farey record as Theorem <a class="math-ref" href="#thm:denom-record">37</a>, transported
+through Proposition <a class="math-ref" href="#prop:coprime">40</a> and Proposition <a class="math-ref" href="#prop:mobsq">45</a> respectively — not
 independent evidence. The converse finite implication is not asserted:
 subtracting <span class="math inline" data-term-auto="off">\(1/2\)</span> can double a
 denominator, so the <span class="math inline" data-term-auto="off">\(Q_1\)</span> exclusion
@@ -1515,7 +1515,7 @@ class="math inline" data-term-auto="off">\(S\)</span>.</p>
 <section id="ssec:mobius" class="level3">
 <h3>The Möbius–Mersenne identity and why bounded coefficients
 matter</h3>
-<div class="prop">
+<div class="prop" id="prop:mobsq">
 <p><strong>Proposition 45</strong> (Möbius-square reduction). <em> </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[S \;=\; \sum_{n\ge1}\frac{\varphi(n)}{2^n} \;=\;
@@ -1534,7 +1534,7 @@ class="sans-serif">[Lean]</span></span> </em></p>
 </div>
 <div class="rem">
 <p><em>Remark 46</em> (Why the bounded coefficients matter — the
-Erdős-1948 regime). The identity of Proposition <a class="math-ref" href="#prop:mobsq">prop:mobsq</a> rewrites <span
+Erdős-1948 regime). The identity of Proposition <a class="math-ref" href="#prop:mobsq">45</a> rewrites <span
 class="math inline" data-term-auto="off">\(S\)</span> (equivalently <span
 class="math inline" data-term-auto="off">\(T\)</span>) as a <em>Möbius-twisted
 Lambert-squared series</em>: the numerator weight <span
@@ -1549,7 +1549,7 @@ the level-1 sibling identity <span class="math inline" data-term-auto="off">\(L(
 class="math inline" data-term-auto="off">\(L(1) = \sum_d 1/(2^d-1) = E\)</span>, the
 Erdős–Borwein constant, which <em>is</em> proved irrational in this same
 kernel (, <span><span class="sans-serif">[Lean]</span></span>).</p>
-<p>This is the opposite regime from Proposition <a class="math-ref" href="#prop:shift">prop:shift</a>’s <strong>binary-digit
+<p>This is the opposite regime from Proposition <a class="math-ref" href="#prop:shift">34</a>’s <strong>binary-digit
 coordinate</strong>, where the corresponding weight satisfies <span
 class="math inline" data-term-auto="off">\(0\le\varphi(n)\le n\)</span> and is unbounded. The
 function <span class="math inline" data-term-auto="off">\(\varphi\)</span> has average order
@@ -1574,7 +1574,7 @@ merely asserting the analogy.</p>
 </section>
 <section id="ssec:lambert" class="level3">
 <h3>The squared-Lambert gcd-moment identities</h3>
-<div class="prop">
+<div class="prop" id="prop:lambertengine">
 <p><strong>Proposition 47</strong> (Squared-Lambert transfer engine).
 <em> For <span class="math inline" data-term-auto="off">\(w:\mathbb{N}\to\mathbb{R}\)</span>
 with <span class="math inline" data-term-auto="off">\(|w(d)|\le d\)</span> for all <span
@@ -1593,7 +1593,7 @@ class="sans-serif">[Lean]</span></span> </em></p>
 specialises to every squared-Lambert rung the corpus computes; two
 instances are exact and directly relevant to #249’s weight
 structure:</p>
-<div class="prop">
+<div class="prop" id="prop:zetaq">
 <p><strong>Proposition 48</strong> (The known <span
 class="math inline" data-term-auto="off">\(\zeta_q\)</span>-rung). <em> </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -1612,7 +1612,7 @@ class="math inline" data-term-auto="off">\(q\)</span>-Padé), <em>not</em> forma
 corpus. <code>coord:mobius-mersenne</code> <span><span
 class="sans-serif">scale:n/a</span></span> </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:pillai">
 <p><strong>Proposition 49</strong> (The Pillai/gcd-moment rung). <em>
 </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{d\ge1} \frac{\varphi(d)}{(2^d-1)^2}
@@ -1622,7 +1622,7 @@ class="sans-serif">scale:n/a</span></span> </em></p>
 := \sum_{e\mid n}\varphi(e)\cdot(n/e) = (\varphi *
 \mathrm{Id})(n)\)</span> is Pillai’s gcd-sum function and <span
 class="math inline" data-term-auto="off">\(X,Y\)</span> are the independent fair-coin waiting
-times of Proposition <a class="math-ref" href="#prop:coprime">prop:coprime</a>. The identity itself
+times of Proposition <a class="math-ref" href="#prop:coprime">40</a>. The identity itself
 is machine-checked (<span><span
 class="sans-serif">[Lean]</span></span>); the value <span
 class="math inline" data-term-auto="off">\(\mathbb{E}[\gcd(X,Y)]\)</span> is <span><span
@@ -1642,9 +1642,9 @@ class="math inline" data-term-auto="off">\(L(\varphi)=2\)</span> (rational); <sp
 class="math inline" data-term-auto="off">\(L_2(\mu)=S-\tfrac12\)</span> (<span><span
 class="sans-serif">[Open]</span></span>, this is #249), <span
 class="math inline" data-term-auto="off">\(L_2(1)=\zeta_q(2)-\zeta_q(1)\)</span> (<span><span
-class="sans-serif">[Cited]</span></span> irrational, Proposition <a class="math-ref" href="#prop:zetaq">prop:zetaq</a>), <span
+class="sans-serif">[Cited]</span></span> irrational, Proposition <a class="math-ref" href="#prop:zetaq">48</a>), <span
 class="math inline" data-term-auto="off">\(L_2(\varphi)=\mathbb{E}[\gcd(X,Y)]\)</span>
-(<span><span class="sans-serif">[Open]</span></span>, Proposition <a class="math-ref" href="#prop:pillai">prop:pillai</a>). At level 1 the Möbius
+(<span><span class="sans-serif">[Open]</span></span>, Proposition <a class="math-ref" href="#prop:pillai">49</a>). At level 1 the Möbius
 rung is trivial and the <span class="math inline" data-term-auto="off">\(\zeta\)</span>-rung
 is the hard classical case; at level 2 the <span
 class="math inline" data-term-auto="off">\(\zeta\)</span>-rung is known and the Möbius rung
@@ -3073,7 +3073,7 @@ class="sans-serif">scale:cofinal</span></span>
 rendered in display maths so an agent can recognise it as a search
 target. All targets below are logically downstream of the single exact
 equivalence that defines the open problem:</p>
-<div class="prop">
+<div class="prop" id="prop:NI-01">
 <p><strong>Proposition 112</strong> (The exact target: #249 = cofinal
 actual-orbit nonintegrality). <em> Unconditionally, </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -3089,25 +3089,25 @@ class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:AR-07">
 <p><strong>Proposition 113</strong> (Short-window arithmetic-kill
 supply). <em> If </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall a_0,\ \exists a\ge
 a_0,\ \exists L&lt; 2\cdot 2^a,\quad
 \mathtt{LcmDiagonalArithmeticKill}(2^a,L)\]</span></div>
 <p class="display-continue"><em> holds, then #249
-follows (via then Prop. <a class="math-ref" href="#prop:NI-01">prop:NI-01</a>). The predicate is
+follows (via then Prop. <a class="math-ref" href="#prop:NI-01">112</a>). The predicate is
 exactly the residue-band exclusion of Appendix A4/A6: <span
 class="math inline" data-term-auto="off">\(\mathtt{lcmDiagonalArithmeticWord}\)</span> at
 scale <span class="math inline" data-term-auto="off">\(2^a\)</span> escapes a shrinking
 central arc mod <span class="math inline" data-term-auto="off">\(2^L\)</span>. Only two
-instances are proved (Prop. <a class="math-ref" href="#prop:SK-02">prop:SK-02</a>’s base cases); the
+instances are proved (Prop. <a class="math-ref" href="#prop:SK-02">118</a>’s base cases); the
 cofinal supply is the open trigger of the actual-orbit batch.
 <span><span class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:SEP-03">
 <p><strong>Proposition 114</strong> (Diophantine separation supply).
 <em> If, at canonically-guarded odd ranks <span
 class="math inline" data-term-auto="off">\(q\)</span>, cofinally many <span
@@ -3119,14 +3119,14 @@ z\in\mathbb Z,\]</span></div>
 <p class="display-continue"><em> then #249 follows via the landed signed-margin
 producer. This restates the target as effective irrationality-measure /
 anti-concentration for the actual orbit rather than exact residue
-exclusion, using the explicit approximant of Prop. <a class="math-ref" href="#prop:SEP-02-inv">prop:SEP-02-inv</a>. <span><span
+exclusion, using the explicit approximant of Prop. <a class="math-ref" href="#prop:SEP-02-inv">134</a>. <span><span
 class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:TE-04">
 <p><strong>Proposition 115</strong> (One-sided top-edge residue-gap
-supply). <em> If, for the room bound of Prop. <a class="math-ref" href="#prop:SGN-01">prop:SGN-01</a> (<span
+supply). <em> If, for the room bound of Prop. <a class="math-ref" href="#prop:SGN-01">135</a> (<span
 class="math inline" data-term-auto="off">\(a\ge 8\)</span>, <span
 class="math inline" data-term-auto="off">\(J+K+(a+6)&lt;2\cdot2^a\)</span>), </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -3135,7 +3135,7 @@ class="math display" data-term-auto="off">\[\mathtt{ActualLcmTopEdgeResidueGap}\
 m\le K \ \wedge\ \big(\text{residue of }\mathtt{windowDiscrepancy}\text{
 at scale }m\big)\le 2^m-(\text{room bound})\]</span></div>
 <p class="display-continue"><em> holds cofinally,
-then #249 follows (, sufficiency at line 1260), because Prop. <a class="math-ref" href="#prop:SGN-01">prop:SGN-01</a>/<a class="math-ref" href="#prop:SGN-03">prop:SGN-03</a> already exclude the
+then #249 follows (, sufficiency at line 1260), because Prop. <a class="math-ref" href="#prop:SGN-01">135</a>/<a class="math-ref" href="#prop:SGN-03">136</a> already exclude the
 negative-side residue independently — only the positive arc needs
 excluding. This is a strictly <em>weaker</em> target than the old
 symmetric certifiedKill band and is the genuinely easier open target of
@@ -3144,10 +3144,10 @@ class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:TE-05">
 <p><strong>Proposition 116</strong> (The five-link equivalence chain
 below the residue-gap target). <em> Each of the following cofinal
-supplies is proved <em>sufficient</em> for Prop. <a class="math-ref" href="#prop:TE-04">prop:TE-04</a>’s target, chained in
+supplies is proved <em>sufficient</em> for Prop. <a class="math-ref" href="#prop:TE-04">115</a>’s target, chained in
 decreasing strength: </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{aligned}
 &amp;\mathtt{PowerTwoActualLcmTopEdgeResidueGapSupply}
@@ -3169,7 +3169,7 @@ class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:TE-06">
 <p><strong>Proposition 117</strong> (The exact closed-form escape
 identity). <em> Under integrality of the actual orbit (representative
 <span class="math inline" data-term-auto="off">\(z\)</span>) and the half-cell fit condition
@@ -3188,7 +3188,7 @@ explicit statement of “what remains to prove” anywhere in the batch.
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:SK-02">
 <p><strong>Proposition 118</strong> (Extend the short-kill stub past
 <span class="math inline" data-term-auto="off">\(a_0=6\)</span>). <em> Currently proved only
 for <span class="math inline" data-term-auto="off">\(a_0\le 6\)</span>: </em></p>
@@ -3201,7 +3201,7 @@ endpoint gap is now precisely the unbounded continuation beyond this
 finite prefix.” Supplying a single further instance at <span
 class="math inline" data-term-auto="off">\(a_0=7\)</span> or <span
 class="math inline" data-term-auto="off">\(a_0=8\)</span> already extends the stub and is
-independently interesting evidence toward Prop. <a class="math-ref" href="#prop:AR-07">prop:AR-07</a>’s full cofinal supply;
+independently interesting evidence toward Prop. <a class="math-ref" href="#prop:AR-07">113</a>’s full cofinal supply;
 the two base cases <span class="math inline" data-term-auto="off">\(a=4,6\)</span> trace to
 /. <span><span
 class="sans-serif">scale:bounded</span></span> <span><span
@@ -3209,7 +3209,7 @@ class="sans-serif">[Lean (finite prefix
 only)]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:FR-01">
 <p><strong>Proposition 119</strong> (Fixed-rank extremal-ordering
 supply). <em> Define <span
 class="math inline" data-term-auto="off">\(\mathtt{fixedRankSecondDifference}\ H\ j :=
@@ -3233,7 +3233,7 @@ class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:fixed-rank-curvature</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:CP-06">
 <p><strong>Proposition 120</strong> (The directed/LCM-specialised
 certificate supply). <em> <span
 class="math inline" data-term-auto="off">\(\mathtt{directedCertifiedKill}\ h\ N\ L\)</span>
@@ -3255,9 +3255,9 @@ class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:seam-integer</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:CP-07">
 <p><strong>Proposition 121</strong> (Pulse-restricted survivor-search
-supply). <em> Given the cofinal mod-4 pulse supply of Prop. <a class="math-ref" href="#prop:CP-05-inv">prop:CP-05-inv</a>, it suffices to kill
+supply). <em> Given the cofinal mod-4 pulse supply of Prop. <a class="math-ref" href="#prop:CP-05-inv">142</a>, it suffices to kill
 only the <span class="math inline" data-term-auto="off">\(2\bmod 4\)</span>-class candidate
 states (a fourfold reduction of the initial search strip) at one cofinal
 arithmetic-pulse prime per putative period, to conclude #249: </em></p>
@@ -3272,7 +3272,7 @@ class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:A10">
 <p><strong>Proposition 122</strong> (The wave-21 wall: certificate
 supply over all periods). <em> </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\big(\forall
@@ -3290,7 +3290,7 @@ class="sans-serif">[Lean]</span></span> (equivalence; supply <span><span
 class="sans-serif">[Open]</span></span>) <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:B3">
 <p><strong>Proposition 123</strong> (Diagonal collapse — one free
 parameter). <em> </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\big(\forall t_0,\ \exists
@@ -3302,7 +3302,7 @@ L\big)
 class="math inline" data-term-auto="off">\(N=h=\mathtt{periodLcm}\,t\)</span> beats every
 hypothetical rational simultaneously (any <span
 class="math inline" data-term-auto="off">\(t\ge\max(h_0,N_0)\)</span> serves both parameters
-at once), collapsing Prop. <a class="math-ref" href="#prop:A10">prop:A10</a>’s two unbounded parameters
+at once), collapsing Prop. <a class="math-ref" href="#prop:A10">122</a>’s two unbounded parameters
 to one. Conversely, pointwise completeness supplies the diagonal witness
 at <span class="math inline" data-term-auto="off">\(t=t_0\)</span>. This is the canonical
 single-scale restatement, not an advance. <span><span
@@ -3311,7 +3311,7 @@ class="sans-serif">[Lean]</span></span> (equivalence; supply <span><span
 class="sans-serif">[Open]</span></span>) <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:B7">
 <p><strong>Proposition 124</strong> (Cone collapse — annihilator
 umbrella). <em> </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\big(\forall t_0,\ \exists
@@ -3322,14 +3322,14 @@ L\big)
 <p><em> One certified kill
 <em>anywhere</em> on the two-multiplier LCM cone, at arbitrarily large
 <span class="math inline" data-term-auto="off">\(t\)</span>, suffices; the diagonal
-(Prop. <a class="math-ref" href="#prop:B3">prop:B3</a>) is the cell
+(Prop. <a class="math-ref" href="#prop:B3">123</a>) is the cell
 <span class="math inline" data-term-auto="off">\(q=m=1\)</span>. This is the widest known
-target still logically equivalent-in-strength to Prop. <a class="math-ref" href="#prop:A10">prop:A10</a>. <span><span
+target still logically equivalent-in-strength to Prop. <a class="math-ref" href="#prop:A10">122</a>. <span><span
 class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:B10">
 <p><strong>Proposition 125</strong> (Menu non-flatness supply — sharper
 than pairwise). <em> For a nonempty menu <span
 class="math inline" data-term-auto="off">\(Q\)</span> of positive vertex multipliers with
@@ -3345,7 +3345,7 @@ class="math display" data-term-auto="off">\[\mathtt{coneNonflatCert}\ H\ L\ Q \i
 unbounded scale over a menu with <span
 class="math inline" data-term-auto="off">\(|Q|\ge3\)</span> genuinely joint (menu
 inconsistent while every pair is separately consistent), #249 follows
-via Prop. <a class="math-ref" href="#prop:B7">prop:B7</a>. The
+via Prop. <a class="math-ref" href="#prop:B7">124</a>. The
 argmin/Helly-avoidance proof technique is a reusable
 combinatorial-geometry pattern for any modular-residue pincer with more
 than two points. <span><span
@@ -3353,33 +3353,33 @@ class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Open]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:C2sup">
 <p><strong>Proposition 126</strong> (Unbounded Farey growth — a second
 independent wall). <em> The Farey-gap denominator bound at window <span
 class="math inline" data-term-auto="off">\(K\)</span> is currently <span
 class="math inline" data-term-auto="off">\(\sim 7.96\times10^{34}\)</span> at <span
-class="math inline" data-term-auto="off">\(K=240\)</span> (Prop. <a class="math-ref" href="#prop:C2-inv">prop:C2-inv</a>). If </em></p>
+class="math inline" data-term-auto="off">\(K=240\)</span> (Prop. <a class="math-ref" href="#prop:C2-inv">150</a>). If </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sup_K\, (b+d)(K) = \infty\]</span></div>
 <p class="display-continue"><em> (the bound
 growing without limit as <span
 class="math inline" data-term-auto="off">\(K\to\infty\)</span>), then #249 follows via the
 <span class="math inline" data-term-auto="off">\(C3\)</span>-style denominator-exclusion
-consumer, logically <em>independently</em> of Prop. <a class="math-ref" href="#prop:A10">prop:A10</a>’s certificate-supply wall.
+consumer, logically <em>independently</em> of Prop. <a class="math-ref" href="#prop:A10">122</a>’s certificate-supply wall.
 No unboundedness claim is proved or attempted in the corpus. <span><span
 class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Open]</span></span> <code>coord:other:farey-gap</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:D5cons">
 <p><strong>Proposition 127</strong> (Rank lower bound; the generic
-compression shortcut is retired). <em> By Prop. <a class="math-ref" href="#prop:D4-inv">prop:D4-inv</a>, the canonical dyadic
+compression shortcut is retired). <em> By Prop. <a class="math-ref" href="#prop:D4-inv">149</a>, the canonical dyadic
 totient-kernel family is unconditionally <span
 class="math inline" data-term-auto="off">\((2^e+1)\)</span>-dimensional at every level <span
 class="math inline" data-term-auto="off">\(e\)</span>. Rationality of <span
 class="math inline" data-term-auto="off">\(S\)</span> forces an associated tempered carry
 orbit with <span class="math inline" data-term-auto="off">\(\mathbb Q\)</span>-rank <span
-class="math inline" data-term-auto="off">\(\ge 2^e-1\)</span> at every level (Prop. <a class="math-ref" href="#prop:CP-02">prop:CP-02</a>). Formally, a theorem
+class="math inline" data-term-auto="off">\(\ge 2^e-1\)</span> at every level (Prop. <a class="math-ref" href="#prop:CP-02">141</a>). Formally, a theorem
 </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\text{bounding the dyadic-section rank of
 \emph{every} rationality-supplied tempered carry}\]</span></div>
@@ -3388,7 +3388,7 @@ contradict this lower bound and close #249. The corpus supplies no such
 theorem or mechanism. More strongly, its compressed-adjoint
 impossibility result and its explicit all-horizon finite-rank
 shift-polynomial countermodel retire the generic finite-compression
-shortcut (Observation <a class="math-ref" href="#prop:B4b-kill">prop:B4b-kill</a>). Thus the displayed
+shortcut (Observation <a class="math-ref" href="#prop:B4b-kill">166</a>). Thus the displayed
 upper bound is only a logically sufficient new input, not a third live
 frontier and not evidence that existing rank machinery is close to a
 contradiction. <span><span
@@ -3396,7 +3396,7 @@ class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Open]</span></span> <code>coord:other:carry-kernel-rank</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:B12cons">
 <p><strong>Proposition 128</strong> (Alternative coordinate: bounded
 carry-orbit survivor supply). <em> <span
 class="math inline" data-term-auto="off">\(\mathtt{survivorKill}\ h\ N\ K\)</span> enumerates
@@ -3406,7 +3406,7 @@ class="math inline" data-term-auto="off">\(|\cdot|\le N+i+h+2\)</span> within <s
 class="math inline" data-term-auto="off">\(K\)</span> steps; soundness gives <span
 class="math inline" data-term-auto="off">\(\mathtt{survivorKill}\ h\ N\ K \implies
 \mathtt{totientTail}(N+h)-\mathtt{totientTail}(N)\notin\mathrm{range}(\mathbb
-Z\to\mathbb R)\)</span>, proving the <em>same</em> target as Prop. <a class="math-ref" href="#prop:A10">prop:A10</a>/<a class="math-ref" href="#prop:NI-01">prop:NI-01</a> from a different
+Z\to\mathbb R)\)</span>, proving the <em>same</em> target as Prop. <a class="math-ref" href="#prop:A10">122</a>/<a class="math-ref" href="#prop:NI-01">112</a> from a different
 coordinate (bounded dynamics, not residue windows). Per the doctrine
 “obstructions are coordinate-relative,” a case hard in the window
 coordinate may be easy here. <span><span
@@ -3420,7 +3420,7 @@ class="sans-serif">[Lean]</span></span> <code>coord:other:carry-orbit-dynamics<
 <p>Necessary conditions that any successful (or unsuccessful) approach
 must be consistent with — facts a solution cannot contradict, whichever
 way #249 eventually resolves.</p>
-<div class="prop">
+<div class="prop" id="prop:AR-04-inv">
 <p><strong>Proposition 129</strong> (Exact quotient-scale digit closed
 form, no cleanliness hypothesis). <em> </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -3440,7 +3440,7 @@ which needed <span class="math inline" data-term-auto="off">\(j\)</span>’s pri
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:AR-03-inv">
 <p><strong>Proposition 130</strong> (Uniform <span
 class="math inline" data-term-auto="off">\(3/4\)</span>-density retained on rough integers).
 <em> For <span class="math inline" data-term-auto="off">\(a\ge8\)</span>, <span
@@ -3462,7 +3462,7 @@ is reusable for #257’s Mersenne-rough objects at the analogous height.
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:AR-05-inv">
 <p><strong>Proposition 131</strong> (Every short-window digit sign is
 fixed to <span class="math inline" data-term-auto="off">\(+\)</span>). <em> For <span
 class="math inline" data-term-auto="off">\(a\ge8\)</span>, <span
@@ -3471,19 +3471,19 @@ class="math inline" data-term-auto="off">\(0&lt;\mathtt{lcmRayArithmeticLetter}(
 j\)</span>. Every coefficient of the actual diagonal word in the entire
 short window is strictly positive — divisor offsets via a quantitative
 <span class="math inline" data-term-auto="off">\(H&lt;4jc\)</span> bound, foreign prime
-powers via predecessor descent plus Prop. <a class="math-ref" href="#prop:AR-03-inv">prop:AR-03-inv</a>’s rough-density
+powers via predecessor descent plus Prop. <a class="math-ref" href="#prop:AR-03-inv">130</a>’s rough-density
 bracket (<span class="math inline" data-term-auto="off">\(H/4&lt;c&lt;5H/2\)</span>),
 exponent-one new primes via <span
 class="math inline" data-term-auto="off">\(H/4&lt;c\)</span>. This unconditional fact (no
 irrationality hypothesis) is what makes every sign theorem in the batch
-— Prop. <a class="math-ref" href="#prop:SGN-01">prop:SGN-01</a> and the
-staircase-impossibility of Prop. <a class="math-ref" href="#prop:TE-01-killer">prop:TE-01-killer</a> — provable at
+— Prop. <a class="math-ref" href="#prop:SGN-01">135</a> and the
+staircase-impossibility of Prop. <a class="math-ref" href="#prop:TE-01-killer">158</a> — provable at
 all. <span><span
 class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:AR-06-inv">
 <p><strong>Proposition 132</strong> (Window word = truncated
 discrepancy; kill <span class="math inline" data-term-auto="off">\(\iff\)</span>
 certificate). <em> <span
@@ -3501,7 +3501,7 @@ class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:SEP-01-inv">
 <p><strong>Proposition 133</strong> (Exact global-to-local bridge). <em>
 </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathtt{actualLcmTailOrbit}\ a \;=\;
@@ -3517,7 +3517,7 @@ class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:SEP-02-inv">
 <p><strong>Proposition 134</strong> (Explicit computable approximant
 with explicit error radius). <em> For all <span
 class="math inline" data-term-auto="off">\(a,q\)</span>: <span
@@ -3525,14 +3525,14 @@ class="math inline" data-term-auto="off">\(|\mathtt{actualLcmTailOrbit}\ a -
 \mathtt{actualLcmRawApprox}\ a\ q| &lt; (2H+2q+3)/2^{2q+1}\)</span>,
 where <span class="math inline" data-term-auto="off">\(\mathtt{actualLcmRawApprox}\ a\ q :=
 \mathtt{diagonalAdjacentSuffixRawBlock}(2^a,0,2q{+}1)/2^{2q+1}\)</span>.
-Any separation-from-integers argument (Prop. <a class="math-ref" href="#prop:SEP-03">prop:SEP-03</a>) is forced to work with
+Any separation-from-integers argument (Prop. <a class="math-ref" href="#prop:SEP-03">114</a>) is forced to work with
 this finite, computable block rather than the infinite tail, at this
 exact error rate. <span><span
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:SGN-01">
 <p><strong>Proposition 135</strong> (Unconditional positive-sign
 corridor — a real theorem, not a supply). <em> For <span
 class="math inline" data-term-auto="off">\(a\ge8\)</span>, <span
@@ -3543,7 +3543,7 @@ class="math display" data-term-auto="off">\[0 &lt; \mathtt{totientTail}(2H+J) -
 <p class="display-continue"><em>
 with no irrationality hypothesis — the true, infinite, real translated
 tail difference is strictly positive throughout almost the entire short
-window, proved unconditionally from Prop. <a class="math-ref" href="#prop:AR-05-inv">prop:AR-05-inv</a> plus a directed
+window, proved unconditionally from Prop. <a class="math-ref" href="#prop:AR-05-inv">131</a> plus a directed
 one-sided tail bound. Any argument about the sign of the actual orbit
 (not merely its residue mod <span class="math inline" data-term-auto="off">\(2^L\)</span>)
 must agree with this; specialised at <span
@@ -3553,10 +3553,10 @@ class="math inline" data-term-auto="off">\(0&lt;\mathtt{actualLcmTailOrbit}\ a\)
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:SGN-03">
 <p><strong>Proposition 136</strong> (Integrality forces the exact
 top-edge residue — names the obstruction). <em> Under the room bound of
-Prop. <a class="math-ref" href="#prop:SGN-01">prop:SGN-01</a> plus <span
+Prop. <a class="math-ref" href="#prop:SGN-01">135</a> plus <span
 class="math inline" data-term-auto="off">\(2H+J+K+2&lt;2^K\)</span>: integrality of the
 actual orbit forces </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -3569,12 +3569,12 @@ documents precisely why the sign theorem alone cannot close #249: any
 contradiction needs an independent exclusion of this specific top-edge
 boundary band, not a re-derivation of the carry reset. The named residue
 <span class="math inline" data-term-auto="off">\(2^K-e\)</span> (<span
-class="math inline" data-term-auto="off">\(e&gt;0\)</span> small) is exactly what Prop. <a class="math-ref" href="#prop:TE-04">prop:TE-04</a> sets out to exclude.
+class="math inline" data-term-auto="off">\(e&gt;0\)</span> small) is exactly what Prop. <a class="math-ref" href="#prop:TE-04">115</a> sets out to exclude.
 <span><span class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:TE-02-inv">
 <p><strong>Proposition 137</strong> (Punctured staircase is pinned to
 the half-turn). <em> Under the room bound and the punctured-staircase
 hypothesis (all but the last letter vanish at growing dyadic weight; the
@@ -3590,7 +3590,7 @@ class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:TE-03-inv">
 <p><strong>Proposition 138</strong> (Any certificate reduces to a
 two-bit test — universal normal form). <em> Unconditionally, for
 arbitrary <span class="math inline" data-term-auto="off">\(h,N\)</span> (no totient content
@@ -3610,7 +3610,7 @@ class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:seam-integer</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:FR-02-inv">
 <p><strong>Proposition 139</strong> (Primitive kernel factor of the
 fixed-rank curvature). <em> On the square-root clean window <span
 class="math inline" data-term-auto="off">\(j^2\le2^a\)</span>, <span
@@ -3620,7 +3620,7 @@ class="math inline" data-term-auto="off">\(2\varphi(j) \mid
 The exact local factor <span class="math inline" data-term-auto="off">\(2\varphi(j)\)</span>
 comes from the affine-rank-3 kernel <span
 class="math inline" data-term-auto="off">\((1,-2,1)\)</span> combined with the parity of
-three odd rough cofactors, and is provably tight — Prop. <a class="math-ref" href="#prop:FR-03-kill">prop:FR-03-kill</a> shows no bare
+three odd rough cofactors, and is provably tight — Prop. <a class="math-ref" href="#prop:FR-03-kill">159</a> shows no bare
 application of the kernel can force one more factor of <span
 class="math inline" data-term-auto="off">\(2\)</span>. Any curvature-based attack at fixed
 rank must land inside this exact divisibility ceiling. <span><span
@@ -3628,7 +3628,7 @@ class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:fixed-rank-curvature</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:CP-01-inv">
 <p><strong>Proposition 140</strong> (Carry displacement <span
 class="math inline" data-term-auto="off">\(\iff\)</span> integral tail difference — central
 plumbing). <em> For a positive-multiplier tempered totient carry <span
@@ -3651,7 +3651,7 @@ class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:seam-integer</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:CP-02">
 <p><strong>Proposition 141</strong> (What rationality does and does not
 buy — the exact frontier). <em> If <span
 class="math inline" data-term-auto="off">\(\neg\mathrm{Irrational}(S)\)</span>, there exist
@@ -3669,14 +3669,14 @@ Rationality buys quotient-mod-<span class="math inline" data-term-auto="off">\(v
 periodicity but does <em>not</em> buy any bound on <span
 class="math inline" data-term-auto="off">\(\mathbb Q\)</span>-rank — this is precisely the
 boundary any Mersenne-specific residue argument (mod-4 pulse, two-adic
-pulse) exists to cross. Proposition <a class="math-ref" href="#prop:D5cons">prop:D5cons</a> records the rank lower
+pulse) exists to cross. Proposition <a class="math-ref" href="#prop:D5cons">127</a> records the rank lower
 bound while explicitly retiring generic finite-rank compression as a
 live shortcut. <span><span
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:carry-kernel-rank</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:CP-05-inv">
 <p><strong>Proposition 142</strong> (Cofinal mod-4 residue pulse —
 genuinely totient-specific). <em> For any <span
 class="math inline" data-term-auto="off">\(h&gt;0\)</span> and bound <span
@@ -3686,17 +3686,17 @@ class="math inline" data-term-auto="off">\(\mathtt{deltaTotient}(4h)\ p \equiv
 2\pmod4\)</span>, constructed via Dirichlet on <span
 class="math inline" data-term-auto="off">\(p\equiv(3r-H)\bmod 4r\)</span> for a fresh prime
 <span class="math inline" data-term-auto="off">\(r\equiv1\pmod4\)</span>. Unlike the
-Mersenne-primitivity killer of Prop. <a class="math-ref" href="#prop:CP-03-kill">prop:CP-03-kill</a>, this <em>is</em> a
+Mersenne-primitivity killer of Prop. <a class="math-ref" href="#prop:CP-03-kill">162</a>, this <em>is</em> a
 genuinely totient-specific residue supplied cofinally beyond every
-threshold — any argument invoking Prop. <a class="math-ref" href="#prop:CP-07">prop:CP-07</a> inherits this as its
+threshold — any argument invoking Prop. <a class="math-ref" href="#prop:CP-07">121</a> inherits this as its
 forcing mechanism. The fresh-prime CRT template is scaled to arbitrary
-depth in Prop. <a class="math-ref" href="#prop:TA-inv">prop:TA-inv</a>
+depth in Prop. <a class="math-ref" href="#prop:TA-inv">143</a>
 below. <span><span
 class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:dirichlet-crt</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:TA-inv">
 <p><strong>Proposition 143</strong> (Arbitrary-depth
 zero-prefix-then-pulse construction, and its transfer). <em> For <span
 class="math inline" data-term-auto="off">\(K\ge2\)</span>, <span
@@ -3708,7 +3708,7 @@ class="math inline" data-term-auto="off">\(2^K\mid\varphi(p{+}H)\)</span>, and <
 class="math inline" data-term-auto="off">\(2^K\mid\varphi(p{-}j)\wedge2^K\mid\varphi(p{-}j{+}H)\)</span>
 for every <span class="math inline" data-term-auto="off">\(1\le j&lt;K\)</span> — an entire
 length-<span class="math inline" data-term-auto="off">\((K{-}1)\)</span> zero prefix followed
-by a half-turn terminal pulse, at arbitrary two-adic depth (Prop. <a class="math-ref" href="#prop:CP-05-inv">prop:CP-05-inv</a>’s <span
+by a half-turn terminal pulse, at arbitrary two-adic depth (Prop. <a class="math-ref" href="#prop:CP-05-inv">142</a>’s <span
 class="math inline" data-term-auto="off">\(K=2\)</span> case generalised to every <span
 class="math inline" data-term-auto="off">\(K\)</span>, via <span
 class="math inline" data-term-auto="off">\(K{-}1\)</span> fresh Dirichlet primes glued by
@@ -3726,7 +3726,7 @@ class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:p-adic</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:MP-01-inv">
 <p><strong>Proposition 144</strong> (Exact Möbius-inversion tail
 identity). <em> <span class="math inline" data-term-auto="off">\(\mathtt{totientTail}\ N =
 \sum_d&#39; \mu(d)\cdot 2^{d-r_d(N)}\big(q_d(N)/(2^d-1) +
@@ -3747,7 +3747,7 @@ class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:cyclotomic</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:SK-01-inv">
 <p><strong>Proposition 145</strong> (The rare unconditional deposits —
 necessary base cases). <em> <span
 class="math inline" data-term-auto="off">\(\mathtt{LcmDiagonalArithmeticKill}(2^4)\
@@ -3759,7 +3759,7 @@ class="math inline" data-term-auto="off">\(\mathtt{certifiedKill\_diagonal\_t16}
 giving <span class="math inline" data-term-auto="off">\(\mathtt{actualLcmTailOrbit}\
 4,6\notin\mathrm{range}(\mathbb Z\to\mathbb R)\)</span> — the
 <em>only</em> two unconditional actual-orbit nonintegrality facts
-currently proved. Any induction or bootstrapping attempt at Prop. <a class="math-ref" href="#prop:AR-07">prop:AR-07</a> must reproduce these as
+currently proved. Any induction or bootstrapping attempt at Prop. <a class="math-ref" href="#prop:AR-07">113</a> must reproduce these as
 base cases, and they double as a computational sanity check that the
 <span class="math inline" data-term-auto="off">\(\mathtt{lcmRayArithmeticLetter}\)</span>
 machinery agrees with the older compressed-certificate route.
@@ -3767,7 +3767,7 @@ machinery agrees with the older compressed-certificate route.
 class="sans-serif">[Cert]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:A5-inv">
 <p><strong>Proposition 146</strong> (Certificate depth floor). <em>
 <span class="math inline" data-term-auto="off">\(\mathtt{certifiedKill}\ h\ N\ L \implies
 2(N{+}h{+}L{+}2)&lt;2^L\)</span>. Certificate depth <span
@@ -3775,13 +3775,13 @@ class="math inline" data-term-auto="off">\(L\)</span> cannot stay bounded while 
 class="math inline" data-term-auto="off">\(N{+}h\to\infty\)</span>: <span
 class="math inline" data-term-auto="off">\(L\)</span> must grow at least logarithmically. Any
 complexity argument about certificate search inherits this floor, and it
-is exactly what Prop. <a class="math-ref" href="#prop:TE-03-inv">prop:TE-03-inv</a> compresses to a
+is exactly what Prop. <a class="math-ref" href="#prop:TE-03-inv">138</a> compresses to a
 two-bit test at the corresponding logarithmic scale. <span><span
 class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:seam-integer</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:A9-inv">
 <p><strong>Proposition 147</strong> (The tail-period law — necessary
 consequence of rationality). <em> <span
 class="math inline" data-term-auto="off">\(\neg\mathrm{Irrational}(S) \implies \exists
@@ -3794,13 +3794,13 @@ class="math inline" data-term-auto="off">\(S=r\)</span>. This is the “only if�
 master equivalence: any rationality-refutation strategy must eventually
 contradict <em>some</em> period <span class="math inline" data-term-auto="off">\(h\)</span>
 and preperiod <span class="math inline" data-term-auto="off">\(N_0\)</span> produced this
-way. Composes with Prop. <a class="math-ref" href="#prop:AR-06-inv">prop:AR-06-inv</a>/soundness to give
-Prop. <a class="math-ref" href="#prop:A10">prop:A10</a>. <span><span
+way. Composes with Prop. <a class="math-ref" href="#prop:AR-06-inv">132</a>/soundness to give
+Prop. <a class="math-ref" href="#prop:A10">122</a>. <span><span
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:euler-theorem</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:B6-inv">
 <p><strong>Proposition 148</strong> (Rationality flattens the whole LCM
 cone). <em> <span class="math inline" data-term-auto="off">\(\neg\mathrm{Irrational}(S)
 \implies \exists t_1,\ \forall t\ge t_1,\ \forall q\,m{:}\mathbb N,\
@@ -3810,13 +3810,13 @@ Z\to\mathbb R)\)</span>. Rationality forces ONE fractional constant on
 the entire cone <span
 class="math inline" data-term-auto="off">\(\{k\cdot\mathtt{periodLcm}\,t : k\ge1\}\)</span>
 at every scale <span class="math inline" data-term-auto="off">\(t\ge t_1\)</span>, not just
-the diagonal pair — a strict generalisation of Prop. <a class="math-ref" href="#prop:A9-inv">prop:A9-inv</a>. Any certificate
-anywhere on the cone therefore kills #249 (Prop. <a class="math-ref" href="#prop:B7">prop:B7</a>). <span><span
+the diagonal pair — a strict generalisation of Prop. <a class="math-ref" href="#prop:A9-inv">147</a>. Any certificate
+anywhere on the cone therefore kills #249 (Prop. <a class="math-ref" href="#prop:B7">124</a>). <span><span
 class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:D4-inv">
 <p><strong>Proposition 149</strong> (Unconditional <span
 class="math inline" data-term-auto="off">\((2^e{+}1)\)</span>-dimensional dyadic kernel — the
 rank floor). <em> The canonical dyadic-kernel family <span
@@ -3828,13 +3828,13 @@ prime, every other channel gets a fresh prime <span
 class="math inline" data-term-auto="off">\(\equiv1\bmod\)</span> a large power of <span
 class="math inline" data-term-auto="off">\(2\)</span>). This is a proved fact, needing no
 rationality hypothesis at all, and it is the fixed lower bound that
-Prop. <a class="math-ref" href="#prop:D5cons">prop:D5cons</a> would have
+Prop. <a class="math-ref" href="#prop:D5cons">127</a> would have
 to contradict. <span><span
 class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:carry-kernel-rank</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:C2-inv">
 <p><strong>Proposition 150</strong> (Sharp Farey rung — concrete
 necessary floor at <span class="math inline" data-term-auto="off">\(K=240\)</span>). <em> For
 all <span class="math inline" data-term-auto="off">\(q{:}\mathbb N\)</span>, <span
@@ -3847,12 +3847,12 @@ class="math inline" data-term-auto="off">\((N,K)=(1,240)\)</span>; this is SHARP
 class="math inline" data-term-auto="off">\(q=79639646646701375323355774875831054\)</span> is
 the exact first failing denominator (an explicit Farey mediant). Any
 candidate rational value for <span class="math inline" data-term-auto="off">\(S\)</span> must
-have reduced denominator strictly larger than this bound (Prop. <a class="math-ref" href="#prop:C3-inv">prop:C3-inv</a> below). <span><span
+have reduced denominator strictly larger than this bound (Prop. <a class="math-ref" href="#prop:C3-inv">151</a> below). <span><span
 class="sans-serif">scale:fixed</span></span> <span><span
 class="sans-serif">[Cert]</span></span> <code>coord:other:farey-gap</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:C3-inv">
 <p><strong>Proposition 151</strong> (Denominator exclusion — headline
 unconditional consequence). <em> <span class="math inline" data-term-auto="off">\(\forall
 p{:}\mathbb Q,\ p.\mathrm{den}\le79639646646701375323355774875831053
@@ -3860,13 +3860,13 @@ p{:}\mathbb Q,\ p.\mathrm{den}\le79639646646701375323355774875831053
 class="math inline" data-term-auto="off">\(S\)</span> is rational, its reduced denominator
 exceeds <span class="math inline" data-term-auto="off">\(\sim7.96\times10^{34}\)</span> — an
 unconditional necessary condition on any hypothetical rational value,
-logically independent of the certificate-supply wall (Prop. <a class="math-ref" href="#prop:A10">prop:A10</a>); it excludes small
+logically independent of the certificate-supply wall (Prop. <a class="math-ref" href="#prop:A10">122</a>); it excludes small
 denominators outright, without needing a period at all. <span><span
 class="sans-serif">scale:fixed</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:farey-gap</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:D1D2-inv">
 <p><strong>Proposition 152</strong> (The two foundational irrationality
 engines). <em> Two, and only two, general-purpose irrationality criteria
 exist in the kernel, and any successful proof of #249 must ultimately
@@ -3888,7 +3888,7 @@ class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:dirichlet-approximation</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:D7-inv">
 <p><strong>Proposition 153</strong> (S sits on the Mersenne-Lambert
 ladder). <em> Writing <span
 class="math inline" data-term-auto="off">\(L(f):=\sum_{n\ge1}f(n)/(2^n-1)\)</span>: <span
@@ -3911,26 +3911,26 @@ class="sans-serif">[Lean,
 Cited]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:D9-inv">
 <p><strong>Proposition 154</strong> (Generic rational-gap adapter). <em>
 For <span class="math inline" data-term-auto="off">\(\mathtt{pfx}&lt;\mathtt{whole}{:}\mathbb
 Q\)</span>: <span
 class="math inline" data-term-auto="off">\(1/(\mathtt{whole.den}\cdot\mathtt{pfx.den}) \le
 \mathtt{whole}-\mathtt{pfx}\)</span> (as reals). Any analytic upper
 bound on a totient-tail gap converts, via this lemma, into a
-denominator-growth lower bound extending Prop. <a class="math-ref" href="#prop:C2-inv">prop:C2-inv</a>’s Farey rungs without
+denominator-growth lower bound extending Prop. <a class="math-ref" href="#prop:C2-inv">150</a>’s Farey rungs without
 redoing the Farey-neighbour search from scratch — a clean, fully general
 adapter usable on either problem’s tail estimate. <span><span
 class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:farey-gap</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:B11-inv">
 <p><strong>Proposition 155</strong> (Finite pincer floor — contiguous
 evidence through <span class="math inline" data-term-auto="off">\(t\le82\)</span>). <em>
 <span
 class="math inline" data-term-auto="off">\(\mathtt{certifiedKill\_diagonal\_all\_imported}\)</span>:
-Prop. <a class="math-ref" href="#prop:B3">prop:B3</a>’s predicate
+Prop. <a class="math-ref" href="#prop:B3">123</a>’s predicate
 <span class="math inline" data-term-auto="off">\(P\,t\)</span> holds for <span
 class="math inline" data-term-auto="off">\(t\in\{1,2,3,4,5,7,8,9,11,13,16,17,\dots\}\)</span>
 (28 explicit cases through <span class="math inline" data-term-auto="off">\(t=64\)</span>),
@@ -3942,12 +3942,12 @@ The current aggregate theorem strengthens this historical list to <span
 class="math inline" data-term-auto="off">\(\forall t\le82,\ P\,t\)</span>, with no holes. It
 does <em>not</em> establish <span class="math inline" data-term-auto="off">\(P\,83\)</span>
 or infinitely many <span class="math inline" data-term-auto="off">\(t\)</span> and hence does
-not close Props. <a class="math-ref" href="#prop:A10">prop:A10</a>/<a class="math-ref" href="#prop:B3">prop:B3</a>/<a class="math-ref" href="#prop:B7">prop:B7</a>. <span><span
+not close Props. <a class="math-ref" href="#prop:A10">122</a>/<a class="math-ref" href="#prop:B3">123</a>/<a class="math-ref" href="#prop:B7">124</a>. <span><span
 class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Cert]</span></span> <code>coord:mobius-mersenne</code><br />
 </em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:C1-inv">
 <p><strong>Proposition 156</strong> (The fair-coin coprimality
 reformulation of <span class="math inline" data-term-auto="off">\(S\)</span>). <em> <span
 class="math inline" data-term-auto="off">\(\#\{(a,b): a{+}b=n,\ a&gt;0,\
@@ -3979,10 +3979,10 @@ corpus’s own doctrine (project memory
 <code>feedback_invent_dont_audit</code>): obstructions below are
 coordinate-relative, and each entry names exactly which coordinate or
 proof-template it excludes, not the underlying object.</p>
-<div class="obs">
+<div class="obs" id="prop:SGN-02">
 <p><em>Observation 157</em> (Nonnegative-branch elimination for the true
 survivor). If the translated actual orbit is integral at the start of
-Prop. <a class="math-ref" href="#prop:SGN-01">prop:SGN-01</a>’s positive
+Prop. <a class="math-ref" href="#prop:SGN-01">135</a>’s positive
 corridor, then for every later depth <span
 class="math inline" data-term-auto="off">\(K\)</span> with room <span
 class="math inline" data-term-auto="off">\(J{+}K{+}(a{+}6)&lt;2\cdot2^a\)</span>, the negated
@@ -3993,13 +3993,13 @@ in the corridor. This eliminates only the nonnegative branch of the true
 survivor’s sign — it is emphatically <em>not</em> a nonintegrality
 claim; spurious survivors of either sign may still exist. Any strategy
 hoping to conclude non-integrality purely from this sign fact fails:
-Prop. <a class="math-ref" href="#prop:SGN-03">prop:SGN-03</a> names
+Prop. <a class="math-ref" href="#prop:SGN-03">136</a> names
 exactly what remains. <span><span
 class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:TE-01-killer">
 <p><em>Observation 158</em> (Total dyadic staircase is impossible —
 route-pruning). For <span class="math inline" data-term-auto="off">\(a\ge8\)</span>, room
 bound, and modulus wide enough (<span
@@ -4009,7 +4009,7 @@ K\ m\)</span> is <strong>false</strong> — a terminal window where every
 one of the last <span class="math inline" data-term-auto="off">\(m\)</span> letters is
 divisible by its own growing power of two (<span
 class="math inline" data-term-auto="off">\(2^{r+1}\mid\text{letter}_r\)</span>) cannot occur.
-The last letter would have to be positive (Prop. <a class="math-ref" href="#prop:AR-05-inv">prop:AR-05-inv</a>), strictly below the
+The last letter would have to be positive (Prop. <a class="math-ref" href="#prop:AR-05-inv">131</a>), strictly below the
 wide modulus, and divisible by it, forcing it to be exactly <span
 class="math inline" data-term-auto="off">\(0\)</span> — contradicting positivity.
 <strong>Kills outright</strong>: any strategy aiming for total dyadic
@@ -4017,19 +4017,19 @@ annihilation of the terminal suffix. The generic mechanism (<span
 class="math inline" data-term-auto="off">\(0&lt;e&lt;2^m\wedge2^m\mid e\implies e=0\)</span>)
 is reusable wherever a positive quantity is asked to vanish mod a
 wider-than-itself modulus. The surviving route is the <em>punctured</em>
-staircase (Prop. <a class="math-ref" href="#prop:TE-02-inv">prop:TE-02-inv</a>) or the residue-gap
-producers (Prop. <a class="math-ref" href="#prop:TE-04">prop:TE-04</a>).
+staircase (Prop. <a class="math-ref" href="#prop:TE-02-inv">137</a>) or the residue-gap
+producers (Prop. <a class="math-ref" href="#prop:TE-04">115</a>).
 <span><span class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:FR-03-kill">
 <p><em>Observation 159</em> (The bare 3-rank kernel is exactly tight — a
 sharpness no-go). <span
 class="math inline" data-term-auto="off">\(\mathtt{fixedRankSecondDifference}(2^{n+1}\cdot2)(2^{n+1}\cdot3)
 = -2^{n+1}\)</span> exactly, for all <span
 class="math inline" data-term-auto="off">\(n\)</span> (a closed-form computed fixture). The
-two-adic valuation gained by Prop. <a class="math-ref" href="#prop:FR-02-inv">prop:FR-02-inv</a> is exactly tight —
+two-adic valuation gained by Prop. <a class="math-ref" href="#prop:FR-02-inv">139</a> is exactly tight —
 the normalised <span class="math inline" data-term-auto="off">\(1{\times}1\)</span> minor is
 odd at every depth, so the bounded-height primitive kernel alone can
 <strong>never</strong> force one additional factor of <span
@@ -4042,7 +4042,7 @@ class="math inline" data-term-auto="off">\(\mathtt{PowerTwoLcmMiddleRankExtremal
 class="sans-serif">[Cert]</span></span> <code>coord:other:fixed-rank-curvature</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:CM-01">
 <p><em>Observation 160</em> (The parity coboundary countermodel object).
 <span class="math inline" data-term-auto="off">\(\mathtt{parityCoboundaryWeight}\ n :=
 \mathtt{parityBaseWeight}\ n + 2\cdot\mathtt{largePowerTwoBit}\ n -
@@ -4066,7 +4066,7 @@ recipe, directly portable to an analogous #257 adversary matched to
 class="sans-serif">[Lean]</span></span> <code>coord:other:binary-digit</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:CM-02">
 <p><em>Observation 161</em> (What the countermodel refutes — the
 flagship kill of the batch). There is <span
 class="math inline" data-term-auto="off">\(c{:}\mathbb N\to\mathbb N\)</span> with: (a)
@@ -4106,7 +4106,7 @@ sufficient-condition candidate stated purely in coefficient-word terms
 class="sans-serif">[Cert]</span></span> <code>coord:other:binary-digit</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:CP-03-kill">
 <p><em>Observation 162</em> (Primitive Mersenne-prime factors alone
 force nothing). For the completely-multiplicative control <span
 class="math inline" data-term-auto="off">\(c(n)=n\)</span> (zero totient content: <span
@@ -4124,12 +4124,12 @@ denominators <span class="math inline" data-term-auto="off">\(2^n-1\)</span> are
 the object <span class="math inline" data-term-auto="off">\(q\mid2^K-1\)</span> tested here.
 Any successful use of such a factor needs genuinely totient-specific
 residue/size input beyond bare Mersenne primitivity — contrast with the
-genuinely totient-specific pulse of Prop. <a class="math-ref" href="#prop:CP-05-inv">prop:CP-05-inv</a>. <span><span
+genuinely totient-specific pulse of Prop. <a class="math-ref" href="#prop:CP-05-inv">142</a>. <span><span
 class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:CP-04-kill">
 <p><em>Observation 163</em> (Universal no-go for absolute-adjugate
 coefficient reconstruction). For any finite rational row <span
 class="math inline" data-term-auto="off">\(w{:}\iota\to\mathbb Q\)</span>, integer targets
@@ -4154,7 +4154,7 @@ class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:adjugate-linear-algebra</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:B9cert-kill">
 <p><em>Observation 164</em> (Rank-2 second-difference certificates:
 sound but measured not shallower). <span
 class="math inline" data-term-auto="off">\(\mathtt{certifiedRank2Kill}\ h\ N\ L
@@ -4176,7 +4176,7 @@ class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Cert]</span></span> <code>coord:mobius-mersenne</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:D8cert-kill">
 <p><em>Observation 165</em> (Unit-gap strengthening rescues at most one
 lattice point). <span
 class="math inline" data-term-auto="off">\(\mathtt{ReducedDenominatorUnitGapCert}\ u\ N\ K :=
@@ -4188,7 +4188,7 @@ class="math inline" data-term-auto="off">\(\mathtt{ReducedDenominatorUnitGapCert
 strengthening can rescue <strong>at most one</strong> additional
 candidate lattice point beyond the ordinary Farey-gap certificate.
 <strong>Kills</strong>: expecting this refinement to unboundedly
-strengthen Prop. <a class="math-ref" href="#prop:C2-inv">prop:C2-inv</a>/<a class="math-ref" href="#prop:C3-inv">prop:C3-inv</a>’s Farey rungs — it is
+strengthen Prop. <a class="math-ref" href="#prop:C2-inv">150</a>/<a class="math-ref" href="#prop:C3-inv">151</a>’s Farey rungs — it is
 self-flagged in its own docstring as “a strict certificate-level
 strengthening, not a supply theorem.” A known dead end; do not
 re-attempt expecting more than <span class="math inline" data-term-auto="off">\(+1\)</span>
@@ -4197,7 +4197,7 @@ class="sans-serif">scale:bounded</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:other:farey-gap</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:B4b-kill">
 <p><em>Observation 166</em> (Synthetic all-horizon countermodel to
 homogeneous-factor-only proof strategies). There is an explicit nonzero
 “all-horizon countermodel” sequence built from multiples of <span
@@ -4224,7 +4224,7 @@ class="sans-serif">[Lean
 (docstring-sourced)]</span></span> <code>coord:mobius-mersenne</code><br />
 and </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:B5-kill">
 <p><em>Observation 167</em> (Fixed-precision local valuation-unit
 signatures never obstruct). For any finite word of odd-valuation-unit
 symbols at fixed local <span class="math inline" data-term-auto="off">\(2\)</span>-adic
@@ -4245,7 +4245,7 @@ class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:p-adic</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:B8-kill">
 <p><em>Observation 168</em> (Square-CRT correction-suppression is
 independent of nonvanishing). Square-CRT correction suppression (fixing
 a cofactor mod a prime square to remove a weighted correction term on a
@@ -4263,14 +4263,14 @@ class="sans-serif">[Lean
 (docstring-sourced)]</span></span> <code>coord:other:square-crt-cocycle</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:D6-kill">
 <p><em>Observation 169</em> (No fixed integer clears every normalised
 primitive-Euler coordinate). <span class="math inline" data-term-auto="off">\(\forall
 D&gt;0,\ \neg\forall n&gt;0,\ \exists z{:}\mathbb Z,\
 D\cdot(A(n)/n)=z\)</span>, where <span
 class="math inline" data-term-auto="off">\(A=\varphi*\mu\)</span> is the Mersenne-Lambert
 primitive weight (so <span class="math inline" data-term-auto="off">\(S=L(A)\)</span>,
-Prop. <a class="math-ref" href="#prop:D7-inv">prop:D7-inv</a>). Any <span
+Prop. <a class="math-ref" href="#prop:D7-inv">153</a>). Any <span
 class="math inline" data-term-auto="off">\(D\)</span> clearing normalised coordinates through
 horizon <span class="math inline" data-term-auto="off">\(N\)</span> must be divisible by
 every odd prime <span class="math inline" data-term-auto="off">\(p\le N\)</span>, every <span
@@ -4285,15 +4285,15 @@ class="math inline" data-term-auto="off">\(A(n)/n\)</span> — a finite no-lift 
 integral Euler/Witt-coordinate category (weaker than the general
 Dieudonné-Dwork theorem, and explicitly <em>not</em> itself an
 irrationality proof). An independent-coordinate no-go, orthogonal to the
-binary-window (Prop. <a class="math-ref" href="#prop:A10">prop:A10</a>) and carry-rank
-(Prop. <a class="math-ref" href="#prop:D5cons">prop:D5cons</a>)
+binary-window (Prop. <a class="math-ref" href="#prop:A10">122</a>) and carry-rank
+(Prop. <a class="math-ref" href="#prop:D5cons">127</a>)
 obstructions — a third distinct coordinate attacking the same open
 problem. <span><span
 class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span> <code>coord:mobius-mersenne</code><br />
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="prop:B11cert-kill">
 <p><em>Observation 170</em> (Finite certificates only ever prove
 exclusion, never membership). Certified-death/kill families (finite
 decidable checks at a given depth) are explicitly
@@ -4309,8 +4309,8 @@ of them can ever certify membership/rationality by finite search, only
 non-membership/non-integrality. <strong>Kills</strong>: treating an
 unsuccessful finite search over any of the certificate families above as
 evidence toward rationality, or treating a finite prefix of confirmed
-kills (Prop. <a class="math-ref" href="#prop:SK-01-inv">prop:SK-01-inv</a>,
-Prop. <a class="math-ref" href="#prop:B11-inv">prop:B11-inv</a>) as
+kills (Prop. <a class="math-ref" href="#prop:SK-01-inv">145</a>,
+Prop. <a class="math-ref" href="#prop:B11-inv">155</a>) as
 anything more than a floor to extend. <span><span
 class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean (structural caveat,
@@ -5394,7 +5394,7 @@ this is literally the first additive character of the endpoint
 discrepancy modulo <span class="math inline" data-term-auto="off">\(2^L\)</span>, a standard
 exponential-sum object.</p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:hgap-real">
 <p><strong>Theorem 216</strong> (Real-part certificate consumer). <em> .
 <span><span class="sans-serif">[Lean]</span></span>. <span><span
 class="sans-serif">scale:uniform</span></span>.
@@ -5409,7 +5409,7 @@ L \;\le\; \tfrac{9}{10}\,X ,\]</span></div>
 class="math inline" data-term-auto="off">\(\exists N\in[X,2X)\)</span> with <span
 class="math inline" data-term-auto="off">\(\mathtt{certifiedKill}\ h\ N\ L\)</span>.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:hgap-subset">
 <p><strong>Theorem 217</strong> (Subset consumer — no density or
 partition hypothesis). <em> . <span><span
 class="sans-serif">[Lean]</span></span>. <span><span
@@ -5423,14 +5423,14 @@ condition, if </em></p>
 <p class="display-continue"><em>
 then <span class="math inline" data-term-auto="off">\(\exists N\in T\)</span> with <span
 class="math inline" data-term-auto="off">\(\mathtt{certifiedKill}\ h\ N\ L\)</span>. This is
-strictly stronger than Theorem <a class="math-ref" href="#thm:hgap-real">thm:hgap-real</a>: <span
+strictly stronger than Theorem <a class="math-ref" href="#thm:hgap-real">216</a>: <span
 class="math inline" data-term-auto="off">\(T\)</span> can be <em>any</em> explicitly chosen
 nonempty finite subset of the dyadic block, not the whole block, and the
 proof (an averaging pigeonhole, §below) never uses that <span
 class="math inline" data-term-auto="off">\(T\)</span> has positive density or comes from a
 partition.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:hgap-norm">
 <p><strong>Theorem 218</strong> (Complex norm consumer and the open
 producer). <em> and . <span><span
 class="sans-serif">[Lean]</span></span> for both implications; the
@@ -5439,7 +5439,7 @@ is <span><span class="sans-serif">[Open]</span></span>. The complex norm
 bound is strictly stronger than the real-part bound (<span
 class="math inline" data-term-auto="off">\(|z|\ge\mathrm{Re}(z)\)</span>, and <span
 class="math inline" data-term-auto="off">\(21/25 &lt; 9/10\)</span> absorbs the slack), so it
-composes through Theorem <a class="math-ref" href="#thm:hgap-real">thm:hgap-real</a> to the same
+composes through Theorem <a class="math-ref" href="#thm:hgap-real">216</a> to the same
 certificate. Define </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathtt{DTWFirstHarmonicNormGap}
@@ -5458,21 +5458,21 @@ class="math display" data-term-auto="off">\[\mathtt{DTWFirstHarmonicNormGap}
 \;\Longrightarrow\; \mathrm{Irrational}\Bigl(\sum_{n\ge 0}
   \tfrac{\varphi(n)}{2^n}\Bigr),\]</span></div>
 <p class="display-continue"><em> proved in full, with no
-further gap, by chaining Theorem <a class="math-ref" href="#thm:hgap-norm">thm:hgap-norm</a><span
-class="math inline" data-term-auto="off">\(\to\)</span>Theorem <a class="math-ref" href="#thm:hgap-real">thm:hgap-real</a><span
+further gap, by chaining Theorem <a class="math-ref" href="#thm:hgap-norm">218</a><span
+class="math inline" data-term-auto="off">\(\to\)</span>Theorem <a class="math-ref" href="#thm:hgap-real">216</a><span
 class="math inline" data-term-auto="off">\(\to\)</span> .</em></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:no-instance">
 <p><em>Observation 219</em> (The exact negative). No instance of <span
 class="math inline" data-term-auto="off">\(\mathtt{DTWFirstHarmonicNormGap}\)</span>’s
 hypothesis, nor of <span class="math inline" data-term-auto="off">\(hgap\)</span> in
-Theorems <a class="math-ref" href="#thm:hgap-real">thm:hgap-real</a>–<a class="math-ref" href="#thm:hgap-subset">thm:hgap-subset</a>, is proved anywhere
+Theorems <a class="math-ref" href="#thm:hgap-real">216</a>–<a class="math-ref" href="#thm:hgap-subset">217</a>, is proved anywhere
 in the corpus, at any <span class="math inline" data-term-auto="off">\(h\)</span>, <span
 class="math inline" data-term-auto="off">\(X\)</span>, <span
 class="math inline" data-term-auto="off">\(L\)</span>. <span><span
 class="sans-serif">[Open]</span></span> is exact, not conservative
 rounding. The two consumer theorems that <em>use</em> the subset form
-(Theorem <a class="math-ref" href="#thm:hgap-subset">thm:hgap-subset</a>) are
+(Theorem <a class="math-ref" href="#thm:hgap-subset">217</a>) are
 conditional consumers, not a supply: instantiates <span
 class="math inline" data-term-auto="off">\(T\)</span> as the explicit two-element set <span
 class="math inline" data-term-auto="off">\(\{N,M\}\)</span>
@@ -5514,7 +5514,7 @@ not polynomially); no scale obstruction of the kind documented elsewhere
 in this paper (e.g. the <span class="math inline" data-term-auto="off">\(\sqrt{2\log_2
 N}\)</span> silent-position defect for #257, Part I) stands in the way
 of the producer’s own room requirement.</p>
-<p>Third, the subset form (Theorem <a class="math-ref" href="#thm:hgap-subset">thm:hgap-subset</a>) removes even the
+<p>Third, the subset form (Theorem <a class="math-ref" href="#thm:hgap-subset">217</a>) removes even the
 requirement that the cancellation happen on the whole dyadic block or a
 positive-density subset of it: any single explicitly named finite <span
 class="math inline" data-term-auto="off">\(T\)</span> with the averaged bound would do. In
@@ -5644,7 +5644,7 @@ further reduces the condition to the last <span
 class="math inline" data-term-auto="off">\(m\)</span> arithmetic letters of the word
 alone.</p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:te-chain">
 <p><strong>Proposition 226</strong> (The five strictly weaker sufficient
 links — proving any one closes #249). <em> All five are proved
 sufficient for in the same module, and each is <em>strictly weaker</em>
@@ -5730,7 +5730,7 @@ of <span class="math inline" data-term-auto="off">\(\mathtt{actualLcmTailOrbit}\
 and the supply predicate composes to <span
 class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\)</span>.</em></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:staircase-tension">
 <p><em>Observation 229</em> (The exact identity, and the internal
 tension it exposes). . <span><span
 class="sans-serif">[Lean]</span></span>. <span><span
@@ -5787,7 +5787,7 @@ branch as the coordinate where a producer is actually needed.</p>
 <div class="prop">
 <p><strong>Proposition 230</strong> (What would close it). <em>Either
 (i) the lower-escape branch cofinally — as displayed just above — or
-(ii) the two-sided magnitude form (item 4 of Proposition <a class="math-ref" href="#prop:te-chain">prop:te-chain</a>), which asks only
+(ii) the two-sided magnitude form (item 4 of Proposition <a class="math-ref" href="#prop:te-chain">226</a>), which asks only
 <span class="math inline" data-term-auto="off">\(H{+}q{+}2 \le
 |\mathtt{actualOddHalfCenteredLift}\ a\ q|\)</span> and which the file
 proves () implies corridor escape via a clean sign split (positive
@@ -6403,7 +6403,7 @@ first-harmonic reduction of §<a class="math-ref" href="#ssec:headline">10.2</a>
 (<span class="math inline" data-term-auto="off">\(21/25\)</span> or <span
 class="math inline" data-term-auto="off">\(9/10\)</span>) exponential-sum cancellation
 estimate, with a satisfiable room condition and, via the subset consumer
-(Theorem <a class="math-ref" href="#thm:hgap-subset">thm:hgap-subset</a>), no
+(Theorem <a class="math-ref" href="#thm:hgap-subset">217</a>), no
 requirement that the saving hold on a full interval or a
 positive-density subset. This is the only row in the index whose
 remaining content is recognisably a single classical estimate rather
@@ -6411,11 +6411,11 @@ than a compound arithmetic-geometric statement.</p>
 <p>Second, the top-edge staircase (TE-04 through TE-05-weakest,
 <code>coord:actual-lcm-top-edge</code>) is the only row where the corpus
 has both halved the obligation (one-sided instead of symmetric) and
-exposed, via the exact identity of Observation <a class="math-ref" href="#obs:staircase-tension">obs:staircase-tension</a>, precisely
+exposed, via the exact identity of Observation <a class="math-ref" href="#obs:staircase-tension">229</a>, precisely
 which of two logically symmetric escape branches survives the sign
 machinery already proved elsewhere in the same file family. That five
 strictly weaker equivalent or sufficient forms are already proved
-inter-derivable (Proposition <a class="math-ref" href="#prop:te-chain">prop:te-chain</a>) means effort here is
+inter-derivable (Proposition <a class="math-ref" href="#prop:te-chain">226</a>) means effort here is
 not fragmented across restatements: proving any one closes the others
 automatically.</p>
 <p>Third, the d4/d5 rank obligation is structurally independent of the
@@ -6599,7 +6599,7 @@ ranks to destroy periodicity while preserving the rational sum — is a
 fully general recipe for building rational-valued,
 non-eventually-periodic, bounded coefficient sequences matching
 <em>any</em> parity template, and is literally the mechanism
-instantiated informally in Theorem <a class="math-ref" href="#thm:gamma">thm:gamma</a>’s <span
+instantiated informally in Theorem <a class="math-ref" href="#thm:gamma">13</a>’s <span
 class="math inline" data-term-auto="off">\(\gamma\)</span>-splice construction. It is also a
 ready-made stress-test fixture for any future parity-based sufficient
 condition proposed anywhere in the corpus. Confirms the corpus-wide
@@ -7206,17 +7206,17 @@ rather than describing it.</p>
 <p>Four things are new here and are marked as such. (i) An exact normal
 form that turns every surviving #249 route into a statement about the
 binary expansion of one explicit real number, with the thresholds
-computed (Lemma <a class="math-ref" href="#lem:orbit">lem:orbit</a>,
-Proposition <a class="math-ref" href="#prop:transfer">prop:transfer</a>,
-Corollary <a class="math-ref" href="#cor:digitform">cor:digitform</a>).
+computed (Lemma <a class="math-ref" href="#lem:orbit">271</a>,
+Proposition <a class="math-ref" href="#prop:transfer">272</a>,
+Corollary <a class="math-ref" href="#cor:digitform">273</a>).
 (ii) A proof that the first-harmonic gap is strictly stronger than
 irrationality, by an explicit witness inside the same coefficient class
-(Theorem <a class="math-ref" href="#thm:lacunary">thm:lacunary</a>); the
+(Theorem <a class="math-ref" href="#thm:lacunary">275</a>); the
 corpus had this only as a plausibility argument. (iii) A one-sided
 smooth-number majorant for the non-supplier budget and a bad-cofactor
 estimate, with their remaining uniformity hypotheses exposed
-(Propositions <a class="math-ref" href="#prop:dickman">prop:dickman</a>
-and <a class="math-ref" href="#prop:badcof">prop:badcof</a>); the
+(Propositions <a class="math-ref" href="#prop:dickman">276</a>
+and <a class="math-ref" href="#prop:badcof">277</a>); the
 quantifier audit also shows that the proposed shallow-modulus
 Siegel–Walfisz route does not fit the predicate. (iv) An audit of the
 rationality-side rank route: its proposed generic counterexample loses
@@ -7250,7 +7250,7 @@ that <span class="math inline" data-term-auto="off">\(2^N S=\Phi_N+R_N\)</span>.
 class="math inline" data-term-auto="off">\(h\ge 1\)</span> set</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\alpha_h \;:=\; (2^h-1)\,S .\]</span></div>
-<div class="lem">
+<div class="lem" id="lem:orbit">
 <p><strong>Lemma 271</strong> (Doubling normal form). <em> For all <span
 class="math inline" data-term-auto="off">\(N\ge 0\)</span> and <span
 class="math inline" data-term-auto="off">\(h\ge 1\)</span>, </em></p>
@@ -7285,7 +7285,7 @@ The first-harmonic block sum, which is the analytic frontier of #249, is
 a <em>lacunary exponential sum in a single real variable</em>. The
 following proposition makes the transfer exact, including the truncation
 budget.</p>
-<div class="prop">
+<div class="prop" id="prop:transfer">
 <p><strong>Proposition 272</strong> (Orbit transfer). <em> Define </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{OrbitBlockGap} :\equiv
@@ -7330,7 +7330,7 @@ class="math inline" data-term-auto="off">\(16\)</span> by <span
 class="math inline" data-term-auto="off">\(1024\)</span>. Nothing here is an improvement of
 the analytic requirement; it is a change of coordinate that makes the
 requirement legible.</p>
-<div class="cor">
+<div class="cor" id="cor:digitform">
 <p><strong>Corollary 273</strong> (Digit form of the analytic
 requirement). <em> Let <span class="math inline" data-term-auto="off">\(\rho_h(X)\)</span>
 denote the proportion of <span class="math inline" data-term-auto="off">\(N\in[X,2X)\)</span>
@@ -7355,7 +7355,7 @@ forces <span class="math inline" data-term-auto="off">\(\cos 2\pi x\le 0\)</span
 remaining terms are at most <span class="math inline" data-term-auto="off">\(1\)</span>, so
 <span class="math inline" data-term-auto="off">\(\sum_{N}\cos(2\pi 2^N\alpha_h)\le
 (1-\rho_h(X))X\)</span>; require <span class="math inline" data-term-auto="off">\(1-\rho\le
-89/100\)</span> and apply Proposition <a class="math-ref" href="#prop:transfer">prop:transfer</a>. For the digit
+89/100\)</span> and apply Proposition <a class="math-ref" href="#prop:transfer">272</a>. For the digit
 reading, <span class="math inline" data-term-auto="off">\(\|2^N\alpha_h\|\ge 1/4\)</span>
 holds exactly when the binary digits of <span
 class="math inline" data-term-auto="off">\(\alpha_h\)</span> in positions <span
@@ -7481,8 +7481,8 @@ class="math inline" data-term-auto="off">\(-0.0195\)</span></td>
 </tbody>
 </table>
 </div>
-<div class="obs">
-<p><em>Observation 274</em>. Under Lemma <a class="math-ref" href="#lem:orbit">lem:orbit</a> every route that survives
+<div class="obs" id="obs:allroutes">
+<p><em>Observation 274</em>. Under Lemma <a class="math-ref" href="#lem:orbit">271</a> every route that survives
 the barrier classification becomes a statement about the binary
 expansion of <span class="math inline" data-term-auto="off">\(S\)</span> or of some <span
 class="math inline" data-term-auto="off">\(\alpha_h\)</span>. Routes 1 and 2 ask for a
@@ -7506,7 +7506,7 @@ X,L:\quad
 \tfrac{21}{25}X,\]</span></div>
 <p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(D(h,N,L)=\sum_{j&lt;L}\bigl(\varphi(N+h+1+j)-\varphi(N+1+j)\bigr)2^{L-1-j}\)</span>.
-, consumer . By Proposition <a class="math-ref" href="#prop:transfer">prop:transfer</a> the weaker real-part
+, consumer . By Proposition <a class="math-ref" href="#prop:transfer">272</a> the weaker real-part
 form with constant <span class="math inline" data-term-auto="off">\(89/100\)</span>
 suffices.</p>
 </section>
@@ -7551,7 +7551,7 @@ class="level5">
 can be dismissed exactly. Both require the phase to be a smooth or
 polynomial function of the summation variable so that a difference
 operator lowers its degree. Here <span class="math inline" data-term-auto="off">\(N\mapsto
-D(h,N,L)/2^{L}\)</span> is, by Lemma <a class="math-ref" href="#lem:orbit">lem:orbit</a>, the <span
+D(h,N,L)/2^{L}\)</span> is, by Lemma <a class="math-ref" href="#lem:orbit">271</a>, the <span
 class="math inline" data-term-auto="off">\(\times 2\)</span> orbit map: differencing in <span
 class="math inline" data-term-auto="off">\(N\)</span> multiplies the phase by <span
 class="math inline" data-term-auto="off">\(2\)</span> and subtracts an integer, so the
@@ -7603,7 +7603,7 @@ Y\)</span> is a factor <span class="math inline" data-term-auto="off">\(e^{\gamm
 Y\)</span>, that is, <span class="math inline" data-term-auto="off">\(\log\log Y\)</span>
 rather than <span class="math inline" data-term-auto="off">\(Y^{c/\log\log Y}\)</span>. There
 are no spikes to find.</p>
-<p>In the Möbius–Mersenne coordinate <a class="math-ref" href="#eq:mobmers">(2)</a> the situation is worse
+<p>In the Möbius–Mersenne coordinate <a class="math-ref" data-equation-ref="true" href="#eq:mobmers">eq:mobmers</a> the situation is worse
 rather than better: the coefficients <span
 class="math inline" data-term-auto="off">\(\mu(d)\)</span> change sign, so the digit blocks
 contributed by successive <span class="math inline" data-term-auto="off">\(d\)</span> cancel
@@ -7620,7 +7620,7 @@ from.</h5>
 inequivalent to irrationality, and argues the point from the structure
 of a collapse proof. It can be settled outright, and the witness lives
 in the same coefficient class that carries barriers B1 and B7.</p>
-<div class="thm">
+<div class="thm" id="thm:lacunary">
 <p><strong>Theorem 275</strong> (The gap is strictly stronger than
 irrationality). <em> Let <span class="math inline" data-term-auto="off">\(c(n)=1\)</span> if
 <span class="math inline" data-term-auto="off">\(n=k!\)</span> for some <span
@@ -7679,7 +7679,7 @@ collapse mechanism is known to apply” to “no collapse mechanism can
 exist”. It also says precisely what the missing input must do: it must
 rule out that <span class="math inline" data-term-auto="off">\(S\)</span> behaves, in its
 doubling orbit, like a Liouville number. That is the content of
-Corollary <a class="math-ref" href="#cor:digitform">cor:digitform</a>, and
+Corollary <a class="math-ref" href="#cor:digitform">273</a>, and
 it is why the requirement is a digit-statistics statement and not an
 irrationality statement.</p>
 </section>
@@ -7735,7 +7735,7 @@ class="level5">
 <p>The non-supplier term is not identified exactly by smooth numbers.
 What the factorisation gives is the one-way containment needed for an
 upper bound.</p>
-<div class="prop">
+<div class="prop" id="prop:dickman">
 <p><strong>Proposition 276</strong> (Non-suppliers: the valid one-sided
 estimate). <em> Choose the admissible depth <span
 class="math inline" data-term-auto="off">\(L\)</span> minimally for each large <span
@@ -7778,7 +7778,7 @@ particular the earlier identity with Dickman density, and numerical
 extrapolations of an exact crossover scale, are not claimed. The
 implication is sufficient if the required uniform shifted-interval
 estimate is supplied.</p>
-<div class="prop">
+<div class="prop" id="prop:badcof">
 <p><strong>Proposition 277</strong> (The bad-cofactor budget). <em> For
 <span class="math inline" data-term-auto="off">\(\eta\in(0,1)\)</span> let <span
 class="math inline" data-term-auto="off">\(B(\eta)=\{m:\varphi(m)&lt;\eta m\}\)</span>, with
@@ -7832,7 +7832,7 @@ today.</p>
 class="level5">
 <h5>The pivot quantifiers force a deep modulus.</h5>
 <p>The pivot sits at offset <span class="math inline" data-term-auto="off">\(t=L-s+1\)</span>
-in <a class="math-ref" href="#eq:window">(1)</a>. Crucially,
+in <a class="math-ref" data-equation-ref="true" href="#eq:window">eq:window</a>. Crucially,
 the definition of <code>DTWPivotResidualDecorrelation</code> chooses
 <span class="math inline" data-term-auto="off">\(s\)</span> once, after <span
 class="math inline" data-term-auto="off">\(h\)</span> and before the universal threshold
@@ -7869,8 +7869,8 @@ id="the-specific-obstacle-the-weight-is-neither-type-i-nor-type-ii."
 class="level5">
 <h5>The specific obstacle: the weight is neither Type I nor Type
 II.</h5>
-<p>Propositions <a class="math-ref" href="#prop:dickman">prop:dickman</a>
-and <a class="math-ref" href="#prop:badcof">prop:badcof</a> isolate
+<p>Propositions <a class="math-ref" href="#prop:dickman">276</a>
+and <a class="math-ref" href="#prop:badcof">277</a> isolate
 possible bookkeeping bounds, subject to their stated uniform estimates.
 The fixed-<span class="math inline" data-term-auto="off">\(s\)</span> quantifier leaves the
 fibre-mean modulus deep, and the centred term has a separate correlation
@@ -7885,7 +7885,7 @@ leaves</p>
   \qquad |w|\equiv 1 ,\]</span></div>
 <p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(\overline{e}_m\)</span> is the fibre mean and, by
-<a class="math-ref" href="#eq:window">(1)</a>, <span
+<a class="math-ref" data-equation-ref="true" href="#eq:window">eq:window</a>, <span
 class="math inline" data-term-auto="off">\(w(n)\)</span> is the character of the same
 weighted totient sum with the single offset <span
 class="math inline" data-term-auto="off">\(t\)</span> deleted.</p>
@@ -7948,7 +7948,7 @@ class="math display" data-term-auto="off">\[\sum_{k\le K}\ \frac{1}{2^{k}}
   \quad\text{for each }h,\]</span></div>
 <p class="display-continue">with <span
 class="math inline" data-term-auto="off">\(L_k\)</span> any admissible depth sequence, then
-infinitely many blocks satisfy the gap and Proposition <a class="math-ref" href="#prop:transfer">prop:transfer</a> applies. Logarithmic
+infinitely many blocks satisfy the gap and Proposition <a class="math-ref" href="#prop:transfer">272</a> applies. Logarithmic
 averaging is exactly the regime in which the entropy-decrement method
 operates.</p>
 <p>The first concrete step is not to prove this but to decide whether
@@ -7981,7 +7981,7 @@ class="level3">
 <p>, consumer .</p>
 </section>
 <section id="what-it-says-after-lemma-." class="level5">
-<h5>What it says, after Lemma <a class="math-ref" href="#lem:orbit">lem:orbit</a>.</h5>
+<h5>What it says, after Lemma <a class="math-ref" href="#lem:orbit">271</a>.</h5>
 <p><span
 class="math inline" data-term-auto="off">\(\operatorname{Re}e(2^{p-h-1}\alpha_h)&lt;9/10\)</span>
 says <span
@@ -8086,12 +8086,12 @@ the end of §<a class="math-ref" href="#sub:pivot">13.3</a>. This
 does not make that estimate easier. It removes everything that is not
 that estimate.</p>
 <div class="rem">
-<p><em>Remark 278</em>. Honesty about <a class="math-ref" href="#eq:primefibre">(3)</a>: it is not proved
+<p><em>Remark 278</em>. Honesty about <a class="math-ref" data-equation-ref="true" href="#eq:primefibre">eq:primefibre</a>: it is not proved
 to be strictly stronger than irrationality, and no collapse is proved
 either. What can be said is that the one collapse mechanism that exists
-in this lane consumes the freedom to choose the sample, and <a class="math-ref" href="#eq:primefibre">(3)</a> has no such
+in this lane consumes the freedom to choose the sample, and <a class="math-ref" data-equation-ref="true" href="#eq:primefibre">eq:primefibre</a> has no such
 freedom. Deciding this either way — exhibiting a collapse, or a witness
-in the coefficient class of Theorem <a class="math-ref" href="#thm:lacunary">thm:lacunary</a> that separates it from
+in the coefficient class of Theorem <a class="math-ref" href="#thm:lacunary">275</a> that separates it from
 irrationality — is itself a well-defined finite piece of work.</p>
 </div>
 </section>
@@ -8121,7 +8121,7 @@ at <span class="math inline" data-term-auto="off">\(L=h\)</span>, together with 
 strip <span class="math inline" data-term-auto="off">\(|R_{M+h}-R_M|&lt;M+h+2\)</span> (,
 <span><span class="sans-serif">[Lean]</span></span>), applied at <span
 class="math inline" data-term-auto="off">\(M=N+h\)</span>, one gets:</p>
-<div class="prop">
+<div class="prop" id="prop:route4">
 <p><strong>Proposition 279</strong>. <em> <span
 class="math inline" data-term-auto="off">\(\mathrm{certifiedKill}(h,N,h)\)</span> holds
 whenever <span
@@ -8132,7 +8132,7 @@ class="math inline" data-term-auto="off">\(\bigl\|2^{N+h}S-2^{N}S\bigr\|_{\mathb
 class="math inline" data-term-auto="off">\(\|D(h,N,h)/2^{h}\|\ge\|R_{N+h}-R_N\|-|R_{N+2h}-R_{N+h}|/2^{h}
 &gt;2(N+2h+2)/2^{h}-(N+2h+2)/2^{h}=(N+2h+2)/2^{h}\)</span>, and <span
 class="math inline" data-term-auto="off">\(R_{N+h}-R_N\equiv
-2^{N}(2^{h}-1)S=2^{N+h}S-2^{N}S\pmod 1\)</span> by Lemma <a class="math-ref" href="#lem:orbit">lem:orbit</a>. A residue at distance
+2^{N}(2^{h}-1)S=2^{N+h}S-2^{N}S\pmod 1\)</span> by Lemma <a class="math-ref" href="#lem:orbit">271</a>. A residue at distance
 more than <span class="math inline" data-term-auto="off">\((N+2h+2)/2^{h}\)</span> from <span
 class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span> is exactly a certified kill at
 depth <span class="math inline" data-term-auto="off">\(h\)</span>. ◻</p>
@@ -8313,7 +8313,7 @@ id="first-a-fact-rather-than-an-inference-the-routes-are-one-route-in-five-coord
 class="level5">
 <h5>First, a fact rather than an inference: the routes are one route in
 five coordinates.</h5>
-<p>Lemma <a class="math-ref" href="#lem:orbit">lem:orbit</a> collapses
+<p>Lemma <a class="math-ref" href="#lem:orbit">271</a> collapses
 the coordinate spread that made the corpus look like many independent
 attacks.</p>
 <div class="center">
@@ -8387,7 +8387,7 @@ internal to the object, and even B4 says that one engineering scheme
 self-cancels, not that the quantity being engineered is unattainable.
 Meanwhile the two object-level witnesses the corpus can produce — the
 <span class="math inline" data-term-auto="off">\(\gamma\)</span>-splice of B1, the parity
-coboundary of B7 — and the one produced here (Theorem <a class="math-ref" href="#thm:lacunary">thm:lacunary</a>) are all lacunary or
+coboundary of B7 — and the one produced here (Theorem <a class="math-ref" href="#thm:lacunary">275</a>) are all lacunary or
 eventually periodic: constructed, measure-zero, and highly structured.
 In two centuries nobody has exhibited a naturally occurring constant
 with Liouville-type digit behaviour; every known example is built to
@@ -8419,7 +8419,7 @@ class="math inline" data-term-auto="off">\(\sqrt X\)</span>; a proof does not ne
 understand the digits, only to exclude a pathology. (c) All
 countermodels are constructed lacunary objects. (d) The one coordinate
 in which <span class="math inline" data-term-auto="off">\(S\)</span> has classical structure
-— the Möbius–Mersenne form <a class="math-ref" href="#eq:mobmers">(2)</a> — is an alternating
+— the Möbius–Mersenne form <a class="math-ref" data-equation-ref="true" href="#eq:mobmers">eq:mobmers</a> — is an alternating
 sum of rational functions of <span class="math inline" data-term-auto="off">\(2^{d}\)</span>
 with no functional equation, no modularity, no continued-fraction
 structure, and no algebraicity: there is no hidden object to find, which
@@ -8437,7 +8437,7 @@ approaching the forbidden edge — a closest central margin of about <span
 class="math inline" data-term-auto="off">\(2.2\cdot10^{-4}\)</span> of the modulus at <span
 class="math inline" data-term-auto="off">\(t=100\)</span> — which is what a uniform model
 predicts and which rules out, permanently, any argument that proceeds by
-a crude uniform margin. (c) Proposition <a class="math-ref" href="#prop:dickman">prop:dickman</a> shows that even the
+a crude uniform margin. (c) Proposition <a class="math-ref" href="#prop:dickman">276</a> shows that even the
 pieces of the frontier that are provable become true only past <span
 class="math inline" data-term-auto="off">\(X\approx10^{30}\)</span>–<span
 class="math inline" data-term-auto="off">\(10^{40}\)</span>; a genuinely simple object would
@@ -8471,13 +8471,13 @@ class="math inline" data-term-auto="off">\(\alpha_h\)</span>: an upper bound <sp
 class="math inline" data-term-auto="off">\(o(N)\)</span> on the longest binary run in the
 first <span class="math inline" data-term-auto="off">\(N\)</span> positions would not by
 itself decide #249, but it would be the first evidence that the object
-is legible at all, and by Corollary <a class="math-ref" href="#cor:digitform">cor:digitform</a> any bound strong
+is legible at all, and by Corollary <a class="math-ref" href="#cor:digitform">273</a> any bound strong
 enough to give a positive proportion of digit changes in one block per
 scale would decide it. Failing that, the two concrete openings
 identified above are: the logarithmically averaged form of the block
 gap, where the entropy-decrement method is at least in the right regime
 (§<a class="math-ref" href="#sub:pivot">13.3</a>); and the
-canonical prime fibre <a class="math-ref" href="#eq:primefibre">(3)</a>, where every budget
+canonical prime fibre <a class="math-ref" data-equation-ref="true" href="#eq:primefibre">eq:primefibre</a>, where every budget
 except one decorrelation estimate has been discharged. Neither is close.
 Both are well posed, and both can be started on today.</p>
 </section>

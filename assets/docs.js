@@ -3,6 +3,24 @@
 
   document.documentElement.classList.add('js');
 
+  // Wrapped navigation and text zoom change the sticky header's real height.
+  // Share that measurement with anchors, drawers, and floating controls.
+  (function () {
+    var header = document.querySelector('.docs-topbar, .site-header');
+    if (!header || !header.getBoundingClientRect) return;
+    var previous = 0;
+    function measure() {
+      var height = Math.ceil(header.getBoundingClientRect().height);
+      if (!height || height === previous) return;
+      previous = height;
+      document.documentElement.style.setProperty('--topbar-h', height + 'px');
+      document.body.style.setProperty('--topbar-h', height + 'px');
+    }
+    measure();
+    if (window.ResizeObserver) new ResizeObserver(measure).observe(header);
+    else window.addEventListener('resize', measure, { passive: true });
+  })();
+
   // One site-relative asset resolver for the runtime. assets/ live at the site
   // root, so a page under docs/ reaches them with ../assets/ and the root
   // landing with assets/. Prefer deriving from this script's own URL (robust at
@@ -198,6 +216,11 @@
       Array.prototype.forEach.call(clone.querySelectorAll(selector), function (el) {
         el.parentNode.removeChild(el);
       });
+    });
+    // Typeset glyphs may carry their symbols in CSS rather than text nodes.
+    // Export the original TeX retained by the renderer instead.
+    Array.prototype.forEach.call(clone.querySelectorAll('.math[data-tex]'), function (el) {
+      el.textContent = el.getAttribute('data-tex');
     });
     return cleanText(clone.textContent);
   }
@@ -846,7 +869,7 @@
       // handled by the Escape and outside-click paths (a link click navigates).
       if (open) {
         var firstLink = sidebar.querySelector('a');
-        if (firstLink) firstLink.focus();
+        if (firstLink) firstLink.focus({ preventScroll: true });
       }
     }
     syncInert();
@@ -1271,6 +1294,10 @@
         if (node.nodeType === 3) return node.nodeValue.replace(/\s+/g, ' ');
         if (node.nodeType !== 1) return '';
         if (skip(node)) return '';
+        if (node.classList && node.classList.contains('math')) {
+          var tex = node.getAttribute('data-tex');
+          if (tex !== null) return node.classList.contains('display') ? '\n' + tex + '\n' : tex;
+        }
         var inner = '';
         for (var c = node.firstChild; c; c = c.nextSibling) {
           var piece = walk(c);
@@ -4339,6 +4366,9 @@
       function score(top) {
         var box = { top: top, left: left, right: left + width, bottom: top + height };
         var out = 0;
+        // A clamped candidate must not cover the word that opened the card.
+        var anchorOverlap = overlapArea(box, rect);
+        if (anchorOverlap) out += 100000 + anchorOverlap * 8;
         if (top < edge) out += 20000;
         if (top + height > viewportBottom) out += 20000;
         for (var c = 0; c < chrome.length; c++) {
@@ -4669,6 +4699,7 @@
     var root = document.documentElement;
     if (!document.body || !document.createElement) return;
     if (root.getAttribute('data-glossary-hint')) return;
+    try { if (sessionStorage.getItem('plectis-glossary-hint-dismissed')) return; } catch (e) {}
     if (/\/glossary\.html$/.test(window.location.pathname || '')) {
       root.setAttribute('data-glossary-hint', 'skip');
       return;
@@ -4696,7 +4727,9 @@
     body.className = 'glossary-hint__body';
 
     var p1 = document.createElement('p');
-    p1.textContent = 'If a word is confusing, hover over it.';
+    p1.textContent = window.matchMedia && window.matchMedia('(hover: none)').matches
+      ? 'Tap an underlined term for its meaning.'
+      : 'Hover over an underlined term for its meaning.';
 
     var p2 = document.createElement('p');
     p2.appendChild(document.createTextNode('To contest or clarify a definition, '));
@@ -4710,7 +4743,25 @@
     body.appendChild(p2);
     hint.appendChild(mark);
     hint.appendChild(body);
-    document.body.appendChild(hint);
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'glossary-hint__close';
+    close.setAttribute('aria-label', 'Dismiss glossary tip');
+    close.textContent = '×';
+    close.addEventListener('click', function () {
+      dismiss();
+      var main = document.querySelector('main');
+      if (main && main.focus) {
+        main.setAttribute('tabindex', '-1');
+        main.focus({ preventScroll: true });
+      }
+    });
+    hint.appendChild(close);
+    var hintAnchor = document.querySelector('.hero__sub, .docs-lede');
+    if (hintAnchor && hintAnchor.parentNode) {
+      hintAnchor.parentNode.insertBefore(hint, hintAnchor.nextSibling);
+      hint.classList.add('glossary-hint--inline-ready');
+    } else document.body.appendChild(hint);
     root.setAttribute('data-glossary-hint', 'shown');
 
     var gone = false;
@@ -4724,6 +4775,7 @@
     function dismiss() {
       if (gone) return;
       gone = true;
+      try { sessionStorage.setItem('plectis-glossary-hint-dismissed', '1'); } catch (e) {}
       root.setAttribute('data-glossary-hint', 'away');
       window.removeEventListener('scroll', onScroll);
       hint.classList.add('is-away');
@@ -4732,6 +4784,7 @@
     }
 
     function onScroll() {
+      if (window.getComputedStyle && window.getComputedStyle(hint).position === 'static') return;
       var sy = window.pageYOffset || root.scrollTop || 0;
       if (sy < THRESHOLD) return;
       try {

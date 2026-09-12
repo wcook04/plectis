@@ -20,7 +20,7 @@ graph:
 3. Follow the returned paper label into the authored exposition and its
    declaration or source handles into the modules grouped below.
 4. Read `Erdos249257.lean` or `ErdosProblems.lean` only when package topology
-   itself is the question. Those root files now live under `lean/`. Read `docs/WAVE_INDEX.md` for chronology, not as the
+   itself is the question. Those root files now live under `lean/`. Read `docs/reference/WAVE_INDEX.md` for chronology, not as the
    recommended mathematical reading order.
 
 Lean source checked by the pinned Lean kernel is proof authority. This map is

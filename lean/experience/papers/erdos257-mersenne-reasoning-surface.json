@@ -9,7 +9,7 @@
   "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
   "precis": "A Lean-backed, claim-bounded structural audit of Erdős #257. It front-loads finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, whose universal and half-value questions remain open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, whose universal and half-value questions remain open",
   "problem_id": "erdos_257",
   "routes": {
     "html_mathml": "papers/erdos257-mersenne-reasoning-surface.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "e8b38efaff6e3b1a95c1bb209ea408bdead1992de755676bb13246eb20b75d5a",
     "publication_manifest_match": true,
     "mathml_node_count": 2923,
@@ -44,7 +44,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "cea83cbe5efb991557ab6044da87604bea3c4cb11b2c92ee9db7a60fa279908e",
-    "html_exact_tex_sha256": "e5c57514bdf69a0b7c1a3071e16c7e3785fc07a921c03cbf47baf83574e442ea"
+    "html_exact_tex_sha256": "34e0e75f3884f7c9858133a8578ab3329dedc202e864d92b9b9c2de649c4add1"
   },
   "sections": [
     {

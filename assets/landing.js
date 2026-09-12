@@ -421,6 +421,7 @@
   var root = document.documentElement;
   if (!document.body || !document.createElement) return;
   if (root.getAttribute('data-glossary-hint')) return;
+  try { if (sessionStorage.getItem('plectis-glossary-hint-dismissed')) return; } catch (e) {}
   if (!document.querySelector('a.narrative-ref--term[data-term]')) {
     root.setAttribute('data-glossary-hint', 'skip');
     return;
@@ -444,7 +445,9 @@
   body.className = 'glossary-hint__body';
 
   var p1 = document.createElement('p');
-  p1.textContent = 'If a word is confusing, hover over it.';
+  p1.textContent = window.matchMedia && window.matchMedia('(hover: none)').matches
+    ? 'Tap an underlined term for its meaning.'
+    : 'Hover over an underlined term for its meaning.';
 
   var p2 = document.createElement('p');
   p2.appendChild(document.createTextNode('To contest or clarify a definition, '));
@@ -458,7 +461,25 @@
   body.appendChild(p2);
   hint.appendChild(mark);
   hint.appendChild(body);
-  document.body.appendChild(hint);
+  var close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'glossary-hint__close';
+  close.setAttribute('aria-label', 'Dismiss glossary tip');
+  close.textContent = '×';
+  close.addEventListener('click', function () {
+    dismiss();
+    var main = document.querySelector('main');
+    if (main && main.focus) {
+      main.setAttribute('tabindex', '-1');
+      main.focus({ preventScroll: true });
+    }
+  });
+  hint.appendChild(close);
+  var hintAnchor = document.querySelector('.hero__sub, .docs-lede');
+  if (hintAnchor && hintAnchor.parentNode) {
+    hintAnchor.parentNode.insertBefore(hint, hintAnchor.nextSibling);
+    hint.classList.add('glossary-hint--inline-ready');
+  } else document.body.appendChild(hint);
   root.setAttribute('data-glossary-hint', 'shown');
 
   var gone = false;
@@ -472,6 +493,7 @@
   function dismiss() {
     if (gone) return;
     gone = true;
+    try { sessionStorage.setItem('plectis-glossary-hint-dismissed', '1'); } catch (e) {}
     root.setAttribute('data-glossary-hint', 'away');
     window.removeEventListener('scroll', onScroll);
     hint.classList.add('is-away');
@@ -480,6 +502,7 @@
   }
 
   function onScroll() {
+    if (window.getComputedStyle && window.getComputedStyle(hint).position === 'static') return;
     var sy = window.pageYOffset || root.scrollTop || 0;
     if (sy < THRESHOLD) return;
     try {

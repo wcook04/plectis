@@ -215,8 +215,8 @@
     "problem_statement": "Determine irrationality of the rational-base Lambert values, with 3/2 as the first resistant explicit base.",
     "strongest_theorem": {
       "claim_id": "erdos1049.hankel_qorder_exact_all_rank",
-      "title": "Exact q-order N(N−1)(2N−1)/6 and leading coefficient (N!)²(N+1)!/2^N of Zudilin's normalized Hankel determinant",
-      "statement": "For every rank N, Zudilin's normalized Hankel determinant V_N^* at x = z = 1 has q-order exactly N(N−1)(2N−1)/6 and leading coefficient exactly (N!)²(N+1)!/2^N, where Zudilin 2016 §4 proves only the inequality ord_q V_N^* ≥ N(N−1)(2N−1)/6. Exactness is verified by exact integer power-series computation for 1 ≤ N ≤ 7; the general-N argument is ordinary mathematics whose Lean formalisation covers the first transformed row in every column and the closed-form assembly, with rows j ≥ 2 and the determinant identification open.",
+      "title": "Exact q-order N(N-1)(2N-1)/6 and leading coefficient (N!)^2(N+1)!/2^N of Zudilin's normalized Hankel determinant",
+      "statement": "For every rank N, Zudilin's normalized Hankel determinant V_N^* at x=z=1 has q-order exactly N(N-1)(2N-1)/6 and leading coefficient exactly (N!)^2(N+1)!/2^N; Zudilin 2016 section 4 proves only the corresponding lower bound. Exact integer power-series computation verifies ranks 1 through 7. The all-rank theorem is an ordinary proof. Lean source proves the first transformed row in every column, the row j=2 initial monomial, the associated-grade determinant and closed-form assembly, and a conditional sharp theorem; rows j>=3 remain the formal boundary for identifying the source determinant with the assembled leading matrix.",
       "altitude": "no_go",
       "band": "U",
       "evidence_class": "ordinary_proof",
@@ -224,7 +224,7 @@
     },
     "strongest_longitudinal_theorem": {
       "claim_id": "erdos1049.rational_base_region_theorem",
-      "title": "F(a/b) is irrational on the region b^μ < a, μ = 2.46497868…; 31/4 is the first new base",
+      "title": "F(a/b) is irrational on the region b^mu < a, mu = 2.46497868...; 31/4 is the first new base",
       "statement": "THEOREM A (region). Let a > b >= 1 be coprime integers with b^mu < a, mu = C_1/C_0 = 2.464978683574975037454488275535521581878..., equivalently log b / log a < theta* = 1/mu = 0.40568302138406054101566030557693017464819107867787.... Then F(a/b) = sum_{m>=1} 1/((a/b)^m - 1) is irrational. In the normalisation of Zudilin 2016 Sec. 2 (p = r/s, log|r| > c log|s|) the constant is c = mu, the irrationality-exponent bound of Zudilin 2004 Theorem 1 itself. Consequences: the strip s^mu < r < s^{mu_BV} (mu_BV = 2 pi^2/(pi^2-2) = 2.508284761994...) of bases beyond Bundschuh-Vaananen 1994 Theorem 2 is infinite; new bases with s <= 12 are 31/4; 53/5, 54/5, 56/5; 83/6, 85/6, 89/6; 122/7,...,131/7 (9 bases); 169/8,...,183/8 (odd r, 8 bases); 15, 12, 37, 17 bases for s = 9, 10, 11, 12; none for s = 2, 3. 31/4 is the new base of smallest denominator and smallest numerator. Among coprime a/b with a <= 60 the region has 137 members; closest misses 52/5 (theta = 0.407324), 51/5, 29/4 (0.411694); tightest members 53/5 (margin 0.000313), 31/4 (0.001985), 54/5.\n\nTHEOREM B. F(31/4) is irrational, and so is F((31/4)^r) for every integer r >= 1. Here log 4 / log 31 = 0.4036981731... < 81/200 < theta*, 4^mu = 30.4835... < 31 < 4^{mu_BV} = 32.3696..., so 31/4 lies outside the Bundschuh-Vaananen region and inside Theorem A's; it is the first base (smallest denominator and numerator) beyond the published region.",
       "altitude": "genuine_climb",
       "band": "U",
@@ -243,10 +243,10 @@
     },
     "what_this_does_not_establish": "The packet establishes only its individually named results at their recorded evidence classes. At q=7/2, Lean checks the exact numerical admission condition in source-facing and transformed forms; Bundschuh--Vaananen's analytic theorem and inherited hypotheses remain external, so no end-to-end Lean irrationality theorem is claimed. At q=3/2, every finite scan, exact arithmetic identity, no-go theorem, conditional transfer, and computational probe remains bounded by its stated quantifiers; no irrationality theorem or universal rational-base theorem is established. The homogenisation and rank-budget laws are necessary admission tests under explicit exponent assumptions, not constructions. …",
     "failed_approaches": [
-      "Scalar q-Apéry Padé family at 3/2: quantitatively dead by a fixed positive proportion at every index, with the shortfall in closed form.",
-      "Rectangular two-function Hermite-Padé thresholds: at most 1/2 − 1/π² on the whole admissible cone ρ ≥ 0, σ ≥ 1 + ρ, with equality only at (0,1).",
-      "Scalar content and scalar-plus-border extraction from Zudilin's Hankel determinant: neither can meet the required charge (Lean).",
-      "Outward scalar diagonal evaluation: the homogenisation ceiling caps every content lane on the fixed diagonal at a > b²."
+      "Scalar q-Apery Pade family at 3/2: quantitatively dead by a fixed positive proportion at every index, with the shortfall in closed form.",
+      "Rectangular two-function Hermite-Pade thresholds: at most 1/2-1/pi^2 on the whole admissible cone rho>=0, sigma>=1+rho, with equality only at (0,1).",
+      "Scalar content and scalar-plus-border extraction from Zudilin's Hankel determinant: neither can meet the required charge under the proved class assumptions.",
+      "Changing Van Assche's outward scalar evaluation alone leaves a positive forced-clearing main term at 3/2; clearing-supported primitive common content remains the precise scalar escape hatch."
     ],
     "public_entry_ids": [
       "ExternalVerification1049AdelicHeightBridge",
@@ -268,7 +268,7 @@
     "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
     "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
     "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
-    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+    "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open",
     "problem_id": "erdos_1049",
     "routes": {
       "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
@@ -287,7 +287,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 21,
-      "renderer_fingerprint": "ec60ada03b181a30",
+      "renderer_fingerprint": "f6b3e351ccb221fc",
       "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
       "publication_manifest_match": true,
       "mathml_node_count": 405,
@@ -425,7 +425,7 @@
       "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
       "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
       "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open",
       "problem_id": "erdos_1049",
       "routes": {
         "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
@@ -444,7 +444,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
         "publication_manifest_match": true,
         "mathml_node_count": 405,
@@ -582,7 +582,7 @@
       "question": "What is the complete tail, height, Hermite–Padé, and mechanism record for Erdős #1049, and why is base 3/2 still open?",
       "precis": "A claim-bounded complete reasoning record for Erdős #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite–Padé and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open",
       "problem_id": "erdos_1049",
       "routes": {
         "html_mathml": "papers/erdos1049-rational-base-lambert-reasoning-surface.html",
@@ -601,7 +601,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "a5c09456c0438ac64804182b66110e2a1de6b0993918a82676d77347d34c7f62",
         "publication_manifest_match": true,
         "mathml_node_count": 1538,
@@ -611,7 +611,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "9e9098a36f455c959e3c5bb362682634e78f4efd53b9888c9e7cf9d16f5a4d46",
-        "html_exact_tex_sha256": "8e1bff66f37fc74a5db6ddd2d125f7ad2c5b330f75ddae1fc763c923cbc77394"
+        "html_exact_tex_sha256": "9285b786685ff05e447a56befa5c20fdb28107245adc3b195f98e0feefc94f91"
       },
       "sections": [
         {

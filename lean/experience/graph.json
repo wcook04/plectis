@@ -3,11 +3,11 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 1634,
-    "edges": 4008,
+    "nodes": 1637,
+    "edges": 4011,
     "node_kinds": {
       "comparator_review_family": 70,
-      "human_document": 14,
+      "human_document": 17,
       "integration_surface": 2,
       "lean_module": 1272,
       "mathematical_object": 105,
@@ -29,7 +29,7 @@
       "has_review_family": 70,
       "imports": 2081,
       "instantiates": 2,
-      "interpreted_by": 14,
+      "interpreted_by": 17,
       "makes_exact": 1,
       "may_review": 1,
       "positions": 3,
@@ -1174,7 +1174,7 @@
       "label": "Repository architecture",
       "role": "system_explanation",
       "href": "documents/architecture.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ARCHITECTURE.md"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md"
     },
     {
       "id": "document:comparator-1049",
@@ -1182,7 +1182,15 @@
       "label": "Comparator #1049 fixture",
       "role": "comparator_case_study",
       "href": "documents/comparator-1049.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
+    },
+    {
+      "id": "document:documentation",
+      "kind": "human_document",
+      "label": "Documentation guide",
+      "role": "documentation_index",
+      "href": "documents/documentation.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/README.md"
     },
     {
       "id": "document:external-verification",
@@ -1198,15 +1206,23 @@
       "label": "Methodology",
       "role": "evidence_method",
       "href": "documents/methodology.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/METHODOLOGY.md"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/METHODOLOGY.md"
     },
     {
       "id": "document:orientation",
       "kind": "human_document",
-      "label": "Corpus orientation",
+      "label": "Technical orientation",
       "role": "generated_reader_map",
       "href": "documents/orientation.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ORIENTATION.md"
+    },
+    {
+      "id": "document:paper-guide",
+      "kind": "human_document",
+      "label": "Current papers",
+      "role": "current_paper_catalogue",
+      "href": "documents/paper-guide.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md"
     },
     {
       "id": "document:prior-art",
@@ -1215,6 +1231,14 @@
       "role": "attribution_and_antecedents",
       "href": "documents/prior-art.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/PRIOR_ART.md"
+    },
+    {
+      "id": "document:reading-guide",
+      "kind": "human_document",
+      "label": "A reader's way in",
+      "role": "reader_introduction",
+      "href": "documents/reading-guide.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md"
     },
     {
       "id": "document:readme",
@@ -1238,7 +1262,7 @@
       "label": "Residual progress",
       "role": "open_boundary_progress",
       "href": "documents/residual-progress.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESIDUAL_PROGRESS.md"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/RESIDUAL_PROGRESS.md"
     },
     {
       "id": "document:results",
@@ -1254,7 +1278,7 @@
       "label": "Scope and claim boundary",
       "role": "scope_boundary",
       "href": "documents/scope.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/SCOPE.md"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SCOPE.md"
     },
     {
       "id": "document:source-map",
@@ -1270,7 +1294,7 @@
       "label": "Truth audit",
       "role": "claim_audit",
       "href": "documents/truth-audit.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/TRUTH_AUDIT.md"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/TRUTH_AUDIT.md"
     },
     {
       "id": "document:wave-index",
@@ -1278,7 +1302,7 @@
       "label": "Development index",
       "role": "development_chronology",
       "href": "documents/wave-index.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/WAVE_INDEX.md"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/WAVE_INDEX.md"
     },
     {
       "id": "integration:comparator",
@@ -34083,6 +34107,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "interpreted_by",
+      "target": "document:documentation"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
       "target": "document:external-verification"
     },
     {
@@ -34098,7 +34127,17 @@
     {
       "source": "universe:plectis-lean",
       "relation": "interpreted_by",
+      "target": "document:paper-guide"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
       "target": "document:prior-art"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "interpreted_by",
+      "target": "document:reading-guide"
     },
     {
       "source": "universe:plectis-lean",

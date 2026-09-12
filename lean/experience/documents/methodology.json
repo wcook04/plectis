@@ -4,21 +4,22 @@
   "title": "Methodology",
   "role": "evidence_method",
   "reading_order": 80,
-  "source_path": "METHODOLOGY.md",
+  "source_path": "docs/METHODOLOGY.md",
   "routes": {
     "html_mathml": "documents/methodology.html",
     "html_exact_tex": "documents/methodology.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/METHODOLOGY.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/METHODOLOGY.md"
   },
   "render_contract": {
+    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "16782bbf5d1a49d51f1a81388fc26d7be38dbfe81c33ce9a26e450315189894c",
+    "source_sha256": "60a5e1a8ffca222d8abd74bcc4a4092f96d4eeb2d14142d878b1b12c28fd05ee",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +28,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "40812662d57b12285a4532a215936751ba53ea60a17d7859d48fa6f1acfc0092",
-    "html_exact_tex_sha256": "33fb7ff7bc3919af83d12ea28e55d9efa67adc773f18175ab20ee8ddb7849806"
+    "html_mathml_sha256": "ee3a78e1d83ea9b07ca075b729685bf62b0afae3a5e39c982649eff649d59f5c",
+    "html_exact_tex_sha256": "113a51a01f529a8706c2e57847df9a08921cc6555896790a0a74ab0f1b0d1055"
   },
   "sections": [
     {

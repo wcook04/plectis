@@ -67,6 +67,12 @@ function makeEl(tag) {
     nodeType: tag === '#text' ? 3 : 1,
     id: '',
     children: [],
+    get firstChild() { return this.children[0] || null; },
+    get nextSibling() {
+      if (!this.parentNode) return null;
+      return this.parentNode.children[this.parentNode.children.indexOf(this) + 1] || null;
+    },
+    get nodeValue() { return this.nodeType === 3 ? this._text : null; },
     parentNode: null,
     parentElement: null,
     className: '',
@@ -75,7 +81,13 @@ function makeEl(tag) {
     value: '',
     open: false,
     hidden: false,
-    innerHTML: '',
+    _html: '',
+    get innerHTML() { return this._html; },
+    set innerHTML(value) {
+      this._html = String(value);
+      this._text = this._html.replace(/<[^>]*>/g, '').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+      this.children = [];
+    },
     _attrs: {},
     _text: '',
     _listeners: {},
@@ -459,7 +471,7 @@ test('docs.js loads on a bare page with no thrown error (landing participation s
 });
 
 test('landing enhancement work stays off the critical input path', () => {
-  assert.doesNotMatch(SOURCE, /warmTermLayer|ensureLayer\(null\)/);
+  assert.doesNotMatch(SOURCE, /warmTermLayer/);
   assert.match(SOURCE, /var budget = 8;/);
   assert.match(SOURCE, /setTimeout\(function \(\) \{ restTimer = 0; warm\(anchor\); \}, 140\)/);
   assert.match(STYLE_SOURCE, /html\s*\{[^}]*scroll-behavior:\s*auto/s);
@@ -717,6 +729,47 @@ test('term hover opens from inline preview data without loading the search index
   assert.equal(tip.querySelector('.term-tip__scope'), null);
   assert.equal(page.win.__MICROCOSM_INDEX__, undefined, 'hover does not pull the full index');
 });
+
+for (const action of ['text', '']) {
+  test(`page ${action || 'JSON'} export preserves TeX behind rendered glyphs`, async () => {
+    const writes = [];
+    const article = makeEl('article');
+    article.className = 'docs-article';
+    const heading = makeEl('h1');
+    heading.textContent = 'A maths paper';
+    article.appendChild(heading);
+    const expressions = [String.raw`\(\frac{1}{n} < 1\)`, String.raw`\[\sum_{n=1}^{\infty} a_n\]`];
+    const spans = expressions.map((tex, index) => {
+      const span = makeEl('span');
+      span.className = `math ${index ? 'display' : 'inline'}`;
+      span.setAttribute('data-tex', tex);
+      span.textContent = 'typeset glyph placeholder';
+      article.appendChild(span);
+      return span;
+    });
+    const hidden = makeEl('span');
+    hidden.className = 'math inline';
+    hidden.setAttribute('data-tex', 'hidden formula');
+    hidden.setAttribute('hidden', '');
+    article.appendChild(hidden);
+    const button = makeEl('button');
+    button.setAttribute('data-page-export', action);
+    article.appendChild(button);
+    const page = loadPage(makeTab(), {
+      path: '/plectis/maths/papers/sample.html', bodyChildren: [article],
+      clipboard: { writeText(value) { writes.push(String(value)); return Promise.resolve(); } },
+    });
+    assert.equal(page.error, null);
+    button.dispatch('click', {});
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(writes.length, 1);
+    const text = action === 'text' ? writes[0] : JSON.parse(writes[0]).source_text;
+    for (const tex of expressions) assert.ok(text.includes(tex), tex);
+    assert.equal(text.includes('typeset glyph placeholder'), false);
+    assert.equal(text.includes('hidden formula'), false);
+    assert.ok(spans.every((span) => span.textContent === 'typeset glyph placeholder'));
+  });
+}
 
 test('page JSON export redacts local filesystem origin into public site routes', async () => {
   const tab = makeTab();
@@ -1111,4 +1164,21 @@ test('reduced-motion CSS guard: the global transition override covers the viewba
   );
   assert.match(universal[0], /transition-duration:\s*0\.01ms\s*!important/, 'transitions collapse so the pill does not animate');
   assert.match(universal[0], /animation-duration:\s*0\.01ms\s*!important/, 'animations collapse too, so nothing re-enters by keyframe');
+});
+
+
+test('glossary preview payload waits for idle before warming', () => {
+  const idle = [];
+  const term = makeLink('glossary.html#glossary-system', 'idle-system');
+  term.className = 'narrative-ref--term';
+  term.setAttribute('data-term', 'system');
+  const page = loadPage(makeTab(), hubPage({
+    bodyChildren: [term], links: [term],
+    windowGlobals: { requestIdleCallback(fn) { idle.push(fn); } },
+  }));
+  assert.equal(page.error, null);
+  assert.equal(page.doc.head.querySelector('script[data-term-previews]'), null);
+  assert.equal(page.doc.querySelector('.term-tip'), null);
+  idle.forEach((fn) => fn({ timeRemaining: () => 8 }));
+  assert.ok(page.doc.head.querySelector('script[data-term-previews]'));
 });

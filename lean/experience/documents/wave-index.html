@@ -3,7 +3,7 @@
     <p class="lean-document__eyebrow">development chronology</p>
     <h1>Development index</h1>
   </header>
-  <div class="lean-document__body" data-source="docs/WAVE_INDEX.md">
+  <div class="lean-document__body" data-source="docs/reference/WAVE_INDEX.md">
 <!--
 SPDX-FileCopyrightText: 2026 Will Cook
 SPDX-License-Identifier: Apache-2.0
@@ -19,8 +19,9 @@ import order.</p>
 claim, or exact remaining open proposition.</li>
 <li><code>docs/SOURCE_MAP.md</code> — follow that selected intention
 into a bounded module route.</li>
-<li><code>paper/archive/erdos249-257-main-paper.tex</code> — read the
-authored mathematical exposition and its source handles.</li>
+<li><a href="paper-guide.html">Current papers</a> — read the
+selected problem’s short paper, longer research record, and source
+handles.</li>
 <li>this file — recover development chronology only when chronology is
 the question.</li>
 <li><code>Erdos249257.lean</code> and <code>ErdosProblems.lean</code> —
@@ -28,10 +29,10 @@ inspect package topology only when import structure is the
 question.</li>
 </ol>
 <p>For an external statement-identity handoff, use the generated <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/FORMAL_CONJECTURES_CROSSWALK.md">Formal Conjectures crosswalk</a>.
-It binds each of the eight problem rows to its pinned upstream
-declaration, source hash, and local problem route. For a module or paper
-handle, use
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md">Formal
+Conjectures crosswalk</a>. It binds each of the eight problem rows to
+its pinned upstream declaration, source hash, and local problem route.
+For a module or paper handle, use
 <code>python3 scripts/query_corpus.py --module &lt;module_path_or_sigil&gt;</code>
 or <code>--paper-anchor &lt;TeX_label_or_source_ref&gt;</code> to
 recover the corresponding proof/source context before returning to the

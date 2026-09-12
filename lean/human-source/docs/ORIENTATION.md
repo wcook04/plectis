@@ -210,8 +210,8 @@ All route ids, titles, and reading lists are in
 - Exact statuses, statements, paper anchors, declarations, and argument edges:
   [`docs/claims.json`](claims.json)
 - Complete eight-problem proof/paper/source/frontier matrix: [`docs/SOURCE_MAP.md#complete-eight-problem-return-matrix`](SOURCE_MAP.md#complete-eight-problem-return-matrix)
-- Development chronology: [`docs/WAVE_INDEX.md`](WAVE_INDEX.md)
-- Human mathematical account: [`erdos249-257-main-paper.pdf`](../paper/archive/erdos249-257-main-paper.pdf)
+- Development chronology: [`docs/reference/WAVE_INDEX.md`](reference/WAVE_INDEX.md)
+- Current mathematical papers: [short papers and longer research records](../paper/README.md)
 - Machine form of this page: [`docs/orientation.json`](orientation.json)
 
 ## External corpus registration

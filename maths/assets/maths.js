@@ -1,6 +1,6 @@
 /* Plectis — maths subsite runtime.
-   Theme toggle, mobile drawer, and deferred MathJax typesetting. The shared
-   docs runtime still loads on these pages (copy-text, terms); this file only
+   Theme, readable equation overflow, and local Lean navigation. The shared docs runtime owns
+   the mobile drawer, copy-text, and terms; this file only
    carries maths-specific behaviour. Do not stamp html.js here: that class
    means docs.js is ready, and the page-tools CSS keys off it. */
 (function () {
@@ -58,134 +58,14 @@
     });
   }
 
-  function mountDrawer() {
-    var btn = document.querySelector('.docs-menu-btn');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      var open = document.body.classList.toggle('nav-open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    /* A tap on a sidebar link should close the drawer it navigated from. */
-    var sidebar = document.querySelector('.docs-sidebar');
-    if (sidebar) {
-      sidebar.addEventListener('click', function (event) {
-        var target = event.target;
-        if (target && target.closest && target.closest('a')) {
-          document.body.classList.remove('nav-open');
-          btn.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && document.body.classList.contains('nav-open')) {
-        document.body.classList.remove('nav-open');
-        btn.setAttribute('aria-expanded', 'false');
-        btn.focus();
-      }
-    });
-  }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       mountToggle();
-      mountDrawer();
     });
   } else {
     mountToggle();
-    mountDrawer();
   }
 })();
-
-window.__plectisTypesetPage = function (MathJax) {
-  /* A dossier inlines the short paper. The stage wraps article.lean-paper,
-     so typeset each body child, not the whole stage. Visible chunks first;
-     the rest drain on idle so later sections are not left as invisible TeX
-     holes until the reader scrolls within 640px. */
-  var root = document.documentElement;
-  var settled = false;
-  function settle() {
-    if (settled) return;
-    settled = true;
-    root.classList.add('mathjax-settled');
-  }
-  var stages = Array.prototype.slice.call(
-    document.querySelectorAll('.paper-stage')
-  );
-  if (!stages.length) {
-    return MathJax.typesetPromise().then(settle, function () {
-      root.classList.add('mathjax-error');
-      settle();
-    });
-  }
-  function chunksOf(stage) {
-    var body = stage.querySelector('.lean-paper__body') || stage;
-    var kids = Array.prototype.filter.call(body.children, function (el) {
-      return el.nodeType === 1 && el.tagName !== 'SCRIPT';
-    });
-    return kids.length ? kids : [stage];
-  }
-  var chunks = [];
-  stages.forEach(function (stage) {
-    chunksOf(stage).forEach(function (chunk) { chunks.push(chunk); });
-  });
-  function inView(el) {
-    var r = el.getBoundingClientRect();
-    var vh = window.innerHeight || 800;
-    return r.bottom > 0 && r.top < vh + 240;
-  }
-  var queued = [];
-  function already(node) {
-    return queued.indexOf(node) !== -1;
-  }
-  function typeset(nodes) {
-    var fresh = nodes.filter(function (node) { return !already(node); });
-    fresh.forEach(function (node) { queued.push(node); });
-    if (!fresh.length) return Promise.resolve();
-    return MathJax.typesetPromise(fresh).then(function () {
-      fresh.forEach(function (node) { node.classList.add('is-typeset'); });
-    }, function () {
-      root.classList.add('mathjax-error');
-      fresh.forEach(function (node) { node.classList.add('is-typeset'); });
-    });
-  }
-  var first = chunks.filter(inView);
-  if (!first.length) first = [chunks[0]];
-  var rest = chunks.filter(function (chunk) {
-    return first.indexOf(chunk) === -1;
-  });
-  var idle = window.requestIdleCallback || function (cb) { setTimeout(cb, 60); };
-  function drain(index) {
-    if (index >= rest.length) {
-      settle();
-      return;
-    }
-    idle(function () {
-      typeset([rest[index]]).then(function () { drain(index + 1); });
-    }, { timeout: 800 });
-  }
-  window.setTimeout(settle, 12000);
-  return typeset(first).then(function () {
-    if (!rest.length) {
-      settle();
-      return;
-    }
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          io.unobserve(entry.target);
-          typeset([entry.target]);
-        });
-      }, { rootMargin: '960px 0px' });
-      rest.forEach(function (node) { io.observe(node); });
-    }
-    drain(0);
-    window.addEventListener('hashchange', function () {
-      typeset(chunks.filter(inView));
-    });
-  });
-};
-
 
 /* Problem-local import map. All data and file links are built into the page.
    The list is the object: a file name selects it, GitHub stays on the row,
@@ -200,6 +80,21 @@ window.__plectisTypesetPage = function (MathJax) {
     var search = map.querySelector('[data-module-search]');
     var direct = map.querySelector('[data-direct-only]');
     var selectedId = null;
+    var empty = document.createElement('p');
+    empty.className = 'source-empty';
+    empty.hidden = true;
+    empty.appendChild(document.createTextNode('No files match these filters. '));
+    var reset = document.createElement('button');
+    reset.type = 'button';
+    reset.textContent = 'Clear filters';
+    empty.appendChild(reset);
+    map.appendChild(empty);
+    function clearFilters() {
+      if (search) search.value = '';
+      if (direct) direct.checked = false;
+      filter();
+    }
+    reset.addEventListener('click', function () { clearFilters(); if (search) search.focus(); });
 
     function element(tag, text, cls) {
       var el = document.createElement(tag);
@@ -271,6 +166,7 @@ window.__plectisTypesetPage = function (MathJax) {
       }
       var row = rowFor(id);
       if (!row) return false;
+      if (row.hidden) clearFilters();
       if (selectedId !== id) {
         clearSelection();
         selectedId = id;
@@ -287,22 +183,27 @@ window.__plectisTypesetPage = function (MathJax) {
         try { map.scrollIntoView({ block: 'start' }); } catch (err) { map.scrollIntoView(); }
       }
       showRow(row, !!opts.fromPaper);
+      if (opts.focus && nameButton(row)) nameButton(row).focus({preventScroll: true});
       return true;
     }
     map.__selectModule = select;
     map.__hasModule = function (id) { return nodes.has(id); };
+    map.__clearSelection = clearSelection;
     function filter() {
       var q = (search && search.value || '').trim().toLowerCase();
       var onlyDirect = !!(direct && direct.checked);
       var shown = 0;
       entries.forEach(function (row) {
+        var node = nodes.get(row.dataset.module) || {};
+        var haystack = [node.label, node.path, row.dataset.module].join(' ').toLowerCase();
         var hide = (onlyDirect && row.dataset.direct !== 'true') ||
-          row.textContent.toLowerCase().indexOf(q) === -1;
+          haystack.indexOf(q) === -1;
         row.hidden = hide;
         if (!hide) shown++;
       });
       var status = map.querySelector('[data-map-count]');
       if (status) status.textContent = shown === entries.length ? '' : (shown + ' of ' + entries.length);
+      empty.hidden = shown > 0;
       if (selectedId) {
         var still = false;
         for (var i = 0; i < entries.length; i++) {
@@ -320,60 +221,150 @@ window.__plectisTypesetPage = function (MathJax) {
     filter();
   });
 
-  function moduleIdFromGithub(href) {
-    var match = String(href || '').match(/\/(ErdosProblems\/.+?\.lean)(?:#|$)/);
-    if (!match) return '';
-    return 'lean-module:' + match[1].replace(/\.lean$/, '').replace(/\//g, '.');
+  function hashId() {
+    try { return decodeURIComponent(location.hash.slice(1)); }
+    catch (e) { return location.hash.slice(1); }
   }
-  function hashModuleId() {
-    if (!location.hash) return '';
-    try { return decodeURIComponent(location.hash.slice(1)); } catch (e) { return location.hash.slice(1); }
-  }
-  function selectFromPage(id, fromPaper) {
-    if (!id) return false;
+  function selectFromPage(id, options) {
     var maps = document.querySelectorAll('[data-source-map]');
-    var found = false;
     for (var i = 0; i < maps.length; i++) {
-      if (typeof maps[i].__selectModule === 'function' && maps[i].__selectModule(id, { force: fromPaper, fromPaper: fromPaper })) {
-        found = true;
-      }
+      if (typeof maps[i].__selectModule === 'function' && maps[i].__selectModule(id, options)) return true;
     }
-    return found;
+    return false;
   }
   document.addEventListener('click', function (event) {
-    var trigger = event.target.closest('[data-select-module], a[href*="/ErdosProblems/"]');
-    if (!trigger) return;
-    var id = trigger.getAttribute('data-select-module') || '';
-    if (!id) id = moduleIdFromGithub(trigger.getAttribute('href') || '');
-    if (!id) return;
-    var map = document.querySelector('[data-source-map]');
-    if (!map || typeof map.__hasModule !== 'function' || !map.__hasModule(id)) return;
-    var fromPaper = !map.contains(trigger);
-    if (fromPaper && trigger.tagName === 'A') {
-      var href = trigger.getAttribute('href') || '';
-      if (href.indexOf('github.com') !== -1 && !trigger.getAttribute('data-select-module')) {
-        event.preventDefault();
-        if (history.replaceState) history.replaceState(null, '', '#' + id);
-        else location.hash = id;
-      }
-    }
-    selectFromPage(id, fromPaper);
+    var trigger = event.target.closest('[data-select-module]');
+    if (!trigger || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    var id = trigger.getAttribute('data-select-module');
+    var fromPaper = !trigger.closest('[data-source-map]');
+    if (!selectFromPage(id, {force: true, fromPaper: fromPaper, focus: true})) return;
+    event.preventDefault();
+    if (hashId() !== id) history.pushState(null, '', '#' + encodeURIComponent(id));
   });
-  // Deep links into a collapsed research section reveal their destination.
-  // Module hashes also select the matching Lean map row.
+  // Deep links into a collapsed section reveal their destination; module
+  // selections survive reload and browser Back/Forward as ordinary URLs.
   function revealHash() {
-    if (!location.hash) return;
-    var raw = hashModuleId();
-    var target;
-    try { target = document.getElementById(raw); } catch (e) { target = null; }
-    if (target) {
-      for (var parent = target; parent; parent = parent.parentElement) {
-        if (parent.tagName === 'DETAILS') parent.open = true;
-      }
-      target.scrollIntoView();
+    var id = hashId();
+    if (selectFromPage(id, {force: true, fromPaper: true})) return;
+    document.querySelectorAll('[data-source-map]').forEach(function (map) {
+      if (map.__clearSelection) map.__clearSelection();
+    });
+    var target = document.getElementById(id);
+    if (!target) return;
+    for (var parent = target; parent; parent = parent.parentElement) {
+      if (parent.tagName === 'DETAILS') parent.open = true;
     }
-    selectFromPage(raw, true);
+    target.scrollIntoView();
   }
   window.addEventListener('hashchange', revealHash);
+  window.addEventListener('popstate', revealHash);
   revealHash();
+})();
+
+/* Keep long proof coordinates available without letting them dominate prose.
+   The exact original code node stays in the button, so text/JSON export still
+   includes its full name. Existing source links retain their normal action. */
+(function () {
+  'use strict';
+  if (!HTMLElement.prototype.showPopover) return;
+  var panel = document.createElement('div');
+  panel.id = 'lean-identifier-detail';
+  panel.className = 'lean-identifier-detail';
+  panel.setAttribute('popover', 'auto');
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', 'Full Lean identifier');
+  var title = document.createElement('p');
+  title.className = 'lean-identifier-detail__title';
+  var value = document.createElement('code');
+  var actions = document.createElement('div');
+  actions.className = 'lean-identifier-detail__actions';
+  var copy = document.createElement('button');
+  copy.type = 'button';
+  copy.className = 'btn btn--ghost';
+  copy.textContent = 'Copy name';
+  var status = document.createElement('span');
+  status.className = 'lean-identifier-detail__status';
+  status.setAttribute('aria-live', 'polite');
+  var close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'btn btn--ghost';
+  close.textContent = 'Close';
+  actions.append(copy, status, close);
+  panel.append(title, value, actions);
+  document.body.appendChild(panel);
+  var current = null;
+  function position() {
+    if (!current || !panel.matches(':popover-open')) return;
+    var box = current.getBoundingClientRect();
+    var left = Math.max(16, Math.min(box.left, innerWidth - panel.offsetWidth - 16));
+    var top = box.bottom + 8;
+    if (top + panel.offsetHeight > innerHeight - 16) top = Math.max(16, box.top - panel.offsetHeight - 8);
+    panel.style.left = left + 'px';
+    panel.style.top = top + 'px';
+  }
+  close.addEventListener('click', function () { panel.hidePopover(); if (current) current.focus({preventScroll: true}); });
+  copy.addEventListener('click', async function () {
+    try {
+      await navigator.clipboard.writeText(value.textContent);
+      status.textContent = 'Copied';
+    } catch (e) { status.textContent = 'Select the name to copy'; }
+  });
+  panel.addEventListener('toggle', function (event) {
+    if (current) current.setAttribute('aria-expanded', event.newState === 'open' ? 'true' : 'false');
+  });
+  window.addEventListener('resize', position);
+  document.querySelectorAll('.paper-stage p code, .paper-stage li code').forEach(function (code) {
+    var name = code.textContent.trim();
+    if (code.closest('a, pre, button') || name.length < 36) return;
+    var file = /^[\w.]+\.lean$/.test(name);
+    if (!file && !/^[A-Za-z]\w*_[\w]*_[\w]*$/.test(name)) return;
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'lean-identifier';
+    button.setAttribute('aria-label', 'Inspect ' + (file ? 'Lean file: ' : 'Lean declaration: ') + name);
+    button.setAttribute('aria-haspopup', 'dialog');
+    button.setAttribute('aria-controls', panel.id);
+    button.setAttribute('aria-expanded', 'false');
+    code.parentNode.insertBefore(button, code);
+    button.appendChild(code);
+    button.addEventListener('click', function () {
+      if (current) current.setAttribute('aria-expanded', 'false');
+      if (panel.matches(':popover-open')) panel.hidePopover();
+      current = button;
+      title.textContent = file ? 'Lean file' : 'Lean declaration';
+      value.textContent = name;
+      status.textContent = '';
+      panel.showPopover();
+      position();
+    });
+  });
+})();
+
+/* Make only overflowing equations keyboard-scrollable. These enhancements do not typeset or hide content. */
+(function () {
+  'use strict';
+  var equations = Array.prototype.slice.call(document.querySelectorAll('.paper-stage .math.display'));
+  function measure() {
+    equations.forEach(function (equation) {
+      var overflow = equation.scrollWidth > equation.clientWidth + 2;
+      if (overflow) {
+        equation.setAttribute('tabindex', '0');
+        equation.setAttribute('role', 'group');
+        equation.setAttribute('aria-label', 'Equation; scroll horizontally to read the full expression');
+      } else {
+        equation.removeAttribute('tabindex');
+        equation.removeAttribute('role');
+        equation.removeAttribute('aria-label');
+      }
+    });
+  }
+  var scheduled = false;
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(function () { scheduled = false; measure(); });
+  }
+  window.addEventListener('resize', schedule);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+  schedule();
 })();

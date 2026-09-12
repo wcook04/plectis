@@ -9,7 +9,7 @@
   "question": "What is the complete shift, countermodel, and finite-evidence record for Erdős #251, and which cofinal mismatch is missing?",
   "precis": "A claim-bounded complete reasoning record for Erdős #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.",
   "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
   "problem_id": "erdos_251",
   "routes": {
     "html_mathml": "papers/erdos251-prime-gap-reasoning-surface.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "80d226bc59d7e47db86bc4d576570d27e78d8760ba77ae38c548a53bfc9b8234",
     "publication_manifest_match": true,
     "mathml_node_count": 922,
@@ -46,7 +46,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "416dcdc0e3ed56da7e845e903f45d748cad93a86fabeb4629c4ea2bfd39d72da",
-    "html_exact_tex_sha256": "da583bd9b772305e1a217006176890d5378d4ab3f4f78d11aac7366bd4441de7"
+    "html_exact_tex_sha256": "176d91c6e5327d8a584cb085b84d795b78e1464d8bcdb26bc595c16814efaed5"
   },
   "sections": [
     {

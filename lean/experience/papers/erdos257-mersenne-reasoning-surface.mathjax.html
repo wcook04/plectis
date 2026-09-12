@@ -62,14 +62,14 @@ class="math inline" data-term-auto="off">\(x_A := \sum_{n \in A} x_n\)</span>; t
 converges, since <span class="math inline" data-term-auto="off">\(x_n = O(2^{-n})\)</span>.
 Erdős’s Problem #257 asks a single universally quantified question about
 this family.</p>
-<div class="defn">
+<div class="defn" id="defn:U">
 <p><strong>Definition 1</strong> (Universal #257, written (U)). Is <span
 class="math inline" data-term-auto="off">\(x_A = \sum_{n \in A} 1/(2^n-1)\)</span> irrational
 for <em>every</em> infinite <span class="math inline" data-term-auto="off">\(A \subseteq
 \mathbb{N}\)</span>? <strong>OPEN.</strong> <span><span
 class="sans-serif">[Open]</span></span></p>
 </div>
-<div class="defn">
+<div class="defn" id="defn:H">
 <p><strong>Definition 2</strong> (The half-value question, written (H)).
 Let the <em>Mersenne achievement set</em> be <span
 class="math inline" data-term-auto="off">\(\mathcal{A} := \{\, y \in \mathbb{R}: \exists A
@@ -243,7 +243,7 @@ support, and the universal statement remains open.</p>
 <section id="the-unconditional-record-half-value-direction"
 class="level3">
 <h3>The unconditional record, half-value direction</h3>
-<div class="thm">
+<div class="thm" id="thm:geometry">
 <p><strong>Theorem 4</strong> (Achievement-set geometry). <em> <span
 class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> is compact, closed, perfect,
 totally disconnected and nowhere dense, and <span
@@ -258,7 +258,7 @@ class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span><br />
 <strong>Sites:</strong> , , , , , .</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:supported-dichotomy">
 <p><strong>Theorem 5</strong> (Support-restricted refinement). <em> For
 the achievement set built from a coordinate subset <span
 class="math inline" data-term-auto="off">\(J \subseteq \mathbb{N}\)</span>: either the
@@ -291,7 +291,7 @@ give neighboring sparse-support context, not a theorem about arbitrary
 reciprocal Mersenne subseries. <span><span
 class="sans-serif">[Cited]</span></span></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:greedy-survival">
 <p><strong>Theorem 7</strong> (Membership equals greedy survival; the
 fatal-gap dichotomy). <em> <span class="math inline" data-term-auto="off">\(x \in
 \mathcal{A}\)</span> iff <span class="math inline" data-term-auto="off">\(0 \le x\)</span>
@@ -397,10 +397,10 @@ record follows. It does not claim an impossibility theorem for every
 method in a named class.</p>
 <p>The generating fact is a single structural one, and it is not a
 convenience of the formalisation.</p>
-<div class="obs">
+<div class="obs" id="obs:no-ensemble">
 <p><em>Observation 9</em> (The problem admits no ensemble). The Mersenne
 weights are strictly superincreasing. Consequently the digit coding is
-injective (Theorem <a class="math-ref" href="#thm:geometry">thm:geometry</a>), the greedy orbit is
+injective (Theorem <a class="math-ref" href="#thm:geometry">4</a>), the greedy orbit is
 the unique candidate support for any target, and distinct subset sums of
 a row of seam weights are separated by at least <span
 class="math inline" data-term-auto="off">\(2^{s+1}\)</span>. Every one of the nine
@@ -417,7 +417,7 @@ class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">[Math]</span></span><br />
 <strong>Sites:</strong> , , .</p>
 </div>
-<p>All six barriers below are consequences of Observation <a class="math-ref" href="#obs:no-ensemble">obs:no-ensemble</a> in different
+<p>All six barriers below are consequences of Observation <a class="math-ref" href="#obs:no-ensemble">9</a> in different
 directions: the recorded witness space is a singleton (<a class="math-ref" href="#bar:canon">3.2</a>), the listed sufficient
 conditions are equivalent to the goal rather than strictly weaker (<a class="math-ref" href="#bar:collapse">3.3</a>), measure and category
 disagree on <span class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> (<a class="math-ref" href="#bar:measure">3.6</a>), the available
@@ -428,7 +428,7 @@ hypothesis (<a class="math-ref" href="#bar:box">3.7</a>).</p>
 </section>
 <section id="bar:canon" class="level3">
 <h3>Barrier 1: canonicalisation — the witness space is a singleton</h3>
-<div class="prop">
+<div class="prop" id="prop:canon">
 <p><strong>Proposition 10</strong> (Canonicalisation; <span
 class="smallcaps">proved</span>). <em> For the half-target in strictly
 superincreasing Mersenne weights, every finite object satisfying an
@@ -512,7 +512,7 @@ explicitly relaxed compatibility requirements, while the goal is <span
 class="math inline" data-term-auto="off">\(\Pi^0_1\)</span>. The extra quantifier buys
 nothing. The mechanism is a single exact identity plus a single
 unconditional envelope.</p>
-<div class="lem">
+<div class="lem" id="lem:collapse-mech">
 <p><strong>Lemma 12</strong> (Collapse mechanism; <span
 class="smallcaps">proved</span>). <em> Let <span class="math inline" data-term-auto="off">\(A
 \subseteq \mathbb{N}\)</span> with <span class="math inline" data-term-auto="off">\(1 \notin
@@ -533,7 +533,7 @@ class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span><br />
 <strong>Sites:</strong> ; ; .</em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:collapse">
 <p><strong>Proposition 13</strong> (Route collapse; <span
 class="smallcaps">proved</span>). <em> Any hypothesis asserting, for
 cofinally many <span class="math inline" data-term-auto="off">\(N\)</span>, that <span
@@ -542,7 +542,7 @@ strip of width <span class="math inline" data-term-auto="off">\(O(\sqrt{N})\)</s
 <span class="math inline" data-term-auto="off">\(\delta = 0\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> By Lemma <a class="math-ref" href="#lem:collapse-mech">lem:collapse-mech</a>, <span
+<p><em>Proof.</em> By Lemma <a class="math-ref" href="#lem:collapse-mech">12</a>, <span
 class="math inline" data-term-auto="off">\(2^{N+1}\delta = \operatorname{ihc}(A,N) -
 \mathrm{T}(N+1)\)</span>. For the greedy support of <span
 class="math inline" data-term-auto="off">\(1/2\)</span> one has <span
@@ -558,12 +558,12 @@ outgrows any <span class="math inline" data-term-auto="off">\(\sqrt{N}\)</span> 
 class="math inline" data-term-auto="off">\(\delta = 0\)</span>. Conversely <span
 class="math inline" data-term-auto="off">\(\delta = 0\)</span> makes <span
 class="math inline" data-term-auto="off">\(\operatorname{ihc}(A,N) = \mathrm{T}(N+1)\)</span>
-exactly, and the unconditional envelope of Lemma <a class="math-ref" href="#lem:collapse-mech">lem:collapse-mech</a> then
+exactly, and the unconditional envelope of Lemma <a class="math-ref" href="#lem:collapse-mech">12</a> then
 <em>supplies</em> the strip for free. And <span
 class="math inline" data-term-auto="off">\(\delta = 0\)</span> is exactly <span
 class="math inline" data-term-auto="off">\(1/2 \in \mathcal{A}\)</span>, by . ◻</p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:sqrt-witness">
 <p><strong>Lemma 14</strong> (Perfect-square strip witness; <span
 class="smallcaps">proved</span>, this pass). <em> Suppose <span
 class="math inline" data-term-auto="off">\(x_A = 1/2\)</span> and <span
@@ -578,7 +578,7 @@ class="math display" data-term-auto="off">\[\operatorname{ihc}(A, k^2 - 1) \;=\;
 class="sans-serif">[Math]</span></span></em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> By Lemma <a class="math-ref" href="#lem:collapse-mech">lem:collapse-mech</a> with <span
+<p><em>Proof.</em> By Lemma <a class="math-ref" href="#lem:collapse-mech">12</a> with <span
 class="math inline" data-term-auto="off">\(\delta = 0\)</span>, <span
 class="math inline" data-term-auto="off">\(\operatorname{ihc}(A,k^2-1) = \mathrm{T}(k^2)
 \le 2\sqrt{k^2} + 4\)</span>. At a perfect square the real and truncated
@@ -588,7 +588,7 @@ the discrete strip <span
 class="math inline" data-term-auto="off">\(\texttt{halfStripBound}(n) = 2\lfloor\sqrt
 n\rfloor + 4\)</span> () with no slack required. ◻</p>
 </div>
-<p>Lemma <a class="math-ref" href="#lem:sqrt-witness">lem:sqrt-witness</a>
+<p>Lemma <a class="math-ref" href="#lem:sqrt-witness">14</a>
 matters because it removes the last technical obstruction previously
 recorded against two of the sockets below — the mismatch between <span
 class="math inline" data-term-auto="off">\(\lfloor\sqrt{\cdot}\rfloor\)</span> and <span
@@ -603,7 +603,7 @@ class="math inline" data-term-auto="off">\(\{0,\dots,M\}\)</span> at <span
 class="math inline" data-term-auto="off">\(M = k^2\)</span>, using and <span
 class="math inline" data-term-auto="off">\(1 \notin A\)</span> (which holds since <span
 class="math inline" data-term-auto="off">\(x_1 = 1 &gt; 1/2\)</span>).</p>
-<div class="prop">
+<div class="prop" id="prop:collapsed-list">
 <p><strong>Proposition 15</strong> (The collapsed sockets; <span
 class="smallcaps">proved</span>, composite). <em> Each of the following
 is logically <em>equivalent</em> to <span class="math inline" data-term-auto="off">\(1/2 \in
@@ -620,7 +620,7 @@ endpoints;</em></p></li>
 classification chain.</em></p></li>
 </ol>
 <p><em>Forward directions are landed Lean (e.g. , , ). The reverse
-directions of (d) and (e) are derived here from Lemma <a class="math-ref" href="#lem:sqrt-witness">lem:sqrt-witness</a> and are
+directions of (d) and (e) are derived here from Lemma <a class="math-ref" href="#lem:sqrt-witness">14</a> and are
 <em>not</em> themselves landed Lean theorems.
 <code>coord:half-carry / exact-row</code> <span><span
 class="sans-serif">scale:cofinal</span></span> <span><span
@@ -662,7 +662,7 @@ that intermediate scale.</p>
 <p><strong>Class (a): fixed precision or bounded state.</strong> Three
 landed theorems, all problem-agnostic — they mention no Mersenne
 structure and bind #249 identically.</p>
-<div class="prop">
+<div class="prop" id="prop:local-void">
 <p><strong>Proposition 16</strong> (Local information is void; <span
 class="smallcaps">proved</span>). <em> (i) After <span
 class="math inline" data-term-auto="off">\(L\)</span> common steps the endpoint residue mod
@@ -693,7 +693,7 @@ identity for <em>any</em> digit stream whatsoever. It is a tautology of
 the recursion shape; it forbids no residue and no run. <span><span
 class="sans-serif">[Math]</span></span></p>
 <p><strong>Class (b): global averages and Diophantine data.</strong></p>
-<div class="prop">
+<div class="prop" id="prop:exponent-gap">
 <p><strong>Proposition 17</strong> (Weighted denominator budget; <span
 class="smallcaps">proved</span>). <em> For the denominator <span
 class="math inline" data-term-auto="off">\(D_n\)</span> of the skip-set rational, <span
@@ -741,7 +741,7 @@ labelled as such wherever it is used below.</p>
 <section id="bar:asym" class="level3">
 <h3>Barrier 4: decision asymmetry — the certificates point the wrong
 way</h3>
-<div class="thm">
+<div class="thm" id="thm:one-sided">
 <p><strong>Theorem 19</strong> (One-sidedness; <span
 class="smallcaps">proved</span>). <em> <span class="math inline" data-term-auto="off">\(1/2
 \notin \mathcal{A}\)</span> is <span
@@ -770,7 +770,7 @@ class="math inline" data-term-auto="off">\(0\)</span>, by ), whereas the absence
 certificate at any depth <span class="math inline" data-term-auto="off">\(D\)</span> is
 compatible with a certificate at depth <span
 class="math inline" data-term-auto="off">\(D+1\)</span> and therefore proves nothing.
-Membership asserts survival at <em>every</em> rank (Theorem <a class="math-ref" href="#thm:greedy-survival">thm:greedy-survival</a>), an infinite
+Membership asserts survival at <em>every</em> rank (Theorem <a class="math-ref" href="#thm:greedy-survival">7</a>), an infinite
 conjunction with no finite sub-conjunction implying it. ◻</p>
 </div>
 <p><strong>Finite search versus infinite survival.</strong> Survival
@@ -792,10 +792,10 @@ toward a membership proof.</p>
 </section>
 <section id="bar:measure" class="level3">
 <h3>Barrier 5: measure and category point in opposite directions</h3>
-<div class="prop">
+<div class="prop" id="prop:soft">
 <p><strong>Proposition 20</strong> (Achievement-set geometry does not
 decide rational-target membership). <em> The achievement set has
-positive measure and is nowhere dense (Theorem <a class="math-ref" href="#thm:geometry">thm:geometry</a>). Neither fact alone
+positive measure and is nowhere dense (Theorem <a class="math-ref" href="#thm:geometry">4</a>). Neither fact alone
 decides membership of a specified rational. Injectivity fixes the
 support of an achievable value, but it does not exclude averaging over
 indices, shifts, residues, observation scales or auxiliary
@@ -806,7 +806,7 @@ probabilistic, measure-theoretic or averaging methods is claimed.
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Math]</span></span></em></p>
 </div>
-<p>The geometry itself is Lean-checked in Theorem <a class="math-ref" href="#thm:geometry">thm:geometry</a>: <span
+<p>The geometry itself is Lean-checked in Theorem <a class="math-ref" href="#thm:geometry">4</a>: <span
 class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> has Lebesgue measure exactly
 <span class="math inline" data-term-auto="off">\(1\)</span> inside an ambient span of <span
 class="math inline" data-term-auto="off">\(E \approx 1.6067\)</span>, a relative density of
@@ -828,7 +828,7 @@ class="sans-serif">[Cert]</span></span></p>
 </section>
 <section id="bar:box" class="level3">
 <h3>Barrier 6: the two-axis certificate box (universal direction)</h3>
-<div class="obs">
+<div class="obs" id="obs:box">
 <p><em>Observation 21</em> (The box; <span class="smallcaps">observed
 pattern</span>). Every landed unconditional theorem in the table of
 §<a class="math-ref" href="#sec:257-problem">2</a> requires the
@@ -938,7 +938,7 @@ than equivalent. It is a quantitative bound at every reset row, while
 it can be false while the goal is true. There is no implication <span
 class="math inline" data-term-auto="off">\(1/2 \in \mathcal{A} \Rightarrow \sqrt{\
 }\)</span>-escape anywhere in the corpus, and by the shape of the two
-statements there cannot be. Proposition <a class="math-ref" href="#prop:collapse">prop:collapse</a>’s mechanism needs a
+statements there cannot be. Proposition <a class="math-ref" href="#prop:collapse">13</a>’s mechanism needs a
 strip hypothesis of width <span class="math inline" data-term-auto="off">\(O(\sqrt
 N)\)</span> around the half-carry; this route asserts a lower bound on a
 deviation, which the collapse identity does not manufacture.</p>
@@ -993,7 +993,7 @@ value, infinitely often;</p></li>
 function of the incoming endpoint <span
 class="math inline" data-term-auto="off">\(n\)</span>.</p></li>
 </ol>
-<p>By Proposition <a class="math-ref" href="#prop:canon">prop:canon</a>(ii), form (a) need only
+<p>By Proposition <a class="math-ref" href="#prop:canon">10</a>(ii), form (a) need only
 be checked along the <em>one</em> canonical orbit
 <code>halfGreedyPrefixSupport</code>, not searched over <span
 class="math inline" data-term-auto="off">\(D\)</span>; and by the landed sharp-capacity
@@ -1013,7 +1013,7 @@ conditional strict progress ; unconditional recycling producer ; socket
 class="math inline" data-term-auto="off">\(\{2,3,6\}\)</span> at .</p>
 <p><strong>Why it evades Barrier <a class="math-ref" href="#bar:canon">3.2</a>.</strong> This is the
 single place where canonicalisation provably does <em>not</em> bite, and
-the reason is exact. Proposition <a class="math-ref" href="#prop:canon">prop:canon</a>(ii) requires both a
+the reason is exact. Proposition <a class="math-ref" href="#prop:canon">10</a>(ii) requires both a
 real-valued below-half condition <em>and</em> the deficit clause. The
 exact-row predicate <code>ExactLocalMersenneHalfRow</code> imposes
 neither: it asks only that a floor quotient hit <span
@@ -1026,7 +1026,7 @@ forced to be the greedy prefix. It is the only genuine degree of freedom
 left anywhere in the half-value branch.</p>
 <p><strong>Its relation to Barriers <a class="math-ref" href="#bar:collapse">3.3</a> and <a class="math-ref" href="#bar:asym">3.5</a>.</strong> The
 <em>cofinal</em> statement is still equivalent to the goal, by
-Proposition <a class="math-ref" href="#prop:collapsed-list">prop:collapsed-list</a>(c). But
+Proposition <a class="math-ref" href="#prop:collapsed-list">15</a>(c). But
 equivalence of truth value is not equivalence of proof difficulty when
 the existential has an exponentially large witness space rather than a
 singleton. And decidability of
@@ -1073,9 +1073,9 @@ side: the <code>hbound</code> hypothesis of the two
 <code>CofinalExactLocalMersenneHalfRows</code>;
 <code>GreedyHalfCarryCofinalStripReturn</code>;
 <code>HalfCarryCofinalTerminalOnlyStrip</code>. The forward directions
-are landed. Every reverse direction runs through Lemma <a class="math-ref" href="#lem:sqrt-witness">lem:sqrt-witness</a>, stated once,
+are landed. Every reverse direction runs through Lemma <a class="math-ref" href="#lem:sqrt-witness">14</a>, stated once,
 whose only inputs are , , , and the evaluation of the square root at a
-perfect square. The scope limit of Proposition <a class="math-ref" href="#prop:collapsed-list">prop:collapsed-list</a> must be stated
+perfect square. The scope limit of Proposition <a class="math-ref" href="#prop:collapsed-list">15</a> must be stated
 verbatim in the docstrings.</p>
 <p><strong>Why it is here.</strong> This route does not attempt the
 wall; it <em>measures</em> it, which is exactly what makes it bankable.
@@ -1170,7 +1170,7 @@ class="math inline" data-term-auto="off">\(J \le 22\)</span>, seam rows <span
 class="math inline" data-term-auto="off">\(\le 200{,}000\)</span>, ranks <span
 class="math inline" data-term-auto="off">\(\le 3000\)</span>, and macro depth <span
 class="math inline" data-term-auto="off">\(\le 13{,}548{,}057\)</span> — whereas the open
-obligations are cofinal. Theorem <a class="math-ref" href="#thm:one-sided">thm:one-sided</a> shows that extending
+obligations are cofinal. Theorem <a class="math-ref" href="#thm:one-sided">19</a> shows that extending
 a bounded range does not establish a cofinal statement. Coordinate tags
 are equally literal: an obstruction in <code>coord:half-carry</code>,
 <code>coord:seam-row</code>, or <code>coord:diophantine</code> does not
@@ -1206,7 +1206,7 @@ specific, named infinite-support families – which narrows but does not
 close the universal statement, since infinitely many other supports
 remain unchecked – or (ii) an attack on one specific, maximally
 symmetric candidate counterexample, described next.</p>
-<div class="defn">
+<div class="defn" id="defn:half-question">
 <p><strong>Definition 23</strong> (The distinguished half-value
 question). Define the <em>Mersenne achievement set</em> <span
 class="math inline" data-term-auto="off">\(\mathcal{A} := \{\,y \in \mathbb{R} : \exists A
@@ -1218,7 +1218,7 @@ class="math inline" data-term-auto="off">\(1/2 \in \mathcal{A}\)</span>?</strong
 <strong>OPEN</strong>. <span><span
 class="sans-serif">[Open]</span></span></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:half-controls-universal">
 <p><em>Observation 24</em> (Why the half-value question controls
 universal #257). Any finite subset sum of <span
 class="math inline" data-term-auto="off">\(\{x_n\}\)</span> has odd reduced denominator,
@@ -1247,7 +1247,7 @@ class="sans-serif">[Math]</span></span></p>
 <h3>What is proved</h3>
 <section id="full-support-irrationality-for-every-base" class="level4">
 <h4>Full-support irrationality, for every base</h4>
-<div class="thm">
+<div class="thm" id="thm:full-support">
 <p><strong>Theorem 25</strong> (Full-support irrationality,
 unconditional, every base <span class="math inline" data-term-auto="off">\(b \ge 2\)</span>).
 <em> For every integer <span class="math inline" data-term-auto="off">\(b \ge 2\)</span>,
@@ -1362,7 +1362,7 @@ class="math inline" data-term-auto="off">\(m=2,c=1\)</span>).</em></p>
 class="math inline" data-term-auto="off">\(A\)</span> of the shape produced by a candidate
 half-value witness (the greedy support for <span
 class="math inline" data-term-auto="off">\(1/2\)</span>, described in §<a class="math-ref" href="#ssec:greedy-orbit">6.3</a>, is not
-eventually periodic in any landed sense) – so Theorem <a class="math-ref" href="#thm:full-support">thm:full-support</a> and its
+eventually periodic in any landed sense) – so Theorem <a class="math-ref" href="#thm:full-support">25</a> and its
 periodic-family corollaries neither prove nor disprove <span
 class="math inline" data-term-auto="off">\(1/2 \in \mathcal{A}\)</span>; they exhaust only
 the structured-support corner of universal #257’s infinite search
@@ -1371,9 +1371,9 @@ space.</p>
 <section id="topology-and-measure-of-the-achievement-set"
 class="level4">
 <h4>Topology and measure of the achievement set</h4>
-<div class="thm">
+<div class="thm" id="thm:topology">
 <p><strong>Theorem 30</strong> (Achievement-set topology and measure).
-<em> <span class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> (Definition <a class="math-ref" href="#defn:half-question">defn:half-question</a>) is compact,
+<em> <span class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> (Definition <a class="math-ref" href="#defn:half-question">23</a>) is compact,
 closed, perfect, totally disconnected, and nowhere dense; its Lebesgue
 measure is exactly <span class="math inline" data-term-auto="off">\(1\)</span>: <span
 class="math inline" data-term-auto="off">\(\operatorname{volume}(\mathcal{A}) = 1\)</span>.
@@ -1395,12 +1395,12 @@ class="math inline" data-term-auto="off">\(R_N=\sum_{n&gt;N}x_n\)</span>, the le
 class="math inline" data-term-auto="off">\(N\)</span> cylinder length is <span
 class="math inline" data-term-auto="off">\(2^N R_N\to1\)</span>. Other weight sequences
 require their own tail asymptotic.<br />
-<strong>Chains with:</strong> Theorem <a class="math-ref" href="#thm:greedy-survival-record">thm:greedy-survival-record</a> below
+<strong>Chains with:</strong> Theorem <a class="math-ref" href="#thm:greedy-survival-record">31</a> below
 (compactness is exactly what powers every “limit of achieved points is
 achieved” argument used downstream, including the seam-limit route of
 Part 2).</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:greedy-survival-record">
 <p><strong>Theorem 31</strong> (Membership equals greedy survival at
 every level). <em> <span class="math inline" data-term-auto="off">\(x \in \mathcal{A} \iff 0
 \le x \wedge \forall n,\ \rho(x,n) \le T_{n+1}\)</span>, where <span
@@ -1430,8 +1430,8 @@ representation of <span class="math inline" data-term-auto="off">\(1/2\)</span> 
 summands; the half-target discussion starts at exponent two. (The
 reciprocal formula is undefined only at exponent zero.) The greedy orbit
 is the unique deterministic process forced by superincreasingness
-(Theorem <a class="math-ref" href="#thm:greedy-survival-record">thm:greedy-survival-record</a>):</p>
-<div class="defn">
+(Theorem <a class="math-ref" href="#thm:greedy-survival-record">31</a>):</p>
+<div class="defn" id="defn:greedy-orbit">
 <p><strong>Definition 32</strong> (The half-value greedy orbit). Let
 <span class="math inline" data-term-auto="off">\(\rho_1 := 1/2\)</span> (the residual
 entering rank <span class="math inline" data-term-auto="off">\(2\)</span>). At rank <span
@@ -1455,23 +1455,23 @@ tail to ever reach, yet too small to have been taken at <span
 class="math inline" data-term-auto="off">\(k\)</span> – an impossible gap).</p></li>
 </ul>
 </div>
-<p>By Theorem <a class="math-ref" href="#thm:greedy-survival-record">thm:greedy-survival-record</a>, <span
+<p>By Theorem <a class="math-ref" href="#thm:greedy-survival-record">31</a>, <span
 class="math inline" data-term-auto="off">\(1/2 \in \mathcal{A}\)</span> iff no rank of this
 orbit is ever fatal. Two boundary degeneracies are excluded
 unconditionally and independently of any open hypothesis:</p>
-<div class="rem">
+<div class="rem" id="rem:no-ties">
 <p><em>Remark 33</em> (No-ties: both greedy-orbit boundaries are
 strict). (a) <span class="math inline" data-term-auto="off">\(\rho_k \ne x_k\)</span> at any
 rank: a finite Mersenne sum has odd reduced denominator (each <span
 class="math inline" data-term-auto="off">\(2^n-1\)</span> is odd), so no finite prefix mass
 can equal <span class="math inline" data-term-auto="off">\(x_k\)</span> exactly, sharpening
-the general denominator-parity fact used in Observation <a class="math-ref" href="#obs:half-controls-universal">obs:half-controls-universal</a>. (b)
+the general denominator-parity fact used in Observation <a class="math-ref" href="#obs:half-controls-universal">24</a>. (b)
 <span class="math inline" data-term-auto="off">\(\rho_k \ne T_{k+1}\)</span> at any rank: the
 tail <span class="math inline" data-term-auto="off">\(T_{k+1} = E - 1 - \sum_{2 \le j \le k}
 x_j\)</span>, where <span class="math inline" data-term-auto="off">\(E := \sum_{n\ge1}
 x_n\)</span> is the Erdős–Borwein constant, is irrational by Erdős’s own
 1948 theorem (the base-<span class="math inline" data-term-auto="off">\(2\)</span> case of
-Theorem <a class="math-ref" href="#thm:full-support">thm:full-support</a>),
+Theorem <a class="math-ref" href="#thm:full-support">25</a>),
 while <span class="math inline" data-term-auto="off">\(\rho_k\)</span> is always rational;
 equality is impossible. <strong>Conclusion:</strong> both greedy-orbit
 boundaries are provably strict at every rank, so the orbit’s decisions
@@ -1484,7 +1484,7 @@ class="sans-serif">[Math]</span></span></p>
 <section id="ssec:seam-model" class="level3">
 <h3>The seam model and the master identity</h3>
 <p>The seam model is a base-<span class="math inline" data-term-auto="off">\(4\)</span>
-rescaled integer reformulation of Definition <a class="math-ref" href="#defn:greedy-orbit">defn:greedy-orbit</a>, built so that
+rescaled integer reformulation of Definition <a class="math-ref" href="#defn:greedy-orbit">32</a>, built so that
 every quantity involved is an exact natural number (no real-number or
 limiting arithmetic). Fix a row <span class="math inline" data-term-auto="off">\(n \ge
 6\)</span>. The seam weights at row <span
@@ -1496,7 +1496,7 @@ class="math inline" data-term-auto="off">\(n\)</span> are</p>
 class="math inline" data-term-auto="off">\(T_n := 2^{2n-1} - 2^n\)</span>. The seam greedy
 process takes ranks <span class="math inline" data-term-auto="off">\(d = 2,\dots,n-1\)</span>
 in ascending order against <span class="math inline" data-term-auto="off">\(T_n\)</span>
-exactly as in Definition <a class="math-ref" href="#defn:greedy-orbit">defn:greedy-orbit</a>, producing a take
+exactly as in Definition <a class="math-ref" href="#defn:greedy-orbit">32</a>, producing a take
 set <span class="math inline" data-term-auto="off">\(D_n \subseteq \{2,\dots,n-1\}\)</span>
 and skip set <span class="math inline" data-term-auto="off">\(\mathrm{Skip}_n :=
 \{2,\dots,n-1\} \mathbin{\backslash} D_n\)</span>. Define the <em>seam
@@ -1521,7 +1521,7 @@ count of proper divisors of <span class="math inline" data-term-auto="off">\(M+1
 class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Cert]</span></span></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:master-identity">
 <p><strong>Theorem 35</strong> (Master seam identity). <em> For every
 seam row <span class="math inline" data-term-auto="off">\(n \ge 6\)</span>, </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -1578,7 +1578,7 @@ composes directly through (I).</em></p>
 <section id="the-real-form-and-the-master-identitys-analytic-reading"
 class="level3">
 <h3>The real form and the master identity’s analytic reading</h3>
-<div class="thm">
+<div class="thm" id="thm:real-form">
 <p><strong>Theorem 36</strong> (Real (non-integer) form of the master
 identity). <em> Let <span class="math inline" data-term-auto="off">\(x_d :=
 1/(2^d-1)\)</span> and define the constant </em></p>
@@ -1595,7 +1595,7 @@ class="math display" data-term-auto="off">\[\begin{equation*}
 |\eta_n| &lt; 2n+2.
 \tag{II}
 \end{equation*}\]</span></div>
-<p><em> <strong>Hypotheses:</strong> as Theorem <a class="math-ref" href="#thm:master-identity">thm:master-identity</a>.
+<p><em> <strong>Hypotheses:</strong> as Theorem <a class="math-ref" href="#thm:master-identity">35</a>.
 <strong>Conclusion:</strong> escaping the wall (making <span
 class="math inline" data-term-auto="off">\(\Delta_n\)</span> large, at scale <span
 class="math inline" data-term-auto="off">\(2^{(n+5)/2}\)</span> or beyond – the exact target
@@ -1623,7 +1623,7 @@ side.</em></p>
 </section>
 <section id="dynamics" class="level3">
 <h3>Dynamics</h3>
-<div class="thm">
+<div class="thm" id="thm:dynamics">
 <p><strong>Theorem 37</strong> (Deviation dynamics and the R/M/U branch
 structure). <em> Let <span class="math inline" data-term-auto="off">\(\lambda_n := \Delta_n /
 2^n\)</span>. Then </em></p>
@@ -1635,7 +1635,7 @@ e_n &amp;\in \{0,+1,-1\}\quad\text{for branches R/M/U respectively},\\
 \end{aligned}
 \tag{III}
 \end{equation*}\]</span></div>
-<p><em> <strong>Hypotheses:</strong> as Theorem <a class="math-ref" href="#thm:master-identity">thm:master-identity</a>.
+<p><em> <strong>Hypotheses:</strong> as Theorem <a class="math-ref" href="#thm:master-identity">35</a>.
 <strong>Conclusion:</strong> the deviation dynamics is a doubling map on
 <span class="math inline" data-term-auto="off">\(\lambda_n\)</span> with a forced signed
 digit <span class="math inline" data-term-auto="off">\(e_n\)</span> (recording which of three
@@ -1676,7 +1676,7 @@ record).</em></p>
 orbit of §<a class="math-ref" href="#ssec:seam-model">6.4</a>–§<a class="math-ref" href="#ssec:seam-model">6.4</a>, stated literally
 so they can be used as regression fixtures without re-running any
 computation.</p>
-<div class="obs">
+<div class="obs" id="obs:anchors-low">
 <p><em>Observation 38</em> (Exact low-row values). At row <span
 class="math inline" data-term-auto="off">\(n=14\)</span>: <span
 class="math inline" data-term-auto="off">\(\mathrm{rem}(14) = 392\)</span>, with take set
@@ -1699,9 +1699,9 @@ class="math inline" data-term-auto="off">\(13\)</span>–<span
 class="math inline" data-term-auto="off">\(31\)</span> by ‘decide‘-checked kernel computation
 and finds none violating the dyadic band-escape condition.</p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:anchors-depth">
 <p><em>Observation 39</em> (Certified computation depth, all four
-coordinates). The master identity (Theorem <a class="math-ref" href="#thm:master-identity">thm:master-identity</a>) is verified
+coordinates). The master identity (Theorem <a class="math-ref" href="#thm:master-identity">35</a>) is verified
 rows <span class="math inline" data-term-auto="off">\(6 \le n \le 200\)</span> with zero
 mismatches, independently reproduced by two subagents, and the seam
 orbit itself is extended and certified to row <span
@@ -1717,15 +1717,15 @@ class="math inline" data-term-auto="off">\(r=7\)</span>).
 <span><span class="sans-serif">scale:fixed</span></span> <span><span
 class="sans-serif">[Cert]</span></span></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:anchors-coords">
 <p><em>Observation 40</em> (The four coordinate depths, side by side).
-Definition <a class="math-ref" href="#defn:greedy-orbit">defn:greedy-orbit</a>’s single orbit is
+Definition <a class="math-ref" href="#defn:greedy-orbit">32</a>’s single orbit is
 independently certified in four distinct integerizations, to the
 following depths: truncation rung <span class="math inline" data-term-auto="off">\(J =
 3,\dots,22\)</span> (all <span class="math inline" data-term-auto="off">\(20\)</span> rungs
 proved to survive, not merely computed – Part 3 of the truncation-rung
 record); seam row <span class="math inline" data-term-auto="off">\(6 \le n \le 2500\)</span>
-(Theorem <a class="math-ref" href="#thm:master-identity">thm:master-identity</a>/<a class="math-ref" href="#thm:dynamics">thm:dynamics</a>); integer margin scan
+(Theorem <a class="math-ref" href="#thm:master-identity">35</a>/<a class="math-ref" href="#thm:dynamics">37</a>); integer margin scan
 to <span class="math inline" data-term-auto="off">\(m_c = 5\times10^5\)</span> (advisory
 Type B scan, not yet promoted to a certified theorem); sharp tail
 margin, ranks <span class="math inline" data-term-auto="off">\(2\)</span> through <span
@@ -1778,7 +1778,7 @@ class="math inline" data-term-auto="off">\(&lt;\)</span> uniform <span
 class="math inline" data-term-auto="off">\(&lt;\)</span> n/a.</p>
 <section id="open-hypotheses-and-candidate-inputs" class="level3">
 <h3>Open hypotheses and candidate inputs</h3>
-<div class="thm">
+<div class="thm" id="thm:fatal-absorbing">
 <p><strong>Theorem 41</strong> (Cofinal skip forces half-membership).
 <em> Fatality is absorbing for the greedy Mersenne recursion at target
 <span class="math inline" data-term-auto="off">\(x\ge 0\)</span>: once
@@ -1793,7 +1793,7 @@ set.</em></p>
 class="sans-serif">scale:cofinal</span></span><code>coord:greedy-orbit</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:seam-limit">
 <p><strong>Theorem 42</strong> (Seam-limit convergence route to <span
 class="math inline" data-term-auto="off">\(1/2\)</span>). <em> Let <em>seamGreedyFiniteValue
 s</em> be the real point coded by the finite integer seam word at row
@@ -1810,7 +1810,7 @@ class="math inline" data-term-auto="off">\(1/2\)</span> is achieved.</em></p>
 class="sans-serif">scale:cofinal</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:two-channel-cap">
 <p><strong>Theorem 43</strong> (Two-channel and dyadic cap sufficiency).
 <em> If, at every rank <span class="math inline" data-term-auto="off">\(n\)</span> the greedy
 process for target <span class="math inline" data-term-auto="off">\(1/2\)</span> actually
@@ -1824,7 +1824,7 @@ ranks, not at every rank.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:two-channel-dyadic-cap</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:second-channel">
 <p><strong>Theorem 44</strong> (Second-channel phase separation
 sufficiency). <em> If the greedy second-channel phase
 (<em>greedyMersenneSecondChannelPhaseRat</em>) stays separated
@@ -1837,7 +1837,7 @@ class="math inline" data-term-auto="off">\(7\)</span> on.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:second-channel-phase</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:straddle-closed-set">
 <p><strong>Theorem 45</strong> (Straddle-prefix closed-set criterion).
 <em> If for every depth <span class="math inline" data-term-auto="off">\(d\)</span> there
 exists a finite word <span class="math inline" data-term-auto="off">\(u\)</span> (all
@@ -1852,7 +1852,7 @@ machinery.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:dedekind-cut</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:largest-skip-late">
 <p><strong>Theorem 46</strong> (Largest-skip-late induction:
 single-socket reduction). <em> Define <em>LargestSkipLateAt s</em> as
 “row <span class="math inline" data-term-auto="off">\(s\)</span>’s largest false rank <span
@@ -1876,7 +1876,7 @@ step.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:middle-producer-escape">
 <p><strong>Theorem 47</strong> (Middle-producer card/row escape
 sockets). <em> If, at every late middle-branch row, <span
 class="math inline" data-term-auto="off">\(\mathrm{card}(\mathrm{support})+\mathrm{belowPulse}+5
@@ -1892,7 +1892,7 @@ branch.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:middle-allright-defect">
 <p><strong>Theorem 48</strong> (Middle all-right tail forces strict
 defect). <em> If a middle transition at row <span
 class="math inline" data-term-auto="off">\(D\ge 13\)</span> (with <span
@@ -1902,12 +1902,12 @@ is strictly below its complete future incidence tail: equivalently
 <em>seamGreedyFloorZ D</em> <span class="math inline" data-term-auto="off">\(&lt;\)</span>
 <em>seamTakeThreshold D</em>, equivalently a strict rational-skip
 defect. This overconstrains the “last transition is middle, then forever
-right” scenario, feeding the final-middle-cell exclusion (Theorem <a class="math-ref" href="#thm:final-middle-cell">thm:final-middle-cell</a>).</em></p>
+right” scenario, feeding the final-middle-cell exclusion (Theorem <a class="math-ref" href="#thm:final-middle-cell">84</a>).</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:two-sided-dyadic">
 <p><strong>Theorem 49</strong> (Two-sided dyadic cell escape: global
 remainder control). <em> <em>SeamTwoSidedDyadicCellEscape</em> is a
 minimal local socket (it excludes exactly three exceptional middle cells
@@ -1923,7 +1923,7 @@ the seam orbit independent of which branch fires at each row.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:upper-reset-band">
 <p><strong>Theorem 50</strong> (Upper-reset dyadic-band escape, with
 rows <span class="math inline" data-term-auto="off">\(13\)</span>–<span
 class="math inline" data-term-auto="off">\(31\)</span> certified). <em>
@@ -1947,7 +1947,7 @@ sub-route.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:dyadic-boundary</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:mobius-centred-nonneg">
 <p><strong>Theorem 51</strong> (Möbius-centred carry nonnegativity below
 <span class="math inline" data-term-auto="off">\(1/2\)</span>). <em> For a support <span
 class="math inline" data-term-auto="off">\(A\)</span> with <span
@@ -1968,11 +1968,11 @@ for adaptation to #249.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:mobius-mersenne</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:sqrt-bound-route">
 <p><strong>Theorem 52</strong> (Square-root carry-growth route: current
 open numeric-analytic frontier). <em> Nonnegativity of the
 Möbius-centred carry of the actual canonical greedy support for <span
-class="math inline" data-term-auto="off">\(1/2\)</span> is unconditional (Theorem <a class="math-ref" href="#thm:mobius-centred-nonneg">thm:mobius-centred-nonneg</a> plus two
+class="math inline" data-term-auto="off">\(1/2\)</span> is unconditional (Theorem <a class="math-ref" href="#thm:mobius-centred-nonneg">51</a> plus two
 supporting lemmas). <em>If in addition</em> the pointwise upper bound
 <span
 class="math inline" data-term-auto="off">\(\mathrm{mobiusCenteredHalfCarry}(\mathrm{greedySupport}(1/2))\,N\le
@@ -1980,8 +1980,8 @@ class="math inline" data-term-auto="off">\(\mathrm{mobiusCenteredHalfCarry}(\mat
 class="math inline" data-term-auto="off">\(N\)</span>, then the greedy skipped support is
 infinite and the greedy value equals exactly <span
 class="math inline" data-term-auto="off">\(1/2\)</span>. Only the upper bound remains open; a
-distinct socket from the dyadic-band (Theorem <a class="math-ref" href="#thm:upper-reset-band">thm:upper-reset-band</a>) and
-largest-skip-late (Theorem <a class="math-ref" href="#thm:largest-skip-late">thm:largest-skip-late</a>) routes. A
+distinct socket from the dyadic-band (Theorem <a class="math-ref" href="#thm:upper-reset-band">50</a>) and
+largest-skip-late (Theorem <a class="math-ref" href="#thm:largest-skip-late">46</a>) routes. A
 separate project-memory note records a <em>different</em> sqrt-escape
 wall on the unconditional (<span class="math inline" data-term-auto="off">\(\forall\)</span>
 infinite <span class="math inline" data-term-auto="off">\(A\)</span>) #257 track; whether
@@ -1991,7 +1991,7 @@ connection as <code>hypothesis</code>, not established.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:greedy-orbit</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:frozen-margin">
 <p><strong>Theorem 53</strong> (Governed frozen-margin producer family:
 three graded sockets). <em> Three open sufficient hypotheses, strongest
 to weakest, all funnel into <span
@@ -2011,7 +2011,7 @@ strictly sufficient for (i) but not equivalent.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:full-support-catalogue">
 <p><strong>Theorem 54</strong> (Erdős–Borwein full-support
 irrationality, unconditional). <em> For every base <span
 class="math inline" data-term-auto="off">\(b\ge 2\)</span>: <span
@@ -2024,7 +2024,7 @@ theorem in this catalogue is measured against.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:mobius-mersenne</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:pairwise-coprime">
 <p><strong>Theorem 55</strong> (Pairwise-coprime support irrationality,
 Erdős 1968). <em> For every base <span class="math inline" data-term-auto="off">\(b\ge
 2\)</span> and every infinite pairwise-coprime support <span
@@ -2035,7 +2035,7 @@ reciprocals, <span class="math inline" data-term-auto="off">\(\sum_{a\in A}
 class="sans-serif">scale:uniform</span></span><code>coord:mobius-mersenne</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:weighted-coeff-engine">
 <p><strong>Theorem 56</strong> (Generic weighted-coefficient
 block-certificate engine). <em> For base <span
 class="math inline" data-term-auto="off">\(b\ge 2\)</span> and coefficient <span
@@ -2048,7 +2048,7 @@ block-divisibility, bounded middle window, far-tail positivity, height
 inequality <span class="math inline" data-term-auto="off">\(q(C+N+L+2)&lt;b^L\)</span>), then
 <span class="math inline" data-term-auto="off">\(\sum&#39;_m c(m{+}1)/b^{m+1}\)</span> is
 irrational. This is the single engine both the full-support theorem
-(Theorem <a class="math-ref" href="#thm:full-support-catalogue">thm:full-support-catalogue</a>, via
+(Theorem <a class="math-ref" href="#thm:full-support-catalogue">54</a>, via
 <span class="math inline" data-term-auto="off">\(c=\tau\)</span>, the divisor-count function)
 and the #249 sockets (<span class="math inline" data-term-auto="off">\(c=\varphi\)</span>)
 instantiate; certificate supply is proved for <span
@@ -2059,7 +2059,7 @@ where #257 full-support closes.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:binary-digit</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:lcm-gap-engine">
 <p><strong>Theorem 57</strong> (LCM-gap irrationality engine). <em> For
 base <span class="math inline" data-term-auto="off">\(b\ge 2\)</span> and strictly monotone
 support <span class="math inline" data-term-auto="off">\(a:\mathbb N\to\mathbb N\)</span>
@@ -2073,7 +2073,7 @@ sequence and any base; no Mersenne-specific content.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:lcm-gap</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:factorial-twopow-support">
 <p><strong>Theorem 58</strong> (Factorial-support and <span
 class="math inline" data-term-auto="off">\(2^k\)</span>-support instances). <em> For every
 <span class="math inline" data-term-auto="off">\(b\ge 2\)</span>: <span
@@ -2087,7 +2087,7 @@ class="math inline" data-term-auto="off">\(A\)</span>) remains open.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:lcm-gap</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:multiples-support">
 <p><strong>Theorem 59</strong> (Multiples-support irrationality via
 dilation). <em> For every <span class="math inline" data-term-auto="off">\(b\ge 2\)</span>,
 <span class="math inline" data-term-auto="off">\(d\ge 1\)</span>: <span
@@ -2097,12 +2097,12 @@ class="math inline" data-term-auto="off">\(\mathrm{erdosSupportSeries}\,b\,\{n:d
 \sum&#39;_k
 1/((b^d)^{k+1}-1)\)</span> — dilation to base <span
 class="math inline" data-term-auto="off">\(b^d\)</span> full support, reducing directly to
-Theorem <a class="math-ref" href="#thm:full-support-catalogue">thm:full-support-catalogue</a>.</em></p>
+Theorem <a class="math-ref" href="#thm:full-support-catalogue">54</a>.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:dilation</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:periodic-support">
 <p><strong>Theorem 60</strong> (Periodic-support irrationality: the
 periodic divisor-orbit sieve). <em> For every <span
 class="math inline" data-term-auto="off">\(b\ge 2\)</span> and every <span
@@ -2126,7 +2126,7 @@ class="math inline" data-term-auto="off">\(b-1\to b\varphi(m)-1\)</span>.</em></
 class="sans-serif">scale:uniform</span></span><code>coord:periodic-sieve</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:eventually-periodic">
 <p><strong>Theorem 61</strong> (Eventually-periodic support
 irrationality). <em> For every <span class="math inline" data-term-auto="off">\(b\ge
 2\)</span>: an infinite support whose membership is <span
@@ -2138,7 +2138,7 @@ irrational.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:periodic-sieve</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:residue-odd">
 <p><strong>Theorem 62</strong> (Residue-class and odd-support
 irrationality). <em> For every <span class="math inline" data-term-auto="off">\(b\ge
 2\)</span>, modulus <span class="math inline" data-term-auto="off">\(m\ge 1\)</span>, residue
@@ -2154,7 +2154,7 @@ class="math inline" data-term-auto="off">\(1\)</span> to land.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:periodic-sieve</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:signed-periodic">
 <p><strong>Theorem 63</strong> (Signed periodic-weight dichotomy and its
 unconditional one-sided closures). <em> For base <span
 class="math inline" data-term-auto="off">\(b\ge 2\)</span> and any <span
@@ -2172,7 +2172,7 @@ unconditionally irrational.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:signed-divisor-calculus</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:mersenne-channel-survival">
 <p><strong>Theorem 64</strong> (Mersenne-channel denominator survival,
 T4). <em> For a finite family <span class="math inline" data-term-auto="off">\(P\)</span> of
 “upper-half” primes (each <span class="math inline" data-term-auto="off">\(p\)</span> with
@@ -2188,12 +2188,12 @@ class="math inline" data-term-auto="off">\(C/\gcd(C,h)\mid
 scale <span class="math inline" data-term-auto="off">\(h\)</span> (or, weaker, when every
 prime factor of <span class="math inline" data-term-auto="off">\(h\)</span> is <span
 class="math inline" data-term-auto="off">\(\le t\)</span>). This is the load-bearing
-quantitative step behind Theorem <a class="math-ref" href="#thm:full-support-catalogue">thm:full-support-catalogue</a>.</em></p>
+quantitative step behind Theorem <a class="math-ref" href="#thm:full-support-catalogue">54</a>.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:cyclotomic</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:mersenne-channel-growth">
 <p><strong>Theorem 65</strong> (Mersenne-channel exponential denominator
 growth). <em> Via Bertrand’s postulate, at every scale <span
 class="math inline" data-term-auto="off">\(t\ge 5\)</span> there is an upper-half prime <span
@@ -2211,7 +2211,7 @@ class="sans-serif">scale:uniform</span></span><code>coord:cyclotomic</code>
 </section>
 <section id="exact-identities-and-reductions" class="level3">
 <h3>Exact identities and reductions</h3>
-<div class="obs">
+<div class="obs" id="obs:half-regression">
 <p><em>Observation 66</em> (Half-greedy regression fixtures: exact
 rational checkpoints). Three closed numeric facts,
 <code>norm_num</code>/<code>decide</code>-checked: <span
@@ -2225,7 +2225,7 @@ new automated fatal-gap search at small depth.</p>
 class="sans-serif">scale:fixed</span></span><code>coord:regression-fixture</code>
 </p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:period-four-obstruction">
 <p><em>Observation 67</em> (Period-4 sign weight vanishes on a residue
 class). The explicit period-<span class="math inline" data-term-auto="off">\(4\)</span> sign
 pattern <span class="math inline" data-term-auto="off">\(1,0,-1,0\)</span>
@@ -2234,7 +2234,7 @@ class="math inline" data-term-auto="off">\(\mathrm{intWeightedCoeff}\,w\,n = 0\)
 identically for every <span class="math inline" data-term-auto="off">\(n\equiv 3\pmod
 4\)</span>, via the divisor-involution <span
 class="math inline" data-term-auto="off">\(d\mapsto n/d\)</span>. This is exactly why the
-general signed-periodic case (Theorem <a class="math-ref" href="#thm:signed-periodic">thm:signed-periodic</a>) only reaches a
+general signed-periodic case (Theorem <a class="math-ref" href="#thm:signed-periodic">63</a>) only reaches a
 dichotomy rather than an unconditional theorem: no residue-blind
 selection can force a nonzero protected residue for every periodic
 signed weight.</p>
@@ -2242,7 +2242,7 @@ signed weight.</p>
 class="sans-serif">scale:fixed</span></span><code>coord:signed-divisor-calculus</code>
 </p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:mobius-lambert-identity">
 <p><strong>Theorem 68</strong> (Möbius–Mersenne Lambert identity). <em>
 <span class="math inline" data-term-auto="off">\(\sum&#39;_{d:\mathbb N^+} \mu(d)/(2^d-1) =
 1/2\)</span> exactly (imported as
@@ -2255,7 +2255,7 @@ class="math inline" data-term-auto="off">\(1/2\)</span>.</em></p>
 class="sans-serif">scale:fixed</span></span><code>coord:mobius-mersenne</code>
 </em></p>
 </div>
-<div class="cor">
+<div class="cor" id="cor:negative-mobius-overshoot">
 <p><strong>Corollary 69</strong> (Negative-Möbius Boolean support
 overshoots <span class="math inline" data-term-auto="off">\(1/2\)</span>). <em> Consequently
 the negative-Möbius Boolean support <span class="math inline" data-term-auto="off">\(N=\{d\ge
@@ -2273,7 +2273,7 @@ exactly <span class="math inline" data-term-auto="off">\(1/2\)</span>.</em></p>
 class="sans-serif">scale:fixed</span></span><code>coord:mobius-mersenne</code>
 </em></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:skip-block-non-invariant">
 <p><em>Observation 70</em> (Skip-block invariant failure: two explicit
 fixtures). Two explicit witness states show “safe bracket <span
 class="math inline" data-term-auto="off">\(+\)</span> numerator monotone” is <em>not</em> an
@@ -2287,7 +2287,7 @@ properties.</p>
 class="sans-serif">scale:fixed</span></span><code>coord:seam-integer</code>
 </p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:half-skip-dichotomy">
 <p><strong>Theorem 71</strong> (The half-skip dichotomy via
 Erdős–Borwein irrationality). <em> Write <span
 class="math inline" data-term-auto="off">\(K\)</span> for the Mersenne achievement set and
@@ -2309,7 +2309,7 @@ one exists.</em></p>
 class="sans-serif">scale:cofinal</span></span><code>coord:greedy-orbit</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:nine-way-hub">
 <p><strong>Theorem 72</strong> (The nine-way half-membership
 classification hub). <em> <span
 class="math inline" data-term-auto="off">\(1/2\in\mathrm{mersenneAchievementSet}\)</span> is
@@ -2321,8 +2321,8 @@ bits beyond every bound); (3) <em>SeamGreedyUnboundedUpperOrMiddle</em>
 <em>SeamGreedyCofinalTerminalFalse</em> (one cofinal sequence of false
 terminals); (5) <span class="math inline" data-term-auto="off">\(\exists\,\mathrm{rows},\,
 \mathrm{SeamGreedyUnboundedSkippedRanksAlong}\,\mathrm{rows}\)</span>;
-(6) the greedy skipped support is infinite (Theorem <a class="math-ref" href="#thm:half-skip-dichotomy">thm:half-skip-dichotomy</a>); (7) no
-last half-greedy skip exists (Theorem <a class="math-ref" href="#thm:last-skip-iff-fatal">thm:last-skip-iff-fatal</a>). The
+(6) the greedy skipped support is infinite (Theorem <a class="math-ref" href="#thm:half-skip-dichotomy">71</a>); (7) no
+last half-greedy skip exists (Theorem <a class="math-ref" href="#thm:last-skip-iff-fatal">80</a>). The
 central hub of the whole half-branch: every sufficient-condition theorem
 elsewhere in this catalogue is secretly proving one of these seven
 equivalent forms; a disproof of any one (a bounded/eventually-right
@@ -2331,7 +2331,7 @@ certificate) closes the branch.</em></p>
 class="sans-serif">scale:cofinal</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:eventually-right-impossible">
 <p><strong>Lemma 73</strong> (Eventually-right seam tail is analytically
 impossible for <span class="math inline" data-term-auto="off">\(1/2\)</span>). <em> If the
 seam eventually always extends “true” (right branch) from some row <span
@@ -2345,12 +2345,12 @@ matching alternative “upper competitor” word gives a strict excess
 eventually-right tail can therefore never land exactly on <span
 class="math inline" data-term-auto="off">\(1/2\)</span> — it always undershoots or
 overshoots. The analytic engine behind the final-middle-cell exclusion
-(Theorem <a class="math-ref" href="#thm:final-middle-cell">thm:final-middle-cell</a>).</em></p>
+(Theorem <a class="math-ref" href="#thm:final-middle-cell">84</a>).</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:cofinal</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:mersenne-tail-weight">
 <p><strong>Lemma 74</strong> (Mersenne weight/tail: strict
 superincreasingness). <em> <span
 class="math inline" data-term-auto="off">\(\mathrm{mersenneWeight}\,n = 1/(2^n-1)\)</span>;
@@ -2373,7 +2373,7 @@ class="math inline" data-term-auto="off">\(\varphi(n)/2^n\)</span> series.</em><
 class="sans-serif">scale:uniform</span></span><code>coord:mobius-mersenne</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:greedy-survival-catalogue">
 <p><strong>Theorem 75</strong> (Greedy survival criterion — the master
 theorem). <em> <span
 class="math inline" data-term-auto="off">\(x\in\mathrm{mersenneAchievementSet} \iff 0\le x
@@ -2393,7 +2393,7 @@ catalogue.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:greedy-orbit</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:rank-step-trichotomy">
 <p><strong>Lemma 76</strong> (Rank-step trichotomy of the Dedekind cut).
 <em> From a depth-<span class="math inline" data-term-auto="off">\(d\)</span> straddle of
 target <span class="math inline" data-term-auto="off">\(t\)</span>, exactly one of: (a) still
@@ -2407,7 +2407,7 @@ class="math inline" data-term-auto="off">\((\mathrm{value}(u)+\mathrm{mersenneTa
 to <span class="math inline" data-term-auto="off">\(t=1/2\)</span>, branches (a) and (b) are
 proved mutually exclusive (<em>half_step_forced</em>), since both
 boundary equalities are impossible for <span
-class="math inline" data-term-auto="off">\(1/2\)</span> (Lemma <a class="math-ref" href="#lem:half-endpoint-kills">lem:half-endpoint-kills</a>). A pure
+class="math inline" data-term-auto="off">\(1/2\)</span> (Lemma <a class="math-ref" href="#lem:half-endpoint-kills">78</a>). A pure
 consequence of superincreasingness plus <span
 class="math inline" data-term-auto="off">\(\mathrm{mersenneTail}\,n =
 \mathrm{mersenneWeight}(n{+}1)+\mathrm{mersenneTail}(n{+}1)\)</span>.</em></p>
@@ -2415,7 +2415,7 @@ class="math inline" data-term-auto="off">\(\mathrm{mersenneTail}\,n =
 class="sans-serif">scale:uniform</span></span><code>coord:dedekind-cut</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:fatal-gap-exclusion">
 <p><strong>Lemma 77</strong> (Fatal-gap exclusion: kills every support,
 not just greedy). <em> Write <span class="math inline" data-term-auto="off">\(P_A(d)\)</span>
 for the rank-<span class="math inline" data-term-auto="off">\(d\)</span> prefix, <span
@@ -2436,7 +2436,7 @@ this lemma.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:dedekind-cut</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:half-endpoint-kills">
 <p><strong>Lemma 78</strong> (Half endpoint kills: no finite word hits
 <span class="math inline" data-term-auto="off">\(1/2\)</span> exactly). <em> No finite
 positive-support word has value exactly <span
@@ -2445,16 +2445,16 @@ class="math inline" data-term-auto="off">\(1/2\)</span>
 reduced denominator of the finite Erdős sum). No finite word plus a
 complete tail equals <span class="math inline" data-term-auto="off">\(1/2\)</span> either
 (<em>half_ne_coe_finset_add_mersenneTail</em>, via irrationality of the
-Erdős–Borwein constant, same mechanism as Theorem <a class="math-ref" href="#thm:half-skip-dichotomy">thm:half-skip-dichotomy</a>).
+Erdős–Borwein constant, same mechanism as Theorem <a class="math-ref" href="#thm:half-skip-dichotomy">71</a>).
 Discharges the two boundary branches of the rank-step trichotomy
-(Lemma <a class="math-ref" href="#lem:rank-step-trichotomy">lem:rank-step-trichotomy</a>), forcing
+(Lemma <a class="math-ref" href="#lem:rank-step-trichotomy">76</a>), forcing
 every macrostep to be a strict trichotomy with no equality
 case.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:parity-irrationality</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:straddle-agrees-greedy">
 <p><strong>Lemma 79</strong> (Straddle words are canonical: they agree
 with the greedy prefix). <em> Every half-straddling word agrees with the
 actual canonical greedy word through the same depth: <span
@@ -2464,14 +2464,14 @@ class="math inline" data-term-auto="off">\(\forall n\le d,\, n&gt;0,\; (n\in u
 class="math inline" data-term-auto="off">\(d\)</span> using the backward step
 <em>erase_top</em>. Straddle words are not an independent search tree —
 they are forced to <em>be</em> the greedy prefix. This is what lets the
-word-level fatal-gap exclusion (Lemma <a class="math-ref" href="#lem:fatal-gap-exclusion">lem:fatal-gap-exclusion</a>, valid for
+word-level fatal-gap exclusion (Lemma <a class="math-ref" href="#lem:fatal-gap-exclusion">77</a>, valid for
 any support) be applied specifically to rule out the actual greedy
 orbit’s half-representation.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:greedy-orbit</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:last-skip-iff-fatal">
 <p><strong>Theorem 80</strong> (Last-skip iff local fatality: a
 pointwise criterion). <em> Write <span class="math inline" data-term-auto="off">\(G\)</span>
 for the greedy skipped support, <span class="math inline" data-term-auto="off">\(R_M\)</span>
@@ -2491,7 +2491,7 @@ greedy-recursion fact.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:greedy-orbit</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:seam-upper-or-middle">
 <p><strong>Lemma 81</strong> (Seam upper-or-middle classification). <em>
 For row <span class="math inline" data-term-auto="off">\(s\ge 5\)</span>: the empirical
 “false successor terminal bit” event is exactly the arithmetic
@@ -2503,12 +2503,12 @@ class="math inline" data-term-auto="off">\(\mathrm{SeamGreedyUpperOrMiddleAt}\,s
 \mathrm{terminalWeight})\)</span>. The empirical U/M/R label at each
 seam row is removable in favor of pure arithmetic on
 <em>seamAdjacentCut</em>; the seam-arithmetic analogue of the rank-step
-trichotomy (Lemma <a class="math-ref" href="#lem:rank-step-trichotomy">lem:rank-step-trichotomy</a>).</em></p>
+trichotomy (Lemma <a class="math-ref" href="#lem:rank-step-trichotomy">76</a>).</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:largest-false-rank-algebra">
 <p><strong>Lemma 82</strong> (Largest-false-rank algebra: exact weight
 identity and branch propagation). <em> Exact identity linking the
 largest-false-rank’s lower vs. upper word weights: <span
@@ -2522,12 +2522,12 @@ upper/middle branches <em>reset</em> it to the new terminal rank <span
 class="math inline" data-term-auto="off">\(s\)</span>
 (<em>seamGreedyWord_succ_isLargestFalseRank_terminal_of_upperOrMiddle</em>).
 The exact bookkeeping consumed inside the largest-skip-late induction
-(Theorem <a class="math-ref" href="#thm:largest-skip-late">thm:largest-skip-late</a>).</em></p>
+(Theorem <a class="math-ref" href="#thm:largest-skip-late">46</a>).</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:critical-dyadic-band">
 <p><strong>Theorem 83</strong> (Critical dyadic-band index: a
 problem-agnostic quantifier collapse). <em>
 <em>CriticalDyadicBandIndex</em><span
@@ -2543,25 +2543,25 @@ collapses to checking exactly <em>one</em> critical index, reducing a
 check of <span class="math inline" data-term-auto="off">\(d{+}1\)</span> separate
 inequalities to one nearest-boundary check per row. Specialized to the
 seam reset charge (with <span class="math inline" data-term-auto="off">\(E\le
-2^{d+1}\)</span> automatically supplied by Theorem <a class="math-ref" href="#thm:two-sided-dyadic">thm:two-sided-dyadic</a>), the reduced
+2^{d+1}\)</span> automatically supplied by Theorem <a class="math-ref" href="#thm:two-sided-dyadic">49</a>), the reduced
 socket <em>SeamUpperResetCriticalBandEscape</em> is proved logically
-equivalent to Theorem <a class="math-ref" href="#thm:upper-reset-band">thm:upper-reset-band</a>’s
+equivalent to Theorem <a class="math-ref" href="#thm:upper-reset-band">50</a>’s
 band-avoidance hypothesis.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:dyadic-boundary</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:final-middle-cell">
 <p><strong>Theorem 84</strong> (Final-middle-cell <span
 class="math inline" data-term-auto="off">\(-3\)</span> excluded under an all-right tail).
 <em> Assume a middle transition is the last one and is followed by an
 all-right tail. Then the first of three exceptional final-middle integer
 cells (coordinate <span
 class="math inline" data-term-auto="off">\(4\cdot\mathrm{remainder}-\mathrm{belowPulse}-4=-3\)</span>)
-is impossible. Combines the analytic strict inequality of Lemma <a class="math-ref" href="#lem:eventually-right-impossible">lem:eventually-right-impossible</a>
+is impossible. Combines the analytic strict inequality of Lemma <a class="math-ref" href="#lem:eventually-right-impossible">73</a>
 with a two-step Möbius-carry recurrence forcing the centred carry to
 zero then strictly negative within two more coefficient rows,
-contradicting the nonnegativity of Theorem <a class="math-ref" href="#thm:mobius-centred-nonneg">thm:mobius-centred-nonneg</a>. One of
+contradicting the nonnegativity of Theorem <a class="math-ref" href="#thm:mobius-centred-nonneg">51</a>. One of
 three exceptional cells (<span class="math inline" data-term-auto="off">\(-3,-2,-1\)</span>);
 the companion file records the analogous <em>binaryCoeffTail</em>
 inequalities for cells <span class="math inline" data-term-auto="off">\(-2\)</span> and <span
@@ -2571,7 +2571,7 @@ final-middle producer.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:skipped-endpoint-trichotomy">
 <p><strong>Lemma 85</strong> (Skipped-endpoint trichotomy: frozen-margin
 sign classification). <em> At every genuinely skipped rank <span
 class="math inline" data-term-auto="off">\(s\ge 5\)</span>, the frozen margin <span
@@ -2586,13 +2586,13 @@ class="math inline" data-term-auto="off">\(=0\)</span>); positive (actual word <
 class="math inline" data-term-auto="off">\(=\)</span> the seam “above” word, margin <span
 class="math inline" data-term-auto="off">\(=\mathrm{overshoot}\)</span>). The zero cell is
 provably safe; only the negative cell needs excluding, and it is exactly
-the case-split that Theorem <a class="math-ref" href="#thm:final-middle-cell">thm:final-middle-cell</a>’s three
+the case-split that Theorem <a class="math-ref" href="#thm:final-middle-cell">84</a>’s three
 exceptional cells live inside.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:reverse-carry-word">
 <p><strong>Lemma 86</strong> (Reverse carry-word overlap spacing: zero
 Mersenne content). <em> A <em>ReverseCarryWord</em> is <span
 class="math inline" data-term-auto="off">\((\mathrm{coeff},\mathrm{bit},\mathrm{carry}:\mathbb
@@ -2614,7 +2614,7 @@ structure if given an analogous reverse-carry presentation.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:binary-digit</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:linear-channel-nogo">
 <p><strong>Lemma 87</strong> (Relation-invariant linear channels force a
 rank-one determinant collapse). <em> If a finite family of linear
 channels <span class="math inline" data-term-auto="off">\(\mathrm{channel}:\iota\to
@@ -2638,7 +2638,7 @@ obstruction at some higher rank” hopes in one shot.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:linear-algebra</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:two-thirds-band">
 <p><strong>Theorem 88</strong> (Two-thirds band: exact localisation of
 post-take skip-unsafety). <em> Writing a greedy residual as <span
 class="math inline" data-term-auto="off">\(\mathrm{rem}=1/R\)</span>: a skip at rank <span
@@ -2674,14 +2674,14 @@ avoids the band.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:rational-band</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:sharp-fatal-gap">
 <p><strong>Theorem 89</strong> (Sharp two-thirds fatal gap: the
 true-tail-safe criterion). <em> For a skipped residual <span
 class="math inline" data-term-auto="off">\(\rho=u/(2L)\)</span> at rank <span
 class="math inline" data-term-auto="off">\(k\)</span>, writing the skip margin as <span
 class="math inline" data-term-auto="off">\(2^k u+a=2L+u\)</span> (so <span
 class="math inline" data-term-auto="off">\(0&lt;a\Leftrightarrow\)</span> skip): the dyadic
-safety test (Theorem <a class="math-ref" href="#thm:two-thirds-band">thm:two-thirds-band</a>) is <span
+safety test (Theorem <a class="math-ref" href="#thm:two-thirds-band">88</a>) is <span
 class="math inline" data-term-auto="off">\(u\le a\)</span>, but the <em>true</em> tail-based
 safety test only needs <span class="math inline" data-term-auto="off">\(2u\le 3a\)</span>,
 proved via the explicit three-channel Lambert lower bound <span
@@ -2708,7 +2708,7 @@ half-membership track is unverified — flag as
 class="sans-serif">scale:uniform</span></span><code>coord:mobius-mersenne</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:gap-mass-summability">
 <p><strong>Lemma 90</strong> (Total gap-mass summability beyond any
 level). <em> <span class="math inline" data-term-auto="off">\(\mathrm{mersenneGap}\,n :=
 \mathrm{mersenneWeight}\,n-\mathrm{mersenneTail}\,n&gt;0\)</span>. The
@@ -2726,7 +2726,7 @@ class="math inline" data-term-auto="off">\(1/2\)</span> directly.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:mobius-mersenne</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:half-divisor-unit-drop">
 <p><strong>Lemma 91</strong> (Half-divisor unit drop: smallest
 single-bit coefficient producer). <em> Let <span
 class="math inline" data-term-auto="off">\(C_a(m)\)</span> denote the support coefficient of
@@ -2748,7 +2748,7 @@ including #249’s own divisor sums.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:divisor-incidence</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:tempered-orbit-rigidity">
 <p><strong>Theorem 92</strong> (Tempered-orbit rigidity: the shared
 #249/#257 trunk). <em> For any nonnegative-integer coefficient sequence
 <span class="math inline" data-term-auto="off">\(c:\mathbb N\to\mathbb N\)</span> with <span
@@ -2780,7 +2780,7 @@ instances with no adaptation needed.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:binary-digit</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:tail-transfer">
 <p><strong>Lemma 93</strong> (Finite symmetric-difference tail-transfer
 of irrationality). <em> If <span
 class="math inline" data-term-auto="off">\(\mathrm{erdosSupportSeries}\,b\,A\)</span> is
@@ -2790,12 +2790,12 @@ class="math inline" data-term-auto="off">\(\mathrm{erdosSupportSeries}\,b\,B\)</
 irrational too. Irrationality of a support series is invariant under
 changing finitely many support elements. Fully general; likely reusable
 for #249 tails as well. Feeds the eventually-periodic theorem
-(Theorem <a class="math-ref" href="#thm:eventually-periodic">thm:eventually-periodic</a>).</em></p>
+(Theorem <a class="math-ref" href="#thm:eventually-periodic">61</a>).</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:tail-transfer</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:dyadic-excess-reformulation">
 <p><strong>Lemma 94</strong> (Dyadic-vs-Mersenne exact excess
 reformulation). <em> The greedy-toward-<span
 class="math inline" data-term-auto="off">\(1/2\)</span> decision at rank <span
@@ -2815,7 +2815,7 @@ exactly <span class="math inline" data-term-auto="off">\(0&lt;E\land
 class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:denominator-sandwich">
 <p><strong>Lemma 95</strong> (Denominator sandwich: odd-part survival,
 domain-neutral). <em> Subtracting an odd reduced fraction <span
 class="math inline" data-term-auto="off">\(r/D\)</span> from a dyadic <span
@@ -2831,7 +2831,7 @@ including #249’s own carry bookkeeping.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:denominator-algebra</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:denominator-survival">
 <p><strong>Lemma 96</strong> (Rational denominator survival:
 general-purpose fraction-reduction algebra). <em> If <span
 class="math inline" data-term-auto="off">\(m\mid D\)</span> and <span
@@ -2846,14 +2846,14 @@ class="math inline" data-term-auto="off">\(C/\gcd(C,h)\mid((h\cdot a)/D\text{ as
 }\mathrm{Rat}).\mathrm{den}\)</span> — a divisor of the displayed
 denominator survives rational reduction up to exactly the part the scale
 multiplier can cancel. Zero domain content: the general-purpose “which
-prime power survives fraction reduction” lemma, feeding Theorem <a class="math-ref" href="#thm:mersenne-channel-survival">thm:mersenne-channel-survival</a>
+prime power survives fraction reduction” lemma, feeding Theorem <a class="math-ref" href="#thm:mersenne-channel-survival">64</a>
 directly, and equally applicable to any future #249 denominator-tracking
 argument.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:denominator-algebra</code>
 </em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:mixed-prime-power-layer">
 <p><strong>Lemma 97</strong> (Two-prime exact-valuation layer
 commutation). <em> For an integer-valued support-coefficient function
 and two distinct primes <span class="math inline" data-term-auto="off">\(p\ne q\)</span> with
@@ -2873,7 +2873,7 @@ class="math inline" data-term-auto="off">\(\Omega\)</span> endpoint on its own.<
 class="sans-serif">scale:uniform</span></span><code>coord:p-adic</code>
 </em></p>
 </div>
-<div class="defn">
+<div class="defn" id="defn:achievement-set">
 <p><strong>Definition 98</strong> (The Mersenne achievement set and the
 support-series object). <span
 class="math inline" data-term-auto="off">\(\mathrm{mersenneAchievementSet} := \{x\in\mathbb R
@@ -2895,12 +2895,12 @@ A\}\)</span> (the Dirichlet incidence <span class="math inline" data-term-auto="
 1\)</span>, #257’s analogue of <span
 class="math inline" data-term-auto="off">\(\tau\)</span>); <span
 class="math inline" data-term-auto="off">\(A=\mathrm{Set.univ}\)</span> recovers the
-full-support series of Theorem <a class="math-ref" href="#thm:full-support-catalogue">thm:full-support-catalogue</a>.</p>
+full-support series of Theorem <a class="math-ref" href="#thm:full-support-catalogue">54</a>.</p>
 <p><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span><code>coord:binary-digit</code>
 </p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:achievement-set-topology">
 <p><strong>Proposition 99</strong> (Achievement-set topology: compact,
 closed, perfect, measure exactly one). <em> <span
 class="math inline" data-term-auto="off">\(\mathrm{mersenneAchievementSet}\)</span> is
@@ -2919,12 +2919,12 @@ denominators — directly reusable for a #249-style <span
 class="math inline" data-term-auto="off">\(\varphi(n)/2^n\)</span> series after checking
 summability and superincreasingness. Closedness alone is what powers
 every “limit of a sequence of achieved points is achieved” argument in
-this catalogue (e.g. Theorem <a class="math-ref" href="#thm:seam-limit">thm:seam-limit</a>, Theorem <a class="math-ref" href="#thm:straddle-closed-set">thm:straddle-closed-set</a>).</em></p>
+this catalogue (e.g. Theorem <a class="math-ref" href="#thm:seam-limit">42</a>, Theorem <a class="math-ref" href="#thm:straddle-closed-set">45</a>).</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span><code>coord:binary-digit</code>
 </em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:master-dichotomy">
 <p><strong>Theorem 100</strong> (The master dichotomy: fatal-gap
 existence iff half-nonmembership). <em> <span
 class="math inline" data-term-auto="off">\(\mathrm{ExistsFatalHalfGap} := \exists u,d,\;
@@ -2941,17 +2941,17 @@ half-branch of #257 reduces to a search for one finite, checkable,
 numerically verifiable fatal-gap witness <span
 class="math inline" data-term-auto="off">\((u,d)\)</span> — a completely finite existence
 statement, versus its negation, which by the straddle machinery
-(Lemma <a class="math-ref" href="#lem:rank-step-trichotomy">lem:rank-step-trichotomy</a>–<a class="math-ref" href="#lem:straddle-agrees-greedy">lem:straddle-agrees-greedy</a>) is
+(Lemma <a class="math-ref" href="#lem:rank-step-trichotomy">76</a>–<a class="math-ref" href="#lem:straddle-agrees-greedy">79</a>) is
 equivalent to membership. The shape of this dichotomy (finite fatal-gap
 certificate exists, or the closed achievement set contains the target)
 is the generic Dedekind-cut-in-a- superincreasing-series pattern,
-directly portable to #249 given its own analogues of Lemma <a class="math-ref" href="#lem:half-endpoint-kills">lem:half-endpoint-kills</a> and
-Proposition <a class="math-ref" href="#prop:achievement-set-topology">prop:achievement-set-topology</a>.</em></p>
+directly portable to #249 given its own analogues of Lemma <a class="math-ref" href="#lem:half-endpoint-kills">78</a> and
+Proposition <a class="math-ref" href="#prop:achievement-set-topology">99</a>.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span><code>coord:dedekind-cut</code>
 </em></p>
 </div>
-<div class="defn">
+<div class="defn" id="defn:perturbed-family">
 <p><strong>Definition 101</strong> (Perturbed family and adjacent cut:
 the abstract seam gadget). <span
 class="math inline" data-term-auto="off">\(\mathrm{structure}\;\mathrm{PerturbedFamily}(\alpha)\)</span>
@@ -2982,7 +2982,7 @@ the seam files) are specific instances of.</p>
 class="sans-serif">scale:n/a</span></span><code>coord:abstract-perturbed-greedy</code>
 </p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:perturbed-family-maximality">
 <p><strong>Theorem 102</strong> (Perturbed-family maximality and the
 three-branch recurrence). <em> <span
 class="math inline" data-term-auto="off">\(\mathrm{successorCarries} :=
@@ -2996,7 +2996,7 @@ class="math inline" data-term-auto="off">\(\mathrm{newSum}\,x\le\mathrm{newCapac
 (<em>prefixChoice_maximal</em>); <em>nextRemainder_trichotomy</em> gives
 the exact three-branch (carry / middle / right) recurrence for the next
 remainder. Proved once and for all at the abstract
-<em>PerturbedFamily</em> level (Definition <a class="math-ref" href="#defn:perturbed-family">defn:perturbed-family</a>); the single
+<em>PerturbedFamily</em> level (Definition <a class="math-ref" href="#defn:perturbed-family">101</a>); the single
 most reusable abstract result in this catalogue — any future
 formalization of a different base-<span class="math inline" data-term-auto="off">\(b\)</span>
 greedy digit process needing a maximality-of-greedy-choice theorem can
@@ -5180,7 +5180,7 @@ horizontal rule marks the frontier: everything above it is proved
 (fixed, bounded, or uniform); everything below it is what the open
 producers still need (cofinal), stated with its exact quantifier prefix
 so the gap is visible, not merely asserted.</p>
-<div class="rem">
+<div class="rem" id="rem:promotion-audit">
 <p><em>Remark 187</em> (Nothing promotes for free). A natural question,
 once the ladder is visible, is whether any <span><span
 class="sans-serif">scale:uniform</span></span> or <span><span
@@ -5242,7 +5242,7 @@ whether some Boolean support hits <span
 class="math inline" data-term-auto="off">\(1/2\)</span> exactly under the truncated weights.
 Certified for <span class="math inline" data-term-auto="off">\(3\le J\le22\)</span>
 (Table <a class="math-ref" href="#tab:scale-ladder">tab:scale-ladder</a>,
-bounded row; Theorem <a class="math-ref" href="#thm:tr-witness-exclusion">thm:tr-witness-exclusion</a>–<a class="math-ref" href="#thm:tr-finite-decision">thm:tr-finite-decision</a>
+bounded row; Theorem <a class="math-ref" href="#thm:tr-witness-exclusion">193</a>–<a class="math-ref" href="#thm:tr-finite-decision">196</a>
 below).</p></li>
 <li><p><strong>Seam row <span class="math inline" data-term-auto="off">\(s\)</span>.</strong>
 The base-4 seam recursion tracking the deviation <span
@@ -5277,7 +5277,7 @@ margin <span class="math inline" data-term-auto="off">\(+0.0340\)</span> bits (s
 <code>erdos257_reset_crossing_unification_2026_07_24.md</code>,
 §8).</p></li>
 </ul>
-<div class="prop">
+<div class="prop" id="prop:one-orbit">
 <p><strong>Proposition 188</strong> (One orbit, four coordinates). <em>
 Fix the weights <span class="math inline" data-term-auto="off">\(x_n=1/(2^n-1)\)</span> and
 target <span class="math inline" data-term-auto="off">\(1/2\)</span>. Sufficiently fine
@@ -5291,7 +5291,7 @@ in the Mersenne achievement set.</em></p>
 <p><em>Mechanism.</em> This is not an approximation claim to be taken on
 faith; it rests on the fact below. ◻</p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:no-ties">
 <p><strong>Lemma 189</strong> (No-ties lemma). <em> At every rank <span
 class="math inline" data-term-auto="off">\(k\)</span> of the full greedy orbit for target
 <span class="math inline" data-term-auto="off">\(1/2\)</span>, both defining comparisons are
@@ -5334,8 +5334,8 @@ class="math inline" data-term-auto="off">\((T_{k+1},x_k)\)</span> are therefore 
 only strictly, at every rank, unconditionally. 0◻ ◻</p>
 </div>
 <div class="rem">
-<p><em>Remark 190</em>. Lemma <a class="math-ref" href="#lem:no-ties">lem:no-ties</a> is exactly what
-licenses Proposition <a class="math-ref" href="#prop:one-orbit">prop:one-orbit</a>: because no
+<p><em>Remark 190</em>. Lemma <a class="math-ref" href="#lem:no-ties">189</a> is exactly what
+licenses Proposition <a class="math-ref" href="#prop:one-orbit">188</a>: because no
 comparison is ever exactly on a boundary, every rank’s decision is
 stable under sufficiently fine truncation — there is no knife-edge case
 where refining <span class="math inline" data-term-auto="off">\(J\)</span>, extending <span
@@ -5365,7 +5365,7 @@ T_{n+1}^{(J)}&amp;:=\sum_{q=1}^{J}\frac{2^{-qn}}{2^q-1},\\
 class="sans-serif">[Math]</span></span>, proved in ordinary mathematics
 and cross-checked by exhaustive or randomised computation, <em>not</em>
 yet formalised in Lean.</p>
-<div class="lem">
+<div class="lem" id="lem:tr-forced-greedy">
 <p><strong>Lemma 191</strong> (Forced greedy). <em> For every <span
 class="math inline" data-term-auto="off">\(J\ge2\)</span>: <span
 class="math inline" data-term-auto="off">\(w_n^{(J)}&gt;T_{n+1}^{(J)}\)</span> for all <span
@@ -5383,7 +5383,7 @@ class="math inline" data-term-auto="off">\(1\)</span> is always a safe skip; ran
 class="math inline" data-term-auto="off">\(2\)</span> and <span
 class="math inline" data-term-auto="off">\(3\)</span> are always takes.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:tr-parity">
 <p><strong>Lemma 192</strong> (Parity forces infinite support). <em> For
 every <span class="math inline" data-term-auto="off">\(J\ge2\)</span>: no finite <span
 class="math inline" data-term-auto="off">\(A\)</span> attains <span
@@ -5393,10 +5393,10 @@ element’s contribution odd while every other element’s contribution is
 even, so a support achieving <span class="math inline" data-term-auto="off">\(1/2\)</span>
 exactly under <span class="math inline" data-term-auto="off">\(J\)</span>-truncated weights
 must be infinite. (This is the rung analogue of the parity exclusion in
-Lemma <a class="math-ref" href="#lem:no-ties">lem:no-ties</a>: the
+Lemma <a class="math-ref" href="#lem:no-ties">189</a>: the
 mechanism is the same shape, one level down.)</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:tr-witness-exclusion">
 <p><strong>Theorem 193</strong> (Witness exclusion). <em> Define the
 misalignment mass </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -5421,7 +5421,7 @@ note: it is itself a scoped instance of the missing near-integer
 anti-concentration lemma that both open problems ultimately
 need).</em></p>
 </div>
-<div class="cor">
+<div class="cor" id="cor:tr-half-lcm">
 <p><strong>Corollary 194</strong> (Half-LCM horizon). <em> Let <span
 class="math inline" data-term-auto="off">\(L_J:=\mathrm{lcm}(2,3,\ldots,J)\)</span> and let
 <span class="math inline" data-term-auto="off">\(M\)</span> be the least multiple of <span
@@ -5433,27 +5433,27 @@ class="math inline" data-term-auto="off">\(M\)</span>, </em></p>
 class="math display" data-term-auto="off">\[\mu_J(M)=\sum_{q=2}^{J}\frac{1}{2^q-1}&lt;E-1&lt;0.6067&lt;\frac{11}{15}\]</span></div>
 <p class="display-continue"><em>
 (where <span class="math inline" data-term-auto="off">\(E\)</span> is the Erdős–Borwein
-constant). Hence, by Theorem <a class="math-ref" href="#thm:tr-witness-exclusion">thm:tr-witness-exclusion</a>, every
+constant). Hence, by Theorem <a class="math-ref" href="#thm:tr-witness-exclusion">193</a>, every
 rank <span class="math inline" data-term-auto="off">\(n\ge L_J/2+1\)</span> is automatically
 witness-covered: the remaining possibly-bad ranks form a finite window
 <span class="math inline" data-term-auto="off">\([4,L_J/2]\)</span>, not a cofinite
 complement to be checked one at a time.</em></p>
 </div>
-<div class="lem">
+<div class="lem" id="lem:tr-mod12">
 <p><strong>Lemma 195</strong> (Mod-12 filter, <span
 class="math inline" data-term-auto="off">\(J\ge7\)</span>). <em> For <span
 class="math inline" data-term-auto="off">\(J\ge7\)</span>: <span
 class="math inline" data-term-auto="off">\(\mu_J(M)\le\tfrac{11}{15}\Rightarrow 12\mid
 M\)</span> (case analysis on <span
 class="math inline" data-term-auto="off">\(M\bmod4\)</span> and <span
-class="math inline" data-term-auto="off">\(M\bmod3\)</span>). Combined with Corollary <a class="math-ref" href="#cor:tr-half-lcm">cor:tr-half-lcm</a>, the search for
+class="math inline" data-term-auto="off">\(M\bmod3\)</span>). Combined with Corollary <a class="math-ref" href="#cor:tr-half-lcm">194</a>, the search for
 possibly-bad ranks inside <span class="math inline" data-term-auto="off">\([4,L_J/2]\)</span>
 can be restricted to multiples of <span
 class="math inline" data-term-auto="off">\(12\)</span>, a <span
 class="math inline" data-term-auto="off">\(12\times\)</span> speedup with no loss of
 coverage.</em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:tr-finite-decision">
 <p><strong>Theorem 196</strong> (Finite decision procedure). <em> Call
 <span class="math inline" data-term-auto="off">\(n\in[4,L_J/2]\)</span> <strong>bad</strong>
 if no <span class="math inline" data-term-auto="off">\(M\in[n,2n-2]\)</span> has <span
@@ -5488,7 +5488,7 @@ convergent subsequence under the compactness of <span
 class="math inline" data-term-auto="off">\(\{0,1\}^{\{2,3,\ldots\}}\)</span> has limit
 exactly <span class="math inline" data-term-auto="off">\(1/2\)</span>, and that limit’s
 support is infinite since finite sums have odd denominator by
-Lemma <a class="math-ref" href="#lem:no-ties">lem:no-ties</a>/<a class="math-ref" href="#lem:tr-parity">lem:tr-parity</a>), a single further
+Lemma <a class="math-ref" href="#lem:no-ties">189</a>/<a class="math-ref" href="#lem:tr-parity">192</a>), a single further
 success at <em>infinitely many</em> <span
 class="math inline" data-term-auto="off">\(J\)</span> would already disprove Erdős #257. This
 is exactly the frontier row of Table <a class="math-ref" href="#tab:scale-ladder">tab:scale-ladder</a>: <span
@@ -6976,7 +6976,7 @@ wall every closure below is measured against.</p>
 <section id="four-closed-attack-families-on-the-wall-itself"
 class="level3">
 <h3>Four closed attack families on the wall itself</h3>
-<div class="obs">
+<div class="obs" id="obs:prime-doubling">
 <p><em>Observation 250</em> (Prime-doubling — closed by explicit
 counterexample). <strong>Route as conceived.</strong> The universal
 recursion <span class="math inline" data-term-auto="off">\(K(M+1) = 2K(M) -
@@ -7025,7 +7025,7 @@ point: any future prime-density-flavoured attack on run-length should be
 checked against this witness first. <span><span
 class="sans-serif">[Cert]</span></span></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:parity-squares">
 <p><em>Observation 251</em> (Parity/perfect-squares — closed as a
 tautology of the recursion shape). <strong>Route as conceived.</strong>
 <span class="math inline" data-term-auto="off">\(K(M)\)</span> is even exactly when <span
@@ -7065,7 +7065,7 @@ class="math inline" data-term-auto="off">\(K\)</span> must be consistent with it
 supplies zero constraining power on its own. <span><span
 class="sans-serif">[Math]</span></span></p>
 </div>
-<div class="obs">
+<div class="obs" id="obs:irrationality-measure">
 <p><em>Observation 252</em> (Irrationality-measure — structurally
 excluded by an exponent budget). <strong>Route as conceived.</strong>
 The wall reduces (SE-2) to: the greedy skip-set sum <span
@@ -7110,7 +7110,7 @@ irrationality-measure bound should be checked against this
 exponent-budget argument <em>first</em>, before any other work is
 invested. <span><span class="sans-serif">[Math]</span></span></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:2adic-nogo">
 <p><strong>Proposition 253</strong> (2-adic fixed-precision
 valuation-unit no-go — Lean-verified, problem-agnostic). <em>
 <strong>Route as conceived.</strong> A carry orbit’s local 2-adic
@@ -7162,8 +7162,8 @@ coupling, never a fixed local signature alone. <span><span
 class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span></em></p>
 </div>
-<p>Read together, Observations <a class="math-ref" href="#obs:prime-doubling">obs:prime-doubling</a>–<a class="math-ref" href="#obs:irrationality-measure">obs:irrationality-measure</a> and
-Proposition <a class="math-ref" href="#prop:2adic-nogo">prop:2adic-nogo</a>
+<p>Read together, Observations <a class="math-ref" href="#obs:prime-doubling">250</a>–<a class="math-ref" href="#obs:irrationality-measure">252</a> and
+Proposition <a class="math-ref" href="#prop:2adic-nogo">253</a>
 close every attack family identified against the wall as of this writing
 that does not go through the digit-level carry machinery itself. What
 remains open (Part III, and §<a class="math-ref" href="#sec:branch-exclusions">11.2</a> below) is
@@ -7199,7 +7199,7 @@ appears on the middle branch of the seam recursion (the same quantity
 that, along an all-right run, is the affine excess <span
 class="math inline" data-term-auto="off">\(\mathrm{rem}(s)-2^s\)</span> one step later — Part
 I, RC-2).</p>
-<div class="prop">
+<div class="prop" id="prop:upper-unconditional">
 <p><strong>Proposition 254</strong> (The upper (carries) successor needs
 no exceptional-cell exclusion). <em> On the carries branch of the step
 (i.e. <span class="math inline" data-term-auto="off">\((\mathrm{seamAdjacentCut}\ s\
@@ -7221,7 +7221,7 @@ induction-step case split), not the orbit itself. <span><span
 class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span></em></p>
 </div>
-<div class="thm">
+<div class="thm" id="thm:cd-neg3-impossible">
 <p><strong>Theorem 255</strong> (<span
 class="math inline" data-term-auto="off">\(C_D=-3\)</span> is impossible at the final middle
 producer, <span class="math inline" data-term-auto="off">\(D\ge 13\)</span>). <em> Consider a
@@ -7273,7 +7273,7 @@ induction step, which still needs all three cells excluded at
 <em>every</em> late middle row (not just a hypothetical final one) to
 propagate the two-sided invariant everywhere. The two statements share
 the same coordinate <span class="math inline" data-term-auto="off">\(C_D\)</span> but differ
-in quantifier scope: Theorem <a class="math-ref" href="#thm:cd-neg3-impossible">thm:cd-neg3-impossible</a> is a <span
+in quantifier scope: Theorem <a class="math-ref" href="#thm:cd-neg3-impossible">255</a> is a <span
 class="math inline" data-term-auto="off">\(\exists\)</span>-scenario closure (one specific
 final producer under an all-right hypothesis), while the general socket
 is a <span class="math inline" data-term-auto="off">\(\forall\)</span>-row closure. Do not
@@ -7286,11 +7286,11 @@ assumption via the fatal-gap orbit, not a coordinate artifact.
 <span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span></em></p>
 </div>
-<div class="cor">
+<div class="cor" id="cor:cd-remaining">
 <p><strong>Corollary 256</strong> (Only <span
 class="math inline" data-term-auto="off">\(C_D\in\{-2,-1\}\)</span> remain among the
-exceptional dyadic cells). <em> Combining Proposition <a class="math-ref" href="#prop:upper-unconditional">prop:upper-unconditional</a> with
-Theorem <a class="math-ref" href="#thm:cd-neg3-impossible">thm:cd-neg3-impossible</a>, only <span
+exceptional dyadic cells). <em> Combining Proposition <a class="math-ref" href="#prop:upper-unconditional">254</a> with
+Theorem <a class="math-ref" href="#thm:cd-neg3-impossible">255</a>, only <span
 class="math inline" data-term-auto="off">\(C_D\in\{-2,-1\}\)</span> remain in the
 final-middle-then-all-right scenario. In the unrestricted
 late-middle-row induction, all three cells <span
@@ -7302,10 +7302,10 @@ class="math inline" data-term-auto="off">\(C_D=-1\)</span> in either scope.
 <code>coord:final-producer/landing-excess</code> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
-<div class="rem">
+<div class="rem" id="rem:tail-dominance-open">
 <p><em>Remark 257</em> (The tail-dominance criterion — stated exactly,
 and not proved). Write <span class="math inline" data-term-auto="off">\(\Theta_D\)</span> for
-the real-valued producer-carry-to-tail ratio quantity that Theorem <a class="math-ref" href="#thm:cd-neg3-impossible">thm:cd-neg3-impossible</a>’s mechanism
+the real-valued producer-carry-to-tail ratio quantity that Theorem <a class="math-ref" href="#thm:cd-neg3-impossible">255</a>’s mechanism
 step (i) actually compares against <span
 class="math inline" data-term-auto="off">\(C_D\)</span>: concretely, <span
 class="math inline" data-term-auto="off">\(\Theta_D\)</span> is the scaled complete-tail
@@ -7317,7 +7317,7 @@ class="math inline" data-term-auto="off">\(C_D\)</span>.</p>
 <p>The natural closing statement suggested by chaining <span
 class="sans-serif">SeamMiddleProducerCardEscape</span> / <span
 class="sans-serif">SeamMiddleProducerRowEscape</span> (, ) with
-Corollary <a class="math-ref" href="#cor:cd-remaining">cor:cd-remaining</a> is
+Corollary <a class="math-ref" href="#cor:cd-remaining">256</a> is
 the <strong>tail-dominance criterion</strong>:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\textbf{(TD)}\qquad \forall\, D\ge 13,\
@@ -7352,7 +7352,7 @@ general-purpose no-go and countermodel results independently constrains
 <em>what kind of proof</em> can ever close it. These are not about the
 wall’s numerics — they are about which proof architectures are
 structurally impossible, for any input.</p>
-<div class="prop">
+<div class="prop" id="prop:finite-state-nogo">
 <p><strong>Proposition 258</strong> (Finite-state no-go: no bounded
 carry-state summary can recover history). <em> For a "balanced pulse"
 family at location <span class="math inline" data-term-auto="off">\(m\)</span> (radius <span
@@ -7388,7 +7388,7 @@ A\)</span> directly, only that this whole family of encodings is too
 weak. <span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:mobius-nogo">
 <p><strong>Proposition 259</strong> (Möbius-support countermodel: the
 natural negative-sign candidate overshoots). <em> The signed Lambert
 identity <span class="math inline" data-term-auto="off">\(\sum_{d\ge1}\mu(d)/(2^d-1) =
@@ -7418,7 +7418,7 @@ or exceed. <span><span
 class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:fixed</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:finite-boolSupport-and-onesided">
 <p><strong>Proposition 260</strong> (No finite support ever hits <span
 class="math inline" data-term-auto="off">\(1/2\)</span>; finite certificates only ever
 certify death). <em> No finite positive-index Boolean support has value
@@ -7457,7 +7457,7 @@ search, as a proof method, can and cannot show). <span><span
 class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:fixed</span></span></em></p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:carry-survivor-extinction">
 <p><strong>Proposition 261</strong> (Carry-orbit closure: #249’s
 rigidity engine, occupied ground for #257). <em> For <span
 class="math inline" data-term-auto="off">\(\sum_n\varphi(n)/2^n\)</span>: a "survivor kill"
@@ -7500,7 +7500,7 @@ class="sans-serif">scale:cofinal</span></span></em></p>
 </section>
 <section id="the-scalar-localisation-height-obstruction" class="level3">
 <h3>The scalar-localisation height obstruction</h3>
-<div class="lem">
+<div class="lem" id="lem:scalar-localization">
 <p><strong>Lemma 262</strong> (Denominator complement survives scaling).
 <em> For <span class="math inline" data-term-auto="off">\(x:\mathbb Q\)</span>, <span
 class="math inline" data-term-auto="off">\(c:\mathbb Z\)</span>, <span
@@ -7540,7 +7540,7 @@ Q\)</span>, with zero problem-specific content; the upstream primitive
 class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span></em></p>
 </div>
-<div class="cor">
+<div class="cor" id="cor:mersenne-height">
 <p><strong>Corollary 263</strong> (Mersenne specialisation). <em> For
 positive <span class="math inline" data-term-auto="off">\(x:\mathbb Q\)</span>: if <span
 class="math inline" data-term-auto="off">\(2^r\mid x.\mathrm{num}.\mathrm{natAbs}\)</span>
@@ -7552,7 +7552,7 @@ upper bound on <span class="math inline" data-term-auto="off">\(x\)</span> toget
 denominator lower bound, <em>without</em> introducing a global prefix
 LCM. (generic form ). A ready-made denominator-lower-bound tool for
 "synchronized tail" arguments on #257’s Mersenne sums; composes directly
-with Lemma <a class="math-ref" href="#lem:scalar-localization">lem:scalar-localization</a> for a full
+with Lemma <a class="math-ref" href="#lem:scalar-localization">262</a> for a full
 numerator/denominator height-transport toolkit.
 <code>coord:rational-denominator/height, Mersenne instance</code> <span><span
 class="sans-serif">[Lean]</span></span><span><span
@@ -7562,7 +7562,7 @@ class="sans-serif">scale:n/a</span></span></em></p>
 <section id="the-final-skip-band-formula-and-what-it-does-not-show"
 class="level3">
 <h3>The final-skip band formula, and what it does not show</h3>
-<div class="defn">
+<div class="defn" id="defn:band-escape">
 <p><strong>Definition 264</strong> (Upper-reset dyadic band escape).</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathsf{SeamUpperResetDyadicBandEscape} :=
   \forall\, d\ge 13,\ \mathrm{successorCarries}(d) \to \forall\, j\le
@@ -7579,7 +7579,7 @@ class="math inline" data-term-auto="off">\(j\le d\)</span> simultaneously. Grant
 socket, gives <span class="math inline" data-term-auto="off">\(1/2\in\mathcal A\)</span>
 outright.</p>
 </div>
-<div class="prop">
+<div class="prop" id="prop:critical-band-index">
 <p><strong>Proposition 265</strong> (Quantifier collapse: one critical
 index suffices, not <span class="math inline" data-term-auto="off">\(d{+}1\)</span>). <em>
 The abstract, purely combinatorial statement <span
@@ -7592,16 +7592,16 @@ inequalities) to checking exactly <em>one</em> nearest-boundary index
 <span class="math inline" data-term-auto="off">\(j\)</span>. Specialised to the concrete seam
 reset charge, <span
 class="math inline" data-term-auto="off">\(\mathsf{SeamUpperResetCriticalBandEscape}\)</span>
-is proved logically <em>equivalent</em> to Definition <a class="math-ref" href="#defn:band-escape">defn:band-escape</a>’s socket. (seam
+is proved logically <em>equivalent</em> to Definition <a class="math-ref" href="#defn:band-escape">264</a>’s socket. (seam
 specialisation ). Zero Mersenne/seam content in the core lemma — pure
 <span class="math inline" data-term-auto="off">\((d,E,j)\)</span> arithmetic over powers of
 2. <code>coord:dyadic-boundary, generic</code> <span><span
 class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span></em></p>
 </div>
-<div class="obs">
+<div class="obs" id="cert:band-through-31">
 <p><em>Observation 266</em> (Rows 13 through 31 are unconditionally
-certified). The linked certificate verifies Definition <a class="math-ref" href="#defn:band-escape">defn:band-escape</a> by kernel
+certified). The linked certificate verifies Definition <a class="math-ref" href="#defn:band-escape">264</a> by kernel
 computation for every row <span class="math inline" data-term-auto="off">\(13\le
 s\le31\)</span>. For example, <span
 class="math inline" data-term-auto="off">\(\mathrm{rem}(14)=392\)</span> and <span
@@ -7610,11 +7610,11 @@ row in this interval fails the band-avoidance test. . <span><span
 class="sans-serif">[Cert]</span></span><span><span
 class="sans-serif">scale:bounded</span></span></p>
 </div>
-<div class="rem">
+<div class="rem" id="rem:band-caveat">
 <p><em>Remark 267</em> (What this does <em>not</em> show — read the
-quantifiers exactly). Definition <a class="math-ref" href="#defn:band-escape">defn:band-escape</a> is a <span
+quantifiers exactly). Definition <a class="math-ref" href="#defn:band-escape">264</a> is a <span
 class="math inline" data-term-auto="off">\(\forall d\ge13\)</span> statement; Certificate
-<a class="math-ref" href="#cert:band-through-31">cert:band-through-31</a> is a
+<a class="math-ref" href="#cert:band-through-31">266</a> is a
 finite, kernel-checked verification for <span
 class="math inline" data-term-auto="off">\(13\le d\le31\)</span>. <strong>The finite
 certificate does not establish the universal socket.</strong> Nothing in
@@ -7664,7 +7664,7 @@ the item is a proposal and nothing more.</p>
 repeated here, is that both halves of #257 — the universal statement and
 the half-value instance — converge on one missing object. It has a name
 in this section:</p>
-<div class="defn">
+<div class="defn" id="defn:theta">
 <p><strong>Definition 268</strong> (The short-window divisor phase). For
 <span class="math inline" data-term-auto="off">\(M\ge 1\)</span> and <span
 class="math inline" data-term-auto="off">\(L\ge 1\)</span> put</p>
@@ -7763,7 +7763,7 @@ corpus states it in seam coordinates and that hides its arithmetic
 nature. The following identity is elementary and exact, and it is the
 reason this route is an analytic-number-theory problem rather than a
 combinatorial one.</p>
-<div class="lem">
+<div class="lem" id="lem:odometer">
 <p><strong>Lemma 269</strong> (Divisor-residue form of the short-window
 phase). <em> For all <span class="math inline" data-term-auto="off">\(M,L\ge 1\)</span>,
 </em></p>
@@ -7795,7 +7795,7 @@ class="math inline" data-term-auto="off">\([1,L]\)</span>. ◻</p>
 exactly as rationals at <span
 class="math inline" data-term-auto="off">\((M,L)\in\{1000,10001,123456\}\times\{12,20\}\)</span>
 <span><span class="sans-serif">[Cert]</span></span>.</p>
-<p>Lemma <a class="math-ref" href="#lem:odometer">lem:odometer</a> says
+<p>Lemma <a class="math-ref" href="#lem:odometer">269</a> says
 the object is the evaluation of a <em>fixed</em> function on the
 profinite integers along the <span
 class="math inline" data-term-auto="off">\(+1\)</span>-orbit. Define</p>
@@ -7846,7 +7846,7 @@ class="math inline" data-term-auto="off">\(1\le|a|\le 2^{L}\)</span> by opening 
 class="math inline" data-term-auto="off">\(\tau(M+i)\)</span> and estimating the resulting
 Kloosterman-type sums. <em>(b) Fourier analysis on <span
 class="math inline" data-term-auto="off">\(\widehat{\mathbb{Z}}\)</span> / Ramanujan
-expansions.</em> By Lemma <a class="math-ref" href="#lem:odometer">lem:odometer</a> the phase is a
+expansions.</em> By Lemma <a class="math-ref" href="#lem:odometer">269</a> the phase is a
 function of <span class="math inline" data-term-auto="off">\(M\)</span> modulo the <span
 class="math inline" data-term-auto="off">\(d\)</span>’s, so its Fourier expansion is over the
 characters of <span class="math inline" data-term-auto="off">\(\mathbb{Z}/d\)</span>,
@@ -8302,7 +8302,7 @@ the reverse directions, and they all run through one lemma.</p>
 <section id="the-object-and-the-swing-that-supplies-it"
 class="level4 unnumbered">
 <h4 class="unnumbered">The object, and the swing that supplies it</h4>
-<div class="lem">
+<div class="lem" id="lem:sqwitness">
 <p><strong>Lemma 270</strong> (Perfect-square strip witness). <em> Let
 <span class="math inline" data-term-auto="off">\(A\subseteq\mathbb{N}\)</span> with <span
 class="math inline" data-term-auto="off">\(1\notin A\)</span> and <span
@@ -8340,7 +8340,7 @@ landed Lean and the composition is four lines.</p>
 <p>The former square-root adapter issue is resolved by restricting
 cofinal witness depths to perfect squares: at <span
 class="math inline" data-term-auto="off">\(n=k^{2}\)</span> the two roots coincide exactly
-and no widening is needed. Applying Lemma <a class="math-ref" href="#lem:sqwitness">lem:sqwitness</a> along <span
+and no widening is needed. Applying Lemma <a class="math-ref" href="#lem:sqwitness">270</a> along <span
 class="math inline" data-term-auto="off">\(M=k^{2}-1\)</span> gives (4) directly; taking
 <span class="math inline" data-term-auto="off">\(a\)</span> to be the indicator of an
 achieving support truncated to <span
@@ -8443,7 +8443,7 @@ divisor-dense support. This also corrects the reduction recorded earlier
 in this document, that universal #257 passes “with no loss” to <span
 class="math inline" data-term-auto="off">\(\mathrm{O1}&#39; := \forall A\ \text{infinite},\
 \mathrm{Cert}(A)\)</span>.</p>
-<div class="prop">
+<div class="prop" id="prop:squarefree">
 <p><strong>Proposition 271</strong> (Squarefree support: exact engine
 ceiling, not an open value). <em> Let <span
 class="math inline" data-term-auto="off">\(A=\{n\ge2:n\text{ is squarefree}\}\)</span>. Then
@@ -8472,7 +8472,7 @@ deleting the rational <span class="math inline" data-term-auto="off">\(n=1\)</sp
 squarefree support is therefore irrational at every base <span
 class="math inline" data-term-auto="off">\(2^j\)</span>. Among the integer bases, the cited
 theorem leaves the non-powers of two uncovered. This is cited
-mathematics, not formalised here. Proposition <a class="math-ref" href="#prop:squarefree">prop:squarefree</a> is a failure of two
+mathematics, not formalised here. Proposition <a class="math-ref" href="#prop:squarefree">271</a> is a failure of two
 proof schemas on a value already known to be irrational.</p>
 <p>The coordinate dependence is exact. Adjoin <span
 class="math inline" data-term-auto="off">\(1\)</span> to the support. The series changes by
@@ -8598,7 +8598,7 @@ id="the-universal-branch-reads-differently-and-this-weakens-the-one-wall-thesis"
 class="level4 unnumbered">
 <h4 class="unnumbered">The universal branch reads differently, and this
 weakens the one-wall thesis</h4>
-<p>Proposition <a class="math-ref" href="#prop:squarefree">prop:squarefree</a> is a reason to
+<p>Proposition <a class="math-ref" href="#prop:squarefree">271</a> is a reason to
 separate the two halves rather than assimilate them. On the universal
 side the present certificate engine first meets a coordinate-dependent
 parity obstruction. The squarefree value is nevertheless already known
@@ -8628,7 +8628,7 @@ the landed no-go theorems cited above. An irrationality-measure bound on
 <span class="math inline" data-term-auto="off">\(E\)</span> does not classify a specified
 rational in <span class="math inline" data-term-auto="off">\(\mathcal{A}\)</span>.
 Instantiating the present block-certificate engine at a general support
-is blocked, on the universal side, by Proposition <a class="math-ref" href="#prop:squarefree">prop:squarefree</a>. Survival through
+is blocked, on the universal side, by Proposition <a class="math-ref" href="#prop:squarefree">271</a>. Survival through
 any tested finite depth does not by itself establish membership; a
 fatal-gap certificate would establish non-membership. These facts do not
 decide rational-target membership, and they do not yield an
@@ -8781,7 +8781,7 @@ adversarially checked and found to be <em>equivalent</em> to <span
 class="math inline" data-term-auto="off">\(\mathrm{HALF}\)</span> itself. Attacking any one
 of them is attacking Erdős #257-at-<span
 class="math inline" data-term-auto="off">\(1/2\)</span> directly.</p>
-<div class="prop">
+<div class="prop" id="prop:cpgs-equiv">
 <p><strong>Proposition 274</strong> (CofinalPositiveHalfGreedySkips is
 equivalent to HALF). <em> Define </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -8808,7 +8808,7 @@ verified]</span></span> (Survivor 7, composition-survivor pass).
 <code>coord:mobius-mersenne, greedy orbit</code>. This closes off what
 the source bank advertised as "the shortest known path" to a disproof
 (): there is no shortcut through it, because it is not shorter.</p>
-<div class="prop">
+<div class="prop" id="prop:strip-equiv">
 <p><strong>Proposition 275</strong> (The terminal-only cofinal strip is
 equivalent to HALF). <em> Let <span
 class="math inline" data-term-auto="off">\(\mathtt{HalfCarryCofinalTerminalOnlyStrip}\)</span>
@@ -8840,7 +8840,7 @@ rigidity, half-carry</code>. This corrects the module’s own "weaker
 producer" framing — the strip socket carries no strategic advantage over
 proving <span class="math inline" data-term-auto="off">\(\mathrm{HALF}\)</span> outright.</p>
 <div class="obs">
-<p><em>Observation 276</em>. Neither Prop. <a class="math-ref" href="#prop:cpgs-equiv">prop:cpgs-equiv</a> nor Prop. <a class="math-ref" href="#prop:strip-equiv">prop:strip-equiv</a> narrows the search
+<p><em>Observation 276</em>. Neither Prop. <a class="math-ref" href="#prop:cpgs-equiv">274</a> nor Prop. <a class="math-ref" href="#prop:strip-equiv">275</a> narrows the search
 space for <span class="math inline" data-term-auto="off">\(\mathrm{HALF}\)</span>. Their
 value is negative: they retire two named targets from the "worth chasing
 as an easier waystation" list. A third socket, the hypothesis <span
@@ -8893,7 +8893,7 @@ this upgrade is itself unformalised (Survivor 1, <span><span
 class="sans-serif">[Math, adversarially verified]</span></span>). That
 is a constructive extraction task, not a proof that O3 is a strictly
 weaker logical condition.</p>
-<p>Proposition <a class="math-ref" href="#prop:collapsed-list">prop:collapsed-list</a>(c) already
+<p>Proposition <a class="math-ref" href="#prop:collapsed-list">15</a>(c) already
 identifies <span
 class="math inline" data-term-auto="off">\(\mathrm{CofinalExactLocalMersenneHalfRows}\)</span>
 as logically equivalent to <span
@@ -8960,7 +8960,7 @@ unconditional and strictly more general than every consumer built on it:
 (<span><span class="sans-serif">[Lean]</span></span>) needs only <span
 class="math inline" data-term-auto="off">\((\ast\ast)\)</span> for <em>some</em> below-half
 core <span class="math inline" data-term-auto="off">\(D\)</span>, not a greedy prefix — this
-is the escape route named in Prop. <a class="math-ref" href="#prop:cpgs-equiv">prop:cpgs-equiv</a>’s remark:
+is the escape route named in Prop. <a class="math-ref" href="#prop:cpgs-equiv">274</a>’s remark:
 abandoning the canonical greedy orbit (which forces <span
 class="math inline" data-term-auto="off">\(\mathrm{CPGS}\)</span>-equivalence) for an
 arbitrary below-half core is a genuinely different, still-open
@@ -9188,7 +9188,7 @@ legible.</p>
 class="math inline" data-term-auto="off">\(\mathrm{U257}\)</span> itself. The stronger schema
 <span class="math inline" data-term-auto="off">\(\mathrm{O1&#39;}=\forall
 A\,\mathrm{Cert}(A)\)</span> is a rejected sufficient strengthening, not
-future work: Proposition <a class="math-ref" href="#prop:squarefree">prop:squarefree</a> already exhibits a
+future work: Proposition <a class="math-ref" href="#prop:squarefree">271</a> already exhibits a
 squarefree support on which neither the digitwise nor the carry-aware
 block-certificate producer exists, while Duverney–Tachiya still prove
 that squarefree value irrational. Supplying <span
@@ -9230,7 +9230,7 @@ class="math inline" data-term-auto="off">\({}={}\)</span>U257), and both rationa
 targets <span class="math inline" data-term-auto="off">\(1/2\)</span> (O2) and <span
 class="math inline" data-term-auto="off">\(1/21\)</span> (O2b) remain open. Every route
 surveyed above either (a) is proved equivalent to O2, including O3 by
-Proposition <a class="math-ref" href="#prop:collapsed-list">prop:collapsed-list</a>(c), and
+Proposition <a class="math-ref" href="#prop:collapsed-list">15</a>(c), and
 therefore offers no logical reduction, (b) is a sufficient condition not
 known to be equivalent (O4, O5, O3-supply) whose own supply is unproved
 at cofinal scale, (c) is the rejected certificate strengthening <span

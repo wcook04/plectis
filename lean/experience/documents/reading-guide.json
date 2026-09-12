@@ -1,0 +1,66 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "reading-guide",
+  "title": "A reader's way in",
+  "role": "reader_introduction",
+  "reading_order": 11,
+  "source_path": "docs/READING_GUIDE.md",
+  "routes": {
+    "html_mathml": "documents/reading-guide.html",
+    "html_exact_tex": "documents/reading-guide.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md"
+  },
+  "render_contract": {
+    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "source_sha256": "e8c1edf21eebe661cae5a898ce94c23617ec63dff5751ac917c8397e517a9e42",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 21,
+    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "669f06bbe7c3ab8f336220866fc08a2ffc2f37257d8ae9aff16feb41a4823fc5",
+    "html_exact_tex_sha256": "4c734d9de83321605cbf1302ce4ec8b0f431ba060b0bbb6352ffb9532b9dc313"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What is here"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "What formalisation adds"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "The eight problems in brief"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "How to read the evidence"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Reviewing one result"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Contributing"
+    }
+  ]
+}

@@ -1748,6 +1748,6 @@ The `main_results` key in `formalization.yaml` is the format's list of selected 
 The 47 exact interfaces cover all eight programmes. Local proof provenance is recorded separately from novelty, which remains unassessed unless a source-fidelity row says otherwise. The trusted challenge contains one proposition-package fixture and imports only `ExternalVerification.Statements` and Mathlib.
 The proof-bearing modules occur only in `ExternalVerification.Solution`.
 CI runs the pinned real Linux sandbox and uploads a commit-bound JSON receipt.
-For a reviewer-run Linux check and the immutable release-asset contract, see `docs/EXTERNAL_VERIFICATION_REPLAY.md`.
+For a reviewer-run Linux check and the immutable release-asset contract, see `docs/verification/EXTERNAL_VERIFICATION_REPLAY.md`.
 
 Use the precise phrase **Comparator-checked against a separately declared statement and axiom budget** only when the receipt for the displayed commit is green. Do not replace it with “independently verified”.

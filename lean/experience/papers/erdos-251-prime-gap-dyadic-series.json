@@ -9,7 +9,7 @@
   "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
   "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
   "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
   "problem_id": "erdos_251",
   "routes": {
     "html_mathml": "papers/erdos-251-prime-gap-dyadic-series.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
     "publication_manifest_match": true,
     "mathml_node_count": 496,
@@ -51,7 +51,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "775321482d3b62ccb657b799856842ea520ca5fb0aca7b18622ac41dd8b5f07b",
-    "html_exact_tex_sha256": "fa612b4647f67a5fa0b386d331064209bba30140aa1726773d20db8ab5d74e26"
+    "html_exact_tex_sha256": "dfd2455c19ed547c87c0c83724eb98e8ea050077c9eb4248d04357c7476fd5d2"
   },
   "sections": [
     {

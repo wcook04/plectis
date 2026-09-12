@@ -46,7 +46,7 @@ records an `advances_open_target` edge.
 ## Relation in this repository
 
 - **#68** — the [factorial-carry note](papers/full-text/erdos-68-factorial-denominator-irrationality.md)
-  routes to the exact [FactorialZeroPlateau source](../ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090):
+  routes to the exact [FactorialZeroPlateau source](../lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L1090):
   factorial-successor and carry frontiers, structural consumers, and a finite
   denominator exclusion; open boundary: produce cofinally many non-unit
   carries, not merely one finite miss.
@@ -54,21 +54,21 @@ records an `advances_open_target` edge.
   and [canonical source map](SOURCE_MAP.md) return the unconditional denominator
   exclusion and conditional reductions. The new [squared-Lambert/GCD-moment
   family](EXTERNAL_VERIFICATION.md#programme-249) routes to the exact first-moment
-  identity in [GcdMomentCalculus](../Erdos249257/GcdMomentCalculus.lean#L235);
+  identity in [GcdMomentCalculus](../lean/Erdos249257/GcdMomentCalculus.lean#L235);
   it is an identity with no irrationality consequence, so #249 remains open.
 - **#257** — the [problem-owned paper note](papers/full-text/erdos-257-mersenne-support-subseries.md)
   and [canonical source map](SOURCE_MAP.md) return the named infinite-support
   cases and full support (`A = ℕ`), not the universal statement.
 - **#243** — the [reciprocal-tail note](papers/full-text/erdos-243-reciprocal-tail-rigidity.md)
-  and [ReciprocalTailRigidity source](../ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897)
+  and [ReciprocalTailRigidity source](../lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897)
   exclude bounded negative-error regimes; open boundary: the unbounded
   mixed-sign/negative-excursion regime.
 - **#251** — the [prime-gap note](papers/full-text/erdos-251-prime-gap-dyadic-series.md)
-  and [PrimeGapDyadicTail source](../ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360)
+  and [PrimeGapDyadicTail source](../lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L360)
   expose the exact dyadic-tail machinery; open boundary: cofinally many
   adjacent small tail shifts at indices where prime gaps differ.
 - **#269** — the [running-lcm note](papers/full-text/erdos-269-three-prime-running-lcm.md)
-  and [ThreePrimeRunningLcm source](../ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123)
+  and [ThreePrimeRunningLcm source](../lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123)
   expose exact three-prime identities and a conditional residue-escape route;
   open boundary: the rationality-to-carry bridge and cofinal window escape.
 - **#1041** — the paper-facing route checks Newton-flow ray separation and
@@ -82,12 +82,12 @@ records an `advances_open_target` edge.
   together, keeping the source-only frontier separate from reviewed claim
   authority.
 - **#1049** — the [rational-base note](papers/full-text/erdos-1049-rational-base-lambert.md)
-  and its checked source family — [RationalBaseLambert](../ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155)
-  for the `3/2` corridor and `7/2` height input, [ZudilinHeightRegion](../ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91)
-  for the `81/200` region, [RationalPadeArithmetic](../ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30)
-  and [HermitePadeNoGo](../ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103)
-  for finite Padé arithmetic and comparison, and [QAperyDiagonalNonEquivalence](../ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67)
-  for the moving-diagonal no-go, with [ZudilinConeArithmetic](../ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286)
+  and its checked source family — [RationalBaseLambert](../lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155)
+  for the `3/2` corridor and `7/2` height input, [ZudilinHeightRegion](../lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91)
+  for the `81/200` region, [RationalPadeArithmetic](../lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30)
+  and [HermitePadeNoGo](../lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103)
+  for finite Padé arithmetic and comparison, and [QAperyDiagonalNonEquivalence](../lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67)
+  for the moving-diagonal no-go, with [ZudilinConeArithmetic](../lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286)
   covering the endpoint-unit common-divisor obstruction — route distinct
   mechanisms without claiming irrationality. The integer-base case `b ≥ 2` is
   `irrational_erdosSum_full_support`; open boundary: irrationality at `3/2`,

@@ -9,7 +9,7 @@
   "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
   "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #249, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #249, which remains open",
   "problem_id": "erdos_249",
   "routes": {
     "html_mathml": "papers/erdos-249-binary-totient-series.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "380370196f593ac3031abb53ef70b32599a02f6db3f03da470144d866e785053",
     "publication_manifest_match": true,
     "mathml_node_count": 319,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "df7eb404fb27886aad1933253c88acd66e8d9d5da0de40d44b57be62f95d8246",
-    "html_exact_tex_sha256": "8cf4319fb843becdf77c993a749a56a79b0ab2a9f81723000bcd152112047ee8"
+    "html_exact_tex_sha256": "db4a23521cd97da7b12ac9a28e42824f025e8801fe718e7ac2f07d7d94a631e2"
   },
   "sections": [
     {

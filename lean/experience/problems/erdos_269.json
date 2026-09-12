@@ -265,7 +265,7 @@
       "public_entry": "ExternalVerification269ThreePrimeStructure"
     },
     "strongest_longitudinal_theorem": null,
-    "no_longitudinal_reason": "No genuine climb: a two-branch reduction on the actual orbit (B = 1 corner decidable per index and refuted to 6000; B > 1 corner a lattice statement certified to 10^105), the rank phase transition, and q > 10^6768; the LCM identity and two-prime transcendence are Steve Fan's (longitudinal_truth_2026_09_01 §1, prior_art_adjudication_2026_09_02 §4).",
+    "no_longitudinal_reason": "No three-prime repeated-series irrationality or transcendence theorem is proved. The shell dichotomy by itself treats the unscaled integer-state branch and does not exclude rational denominators greater than one. The all-denominator carry/window statement is Lean-checked but exactly equivalent to the target, so it is an exact reformulation and route no-go rather than a reduction to an easier theorem. Fibre irrationality does not combine to irrationality of the repeated series; Sigma_2 + 2 Sigma_3 + 4 Sigma_5 = 1 is the explicit warning. Steve Fan has priority for the two-prime result and the running-height telescope inputs; the fibre theorem's novelty is unverified.",
     "live_obstruction": "The normalised infinite dyadic shell tail either reaches an exact integral state or returns cofinally at distance at least 1/31 from every integer, and excluding the exact-integral-state branch is the unresolved step.",
     "strongest_open_producer": {
       "id": "exclude_exact_integral_dyadic_tails",
@@ -299,7 +299,7 @@
     "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
     "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
     "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
-    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+    "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
     "problem_id": "erdos_269",
     "routes": {
       "html_mathml": "papers/erdos-269-three-prime-running-lcm.html",
@@ -318,7 +318,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 21,
-      "renderer_fingerprint": "ec60ada03b181a30",
+      "renderer_fingerprint": "f6b3e351ccb221fc",
       "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
       "publication_manifest_match": true,
       "mathml_node_count": 260,
@@ -328,7 +328,7 @@
         "mathjax": []
       },
       "html_mathml_sha256": "9550670ff3c1aa0f1010a5cf5c095aebceccb0744481eee1f3d5beda2e5c6ff0",
-      "html_exact_tex_sha256": "5947a04d6212cc5f87ba8cdd866908aa0e9c1e55076a6f9f005eeba2d9449ded"
+      "html_exact_tex_sha256": "8261101ce01c7f3bab65c1568c71fc3dc5286ee8e0e17766259f5e9e4d0ba4d2"
     },
     "sections": [
       {
@@ -426,7 +426,7 @@
       "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
       "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
       "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
       "problem_id": "erdos_269",
       "routes": {
         "html_mathml": "papers/erdos-269-three-prime-running-lcm.html",
@@ -445,7 +445,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
         "publication_manifest_match": true,
         "mathml_node_count": 260,
@@ -455,7 +455,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "9550670ff3c1aa0f1010a5cf5c095aebceccb0744481eee1f3d5beda2e5c6ff0",
-        "html_exact_tex_sha256": "5947a04d6212cc5f87ba8cdd866908aa0e9c1e55076a6f9f005eeba2d9449ded"
+        "html_exact_tex_sha256": "8261101ce01c7f3bab65c1568c71fc3dc5286ee8e0e17766259f5e9e4d0ba4d2"
       },
       "sections": [
         {
@@ -553,7 +553,7 @@
       "question": "What is the complete block, shell, carry, and observer record for Erdős #269, and which cofinal escape remains?",
       "precis": "A claim-bounded complete reasoning record for Erdős #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.",
       "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
       "problem_id": "erdos_269",
       "routes": {
         "html_mathml": "papers/erdos269-running-lcm-reasoning-surface.html",
@@ -572,7 +572,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "23abd4b4078595fb95353374852d90f379765ffd468f2e5cc316b721b8012f9a",
         "publication_manifest_match": true,
         "mathml_node_count": 968,
@@ -591,7 +591,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "acd1faa4f01f148fad50f09c042c29c986b63cee9305ca8a2f94c6647547bcc6",
-        "html_exact_tex_sha256": "50930806f911c2358cf0d4145671b76490477e30ed62d9bd7646a264e3461744"
+        "html_exact_tex_sha256": "f89d271eb0dc95c2179b0f2a458f9c69a3932a0229d4ccb1b0cfc67dcf5aebac"
       },
       "sections": [
         {

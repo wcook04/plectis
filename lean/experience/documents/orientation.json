@@ -1,9 +1,9 @@
 {
   "schema": "plectis_lean_human_document_v1",
   "document_id": "orientation",
-  "title": "Corpus orientation",
+  "title": "Technical orientation",
   "role": "generated_reader_map",
-  "reading_order": 30,
+  "reading_order": 170,
   "source_path": "docs/ORIENTATION.md",
   "routes": {
     "html_mathml": "documents/orientation.html",
@@ -11,14 +11,15 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ORIENTATION.md"
   },
   "render_contract": {
+    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "07172f426c7870898dd09f7314433fe03491055009fd30996a4fb25bf461037a",
+    "source_sha256": "6995e6ab75ceb51672ef527d76c6c8ce7c2a64bc273d060a3f1f94ff82356d6c",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +28,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "87347177920857279ebe6ea361fcbd02e9039e513ee3ecf48dd3f5ed520980c1",
-    "html_exact_tex_sha256": "21df6a20ca5061a4254b7ea13799ea9acea4eb8d212b8914947171245c64f19b"
+    "html_mathml_sha256": "9f59c71b9268cfae51f0486dace52d0fe5767ea2a2e70f90b0f2c1771461a483",
+    "html_exact_tex_sha256": "46f22b48c3f8f8f6b36840a6408794e967fd7fc4bc36ecdbf37d8770da88e066"
   },
   "sections": [
     {

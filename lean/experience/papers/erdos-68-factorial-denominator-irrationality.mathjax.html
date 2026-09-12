@@ -32,7 +32,7 @@ class="math inline" data-term-auto="off">\(\sum_{n&gt;m}(n-1)/n!=1/m!\)</span>. 
 class="math inline" data-term-auto="off">\(m!S\)</span> is the unique integer strictly above
 <span class="math inline" data-term-auto="off">\(m!H_m\)</span>. The same argument at <span
 class="math inline" data-term-auto="off">\(m-1\)</span> gives <span
-class="math inline" data-term-auto="off">\(Z_m=m!S=mZ_{m-1}\)</span>, proving <a class="math-ref" href="#eq:finite-denominator-consumer">(1)</a>. A
+class="math inline" data-term-auto="off">\(Z_m=m!S=mZ_{m-1}\)</span>, proving <a class="math-ref" data-equation-ref="true" href="#eq:finite-denominator-consumer">eq:finite-denominator-consumer</a>. A
 non-unit carry at index <span class="math inline" data-term-auto="off">\(m\)</span> therefore
 forces <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialZeroPlateau.lean#L876">every
@@ -117,7 +117,7 @@ class="math display" data-term-auto="off">\[E_m=m!\sum_{2\le n\le m}\frac1{n!},
 class="math inline" data-term-auto="off">\(E_m\)</span> is an integer, <span
 class="math inline" data-term-auto="off">\(0&lt;\varepsilon_m&lt;1\)</span>, and <span
 class="math inline" data-term-auto="off">\(m!S\)</span> is an integer divisible by <span
-class="math inline" data-term-auto="off">\(m\)</span>. Multiplying <a class="math-ref" href="#eq:companion-decomposition">(2)</a> by
+class="math inline" data-term-auto="off">\(m\)</span>. Multiplying <a class="math-ref" data-equation-ref="true" href="#eq:companion-decomposition">eq:companion-decomposition</a> by
 <span class="math inline" data-term-auto="off">\(m!\)</span> therefore gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\lfloor m!C\rfloor=m!S-E_m-1.\]</span></div>
@@ -156,7 +156,7 @@ C\rfloor+
 rational. Negating the eventual statement yields the cofinal formulation
 above. ◻</p>
 </div>
-<div class="remark">
+<div class="remark" id="bdry:companion-orbit-nonconcentration">
 <p><strong>Remark 1</strong>. <em> The remaining assertion is cofinal
 escape of this actual factorial orbit from <span
 class="math inline" data-term-auto="off">\(-2\)</span>. The theorem identifies the required
@@ -206,7 +206,7 @@ criterion</a>.</em></p>
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L47">carry
 characterisation</a>.</p>
 <div class="proof">
-<p><em>Proof.</em> Rationality forces eventual unit carries by <a class="math-ref" href="#eq:finite-denominator-consumer">(1)</a>.
+<p><em>Proof.</em> Rationality forces eventual unit carries by <a class="math-ref" data-equation-ref="true" href="#eq:finite-denominator-consumer">eq:finite-denominator-consumer</a>.
 Conversely, if <span class="math inline" data-term-auto="off">\(b_m=1\)</span> eventually,
 then <span class="math inline" data-term-auto="off">\(Z_m/m!\)</span> is eventually constant.
 Since</p>
@@ -283,7 +283,7 @@ diagonal. Hence <span class="math inline" data-term-auto="off">\(e_1,U_2,\ldots,
 is also an integral basis. Applying <span
 class="math inline" data-term-auto="off">\(M\)</span> and each <span
 class="math inline" data-term-auto="off">\(V_d\)</span> identifies its coefficients as in
-<a class="math-ref" href="#eq:channel-basis-expansion">(5)</a>.
+<a class="math-ref" data-equation-ref="true" href="#eq:channel-basis-expansion">eq:channel-basis-expansion</a>.
 For <span class="math inline" data-term-auto="off">\(d\)</span> beyond the support, <span
 class="math inline" data-term-auto="off">\(V_d=M\)</span>, so no infinite sum is
 required. ◻</p>
@@ -311,7 +311,7 @@ translator nine profile</a>.</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[L_D=\operatorname{lcm}_{2\le d\le
 D}(d!-1),\qquad
 K_D=L_De_1-\sum_{d=2}^D\frac{L_D}{d!-1}U_d.\]</span></div>
-<p>Equation <a class="math-ref" href="#eq:channel-basis-expansion">(5)</a>
+<p>Equation <a class="math-ref" data-equation-ref="true" href="#eq:channel-basis-expansion">eq:channel-basis-expansion</a>
 implies both the channel congruence</p>
 <div class="math-display" id="res:congruence" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
@@ -448,7 +448,7 @@ class="math inline" data-term-auto="off">\(\Lambda_n=\operatorname{lcm}(1,\ldots
 u_n\)</span> remains useful for other certificates. Finite-source checks
 can end sooner because only the sum of the sources has to vanish modulo
 <span class="math inline" data-term-auto="off">\(g\)</span>. The even-coefficient sign
-pattern supplies a nonzero term in every tail. Together with <a class="math-ref" href="#eq:attainable-moment-ideal">(11)</a> this
+pattern supplies a nonzero term in every tail. Together with <a class="math-ref" data-equation-ref="true" href="#eq:attainable-moment-ideal">eq:attainable-moment-ideal</a> this
 determines the unrestricted minimum positive moment for every fixed
 depth. For example, <span class="math inline" data-term-auto="off">\(L_4=115\)</span>, <span
 class="math inline" data-term-auto="off">\(a_4=-55\)</span>, <span
@@ -683,7 +683,7 @@ modulo <span class="math inline" data-term-auto="off">\(R_p\)</span>, and <span
 class="math inline" data-term-auto="off">\(A\ge\rho_p\)</span>. The positive tail bound</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[S-H_{2p-1}&lt;\frac{2p+1}{2p^2(2p-1)!}\]</span></div>
-<p class="display-continue">and <a class="math-ref" href="#eq:global-complementary-target">(15)</a>
+<p class="display-continue">and <a class="math-ref" data-equation-ref="true" href="#eq:global-complementary-target">eq:global-complementary-target</a>
 give <span class="math inline" data-term-auto="off">\(A&lt;\rho_p\)</span>, a
 contradiction. ◻</p>
 </div>
@@ -738,16 +738,16 @@ class="math display" data-term-auto="off">\[\begin{equation}
 above <span class="math inline" data-term-auto="off">\(A_N\)</span>. Proving this on an
 unbounded grid family would suffice. The finite signed block <span
 class="math inline" data-term-auto="off">\(A_N\)</span> is essential. The second approach
-asks for the simultaneous collision and complementary-gap estimate <a class="math-ref" href="#eq:joint-loss-budget">(16)</a>. Neither
+asks for the simultaneous collision and complementary-gap estimate <a class="math-ref" data-equation-ref="true" href="#eq:joint-loss-budget">eq:joint-loss-budget</a>. Neither
 estimate is established cofinally here.</p>
 <section id="sec:nogo" class="level5">
 <h5>The limit of short supports.</h5>
-<p>The shortest-support kernels cannot meet <a class="math-ref" href="#eq:signed-block-gap">(18)</a>. For <span
+<p>The shortest-support kernels cannot meet <a class="math-ref" data-equation-ref="true" href="#eq:signed-block-gap">eq:signed-block-gap</a>. For <span
 class="math inline" data-term-auto="off">\(N=D+O(1)\)</span>, the compulsory divisibility
-<span class="math inline" data-term-auto="off">\(L_D\mid M\)</span> and <a class="math-ref" href="#res:lcm-growth">(13)</a> give</p>
+<span class="math inline" data-term-auto="off">\(L_D\mid M\)</span> and <a class="math-ref" data-equation-ref="true" href="#res:lcm-growth">res:lcm-growth</a> give</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{2|M|}{(N+1)!-1}\longrightarrow\infty,\]</span></div>
-<p class="display-continue">whereas the right side of <a class="math-ref" href="#eq:signed-block-gap">(18)</a> is at most
+<p class="display-continue">whereas the right side of <a class="math-ref" data-equation-ref="true" href="#eq:signed-block-gap">eq:signed-block-gap</a> is at most
 one. A useful family must therefore allow a larger upper support and
 still control its finite signed block.</p>
 <p>Large denominator valuations alone also leave the real gap
@@ -774,7 +774,7 @@ carries occur at</p>
 1438,\ 2164,\ 4258,\ 10991,\ 21236.\]</span></div>
 <p>In particular <span
 class="math inline" data-term-auto="off">\(b_{300000}\ne1\)</span>, yielding <span
-class="math inline" data-term-auto="off">\(q\nmid299999!\)</span> by <a class="math-ref" href="#eq:finite-denominator-consumer">(1)</a>.
+class="math inline" data-term-auto="off">\(q\nmid299999!\)</span> by <a class="math-ref" data-equation-ref="true" href="#eq:finite-denominator-consumer">eq:finite-denominator-consumer</a>.
 This excludes every divisor of that factorial, including large divisors.
 It does not exclude all integers with small prime factors, since their
 multiplicities can be too large.</p>
@@ -786,7 +786,7 @@ class="math inline" data-term-auto="off">\(q\ge2^{39990}&gt;10^{12038}\)</span>.
 open-versus-closed complete-quotient endpoint convention matters for a
 sharper extraction; no stronger numerical floor is asserted here. The
 exact sources, enclosure and integer-computation receipts are retained
-with the long record. Neither finite calculation supplies <a class="math-ref" href="#eq:canonical-open-target">(17)</a>.</p>
+with the long record. Neither finite calculation supplies <a class="math-ref" data-equation-ref="true" href="#eq:canonical-open-target">eq:canonical-open-target</a>.</p>
 </section>
 <section id="app:sources" class="level2 unnumbered">
 <h2 class="unnumbered">Statements and declarations</h2>
@@ -829,7 +829,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 zero plateau</a> is the default-root duplicate of that family and is not
 the isolation source. Companion-orbit rationality is in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
-orbit rationality</a>; the unconditional correction <a class="math-ref" href="#eq:companion-wrap">(4)</a> is in <a
+orbit rationality</a>; the unconditional correction <a class="math-ref" data-equation-ref="true" href="#eq:companion-wrap">eq:companion-wrap</a> is in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean">companion
 constant carry law</a>. The pole-residue identity and the two displayed
 reciprocal equalities are in <a
@@ -845,7 +845,7 @@ or the significance of the remaining hypothesis. The complete source
 register, receipts and failed-route calculations belong to the long
 record.</p>
 </section>
-<section id="app:sources" class="level2">
+<section id="app:sources--2" class="level2">
 <h2>Guide to the formal sources</h2>
 <p>The public <code>ErdosProblems.Erdos68</code> package contains the
 checked source for this note. The pinned snapshot contains fifteen cited
@@ -1016,7 +1016,7 @@ factorial gap series iff cofinal companion floor misses</a>. The
 coherent Comparator composite <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion-orbit
 complete characterisation</a> routes to Theorem <a class="math-ref" href="#res:companion-orbit-rationality-boundary">2</a>
-and Remark <a class="math-ref" href="#bdry:companion-orbit-nonconcentration">bdry:companion-orbit-nonconcentration</a>.
+and Remark <a class="math-ref" href="#bdry:companion-orbit-nonconcentration">1</a>.
 The moving-factor Comparator endpoints are recorded in the long
 reasoning record as the moving-factor scale split, the split-factor
 normalised collision, and the fixed-owner absorption boundary. These

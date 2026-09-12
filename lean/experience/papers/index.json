@@ -14,7 +14,7 @@
       "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
       "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
       "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #68, which remains open",
       "problem_id": "erdos_68",
       "routes": {
         "html_mathml": "papers/erdos-68-factorial-denominator-irrationality.html",
@@ -33,7 +33,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "eb70d357aa30937dd68d4f69d67c746787406f178b193faf6147c0d8f8efe546",
         "publication_manifest_match": true,
         "mathml_node_count": 303,
@@ -43,7 +43,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "aa7fa86431547b895304091a0334e599abd1556a43d0959ebf07ce9e61f143c4",
-        "html_exact_tex_sha256": "25a6f0c844acd49af9ed2291070727124a9afe1bf0a30d2a426de6bc9eb3ee75"
+        "html_exact_tex_sha256": "181ef4ba8eb59adf43e6128ccc6e3c629e0a99458e64f9a2f7c6079022480ad8"
       },
       "sections": [
         {
@@ -149,7 +149,7 @@
       "question": "What is the complete checked and failed-route record for Erdős #68, and which cofinal producer is still missing?",
       "precis": "A claim-bounded complete reasoning record for Erdős #68. It retains the factorial-successor and carry normal forms, channel and projection mechanisms, exact finite denominator evidence, failed routes, and every registered family in the shared reader order. No cofinal divisibility-miss producer is proved, so irrationality remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #68, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #68, which remains open",
       "problem_id": "erdos_68",
       "routes": {
         "html_mathml": "papers/erdos68-factorial-reasoning-surface.html",
@@ -168,7 +168,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "05154a339954078b531faddc04a459796ac00ce45a32e01b4516cba23fea6b24",
         "publication_manifest_match": true,
         "mathml_node_count": 883,
@@ -178,7 +178,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "ecee1171fc8d7a54220c6dfad7cf7dcf0332a4985c823d8acd423627c809421c",
-        "html_exact_tex_sha256": "ce29c50bb936cedefa70b2764b546ed2904c39ff692bfdcc813e87d5c8c6cf24"
+        "html_exact_tex_sha256": "5341982f69c06ebc2952813a730f75565903cc35c4f0fb882a047739099215b4"
       },
       "sections": [
         {
@@ -379,7 +379,7 @@
       "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
       "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
       "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open",
       "problem_id": "erdos_243",
       "routes": {
         "html_mathml": "papers/erdos-243-reciprocal-tail-rigidity.html",
@@ -398,7 +398,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "ad2e77ffca32e73f22345a2024030a7dcb06fa24badd0d3fc1aa07bebbb00b31",
         "publication_manifest_match": true,
         "mathml_node_count": 278,
@@ -408,7 +408,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "d8fd73f78cbc3f43c9225401ee9341fd083e238c405f495d85320a11c648446a",
-        "html_exact_tex_sha256": "1158dfc2b8cb047a024080247a0d4223bd43264d34e12b6b831ffbb58e0ada6c"
+        "html_exact_tex_sha256": "71b045141ff4c8b6670b46b40d016f5cdf6c67dd3c2f4475f212473769c9e10b"
       },
       "sections": [
         {
@@ -509,7 +509,7 @@
       "question": "What is the complete state-dynamics and no-go record for Erdős #243, and which unbounded negative orbit regime survives?",
       "precis": "A claim-bounded complete reasoning record for Erdős #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open",
       "problem_id": "erdos_243",
       "routes": {
         "html_mathml": "papers/erdos243-reciprocal-tail-reasoning-surface.html",
@@ -528,7 +528,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "b10f787ab8e0ed198eee572f7482c0aa5376d1742f374030d2445f1ef54f140c",
         "publication_manifest_match": true,
         "mathml_node_count": 1591,
@@ -538,7 +538,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "e0fbb020622207caf379abba279d209b83811ee103d273a94330a953a3493b94",
-        "html_exact_tex_sha256": "e0957424a4a2979576ebc8ecce4188587344ebfbcca63eb528fad0e66062e2b6"
+        "html_exact_tex_sha256": "183699a6babf215fc640d3d68afd6e5993ef9c4f2b557acc1e0b03e76c44cce0"
       },
       "sections": [
         {
@@ -924,7 +924,7 @@
       "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
       "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #249, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #249, which remains open",
       "problem_id": "erdos_249",
       "routes": {
         "html_mathml": "papers/erdos-249-binary-totient-series.html",
@@ -943,7 +943,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "380370196f593ac3031abb53ef70b32599a02f6db3f03da470144d866e785053",
         "publication_manifest_match": true,
         "mathml_node_count": 319,
@@ -953,7 +953,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "df7eb404fb27886aad1933253c88acd66e8d9d5da0de40d44b57be62f95d8246",
-        "html_exact_tex_sha256": "8cf4319fb843becdf77c993a749a56a79b0ab2a9f81723000bcd152112047ee8"
+        "html_exact_tex_sha256": "db4a23521cd97da7b12ac9a28e42824f025e8801fe718e7ac2f07d7d94a631e2"
       },
       "sections": [
         {
@@ -1024,7 +1024,7 @@
       "question": "What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?",
       "precis": "A claim-bounded map of the formal attack on Erdős #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erdős #249 remains open.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #249, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #249, which remains open",
       "problem_id": "erdos_249",
       "routes": {
         "html_mathml": "papers/erdos249-totient-reasoning-surface.html",
@@ -1043,7 +1043,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "e56ae41b7c9c25babd97b581554f2b160d352cb0ce7fd42114a07b0c4d656739",
         "publication_manifest_match": true,
         "mathml_node_count": 2892,
@@ -1096,7 +1096,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "8ad3a473ccde338036d820a072e8404b7cee7eaa5c3e46d7634fb22368d50f3b",
-        "html_exact_tex_sha256": "dfed8287c8fb708037e7720eeb6f62b619c943aba97d97cf6c486866f678a301"
+        "html_exact_tex_sha256": "8e7586c512cbb46d768e767c12cc8c9bd03315b69d164c140db0d1114134402c"
       },
       "sections": [
         {
@@ -1857,7 +1857,7 @@
       "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
       "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
       "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
       "problem_id": "erdos_251",
       "routes": {
         "html_mathml": "papers/erdos-251-prime-gap-dyadic-series.html",
@@ -1876,7 +1876,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
         "publication_manifest_match": true,
         "mathml_node_count": 496,
@@ -1899,7 +1899,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "775321482d3b62ccb657b799856842ea520ca5fb0aca7b18622ac41dd8b5f07b",
-        "html_exact_tex_sha256": "fa612b4647f67a5fa0b386d331064209bba30140aa1726773d20db8ab5d74e26"
+        "html_exact_tex_sha256": "dfd2455c19ed547c87c0c83724eb98e8ea050077c9eb4248d04357c7476fd5d2"
       },
       "sections": [
         {
@@ -2045,7 +2045,7 @@
       "question": "What is the complete shift, countermodel, and finite-evidence record for Erdős #251, and which cofinal mismatch is missing?",
       "precis": "A claim-bounded complete reasoning record for Erdős #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
       "problem_id": "erdos_251",
       "routes": {
         "html_mathml": "papers/erdos251-prime-gap-reasoning-surface.html",
@@ -2064,7 +2064,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "80d226bc59d7e47db86bc4d576570d27e78d8760ba77ae38c548a53bfc9b8234",
         "publication_manifest_match": true,
         "mathml_node_count": 922,
@@ -2082,7 +2082,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "416dcdc0e3ed56da7e845e903f45d748cad93a86fabeb4629c4ea2bfd39d72da",
-        "html_exact_tex_sha256": "da583bd9b772305e1a217006176890d5378d4ab3f4f78d11aac7366bd4441de7"
+        "html_exact_tex_sha256": "176d91c6e5327d8a584cb085b84d795b78e1464d8bcdb26bc595c16814efaed5"
       },
       "sections": [
         {
@@ -2353,7 +2353,7 @@
       "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
       "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
       "problem_id": "erdos_257",
       "routes": {
         "html_mathml": "papers/erdos-257-mersenne-support-subseries.html",
@@ -2372,7 +2372,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "f27f8d97ce9f9bd83318ac3a97f4acbe7fc9072c9246dd2ef147dbfa63f07b66",
         "publication_manifest_match": true,
         "mathml_node_count": 344,
@@ -2399,7 +2399,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "90cf2ad508f3e1142326f10445948e9a1d8ad5902fd0f7b00d64310f79708026",
-        "html_exact_tex_sha256": "a0e455e3aa77cc066983095d6949ac4759c8f9d1adf3c5227d196492dae949c4"
+        "html_exact_tex_sha256": "926b225528e7394f351227b4262e6ec6c74e4a72216dd6d2423d238fc2d6ba0e"
       },
       "sections": [
         {
@@ -2505,7 +2505,7 @@
       "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
       "precis": "A Lean-backed, claim-bounded structural audit of Erdős #257. It front-loads finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, whose universal and half-value questions remain open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, whose universal and half-value questions remain open",
       "problem_id": "erdos_257",
       "routes": {
         "html_mathml": "papers/erdos257-mersenne-reasoning-surface.html",
@@ -2524,7 +2524,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "e8b38efaff6e3b1a95c1bb209ea408bdead1992de755676bb13246eb20b75d5a",
         "publication_manifest_match": true,
         "mathml_node_count": 2923,
@@ -2540,7 +2540,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "cea83cbe5efb991557ab6044da87604bea3c4cb11b2c92ee9db7a60fa279908e",
-        "html_exact_tex_sha256": "e5c57514bdf69a0b7c1a3071e16c7e3785fc07a921c03cbf47baf83574e442ea"
+        "html_exact_tex_sha256": "34e0e75f3884f7c9858133a8578ab3329dedc202e864d92b9b9c2de649c4add1"
       },
       "sections": [
         {
@@ -3241,7 +3241,7 @@
       "question": "What is the complete block, shell, carry, and observer record for Erdős #269, and which cofinal escape remains?",
       "precis": "A claim-bounded complete reasoning record for Erdős #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.",
       "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
       "problem_id": "erdos_269",
       "routes": {
         "html_mathml": "papers/erdos269-running-lcm-reasoning-surface.html",
@@ -3260,7 +3260,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "23abd4b4078595fb95353374852d90f379765ffd468f2e5cc316b721b8012f9a",
         "publication_manifest_match": true,
         "mathml_node_count": 968,
@@ -3279,7 +3279,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "acd1faa4f01f148fad50f09c042c29c986b63cee9305ca8a2f94c6647547bcc6",
-        "html_exact_tex_sha256": "50930806f911c2358cf0d4145671b76490477e30ed62d9bd7646a264e3461744"
+        "html_exact_tex_sha256": "f89d271eb0dc95c2179b0f2a458f9c69a3932a0229d4ccb1b0cfc67dcf5aebac"
       },
       "sections": [
         {
@@ -3495,7 +3495,7 @@
       "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
       "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
       "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
       "problem_id": "erdos_269",
       "routes": {
         "html_mathml": "papers/erdos-269-three-prime-running-lcm.html",
@@ -3514,7 +3514,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
         "publication_manifest_match": true,
         "mathml_node_count": 260,
@@ -3524,7 +3524,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "9550670ff3c1aa0f1010a5cf5c095aebceccb0744481eee1f3d5beda2e5c6ff0",
-        "html_exact_tex_sha256": "5947a04d6212cc5f87ba8cdd866908aa0e9c1e55076a6f9f005eeba2d9449ded"
+        "html_exact_tex_sha256": "8261101ce01c7f3bab65c1568c71fc3dc5286ee8e0e17766259f5e9e4d0ba4d2"
       },
       "sections": [
         {
@@ -3615,7 +3615,7 @@
       "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
       "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
       "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
       "problem_id": "erdos_1041",
       "routes": {
         "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
@@ -3634,7 +3634,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
         "publication_manifest_match": true,
         "mathml_node_count": 518,
@@ -3644,7 +3644,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
-        "html_exact_tex_sha256": "6c70baeee5e2d4c516e3193010069076c325c828514c74757f82ab38d92cbfdf"
+        "html_exact_tex_sha256": "c12855661ed75e917c9fde379c39a3440d3ccd818e099bef0f07b953894d931c"
       },
       "sections": [
         {
@@ -3820,7 +3820,7 @@
       "question": "What is the complete short-path, critical-value, solved-family, and obstruction record for Erdős #1041, and what remains of the unrestricted path problem?",
       "precis": "A longer record of the same programme: ordinary all-degree trinomial paths, a sharp critical-value mean, solved-family kernels, Newton-flow checks, and exact obstructions including a Cassini counterexample to the printed global tree budget. It does not resolve unrestricted Erdős #1041.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
       "problem_id": "erdos_1041",
       "routes": {
         "html_mathml": "papers/erdos1041-lemniscate-reasoning-surface.html",
@@ -3839,7 +3839,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "9238d40fede9fb8beebfcb9c0ac61a952548c8efd0d8136cb979b7d753aa2f6e",
         "publication_manifest_match": true,
         "mathml_node_count": 1244,
@@ -3867,7 +3867,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "b72ed97c340c2a8acf094a4531656b0bcb9c31e14eb366b99fe9993e6eacfda2",
-        "html_exact_tex_sha256": "d2f5f5efe06a5017a3afd31d5acdf32c388ecbdad4d393a96355e118419fdc6b"
+        "html_exact_tex_sha256": "63defd81a8de8777036cbed6a38d0d3099e36d272ccb5b0f95cda8bb65839410"
       },
       "sections": [
         {
@@ -4183,7 +4183,7 @@
       "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
       "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
       "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open",
       "problem_id": "erdos_1049",
       "routes": {
         "html_mathml": "papers/erdos-1049-rational-base-lambert.html",
@@ -4202,7 +4202,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
         "publication_manifest_match": true,
         "mathml_node_count": 405,
@@ -4333,7 +4333,7 @@
       "question": "What is the complete tail, height, Hermite–Padé, and mechanism record for Erdős #1049, and why is base 3/2 still open?",
       "precis": "A claim-bounded complete reasoning record for Erdős #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite–Padé and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open",
       "problem_id": "erdos_1049",
       "routes": {
         "html_mathml": "papers/erdos1049-rational-base-lambert-reasoning-surface.html",
@@ -4352,7 +4352,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "a5c09456c0438ac64804182b66110e2a1de6b0993918a82676d77347d34c7f62",
         "publication_manifest_match": true,
         "mathml_node_count": 1538,
@@ -4362,7 +4362,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "9e9098a36f455c959e3c5bb362682634e78f4efd53b9888c9e7cf9d16f5a4d46",
-        "html_exact_tex_sha256": "8e1bff66f37fc74a5db6ddd2d125f7ad2c5b330f75ddae1fc763c923cbc77394"
+        "html_exact_tex_sha256": "9285b786685ff05e447a56befa5c20fdb28107245adc3b195f98e0feefc94f91"
       },
       "sections": [
         {
@@ -4687,8 +4687,8 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
-        "source_sha256": "e04d135267c9416d729c9ba42df364448b203abf06aabfeeac14da0f30993a8e",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "source_sha256": "548131e698ac9327e471f45a3b27b0793fc326037044d38ded8818ecccaa6714",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
         "raw_math_fallback_count": 0,
@@ -4696,8 +4696,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "72c5159537ca160944f07b8675ad4bace1a89fdd415be5670fa3e86bb68f77c5",
-        "html_exact_tex_sha256": "9d8639528f9dba94b32006010de61d5b016529b79c82ad57657c64c5d80c4cf5"
+        "html_mathml_sha256": "86903344ddd78d459e27092357439f4d7488c226d1c9ba7e6ba9b7ed222d6465",
+        "html_exact_tex_sha256": "0b245978d98aa0b784fd49f70e8c18bbf0f6a97ac6c3d3bb44c6cf2e8820e3a1"
       },
       "sections": [
         {
@@ -4962,7 +4962,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "326364ff51be753731daee255ea78e641d0390e715a52625e575eb3d90f6ac25",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
@@ -5107,7 +5107,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "bda180c92168800fb3ec74ab12ef6f56d8f72c2ad11a78cc3e8c8253b3298dc9",
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -5134,7 +5134,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "dc3d71df8f3feae326edfb48608cfcb0db4b87c17d114a663837eaaf755efc0d",
-        "html_exact_tex_sha256": "9cf9a2d36decc41534a8a3fcbacaf138abc033d32d12e737607d1abd0681ccb4"
+        "html_exact_tex_sha256": "880517053cd4a168dbb64a949b071b0f8c0d86617aefead2700c40b6c46178ea"
       },
       "sections": [
         {
@@ -5314,7 +5314,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
         "publication_manifest_match": true,
         "mathml_node_count": 13,

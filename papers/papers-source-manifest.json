@@ -219,13 +219,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf",
-      "source_sha256": "ddc3cf9a7920b4c373847d3c39393c1377db05379ebad8d255d29c26de2e3f73",
-      "bytes": 144758,
+      "source_sha256": "fe7dca950a1abdaf01dacef16cbf3f95a2502f679e417cf2a4eb0780bd89876b",
+      "bytes": 144410,
       "source_tex_path": "paper/systems/claim-faithful-publication-systems-paper.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/systems/claim-faithful-publication-systems-paper.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex",
-      "hosted_tex_sha256": "e04d135267c9416d729c9ba42df364448b203abf06aabfeeac14da0f30993a8e",
-      "tex_bytes": 86901
+      "hosted_tex_sha256": "548131e698ac9327e471f45a3b27b0793fc326037044d38ded8818ecccaa6714",
+      "tex_bytes": 86584
     },
     {
       "hosted_path": "papers/cold-clone-to-proof-receipt.pdf",

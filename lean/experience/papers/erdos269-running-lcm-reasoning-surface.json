@@ -9,7 +9,7 @@
   "question": "What is the complete block, shell, carry, and observer record for Erdős #269, and which cofinal escape remains?",
   "precis": "A claim-bounded complete reasoning record for Erdős #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.",
   "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #269, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
   "problem_id": "erdos_269",
   "routes": {
     "html_mathml": "papers/erdos269-running-lcm-reasoning-surface.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "23abd4b4078595fb95353374852d90f379765ffd468f2e5cc316b721b8012f9a",
     "publication_manifest_match": true,
     "mathml_node_count": 968,
@@ -47,7 +47,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "acd1faa4f01f148fad50f09c042c29c986b63cee9305ca8a2f94c6647547bcc6",
-    "html_exact_tex_sha256": "50930806f911c2358cf0d4145671b76490477e30ed62d9bd7646a264e3461744"
+    "html_exact_tex_sha256": "f89d271eb0dc95c2179b0f2a458f9c69a3932a0229d4ccb1b0cfc67dcf5aebac"
   },
   "sections": [
     {

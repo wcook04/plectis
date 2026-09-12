@@ -203,16 +203,16 @@
     "target_status": "open",
     "problem_statement": "Prove irrationality of the dyadic series built from consecutive prime gaps.",
     "strongest_theorem": {
-      "claim_id": "erdos251.polynomial_shift_countermodel",
-      "title": "exact polynomial shift countermodel eliminating coarse-gap strategies",
-      "statement": "The dyadic series of the explicit digit word g(n) = 2(n^2 + 4n + 2) sums to the rational number 32, so that sum is not irrational. The same compared theorem records the properties of the word that hold alongside that value. The word and the explicit rational orbit T(n) = 2(n + 4)^2 satisfy the dyadic tail recurrence T(N + 1) = 2 T(N) - g(N + 1) at every index. The word is positive, even and strictly increasing, hence unbounded and not eventually periodic. Every fixed tail shift T(N + h) - T(N) is an integer for every h and every N. Every adjacent difference g(n + 1) - g(n) equals 4n + 10 at every index n, so it is never 2 and never -2. Positivity, parity, polynomial growth, unboundedness, nonperiodicity, the dyadic recurrence and integrality at every fixed shift are therefore jointly compatible with a rational sum, and no argument that uses only those properties can force irrationality. The mechanism is an integer-valued quadratic orbit, which turns all-shift integrality into a polynomial identity over the integers; the word has constant second difference, so its adjacent differences grow linearly and clear the small window from the outset; and the exact finite telescope of the series equals 32 minus the scaled terminal state, whose terminal term tends to zero. The word is a model sequence and is not the consecutive-prime-gap word, so this theorem is internal infrastructure that closes one of the author's own proof routes and decides nothing about Erdős Problem 251. A telescoping countermodel of the same species, for the neighbouring conjecture printed under #251, was published first by Vjeko Kovač on 15 April 2026 and is cited below. The readers are number theorists working on the irrationality of the dyadic prime-gap series.",
+      "claim_id": "erdos251.all_residue_logarithmic_countermodel",
+      "title": "A rational logarithmic dyadic word with small digits recurring in every residue class and PNT-scale cumulative growth",
+      "statement": "Explicit synthetic positive even logarithmically bounded digits, 2 and 4 recurring in every index residue, cofinal unboundedness, nonperiodicity, strictly increasing odd positions with N log N asymptotic, dyadic sum 6 and integral tail shifts. No primality assertion or counterexample to Erdos251. For all t>0,r<t,N, there are i,j>=N congruent to r mod t with digits2and4. Every positive shift fails to be an eventual period. Every N,h>=0 has integral complete-tail difference. The pointwise bound is4 log(n+1)+24 and position/(N logN) tends to1.",
       "altitude": "no_go",
-      "band": "P",
+      "band": "U",
       "evidence_class": "lean_kernel_checked",
-      "public_entry": "ExternalVerification251PolynomialShiftCountermodel"
+      "public_entry": null
     },
     "strongest_longitudinal_theorem": null,
-    "no_longitudinal_reason": "No genuine climb: the rational-tail normal form is pinned to one located obstruction (cofinal adjacent small mismatch), the coarse-gap route is closed by an explicit countermodel, and q > 10^12041 is a finite exclusion (longitudinal_truth_2026_09_01 §1).",
+    "no_longitudinal_reason": "The quadruple-sieve estimate is an explicit unproved hypothesis, the h=1 case degenerates, and zero density of exact shifted-gap matches is not yet connected to the tail-smallness event needed to contradict rationality. Erdős #251 remains open.",
     "live_obstruction": "The remaining producer is the cofinal adjacent small mismatch, that for each fixed h at least 1 and every N0 there is an index N at least N0 at which T(N+h) - T(N) and T(N+h+1) - T(N+1) both lie strictly between -1 and 1 while g(N+h+1) differs from g(N+1).",
     "strongest_open_producer": {
       "id": "cofinal_adjacent_small_mismatch",
@@ -226,7 +226,7 @@
     "failed_approaches": [
       "Coarse gap properties (positive, even, increasing, unbounded, nonperiodic): the word g_n = 2(n²+4n+2) satisfies all of them, has rational value 32, and never produces an adjacent small mismatch.",
       "State compression by word repetition alone: the margin is recorded so the lane is not re-walked.",
-      "Liouville-flavoured attacks: the certified expansion has irrationality-exponent witness 2.0007."
+      "Liouville-flavoured attacks: a finite continued-fraction expansion yields a local exponent-style witness 2.0007, which is not an irrationality-exponent theorem."
     ],
     "public_entry_ids": [
       "ExternalVerification251PolynomialShiftCountermodel",
@@ -249,7 +249,7 @@
     "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
     "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
     "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
-    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+    "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
     "problem_id": "erdos_251",
     "routes": {
       "html_mathml": "papers/erdos-251-prime-gap-dyadic-series.html",
@@ -268,7 +268,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 21,
-      "renderer_fingerprint": "ec60ada03b181a30",
+      "renderer_fingerprint": "f6b3e351ccb221fc",
       "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
       "publication_manifest_match": true,
       "mathml_node_count": 496,
@@ -291,7 +291,7 @@
         "mathjax": []
       },
       "html_mathml_sha256": "775321482d3b62ccb657b799856842ea520ca5fb0aca7b18622ac41dd8b5f07b",
-      "html_exact_tex_sha256": "fa612b4647f67a5fa0b386d331064209bba30140aa1726773d20db8ab5d74e26"
+      "html_exact_tex_sha256": "dfd2455c19ed547c87c0c83724eb98e8ea050077c9eb4248d04357c7476fd5d2"
     },
     "sections": [
       {
@@ -444,7 +444,7 @@
       "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
       "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
       "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
       "problem_id": "erdos_251",
       "routes": {
         "html_mathml": "papers/erdos-251-prime-gap-dyadic-series.html",
@@ -463,7 +463,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
         "publication_manifest_match": true,
         "mathml_node_count": 496,
@@ -486,7 +486,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "775321482d3b62ccb657b799856842ea520ca5fb0aca7b18622ac41dd8b5f07b",
-        "html_exact_tex_sha256": "fa612b4647f67a5fa0b386d331064209bba30140aa1726773d20db8ab5d74e26"
+        "html_exact_tex_sha256": "dfd2455c19ed547c87c0c83724eb98e8ea050077c9eb4248d04357c7476fd5d2"
       },
       "sections": [
         {
@@ -639,7 +639,7 @@
       "question": "What is the complete shift, countermodel, and finite-evidence record for Erdős #251, and which cofinal mismatch is missing?",
       "precis": "A claim-bounded complete reasoning record for Erdős #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #251, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
       "problem_id": "erdos_251",
       "routes": {
         "html_mathml": "papers/erdos251-prime-gap-reasoning-surface.html",
@@ -658,7 +658,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "80d226bc59d7e47db86bc4d576570d27e78d8760ba77ae38c548a53bfc9b8234",
         "publication_manifest_match": true,
         "mathml_node_count": 922,
@@ -676,7 +676,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "416dcdc0e3ed56da7e845e903f45d748cad93a86fabeb4629c4ea2bfd39d72da",
-        "html_exact_tex_sha256": "da583bd9b772305e1a217006176890d5378d4ab3f4f78d11aac7366bd4441de7"
+        "html_exact_tex_sha256": "176d91c6e5327d8a584cb085b84d795b78e1464d8bcdb26bc595c16814efaed5"
       },
       "sections": [
         {

@@ -9,7 +9,7 @@
   "question": "What is the complete short-path, critical-value, solved-family, and obstruction record for Erdős #1041, and what remains of the unrestricted path problem?",
   "precis": "A longer record of the same programme: ordinary all-degree trinomial paths, a sharp critical-value mean, solved-family kernels, Newton-flow checks, and exact obstructions including a Cassini counterexample to the printed global tree budget. It does not resolve unrestricted Erdős #1041.",
   "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
   "problem_id": "erdos_1041",
   "routes": {
     "html_mathml": "papers/erdos1041-lemniscate-reasoning-surface.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "9238d40fede9fb8beebfcb9c0ac61a952548c8efd0d8136cb979b7d753aa2f6e",
     "publication_manifest_match": true,
     "mathml_node_count": 1244,
@@ -56,7 +56,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "b72ed97c340c2a8acf094a4531656b0bcb9c31e14eb366b99fe9993e6eacfda2",
-    "html_exact_tex_sha256": "d2f5f5efe06a5017a3afd31d5acdf32c388ecbdad4d393a96355e118419fdc6b"
+    "html_exact_tex_sha256": "63defd81a8de8777036cbed6a38d0d3099e36d272ccb5b0f95cda8bb65839410"
   },
   "sections": [
     {

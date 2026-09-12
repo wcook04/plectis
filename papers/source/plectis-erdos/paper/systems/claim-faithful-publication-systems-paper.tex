@@ -15,7 +15,7 @@
   pdflang={en-GB},
   pdfkeywords={formal mathematics, Lean 4, AI agents, research architecture, claim verification, reproducibility},
 }
-\newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257}
+\newcommand{\repobase}{https://github.com/wcook04/plectis-erdos}
 % BEGIN generated_semantic_coverage_macros
 \newcommand{\SemanticAuthoredTheoremLike}{145,515}
 \newcommand{\SemanticAuthoredInterpreted}{139,817}
@@ -313,17 +313,12 @@ solved.}
 \label{fig:job-lifecycle}
 \end{figure}
 
-The current owners are \texttt{explain-public-system} for reader orientation,
-\texttt{run-coupled-research-goals} for discovery--stewardship coordination,
-\texttt{mine-open-problem} for invocation and research,
-\texttt{lean-concurrent-validation} for bounded Lean checks,
-\texttt{propagate-research-consequences} for downstream reconciliation,
-\texttt{erdos-research-return} for packaging and maintainer assimilation, and
-\texttt{submit-pull-request} for preparing the Git proposal. The separate
-\texttt{add-open-problem} lifecycle moves through proposal, incubating formal
-lane, and fully indexed public world. \texttt{public-mathematical-writing}
-governs a paper projection when propagation reaches exposition. These names
-are repository entrypoints rather than a second claim taxonomy.
+The stable roles are orientation, bounded discovery, Lean validation,
+consequence propagation, return packaging, proposal, and maintainer adoption.
+Problem admission and manuscript revision have their own bounded lifecycles.
+The live \repolink{skills/README.md}{skill catalogue} lists the current entry
+names and routes to their definitions; those definitions own the executable
+details. This paper owns the lifecycle and the authority boundary.
 
 \section{The private workbench}\label{sec:private}
 
@@ -1047,13 +1042,13 @@ URLs.
 Question & Start here \\
 \midrule
 How does the public repository fit together? &
-\repolink{ARCHITECTURE.md}{ARCHITECTURE.md} \\
+\repolink{docs/ARCHITECTURE.md}{docs/ARCHITECTURE.md} \\
 What may the project say, and what remains open? &
 \repolink{docs/claims.json}{docs/claims.json} and
 \repolink{docs/methodology.json}{docs/methodology.json} \\
 Where is the checked mathematics? &
-\repolink{Erdos249257.lean}{Erdos249257.lean} and
-\repolink{ErdosProblems.lean}{ErdosProblems.lean} \\
+\repolink{lean/Erdos249257.lean}{lean/Erdos249257.lean} and
+\repolink{lean/ErdosProblems.lean}{lean/ErdosProblems.lean} \\
 How can I navigate without reading the whole corpus? &
 \repolink{docs/ORIENTATION.md}{docs/ORIENTATION.md} and
 \repolink{scripts/query_corpus.py}{scripts/query\_corpus.py} \\
@@ -1061,7 +1056,7 @@ What exactly does Comparator check? &
 \repolink{docs/EXTERNAL_VERIFICATION.md}{docs/EXTERNAL\_VERIFICATION.md} and
 \repolink{verification/comparator.json}{verification/comparator.json} \\
 What does the local review selection qualify? &
-\repolink{docs/PALOMAR_QUALIFICATION.md}{docs/PALOMAR\_QUALIFICATION.md} and
+\repolink{docs/verification/PALOMAR_QUALIFICATION.md}{PALOMAR\_QUALIFICATION.md} and
 \repolink{docs/PALOMAR_RESULT_SHOWCASE.json}{docs/PALOMAR\_RESULT\_SHOWCASE.json} \\
 Which papers exist and what question does each answer? &
 \repolink{docs/papers/README.md}{docs/papers/README.md} \\

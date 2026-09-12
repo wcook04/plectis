@@ -9,7 +9,7 @@
   "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
   "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #257, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
   "problem_id": "erdos_257",
   "routes": {
     "html_mathml": "papers/erdos-257-mersenne-support-subseries.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "f27f8d97ce9f9bd83318ac3a97f4acbe7fc9072c9246dd2ef147dbfa63f07b66",
     "publication_manifest_match": true,
     "mathml_node_count": 344,
@@ -55,7 +55,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "90cf2ad508f3e1142326f10445948e9a1d8ad5902fd0f7b00d64310f79708026",
-    "html_exact_tex_sha256": "a0e455e3aa77cc066983095d6949ac4759c8f9d1adf3c5227d196492dae949c4"
+    "html_exact_tex_sha256": "926b225528e7394f351227b4262e6ec6c74e4a72216dd6d2423d238fc2d6ba0e"
   },
   "sections": [
     {

@@ -4,21 +4,22 @@
   "title": "Comparator #1049 fixture",
   "role": "comparator_case_study",
   "reading_order": 110,
-  "source_path": "docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md",
+  "source_path": "docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md",
   "routes": {
     "html_mathml": "documents/comparator-1049.html",
     "html_exact_tex": "documents/comparator-1049.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
   },
   "render_contract": {
+    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "f46a4826481261b61570c98552d06f155b8c3b3746d108475e6bfb4e1deddb27",
+    "source_sha256": "316d19c4714c8366d96f029acef7159bfd46dc52354acdd8b57cf87bb68aa294",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +28,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "0fad01e2e5676ea32c8144ba706a9e80431b1d244f51318b141054c356025842",
-    "html_exact_tex_sha256": "460dbf32f4502f24fe30025b4b77bc0ec985f28bbf3c8e29987502f9da882062"
+    "html_mathml_sha256": "9fba2681fb0cd38d75329a2ce75448779b78aa53598b78595a48a09555528253",
+    "html_exact_tex_sha256": "e174e589d2317dd1d512f1c7b4417c5db56b87fcaa5fa4f5539ff39e897fffb6"
   },
   "sections": [
     {

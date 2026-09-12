@@ -9,7 +9,7 @@
   "question": "What is the complete tail, height, Hermite–Padé, and mechanism record for Erdős #1049, and why is base 3/2 still open?",
   "precis": "A claim-bounded complete reasoning record for Erdős #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite–Padé and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.",
   "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1049, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open",
   "problem_id": "erdos_1049",
   "routes": {
     "html_mathml": "papers/erdos1049-rational-base-lambert-reasoning-surface.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "a5c09456c0438ac64804182b66110e2a1de6b0993918a82676d77347d34c7f62",
     "publication_manifest_match": true,
     "mathml_node_count": 1538,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "9e9098a36f455c959e3c5bb362682634e78f4efd53b9888c9e7cf9d16f5a4d46",
-    "html_exact_tex_sha256": "8e1bff66f37fc74a5db6ddd2d125f7ad2c5b330f75ddae1fc763c923cbc77394"
+    "html_exact_tex_sha256": "9285b786685ff05e447a56befa5c20fdb28107245adc3b195f98e0feefc94f91"
   },
   "sections": [
     {

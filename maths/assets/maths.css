@@ -63,6 +63,19 @@
    wide module table would otherwise force page-level horizontal scroll on
    small screens; the table's own .table-scroll wrapper is the scroller. */
 .maths-layout .docs-main { min-width: 0; }
+body:has(.maths-layout) .glossary-hint--inline-ready {
+  position: static; width: 100%; max-width: var(--prose);
+  margin: 1rem 0 1.25rem; box-shadow: none;
+}
+@media (min-width: 1281px) {
+  .maths-layout:has(.docs-toc) { grid-template-columns: 220px minmax(0, 1fr) 220px; }
+  .maths-layout .docs-toc { grid-column: 3; grid-row: 1; }
+}
+@media (max-width: 1280px) { .maths-layout .docs-toc { display: none; } }
+.maths-layout .docs-sidebar {
+  top: var(--topbar-h);
+  height: calc(100dvh - var(--topbar-h));
+}
 
 /* ---- Maths sidebar refinements ---------------------------------------- */
 .maths-nav-number {
@@ -623,7 +636,75 @@ html:not(.scripting) .universe-nojs { display: block; }
 .authority-card b { font-weight: 600; }
 
 /* The rendered manuscript. Pandoc emits section.levelN wrappers. */
-.paper-stage { max-width: 74ch; }
+.paper-stage {
+  max-width: 74ch;
+  font-family: var(--font-serif);
+  font-size: 1.075rem;
+  text-rendering: optimizeLegibility;
+}
+.paper-stage :not(pre) > code {
+  font-size: .82em;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+.paper-stage .lean-identifier {
+  display: inline-flex;
+  align-items: baseline;
+  max-width: min(28ch, 100%);
+  padding: 0;
+  border: 0;
+  border-bottom: 1px dotted var(--muted);
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font: .8em var(--font-mono);
+  line-height: 1.25;
+  vertical-align: baseline;
+  cursor: pointer;
+}
+.paper-stage .lean-identifier code {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font: inherit;
+  color: inherit;
+}
+.lean-identifier::after { content: "▾"; margin-left: .35em; font-size: .8em; }
+.paper-stage .lean-identifier:hover { color: var(--accent); }
+.lean-identifier:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.lean-identifier-detail {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  width: min(34rem, calc(100vw - 32px));
+  padding: 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  font-family: var(--font-sans);
+}
+.lean-identifier-detail__title { margin: 0 0 .7rem; color: var(--muted); font-size: .75rem; }
+.lean-identifier-detail code {
+  display: block;
+  padding: 0;
+  background: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font: .85rem/1.6 var(--font-mono);
+}
+.lean-identifier-detail__actions { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: .9rem; }
+.lean-identifier-detail button { font: .8rem var(--font-sans); cursor: pointer; }
+.lean-identifier-detail__status { color: var(--muted); font-size: .8rem; }
+@media print {
+  .paper-stage .lean-identifier { display: inline; max-width: none; border: 0; }
+  .paper-stage .lean-identifier code { display: inline; white-space: normal; overflow-wrap: anywhere; }
+  .lean-identifier::after, .lean-identifier-detail { display: none; }
+}
 .lean-paper__header, .lean-document__header { display: none; }
 /* The fragment repeats title and eyebrow we already set in the page head. */
 .paper-stage h2, .paper-stage h3, .paper-stage h4, .paper-stage h5, .paper-stage h6 {
@@ -680,50 +761,32 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-stage .math-display mjx-container[display="true"] {
   margin: 0;
 }
+.paper-stage .math-display { overflow: visible; }
+.paper-stage span.math.display { scrollbar-width: thin; padding-block: .2em; }
 .paper-stage p:has(+ .math-display) {
   margin-bottom: 0.15em;
 }
 .paper-stage .math-display + p.display-continue {
   margin-top: 0.15em;
 }
-/*
-  Hide untypeset TeX until MathJax has replaced it. Keyed on html.scripting
-  (stamped in the blocking theme-init) so the first paint never dumps raw
-  ``\operatorname`` into the manuscript. html.js is reserved for docs.js
-  readiness and must not gate this.
-*/
-html.scripting .paper-stage span.math:not(:has(mjx-container)) {
-  color: transparent;
+/* Equations arrive as static HTML with assistive MathML. Never hide source
+   text behind a loading timer: a failed asset must not erase mathematics. */
+.paper-stage .math[data-math-rendered] { color: inherit; }
+.paper-stage .math.display { position: relative; }
+.paper-stage .math.display:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
-html.scripting .paper-stage span.math.inline:not(:has(mjx-container)) {
-  display: inline-block;
-  min-width: 1.2em;
-  max-width: 10em;
-  overflow: hidden;
-  vertical-align: -0.2em;
-  height: 1.05em;
-}
-html.scripting .paper-stage span.math.display:not(:has(mjx-container)),
-html.scripting .paper-stage .math-display:not(:has(mjx-container)) {
-  min-height: 2.4em;
-  max-height: 3.6em;
-  overflow: hidden;
-}
-/*
-  If MathJax never replaces a span, un-hide the TeX rather than leaving a
-  transparent hole. Settled is stamped after the idle drain, or at 12s.
-*/
-html.mathjax-settled .paper-stage span.math:not(:has(mjx-container)),
-html.mathjax-error .paper-stage span.math:not(:has(mjx-container)) {
-  color: inherit;
-  display: inline;
-  min-width: 0;
-  max-width: none;
-  height: auto;
-  max-height: none;
-  overflow: visible;
-  vertical-align: baseline;
-}
+.reader-contents { display: none; margin: 1.5rem 0; border-block: 1px solid var(--rule); }
+.reader-contents--inline { display: block; }
+.reader-contents summary { padding: .8rem 0; cursor: pointer; font-weight: 600; }
+.reader-contents nav { display: grid; gap: .65rem; max-height: 45vh; overflow-y: auto; padding: .5rem 0 1.1rem; }
+.reader-contents a { color: var(--ink); font-size: .9rem; line-height: 1.45; }
+.reader-contents .toc-l3 { padding-left: 1rem; color: var(--muted); }
+.source-empty { padding: 1rem; color: var(--muted); }
+.source-empty button { font: inherit; color: var(--accent); border: 0; background: none; text-decoration: underline; cursor: pointer; }
+@media (max-width: 1280px) { .reader-contents { display: block; } }
+@media print { .reader-contents { display: none; } }
 .paper-stage a.math-ref {
   color: var(--accent);
   text-decoration: none;
@@ -828,8 +891,7 @@ html.mathjax-error .paper-stage span.math:not(:has(mjx-container)) {
   display: block;
   text-align: center;
   margin: 0.85em 0;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: visible;
 }
 .paper-stage mjx-container[display="true"] mjx-math {
   display: inline-block;
@@ -1344,6 +1406,43 @@ body.has-viewback:has(.maths-layout) .viewback {
   bottom: auto;
   top: calc(var(--topbar-h) + 10px);
   max-width: min(22rem, calc(100vw - 2rem));
+}
+@media (min-width: 769px) {
+  body.has-viewback:has(.maths-layout) .viewback { max-width: 200px; }
+  body.has-viewback .maths-layout .docs-sidebar {
+    padding-top: 4rem;
+    height: calc(100dvh - var(--topbar-h));
+  }
+}
+@media (max-width: 768px) {
+  body.has-viewback:has(.maths-layout) .viewback {
+    top: auto;
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}
+@media (max-width: 768px) {
+  body:has(.maths-layout) { --topbar-h: 116px; }
+  body:has(.maths-layout) .docs-topbar__inner {
+    position: relative; flex-wrap: wrap; height: auto; min-height: 58px; padding-block: .6rem;
+  }
+  body:has(.maths-layout) .docs-topbar__links {
+    display: flex;
+    width: 100%;
+    margin-inline: 0;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    overflow-x: auto;
+    font-size: .85rem;
+    margin-top: .4rem;
+  }
+  body:has(.maths-layout) .docs-topbar__links a { flex: none; white-space: nowrap; padding-block: .4rem; }
+  body:has(.maths-layout) .theme-toggle { position: absolute; right: 0; top: .85rem; }
+  .maths-layout .docs-main > .wrap { width: 100%; margin-inline: 0; padding-inline: 0; }
+  .maths-layout .docs-breadcrumb { margin-block: 1rem; }
+  .maths-hero { padding-top: 1.8rem; }
+  .paper-stage { font-size: 1rem; }
+  .problem-jumps { gap: .5rem 1rem; padding-block: 1rem; font-size: .875rem; }
+  .source-files.is-long { max-height: 55dvh; }
 }
 .paper-source-guide {
   margin-block: 1.5rem;

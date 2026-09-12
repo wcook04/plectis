@@ -9,7 +9,7 @@
   "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
   "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
   "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open",
   "problem_id": "erdos_243",
   "routes": {
     "html_mathml": "papers/erdos-243-reciprocal-tail-rigidity.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "ad2e77ffca32e73f22345a2024030a7dcb06fa24badd0d3fc1aa07bebbb00b31",
     "publication_manifest_match": true,
     "mathml_node_count": 278,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "d8fd73f78cbc3f43c9225401ee9341fd083e238c405f495d85320a11c648446a",
-    "html_exact_tex_sha256": "1158dfc2b8cb047a024080247a0d4223bd43264d34e12b6b831ffbb58e0ada6c"
+    "html_exact_tex_sha256": "71b045141ff4c8b6670b46b40d016f5cdf6c67dd3c2f4475f212473769c9e10b"
   },
   "sections": [
     {

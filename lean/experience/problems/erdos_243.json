@@ -275,7 +275,7 @@
       "kind": "proof",
       "note": "Formalise the bridge from Koizumi, Irrationality of the reciprocal sum of doubly exponential sequences, arXiv:2504.05933, INTEGERS 26 (2026), A28, so that bounded-negative rigidity becomes a statement about Erdős #243 itself under one added hypothesis."
     },
-    "what_this_does_not_establish": "Erdős #243 remains open. The packet contains Lean-checked conditional arithmetic results and ordinary global rigidity criteria. The weighted LCM record-excess theorem proves an exact equivalence between the Sylvester endpoint and finiteness of a discounted record-excess series for any fixed decreasing weight with divergent integral. It discards non-record indices, subtracts B M_n from the raw negative error, and permits arbitrary fixed iterated-logarithmic discounts. The missing direction is to establish finiteness from genuine rational denominator feedback. Only the finite arithmetic and charging core is a Lean target; the global weighted theorem is ordinary proof. …",
+    "what_this_does_not_establish": "Erdős #243 remains open. The packet contains Lean-checked conditional arithmetic results and ordinary global rigidity criteria. The weighted LCM record-excess theorem proves an exact equivalence between the Sylvester endpoint and finiteness of a discounted record-excess series for any fixed decreasing weight with divergent integral. It discards non-record indices, subtracts B M_n from the raw negative error, and permits arbitrary fixed iterated-logarithmic discounts. The missing direction is to establish finiteness from genuine rational denominator feedback. The exact canonical weighted equivalence and its supporting weighted-divergence theorem are Lean-checked in PaperCompleteR8; …",
     "failed_approaches": [
       "Finite-prefix rules: arbitrary finite deviations can precede an exact Sylvester tail.",
       "Eventually periodic and eventually constant negative orbits: excluded unconditionally, so a counterexample must have aperiodic unbounded negative excursions.",
@@ -299,7 +299,7 @@
     "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
     "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
     "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
-    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+    "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open",
     "problem_id": "erdos_243",
     "routes": {
       "html_mathml": "papers/erdos-243-reciprocal-tail-rigidity.html",
@@ -318,7 +318,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 21,
-      "renderer_fingerprint": "ec60ada03b181a30",
+      "renderer_fingerprint": "f6b3e351ccb221fc",
       "source_sha256": "ad2e77ffca32e73f22345a2024030a7dcb06fa24badd0d3fc1aa07bebbb00b31",
       "publication_manifest_match": true,
       "mathml_node_count": 278,
@@ -328,7 +328,7 @@
         "mathjax": []
       },
       "html_mathml_sha256": "d8fd73f78cbc3f43c9225401ee9341fd083e238c405f495d85320a11c648446a",
-      "html_exact_tex_sha256": "1158dfc2b8cb047a024080247a0d4223bd43264d34e12b6b831ffbb58e0ada6c"
+      "html_exact_tex_sha256": "71b045141ff4c8b6670b46b40d016f5cdf6c67dd3c2f4475f212473769c9e10b"
     },
     "sections": [
       {
@@ -436,7 +436,7 @@
       "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
       "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
       "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open",
       "problem_id": "erdos_243",
       "routes": {
         "html_mathml": "papers/erdos-243-reciprocal-tail-rigidity.html",
@@ -455,7 +455,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "ad2e77ffca32e73f22345a2024030a7dcb06fa24badd0d3fc1aa07bebbb00b31",
         "publication_manifest_match": true,
         "mathml_node_count": 278,
@@ -465,7 +465,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "d8fd73f78cbc3f43c9225401ee9341fd083e238c405f495d85320a11c648446a",
-        "html_exact_tex_sha256": "1158dfc2b8cb047a024080247a0d4223bd43264d34e12b6b831ffbb58e0ada6c"
+        "html_exact_tex_sha256": "71b045141ff4c8b6670b46b40d016f5cdf6c67dd3c2f4475f212473769c9e10b"
       },
       "sections": [
         {
@@ -573,7 +573,7 @@
       "question": "What is the complete state-dynamics and no-go record for Erdős #243, and which unbounded negative orbit regime survives?",
       "precis": "A claim-bounded complete reasoning record for Erdős #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open",
       "problem_id": "erdos_243",
       "routes": {
         "html_mathml": "papers/erdos243-reciprocal-tail-reasoning-surface.html",
@@ -592,7 +592,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "b10f787ab8e0ed198eee572f7482c0aa5376d1742f374030d2445f1ef54f140c",
         "publication_manifest_match": true,
         "mathml_node_count": 1591,
@@ -602,7 +602,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "e0fbb020622207caf379abba279d209b83811ee103d273a94330a953a3493b94",
-        "html_exact_tex_sha256": "e0957424a4a2979576ebc8ecce4188587344ebfbcca63eb528fad0e66062e2b6"
+        "html_exact_tex_sha256": "183699a6babf215fc640d3d68afd6e5993ef9c4f2b557acc1e0b03e76c44cce0"
       },
       "sections": [
         {

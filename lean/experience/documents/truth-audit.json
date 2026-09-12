@@ -4,21 +4,22 @@
   "title": "Truth audit",
   "role": "claim_audit",
   "reading_order": 130,
-  "source_path": "docs/TRUTH_AUDIT.md",
+  "source_path": "docs/reference/TRUTH_AUDIT.md",
   "routes": {
     "html_mathml": "documents/truth-audit.html",
     "html_exact_tex": "documents/truth-audit.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/TRUTH_AUDIT.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/TRUTH_AUDIT.md"
   },
   "render_contract": {
+    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "befefa81ecd2e49c82f59c077e0f0919f16cba37d2e685c0da979d8b5646ad66",
+    "source_sha256": "9a568edfb20a5325c537ec488b7ffd52ca0565cf209c229252c9012128bf48e6",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +28,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "cbaa3791870325ed4b42ad94792b57cbb2164e697f6c45c085b6543a7a57565d",
-    "html_exact_tex_sha256": "5d3593037107ee5da587bef88f7a517d20119b5e4c3cb1f02d26326cbbd14c3c"
+    "html_mathml_sha256": "e8b023f1cba7500cff665ab2d5e650966e6b558ee686db523756415a93e7b7e3",
+    "html_exact_tex_sha256": "e7d91c14a38973e47d3d389d2f4c0b79d3375b4f4d005628f4c94bedc42f50e6"
   },
   "sections": [
     {

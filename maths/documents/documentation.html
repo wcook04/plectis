@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation guide · Plectis maths</title>
+  <meta name="description" content="Documentation guide, rendered from the public Lean repository.">
+  <link rel="canonical" href="https://wcook04.github.io/plectis/maths/documents/documentation.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plectis">
+  <meta property="og:title" content="Documentation guide · Plectis maths">
+  <meta property="og:description" content="Documentation guide, rendered from the public Lean repository.">
+  <meta property="og:url" content="https://wcook04.github.io/plectis/maths/documents/documentation.html">
+  <meta property="og:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta property="og:image:width" content="1792">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Plectis: public components, checks, and papers.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Documentation guide · Plectis maths">
+  <meta name="twitter:description" content="Documentation guide, rendered from the public Lean repository.">
+  <meta name="twitter:image" content="https://wcook04.github.io/plectis/assets/plectis-social-card.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f0e2">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171020">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
+  <link rel="stylesheet" href="../../assets/style.css?v=bc11d00b7b50">
+  <link rel="stylesheet" href="../assets/maths.css?v=13ad72a079a4">
+  <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=6c085cd44fc5"></script></template>
+  <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
+  <script defer src="../assets/maths.js?v=65a3a57d9aa3"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="docs-topbar" data-term-auto="off">
+    <div class="docs-topbar__inner">
+      <button class="docs-menu-btn" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <span class="brand-ladder">
+        <a class="brand-ladder__up" href="https://wcook04.github.io/" data-link-kind="parent" rel="author">Will Cook</a>
+        <span class="brand-ladder__sep" aria-hidden="true">/</span>
+        <a class="wordmark" href="../../index.html">Plectis</a>
+      </span>
+      <nav class="docs-topbar__links" aria-label="Primary">
+        <a href="../index.html">Maths</a>
+        <a href="../../docs/index.html">Software</a>
+        <a href="../../docs/papers.html">Papers</a>
+        <a href="https://github.com/wcook04/plectis-erdos" data-link-kind="exogenous" rel="external noopener">Maths repository</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="docs-layout docs-layout--wide maths-layout">
+    <aside class="docs-sidebar" id="sidebar" data-docs-sidebar data-term-auto="off">
+        <nav class="docs-nav" aria-label="Maths">
+        <p class="docs-nav__group">Maths</p>
+        <a href="../index.html">Overview</a>
+        <a href="../universe.html">Universe map</a>
+        <p class="docs-nav__group">Problems</p>
+        <a href="../problems/erdos_68.html"><span class="maths-nav-number">#68</span>Factorial denominator</a>
+        <a href="../problems/erdos_243.html"><span class="maths-nav-number">#243</span>Sylvester-tail rigidity</a>
+        <a href="../problems/erdos_249.html"><span class="maths-nav-number">#249</span>Binary totient series</a>
+        <a href="../problems/erdos_251.html"><span class="maths-nav-number">#251</span>Prime-gap dyadic series</a>
+        <a href="../problems/erdos_257.html"><span class="maths-nav-number">#257</span>Infinite exponent supports</a>
+        <a href="../problems/erdos_269.html"><span class="maths-nav-number">#269</span>Three-prime running LCMs</a>
+        <a href="../problems/erdos_1041.html"><span class="maths-nav-number">#1041</span>Lemniscate connections</a>
+        <a href="../problems/erdos_1049.html"><span class="maths-nav-number">#1049</span>Rational-base Lambert series</a>
+        <p class="docs-nav__group">Reading</p>
+        <a href="../index.html#papers">The papers</a>
+        <a href="../index.html#documents" class="is-active" aria-current="page">Repository documents</a>
+        </nav>
+    </aside>
+    <main class="docs-main" id="main" tabindex="-1">
+      <div class="wrap">
+      <nav class="docs-breadcrumb" aria-label="Breadcrumb" data-term-auto="off"><ol><li><a href="../index.html">Maths</a></li><li><a href="../index.html#documents">Repository documents</a></li><li aria-current="page">Documentation guide</li></ol></nav>
+      <div class="docs-pagetools" data-pagetools data-term-auto="off">
+        <span class="docs-pagetools__label">This page</span>
+        <button class="docs-pagetool" type="button" data-page-export="text" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#9783;</span><span class="docs-pagetool__text">Copy text</span></button>
+        <button class="docs-pagetool" type="button" data-page-export="download" data-export-root="main" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
+        <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
+      </div>
+      <header class="paper-head">
+        <p class="doc-role-eyebrow">Documentation guide</p>
+        <h1 data-term-auto="off">Documentation guide</h1>
+        <p class="doc-source-line">Rendered from <code>docs/README.md</code> in the public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>. <a class="source-link" href="https://github.com/wcook04/plectis-erdos/blob/main/docs/README.md" data-link-kind="exogenous" rel="external noopener">View source</a></p>
+      </header>
+
+      <div class="paper-stage">
+<article class="lean-document" data-document-id="documentation" data-document-role="documentation_index" data-math-mode="mathml">
+  <div class="lean-document__body" data-source="docs/README.md">
+<!-- SPDX-FileCopyrightText: 2026 Will Cook -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<section class="level1 lean-doc-titled">
+<h2 data-term-auto="off">Reading and working with the research</h2>
+<p>Choose a problem, read its short paper, then follow the argument into
+the longer record or the supporting source. All eight original <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos" data-term="erdos" data-term-auto="1">Erdős</a>
+problems <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>. You can <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribute</a> a correction, explanation,
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-counterexample" data-term="counterexample" data-term-auto="1">counterexample</a> or useful <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-closed-route" data-term="closed_route" data-term-auto="1">failed approach</a> without solving one.</p>
+<section id="read" class="level2">
+<h2 data-term-auto="off">Read</h2>
+<ul>
+<li><a href="reading-guide.html">A reader’s way in</a>: an introduction
+without commands or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>.</li>
+<li><a href="paper-guide.html">The papers</a>: the current short
+papers and longer records.</li>
+<li><a href="results.html">Results and open questions</a>: the stated
+progress and its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>.</li>
+<li><a href="prior-art.html">Prior work</a>: antecedents, attribution and
+comparisons.</li>
+<li><a href="related-problems.html">Related problems</a>: connections
+across the collection.</li>
+</ul>
+<p>The short papers explain the main ideas. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-working-record" data-term="working_record" data-term-auto="1">long records</a> retain more
+detail, attempts and unresolved steps. Each result’s own <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>
+boundary matters: an ordinary mathematical argument and a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> are different kinds of <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>.</p>
+</section>
+<section id="check" class="level2">
+<h2 data-term-auto="off">Check</h2>
+<p>Start with the <a href="source-map.html">source map</a> to locate the
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> for a result. <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md" data-link-kind="exogenous" rel="external noopener">Reproducibility</a>
+gives the checkout and verification commands. <a
+href="external-verification.html">External verification</a> explains the
+selected <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> interfaces and their <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>.</p>
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener">claim record</a> binds statements to their
+status and supporting <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-artifact" data-term="artifact" data-term-auto="1">artifacts</a>. <a
+href="methodology.html">Methodology</a> explains the separate roles of
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> and mathematical review. A navigation page or a
+successful <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> does not establish a stronger mathematical
+statement.</p>
+</section>
+<section id="contribute" class="level2">
+<h2 data-term-auto="off">Contribute</h2>
+<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md" data-link-kind="exogenous" rel="external noopener">Contributing</a> explains how to send an
+observation or a focused pull request. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md">Credit and stewardship</a>
+explains how accepted work is attributed, including negative results and
+corrections. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/README.md" data-link-kind="exogenous" rel="external noopener">research
+commons</a> describes how another researcher can resume and return a
+longer investigation.</p>
+<p>For an AI-assisted session, use <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/FRONTIER_RELAY.md" data-link-kind="exogenous" rel="external noopener">the
+research-shift guide</a>. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coding-agent" data-term="coding_agent" data-term-auto="1">Coding agents</a> start at <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md">the agent entry</a>; the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md">agent workbench</a> documents the
+detailed tools.</p>
+</section>
+<section id="where-things-live" class="level2">
+<h2 data-term-auto="off">Where things live</h2>
+<table>
+<colgroup>
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th>Folder</th>
+<th>What belongs there</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="paper-guide.html">Papers</a></td>
+<td>Current PDFs and manuscript sources, grouped by problem.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/README.md" data-link-kind="exogenous" rel="external noopener">Paper full text</a></td>
+<td>Browsable Markdown versions and a detailed paper index.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md" data-link-kind="exogenous" rel="external noopener">Agent guides</a></td>
+<td>Commands, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> tools and rules for making changes.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/README.md" data-link-kind="exogenous" rel="external noopener">Verification guides</a></td>
+<td><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">Replay</a> instructions, statement comparisons and submission
+requirements.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/README.md" data-link-kind="exogenous" rel="external noopener">Technical reference</a></td>
+<td>Research history, correction records and indexing details.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/README.md" data-link-kind="exogenous" rel="external noopener">Research commons</a></td>
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">Contribution</a>, review and attribution records.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/semantic/README.md" data-link-kind="exogenous" rel="external noopener">Semantic index</a></td>
+<td>Generated technical navigation through <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> and
+relationships.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/primary-sources" data-link-kind="exogenous" rel="external noopener">Primary sources</a></td>
+<td>Source <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-provenance" data-term="provenance" data-term-auto="1">provenance</a> and redistribution records.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/measurements" data-link-kind="exogenous" rel="external noopener">Measurements</a></td>
+<td>Recorded measurements of the tools.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/release" data-link-kind="exogenous" rel="external noopener">Release records</a></td>
+<td><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">Audits</a> and release identity records.</td>
+</tr>
+</tbody>
+</table>
+<p>The main guides stay here: <a href="reading-guide.html">reading
+guide</a>, <a href="results.html">results</a>, <a
+href="prior-art.html">prior art</a>, <a href="related-problems.html">related
+problems</a>, <a href="source-map.html">source map</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">reproducibility</a>, <a
+href="methodology.html">methodology</a>, <a href="scope.html">scope</a> and
+<a href="architecture.html">architecture</a>.</p>
+<p>The JSON files beside these guides are used by the query tools and
+website. <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener">claims.json</a> records public <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>
+status; <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/methodology.json" data-link-kind="exogenous" rel="external noopener">methodology.json</a> records the
+review rules. The remaining indexes help locate <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>. Their
+filenames stay stable so existing tools and source links continue to
+work. You can read the papers without opening them.</p>
+<p><a href="orientation.html">Generated technical navigation</a> gives a
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compact" data-term="compact" data-term-auto="1">compact view</a> for <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">readers</a> using those indexes.</p>
+</section>
+<section id="files-at-the-repository-root" class="level2">
+<h2 data-term-auto="off">Files at the repository root</h2>
+<p><code>README.md</code> introduces the work and
+<code>CONTRIBUTING.md</code> explains how to help.
+<code>AGENTS.md</code> is the shared instruction file for <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-coding-agent" data-term="coding_agent" data-term-auto="1">coding agents</a>.
+Claude Code loads it through <code>CLAUDE.md</code>. Detailed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a>
+rules live in <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_GUIDE.md" data-link-kind="exogenous" rel="external noopener">the agent guide</a>, so
+reading the root does not require a tour of the automation.</p>
+<p><code>lakefile.toml</code>, <code>lake-manifest.json</code> and
+<code>lean-toolchain</code> configure the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> project and pin its
+dependencies. <code>formalization.yaml</code> is the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-manifest" data-term="manifest" data-term-auto="1">manifest</a>
+for selected statements; <a href="external-verification.html">external
+verification</a> explains its coverage. <code>CITATION.cff</code>
+supplies citation metadata, while <code>LICENSE</code>,
+<code>LICENSES/</code> and <code>REUSE.toml</code> record the
+licences.</p>
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/.github/CODE_OF_CONDUCT.md" data-link-kind="exogenous" rel="external noopener">code of conduct</a> and
+<a href="https://github.com/wcook04/plectis-erdos/blob/main/.github/SECURITY.md" data-link-kind="exogenous" rel="external noopener">security policy</a> live under
+<code>.github/</code>, alongside CI and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-contribute" data-term="contribute" data-term-auto="1">contribution</a> forms. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PRIVACY.md">Privacy</a>, <a href="scope.html">scope</a> and <a
+href="methodology.html">methodology</a> live here with the other
+guides.</p>
+</section>
+</section>
+  </div>
+</article>
+
+      </div>
+      <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="paper-guide.html"><span class="maths-pager__dir">Previous</span>Current papers</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="results.html"><span class="maths-pager__dir">Next</span>Results and open boundaries</a></nav>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -25,9 +25,9 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=12478665a21f">
+  <link rel="stylesheet" href="../assets/style.css?v=bc11d00b7b50">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
-  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=5f04f7a560c8"></script></template>
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=6c085cd44fc5"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
 </head>
 <body>
@@ -60,7 +60,7 @@
         <a class="nav-cue" href="../maths/index.html">Maths</a>
         <a href="index.html">Software</a>
         <a href="papers.html">Papers</a>
-        <a href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener">GitHub</a>
+        <a href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener">Software repository</a>
       </nav>
     </div>
   </header>
@@ -127,33 +127,32 @@
         <button class="docs-pagetool" type="button" data-page-export="download" aria-describedby="pagetools-status"><span class="docs-pagetool__icon" aria-hidden="true">&#8595;</span><span class="docs-pagetool__text">Download JSON</span></button>
         <span class="page-export-status docs-pagetools__status" id="pagetools-status" role="status" aria-live="polite"></span>
       </div>
-      
-            <article class="docs-article">
+      <article class="docs-article">
         <p class="eyebrow docs-eyebrow">Getting started</p>
         <h1>Quickstart</h1>
-        <p class="docs-lede">Plectis runs <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-local" data-term="local" data-term-auto="1">locally</a> against a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-directory" data-term="directory" data-term-auto="1">folder</a>. The shortest path is a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>, a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-clean" data-term="clean" data-term-auto="1">clean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a>, and the first screen.</p>
+        <p class="docs-lede">Plectis runs locally against a folder. The shortest path is a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>, a clean <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a>, and the first screen.</p>
         <p class="muted">A <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-coding-agent" data-term="coding_agent" data-term-auto="1">coding agent</a> (Claude Code, Codex, Cursor) can run this whole page for you; <a href="coding-agents.html">working with a coding agent</a> is that path.</p>
 
         <h2 id="clone">1. <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-clone" data-term="clone" data-term-auto="1">Clone</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a></h2>
         <pre><code>git clone https://github.com/wcook04/plectis
 	cd plectis</code></pre>
 
-        <h2 id="check">2. Run the one-<a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a></h2>
-        <p>A single <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-confirm" data-term="confirm" data-term-auto="1">confirms</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-local" data-term="local" data-term-auto="1">local</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-slice" data-term="slice" data-term-auto="1">slice</a> is <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-runnable" data-term="runnable" data-term-auto="1">runnable</a> on your machine before you install anything:</p>
+        <h2 id="check">2. Run the one-command <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a></h2>
+        <p>A single command confirms the local <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-slice" data-term="slice" data-term-auto="1">slice</a> is <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-runnable" data-term="runnable" data-term-auto="1">runnable</a> on your machine before you install anything:</p>
         <pre><code>./bootstrap.sh</code></pre>
-        <p class="muted">It runs against a small built-in example and writes its <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-output" data-term="output" data-term-auto="1">output</a> into an ignored <code>.microcosm/</code> <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-directory" data-term="directory" data-term-auto="1">folder</a> beside the project. Nothing leaves your machine.</p>
+        <p class="muted">It runs against a small built-in example and writes its output into an ignored <code>.microcosm/</code> folder beside the project. Nothing leaves your machine.</p>
 
         <h2 id="first">3. Open the first screen</h2>
-        <p>Open the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-local" data-term="local" data-term-auto="1">local</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> card:</p>
+        <p>Open the local result card:</p>
         <pre><code>PYTHONPATH=src python3 -m microcosm_core tour --card .</code></pre>
-        <details><summary>Optional: more <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-inspection" data-term="inspection" data-term-auto="1">inspection</a> <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-command" data-term="command" data-term-auto="1">commands</a> and the installed CLI</summary>
+        <details><summary>Optional: more <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-inspection" data-term="inspection" data-term-auto="1">inspection</a> commands and the installed CLI</summary>
         <pre><code>PYTHONPATH=src python3 -m microcosm_core status --card .
 PYTHONPATH=src python3 -m microcosm_core authority --card
 PYTHONPATH=src python3 -m microcosm_core workingness --card
 PYTHONPATH=src python3 -m microcosm_core hello .
 PYTHONPATH=src python3 -m microcosm_core first-screen --card .
 PYTHONPATH=src python3 -m microcosm_core legibility-scorecard</code></pre>
-        <p>Or, after installing the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-local" data-term="local" data-term-auto="1">local</a> <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a>:</p>
+        <p>Or, after installing the local command:</p>
         <pre><code>plectis tour --card .
 plectis status --card .
 plectis authority --card
@@ -161,18 +160,20 @@ plectis workingness --card
 plectis hello .
 plectis first-screen --card .
 plectis legibility-scorecard</code></pre>
-        <p>The legacy <code>microcosm</code> <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> remains as a compatibility alias for older notes and <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>.</p>
-        <p><code>tour --card</code> writes the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-local" data-term="local" data-term-auto="1">local</a> <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-result" data-term="result" data-term-auto="1">result</a> card; <code>hello</code> prints the non-writing <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>; <code>status</code> and the boundary cards show what the run recorded and where it <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-stop" data-term="stop" data-term-auto="1">stops</a>.</p>
+        <p>The legacy <code>microcosm</code> command remains as a compatibility alias for older notes and <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>.</p>
+        <p><code>tour --card</code> writes the local result card; <code>hello</code> prints the non-writing <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>; <code>status</code> and the boundary cards show what the run recorded and where it stops.</p>
         </details>
 
         <div class="callout">
-          The <a href="index.html">Overview</a> is the gentler first read. The full first-run guide and <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-command" data-term="command" data-term-auto="1">command</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a> live in the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>'s README.
+          The <a href="index.html">Overview</a> is the gentler first read. The full first-run guide and command <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a> live in the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>'s README.
         </div>
 
         <div class="page-foot">
           <a href="https://github.com/wcook04/plectis/blob/main/QUICKSTART.md" data-link-kind="exogenous" rel="external noopener">Full quickstart on GitHub &rarr;</a>
         </div>
-      </article><nav class="docs-pager" aria-label="Page navigation" data-term-auto="off">
+      </article>
+
+      <nav class="docs-pager" aria-label="Page navigation" data-term-auto="off">
         <a class="docs-pager__link docs-pager__link--prev" href="open-questions.html"><span class="docs-pager__dir">Previous</span><span class="docs-pager__title">Open Questions</span></a>
         <a class="docs-pager__link docs-pager__link--next" href="coding-agents.html"><span class="docs-pager__dir">Next</span><span class="docs-pager__title">With a coding agent</span></a>
       </nav>

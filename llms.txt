@@ -12,9 +12,9 @@ Every map below is a generated projection of content-graph.json (the canonical o
 
 ## Short-link first contact
 
-If you arrived from a short link, start with the [flagship result index](https://github.com/wcook04/plectis/blob/main/FLAGSHIP_RESULTS.md). The public mathematics is a bounded result slice, not a solution to an Erdős problem: it carries two #1041 statements — finite-family translation avoidance and constant-perturbation root retention — plus a #1049 no-go for one coordinatewise clearing corridor.
+For mathematics, start with the [maths pages](https://wcook04.github.io/plectis/maths/) and [current results](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md). Choose a problem, read its current paper, then follow its statement into the supporting source. All eight original problems remain open.
 
-That index names each source declaration, evidence scope, exact source commit, evidence pointer, and replay command. Then use the [cold-clone quickstart](https://github.com/wcook04/plectis/blob/main/QUICKSTART.md); a replay checks only the named source slice.
+For software, use the [cold-clone quickstart](https://github.com/wcook04/plectis/blob/main/QUICKSTART.md). Each component names what it runs and what its result can establish.
 
 Scope: this is a local-first static/public project doorway. Use it to clone, inspect, and compare source-linked records; release operations, hosted service claims, external model access, source-file changes, claims not supported by the public records, formal-result correctness, production use, financial decisions, and specialist review are outside this doorway's scope.
 
@@ -93,17 +93,20 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos-269-three-prime-running-lcm (Problem note, 10 pp.)](maths/papers/erdos-269-three-prime-running-lcm.html)
 - [Erdős #1041](maths/problems/erdos_1041.html)
 - [erdos-1041-lemniscate-newton-flow (Problem note, 20 pp.)](maths/papers/erdos-1041-lemniscate-newton-flow.html)
-- [erdos1041-lemniscate-reasoning-surface (Reasoning surface, 46 pp.)](maths/papers/erdos1041-lemniscate-reasoning-surface.html)
+- [erdos1041-lemniscate-reasoning-surface (Reasoning surface, 47 pp.)](maths/papers/erdos1041-lemniscate-reasoning-surface.html)
 - [Erdős #1049](maths/problems/erdos_1049.html)
-- [erdos-1049-rational-base-lambert (Problem note, 13 pp.)](maths/papers/erdos-1049-rational-base-lambert.html)
+- [erdos-1049-rational-base-lambert (Problem note, 14 pp.)](maths/papers/erdos-1049-rational-base-lambert.html)
 - [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 47 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
 - [claim-faithful-publication-systems (Research architecture, 19 pp.)](maths/papers/claim-faithful-publication-systems.html)
 - [cold-clone-to-proof-receipt (Agent navigation, 11 pp.)](maths/papers/cold-clone-to-proof-receipt.html)
 - [open-source-mathematics-strategy (Open-source research strategy, 20 pp.)](maths/papers/open-source-mathematics-strategy.html)
 - [plectis-public-system (Evidence boundary, 22 pp.)](maths/papers/plectis-public-system.html)
 - [Repository overview](maths/documents/readme.html)
+- [A reader's way in](maths/documents/reading-guide.html)
+- [Current papers](maths/documents/paper-guide.html)
+- [Documentation guide](maths/documents/documentation.html)
 - [Results and open boundaries](maths/documents/results.html)
-- [Corpus orientation](maths/documents/orientation.html)
+- [Technical orientation](maths/documents/orientation.html)
 - [Source map](maths/documents/source-map.html)
 - [Related problems](maths/documents/related-problems.html)
 - [Prior art](maths/documents/prior-art.html)
@@ -140,12 +143,12 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 ## Reader ladder (open in order of need)
 
 - [reviewer brief](plectis-reviewer-brief.json) (~10 MB): start here -- navigable public source for an AI, not a compact authored overlay. Paper LaTeX, mathematical assertion rows, glossary term records, a path index for each Erdős problem (Lean, Comparator, public pages), component records, and the software/maths site map. hologram_atlas names the parts before you open them. Reading it is not a verification run.
-- [reader digest](plectis-ai-reader-digest.json) (~340 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
+- [reader digest](plectis-ai-reader-digest.json) (~338 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
-- [AI packet](plectis-ai-review-packet.json) (~16 MB): the whole public software site in one self-describing file -- read_me_first, answer contract, headline_results, question routes, every public text body. The most complete single artifact, and large enough that it is a deliberate choice rather than a default.
+- [AI packet](plectis-ai-review-packet.json) (~17 MB): the whole public software site in one self-describing file -- read_me_first, answer contract, headline_results, question routes, every public text body. The most complete single artifact, and large enough that it is a deliberate choice rather than a default.
 - [complete text corpus](plectis-ai-reader-complete.json) (~11 MB): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, without instruction layers.
 - [reference index](docs/reference.html): the human middle layer -- areas, components, doctrine records, and paper modules in one navigable roster.
-- [full JSON map](plectis-site-map.json) (~18 MB): the raw map without the capsule's instruction layers -- visible_text_index bodies, page text, and diagrams, for automation.
+- [full JSON map](plectis-site-map.json) (~17 MB): the raw map without the capsule's instruction layers -- visible_text_index bodies, page text, and diagrams, for automation.
 - source of record: the public repository linked from each component's source_links.
 
 ## Machine-readable

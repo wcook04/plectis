@@ -9,7 +9,7 @@
   "question": "What is the complete state-dynamics and no-go record for Erdős #243, and which unbounded negative orbit regime survives?",
   "precis": "A claim-bounded complete reasoning record for Erdős #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.",
   "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
-  "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #243, which remains open",
+  "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open",
   "problem_id": "erdos_243",
   "routes": {
     "html_mathml": "papers/erdos243-reciprocal-tail-reasoning-surface.html",
@@ -28,7 +28,7 @@
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "source_sha256": "b10f787ab8e0ed198eee572f7482c0aa5376d1742f374030d2445f1ef54f140c",
     "publication_manifest_match": true,
     "mathml_node_count": 1591,
@@ -38,7 +38,7 @@
       "mathjax": []
     },
     "html_mathml_sha256": "e0fbb020622207caf379abba279d209b83811ee103d273a94330a953a3493b94",
-    "html_exact_tex_sha256": "e0957424a4a2979576ebc8ecce4188587344ebfbcca63eb528fad0e66062e2b6"
+    "html_exact_tex_sha256": "183699a6babf215fc640d3d68afd6e5993ef9c4f2b557acc1e0b03e76c44cce0"
   },
   "sections": [
     {

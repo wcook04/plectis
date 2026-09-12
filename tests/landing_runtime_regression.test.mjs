@@ -42,7 +42,7 @@ function harness() {
   const document = {
     body: { appendChild(node) { scripts.push(node); } },
     head: { appendChild(node) { preloads.push(node); } },
-    documentElement: { scrollTop: 0, setAttribute(key, value) { roots[key] = value; } },
+    documentElement: { scrollTop: 0, getAttribute(key) { return roots[key] || null; }, setAttribute(key, value) { roots[key] = value; } },
     activeElement: null,
     title: 'Plectis',
     querySelectorAll(selector) {

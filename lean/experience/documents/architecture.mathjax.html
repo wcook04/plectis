@@ -3,7 +3,7 @@
     <p class="lean-document__eyebrow">system explanation</p>
     <h1>Repository architecture</h1>
   </header>
-  <div class="lean-document__body" data-source="ARCHITECTURE.md">
+  <div class="lean-document__body" data-source="docs/ARCHITECTURE.md">
 <!-- SPDX-FileCopyrightText: 2026 Will Cook -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section id="how-this-repository-works" class="level1">
@@ -16,8 +16,8 @@ record.</p>
 <p>All eight mathematical problems remain open. The repository proves
 intermediate results, exact reformulations, and bounded examples around
 them. It does not claim a solution to any of them.</p>
-<p>You do not need to know Lean, the project history, or any internal
-naming scheme to use this guide.</p>
+<p>You do not need to know Lean or the project history to use this
+guide.</p>
 <section id="what-this-repository-is" class="level2">
 <h2>What this repository is</h2>
 <p>The repository has two jobs.</p>
@@ -44,7 +44,7 @@ claim depends on private files or unpublished work.</p>
                                       |
                                       v
 Lean source -----------------&gt; reviewed claim record
-Erdos249257/*.lean              docs/claims.json
+lean/Erdos249257/*.lean         docs/claims.json
        |                              |
        | lean_fast_build.py           | describes what public pages may say
        v                              v
@@ -93,8 +93,9 @@ deliberately no single file that is authoritative for everything.</p>
 <tbody>
 <tr>
 <td>What has been formally checked?</td>
-<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257.lean"><code>Erdos249257.lean</code></a>,
-<a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems.lean"><code>ErdosProblems.lean</code></a>,
+<td><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257.lean"><code>Erdos249257.lean</code></a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems.lean"><code>ErdosProblems.lean</code></a>,
 and the Lean modules they import</td>
 <td>Formal statements and proofs; kernel checking alone does not create
 a reviewed public claim</td>
@@ -114,7 +115,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/methodology.json">
 <tr>
 <td>What does a reader see?</td>
 <td><a href="readme.mathjax.html"><code>README.md</code></a>, <a
-href="scope.mathjax.html"><code>SCOPE.md</code></a>, and the eight individual
+href="scope.mathjax.html"><code>docs/SCOPE.md</code></a>, and the eight individual
 problem papers routed by <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/README.md"><code>docs/papers/README.md</code></a></td>
 <td>Human explanation; these files must stay within the claim record.
@@ -160,10 +161,10 @@ be regenerated.</p>
 </section>
 <section id="repository-map" class="level2">
 <h2>Repository map</h2>
-<pre class="text"><code>Erdos249257.lean                 reviewed #249/#257 root import
-Erdos249257/                     reviewed #249/#257 definitions, theorems, and certificates
-ErdosProblems.lean               problem-owned expansion root import
-ErdosProblems/Erdos&lt;N&gt;/          formal work grouped by actual Erdős problem number
+<pre class="text"><code>lean/Erdos249257.lean            reviewed #249/#257 root import
+lean/Erdos249257/                reviewed #249/#257 formal work
+lean/ErdosProblems.lean          problem-owned expansion root import
+lean/ErdosProblems/Erdos&lt;N&gt;/     formal work grouped by Erdős problem number
 examples/                        a small downstream Lean user of the library
 
 docs/claims.json                 reviewed record of public mathematical claims
@@ -172,11 +173,11 @@ docs/publication_contract.json   inventory of shipped papers
 docs/publication_evidence.json   evidence and limits for a historical checker exercise
 docs/problems.json               generated index of the problem-owned expansion library
 docs/problem_index_source.json   the authored source that index is built from
-docs/ORIENTATION.md              generated human reading map
+docs/ORIENTATION.md              generated technical navigation
 docs/SOURCE_MAP.md               routes from mathematical questions to Lean files
 
 README.md                        front page and short result summary
-SCOPE.md                         short statement of what remains unproved
+docs/SCOPE.md                    short statement of what remains unproved
 paper/                           authored paper sources and rendered PDFs
 
 scripts/                         builders, release checks, queries, and tests
@@ -221,7 +222,7 @@ synopsis used by this route; it is an index, not proof or claim
 authority.</p>
 <p>For exact statement-identity comparison with the upstream Formal
 Conjectures corpus, use the generated <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/FORMAL_CONJECTURES_CROSSWALK.md"><code>docs/FORMAL_CONJECTURES_CROSSWALK.md</code></a>.
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/FORMAL_CONJECTURES_CROSSWALK.md"><code>docs/verification/FORMAL_CONJECTURES_CROSSWALK.md</code></a>.
 Each of the eight problem sections binds the pinned upstream
 declaration, source path, byte hash, and proof-status boundary to the
 matching canonical local problem route, so a reader can return from
@@ -288,9 +289,9 @@ wording change.</p>
 <ol type="1">
 <li>The named declarations in the Lean files are the formal
 evidence.</li>
-<li><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a> records
-the public sentence, the finite range, the Lean declaration names, and
-the question still open.</li>
+<li><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a> records the
+public sentence, the finite range, the Lean declaration names, and the
+question still open.</li>
 <li>The README and mathematical paper explain the result to
 readers.</li>
 <li>Generated indexes provide links and source locations.</li>
@@ -312,9 +313,8 @@ preserves that reviewed relationship after it has been recorded.</p>
 <li>Run the <code>lake build</code> check below.</li>
 <li>Review whether the formal statement, assumptions, or intended
 meaning changed. <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/methodology.json"><code>docs/methodology.json</code></a>
-states the minimum evidence and review required for each kind of
-change.</li>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/methodology.json"><code>docs/methodology.json</code></a> states
+the minimum evidence and review required for each kind of change.</li>
 <li>If the public meaning changed, update <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a>.</li>
 <li>Update the authored README, scope statement, or paper where readers
@@ -337,8 +337,8 @@ claim-record update.</p>
 <section id="a-generated-file-is-out-of-date" class="level3">
 <h3>A generated file is out of date</h3>
 <p>Do not repair it by hand. Run the builder named in that file or in <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md"><code>AGENTS.md</code></a>, review the change, and
-rerun the release check.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_GUIDE.md"><code>docs/agents/AGENT_GUIDE.md</code></a>,
+review the change, and rerun the release check.</p>
 </section>
 </section>
 <section id="how-the-checks-run" class="level2">
@@ -394,7 +394,7 @@ and illustrates the limit of explicitly recorded checks.</p>
 <ul>
 <li><strong>You want the basic mathematical result and its
 limits:</strong> read <a href="readme.mathjax.html"><code>README.md</code></a>,
-then <a href="scope.mathjax.html"><code>SCOPE.md</code></a>.</li>
+then <a href="scope.mathjax.html"><code>docs/SCOPE.md</code></a>.</li>
 <li><strong>You want the mathematical argument:</strong> choose the
 relevant entry in the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/README.md">individual
 problem-paper index</a>. The archived combined #249/#257 PDF is not a
@@ -407,9 +407,9 @@ problem:</strong> run
 <code>python3 scripts/query_corpus.py --route erdos_&lt;problem_number&gt;</code>
 and follow its paper, declaration, and open-obligation handles.</li>
 <li><strong>You want to change the repository:</strong> read <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/AGENTS.md"><code>AGENTS.md</code></a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>, then run the
-checks for the files you touched.</li>
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_GUIDE.md"><code>docs/agents/AGENT_GUIDE.md</code></a>
+and <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>, then
+run the checks for the files you touched.</li>
 <li><strong>You want to inspect the historical release-checking
 exercise:</strong> read <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/publication_evidence.json"><code>docs/publication_evidence.json</code></a>

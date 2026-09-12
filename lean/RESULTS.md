@@ -121,7 +121,7 @@ For a narrative account, open the relevant item in the
 declarations and assumptions, use the [source map](SOURCE_MAP.md). The sections
 below retain the complete technical inventory, including result-family
 dispositions, semantic census data, finite measurements, and retractions;
-operational procedures live in the [agent workbench](AGENT_WORKBENCH.md).
+operational procedures live in the [agent workbench](agents/AGENT_WORKBENCH.md).
 
 <a id="ten-minute-verdict"></a>
 
@@ -1270,7 +1270,7 @@ separate limitation, and none settles an Erdős problem.
 
 Their registry identifiers lead to the declarations and current source
 coordinates; operational lookup details live in the
-[agent workbench](AGENT_WORKBENCH.md).
+[agent workbench](agents/AGENT_WORKBENCH.md).
 
 ### Demand ledger
 
@@ -1365,7 +1365,7 @@ workbench.
 ## What was retracted
 
 The detailed file-by-file record is in
-[`TRUTH_AUDIT.md`](TRUTH_AUDIT.md). The main corrections are:
+[`TRUTH_AUDIT.md`](reference/TRUTH_AUDIT.md). The main corrections are:
 
 - `Lift/AngleB2.lean` no longer says that the survivor set is empty. Its theorem
   is conditional on a false `hcof` instance at each surviving class and on an
@@ -1609,7 +1609,7 @@ of a nonzero tail difference, not merely for non-equality.
 ## Verification and continuation
 
 The exact build, query, replay, contribution, and source-bound reproduction
-routes are maintained in the [agent workbench](AGENT_WORKBENCH.md), where they
+routes are maintained in the [agent workbench](agents/AGENT_WORKBENCH.md), where they
 can stay current without interrupting the mathematical account here. The
 historical isolated-tree timings were a dated manual record, not a
 machine-revalidated receipt for the present source tree. Lean checks certify
@@ -1654,7 +1654,7 @@ and against a fixed axiom budget of `propext`, `Quot.sound`, and
 rejected. [`formalization.yaml`](../formalization.yaml) records, per selected
 result, the contribution class, exact statement, source declaration, boundary,
 `sorry` count, and axioms. Manifest and [verification packet](EXTERNAL_VERIFICATION.md)
-cover all eight problem programmes; [replay](EXTERNAL_VERIFICATION_REPLAY.md)
+cover all eight problem programmes; [replay](verification/EXTERNAL_VERIFICATION_REPLAY.md)
 gives the reviewer-run Linux route. The same check runs in continuous
 integration against the reviewed source commit. Comparator checks propositions
 only: no paper deduction, cited theorem, external computation, intended
@@ -1735,7 +1735,7 @@ The two working records each close with a section titled "The wall": every
 attempted argument class is stopped by a stated bound, recorded with what it
 does not rule out.
 
-[`SCOPE.md`](../SCOPE.md) is the short boundary statement. The exact expert
+[`docs/SCOPE.md`](SCOPE.md) is the short boundary statement. The exact expert
 handoffs state what input is requested, current guess, alternatives,
 discriminating evidence, checked consumer, and endpoint-or-counterexample
 boundary. See

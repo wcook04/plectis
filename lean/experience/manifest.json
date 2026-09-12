@@ -2,7 +2,9 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "29cd75d3abd1740cec989cd7013b0c75e9271ca36b3d6a0c6fbad1a4c07ae003",
+  "source_fingerprint": "30dcb319acb4c0de57d4d64210d4747a4e807dee2da30e2c4f151c60cc720209",
+  "publication_state": "published_source",
+  "public_parity": true,
   "authority_model": {
     "universe": "Lean source and its import/argument graph",
     "overlays": [
@@ -28,16 +30,17 @@
   "counts": {
     "problems": 8,
     "papers": 20,
-    "human_documents": 14,
-    "graph_nodes": 1634,
-    "graph_edges": 4008
+    "human_documents": 17,
+    "graph_nodes": 1637,
+    "graph_edges": 4011
   },
   "source_identity": {
-    "lean_manifest": "684a2600dd785211ca1a1ccecc660c9ef3837c57f06cdd54d49efc26d69aec49",
-    "paper_manifest": "c384ec0be7dd3edc55d78df7c1205886a41219b5dc986140efaa0b4fd97409aa",
-    "claims": "8e3c487e2a133ccd5a09037489666acb3c22595e8ad4ff13683ac46efcf65206",
-    "problems": "229edb81876b106f3dbe7eed462cc4affda18e02a814efaddc2c24b76c463777",
-    "problem_library": "a43fe0fb2d6ef96c7ede343332c0de6f930da69b53223cc7552554c21ec6cf48",
+    "human_document_navigation": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
+    "lean_manifest": "5e405956be06aa10bd0c19f2ce812da49d4633717e5d198890a4e925d6d222a9",
+    "paper_manifest": "a1d50bf3bbb7a722c2eeead705df088661b7528bcc38adcf73b8566f578b8892",
+    "claims": "32ff06ecc7a9807d386fc2a951e190938a8c2c4c6f28b9c84b054bf946663b7f",
+    "problems": "070f63407c29b0de529ccf8cb11582db5ece28a72ecbf48ac0ac5d704ebc4c41",
+    "problem_library": "6e4cd6ab7606cc8efd88916d5b7b5c0937663b40905d78bd6954dbcb30236eea",
     "comparator_palomar_route_map": "4925dc5378edcaecc1e3b21b03eca61c3d0c3ff64fae8cc64e4ec1c02efde965",
     "palomar_release_receipt": "b6876a4a0207ddca8b498ea213784e4bc3ea7a01c3701355c9a1863bb9f29c3a"
   },
@@ -55,8 +58,8 @@
     "progressive_graph": {
       "first_screen": "graph/index.json",
       "complete_universe": "graph.json",
-      "first_screen_nodes": 257,
-      "complete_nodes": 1634
+      "first_screen_nodes": 260,
+      "complete_nodes": 1637
     }
   }
 }

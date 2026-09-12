@@ -159,11 +159,11 @@
       "public_entry": "ExternalVerification1041SolvedFamilies"
     },
     "strongest_longitudinal_theorem": {
-      "claim_id": "erdos1041.circle_slice_angular_closure_thirteen_twentyfifths",
-      "title": "Unconditional all-degree regime: least critical value at most 13/25, via the circle-slice angular packing floor",
-      "statement": "Theorem A'': every squarefree monic f of degree n >= 2 whose least critical-value modulus satisfies mu <= 13/25 has two distinct roots joined inside {|f| < 1} by a rectifiable curve of length strictly below 2; no hypothesis on root locations, arity, or capacity. Scale-free form: every squarefree monic f has two distinct roots joined inside {|f| < (25/13) mu} by a curve of length below 2((25/13) mu)^(1/n). Mechanism: the comparison ODE of the 197/1000, 9/25 and 2/5 notes with the arity floor replaced by the maximum of the COVER floor, the ordered profile, the packing floor (P), and the circle-slice dual floor of Theorem 5, with integer ceilings. Certificate: full mode (step 1/400, 12 grid areas, 14 radii per dual, 7 arities, 126 certified duals, 13.5 minutes) X_cert = 635762889599/1000000000000 < 0.6357629 and (13/25) exp(X_cert) < 1; quick mode (101 s) certifies 51/100 with X_cert < 0.664374. Floating supremum of the mechanism: mu = 0.5194, and even an exact arity floor caps this mechanism at mu ~ 0.545.\n\nLemma 3 (circle-slice packing): let b_1..b_k lie in the hyperbolic disc with pairwise hyperbolic distance >= D, d_j = d(0,b_j). For every r > 0, sum_j w(d_j, r) <= pi, where w(d,r) = arccos((cosh d cosh r - cosh(D/2))/(sinh d sinh r)) clamped to [0, pi]: the pairwise disjoint balls B(b_j, D/2) cut pairwise disjoint arcs out of the circle of radius r about the observer. sup_r w(d,r) = arcsin(sinh(D/2)/sinh d). Theorem 5 (dual arity floor): for any radii r_i > 0 and weights sigma_i >= 0 with S = sum sigma_i and U = sup_{d >= d_low} [lam(d) - sum_i sigma_i w(d, r_i)], sum_j lam(d_j) <= k U + pi S; hence under the failure inputs of ClusterSeparationLowCriticalClosure.md (sum_j lam(d_j) >= x, d_j >= d_low(a), pairwise separation D = d_min(a)) the arity satisfies k >= (x - pi S)/U for every admissible (r, sigma), the choice of sigma being free (a floating LP proposes, exact arithmetic disposes). Proposition 2 (the consecutive-gap angular budget is empty): ordering the roots by argument about the observer and summing the consecutive-gap law-of-cosines inequalities forces nothing, because Theta(d, d') = 0 whenever |d - d'| >= D, so alternating radii d_low and d_low + D give budget zero at every arity; that relaxation admits sum_j lam(d_j) >= floor(k/2) delta(a)/2, linear in k, and is worse than the packing floor (P) from k = 8.",
-      "altitude": "genuine_climb",
-      "band": "P",
+      "claim_id": "erdos1041.concyclic_alternation",
+      "title": "An adjacent-root chord in the open lemniscate for every concyclic root set of radius at most 2^(-1/n)",
+      "statement": "For a monic polynomial of degree n >= 3 with distinct zeros on a circle of radius rho, some adjacent-root chord has length at most 2 rho sin(pi/n) and maximum modulus strictly below 2 rho^n. Thus rho <= 2^(-1/n) gives a path of length less than 2 inside |f| < 1. Repeated roots are immediate; degree two follows directly for roots in the open unit disk. The all-degree arc comparison is sharp with constant 2; the stronger conjectured chord constant is not part of the theorem.",
+      "altitude": "complete_subregime",
+      "band": "U",
       "evidence_class": "ordinary_proof",
       "public_entry": null
     },
@@ -207,7 +207,7 @@
     "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
     "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
     "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
-    "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+    "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
     "problem_id": "erdos_1041",
     "routes": {
       "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
@@ -226,7 +226,7 @@
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 21,
-      "renderer_fingerprint": "ec60ada03b181a30",
+      "renderer_fingerprint": "f6b3e351ccb221fc",
       "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
       "publication_manifest_match": true,
       "mathml_node_count": 518,
@@ -236,7 +236,7 @@
         "mathjax": []
       },
       "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
-      "html_exact_tex_sha256": "6c70baeee5e2d4c516e3193010069076c325c828514c74757f82ab38d92cbfdf"
+      "html_exact_tex_sha256": "c12855661ed75e917c9fde379c39a3440d3ccd818e099bef0f07b953894d931c"
     },
     "sections": [
       {
@@ -419,7 +419,7 @@
       "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
       "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
       "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
       "problem_id": "erdos_1041",
       "routes": {
         "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
@@ -438,7 +438,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
         "publication_manifest_match": true,
         "mathml_node_count": 518,
@@ -448,7 +448,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
-        "html_exact_tex_sha256": "6c70baeee5e2d4c516e3193010069076c325c828514c74757f82ab38d92cbfdf"
+        "html_exact_tex_sha256": "c12855661ed75e917c9fde379c39a3440d3ccd818e099bef0f07b953894d931c"
       },
       "sections": [
         {
@@ -631,7 +631,7 @@
       "question": "What is the complete short-path, critical-value, solved-family, and obstruction record for Erdős #1041, and what remains of the unrestricted path problem?",
       "precis": "A longer record of the same programme: ordinary all-degree trinomial paths, a sharp critical-value mean, solved-family kernels, Newton-flow checks, and exact obstructions including a Cassini counterexample to the printed global tree budget. It does not resolve unrestricted Erdős #1041.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
-      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erdős #1041, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
       "problem_id": "erdos_1041",
       "routes": {
         "html_mathml": "papers/erdos1041-lemniscate-reasoning-surface.html",
@@ -650,7 +650,7 @@
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "source_sha256": "9238d40fede9fb8beebfcb9c0ac61a952548c8efd0d8136cb979b7d753aa2f6e",
         "publication_manifest_match": true,
         "mathml_node_count": 1244,
@@ -678,7 +678,7 @@
           "mathjax": []
         },
         "html_mathml_sha256": "b72ed97c340c2a8acf094a4531656b0bcb9c31e14eb366b99fe9993e6eacfda2",
-        "html_exact_tex_sha256": "d2f5f5efe06a5017a3afd31d5acdf32c388ecbdad4d393a96355e118419fdc6b"
+        "html_exact_tex_sha256": "63defd81a8de8777036cbed6a38d0d3099e36d272ccb5b0f95cda8bb65839410"
       },
       "sections": [
         {

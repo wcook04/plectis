@@ -4,21 +4,22 @@
   "title": "Scope and claim boundary",
   "role": "scope_boundary",
   "reading_order": 90,
-  "source_path": "SCOPE.md",
+  "source_path": "docs/SCOPE.md",
   "routes": {
     "html_mathml": "documents/scope.html",
     "html_exact_tex": "documents/scope.mathjax.html",
-    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/SCOPE.md"
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SCOPE.md"
   },
   "render_contract": {
+    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "663a579d4354c3c7df90a5f8e93ff0a3298ffbb4de01170a8059f7b3bce19c62",
+    "source_sha256": "60ec7d0c938732e1893a09b113b0c639959c2336f431f51492d6461972856116",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 21,
-    "renderer_fingerprint": "ec60ada03b181a30",
+    "renderer_fingerprint": "f6b3e351ccb221fc",
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -27,8 +28,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "b0de0b290f641e3e743fc0dd56dca91081a940e54d694c07d284a7aa02b57795",
-    "html_exact_tex_sha256": "5e9cff2eb67abbc8962079a21003b66ba6d60c1763f026bcf7deb0f07295bd5d"
+    "html_mathml_sha256": "1a3ff584b775d549e6b359a222d016d80dfb9a5334545c48631ef79087c8d95b",
+    "html_exact_tex_sha256": "5c0709101fa2a0acd530bd3bbabc3a9e7d602e20a2e80b70f901adb2dc7a6f59"
   },
   "sections": [
     {

@@ -1,0 +1,56 @@
+{
+  "schema": "plectis_lean_human_document_v1",
+  "document_id": "paper-guide",
+  "title": "Current papers",
+  "role": "current_paper_catalogue",
+  "reading_order": 12,
+  "source_path": "paper/README.md",
+  "routes": {
+    "html_mathml": "documents/paper-guide.html",
+    "html_exact_tex": "documents/paper-guide.mathjax.html",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md"
+  },
+  "render_contract": {
+    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
+    "preferred": "html_mathml",
+    "fallback": "html_exact_tex",
+    "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+    "frontend_math_dependency": null,
+    "source_sha256": "62b5372eed7f90b1ea5800b40a464f435b74168fa0ad33ba4528d4d1e1deaf65",
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 21,
+    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "publication_manifest_match": true,
+    "mathml_node_count": 0,
+    "raw_math_fallback_count": 0,
+    "warnings": {
+      "mathml": [],
+      "mathjax": []
+    },
+    "executable_scripts_embedded": false,
+    "html_mathml_sha256": "f89d7f3ba85c4240fee4ae46708151d42260f0cdd992917d927f241c8d5a73a2",
+    "html_exact_tex_sha256": "a3bef0964c0dbab58dcea903558ff61d47aa708fd8db359112df4bbe71aad0d4"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Problem papers"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Project papers"
+    },
+    {
+      "level": 3,
+      "anchor": null,
+      "label": "Returning from a problem note to checked evidence"
+    },
+    {
+      "level": 2,
+      "anchor": null,
+      "label": "Build and update"
+    }
+  ]
+}

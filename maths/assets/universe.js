@@ -129,6 +129,9 @@
     var relations = [];
     var adj = [];
     var view = { k: 1, tx: 0, ty: 0 };
+    var fittedScale = 1;
+    var viewIsFitted = true;
+    var viewWidth = 0, viewHeight = 0;
     var hover = -1;
     var selected = -1;
     var query = '';
@@ -136,6 +139,7 @@
     var lensOff = {};
     var palette = {};
     var fullLoaded = false;
+    var fullLoading = false;
     var pendingId = null;
     var countText = '';
 
@@ -182,6 +186,10 @@
       var pad = 40;
       var k = Math.min((w - pad * 2) / Math.max(1, maxX - minX),
                        (h - pad * 2) / Math.max(1, maxY - minY));
+      k = Math.max(0.001, k);
+      fittedScale = k;
+      viewIsFitted = true;
+      viewWidth = w; viewHeight = h;
       view.k = k;
       view.tx = w / 2 - k * (minX + maxX) / 2;
       view.ty = h / 2 - k * (minY + maxY) / 2;
@@ -189,6 +197,7 @@
 
     function centerOn(i) {
       if (i < 0 || !nodes[i]) return;
+      viewIsFitted = false;
       if (view.k < 1.1) view.k = 1.6;
       view.tx = canvas.clientWidth / 2 - nodes[i].x * view.k;
       view.ty = canvas.clientHeight / 2 - nodes[i].y * view.k;
@@ -228,10 +237,12 @@
       ctx.strokeStyle = palette.edge;
       ctx.globalAlpha = focus >= 0 ? 0.35 : 1;
       ctx.beginPath();
+      var shownEdges = 0;
       for (i = 0; i < edges.length; i++) {
-        if (focus >= 0 && (edges[i][0] === focus || edges[i][1] === focus)) continue;
         var a = nodes[edges[i][0]], b = nodes[edges[i][1]];
         if (!a || !b || !visible(a) || !visible(b)) continue;
+        shownEdges++;
+        if (focus >= 0 && (edges[i][0] === focus || edges[i][1] === focus)) continue;
         ctx.moveTo(a.x * view.k + view.tx, a.y * view.k + view.ty);
         ctx.lineTo(b.x * view.k + view.tx, b.y * view.k + view.ty);
       }
@@ -314,8 +325,8 @@
       }
 
       if (countOut) {
-        var line = String(shown) + ' objects, ' + String(edges.length) + ' connections shown';
-        if (searching) line += ' · ' + String(matchCount) + ' match';
+        var line = String(shown) + ' objects, ' + String(shownEdges) + ' connections shown';
+        if (searching) line += ' · ' + String(matchCount) + (matchCount === 1 ? ' match' : ' matches');
         if (line !== countText) {
           countText = line;
           countOut.textContent = line;
@@ -462,9 +473,16 @@
     }
 
     function pin(i, center) {
+      var restoreFocus = inspector && inspector.contains(document.activeElement);
       selected = i;
+      hover = -1;
+      canvas.classList.remove('is-over');
       if (i >= 0) pendingId = null;
       renderInspector();
+      if (restoreFocus) {
+        var nextFocus = inspector.querySelector('[data-universe-clear]') || searchIn;
+        if (nextFocus) nextFocus.focus({ preventScroll: true });
+      }
       updateHash();
       if (center && i >= 0) centerOn(i);
       draw();
@@ -478,6 +496,8 @@
           return;
         }
       }
+      // A shared link to a full-corpus object must open its card on first visit.
+      if (!fullLoaded) loadFull();
     }
 
     /* ---- Caption (landing teaser) ------------------------------------ */
@@ -535,7 +555,7 @@
       }
       hover = -1;
       selected = -1;
-      if (keepId) pendingId = keepId;
+      if (keepId && !pendingId) pendingId = keepId;
       countMatches();
       fit();
       draw();
@@ -618,6 +638,7 @@
         var dx = event.clientX - px0, dy = event.clientY - py0;
         if (!moved && dx * dx + dy * dy < 9) return;
         moved = true;
+        viewIsFitted = false;
         view.tx += dx;
         view.ty += dy;
         px0 = event.clientX; py0 = event.clientY;
@@ -645,7 +666,10 @@
     }
 
     function zoomAt(mx, my, factor) {
-      var k = Math.min(9, Math.max(0.3, view.k * factor));
+      // A phone's fitted map can already be below 0.3. A fixed lower bound
+      // made its first zoom-out jump inward instead of zooming out.
+      var k = Math.min(9, Math.max(Math.min(0.3, fittedScale / 2), view.k * factor));
+      viewIsFitted = false;
       factor = k / view.k;
       view.tx = mx - (mx - view.tx) * factor;
       view.ty = my - (my - view.ty) * factor;
@@ -686,6 +710,9 @@
         var pressed = btn.getAttribute('aria-pressed') === 'true';
         btn.setAttribute('aria-pressed', pressed ? 'false' : 'true');
         kinds.forEach(function (kind) { lensOff[kind] = pressed; });
+        if (hover >= 0 && !visible(nodes[hover])) hover = -1;
+        if (selected >= 0 && !visible(nodes[selected])) pin(-1, false);
+        else renderInspector();
         countMatches();
         draw();
       });
@@ -708,66 +735,95 @@
       });
     }
 
-    if (loadFullBtn) {
-      loadFullBtn.addEventListener('click', function () {
-        if (fullLoaded) return;
-        loadFullBtn.disabled = true;
-        loadFullBtn.textContent = 'Loading the complete universe…';
-        var graphUrl = loadFullBtn.getAttribute('data-graph-src');
-        var layoutUrl = loadFullBtn.getAttribute('data-layout-src');
-        Promise.all([
-          fetch(graphUrl).then(function (r) { return r.json(); }),
-          fetch(layoutUrl).then(function (r) { return r.json(); })
-        ]).then(function (results) {
-          var graph = results[0], layout = results[1];
-          var pos = layout.positions || {};
-          var pages = layout.pages || {};
-          var index = {};
-          var built = [];
-          graph.nodes.forEach(function (n) {
-            var at = pos[n.id];
-            if (!at) return;
-            index[n.id] = built.length;
-            built.push({
-              id: n.id, kind: n.kind, label: n.label,
-              short: layout.short && layout.short[n.id] || n.label,
-              status: n.status, statement: n.statement, boundary: n.boundary,
-              disposition: n.disposition, question: n.question, subject: n.subject,
-              declaration_count: n.declaration_count, theorem_count: n.theorem_count,
-              page: pages[n.id] || null, source_github: n.source_github,
-              x: at[0], y: at[1]
-            });
+    function loadFull() {
+      if (!loadFullBtn || fullLoaded || fullLoading) return;
+      fullLoading = true;
+      loadFullBtn.disabled = true;
+      loadFullBtn.textContent = 'Loading the complete universe…';
+      var graphUrl = loadFullBtn.getAttribute('data-graph-src');
+      var layoutUrl = loadFullBtn.getAttribute('data-layout-src');
+      Promise.all([
+        fetch(graphUrl).then(function (r) { return r.json(); }),
+        fetch(layoutUrl).then(function (r) { return r.json(); })
+      ]).then(function (results) {
+        var graph = results[0], layout = results[1];
+        var pos = layout.positions || {};
+        var pages = layout.pages || {};
+        var index = {};
+        var built = [];
+        graph.nodes.forEach(function (n) {
+          var at = pos[n.id];
+          if (!at) return;
+          index[n.id] = built.length;
+          built.push({
+            id: n.id, kind: n.kind, label: n.label,
+            short: layout.short && layout.short[n.id] || n.label,
+            status: n.status, statement: n.statement, boundary: n.boundary,
+            disposition: n.disposition, question: n.question, subject: n.subject,
+            declaration_count: n.declaration_count, theorem_count: n.theorem_count,
+            page: pages[n.id] || null, source_github: n.source_github,
+            x: at[0], y: at[1]
           });
-          var builtEdges = [];
-          var builtRelations = [];
-          var relIndex = {};
-          graph.edges.forEach(function (edge) {
-            var a = index[edge.source], b = index[edge.target];
-            if (a === undefined || b === undefined) return;
-            var rel = String(edge.relation || 'linked');
-            if (!(rel in relIndex)) {
-              relIndex[rel] = builtRelations.length;
-              builtRelations.push(rel);
-            }
-            builtEdges.push([a, b, relIndex[rel]]);
-          });
-          ingest({ nodes: built, edges: builtEdges, relations: builtRelations });
-          fullLoaded = true;
-          loadFullBtn.textContent = 'Complete universe loaded';
-          document.querySelectorAll('[data-universe-lens-full]').forEach(function (btn) {
-            btn.hidden = false;
-          });
-        }).catch(function () {
-          loadFullBtn.disabled = false;
-          loadFullBtn.textContent = 'Load the complete universe';
         });
+        var builtEdges = [];
+        var builtRelations = [];
+        var relIndex = {};
+        graph.edges.forEach(function (edge) {
+          var a = index[edge.source], b = index[edge.target];
+          if (a === undefined || b === undefined) return;
+          var rel = String(edge.relation || 'linked');
+          if (!(rel in relIndex)) {
+            relIndex[rel] = builtRelations.length;
+            builtRelations.push(rel);
+          }
+          builtEdges.push([a, b, relIndex[rel]]);
+        });
+        fullLoaded = true;
+        fullLoading = false;
+        ingest({ nodes: built, edges: builtEdges, relations: builtRelations });
+        loadFullBtn.textContent = 'Complete universe loaded';
+        document.querySelectorAll('[data-universe-lens-full]').forEach(function (btn) {
+          btn.hidden = false;
+        });
+      }).catch(function () {
+        fullLoading = false;
+        loadFullBtn.disabled = false;
+        loadFullBtn.textContent = 'Load the complete universe';
+      });
+    }
+    if (loadFullBtn) {
+      loadFullBtn.addEventListener('click', loadFull);
+    }
+
+    if (pageMode) {
+      window.addEventListener('hashchange', function () {
+        if (window.location.hash.indexOf('#o=') !== 0) {
+          pendingId = null;
+          pin(-1, false);
+          return;
+        }
+        try { pendingId = decodeURIComponent(window.location.hash.slice(3)); }
+        catch (err) { return; }
+        resolvePending();
       });
     }
 
     var resizeTimer = null;
     window.addEventListener('resize', function () {
       if (resizeTimer) clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () { fit(); draw(); }, 120);
+      resizeTimer = setTimeout(function () {
+        var w = canvas.clientWidth, h = canvas.clientHeight;
+        if (w === viewWidth && h === viewHeight) return;
+        if (viewIsFitted) fit();
+        else {
+          // Keep the same object under the centre when rotating a phone or
+          // resizing a window; only Reset should discard an explored view.
+          view.tx += (w - viewWidth) / 2;
+          view.ty += (h - viewHeight) / 2;
+          viewWidth = w; viewHeight = h;
+        }
+        draw();
+      }, 120);
     });
     document.addEventListener('plectis:theme', function () {
       readPalette();

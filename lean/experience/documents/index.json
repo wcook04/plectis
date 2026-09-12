@@ -2,7 +2,7 @@
   "schema": "plectis_lean_human_document_index_v1",
   "purpose": "A curated human interpretability layer over the Lean repository. It excludes agent instructions, machine-heavy atlases, build artifacts, and maintainer workbenches.",
   "reading_rule": "Begin with the repository overview, select a mathematical problem, then use results/source/verification documents only as deeply as needed.",
-  "document_count": 14,
+  "document_count": 17,
   "documents": [
     {
       "schema": "plectis_lean_human_document_v1",
@@ -17,14 +17,15 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/README.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "0b3e9ee447b85e9e66918b727350e7203a60a74dc195e092609d38f2a4dba646",
+        "source_sha256": "da0ac0da9b370dfa5d468039420f01bf363452ea5e57528d45c9c27fef50394e",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -33,15 +34,10 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "15c400f6f553102dfbc2ffdb7b6e165ce9982d054e18a4ad96e94d2879da8242",
-        "html_exact_tex_sha256": "3f78a418b60e1bf9153a1dd62223ff15b2fcfb6a46cd5be5328a5fa1cac38a61"
+        "html_mathml_sha256": "f0949422b34bfca49de9c27db40fb276badbd682cf30fb19261f47db7acc897f",
+        "html_exact_tex_sha256": "9a4cccc102aad45fc8d2a3a0d1fadf54c9a23c42f444abf48d0b2a4c6b0baaff"
       },
       "sections": [
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Why this exists"
-        },
         {
           "level": 2,
           "anchor": null,
@@ -50,47 +46,12 @@
         {
           "level": 2,
           "anchor": null,
+          "label": "Why this exists"
+        },
+        {
+          "level": 2,
+          "anchor": null,
           "label": "Problem papers"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "#68: Factorial-denominator irrationality"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "#243: Reciprocal-tail rigidity"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "#249: Binary totient series"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "#251: Prime-gap dyadic series"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "#257: Mersenne-support subseries"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "#269: Three-prime running LCM"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "#1041: Lemniscates and Newton flow"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "#1049: Rational-base Lambert series"
         },
         {
           "level": 2,
@@ -120,12 +81,195 @@
         {
           "level": 2,
           "anchor": null,
-          "label": "The wider project"
+          "label": "About the project"
         },
         {
           "level": 2,
           "anchor": null,
           "label": "Citation and licence"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "reading-guide",
+      "title": "A reader's way in",
+      "role": "reader_introduction",
+      "reading_order": 11,
+      "source_path": "docs/READING_GUIDE.md",
+      "routes": {
+        "html_mathml": "documents/reading-guide.html",
+        "html_exact_tex": "documents/reading-guide.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md"
+      },
+      "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "source_sha256": "e8c1edf21eebe661cae5a898ce94c23617ec63dff5751ac917c8397e517a9e42",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 21,
+        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "669f06bbe7c3ab8f336220866fc08a2ffc2f37257d8ae9aff16feb41a4823fc5",
+        "html_exact_tex_sha256": "4c734d9de83321605cbf1302ce4ec8b0f431ba060b0bbb6352ffb9532b9dc313"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What is here"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What formalisation adds"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "The eight problems in brief"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "How to read the evidence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Reviewing one result"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Contributing"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "paper-guide",
+      "title": "Current papers",
+      "role": "current_paper_catalogue",
+      "reading_order": 12,
+      "source_path": "paper/README.md",
+      "routes": {
+        "html_mathml": "documents/paper-guide.html",
+        "html_exact_tex": "documents/paper-guide.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/README.md"
+      },
+      "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "source_sha256": "62b5372eed7f90b1ea5800b40a464f435b74168fa0ad33ba4528d4d1e1deaf65",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 21,
+        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "f89d7f3ba85c4240fee4ae46708151d42260f0cdd992917d927f241c8d5a73a2",
+        "html_exact_tex_sha256": "a3bef0964c0dbab58dcea903558ff61d47aa708fd8db359112df4bbe71aad0d4"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Problem papers"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Project papers"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Returning from a problem note to checked evidence"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Build and update"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "documentation",
+      "title": "Documentation guide",
+      "role": "documentation_index",
+      "reading_order": 13,
+      "source_path": "docs/README.md",
+      "routes": {
+        "html_mathml": "documents/documentation.html",
+        "html_exact_tex": "documents/documentation.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/README.md"
+      },
+      "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "source_sha256": "2a9e88cfa5fa0d73a9de1caf79ef6965b9493f167a9c1a4e753fc01381301b89",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 21,
+        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "1be3877d29575359267a3b59ae18aff30d9417578aeb3696e2216f44da2a190e",
+        "html_exact_tex_sha256": "fe04b6d77ba759e9e21ea1659f95a861fccf6fbc74368ecfe231ade4672f6d49"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Read"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Check"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Contribute"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Where things live"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Files at the repository root"
         }
       ]
     },
@@ -142,14 +286,15 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "d02f8a989d42d1894d7ecae8c201c98ea98dfac0d28613a4ca91bf69c1ee9fe7",
+        "source_sha256": "0b31ea9e53ebf575df8ab69c35707f20433122c1e7ead410745a4b939ee0f4cb",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -158,8 +303,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "6e89ee2c6bb2d4f98858af557b341feb68de8477c2b36e20a0f6aaa4734d4d84",
-        "html_exact_tex_sha256": "e928f910ea72eafd96a991a8f36aa5fee899a72d1b3e4f98b659c2908dbd966b"
+        "html_mathml_sha256": "f5888aa4bd640b2bd77410aa73ac8e29588294c8ce70f7c89660b7b83297cae3",
+        "html_exact_tex_sha256": "1f05aebc4083ae1fc20e8f6b977d3e2206bc5a04d4a76e7c9b9eead1d8a2a087"
       },
       "sections": [
         {
@@ -346,121 +491,6 @@
     },
     {
       "schema": "plectis_lean_human_document_v1",
-      "document_id": "orientation",
-      "title": "Corpus orientation",
-      "role": "generated_reader_map",
-      "reading_order": 30,
-      "source_path": "docs/ORIENTATION.md",
-      "routes": {
-        "html_mathml": "documents/orientation.html",
-        "html_exact_tex": "documents/orientation.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ORIENTATION.md"
-      },
-      "render_contract": {
-        "preferred": "html_mathml",
-        "fallback": "html_exact_tex",
-        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
-        "frontend_math_dependency": null,
-        "source_sha256": "07172f426c7870898dd09f7314433fe03491055009fd30996a4fb25bf461037a",
-        "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
-        "publication_manifest_match": true,
-        "mathml_node_count": 0,
-        "raw_math_fallback_count": 0,
-        "warnings": {
-          "mathml": [],
-          "mathjax": []
-        },
-        "executable_scripts_embedded": false,
-        "html_mathml_sha256": "87347177920857279ebe6ea361fcbd02e9039e513ee3ecf48dd3f5ed520980c1",
-        "html_exact_tex_sha256": "21df6a20ca5061a4254b7ea13799ea9acea4eb8d212b8914947171245c64f19b"
-      },
-      "sections": [
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Release provenance"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Mathematical signal first"
-        },
-        {
-          "level": 3,
-          "anchor": null,
-          "label": "Reader tiers and relational boundaries"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "What a claim status asserts"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Exact open boundary"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Mathematical programmes"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Where the substance is"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Scale"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Mathematical programme routes"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Problem and family routes"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Selection spine and long tail"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Principal claim routes"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Read by intent"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Drill down"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "External corpus registration"
-        },
-        {
-          "level": 2,
-          "anchor": null,
-          "label": "Query one handle"
-        }
-      ]
-    },
-    {
-      "schema": "plectis_lean_human_document_v1",
       "document_id": "source-map",
       "title": "Source map",
       "role": "proof_and_exposition_crosswalk",
@@ -472,14 +502,15 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SOURCE_MAP.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "fe29affb93bfa6c7be9ead703ea5fa57f6da53b79f273c32c8c31c56d6acce95",
+        "source_sha256": "a845b9d64177350d6e6f5c6ecf4a77a054e6cc79cde95bbf84bf7aa498ff3987",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -488,8 +519,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "ddfbf937eab6eb3ab3773f6f5c7608d16d7da0bc619f5ac49914b860cdde778c",
-        "html_exact_tex_sha256": "7189f6b09c56180ddec7d9c67f28a553ebbfe0608079e9a044f883cca8732f51"
+        "html_mathml_sha256": "234aecf5a56c8f95616f9f60ad84176ac24c678db4a6783bbcf26a478fd20dd4",
+        "html_exact_tex_sha256": "a46805aaa3449cd8d25c61e9869ab48fb9e120d16ee1f997e4d140bdc4d346e6"
       },
       "sections": [
         {
@@ -587,14 +618,15 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RELATED_PROBLEMS.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "0b3bf5e4a968a1f393c1a933f1335e52793ccbcd3654a79e8c9e35ecd9d03667",
+        "source_sha256": "ab66434419018cdcbac9f3110b1e7987ed03a5317324f13b991dd222d99fc4c9",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -603,8 +635,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "d4a39f700b1a4b2b0f549fb49177937491fdb65a3341ceab469eb7138fc9c76f",
-        "html_exact_tex_sha256": "8e9a76ae23cc39ef0a39b201975f345c2e8ceec3ef8a14b9ac6c3b9e5fd94257"
+        "html_mathml_sha256": "42adaa3c68682e99bfdaa7f2f385933fee977d28459acc42ab7ad66477fb1308",
+        "html_exact_tex_sha256": "9b9e4b327ca9baaa49f0ba84a0578df1111e4027c51ff61da23c4e68edc28853"
       },
       "sections": [
         {
@@ -637,6 +669,7 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/PRIOR_ART.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
@@ -644,7 +677,7 @@
         "source_sha256": "40b89e1c9e520ab7b77860e2355224523326e894b2e0ed780933b68841c4dc99",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 44,
         "raw_math_fallback_count": 0,
@@ -720,21 +753,22 @@
       "title": "Methodology",
       "role": "evidence_method",
       "reading_order": 80,
-      "source_path": "METHODOLOGY.md",
+      "source_path": "docs/METHODOLOGY.md",
       "routes": {
         "html_mathml": "documents/methodology.html",
         "html_exact_tex": "documents/methodology.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/METHODOLOGY.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/METHODOLOGY.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "16782bbf5d1a49d51f1a81388fc26d7be38dbfe81c33ce9a26e450315189894c",
+        "source_sha256": "60a5e1a8ffca222d8abd74bcc4a4092f96d4eeb2d14142d878b1b12c28fd05ee",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -743,8 +777,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "40812662d57b12285a4532a215936751ba53ea60a17d7859d48fa6f1acfc0092",
-        "html_exact_tex_sha256": "33fb7ff7bc3919af83d12ea28e55d9efa67adc773f18175ab20ee8ddb7849806"
+        "html_mathml_sha256": "ee3a78e1d83ea9b07ca075b729685bf62b0afae3a5e39c982649eff649d59f5c",
+        "html_exact_tex_sha256": "113a51a01f529a8706c2e57847df9a08921cc6555896790a0a74ab0f1b0d1055"
       },
       "sections": [
         {
@@ -885,21 +919,22 @@
       "title": "Scope and claim boundary",
       "role": "scope_boundary",
       "reading_order": 90,
-      "source_path": "SCOPE.md",
+      "source_path": "docs/SCOPE.md",
       "routes": {
         "html_mathml": "documents/scope.html",
         "html_exact_tex": "documents/scope.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/SCOPE.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SCOPE.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "663a579d4354c3c7df90a5f8e93ff0a3298ffbb4de01170a8059f7b3bce19c62",
+        "source_sha256": "60ec7d0c938732e1893a09b113b0c639959c2336f431f51492d6461972856116",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -908,8 +943,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "b0de0b290f641e3e743fc0dd56dca91081a940e54d694c07d284a7aa02b57795",
-        "html_exact_tex_sha256": "5e9cff2eb67abbc8962079a21003b66ba6d60c1763f026bcf7deb0f07295bd5d"
+        "html_mathml_sha256": "1a3ff584b775d549e6b359a222d016d80dfb9a5334545c48631ef79087c8d95b",
+        "html_exact_tex_sha256": "5c0709101fa2a0acd530bd3bbabc3a9e7d602e20a2e80b70f901adb2dc7a6f59"
       },
       "sections": [
         {
@@ -937,14 +972,15 @@
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/EXTERNAL_VERIFICATION.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "df173756240a132cf597ff5b3889c4cd6972af4019d8c002c781c8164ae7c008",
+        "source_sha256": "a98afd8ee41cc089498d295ae0ef8867f4a4c6ea5551ed7aaab1ad8d128711e5",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -953,8 +989,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "03fad45e350f1949ba8d30a4e81d78264bf904d33c0106a82d3c1feb8583a507",
-        "html_exact_tex_sha256": "1963be9a0f22d326d23b28e4969da4deeb697b02c37f69ee1879fce9c4b40539"
+        "html_mathml_sha256": "04f89f94a0110085b66fea41e54eca5b52439bcda140c558b8c4d4b72fa439b5",
+        "html_exact_tex_sha256": "2f15c20c77dacbe63113fa06069e23982f7afbe7fbae01660228a2fc6fa25120"
       },
       "sections": [
         {
@@ -1045,21 +1081,22 @@
       "title": "Comparator #1049 fixture",
       "role": "comparator_case_study",
       "reading_order": 110,
-      "source_path": "docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md",
+      "source_path": "docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md",
       "routes": {
         "html_mathml": "documents/comparator-1049.html",
         "html_exact_tex": "documents/comparator-1049.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/COMPARATOR_1049_NUMERICAL_HEIGHT.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "f46a4826481261b61570c98552d06f155b8c3b3746d108475e6bfb4e1deddb27",
+        "source_sha256": "316d19c4714c8366d96f029acef7159bfd46dc52354acdd8b57cf87bb68aa294",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1068,8 +1105,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "0fad01e2e5676ea32c8144ba706a9e80431b1d244f51318b141054c356025842",
-        "html_exact_tex_sha256": "460dbf32f4502f24fe30025b4b77bc0ec985f28bbf3c8e29987502f9da882062"
+        "html_mathml_sha256": "9fba2681fb0cd38d75329a2ce75448779b78aa53598b78595a48a09555528253",
+        "html_exact_tex_sha256": "e174e589d2317dd1d512f1c7b4417c5db56b87fcaa5fa4f5539ff39e897fffb6"
       },
       "sections": [
         {
@@ -1105,21 +1142,22 @@
       "title": "Truth audit",
       "role": "claim_audit",
       "reading_order": 130,
-      "source_path": "docs/TRUTH_AUDIT.md",
+      "source_path": "docs/reference/TRUTH_AUDIT.md",
       "routes": {
         "html_mathml": "documents/truth-audit.html",
         "html_exact_tex": "documents/truth-audit.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/TRUTH_AUDIT.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/TRUTH_AUDIT.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "befefa81ecd2e49c82f59c077e0f0919f16cba37d2e685c0da979d8b5646ad66",
+        "source_sha256": "9a568edfb20a5325c537ec488b7ffd52ca0565cf209c229252c9012128bf48e6",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1128,8 +1166,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "cbaa3791870325ed4b42ad94792b57cbb2164e697f6c45c085b6543a7a57565d",
-        "html_exact_tex_sha256": "5d3593037107ee5da587bef88f7a517d20119b5e4c3cb1f02d26326cbbd14c3c"
+        "html_mathml_sha256": "e8b023f1cba7500cff665ab2d5e650966e6b558ee686db523756415a93e7b7e3",
+        "html_exact_tex_sha256": "e7d91c14a38973e47d3d389d2f4c0b79d3375b4f4d005628f4c94bedc42f50e6"
       },
       "sections": [
         {
@@ -1460,21 +1498,22 @@
       "title": "Repository architecture",
       "role": "system_explanation",
       "reading_order": 140,
-      "source_path": "ARCHITECTURE.md",
+      "source_path": "docs/ARCHITECTURE.md",
       "routes": {
         "html_mathml": "documents/architecture.html",
         "html_exact_tex": "documents/architecture.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ARCHITECTURE.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ARCHITECTURE.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "7ca8beb92b479c881bc78d34d83ec11f004cbd7bd2790539a2074fd97b8e4512",
+        "source_sha256": "394478725ffffc46a76749925dad522a1ca9e4ff43f83880a6ca4701ba399da2",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1483,8 +1522,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "3e0165507f39da44c26eeb3a2da3db8998e9793fdeda14ba01832bd7e4ad6834",
-        "html_exact_tex_sha256": "1cbb0c15c95362ee8895c713c95e3b405ac9a5bfa4a25796d2e89d08559b222a"
+        "html_mathml_sha256": "65ee5d2dc0717ec59bf27a631a69a71fa68b989d2c27613591031126099695c8",
+        "html_exact_tex_sha256": "261a70eb508002fee7cf4aad2442a8b697dcefa3173457b5f2e9b061f53ed420"
       },
       "sections": [
         {
@@ -1565,21 +1604,22 @@
       "title": "Residual progress",
       "role": "open_boundary_progress",
       "reading_order": 150,
-      "source_path": "docs/RESIDUAL_PROGRESS.md",
+      "source_path": "docs/reference/RESIDUAL_PROGRESS.md",
       "routes": {
         "html_mathml": "documents/residual-progress.html",
         "html_exact_tex": "documents/residual-progress.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESIDUAL_PROGRESS.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/RESIDUAL_PROGRESS.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "3dc33fe9080152678a66529af9ad514c873ff67a680141575b359274f2251bd4",
+        "source_sha256": "35ae97d67768174c815ff376ec2d5492d4deea4593ce67b63e5e204a9810bbbe",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1588,8 +1628,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "4304244ca1bf9d58cd824ebfcfc0f57f6b68e564b68288d615f18e39e4a0af7e",
-        "html_exact_tex_sha256": "c26e51c867742488e5247c95049e7c85b8ed8ce83b632a64fa99002758ec3c06"
+        "html_mathml_sha256": "6aaa168aab46afa41ea013c8805b654012056b629220d98bec69e95adb70a743",
+        "html_exact_tex_sha256": "10b3db9b214743e4d23169a08387fbea2fdc39992386f814f4d5b1feff4ef74e"
       },
       "sections": [
         {
@@ -1635,21 +1675,22 @@
       "title": "Development index",
       "role": "development_chronology",
       "reading_order": 160,
-      "source_path": "docs/WAVE_INDEX.md",
+      "source_path": "docs/reference/WAVE_INDEX.md",
       "routes": {
         "html_mathml": "documents/wave-index.html",
         "html_exact_tex": "documents/wave-index.mathjax.html",
-        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/WAVE_INDEX.md"
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/WAVE_INDEX.md"
       },
       "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
         "preferred": "html_mathml",
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "501f06bf244dbcc7a32cb27d234f25d6542f1c9169864c34bc39f9e09c5d19b5",
+        "source_sha256": "a75d7b632bab402c6f6fd2eb4829841961ed1da23176fb2ffef9b07c09828f20",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 21,
-        "renderer_fingerprint": "ec60ada03b181a30",
+        "renderer_fingerprint": "f6b3e351ccb221fc",
         "publication_manifest_match": true,
         "mathml_node_count": 0,
         "raw_math_fallback_count": 0,
@@ -1658,8 +1699,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "e9196d2d910e0349de1ae666c3dc1670bedb8eee35c66032bb7498adfafbc0b5",
-        "html_exact_tex_sha256": "8607d3fd54e6db6ea1b98e8994114093f544e7b8d7ffee0190fc787ec22d75e3"
+        "html_mathml_sha256": "09ff22b414b73992bb1cfc06925f3f901a7cb3885421b0a7ce22745a01187bf7",
+        "html_exact_tex_sha256": "640d43af6049726c3aa2ab4310c6f014c4135797e50056302cf8ef39519e3614"
       },
       "sections": [
         {
@@ -1771,6 +1812,122 @@
           "level": 2,
           "anchor": null,
           "label": "Package shape"
+        }
+      ]
+    },
+    {
+      "schema": "plectis_lean_human_document_v1",
+      "document_id": "orientation",
+      "title": "Technical orientation",
+      "role": "generated_reader_map",
+      "reading_order": 170,
+      "source_path": "docs/ORIENTATION.md",
+      "routes": {
+        "html_mathml": "documents/orientation.html",
+        "html_exact_tex": "documents/orientation.mathjax.html",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ORIENTATION.md"
+      },
+      "render_contract": {
+        "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
+        "preferred": "html_mathml",
+        "fallback": "html_exact_tex",
+        "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
+        "frontend_math_dependency": null,
+        "source_sha256": "6995e6ab75ceb51672ef527d76c6c8ce7c2a64bc273d060a3f1f94ff82356d6c",
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 21,
+        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "publication_manifest_match": true,
+        "mathml_node_count": 0,
+        "raw_math_fallback_count": 0,
+        "warnings": {
+          "mathml": [],
+          "mathjax": []
+        },
+        "executable_scripts_embedded": false,
+        "html_mathml_sha256": "9f59c71b9268cfae51f0486dace52d0fe5767ea2a2e70f90b0f2c1771461a483",
+        "html_exact_tex_sha256": "46f22b48c3f8f8f6b36840a6408794e967fd7fc4bc36ecdbf37d8770da88e066"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Release provenance"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Mathematical signal first"
+        },
+        {
+          "level": 3,
+          "anchor": null,
+          "label": "Reader tiers and relational boundaries"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "What a claim status asserts"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Exact open boundary"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Mathematical programmes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Where the substance is"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Scale"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Mathematical programme routes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Problem and family routes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Selection spine and long tail"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Principal claim routes"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Read by intent"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Drill down"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "External corpus registration"
+        },
+        {
+          "level": 2,
+          "anchor": null,
+          "label": "Query one handle"
         }
       ]
     }
