@@ -28,69 +28,123 @@ theorem with hypotheses proves only the displayed implication; it does
 not prove that its hypotheses occur.</p>
 <section id="the-short-version" class="level2">
 <h2>The short version</h2>
-<p>The repository’s clearest completed mathematics is concentrated in
-restricted forms of Problem 257. It checks the classical full-support
-theorem for every integer base <code>b ≥ 2</code>, a pairwise-coprime
-support theorem under explicit summability hypotheses, and an
-irrationality theorem for nonnegative rational eventually-periodic
-coefficients with a positive periodic tail. It also proves global
-topological and measure statements for Mersenne achievement sets.
-Universal Problem 257, which quantifies over every infinite support,
-remains open.</p>
-<p>Problem 249 contains the deepest collection of endpoint-facing
-mechanisms but no endpoint proof. The library determines the exact
-finite-level rank of the dyadic totient kernel, formalises finite
-denominator exclusions, and proves several conditional routes from
-cofinal separation or decorrelation hypotheses to irrationality. The
-missing cofinal producers are stated explicitly. The library also proves
-no-go results showing why fixed precision, quotient periodicity, or
-coefficient structure alone cannot supply the conclusion.</p>
-<p>The remaining programmes have narrower but exact outcomes: Problem 68
-is equivalent to a cofinal carry condition; Problem 243 has eventual
-Sylvester recurrence under a bounded or summable negative error; Problem
-251 has the prime-gap identity and a tail-shift equivalence; Problem 269
-has three-prime height and kernel-minor identities; Problem 1041 has an
-ordinary all-degree trinomial radial theorem and a sharp critical-value
-mean, with Lean Newton-flow and ray-separation inputs; and Problem 1049
-has an exact rational-base tail recurrence together with a checked
-height region. None closes its Erdős problem.</p>
+<p>The clearest completed endpoint cases are restricted forms of Problem
+257. Lean checks the classical full-support theorem for every integer
+base <code>b ≥ 2</code>, a pairwise-coprime support theorem under
+explicit summability hypotheses, and irrationality for nonnegative
+rational eventually-periodic coefficients with a positive periodic tail.
+An ordinary averaging proof covers every infinite reciprocal-summable
+support; Erdős stated that coprimality-free extension without printing
+the proof. The achievement-set development adds exact topological and
+measure statements. None of these results covers every infinite
+support.</p>
+<p>Problem 249 has the strongest collection of endpoint-facing
+mechanisms without an endpoint proof. Under hypothetical rationality,
+Lean constructs one tempered integral carry whose dyadic sections are
+eventually periodic modulo a common multiplier while its canonical
+carry-kernel ranks are at least <code>2^e − 1</code> for every
+<code>e</code>. Those two conclusions are not proved contradictory:
+modulo a divisor of the multiplier, the forcing can vanish and the carry
+can become geometric. Separate checked results determine the coefficient
+kernel’s exact finite-level rank <code>2^e + 1</code> and give
+conditional routes from actual-LCM separation or first-harmonic
+decorrelation to irrationality. Every such route still lacks its cofinal
+producer.</p>
+<p>The other programmes have substantive but sharply bounded outcomes.
+For Problem 68, an ordinary proof gives a <code>3/2</code> lower growth
+exponent for the full common denominator, while Lean gives exact carry
+equivalences and finite channel obstructions; neither controls the
+reduced denominator or supplies a cofinal carry. Problem 243 has a
+checked signed recovery theorem: exact centered-state dynamics, strict
+centering, a uniform lower bound on the signed error, and normalised
+vanishing force that error to vanish eventually. Problem 251 has a
+source-backed Lean countermodel with positive even logarithmically
+bounded digits, dyadic sum <code>6</code>, integral tail shifts,
+recurring values <code>2</code> and <code>4</code> in every residue
+class, and prime-number-theorem-scale cumulative positions. An
+independent ordinary sparse perturbation shows that several natural
+prime-gap statistics do not suffice. Problem 269 has an ordinary
+two-prime transcendence theorem for both running-LCM variants, plus a
+checked actual rationality-to-reduced-carry bridge and exact conditional
+window-escape interfaces at three primes. Problem 1041 has ordinary
+all-degree trinomial and critical-value theorems, together with a
+source-backed ordinary bounded-radius concyclic theorem; Lean supplies
+supporting inputs for the programme. Problem 1049 has an ordinary
+irrationality region for rational bases and Lean-checked recurrences and
+route exclusions. None closes its Erdős problem.</p>
 <section id="problem-by-problem-guide" class="level3">
 <h3>Problem-by-problem guide</h3>
 <p><strong><a href="https://www.erdosproblems.com/68">#68</a>.</strong>
-Irrationality of <code>∑ 1/(n!−1)</code> is equivalent to cofinally many
-non-unit factorial carries. The isolation pin is
-<code>FactorialGapPlateauCore</code> (not the default-root
-<code>FactorialZeroPlateau</code> duplicate). Finite GMP
-(<code>m = 300000</code>) and continued-fraction exclusions are
-incomparable. The cofinal carries are not produced.</p>
+Put <code>L_N = lcm_{2≤n≤N}(n!−1)</code>. The short paper gives an
+ordinary proof that <code>liminf log L_N/(N^(3/2) log N) ≥ 2√2/3</code>.
+This is a common-denominator theorem: it shows why clearing every
+summand separately cannot make the positive tail small, but says nothing
+by itself about the denominator after cancellation. Lean separately
+checks that irrationality of <code>∑ 1/(n!−1)</code> is equivalent to
+cofinally many non-unit factorial carries, and checks a finite
+quotient-band channel obstruction. The required cofinal carries are not
+produced. The <code>PaperCompleteAsymptotics</code> and
+<code>PaperCompleteLiminf</code> files are presented by the public paper
+as proof candidates, not as registered kernel evidence for the
+<code>3/2</code> theorem.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/243">#243</a>.</strong> After
-Koizumi’s normalised vanishing, a bound on the upward steps of the
-unreduced integer numerator forces eventual Sylvester recurrence; a
-bound on the numerator itself is not required. Unbounded upward
-excursions of that numerator, and the original endpoint, remain
-open.</p>
+href="https://www.erdosproblems.com/243">#243</a>.</strong> Lean checks
+the following signed bounded-negative theorem. Let
+<code>a,C,D : ℕ → ℕ</code> and <code>E : ℕ → ℤ</code>. Assume
+<code>a(n)&gt;1</code>, <code>C(n)&gt;0</code>, the exact recurrences
+<code>C(n+1)+D(n)=a(n)C(n)</code> and <code>D(n+1)=a(n)D(n)</code>, and
+that <code>E(n)</code> is the exact centered state with
+<code>|E(n)|&lt;C(n)</code>. If one constant <code>B</code> satisfies
+<code>E(n)≥−B</code> for every <code>n</code>, and for every
+<code>K</code> one eventually has <code>K|E(n)|&lt;C(n)</code>, then
+<code>E(n)=0</code> eventually
+(<code>boundedNegativePart_eventually_zero</code>). The checked
+centered-zero theorem then gives the Sylvester recurrence once the exact
+product-cleared orbit has an eventually nonzero next-tail state. The
+passage from the original reciprocal sequence to every displayed
+hypothesis is not an end-to-end Lean theorem; in particular, no uniform
+lower bound on its centered error is proved. Unbounded negative
+excursions and the full Erdős endpoint remain open.</p>
 <p><strong><a
 href="https://www.erdosproblems.com/249">#249</a>.</strong>
 Bounded-residue series <code>A_m</code> are irrational for every
 <code>m ≥ 3</code>, with a complete rationality classification at dyadic
-moduli (ordinary mathematics in the short note, §2; not Lean).
-Separately: exact dyadic-kernel rank <code>2^e + 1</code>, denominator
-exclusion to about <code>7.96 × 10³⁴</code>, diagonal certificates
-through <code>t ≤ 82</code>, conditional actual-LCM and harmonic-pivot
-routes, and scoped no-go theorems. No cofinal producer reaching
-irrationality of the original series is proved.</p>
+moduli; this is ordinary mathematics in the short note, not Lean. The
+strongest checked structural result tied directly to the hypothetical
+rational branch is carry anti-compression: one carry would have
+uniformly eventually-periodic dyadic sections modulo its multiplier
+while retaining canonical section rank at least <code>2^e − 1</code> at
+every level. No finite-rank upper bound is proved, so this is a
+necessary consequence rather than a contradiction. The exact
+coefficient-kernel rank <code>2^e + 1</code>, a finite denominator
+exclusion, and conditional actual-LCM and first-harmonic routes remain
+useful, but none supplies the missing cofinal producer.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/251">#251</a>.</strong> A sparse
-perturbation of the prime gaps can have a rational dyadic sum while
-retaining the prime growth scale, every fixed eventual congruence, and
-asymptotically the same short-block statistics. The later positions are
-not asserted to be prime. This is complementary to Land’s conditional
-result, not a refutation. Lean checks an elementary pair-and-buffer
-core; the full schedule and block-law estimates are ordinary
-mathematics, not a separately published
-<code>SparseRationalisation.md</code>. The original problem remains
-open.</p>
+href="https://www.erdosproblems.com/251">#251</a>.</strong> A <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/AllResidueLogarithmicR9.lean">public
+Lean declaration</a> constructs a synthetic sequence of positive even
+digits bounded by <code>4 log(n+1)+24</code>. Its dyadic sum is exactly
+<code>6</code>, every complete scaled tail and every tail shift is
+integral, the values <code>2</code> and <code>4</code> recur arbitrarily
+late in every residue class, and its increasing odd cumulative positions
+satisfy <code>P_n/(n log n) → 1</code>. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos251-prime-gap-reasoning-surface.md#long251:res:all-residue-log-countermodel">reasoning
+paper states the combined theorem explicitly</a>. This rules out a much
+richer package of plausible soft inputs than unboundedness or
+nonperiodicity alone, but these digits are not the actual prime gaps.
+The declaration is source-backed and does not yet have a curated claim
+row.</p>
+<p>Independently, a sparse perturbation of the prime gaps can have a
+rational dyadic sum while retaining the prime growth scale, every fixed
+eventual congruence, and asymptotically the same short-block statistics.
+The later positions are not asserted to be prime. This is complementary
+to Land’s conditional result, not a refutation. Lean checks the finite
+pair, buffer, and filling identities; the infinite schedule and
+block-law transfer are ordinary mathematics in the short paper. This
+obstruction shows that those coarse statistics alone do not force
+irrationality. The exact prime-gap summation-by-parts equivalence still
+proves neither the prime-gap series nor the original series irrational;
+a prime-specific sieve or tail bridge remains open.</p>
 <p><strong><a
 href="https://www.erdosproblems.com/257">#257</a>.</strong> For every
 infinite reciprocal-summable support, the Mersenne subseries is
@@ -102,28 +156,64 @@ pairwise-coprime summable-reciprocal support and Lebesgue measure one
 for the base-2 achievement set. Irrationality for every infinite support
 and the <code>1/2</code> and <code>1/21</code> branches remain open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/269">#269</a>.</strong> Steve Fan’s
-two-prime factorisation (26 June 2026) is his and is not a Lean theorem.
-At three primes, one binary carry produces nonsingular selected kernel
-minors of every order. The actual-series reduction is given; the
-source-specific cofinal escape remains unproved. Three-prime
-irrationality remains open.</p>
+href="https://www.erdosproblems.com/269">#269</a>.</strong> For every
+pair of distinct primes, both the repeated running-LCM reciprocal sum
+and the version retaining one term at each distinct LCM value are
+transcendental. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex">ordinary
+proof</a> expresses them as nonconstant quadratic and affine polynomials
+in one transcendental Hecke–Mahler value. Steve Fan posted the
+repeated-sum argument on 26 June 2026; the note also derives the
+de-duplicated formula and uses the cited Hecke–Mahler transcendence
+theorem. This result is not Lean-checked. At three primes, the ordinary
+paper proves that one binary carry produces nonsingular selected kernel
+minors of every order, excluding every finite separated kernel
+representation. For the actual <code>{2,3,5}</code> series, Lean checks
+the rationality-to-positive-reduced-carry bridge. Cofinal local-window
+escape then extinguishes such carries; under the explicit cap hypotheses
+recorded in the claim registry, that escape statement is equivalent to
+irrationality. This is an exact interface, not an easier theorem whose
+premise has been proved. The source-specific escape and three-prime
+irrationality remain open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/1041">#1041</a>.</strong> Every
-monic trinomial with roots in the open unit disc has radial
-root-to-origin segments inside <code>{|f|&lt;1}</code>, so any two roots
-join through the origin with length less than <code>2</code>.
+href="https://www.erdosproblems.com/1041">#1041</a>.</strong> A
+source-backed <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/ConcyclicAlternation.md">ordinary
+theorem</a> covers monic degree-<code>n</code> polynomials,
+<code>n≥3</code>, whose distinct zeros lie on a circle of radius
+<code>ρ</code> and satisfy <code>2ρ^n≤1</code>: two adjacent zeros have
+chord length at most <code>2ρ sin(π/n)&lt;2</code>, and their straight
+chord lies in <code>{|f|&lt;1}</code>. A repeated zero is an immediate
+short connection. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos1041-lemniscate-reasoning-surface.md#a-bounded-radius-concyclic-class">reasoning
+record</a> explains the alternation and chord argument. The proof is
+outside Lean; an <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/scripts/check_erdos1041_concyclic_exact_witness.py">exact
+finite checker</a> tests load-bearing identities and configurations, and
+the theorem does not yet have a curated claim row. At each fixed degree,
+the sharp arc constant <code>2</code> leaves radii sufficiently close to
+<code>1</code> outside this method.</p>
+<p>Every monic trinomial with roots in the open unit disc also has
+radial root-to-origin segments inside <code>{|f|&lt;1}</code>, so any
+two roots join through the origin with length less than <code>2</code>.
 Separately, a sharp Poisson critical-value mean holds on the closed unit
 disc. Both are ordinary proofs. Lean checks Newton-flow decay,
 ray-separating translations, and perturbative root retention. The
 unrestricted path problem remains open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/1049">#1049</a>.</strong> Ordinary
-proof that <code>F(31/4)</code> and its positive powers are irrational
-(Zudilin 2004 Lemma 7 specialization); Lean checks supporting
-height-region arithmetic and selected identities, not that headline. It
-does not prove irrationality at <code>3/2</code> or construct
-approximants with analytic remainder control.</p>
+href="https://www.erdosproblems.com/1049">#1049</a>.</strong> The short
+paper gives an ordinary proof that <code>F(a/b)</code> is irrational for
+coprime integers <code>a&gt;b≥1</code> when
+<code>log b/log a &lt; θ*</code>, where <code>θ* ≈ 0.4056830214</code>.
+It uses the polynomial conclusion of Zudilin’s 2004 Lemma 7, together
+with the arithmetic and growth estimates used in its proof, before that
+source’s integer-specialisation step. It makes no priority claim for the
+rational-base extension. In particular, <code>F((31/4)^r)</code> is
+irrational for every integer <code>r≥1</code>. Lean checks supporting
+arithmetic, the rational-base tail recurrence, and specific route
+exclusions; it does not check this irrationality theorem. The base
+<code>3/2</code> lies outside the sufficient region, and the required
+approximants with analytic remainder control remain open.</p>
 <p>This guide is not a new result ranking. The canonical order of
 mathematical attention is maintained in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>,
@@ -259,16 +349,16 @@ and cited analytic inputs do not become Lean results by appearing in the
 same paper.</p>
 <section id="signal-audit-dispositions" class="level3">
 <h3>Signal-audit dispositions</h3>
-<p>These are editorial dispositions for first-contact signal, not
-novelty, priority, or proof-status claims. The detailed sections below
-retain the full evidence and exact boundaries.</p>
-<p>I ranked the families by consequence, endpoint proximity, mechanism
-depth, genuine distinctness, external usefulness, digestion value,
-evidence certainty, natural friction, and overclaim risk—not by row
-count, inherited order, or citation presence. The family-level table
-below is the compact reading map; the detailed sections retain
-source-only families and the exact evidence boundary alongside
-Comparator-transported rows.</p>
+<p>The <a href="#problem-by-problem-guide">problem-by-problem guide</a>
+above gives the current result selection, including stronger
+ordinary-paper results. This table records an earlier scoped review of
+selected mechanisms and their supporting roles; it does not rank the
+full current corpus. The detailed sections retain the exact statements
+and evidence boundaries.</p>
+<p>That review compared consequence, endpoint proximity, mechanism
+depth, distinctness, usefulness, evidence certainty, and the remaining
+burden. Its dispositions are editorial judgments, not novelty, priority,
+or proof-status claims.</p>
 <table>
 <colgroup>
 <col />
@@ -288,7 +378,7 @@ Comparator-transported rows.</p>
 <td>#257’s full-support irrationality theorem, pairwise-coprime
 extension, orthogonal-petal reduction, and nonnegative rational
 eventually-periodic coefficient theorem, together with #249’s actual-LCM
-separation reduction, lead the first pass.</td>
+separation reduction, led that scoped review.</td>
 <td>The full-support row is an unconditional endpoint case for each
 <code>b ≥ 2</code>; the pairwise CRT and periodic denominator-clearing
 rows are distinct direct mechanisms; the bouquet and actual-LCM rows add
@@ -306,8 +396,8 @@ bounded-rise, negative-orbit, and signed centered-recovery boundaries,
 #251’s equivalence and countermodel, #269’s height/rank obstruction and
 weighted-phase observer, #1041’s admissible-hub/SPOKE-5 source frontier
 and Lean ray/root inputs, and #1049’s recurrence, rectangular-threshold,
-and four-jet/no-go boundaries remain the strongest boundary for each
-problem.</td>
+and four-jet/no-go boundaries remain useful supporting mechanisms and
+open routes.</td>
 <td>The measure rows give consequential global geometry without
 classifying rational points; the Boolean–Möbius exact-row route gives a
 concrete local-to-cofinal half-membership mechanism under an unproved
@@ -364,9 +454,9 @@ checked endpoint case.</td>
 </tr>
 <tr>
 <td><strong>replace</strong></td>
-<td>The old citation-first/problem-order first pass is replaced by this
-mechanism-first spine; the eight problem sections remain the
-verification index.</td>
+<td>That review replaced a citation-first/problem-order presentation
+with a comparison of selected mechanisms; the current problem guide
+above now supplies the result selection.</td>
 <td>Consequence and load-bearing mechanism are more informative to a
 first reader than paper order, while the per-problem sections preserve
 complete coverage and exact source routes.</td>
@@ -1274,7 +1364,7 @@ this release, against 5,505 of 6,089 statement nodes still
 <code>not_assessed</code>. They concentrate in the #249/#257 core (the
 totient Möbius-numerator normal form, a rank-one overshoot barrier, and
 the <code>1/2</code> tail-escape and middle-producer family). Reproduce
-the list from <code>docs/semantic_corpus.json</code>
+the list from <code>docs/semantic_corpus.json.gz</code>
 (<code>statement_nodes[].prior_art_state</code>); candidate status is a
 search outcome recorded for triage, not a novelty claim.</p>
 </section>

@@ -197,45 +197,22 @@
       }
     ]
   },
-  "frontier": {
-    "source": "state/formal_math/claim_frontier_v1.json",
-    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
-    "target_status": "open",
-    "problem_statement": "Prove irrationality of the dyadic series built from consecutive prime gaps.",
-    "strongest_theorem": {
-      "claim_id": "erdos251.all_residue_logarithmic_countermodel",
-      "title": "A rational logarithmic dyadic word with small digits recurring in every residue class and PNT-scale cumulative growth",
-      "statement": "Explicit synthetic positive even logarithmically bounded digits, 2 and 4 recurring in every index residue, cofinal unboundedness, nonperiodicity, strictly increasing odd positions with N log N asymptotic, dyadic sum 6 and integral tail shifts. No primality assertion or counterexample to Erdos251. For all t>0,r<t,N, there are i,j>=N congruent to r mod t with digits2and4. Every positive shift fails to be an eventual period. Every N,h>=0 has integral complete-tail difference. The pointwise bound is4 log(n+1)+24 and position/(N logN) tends to1.",
-      "altitude": "no_go",
-      "band": "U",
-      "evidence_class": "lean_kernel_checked",
-      "public_entry": null
+  "results_guide": {
+    "document_id": "results",
+    "title": "Results and open boundaries",
+    "role": "mathematical_results_map",
+    "source_path": "docs/RESULTS.md",
+    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
+    "routes": {
+      "html_mathml": "documents/results.html",
+      "html_exact_tex": "documents/results.mathjax.html",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
     },
-    "strongest_longitudinal_theorem": null,
-    "no_longitudinal_reason": "The quadruple-sieve estimate is an explicit unproved hypothesis, the h=1 case degenerates, and zero density of exact shifted-gap matches is not yet connected to the tail-smallness event needed to contradict rationality. Erdős #251 remains open.",
-    "live_obstruction": "The remaining producer is the cofinal adjacent small mismatch, that for each fixed h at least 1 and every N0 there is an index N at least N0 at which T(N+h) - T(N) and T(N+h+1) - T(N+1) both lie strictly between -1 and 1 while g(N+h+1) differs from g(N+1).",
-    "strongest_open_producer": {
-      "id": "cofinal_adjacent_small_mismatch",
-      "statement": "For each fixed h >= 1 and every N0, produce N >= N0 such that both actual tail shifts T_(N+h)-T_N and T_(N+h+1)-T_(N+1) lie strictly between -1 and 1 while g_(N+h+1) != g_(N+1). The checked finite consumer then excludes eventual integrality of the h-shift. The quantifier is every positive h, not only h=1. Digit mismatch and smallness are a joint event. A preferred unproved substitute is a positive finite phase-variance lower bound V_t(X,L) on the schedule t=lcm(1..floor(log log X)), L~(1+ε)log_2 log X (PhaseVarianceLab.md); that lower bound is not proved. r5 sparse rationalisation preserves all unnormalised blocks of length o(log log X) and therefore does not supply this joint event; a distinguishing actual-prime estimate must exceed the block-change error or use a longer window. r6 residue-feedback / sharp δ_* construction is a stronger countermodel in the polylogarithmic regime; …"
-    },
-    "how_to_contribute": {
-      "kind": "proof",
-      "note": "Supply the h = 1 cofinal adjacent-small-mismatch producer from actual consecutive-prime arithmetic. Coarse gap properties cannot supply it (the polynomial countermodel), and the measured event density of 0.0042 to 0.0082 over 6.8 million primes is finite evidence only. Establishing the adjacent-small-mismatch condition for h=1 would settle one useful case of the open producer. The full tail-shift route to irrationality requires the corresponding condition for every fixed positive h; the h=1 case alone does not complete it."
-    },
-    "what_this_does_not_establish": "The target irrationality is not proved. Lean proves the explicit elementary bound p_n <= 1250(n+1)^4 and therefore unconditionally checks convergence of the normalized prime and actual prime-gap dyadic series together with their exact infinite identity. Under non-irrationality it extracts a rational witness and proves that the rational candidate state and every fixed shift are exactly the corresponding scaled real tsum tails. Lean also checks the tail-shift integrality machinery, proves unboundedness and non-eventual-periodicity of the actual prime gaps, and verifies the implication from a cofinal adjacent small-mismatch supply to exclusion of eventual integral h-shifts. …",
-    "failed_approaches": [
-      "Coarse gap properties (positive, even, increasing, unbounded, nonperiodic): the word g_n = 2(n²+4n+2) satisfies all of them, has rational value 32, and never produces an adjacent small mismatch.",
-      "State compression by word repetition alone: the margin is recorded so the lane is not re-walked.",
-      "Liouville-flavoured attacks: a finite continued-fraction expansion yields a local exponent-style witness 2.0007, which is not an irrationality-exponent theorem."
-    ],
-    "public_entry_ids": [
-      "ExternalVerification251PolynomialShiftCountermodel",
-      "ExternalVerification251ActualPrimeGapTail",
-      "ExternalVerification251KernelDenominatorFloor",
-      "ExternalVerification251FreePairEquivalence",
-      "ExternalVerification251PrimeGapIdentity",
-      "ExternalVerification251BoundedPerturbationCountermodel"
-    ]
+    "authority": "Reader-facing result selection from the source-selected Results guide edition. Exact proof authority remains with the sources and evidence boundaries named by that guide; publication_state and public_parity record whether this edition is public or a preview."
   },
   "palomar": null,
   "paper": {
@@ -247,7 +224,7 @@
     "form": "Problem note",
     "pages": 19,
     "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
-    "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
+    "precis": "The paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.",
     "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
     "problem_id": "erdos_251",
@@ -267,9 +244,10 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 21,
-      "renderer_fingerprint": "f6b3e351ccb221fc",
+      "renderer_contract_version": 22,
+      "renderer_fingerprint": "e85419265bf94334",
       "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
+      "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 496,
       "raw_math_fallback_count": 1,
@@ -296,135 +274,161 @@
     "sections": [
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:problem",
         "label": "Introduction"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-complete-countermodel-in-one-calculation.",
         "label": "The complete countermodel in one calculation."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "preserving-more-of-the-actual-gaps.",
         "label": "Preserving more of the actual gaps."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "sparse-corrections-and-local-information.",
         "label": "Sparse corrections and local information."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-prime-series-and-its-tails.",
         "label": "The prime series and its tails."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "what-remains-to-be-distinguished.",
         "label": "What remains to be distinguished."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "relation-to-prior-work.",
         "label": "Relation to prior work."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "notation-and-organisation.",
         "label": "Notation and organisation."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:diagonal-collapse",
         "label": "Integral shifts and recurrence obstructions"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:parts",
         "label": "Summation by parts, with the endpoint retained"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "sec:infinite",
         "label": "The infinite identity and the irrationality equivalence"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-summability-hypothesis.",
         "label": "The summability hypothesis."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:tail",
         "label": "The tail recurrence and integral shifts"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-actual-prime-gap-orbit.",
         "label": "The actual prime-gap orbit."
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "sec:local-certificate",
         "label": "Two adjacent small shifts cannot both be integral"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:carry",
         "label": "Nonperiodic coefficients with a rational sum"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "consequence-for-the-coefficients.",
         "label": "Consequence for the coefficients."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:open",
         "label": "Complements and further questions"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "a-finite-truncation-criterion.",
         "label": "A finite truncation criterion."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-remaining-estimate.",
         "label": "The remaining estimate."
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "statements-and-declarations",
         "label": "Statements and declarations"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "artefact-and-data-availability.",
         "label": "Artefact and data availability."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "funding-and-competing-interests.",
         "label": "Funding and competing interests."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "acknowledgements.",
         "label": "Acknowledgements."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "app:index",
         "label": "Guide to the formal sources"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "references",
         "label": "References"
       }
-    ]
+    ],
+    "first_pass": {
+      "stated_by_the_paper": false,
+      "provenance": "editorial selection for this guide",
+      "sections": [
+        {
+          "id": "sec:problem",
+          "title": "Introduction",
+          "level": 2
+        },
+        {
+          "id": "sec:tail",
+          "title": "The tail recurrence and integral shifts",
+          "level": 2
+        },
+        {
+          "id": "sec:local-certificate",
+          "title": "Two adjacent small shifts cannot both be integral",
+          "level": 3
+        },
+        {
+          "id": "sec:open",
+          "title": "Complements and further questions",
+          "level": 2
+        }
+      ]
+    }
   },
   "routes": {
     "graph_node": "problem:erdos_251",
@@ -442,7 +446,7 @@
       "form": "Problem note",
       "pages": 19,
       "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
-      "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
+      "precis": "The paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.",
       "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
       "problem_id": "erdos_251",
@@ -462,9 +466,10 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 496,
         "raw_math_fallback_count": 1,
@@ -491,135 +496,161 @@
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:problem",
           "label": "Introduction"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-complete-countermodel-in-one-calculation.",
           "label": "The complete countermodel in one calculation."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "preserving-more-of-the-actual-gaps.",
           "label": "Preserving more of the actual gaps."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "sparse-corrections-and-local-information.",
           "label": "Sparse corrections and local information."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-prime-series-and-its-tails.",
           "label": "The prime series and its tails."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "what-remains-to-be-distinguished.",
           "label": "What remains to be distinguished."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "relation-to-prior-work.",
           "label": "Relation to prior work."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "notation-and-organisation.",
           "label": "Notation and organisation."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:diagonal-collapse",
           "label": "Integral shifts and recurrence obstructions"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:parts",
           "label": "Summation by parts, with the endpoint retained"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:infinite",
           "label": "The infinite identity and the irrationality equivalence"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-summability-hypothesis.",
           "label": "The summability hypothesis."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:tail",
           "label": "The tail recurrence and integral shifts"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-actual-prime-gap-orbit.",
           "label": "The actual prime-gap orbit."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:local-certificate",
           "label": "Two adjacent small shifts cannot both be integral"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:carry",
           "label": "Nonperiodic coefficients with a rational sum"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "consequence-for-the-coefficients.",
           "label": "Consequence for the coefficients."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:open",
           "label": "Complements and further questions"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-finite-truncation-criterion.",
           "label": "A finite truncation criterion."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-remaining-estimate.",
           "label": "The remaining estimate."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "statements-and-declarations",
           "label": "Statements and declarations"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "artefact-and-data-availability.",
           "label": "Artefact and data availability."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "funding-and-competing-interests.",
           "label": "Funding and competing interests."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "acknowledgements.",
           "label": "Acknowledgements."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "app:index",
           "label": "Guide to the formal sources"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "sec:problem",
+            "title": "Introduction",
+            "level": 2
+          },
+          {
+            "id": "sec:tail",
+            "title": "The tail recurrence and integral shifts",
+            "level": 2
+          },
+          {
+            "id": "sec:local-certificate",
+            "title": "Two adjacent small shifts cannot both be integral",
+            "level": 3
+          },
+          {
+            "id": "sec:open",
+            "title": "Complements and further questions",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "short",
       "current_github": {
@@ -635,7 +666,7 @@
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 35,
+      "pages": 34,
       "question": "What is the complete shift, countermodel, and finite-evidence record for Erdős #251, and which cofinal mismatch is missing?",
       "precis": "A claim-bounded complete reasoning record for Erdős #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
@@ -657,11 +688,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
-        "source_sha256": "80d226bc59d7e47db86bc4d576570d27e78d8760ba77ae38c548a53bfc9b8234",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
+        "source_sha256": "567a63c64b281217b3340b6b8611a667626bcb0661d38bb2027be31209feef12",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 922,
+        "mathml_node_count": 920,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -675,266 +707,292 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "416dcdc0e3ed56da7e845e903f45d748cad93a86fabeb4629c4ea2bfd39d72da",
-        "html_exact_tex_sha256": "176d91c6e5327d8a584cb085b84d795b78e1464d8bcdb26bc595c16814efaed5"
+        "html_mathml_sha256": "413988f96aa5f80bd4c033c46f5b70ace4aae1a41d9fd3136021e1a31a7b1eb9",
+        "html_exact_tex_sha256": "6e599ac90fb6a04d94af38883ace979c49da0b62e0429808487cf5678be502bc"
       },
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:sec:problem",
           "label": "Introduction"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "notation.",
           "label": "Notation."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "relation-to-prior-work.",
           "label": "Relation to prior work."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-strategy.",
           "label": "The strategy."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "outline.",
           "label": "Outline."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:sec:parts",
           "label": "Summation by parts, with the endpoint retained"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:sec:infinite",
           "label": "The infinite identity and the irrationality equivalence"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:sec:tail",
           "label": "The tail recurrence and the exact criteria"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-actual-prime-gap-orbit.",
           "label": "The actual prime-gap orbit."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:sec:freepair",
           "label": "The free-pair criterion and the lcm diagonal"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:sec:local-certificate",
           "label": "A local certificate, and one actual pair"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "an-explicit-remainder-and-a-certified-actual-pair",
           "label": "An explicit remainder and a certified actual pair"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:sec:denominator-floor",
           "label": "Two denominator floors"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:sec:obstructions",
           "label": "What cannot supply the missing input"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "bounded-residue-preserving-perturbations",
           "label": "Bounded residue-preserving perturbations"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "algebraic-nonconcentration-survives-the-rationalising-perturbation",
           "label": "Algebraic nonconcentration survives the rationalising perturbation"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-producer-is-an-event-of-density-zero",
           "label": "The producer is an event of density zero"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "recurring-gap-values-differing-by-two-do-not-suffice",
           "label": "Recurring gap values differing by two do not suffice"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:res:all-residue-log-countermodel",
           "label": "A complete countermodel in every residue class"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "two-further-boundaries",
           "label": "Two further boundaries"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:sec:measurements",
           "label": "What is measured"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:sec:open",
           "label": "The remaining obligation"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "what-remains-to-be-formalised.",
           "label": "What remains to be formalised."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "statements-and-declarations",
           "label": "Statements and declarations"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "artefact-and-data-availability.",
           "label": "Artefact and data availability."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "funding-and-competing-interests.",
           "label": "Funding and competing interests."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "acknowledgements.",
           "label": "Acknowledgements."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:app:prime-bound",
           "label": "An elementary polynomial bound for the primes"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:app:certificates",
           "label": "Integer certificates"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:app:index",
           "label": "Guide to the formal sources"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long251:sec:erdos-251-extended-record",
           "label": "Extended record: displaced results, ordinary proofs and corrections"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:sec:xr-totient",
           "label": "The totient witness and forward propagation"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:sec:xr-truncation",
           "label": "The finite truncation criterion"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:sec:xr-divisorhit",
           "label": "A weaker recurrence-level target"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:sec:xr-compression",
           "label": "Two ordinary proofs about the free-pair producer"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "state-compression.",
           "label": "State compression."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "redundancy-of-the-gap-condition.",
           "label": "Redundancy of the gap condition."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:sec:xr-boundedpolignac",
           "label": "A bounded companion to the recurring-values countermodel"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:sec:xr-densities",
           "label": "The measured densities in full"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long251:sec:xr-corrections",
           "label": "Corrections to earlier records"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-superseded-exclusion.",
           "label": "The superseded exclusion."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-named-missing-input.",
           "label": "The named missing input."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-formal-boundary.",
           "label": "The formal boundary."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:erdos-251-complete-family-map",
           "label": "Complete result-family map"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "prime-gap-reformulation",
           "label": "Prime gap reformulation"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "dyadic-tail-integrality-classification",
           "label": "Dyadic tail integrality classification"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "integral-shift-classification",
           "label": "Integral shift classification"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "small-mismatch-criterion",
           "label": "Small mismatch criterion"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "coefficient-only-no-go",
           "label": "Coefficient only no go"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "totient-shift-propagation",
           "label": "Totient shift propagation"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "long251:sec:tail",
+            "title": "The tail recurrence and the exact criteria",
+            "level": 2
+          },
+          {
+            "id": "long251:sec:obstructions",
+            "title": "What cannot supply the missing input",
+            "level": 2
+          },
+          {
+            "id": "long251:sec:open",
+            "title": "The remaining obligation",
+            "level": 2
+          },
+          {
+            "id": "sec:erdos-251-complete-family-map",
+            "title": "Complete result-family map",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "long",
       "current_github": {

@@ -18,9 +18,12 @@
     "frontend_math_dependency": null,
     "source_sha256": "a845b9d64177350d6e6f5c6ecf4a77a054e6cc79cde95bbf84bf7aa498ff3987",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
@@ -34,82 +37,82 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "bounded-reader-route",
       "label": "Bounded reader route"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "signal-first-reviewed-spine",
       "label": "Signal-first reviewed spine"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "source-current-frontier",
       "label": "#1041 / source-current frontier"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "complete-eight-problem-return-matrix",
       "label": "Complete eight-problem return matrix"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "build-entrypoint",
       "label": "Build entrypoint"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "erdősborwein-families",
       "label": "#257 / Erdős–Borwein families"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "periodic-weighted-lambert-series",
       "label": "Periodic weighted Lambert series"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "totient-denominator-exclusions",
       "label": "#249 / totient denominator exclusions"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "certificate-reductions",
       "label": "#249 / certificate reductions"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "diagonal-pincer-frontier",
       "label": "#249 / diagonal pincer frontier"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "transport-and-curvature-companion-band",
       "label": "Transport and curvature companion band"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "paper-curation-boundary",
       "label": "Paper-curation boundary"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "binary-carry-trunk-post-wave-carry-layer",
       "label": "Binary-carry trunk (post-wave carry layer)"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "half-value-finite-prefix-and-boundary-analysis",
       "label": "Half-value finite-prefix and boundary analysis"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "claim-registry",
       "label": "Claim registry"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "generated-finite-certificates",
       "label": "Generated finite certificates"
     }
   ]

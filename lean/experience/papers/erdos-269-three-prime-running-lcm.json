@@ -7,7 +7,7 @@
   "form": "Problem note",
   "pages": 10,
   "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
-  "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
+  "precis": "For three pairwise distinct primes, the paper proves that the reciprocal running-LCM kernel has nonsingular minors of every order, with one index choice valid in every third-coordinate layer. After row and column powers are removed, a binary carry gives disjoint threshold intervals; this proves arbitrary-order non-separability and the exact rank of every finite sample. The paper also records the two-prime Bugeaud–Laurent deduction, while crediting Steve Fan's earlier public reduction and claiming no priority or Lean formalisation for it. The repeated three-prime irrationality question remains open.",
   "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
   "problem_id": "erdos_269",
@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 260,
     "raw_math_fallback_count": 0,
@@ -43,78 +44,104 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:problem",
       "label": "Introduction"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:rank",
       "label": "The binary carry and arbitrary-order rank"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-indices-must-be-selected.",
       "label": "The indices must be selected."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-norm-matters.",
       "label": "The norm matters."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:two-prime",
       "label": "The two-prime comparison"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:lcm",
       "label": "Exact multiplicities and normalised tails"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:escape",
       "label": "A window test and the remaining arithmetic"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-information-the-remaining-argument-must-use.",
       "label": "The information the remaining argument must use."
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "statements-and-declarations",
       "label": "Statements and declarations"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "proof-sources.",
       "label": "Proof sources."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "artefact-and-data-availability.",
       "label": "Artefact and data availability."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "funding-and-competing-interests.",
       "label": "Funding and competing interests."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "acknowledgements.",
       "label": "Acknowledgements."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "app:sources",
       "label": "Guide to the formal sources"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:problem",
+        "title": "Introduction",
+        "level": 2
+      },
+      {
+        "id": "sec:rank",
+        "title": "The binary carry and arbitrary-order rank",
+        "level": 2
+      },
+      {
+        "id": "sec:lcm",
+        "title": "Exact multiplicities and normalised tails",
+        "level": 2
+      },
+      {
+        "id": "sec:escape",
+        "title": "A window test and the remaining arithmetic",
+        "level": 2
+      }
+    ]
+  }
 }

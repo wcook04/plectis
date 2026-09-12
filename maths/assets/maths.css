@@ -741,6 +741,9 @@ html:not(.scripting) .universe-nojs { display: block; }
   font-feature-settings: normal;
 }
 .paper-stage span.math.inline { white-space: normal; }
+.paper-stage .math.inline[data-math-compact],
+.paper-stage .math.inline[data-math-compact] mjx-math,
+.paper-stage .math.inline[data-math-compact] mjx-break { white-space: nowrap; }
 .paper-stage span.math.display,
 .paper-stage .math-display {
   display: block;
@@ -762,7 +765,9 @@ html:not(.scripting) .universe-nojs { display: block; }
   margin: 0;
 }
 .paper-stage .math-display { overflow: visible; }
-.paper-stage span.math.display { scrollbar-width: thin; padding-block: .2em; }
+.paper-stage span.math.display { scrollbar-width: thin; padding-block: .35em; overscroll-behavior-x: contain; }
+.paper-stage .math.display mjx-container[display="true"] { margin: 0; }
+.paper-stage mjx-labels { color: var(--muted); }
 .paper-stage p:has(+ .math-display) {
   margin-bottom: 0.15em;
 }
@@ -1343,7 +1348,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   border-top: 1px solid var(--u-edge);
 }
 .source-files.is-long {
-  max-height: 32rem; overflow-y: auto; overscroll-behavior: contain;
+  max-height: 32rem; overflow-y: auto; overscroll-behavior: contain auto;
 }
 .source-files li {
   display: grid; grid-template-columns: minmax(0, 1fr) auto;
@@ -1460,3 +1465,38 @@ body.has-viewback:has(.maths-layout) .viewback {
   line-height: 1.55;
 }
 @media print { .paper-source-guide { border: 0; padding: 0; } }
+
+/* A wide indivisible inline formula gets a local reading area; the rest of
+   the paragraph retains its normal measure and baseline. */
+.paper-stage .math-inline-flow[data-math-overflow] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  margin: .65em 0;
+  padding-block: .35em;
+  scrollbar-width: thin;
+  overscroll-behavior-x: contain;
+}
+.paper-stage .math-inline-flow[data-math-overflow]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Touch controls keep a comfortable target without changing manuscript type. */
+@media (max-width: 768px), (pointer: coarse) {
+  .universe-zoom__btn { width: 44px; height: 44px; }
+  .lens-btn { min-height: 44px; }
+  .universe-search, .source-filter input[type=search] {
+    font-size: 1rem;
+    min-height: 44px;
+  }
+}
+
+/* Operator help leaves the typeset expression unchanged. */
+.paper-stage .math[data-term-help="notation"] { cursor: help; }
+.paper-stage .math[data-term-help="notation"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}

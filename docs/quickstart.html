@@ -25,9 +25,9 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=bc11d00b7b50">
+  <link rel="stylesheet" href="../assets/style.css?v=71b3af9f4cb4">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
-  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=6c085cd44fc5"></script></template>
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=9328006d7585"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
 </head>
 <body>
@@ -90,7 +90,7 @@
         <a href="components.html">Components</a>
         <a href="rules-and-ideas.html">Doctrine reference</a>
         <a href="paper-modules.html">Paper modules</a>
-        <a href="evidence.html">What the pass proves</a>
+        <a href="evidence.html">Evidence and checks</a>
         <a href="glossary.html">Glossary</a>
         <a href="lineage.html">Lineage &amp; changelog</a>
         <p class="docs-nav__group">Site</p>
@@ -130,22 +130,22 @@
       <article class="docs-article">
         <p class="eyebrow docs-eyebrow">Getting started</p>
         <h1>Quickstart</h1>
-        <p class="docs-lede">Plectis runs locally against a folder. The shortest path is a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-clone" data-term="clone" data-term-auto="1">clone</a>, a clean <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a>, and the first screen.</p>
-        <p class="muted">A <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-coding-agent" data-term="coding_agent" data-term-auto="1">coding agent</a> (Claude Code, Codex, Cursor) can run this whole page for you; <a href="coding-agents.html">working with a coding agent</a> is that path.</p>
+        <p class="docs-lede">Plectis runs locally against a folder. <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-clone" data-term="clone" data-term-auto="1">Clone</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> the included files and generate a local example report.</p>
+        <p class="muted">For instructions on running these commands with Claude Code, Codex or Cursor, see <a href="coding-agents.html">Working with a coding agent</a>.</p>
 
-        <h2 id="clone">1. <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-clone" data-term="clone" data-term-auto="1">Clone</a> the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a></h2>
+        <h2 id="clone">1. <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-clone" data-term="clone" data-term-auto="1">Clone</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a></h2>
         <pre><code>git clone https://github.com/wcook04/plectis
 	cd plectis</code></pre>
 
-        <h2 id="check">2. Run the one-command <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a></h2>
-        <p>A single command confirms the local <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-slice" data-term="slice" data-term-auto="1">slice</a> is <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-runnable" data-term="runnable" data-term-auto="1">runnable</a> on your machine before you install anything:</p>
+        <h2 id="check">2. <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">Check</a> the checkout</h2>
+        <p>From the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> folder, run the bootstrap <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>. They use Python and do not require installing the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-package" data-term="package" data-term-auto="1">package</a>:</p>
         <pre><code>./bootstrap.sh</code></pre>
-        <p class="muted">It runs against a small built-in example and writes its output into an ignored <code>.microcosm/</code> folder beside the project. Nothing leaves your machine.</p>
+        <p class="muted">The <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verify</a> that required files are present, scan for excluded private material and <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validate</a> pattern <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-record" data-term="record" data-term-auto="1">records</a>. The result is saved to <code>.microcosm/cold_clone_probe.json</code>. Nothing is uploaded.</p>
 
-        <h2 id="first">3. Open the first screen</h2>
-        <p>Open the local result card:</p>
+        <h2 id="first">3. Generate the example report</h2>
+        <p>The tour creates a local work <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-record" data-term="record" data-term-auto="1">record</a> and prints a report. Its example work step is simulated; it does not run the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-test" data-term="test" data-term-auto="1">tests</a> in your project:</p>
         <pre><code>PYTHONPATH=src python3 -m microcosm_core tour --card .</code></pre>
-        <details><summary>Optional: more <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-inspection" data-term="inspection" data-term-auto="1">inspection</a> commands and the installed CLI</summary>
+        <details><summary>Optional: more <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-inspection" data-term="inspection" data-term-auto="1">inspection</a> commands and the installed <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-command-line-interface" data-term="command_line_interface" data-term-auto="1">CLI</a></summary>
         <pre><code>PYTHONPATH=src python3 -m microcosm_core status --card .
 PYTHONPATH=src python3 -m microcosm_core authority --card
 PYTHONPATH=src python3 -m microcosm_core workingness --card
@@ -161,11 +161,11 @@ plectis hello .
 plectis first-screen --card .
 plectis legibility-scorecard</code></pre>
         <p>The legacy <code>microcosm</code> command remains as a compatibility alias for older notes and <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipts</a>.</p>
-        <p><code>tour --card</code> writes the local result card; <code>hello</code> prints the non-writing <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a>; <code>status</code> and the boundary cards show what the run recorded and where it stops.</p>
+        <p><code>tour --card</code> creates the example <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-record" data-term="record" data-term-auto="1">record</a> and prints its report. <code>hello</code> lists the available commands without writing files. <code>status</code> reports saved work; <code>authority</code> and <code>workingness</code> describe the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a> on what its results establish.</p>
         </details>
 
         <div class="callout">
-          The <a href="index.html">Overview</a> is the gentler first read. The full first-run guide and command <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a> live in the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>'s README.
+          The <a href="index.html">Overview</a> explains what Plectis does. The <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> README contains installation instructions and the command <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a>.
         </div>
 
         <div class="page-foot">
@@ -182,8 +182,8 @@ plectis legibility-scorecard</code></pre>
     <aside class="docs-toc" aria-label="On this page" data-term-auto="off">
       <p class="docs-toc__title">On this page</p>
       <a href="#clone">1. Clone the repository</a>
-      <a href="#check">2. Run the one-command check</a>
-      <a href="#first">3. Open the first screen</a>
+      <a href="#check">2. Check the checkout</a>
+      <a href="#first">3. Generate the example report</a>
     </aside>
   </div>
 

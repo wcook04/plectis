@@ -4,19 +4,16 @@
 # Papers
 
 Each of the eight covered Erdős problems has a short first-read paper and a
-longer complete reasoning record. All eight problems remain open. The papers
-report partial results, failed or equivalent routes, finite evidence, and the
-exact obligations that survive.
+longer complete reasoning record. Start with the short paper for the result,
+its argument and the question that remains. Use the longer record when you
+want to recover a detailed step, inspect a computation, or follow an approach
+that stopped. You do not need Lean or a coding agent to read either.
 
-These papers are mathematical exposition. Some results are checked in Lean;
-others are ordinary mathematical arguments or applications of cited external
-theorems. Each paper states the boundary for its own claims. Lean files are
-proof authority only for the exact declarations they check, and
-[`docs/claims.json`](../docs/claims.json) records the selected public claim
-interfaces.
-
-The manuscript layer (the `.tex` sources and rendered PDFs) is licensed
-CC-BY-4.0; see [`REUSE.toml`](../REUSE.toml) at the repository root.
+All eight problems remain open. The papers report partial results, failed or
+equivalent routes, finite evidence, and the exact obligations that survive.
+If the problem numbers or formalisation are unfamiliar, read
+[a reader's way in](../docs/READING_GUIDE.md) first. For the design of the tools
+and the research process, go to the [project papers](#project-papers).
 
 ## Problem papers
 
@@ -31,30 +28,59 @@ CC-BY-4.0; see [`REUSE.toml`](../REUSE.toml) at the repository root.
 | #1041 | [Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates](1041/erdos-1041-lemniscate-newton-flow.pdf) ([source](1041/erdos-1041-lemniscate-newton-flow.tex)) | [Lemniscates and Newton Flow: Complete Reasoning Record](1041/erdos1041-lemniscate-reasoning-surface.pdf) ([source](1041/erdos1041-lemniscate-reasoning-surface.tex)) |
 | #1049 | [Irrationality of F(31/4) and the Exact Normalized Hankel Order](1049/erdos-1049-rational-base-lambert.pdf) ([source](1049/erdos-1049-rational-base-lambert.tex)) | [Rational-Base Lambert Series: Complete Reasoning Record](1049/erdos1049-rational-base-lambert-reasoning-surface.pdf) ([source](1049/erdos1049-rational-base-lambert-reasoning-surface.tex)) |
 
-The short paper is the first read. The complete reasoning record preserves the
-wider working context, including routes that failed, finite experiments, and
-open obligations. The older joint #249/#257 paper is retained for provenance;
-it is not the entry point for either problem. For #251, the elementary pair
-identities live in `SparseRationalisationCore.lean`; the ordinary schedule
-sketch is Proposition 1.1 of the short paper. There is no separately published
-`SparseRationalisation.md`. End-to-end sparse Lean candidates are labelled
-UNRUN and are not presented as verified.
+## Follow the argument into its evidence
+
+Read the assumptions of the result you want to use, then the proof. The
+longer record gives the surrounding working context, including routes that
+failed, finite experiments and open obligations. If you cannot reconstruct a
+step or find its source, that is useful feedback through
+[Contributing](../CONTRIBUTING.md).
+
+Some results are checked in Lean; others are ordinary mathematical arguments
+or applications of cited external theorems. Each paper states the boundary for
+its own claims. [Results and limits](../docs/RESULTS.md) gives the result beside
+what remains open, and the [source map](../docs/SOURCE_MAP.md) connects the
+paper to supporting declarations. Lean files are proof authority only for the
+exact declarations they check; [`docs/claims.json`](../docs/claims.json)
+records the selected public claim interfaces.
+
+The [full-text index](../docs/papers/README.md) provides generated Markdown
+versions for browsing. The PDFs and `.tex` files above are the authored
+manuscripts. The older joint #249/#257 paper is retained for provenance;
+it is not the entry point for either problem.
 
 ## Project papers
 
-These explain the organisation of the research, agent workflows and participation.
+These papers explain how the work is organised, how an agent uses the public
+checkout, and how another researcher can take part. Start with the question
+that interests you.
 
-| Role | Paper |
+| Question | Paper |
 |---|---|
-| Publication architecture | [Problem-Sized Lean Worlds](systems/claim-faithful-publication-systems-paper.pdf) ([source](systems/claim-faithful-publication-systems-paper.tex)) |
-| Agent navigation and validation | [From a Cold Clone to a Proof Receipt](systems/cold-clone-to-proof-receipt.pdf) ([source](systems/cold-clone-to-proof-receipt.tex)) |
-| Open participation and credit | [From Spare Compute to Cumulative Mathematics](systems/open-source-mathematics-strategy.pdf) ([source](systems/open-source-mathematics-strategy.tex)) |
+| How do formal proofs, public claims and release checks fit together? | [Problem-Sized Lean Worlds](systems/claim-faithful-publication-systems-paper.pdf) ([source](systems/claim-faithful-publication-systems-paper.tex)) |
+| How does an agent find a task, use the tools and record what was checked? | [From a Cold Clone to a Proof Receipt](systems/cold-clone-to-proof-receipt.pdf) ([source](systems/cold-clone-to-proof-receipt.tex)) |
+| How can people contribute research or compute while keeping evidence and credit? | [From Spare Compute to Cumulative Mathematics](systems/open-source-mathematics-strategy.pdf) ([source](systems/open-source-mathematics-strategy.tex)) |
 
 For the repository layout, sources of truth, build path, and release
 infrastructure, see [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md).
-The [full-text shelf](../docs/papers/README.md) provides browsable Markdown
-versions and a detailed index. [Results and limits](../docs/RESULTS.md) and the
-[source map](../docs/SOURCE_MAP.md) connect the papers to their evidence.
+The companion [Plectis software repository](https://github.com/wcook04/plectis)
+contains the general workflow components discussed alongside the mathematics.
+
+## Sources and earlier manuscripts
+
+The manuscript layer (the `.tex` sources and rendered PDFs) is licensed
+CC-BY-4.0; see [`REUSE.toml`](../REUSE.toml) at the repository root.
+
+<details>
+<summary>Source note for the #251 sparse construction</summary>
+
+For #251, the elementary pair identities live in
+`SparseRationalisationCore.lean`; the ordinary schedule sketch is Proposition
+1.1 of the short paper. There is no separately published
+`SparseRationalisation.md`. End-to-end sparse Lean candidates are labelled
+UNRUN and are not presented as verified.
+
+</details>
 
 <details>
 <summary>Earlier combined manuscript: provenance only</summary>
@@ -122,10 +148,18 @@ coverage against the current proofs:
 
 ```sh
 python3 scripts/check_problem_note_sources.py --coverage
-python3 scripts/refresh_projections.py
 python3 docs/papers/check_paper_corpus.py
 ```
 
 The last check rejects a Markdown mirror or recorded PDF that no longer
-matches its manuscript. Refresh the paper corpus through its owning exporter
-when that check reports a stale mirror; do not hand-edit a generated copy.
+matches its manuscript. Include the edited source, rebuilt PDF and check
+output in your pull request. If the remaining failure is a generated copy
+made stale by your manuscript edit, say so in the pull request; do not
+hand-edit the copy to make the check pass.
+
+Maintainers refresh the generated full text and paper-corpus records through
+their export step, then run `python3 scripts/refresh_projections.py` and
+`python3 docs/papers/check_paper_corpus.py` before merging. The full-text
+exporter is not included in this checkout. You do not need access to a private
+repository to propose a manuscript change; include the check output so the
+maintainer can complete that part of the update.

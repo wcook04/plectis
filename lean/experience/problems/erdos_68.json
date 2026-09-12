@@ -260,43 +260,22 @@
       }
     ]
   },
-  "frontier": {
-    "source": "state/formal_math/claim_frontier_v1.json",
-    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
-    "target_status": "open",
-    "problem_statement": "Prove that the Erdős #68 factorial-denominator series is irrational.",
-    "strongest_theorem": {
-      "claim_id": "erdos68.factorial_gap_lcm_lower_bound",
-      "title": "Lean-checked 3/2 lower growth for lcm_{2<=n<=N}(n!-1)",
-      "statement": "Let L_N = lcm_{2 <= n <= N}(n!-1), represented in Lean by channelLCM N. Then liminf_{N -> infinity} log L_N/(N^(3/2) log N) is at least 2 sqrt(2)/3.",
-      "altitude": "no_go",
-      "band": "U",
-      "evidence_class": "lean_kernel_checked",
-      "public_entry": null
+  "results_guide": {
+    "document_id": "results",
+    "title": "Results and open boundaries",
+    "role": "mathematical_results_map",
+    "source_path": "docs/RESULTS.md",
+    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
+    "routes": {
+      "html_mathml": "documents/results.html",
+      "html_exact_tex": "documents/results.mathjax.html",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
     },
-    "strongest_longitudinal_theorem": null,
-    "no_longitudinal_reason": "Erdős 68 remains open. L_N is a common denominator, not a reduced denominator, and the 3/2 lower bound obstructs a proof architecture rather than proving irrationality. The fixed-modulus theorem proves no cofinal failures; the observed odd density is finite heuristic evidence only. Exact carry and companion-orbit equivalences transfer the target without simplifying it. The polynomial-perturbation extension is ordinary mathematics with only its gcd identity Lean checked.",
-    "live_obstruction": "No producer supplies the cofinal residue misses, and exact computation of the strict-successor carries through m = 300000 gives only a finite denominator exclusion for any displayed rational representation.",
-    "strongest_open_producer": {
-      "id": "cofinal_exact_prefix_strict_successor_miss",
-      "statement": "Prove that cofinally many integers m fail m | strictFacTopRat(factorialGapPrefix(m),m); Lean proves this is exactly equivalent to Erdős #68. The new full-constant coordinate is an analytically equivalent version of the same producer: for C=sum_{n>=2}1/(n!(n!-1))=S-e+2, prove floor(m!C) not congruent to -2 modulo m cofinally. Lean checks the pointwise equivalence between that residue and the canonical digit d_m(C)=m-2, while the infinite-tail equivalence is recorded analytically. Prime-index misses and the fixed-k two-stage prime-power criterion remain sufficient special cases, but primes are no longer part of the exact frontier statement. UPDATE 2026-09-07: unrestricted channel-moment ideals are now finitely determined for each fixed D, with exact mu_D through D=24. That algebraic normalisation does not supply cofinal m not dividing Z_m. …"
-    },
-    "how_to_contribute": {
-      "kind": "computation",
-      "note": "Extend the exact carry computation beyond m = 300000 and account for the odd-index pattern that has held from index 23 through 300000, since a Lean-checked consumer converts cofinally many non-unit carries into irrationality."
-    },
-    "what_this_does_not_establish": "Erdős #68 remains open. Lean checks the support-independent channel congruence and LCM obstruction, the finite factorial-gap segment inequalities and explicit radius lower bounds, summability and additivity of every finite-support channel residual, and the complete prime-unit translator giving exact integer residual shifts. Stirling packaging of the Lean-checked segment inequality yields the ordinary corollary liminf log L_N/(N^{3/2} log N) >= 2 sqrt(2)/3, stronger than the GLS 4/3 exponent and not a reduced-denominator or irrationality bound; …",
-    "failed_approaches": [
-      "Full-LCM/one-owner clearing: the checked bound liminf log L_N/(N^(3/2) log N) >= 2 sqrt(2)/3 eventually dominates log((N!)^2); it concerns the common denominator, not the reduced denominator.",
-      "Koepf-Schmersau floor criterion at the natural clearing scale p_n = lcm(k!−1): its tail hypothesis fails from n ≥ 4.",
-      "Rank-two producer: reclassified as a smoothness exclusion, not an irrationality route; the CF bound already discharges grid size n ≤ 1.",
-      "Square-subsequence logarithmic constraint: provably cannot pass the sharp constant 4√2/9 (Lean sharp_radius_satisfies_square_log_constraint)."
-    ],
-    "public_entry_ids": [
-      "ExternalVerification68ChannelRadius",
-      "ExternalVerification68CompanionOrbitBoundary",
-      "ExternalVerification68PrimeUnitTranslator"
-    ]
+    "authority": "Reader-facing result selection from the source-selected Results guide edition. Exact proof authority remains with the sources and evidence boundaries named by that guide; publication_state and public_parity record whether this edition is public or a preview."
   },
   "palomar": null,
   "paper": {
@@ -308,7 +287,7 @@
     "form": "Problem note",
     "pages": 14,
     "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
-    "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
+    "precis": "The paper proves that if S=a/q is rational, q cannot divide 299999! and is at least 2^39990 > 10^12038. The first exclusion comes from the exact strict-successor carry test and the second from continued fractions. Lean also checks the equivalent carry formulation and several consequences. A large common denominator alone does not control the reduced partial sums. Irrationality is reduced to a cofinal miss of the strict factorial successor, which remains open.",
     "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #68, which remains open",
     "problem_id": "erdos_68",
@@ -328,9 +307,10 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 21,
-      "renderer_fingerprint": "f6b3e351ccb221fc",
+      "renderer_contract_version": 22,
+      "renderer_fingerprint": "e85419265bf94334",
       "source_sha256": "eb70d357aa30937dd68d4f69d67c746787406f178b193faf6147c0d8f8efe546",
+      "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 303,
       "raw_math_fallback_count": 0,
@@ -344,95 +324,121 @@
     "sections": [
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:problem",
         "label": "The denominator exclusions"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:companion-orbit",
         "label": "The fixed companion orbit"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "sec:digits",
         "label": "The carry and its wrap correction"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:channels",
         "label": "An integral basis for factorial channels"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "the-support-restriction-and-the-residual",
         "label": "The support restriction and the residual"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "a-finite-certificate-for-the-infinite-moment-ideal.",
         "label": "A finite certificate for the infinite moment ideal."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:translator",
         "label": "The moment cost and the choice of support"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "growth-of-the-compulsory-factor",
         "label": "Growth of the compulsory factor"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "sec:compressed-kernel",
         "label": "Remote primitive kernels"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:prime-pole",
         "label": "Cancellation in a reduced prefix"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:projection",
         "label": "One joint collision and residue estimate"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:open",
         "label": "The remaining real comparison"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "sec:nogo",
         "label": "The limit of short supports."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:finite",
         "label": "The finite evidence"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "app:sources",
         "label": "Statements and declarations"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "app:sources",
         "label": "Guide to the formal sources"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "source-current-companion-orbit-and-comparator-routes.",
         "label": "Source-current companion orbit and Comparator routes."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "references",
         "label": "References"
       }
-    ]
+    ],
+    "first_pass": {
+      "stated_by_the_paper": false,
+      "provenance": "editorial selection for this guide",
+      "sections": [
+        {
+          "id": "sec:problem",
+          "title": "The denominator exclusions",
+          "level": 2
+        },
+        {
+          "id": "sec:channels",
+          "title": "An integral basis for factorial channels",
+          "level": 2
+        },
+        {
+          "id": "sec:projection",
+          "title": "One joint collision and residue estimate",
+          "level": 2
+        },
+        {
+          "id": "sec:open",
+          "title": "The remaining real comparison",
+          "level": 2
+        }
+      ]
+    }
   },
   "routes": {
     "graph_node": "problem:erdos_68",
@@ -450,7 +456,7 @@
       "form": "Problem note",
       "pages": 14,
       "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
-      "precis": "For the factorial-denominator series, Lean gives an exact factorial-successor normal form and the equivalent eventual-unit-carry criterion, together with integral-channel, prime-translator, projection-rigidity, and Cramer-residual consumers. An independently regenerated exact finite certificate reaches index 300000, and the checked consumer excludes every smaller positive rational denominator. Five quantified producer problems isolate the missing cofinal step; none is proved, and Erdős #68 remains open.",
+      "precis": "The paper proves that if S=a/q is rational, q cannot divide 299999! and is at least 2^39990 > 10^12038. The first exclusion comes from the exact strict-successor carry test and the second from continued fractions. Lean also checks the equivalent carry formulation and several consequences. A large common denominator alone does not control the reduced partial sums. Irrationality is reduced to a cofinal miss of the strict factorial successor, which remains open.",
       "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #68, which remains open",
       "problem_id": "erdos_68",
@@ -470,9 +476,10 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "eb70d357aa30937dd68d4f69d67c746787406f178b193faf6147c0d8f8efe546",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 303,
         "raw_math_fallback_count": 0,
@@ -486,95 +493,121 @@
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:problem",
           "label": "The denominator exclusions"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:companion-orbit",
           "label": "The fixed companion orbit"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:digits",
           "label": "The carry and its wrap correction"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:channels",
           "label": "An integral basis for factorial channels"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-support-restriction-and-the-residual",
           "label": "The support restriction and the residual"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-finite-certificate-for-the-infinite-moment-ideal.",
           "label": "A finite certificate for the infinite moment ideal."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:translator",
           "label": "The moment cost and the choice of support"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "growth-of-the-compulsory-factor",
           "label": "Growth of the compulsory factor"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:compressed-kernel",
           "label": "Remote primitive kernels"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:prime-pole",
           "label": "Cancellation in a reduced prefix"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:projection",
           "label": "One joint collision and residue estimate"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:open",
           "label": "The remaining real comparison"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "sec:nogo",
           "label": "The limit of short supports."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:finite",
           "label": "The finite evidence"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "app:sources",
           "label": "Statements and declarations"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "app:sources",
           "label": "Guide to the formal sources"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "source-current-companion-orbit-and-comparator-routes.",
           "label": "Source-current companion orbit and Comparator routes."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "sec:problem",
+            "title": "The denominator exclusions",
+            "level": 2
+          },
+          {
+            "id": "sec:channels",
+            "title": "An integral basis for factorial channels",
+            "level": 2
+          },
+          {
+            "id": "sec:projection",
+            "title": "One joint collision and residue estimate",
+            "level": 2
+          },
+          {
+            "id": "sec:open",
+            "title": "The remaining real comparison",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "short",
       "current_github": {
@@ -612,9 +645,10 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "05154a339954078b531faddc04a459796ac00ce45a32e01b4516cba23fea6b24",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 883,
         "raw_math_fallback_count": 0,
@@ -628,190 +662,216 @@
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long68:sec:prime-powers",
           "label": "Which prime powers survive reduction"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "two-complete-cancellations.",
           "label": "Two complete cancellations."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long68:sec:lcm",
           "label": "The growth of the common denominator"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long68:sec:carry",
           "label": "Carries and the rationality boundary"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long68:sec:adjacent-unit-no-go",
           "label": "Why one proposed window argument is circular"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-companion-coordinate",
           "label": "The companion coordinate"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "escape-from-a-smaller-interval",
           "label": "Escape from a smaller interval"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-whole-shifted-family",
           "label": "The whole shifted family"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long68:sec:residue",
           "label": "From denominator structure to a scale criterion"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long68:sec:channels",
           "label": "A limitation of finite-channel cancellation"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-exact-low-channel-lattice-and-residual-class",
           "label": "The exact low-channel lattice and residual class"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long68:sec:finite",
           "label": "Finite denominator exclusions"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long68:sec:open",
           "label": "The remaining arithmetic inputs"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "weighted-collisions-and-complementary-residues.",
           "label": "Weighted collisions and complementary residues."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "repeated-support-valuation-amplification.",
           "label": "Repeated-support valuation amplification."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "lower-interval-escape.",
           "label": "Lower-interval escape."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "doubled-prime-branch-failure.",
           "label": "Doubled-prime branch failure."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-remote-cramer-residual.",
           "label": "A remote Cramer residual."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "criteria-from-the-literature-that-do-not-apply.",
           "label": "Criteria from the literature that do not apply."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sources-and-evidence",
           "label": "Sources and evidence"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long68:app:sources",
           "label": "Guide to the formal sources"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long68:sec:extended-record",
           "label": "Extended record"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long68:sec:ext-digits",
           "label": "The canonical factorial digit kernel"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long68:sec:ext-literature",
           "label": "Criteria from the literature, in full"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long68:sec:ext-superseded",
           "label": "A superseded deduction"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long68:sec:ext-plateau",
           "label": "Plateaux, first exit, and the finite denominator ladder"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long68:sec:ext-collision",
           "label": "The collision-core interfaces"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long68:sec:ext-certificates",
           "label": "Finite channel and carry certificates"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long68:sec:ext-nogo",
           "label": "Limits of fixed-coordinate arguments"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long68:sec:ext-generic",
           "label": "The generic shape behind the lower-interval form"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:erdos-68-complete-family-map",
           "label": "Complete result-family map"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "factorial-carry-characterisation",
           "label": "Factorial carry characterisation"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "factorial-channel-and-projection-rigidity",
           "label": "Factorial channel and projection rigidity"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "factorial-conditional-producers",
           "label": "Factorial conditional producers"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "factorial-lcm-growth",
           "label": "Factorial lcm growth"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "factorial-finite-certificates",
           "label": "Factorial finite certificates"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "long68:sec:carry",
+            "title": "Carries and the rationality boundary",
+            "level": 2
+          },
+          {
+            "id": "long68:sec:finite",
+            "title": "Finite denominator exclusions",
+            "level": 2
+          },
+          {
+            "id": "long68:sec:open",
+            "title": "The remaining arithmetic inputs",
+            "level": 2
+          },
+          {
+            "id": "sec:erdos-68-complete-family-map",
+            "title": "Complete result-family map",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "long",
       "current_github": {

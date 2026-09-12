@@ -7,7 +7,7 @@
   "form": "Problem note",
   "pages": 14,
   "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
-  "precis": "At the resistant base 3/2, Lean rules out two common-width linear-form mechanisms: scalar content gives no net local-to-Archimedean gain, and unit endpoints exclude both 3 and 2 from a common divisor. A four-jet count constructs a signed relation but not a nonzero analytic remainder; direct cut-level clearing also incurs an exponential denominator factor and an impossible corridor inequality. The elementary 7/2 height bound is formalised, but the published analytic criterion remains external. These are construction-specific exclusions, not an irrationality result; Erdős #1049 remains open.",
+  "precis": "For coprime integers a>b≥1, the paper proves irrationality of F(a/b) when log b / log a is below the explicit threshold (approximately 0.40568); in particular F((31/4)^r) is irrational for every positive integer r, with a uniform irrationality-exponent bound. This is an ordinary proof using Zudilin's polynomial conclusion; Lean checks finite subclaims rather than the irrationality theorem. A second construction proves the exact normalised Hankel order and leading coefficient. The criterion does not cover 3/2, where a primitive noncollapsed kernel and analytic remainder control are still needed.",
   "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open",
   "problem_id": "erdos_1049",
@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 405,
     "raw_math_fallback_count": 0,
@@ -43,108 +44,134 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:problem",
       "label": "Introduction"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:rational-base-irrationality",
       "label": "A rational base at which FF is irrational"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "integral-polynomials-and-their-degrees.",
       "label": "Integral polynomials and their degrees."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-limiting-degree-cost.",
       "label": "The limiting degree cost."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "a-positive-remainder-at-every-fixed-real-base.",
       "label": "A positive remainder at every fixed real base."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "homogenisation.",
       "label": "Homogenisation."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "comparison-and-scope.",
       "label": "Comparison and scope."
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-base-uniform-degree-restriction",
       "label": "The base-uniform degree restriction"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:hankel-order",
       "label": "Exact normalized-Hankel order in Zudilin’s construction"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "formal-order-and-fixed-base-size.",
       "label": "Formal order and fixed-base size."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:open",
       "label": "Local cancellation and the remaining real estimate"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "one-minor-gcd-controls-two-different-costs",
       "label": "One minor gcd controls two different costs"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "a-collision-must-have-a-small-nonzero-real-remainder",
       "label": "A collision must have a small nonzero real remainder"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-source-specific-endpoint-question",
       "label": "The source-specific endpoint question"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "functional-equations.",
       "label": "Functional equations."
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "statements-and-declarations",
       "label": "Statements and declarations"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "artefact-and-data-availability.",
       "label": "Artefact and data availability."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "funding-and-competing-interests.",
       "label": "Funding and competing interests."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "acknowledgements.",
       "label": "Acknowledgements."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "app:index",
       "label": "Guide to the formal sources"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:problem",
+        "title": "Introduction",
+        "level": 2
+      },
+      {
+        "id": "sec:rational-base-irrationality",
+        "title": "A rational base at which FF is irrational",
+        "level": 2
+      },
+      {
+        "id": "sec:hankel-order",
+        "title": "Exact normalized-Hankel order in Zudilin’s construction",
+        "level": 2
+      },
+      {
+        "id": "sec:open",
+        "title": "Local cancellation and the remaining real estimate",
+        "level": 2
+      }
+    ]
+  }
 }

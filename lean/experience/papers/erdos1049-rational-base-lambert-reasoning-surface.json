@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "a5c09456c0438ac64804182b66110e2a1de6b0993918a82676d77347d34c7f62",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 1538,
     "raw_math_fallback_count": 0,
@@ -43,293 +44,319 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:problem",
       "label": "Introduction"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "relation-to-prior-work.",
       "label": "Relation to prior work."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "erdőss-integer-base-argument-in-outline.",
       "label": "Erdős’s integer-base argument, in outline."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-direct-cut-and-clear-attempt-studied-here.",
       "label": "The direct cut-and-clear attempt studied here."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "terminology.",
       "label": "Terminology."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-shortfall-at-32.",
       "label": "The shortfall at 3/23/2."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "sharpness.",
       "label": "Sharpness."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "results-and-boundary.",
       "label": "Results and boundary."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "structure.",
       "label": "Structure."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:region",
       "label": "The region bμ<ab^{\\mu}<a and the base 31/431/4"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long1049:sec:source-forms",
       "label": "The source forms as polynomial identities"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long1049:sec:degrees",
       "label": "Exact degrees"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long1049:sec:cyclotomic-limit",
       "label": "The cyclotomic limit"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long1049:sec:integer-forms",
       "label": "Positive integral forms and the contradiction"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long1049:sec:regionbracket",
       "label": "The rational bracket around θ*\\theta^{*}"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "evidence-attribution-and-the-remaining-obligation",
       "label": "Evidence, attribution and the remaining obligation"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "evidence-decomposition.",
       "label": "Evidence decomposition."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "attribution.",
       "label": "Attribution."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "where-the-earlier-criterion-stops.",
       "label": "Where the earlier criterion stops."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-exact-remaining-obligation.",
       "label": "The exact remaining obligation."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-region-explicitly.",
       "label": "The region, explicitly."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-direction-is-optimal-in-its-box.",
       "label": "The direction is optimal in its box."
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long1049:sec:receipts",
       "label": "Finite receipts"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:sharp",
       "label": "The sharp 41/6541/65 certificate"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long1049:sec:hankel-order",
       "label": "The sharp qq-order of the normalised Hankel determinant"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-row-identity.",
       "label": "The row identity."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "formal-order-and-analytic-size-are-different-questions.",
       "label": "Formal order and analytic size are different questions."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "a-separate-positive-measure-estimate.",
       "label": "A separate positive-measure estimate."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "evidence-decomposition.-1",
       "label": "Evidence decomposition."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "attribution-and-remaining-obligation.",
       "label": "Attribution and remaining obligation."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:primitive",
       "label": "Integer scalar content is neutral"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:endpoints",
       "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:corridor",
       "label": "Failure of coordinatewise clearing at 3/23/2"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:tail",
       "label": "The cleared-tail recurrence and the size of the forcing term"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:sevenhalves",
       "label": "The height criterion at 7/27/2"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-81200-logarithmic-region",
       "label": "The 81/20081/200 logarithmic region"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:pade",
       "label": "Denominator exponents for a homogenised Padé construction"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:sec:open",
       "label": "Complements and further questions"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "exact-kernel-escape",
       "label": "Exact kernel escape"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "determinant-families",
       "label": "Determinant families"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "asymptotic-adequacy-after-kernel-escape",
       "label": "Asymptotic adequacy after kernel escape"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "one-exact-alternative-criterion-test",
       "label": "One exact alternative-criterion test"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-quantitative-height-limitation",
       "label": "The quantitative height limitation"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "statements-and-declarations",
       "label": "Statements and declarations"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "artefact-and-data-availability.",
       "label": "Artefact and data availability."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "funding-and-competing-interests.",
       "label": "Funding and competing interests."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "acknowledgements.",
       "label": "Acknowledgements."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long1049:app:index",
       "label": "Guide to the formal sources"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "four-jet-collision-family.",
       "label": "Four-jet collision family."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:erdos-1049-complete-family-map",
       "label": "Complete result-family map"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "rational-base-tail-recurrence",
       "label": "Rational base tail recurrence"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "seven-halves-irrationality",
       "label": "Seven halves irrationality"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "endpoint-residues",
       "label": "Endpoint residues"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "height-and-pade-arithmetic",
       "label": "Height and pade arithmetic"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "coordinatewise-corridor-no-go",
       "label": "Coordinatewise corridor no go"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "scalar-content-no-go",
       "label": "Scalar content no go"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "four-jet-collision",
       "label": "Four jet collision"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "long1049:sec:region",
+        "title": "The region bμ<ab^{\\mu}<a and the base 31/431/4",
+        "level": 2
+      },
+      {
+        "id": "long1049:sec:hankel-order",
+        "title": "The sharp qq-order of the normalised Hankel determinant",
+        "level": 3
+      },
+      {
+        "id": "long1049:sec:open",
+        "title": "Complements and further questions",
+        "level": 2
+      },
+      {
+        "id": "sec:erdos-1049-complete-family-map",
+        "title": "Complete result-family map",
+        "level": 2
+      }
+    ]
+  }
 }

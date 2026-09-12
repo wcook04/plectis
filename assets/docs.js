@@ -46,14 +46,9 @@
   var mcSearchIndexCallbacks = [];
   function mcSearchIndexRecords() {
     var data = window.__MICROCOSM_INDEX__ || {};
-    var records = data.records || [];
-    var terms = data.terms || [];
-    if ((!records || !records.length) && (!terms || !terms.length)) return [];
-    if (!terms || !terms.length) return records;
-    // Glossary cards ride a separate `terms` array so hover previews stay
-    // cheap. Search still has to find them: concatenate at query time rather
-    // than inflating record_count in the generated index.
-    return records.concat(terms);
+    // Each owning corpus keeps its own projection; the reader uses one palette.
+    // Maths entries point from the docs dialogs to canonical maths pages.
+    return (data.records || []).concat(data.terms || [], data.maths || []);
   }
 
   function completeSearchIndex(records) {
@@ -226,19 +221,26 @@
   }
 
   function copyTextSync(text) {
+    var previous = document.activeElement;
+    var ta = null;
     try {
-      var ta = document.createElement('textarea');
+      ta = document.createElement('textarea');
       ta.value = text;
       ta.setAttribute('readonly', '');
       ta.className = 'copy-proxy';
       document.body.appendChild(ta);
       ta.select();
       try { ta.setSelectionRange(0, text.length); } catch (e) {}
-      var ok = document.execCommand('copy');
-      document.body.removeChild(ta);
-      return ok;
+      return document.execCommand('copy');
     } catch (err) {
       return false;
+    } finally {
+      if (ta && ta.parentNode) ta.parentNode.removeChild(ta);
+      // Selecting the proxy moves focus. Keep keyboard users at the action
+      // they invoked, even when clipboard access fails.
+      if (previous && previous.focus) {
+        try { previous.focus({ preventScroll: true }); } catch (e) {}
+      }
     }
   }
 
@@ -256,8 +258,8 @@
   }
 
   function flashCopy(btn, ok, restoreLabel) {
-    btn.textContent = ok ? 'Copied' : 'Press Cmd/Ctrl+C';
-    announce(ok ? 'Copied to clipboard' : 'Copy failed. Press Command or Control C to copy.');
+    btn.textContent = ok ? 'Copied' : 'Copy failed';
+    announce(ok ? 'Copied to clipboard' : 'Could not copy to the clipboard.');
     window.clearTimeout(btn.__copyTimer);
     btn.__copyTimer = window.setTimeout(function () { btn.textContent = restoreLabel; }, 1400);
   }
@@ -522,31 +524,63 @@
     }
   };
 
+  var initialFilterTarget = null;
+  var pendingFilterLink = null;
+  var filterHistoryTraversal = false;
+  var revealFilteredTarget = function () { return false; };
+
   (function openTargetDetails() {
-    function hasPendingExactRestore() {
+    function hasPendingExactRestore(initial) {
       try {
-        var raw = window.sessionStorage && window.sessionStorage.getItem('mc:viewstate:restore');
-        if (!raw) return false;
-        var pending = JSON.parse(raw);
-        return !!(pending && pending.path === window.location.pathname);
+        var storage = window.sessionStorage;
+        var raw = storage && storage.getItem('mc:viewstate:restore');
+        var pending = raw ? JSON.parse(raw) : null;
+        if (pending && pending.path === window.location.pathname) return true;
+        if (!initial || !storage) return false;
+        var perf = window.performance;
+        var navigation = perf && perf.getEntriesByType ? perf.getEntriesByType('navigation') : [];
+        var historyLoad = navigation.length ? navigation[0].type === 'back_forward' :
+          !!(perf && perf.navigation && perf.navigation.type === 2);
+        if (!historyLoad) return false;
+        // viewState will rescue this snapshot after hash setup; do not let the
+        // initial fragment's later animation frames overwrite its saved scroll.
+        var stack = JSON.parse(storage.getItem('mc:viewstate:stack') || '[]');
+        var url = window.location.pathname + window.location.search + window.location.hash;
+        return Array.isArray(stack) && stack.some(function (entry) {
+          return entry && entry.path === window.location.pathname && entry.url === url;
+        });
       } catch (e) {
         return false;
       }
     }
-    function openTo(hash) {
+    function openTo(hash, initial) {
       if (!hash || hash.charAt(0) !== '#') return;
       var id;
       try { id = decodeURIComponent(hash.slice(1)); } catch (e) { id = hash.slice(1); }
       if (!id) return;
       var target = document.getElementById(id);
       if (!target) return;
-      openAncestorDetails(target);
-      if (!hasPendingExactRestore()) {
-        scheduleAlignment(target);
+      var restoring = hasPendingExactRestore(initial);
+      if (!restoring) {
+        // The filter mounts later. Retain only a fresh arrival's target; a saved
+        // reading position may deliberately carry a hash outside its filter.
+        if (initial) initialFilterTarget = target;
+        revealFilteredTarget(target);
       }
+      openAncestorDetails(target);
+      if (!restoring) scheduleAlignment(target);
     }
-    window.addEventListener('hashchange', function () { openTo(window.location.hash); });
-    if (window.location.hash) { openTo(window.location.hash); }
+    window.addEventListener('hashchange', function (event) {
+      // popstate already reapplied the saved filter. Let the browser restore its
+      // reading position instead of replaying a stale fragment's alignment.
+      if (filterHistoryTraversal) {
+        pendingFilterLink = null;
+        event.stopImmediatePropagation();
+        return;
+      }
+      openTo(window.location.hash);
+    });
+    if (window.location.hash) { openTo(window.location.hash, true); }
   })();
 
   (function viewState() {
@@ -659,8 +693,8 @@
     // Reconcile the trail with where we landed, using HOW we got here:
     //   - back_forward / an explicit history traversal (browser Back/Forward, or a
     //     back-forward-cache restore): the visitor moved backward, so the landed
-    //     page sits behind the trail's head -- truncate everything from its first
-    //     occurrence forward (this also drops the page pagehide just pushed).
+    //     page sits behind the trail's head -- recover its exact saved view when
+    //     needed, then truncate that visit and the page pagehide just pushed.
     //   - navigate / reload / unknown (a forward click, INCLUDING a click to a page
     //     seen earlier): keep the trail; only strip a self-push of THIS page from
     //     the top (how reload and a re-click of the current page record themselves).
@@ -670,9 +704,26 @@
     function reconcile(traversal) {
       var stack = readStack(), here = location.pathname, i;
       if (traversal || navType() === 'back_forward') {
-        for (i = 0; i < stack.length; i++) {
-          if (stack[i].path === here) { write(KEY_STACK, stack.slice(0, i)); return; }
+        var match = -1;
+        if (!traversal) {
+          var url = location.pathname + location.search + location.hash;
+          for (i = stack.length - 1; i >= 0; i--) {
+            if (stack[i].path === here && stack[i].url === url) { match = i; break; }
+          }
+          // A reconstructed history entry has no cached disclosure/focus state.
+          // Rescue its most recent exact view before truncation; an explicit
+          // return already owns its pending restore.
+          var pending = read(KEY_RESTORE);
+          if (match !== -1 && (!pending || pending.path !== here)) {
+            write(KEY_RESTORE, stack[match]);
+          }
         }
+        if (match === -1) {
+          for (i = 0; i < stack.length; i++) {
+            if (stack[i].path === here) { match = i; break; }
+          }
+        }
+        if (match !== -1) write(KEY_STACK, stack.slice(0, match));
         return;
       }
       var changed = false;
@@ -960,38 +1011,56 @@
 
   // --- On-this-page scrollspy ------------------------------------------------
   (function scrollspy() {
-    if (!('IntersectionObserver' in window)) return;
+    var toc = document.querySelector('.docs-toc');
+    if (!toc) return;
     var links = Array.prototype.slice.call(document.querySelectorAll('.docs-toc a[href^="#"]'));
-    if (!links.length) return;
-    /* A glossary-sized TOC can contain hundreds of entries. Observing every
-       target creates a large post-load layout task for a feature that is not
-       useful at that density; native fragment navigation remains complete. */
-    if (links.length > 80) return;
-    var byId = {};
-    links.forEach(function (link) {
-      var id = decodeURIComponent(link.getAttribute('href').slice(1));
-      if (id) byId[id] = link;
-    });
-    var headings = Object.keys(byId)
-      .map(function (id) { return document.getElementById(id); })
-      .filter(Boolean);
-    if (!headings.length) return;
-    var visible = {};
+    if (!links.length || links.length > 80) return;
+    var header = document.querySelector('.docs-topbar, .site-header');
+    var sections = links.map(function (link) {
+      var id;
+      try { id = decodeURIComponent(link.getAttribute('href').slice(1)); }
+      catch (e) { return null; }
+      var heading = document.getElementById(id);
+      return heading ? { link: link, heading: heading } : null;
+    }).filter(Boolean);
+    var highlighted = null, ticking = false;
     function highlight() {
+      ticking = false;
+      if (!toc.getClientRects().length) return;
+      // Keep the preceding section active while its prose is being read.
+      // Heading-only intersection loses the location between distant headings.
+      var readingLine = (header ? header.getBoundingClientRect().bottom : 0) + 24;
+      var pageHeight = document.documentElement.scrollHeight;
+      var atEnd = pageHeight > window.innerHeight &&
+        (window.pageYOffset || 0) + window.innerHeight >= pageHeight - 2;
       var current = null;
-      for (var i = 0; i < headings.length; i++) {
-        if (visible[headings[i].id]) { current = headings[i].id; break; }
+      for (var i = 0; i < sections.length; i++) {
+        if (!sections[i].heading.getClientRects().length) continue;
+        if (atEnd || sections[i].heading.getBoundingClientRect().top <= readingLine) current = sections[i].link;
+        else break;
       }
-      // Always clear first, so scrolling past the last heading (into the footer /
-      // pager) doesn't leave the previous link stuck highlighted.
-      links.forEach(function (l) { l.classList.remove('is-current'); });
-      if (current && byId[current]) byId[current].classList.add('is-current');
+      if (current === highlighted) return;
+      if (highlighted) {
+        highlighted.classList.remove('is-current');
+        highlighted.removeAttribute('aria-current');
+      }
+      highlighted = current;
+      if (current) {
+        current.classList.add('is-current');
+        current.setAttribute('aria-current', 'location');
+      }
     }
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) { visible[entry.target.id] = entry.isIntersecting; });
-      highlight();
-    }, { rootMargin: '0px 0px -68% 0px', threshold: 0 });
-    headings.forEach(function (h) { observer.observe(h); });
+    function schedule() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(highlight);
+    }
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    window.addEventListener('load', schedule, { once: true });
+    document.addEventListener('toggle', schedule, true);
+    if (window.ResizeObserver) new ResizeObserver(schedule).observe(document.body);
+    highlight();
   })();
 
   // --- On-this-page rides the page scroll (no second scrollbar) -------------
@@ -1004,9 +1073,11 @@
   (function tocRidesPage() {
     var toc = document.querySelector('.docs-toc');
     if (!toc) return;
-    var HEADER = 58, GAP = 24, ticking = false;
+    var header = document.querySelector('.docs-topbar, .site-header');
+    var GAP = 24, ticking = false;
     function place() {
       ticking = false;
+      var HEADER = header ? Math.ceil(header.getBoundingClientRect().height) : 58;
       var vh = window.innerHeight;
       var h = toc.offsetHeight;
       if (h <= vh - HEADER - GAP) { toc.style.top = HEADER + 'px'; return; }
@@ -1088,6 +1159,21 @@
     if (!buttons.length) return;
 
     var SITE_PATH_MARKER = '/sites/microcosm/';
+
+    function prepareExportArticle(article) {
+      var clone = article.cloneNode(true);
+      Array.prototype.forEach.call(
+        clone.querySelectorAll('[hidden], [data-comp-filter], [data-comp-empty]'),
+        function (node) { if (node.parentNode) node.parentNode.removeChild(node); }
+      );
+      // Read deferred definitions without opening or hydrating the live cards.
+      // In a scripting-enabled document, noscript bodies otherwise export as
+      // literal markup in JSON and disappear entirely from readable page text.
+      Array.prototype.forEach.call(clone.querySelectorAll('noscript[data-term-body]'), function (shell) {
+        hydrateDeferredDetails(shell.closest('details'));
+      });
+      return clone;
+    }
 
     function normalizeSitePath(pathname) {
       var path = String(pathname || '').replace(/\\/g, '/');
@@ -1293,6 +1379,12 @@
       function walk(node) {
         if (node.nodeType === 3) return node.nodeValue.replace(/\s+/g, ' ');
         if (node.nodeType !== 1) return '';
+        // Inline proof names remain reading content when carried by a button.
+        if (node.tagName === 'BUTTON' && node.classList.contains('lean-identifier')) {
+          if (node.hidden || node.getAttribute('aria-hidden') === 'true') return '';
+          var identifier = node.querySelector('code');
+          return identifier ? identifier.textContent : '';
+        }
         if (skip(node)) return '';
         if (node.classList && node.classList.contains('math')) {
           var tex = node.getAttribute('data-tex');
@@ -1384,6 +1476,7 @@
       btn.addEventListener('click', function () {
         var article = exportRoot();
         if (!article) return;
+        article = prepareExportArticle(article);
 
         if (action === 'text') {
           var prose = readablePageText(article);
@@ -1771,12 +1864,13 @@
     });
   })();
 
-  // --- Client-side component filter -----------------------------------------
+  // --- Client-side reference filter -----------------------------------------
   (function componentFilter() {
     var toolbar = document.querySelector('[data-comp-filter]');
     var input = document.getElementById('comp-filter-input');
     if (!toolbar || !input) return;
-    var items = Array.prototype.slice.call(document.querySelectorAll('.comp-item'));
+    var itemSelector = toolbar.getAttribute('data-comp-filter-items') || '.comp-item';
+    var items = Array.prototype.slice.call(document.querySelectorAll(itemSelector));
     if (!items.length) return;
     var groups = Array.prototype.slice.call(document.querySelectorAll('[data-comp-group]'));
     var status = document.getElementById('comp-filter-status');
@@ -1795,7 +1889,7 @@
     var groupRows = groups.map(function (g) {
       return {
         el: g,
-        items: Array.prototype.slice.call(g.querySelectorAll('.comp-item'))
+        items: Array.prototype.slice.call(g.querySelectorAll(itemSelector))
       };
     });
     var pendingFrame = 0;
@@ -1817,10 +1911,26 @@
         else params.delete(urlKey);
         var query = params.toString();
         var next = window.location.pathname + (query ? '?' + query : '') + window.location.hash;
-        window.history.replaceState(null, '', next);
+        window.history.replaceState(window.history.state, '', next);
       } catch (e) {}
     }
 
+    function rememberHistoryEntry() {
+      if (!canWriteUrl) return;
+      try {
+        var state = window.history.state;
+        // Preserve another controller's state; unfamiliar scalar/array states
+        // simply retain the ordinary native fragment behavior.
+        if (state && (typeof state !== 'object' || Array.isArray(state))) return;
+        if (state && state.mcReferenceFilter) return;
+        var next = {};
+        Object.keys(state || {}).forEach(function (key) { next[key] = state[key]; });
+        next.mcReferenceFilter = true;
+        window.history.replaceState(next, '', window.location.href);
+      } catch (e) {}
+    }
+
+    rememberHistoryEntry();
     var initialFilter = readUrlFilter();
     if (initialFilter) input.value = initialFilter;
 
@@ -1856,6 +1966,39 @@
       }
     }
 
+    revealFilteredTarget = function (target, skipUrl) {
+      var item = target && target.closest ? target.closest(itemSelector) : null;
+      if (!item || items.indexOf(item) === -1) return false;
+      if (!item.hasAttribute('hidden') && pendingFilterLink !== target) return false;
+      input.value = '';
+      apply(skipUrl ? { skipUrl: true } : null);
+      if (!skipUrl) pendingFilterLink = null;
+      return true;
+    };
+
+    // A repeated link to the current fragment does not fire hashchange. Reveal
+    // it before the browser's jump, including links inside another definition.
+    document.addEventListener('click', function (event) {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      var anchor = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+      var hash = anchor && anchor.getAttribute('href');
+      if (!hash || hash.charAt(0) !== '#' || hash.length < 2) return;
+      var id;
+      try { id = decodeURIComponent(hash.slice(1)); } catch (e) { id = hash.slice(1); }
+      var target = document.getElementById(id);
+      var sameHash = hash === window.location.hash;
+      if (revealFilteredTarget(target, !sameHash)) {
+        if (sameHash) {
+          openAncestorDetails(target);
+          scheduleAlignment(target);
+        } else {
+          // Keep the old entry's query intact until the new fragment lands.
+          pendingFilterLink = target;
+        }
+      }
+    });
+
     function scheduleApply() {
       if (pendingFrame) cancelAnimationFrame(pendingFrame);
       pendingFrame = requestAnimationFrame(function () {
@@ -1868,7 +2011,12 @@
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { input.value = ''; apply(); }
     });
-    window.addEventListener('popstate', function () {
+    window.addEventListener('popstate', function (event) {
+      // A new fragment (clicked or scripted) also emits popstate, but starts
+      // with fresh state. Only a revisited filter entry owns restored scroll.
+      filterHistoryTraversal = !!(event.state && event.state.mcReferenceFilter);
+      rememberHistoryEntry();
+      window.setTimeout(function () { filterHistoryTraversal = false; }, 0);
       input.value = readUrlFilter();
       apply({ skipUrl: true });
     });
@@ -1881,6 +2029,8 @@
       });
     }
     apply({ skipUrl: true });
+    revealFilteredTarget(initialFilterTarget);
+    initialFilterTarget = null;
   })();
 
   // --- Command palette: site-wide search over the generated index -----------
@@ -2025,7 +2175,10 @@
       // getAttribute('data-url'); bail rather than navigate to a same-origin 404.
       if (!url || url === 'undefined') return;
       var safe = safeNavigationUrl(url);
-      if (safe) window.location.href = safe;
+      if (safe) {
+        close();
+        window.location.href = safe;
+      }
     }
 
     function paint() {
@@ -2062,6 +2215,8 @@
     }
 
     function render() {
+      // A delayed index response must not reactivate a dismissed dialog.
+      if (modal.getAttribute('hidden') !== null) return;
       if (!index.length) {
         setEmptyState(
           searchIndexStatus === 'failed'
@@ -2071,6 +2226,7 @@
         return;
       }
       var qs = tokens(input.value.trim());
+      var matchCount = 0;
       if (!qs.length) {
         // Empty state: lead with the sections (pages) so the palette opens as a
         // "jump to" map, then a taste of content, not 8 arbitrary records.
@@ -2097,6 +2253,7 @@
           ordered = ordered.filter(function (r) { return r.kind !== 'relation'; })
             .concat(ordered.filter(function (r) { return r.kind === 'relation'; }));
         }
+        matchCount = ordered.length;
         results = ordered.slice(0, 30);
       }
       list.innerHTML = '';
@@ -2262,8 +2419,16 @@
           var byKind = {};
           results.forEach(function (r) { var k = kindLabel(r.kind); byKind[k] = (byKind[k] || 0) + 1; });
           var parts = Object.keys(byKind).sort(function (a, b) { return byKind[b] - byKind[a]; })
-            .map(function (k) { return byKind[k] + ' ' + k.toLowerCase() + (byKind[k] > 1 ? 's' : ''); });
-          countEl.textContent = results.length + ' matches · ' + parts.join(', ');
+            .map(function (k) {
+              var label = k === 'Glossary'
+                ? (byKind[k] === 1 ? 'glossary entry' : 'glossary entries')
+                : k.toLowerCase() + (byKind[k] > 1 ? 's' : '');
+              return byKind[k] + ' ' + label;
+            });
+          var summary = matchCount > results.length
+            ? 'Showing ' + results.length + ' of ' + matchCount + ' matches'
+            : results.length + (results.length === 1 ? ' match' : ' matches');
+          countEl.textContent = summary + ' · ' + parts.join(', ');
         }
       }
     }
@@ -2293,7 +2458,7 @@
       for (var i = 0; i < openers.length; i++) openers[i].setAttribute('aria-expanded', 'false');
       // Return focus to whatever opened the dialog (keyboard/SR users were dumped
       // at <body> start before this).
-      if (returnFocusTo && returnFocusTo.focus) { returnFocusTo.focus(); }
+      if (returnFocusTo && returnFocusTo.focus) { returnFocusTo.focus({ preventScroll: true }); }
       returnFocusTo = null;
       // Do not leave the combobox claiming an expanded popup and an active row
       // once the dialog is gone.
@@ -2303,6 +2468,9 @@
 
     // The modal declares aria-modal="true"; keep Tab focus inside it while open.
     modal.addEventListener('keydown', function (ev) {
+      if (ev.isComposing || ev.keyCode === 229) return;
+      // Escape belongs to the whole dialog, including its result actions.
+      if (ev.key === 'Escape') { ev.preventDefault(); close(); return; }
       if (ev.key !== 'Tab') return;
       var focusable = Array.prototype.filter.call(
         modal.querySelectorAll('a[href], button:not([disabled]), input, [tabindex="0"]'),
@@ -2329,12 +2497,12 @@
       scheduleRender();
     });
     input.addEventListener('keydown', function (ev) {
+      if (ev.isComposing || ev.keyCode === 229) return;
       // paint() moves aria-activedescendant, which is what the screen reader
       // announces; no separate live-region call (it would speak every row twice).
       if (ev.key === 'ArrowDown') { ev.preventDefault(); if (results.length) { active = (active + 1) % results.length; paint(); } }
       else if (ev.key === 'ArrowUp') { ev.preventDefault(); if (results.length) { active = (active - 1 + results.length) % results.length; paint(); } }
       else if (ev.key === 'Enter') { ev.preventDefault(); if (active >= 0 && results[active]) go(results[active].url); }
-      else if (ev.key === 'Escape') { ev.preventDefault(); close(); }
     });
 
     document.addEventListener('keydown', function (ev) {
@@ -3752,7 +3920,7 @@
     // joining browser Back, the Whole-map pill, and the panel's Unpin. Return
     // focus to the Whole-map control so keyboard users are not stranded.
     fig.addEventListener('keydown', function (ev) {
-      if (ev.key === 'Escape' && pinnedId) {
+      if (ev.key === 'Escape' && (pinnedId || lockedSet)) {
         // Focus a stable, live target BEFORE tearing down the panel: clearToOverview
         // -> renderDefault wipes panel.innerHTML, destroying the Pin button that may
         // currently hold focus. Focus home first (fall back to the figure) so focus
@@ -3760,6 +3928,14 @@
         var home = fig.querySelector('[data-graph-focus="all"]');
         if (home && home.focus) { home.focus(); }
         else if (fig.focus) { if (!fig.hasAttribute('tabindex')) fig.setAttribute('tabindex', '-1'); fig.focus(); }
+        // A focus pill also narrows the map. Clear that state before restore()
+        // runs, and keep its pressed state aligned with the restored overview.
+        lockedSet = null;
+        focusBtns.forEach(function (btn) {
+          var isHome = btn.getAttribute('data-graph-focus') === 'all';
+          btn.classList.toggle('is-active', isHome);
+          btn.setAttribute('aria-pressed', isHome ? 'true' : 'false');
+        });
         clearToOverview();
       }
     });
@@ -4139,12 +4315,56 @@
        thousands of cross-references only adds work and visual recursion. */
     if (/\/glossary\.html$/.test(window.location.pathname || '')) return;
     var anchors = document.querySelectorAll('a.narrative-ref--term[data-term]');
-    if (!anchors.length) return;
+    var notationStates = new WeakMap();
 
     function termAnchorFrom(target) {
       if (!target || !target.closest) return null;
       return target.closest('a.narrative-ref--term[data-term]');
     }
+    function notationFrom(target) {
+      if (!target || !target.closest) return null;
+      var trigger = target.closest('[data-term-help="notation"]');
+      return trigger && notationStates.has(trigger) ? trigger : null;
+    }
+    function previewTriggerFrom(target) {
+      return notationFrom(target) || termAnchorFrom(target);
+    }
+    function stateFor(trigger) {
+      return notationStates.get(trigger) || null;
+    }
+    function termIdFor(trigger) {
+      var state = stateFor(trigger);
+      return state ? state.ids[state.index] : trigger.getAttribute('data-term');
+    }
+    function hrefFor(trigger) {
+      var state = stateFor(trigger);
+      if (state && state.hrefForId) {
+        var id = termIdFor(trigger);
+        return id ? state.hrefForId(id) : null;
+      }
+      return trigger.getAttribute && trigger.getAttribute('href');
+    }
+    function registerNotation(trigger, ids, options) {
+      if (!trigger || notationStates.has(trigger) || !Array.isArray(ids)) return false;
+      var seen = {};
+      var unique = ids.map(String).filter(function (id) {
+        if (!id || seen[id]) return false;
+        seen[id] = true;
+        return true;
+      });
+      if (!unique.length) return false;
+      notationStates.set(trigger, {
+        ids: unique,
+        records: null,
+        index: 0,
+        hrefForId: options && typeof options.hrefForId === 'function' ? options.hrefForId : null
+      });
+      trigger.setAttribute('data-term-help', 'notation');
+      if (!trigger.hasAttribute('tabindex')) trigger.setAttribute('tabindex', options && options.keyboardFocus === false ? '-1' : '0');
+      return true;
+    }
+    window.PlectisTermHelp = Object.freeze({registerNotation: registerNotation});
+    document.dispatchEvent(new CustomEvent('plectis:term-help-ready'));
 
     // First reading of a term on the page keeps the full link colour; later
     // mentions of the same term stay visible but quieter. Marked before any
@@ -4159,6 +4379,7 @@
       // The builder stamps these grades so the page is correct before this
       // runtime loads. If they are already there, re-grading would only risk
       // adding the opposite class to the same anchor.
+      if (!anchors.length) return;
       if (anchors[0] && (anchors[0].classList.contains('is-term-first') ||
           anchors[0].classList.contains('is-term-again'))) return;
       var seenTerm = {};
@@ -4227,15 +4448,27 @@
     var layerLoading = false;
     var pendingAnchor = null; // hovered/focused before the index arrived
     var pendingIntent = null;
+    var pendingActivate = false;
 
     function followTermLink(anchor) {
-      var href = anchor && safeNavigationUrl(anchor.getAttribute('href'));
+      var href = anchor && safeNavigationUrl(hrefFor(anchor));
       if (href) window.location.href = href;
     }
 
-    function ensureLayer(anchor, intent) {
+    function clearPendingIntent() {
+      pendingAnchor = null;
+      pendingIntent = null;
+      pendingActivate = false;
+    }
+
+    function ensureLayer(anchor, intent, activate) {
       if (layerReady) return;
-      if (anchor) { pendingAnchor = anchor; pendingIntent = intent; }
+      if (anchor) {
+        if (anchor !== pendingAnchor) pendingActivate = false;
+        pendingAnchor = anchor;
+        pendingIntent = intent;
+        if (activate) pendingActivate = true;
+      }
       var terms = currentTerms();
       if (terms.length) { initTermLayer(terms); return; }
       if (layerLoading) return;
@@ -4260,8 +4493,11 @@
        cold ordinary click is held locally until the record arrives so it keeps
        the same preview -> drilldown contract as an already-warm term. */
     function onTermIntent(event) {
-      var anchor = termAnchorFrom(event.target);
-      if (!anchor) return;
+      var anchor = previewTriggerFrom(event.target);
+      if (!anchor) {
+        if (event.type === 'focusin' || event.type === 'click') clearPendingIntent();
+        return;
+      }
       if (event.type === 'click') {
         if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
@@ -4274,6 +4510,27 @@
     document.addEventListener('mouseover', onTermIntent, true);
     document.addEventListener('focusin', onTermIntent, true);
     document.addEventListener('click', onTermIntent, true);
+    function onColdNotationKey(event) {
+      if (event.key === 'Escape' || event.key === 'Esc') {
+        clearPendingIntent();
+        return;
+      }
+      if (event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
+      var trigger = notationFrom(event.target);
+      if (!trigger) return;
+      event.preventDefault();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      ensureLayer(trigger, 'focus', true);
+    }
+    document.addEventListener('keydown', onColdNotationKey, true);
+    function onColdIntentLeave(event) {
+      if (!pendingAnchor || !pendingAnchor.contains(event.target) ||
+          (event.relatedTarget && pendingAnchor.contains(event.relatedTarget))) return;
+      if ((event.type === 'focusout' && pendingIntent === 'focus') ||
+          (event.type === 'mouseout' && pendingIntent === 'pointer')) clearPendingIntent();
+    }
+    document.addEventListener('focusout', onColdIntentLeave, true);
+    document.addEventListener('mouseout', onColdIntentLeave, true);
 
     /* Warm the layer on idle instead of waiting for a hover to pay for it.
        Loading term-previews.js only on first term intent cost that first hover
@@ -4285,9 +4542,9 @@
        the failure fell entirely on the first word anyone tried.
        ensureLayer(null) stores no pending anchor, so this warms the index and
        swaps the delegated listeners without ever opening a tip on its own. */
-    if (window.requestIdleCallback) {
+    if (anchors.length && window.requestIdleCallback) {
       window.requestIdleCallback(function () { ensureLayer(null, null); }, { timeout: 3000 });
-    } else {
+    } else if (anchors.length) {
       window.setTimeout(function () { ensureLayer(null, null); }, 1200);
     }
 
@@ -4297,6 +4554,9 @@
     document.removeEventListener('mouseover', onTermIntent, true);
     document.removeEventListener('focusin', onTermIntent, true);
     document.removeEventListener('click', onTermIntent, true);
+    document.removeEventListener('keydown', onColdNotationKey, true);
+    document.removeEventListener('focusout', onColdIntentLeave, true);
+    document.removeEventListener('mouseout', onColdIntentLeave, true);
 
     var byId = {};
     function mergeTerms(rows) {
@@ -4434,12 +4694,20 @@
     tipBack.type = 'button';
     tipBack.hidden = true;
     var tipCue = el('div', 'term-tip__cue');
+    var notationPrevious = el('button', 'term-tip__back', 'Previous notation');
+    notationPrevious.type = 'button';
+    notationPrevious.hidden = true;
+    var notationNext = el('button', 'term-tip__back', 'Next notation');
+    notationNext.type = 'button';
+    notationNext.hidden = true;
     tip.appendChild(tipLabel);
     tip.appendChild(tipText);
     tip.appendChild(tipRule);
     tip.appendChild(tipDeep);
     var tipActions = el('div', 'term-tip__actions');
     tipActions.appendChild(tipBack);
+    tipActions.appendChild(notationPrevious);
+    tipActions.appendChild(notationNext);
     tipActions.appendChild(tipFull);
     tip.appendChild(tipActions);
     tip.appendChild(tipCue);
@@ -4475,7 +4743,12 @@
       tipLabel.textContent = data.preferred_label || data.label || '';
       if (tier === 1) {
         tip.classList.add('is-expanded');
-        setTermText(tipText, data.reader_card || data.reader_preview || data.text || '');
+        var previewText = data.reader_preview || data.text || '';
+        var cardText = data.reader_card || '';
+        // Elaboration can assume the short definition has already been read.
+        // Keep that definition when touch or keyboard opens the longer card.
+        setTermText(tipText, previewText && cardText && cardText.indexOf(previewText) === -1
+          ? previewText + ' ' + cardText : cardText || previewText);
         if (data.reader_rule && data.reader_rule !== data.reader_card) {
           setTermText(tipRule, data.reader_rule); tipRule.hidden = false;
         } else { tipRule.textContent = ''; tipRule.hidden = true; }
@@ -4483,11 +4756,11 @@
             data.reader_deep !== data.reader_rule) {
           setTermText(tipDeep, data.reader_deep); tipDeep.hidden = false;
         } else { tipDeep.textContent = ''; tipDeep.hidden = true; }
-        var href = anchor.getAttribute('href');
+        var href = hrefFor(anchor);
         if (href && safeNavigationUrl(href)) { tipFull.href = href; tipFull.hidden = false; }
         else { tipFull.hidden = true; }
         tipBack.hidden = false;
-        tipCue.textContent = 'Click the word again to open the full glossary';
+        tipCue.textContent = 'Click again to open the full glossary';
       } else {
         tip.classList.remove('is-expanded');
         setTermText(tipText, data.reader_preview || data.text || data.reader_card || '');
@@ -4497,6 +4770,33 @@
         tipBack.hidden = true;
         tipCue.textContent = 'Click for a longer definition';
       }
+      var notationState = stateFor(anchor);
+      var hasSeveral = !!(notationState && notationState.records && notationState.records.length > 1);
+      notationPrevious.hidden = !hasSeveral;
+      notationNext.hidden = !hasSeveral;
+      tipLabel.removeAttribute('aria-live');
+      if (notationState) {
+        tipLabel.setAttribute('aria-live', 'polite');
+        tipCue.textContent = 'Notation ' + (notationState.index + 1) + ' of ' +
+          notationState.records.length + (hasSeveral ?
+            (anchor.getAttribute('data-math-scroll') === 'true' ?
+              ' · Use Previous/Next for another symbol' : ' · Left/right for another symbol') : '');
+      }
+    }
+    function canFollowUnderlyingTerm(ev) {
+      // Expanded cards and focused controls own the interaction. Only passive
+      // preview space follows terms behind the card as the pointer moves.
+      if (tier !== 0 || tip.contains(document.activeElement)) return false;
+      function isTipControl(node) {
+        var control = node && node.closest && node.closest('button, a, input, select, textarea, [role="button"]');
+        return !!(control && tip.contains(control));
+      }
+      if (isTipControl(ev.target)) return false;
+      // Mouseenter targets the card itself even when entering over a button.
+      // Inspect the visible hit before termUnderPointer makes the card inert.
+      if (typeof ev.clientX === 'number' && typeof ev.clientY === 'number' &&
+          document.elementFromPoint && isTipControl(document.elementFromPoint(ev.clientX, ev.clientY))) return false;
+      return true;
     }
     function termUnderPointer(x, y) {
       if (typeof x !== 'number' || typeof y !== 'number' || !document.elementFromPoint) {
@@ -4506,10 +4806,27 @@
       tip.style.pointerEvents = 'none';
       var hit = document.elementFromPoint(x, y);
       tip.style.pointerEvents = prev;
-      return termAnchorFrom(hit);
+      return previewTriggerFrom(hit);
     }
     function showTip(anchor, intent) {
-      var data = byId[anchor.getAttribute('data-term')];
+      var state = stateFor(anchor);
+      if (state && !state.records) {
+        var resolvedIds = [];
+        var resolvedRecords = [];
+        state.ids.forEach(function (id) {
+          var record = byId[id];
+          if (!record) return;
+          resolvedIds.push(id);
+          resolvedRecords.push(record);
+        });
+        state.ids = resolvedIds;
+        state.records = resolvedRecords;
+        if (!state.records.length) {
+          if (tipFor) hideTip(true);
+          return;
+        }
+      }
+      var data = state ? state.records[state.index] : byId[anchor.getAttribute('data-term')];
       if (!data) {
         /* A missing preview must not leave the previous word's card sitting
            on this word. That is how circuit-break showed exogenous truth. */
@@ -4519,21 +4836,25 @@
       if (tipHideTimer) { clearTimeout(tipHideTimer); tipHideTimer = 0; }
       if (tipFadeTimer) { clearTimeout(tipFadeTimer); tipFadeTimer = 0; }
       tip.classList.remove('is-leaving');
+      previewIntent = intent || null;
+      if (tipFor === anchor && !tip.hidden) return;
+      if (tipFor && tipFor !== anchor) tipFor.removeAttribute('aria-describedby');
       if (tipFor !== anchor) tier = 0; // a different term always starts collapsed
       tipFor = anchor;
-      previewIntent = intent || null;
       anchor.setAttribute('aria-describedby', tip.id);
       renderTier(data, anchor);
       placeFloater(tip, anchor);
     }
     function expandTip(anchor) {
-      var key = anchor.getAttribute('data-term');
-      var data = byId[key];
+      var state = stateFor(anchor);
+      if (state && !state.records) showTip(anchor, 'focus');
+      var data = state ? state.records[state.index] : byId[anchor.getAttribute('data-term')];
       if (!data) return false;
       if (tipHideTimer) { clearTimeout(tipHideTimer); tipHideTimer = 0; }
       if (tipFadeTimer) { clearTimeout(tipFadeTimer); tipFadeTimer = 0; }
       tip.classList.remove('is-leaving');
       tier = 1;
+      if (tipFor && tipFor !== anchor) tipFor.removeAttribute('aria-describedby');
       tipFor = anchor;
       previewIntent = 'click';
       anchor.setAttribute('aria-describedby', tip.id);
@@ -4574,9 +4895,9 @@
       tipHideTimer = setTimeout(hideTip, 110); // grace so the pointer can land on the tip
     }
     tip.addEventListener('mouseenter', function (ev) {
-      var under = termUnderPointer(ev.clientX, ev.clientY);
+      var under = canFollowUnderlyingTerm(ev) ? termUnderPointer(ev.clientX, ev.clientY) : null;
       if (under && under !== tipFor) {
-        if (byId[under.getAttribute('data-term')]) showTip(under, 'pointer');
+        if (stateFor(under) || byId[under.getAttribute('data-term')]) showTip(under, 'pointer');
         else hideTip(true);
         return;
       }
@@ -4585,12 +4906,23 @@
       tip.classList.remove('is-leaving');
     });
     tip.addEventListener('mousemove', function (ev) {
+      if (!canFollowUnderlyingTerm(ev)) return;
       var under = termUnderPointer(ev.clientX, ev.clientY);
-      if (under && under !== tipFor && byId[under.getAttribute('data-term')]) {
+      if (under && under !== tipFor && (stateFor(under) || byId[under.getAttribute('data-term')])) {
         showTip(under, 'pointer');
       }
     });
     tip.addEventListener('mouseleave', scheduleHideTip);
+    tip.addEventListener('focusin', function () {
+      if (tipHideTimer) { clearTimeout(tipHideTimer); tipHideTimer = 0; }
+      if (tipFadeTimer) { clearTimeout(tipFadeTimer); tipFadeTimer = 0; }
+      tip.classList.remove('is-leaving');
+    });
+    tip.addEventListener('focusout', function (ev) {
+      var next = ev.relatedTarget;
+      if (next && (tip.contains(next) || (tipFor && tipFor.contains(next)))) return;
+      scheduleHideTip();
+    });
     tipBack.addEventListener('click', function () {
       var anchor = tipFor;
       suppressFocusPreview = true;
@@ -4611,10 +4943,52 @@
         });
       });
     });
+    function moveNotation(delta) {
+      var state = tipFor && stateFor(tipFor);
+      if (!state || !state.records || state.records.length < 2) return false;
+      state.index = (state.index + delta + state.records.length) % state.records.length;
+      renderTier(state.records[state.index], tipFor);
+      placeFloater(tip, tipFor);
+      return true;
+    }
+    notationPrevious.addEventListener('click', function () { moveNotation(-1); });
+    notationNext.addEventListener('click', function () { moveNotation(1); });
 
     // Escape dismisses the preview; the term anchor itself is the only control.
     document.addEventListener('keydown', function (ev) {
-      if ((ev.key === 'Escape' || ev.key === 'Esc') && !tip.hidden) hideTip();
+      var focusedNotation = notationFrom(document.activeElement);
+      var popupNotation = tipFor && stateFor(tipFor) && tip.contains(document.activeElement) ? tipFor : null;
+      var keyboardNotation = focusedNotation || popupNotation;
+      if ((ev.key === 'Escape' || ev.key === 'Esc') && !tip.hidden) {
+        if (!popupNotation) { hideTip(); return; }
+        ev.preventDefault();
+        suppressFocusPreview = true;
+        hideTip(true);
+        try { popupNotation.focus({preventScroll: true}); } catch (e) { popupNotation.focus(); }
+        requestAnimationFrame(function () {
+          hideTip(true);
+          suppressFocusPreview = false;
+        });
+      }
+      else if (!tip.hidden && keyboardNotation && tipFor === keyboardNotation &&
+          (ev.key === 'ArrowLeft' || ev.key === 'Left' || ev.key === 'ArrowRight' || ev.key === 'Right')) {
+        // A directly scrollable expression owns its horizontal arrow keys.
+        // Popup controls retain notation cycling when they hold focus.
+        if (focusedNotation && focusedNotation.getAttribute('data-math-scroll') === 'true') return;
+        ev.preventDefault();
+        moveNotation(ev.key === 'ArrowLeft' || ev.key === 'Left' ? -1 : 1);
+      } else if (focusedNotation &&
+          (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar')) {
+        ev.preventDefault();
+        var activeHref = safeNavigationUrl(hrefFor(focusedNotation));
+        if (!tip.hidden && tipFor === focusedNotation && tier === 1 && activeHref) {
+          hideTip(true);
+          window.location.href = activeHref;
+        } else {
+          showTip(focusedNotation, 'focus');
+          expandTip(focusedNotation);
+        }
+      }
     });
     // An unmodified first activation expands in place. Activating the SAME term
     // again follows its real glossary link, so the word itself forms a compact
@@ -4623,13 +4997,17 @@
     // modified clicks retain native new-tab behaviour from either tier.
     document.addEventListener('click', function (ev) {
       if (tip.contains(ev.target)) return;
-      var onTerm = termAnchorFrom(ev.target);
+      var onTerm = previewTriggerFrom(ev.target);
       if (onTerm) {
         if (ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
-        if (!byId[onTerm.getAttribute('data-term')]) return;
-        var href = onTerm.getAttribute('href');
+        if (!stateFor(onTerm) && !byId[onTerm.getAttribute('data-term')]) return;
+        var href = hrefFor(onTerm);
         if (tipFor === onTerm && tier === 1 && !tip.hidden && href && safeNavigationUrl(href)) {
           hideTip(true);
+          if (stateFor(onTerm)) {
+            ev.preventDefault();
+            window.location.href = safeNavigationUrl(href);
+          }
           return; // second activation: allow the anchor's native navigation
         }
         ev.preventDefault();
@@ -4653,30 +5031,33 @@
     document.addEventListener('mouseover', function (ev) {
       if (typeof ev.clientX === 'number') { pointerX = ev.clientX; pointerY = ev.clientY; }
       if (suppressPointerPreview) return;
-      var anchor = termAnchorFrom(ev.target);
+      var anchor = previewTriggerFrom(ev.target);
       if (!anchor) return;
       if (ev.relatedTarget && anchor.contains(ev.relatedTarget)) return;
       showTip(anchor, 'pointer');
     }, true);
     document.addEventListener('mouseout', function (ev) {
-      var anchor = termAnchorFrom(ev.target);
+      var anchor = previewTriggerFrom(ev.target);
       if (!anchor) return;
       if (ev.relatedTarget && anchor.contains(ev.relatedTarget)) return;
       scheduleHideTip();
     }, true);
     document.addEventListener('focusin', function (ev) {
       if (suppressFocusPreview) return;
-      var anchor = termAnchorFrom(ev.target);
+      var anchor = previewTriggerFrom(ev.target);
       if (anchor) showTip(anchor, 'focus');
     }, true);
     document.addEventListener('focusout', function (ev) {
-      var anchor = termAnchorFrom(ev.target);
+      var anchor = previewTriggerFrom(ev.target);
       if (anchor) scheduleHideTip();
     }, true);
 
     // The reader may already be resting on the link that triggered the lazy
     // load; show its preview now instead of waiting for a re-hover.
-    if (pendingAnchor && pendingIntent === 'click') {
+    if (pendingAnchor && pendingActivate && document.activeElement === pendingAnchor) {
+      showTip(pendingAnchor, 'focus');
+      expandTip(pendingAnchor);
+    } else if (pendingAnchor && pendingIntent === 'click') {
       if (!expandTip(pendingAnchor)) followTermLink(pendingAnchor);
     } else if (pendingAnchor && (document.activeElement === pendingAnchor ||
         (pendingAnchor.matches && pendingAnchor.matches(':hover')))) {
@@ -4684,6 +5065,7 @@
     }
     pendingAnchor = null;
     pendingIntent = null;
+    pendingActivate = false;
     }
 
     // Index already on the page (another consumer loaded it): init immediately.
@@ -4797,6 +5179,7 @@
       window.setTimeout(function () {
         if (gone) return;
         if (hint.contains(document.activeElement)) return;
+        if (window.getComputedStyle && window.getComputedStyle(hint).position === 'static') return;
         var sy = window.pageYOffset || root.scrollTop || 0;
         if (sy >= THRESHOLD) dismiss();
       }, 0);
@@ -4895,7 +5278,7 @@
     window.requestAnimationFrame(function(){ target.scrollIntoView({block:"start"}); });
   };
   window.addEventListener("hashchange", revealHash);
-  revealHash();
+  // Initial arrival is handled by openTargetDetails and exact view restoration.
 })();
 
 /* Landing claim carousel: arrow buttons scroll the card track by one card.
@@ -5079,13 +5462,8 @@
     if (target && target.scrollIntoView) target.scrollIntoView();
   });
 
-  // A visitor arriving on a deep link starts with that fold already open.
-  if (window.location.hash) {
-    var landed = reveal(window.location.hash);
-    if (landed && landed.scrollIntoView) {
-      window.requestAnimationFrame(function () { landed.scrollIntoView(); });
-    }
-  }
+  // Initial deep links are handled once by openTargetDetails above, where a
+  // saved history position can take precedence over jumping to the section.
 })();
 
 /* Warm navigation: prefetch the page a pointer is committing to.

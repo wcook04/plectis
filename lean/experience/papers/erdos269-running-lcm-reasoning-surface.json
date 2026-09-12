@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "23abd4b4078595fb95353374852d90f379765ffd468f2e5cc316b721b8012f9a",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 968,
     "raw_math_fallback_count": 1,
@@ -52,203 +53,229 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:sec:problem",
       "label": "The problem, and what is settled"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "attribution.",
       "label": "Attribution."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "what-the-third-prime-does.",
       "label": "What the third prime does."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:sec:lcm",
       "label": "The finite geometry of the running value"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:sec:two-prime",
       "label": "One Hecke–Mahler value controls both two-prime sums"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:sec:rank",
       "label": "The rank phase transition"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "attribution-and-reach.",
       "label": "Attribution and reach."
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "a-sharp-uniform-obstruction-for-the-normalised-carry-matrix",
       "label": "A sharp uniform obstruction for the normalised carry matrix"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:sec:blocks",
       "label": "Dyadic blocks and the literal infinite tail"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:sec:actual-orbit",
       "label": "A quadratic tail bound and denominator cancellation"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:sec:escape",
       "label": "Residue windows and the equivalence band"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "how-fast-the-window-base-grows",
       "label": "How fast the window base grows"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:sec:evidence",
       "label": "The finite evidence"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-dyadic-window-scan",
       "label": "The dyadic-window scan"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "two-finite-denominator-exclusions",
       "label": "Two finite denominator exclusions"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:sec:open",
       "label": "The remaining arithmetic questions"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-analytic-route-and-what-it-would-need",
       "label": "The analytic route and what it would need"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "structural-constraints-already-in-place",
       "label": "Structural constraints already in place"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "where-the-problem-stands",
       "label": "Where the problem stands"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "statements-and-declarations",
       "label": "Statements and declarations"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "evidence.",
       "label": "Evidence."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "artefact-and-data-availability.",
       "label": "Artefact and data availability."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "funding-and-competing-interests.",
       "label": "Funding and competing interests."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "acknowledgements.",
       "label": "Acknowledgements."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long269:long:extended",
       "label": "Extended record: migrated arguments and finite evidence"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long269:long:history",
       "label": "The historical and catalogue record"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long269:long:general-carries",
       "label": "The abstract carry lemmas in their general form"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long269:long:finite-geometry",
       "label": "Worked finite examples"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long269:long:experiments",
       "label": "The finite-scan histogram"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long269:long:sources",
       "label": "Source inventory"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:erdos-269-complete-family-map",
       "label": "Complete result-family map"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "three-prime-lcm-cells",
       "label": "Three prime lcm cells"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "two-prime-transcendence",
       "label": "Two prime transcendence"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "weighted-phase-carry-observer",
       "label": "Weighted phase carry observer"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "height-fibre-and-shell",
       "label": "Height fibre and shell"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "conditional-carry-escape",
       "label": "Conditional carry escape"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "rank-two-kernel-no-go",
       "label": "Rank two kernel no go"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "dyadic-block-alphabet",
       "label": "Dyadic block alphabet"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "three-prime-finite-search",
       "label": "Three prime finite search"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "long269:sec:problem",
+        "title": "The problem, and what is settled",
+        "level": 2
+      },
+      {
+        "id": "long269:sec:rank",
+        "title": "The rank phase transition",
+        "level": 2
+      },
+      {
+        "id": "long269:sec:open",
+        "title": "The remaining arithmetic questions",
+        "level": 2
+      },
+      {
+        "id": "sec:erdos-269-complete-family-map",
+        "title": "Complete result-family map",
+        "level": 2
+      }
+    ]
+  }
 }

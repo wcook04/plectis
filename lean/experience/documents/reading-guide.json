@@ -18,9 +18,12 @@
     "frontend_math_dependency": null,
     "source_sha256": "e8c1edf21eebe661cae5a898ce94c23617ec63dff5751ac917c8397e517a9e42",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
@@ -34,32 +37,32 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-is-here",
       "label": "What is here"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-formalisation-adds",
       "label": "What formalisation adds"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "the-eight-problems-in-brief",
       "label": "The eight problems in brief"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "how-to-read-the-evidence",
       "label": "How to read the evidence"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "reviewing-one-result",
       "label": "Reviewing one result"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "contributing",
       "label": "Contributing"
     }
   ]

@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "05154a339954078b531faddc04a459796ac00ce45a32e01b4516cba23fea6b24",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 883,
     "raw_math_fallback_count": 0,
@@ -43,188 +44,214 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long68:sec:prime-powers",
       "label": "Which prime powers survive reduction"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "two-complete-cancellations.",
       "label": "Two complete cancellations."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long68:sec:lcm",
       "label": "The growth of the common denominator"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long68:sec:carry",
       "label": "Carries and the rationality boundary"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long68:sec:adjacent-unit-no-go",
       "label": "Why one proposed window argument is circular"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-companion-coordinate",
       "label": "The companion coordinate"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "escape-from-a-smaller-interval",
       "label": "Escape from a smaller interval"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-whole-shifted-family",
       "label": "The whole shifted family"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long68:sec:residue",
       "label": "From denominator structure to a scale criterion"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long68:sec:channels",
       "label": "A limitation of finite-channel cancellation"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-exact-low-channel-lattice-and-residual-class",
       "label": "The exact low-channel lattice and residual class"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long68:sec:finite",
       "label": "Finite denominator exclusions"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long68:sec:open",
       "label": "The remaining arithmetic inputs"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "weighted-collisions-and-complementary-residues.",
       "label": "Weighted collisions and complementary residues."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "repeated-support-valuation-amplification.",
       "label": "Repeated-support valuation amplification."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "lower-interval-escape.",
       "label": "Lower-interval escape."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "doubled-prime-branch-failure.",
       "label": "Doubled-prime branch failure."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "a-remote-cramer-residual.",
       "label": "A remote Cramer residual."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "criteria-from-the-literature-that-do-not-apply.",
       "label": "Criteria from the literature that do not apply."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sources-and-evidence",
       "label": "Sources and evidence"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long68:app:sources",
       "label": "Guide to the formal sources"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "long68:sec:extended-record",
       "label": "Extended record"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long68:sec:ext-digits",
       "label": "The canonical factorial digit kernel"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long68:sec:ext-literature",
       "label": "Criteria from the literature, in full"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long68:sec:ext-superseded",
       "label": "A superseded deduction"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long68:sec:ext-plateau",
       "label": "Plateaux, first exit, and the finite denominator ladder"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long68:sec:ext-collision",
       "label": "The collision-core interfaces"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long68:sec:ext-certificates",
       "label": "Finite channel and carry certificates"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long68:sec:ext-nogo",
       "label": "Limits of fixed-coordinate arguments"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "long68:sec:ext-generic",
       "label": "The generic shape behind the lower-interval form"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:erdos-68-complete-family-map",
       "label": "Complete result-family map"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "factorial-carry-characterisation",
       "label": "Factorial carry characterisation"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "factorial-channel-and-projection-rigidity",
       "label": "Factorial channel and projection rigidity"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "factorial-conditional-producers",
       "label": "Factorial conditional producers"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "factorial-lcm-growth",
       "label": "Factorial lcm growth"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "factorial-finite-certificates",
       "label": "Factorial finite certificates"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "long68:sec:carry",
+        "title": "Carries and the rationality boundary",
+        "level": 2
+      },
+      {
+        "id": "long68:sec:finite",
+        "title": "Finite denominator exclusions",
+        "level": 2
+      },
+      {
+        "id": "long68:sec:open",
+        "title": "The remaining arithmetic inputs",
+        "level": 2
+      },
+      {
+        "id": "sec:erdos-68-complete-family-map",
+        "title": "Complete result-family map",
+        "level": 2
+      }
+    ]
+  }
 }

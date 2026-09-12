@@ -107,8 +107,17 @@ function makeEl(tag) {
       if (k === 'hidden') this.hidden = true;
     },
     getAttribute(k) { return Object.prototype.hasOwnProperty.call(this._attrs, k) ? this._attrs[k] : null; },
+    hasAttribute(k) { return Object.prototype.hasOwnProperty.call(this._attrs, k); },
     removeAttribute(k) { delete this._attrs[k]; if (k === 'hidden') this.hidden = false; },
     appendChild(c) { c.parentNode = this; c.parentElement = this.nodeType === 1 ? this : null; this.children.push(c); return c; },
+    insertBefore(c, before) {
+      if (c.parentNode) c.parentNode.removeChild(c);
+      const index = this.children.indexOf(before);
+      c.parentNode = this;
+      c.parentElement = this.nodeType === 1 ? this : null;
+      if (index < 0) this.children.push(c); else this.children.splice(index, 0, c);
+      return c;
+    },
     removeChild(c) { const i = this.children.indexOf(c); if (i >= 0) this.children.splice(i, 1); c.parentNode = null; c.parentElement = null; return c; },
     addEventListener(type, fn) { (this._listeners[type] || (this._listeners[type] = [])).push(fn); },
     removeEventListener(type, fn) { const a = this._listeners[type]; if (a) { const i = a.indexOf(fn); if (i >= 0) a.splice(i, 1); } },
@@ -119,6 +128,11 @@ function makeEl(tag) {
     },
     focus(opts) { this._focused = true; this._focusPreventScroll = !!(opts && opts.preventScroll); },
     scrollIntoView() {},
+    getClientRects() {
+      let node = this;
+      while (node) { if (node.hidden) return []; node = node.parentNode; }
+      return [this.getBoundingClientRect()];
+    },
     getBoundingClientRect() {
       const y = this._window ? this._window.pageYOffset || 0 : 0;
       const docTop = this._docTop == null ? y : this._docTop;
@@ -238,9 +252,10 @@ function matchesSimpleSelector(node, selector) {
   }
   const attrs = [...sel.matchAll(/\[([^\]=\s]+)(?:=["']?([^\]"']+)["']?)?\]/g)];
   for (const attr of attrs) {
-    const actual = attrValue(node, attr[1]);
+    const prefix = attr[1].endsWith('^');
+    const actual = attrValue(node, prefix ? attr[1].slice(0, -1) : attr[1]);
     if (actual == null) return false;
-    if (attr[2] != null && actual !== attr[2]) return false;
+    if (attr[2] != null && (prefix ? !actual.startsWith(attr[2]) : actual !== attr[2])) return false;
   }
   return true;
 }
@@ -345,8 +360,15 @@ function loadPage(tab, page) {
     dispatch(type, ev) {
       const event = ev || {};
       if (!event.type) event.type = type;
-      (docListeners[type] || []).slice().forEach((fn) => fn(event));
+      if (!event.stopImmediatePropagation) {
+        event.stopImmediatePropagation = () => { event._immediateStopped = true; };
+      }
+      for (const fn of (docListeners[type] || []).slice()) {
+        fn(event);
+        if (event._immediateStopped) break;
+      }
     },
+    dispatchEvent(event) { this.dispatch(event.type, event); return true; },
     execCommand: page.execCommand || (() => false),
   };
 
@@ -374,7 +396,18 @@ function loadPage(tab, page) {
     addEventListener(type, fn) { (winListeners[type] || (winListeners[type] = [])).push(fn); },
     removeEventListener() {},
     performance: perf,
-    history: { pushState() {}, replaceState() {} },
+    URLSearchParams,
+    history: {
+      state: null,
+      pushState() {},
+      replaceState(state, _unused, url) {
+        this.state = state;
+        const parsed = new URL(url, loc.href);
+        loc.pathname = parsed.pathname;
+        loc.search = parsed.search;
+        loc.hash = parsed.hash;
+      },
+    },
     matchMedia() { return { matches: false, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {} }; },
     getComputedStyle() { return { getPropertyValue() { return ''; } }; },
     innerWidth: 1024,
@@ -394,11 +427,15 @@ function loadPage(tab, page) {
     document: doc,
     location: loc,
     performance: perf,
+    requestAnimationFrame: win.requestAnimationFrame,
+    cancelAnimationFrame() {},
     navigator: { clipboard: page.clipboard === undefined ? null : page.clipboard, userAgent: 'node-harness' },
     console: { log() {}, warn() {}, error() {}, info() {}, debug() {} },
     setTimeout(fn) { try { fn(); } catch (e) {} return 0; },
     clearTimeout() {},
     URL,
+    URLSearchParams,
+    CustomEvent: class CustomEvent { constructor(type, init = {}) { this.type = type; this.detail = init.detail; } },
   };
   vm.createContext(sandbox);
 
@@ -426,6 +463,12 @@ function loadPage(tab, page) {
     firePagehide() { (winListeners.pagehide || []).forEach((fn) => fn({})); },
     firePageshow(persisted) { (winListeners.pageshow || []).forEach((fn) => fn({ persisted: !!persisted })); },
     fireScroll() { (winListeners.scroll || []).forEach((fn) => fn({})); },
+    fireHashchange() {
+      let stopped = false;
+      const event = { stopImmediatePropagation() { stopped = true; } };
+      for (const fn of (winListeners.hashchange || [])) { fn(event); if (stopped) break; }
+    },
+    firePopstate(state = win.history.state) { (winListeners.popstate || []).forEach((fn) => fn({ state })); },
     clickPill() { const p = this.pill(); if (!p) throw new Error('no pill to click'); p.dispatch('click', {}); return tab.pendingHref; },
     escapePill() { const p = this.pill(); if (!p) throw new Error('no pill'); p.dispatch('keydown', { key: 'Escape', stopPropagation() {} }); },
   };
@@ -483,7 +526,7 @@ test('landing enhancement work stays off the critical input path', () => {
   assert.match(ART_SOURCE, /powerPreference: 'low-power'/);
   assert.match(ART_SOURCE, /window\.addEventListener\('scroll', onScroll, \{ passive: true \}\)/);
   assert.doesNotMatch(ART_SOURCE, /requestAnimationFrame\(frame\)/);
-  assert.match(SOURCE, /if \(links\.length > 80\) return/);
+  assert.match(SOURCE, /links\.length > 80\) return/);
   assert.match(SOURCE, /if \(\/\\\/glossary\\\.html\$\/\.test\(window\.location\.pathname/);
 });
 
@@ -523,7 +566,8 @@ test('term activation is a real two-stage preview then native glossary navigatio
   const tip = page.doc.querySelector('.term-tip');
   assert.equal(firstPrevented, true, 'first activation stays on the source page');
   assert.ok(tip && !tip.hidden && tip.classList.contains('is-expanded'));
-  assert.equal(tip.querySelector('.term-tip__text').textContent, 'System card: connected parts with a shared boundary.');
+  assert.equal(tip.querySelector('.term-tip__text').textContent,
+    'A system is a set of connected parts. System card: connected parts with a shared boundary.');
   assert.equal(tip.querySelector('.term-tip__rule').textContent, 'System rule: name the boundary before claiming the whole.');
   assert.equal(tip.querySelector('.term-tip__deep').textContent, 'System deep: inspect owners, edges, and receipts together.');
   assert.equal(tip.querySelector('.term-tip__full').href, 'glossary.html#glossary-system');
@@ -570,7 +614,8 @@ test('cold term activation waits for the lazy preview asset before expanding loc
 
   const tip = page.doc.querySelector('.term-tip');
   assert.ok(tip && !tip.hidden && tip.classList.contains('is-expanded'));
-  assert.equal(tip.querySelector('.term-tip__text').textContent, 'System card: connected parts with a shared boundary.');
+  assert.equal(tip.querySelector('.term-tip__text').textContent,
+    'A system is a set of connected parts. System card: connected parts with a shared boundary.');
   assert.equal(tab.pendingHref, null, 'loading the preview does not change location');
 
   let secondPrevented = false;
@@ -730,6 +775,200 @@ test('term hover opens from inline preview data without loading the search index
   assert.equal(page.win.__MICROCOSM_INDEX__, undefined, 'hover does not pull the full index');
 });
 
+test('notation help bootstraps without prose anchors and stays lazy until intent', () => {
+  const tab = makeTab();
+  const math = makeEl('span');
+  math.className = 'math inline';
+  math.setAttribute('data-tex', String.raw`\(\forall x\in A\)`);
+  const mathml = makeEl('math');
+  mathml.appendChild(makeEl('mi'));
+  math.appendChild(mathml);
+  const originalTex = math.getAttribute('data-tex');
+  const originalChild = math.children[0];
+  const page = loadPage(tab, hubPage({ bodyChildren: [math] }));
+
+  assert.equal(page.error, null);
+  assert.equal(typeof page.win.PlectisTermHelp.registerNotation, 'function');
+  assert.equal(page.doc.head.querySelector('script[data-term-previews]'), null,
+    'a docs page with no prose terms does not fetch glossary data at idle');
+  page.win.PlectisTermHelp.registerNotation(math, ['universal_quantifier', 'set_membership']);
+  assert.equal(math.getAttribute('tabindex'), '0');
+  assert.equal(math.getAttribute('data-tex'), originalTex);
+  assert.equal(math.children[0], originalChild, 'registration preserves the rendered MathML subtree');
+
+  page.doc.activeElement = math;
+  page.doc.dispatch('focusin', { target: math });
+  assert.ok(page.doc.head.querySelector('script[data-term-previews]'),
+    'the first real notation intent starts the existing lazy payload');
+});
+
+test('notation registration controls sequential focus without overriding existing tab stops', () => {
+  const defaults = makeEl('span');
+  const explicit = makeEl('span');
+  const pointerOnly = makeEl('span');
+  const wideEquation = makeEl('span');
+  wideEquation.setAttribute('tabindex', '0');
+  const programmatic = makeEl('span');
+  programmatic.setAttribute('tabindex', '-1');
+  const page = loadPage(makeTab(), hubPage({
+    bodyChildren: [defaults, explicit, pointerOnly, wideEquation, programmatic],
+  }));
+  assert.equal(page.error, null);
+  const register = page.win.PlectisTermHelp.registerNotation;
+  register(defaults, ['sum']);
+  register(explicit, ['sum'], { keyboardFocus: true });
+  register(pointerOnly, ['sum'], { keyboardFocus: false });
+  register(wideEquation, ['sum'], { keyboardFocus: false });
+  register(programmatic, ['sum'], { keyboardFocus: true });
+
+  assert.equal(defaults.getAttribute('tabindex'), '0', 'default help remains keyboard reachable');
+  assert.equal(explicit.getAttribute('tabindex'), '0');
+  assert.equal(pointerOnly.getAttribute('tabindex'), '-1', 'repeated notation stays programmatically focusable');
+  assert.equal(wideEquation.getAttribute('tabindex'), '0', 'scrollable equations keep their existing tab stop');
+  assert.equal(programmatic.getAttribute('tabindex'), '-1', 'an existing focus policy remains authoritative');
+});
+
+test('notation focus cycles records, escapes, reopens, and keeps popup focus local', () => {
+  const tab = makeTab();
+  const math = makeEl('span');
+  math.className = 'math inline';
+  math.setAttribute('data-tex', String.raw`\(\sum_i a_i \prod_j b_j\)`);
+  const page = loadPage(tab, hubPage({
+    bodyChildren: [math],
+    windowGlobals: { __MICROCOSM_TERM_PREVIEWS__: { terms: [
+      { object_id: 'term:sum', preferred_label: 'Sum', reader_preview: 'Adds indexed terms.' },
+      { object_id: 'term:product', preferred_label: 'Product', reader_preview: 'Multiplies indexed terms.' },
+    ] } },
+  }));
+  assert.equal(page.error, null);
+  page.win.PlectisTermHelp.registerNotation(math, ['sum', 'product']);
+  page.doc.activeElement = math;
+  page.doc.dispatch('focusin', { target: math });
+  const tip = page.doc.querySelector('.term-tip');
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Sum');
+  assert.equal(tip.querySelector('.term-tip__back').textContent, 'Back to page');
+  assert.ok(queryAll(tip, '.term-tip__back').some((el) => el.textContent === 'Previous notation'));
+  assert.ok(queryAll(tip, '.term-tip__back').some((el) => el.textContent === 'Next notation'));
+
+  page.doc.dispatch('keydown', { key: 'ArrowRight', target: math, preventDefault() {} });
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Product');
+  const elsewhere = makeEl('button');
+  page.doc.activeElement = elsewhere;
+  page.doc.dispatch('keydown', { key: 'ArrowLeft', target: elsewhere, preventDefault() { throw new Error('global arrow hijack'); } });
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Product', 'arrows elsewhere do not cycle notation');
+
+  page.doc.dispatch('keydown', { key: 'Escape', target: elsewhere });
+  assert.equal(tip.hidden, true);
+  page.doc.activeElement = math;
+  page.doc.dispatch('keydown', { key: 'Enter', target: math, preventDefault() {} });
+  assert.equal(tip.hidden, false, 'Enter reopens after Escape without requiring a new focus event');
+  assert.ok(tip.classList.contains('is-expanded'));
+
+  const previous = queryAll(tip, '.term-tip__back').find((el) => el.textContent === 'Previous notation');
+  page.doc.activeElement = previous;
+  tip.dispatch('focusin', { target: previous, relatedTarget: math });
+  const next = queryAll(tip, '.term-tip__back').find((el) => el.textContent === 'Next notation');
+  tip.dispatch('focusout', { target: previous, relatedTarget: next });
+  assert.equal(tip.hidden, false, 'moving between popup controls retains the popup');
+  page.doc.activeElement = previous;
+  page.doc.dispatch('keydown', { key: 'Escape', target: previous, preventDefault() {} });
+  assert.equal(tip.hidden, true, 'Escape from a popup control dismisses the card');
+  assert.equal(math._focused, true, 'Escape from a popup control restores expression focus');
+});
+
+test('cold notation Enter initializes once and cannot become same-event navigation', () => {
+  const tab = makeTab();
+  const math = makeEl('span');
+  const page = loadPage(tab, hubPage({ bodyChildren: [math] }));
+  assert.equal(page.error, null);
+  page.win.PlectisTermHelp.registerNotation(math, ['sum'], {
+    hrefForId: () => 'glossary.html#glossary-sum',
+  });
+  page.win.__MICROCOSM_TERM_PREVIEWS__ = { terms: [
+    { object_id: 'term:sum', preferred_label: 'Sum', reader_preview: 'Adds indexed terms.' },
+  ] };
+  page.doc.activeElement = math;
+  let stopped = false;
+  page.doc.dispatch('keydown', {
+    key: 'Enter', target: math,
+    preventDefault() {},
+    stopImmediatePropagation() { stopped = true; this._immediateStopped = true; },
+  });
+  const tip = page.doc.querySelector('.term-tip');
+  assert.equal(stopped, true, 'the consumed cold event cannot reach newly installed listeners');
+  assert.ok(tip && !tip.hidden && tip.classList.contains('is-expanded'));
+  assert.equal(tab.pendingHref, null, 'first Enter stays on-page even when records were synchronously available');
+});
+
+test('delayed missing-only notation clicks never resolve a URL with an absent ID', () => {
+  const tab = makeTab();
+  const math = makeEl('span');
+  const page = loadPage(tab, hubPage({ bodyChildren: [math] }));
+  assert.equal(page.error, null);
+  let hrefCalls = 0;
+  page.win.PlectisTermHelp.registerNotation(math, ['missing'], {
+    hrefForId(id) {
+      hrefCalls += 1;
+      return 'glossary.html#glossary-' + id.replace(/_/g, '-');
+    },
+  });
+  let prevented = false;
+  page.doc.dispatch('click', {
+    target: math, button: 0,
+    preventDefault() { prevented = true; },
+  });
+  assert.equal(prevented, true);
+  const script = page.doc.head.querySelector('script[data-term-previews]');
+  assert.ok(script, 'a cold click starts the delayed glossary request');
+  page.win.__MICROCOSM_TERM_PREVIEWS__ = { terms: [
+    { object_id: 'term:sum', reader_preview: 'Adds indexed terms.' },
+  ] };
+
+  assert.doesNotThrow(() => script.dispatch('load'), 'missing records cannot reach the URL callback');
+  assert.equal(hrefCalls, 0);
+  assert.equal(tab.pendingHref, null, 'missing notation does not navigate to an invalid fragment');
+  const tip = page.doc.querySelector('.term-tip');
+  assert.ok(!tip || tip.hidden, 'missing records do not leave an empty popup visible');
+});
+
+test('notation culls missing IDs once, clears stale cards, and keeps prose behavior', () => {
+  const tab = makeTab();
+  let objectIdReads = 0;
+  const sum = { preferred_label: 'Sum', reader_preview: 'Adds indexed terms.' };
+  Object.defineProperty(sum, 'object_id', { get() { objectIdReads += 1; return 'term:sum'; } });
+  const prose = makeLink('glossary.html#glossary-system', 'system');
+  prose.className = 'narrative-ref--term';
+  prose.setAttribute('data-term', 'system');
+  prose.setAttribute('data-term-preview', 'Connected parts.');
+  const valid = makeEl('span');
+  const missing = makeEl('span');
+  const page = loadPage(tab, hubPage({
+    bodyChildren: [prose, valid, missing], links: [prose],
+    windowGlobals: { __MICROCOSM_TERM_PREVIEWS__: { terms: [sum,
+      { object_id: 'term:system', preferred_label: 'System', reader_preview: 'Connected parts.' },
+    ] } },
+  }));
+  assert.equal(page.error, null);
+  page.win.PlectisTermHelp.registerNotation(valid, ['missing', 'sum', 'sum']);
+  page.win.PlectisTermHelp.registerNotation(missing, ['absent']);
+  page.doc.activeElement = valid;
+  page.doc.dispatch('focusin', { target: valid });
+  const tip = page.doc.querySelector('.term-tip');
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Sum');
+  const readsAfterFirstResolution = objectIdReads;
+  page.doc.dispatch('focusin', { target: valid });
+  page.doc.dispatch('mouseover', { target: valid, relatedTarget: null });
+  assert.equal(objectIdReads, readsAfterFirstResolution, 'repeat intent does not rebuild or re-read glossary records');
+  page.doc.activeElement = missing;
+  page.doc.dispatch('focusin', { target: missing });
+  assert.equal(tip.hidden, true, 'a trigger with no valid records clears the previous card');
+
+  let prevented = false;
+  page.doc.dispatch('click', { target: prose, button: 0, preventDefault() { prevented = true; } });
+  assert.equal(prevented, true);
+  assert.ok(tip.classList.contains('is-expanded'), 'the existing prose first-click expansion remains active');
+});
+
 for (const action of ['text', '']) {
   test(`page ${action || 'JSON'} export preserves TeX behind rendered glyphs`, async () => {
     const writes = [];
@@ -747,6 +986,11 @@ for (const action of ['text', '']) {
       article.appendChild(span);
       return span;
     });
+    const identifierName = 'irrational_erdosSupportSeries_of_summable_reciprocal';
+    const identifierButton = makeEl('button');
+    identifierButton.className = 'lean-identifier';
+    const identifierCode = makeEl('code'); identifierCode.textContent = identifierName;
+    identifierButton.appendChild(identifierCode); article.appendChild(identifierButton);
     const hidden = makeEl('span');
     hidden.className = 'math inline';
     hidden.setAttribute('data-tex', 'hidden formula');
@@ -765,9 +1009,58 @@ for (const action of ['text', '']) {
     assert.equal(writes.length, 1);
     const text = action === 'text' ? writes[0] : JSON.parse(writes[0]).source_text;
     for (const tex of expressions) assert.ok(text.includes(tex), tex);
+    assert.ok(text.includes(identifierName), 'disclosure controls retain their full Lean source names');
     assert.equal(text.includes('typeset glyph placeholder'), false);
     assert.equal(text.includes('hidden formula'), false);
     assert.ok(spans.every((span) => span.textContent === 'typeset glyph placeholder'));
+  });
+}
+
+for (const action of ['text', '']) {
+  test(`page ${action || 'JSON'} export includes unopened definitions without changing live cards`, async () => {
+    const writes = [];
+    const article = makeEl('article'); article.className = 'docs-article';
+    const card = makeDetails('glossary-sample');
+    const shell = makeEl('noscript'); shell.setAttribute('data-term-body', '');
+    shell.textContent = '<p>A core <strong>definition</strong> and its fuller explanation.</p>';
+    card.appendChild(shell); article.appendChild(card);
+    const button = makeEl('button'); button.setAttribute('data-page-export', action);
+    article.appendChild(button);
+    const page = loadPage(makeTab(), {
+      path: '/docs/glossary.html', bodyChildren: [article],
+      clipboard: { writeText(text) { writes.push(text); return Promise.resolve(); } },
+    });
+    assert.equal(page.error, null);
+    const create = page.doc.createElement.bind(page.doc);
+    page.doc.createElement = (tag) => {
+      const element = create(tag);
+      if (tag === 'template') {
+        // The harness's existing HTML decoder supplies this text-only fixture's
+        // parsed template content. Actual nested markup is covered in-browser.
+        Object.defineProperty(element, 'content', { get() {
+          const text = makeEl('#text'); text.textContent = element.textContent;
+          return text;
+        } });
+      }
+      return element;
+    };
+    const expected = 'A core definition and its fuller explanation.';
+    for (const opened of [false, true]) {
+      if (opened) {
+        card.removeChild(shell);
+        const paragraph = makeEl('p');
+        const text = makeEl('#text'); text.textContent = expected;
+        paragraph.appendChild(text);
+        card.appendChild(paragraph); card.open = true;
+      }
+      button.dispatch('click', {});
+      await new Promise((resolve) => setImmediate(resolve));
+      const text = action === 'text' ? writes.at(-1) : JSON.parse(writes.at(-1)).source_text;
+      assert.ok(text.includes(expected), 'deferred and hydrated definitions export identically');
+      assert.equal(/<\/?(?:p|strong)\b/.test(text), false, 'readable text contains no serialized markup');
+      assert.equal(card.open, opened, 'export does not expand the live card');
+      assert.equal(card.querySelector('noscript[data-term-body]') === shell, !opened);
+    }
   });
 }
 
@@ -1076,6 +1369,142 @@ test('Back/Forward traversal reconciles by truncating from the landed page forwa
   assert.equal(back.pillWhere(), 'Overview', 'pill points to the hub');
 });
 
+test('cold browser Back restores the exact filtered card before truncating its snapshot', () => {
+  const tab = makeTab();
+  loadPage(tab, hubPage()).firePagehide();
+  const card = makeDetails('component-cold_reader_route_map');
+  card.open = true;
+  const link = makeLink('component-cold-reader-route-map.html', 'open-component');
+  loadPage(tab, componentPage({
+    search: '?filter=Cold+Reader', scrollY: 1166,
+    openDetails: [card], byId: [card, link], active: link,
+  })).firePagehide();
+  loadPage(tab, areaPage()).firePagehide();
+
+  const restoredCard = makeDetails(card.id);
+  const restoredLink = makeLink('component-cold-reader-route-map.html', link.id);
+  const back = loadPage(tab, componentPage({
+    search: '?filter=Cold+Reader', navType: 'back_forward',
+    openDetails: [restoredCard], byId: [restoredCard, restoredLink],
+  }));
+  assert.equal(back.error, null);
+  assert.equal(restoredCard.open, true, 'a fresh history document reopens the card');
+  assert.equal(restoredLink._focused, true, 'focus returns to the invoking component link');
+  assert.equal(tab.lastScrollTo, 1166, 'reading position is restored after the card opens');
+  assert.equal(back.loc.search, '?filter=Cold+Reader');
+  assert.equal(back.restore(), null, 'the rescued snapshot is consumed exactly once');
+  assert.deepEqual(back.stack().map(entry => entry.path), ['/docs/index.html']);
+
+  back.firePagehide();
+  tab.lastScrollTo = undefined;
+  const reloadCard = makeDetails(card.id);
+  loadPage(tab, componentPage({
+    search: '?filter=Cold+Reader', navType: 'reload', openDetails: [reloadCard],
+  }));
+  assert.equal(reloadCard.open, false, 'the history restore cannot leak into a later reload');
+  assert.equal(tab.lastScrollTo, undefined);
+});
+
+test('cold history scroll recovery wins over queued initial fragment alignment', () => {
+  const tab = makeTab();
+  const id = 'component-cold_reader_route_map';
+  const hash = `#${id}`;
+  const url = `/docs/components.html?filter=Cold+Reader${hash}`;
+  tab.store.setItem('mc:viewstate:stack', JSON.stringify([
+    { path: '/docs/components.html', url, title: 'Components', y: 1037.5, open: [id], focus: null },
+    { path: '/docs/area-architecture.html', url: '/docs/area-architecture.html', title: 'Area', y: 0, open: [], focus: null },
+  ]));
+  const card = makeDetails(id);
+  card._docTop = 588;
+  card.scrollIntoView = () => { tab.lastScrollTo = 588; };
+  const summary = makeEl('summary');
+  summary._docTop = 588;
+  summary._height = 32;
+  card.appendChild(summary);
+  const frames = [];
+  const page = loadPage(tab, componentPage({
+    search: '?filter=Cold+Reader', hash, navType: 'back_forward',
+    openDetails: [card], byId: [card],
+    windowGlobals: { requestAnimationFrame(fn) { frames.push(fn); return frames.length; } },
+  }));
+  assert.equal(page.error, null);
+  for (let count = 0; frames.length && count < 20; count += 1) frames.shift()();
+  assert.equal(frames.length, 0);
+  assert.equal(card.open, true);
+  assert.equal(tab.lastScrollTo, 1037.5, 'later fragment frames cannot jump back to the summary');
+  assert.equal(page.restore(), null);
+});
+
+test('cold history recovery selects the most recent exact URL when a path recurs', () => {
+  const tab = makeTab();
+  loadPage(tab, componentPage({ search: '?filter=Cold', scrollY: 100 })).firePagehide();
+  loadPage(tab, areaPage()).firePagehide();
+  loadPage(tab, componentPage({ search: '?filter=Other', scrollY: 200 })).firePagehide();
+  loadPage(tab, evidencePage()).firePagehide();
+  loadPage(tab, componentPage({ search: '?filter=Cold', scrollY: 800 })).firePagehide();
+  loadPage(tab, archPage()).firePagehide();
+
+  const back = loadPage(tab, componentPage({ search: '?filter=Cold', navType: 'back_forward' }));
+  assert.equal(back.error, null);
+  assert.equal(tab.lastScrollTo, 800, 'the newest exact URL wins over older visits and other filters');
+  assert.equal(back.stack().length, 4, 'only the recovered visit and later views leave the return trail');
+  assert.equal(back.pillWhere(), 'Evidence');
+  assert.equal(back.restore(), null);
+});
+
+test('a cold traversal cannot restore a card from a different filter or fragment', () => {
+  for (const changed of [{ search: '?filter=Other' }, { hash: '#other' }]) {
+    const tab = makeTab();
+    const card = makeDetails('component-cold_reader_route_map');
+    card.open = true;
+    loadPage(tab, componentPage({
+      search: '?filter=Cold+Reader', scrollY: 1166, openDetails: [card],
+    })).firePagehide();
+    loadPage(tab, areaPage()).firePagehide();
+    const incomingCard = makeDetails(card.id);
+    const back = loadPage(tab, componentPage({
+      search: '?filter=Cold+Reader', ...changed, navType: 'back_forward',
+      openDetails: [incomingCard],
+    }));
+    assert.equal(back.error, null);
+    assert.equal(incomingCard.open, false);
+    assert.equal(tab.lastScrollTo, undefined, 'another URL cannot supply a reading position');
+    assert.equal(back.restore(), null);
+  }
+});
+
+test('cold history restoration preserves explicit return precedence and ignores ordinary forward clicks', () => {
+  const tab = makeTab();
+  loadPage(tab, archPage({ scrollY: 300 })).firePagehide();
+  loadPage(tab, areaPage()).firePagehide();
+  const forward = loadPage(tab, archPage({ navType: 'navigate' }));
+  assert.equal(tab.lastScrollTo, undefined, 'a normal forward click never consumes a historical snapshot');
+  assert.equal(forward.stack().length, 2);
+
+  tab.store.setItem('mc:viewstate:restore', JSON.stringify({
+    path: '/docs/architecture.html', url: '/docs/architecture.html',
+    y: 850, open: [], focus: null,
+  }));
+  const back = loadPage(tab, archPage({ navType: 'back_forward' }));
+  assert.equal(tab.lastScrollTo, 850, 'an existing explicit restore wins over the historical snapshot');
+  assert.equal(back.restore(), null);
+});
+
+test('BFCache pageshow leaves live disclosure and scroll state with the browser', () => {
+  const tab = makeTab();
+  const card = makeDetails('component-cold_reader_route_map');
+  const page = loadPage(tab, componentPage({ scrollY: 440, openDetails: [card] }));
+  tab.store.setItem('mc:viewstate:stack', JSON.stringify([
+    { path: '/docs/components.html', url: '/docs/components.html', title: 'Components',
+      y: 1166, open: [card.id], focus: null },
+  ]));
+  page.firePageshow(true);
+  assert.equal(card.open, false, 'cached live state is not overwritten by an older snapshot');
+  assert.equal(tab.lastScrollTo, undefined);
+  assert.equal(page.win.pageYOffset, 440);
+  assert.equal(page.restore(), null, 'BFCache traversal does not leave a stale pending restore');
+});
+
 test('reload strips only the self-push, preserving the deeper trail', () => {
   const tab = makeTab();
   loadPage(tab, hubPage()).firePagehide();        // [hub]
@@ -1181,4 +1610,610 @@ test('glossary preview payload waits for idle before warming', () => {
   assert.equal(page.doc.querySelector('.term-tip'), null);
   idle.forEach((fn) => fn({ timeRemaining: () => 8 }));
   assert.ok(page.doc.head.querySelector('script[data-term-previews]'));
+});
+
+function loadSearchFixture({ deferred = false, url = 'glossary.html#glossary-component', recordCount = 1, execCommand = () => true } = {}) {
+  const opener = makeEl('button'); opener.setAttribute('data-search-open', '');
+  const modal = makeEl('div'); modal.setAttribute('data-search-modal', ''); modal.setAttribute('hidden', '');
+  const input = makeEl('input'); input.setAttribute('data-search-input', '');
+  const list = makeEl('ul'); list.setAttribute('data-search-results', '');
+  const count = makeEl('p'); count.setAttribute('data-search-count', '');
+  const empty = makeEl('p'); empty.setAttribute('data-search-empty', '');
+  const closer = makeEl('button'); closer.setAttribute('data-search-close', '');
+  [input, closer, list, count, empty].forEach(el => modal.appendChild(el));
+  const tab = makeTab();
+  const records = Array.from({ length: recordCount }, (_, i) => ({ kind: 'page', label: 'Component ' + i, url, text: 'A glossary definition' }));
+  const page = loadPage(tab, {
+    path: '/docs/glossary.html', active: opener, bodyChildren: [opener, modal], execCommand,
+    windowGlobals: deferred ? {} : { __MICROCOSM_INDEX__: { records } },
+  });
+  assert.equal(page.error, null);
+  opener.dispatch('click');
+  return { ...page, tab, opener, modal, input, list, count, records };
+}
+
+test('Escape dismisses search from a result action and returns focus to the opener', () => {
+  const page = loadSearchFixture();
+  assert.equal(page.modal.hidden, false);
+  const action = page.list.querySelector('.cmdk__action');
+  assert.ok(action, 'search renders a secondary result action');
+  page.doc.activeElement = action;
+  let prevented = false;
+  page.modal.dispatch('keydown', { key: 'Escape', target: action, preventDefault() { prevented = true; } });
+  assert.ok(prevented);
+  assert.equal(page.modal.hidden, true);
+  assert.equal(page.body.classList.contains('cmdk-open'), false);
+  assert.equal(page.opener._focused, true);
+  assert.equal(page.input.getAttribute('aria-expanded'), 'false');
+});
+
+test('following an in-page search result removes the overlay and scroll lock before navigation', () => {
+  const page = loadSearchFixture();
+  page.input.dispatch('keydown', { key: 'Enter', preventDefault() {} });
+  assert.match(page.tab.pendingHref, /glossary\.html#glossary-component$/);
+  assert.equal(page.modal.hidden, true);
+  assert.equal(page.body.classList.contains('cmdk-open'), false);
+});
+
+test('a search index arriving after dismissal does not reactivate the hidden combobox', () => {
+  const page = loadSearchFixture({ deferred: true });
+  assert.match(page.doc.querySelector('[data-search-empty]').textContent, /Loading/);
+  page.modal.dispatch('keydown', { key: 'Escape', preventDefault() {} });
+  page.win.__MICROCOSM_INDEX__ = { records: page.records };
+  const script = page.doc.head.querySelector('script[data-search-index]');
+  assert.ok(script);
+  script.dispatch('load');
+  assert.equal(page.modal.hidden, true);
+  assert.equal(page.input.getAttribute('aria-expanded'), 'false');
+  assert.equal(page.input.getAttribute('aria-activedescendant'), null);
+  page.opener.dispatch('click');
+  assert.equal(page.list.children.length, 1, 'the loaded index is usable on reopening');
+});
+
+test('contents tracking keeps the preceding section active between distant headings', () => {
+  const toc = makeEl('nav'); toc.className = 'docs-toc';
+  const first = makeLink('#first'); const second = makeLink('#second');
+  toc.appendChild(first); toc.appendChild(second);
+  const h1 = makeEl('h2'); h1.id = 'first'; h1._docTop = 150;
+  const h2 = makeEl('h2'); h2.id = 'second'; h2._docTop = 1000;
+  const page = loadPage(makeTab(), {
+    path: '/docs/guide.html', scrollY: 450,
+    bodyChildren: [toc, h1, h2], byId: [h1, h2],
+  });
+  assert.equal(page.error, null);
+  assert.equal(first.classList.contains('is-current'), true);
+  assert.equal(first.getAttribute('aria-current'), 'location');
+  page.win.pageYOffset = 1000;
+  page.fireScroll();
+  assert.equal(first.getAttribute('aria-current'), null);
+  assert.equal(second.getAttribute('aria-current'), 'location');
+  page.win.pageYOffset = 0;
+  page.fireScroll();
+  assert.equal(second.getAttribute('aria-current'), null, 'before the first section there is no stale location');
+});
+
+
+test('search count distinguishes the visible result limit from all matching records', () => {
+  const page = loadSearchFixture({ recordCount: 45 });
+  page.input.value = 'Component';
+  page.input.dispatch('input');
+  assert.equal(page.list.children.length, 30);
+  assert.match(page.count.textContent, /^Showing 30 of 45 matches/);
+});
+
+test('confirming an input-method composition does not navigate to a search result', () => {
+  const page = loadSearchFixture();
+  let prevented = false;
+  page.input.dispatch('keydown', { key: 'Enter', isComposing: true, preventDefault() { prevented = true; } });
+  assert.equal(page.tab.pendingHref, null);
+  assert.equal(page.modal.hidden, false);
+  assert.equal(prevented, false);
+});
+
+
+test('cancelling input-method composition keeps the search dialog open', () => {
+  const page = loadSearchFixture();
+  let prevented = false;
+  page.modal.dispatch('keydown', { key: 'Escape', isComposing: true, preventDefault() { prevented = true; } });
+  assert.equal(page.modal.hidden, false);
+  assert.equal(prevented, false);
+});
+
+
+test('contents tracking skips hidden sections and does no heading work while the rail is hidden', () => {
+  const toc = makeEl('nav'); toc.className = 'docs-toc';
+  const first = makeLink('#first'); const hidden = makeLink('#hidden'); const next = makeLink('#next');
+  [first, hidden, next].forEach(link => toc.appendChild(link));
+  const h1 = makeEl('h2'); h1.id = 'first'; h1._docTop = 100;
+  const h2 = makeEl('h2'); h2.id = 'hidden'; h2.hidden = true; h2._docTop = 0;
+  const h3 = makeEl('h2'); h3.id = 'next'; h3._docTop = 900;
+  const page = loadPage(makeTab(), { path: '/docs/guide.html', scrollY: 300, bodyChildren: [toc, h1, h2, h3], byId: [h1, h2, h3] });
+  assert.equal(page.error, null);
+  assert.equal(first.getAttribute('aria-current'), 'location');
+  assert.equal(hidden.getAttribute('aria-current'), null);
+  toc.hidden = true;
+  let reads = 0;
+  h1.getBoundingClientRect = () => { reads++; return { top: 0 }; };
+  page.fireScroll();
+  assert.equal(reads, 0, 'phone layouts do not measure an invisible contents rail');
+});
+
+
+test('the final short section becomes current at the end of the page', () => {
+  const toc = makeEl('nav'); toc.className = 'docs-toc';
+  const first = makeLink('#first'); const final = makeLink('#final');
+  toc.appendChild(first); toc.appendChild(final);
+  const h1 = makeEl('h2'); h1.id = 'first'; h1._docTop = 100;
+  const h2 = makeEl('h2'); h2.id = 'final'; h2._docTop = 1000;
+  const page = loadPage(makeTab(), { path: '/docs/guide.html', scrollY: 0, bodyChildren: [toc, h1, h2], byId: [h1, h2] });
+  page.doc.documentElement.scrollHeight = 1500;
+  page.win.innerHeight = 900;
+  page.win.pageYOffset = 600;
+  page.fireScroll();
+  assert.equal(final.getAttribute('aria-current'), 'location');
+  assert.equal(first.getAttribute('aria-current'), null);
+});
+
+
+for (const clipboardFails of [false, true]) {
+  test('copying a search result restores focus and removes its proxy' + (clipboardFails ? ' on clipboard failure' : ''), () => {
+    const page = loadSearchFixture({ execCommand: () => {
+      if (clipboardFails) throw new Error('Clipboard unavailable');
+      return true;
+    } });
+    const action = page.list.querySelector('.cmdk__action');
+    page.doc.activeElement = action;
+    action.dispatch('click', { currentTarget: action, stopPropagation() {} });
+    assert.equal(page.doc.querySelector('.copy-proxy'), null);
+    assert.equal(action._focused, true);
+    assert.equal(action._focusPreventScroll, true);
+    assert.equal(page.modal.hidden, false);
+  });
+}
+
+
+test('repeated intent on the same term reuses the preview without layout or markup work', () => {
+  const term = makeLink('glossary.html#glossary-system');
+  term.className = 'narrative-ref--term';
+  term.setAttribute('data-term', 'system'); term.setAttribute('data-term-label', 'System');
+  term.setAttribute('data-term-preview', 'A system is a set of connected parts.');
+  const page = loadPage(makeTab(), hubPage({ bodyChildren: [term], links: [term] }));
+  page.doc.dispatch('mouseover', { target: term });
+  const tip = page.doc.querySelector('.term-tip');
+  assert.equal(tip.hidden, false);
+  let layouts = 0;
+  term.getBoundingClientRect = () => { layouts++; return { top: 50, left: 0, bottom: 70, width: 40, height: 20 }; };
+  const textNode = tip.querySelector('.term-tip__text');
+  const marker = makeEl('span'); marker.textContent = 'retained'; textNode.appendChild(marker);
+  page.doc.dispatch('focusin', { target: term });
+  assert.equal(layouts, 0);
+  assert.equal(textNode.children.includes(marker), true);
+});
+
+test('moving between term previews clears the old description association', () => {
+  const terms = ['system', 'component'].map(key => {
+    const term = makeLink('glossary.html#glossary-' + key);
+    term.className = 'narrative-ref--term'; term.setAttribute('data-term', key);
+    term.setAttribute('data-term-preview', 'Definition of ' + key); return term;
+  });
+  const page = loadPage(makeTab(), hubPage({ bodyChildren: terms, links: terms }));
+  page.doc.dispatch('mouseover', { target: terms[0] });
+  assert.equal(terms[0].getAttribute('aria-describedby'), 'mc-term-tip');
+  page.doc.dispatch('mouseover', { target: terms[1] });
+  assert.equal(terms[0].getAttribute('aria-describedby'), null);
+  assert.equal(terms[1].getAttribute('aria-describedby'), 'mc-term-tip');
+});
+
+function coldNotationPage() {
+  const first = makeEl('span'), second = makeEl('span'), elsewhere = makeEl('button');
+  const page = loadPage(makeTab(), hubPage({ bodyChildren: [first, second, elsewhere] }));
+  assert.equal(page.error, null);
+  page.win.PlectisTermHelp.registerNotation(first, ['sum']);
+  page.win.PlectisTermHelp.registerNotation(second, ['product']);
+  function focus(target) {
+    const previous = page.doc.activeElement;
+    page.doc.activeElement = target;
+    if (previous) page.doc.dispatch('focusout', { target: previous, relatedTarget: target });
+    page.doc.dispatch('focusin', { target, relatedTarget: previous });
+  }
+  function activate(target) {
+    focus(target);
+    page.doc.dispatch('keydown', { key: 'Enter', target, preventDefault() {}, stopImmediatePropagation() {} });
+  }
+  function deliver() {
+    page.win.__MICROCOSM_TERM_PREVIEWS__ = { terms: [
+      { object_id: 'term:sum', preferred_label: 'Sum', reader_preview: 'Adds terms.', reader_card: 'The longer sum definition.' },
+      { object_id: 'term:product', preferred_label: 'Product', reader_preview: 'Multiplies terms.', reader_card: 'The longer product definition.' },
+    ] };
+    page.doc.head.querySelector('script[data-term-previews]').dispatch('load', {});
+    return page.doc.querySelector('.term-tip');
+  }
+  return { page, first, second, elsewhere, focus, activate, deliver };
+}
+
+test('cold notation Escape cancels activation before the glossary response', () => {
+  const state = coldNotationPage();
+  state.activate(state.first);
+  state.page.doc.dispatch('keydown', { key: 'Escape', target: state.first });
+  const tip = state.deliver();
+  assert.ok(!tip || tip.hidden, 'a late glossary response must not reopen dismissed help');
+});
+
+test('cold notation activation is cancelled when focus leaves before load', () => {
+  const state = coldNotationPage();
+  state.activate(state.first);
+  state.focus(state.elsewhere);
+  const tip = state.deliver();
+  assert.ok(!tip || tip.hidden, 'a late response must not steal the departed focus intent');
+});
+
+test('cold notation activation must not transfer to a newly focused formula', () => {
+  const state = coldNotationPage();
+  state.activate(state.first);
+  state.focus(state.second);
+  const tip = state.deliver();
+  assert.equal(tip.hidden, false);
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Product');
+  assert.equal(tip.classList.contains('is-expanded'), false, 'focus alone previews the second formula without activating it');
+});
+
+test('cold notation activation still expands when its focus intent remains current', () => {
+  const state = coldNotationPage();
+  state.activate(state.first);
+  const tip = state.deliver();
+  assert.equal(tip.hidden, false);
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Sum');
+  assert.equal(tip.classList.contains('is-expanded'), true);
+});
+
+test('cold notation keyboard activation does not transfer to a different pointer target', () => {
+  const state = coldNotationPage();
+  state.activate(state.first);
+  state.second.matches = selector => selector === ':hover';
+  state.page.doc.dispatch('mouseover', { target: state.second, relatedTarget: state.first });
+  const tip = state.deliver();
+  assert.equal(tip.hidden, false);
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Product');
+  assert.equal(tip.classList.contains('is-expanded'), false);
+});
+
+test('cold notation pointer departure cancels its pending preview', () => {
+  const state = coldNotationPage();
+  state.page.doc.dispatch('mouseover', { target: state.first, relatedTarget: state.elsewhere });
+  state.page.doc.dispatch('mouseout', { target: state.first, relatedTarget: state.elsewhere });
+  const tip = state.deliver();
+  assert.ok(!tip || tip.hidden);
+});
+
+test('wide notation keeps expression arrow scrolling while its popup controls cycle symbols', () => {
+  const math = makeEl('span');
+  math.setAttribute('data-math-scroll', 'true');
+  const page = loadPage(makeTab(), hubPage({
+    bodyChildren: [math],
+    windowGlobals: { __MICROCOSM_TERM_PREVIEWS__: { terms: [
+      { object_id: 'term:sum', preferred_label: 'Sum', reader_preview: 'Adds terms.' },
+      { object_id: 'term:product', preferred_label: 'Product', reader_preview: 'Multiplies terms.' },
+    ] } },
+  }));
+  assert.equal(page.error, null);
+  page.win.PlectisTermHelp.registerNotation(math, ['sum', 'product']);
+  page.doc.activeElement = math;
+  page.doc.dispatch('focusin', { target: math });
+  const tip = page.doc.querySelector('.term-tip');
+  assert.ok(tip.querySelector('.term-tip__cue').textContent.includes('Use Previous/Next for another symbol'));
+  for (const key of ['ArrowLeft', 'ArrowRight']) {
+    let prevented = false;
+    page.doc.dispatch('keydown', { key, target: math, preventDefault() { prevented = true; } });
+    assert.equal(prevented, false, 'native horizontal scrolling must keep the key default');
+    assert.equal(tip.querySelector('.term-tip__label').textContent, 'Sum');
+  }
+  const previous = queryAll(tip, '.term-tip__back').find(el => el.textContent === 'Previous notation');
+  const next = queryAll(tip, '.term-tip__back').find(el => el.textContent === 'Next notation');
+  assert.equal(previous.hidden, false);
+  assert.equal(next.hidden, false);
+  next.dispatch('click', {});
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Product');
+  previous.dispatch('click', {});
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Sum');
+  page.doc.activeElement = next;
+  let popupPrevented = false;
+  page.doc.dispatch('keydown', { key: 'ArrowRight', target: next, preventDefault() { popupPrevented = true; } });
+  assert.equal(popupPrevented, true, 'popup buttons retain keyboard notation cycling');
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Product');
+});
+
+function notationOverlayPage() {
+  const math = makeEl('span');
+  const under = makeLink('glossary.html#glossary-system', 'underlying-system');
+  under.className = 'narrative-ref--term'; under.setAttribute('data-term', 'system');
+  const page = loadPage(makeTab(), hubPage({
+    bodyChildren: [math, under], links: [under],
+    windowGlobals: { __MICROCOSM_TERM_PREVIEWS__: { terms: [
+      { object_id: 'term:sum', preferred_label: 'Sum', reader_preview: 'Adds terms.' },
+      { object_id: 'term:product', preferred_label: 'Product', reader_preview: 'Multiplies terms.' },
+      { object_id: 'term:system', preferred_label: 'System', reader_preview: 'Connected parts.' },
+    ] } },
+  }));
+  assert.equal(page.error, null);
+  page.win.PlectisTermHelp.registerNotation(math, ['sum', 'product']);
+  page.doc.dispatch('mouseover', { target: math });
+  const tip = page.doc.querySelector('.term-tip');
+  const next = queryAll(tip, '.term-tip__back').find(el => el.textContent === 'Next notation');
+  page.page.hitTarget = under;
+  return { page, math, under, tip, next };
+}
+
+test('expanded notation popup keeps control intent when another term lies underneath', () => {
+  const { page, math, tip, next } = notationOverlayPage();
+  page.doc.dispatch('click', { target: math, button: 0, preventDefault() {} });
+  assert.equal(tip.classList.contains('is-expanded'), true);
+  tip.dispatch('mouseenter', { target: tip, clientX: 50, clientY: 50 });
+  tip.dispatch('mousemove', { target: next, clientX: 50, clientY: 50 });
+  next.dispatch('click', {});
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Product');
+  assert.equal(tip.classList.contains('is-expanded'), true);
+});
+
+test('passive notation action buttons keep their target while other passive preview space can retarget', () => {
+  const { page, tip, next, under } = notationOverlayPage();
+  // Mouseenter targets the popup itself: hit-test with pointer events enabled
+  // first to see whether its actual action button is under the pointer.
+  page.doc.elementFromPoint = () => tip.style.pointerEvents === 'none' ? under : next;
+  tip.dispatch('mouseenter', { target: tip, clientX: 50, clientY: 50 });
+  tip.dispatch('mousemove', { target: next, clientX: 50, clientY: 50 });
+  next.dispatch('click', {});
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Product');
+  // Blank passive-card space still discovers a different term behind the card.
+  page.doc.elementFromPoint = () => under;
+  tip.dispatch('mousemove', { target: tip, clientX: 50, clientY: 50 });
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'System');
+});
+
+test('focused passive notation controls retain their target during pointer movement', () => {
+  const { page, tip, next } = notationOverlayPage();
+  page.doc.activeElement = next;
+  tip.dispatch('mousemove', { target: tip, clientX: 50, clientY: 50 });
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Sum');
+  next.dispatch('click', {});
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Product');
+  assert.equal(tip.classList.contains('is-expanded'), false);
+});
+
+test('expanded definitions retain their core meaning without repeating an included preview', () => {
+  const cases = [
+    { reader_preview: 'A lemniscate is a figure-eight curve.', reader_card: 'The term is also used for related curves.',
+      expected: 'A lemniscate is a figure-eight curve. The term is also used for related curves.' },
+    { reader_preview: 'A curve.', reader_card: 'A curve.', expected: 'A curve.' },
+    { reader_preview: 'A curve.', reader_card: 'A curve. More detail.', expected: 'A curve. More detail.' },
+    { text: 'A <curve> & its points.', reader_card: 'More detail.', expected: 'A <curve> & its points. More detail.' },
+  ];
+  for (const row of cases) {
+    const math = makeEl('span');
+    const page = loadPage(makeTab(), hubPage({
+      bodyChildren: [math],
+      windowGlobals: { __MICROCOSM_TERM_PREVIEWS__: { terms: [
+        { object_id: 'term:curve', preferred_label: 'Curve', ...row },
+      ] } },
+    }));
+    assert.equal(page.error, null);
+    page.win.PlectisTermHelp.registerNotation(math, ['curve']);
+    page.doc.dispatch('click', { target: math, button: 0, preventDefault() {} });
+    const text = page.doc.querySelector('.term-tip__text');
+    assert.equal(text.textContent, row.expected);
+    assert.equal(text.querySelector('curve'), null, 'definition text remains escaped');
+  }
+});
+
+
+function glossaryFilterFixture(overrides = {}) {
+  const toolbar = makeEl('div');
+  toolbar.setAttribute('data-comp-filter', '');
+  toolbar.setAttribute('data-comp-filter-items', '.term-card');
+  toolbar.setAttribute('data-comp-count-label', 'terms');
+  toolbar.setAttribute('hidden', '');
+  const input = makeEl('input');
+  input.id = 'comp-filter-input';
+  const status = makeEl('p');
+  status.id = 'comp-filter-status';
+  toolbar.appendChild(input);
+  toolbar.appendChild(status);
+  const empty = makeEl('p');
+  empty.setAttribute('data-comp-empty', '');
+  empty.setAttribute('hidden', '');
+  const clear = makeEl('button');
+  clear.setAttribute('data-comp-clear', '');
+  empty.appendChild(clear);
+  const alpha = makeDetails('glossary-alpha');
+  alpha.className = 'dcard term-card';
+  alpha.setAttribute('data-search', 'Alpha first letter α');
+  const beta = makeDetails('glossary-beta');
+  beta.className = 'dcard term-card';
+  beta.setAttribute('data-search', 'Beta second letter β');
+  for (const card of [alpha, beta]) card.appendChild(makeEl('summary'));
+  const unrelated = makeEl('li');
+  unrelated.className = 'comp-item';
+  unrelated.setAttribute('data-search', 'unrelated');
+  return {
+    toolbar, input, status, empty, clear, alpha, beta, unrelated,
+    page: {
+      path: '/docs/glossary.html', title: 'Glossary',
+      bodyChildren: [toolbar, empty, alpha, beta, unrelated],
+      byId: [input, status, alpha, beta], openDetails: [alpha, beta],
+      ...overrides,
+    },
+  };
+}
+
+test('glossary opt-in reuses filtering, truthful counts, URL state, Escape and empty-state clear', () => {
+  const tab = makeTab();
+  const f = glossaryFilterFixture({ search: '?from=paper&filter=%CE%B1' });
+  const page = loadPage(tab, f.page);
+  assert.equal(page.error, null);
+  assert.equal(f.toolbar.hidden, false);
+  assert.equal(f.input.value, 'α');
+  assert.equal(f.alpha.hidden, false);
+  assert.equal(f.beta.hidden, true);
+  assert.equal(f.unrelated.hidden, false, 'the opt-in selector owns only term cards');
+  assert.equal(f.status.textContent, '1 of 2 shown');
+  const state = { external: 'preserve' };
+  page.win.history.state = state;
+  f.input.value = 'No such term';
+  f.input.dispatch('input');
+  assert.equal(f.status.textContent, '0 of 2 shown');
+  assert.equal(f.empty.hidden, false);
+  assert.equal(new URLSearchParams(page.loc.search).get('filter'), 'No such term');
+  assert.equal(new URLSearchParams(page.loc.search).get('from'), 'paper');
+  assert.equal(page.win.history.state, state);
+  f.clear.dispatch('click');
+  assert.equal(f.input.value, '');
+  assert.equal(f.input._focused, true);
+  assert.equal(f.status.textContent, '2 terms');
+  assert.equal(f.empty.hidden, true);
+  f.input.value = 'beta';
+  f.input.dispatch('input');
+  assert.equal(f.alpha.hidden, true);
+  f.input.dispatch('keydown', { key: 'Escape' });
+  assert.equal(f.alpha.hidden, false);
+  assert.equal(f.input.value, '');
+  assert.equal(page.loc.search, '?from=paper');
+});
+
+test('fresh glossary fragment arrivals reveal conflicting targets and retain matching filters', () => {
+  for (const query of ['alpha', 'beta']) {
+    const f = glossaryFilterFixture({ search: '?filter=' + query, hash: '#glossary-beta' });
+    const page = loadPage(makeTab(), f.page);
+    assert.equal(page.error, null);
+    assert.equal(f.beta.hidden, false);
+    assert.equal(f.beta.open, true);
+    assert.equal(f.input.value, query === 'beta' ? 'beta' : '');
+    assert.equal(page.loc.hash, '#glossary-beta');
+  }
+});
+
+test('typing a glossary filter does not treat the old URL fragment as a new navigation', () => {
+  const f = glossaryFilterFixture({ hash: '#glossary-beta' });
+  const page = loadPage(makeTab(), f.page);
+  f.input.value = 'alpha';
+  f.input.dispatch('input');
+  assert.equal(f.beta.hidden, true);
+  assert.equal(f.input.value, 'alpha');
+  assert.equal(page.loc.search, '?filter=alpha');
+  assert.equal(page.loc.hash, '#glossary-beta');
+});
+
+test('following the same glossary fragment reveals a filtered-out term before its native jump', () => {
+  const f = glossaryFilterFixture({ hash: '#glossary-beta' });
+  const page = loadPage(makeTab(), f.page);
+  f.input.value = 'alpha';
+  f.input.dispatch('input');
+  assert.equal(f.beta.hidden, true);
+  const link = makeLink('#glossary-beta');
+  page.doc.dispatch('click', { target: link, button: 0 });
+  assert.equal(f.input.value, '');
+  assert.equal(f.beta.hidden, false);
+  assert.equal(f.beta.open, true);
+  assert.equal(page.loc.search, '');
+});
+
+test('glossary hash navigation reveals a filtered-out target without dropping other URL parameters', () => {
+  const f = glossaryFilterFixture({ search: '?from=paper&filter=alpha' });
+  const page = loadPage(makeTab(), f.page);
+  page.loc.hash = '#glossary-beta';
+  page.fireHashchange();
+  assert.equal(f.input.value, '');
+  assert.equal(f.beta.hidden, false);
+  assert.equal(f.beta.open, true);
+  assert.equal(page.loc.search, '?from=paper');
+});
+
+test('cold and explicit glossary returns keep a saved filter despite its old excluded fragment', () => {
+  for (const exact of [false, true]) {
+    const tab = makeTab();
+    const entry = {
+      path: '/docs/glossary.html', url: '/docs/glossary.html?filter=alpha#glossary-beta',
+      title: 'Glossary', y: 1234, open: ['glossary-alpha'], focus: null,
+    };
+    tab.store.setItem(exact ? 'mc:viewstate:restore' : 'mc:viewstate:stack', JSON.stringify(exact ? entry : [entry]));
+    const f = glossaryFilterFixture({ search: '?filter=alpha', hash: '#glossary-beta', navType: exact ? 'navigate' : 'back_forward' });
+    const page = loadPage(tab, f.page);
+    assert.equal(page.error, null);
+    assert.equal(f.input.value, 'alpha');
+    assert.equal(f.beta.hidden, true);
+    assert.equal(f.alpha.hidden, false);
+    assert.equal(f.alpha.open, true);
+    assert.equal(page.loc.search, '?filter=alpha');
+    assert.equal(tab.lastScrollTo, 1234);
+  }
+});
+
+test('glossary popstate restores URL filtering without treating an old hash as a new target', () => {
+  const f = glossaryFilterFixture();
+  const page = loadPage(makeTab(), f.page);
+  page.loc.search = '?filter=beta';
+  page.loc.hash = '#glossary-alpha';
+  page.firePopstate();
+  assert.equal(f.input.value, 'beta');
+  assert.equal(f.alpha.hidden, true);
+  assert.equal(f.beta.hidden, false);
+  assert.equal(f.status.textContent, '1 of 2 shown');
+});
+
+
+test('following a new glossary fragment preserves the prior filter entry for same-page Back', () => {
+  const tab = makeTab();
+  const timers = [];
+  const f = glossaryFilterFixture({
+    search: '?filter=alpha', hash: '#glossary-alpha',
+    windowGlobals: { setTimeout(fn) { timers.push(fn); return timers.length; } },
+  });
+  const page = loadPage(tab, f.page);
+  const link = makeLink('#glossary-beta');
+  page.doc.dispatch('click', { target: link, button: 0 });
+  assert.equal(f.beta.hidden, false, 'the target is visible before the native jump');
+  assert.equal(page.loc.search, '?filter=alpha', 'the old history entry retains its filter');
+  page.loc.hash = '#glossary-beta';
+  page.win.history.state = null;
+  page.firePopstate(null);
+  page.fireHashchange();
+  assert.equal(f.beta.hidden, false);
+  assert.equal(f.input.value, '');
+  assert.equal(page.loc.search, '', 'only the new history entry clears its filter');
+  while (timers.length) timers.shift()();
+  page.loc.search = '?filter=alpha';
+  page.loc.hash = '#glossary-alpha';
+  page.firePopstate();
+  const callsBeforeTraversal = tab.scrollToCalls.length;
+  page.fireHashchange();
+  assert.equal(f.input.value, 'alpha');
+  assert.equal(f.beta.hidden, true);
+  assert.equal(page.loc.search, '?filter=alpha');
+  assert.equal(tab.scrollToCalls.length, callsBeforeTraversal, 'fragment alignment cannot overwrite native restored scroll');
+});
+
+
+test('new visible glossary fragments still open and align after popstate, including scripted navigation', () => {
+  for (const search of ['', '?filter=letter']) {
+    for (const clicked of [true, false]) {
+      const timers = [];
+      const tab = makeTab();
+      const f = glossaryFilterFixture({ search, windowGlobals: {
+        setTimeout(fn) { timers.push(fn); return timers.length; },
+      } });
+      f.beta._docTop = 700;
+      f.beta.children[0]._docTop = 700;
+      const page = loadPage(tab, f.page);
+      assert.equal(f.beta.open, false);
+      if (clicked) page.doc.dispatch('click', { target: makeLink('#glossary-beta'), button: 0 });
+      page.loc.hash = '#glossary-beta';
+      page.win.history.state = null;
+      page.firePopstate(null);
+      page.fireHashchange();
+      assert.equal(page.error, null);
+      assert.equal(f.beta.hidden, false);
+      assert.equal(f.beta.open, true);
+      assert.equal(f.input.value, search ? 'letter' : '');
+      assert.equal(page.loc.search, search);
+      assert.ok(tab.scrollToCalls.length > 0, 'new fragments retain normal alignment');
+    }
+  }
 });

@@ -7,7 +7,7 @@
   "form": "Problem note",
   "pages": 11,
   "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
-  "precis": "Clearing denominators turns Erdős #243 into rigidity of a centred integer error orbit. Lean excludes eventually negative constant magnitude and positive-drift periodic magnitude, and proves that normalised vanishing plus an eventually bounded negative part forces the error to vanish and the Sylvester recurrence to begin. Eventual strict centring is redundant, while Koizumi supplies normalised vanishing for the canonical orbit. Two of the implications proved here, absorption and descent, are identified with prior lemmas of Koizumi's in canonical coordinates, and no priority is claimed over them. The missing hypothesis is the negative-part bound: any survivor has cofinally unbounded negative excursions and divergent normalised negative mass.",
+  "precis": "Clearing denominators turns Erdős #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.",
   "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #243, which remains open",
   "problem_id": "erdos_243",
@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "ad2e77ffca32e73f22345a2024030a7dcb06fa24badd0d3fc1aa07bebbb00b31",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 278,
     "raw_math_fallback_count": 0,
@@ -43,88 +44,114 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:problem",
       "label": "Introduction"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-obstruction.",
       "label": "The obstruction."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:bounded",
       "label": "Proof of bounded-negative rigidity"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:state",
       "label": "The arithmetic ingredients"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "sec:defect",
       "label": "Error, absorption and descent"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "sec:barrier",
       "label": "The first-crossing obstruction"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "reduction-and-stabilisation",
       "label": "Reduction and stabilisation"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:transfer",
       "label": "Transfer to a reciprocal series"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:mass",
       "label": "A scalar finite-mass criterion"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:lcmrecords",
       "label": "Weighted first crossings of LCM records"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:secondaryrate",
       "label": "Further consequences"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:open",
       "label": "The remaining arithmetic estimate"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "formal-scope-and-supporting-record.",
       "label": "Formal scope and supporting record."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "declarations.",
       "label": "Declarations."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "app:index",
       "label": "Guide to the formal sources"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "app:residue",
       "label": "A factorial residue reduction for forced orbits"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:problem",
+        "title": "Introduction",
+        "level": 2
+      },
+      {
+        "id": "sec:bounded",
+        "title": "Proof of bounded-negative rigidity",
+        "level": 2
+      },
+      {
+        "id": "sec:barrier",
+        "title": "The first-crossing obstruction",
+        "level": 3
+      },
+      {
+        "id": "sec:open",
+        "title": "The remaining arithmetic estimate",
+        "level": 2
+      }
+    ]
+  }
 }

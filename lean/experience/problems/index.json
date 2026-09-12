@@ -12,7 +12,7 @@
       "paper_id": "erdos-68-factorial-denominator-irrationality",
       "module_count": 13,
       "main_result_count": 2,
-      "has_frontier": true
+      "has_results_guide": true
     },
     {
       "problem_id": "erdos_243",
@@ -24,7 +24,7 @@
       "paper_id": "erdos-243-reciprocal-tail-rigidity",
       "module_count": 9,
       "main_result_count": 4,
-      "has_frontier": true
+      "has_results_guide": true
     },
     {
       "problem_id": "erdos_249",
@@ -36,7 +36,7 @@
       "paper_id": "erdos-249-binary-totient-series",
       "module_count": 3,
       "main_result_count": 15,
-      "has_frontier": true
+      "has_results_guide": true
     },
     {
       "problem_id": "erdos_251",
@@ -48,7 +48,7 @@
       "paper_id": "erdos-251-prime-gap-dyadic-series",
       "module_count": 1,
       "main_result_count": 5,
-      "has_frontier": true
+      "has_results_guide": true
     },
     {
       "problem_id": "erdos_257",
@@ -60,7 +60,7 @@
       "paper_id": "erdos-257-mersenne-support-subseries",
       "module_count": 1,
       "main_result_count": 13,
-      "has_frontier": true
+      "has_results_guide": true
     },
     {
       "problem_id": "erdos_269",
@@ -72,7 +72,7 @@
       "paper_id": "erdos-269-three-prime-running-lcm",
       "module_count": 7,
       "main_result_count": 3,
-      "has_frontier": true
+      "has_results_guide": true
     },
     {
       "problem_id": "erdos_1041",
@@ -84,7 +84,7 @@
       "paper_id": "erdos-1041-lemniscate-newton-flow",
       "module_count": 1,
       "main_result_count": 2,
-      "has_frontier": true
+      "has_results_guide": true
     },
     {
       "problem_id": "erdos_1049",
@@ -96,7 +96,7 @@
       "paper_id": "erdos-1049-rational-base-lambert",
       "module_count": 6,
       "main_result_count": 3,
-      "has_frontier": true
+      "has_results_guide": true
     }
   ]
 }

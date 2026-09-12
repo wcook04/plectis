@@ -5116,6 +5116,1237 @@ prefixes are written out explicitly and exactly as recorded against the
 Lean source; nothing is compressed to “<span
 class="math inline" data-term-auto="off">\(\forall\dots\)</span>” where the source specifies
 bounds.</p>
+<table>
+<caption>The #249 scale ladder. Every row above the rule is proved;
+every row below it is the cofinal target or a direct consumer of
+it.</caption>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l"><p><strong>Result</strong></p></th>
+<th class="ta-l"><strong>Lean site</strong></th>
+<th class="ta-l"><strong>Scale</strong></th>
+<th class="ta-l"><strong>Quantifier prefix</strong></th>
+<th class="ta-l"><strong>Coordinate</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l"><p><strong>Result</strong></p></td>
+<td class="ta-l"><strong>Lean site</strong></td>
+<td class="ta-l"><strong>Scale</strong></td>
+<td class="ta-l"><strong>Quantifier prefix</strong></td>
+<td class="ta-l"><strong>Coordinate</strong></td>
+</tr>
+<tr>
+<td colspan="5" class="ta-r"><em>continued on next
+page</em></td>
+</tr>
+<tr>
+<td class="ta-l"><p></p></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">totientTail well-defined</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+N\)</span></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(2^N\!\cdot\!
+S\)</span> split</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+N\)</span></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">windowDiscrepancy (def)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\,\forall N\,\forall L\)</span></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">certifiedKill Sep<span
+class="math inline" data-term-auto="off">\((h,N,L)\)</span> (def)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\,\forall N\,\forall L\)</span></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">certificate depth floor</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\,\forall N\,\forall L\)</span>, given <code>certifiedKill</code><span
+class="math inline" data-term-auto="off">\(\,h\,N\,L\)</span></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">kill engine soundness</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\,\forall N\,\forall L\)</span>, given <code>certifiedKill</code></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">certificates are complete receipts</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\,\forall N\)</span></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">forced integrality under
+den. divisibility</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+N\,\forall h\,\forall r{:}\mathbb{Q}\)</span>, given <span
+class="math inline" data-term-auto="off">\(S=r\)</span>, <span
+class="math inline" data-term-auto="off">\(r.\mathrm{den}\mid 2^N(2^h{-}1)\)</span></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">tail-period law</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\lnot\mathrm{Irrational}\,S\to\exists
+h{&gt;}0\,\exists N_0\,\forall N{\ge}N_0\)</span></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">periodLcm basic facts</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t\)</span></td>
+<td class="ta-l">other-lcm-period-ray</td>
+</tr>
+<tr>
+<td class="ta-l">non-divisor<span
+class="math inline" data-term-auto="off">\(&lt;2t\)</span> is a bare prime power</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t\,\forall j\,(0{&lt;}j{&lt;}2t)\)</span>, given <span
+class="math inline" data-term-auto="off">\(j\nmid\mathrm{periodLcm}\,t\)</span></td>
+<td class="ta-l">other-lcm-window</td>
+</tr>
+<tr>
+<td class="ta-l">LCM-ray multiplicative split</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t\,\forall j\,\forall q\)</span>, given <span
+class="math inline" data-term-auto="off">\(j\mid\mathrm{periodLcm}\,t\)</span>,
+clean-divisor</td>
+<td class="ta-l">other-lcm-window-multiplicative</td>
+</tr>
+<tr>
+<td class="ta-l">rationality flattens the whole LCM
+cone</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\lnot\mathrm{Irrational}\,S\to\exists t_1\,\forall
+t{\ge}t_1\,\forall q{&gt;}0\,\forall m\)</span></td>
+<td class="ta-l">other-lcm-cone</td>
+</tr>
+<tr>
+<td class="ta-l">second-difference kill engine</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\,\forall N\,\forall L\)</span>, given
+<code>certifiedRank2Kill</code></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">cone-menu nonintegral pair</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+H\,\forall L\,\forall Q{\ne}\emptyset\)</span>, given
+<code>coneNonflatCert</code></td>
+<td class="ta-l">other-lcm-cone-menu</td>
+</tr>
+<tr>
+<td class="ta-l">survivorKill engine (carry-orbit
+route)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\,\forall N\,\forall K\)</span>, given <code>survivorKill</code></td>
+<td class="ta-l">other-carry-orbit</td>
+</tr>
+<tr>
+<td class="ta-l">Farey neighbour denominator law</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a\,b\,c\,d\,r\,s{:}\mathbb{Z}\)</span>, <span
+class="math inline" data-term-auto="off">\(b{&gt;}0,d{&gt;}0,bc{-}ad{=}1\)</span>,
+unimodular-between</td>
+<td class="ta-l">farey</td>
+</tr>
+<tr>
+<td class="ta-l">Dirichlet near-integer criterion</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+u{:}\mathbb{N}\to\mathbb{Q}\,\forall x{:}\mathbb{R}\)</span></td>
+<td class="ta-l">n/a (generic)</td>
+</tr>
+<tr>
+<td class="ta-l">Erdős 1948 near-integer criterion</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+\xi{:}\mathbb{R}\)</span>, <span class="math inline" data-term-auto="off">\(\forall
+q{&gt;}0\,\exists m\,z\,0{&lt;}|m\xi{-}z|{&lt;}1/q\)</span></td>
+<td class="ta-l">n/a (generic)</td>
+</tr>
+<tr>
+<td class="ta-l">finite-minor <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span> linear independence</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\forall\,\mathrm{family}{:}\iota\to\mathbb{N}\to\mathbb{Q}\)</span>,
+given SeparatedMinorCertificate</td>
+<td class="ta-l">n/a (generic)</td>
+</tr>
+<tr>
+<td class="ta-l">dyadic totient-kernel rank <span
+class="math inline" data-term-auto="off">\(=2^e{+}1\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+e\)</span></td>
+<td class="ta-l">other-dyadic-kernel-rank</td>
+</tr>
+<tr>
+<td class="ta-l">rationality forces unbounded carry-kernel
+rank</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\lnot\mathrm{Irrational}\,S\to\exists
+v{&gt;}0\,\exists u\,\forall e\)</span></td>
+<td class="ta-l">other-carry-kernel-rank</td>
+</tr>
+<tr>
+<td class="ta-l">no fixed <span
+class="math inline" data-term-auto="off">\(D\)</span> clears all primitive Euler jets</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+D{&gt;}0\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">Mersenne–Lambert ladder value
+identities</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">value identities, <span
+class="math inline" data-term-auto="off">\(L(\mu){=}\tfrac12\)</span>, <span
+class="math inline" data-term-auto="off">\(L(\varphi){=}2\)</span>, <span
+class="math inline" data-term-auto="off">\(L(1){=}\)</span>Erdős–Borwein</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">prime-power reduced-denom. unit-gap
+ceiling</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall p\
+\text{prime}\,\forall e{&gt;}0\)</span></td>
+<td class="ta-l">farey</td>
+</tr>
+<tr>
+<td class="ta-l">positive rational-difference lower
+bound</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall\
+\text{whole}\,\text{pfx}{:}\mathbb{Q},\
+\text{pfx}{&lt;}\text{whole}\)</span></td>
+<td class="ta-l">n/a (generic)</td>
+</tr>
+<tr>
+<td class="ta-l">Möbius-square identity (<span
+class="math inline" data-term-auto="off">\(S=\tfrac12+\Sigma\)</span>)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">squared-Lambert transfer engine</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+w{:}\mathbb{N}\to\mathbb{R}\,(|w(d)|{\le}d)\,\forall
+r\in[0,1)\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(L_2(\mu)=S-\tfrac12\)</span></td>
+<td class="ta-l">prose:L2_of_mu_is_249</td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(L_2(1)=\zeta_q(2)-\zeta_q(1)\)</span>
+identity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(L_2(\varphi)\)</span> = gcd moment</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne/probability</td>
+</tr>
+<tr>
+<td class="ta-l">level-mirror table</td>
+<td class="ta-l">prose:level_mirror_table</td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">gcd-divisibility factorizes</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+d{:}\mathbb{N},\,d{&gt;}0\)</span></td>
+<td class="ta-l">probability</td>
+</tr>
+<tr>
+<td class="ta-l">reduced-direction law <span
+class="math inline" data-term-auto="off">\(\Sigma=1\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional (sum over all coprime
+pairs)</td>
+<td class="ta-l">probability</td>
+</tr>
+<tr>
+<td class="ta-l">Stern–Brocot cylinder recursion</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a\,b{:}\mathbb{N}^+\,\forall\text{depth}\,d\)</span></td>
+<td class="ta-l">other-stern-brocot</td>
+</tr>
+<tr>
+<td class="ta-l">repunit gcd-word T1</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+r\,(\mathrm{Squarefree}\,r)\,\forall k{&lt;}r\)</span></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">eval-at-2 recovers numerator</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+r\,(\mathrm{Squarefree}\,r)\)</span></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">radical-shadow scale decomposition</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+H{&gt;}0\,\forall r{&gt;}0\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">cyclotomic congruence T2</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+r\,(\mathrm{Squarefree}\,r)\,\forall m\,(m{\mid}r)\)</span></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">top-fibre survives T3</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+r\,(\mathrm{Squarefree}\,r)\)</span></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">upper-half prime channel survival T4</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t\,\forall p\ \text{prime}\in(t/2,t]\)</span>, scale-coprime-to-<span
+class="math inline" data-term-auto="off">\(C\)</span></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">denominator lower bound / exact value</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t\)</span> (exact-value); <span class="math inline" data-term-auto="off">\(t{\ge}5\)</span>
+(lower bound)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">prime-power jump recurrence T5</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall p\
+\text{prime}\,(p{\nmid}r)\,\forall m\,(m{\mid}r)\)</span></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">squared-Mersenne diagonal tail
+enclosure</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+D{:}\mathbb{N}\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\((3,5)\)</span>
+joint annihilator</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+d{&gt;}0\,(d{\mid}H)\)</span>; general: finite affine annihilator</td>
+<td class="ta-l">other-lcm-diagonal</td>
+</tr>
+<tr>
+<td class="ta-l">composite-dilation defect identity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\in}A\,(a{&gt;}0)\,\forall x{&gt;}0\)</span></td>
+<td class="ta-l">other-divisor-support-coeff</td>
+</tr>
+<tr>
+<td class="ta-l">sublogarithmic zero-window T11</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+\varepsilon{&gt;}0\,\exists B\)</span>, given rationality of the base-2
+support series</td>
+<td class="ta-l">other-support-divisor-counting</td>
+</tr>
+<tr>
+<td class="ta-l">campbell shift <span
+class="math inline" data-term-auto="off">\(\leftrightarrow\)</span> Mersenne endpoint (shared
+namespace, #257-flavored)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">iff, no extra parameter</td>
+<td class="ta-l">other-greedy-mersenne-achievement</td>
+</tr>
+<tr>
+<td class="ta-l">totient overlap-factor
+multiplicativity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+x{&gt;}0\)</span> (<span class="math inline" data-term-auto="off">\(j\)</span> fixed)</td>
+<td class="ta-l">other-totient-arithmetic</td>
+</tr>
+<tr>
+<td class="ta-l">totient relative-Euler-product split</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+j\,x{&gt;}0\)</span></td>
+<td class="ta-l">other-totient-arithmetic</td>
+</tr>
+<tr>
+<td class="ta-l">lcmRayArithmeticLetter <span
+class="math inline" data-term-auto="off">\(=\)</span> deltaTotient <span
+class="math inline" data-term-auto="off">\(=\)</span> diagonalWindowIncrement</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t\,\forall j\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">lcmDiagonalArithmeticWord <span
+class="math inline" data-term-auto="off">\(=\)</span> windowDiscrepancy</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t\,\forall L\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">#249 <span
+class="math inline" data-term-auto="off">\(\iff\)</span> cofinal actual-orbit
+nonintegrality</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">iff</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">actualLcmTailOrbit <span
+class="math inline" data-term-auto="off">\(=\)</span> scaled series <span
+class="math inline" data-term-auto="off">\(-\)</span> prefix</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">explicit finite-block approximation</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a\,\forall q\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">guard-cylinder normal form</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall h\,N,\
+\text{iff}\)</span></td>
+<td class="ta-l">seam-integer</td>
+</tr>
+<tr>
+<td class="ta-l">fixedRankSecondDifference sign under
+extremality</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+H\,j\)</span>, given MiddleRankTotientExtremal</td>
+<td class="ta-l">other-fixed-rank-curvature</td>
+</tr>
+<tr>
+<td class="ta-l">dyadic fixture exactness (kernel-valuation
+sharpness)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+n\)</span> (closed-form)</td>
+<td class="ta-l">other-fixed-rank-curvature</td>
+</tr>
+<tr>
+<td class="ta-l">parityCoboundaryWeight (def)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+n\)</span> (definition)</td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">totientTail <span
+class="math inline" data-term-auto="off">\(=\)</span> positive foreign-residue kernel
+sum</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+N\)</span></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">totientTail <span
+class="math inline" data-term-auto="off">\(=\)</span> shifted Möbius-pulse sum</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+N\)</span></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">Lambert double-sum regroup engine</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+w\,v{:}\mathbb{N}\to\mathbb{R}\,(|w(d)|{\le}d,\,|v(m)|{\le}m)\)</span></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">carryShift-integrality iff</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+N\,k\)</span>, given tempered orbit</td>
+<td class="ta-l">seam-integer</td>
+</tr>
+<tr>
+<td class="ta-l">rationality <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span> periodicity &amp; unbounded
+rank</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\lnot\mathrm{Irrational}\,S\to\exists
+v\,u\,\forall e\)</span></td>
+<td class="ta-l">seam-integer</td>
+</tr>
+<tr>
+<td class="ta-l">adjugate tail-cost floor <span
+class="math inline" data-term-auto="off">\(\ge 3\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall\
+\text{finite}\ w{:}\iota\to\mathbb{Q}\,x{:}\iota\to\mathbb{N}\)</span>,
+given <span class="math inline" data-term-auto="off">\(\sum w_i\varphi(x_i){=}1\)</span></td>
+<td class="ta-l">other-adjugate-linear-algebra</td>
+</tr>
+<tr>
+<td class="ta-l">directedCertifiedKill exact iff</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\,N\,L\)</span></td>
+<td class="ta-l">seam-integer</td>
+</tr>
+<tr>
+<td class="ta-l">tempered orbit rigidity iff</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+c{:}\mathbb{N}\to\mathbb{N}\,(c(n){\le}n)\)</span>, iff</td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">doubling-orbit rigidity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+d{:}\mathbb{N}\to\mathbb{R}\)</span>, doubling <span
+class="math inline" data-term-auto="off">\(+\)</span> tempered <span
+class="math inline" data-term-auto="off">\(\to d{\equiv}0\)</span></td>
+<td class="ta-l">other-abstract-recursion</td>
+</tr>
+<tr>
+<td class="ta-l">finite-state no-go (unbounded state)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+m\,\forall\mathrm{State}\)</span>, collapsing-state <span
+class="math inline" data-term-auto="off">\(\to\)</span> no decoder</td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">fixed-depth affine reset</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{:}\mathbb{N}\to\mathbb{Z}\,\forall u_0\,v_0\,\forall L\)</span></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">signed dichotomy engine (full-block
+certs)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+b{\ge}2\,\forall c\,\forall q\)</span>, given full-block certificate at
+<span class="math inline" data-term-auto="off">\(q\)</span></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">Lambert double-sum regroup (dyadic
+forward-difference calc.)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+f,c{:}\mathbb{N}\to\mathbb{Z}\,\forall\ \text{shift-lists}\)</span></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">fair-coin coprimality bridge</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+n\)</span>; <span class="math inline" data-term-auto="off">\(\forall r\in[0,1)\)</span></td>
+<td class="ta-l">probability</td>
+</tr>
+<tr>
+<td class="ta-l">linear-descender rigidity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+V,W\,\forall\mathrm{ev}\,\forall L\)</span>, <span
+class="math inline" data-term-auto="off">\(\ker(\mathrm{ev}){\le}\ker(L)\)</span></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">rational denominator survival law</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+D{&gt;}0\,\forall m{\mid}D\,\forall a\)</span></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">scalar-localization complement-dvd (adelic
+height tax)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+x{:}\mathbb{Q}\,\forall H\,(H{\mid}x.\mathrm{den})\,\forall
+c\,((cx).\mathrm{den}{\mid}H)\)</span></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">signed Hankel terminal-parity engine</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\exists
+m{\in}s\)</span> (strictly maximal, odd coeff), <span
+class="math inline" data-term-auto="off">\(\forall i{\ne}m\,e(i){&lt;}e(m)\)</span></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">residual gauge obstruction (locked
+minors)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+d\,\forall e{:}\mathrm{Fin}\,d{\to}\mathbb{N}\,\forall
+z{:}\mathrm{Fin}\,d{\to}\mathbb{C}\)</span> (<span
+class="math inline" data-term-auto="off">\(z\)</span> nonzero)</td>
+<td class="ta-l">other-first-harmonic-phase</td>
+</tr>
+<tr>
+<td class="ta-l">incidence-quotient no compression</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+N{:}\mathbb{N}\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">Farey window <span
+class="math inline" data-term-auto="off">\(K{=}240\)</span> denominator bound</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+q{:}\mathbb{N},\,0{&lt;}q{\le}\)</span><br />
+<span class="math inline" data-term-auto="off">\(79{,}639{,}646{,}646{,}701{,}\)</span><br />
+<span
+class="math inline" data-term-auto="off">\(375{,}323{,}355{,}774{,}875{,}831{,}053\)</span></td>
+<td class="ta-l">farey</td>
+</tr>
+<tr>
+<td class="ta-l">denominator lower bound <span
+class="math inline" data-term-auto="off">\(S{\ne}p/q\)</span>, <span
+class="math inline" data-term-auto="off">\(q{\le}Q_0\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+p{:}\mathbb{Q},\,p.\mathrm{den}{\le}Q_0\)</span></td>
+<td class="ta-l">farey</td>
+</tr>
+<tr>
+<td class="ta-l">foreign-residue tail-limit converter</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+H\,D\)</span> with <span class="math inline" data-term-auto="off">\(2H{\le}D\)</span>, given
+tail-limit convergence</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">fixed-precision tropical no-go</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+u{&gt;}0\)</span> (fixed precision), <span
+class="math inline" data-term-auto="off">\(\forall\)</span> finite carry word</td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\mu\)</span>-clean-Padé feasibility wall</td>
+<td class="ta-l">prose:mu_pollution_qpade_wall</td>
+<td class="ta-l">bounded</td>
+<td class="ta-l">claimed <span
+class="math inline" data-term-auto="off">\(\forall d\)</span>; machine-audited only <span
+class="math inline" data-term-auto="off">\(d{\le}12\)</span></td>
+<td class="ta-l">mobius-mersenne (q-Padé)</td>
+</tr>
+<tr>
+<td class="ta-l">iterated pullback / bounded-<span
+class="math inline" data-term-auto="off">\(\Omega\)</span> vanishing</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l">given <span
+class="math inline" data-term-auto="off">\(\Omega(a){\le}K\,\forall a{\in}A\)</span></td>
+<td class="ta-l">other-support-divisor-counting</td>
+</tr>
+<tr>
+<td class="ta-l">rough-density <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span> totient <span
+class="math inline" data-term-auto="off">\(\ge\tfrac34 n\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}8\,\forall n{&gt;}0\)</span> (<span
+class="math inline" data-term-auto="off">\(n\)</span> is <span
+class="math inline" data-term-auto="off">\(t\)</span>-rough, <span
+class="math inline" data-term-auto="off">\(t{=}2^a\)</span>, <span
+class="math inline" data-term-auto="off">\(n{&lt;}2^{2\cdot2^a}\)</span>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">short-window sign fixed positive</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}8\,\forall j\,(0{&lt;}j{&lt;}2\cdot2^a)\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">unconditional lower-half positivity</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded<span
+class="math inline" data-term-auto="off">\(^\dagger\)</span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}8\,\forall J\,(J{+}(a{+}6){&lt;}2\cdot2^a)\)</span>, no
+rationality hypothesis</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">top-edge residue survivor negative</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}8\,\forall J\,K\)</span> (room bound)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">integrality forces top-edge residue</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}8\,\forall J\,K\)</span> (room, <span
+class="math inline" data-term-auto="off">\(2H{+}J{+}K{+}2{&lt;}2^K\)</span>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">short-kill supply through <span
+class="math inline" data-term-auto="off">\(a{\le}6\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a_0{\le}6\,\exists a\,L\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">terminal dyadic staircase impossible with
+room</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}8\,\forall J\,K\,m\)</span> (room, modulus-wide)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">punctured staircase penultimate pin</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}8\,\forall J\,K\,m\)</span> (room <span
+class="math inline" data-term-auto="off">\(+\)</span> punctured hyp.)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">top-edge residue-gap <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span> nonintegral</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}8\,\forall J\,K\,m\)</span> (room, one-sided)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">odd-rank centred-lift <span
+class="math inline" data-term-auto="off">\(=\)</span> terminal <span
+class="math inline" data-term-auto="off">\(-\)</span> true carry</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}8\,\forall q\)</span> (room, fit bound <span
+class="math inline" data-term-auto="off">\(2(H{+}q{+}2){\le}4^q\)</span>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">prime-power kernel valuation floor</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a{\ge}4\,\forall j{&gt;}0\,(j^2{\le}2^a)\)</span></td>
+<td class="ta-l">other-fixed-rank-curvature</td>
+</tr>
+<tr>
+<td class="ta-l">finite rational-separation <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span> <span
+class="math inline" data-term-auto="off">\(\lnot\)</span> hit (#257-flavored)</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+H{&gt;}0\,\forall D{\ge}2H\)</span>, given finite separation</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">homogeneous Mersenne multiplier does not
+annihilate</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+K,q\,(K{&gt;}0,K{&lt;}q,q{\mid}2^K{-}1)\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">numerator-gap <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span> <span
+class="math inline" data-term-auto="off">\(\lnot\)</span> hit (#257-flavored)</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+H,D\)</span> fixed, given uniform numerator-gap bound</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">periodic-weight Lambert dichotomy</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+b{\ge}2\,\forall m{&gt;}0\,\forall w\)</span> (<span
+class="math inline" data-term-auto="off">\(w(n{+}m){=}w(n)\)</span>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">non-negative periodic <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span> irrational
+(unconditional)</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+b{\ge}2\,\forall m{&gt;}0\)</span>, <span
+class="math inline" data-term-auto="off">\(w\)</span> periodic, <span
+class="math inline" data-term-auto="off">\(\ge0\)</span>, frequently <span
+class="math inline" data-term-auto="off">\({\ne}0\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">all <span
+class="math inline" data-term-auto="off">\(h\in[1,8]\)</span> kill certificate at depth 16,
+<span class="math inline" data-term-auto="off">\(N{=}12\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\in[1,8]\)</span>, <code>certifiedKill</code> <span
+class="math inline" data-term-auto="off">\(h\)</span> 12 16 (by <code>decide</code>)</td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(h\in[1,16]\)</span>, exponent 14 kill table</td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\in[1,16]\)</span>, denominator exponent 14 (by
+<code>decide</code>)</td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">rank-2 kill not shallower at <span
+class="math inline" data-term-auto="off">\((h,N){=}(1,8)\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l">measured over <span
+class="math inline" data-term-auto="off">\(t{\le}20\)</span> (30/40 cells)</td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">28-point diagonal pincer table through
+<span class="math inline" data-term-auto="off">\(t{=}64\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(t\in\{1,2,3,4,5,7,8,9,11,13,16,17,\dots\}\)</span>
+(28 explicit values)</td>
+<td class="ta-l">other-lcm-diagonal</td>
+</tr>
+<tr>
+<td class="ta-l">contiguous diagonal certificate band
+through <span class="math inline" data-term-auto="off">\(t{\le}82\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t{\le}82\,\exists L\)</span>; no <span
+class="math inline" data-term-auto="off">\(t{=}83\)</span> certificate claimed</td>
+<td class="ta-l">other-lcm-diagonal</td>
+</tr>
+<tr>
+<td class="ta-l">short kill at <span
+class="math inline" data-term-auto="off">\(a{=}4\)</span> and <span
+class="math inline" data-term-auto="off">\(a{=}6\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(a{=}4\)</span>, <span
+class="math inline" data-term-auto="off">\(a{=}6\)</span> (concrete, kernel-checked)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">square-CRT clean block: vanishing /
+nonvanishing witnesses</td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l">witness <span
+class="math inline" data-term-auto="off">\(n{=}52\)</span> (vanishes); witness <span
+class="math inline" data-term-auto="off">\(n{=}27\)</span> (nonzero)</td>
+<td class="ta-l">other-crt-dyadic-residue</td>
+</tr>
+<tr>
+<td class="ta-l">echo-vs-height two-front wall</td>
+<td class="ta-l">prose:echo_versus_height_two_front_wall</td>
+<td class="ta-l">fixed</td>
+<td class="ta-l">empirical over tested families only (not
+universal)</td>
+<td class="ta-l">mobius-mersenne (q-Padé,
+quantitative)</td>
+</tr>
+<tr>
+<td class="ta-l">period-4 zeroset escape witness</td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+n,\,n{\equiv}3\!\!\pmod 4\)</span> (fixed weight <span
+class="math inline" data-term-auto="off">\(w\)</span>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l"><strong>THE WALL</strong> — certificate
+supply <span class="math inline" data-term-auto="off">\(\Rightarrow\)</span> Irrational <span
+class="math inline" data-term-auto="off">\(S\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l"><strong>cofinal</strong></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h{\ge}1\,\forall N_0{\ge}0\,\exists N{\ge}N_0\,\exists L,\
+\texttt{certifiedKill}\,h\,N\,L\)</span></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">multiple-certificate supply
+(weakened)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h_0{&gt;}0\,\forall N_0\,\exists m{&gt;}0\,\exists N{\ge}N_0\,\exists
+L\)</span></td>
+<td class="ta-l">other-lcm-period-multiple</td>
+</tr>
+<tr>
+<td class="ta-l">LCM-diagonal one-parameter
+restatement</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t_0\,\exists t{\ge}t_0\,\exists L\)</span></td>
+<td class="ta-l">other-lcm-diagonal</td>
+</tr>
+<tr>
+<td class="ta-l">LCM-cone window-kill supply (widest
+target)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t_0\,\exists t{\ge}t_0\,\exists q{&gt;}0\,\exists m\,\exists
+L\)</span></td>
+<td class="ta-l">other-lcm-cone</td>
+</tr>
+<tr>
+<td class="ta-l">LCM diagonal/cone nonintegrality
+restatement</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t_0\,\exists t{\ge}t_0\)</span>, <span
+class="math inline" data-term-auto="off">\(\texttt{totientTail}(2H_t){-}\texttt{totientTail}(H_t)\notin\mathbb{Z}\)</span></td>
+<td class="ta-l">other-real-analytic-nonintegrality</td>
+</tr>
+<tr>
+<td class="ta-l">LCM cone-nonflat supply (sharpest
+depth-reduced form)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\exists\)</span> unbounded-scale menu <span
+class="math inline" data-term-auto="off">\(Q\)</span> with <code>coneNonflatCert</code>
+firing</td>
+<td class="ta-l">other-lcm-cone-menu</td>
+</tr>
+<tr>
+<td class="ta-l">first-harmonic norm-gap supply</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h{&gt;}0\,\forall X_0\,\exists X{\ge}\max(X_0,1)\,\exists L\)</span>,
+room <span
+class="math inline" data-term-auto="off">\(16(2X{+}h{+}L{+}2){\le}2^L\)</span></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">prime-jump sharp-kill supply</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+t_0\,\exists t{\ge}t_0\,\exists p,L{&gt;}0\)</span></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(a\)</span>-exponent short-arithmetic kill supply
+(the open trigger)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a_0\,\exists a\,L,\ a_0{\le}a\land L{&lt;}2\cdot2^a\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">actual-orbit separation supply</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l">cofinal <span
+class="math inline" data-term-auto="off">\(1/32{+}\)</span>error separation at guarded odd
+ranks</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">top-edge-residue-gap sufficiency chain (5
+links, weakest first)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+a_0\,\exists a{\ge}a_0\,\exists\langle\text{supply
+predicate}\rangle\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">rational countermodel refutes
+{bound,parity,aperiodicity}</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\exists
+c{:}\mathbb{N}\to\mathbb{N}\)</span>, <span
+class="math inline" data-term-auto="off">\(c{\le}6\)</span>, <span
+class="math inline" data-term-auto="off">\(c{\le}n\)</span>, <span
+class="math inline" data-term-auto="off">\(c{\equiv}\varphi\!\!\pmod2\)</span>,
+arbitrarily-separated blocks</td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">mod-4 pulse cofinal supply (via
+CRT+Dirichlet)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h{&gt;}0\,\forall B\,\exists\text{prime}\,p{&gt;}B\)</span></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">mod-4 pulse survivor kill (fourfold
+reduction)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l">given CP-05’s cofinal supply</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">two-adic pulse at arbitrary depth <span
+class="math inline" data-term-auto="off">\(K\)</span></td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+K{\ge}2\,\forall H{&gt;}K\,\forall B\,\exists\text{cofinally many
+primes}\,p{&gt;}B\)</span></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">two-adic pulse transfer (needs eventual
+integrality)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+K{\ge}2\)</span>, given TA-01 pulse <span
+class="math inline" data-term-auto="off">\(+\)</span> eventual integrality</td>
+<td class="ta-l">p-adic</td>
+</tr>
+</tbody>
+</table>
 <p><span class="math inline" data-term-auto="off">\(^\dagger\)</span> The source normal-form
 table tags <code>actualLcmTailDiff_shift_pos</code> <span><span
 class="sans-serif">scale:bounded</span></span> because the window
@@ -7093,6 +8324,274 @@ class="level3">
 in full and are recorded here in compressed form; each follows the same
 (a)/(b)/(c)/(d) discipline as above but is presented as a table row for
 space.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l"><p><strong>Route</strong></p></th>
+<th class="ta-l"><strong>Mechanism &amp; site</strong></th>
+<th class="ta-l"><strong>Scope / salvage</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l"><p><strong>Route</strong></p></td>
+<td class="ta-l"><strong>Mechanism &amp; site</strong></td>
+<td class="ta-l"><strong>Scope / salvage</strong></td>
+</tr>
+<tr>
+<td class="ta-l"><p>Full terminal dyadic staircase
+(annihilate every suffix letter mod growing powers of 2)</p></td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(a\ge8\)</span>, room bound <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span>
+<code>ActualLcmTerminalDyadicStaircase</code> is false: the terminal
+letter would have to be positive (by short-window positivity) and
+strictly below a wider-than-itself modulus while divisible by it,
+forcing it to <span class="math inline" data-term-auto="off">\(0\)</span>, contradicting
+positivity. . <span><span class="sans-serif">[Lean]</span></span>
+<span><span class="sans-serif">scale:uniform</span></span>
+<code>coord:binary-digit</code></td>
+<td class="ta-l">Kills the FULL terminal-staircase proof
+strategy outright and unconditionally; the <em>punctured</em> staircase
+(all but the last letter vanish) survives and is pinned exactly to the
+half-turn value <span class="math inline" data-term-auto="off">\(2^{m-1}\)</span> at the
+penultimate letter (). The generic mechanism (<span
+class="math inline" data-term-auto="off">\(0&lt;e&lt;2^m\wedge2^m\mid e\Rightarrow
+e=0\)</span>) is reusable anywhere a positive quantity is asked to
+vanish mod a wider modulus.</td>
+</tr>
+<tr>
+<td class="ta-l">LCM factor-ideal retention (keep only the
+homogeneous “factor-only” part of an LCM-ray decomposition)</td>
+<td class="ta-l">An explicit nonzero all-horizon
+countermodel, built from multiples of <span
+class="math inline" data-term-auto="off">\(\varphi(\mathrm{periodLcm}(t))\)</span>, agrees
+with every exact whole-ray anchor <span
+class="math inline" data-term-auto="off">\(\Delta\varphi(H,qH)=\varphi(H)\)</span> for <span
+class="math inline" data-term-auto="off">\(2\le q&lt;t\)</span> and survives every finite
+commensurate LCM-cube shift-polynomial, at every finite rank. (module
+docstring; theorem bodies <span><span
+class="sans-serif">[Cert]</span></span>, DOCSTRING-SOURCED). <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:other:lcm-ray-totient</code></td>
+<td class="ta-l">This is a <em>representation</em>-level
+exclusion, not an object-level one: it shows the homogeneous
+factor-ideal projection discards fresh Möbius-channel information that
+can be adversarially reconstructed. Explicitly flagged SYNTHETIC — no
+claim that the compensation letters occur as actual totient differences.
+Salvage: a future factor-ideal argument must control the <em>fresh</em>
+channel via , not just the old one.</td>
+</tr>
+<tr>
+<td class="ta-l">Two-prime “full-target diamond” (four
+simultaneous ray hits certify more than one)</td>
+<td class="ta-l">The four-hit diamond <span
+class="math inline" data-term-auto="off">\(\mathrm{Hit}(H)\wedge\mathrm{Hit}(pH)\wedge\mathrm{Hit}(qH)\wedge
+\mathrm{Hit}(pqH)\)</span> is logically equivalent to <span
+class="math inline" data-term-auto="off">\(\mathrm{Hit}(H)\)</span> alone, no primality of
+<span class="math inline" data-term-auto="off">\(p,q\)</span> needed — hits transport
+multiplicatively for free because <span
+class="math inline" data-term-auto="off">\(\mathrm{Hit}(H)\iff\mathrm{IsIntegralValue}(\text{scaleDiagonalTailDifference}(H))\)</span>
+and integrality transports affinely along every ray <span
+class="math inline" data-term-auto="off">\(H\mapsto kH\)</span>. . <span><span
+class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:other:mobius-mersenne</code></td>
+<td class="ta-l">The 4-condition diamond carries zero
+information beyond its base point — a “curvature-zero collapse” of a
+multi-point certificate. Any future positive-holonomy argument needs an
+independently-defined projection of the foreign state <em>plus</em>
+control of the discarded complement; a bare 2/4-point diamond cannot
+supply new information beyond its own scale.</td>
+</tr>
+<tr>
+<td class="ta-l">Fixed-precision local valuation-unit
+signature (2-adic “tropical curvature carry” attack)</td>
+<td class="ta-l">For any finite word of odd-unit-part
+2-adic symbols at fixed precision <span
+class="math inline" data-term-auto="off">\(u&gt;0\)</span> and any starting carry state <span
+class="math inline" data-term-auto="off">\(e\)</span>, there exists a compatible carry orbit
+realising the word with every intermediate state centred inside its
+symbol’s dyadic radius. . <span><span
+class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:bounded</span></span>
+<code>coord:p-adic</code></td>
+<td class="ta-l">Bounded LOCAL valuation-unit data at FIXED
+precision can never exclude all finite centred carry completions — no
+obstruction is derivable from a fixed-window local signature alone;
+growing precision, or extra arithmetic coupling, is required. Pure
+2-adic dynamics, zero totient content, reusable against any
+similarly-shaped fixed-window carry-certificate attack.</td>
+</tr>
+<tr>
+<td class="ta-l">Fixed-depth affine carry reset
+(distinguishing two carry histories after a long common tail)</td>
+<td class="ta-l">For the affine binary orbit <span
+class="math inline" data-term-auto="off">\(\mathrm{orbit}(0)=u_0\)</span>, <span
+class="math inline" data-term-auto="off">\(\mathrm{orbit}(n{+}1)=2\,\mathrm{orbit}(n)-a(n{+}1)\)</span>
+with common forcing word <span class="math inline" data-term-auto="off">\(a\)</span>: <span
+class="math inline" data-term-auto="off">\(\mathrm{orbit}_u(L)-\mathrm{orbit}_v(L)=2^L(u_0-v_0)\)</span>
+exactly. . <span><span class="sans-serif">[Lean]</span></span>
+<span><span class="sans-serif">scale:uniform</span></span>
+<code>coord:binary-digit</code></td>
+<td class="ta-l">After <span
+class="math inline" data-term-auto="off">\(L\)</span> common steps the endpoint residue mod
+<span class="math inline" data-term-auto="off">\(2^L\)</span> is <em>independent</em> of the
+initial carry — long common tails erase predecessor information exactly,
+not approximately. Directly relevant to any argument hoping to
+distinguish two carry histories from a shared long suffix; the terminal
+forcing word alone determines the residue.</td>
+</tr>
+<tr>
+<td class="ta-l">Bounded finite-state / autonomous
+successor decoder for the binary carry</td>
+<td class="ta-l">For a balanced-pulse family at location
+<span class="math inline" data-term-auto="off">\(m\)</span> whose predecessor
+<code>State</code> is constant across the whole family, no <span
+class="math inline" data-term-auto="off">\(\mathrm{decode}:\mathrm{State}\to
+\mathbb N\)</span> recovers the radius parameter; any finite
+<code>Fintype State</code> needs <span
+class="math inline" data-term-auto="off">\(\mathrm{card}\ge\lfloor m/2\rfloor+2\)</span>,
+unbounded in <span class="math inline" data-term-auto="off">\(m\)</span>. . <span><span
+class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:binary-digit</code></td>
+<td class="ta-l">Rules out, unconditionally, ANY proof
+strategy that defines a bounded or autonomous “carry state” summarising
+pre-<span class="math inline" data-term-auto="off">\(m\)</span> history and claims it exactly
+determines the post-<span class="math inline" data-term-auto="off">\(m\)</span> tail —
+independent of whether the coefficients are <span
+class="math inline" data-term-auto="off">\(\varphi\)</span> or a Möbius-support indicator. A
+hard stop against finite-automaton-computes-the-expansion style attacks
+on either problem.</td>
+</tr>
+<tr>
+<td class="ta-l">Period-4 sign weight as a route to A7’s
+“frequently nonzero” hypothesis for free</td>
+<td class="ta-l">The divisor coefficient of the period-4
+sign weight (<span class="math inline" data-term-auto="off">\(w(a){=}1\)</span> if <span
+class="math inline" data-term-auto="off">\(a{\equiv}1\)</span>, <span
+class="math inline" data-term-auto="off">\(-1\)</span> if <span
+class="math inline" data-term-auto="off">\(a{\equiv}3\)</span>, else <span
+class="math inline" data-term-auto="off">\(0\)</span>, mod 4) vanishes identically at every
+<span class="math inline" data-term-auto="off">\(n\equiv3\pmod4\)</span>, via the
+divisor-pairing involution <span class="math inline" data-term-auto="off">\(d\mapsto
+n/d\)</span>. . <span><span class="sans-serif">[Lean]</span></span>
+<span><span class="sans-serif">scale:fixed</span></span>
+<code>coord:mobius-mersenne</code></td>
+<td class="ta-l">Witnesses that Dirichlet-convolution
+coefficients CAN vanish identically on an arithmetic progression, so the
+“frequently nonzero” hypothesis in the nonnegative-periodic
+irrationality closure () is not free — it is why the corpus lands a
+dichotomy for general periodic signed weights rather than an
+unconditional supply theorem.</td>
+</tr>
+<tr>
+<td class="ta-l">Certified finite-depth “death”
+certificates as a route to membership proofs (both problems)</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\mathtt{CertifiedGreedyMersenneDeath}(x,\mathrm{level},\mathrm{lookahead})\)</span>
+is a decidable, finite-depth certificate proving non-membership only (;
+witness , <span class="math inline" data-term-auto="off">\(3/4\)</span> certified dead at
+level 1). <span><span class="sans-serif">[Cert]</span></span>
+<span><span class="sans-serif">scale:bounded</span></span>
+<code>coord:greedy-orbit</code></td>
+<td class="ta-l">Structural one-sidedness, recurring across
+the WHOLE certified-kill family (, , this one): certified-death <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span> non-membership, but absence
+of a found certificate, or survival through any finite depth, proves
+<em>nothing</em> about membership or rationality.</td>
+</tr>
+<tr>
+<td class="ta-l">Reconstructing one totient value from a
+two-tail absolute-value linear combination</td>
+<td class="ta-l">For any finite <span
+class="math inline" data-term-auto="off">\(w:\iota\to\mathbb Q\)</span>, <span
+class="math inline" data-term-auto="off">\(x:\iota\to\mathbb N\)</span> with <span
+class="math inline" data-term-auto="off">\(\sum w_i\varphi(x_i)=1\)</span> (exact isolation),
+the crude two-tail cost <span
+class="math inline" data-term-auto="off">\(\sum|w_i|(2(x_i+1)+(x_i+2))\ge3\)</span>, using
+only <span class="math inline" data-term-auto="off">\(\varphi(x)\le x\)</span>. (closure ).
+<span><span class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:other:totient-adjugate-linear-algebra</code></td>
+<td class="ta-l">The strategy needs cost <span
+class="math inline" data-term-auto="off">\(&lt;1\)</span> and gets <span
+class="math inline" data-term-auto="off">\(\ge3\)</span> at ANY finite grid height — kills
+the entire “isolate one coefficient via absolute-value two-tail
+bookkeeping” family before it starts. The proof mechanism is
+problem-agnostic (any <span class="math inline" data-term-auto="off">\(c(n)\le n\)</span>
+sequence gets the same floor by the triangle inequality) and transfers
+verbatim to a #257 reformulation.</td>
+</tr>
+<tr>
+<td class="ta-l">Homogeneous Mersenne-primitive prime
+factor alone forces a contradiction</td>
+<td class="ta-l">For the completely-multiplicative control
+<span class="math inline" data-term-auto="off">\(c(n)=n\)</span> (zero totient content): if
+<span class="math inline" data-term-auto="off">\(K&lt;q\)</span>, <span
+class="math inline" data-term-auto="off">\(q\mid2^K-1\)</span>, the corresponding tail shift
+is integral at every <span class="math inline" data-term-auto="off">\(N\)</span> yet <span
+class="math inline" data-term-auto="off">\(q\nmid K\)</span>. . <span><span
+class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:n/a</span></span>
+<code>coord:other:mersenne-modulus</code></td>
+<td class="ta-l">A primitive prime factor of the
+homogeneous multiplier <span class="math inline" data-term-auto="off">\(2^K-1\)</span> alone
+supplies NO contradiction from tail integrality. A direct cross-problem
+warning: #257’s denominators <span class="math inline" data-term-auto="off">\(2^n-1\)</span>
+are literally this <span class="math inline" data-term-auto="off">\(q\mid2^K-1\)</span>
+object, so “a large primitive Mersenne prime factor alone forces a
+contradiction” should be checked against this lemma before being
+attempted on either problem.</td>
+</tr>
+<tr>
+<td class="ta-l">Prime-power reduced-denominator unit-gap
+strengthening (rescuing extra Farey lattice points)</td>
+<td class="ta-l">At a prime-power reduced denominator <span
+class="math inline" data-term-auto="off">\(p^e\)</span>, the unit-gap refinement can rescue
+at most ONE additional candidate lattice point beyond the ordinary gap
+certificate. (iff-characterisation ). <span><span
+class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:other:farey-gap</code></td>
+<td class="ta-l">A formal ceiling on how much this specific
+refinement can ever buy — a known dead end for extending the <span
+class="math inline" data-term-auto="off">\(\approx7.96\times10^{34}\)</span> Farey rung
+(§<a class="math-ref" href="#sec:adelic-height">11.4</a>)
+unboundedly. Do not re-attempt this exact strengthening expecting more
+than +1 lattice point per prime power; the underlying
+reduced-denominator-implies-unit-numerator technique is reusable for
+other denominator-exclusion arguments.</td>
+</tr>
+<tr>
+<td class="ta-l">Fixed rank-3 finite-difference kernel
+squeezing more than one dyadic bit of curvature information</td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(\mathrm{fixedRankSecondDifference}(2^{n+1}\cdot2,\,2^{n+1}\cdot3)=-2^{n+1}\)</span>
+exactly, for all <span class="math inline" data-term-auto="off">\(n\)</span>: the two-adic
+valuation gained by the primitive kernel factor <span
+class="math inline" data-term-auto="off">\(2\varphi(j)\)</span> is exactly tight. .
+<span><span class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:n/a</span></span>
+<code>coord:binary-digit</code></td>
+<td class="ta-l">Route-pruning ammunition: rules out
+extracting more than one dyadic bit from the bare 3-rank affine kernel
+<span class="math inline" data-term-auto="off">\((1,-2,1)\)</span>; any further progress on
+the fixed-rank curvature route needs new arithmetic input, not a sharper
+valuation squeeze from the same kernel. The affine rank-3 kernel
+classification itself (, pure linear algebra over <span
+class="math inline" data-term-auto="off">\(\mathbb Z\)</span>, zero number-theoretic content)
+is fully reusable for any 3-point finite-difference argument on either
+problem.</td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 <section id="sec:promotion-audit" class="level2">
@@ -7139,6 +8638,241 @@ supplies missing arithmetic content toward closing #249 or
 below rather than folded into the sixteen, because collapsing that
 distinction would itself be exactly the kind of quantifier-slippage
 error this paper’s accuracy rules forbid.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l"><p><strong>Obligation</strong></p></th>
+<th class="ta-l"><strong>Row / site</strong></th>
+<th class="ta-l"><strong>Gap kind</strong></th>
+<th class="ta-l"><strong>Verdict and exact
+blocker</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l"><p><strong>Obligation</strong></p></td>
+<td class="ta-l"><strong>Row / site</strong></td>
+<td class="ta-l"><strong>Gap kind</strong></td>
+<td class="ta-l"><strong>Verdict and exact
+blocker</strong></td>
+</tr>
+<tr>
+<td class="ta-l">-supply</td>
+<td class="ta-l">e1-companion, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. The consumer already has
+the obligation’s exact quantifier shape; the missing input is a single
+unproved arithmetic fact — a constant-saving first-harmonic (Weyl-sum)
+cancellation bound <span
+class="math inline" data-term-auto="off">\(\sum_{N\in[X,2X)}\cos(2\pi\cdot(\ldots)/2^L)\le(9/10)X\)</span>
+— not proved at any <span class="math inline" data-term-auto="off">\(X,h,L\)</span> anywhere
+in the corpus.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">SGN-01, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. Positivity is exactly HALF
+of the needed certificate: the companion theorem in the same file proves
+integrality forces the residue to the TOP edge, not a kill — the lower
+half of the band is discharged unconditionally and cofinally, the upper
+half is untouched.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">TE-04, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. The consumer side is
+finished and cofinal (proved for every <span
+class="math inline" data-term-auto="off">\(a\ge8\)</span>); the residual is purely the
+one-sided residue-gap <em>producer</em>, unconditionally unsupplied at
+even one large <span class="math inline" data-term-auto="off">\(a\)</span>.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">TE-05-weakest, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. The exact identity pinning
+the target shows the dominance inequality is equivalent to <span
+class="math inline" data-term-auto="off">\(\mathrm{carryOrbit}\le0\)</span>, and the sign
+machinery (SGN-02) already proves the true carry orbit is strictly
+<em>positive</em> under integrality — the corridor-escape branch the
+identity naturally supplies is exactly the branch already
+eliminated.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">SEP-02, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l">Not promotable. The analytic tail is fully
+discharged with an explicit, uniform error radius; only two exponents
+(<span class="math inline" data-term-auto="off">\(a=4,6\)</span>) have the resulting finite
+distance-to-integer question verified unconditionally (); nothing beyond
+<span class="math inline" data-term-auto="off">\(a=6\)</span> is proved.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">b7, </td>
+<td class="ta-l">coordinate only</td>
+<td class="ta-l">Not promotable. The only proved
+unbounded-growth quantity in the Möbius–Mersenne coordinate, uniform in
+<span class="math inline" data-term-auto="off">\(t\)</span>, but there is no landed transport
+from a denominator lower bound to <span
+class="math inline" data-term-auto="off">\(\mathrm{certifiedKill}\)</span> or to totient-tail
+non-integrality — a different coordinate from the obligation.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">d4/d5, , </td>
+<td class="ta-l">coordinate only</td>
+<td class="ta-l">Not promotable. The scale side of a
+second, independent open obligation (unbounded carry-kernel rank forced
+by rationality) is finished uniformly in <span
+class="math inline" data-term-auto="off">\(e\)</span>; the opposite (rationality-side rank
+upper bound) is missing, and one natural route to it is proved dead
+().</td>
+</tr>
+<tr>
+<td class="ta-l">257-reset</td>
+<td class="ta-l">rc-2 / F4-adjacent, </td>
+<td class="ta-l">multiple</td>
+<td class="ta-l">Not promotable. The excess-side run-length
+law is only half-assembled: an exact iterate identity exists, and an
+upper bound on the terminal excess exists separately, but no theorem in
+Lean composes the two into an excess-side run-length statement, even
+though every ingredient is present.</td>
+</tr>
+<tr>
+<td class="ta-l">257-reset</td>
+<td class="ta-l">E1, </td>
+<td class="ta-l">coordinate only</td>
+<td class="ta-l">Not promotable. Supplies an UPPER bound on
+the remainder (the ceiling half of the picture); the obligation needs a
+LOWER bound on the deviation magnitude — the two do not compose without
+an additional input.</td>
+</tr>
+<tr>
+<td class="ta-l">257-reset</td>
+<td class="ta-l">rc-8, prose
+<em>erdos257_reset_crossing_unification_2026_07_24.md</em> §6</td>
+<td class="ta-l">multiple</td>
+<td class="ta-l">Not promotable. Two gaps at once: the sign
+law is <span><span class="sans-serif">[Cert]</span></span>/empirical
+only (flagged <span><span class="sans-serif">[Open]</span></span> as an
+unconditional lemma, not proved), and even if proved it delivers only
+the SIGN of the deviation, not its magnitude, which is what the
+obligation needs.</td>
+</tr>
+<tr>
+<td class="ta-l">257-cofinal-rows</td>
+<td class="ta-l">TH-sharp-capacity-progress, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. Unconditional and strictly
+more general than every actual consumer, but it needs a per-<span
+class="math inline" data-term-auto="off">\(c\)</span> input (<span
+class="math inline" data-term-auto="off">\(\mathrm{localBinarySuffix}\,D\,1\,(2c{-}2)&lt;2^{c-2}\)</span>)
+that the corpus only ever supplies through a route which then rigidly
+collapses onto one specific support family — the deficit hypothesis is a
+self-imposed restriction of the consumers, and the general input itself
+is unsupplied.</td>
+</tr>
+<tr>
+<td class="ta-l">257-cofinal-rows</td>
+<td class="ta-l">precriticalSuffix_lt_of_future_skip_after_takenBlock,
+</td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. Unconditional and uniform
+in both parameters <span class="math inline" data-term-auto="off">\((c,t)\)</span>; the sole
+missing input is an orbit-level skip-gap bound on the rational
+half-greedy orbit, never proved and never previously isolated as a
+target anywhere in the banks.</td>
+</tr>
+<tr>
+<td class="ta-l">257-cofinal-rows</td>
+<td class="ta-l">greedyHalfFrozenMargin_nonneg, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l">Not promotable. The margin-nonnegativity
+horizon is produced by a <em>non-effective</em> limit argument (an
+existential horizon from a convergence fact); the exact-row route needs
+the SPECIFIC effective horizon <span
+class="math inline" data-term-auto="off">\(J=k-2\)</span>, and effectivising it is explicitly
+recorded as unfinished bookkeeping, not new mathematics — but it is
+still unfinished.</td>
+</tr>
+<tr>
+<td class="ta-l">257-cofinal-rows</td>
+<td class="ta-l">C4a, </td>
+<td class="ta-l">multiple</td>
+<td class="ta-l">Not promotable. Trades off against the
+obligation in the opposite direction on <em>support locality</em>:
+tolerates any support inside a depth window but demands a carry inside a
+tight <span class="math inline" data-term-auto="off">\(\sim2\sqrt M\)</span> strip, where the
+obligation tolerates an exponentially looser carry but demands the
+support be confined to a lower window — the gap is support locality, not
+carry size, and neither socket implies the other.</td>
+</tr>
+<tr>
+<td class="ta-l">257-universal</td>
+<td class="ta-l">NM-02, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l"><strong>PROMOTABLE (no new mathematics),
+but does not close anything.</strong> The proof was opened and found
+already uniform in the target in every internal step; only the
+statement’s own quantifier is artificially pinned to <span
+class="math inline" data-term-auto="off">\(t=1/2\)</span>. Promoting it converts the whole
+half-greedy refutation machine from a one-target equivalence to one
+covering every rational target — the highest-value mechanical promotion
+in the bank — but it supplies no new arithmetic content: it is a
+restatement, not a producer.</td>
+</tr>
+<tr>
+<td class="ta-l">257-universal</td>
+<td class="ta-l">NM-03, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l"><strong>PROMOTABLE (no new mathematics),
+but does not close anything.</strong> The headline is pinned to target
+<span class="math inline" data-term-auto="off">\(1/2\)</span> while its engine () is already
+fully general over finite supports; verbatim re-derivation at any
+even-denominator target is available with zero new arithmetic. Paired
+with NM-02: universal #257 at <span class="math inline" data-term-auto="off">\(b=2\)</span>
+is false iff some rational <span class="math inline" data-term-auto="off">\(t\)</span> with
+even reduced denominator has an infinitely-skipping greedy Mersenne
+orbit — a genuine reformulation, not a resolution.</td>
+</tr>
+<tr>
+<td class="ta-l">257-universal</td>
+<td class="ta-l">NM-04, </td>
+<td class="ta-l">coordinate only</td>
+<td class="ta-l">Not promotable (partial mechanical content
+only). The dyadic restriction <span class="math inline" data-term-auto="off">\(v=1\)</span>
+is a call-site choice, not a proof constraint — the general-<span
+class="math inline" data-term-auto="off">\(v\)</span> conclusion is already landed for
+arbitrary <span class="math inline" data-term-auto="off">\((v,h,L,F)\)</span> at — but the
+strict form needed for non-dyadic targets requires one genuinely new
+auxiliary bound (a mean-least-residue estimate) not present in the
+corpus.</td>
+</tr>
+<tr>
+<td class="ta-l">257-universal</td>
+<td class="ta-l">NM-12, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l">Not promotable (unverified, not merely
+blocked). The killer and the dichotomy scaffold are already
+target-generic; the two endpoint kills that pin the dichotomy to <span
+class="math inline" data-term-auto="off">\(1/2\)</span> generalise on their face, but their
+proof bodies were explicitly <em>not</em> read in this audit pass —
+recorded as a strong promotability hypothesis, not a verified promotion,
+since a <code>norm_num</code>-style numeric step could hide a <span
+class="math inline" data-term-auto="off">\(1/2\)</span>-specific bound.</td>
+</tr>
+</tbody>
+</table>
 <section id="classification-of-the-sixteen-genuine-blockers"
 class="level3 unnumbered">
 <h3 class="unnumbered">Classification of the sixteen genuine

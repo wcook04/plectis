@@ -208,6 +208,30 @@ still open published source. Preview manifests explicitly report that public
 byte parity has not been established. Use the normal parity-checked sync after
 the repository changes are published.
 
+Add `--preview-papers` to review local paper PDFs, TeX and their rendered reading
+pages in that same isolated preview. Supply explicit `--checkout` mappings for
+every repository named by the paper registry; the maths guides and papers must
+come from the same checkout. Rebuild and inspect the PDFs, then check the paper
+corpus before creating the preview. The preview validates the registered input
+files and records their local hashes; it does not establish that a PDF was
+compiled from its adjacent TeX source.
+Draft page counts come from those local PDFs; the published registry retains
+the published edition's counts.
+
+```bash
+./repo-python tools/meta/dissemination/deploy_plectis_site.py \
+  --preview-dir /path/to/new-paper-preview --preview-papers \
+  --checkout plectis-erdos=/path/to/settled-maths-checkout \
+  --checkout plectis=/path/to/settled-software-checkout
+```
+
+Paper previews carry `local_unpublished_preview` and `public_parity: false`,
+with a visible notice, no canonical links and no indexing. GitHub links open
+the published edition. Review the local PDF, generated reading page and source
+together; keep any remaining publication or mirror update explicitly pending.
+This option cannot commit, push or deploy, and does not change the public-main
+byte-parity requirement for publication.
+
 Before landing site changes, run:
 
 ```bash

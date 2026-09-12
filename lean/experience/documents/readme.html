@@ -10,10 +10,10 @@
 class="level1">
 <h1>Plectis: research on eight open Erdős problems</h1>
 <p>Plectis is an open-source, AI-assisted research project. This
-repository brings together the papers, Lean proofs, computations, failed
+repository contains the papers, Lean proofs, computations, failed
 approaches, and questions that remain, so another researcher can inspect
 the work and continue from it. <strong>All eight problems remain
-open.</strong> This repository does not solve them.</p>
+open.</strong></p>
 <p><strong><a href="https://wcook04.github.io/plectis/maths/">Read the
 mathematics</a></strong> · <a
 href="https://wcook04.github.io/plectis/">Website</a> · <a
@@ -29,41 +29,35 @@ continue</figcaption>
 <h2>Where to start</h2>
 <p>The numbers below identify questions in <a
 href="https://www.erdosproblems.com/">Erdős Problems</a>, a collection
-of mathematical problems associated with Paul Erdős. An open problem can
-still have useful results along the way: a proof for a special case, a
-computation, or an explanation of why an attempted argument fails. Those
-are part of what this repository makes available for others to use.</p>
-<p>Lean is a proof assistant: software that checks a precisely written
-proof against a precisely written statement. The papers explain the
-mathematics in ordinary mathematical notation, and say which results
-have a Lean proof.</p>
+of mathematical problems associated with Paul Erdős. Lean is a proof
+assistant: software that verifies whether a formal proof establishes its
+stated conclusion from its assumptions. You can read the arguments in
+ordinary mathematical notation in the papers, which identify the results
+with Lean proofs.</p>
 <p>You do not need Lean or a coding agent to read the papers. <a
-href="reading-guide.html">A reader’s way in</a> explains the project
-and how to read the evidence. Each problem below has a short paper to
-start with and a longer research record. <a
-href="results.html">Results and limits</a> gives the
-problem-by-problem evidence boundary, including what is still
-missing.</p>
-<p>If you are a mathematician, choose a <a
-href="#problem-papers">problem paper</a> and follow its result into the
-<a href="source-map.html">source map</a> when you want to inspect the
-formal proof. If your interest is computer science or AI, start with <a
+href="reading-guide.html">A reader’s way in</a> introduces the
+questions and the different kinds of evidence. Each problem below has a
+short paper to start with and a longer research record. <a
+href="results.html">Results and limits</a> states what each proof or
+computation establishes and what remains missing.</p>
+<p>For the mathematics, choose a <a href="#problem-papers">problem
+paper</a>, then use the <a href="source-map.html">source map</a> to
+locate the cited Lean declarations. For computer science or AI, read <a
 href="architecture.html">how the repository works</a> and the <a
 href="paper-guide.html#project-papers">project papers</a>: how
-researchers and coding agents find a question, record work, and check
-what a public claim rests on. The separate <a
-href="https://github.com/wcook04/plectis">Plectis software toolkit</a>
-contains runnable workflow components; this repository contains the
-mathematics.</p>
+researchers and coding agents select a question, record their work, and
+compare public statements with the proofs and computations they cite.
+Runnable workflow components are in the separate <a
+href="https://github.com/wcook04/plectis">Plectis software
+toolkit</a>.</p>
 <p>To continue from where I left off, see <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">CONTRIBUTING</a>. Use a coding agent if you like.
 This is the part I am most excited about.</p>
-<p>To try the evidence tools, <a
+<p>To inspect one recorded statement and its cited source, <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md#try-one-claim-without-lean">follow one
-claim from its statement to the source</a>. That route needs Git and
-Python, with no Lean installation or model account. The clone is
-hundreds of megabytes; the separate proof-build route downloads a larger
-Lean and Mathlib environment.</p>
+claim</a> using Git and Python. You do not need a Lean installation or
+model account. The clone is hundreds of megabytes; the separate
+proof-build route downloads a larger Lean and Mathlib environment.</p>
 </section>
 <section id="why-this-exists" class="level2">
 <h2>Why this exists</h2>
@@ -186,26 +180,30 @@ paper</a></td>
 <p><a href="results.html#problem-by-problem-guide">Read the result
 summaries and their limits</a>, including prior work, what was checked,
 and the questions that remain.</p>
+<p><a id="what-the-checks-establish"></a></p>
 </section>
-<section id="what-the-checks-establish" class="level2">
-<h2>What the checks establish</h2>
-<p>Lean checks that a proof establishes the formal statement written in
-the source. The <a href="source-map.html">source map</a> connects the
-papers to that source; the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json">claim records</a>
-record status, and <a href="prior-art.html">prior art</a> records
-earlier and subsuming work.</p>
-<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/formalization.yaml"><code>formalization.yaml</code></a>
-lists the <strong>selected statements</strong> checked with Comparator.
-It is not a catalogue of every theorem or a claim that all the
-mathematics has received a second check. Each selected statement is
-declared again without its proof, then compared with a proof-bearing
-solution under a fixed axiom budget. The <a
-href="external-verification.html">verification dossier</a> covers all
-eight problem programmes and gives the scope of those checks.</p>
-<p>The <a href="methodology.html">methodology</a> explains what each
-check establishes. Checks do not decide whether a statement captures the
-intended problem, is new, or is worth studying. That requires expert
-review. Do not infer results from private or unreleased work.</p>
+<section id="what-lean-and-comparator-verify" class="level2">
+<h2>What Lean and Comparator verify</h2>
+<p>Lean verifies that a compiled proof establishes the formal statement
+written in the source. Use the <a href="source-map.html">source
+map</a> to locate a declaration cited in a paper. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json">claim records</a> list the published statements
+and their status; <a href="prior-art.html">prior art</a> lists
+earlier results and their relationship to the work here.</p>
+<p>Comparator compares a separately declared statement with the
+statement established by its Lean solution, using an explicit list of
+allowed assumptions. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/formalization.yaml"><code>formalization.yaml</code></a> lists the
+<strong>selected statements</strong>; the comparison does not cover
+every theorem in this repository. The <a
+href="external-verification.html">verification dossier</a> identifies
+the selected statements across all eight problems and the limits of the
+comparison.</p>
+<p>Researchers still have to judge whether a formal statement expresses
+the intended problem, whether it is new, and whether it is worth
+studying. <a href="methodology.html">Methodology</a> records the
+evidence and review required before changing a public claim. Do not
+infer results from private or unreleased work.</p>
 </section>
 <section id="contribute" class="level2">
 <h2>Contribute</h2>
@@ -223,9 +221,10 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">CONTRI
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/FRONTIER_RELAY.md">frontier relay</a> to choose a starting
 point and return what you find with its evidence.</li>
 </ul>
-<p>Accepted work gets a public receipt. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md">credit policy</a> explains
-how contributions are attributed.</p>
+<p>When maintainers accept contributed work, they commit a receipt
+naming the contributor and the files, results or evidence being
+credited. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md">credit
+policy</a> explains how contributions are attributed.</p>
 <p>If you solve a problem, the credit and the result are all yours. If
 this repo or my intermediary progress helped, please cite this release
 and say how, so others find it and we make progress together instead of
@@ -236,11 +235,13 @@ and fully credit you for the insight and whatever follows from it.</p>
 </section>
 <section id="read-or-verify-locally" class="level2">
 <h2>Read or verify locally</h2>
-<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a> gives the clone
-and verification commands. The <a href="documentation.html">documentation
-index</a> helps you choose a guide; <a href="architecture.html">how
-the repository works</a> explains the source ownership and checks
-without assuming Lean or project history.</p>
+<p>Use <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/REPRODUCIBILITY.md">REPRODUCIBILITY</a> for
+commands to clone the repository, inspect claim records and compile
+proofs. Choose other guides from the <a
+href="documentation.html">documentation index</a>. For the roles of the
+source files, claim records and release programs, read <a
+href="architecture.html">how the repository works</a>; it assumes no
+Lean knowledge or project history.</p>
 <table>
 <colgroup>
 <col />
@@ -360,15 +361,16 @@ declaration names first.
 </section>
 <section id="about-the-project" class="level2">
 <h2>About the project</h2>
-<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf">From
-Spare Compute to Cumulative Mathematics</a> explains the open-source
-idea and how different contributions can help. <a
+<p>Read <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf">From Spare
+Compute to Cumulative Mathematics</a> for the open-source research
+process and the ways to contribute. <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf">Problem-Sized
-Lean Worlds</a> explains how the research and its checks fit
-together.</p>
-<p>The <a href="https://github.com/wcook04/plectis">Plectis software
-repository</a> contains the wider project’s runnable tools. The maths
-papers and proofs here are self-contained.</p>
+Lean Worlds</a> describes how researchers publish mathematical claims
+with their proofs, source references and validation records.</p>
+<p>For the wider project, see the <a
+href="https://github.com/wcook04/plectis">Plectis software
+repository</a>. The maths papers and proofs here are self-contained.</p>
 </section>
 <section id="citation-and-licence" class="level2">
 <h2>Citation and licence</h2>

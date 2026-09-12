@@ -313,11 +313,24 @@
     if (current) current.setAttribute('aria-expanded', event.newState === 'open' ? 'true' : 'false');
   });
   window.addEventListener('resize', position);
+  // Some manuscripts typeset a complete Lean name as math. Keep its exact
+  // TeX attribute for export, but present that literal with the same name
+  // control as inline code. Mixed expressions remain typeset mathematics.
+  document.querySelectorAll('.paper-stage .math.inline[data-tex]').forEach(function (math) {
+    if (math.closest('a')) return;
+    var literal = math.getAttribute('data-tex').match(/^\\\(\s*\\(?:mathtt|mathrm)\{([^{}]+)\}\s*\\\)$/);
+    if (!literal) return;
+    var name = literal[1].replace(/\\_/g, '_');
+    if (name.length < 36 || !/^[A-Za-z][\w.'/]*$/.test(name)) return;
+    var code = document.createElement('code');
+    code.textContent = name;
+    math.replaceChildren(code);
+  });
   document.querySelectorAll('.paper-stage p code, .paper-stage li code').forEach(function (code) {
     var name = code.textContent.trim();
     if (code.closest('a, pre, button') || name.length < 36) return;
-    var file = /^[\w.]+\.lean$/.test(name);
-    if (!file && !/^[A-Za-z]\w*_[\w]*_[\w]*$/.test(name)) return;
+    var file = /^(?:[\w.-]+\/)*[\w.]+\.lean$/.test(name);
+    if (!file && !/^[A-Za-z][\w.']*$/.test(name)) return;
     var button = document.createElement('button');
     button.type = 'button';
     button.className = 'lean-identifier';
@@ -343,18 +356,66 @@
 /* Make only overflowing equations keyboard-scrollable. These enhancements do not typeset or hide content. */
 (function () {
   'use strict';
+  var overflowTabStops = new WeakMap();
   var equations = Array.prototype.slice.call(document.querySelectorAll('.paper-stage .math.display'));
+  var inline = Array.prototype.slice.call(document.querySelectorAll('.paper-stage .math.inline[data-math-rendered]:not([data-math-compact])'))
+    .filter(function (math) { return !math.closest('table, pre'); })
+    .map(function (math) {
+      var flow = document.createElement('span');
+      flow.className = 'math-inline-flow';
+      math.parentNode.insertBefore(flow, math);
+      flow.appendChild(math);
+      // Keep prose punctuation beside an equation when it needs its own line.
+      // It stays outside data-tex, so source-text export retains it too.
+      var next = flow.nextSibling;
+      if (next && next.nodeType === 3) {
+        var punctuation = next.textContent.match(/^\s*[.,;:!?]+/);
+        if (punctuation) {
+          flow.appendChild(document.createTextNode(punctuation[0]));
+          next.textContent = next.textContent.slice(punctuation[0].length);
+        }
+      }
+      return {math: math, flow: flow};
+    });
   function measure() {
-    equations.forEach(function (equation) {
+    // Read the natural inline layout once, then promote only expressions
+    // whose indivisible content is wider than their paragraph. Tables already
+    // own their scrolling. This also restores inline flow on wider screens.
+    inline.forEach(function (item) { item.flow.removeAttribute('data-math-overflow'); });
+    var wide = inline.filter(function (item) {
+      var math = item.math;
+      var paragraph = math.closest('p, li, td, th, .paper-stage');
+      return paragraph && math.getBoundingClientRect().width > paragraph.clientWidth + 2;
+    });
+    wide.forEach(function (item) { item.flow.setAttribute('data-math-overflow', 'true'); });
+    equations.concat(inline.map(function (item) { return item.flow; })).forEach(function (equation) {
       var overflow = equation.scrollWidth > equation.clientWidth + 2;
       if (overflow) {
+        if (!overflowTabStops.has(equation)) overflowTabStops.set(equation, equation.getAttribute('tabindex'));
         equation.setAttribute('tabindex', '0');
-        equation.setAttribute('role', 'group');
-        equation.setAttribute('aria-label', 'Equation; scroll horizontally to read the full expression');
+        equation.setAttribute('data-math-scroll', 'true');
+        if (equation.classList.contains('math')) {
+          // Keep the expression's assistive MathML as its accessible content.
+          equation.removeAttribute('role');
+          equation.removeAttribute('aria-label');
+          equation.setAttribute('aria-description', 'Scroll horizontally to read the full expression');
+        } else {
+          equation.setAttribute('role', 'group');
+          equation.setAttribute('aria-label', 'Equation; scroll horizontally to read the full expression');
+        }
       } else {
-        equation.removeAttribute('tabindex');
+        if (overflowTabStops.has(equation)) {
+          var previous = equation.getAttribute('data-term-help') === 'notation'
+            ? equation.getAttribute('data-term-tabindex') : null;
+          if (previous === null) previous = overflowTabStops.get(equation);
+          if (previous === null) equation.removeAttribute('tabindex');
+          else equation.setAttribute('tabindex', previous);
+          overflowTabStops.delete(equation);
+        }
+        equation.removeAttribute('data-math-scroll');
         equation.removeAttribute('role');
         equation.removeAttribute('aria-label');
+        equation.removeAttribute('aria-description');
       }
     });
   }
@@ -367,4 +428,92 @@
   window.addEventListener('resize', schedule);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
   schedule();
+})();
+
+/* Explain fixed TeX operators through the shared glossary. Variable letters
+   and custom macros retain the meaning assigned by each manuscript. */
+(function () {
+  'use strict';
+  var terms = Object.freeze({
+    sum: 'sum', prod: 'product', forall: 'universal_quantifier',
+    exists: 'existential_quantifier', in: 'set_membership',
+    subseteq: 'subset', cup: 'set_union', cap: 'set_intersection'
+  });
+  var textArguments = Object.freeze({
+    text: 1, textrm: 1, texttt: 1, textsf: 1, textbf: 1, textit: 1,
+    mathtt: 1, mathrm: 1, operatorname: 1, url: 1, href: 2,
+    label: 1, ref: 1, eqref: 1, cite: 1
+  });
+  function scan(tex) {
+    var ids = [], seen = Object.create(null), at = 0;
+    function argument() {
+      while (/\s/.test(tex.charAt(at)) && at < tex.length) at++;
+      if (tex.charAt(at) !== '{') return;
+      var depth = 1;
+      at++;
+      while (at < tex.length && depth) {
+        var ch = tex.charAt(at++);
+        if (ch === '\\') at++;
+        else if (ch === '{') depth++;
+        else if (ch === '}') depth--;
+      }
+    }
+    while (at < tex.length) {
+      var ch = tex.charAt(at++);
+      if (ch === '%') {
+        while (at < tex.length && tex.charAt(at) !== '\n') at++;
+        continue;
+      }
+      if (ch !== '\\') continue;
+      var begin = at;
+      while (/[A-Za-z]/.test(tex.charAt(at)) && at < tex.length) at++;
+      if (begin === at) { at++; continue; }
+      var command = tex.slice(begin, at);
+      if (/^(?:def|gdef|edef|newcommand|renewcommand|providecommand|DeclareMathOperator)$/.test(command)) return [];
+      if (command === 'begin' && /^\s*\{(?:verbatim\*?|lstlisting|minted)\}/.test(tex.slice(at))) return [];
+      if (command === 'verb') {
+        if (tex.charAt(at) === '*') at++;
+        var delimiter = tex.charAt(at++);
+        while (at < tex.length && tex.charAt(at) !== delimiter) at++;
+        at++;
+        continue;
+      }
+      if (Object.prototype.hasOwnProperty.call(textArguments, command)) {
+        if (tex.charAt(at) === '*') at++;
+        for (var n = 0; n < textArguments[command]; n++) argument();
+        continue;
+      }
+      var id = Object.prototype.hasOwnProperty.call(terms, command) ? terms[command] : null;
+      if (id && !seen[id]) { seen[id] = true; ids.push(id); }
+    }
+    return ids;
+  }
+  var parsed = new WeakMap(), registered = new WeakSet();
+  var introduced = Object.create(null);
+  var runtime = document.currentScript;
+  var glossary = runtime && runtime.src ? new URL('../../docs/glossary.html', runtime.src).href : null;
+  function hrefForId(id) {
+    return glossary && glossary + '#glossary-' + id.replace(/_/g, '-');
+  }
+  function registerAll() {
+    var api = window.PlectisTermHelp;
+    if (!api || typeof api.registerNotation !== 'function') return;
+    document.querySelectorAll('.math[data-tex]').forEach(function (math) {
+      if (registered.has(math) || math.closest('a, button, pre, code') || math.querySelector('button, code')) return;
+      if (!parsed.has(math)) parsed.set(math, Object.freeze(scan(math.getAttribute('data-tex') || '')));
+      var ids = parsed.get(math);
+      if (!ids.length) return;
+      // Every operator gets a keyboard introduction; repeated definitions do
+      // not turn every equation into another stop through the manuscript.
+      var keyboardFocus = !math.closest('[hidden], details:not([open])') &&
+        ids.some(function (id) { return !introduced[id]; });
+      if (api.registerNotation(math, ids, {hrefForId: hrefForId, keyboardFocus: keyboardFocus})) {
+        math.setAttribute('data-term-tabindex', keyboardFocus ? '0' : '-1');
+        registered.add(math);
+        if (keyboardFocus) ids.forEach(function (id) { introduced[id] = true; });
+      }
+    });
+  }
+  registerAll();
+  document.addEventListener('plectis:term-help-ready', registerAll, {once: true});
 })();

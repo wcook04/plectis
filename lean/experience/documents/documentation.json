@@ -16,11 +16,14 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "2a9e88cfa5fa0d73a9de1caf79ef6965b9493f167a9c1a4e753fc01381301b89",
+    "source_sha256": "f80db293ef594b7a34ea92eb1c0522a7ed9955f70839e5742ebbf92d823e8299",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
@@ -28,34 +31,44 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "1be3877d29575359267a3b59ae18aff30d9417578aeb3696e2216f44da2a190e",
-    "html_exact_tex_sha256": "fe04b6d77ba759e9e21ea1659f95a861fccf6fbc74368ecfe231ade4672f6d49"
+    "html_mathml_sha256": "e7202a46b667d9b61f9ee60ff78255b5d3dc6d190ae21bae15ac519bc0b93565",
+    "html_exact_tex_sha256": "1a90ce79284280cc4ef75efd8ed1d84402439ac108d565c1905b999d8385530b"
   },
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "choose-a-way-in",
+      "label": "Choose a way in"
+    },
+    {
+      "level": 2,
+      "anchor": "read",
       "label": "Read"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "check",
       "label": "Check"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "contribute",
       "label": "Contribute"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "where-things-live",
       "label": "Where things live"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "files-at-the-repository-root",
       "label": "Files at the repository root"
+    },
+    {
+      "level": 2,
+      "anchor": "improving-these-guides",
+      "label": "Improving these guides"
     }
   ]
 }

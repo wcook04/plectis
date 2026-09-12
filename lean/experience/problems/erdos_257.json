@@ -353,52 +353,22 @@
       }
     ]
   },
-  "frontier": {
-    "source": "state/formal_math/claim_frontier_v1.json",
-    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
-    "target_status": "open",
-    "problem_statement": "Prove irrationality of sum_{n in A} 1/(2^n-1) for every infinite support A.",
-    "strongest_theorem": {
-      "claim_id": "erdos257.achievement_set_geometry",
-      "title": "achievement-set topology and exact volume dichotomy",
-      "statement": "A supported Mersenne achievement set is the set of reals coded by binary strings whose support lies in a fixed set J of allowed digit positions, where digit position k contributes the Mersenne weight 1 / (2^(k+1) - 1). The original support and rational-fibre declarations are retained. The first is a measure no-go on rational fibres. If 0 is not in J and the sum of 1 / (2^m - 1) over m in J is a rational number, the achievement set supported on J has Lebesgue measure zero. Positive-measure selection over a rational fibre is excluded by that measure-zero conclusion. An exceptional null point stays unexcluded. In that first declaration the set J indexes exponents in the hypothesis and digit positions in the conclusion. The second declaration classifies the whole family, with no hypothesis on J. The supported digit map is injective, its range is compact, its range is nowhere dense, the range is perfect whenever J is infinite, and the Lebesgue measure of the range satisfies an exact dichotomy: when the omitted digit positions form a finite set F the measure is the reciprocal of 2^|F|, and when infinitely many digit positions are omitted the measure is zero. Both statements are proved for the literal Mathlib-only definitions repeated in the Challenge module. The compared declarations establish no irrationality of any infinite Mersenne subseries, and Erdős Problem 257 remains open. The extended selection also includes the full achievement geometry with exact span and relative-density bounds, a finite-prefix nonmembership criterion with an explicit tail upper bound, and exclusion of the entire interval (2/3,1). These do not imply universal subseries irrationality.",
-      "altitude": "infrastructure",
-      "band": "P",
-      "evidence_class": "lean_kernel_checked",
-      "public_entry": "ExternalVerification257AchievementSetGeometry"
+  "results_guide": {
+    "document_id": "results",
+    "title": "Results and open boundaries",
+    "role": "mathematical_results_map",
+    "source_path": "docs/RESULTS.md",
+    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
+    "routes": {
+      "html_mathml": "documents/results.html",
+      "html_exact_tex": "documents/results.mathjax.html",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
     },
-    "strongest_longitudinal_theorem": {
-      "claim_id": "erdos257.divisibility_weighted_support_irrationality",
-      "title": "Finite divisibility-weighted mass implies hereditary all-base irrationality, including explicit reciprocal-divergent short-gap supports.",
-      "statement": "Finite prime-part weighted mass gives fixed-base irrationality and, at binary weighted mass, hereditary irrationality for every infinite subhost at every integer base at least two.",
-      "altitude": "complete_subregime",
-      "band": "U",
-      "evidence_class": "lean_kernel_checked",
-      "public_entry": null
-    },
-    "no_longitudinal_reason": null,
-    "live_obstruction": "Every candidate counterexample support now has divergent reciprocal sum, and the surviving fatal branch at the rational target 1/21 is consistent with a permanent affine supercapacity regime, so no theorem forces the cofinal closed returns that would decide membership.",
-    "strongest_open_producer": {
-      "id": "contradict_twenty_one_permanent_affine_supercapacity",
-      "statement": "Contradict the exact permanent affine-supercapacity regime forced by TwentyOneFatalAlignedBranch. Commit bad43508 proves that any unbounded sequence of closed canonical rows s_R<=2^R already gives the compactness decay required for 1/21 membership, so the fatal branch must eventually satisfy 2^R<s_R at every rank. Combined with commit f23727a, the boundary coin is then always taken: support appends R+1 and the scalar follows one literal affine recurrence with no residual Boolean branch. Commit 73f417a additionally proves that an aligned crossing from exact saturation into strict supercapacity must occur at R=3a+2 and omit a canonical ancestor at a+1 or 2(a+1). This restricts one entrance mechanism but does not show that the fatal branch enters late from exact saturation or contradict the regime after entry. …"
-    },
-    "how_to_contribute": {
-      "kind": "proof",
-      "note": "Formalise the 1/3 certificate lemma as an inequality chain of roughly two hundred lines, after which finite certificates decide an individual support and rational-target pair."
-    },
-    "what_this_does_not_establish": "Erdős #257 remains open. The programme objective is universal irrationality, or a valid counterexample, for every infinite support; no rational target, mechanism, current frontier, packet order, or recent computation has incumbency. The packet records proved reductions, open producers, and negative results as evidence only. Finite computation cannot settle the universal or cofinal quantifiers. Select each disposable probe by current information gain, structural distinctness, and a clear route back to the problem, then rotate when its stop condition fires.",
-    "failed_approaches": [
-      "Any counterexample support must have divergent reciprocal sum; every candidate support with summable reciprocals is now excluded at every integer base.",
-      "Powerful supports as an independent contribution: subsumed by the reciprocal-summable theorem and removed from public lanes.",
-      "The 4/9 modulus-84 2-3-7 causal producer: false despite explaining all eight observed repair-gap rescues.",
-      "The actual modulus-420 tetraprime repair producer is false at arbitrarily large prime cofactors. EightReturnSynthesis.md section 3 supplies the proof from an exact 80-anchor selected prefix and Dirichlet; the new audit gives jumps >=2 and causal-margin failures >=3. This supersedes the earlier fifty-million finite survival evidence. Unrestricted cofinal repairs remain open."
-    ],
-    "public_entry_ids": [
-      "ExternalVerification257ReciprocalSupport",
-      "ExternalVerification257FinitePeriodNoncollapse",
-      "ExternalVerification257RationalTailRigidity",
-      "ExternalVerification257AchievementSetGeometry"
-    ]
+    "authority": "Reader-facing result selection from the source-selected Results guide edition. Exact proof authority remains with the sources and evidence boundaries named by that guide; publication_state and public_parity record whether this edition is public or a preview."
   },
   "palomar": null,
   "paper": {
@@ -410,7 +380,7 @@
     "form": "Problem note",
     "pages": 14,
     "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
-    "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
+    "precis": "For every infinite set A of positive integers with sum of 1/a finite, the paper proves that the reciprocal Mersenne-type subseries is irrational at every integer base b at least 2. Averaged modular divisor atoms give arbitrarily small positive displacements, contradicting the fixed lattice forced by rationality. This settles the reciprocal-summable regime, including the coprimality-free all-base extension stated by Erdős. Arbitrary infinite supports outside that regime, and hence universal Erdős #257, remain open.",
     "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
     "problem_id": "erdos_257",
@@ -430,9 +400,10 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 21,
-      "renderer_fingerprint": "f6b3e351ccb221fc",
+      "renderer_contract_version": 22,
+      "renderer_fingerprint": "e85419265bf94334",
       "source_sha256": "f27f8d97ce9f9bd83318ac3a97f4acbe7fc9072c9246dd2ef147dbfa63f07b66",
+      "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 344,
       "raw_math_fallback_count": 3,
@@ -463,95 +434,121 @@
     "sections": [
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:problem",
         "label": "Introduction and main results"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:reciprocal-support",
         "label": "Reciprocal-summable supports at every integer base"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:eight-return-extensions",
         "label": "Extensions beyond reciprocal summability"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "divisibility-weighted-and-quantitative-criteria",
         "label": "Divisibility-weighted and quantitative criteria"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "sec:common-kernel",
         "label": "A finite estimate on common observation scales"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "positive-fractional-divisor-covers",
         "label": "Positive fractional divisor covers"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "what-every-positive-cover-must-pay",
         "label": "What every positive cover must pay"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "combining-the-two-support-criteria",
         "label": "Combining the two support criteria"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-prime-power-regime.",
         "label": "The prime-power regime."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:period",
         "label": "Finite-support denominator periods"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:forced",
         "label": "Rational values and scaled tails"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:map",
         "label": "Where the return mechanism stops"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:geometry",
         "label": "Unique coding and arithmetic membership"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:actual-repairs",
         "label": "The actual greedy return inequality"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:open",
         "label": "Further questions"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "statements-and-declarations",
         "label": "Statements and declarations"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "app:sources",
         "label": "Guide to the formal sources"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "references",
         "label": "References"
       }
-    ]
+    ],
+    "first_pass": {
+      "stated_by_the_paper": false,
+      "provenance": "editorial selection for this guide",
+      "sections": [
+        {
+          "id": "sec:problem",
+          "title": "Introduction and main results",
+          "level": 2
+        },
+        {
+          "id": "sec:reciprocal-support",
+          "title": "Reciprocal-summable supports at every integer base",
+          "level": 2
+        },
+        {
+          "id": "sec:map",
+          "title": "Where the return mechanism stops",
+          "level": 2
+        },
+        {
+          "id": "sec:open",
+          "title": "Further questions",
+          "level": 2
+        }
+      ]
+    }
   },
   "routes": {
     "graph_node": "problem:erdos_257",
@@ -569,7 +566,7 @@
       "form": "Problem note",
       "pages": 14,
       "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
-      "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
+      "precis": "For every infinite set A of positive integers with sum of 1/a finite, the paper proves that the reciprocal Mersenne-type subseries is irrational at every integer base b at least 2. Averaged modular divisor atoms give arbitrarily small positive displacements, contradicting the fixed lattice forced by rationality. This settles the reciprocal-summable regime, including the coprimality-free all-base extension stated by Erdős. Arbitrary infinite supports outside that regime, and hence universal Erdős #257, remain open.",
       "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
       "problem_id": "erdos_257",
@@ -589,9 +586,10 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "f27f8d97ce9f9bd83318ac3a97f4acbe7fc9072c9246dd2ef147dbfa63f07b66",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 344,
         "raw_math_fallback_count": 3,
@@ -622,95 +620,121 @@
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:problem",
           "label": "Introduction and main results"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:reciprocal-support",
           "label": "Reciprocal-summable supports at every integer base"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:eight-return-extensions",
           "label": "Extensions beyond reciprocal summability"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "divisibility-weighted-and-quantitative-criteria",
           "label": "Divisibility-weighted and quantitative criteria"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:common-kernel",
           "label": "A finite estimate on common observation scales"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "positive-fractional-divisor-covers",
           "label": "Positive fractional divisor covers"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "what-every-positive-cover-must-pay",
           "label": "What every positive cover must pay"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "combining-the-two-support-criteria",
           "label": "Combining the two support criteria"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-prime-power-regime.",
           "label": "The prime-power regime."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:period",
           "label": "Finite-support denominator periods"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:forced",
           "label": "Rational values and scaled tails"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:map",
           "label": "Where the return mechanism stops"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:geometry",
           "label": "Unique coding and arithmetic membership"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:actual-repairs",
           "label": "The actual greedy return inequality"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:open",
           "label": "Further questions"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "statements-and-declarations",
           "label": "Statements and declarations"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "app:sources",
           "label": "Guide to the formal sources"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "sec:problem",
+            "title": "Introduction and main results",
+            "level": 2
+          },
+          {
+            "id": "sec:reciprocal-support",
+            "title": "Reciprocal-summable supports at every integer base",
+            "level": 2
+          },
+          {
+            "id": "sec:map",
+            "title": "Where the return mechanism stops",
+            "level": 2
+          },
+          {
+            "id": "sec:open",
+            "title": "Further questions",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "short",
       "current_github": {
@@ -748,11 +772,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "e8b38efaff6e3b1a95c1bb209ea408bdead1992de755676bb13246eb20b75d5a",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2923,
+        "mathml_node_count": 2981,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -764,696 +789,722 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "cea83cbe5efb991557ab6044da87604bea3c4cb11b2c92ee9db7a60fa279908e",
-        "html_exact_tex_sha256": "34e0e75f3884f7c9858133a8578ab3329dedc202e864d92b9b9c2de649c4add1"
+        "html_mathml_sha256": "13f25d11b58ff1005e54d0637bfda79f6ee38986b2cc9192353b5ba28505cfc8",
+        "html_exact_tex_sha256": "6a14e9954f8ef4a069b2c1200c63bab0edca84a925066a4a439b3df8e5d06dba"
       },
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "how-to-read-this-document",
           "label": "How to read this document"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:257-problem",
           "label": "The problem, and what is actually known"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-object-and-the-two-exact-statements",
           "label": "The object and the two exact statements"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-unconditional-record-universal-direction",
           "label": "The unconditional record, universal direction"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-unconditional-record-half-value-direction",
           "label": "The unconditional record, half-value direction"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:257-wall",
           "label": "The wall"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-thesis",
           "label": "The thesis"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "bar:canon",
           "label": "Barrier 1: canonicalisation — the witness space is a singleton"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "bar:collapse",
           "label": "Barrier 2: route collapse — every “weaker producer” is the goal"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "bar:scale",
           "label": "Barrier 3: scale mismatch — the available information is at the wrong resolution"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "bar:asym",
           "label": "Barrier 4: decision asymmetry — the certificates point the wrong way"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "bar:measure",
           "label": "Barrier 5: measure and category point in opposite directions"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "bar:box",
           "label": "Barrier 6: the two-axis certificate box (universal direction)"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "what-the-six-barriers-converge-on",
           "label": "What the six barriers converge on"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:257-survivors",
           "label": "What the wall does not block"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:route-1",
           "label": "Route 1: the reset \\sqrt{\\ }-escape / R-run anti-concentration target"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:route-2",
           "label": "Route 2: strict endpoint progress for exact rows"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:route-3",
           "label": "Route 3 audit: the prime-support theorem is known outside this formal corpus"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:route-4",
           "label": "Route 4: land the route-collapse equivalences"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:route-5",
           "label": "Route 5: the sparse/dense trichotomy closure"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ranking-stated-plainly",
           "label": "Ranking, stated plainly"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:257-howto",
           "label": "Reading the detailed record"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "read-linearly.",
           "label": "Read linearly."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "use-as-reference.",
           "label": "Use as reference."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "scale-and-coordinate-discipline.",
           "label": "Scale and coordinate discipline."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "the-object-the-two-questions-and-the-exact-record",
           "label": "The object, the two questions, and the exact record"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-object",
           "label": "The object"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "what-is-proved",
           "label": "What is proved"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "full-support-irrationality-for-every-base",
           "label": "Full-support irrationality, for every base"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "named-infinite-support-families",
           "label": "Named infinite-support families"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "topology-and-measure-of-the-achievement-set",
           "label": "Topology and measure of the achievement set"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:greedy-orbit",
           "label": "The greedy orbit, exactly"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:seam-model",
           "label": "The seam model and the master identity"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-real-form-and-the-master-identitys-analytic-reading",
           "label": "The real form and the master identity’s analytic reading"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "dynamics",
           "label": "Dynamics"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:anchors",
           "label": "Every anchor"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "catalogue-of-mathematical-ingredients",
           "label": "Catalogue of mathematical ingredients"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "open-hypotheses-and-candidate-inputs",
           "label": "Open hypotheses and candidate inputs"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "exact-identities-and-reductions",
           "label": "Exact identities and reductions"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "consequence-theorems",
           "label": "Consequence theorems"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-load-bearing-definitions",
           "label": "The load-bearing definitions"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-two-payoff-consumers",
           "label": "The two payoff consumers"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-coherent-repair-consumer-superseded-kept-as-a-fallback-target",
           "label": "The coherent-repair consumer (superseded, kept as a fallback target)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-critical-quotient-supply-consumer-chain",
           "label": "The critical-quotient-supply consumer chain"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "two-unconditional-fill-consumers-booleanmobiusskiprow",
           "label": "Two unconditional fill consumers (BooleanMobiusSkipRow)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-dyadic-band-quantifier-collapse-consumer-halfupperresetcriticalband",
           "label": "The dyadic-band quantifier-collapse consumer (HalfUpperResetCriticalBand)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-frozen-margin-consumer-family-halfcylinderfullshellseambridge-half-membership-track",
           "label": "The frozen-margin consumer family (HalfCylinderFullShellSeamBridge, half-membership track)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "two-square-root-scale-consumers-half-membership-track",
           "label": "Two square-root-scale consumers (half-membership track)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-non-effective-horizon-consumer",
           "label": "The non-effective horizon consumer"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-equivalence-cofinalpositivehalfgreedyskips-reduces-to",
           "label": "The equivalence CofinalPositiveHalfGreedySkips reduces to"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "invariants",
           "label": "Invariants"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "endpoint-transition-algebra-booleanmobiusexacttransition",
           "label": "Endpoint transition algebra (BooleanMobiusExactTransition)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "capacity-identities-booleanmobiusskippedcorecriticalcapacity-booleanmobiusskippedcoreexactrow",
           "label": "Capacity identities (BooleanMobiusSkippedCoreCriticalCapacity, BooleanMobiusSkippedCoreExactRow)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "doubling-branch-invariants-booleanmobiusexactrowranktwo",
           "label": "Doubling-branch invariants (BooleanMobiusExactRowRankTwo)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "base-case-fixture-booleanmobiusexactrowseed",
           "label": "Base-case fixture (BooleanMobiusExactRowSeed)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "global-repair-invariants-booleanmobiusglobalrepair",
           "label": "Global-repair invariants (BooleanMobiusGlobalRepair)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "greedy-window-uniqueness-booleanmobiusgreedyreduction",
           "label": "Greedy-window uniqueness (BooleanMobiusGreedyReduction)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "geometric-normal-form-booleanmobiuscriticalcapacitygeometric",
           "label": "Geometric normal form (BooleanMobiusCriticalCapacityGeometric)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "growth-bound-invariants-for-the-generic-layer",
           "label": "Growth-bound invariants for the generic layer"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "rigidity-corollaries-directly-constraining-a-rational-257-support",
           "label": "Rigidity corollaries directly constraining a rational #257 support"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "first-crossing-machinery-booleanmobiusexactrowcrossing",
           "label": "First-crossing machinery (BooleanMobiusExactRowCrossing)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "möbius-centred-carry-nonnegativity-and-the-skipped-rank-trichotomy-half-membership-track",
           "label": "Möbius-centred carry nonnegativity and the skipped-rank trichotomy (half-membership track)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "total-gap-mass-halfgapmass",
           "label": "Total gap mass (HalfGapMass)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-sharp-fatal-gap-criterion-halfgreedyfatalgap",
           "label": "The sharp fatal-gap criterion (HalfGreedyFatalGap)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "two-sided-dyadic-scale-control-halfcylindermiddlecarrylowerbound-feeds-halfupperresetcriticalband",
           "label": "Two-sided dyadic-scale control (HalfCylinderMiddleCarryLowerBound, feeds HalfUpperResetCriticalBand)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "abstract-fully-problem-agnostic-invariants-read-alongside-this-lane",
           "label": "Abstract, fully problem-agnostic invariants read alongside this lane"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "obstructions-and-countermodels",
           "label": "Obstructions and countermodels"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "recently-added-declarations",
           "label": "Recently added declarations"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-middle-cell-update-step-chain",
           "label": "The middle-cell update-step chain"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "forgetting-witnesses-the-terminal-only-bridge",
           "label": "Forgetting witnesses: the terminal-only bridge"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "a-strict-weakening-chain-for-the-last-producer-socket",
           "label": "A strict weakening chain for the last-producer socket"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-governed-frozen-margin-producer",
           "label": "The governed frozen-margin producer"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "exact-carry-pivot-normal-form",
           "label": "Exact carry-pivot normal form"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "new-mersenne-subseries-rigidity-tree",
           "label": "New Mersenne-subseries rigidity tree"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "new-half-counterexample-frontier-tree",
           "label": "New half-counterexample frontier tree"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "new-primitive-23-multiplicity-tree",
           "label": "New primitive-2323 multiplicity tree"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "current-121-frontier",
           "label": "Current 1/211/21 frontier"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:scale-ladder",
           "label": "The scale ladder"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:four-coordinates",
           "label": "One orbit in four coordinates"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "one-decision-stream-four-integerisations",
           "label": "One decision stream, four integerisations"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-truncation-rung-ladder",
           "label": "The truncation-rung ladder"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "frontier-index-what-stands-between-the-corpus-and-a-proof",
           "label": "Frontier index: what stands between the corpus and a proof"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-three-257-obligations-stated-exactly",
           "label": "The three #257 obligations, stated exactly"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "reading-a-row",
           "label": "Reading a row"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "reset-sixteen-near-misses",
           "label": "257-reset: sixteen near misses"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "cofinal-rows-thirteen-near-misses",
           "label": "257-cofinal-rows: thirteen near misses"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "universal-thirteen-near-misses",
           "label": "257-universal: thirteen near misses"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "three-theorems-assembled-from-the-interface-and-where-each-still-stops",
           "label": "Three theorems assembled from the interface, and where each still stops"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "route-collapse-findings-four-traps-to-name-explicitly",
           "label": "Route-collapse findings: four traps to name explicitly"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "closed-routes-with-the-mechanism-that-closed-them",
           "label": "Closed routes, with the mechanism that closed them"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "four-closed-attack-families-on-the-wall-itself",
           "label": "Four closed attack families on the wall itself"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:branch-exclusions",
           "label": "Branch exclusions at the final producer: the exceptional dyadic cells"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "no-go-countermodel-and-rigidity-modules-that-bound-the-wall-from-outside",
           "label": "No-go, countermodel, and rigidity modules that bound the wall from outside"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-scalar-localisation-height-obstruction",
           "label": "The scalar-localisation height obstruction"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-final-skip-band-formula-and-what-it-does-not-show",
           "label": "The final-skip band formula, and what it does not show"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:invent-257",
           "label": "The mathematics this problem still needs"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:invent-R1",
           "label": "R1. Reset \\sqrt{\\ }-escape: anti-concentration of a logarithmically short divisor sum"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-statement-needed",
           "label": "The statement needed"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "what-kind-of-object-would-furnish-it-and-the-exact-arithmetic-of-theta_l",
           "label": "What kind of object would furnish it, and the exact arithmetic of ΘL\\Theta_L"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-specific-obstacle",
           "label": "The specific obstacle"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "swings",
           "label": "Swings"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:invent-R2",
           "label": "R2. Strict endpoint progress: the one place canonicalisation does not bite"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-statement-needed-1",
           "label": "The statement needed"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "what-kind-of-object-would-furnish-it",
           "label": "What kind of object would furnish it"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-specific-obstacle-1",
           "label": "The specific obstacle"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "swings-1",
           "label": "Swings"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:invent-R3",
           "label": "R3. Prime support: a known theorem and an internal method boundary"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:invent-R4",
           "label": "R4. Landing the route-collapse equivalences, via perfect-square witness depths"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-statement-needed-2",
           "label": "The statement needed"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-object-and-the-swing-that-supplies-it",
           "label": "The object, and the swing that supplies it"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "why-this-is-a-result-and-not-bookkeeping",
           "label": "Why this is a result and not bookkeeping"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:invent-R5",
           "label": "R5. The sparse/dense trichotomy — and a proof that the present engine cannot close it"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-statement-needed-3",
           "label": "The statement needed"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "what-kind-of-object-would-furnish-it-1",
           "label": "What kind of object would furnish it"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-specific-obstacle-proved",
           "label": "The specific obstacle, proved"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:invent-shape",
           "label": "What the shape of the wall suggests about the underlying object"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-half-value-branch-looks-pseudorandom-and-the-failures-are-the-evidence",
           "label": "The half-value branch looks pseudorandom, and the failures are the evidence"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "three-reasons-to-distrust-that-inference-stated-plainly",
           "label": "Three reasons to distrust that inference, stated plainly"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-universal-branch-reads-differently-and-this-weakens-the-one-wall-thesis",
           "label": "The universal branch reads differently, and this weakens the one-wall thesis"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "what-the-evidence-does-and-does-not-determine",
           "label": "What the evidence does and does not determine"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "what-is-open-stated-exactly",
           "label": "What is open, stated exactly"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "notation-fixed-for-this-section",
           "label": "Notation fixed for this section"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "target-o1-universal-erdős-257",
           "label": "Target O1 — Universal Erdős #257"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "target-o2-half-value-membership",
           "label": "Target O2 — Half-value membership"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "waypoints-that-are-actually-equivalent-to-o2-not-weaker",
           "label": "Waypoints that are actually EQUIVALENT to O2, not weaker"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "target-o3-cofinal-exact-local-mersenne-half-rows",
           "label": "Target O3 — Cofinal exact local Mersenne half rows"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "sharp-critical-capacity-conditions-the-booleanmöbius-lanes-producer-for-o3",
           "label": "Sharp critical-capacity conditions — the BooleanMöbius lane’s producer for O3"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:o4",
           "label": "Target O4 — Reset anti-concentration (sqrt-escape) and the R-run form"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "target-o5-the-remaining--2-1-middle-cell-exclusion",
           "label": "Target O5 — The remaining −2,−1-2,-1 middle-cell exclusion"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "target-o2b-membership-of-121",
           "label": "Target O2b — Membership of 1/211/21"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:v-table",
           "label": "Implication table"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "what-kind-of-new-mathematics-each-form-would-need",
           "label": "What kind of new mathematics each form would need"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "summary",
           "label": "Summary"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "statements-and-declarations",
           "label": "Statements and declarations"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "artefact-and-data-availability.",
           "label": "Artefact and data availability."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "authority-boundary.",
           "label": "Authority boundary."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "funding-and-competing-interests.",
           "label": "Funding and competing interests."
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "sec:257-problem",
+            "title": "The problem, and what is actually known",
+            "level": 2
+          },
+          {
+            "id": "sec:257-wall",
+            "title": "The wall",
+            "level": 2
+          },
+          {
+            "id": "sec:257-survivors",
+            "title": "What the wall does not block",
+            "level": 2
+          },
+          {
+            "id": "what-is-open-stated-exactly",
+            "title": "What is open, stated exactly",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "long",
       "current_github": {

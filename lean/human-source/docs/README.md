@@ -3,94 +3,106 @@
 
 # Reading and working with the research
 
-Choose a problem, read its short paper, then follow the argument into the
-longer record or the supporting source. All eight original Erdős problems
-remain open. You can contribute a correction, explanation, counterexample or
-useful failed approach without solving one.
+The [front page](../README.md) introduces the project. This index helps you
+choose what to read or do next, whether you want to understand a result, check
+its proof, continue the research, or inspect how the tools work.
+
+All eight original Erdős problems remain open. The papers report intermediate
+results and the approaches that stopped, with enough of the record preserved
+for somebody else to inspect the argument and continue from it.
+
+## Choose a way in
+
+| What you want to do | Start here | Where it takes you |
+|---|---|---|
+| Understand the project without installing anything | [A reader's way in](READING_GUIDE.md) | The eight questions, what formalisation adds, and how to read the evidence. |
+| Read the mathematics | [The papers](../paper/README.md) | A short paper for each problem, then a longer record when you need the details. |
+| Find what has been established and what is missing | [Results and limits](RESULTS.md) | The results beside their remaining open questions, with routes to the evidence. |
+| Check a result yourself | [Reproducibility](REPRODUCIBILITY.md) | Inspect one claim without Lean, then install the pinned environment if you want to rebuild proofs. |
+| Continue the work or send a correction | [Contributing](../CONTRIBUTING.md) | A plain-language issue or a focused pull request, with evidence and credit. |
+| Understand the software and research process | [How this repository works](ARCHITECTURE.md) | The roles of proofs, claim records, papers, query tools and release checks. |
 
 ## Read
 
-- [A reader's way in](READING_GUIDE.md): an introduction without commands or Lean.
-- [The papers](../paper/README.md): the current short papers and longer records.
-- [Results and open questions](RESULTS.md): the stated progress and its limits.
-- [Prior work](PRIOR_ART.md): antecedents, attribution and comparisons.
-- [Related problems](RELATED_PROBLEMS.md): connections across the collection.
+Choose a statement in a [short paper](../paper/README.md#problem-papers).
+Read its assumptions and argument, then use the longer record for a compressed
+step, an earlier attempt, or the surrounding computations. [Prior work](PRIOR_ART.md)
+helps with attribution; [related problems](RELATED_PROBLEMS.md) follows
+connections elsewhere in the collection.
 
-The short papers explain the main ideas. The long records retain more detail,
-attempts and unresolved steps. Each result's own evidence boundary matters:
-an ordinary mathematical argument and a Lean-checked declaration are different
-kinds of evidence.
+The [source map](SOURCE_MAP.md) locates the supporting Lean declarations and
+paper passages. Each paper says which results have a Lean proof and which use
+an ordinary mathematical argument or a cited theorem. The
+[claim record](claims.json) gives the selected public statements, their status
+and their exact remaining-open propositions. [Scope](SCOPE.md) records the
+release boundary, and [methodology](METHODOLOGY.md) explains the rules for
+changing a claim.
 
 ## Check
 
-Start with the [source map](SOURCE_MAP.md) to locate the evidence for a result.
-[Reproducibility](REPRODUCIBILITY.md) gives the checkout and verification
-commands. [External verification](EXTERNAL_VERIFICATION.md) explains the
-selected Comparator interfaces and their limits.
-
-The [claim record](claims.json) binds statements to their status and supporting
-artifacts. [Methodology](METHODOLOGY.md) explains the separate roles of Lean,
-repository checks and mathematical review. A navigation page or a successful
-repository check does not establish a stronger mathematical statement.
+To replay a check, follow [reproducibility](REPRODUCIBILITY.md). For selected
+statements, [external verification](EXTERNAL_VERIFICATION.md) also provides
+Comparator interfaces: separately declared formal statements that can be
+compared with the development. The [verification guides](verification/README.md)
+explain those checks and their limits.
 
 ## Contribute
 
-[Contributing](../CONTRIBUTING.md) explains how to send an observation or a
-focused pull request. [Credit and stewardship](research-commons/CREDIT_POLICY.md)
-explains how accepted work is attributed, including negative results and
-corrections. The [research commons](research-commons/README.md) describes how
-another researcher can resume and return a longer investigation.
+A contribution can be a correction, clearer explanation, earlier reference,
+counterexample, or useful failed approach. [Contributing](../CONTRIBUTING.md)
+explains what to send back. The [research commons](research-commons/README.md)
+describes how longer investigations retain their starting point, evidence and
+[credit](research-commons/CREDIT_POLICY.md).
 
-For an AI-assisted session, use [the research-shift guide](FRONTIER_RELAY.md).
-Coding agents start at [the agent entry](../AGENTS.md); the
-[agent workbench](agents/AGENT_WORKBENCH.md) documents the detailed tools.
+For an AI-assisted session, use the [research-shift guide](FRONTIER_RELAY.md).
+Give a coding agent [AGENTS.md](../AGENTS.md) so it can find the relevant
+workflow. The [agent guides](agents/README.md) explain the tools once you have
+a question to work on. You can also contribute to navigation, validation or
+the contributor experience through the
+[architecture contribution path](research-commons/ARCHITECTURE_CONTRIBUTIONS.md).
 
 ## Where things live
 
 | Folder | What belongs there |
 |---|---|
 | [Papers](../paper/README.md) | Current PDFs and manuscript sources, grouped by problem. |
-| [Paper full text](papers/README.md) | Browsable Markdown versions and a detailed paper index. |
-| [Agent guides](agents/README.md) | Commands, proof tools and rules for making changes. |
+| [Paper full text](papers/README.md) | Generated Markdown versions and the detailed paper inventory. |
+| [Agent guides](agents/README.md) | Query tools, proof tools and instructions for making changes. |
 | [Verification guides](verification/README.md) | Replay instructions, statement comparisons and submission requirements. |
 | [Technical reference](reference/README.md) | Research history, correction records and indexing details. |
 | [Research commons](research-commons/README.md) | Contribution, review and attribution records. |
-| [Semantic index](semantic/README.md) | Generated technical navigation through declarations and relationships. |
+| [Semantic index](semantic/README.md) | Technical navigation through formal statements and their recorded relationships. |
 | [Primary sources](primary-sources/) | Source provenance and redistribution records. |
 | [Measurements](measurements/) | Recorded measurements of the tools. |
 | [Release records](release/) | Audits and release identity records. |
 
-The main guides stay here: [reading guide](READING_GUIDE.md),
-[results](RESULTS.md), [prior art](PRIOR_ART.md), [related problems](RELATED_PROBLEMS.md),
-[source map](SOURCE_MAP.md), [reproducibility](REPRODUCIBILITY.md),
-[methodology](METHODOLOGY.md), [scope](SCOPE.md) and
-[architecture](ARCHITECTURE.md).
-
-The JSON files beside these guides are used by the query tools and website.
-[claims.json](claims.json) records public claim status;
-[methodology.json](methodology.json) records the review rules.
-The remaining indexes help locate evidence. Their filenames stay stable so
-existing tools and source links continue to work. You can read the papers
-without opening them.
-
-[Generated technical navigation](ORIENTATION.md) gives a compact view for
-readers using those indexes.
+The main reading guides stay directly under `docs/`. The JSON files beside
+them supply the query tools and website. For example, `claims.json` records
+public claim status and `methodology.json` records review rules; the other
+indexes help locate evidence. You can read the papers without opening these
+files. [Generated technical navigation](ORIENTATION.md) is a compact entry for
+readers who want to use the indexes.
 
 ## Files at the repository root
 
 `README.md` introduces the work and `CONTRIBUTING.md` explains how to help.
-`AGENTS.md` is the shared instruction file for coding agents. Claude Code loads
-it through `CLAUDE.md`. Detailed agent rules live in
-[the agent guide](agents/AGENT_GUIDE.md), so reading the root does not require a tour
-of the automation.
+`AGENTS.md` is the shared entry for coding agents; `CLAUDE.md` loads it for
+Claude Code. The detailed rules live in the [agent guide](agents/AGENT_GUIDE.md).
 
 `lakefile.toml`, `lake-manifest.json` and `lean-toolchain` configure the Lean
 project and pin its dependencies. `formalization.yaml` is the Comparator
-manifest for selected statements; [external verification](EXTERNAL_VERIFICATION.md)
-explains its coverage. `CITATION.cff` supplies citation metadata, while
+manifest for selected statements. `CITATION.cff` supplies citation metadata;
 `LICENSE`, `LICENSES/` and `REUSE.toml` record the licences.
 
-The [code of conduct](../.github/CODE_OF_CONDUCT.md) and
-[security policy](../.github/SECURITY.md) live under `.github/`, alongside CI
-and contribution forms. [Privacy](PRIVACY.md), [scope](SCOPE.md) and
-[methodology](METHODOLOGY.md) live here with the other guides.
+The [code of conduct](../.github/CODE_OF_CONDUCT.md),
+[security policy](../.github/SECURITY.md), CI and contribution forms live under
+`.github/`. The [privacy policy](PRIVACY.md) stays here with the other guides.
+
+## Improving these guides
+
+Give each guide a reader's question to answer, and make its index link say
+what the reader will learn or be able to do. Define terms where they first
+matter, and check examples from the repository root. Keep mathematical
+hypotheses, evidence and open boundaries exact when changing the prose.
+For a generated page, change its source and run its owning builder;
+[Contributing](../CONTRIBUTING.md) explains how to return the improvement.

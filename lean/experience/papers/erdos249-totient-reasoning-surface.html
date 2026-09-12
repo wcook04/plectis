@@ -5715,6 +5715,1183 @@ explicitly and exactly as recorded against the Lean source; nothing is
 compressed to
 “<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">\forall\dots</annotation></semantics></math>”
 where the source specifies bounds.</p>
+<table>
+<caption>The #249 scale ladder. Every row above the rule is proved;
+every row below it is the cofinal target or a direct consumer of
+it.</caption>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l"><p><strong>Result</strong></p></th>
+<th class="ta-l"><strong>Lean site</strong></th>
+<th class="ta-l"><strong>Scale</strong></th>
+<th class="ta-l"><strong>Quantifier prefix</strong></th>
+<th class="ta-l"><strong>Coordinate</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l"><p><strong>Result</strong></p></td>
+<td class="ta-l"><strong>Lean site</strong></td>
+<td class="ta-l"><strong>Scale</strong></td>
+<td class="ta-l"><strong>Quantifier prefix</strong></td>
+<td class="ta-l"><strong>Coordinate</strong></td>
+</tr>
+<tr>
+<td colspan="5" class="ta-r"></td>
+</tr>
+<tr>
+<td class="ta-l"><p></p></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">totientTail well-defined</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">\forall N</annotation></semantics></math></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mspace width="-0.167em"></mspace><mo>⋅</mo><mspace width="-0.167em"></mspace><mi>S</mi></mrow><annotation encoding="application/x-tex">2^N\!\cdot\! S</annotation></semantics></math>
+split</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">\forall N</annotation></semantics></math></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">windowDiscrepancy (def)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>N</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall h\,\forall N\,\forall L</annotation></semantics></math></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">certifiedKill
+Sep<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(h,N,L)</annotation></semantics></math>
+(def)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>N</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall h\,\forall N\,\forall L</annotation></semantics></math></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">certificate depth floor</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>N</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall h\,\forall N\,\forall L</annotation></semantics></math>,
+given
+<code>certifiedKill</code><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace width="0.167em"></mspace><mi>h</mi><mspace width="0.167em"></mspace><mi>N</mi><mspace width="0.167em"></mspace><mi>L</mi></mrow><annotation encoding="application/x-tex">\,h\,N\,L</annotation></semantics></math></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">kill engine soundness</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>N</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall h\,\forall N\,\forall L</annotation></semantics></math>,
+given <code>certifiedKill</code></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">certificates are complete receipts</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">\forall h\,\forall N</annotation></semantics></math></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">forced integrality under
+den. divisibility</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>N</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>r</mi><mo>:</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">\forall N\,\forall h\,\forall r{:}\mathbb{Q}</annotation></semantics></math>,
+given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">S=r</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>∣</mo><msup><mn>2</mn><mi>N</mi></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r.\mathrm{den}\mid 2^N(2^h{-}1)</annotation></semantics></math></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">tail-period law</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>¬</mi><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mspace width="0.167em"></mspace><mi>S</mi><mo>→</mo><mo>∃</mo><mi>h</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∃</mo><msub><mi>N</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∀</mo><mi>N</mi><mo>≥</mo><msub><mi>N</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\lnot\mathrm{Irrational}\,S\to\exists h{&gt;}0\,\exists N_0\,\forall N{\ge}N_0</annotation></semantics></math></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">periodLcm basic facts</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">\forall t</annotation></semantics></math></td>
+<td class="ta-l">other-lcm-period-ray</td>
+</tr>
+<tr>
+<td class="ta-l">non-divisor<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mn>2</mn><mi>t</mi></mrow><annotation encoding="application/x-tex">&lt;2t</annotation></semantics></math>
+is a bare prime power</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>t</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>j</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>&lt;</mo><mi>j</mi><mo>&lt;</mo><mn>2</mn><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall t\,\forall j\,(0{&lt;}j{&lt;}2t)</annotation></semantics></math>,
+given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∤</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi></mrow><mspace width="0.167em"></mspace><mi>t</mi></mrow><annotation encoding="application/x-tex">j\nmid\mathrm{periodLcm}\,t</annotation></semantics></math></td>
+<td class="ta-l">other-lcm-window</td>
+</tr>
+<tr>
+<td class="ta-l">LCM-ray multiplicative split</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>t</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>j</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">\forall t\,\forall j\,\forall q</annotation></semantics></math>,
+given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∣</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi></mrow><mspace width="0.167em"></mspace><mi>t</mi></mrow><annotation encoding="application/x-tex">j\mid\mathrm{periodLcm}\,t</annotation></semantics></math>,
+clean-divisor</td>
+<td class="ta-l">other-lcm-window-multiplicative</td>
+</tr>
+<tr>
+<td class="ta-l">rationality flattens the whole LCM
+cone</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>¬</mi><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mspace width="0.167em"></mspace><mi>S</mi><mo>→</mo><mo>∃</mo><msub><mi>t</mi><mn>1</mn></msub><mspace width="0.167em"></mspace><mo>∀</mo><mi>t</mi><mo>≥</mo><msub><mi>t</mi><mn>1</mn></msub><mspace width="0.167em"></mspace><mo>∀</mo><mi>q</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\lnot\mathrm{Irrational}\,S\to\exists t_1\,\forall t{\ge}t_1\,\forall q{&gt;}0\,\forall m</annotation></semantics></math></td>
+<td class="ta-l">other-lcm-cone</td>
+</tr>
+<tr>
+<td class="ta-l">second-difference kill engine</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>N</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall h\,\forall N\,\forall L</annotation></semantics></math>,
+given <code>certifiedRank2Kill</code></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">cone-menu nonintegral pair</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>H</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>L</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>Q</mi><mo>≠</mo><mi>∅</mi></mrow><annotation encoding="application/x-tex">\forall H\,\forall L\,\forall Q{\ne}\emptyset</annotation></semantics></math>,
+given <code>coneNonflatCert</code></td>
+<td class="ta-l">other-lcm-cone-menu</td>
+</tr>
+<tr>
+<td class="ta-l">survivorKill engine (carry-orbit
+route)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>N</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">\forall h\,\forall N\,\forall K</annotation></semantics></math>,
+given <code>survivorKill</code></td>
+<td class="ta-l">other-carry-orbit</td>
+</tr>
+<tr>
+<td class="ta-l">Farey neighbour denominator law</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mspace width="0.167em"></mspace><mi>b</mi><mspace width="0.167em"></mspace><mi>c</mi><mspace width="0.167em"></mspace><mi>d</mi><mspace width="0.167em"></mspace><mi>r</mi><mspace width="0.167em"></mspace><mi>s</mi><mo>:</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\forall a\,b\,c\,d\,r\,s{:}\mathbb{Z}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>d</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>b</mi><mi>c</mi><mo>−</mo><mi>a</mi><mi>d</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b{&gt;}0,d{&gt;}0,bc{-}ad{=}1</annotation></semantics></math>,
+unimodular-between</td>
+<td class="ta-l">farey</td>
+</tr>
+<tr>
+<td class="ta-l">Dirichlet near-integer criterion</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>u</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>x</mi><mo>:</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">\forall u{:}\mathbb{N}\to\mathbb{Q}\,\forall x{:}\mathbb{R}</annotation></semantics></math></td>
+<td class="ta-l">n/a (generic)</td>
+</tr>
+<tr>
+<td class="ta-l">Erdős 1948 near-integer criterion</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>ξ</mi><mo>:</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">\forall \xi{:}\mathbb{R}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>q</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∃</mo><mi>m</mi><mspace width="0.167em"></mspace><mi>z</mi><mspace width="0.167em"></mspace><mn>0</mn><mo>&lt;</mo><mo stretchy="false" form="prefix">|</mo><mi>m</mi><mi>ξ</mi><mo>−</mo><mi>z</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">\forall q{&gt;}0\,\exists m\,z\,0{&lt;}|m\xi{-}z|{&lt;}1/q</annotation></semantics></math></td>
+<td class="ta-l">n/a (generic)</td>
+</tr>
+<tr>
+<td class="ta-l">finite-minor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+linear independence</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">y</mi></mrow><mo>:</mo><mi>ι</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">\forall\,\mathrm{family}{:}\iota\to\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>,
+given SeparatedMinorCertificate</td>
+<td class="ta-l">n/a (generic)</td>
+</tr>
+<tr>
+<td class="ta-l">dyadic totient-kernel rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><msup><mn>2</mn><mi>e</mi></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">=2^e{+}1</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">\forall e</annotation></semantics></math></td>
+<td class="ta-l">other-dyadic-kernel-rank</td>
+</tr>
+<tr>
+<td class="ta-l">rationality forces unbounded carry-kernel
+rank</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>¬</mi><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mspace width="0.167em"></mspace><mi>S</mi><mo>→</mo><mo>∃</mo><mi>v</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∃</mo><mi>u</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">\lnot\mathrm{Irrational}\,S\to\exists v{&gt;}0\,\exists u\,\forall e</annotation></semantics></math></td>
+<td class="ta-l">other-carry-kernel-rank</td>
+</tr>
+<tr>
+<td class="ta-l">no fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+clears all primitive Euler jets</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>D</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall D{&gt;}0</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">Mersenne–Lambert ladder value
+identities</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">value identities,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">L(\mu){=}\tfrac12</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>φ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">L(\varphi){=}2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo></mrow><annotation encoding="application/x-tex">L(1){=}</annotation></semantics></math>Erdős–Borwein</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">prime-power reduced-denom. unit-gap
+ceiling</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>p</mi><mspace width="0.222em"></mspace><mtext mathvariant="normal">prime</mtext><mspace width="0.167em"></mspace><mo>∀</mo><mi>e</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall p\ \text{prime}\,\forall e{&gt;}0</annotation></semantics></math></td>
+<td class="ta-l">farey</td>
+</tr>
+<tr>
+<td class="ta-l">positive rational-difference lower
+bound</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">whole</mtext><mspace width="0.167em"></mspace><mtext mathvariant="normal">pfx</mtext><mo>:</mo><mi mathvariant="double-struck">ℚ</mi><mo>,</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">pfx</mtext><mo>&lt;</mo><mtext mathvariant="normal">whole</mtext></mrow><annotation encoding="application/x-tex">\forall\ \text{whole}\,\text{pfx}{:}\mathbb{Q},\ \text{pfx}{&lt;}\text{whole}</annotation></semantics></math></td>
+<td class="ta-l">n/a (generic)</td>
+</tr>
+<tr>
+<td class="ta-l">Möbius-square identity
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo>+</mo><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">S=\tfrac12+\Sigma</annotation></semantics></math>)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">squared-Lambert transfer engine</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>w</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo>∀</mo><mi>r</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall w{:}\mathbb{N}\to\mathbb{R}\,(|w(d)|{\le}d)\,\forall r\in[0,1)</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>S</mi><mo>−</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">L_2(\mu)=S-\tfrac12</annotation></semantics></math></td>
+<td class="ta-l">prose:L2_of_mu_is_249</td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>ζ</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>ζ</mi><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_2(1)=\zeta_q(2)-\zeta_q(1)</annotation></semantics></math>
+identity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>φ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_2(\varphi)</annotation></semantics></math>
+= gcd moment</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne/probability</td>
+</tr>
+<tr>
+<td class="ta-l">level-mirror table</td>
+<td class="ta-l">prose:level_mirror_table</td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">gcd-divisibility factorizes</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>d</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>d</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall d{:}\mathbb{N},\,d{&gt;}0</annotation></semantics></math></td>
+<td class="ta-l">probability</td>
+</tr>
+<tr>
+<td class="ta-l">reduced-direction law
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\Sigma=1</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">unconditional (sum over all coprime
+pairs)</td>
+<td class="ta-l">probability</td>
+</tr>
+<tr>
+<td class="ta-l">Stern–Brocot cylinder recursion</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mspace width="0.167em"></mspace><mi>b</mi><mo>:</mo><msup><mi mathvariant="double-struck">ℕ</mi><mo>+</mo></msup><mspace width="0.167em"></mspace><mo>∀</mo><mtext mathvariant="normal">depth</mtext><mspace width="0.167em"></mspace><mi>d</mi></mrow><annotation encoding="application/x-tex">\forall a\,b{:}\mathbb{N}^+\,\forall\text{depth}\,d</annotation></semantics></math></td>
+<td class="ta-l">other-stern-brocot</td>
+</tr>
+<tr>
+<td class="ta-l">repunit gcd-word T1</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>r</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">q</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi></mrow><mspace width="0.167em"></mspace><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo>∀</mo><mi>k</mi><mo>&lt;</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">\forall r\,(\mathrm{Squarefree}\,r)\,\forall k{&lt;}r</annotation></semantics></math></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">eval-at-2 recovers numerator</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>r</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">q</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi></mrow><mspace width="0.167em"></mspace><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall r\,(\mathrm{Squarefree}\,r)</annotation></semantics></math></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">radical-shadow scale decomposition</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>H</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>r</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall H{&gt;}0\,\forall r{&gt;}0</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">cyclotomic congruence T2</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>r</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">q</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi></mrow><mspace width="0.167em"></mspace><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo>∀</mo><mi>m</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>∣</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall r\,(\mathrm{Squarefree}\,r)\,\forall m\,(m{\mid}r)</annotation></semantics></math></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">top-fibre survives T3</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>r</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">q</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi></mrow><mspace width="0.167em"></mspace><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall r\,(\mathrm{Squarefree}\,r)</annotation></semantics></math></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">upper-half prime channel survival T4</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>t</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>p</mi><mspace width="0.222em"></mspace><mtext mathvariant="normal">prime</mtext><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>/</mi><mn>2</mn><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\forall t\,\forall p\ \text{prime}\in(t/2,t]</annotation></semantics></math>,
+scale-coprime-to-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">denominator lower bound / exact value</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">\forall t</annotation></semantics></math>
+(exact-value);
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">t{\ge}5</annotation></semantics></math>
+(lower bound)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">prime-power jump recurrence T5</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>p</mi><mspace width="0.222em"></mspace><mtext mathvariant="normal">prime</mtext><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>∤</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo>∀</mo><mi>m</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>∣</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall p\ \text{prime}\,(p{\nmid}r)\,\forall m\,(m{\mid}r)</annotation></semantics></math></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">squared-Mersenne diagonal tail
+enclosure</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>D</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">\forall D{:}\mathbb{N}</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(3,5)</annotation></semantics></math>
+joint annihilator</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>d</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>∣</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall d{&gt;}0\,(d{\mid}H)</annotation></semantics></math>;
+general: finite affine annihilator</td>
+<td class="ta-l">other-lcm-diagonal</td>
+</tr>
+<tr>
+<td class="ta-l">composite-dilation defect identity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>∈</mo><mi>A</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo>∀</mo><mi>x</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall a{\in}A\,(a{&gt;}0)\,\forall x{&gt;}0</annotation></semantics></math></td>
+<td class="ta-l">other-divisor-support-coeff</td>
+</tr>
+<tr>
+<td class="ta-l">sublogarithmic zero-window T11</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>ε</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∃</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">\forall \varepsilon{&gt;}0\,\exists B</annotation></semantics></math>,
+given rationality of the base-2 support series</td>
+<td class="ta-l">other-support-divisor-counting</td>
+</tr>
+<tr>
+<td class="ta-l">campbell shift
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>↔</mo><annotation encoding="application/x-tex">\leftrightarrow</annotation></semantics></math>
+Mersenne endpoint (shared namespace, #257-flavored)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">iff, no extra parameter</td>
+<td class="ta-l">other-greedy-mersenne-achievement</td>
+</tr>
+<tr>
+<td class="ta-l">totient overlap-factor
+multiplicativity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>x</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall x{&gt;}0</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+fixed)</td>
+<td class="ta-l">other-totient-arithmetic</td>
+</tr>
+<tr>
+<td class="ta-l">totient relative-Euler-product split</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>j</mi><mspace width="0.167em"></mspace><mi>x</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall j\,x{&gt;}0</annotation></semantics></math></td>
+<td class="ta-l">other-totient-arithmetic</td>
+</tr>
+<tr>
+<td class="ta-l">lcmRayArithmeticLetter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>=</mo><annotation encoding="application/x-tex">=</annotation></semantics></math>
+deltaTotient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>=</mo><annotation encoding="application/x-tex">=</annotation></semantics></math>
+diagonalWindowIncrement</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>t</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">\forall t\,\forall j</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">lcmDiagonalArithmeticWord
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>=</mo><annotation encoding="application/x-tex">=</annotation></semantics></math>
+windowDiscrepancy</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>t</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall t\,\forall L</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">#249
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇔</mo><annotation encoding="application/x-tex">\iff</annotation></semantics></math>
+cofinal actual-orbit nonintegrality</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l">iff</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">actualLcmTailOrbit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>=</mo><annotation encoding="application/x-tex">=</annotation></semantics></math>
+scaled series
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>
+prefix</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">\forall a</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">explicit finite-block approximation</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">\forall a\,\forall q</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">guard-cylinder normal form</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mi>N</mi><mo>,</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">iff</mtext></mrow><annotation encoding="application/x-tex">\forall h\,N,\ \text{iff}</annotation></semantics></math></td>
+<td class="ta-l">seam-integer</td>
+</tr>
+<tr>
+<td class="ta-l">fixedRankSecondDifference sign under
+extremality</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>H</mi><mspace width="0.167em"></mspace><mi>j</mi></mrow><annotation encoding="application/x-tex">\forall H\,j</annotation></semantics></math>,
+given MiddleRankTotientExtremal</td>
+<td class="ta-l">other-fixed-rank-curvature</td>
+</tr>
+<tr>
+<td class="ta-l">dyadic fixture exactness (kernel-valuation
+sharpness)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\forall n</annotation></semantics></math>
+(closed-form)</td>
+<td class="ta-l">other-fixed-rank-curvature</td>
+</tr>
+<tr>
+<td class="ta-l">parityCoboundaryWeight (def)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\forall n</annotation></semantics></math>
+(definition)</td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">totientTail
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>=</mo><annotation encoding="application/x-tex">=</annotation></semantics></math>
+positive foreign-residue kernel sum</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">\forall N</annotation></semantics></math></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">totientTail
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>=</mo><annotation encoding="application/x-tex">=</annotation></semantics></math>
+shifted Möbius-pulse sum</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">\forall N</annotation></semantics></math></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">Lambert double-sum regroup engine</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>w</mi><mspace width="0.167em"></mspace><mi>v</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>d</mi><mo>,</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">|</mo><mi>v</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall w\,v{:}\mathbb{N}\to\mathbb{R}\,(|w(d)|{\le}d,\,|v(m)|{\le}m)</annotation></semantics></math></td>
+<td class="ta-l">cyclotomic</td>
+</tr>
+<tr>
+<td class="ta-l">carryShift-integrality iff</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>N</mi><mspace width="0.167em"></mspace><mi>k</mi></mrow><annotation encoding="application/x-tex">\forall N\,k</annotation></semantics></math>,
+given tempered orbit</td>
+<td class="ta-l">seam-integer</td>
+</tr>
+<tr>
+<td class="ta-l">rationality
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+periodicity &amp; unbounded rank</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>¬</mi><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mspace width="0.167em"></mspace><mi>S</mi><mo>→</mo><mo>∃</mo><mi>v</mi><mspace width="0.167em"></mspace><mi>u</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">\lnot\mathrm{Irrational}\,S\to\exists v\,u\,\forall e</annotation></semantics></math></td>
+<td class="ta-l">seam-integer</td>
+</tr>
+<tr>
+<td class="ta-l">adjugate tail-cost floor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\ge 3</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">finite</mtext><mspace width="0.222em"></mspace><mi>w</mi><mo>:</mo><mi>ι</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="0.167em"></mspace><mi>x</mi><mo>:</mo><mi>ι</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">\forall\ \text{finite}\ w{:}\iota\to\mathbb{Q}\,x{:}\iota\to\mathbb{N}</annotation></semantics></math>,
+given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>w</mi><mi>i</mi></msub><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum w_i\varphi(x_i){=}1</annotation></semantics></math></td>
+<td class="ta-l">other-adjugate-linear-algebra</td>
+</tr>
+<tr>
+<td class="ta-l">directedCertifiedKill exact iff</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mspace width="0.167em"></mspace><mi>N</mi><mspace width="0.167em"></mspace><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall h\,N\,L</annotation></semantics></math></td>
+<td class="ta-l">seam-integer</td>
+</tr>
+<tr>
+<td class="ta-l">tempered orbit rigidity iff</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>c</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall c{:}\mathbb{N}\to\mathbb{N}\,(c(n){\le}n)</annotation></semantics></math>,
+iff</td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">doubling-orbit rigidity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>d</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">\forall d{:}\mathbb{N}\to\mathbb{R}</annotation></semantics></math>,
+doubling
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>+</mi><annotation encoding="application/x-tex">+</annotation></semantics></math>
+tempered
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo><mi>d</mi><mo>≡</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\to d{\equiv}0</annotation></semantics></math></td>
+<td class="ta-l">other-abstract-recursion</td>
+</tr>
+<tr>
+<td class="ta-l">finite-state no-go (unbounded state)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>m</mi><mspace width="0.167em"></mspace><mo>∀</mo><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi></mrow></mrow><annotation encoding="application/x-tex">\forall m\,\forall\mathrm{State}</annotation></semantics></math>,
+collapsing-state
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\to</annotation></semantics></math>
+no decoder</td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">fixed-depth affine reset</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℤ</mi><mspace width="0.167em"></mspace><mo>∀</mo><msub><mi>u</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><msub><mi>v</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∀</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall a{:}\mathbb{N}\to\mathbb{Z}\,\forall u_0\,v_0\,\forall L</annotation></semantics></math></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">signed dichotomy engine (full-block
+certs)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>b</mi><mo>≥</mo><mn>2</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>c</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">\forall b{\ge}2\,\forall c\,\forall q</annotation></semantics></math>,
+given full-block certificate at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">Lambert double-sum regroup (dyadic
+forward-difference calc.)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>f</mi><mo>,</mo><mi>c</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℤ</mi><mspace width="0.167em"></mspace><mo>∀</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">shift-lists</mtext></mrow><annotation encoding="application/x-tex">\forall f,c{:}\mathbb{N}\to\mathbb{Z}\,\forall\ \text{shift-lists}</annotation></semantics></math></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">fair-coin coprimality bridge</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\forall n</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>r</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall r\in[0,1)</annotation></semantics></math></td>
+<td class="ta-l">probability</td>
+</tr>
+<tr>
+<td class="ta-l">linear-descender rigidity</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>V</mi><mo>,</mo><mi>W</mi><mspace width="0.167em"></mspace><mo>∀</mo><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">v</mi></mrow><mspace width="0.167em"></mspace><mo>∀</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall V,W\,\forall\mathrm{ev}\,\forall L</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ker</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">v</mi></mrow><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mrow><mi mathvariant="normal">ker</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ker(\mathrm{ev}){\le}\ker(L)</annotation></semantics></math></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">rational denominator survival law</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>D</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>m</mi><mo>∣</mo><mi>D</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">\forall D{&gt;}0\,\forall m{\mid}D\,\forall a</annotation></semantics></math></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">scalar-localization complement-dvd (adelic
+height tax)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>x</mi><mo>:</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>H</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo>∣</mo><mi>x</mi><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo>∀</mo><mi>c</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>∣</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall x{:}\mathbb{Q}\,\forall H\,(H{\mid}x.\mathrm{den})\,\forall c\,((cx).\mathrm{den}{\mid}H)</annotation></semantics></math></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">signed Hankel terminal-parity engine</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>m</mi><mo>∈</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">\exists m{\in}s</annotation></semantics></math>
+(strictly maximal, odd coeff),
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>i</mi><mo>≠</mo><mi>m</mi><mspace width="0.167em"></mspace><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall i{\ne}m\,e(i){&lt;}e(m)</annotation></semantics></math></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">residual gauge obstruction (locked
+minors)</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>d</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>e</mi><mo>:</mo><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow><mspace width="0.167em"></mspace><mi>d</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>z</mi><mo>:</mo><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow><mspace width="0.167em"></mspace><mi>d</mi><mo>→</mo><mi mathvariant="double-struck">ℂ</mi></mrow><annotation encoding="application/x-tex">\forall d\,\forall e{:}\mathrm{Fin}\,d{\to}\mathbb{N}\,\forall z{:}\mathrm{Fin}\,d{\to}\mathbb{C}</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>
+nonzero)</td>
+<td class="ta-l">other-first-harmonic-phase</td>
+</tr>
+<tr>
+<td class="ta-l">incidence-quotient no compression</td>
+<td class="ta-l"></td>
+<td class="ta-l">uniform</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>N</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">\forall N{:}\mathbb{N}</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">Farey window
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>240</mn></mrow><annotation encoding="application/x-tex">K{=}240</annotation></semantics></math>
+denominator bound</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>q</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>,</mo><mspace width="0.167em"></mspace><mn>0</mn><mo>&lt;</mo><mi>q</mi><mo>≤</mo></mrow><annotation encoding="application/x-tex">\forall q{:}\mathbb{N},\,0{&lt;}q{\le}</annotation></semantics></math><br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>79</mn><mo>,</mo><mn>639</mn><mo>,</mo><mn>646</mn><mo>,</mo><mn>646</mn><mo>,</mo><mn>701</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">79{,}639{,}646{,}646{,}701{,}</annotation></semantics></math><br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>375</mn><mo>,</mo><mn>323</mn><mo>,</mo><mn>355</mn><mo>,</mo><mn>774</mn><mo>,</mo><mn>875</mn><mo>,</mo><mn>831</mn><mo>,</mo><mn>053</mn></mrow><annotation encoding="application/x-tex">375{,}323{,}355{,}774{,}875{,}831{,}053</annotation></semantics></math></td>
+<td class="ta-l">farey</td>
+</tr>
+<tr>
+<td class="ta-l">denominator lower bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>≠</mo><mi>p</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S{\ne}p/q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≤</mo><msub><mi>Q</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">q{\le}Q_0</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>p</mi><mo>:</mo><mi mathvariant="double-struck">ℚ</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>p</mi><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>≤</mo><msub><mi>Q</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\forall p{:}\mathbb{Q},\,p.\mathrm{den}{\le}Q_0</annotation></semantics></math></td>
+<td class="ta-l">farey</td>
+</tr>
+<tr>
+<td class="ta-l">foreign-residue tail-limit converter</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>H</mi><mspace width="0.167em"></mspace><mi>D</mi></mrow><annotation encoding="application/x-tex">\forall H\,D</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>H</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">2H{\le}D</annotation></semantics></math>,
+given tail-limit convergence</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">fixed-precision tropical no-go</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>u</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall u{&gt;}0</annotation></semantics></math>
+(fixed precision),
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∀</mo><annotation encoding="application/x-tex">\forall</annotation></semantics></math>
+finite carry word</td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>-clean-Padé
+feasibility wall</td>
+<td class="ta-l">prose:mu_pollution_qpade_wall</td>
+<td class="ta-l">bounded</td>
+<td class="ta-l">claimed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">\forall d</annotation></semantics></math>;
+machine-audited only
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">d{\le}12</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne (q-Padé)</td>
+</tr>
+<tr>
+<td class="ta-l">iterated pullback /
+bounded-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>
+vanishing</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l">given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>K</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>a</mi><mo>∈</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">\Omega(a){\le}K\,\forall a{\in}A</annotation></semantics></math></td>
+<td class="ta-l">other-support-divisor-counting</td>
+</tr>
+<tr>
+<td class="ta-l">rough-density
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+totient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo><mstyle displaystyle="false"><mfrac><mn>3</mn><mn>4</mn></mfrac></mstyle><mi>n</mi></mrow><annotation encoding="application/x-tex">\ge\tfrac34 n</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>8</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>n</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall a{\ge}8\,\forall n{&gt;}0</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>-rough,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><msup><mn>2</mn><mi>a</mi></msup></mrow><annotation encoding="application/x-tex">t{=}2^a</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&lt;</mo><msup><mn>2</mn><mrow><mn>2</mn><mo>⋅</mo><msup><mn>2</mn><mi>a</mi></msup></mrow></msup></mrow><annotation encoding="application/x-tex">n{&lt;}2^{2\cdot2^a}</annotation></semantics></math>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">short-window sign fixed positive</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>8</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>j</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>&lt;</mo><mi>j</mi><mo>&lt;</mo><mn>2</mn><mo>⋅</mo><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall a{\ge}8\,\forall j\,(0{&lt;}j{&lt;}2\cdot2^a)</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">unconditional lower-half positivity</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mo>†</mo></msup><annotation encoding="application/x-tex">^\dagger</annotation></semantics></math></td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>8</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>J</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>2</mn><mo>⋅</mo><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall a{\ge}8\,\forall J\,(J{+}(a{+}6){&lt;}2\cdot2^a)</annotation></semantics></math>,
+no rationality hypothesis</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">top-edge residue survivor negative</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>8</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>J</mi><mspace width="0.167em"></mspace><mi>K</mi></mrow><annotation encoding="application/x-tex">\forall a{\ge}8\,\forall J\,K</annotation></semantics></math>
+(room bound)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">integrality forces top-edge residue</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>8</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>J</mi><mspace width="0.167em"></mspace><mi>K</mi></mrow><annotation encoding="application/x-tex">\forall a{\ge}8\,\forall J\,K</annotation></semantics></math>
+(room,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>H</mi><mo>+</mo><mi>J</mi><mo>+</mo><mi>K</mi><mo>+</mo><mn>2</mn><mo>&lt;</mo><msup><mn>2</mn><mi>K</mi></msup></mrow><annotation encoding="application/x-tex">2H{+}J{+}K{+}2{&lt;}2^K</annotation></semantics></math>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">short-kill supply through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≤</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">a{\le}6</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><msub><mi>a</mi><mn>0</mn></msub><mo>≤</mo><mn>6</mn><mspace width="0.167em"></mspace><mo>∃</mo><mi>a</mi><mspace width="0.167em"></mspace><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall a_0{\le}6\,\exists a\,L</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">terminal dyadic staircase impossible with
+room</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>8</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>J</mi><mspace width="0.167em"></mspace><mi>K</mi><mspace width="0.167em"></mspace><mi>m</mi></mrow><annotation encoding="application/x-tex">\forall a{\ge}8\,\forall J\,K\,m</annotation></semantics></math>
+(room, modulus-wide)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">punctured staircase penultimate pin</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>8</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>J</mi><mspace width="0.167em"></mspace><mi>K</mi><mspace width="0.167em"></mspace><mi>m</mi></mrow><annotation encoding="application/x-tex">\forall a{\ge}8\,\forall J\,K\,m</annotation></semantics></math>
+(room
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>+</mi><annotation encoding="application/x-tex">+</annotation></semantics></math>
+punctured hyp.)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">top-edge residue-gap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+nonintegral</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>8</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>J</mi><mspace width="0.167em"></mspace><mi>K</mi><mspace width="0.167em"></mspace><mi>m</mi></mrow><annotation encoding="application/x-tex">\forall a{\ge}8\,\forall J\,K\,m</annotation></semantics></math>
+(room, one-sided)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">odd-rank centred-lift
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>=</mo><annotation encoding="application/x-tex">=</annotation></semantics></math>
+terminal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>
+true carry</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>8</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">\forall a{\ge}8\,\forall q</annotation></semantics></math>
+(room, fit bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo>+</mo><mi>q</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mn>4</mn><mi>q</mi></msup></mrow><annotation encoding="application/x-tex">2(H{+}q{+}2){\le}4^q</annotation></semantics></math>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">prime-power kernel valuation floor</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>a</mi><mo>≥</mo><mn>4</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>j</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><msup><mi>j</mi><mn>2</mn></msup><mo>≤</mo><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall a{\ge}4\,\forall j{&gt;}0\,(j^2{\le}2^a)</annotation></semantics></math></td>
+<td class="ta-l">other-fixed-rank-curvature</td>
+</tr>
+<tr>
+<td class="ta-l">finite rational-separation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>¬</mi><annotation encoding="application/x-tex">\lnot</annotation></semantics></math>
+hit (#257-flavored)</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>H</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>D</mi><mo>≥</mo><mn>2</mn><mi>H</mi></mrow><annotation encoding="application/x-tex">\forall H{&gt;}0\,\forall D{\ge}2H</annotation></semantics></math>,
+given finite separation</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">homogeneous Mersenne multiplier does not
+annihilate</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>K</mi><mo>,</mo><mi>q</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mi>K</mi><mo>&lt;</mo><mi>q</mi><mo>,</mo><mi>q</mi><mo>∣</mo><msup><mn>2</mn><mi>K</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\forall K,q\,(K{&gt;}0,K{&lt;}q,q{\mid}2^K{-}1)</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">numerator-gap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>¬</mi><annotation encoding="application/x-tex">\lnot</annotation></semantics></math>
+hit (#257-flavored)</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>H</mi><mo>,</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">\forall H,D</annotation></semantics></math>
+fixed, given uniform numerator-gap bound</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">periodic-weight Lambert dichotomy</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>b</mi><mo>≥</mo><mn>2</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>m</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">\forall b{\ge}2\,\forall m{&gt;}0\,\forall w</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w(n{+}m){=}w(n)</annotation></semantics></math>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">non-negative periodic
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+irrational (unconditional)</td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>b</mi><mo>≥</mo><mn>2</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>m</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall b{\ge}2\,\forall m{&gt;}0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>
+periodic,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\ge0</annotation></semantics></math>,
+frequently
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">{\ne}0</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mn>8</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">h\in[1,8]</annotation></semantics></math>
+kill certificate at depth 16,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">N{=}12</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mn>8</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\forall h\in[1,8]</annotation></semantics></math>,
+<code>certifiedKill</code> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> 12 16
+(by <code>decide</code>)</td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mn>16</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">h\in[1,16]</annotation></semantics></math>,
+exponent 14 kill table</td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mn>16</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\forall h\in[1,16]</annotation></semantics></math>,
+denominator exponent 14 (by <code>decide</code>)</td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">rank-2 kill not shallower at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>8</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(h,N){=}(1,8)</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l">measured over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">t{\le}20</annotation></semantics></math>
+(30/40 cells)</td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">28-point diagonal pincer table through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">t{=}64</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>7</mn><mo>,</mo><mn>8</mn><mo>,</mo><mn>9</mn><mo>,</mo><mn>11</mn><mo>,</mo><mn>13</mn><mo>,</mo><mn>16</mn><mo>,</mo><mn>17</mn><mo>,</mo><mi>…</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">t\in\{1,2,3,4,5,7,8,9,11,13,16,17,\dots\}</annotation></semantics></math>
+(28 explicit values)</td>
+<td class="ta-l">other-lcm-diagonal</td>
+</tr>
+<tr>
+<td class="ta-l">contiguous diagonal certificate band
+through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t{\le}82</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">bounded</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>t</mi><mo>≤</mo><mn>82</mn><mspace width="0.167em"></mspace><mo>∃</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall t{\le}82\,\exists L</annotation></semantics></math>;
+no
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>83</mn></mrow><annotation encoding="application/x-tex">t{=}83</annotation></semantics></math>
+certificate claimed</td>
+<td class="ta-l">other-lcm-diagonal</td>
+</tr>
+<tr>
+<td class="ta-l">short kill at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">a{=}4</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">a{=}6</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">a{=}4</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">a{=}6</annotation></semantics></math>
+(concrete, kernel-checked)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">square-CRT clean block: vanishing /
+nonvanishing witnesses</td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l">witness
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>52</mn></mrow><annotation encoding="application/x-tex">n{=}52</annotation></semantics></math>
+(vanishes); witness
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>27</mn></mrow><annotation encoding="application/x-tex">n{=}27</annotation></semantics></math>
+(nonzero)</td>
+<td class="ta-l">other-crt-dyadic-residue</td>
+</tr>
+<tr>
+<td class="ta-l">echo-vs-height two-front wall</td>
+<td class="ta-l">prose:echo_versus_height_two_front_wall</td>
+<td class="ta-l">fixed</td>
+<td class="ta-l">empirical over tested families only (not
+universal)</td>
+<td class="ta-l">mobius-mersenne (q-Padé,
+quantitative)</td>
+</tr>
+<tr>
+<td class="ta-l">period-4 zeroset escape witness</td>
+<td class="ta-l"></td>
+<td class="ta-l">fixed</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>n</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>n</mi><mo>≡</mo><mn>3</mn><mspace width="-0.167em"></mspace><mspace width="-0.167em"></mspace><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\forall n,\,n{\equiv}3\!\!\pmod 4</annotation></semantics></math>
+(fixed weight
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>)</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l"><strong>THE WALL</strong> — certificate
+supply
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+Irrational
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l"><strong>cofinal</strong></td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mo>≥</mo><mn>1</mn><mspace width="0.167em"></mspace><mo>∀</mo><msub><mi>N</mi><mn>0</mn></msub><mo>≥</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∃</mo><mi>N</mi><mo>≥</mo><msub><mi>N</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>L</mi><mo>,</mo><mspace width="0.222em"></mspace><mtext mathvariant="monospace">𝚌𝚎𝚛𝚝𝚒𝚏𝚒𝚎𝚍𝙺𝚒𝚕𝚕</mtext><mspace width="0.167em"></mspace><mi>h</mi><mspace width="0.167em"></mspace><mi>N</mi><mspace width="0.167em"></mspace><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall h{\ge}1\,\forall N_0{\ge}0\,\exists N{\ge}N_0\,\exists L,\ \texttt{certifiedKill}\,h\,N\,L</annotation></semantics></math></td>
+<td class="ta-l">other-binary-window</td>
+</tr>
+<tr>
+<td class="ta-l">multiple-certificate supply
+(weakened)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><msub><mi>h</mi><mn>0</mn></msub><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∀</mo><msub><mi>N</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>m</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∃</mo><mi>N</mi><mo>≥</mo><msub><mi>N</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall h_0{&gt;}0\,\forall N_0\,\exists m{&gt;}0\,\exists N{\ge}N_0\,\exists L</annotation></semantics></math></td>
+<td class="ta-l">other-lcm-period-multiple</td>
+</tr>
+<tr>
+<td class="ta-l">LCM-diagonal one-parameter
+restatement</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><msub><mi>t</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>t</mi><mo>≥</mo><msub><mi>t</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall t_0\,\exists t{\ge}t_0\,\exists L</annotation></semantics></math></td>
+<td class="ta-l">other-lcm-diagonal</td>
+</tr>
+<tr>
+<td class="ta-l">LCM-cone window-kill supply (widest
+target)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><msub><mi>t</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>t</mi><mo>≥</mo><msub><mi>t</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>q</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∃</mo><mi>m</mi><mspace width="0.167em"></mspace><mo>∃</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall t_0\,\exists t{\ge}t_0\,\exists q{&gt;}0\,\exists m\,\exists L</annotation></semantics></math></td>
+<td class="ta-l">other-lcm-cone</td>
+</tr>
+<tr>
+<td class="ta-l">LCM diagonal/cone nonintegrality
+restatement</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><msub><mi>t</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>t</mi><mo>≥</mo><msub><mi>t</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\forall t_0\,\exists t{\ge}t_0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="monospace">𝚝𝚘𝚝𝚒𝚎𝚗𝚝𝚃𝚊𝚒𝚕</mtext><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msub><mi>H</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mtext mathvariant="monospace">𝚝𝚘𝚝𝚒𝚎𝚗𝚝𝚃𝚊𝚒𝚕</mtext><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>∉</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\texttt{totientTail}(2H_t){-}\texttt{totientTail}(H_t)\notin\mathbb{Z}</annotation></semantics></math></td>
+<td class="ta-l">other-real-analytic-nonintegrality</td>
+</tr>
+<tr>
+<td class="ta-l">LCM cone-nonflat supply (sharpest
+depth-reduced form)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∃</mo><annotation encoding="application/x-tex">\exists</annotation></semantics></math>
+unbounded-scale menu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+with <code>coneNonflatCert</code> firing</td>
+<td class="ta-l">other-lcm-cone-menu</td>
+</tr>
+<tr>
+<td class="ta-l">first-harmonic norm-gap supply</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∀</mo><msub><mi>X</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>X</mi><mo>≥</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>0</mn></msub><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo>∃</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\forall h{&gt;}0\,\forall X_0\,\exists X{\ge}\max(X_0,1)\,\exists L</annotation></semantics></math>,
+room
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mn>2</mn><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">16(2X{+}h{+}L{+}2){\le}2^L</annotation></semantics></math></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">prime-jump sharp-kill supply</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><msub><mi>t</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>t</mi><mo>≥</mo><msub><mi>t</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>p</mi><mo>,</mo><mi>L</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall t_0\,\exists t{\ge}t_0\,\exists p,L{&gt;}0</annotation></semantics></math></td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>-exponent
+short-arithmetic kill supply (the open trigger)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><msub><mi>a</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>a</mi><mspace width="0.167em"></mspace><mi>L</mi><mo>,</mo><mspace width="0.222em"></mspace><msub><mi>a</mi><mn>0</mn></msub><mo>≤</mo><mi>a</mi><mo>∧</mo><mi>L</mi><mo>&lt;</mo><mn>2</mn><mo>⋅</mo><msup><mn>2</mn><mi>a</mi></msup></mrow><annotation encoding="application/x-tex">\forall a_0\,\exists a\,L,\ a_0{\le}a\land L{&lt;}2\cdot2^a</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">actual-orbit separation supply</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l">cofinal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>32</mn><mo>+</mo></mrow><annotation encoding="application/x-tex">1/32{+}</annotation></semantics></math>error
+separation at guarded odd ranks</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">top-edge-residue-gap sufficiency chain (5
+links, weakest first)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><msub><mi>a</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mi>a</mi><mo>≥</mo><msub><mi>a</mi><mn>0</mn></msub><mspace width="0.167em"></mspace><mo>∃</mo><mo stretchy="false" form="prefix">⟨</mo><mtext mathvariant="normal">supply predicate</mtext><mo stretchy="false" form="postfix">⟩</mo></mrow><annotation encoding="application/x-tex">\forall a_0\,\exists a{\ge}a_0\,\exists\langle\text{supply predicate}\rangle</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">rational countermodel refutes
+{bound,parity,aperiodicity}</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>c</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">\exists c{:}\mathbb{N}\to\mathbb{N}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≤</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">c{\le}6</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">c{\le}n</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≡</mo><mi>φ</mi><mspace width="-0.167em"></mspace><mspace width="-0.167em"></mspace><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">c{\equiv}\varphi\!\!\pmod2</annotation></semantics></math>,
+arbitrarily-separated blocks</td>
+<td class="ta-l">binary-digit</td>
+</tr>
+<tr>
+<td class="ta-l">mod-4 pulse cofinal supply (via
+CRT+Dirichlet)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>B</mi><mspace width="0.167em"></mspace><mo>∃</mo><mtext mathvariant="normal">prime</mtext><mspace width="0.167em"></mspace><mi>p</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">\forall h{&gt;}0\,\forall B\,\exists\text{prime}\,p{&gt;}B</annotation></semantics></math></td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">mod-4 pulse survivor kill (fourfold
+reduction)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l">given CP-05’s cofinal supply</td>
+<td class="ta-l">mobius-mersenne</td>
+</tr>
+<tr>
+<td class="ta-l">two-adic pulse at arbitrary depth
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math></td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>K</mi><mo>≥</mo><mn>2</mn><mspace width="0.167em"></mspace><mo>∀</mo><mi>H</mi><mo>&gt;</mo><mi>K</mi><mspace width="0.167em"></mspace><mo>∀</mo><mi>B</mi><mspace width="0.167em"></mspace><mo>∃</mo><mtext mathvariant="normal">cofinally many primes</mtext><mspace width="0.167em"></mspace><mi>p</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">\forall K{\ge}2\,\forall H{&gt;}K\,\forall B\,\exists\text{cofinally many primes}\,p{&gt;}B</annotation></semantics></math></td>
+<td class="ta-l">p-adic</td>
+</tr>
+<tr>
+<td class="ta-l">two-adic pulse transfer (needs eventual
+integrality)</td>
+<td class="ta-l"></td>
+<td class="ta-l">cofinal</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>K</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\forall K{\ge}2</annotation></semantics></math>,
+given TA-01 pulse
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>+</mi><annotation encoding="application/x-tex">+</annotation></semantics></math>
+eventual integrality</td>
+<td class="ta-l">p-adic</td>
+</tr>
+</tbody>
+</table>
 <p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mo>†</mo></msup><annotation encoding="application/x-tex">^\dagger</annotation></semantics></math>
 The source normal-form table tags
 <code>actualLcmTailDiff_shift_pos</code> <span><span
@@ -7961,6 +9138,303 @@ class="level3">
 in full and are recorded here in compressed form; each follows the same
 (a)/(b)/(c)/(d) discipline as above but is presented as a table row for
 space.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l"><p><strong>Route</strong></p></th>
+<th class="ta-l"><strong>Mechanism &amp; site</strong></th>
+<th class="ta-l"><strong>Scope / salvage</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l"><p><strong>Route</strong></p></td>
+<td class="ta-l"><strong>Mechanism &amp; site</strong></td>
+<td class="ta-l"><strong>Scope / salvage</strong></td>
+</tr>
+<tr>
+<td class="ta-l"><p>Full terminal dyadic staircase
+(annihilate every suffix letter mod growing powers of 2)</p></td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">a\ge8</annotation></semantics></math>,
+room bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+<code>ActualLcmTerminalDyadicStaircase</code> is false: the terminal
+letter would have to be positive (by short-window positivity) and
+strictly below a wider-than-itself modulus while divisible by it,
+forcing it to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>,
+contradicting positivity. . <span><span
+class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:binary-digit</code></td>
+<td class="ta-l">Kills the FULL terminal-staircase proof
+strategy outright and unconditionally; the staircase (all but the last
+letter vanish) survives and is pinned exactly to the half-turn value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">2^{m-1}</annotation></semantics></math>
+at the penultimate letter (). The generic mechanism
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>e</mi><mo>&lt;</mo><msup><mn>2</mn><mi>m</mi></msup><mo>∧</mo><msup><mn>2</mn><mi>m</mi></msup><mo>∣</mo><mi>e</mi><mo>⇒</mo><mi>e</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">0&lt;e&lt;2^m\wedge2^m\mid e\Rightarrow e=0</annotation></semantics></math>)
+is reusable anywhere a positive quantity is asked to vanish mod a wider
+modulus.</td>
+</tr>
+<tr>
+<td class="ta-l">LCM factor-ideal retention (keep only the
+homogeneous “factor-only” part of an LCM-ray decomposition)</td>
+<td class="ta-l">An explicit nonzero all-horizon
+countermodel, built from multiples of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(\mathrm{periodLcm}(t))</annotation></semantics></math>,
+agrees with every exact whole-ray anchor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo>,</mo><mi>q</mi><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta\varphi(H,qH)=\varphi(H)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>q</mi><mo>&lt;</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">2\le q&lt;t</annotation></semantics></math>
+and survives every finite commensurate LCM-cube shift-polynomial, at
+every finite rank. (module docstring; theorem bodies <span><span
+class="sans-serif">[Cert]</span></span>, DOCSTRING-SOURCED). <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:other:lcm-ray-totient</code></td>
+<td class="ta-l">This is a -level exclusion, not an
+object-level one: it shows the homogeneous factor-ideal projection
+discards fresh Möbius-channel information that can be adversarially
+reconstructed. Explicitly flagged SYNTHETIC — no claim that the
+compensation letters occur as actual totient differences. Salvage: a
+future factor-ideal argument must control the channel via , not just the
+old one.</td>
+</tr>
+<tr>
+<td class="ta-l">Two-prime “full-target diamond” (four
+simultaneous ray hits certify more than one)</td>
+<td class="ta-l">The four-hit diamond
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>∧</mo><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>∧</mo><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>∧</mo><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mi>q</mi><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Hit}(H)\wedge\mathrm{Hit}(pH)\wedge\mathrm{Hit}(qH)\wedge
+\mathrm{Hit}(pqH)</annotation></semantics></math> is logically
+equivalent to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Hit}(H)</annotation></semantics></math>
+alone, no primality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p,q</annotation></semantics></math>
+needed — hits transport multiplicatively for free because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>⇔</mo><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">I</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">V</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">scaleDiagonalTailDifference</mtext><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Hit}(H)\iff\mathrm{IsIntegralValue}(\text{scaleDiagonalTailDifference}(H))</annotation></semantics></math>
+and integrality transports affinely along every ray
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>↦</mo><mi>k</mi><mi>H</mi></mrow><annotation encoding="application/x-tex">H\mapsto kH</annotation></semantics></math>.
+. <span><span class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:other:mobius-mersenne</code></td>
+<td class="ta-l">The 4-condition diamond carries zero
+information beyond its base point — a “curvature-zero collapse” of a
+multi-point certificate. Any future positive-holonomy argument needs an
+independently-defined projection of the foreign state control of the
+discarded complement; a bare 2/4-point diamond cannot supply new
+information beyond its own scale.</td>
+</tr>
+<tr>
+<td class="ta-l">Fixed-precision local valuation-unit
+signature (2-adic “tropical curvature carry” attack)</td>
+<td class="ta-l">For any finite word of odd-unit-part
+2-adic symbols at fixed precision
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u&gt;0</annotation></semantics></math>
+and any starting carry state
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>,
+there exists a compatible carry orbit realising the word with every
+intermediate state centred inside its symbol’s dyadic radius. .
+<span><span class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:bounded</span></span>
+<code>coord:p-adic</code></td>
+<td class="ta-l">Bounded LOCAL valuation-unit data at FIXED
+precision can never exclude all finite centred carry completions — no
+obstruction is derivable from a fixed-window local signature alone;
+growing precision, or extra arithmetic coupling, is required. Pure
+2-adic dynamics, zero totient content, reusable against any
+similarly-shaped fixed-window carry-certificate attack.</td>
+</tr>
+<tr>
+<td class="ta-l">Fixed-depth affine carry reset
+(distinguishing two carry histories after a long common tail)</td>
+<td class="ta-l">For the affine binary orbit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>u</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\mathrm{orbit}(0)=u_0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>a</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{orbit}(n{+}1)=2\,\mathrm{orbit}(n)-a(n{+}1)</annotation></semantics></math>
+with common forcing word
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mi>u</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mi>v</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mn>2</mn><mi>L</mi></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mn>0</mn></msub><mo>−</mo><msub><mi>v</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{orbit}_u(L)-\mathrm{orbit}_v(L)=2^L(u_0-v_0)</annotation></semantics></math>
+exactly. . <span><span class="sans-serif">[Lean]</span></span>
+<span><span class="sans-serif">scale:uniform</span></span>
+<code>coord:binary-digit</code></td>
+<td class="ta-l">After
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+common steps the endpoint residue mod
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>L</mi></msup><annotation encoding="application/x-tex">2^L</annotation></semantics></math>
+is of the initial carry — long common tails erase predecessor
+information exactly, not approximately. Directly relevant to any
+argument hoping to distinguish two carry histories from a shared long
+suffix; the terminal forcing word alone determines the residue.</td>
+</tr>
+<tr>
+<td class="ta-l">Bounded finite-state / autonomous
+successor decoder for the binary carry</td>
+<td class="ta-l">For a balanced-pulse family at location
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+whose predecessor <code>State</code> is constant across the whole
+family, no
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi></mrow><mo>:</mo><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi></mrow><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">\mathrm{decode}:\mathrm{State}\to
+\mathbb N</annotation></semantics></math> recovers the radius parameter;
+any finite <code>Fintype State</code> needs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">d</mi></mrow><mo>≥</mo><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\mathrm{card}\ge\lfloor m/2\rfloor+2</annotation></semantics></math>,
+unbounded in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.
+. <span><span class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:binary-digit</code></td>
+<td class="ta-l">Rules out, unconditionally, ANY proof
+strategy that defines a bounded or autonomous “carry state” summarising
+pre-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+history and claims it exactly determines the
+post-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+tail — independent of whether the coefficients are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
+or a Möbius-support indicator. A hard stop against
+finite-automaton-computes-the-expansion style attacks on either
+problem.</td>
+</tr>
+<tr>
+<td class="ta-l">Period-4 sign weight as a route to A7’s
+“frequently nonzero” hypothesis for free</td>
+<td class="ta-l">The divisor coefficient of the period-4
+sign weight
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">w(a){=}1</annotation></semantics></math>
+if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≡</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a{\equiv}1</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>
+if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≡</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">a{\equiv}3</annotation></semantics></math>,
+else
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>,
+mod 4) vanishes identically at every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≡</mo><mn>3</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">n\equiv3\pmod4</annotation></semantics></math>,
+via the divisor-pairing involution
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>↦</mo><mi>n</mi><mi>/</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">d\mapsto n/d</annotation></semantics></math>.
+. <span><span class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:fixed</span></span>
+<code>coord:mobius-mersenne</code></td>
+<td class="ta-l">Witnesses that Dirichlet-convolution
+coefficients CAN vanish identically on an arithmetic progression, so the
+“frequently nonzero” hypothesis in the nonnegative-periodic
+irrationality closure () is not free — it is why the corpus lands a
+dichotomy for general periodic signed weights rather than an
+unconditional supply theorem.</td>
+</tr>
+<tr>
+<td class="ta-l">Certified finite-depth “death”
+certificates as a route to membership proofs (both problems)</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="monospace">𝙲</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙶</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝚢</mi><mi mathvariant="monospace">𝙼</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚜</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝙳</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚑</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi></mrow><mo>,</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">k</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathtt{CertifiedGreedyMersenneDeath}(x,\mathrm{level},\mathrm{lookahead})</annotation></semantics></math>
+is a decidable, finite-depth certificate proving non-membership only (;
+witness ,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3/4</annotation></semantics></math>
+certified dead at level 1). <span><span
+class="sans-serif">[Cert]</span></span> <span><span
+class="sans-serif">scale:bounded</span></span>
+<code>coord:greedy-orbit</code></td>
+<td class="ta-l">Structural one-sidedness, recurring across
+the WHOLE certified-kill family (, , this one): certified-death
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math>
+non-membership, but absence of a found certificate, or survival through
+any finite depth, proves about membership or rationality.</td>
+</tr>
+<tr>
+<td class="ta-l">Reconstructing one totient value from a
+two-tail absolute-value linear combination</td>
+<td class="ta-l">For any finite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>:</mo><mi>ι</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">w:\iota\to\mathbb Q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>:</mo><mi>ι</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">x:\iota\to\mathbb N</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>w</mi><mi>i</mi></msub><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum w_i\varphi(x_i)=1</annotation></semantics></math>
+(exact isolation), the crude two-tail cost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mo stretchy="false" form="prefix">|</mo><msub><mi>w</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">|</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\sum|w_i|(2(x_i+1)+(x_i+2))\ge3</annotation></semantics></math>,
+using only
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\varphi(x)\le x</annotation></semantics></math>.
+(closure ). <span><span class="sans-serif">[Lean]</span></span>
+<span><span class="sans-serif">scale:uniform</span></span>
+<code>coord:other:totient-adjugate-linear-algebra</code></td>
+<td class="ta-l">The strategy needs cost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">&lt;1</annotation></semantics></math>
+and gets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\ge3</annotation></semantics></math>
+at ANY finite grid height — kills the entire “isolate one coefficient
+via absolute-value two-tail bookkeeping” family before it starts. The
+proof mechanism is problem-agnostic (any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">c(n)\le n</annotation></semantics></math>
+sequence gets the same floor by the triangle inequality) and transfers
+verbatim to a #257 reformulation.</td>
+</tr>
+<tr>
+<td class="ta-l">Homogeneous Mersenne-primitive prime
+factor alone forces a contradiction</td>
+<td class="ta-l">For the completely-multiplicative control
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">c(n)=n</annotation></semantics></math>
+(zero totient content): if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>&lt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">K&lt;q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><msup><mn>2</mn><mi>K</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\mid2^K-1</annotation></semantics></math>,
+the corresponding tail shift is integral at every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+yet
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∤</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">q\nmid K</annotation></semantics></math>.
+. <span><span class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:n/a</span></span>
+<code>coord:other:mersenne-modulus</code></td>
+<td class="ta-l">A primitive prime factor of the
+homogeneous multiplier
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>K</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^K-1</annotation></semantics></math>
+alone supplies NO contradiction from tail integrality. A direct
+cross-problem warning: #257’s denominators
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^n-1</annotation></semantics></math>
+are literally this
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><msup><mn>2</mn><mi>K</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\mid2^K-1</annotation></semantics></math>
+object, so “a large primitive Mersenne prime factor alone forces a
+contradiction” should be checked against this lemma before being
+attempted on either problem.</td>
+</tr>
+<tr>
+<td class="ta-l">Prime-power reduced-denominator unit-gap
+strengthening (rescuing extra Farey lattice points)</td>
+<td class="ta-l">At a prime-power reduced denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>p</mi><mi>e</mi></msup><annotation encoding="application/x-tex">p^e</annotation></semantics></math>,
+the unit-gap refinement can rescue at most ONE additional candidate
+lattice point beyond the ordinary gap certificate. (iff-characterisation
+). <span><span class="sans-serif">[Lean]</span></span> <span><span
+class="sans-serif">scale:uniform</span></span>
+<code>coord:other:farey-gap</code></td>
+<td class="ta-l">A formal ceiling on how much this specific
+refinement can ever buy — a known dead end for extending the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>7.96</mn><mo>×</mo><msup><mn>10</mn><mn>34</mn></msup></mrow><annotation encoding="application/x-tex">\approx7.96\times10^{34}</annotation></semantics></math>
+Farey rung (§) unboundedly. Do not re-attempt this exact strengthening
+expecting more than +1 lattice point per prime power; the underlying
+reduced-denominator-implies-unit-numerator technique is reusable for
+other denominator-exclusion arguments.</td>
+</tr>
+<tr>
+<td class="ta-l">Fixed rank-3 finite-difference kernel
+squeezing more than one dyadic bit of curvature information</td>
+<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">k</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">D</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>⋅</mo><mn>2</mn><mo>,</mo><mspace width="0.167em"></mspace><msup><mn>2</mn><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>⋅</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><msup><mn>2</mn><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathrm{fixedRankSecondDifference}(2^{n+1}\cdot2,\,2^{n+1}\cdot3)=-2^{n+1}</annotation></semantics></math>
+exactly, for all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>:
+the two-adic valuation gained by the primitive kernel factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2\varphi(j)</annotation></semantics></math>
+is exactly tight. . <span><span class="sans-serif">[Lean]</span></span>
+<span><span class="sans-serif">scale:n/a</span></span>
+<code>coord:binary-digit</code></td>
+<td class="ta-l">Route-pruning ammunition: rules out
+extracting more than one dyadic bit from the bare 3-rank affine kernel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>−</mi><mn>2</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1,-2,1)</annotation></semantics></math>;
+any further progress on the fixed-rank curvature route needs new
+arithmetic input, not a sharper valuation squeeze from the same kernel.
+The affine rank-3 kernel classification itself (, pure linear algebra
+over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb Z</annotation></semantics></math>,
+zero number-theoretic content) is fully reusable for any 3-point
+finite-difference argument on either problem.</td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 <section id="sec:promotion-audit" class="level2">
@@ -8010,6 +9484,252 @@ supplies missing arithmetic content toward closing #249 or
 below rather than folded into the sixteen, because collapsing that
 distinction would itself be exactly the kind of quantifier-slippage
 error this paper’s accuracy rules forbid.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l"><p><strong>Obligation</strong></p></th>
+<th class="ta-l"><strong>Row / site</strong></th>
+<th class="ta-l"><strong>Gap kind</strong></th>
+<th class="ta-l"><strong>Verdict and exact
+blocker</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l"><p><strong>Obligation</strong></p></td>
+<td class="ta-l"><strong>Row / site</strong></td>
+<td class="ta-l"><strong>Gap kind</strong></td>
+<td class="ta-l"><strong>Verdict and exact
+blocker</strong></td>
+</tr>
+<tr>
+<td class="ta-l">-supply</td>
+<td class="ta-l">e1-companion, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. The consumer already has
+the obligation’s exact quantifier shape; the missing input is a single
+unproved arithmetic fact — a constant-saving first-harmonic (Weyl-sum)
+cancellation bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>N</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo>⋅</mo><mo stretchy="false" form="prefix">(</mo><mi>…</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>L</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mn>9</mn><mi>/</mi><mn>10</mn><mo stretchy="false" form="postfix">)</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">\sum_{N\in[X,2X)}\cos(2\pi\cdot(\ldots)/2^L)\le(9/10)X</annotation></semantics></math>
+— not proved at any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>,</mo><mi>h</mi><mo>,</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">X,h,L</annotation></semantics></math>
+anywhere in the corpus.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">SGN-01, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. Positivity is exactly HALF
+of the needed certificate: the companion theorem in the same file proves
+integrality forces the residue to the TOP edge, not a kill — the lower
+half of the band is discharged unconditionally and cofinally, the upper
+half is untouched.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">TE-04, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. The consumer side is
+finished and cofinal (proved for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">a\ge8</annotation></semantics></math>);
+the residual is purely the one-sided residue-gap , unconditionally
+unsupplied at even one large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">TE-05-weakest, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. The exact identity pinning
+the target shows the dominance inequality is equivalent to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mathrm{carryOrbit}\le0</annotation></semantics></math>,
+and the sign machinery (SGN-02) already proves the true carry orbit is
+strictly under integrality — the corridor-escape branch the identity
+naturally supplies is exactly the branch already eliminated.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">SEP-02, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l">Not promotable. The analytic tail is fully
+discharged with an explicit, uniform error radius; only two exponents
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>4</mn><mo>,</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">a=4,6</annotation></semantics></math>)
+have the resulting finite distance-to-integer question verified
+unconditionally (); nothing beyond
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">a=6</annotation></semantics></math>
+is proved.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">b7, </td>
+<td class="ta-l">coordinate only</td>
+<td class="ta-l">Not promotable. The only proved
+unbounded-growth quantity in the Möbius–Mersenne coordinate, uniform in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>,
+but there is no landed transport from a denominator lower bound to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">K</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">l</mi></mrow><annotation encoding="application/x-tex">\mathrm{certifiedKill}</annotation></semantics></math>
+or to totient-tail non-integrality — a different coordinate from the
+obligation.</td>
+</tr>
+<tr>
+<td class="ta-l">249-supply</td>
+<td class="ta-l">d4/d5, , </td>
+<td class="ta-l">coordinate only</td>
+<td class="ta-l">Not promotable. The scale side of a
+second, independent open obligation (unbounded carry-kernel rank forced
+by rationality) is finished uniformly in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>;
+the opposite (rationality-side rank upper bound) is missing, and one
+natural route to it is proved dead ().</td>
+</tr>
+<tr>
+<td class="ta-l">257-reset</td>
+<td class="ta-l">rc-2 / F4-adjacent, </td>
+<td class="ta-l">multiple</td>
+<td class="ta-l">Not promotable. The excess-side run-length
+law is only half-assembled: an exact iterate identity exists, and an
+upper bound on the terminal excess exists separately, but no theorem in
+Lean composes the two into an excess-side run-length statement, even
+though every ingredient is present.</td>
+</tr>
+<tr>
+<td class="ta-l">257-reset</td>
+<td class="ta-l">E1, </td>
+<td class="ta-l">coordinate only</td>
+<td class="ta-l">Not promotable. Supplies an UPPER bound on
+the remainder (the ceiling half of the picture); the obligation needs a
+LOWER bound on the deviation magnitude — the two do not compose without
+an additional input.</td>
+</tr>
+<tr>
+<td class="ta-l">257-reset</td>
+<td class="ta-l">rc-8, prose  §6</td>
+<td class="ta-l">multiple</td>
+<td class="ta-l">Not promotable. Two gaps at once: the sign
+law is <span><span class="sans-serif">[Cert]</span></span>/empirical
+only (flagged <span><span class="sans-serif">[Open]</span></span> as an
+unconditional lemma, not proved), and even if proved it delivers only
+the SIGN of the deviation, not its magnitude, which is what the
+obligation needs.</td>
+</tr>
+<tr>
+<td class="ta-l">257-cofinal-rows</td>
+<td class="ta-l">TH-sharp-capacity-progress, </td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. Unconditional and strictly
+more general than every actual consumer, but it needs a
+per-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+input
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi></mrow><mspace width="0.167em"></mspace><mi>D</mi><mspace width="0.167em"></mspace><mn>1</mn><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>c</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>c</mi><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathrm{localBinarySuffix}\,D\,1\,(2c{-}2)&lt;2^{c-2}</annotation></semantics></math>)
+that the corpus only ever supplies through a route which then rigidly
+collapses onto one specific support family — the deficit hypothesis is a
+self-imposed restriction of the consumers, and the general input itself
+is unsupplied.</td>
+</tr>
+<tr>
+<td class="ta-l">257-cofinal-rows</td>
+<td class="ta-l">precriticalSuffix_lt_of_future_skip_after_takenBlock,
+</td>
+<td class="ta-l">hypothesis strength</td>
+<td class="ta-l">Not promotable. Unconditional and uniform
+in both parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(c,t)</annotation></semantics></math>;
+the sole missing input is an orbit-level skip-gap bound on the rational
+half-greedy orbit, never proved and never previously isolated as a
+target anywhere in the banks.</td>
+</tr>
+<tr>
+<td class="ta-l">257-cofinal-rows</td>
+<td class="ta-l">greedyHalfFrozenMargin_nonneg, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l">Not promotable. The margin-nonnegativity
+horizon is produced by a limit argument (an existential horizon from a
+convergence fact); the exact-row route needs the SPECIFIC effective
+horizon
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><mi>k</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">J=k-2</annotation></semantics></math>,
+and effectivising it is explicitly recorded as unfinished bookkeeping,
+not new mathematics — but it is still unfinished.</td>
+</tr>
+<tr>
+<td class="ta-l">257-cofinal-rows</td>
+<td class="ta-l">C4a, </td>
+<td class="ta-l">multiple</td>
+<td class="ta-l">Not promotable. Trades off against the
+obligation in the opposite direction on : tolerates any support inside a
+depth window but demands a carry inside a tight
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∼</mo><mn>2</mn><msqrt><mi>M</mi></msqrt></mrow><annotation encoding="application/x-tex">\sim2\sqrt M</annotation></semantics></math>
+strip, where the obligation tolerates an exponentially looser carry but
+demands the support be confined to a lower window — the gap is support
+locality, not carry size, and neither socket implies the other.</td>
+</tr>
+<tr>
+<td class="ta-l">257-universal</td>
+<td class="ta-l">NM-02, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l"><strong>PROMOTABLE (no new mathematics),
+but does not close anything.</strong> The proof was opened and found
+already uniform in the target in every internal step; only the
+statement’s own quantifier is artificially pinned to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">t=1/2</annotation></semantics></math>.
+Promoting it converts the whole half-greedy refutation machine from a
+one-target equivalence to one covering every rational target — the
+highest-value mechanical promotion in the bank — but it supplies no new
+arithmetic content: it is a restatement, not a producer.</td>
+</tr>
+<tr>
+<td class="ta-l">257-universal</td>
+<td class="ta-l">NM-03, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l"><strong>PROMOTABLE (no new mathematics),
+but does not close anything.</strong> The headline is pinned to target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+while its engine () is already fully general over finite supports;
+verbatim re-derivation at any even-denominator target is available with
+zero new arithmetic. Paired with NM-02: universal #257 at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b=2</annotation></semantics></math>
+is false iff some rational
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+with even reduced denominator has an infinitely-skipping greedy Mersenne
+orbit — a genuine reformulation, not a resolution.</td>
+</tr>
+<tr>
+<td class="ta-l">257-universal</td>
+<td class="ta-l">NM-04, </td>
+<td class="ta-l">coordinate only</td>
+<td class="ta-l">Not promotable (partial mechanical content
+only). The dyadic restriction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">v=1</annotation></semantics></math>
+is a call-site choice, not a proof constraint — the
+general-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
+conclusion is already landed for arbitrary
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo>,</mo><mi>h</mi><mo>,</mo><mi>L</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(v,h,L,F)</annotation></semantics></math>
+at — but the strict form needed for non-dyadic targets requires one
+genuinely new auxiliary bound (a mean-least-residue estimate) not
+present in the corpus.</td>
+</tr>
+<tr>
+<td class="ta-l">257-universal</td>
+<td class="ta-l">NM-12, </td>
+<td class="ta-l">scale only</td>
+<td class="ta-l">Not promotable (unverified, not merely
+blocked). The killer and the dichotomy scaffold are already
+target-generic; the two endpoint kills that pin the dichotomy to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
+generalise on their face, but their proof bodies were explicitly read in
+this audit pass — recorded as a strong promotability hypothesis, not a
+verified promotion, since a <code>norm_num</code>-style numeric step
+could hide a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>-specific
+bound.</td>
+</tr>
+</tbody>
+</table>
 <section id="classification-of-the-sixteen-genuine-blockers"
 class="level3 unnumbered">
 <h3 class="unnumbered">Classification of the sixteen genuine

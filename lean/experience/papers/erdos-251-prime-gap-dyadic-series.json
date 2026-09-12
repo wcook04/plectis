@@ -7,7 +7,7 @@
   "form": "Problem note",
   "pages": 19,
   "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
-  "precis": "For any sequence obeying the dyadic recurrence with integer digits, a shift of length h is an integer exactly when one explicit multiple of the term is, and integrality then propagates to every later index; over the reals the contrapositive is an irrationality criterion. Applied to the prime-gap series, and conditional on a summability input the prime number theorem supplies but which is not formalised here, this makes the remaining obligation exact: cofinal non-integrality for every fixed h. Exact order-lattice and factorial-diagonal theorems then show that adaptive affine shifts and every fixed affine cylinder collapse rather than produce that obligation. These are scoped no-go results, not an irrationality proof; Erdős #251 stays open.",
+  "precis": "The paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.",
   "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #251, which remains open",
   "problem_id": "erdos_251",
@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 496,
     "raw_math_fallback_count": 1,
@@ -56,133 +57,159 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:problem",
       "label": "Introduction"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-complete-countermodel-in-one-calculation.",
       "label": "The complete countermodel in one calculation."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "preserving-more-of-the-actual-gaps.",
       "label": "Preserving more of the actual gaps."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "sparse-corrections-and-local-information.",
       "label": "Sparse corrections and local information."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-prime-series-and-its-tails.",
       "label": "The prime series and its tails."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "what-remains-to-be-distinguished.",
       "label": "What remains to be distinguished."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "relation-to-prior-work.",
       "label": "Relation to prior work."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "notation-and-organisation.",
       "label": "Notation and organisation."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:diagonal-collapse",
       "label": "Integral shifts and recurrence obstructions"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:parts",
       "label": "Summation by parts, with the endpoint retained"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "sec:infinite",
       "label": "The infinite identity and the irrationality equivalence"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-summability-hypothesis.",
       "label": "The summability hypothesis."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:tail",
       "label": "The tail recurrence and integral shifts"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-actual-prime-gap-orbit.",
       "label": "The actual prime-gap orbit."
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "sec:local-certificate",
       "label": "Two adjacent small shifts cannot both be integral"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:carry",
       "label": "Nonperiodic coefficients with a rational sum"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "consequence-for-the-coefficients.",
       "label": "Consequence for the coefficients."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:open",
       "label": "Complements and further questions"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "a-finite-truncation-criterion.",
       "label": "A finite truncation criterion."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-remaining-estimate.",
       "label": "The remaining estimate."
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "statements-and-declarations",
       "label": "Statements and declarations"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "artefact-and-data-availability.",
       "label": "Artefact and data availability."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "funding-and-competing-interests.",
       "label": "Funding and competing interests."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "acknowledgements.",
       "label": "Acknowledgements."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "app:index",
       "label": "Guide to the formal sources"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:problem",
+        "title": "Introduction",
+        "level": 2
+      },
+      {
+        "id": "sec:tail",
+        "title": "The tail recurrence and integral shifts",
+        "level": 2
+      },
+      {
+        "id": "sec:local-certificate",
+        "title": "Two adjacent small shifts cannot both be integral",
+        "level": 3
+      },
+      {
+        "id": "sec:open",
+        "title": "Complements and further questions",
+        "level": 2
+      }
+    ]
+  }
 }

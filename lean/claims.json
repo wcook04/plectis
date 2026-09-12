@@ -104,7 +104,7 @@
         "authority_owners": [
           "lean-toolchain",
           "lakefile.toml",
-          "docs/semantic_corpus.json",
+          "docs/semantic_corpus.json.gz",
           "docs/theory_lab.json",
           "docs/lean_dependency_index.json",
           "scripts/proof_workbench.py",

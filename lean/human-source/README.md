@@ -3,10 +3,10 @@
 
 # Plectis: research on eight open Erdős problems
 
-Plectis is an open-source, AI-assisted research project. This repository brings
-together the papers, Lean proofs, computations, failed approaches, and questions
+Plectis is an open-source, AI-assisted research project. This repository contains
+the papers, Lean proofs, computations, failed approaches, and questions
 that remain, so another researcher can inspect the work and continue from it.
-**All eight problems remain open.** This repository does not solve them.
+**All eight problems remain open.**
 
 **[Read the mathematics](https://wcook04.github.io/plectis/maths/)** ·
 [Website](https://wcook04.github.io/plectis/) ·
@@ -18,35 +18,31 @@ that remain, so another researcher can inspect the work and continue from it.
 ## Where to start
 
 The numbers below identify questions in [Erdős Problems](https://www.erdosproblems.com/),
-a collection of mathematical problems associated with Paul Erdős. An open
-problem can still have useful results along the way: a proof for a special
-case, a computation, or an explanation of why an attempted argument fails.
-Those are part of what this repository makes available for others to use.
-
-Lean is a proof assistant: software that checks a precisely written proof
-against a precisely written statement. The papers explain the mathematics in
-ordinary mathematical notation, and say which results have a Lean proof.
+a collection of mathematical problems associated with Paul Erdős.
+Lean is a proof assistant: software that verifies whether a formal proof
+establishes its stated conclusion from its assumptions. You can read the
+arguments in ordinary mathematical notation in the papers, which identify
+the results with Lean proofs.
 
 You do not need Lean or a coding agent to read the papers.
-[A reader's way in](docs/READING_GUIDE.md) explains the project and how to
-read the evidence. Each problem below has a short paper to start with and a
-longer research record. [Results and limits](docs/RESULTS.md) gives the
-problem-by-problem evidence boundary, including what is still missing.
+[A reader's way in](docs/READING_GUIDE.md) introduces the questions and the
+different kinds of evidence. Each problem below has a short paper to start
+with and a longer research record. [Results and limits](docs/RESULTS.md)
+states what each proof or computation establishes and what remains missing.
 
-If you are a mathematician, choose a [problem paper](#problem-papers) and
-follow its result into the [source map](docs/SOURCE_MAP.md) when you want to
-inspect the formal proof. If your interest is computer science or AI, start
-with [how the repository works](docs/ARCHITECTURE.md) and the
-[project papers](paper/README.md#project-papers): how researchers and coding
-agents find a question, record work, and check what a public claim rests on.
-The separate [Plectis software toolkit](https://github.com/wcook04/plectis)
-contains runnable workflow components; this repository contains the mathematics.
+For the mathematics, choose a [problem paper](#problem-papers), then use the
+[source map](docs/SOURCE_MAP.md) to locate the cited Lean declarations.
+For computer science or AI, read [how the repository works](docs/ARCHITECTURE.md)
+and the [project papers](paper/README.md#project-papers): how researchers and
+coding agents select a question, record their work, and compare public
+statements with the proofs and computations they cite. Runnable workflow
+components are in the separate [Plectis software toolkit](https://github.com/wcook04/plectis).
 
 To continue from where I left off, see [CONTRIBUTING](CONTRIBUTING.md).
 Use a coding agent if you like. This is the part I am most excited about.
 
-To try the evidence tools, [follow one claim from its statement to the source](docs/REPRODUCIBILITY.md#try-one-claim-without-lean).
-That route needs Git and Python, with no Lean installation or model account.
+To inspect one recorded statement and its cited source, [follow one claim](docs/REPRODUCIBILITY.md#try-one-claim-without-lean)
+using Git and Python. You do not need a Lean installation or model account.
 The clone is hundreds of megabytes; the separate proof-build route downloads
 a larger Lean and Mathlib environment.
 
@@ -85,24 +81,28 @@ Lean-checked results and open questions.
 [Read the result summaries and their limits](docs/RESULTS.md#problem-by-problem-guide),
 including prior work, what was checked, and the questions that remain.
 
-## What the checks establish
+<a id="what-the-checks-establish"></a>
 
-Lean checks that a proof establishes the formal statement written in the
-source. The [source map](docs/SOURCE_MAP.md) connects the papers to that source;
-the [claim records](docs/claims.json) record status, and
-[prior art](docs/PRIOR_ART.md) records earlier and subsuming work.
+## What Lean and Comparator verify
 
-[`formalization.yaml`](formalization.yaml) lists the **selected statements**
-checked with Comparator. It is not a catalogue of every theorem or a claim
-that all the mathematics has received a second check. Each selected statement
-is declared again without its proof, then compared with a proof-bearing
-solution under a fixed axiom budget. The [verification dossier](docs/EXTERNAL_VERIFICATION.md)
-covers all eight problem programmes and gives the scope of those checks.
+Lean verifies that a compiled proof establishes the formal statement written
+in the source. Use the [source map](docs/SOURCE_MAP.md) to locate a declaration
+cited in a paper. The [claim records](docs/claims.json) list the published
+statements and their status; [prior art](docs/PRIOR_ART.md) lists earlier
+results and their relationship to the work here.
 
-The [methodology](docs/METHODOLOGY.md) explains what each check establishes.
-Checks do not decide whether a statement captures the intended problem, is
-new, or is worth studying. That requires expert review. Do not infer results
-from private or unreleased work.
+Comparator compares a separately declared statement with the statement
+established by its Lean solution, using an explicit list of allowed assumptions.
+[`formalization.yaml`](formalization.yaml) lists the **selected statements**;
+the comparison does not cover every theorem in this repository. The
+[verification dossier](docs/EXTERNAL_VERIFICATION.md) identifies the selected
+statements across all eight problems and the limits of the comparison.
+
+Researchers still have to judge whether a formal statement expresses the
+intended problem, whether it is new, and whether it is worth studying.
+[Methodology](docs/METHODOLOGY.md) records the evidence and review required
+before changing a public claim. Do not infer results from private or
+unreleased work.
 
 ## Contribute
 
@@ -117,7 +117,8 @@ Infra suggestions also get credit!
 - **Your own agent and spare compute:** use the [frontier relay](docs/FRONTIER_RELAY.md)
   to choose a starting point and return what you find with its evidence.
 
-Accepted work gets a public receipt. The
+When maintainers accept contributed work, they commit a receipt naming the
+contributor and the files, results or evidence being credited. The
 [credit policy](docs/research-commons/CREDIT_POLICY.md) explains how contributions
 are attributed.
 
@@ -132,10 +133,12 @@ for the insight and whatever follows from it.
 
 ## Read or verify locally
 
-[REPRODUCIBILITY](docs/REPRODUCIBILITY.md) gives the clone and verification
-commands. The [documentation index](docs/README.md) helps you choose a guide;
-[how the repository works](docs/ARCHITECTURE.md) explains the source ownership
-and checks without assuming Lean or project history.
+Use [REPRODUCIBILITY](docs/REPRODUCIBILITY.md) for commands to clone the
+repository, inspect claim records and compile proofs. Choose other guides
+from the [documentation index](docs/README.md). For the roles of the source
+files, claim records and release programs, read
+[how the repository works](docs/ARCHITECTURE.md); it assumes no Lean knowledge
+or project history.
 
 | Location | What you will find |
 |---|---|
@@ -194,14 +197,14 @@ order without asking you to decode Lean declaration names first.
 
 ## About the project
 
-[From Spare Compute to Cumulative Mathematics](paper/systems/open-source-mathematics-strategy.pdf)
-explains the open-source idea and how different contributions can help.
+Read [From Spare Compute to Cumulative Mathematics](paper/systems/open-source-mathematics-strategy.pdf)
+for the open-source research process and the ways to contribute.
 [Problem-Sized Lean Worlds](paper/systems/claim-faithful-publication-systems-paper.pdf)
-explains how the research and its checks fit together.
+describes how researchers publish mathematical claims with their proofs,
+source references and validation records.
 
-The [Plectis software repository](https://github.com/wcook04/plectis) contains
-the wider project's runnable tools. The maths papers and proofs here are
-self-contained.
+For the wider project, see the [Plectis software repository](https://github.com/wcook04/plectis).
+The maths papers and proofs here are self-contained.
 
 ## Citation and licence
 

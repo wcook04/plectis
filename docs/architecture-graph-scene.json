@@ -4644,7 +4644,7 @@
         "parent_cluster_id": "cluster:areas",
         "row_id": null,
         "state": "active",
-        "summary": "The shared path every public component binds to, in 10 steps: Project \u2192 Catalog \u2192 Pattern \u2192 Standard \u2192 Route \u2192 Work \u2192 Event \u2192 Evidence \u2192 Explanation \u2192 Assimilation."
+        "summary": "Shared records and commands every public component binds to, in 10 steps: Project \u2192 Catalog \u2192 Pattern \u2192 Standard \u2192 Route \u2192 Work \u2192 Event \u2192 Evidence \u2192 Explanation \u2192 Assimilation."
       },
       {
         "attention_score": 0.98,

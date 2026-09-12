@@ -9,20 +9,17 @@
 <section id="papers" class="level1">
 <h1>Papers</h1>
 <p>Each of the eight covered Erdős problems has a short first-read paper
-and a longer complete reasoning record. All eight problems remain open.
-The papers report partial results, failed or equivalent routes, finite
-evidence, and the exact obligations that survive.</p>
-<p>These papers are mathematical exposition. Some results are checked in
-Lean; others are ordinary mathematical arguments or applications of
-cited external theorems. Each paper states the boundary for its own
-claims. Lean files are proof authority only for the exact declarations
-they check, and <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a> records the
-selected public claim interfaces.</p>
-<p>The manuscript layer (the <code>.tex</code> sources and rendered
-PDFs) is licensed CC-BY-4.0; see <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/REUSE.toml"><code>REUSE.toml</code></a> at the repository
-root.</p>
+and a longer complete reasoning record. Start with the short paper for
+the result, its argument and the question that remains. Use the longer
+record when you want to recover a detailed step, inspect a computation,
+or follow an approach that stopped. You do not need Lean or a coding
+agent to read either.</p>
+<p>All eight problems remain open. The papers report partial results,
+failed or equivalent routes, finite evidence, and the exact obligations
+that survive. If the problem numbers or formalisation are unfamiliar,
+read <a href="reading-guide.mathjax.html">a reader’s way in</a> first. For
+the design of the tools and the research process, go to the <a
+href="#project-papers">project papers</a>.</p>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
 <table>
@@ -117,20 +114,34 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-ra
 </tr>
 </tbody>
 </table>
-<p>The short paper is the first read. The complete reasoning record
-preserves the wider working context, including routes that failed,
-finite experiments, and open obligations. The older joint #249/#257
+</section>
+<section id="follow-the-argument-into-its-evidence" class="level2">
+<h2>Follow the argument into its evidence</h2>
+<p>Read the assumptions of the result you want to use, then the proof.
+The longer record gives the surrounding working context, including
+routes that failed, finite experiments and open obligations. If you
+cannot reconstruct a step or find its source, that is useful feedback
+through <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md">Contributing</a>.</p>
+<p>Some results are checked in Lean; others are ordinary mathematical
+arguments or applications of cited external theorems. Each paper states
+the boundary for its own claims. <a href="results.mathjax.html">Results
+and limits</a> gives the result beside what remains open, and the <a
+href="source-map.mathjax.html">source map</a> connects the paper to
+supporting declarations. Lean files are proof authority only for the
+exact declarations they check; <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a> records the
+selected public claim interfaces.</p>
+<p>The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/README.md">full-text index</a> provides
+generated Markdown versions for browsing. The PDFs and <code>.tex</code>
+files above are the authored manuscripts. The older joint #249/#257
 paper is retained for provenance; it is not the entry point for either
-problem. For #251, the elementary pair identities live in
-<code>SparseRationalisationCore.lean</code>; the ordinary schedule
-sketch is Proposition 1.1 of the short paper. There is no separately
-published <code>SparseRationalisation.md</code>. End-to-end sparse Lean
-candidates are labelled UNRUN and are not presented as verified.</p>
+problem.</p>
 </section>
 <section id="project-papers" class="level2">
 <h2>Project papers</h2>
-<p>These explain the organisation of the research, agent workflows and
-participation.</p>
+<p>These papers explain how the work is organised, how an agent uses the
+public checkout, and how another researcher can take part. Start with
+the question that interests you.</p>
 <table>
 <colgroup>
 <col />
@@ -138,26 +149,29 @@ participation.</p>
 </colgroup>
 <thead>
 <tr>
-<th>Role</th>
+<th>Question</th>
 <th>Paper</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Publication architecture</td>
+<td>How do formal proofs, public claims and release checks fit
+together?</td>
 <td><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.pdf">Problem-Sized
 Lean Worlds</a> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex">source</a>)</td>
 </tr>
 <tr>
-<td>Agent navigation and validation</td>
+<td>How does an agent find a task, use the tools and record what was
+checked?</td>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.pdf">From a Cold Clone
 to a Proof Receipt</a> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex">source</a>)</td>
 </tr>
 <tr>
-<td>Open participation and credit</td>
+<td>How can people contribute research or compute while keeping evidence
+and credit?</td>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.pdf">From Spare
 Compute to Cumulative Mathematics</a> (<a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex">source</a>)</td>
@@ -167,11 +181,26 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-sour
 <p>For the repository layout, sources of truth, build path, and release
 infrastructure, see <a
 href="architecture.mathjax.html"><code>docs/ARCHITECTURE.md</code></a>.
-The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/README.md">full-text shelf</a> provides
-browsable Markdown versions and a detailed index. <a
-href="results.mathjax.html">Results and limits</a> and the <a
-href="source-map.mathjax.html">source map</a> connect the papers to their
-evidence.</p>
+The companion <a href="https://github.com/wcook04/plectis">Plectis
+software repository</a> contains the general workflow components
+discussed alongside the mathematics.</p>
+</section>
+<section id="sources-and-earlier-manuscripts" class="level2">
+<h2>Sources and earlier manuscripts</h2>
+<p>The manuscript layer (the <code>.tex</code> sources and rendered
+PDFs) is licensed CC-BY-4.0; see <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/REUSE.toml"><code>REUSE.toml</code></a> at the repository
+root.</p>
+<details>
+<summary>
+Source note for the #251 sparse construction
+</summary>
+<p>For #251, the elementary pair identities live in
+<code>SparseRationalisationCore.lean</code>; the ordinary schedule
+sketch is Proposition 1.1 of the short paper. There is no separately
+published <code>SparseRationalisation.md</code>. End-to-end sparse Lean
+candidates are labelled UNRUN and are not presented as verified.</p>
+</details>
 <details>
 <summary>
 Earlier combined manuscript: provenance only
@@ -278,12 +307,20 @@ reason to keep an older manuscript on the reading path. When the source
 changes, update the explanation and source links together, rebuild the
 PDF, and check its coverage against the current proofs:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_problem_note_sources.py <span class="at">--coverage</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/refresh_projections.py</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> docs/papers/check_paper_corpus.py</span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> docs/papers/check_paper_corpus.py</span></code></pre></div>
 <p>The last check rejects a Markdown mirror or recorded PDF that no
-longer matches its manuscript. Refresh the paper corpus through its
-owning exporter when that check reports a stale mirror; do not hand-edit
-a generated copy.</p>
+longer matches its manuscript. Include the edited source, rebuilt PDF
+and check output in your pull request. If the remaining failure is a
+generated copy made stale by your manuscript edit, say so in the pull
+request; do not hand-edit the copy to make the check pass.</p>
+<p>Maintainers refresh the generated full text and paper-corpus records
+through their export step, then run
+<code>python3 scripts/refresh_projections.py</code> and
+<code>python3 docs/papers/check_paper_corpus.py</code> before merging.
+The full-text exporter is not included in this checkout. You do not need
+access to a private repository to propose a manuscript change; include
+the check output so the maintainer can complete that part of the
+update.</p>
 </section>
 </section>
   </div>

@@ -16,11 +16,14 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "0b31ea9e53ebf575df8ab69c35707f20433122c1e7ead410745a4b939ee0f4cb",
+    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
@@ -28,188 +31,188 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "f5888aa4bd640b2bd77410aa73ac8e29588294c8ce70f7c89660b7b83297cae3",
-    "html_exact_tex_sha256": "1f05aebc4083ae1fc20e8f6b977d3e2206bc5a04d4a76e7c9b9eead1d8a2a087"
+    "html_mathml_sha256": "9c76a020b10d8cdde080818182ce934382a14b7fe9d9ffcfdb0f55cd56b1ee28",
+    "html_exact_tex_sha256": "fb278bfc723fd3a3620de2a897f782d52d49768ccec3285f238bd3e94d023ba7"
   },
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "the-short-version",
       "label": "The short version"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "problem-by-problem-guide",
       "label": "Problem-by-problem guide"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "technical-verdict",
       "label": "Technical verdict"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "signal-audit-dispositions",
       "label": "Signal-audit dispositions"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "strongest-checked-results-by-problem",
       "label": "Strongest checked results by problem"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-is-proved",
       "label": "What is proved"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "settled-support-families-for-problem-257",
       "label": "Settled support families for Problem 257"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "the-reduction-chain-for-the-one-half-test-case-of-problem-257",
       "label": "The reduction chain for the one-half test case of Problem 257"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "exact-ranks-for-dyadic-sections-of-eulers-totient",
       "label": "Exact ranks for dyadic sections of Euler’s totient"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "a-finite-diagonal-certificate-band-for-problem-249",
       "label": "A finite diagonal certificate band for Problem 249"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "finite-off-diagonal-certificates",
       "label": "Finite off-diagonal certificates"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "direct-farey-comparison",
       "label": "Direct Farey comparison"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "scoped-no-go-theorems",
       "label": "Scoped no-go theorems"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "other-standalone-exact-obstructions",
       "label": "Other standalone exact obstructions"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "demand-ledger",
       "label": "Demand ledger"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-is-measured-not-proved",
       "label": "What is measured, not proved"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "exact-endpoint-certificate-probe",
       "label": "Exact endpoint-certificate probe"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "source-backed-checked-diagonal-depths",
       "label": "Source-backed checked diagonal depths"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-was-retracted",
       "label": "What was retracted"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-is-open",
       "label": "What is open"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "exact-questions-for-a-human-expert",
       "label": "Exact questions for a human expert"
     },
     {
       "level": 4,
-      "anchor": null,
+      "anchor": "xq249-lcm-diagonal-supply-diagonal-supply",
       "label": "XQ249-lcm-diagonal-supply — diagonal supply"
     },
     {
       "level": 4,
-      "anchor": null,
+      "anchor": "xq249-pivot-decorrelation-pivot-decorrelation",
       "label": "XQ249-pivot-decorrelation — pivot decorrelation"
     },
     {
       "level": 4,
-      "anchor": null,
+      "anchor": "xq249-adjacent-phase-separation-adjacent-phases",
       "label": "XQ249-adjacent-phase-separation — adjacent phases"
     },
     {
       "level": 4,
-      "anchor": null,
+      "anchor": "xq257-second-channel-separation-second-channel",
       "label": "XQ257-second-channel-separation — second channel"
     },
     {
       "level": 4,
-      "anchor": null,
+      "anchor": "xq257-middle-producer-tail-escape-middle-producer",
       "label": "XQ257-middle-producer-tail-escape — middle producer"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "cold-reader-review-boundary",
       "label": "Cold-reader review boundary"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "erdős-problem-249",
       "label": "Erdős Problem 249"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "erdős-problem-257",
       "label": "Erdős Problem 257"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "verification-and-continuation",
       "label": "Verification and continuation"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "recovered-from-the-front-page",
       "label": "Recovered from the front page"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "problem-statements",
       "label": "Problem statements"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "external-verification",
       "label": "External verification"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "what-the-formal-source-establishes",
       "label": "What the formal source establishes"
     },
     {
       "level": 4,
-      "anchor": null,
+      "anchor": "other-exact-mathematics-in-the-corpus",
       "label": "Other exact mathematics in the corpus"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-remains-open",
       "label": "What remains open"
     }
   ]

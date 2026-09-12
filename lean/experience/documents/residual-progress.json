@@ -18,9 +18,12 @@
     "frontend_math_dependency": null,
     "source_sha256": "35ae97d67768174c815ff376ec2d5492d4deea4593ce67b63e5e204a9810bbbe",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
@@ -34,37 +37,37 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "the-reported-failure",
       "label": "The reported failure"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "where-the-instrument-came-from",
       "label": "Where the instrument came from"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "restatement-is-also-a-population-effect",
       "label": "Restatement is also a population effect"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-the-evaluator-decides",
       "label": "What the evaluator decides"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "residualbench",
       "label": "ResidualBench"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "running-it",
       "label": "Running it"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-this-does-not-establish",
       "label": "What this does not establish"
     }
   ]

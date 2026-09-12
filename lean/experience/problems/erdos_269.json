@@ -250,42 +250,22 @@
       }
     ]
   },
-  "frontier": {
-    "source": "state/formal_math/claim_frontier_v1.json",
-    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
-    "target_status": "open",
-    "problem_statement": "Prove irrationality in the first unresolved support case with three distinct prime generators.",
-    "strongest_theorem": {
-      "claim_id": "erdos269.three_prime_structure",
-      "title": "exact running-LCM identity, logarithmic-cell constancy, exact jump count, height-fibre normal form, quadratic shell bound, arbitrary-order nonsingular minors, and no finite exact separation",
-      "statement": "The running-LCM kernel is K(i,j,k) = 1 / (p^a q^b r^c) with a, b, c the Nat.log exponents of N = p^i q^j r^k in the bases p, q, r. Eight declarations are compared. The strongest is stated for arbitrary generators. For natural numbers p, q, r each greater than 1 such that no positive integer multiple of logb r p is an integer and no positive integer multiple of logb r q is an integer, and for every order n, there are injective index families I, J from Fin n to the naturals whose n by n minor det K(I a, J b, k) is nonzero simultaneously for every value of the third exponent k. Distinct primes satisfy that independence hypothesis: for primes p, q, r with p different from r and q different from r, the same uniform nonsingular minors exist at every order, and for every d there is no representation K(i,j,k) = sum over l < d of f_l(i) G_l(j,k) by finitely many separated factors. That pair carries no hypothesis relating p and q. For pairwise distinct primes p, q, r and every nonzero x, the least common multiple of all smooth numbers p^i q^j r^k at most x equals p^(log_p x) q^(log_q x) r^(log_r x), the product of the three maximal pure prime powers below x. For pairwise distinct primes p, q, r the first m positive jump values across the three prime channels number exactly 3m. Two declarations hold for arbitrary natural generators with no hypothesis at all: K is constant on every logarithmic cell, and the sum of K over a finite exponent box equals the sum over the genuine running-LCM heights of the fibre cardinality divided by the height. A multiplicative shell of width factor r inside a sorted exponent budget hp at most hq at most hr summing to j satisfies 9 times its cardinality at most (j+3)^2, on the hypotheses that r is positive and the shell width hi is at most r times lo. The smallest 2, 3, 5 kernel rectangle has determinant exactly -1/15. The running-LCM factorisation identity for every finite prime set, and the two-prime case in which the series factorises and is transcendental by Hecke and Mahler, are due to Steve Fan (erdosproblems.com/269 comment, 26 June 2026), who also records that the factorisation does not extend to three or more primes. The identity theorem here formalises his identity at three primes, and the rank statements are the addition. Priority for the rank statements is unassessed. None of the eight declarations yields irrationality or transcendence, and Erdős #269 remains open.",
-      "altitude": "no_go",
-      "band": "U",
-      "evidence_class": "lean_kernel_checked",
-      "public_entry": "ExternalVerification269ThreePrimeStructure"
+  "results_guide": {
+    "document_id": "results",
+    "title": "Results and open boundaries",
+    "role": "mathematical_results_map",
+    "source_path": "docs/RESULTS.md",
+    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
+    "routes": {
+      "html_mathml": "documents/results.html",
+      "html_exact_tex": "documents/results.mathjax.html",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
     },
-    "strongest_longitudinal_theorem": null,
-    "no_longitudinal_reason": "No three-prime repeated-series irrationality or transcendence theorem is proved. The shell dichotomy by itself treats the unscaled integer-state branch and does not exclude rational denominators greater than one. The all-denominator carry/window statement is Lean-checked but exactly equivalent to the target, so it is an exact reformulation and route no-go rather than a reduction to an easier theorem. Fibre irrationality does not combine to irrationality of the repeated series; Sigma_2 + 2 Sigma_3 + 4 Sigma_5 = 1 is the explicit warning. Steve Fan has priority for the two-prime result and the running-height telescope inputs; the fibre theorem's novelty is unverified.",
-    "live_obstruction": "The normalised infinite dyadic shell tail either reaches an exact integral state or returns cofinally at distance at least 1/31 from every integer, and excluding the exact-integral-state branch is the unresolved step.",
-    "strongest_open_producer": {
-      "id": "exclude_exact_integral_dyadic_tails",
-      "statement": "For every positive B coprime to 30 and every a>=1, prove that the actual normalised state B X_a is nonintegral. Clearing and the rationality-to-reduced-carry bridge make this equivalent to irrationality of the {2,3,5} series; it is not a strictly stronger producer. The B=1 corner (integral X_a) is included but is not the whole target. Lean proves that the unscaled orbit either hits an integer or returns cofinally 1/31-far from all integers. The denominator-one automaton remains a direct B=1 representation, but the exact a=2295 source word kills every uniform three-transition post-clear proof, and exact left-null certificates eliminate every direct phase-conditioned source potential of total degree at most two. The registered onset in the manuscript remains u+1+2v+3w until a sharper onset is independently checked. …"
-    },
-    "how_to_contribute": {
-      "kind": "proof",
-      "note": "Prove in Lean the telescoping identity that the sum over primes p of (p - 1) times the sum over n of 1/H(p^n) equals 1, where H is the running LCM height, which is a one-line difference identity and is absent from the corpus."
-    },
-    "what_this_does_not_establish": "No three-prime irrationality or transcendence theorem has been proved. Lean identifies the actual compressed dyadic radix with the successive threePrimeHeight and literal smoothPrefixLcm ratio and proves that it lies in {2,6,10,30}. It proves an all-scale quadratic bound for the literal ordered digit, a polynomial-geometric majorant and summability for the actual real shell masses, constructs the genuine infinite dyadic-shell tsum tail, and proves its exact recurrence X_(a+1)=b_a X_a-d_a. The bounded-radix theorem therefore applies directly: the actual normalized infinite tail either reaches an exact integral state or returns cofinally to distance at least 1/31 from every integer. …",
-    "failed_approaches": [
-      "Finite separated-factor decompositions of the three-prime kernel: nonsingular minors exist at every order uniformly in the third layer.",
-      "Adamczewski-Bugeaud stammering criterion: measured simultaneous-approximation exponents fall to ≈ 1.007 while the criterion needs exponent 1 for both slopes at the same denominator; Dirichlet supplies only 1/2.",
-      "Finite Farey boxes and lattice first-hit screens: a measured square-root law with no cofinal quantifier."
-    ],
-    "public_entry_ids": [
-      "ExternalVerification269ThreePrimeStructure",
-      "ExternalVerification269WindowEscapeEquivalence",
-      "ExternalVerification269ActualShellOrbit"
-    ]
+    "authority": "Reader-facing result selection from the source-selected Results guide edition. Exact proof authority remains with the sources and evidence boundaries named by that guide; publication_state and public_parity record whether this edition is public or a preview."
   },
   "palomar": null,
   "paper": {
@@ -297,7 +277,7 @@
     "form": "Problem note",
     "pages": 10,
     "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
-    "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
+    "precis": "For three pairwise distinct primes, the paper proves that the reciprocal running-LCM kernel has nonsingular minors of every order, with one index choice valid in every third-coordinate layer. After row and column powers are removed, a binary carry gives disjoint threshold intervals; this proves arbitrary-order non-separability and the exact rank of every finite sample. The paper also records the two-prime Bugeaud–Laurent deduction, while crediting Steve Fan's earlier public reduction and claiming no priority or Lean formalisation for it. The repeated three-prime irrationality question remains open.",
     "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
     "problem_id": "erdos_269",
@@ -317,9 +297,10 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 21,
-      "renderer_fingerprint": "f6b3e351ccb221fc",
+      "renderer_contract_version": 22,
+      "renderer_fingerprint": "e85419265bf94334",
       "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
+      "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 260,
       "raw_math_fallback_count": 0,
@@ -333,80 +314,106 @@
     "sections": [
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:problem",
         "label": "Introduction"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:rank",
         "label": "The binary carry and arbitrary-order rank"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-indices-must-be-selected.",
         "label": "The indices must be selected."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-norm-matters.",
         "label": "The norm matters."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:two-prime",
         "label": "The two-prime comparison"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:lcm",
         "label": "Exact multiplicities and normalised tails"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:escape",
         "label": "A window test and the remaining arithmetic"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-information-the-remaining-argument-must-use.",
         "label": "The information the remaining argument must use."
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "statements-and-declarations",
         "label": "Statements and declarations"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "proof-sources.",
         "label": "Proof sources."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "artefact-and-data-availability.",
         "label": "Artefact and data availability."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "funding-and-competing-interests.",
         "label": "Funding and competing interests."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "acknowledgements.",
         "label": "Acknowledgements."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "app:sources",
         "label": "Guide to the formal sources"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "references",
         "label": "References"
       }
-    ]
+    ],
+    "first_pass": {
+      "stated_by_the_paper": false,
+      "provenance": "editorial selection for this guide",
+      "sections": [
+        {
+          "id": "sec:problem",
+          "title": "Introduction",
+          "level": 2
+        },
+        {
+          "id": "sec:rank",
+          "title": "The binary carry and arbitrary-order rank",
+          "level": 2
+        },
+        {
+          "id": "sec:lcm",
+          "title": "Exact multiplicities and normalised tails",
+          "level": 2
+        },
+        {
+          "id": "sec:escape",
+          "title": "A window test and the remaining arithmetic",
+          "level": 2
+        }
+      ]
+    }
   },
   "routes": {
     "graph_node": "problem:erdos_269",
@@ -424,7 +431,7 @@
       "form": "Problem note",
       "pages": 10,
       "question": "What exact running-LCM structure is proved for Erdős #269, and which residue-escape conditions remain unproved?",
-      "precis": "For every pair of distinct primes, both the de-duplicated sum and Erdős's repeated running-lcm sum are proved transcendental by a paper argument using Bugeaud–Laurent; that deduction is not Lean-formalised, and Steve Fan published the same two-prime reduction first, on 26 June 2026, so no priority is claimed for it. For three primes, Lean gives the exact running-lcm product, logarithmic cells, shell bounds, the four-value radix at 2, 3, 5, and a rank-two nonseparability witness. The remaining criterion is conditional: its rationality-to-carry divisibility bridge and cofinal residue escape are unproved, while the reported scan is finite. Erdős #269 remains open from three primes onward.",
+      "precis": "For three pairwise distinct primes, the paper proves that the reciprocal running-LCM kernel has nonsingular minors of every order, with one index choice valid in every third-coordinate layer. After row and column powers are removed, a binary carry gives disjoint threshold intervals; this proves arbitrary-order non-separability and the exact rank of every finite sample. The paper also records the two-prime Bugeaud–Laurent deduction, while crediting Steve Fan's earlier public reduction and claiming no priority or Lean formalisation for it. The repeated three-prime irrationality question remains open.",
       "owns": "the problem-specific exposition for Erdős #269: the two-prime analytic deductions, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
       "problem_id": "erdos_269",
@@ -444,9 +451,10 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "8d352523919d83ac2f873f4579bf2f4f1d82bf7072f062bc51f41cf22d580ad8",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 260,
         "raw_math_fallback_count": 0,
@@ -460,80 +468,106 @@
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:problem",
           "label": "Introduction"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:rank",
           "label": "The binary carry and arbitrary-order rank"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-indices-must-be-selected.",
           "label": "The indices must be selected."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-norm-matters.",
           "label": "The norm matters."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:two-prime",
           "label": "The two-prime comparison"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:lcm",
           "label": "Exact multiplicities and normalised tails"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:escape",
           "label": "A window test and the remaining arithmetic"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-information-the-remaining-argument-must-use.",
           "label": "The information the remaining argument must use."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "statements-and-declarations",
           "label": "Statements and declarations"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "proof-sources.",
           "label": "Proof sources."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "artefact-and-data-availability.",
           "label": "Artefact and data availability."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "funding-and-competing-interests.",
           "label": "Funding and competing interests."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "acknowledgements.",
           "label": "Acknowledgements."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "app:sources",
           "label": "Guide to the formal sources"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "sec:problem",
+            "title": "Introduction",
+            "level": 2
+          },
+          {
+            "id": "sec:rank",
+            "title": "The binary carry and arbitrary-order rank",
+            "level": 2
+          },
+          {
+            "id": "sec:lcm",
+            "title": "Exact multiplicities and normalised tails",
+            "level": 2
+          },
+          {
+            "id": "sec:escape",
+            "title": "A window test and the remaining arithmetic",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "short",
       "current_github": {
@@ -571,9 +605,10 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "23abd4b4078595fb95353374852d90f379765ffd468f2e5cc316b721b8012f9a",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 968,
         "raw_math_fallback_count": 1,
@@ -596,205 +631,231 @@
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:sec:problem",
           "label": "The problem, and what is settled"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "attribution.",
           "label": "Attribution."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "what-the-third-prime-does.",
           "label": "What the third prime does."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:sec:lcm",
           "label": "The finite geometry of the running value"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:sec:two-prime",
           "label": "One Hecke–Mahler value controls both two-prime sums"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:sec:rank",
           "label": "The rank phase transition"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "attribution-and-reach.",
           "label": "Attribution and reach."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "a-sharp-uniform-obstruction-for-the-normalised-carry-matrix",
           "label": "A sharp uniform obstruction for the normalised carry matrix"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:sec:blocks",
           "label": "Dyadic blocks and the literal infinite tail"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:sec:actual-orbit",
           "label": "A quadratic tail bound and denominator cancellation"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:sec:escape",
           "label": "Residue windows and the equivalence band"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "how-fast-the-window-base-grows",
           "label": "How fast the window base grows"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:sec:evidence",
           "label": "The finite evidence"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-dyadic-window-scan",
           "label": "The dyadic-window scan"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "two-finite-denominator-exclusions",
           "label": "Two finite denominator exclusions"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:sec:open",
           "label": "The remaining arithmetic questions"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-analytic-route-and-what-it-would-need",
           "label": "The analytic route and what it would need"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "structural-constraints-already-in-place",
           "label": "Structural constraints already in place"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "where-the-problem-stands",
           "label": "Where the problem stands"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "statements-and-declarations",
           "label": "Statements and declarations"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "evidence.",
           "label": "Evidence."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "artefact-and-data-availability.",
           "label": "Artefact and data availability."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "funding-and-competing-interests.",
           "label": "Funding and competing interests."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "acknowledgements.",
           "label": "Acknowledgements."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "long269:long:extended",
           "label": "Extended record: migrated arguments and finite evidence"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long269:long:history",
           "label": "The historical and catalogue record"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long269:long:general-carries",
           "label": "The abstract carry lemmas in their general form"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long269:long:finite-geometry",
           "label": "Worked finite examples"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long269:long:experiments",
           "label": "The finite-scan histogram"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "long269:long:sources",
           "label": "Source inventory"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:erdos-269-complete-family-map",
           "label": "Complete result-family map"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "three-prime-lcm-cells",
           "label": "Three prime lcm cells"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "two-prime-transcendence",
           "label": "Two prime transcendence"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "weighted-phase-carry-observer",
           "label": "Weighted phase carry observer"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "height-fibre-and-shell",
           "label": "Height fibre and shell"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "conditional-carry-escape",
           "label": "Conditional carry escape"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "rank-two-kernel-no-go",
           "label": "Rank two kernel no go"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "dyadic-block-alphabet",
           "label": "Dyadic block alphabet"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "three-prime-finite-search",
           "label": "Three prime finite search"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "long269:sec:problem",
+            "title": "The problem, and what is settled",
+            "level": 2
+          },
+          {
+            "id": "long269:sec:rank",
+            "title": "The rank phase transition",
+            "level": 2
+          },
+          {
+            "id": "long269:sec:open",
+            "title": "The remaining arithmetic questions",
+            "level": 2
+          },
+          {
+            "id": "sec:erdos-269-complete-family-map",
+            "title": "Complete result-family map",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "long",
       "current_github": {

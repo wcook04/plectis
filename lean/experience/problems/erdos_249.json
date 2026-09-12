@@ -500,46 +500,22 @@
       }
     ]
   },
-  "frontier": {
-    "source": "state/formal_math/claim_frontier_v1.json",
-    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
-    "target_status": "open",
-    "problem_statement": "Prove that the binary totient series sum_{n>=1} phi(n)/2^n is irrational.",
-    "strongest_theorem": {
-      "claim_id": "erdos249.dyadic_totient_kernel",
-      "title": "explicit odd-core basis, full-span equality, canonical finite normal form, and exact ranks",
-      "statement": "The two zero-residue base channels and one odd-residue channel at each positive dyadic level form a linearly independent spanning family for all dyadic sections of Euler's totient. The complete family through level e has the same span as the duplicate-free canonical truncation and exact rank 2^e+1. This unconditional structural theorem does not prove irrationality of the binary totient series.",
-      "altitude": "infrastructure",
-      "band": "P",
-      "evidence_class": "lean_kernel_checked",
-      "public_entry": "ExternalVerification249DyadicTotientKernel"
+  "results_guide": {
+    "document_id": "results",
+    "title": "Results and open boundaries",
+    "role": "mathematical_results_map",
+    "source_path": "docs/RESULTS.md",
+    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
+    "routes": {
+      "html_mathml": "documents/results.html",
+      "html_exact_tex": "documents/results.mathjax.html",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
     },
-    "strongest_longitudinal_theorem": null,
-    "no_longitudinal_reason": "No theorem turns eventual periodicity modulo v into finite rational rank, so no contradiction or irrationality theorem follows. The carry-rank route's priority remains unassessed.",
-    "live_obstruction": "Irrationality of the binary totient series is equivalent in Lean to a residue-gap supply statement, that for every c and every positive odd v there exists H > 0 divisible by phi(v) whose canonical totient-block residue modulo (2^H - 1)/v lies in the central interval of radius c + H + 1, and no construction supplies that H.",
-    "strongest_open_producer": {
-      "id": "totient_specific_moving_dyadic_escape",
-      "statement": "Prove FullMersenneCanonicalBasepointResidueGapSupply, the Lean-equivalent arithmetic normal form: for every c and positive odd v, find H>0 divisible by phi(v) such that the canonical residue (-totientBlock(H,c)) mod ((2^H-1)/v) lies in the central interval of radius c+H+1. On the pure-dyadic axis, the Lean-checked signed error E_H=totientBlock(H,c)-k(2^H-1) obeys E_(H+1)=2E_H+phi(c+H+1)-k while the nearest quotient k stays fixed. Exact computation through c<=1000000 finds delay nineteen at c=490794, ruling out caps through seventeen. Pointwise legal-letter methods, the constant-two mode, sublinear errors, and every eventually affine linear-scale error are eliminated. Actual prime positions cofinally force linear excursions; …"
-    },
-    "how_to_contribute": {
-      "kind": "literature",
-      "note": "Test whether the Padé construction of Duverney and Tachiya for Lambert series survives a bounded non-periodic Möbius weight, and record the exact step at which it fails."
-    },
-    "what_this_does_not_establish": "Erdos #249 remains open. Lean proves that irrationality of S=sum_{n>=1}phi(n)/2^n is equivalent to FullMersenneCanonicalBasepointResidueGapSupply, and that exact equivalent reduction is the canonical frontier. The finite scans, delay laws, continued-fraction prefix, cyclotomic support, exact 331 certificates, Schur obstructions, and affine-mode exclusions are evidence or finite denominator exclusions only. In particular, the observed delay translation does not promote an irrationality-measure estimate to the target: any quantitative distance bound would be a sufficient stronger route. …",
-    "failed_approaches": [
-      "Uniform bounds ‖v·2^c·S‖ ≥ c^{−A}: impossible for irrational S because odd multiples of 2^c S are dense mod 1.",
-      "Coprime restriction with Stern-Brocot splitting and geometric decay: the visible-lattice sum ∑_{gcd(a,b)=1} 1/(2^{a+b}−1) equals exactly 1, so it cannot force irrationality.",
-      "Positive rank-one Schur blocks: every admissible quotient sits at least 21/320 above Θ₂ (unique minimiser (1,5)).",
-      "Nonnegative Stieltjes representations of the Möbius-Mersenne ladder: strict log-concavity at every rung."
-    ],
-    "public_entry_ids": [
-      "ExternalVerification249BinaryCyclotomicAnchors",
-      "ExternalVerification249RankOneSharpFloor",
-      "ExternalVerification249DyadicTotientKernel",
-      "ExternalVerification249ResidueClassTotientSeries",
-      "ExternalVerification249MobiusMersenneLadderStructure",
-      "ExternalVerification249ParityPerturbedRationalControl"
-    ]
+    "authority": "Reader-facing result selection from the source-selected Results guide edition. Exact proof authority remains with the sources and evidence boundaries named by that guide; publication_state and public_parity record whether this edition is public or a preview."
   },
   "palomar": {
     "review_unit": "cmp:249:finrank_totient_kernel",
@@ -555,7 +531,7 @@
     "form": "Problem note",
     "pages": 10,
     "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
-    "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
+    "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate or cofinal certificate supply is proved; Erdős #249 remains open.",
     "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #249, which remains open",
     "problem_id": "erdos_249",
@@ -575,9 +551,10 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 21,
-      "renderer_fingerprint": "f6b3e351ccb221fc",
+      "renderer_contract_version": 22,
+      "renderer_fingerprint": "e85419265bf94334",
       "source_sha256": "380370196f593ac3031abb53ef70b32599a02f6db3f03da470144d866e785053",
+      "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 319,
       "raw_math_fallback_count": 0,
@@ -591,60 +568,86 @@
     "sections": [
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:results",
         "label": "A basis and all its relations"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "sec:rank",
         "label": "The evaluation matrix"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "a-reusable-consequence",
         "label": "A reusable consequence"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:family",
         "label": "Bounded residues and rationality"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:carry-rank",
         "label": "The actual series and the remaining residue gap"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "one-seed-removes-the-full-depth-restriction",
         "label": "One seed removes the full-depth restriction"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "sec:frontier",
         "label": "A single canonical endpoint"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:nogo",
         "label": "Information that does not force the gap"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:open",
         "label": "Antecedents and proof record"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "app:sources",
         "label": "Guide to the formal sources"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "references",
         "label": "References"
       }
-    ]
+    ],
+    "first_pass": {
+      "stated_by_the_paper": false,
+      "provenance": "editorial selection for this guide",
+      "sections": [
+        {
+          "id": "sec:results",
+          "title": "A basis and all its relations",
+          "level": 2
+        },
+        {
+          "id": "sec:carry-rank",
+          "title": "The actual series and the remaining residue gap",
+          "level": 2
+        },
+        {
+          "id": "sec:frontier",
+          "title": "A single canonical endpoint",
+          "level": 3
+        },
+        {
+          "id": "sec:nogo",
+          "title": "Information that does not force the gap",
+          "level": 2
+        }
+      ]
+    }
   },
   "routes": {
     "graph_node": "problem:erdos_249",
@@ -662,7 +665,7 @@
       "form": "Problem note",
       "pages": 10,
       "question": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?",
-      "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate, cofinal supply, or matching rank upper bound is proved; Erdős #249 remains open.",
+      "precis": "The dyadic sections of Euler's totient have an explicit rational basis: the true truncation has dimension 1 at level 0 and exactly 2^e + 1 for e at least 1, so the full span is infinite-dimensional. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate or cofinal certificate supply is proved; Erdős #249 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #249: the exact finite-level rank, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #249, which remains open",
       "problem_id": "erdos_249",
@@ -682,9 +685,10 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "380370196f593ac3031abb53ef70b32599a02f6db3f03da470144d866e785053",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 319,
         "raw_math_fallback_count": 0,
@@ -698,60 +702,86 @@
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:results",
           "label": "A basis and all its relations"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:rank",
           "label": "The evaluation matrix"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "a-reusable-consequence",
           "label": "A reusable consequence"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:family",
           "label": "Bounded residues and rationality"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:carry-rank",
           "label": "The actual series and the remaining residue gap"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "one-seed-removes-the-full-depth-restriction",
           "label": "One seed removes the full-depth restriction"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:frontier",
           "label": "A single canonical endpoint"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:nogo",
           "label": "Information that does not force the gap"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:open",
           "label": "Antecedents and proof record"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "app:sources",
           "label": "Guide to the formal sources"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "sec:results",
+            "title": "A basis and all its relations",
+            "level": 2
+          },
+          {
+            "id": "sec:carry-rank",
+            "title": "The actual series and the remaining residue gap",
+            "level": 2
+          },
+          {
+            "id": "sec:frontier",
+            "title": "A single canonical endpoint",
+            "level": 3
+          },
+          {
+            "id": "sec:nogo",
+            "title": "Information that does not force the gap",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "short",
       "current_github": {
@@ -789,11 +819,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "e56ae41b7c9c25babd97b581554f2b160d352cb0ce7fd42114a07b0c4d656739",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2892,
+        "mathml_node_count": 3194,
         "raw_math_fallback_count": 6,
         "warnings": {
           "mathml": [
@@ -842,756 +873,782 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "8ad3a473ccde338036d820a072e8404b7cee7eaa5c3e46d7634fb22368d50f3b",
-        "html_exact_tex_sha256": "8e7586c512cbb46d768e767c12cc8c9bd03315b69d164c140db0d1114134402c"
+        "html_mathml_sha256": "d1dac2543f7ea34a5db33fce880979262d8841b77818f137d8950089c7af2199",
+        "html_exact_tex_sha256": "d36d8ab88aca288a9ca7404f534009057f48455366d6c4439565cdca5d4c9a7e"
       },
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "how-to-read-this-document",
           "label": "How to read this document"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "the-problem-and-what-is-actually-known",
           "label": "The problem, and what is actually known"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-unconditional-record",
           "label": "The unconditional record"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:wall",
           "label": "The wall"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-plane-the-barriers-live-on",
           "label": "The plane the barriers live on"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "b1-the-finite-inspection-barrier-as-a-theorem",
           "label": "B1: the finite-inspection barrier, as a theorem"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "b2b7",
           "label": "B2–B7"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-shape",
           "label": "The shape"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:survivors",
           "label": "What the wall does not block"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "survivor-1-the-first-harmonic-block-cancellation-bound",
           "label": "Survivor 1: the first-harmonic block cancellation bound"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "why-it-evades-the-wall.",
           "label": "Why it evades the wall."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "survivor-2-the-four-term-pivot-budget",
           "label": "Survivor 2: the four-term pivot budget"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "survivor-3-uniform-quantitative-escape-at-cofinally-many-primes",
           "label": "Survivor 3: uniform quantitative escape at cofinally many primes"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "survivor-4-depth-locked-full-depth-escape",
           "label": "Survivor 4: depth-locked full-depth escape"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "survivor-5-the-rationality-side-rank-upper-bound",
           "label": "Survivor 5: the rationality-side rank upper bound"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "reading-the-detailed-record",
           "label": "Reading the detailed record"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "scale-and-coordinate-discipline.",
           "label": "Scale and coordinate discipline."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "order-of-dependence.",
           "label": "Order of dependence."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "the-object-the-target-and-the-exact-record",
           "label": "The object, the target, and the exact record"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-object",
           "label": "The object"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-binary-digit-reduction",
           "label": "The binary-digit reduction"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:farey",
           "label": "The unconditional denominator floor"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:coprime",
           "label": "The same record, transported: the Möbius-square and coprimality-probability forms"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:mobius",
           "label": "The Möbius–Mersenne identity and why bounded coefficients matter"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:lambert",
           "label": "The squared-Lambert gcd-moment identities"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:certtable",
           "label": "The exact certificate record: the contiguous band through t≤82t\\le82"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "certificate-object.",
           "label": "Certificate object."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "catalogue-of-mathematical-ingredients",
           "label": "Catalogue of mathematical ingredients"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "open-hypotheses-and-candidate-inputs",
           "label": "Open hypotheses and candidate inputs"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "exact-identities-and-reductions",
           "label": "Exact identities and reductions"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "foundational-definitions-and-identities-scale-na",
           "label": "Foundational definitions and identities (scale n/a)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "cofinal-scale-converters-the-certificate-kernel-reduction-ladder",
           "label": "Cofinal-scale converters — the certificate-kernel reduction ladder"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "consequence-theorems",
           "label": "Consequence theorems"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "invariants",
           "label": "Invariants"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "obstructions-and-countermodels",
           "label": "Obstructions and countermodels"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "recently-added-declarations",
           "label": "Recently added declarations"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-möbiusmersenne-ladder-unconditional-log-concavity",
           "label": "The Möbius–Mersenne ladder: unconditional log-concavity"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "generic-tail-orbit-rigidity-a-self-labelled-non-claim",
           "label": "Generic tail-orbit rigidity: a self-labelled non-claim"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "squared-mersenne-diagonal-enclosure",
           "label": "Squared-Mersenne diagonal enclosure"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "oldforeign-möbius-channel-split-diagonalfreshlossbridge",
           "label": "Old/foreign Möbius channel split (DiagonalFreshLossBridge)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "repunit-gcd-word",
           "label": "Repunit Möbius numerator is a positive gcd word (T1)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "dyadic-prefix-compression-exact-greedy-carry-arithmetic",
           "label": "Dyadic prefix compression: exact greedy-carry arithmetic"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "pivot-fibre-anti-reconstruction-an-exact-energy-identity",
           "label": "Pivot-fibre anti-reconstruction: an exact energy identity"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "actual-foreign-residue-projection",
           "label": "Actual foreign-residue projection"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "geometric-coprimality-a-lattice-coordinate-and-a-classical-identity-beside-it",
           "label": "Geometric coprimality: a lattice coordinate, and a classical identity beside it"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "the-lcm-diagonal-collapse-reduced-to-one-mathbbn-indexed-predicate",
           "label": "The lcm-diagonal collapse: reduced to one ℕ\\mathbb{N}-indexed predicate"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "cyclotomic-anchored-kills-unconditional-prime-support-plus-new-exclusion-certificates",
           "label": "Cyclotomic anchored kills: unconditional prime support, plus new exclusion certificates"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "prime-ray-curvature",
           "label": "Prime-ray cyclotomic curvature: the abstract order-consumer producer"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "rank-one-subrank",
           "label": "Rank-one subrank obstruction: a uniform proved barrier"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "period-multiple-escape-the-nesting-identity-and-eight-new-exclusions",
           "label": "Period-multiple escape: the nesting identity and eight new exclusions"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "strict-prime-orbit-escape-a-sharper-reduction",
           "label": "Strict prime-orbit escape: a sharper reduction"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "finite-euler-sieve-algebra",
           "label": "Finite Euler-sieve algebra"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:249-scale-ladder",
           "label": "The scale ladder"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "checked-negative-result-no-free-promotion-from-bounded-to-cofinal",
           "label": "Checked negative result: no free promotion from bounded to cofinal"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "coordinate-atlas-and-transport-maps",
           "label": "Coordinate atlas and transport maps"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "obstructions-are-coordinate-relative-the-binary-digit-vs.-möbiusmersenne-case",
           "label": "Obstructions are coordinate-relative: the binary-digit vs. Möbius–Mersenne case"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "frontier-index-what-stands-between-the-corpus-and-a-proof",
           "label": "Frontier index: what stands between the corpus and a proof"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "reading-this-index",
           "label": "Reading this index"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ssec:headline",
           "label": "The headline: #249 reduces to a single unsupplied exponential-sum bound"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "row-by-row-the-remaining-near-misses-against-249-supply",
           "label": "Row-by-row: the remaining near misses against 249-supply"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "sgn-01-the-positive-sign-half-of-the-certified-kill-band-coordactual-lcm-sign",
           "label": "SGN-01 — the positive-sign half of the certified-kill band (coord:actual-lcm-sign)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "te-04-the-one-sided-top-edge-staircase-coordactual-lcm-top-edge",
           "label": "TE-04 — the one-sided top-edge staircase (coord:actual-lcm-top-edge)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "te-05-weakest-one-scalar-inequality-at-cofinally-many-odd-ranks-coordactual-lcm-top-edge",
           "label": "TE-05-weakest — one scalar inequality at cofinally many odd ranks (coord:actual-lcm-top-edge)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "sep-02-separation-from-an-explicit-rational-approximant-coordraw-approximant",
           "label": "SEP-02 — separation from an explicit rational approximant (coord:raw-approximant)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "sk-02-the-short-window-arithmetic-kill-verbatim-truncated-at-a_0le-6-coordshort-window-arithmetic",
           "label": "SK-02 — the short-window arithmetic kill, verbatim, truncated at a0≤6a_0\\le 6 (coord:short-window-arithmetic)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "b11-the-diagonal-pincer-certificate-bank-coorddiagonal-pincer",
           "label": "b11 — the diagonal pincer certificate bank (coord:diagonal-pincer)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "a12-one-window-sixteen-periods-wrong-way-quantifiers-coordh-uniform-certificate",
           "label": "a12 — one window, sixteen periods, wrong-way quantifiers (coord:h-uniform-certificate)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "c3-the-farey-denominator-floor-and-its-stalled-growth-law-coordfarey-window",
           "label": "c3 — the Farey denominator floor and its stalled growth law (coord:farey-window)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "ta-01ta-02-the-two-adic-pulse-block-reaches-the-arc-centre-and-fails-by-an-exponential-coordtwo-adic-pulse",
           "label": "TA-01/TA-02 — the two-adic pulse block reaches the arc centre and fails by an exponential (coord:two-adic-pulse)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "d-3ad-3b-cofinal-jump-positions-one-unproved-slack-sign-coordlcm-jump-slack",
           "label": "d-3a/d-3b — cofinal jump positions, one unproved slack sign (coord:lcm-jump-slack)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "e2-the-prime-jump-commutator-one-fixed-witness-coordprime-jump-commutator",
           "label": "e2 — the prime-jump commutator, one fixed witness (coord:prime-jump-commutator)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "b7-the-möbiusmersenne-denominator-channel-unbounded-but-off-coordinate-coordmobius-mersenne",
           "label": "b7 — the Möbius–Mersenne denominator channel: unbounded, but off-coordinate (coord:mobius-mersenne)"
         },
         {
           "level": 4,
-          "anchor": null,
+          "anchor": "d4d5-the-parallel-rank-obligation-and-a-corrected-pair-of-citations-coordcarry-rank",
           "label": "d4/d5 — the parallel rank obligation, and a corrected pair of citations (coord:carry-rank)"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "synthesis-where-the-frontier-actually-is",
           "label": "Synthesis: where the frontier actually is"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "closed-routes-with-the-mechanism-that-closed-them",
           "label": "Closed routes, with the mechanism that closed them"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "meta-level-finite-inspection-cannot-certify-the-supply-the-gamma-splice-remark",
           "label": "Meta-level: finite inspection cannot certify the supply (the γ\\gamma-splice remark)"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:parity-countermodel",
           "label": "The parity-aperiodicity countermodel (TotientParityCoboundaryCountermodel)"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "two-scoped-249-no-go-countermodels-square-crt-correction-suppression-is-ambiguous",
           "label": "Two scoped #249 no-go countermodels: square-CRT correction suppression is ambiguous"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:adelic-height",
           "label": "The adelic height obstruction"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-signed-q-moment-machinery-a-positive-tool-not-an-obstruction",
           "label": "The signed qq-moment machinery — a positive tool, not an obstruction"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-residual-gauge-obstruction",
           "label": "The residual-gauge obstruction"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "cone-flatness-and-cone-nonflatness",
           "label": "Cone flatness and cone nonflatness"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:mahler-defect",
           "label": "The Mahler defect: dyadic totient-kernel finite rank per level, infinite rank overall"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "integral-coordinates-and-the-complete-relation-module.",
           "label": "Integral coordinates and the complete relation module."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "further-closed-routes-catalogued-for-completeness",
           "label": "Further closed routes, catalogued for completeness"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:promotion-audit",
           "label": "Why the bounds are load-bearing"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "classification-of-the-sixteen-genuine-blockers",
           "label": "Classification of the sixteen genuine blockers"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "the-mathematics-this-problem-still-needs",
           "label": "The mathematics this problem still needs"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "one-identity-and-what-it-does-to-every-surviving-route",
           "label": "One identity, and what it does to every surviving route"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "route-1-a-constant-saving-cancellation-over-a-dyadic-block",
           "label": "Route 1: a constant-saving cancellation over a dyadic block"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-exact-statement-needed.",
           "label": "The exact statement needed."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "what-d-is-as-an-arithmetic-object.",
           "label": "What DD is, as an arithmetic object."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "which-technique-family-is-even-the-right-shape.",
           "label": "Which technique family is even the right shape."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-specific-obstacle-what-the-estimate-cannot-be-deduced-from.",
           "label": "The specific obstacle: what the estimate cannot be deduced from."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "size-of-the-quantity-honestly-calibrated.",
           "label": "Size of the quantity, honestly calibrated."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sub:pivot",
           "label": "Route 2: the four-term pivot budget"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-exact-statement-needed.-1",
           "label": "The exact statement needed."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "one-budget-has-a-classical-one-sided-majorant.",
           "label": "One budget has a classical one-sided majorant."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-pivot-quantifiers-force-a-deep-modulus.",
           "label": "The pivot quantifiers force a deep modulus."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-specific-obstacle-the-weight-is-neither-type-i-nor-type-ii.",
           "label": "The specific obstacle: the weight is neither Type I nor Type II."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-swing-the-predicate-needs-only-cofinally-many-x-so-average-over-x.",
           "label": "A swing: the predicate needs only cofinally many XX, so average over XX."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "route-3-uniform-quantitative-escape-at-primes",
           "label": "Route 3: uniform quantitative escape at primes"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-exact-statement-needed.-2",
           "label": "The exact statement needed."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "what-it-says-after-lemma-.",
           "label": "What it says, after Lemma ."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-specific-obstacle.",
           "label": "The specific obstacle."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "numerical-calibration.",
           "label": "Numerical calibration."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-swing-replace-the-pointwise-demand-by-a-canonical-fibre.",
           "label": "A swing: replace the pointwise demand by a canonical fibre."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "route-4-depth-locked-full-depth-escape",
           "label": "Route 4: depth-locked full-depth escape"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-exact-statement-needed.-3",
           "label": "The exact statement needed."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "what-it-says-an-anti-self-similarity-statement-about-the-digits-of-s-alone.",
           "label": "What it says: an anti-self-similarity statement about the digits of SS alone."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "which-technique-family-fits-and-why-it-is-unavailable.",
           "label": "Which technique family fits, and why it is unavailable."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "what-the-data-says.",
           "label": "What the data says."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-heuristic-size-computation.",
           "label": "A heuristic size computation."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "route-5-the-rationality-side-rank-bound-remains-open",
           "label": "Route 5: the rationality-side rank bound remains open"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-exact-statement-that-was-wanted.",
           "label": "The exact statement that was wanted."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-right-vocabulary-and-the-audited-gap.",
           "label": "The right vocabulary, and the audited gap."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sub:shape",
           "label": "What the shape of the wall suggests about the object"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "first-a-fact-rather-than-an-inference-the-routes-are-one-route-in-five-coordinates.",
           "label": "First, a fact rather than an inference: the routes are one route in five coordinates."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "second-the-wall-is-a-wall-about-explicit-constants-not-about-varphi.",
           "label": "Second: the wall is a wall about explicit constants, not about φ\\varphi."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "third-is-the-object-behind-the-measurements-simple-or-complex",
           "label": "Third: is the object behind the measurements simple or complex?"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "what-would-actually-change-the-picture.",
           "label": "What would actually change the picture."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "what-is-open-stated-exactly",
           "label": "What is open, stated exactly"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-certificate-completeness-converter",
           "label": "The certificate-completeness converter"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-base-cofinal-obligation-the-wall",
           "label": "The base cofinal obligation — the wall"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "collapsing-free-parameters-the-multiple-diagonal-cone-chain",
           "label": "Collapsing free parameters: the multiple / diagonal / cone chain"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "multiple-period-collapse-formally-looser-but-endpoint-equivalent.",
           "label": "Multiple-period collapse (formally looser, but endpoint-equivalent)."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "diagonal-collapse-one-free-parameter.",
           "label": "Diagonal collapse — one free parameter."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "cone-collapse-two-multipliers-still-the-same-wall.",
           "label": "Cone collapse — two multipliers, still the same wall."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "pure-non-integrality-form-certificate-vocabulary-stripped-out.",
           "label": "Pure non-integrality form — certificate vocabulary stripped out."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-exponential-sum-form",
           "label": "The exponential-sum form"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-actual-orbit-reformulation-and-the-top-edge-staircase",
           "label": "The actual-orbit reformulation and the top-edge staircase"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "route-pruning-total-staircase-collapse-is-impossible.",
           "label": "Route-pruning: total staircase collapse is impossible."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-surviving-one-sided-target.",
           "label": "The surviving one-sided target."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "five-strictly-weaker-links-each-independently-proved-sufficient.",
           "label": "Five strictly weaker links, each independently proved sufficient."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-weakest-known-link-and-the-exact-identity-pinning-it.",
           "label": "The weakest known link, and the exact identity pinning it."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-second-independent-finite-window-target-the-short-arithmetic-kill-supply.",
           "label": "A second, independent finite-window target: the short-arithmetic-kill supply."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-diophantine-flavoured-alternative-the-raw-approximant-separation-supply.",
           "label": "A Diophantine-flavoured alternative: the raw-approximant separation supply."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "a-problem-agnostic-normal-form-the-guard-cylinder-compression",
           "label": "A problem-agnostic normal form: the guard-cylinder compression"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "one-open-farey-problem-and-one-failed-rank-shortcut",
           "label": "One open Farey problem and one failed rank shortcut"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-counterfactual-rank-criterion.",
           "label": "A counterfactual rank criterion."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "obligation-3-farey-growth-law.",
           "label": "Obligation 3 (Farey growth law)."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "equivalence-map",
           "label": "Equivalence map"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "what-new-mathematics-each-surviving-form-would-need",
           "label": "What new mathematics each surviving form would need"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-exponential-sum-form.",
           "label": "The exponential-sum form."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-staircase-form.",
           "label": "The staircase form."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "statements-and-declarations",
           "label": "Statements and declarations"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "artefact-and-data-availability.",
           "label": "Artefact and data availability."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "authority-boundary.",
           "label": "Authority boundary."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "funding-and-competing-interests.",
           "label": "Funding and competing interests."
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "the-unconditional-record",
+            "title": "The unconditional record",
+            "level": 3
+          },
+          {
+            "id": "sec:wall",
+            "title": "The wall",
+            "level": 2
+          },
+          {
+            "id": "sec:survivors",
+            "title": "What the wall does not block",
+            "level": 2
+          },
+          {
+            "id": "what-is-open-stated-exactly",
+            "title": "What is open, stated exactly",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "long",
       "current_github": {

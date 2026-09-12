@@ -5180,6 +5180,393 @@ horizontal rule marks the frontier: everything above it is proved
 (fixed, bounded, or uniform); everything below it is what the open
 producers still need (cofinal), stated with its exact quantifier prefix
 so the gap is visible, not merely asserted.</p>
+<div id="tab:scale-ladder">
+<table>
+<caption>The scale ladder for Erdős #257. Every row above the frontier
+is machine-checked or exactly certified at fixed/bounded/uniform scale;
+every row below it is exactly the cofinal statement an open producer
+needs, with its quantifier prefix made explicit so the gap cannot be
+mistaken for a finite verification.</caption>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l"><p><strong>Result</strong></p></th>
+<th class="ta-l"><strong>Scale</strong></th>
+<th class="ta-l"><strong>Quantifier prefix</strong></th>
+<th class="ta-l"><strong>Coordinate</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l"><p><strong>Result</strong></p></td>
+<td class="ta-l"><strong>Scale</strong></td>
+<td class="ta-l"><strong>Quantifier prefix</strong></td>
+<td class="ta-l"><strong>Coordinate</strong></td>
+</tr>
+<tr>
+<td class="ta-l"><p></p></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">Smallest concrete exact row: support <span
+class="math inline" data-term-auto="off">\(\{2,3,6\}\)</span> satisfies <span
+class="math inline" data-term-auto="off">\(\mathrm{localPrefixQuotient}=2^5-1\)</span>.
+<span><span class="sans-serif">[Cert]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:fixed</span></span></td>
+<td class="ta-l"><span
+class="math inline" data-term-auto="off">\(n=6\)</span></td>
+<td class="ta-l"><code>coord:mobius-mersenne</code></td>
+</tr>
+<tr>
+<td class="ta-l">One-point counter-model: the
+double-or-recycle transition shape alone, even seeded, is not cofinal.
+<span><span class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:fixed</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(n=6\)</span>
+(free-standing model)</td>
+<td class="ta-l"><code>coord:other:meta-logical</code></td>
+</tr>
+<tr>
+<td class="ta-l">The combined-residue-mass <span
+class="math inline" data-term-auto="off">\(\le 1\)</span> sufficient test for sharp capacity
+is not necessary: fixture <span
+class="math inline" data-term-auto="off">\(D=\{2,3\}\)</span>, <span
+class="math inline" data-term-auto="off">\(c=5\)</span>. <span><span
+class="sans-serif">[Cert]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:fixed</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(D=\{2,3\},\
+c=5\)</span></td>
+<td class="ta-l"><code>coord:mobius-mersenne</code></td>
+</tr>
+<tr>
+<td class="ta-l">Exact residual fixture: <span
+class="math inline" data-term-auto="off">\(\tfrac12-W(\{2,3,6,7\})=\tfrac1{16002}\)</span>.
+<span><span class="sans-serif">[Cert]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:fixed</span></span></td>
+<td class="ta-l">none (numeric instance)</td>
+<td class="ta-l"><code>coord:other:regression-fixture</code></td>
+</tr>
+<tr>
+<td class="ta-l">Closed-form Möbius–Lambert value <span
+class="math inline" data-term-auto="off">\(\sum_{d\ge1}\mu(d)/(2^d-1)=1/2\)</span> (imported
+identity). <span><span class="sans-serif">[Cited]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:fixed</span></span></td>
+<td class="ta-l">none (closed-form value)</td>
+<td class="ta-l"><code>coord:mobius-mersenne</code></td>
+</tr>
+<tr>
+<td class="ta-l">The one natural negative-Möbius candidate
+support overshoots: <span class="math inline" data-term-auto="off">\(1/2 &lt;
+\sum_{d\in N}1/(2^d-1)\)</span> for <span
+class="math inline" data-term-auto="off">\(N=\{d\ge2:\mu(d)=-1\}\)</span>. <span><span
+class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:fixed</span></span></td>
+<td class="ta-l">one fixed candidate support <span
+class="math inline" data-term-auto="off">\(N\)</span></td>
+<td class="ta-l"><code>coord:mobius-mersenne</code></td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">Every exact row continues: doubles
+unboundedly, or recycles to some <span class="math inline" data-term-auto="off">\(c\le
+n\)</span>. <span><span class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:bounded</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+n\ge6\)</span>, given a row at <span class="math inline" data-term-auto="off">\(n\)</span>:
+<span class="math inline" data-term-auto="off">\((\ldots)\lor\exists c\le
+n(\ldots)\)</span></td>
+<td class="ta-l"><code>coord:mobius-mersenne</code></td>
+</tr>
+<tr>
+<td class="ta-l">Every above-half bounded support recycles
+into a genuine exact row at some <span
+class="math inline" data-term-auto="off">\(2c-2\)</span> with <span
+class="math inline" data-term-auto="off">\(c\le n\)</span>. <span><span
+class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:bounded</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+E\)</span> bounded <span class="math inline" data-term-auto="off">\([2,n]\)</span>: <span
+class="math inline" data-term-auto="off">\(\exists c\le n\)</span></td>
+<td class="ta-l"><code>coord:binary-digit</code></td>
+</tr>
+<tr>
+<td class="ta-l">(#249 cross-lane check) <span
+class="math inline" data-term-auto="off">\(\sum\varphi(n)/2^n\)</span> matches no rational
+whose denominator divides <span
+class="math inline" data-term-auto="off">\(2^{14}(2^h-1)\)</span>, for any <span
+class="math inline" data-term-auto="off">\(h\le16\)</span>. <span><span
+class="sans-serif">[Cert]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:bounded</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+h\le16\)</span> (explicit bound)</td>
+<td class="ta-l"><code>coord:binary-digit</code></td>
+</tr>
+<tr>
+<td class="ta-l">Truncation-rung ladder: <span
+class="math inline" data-term-auto="off">\(\mathrm{HalfRung}(J)\)</span> proved for every
+<span class="math inline" data-term-auto="off">\(3\le J\le22\)</span> via the finite decision
+procedure (§<a class="math-ref" href="#sec:four-coordinates">9</a>, Theorem <a class="math-ref" href="#thm:tr-finite-decision">196</a>). (source:
+<code>erdos257_truncation_rung_ladder_2026_07_24.md</code>, §5)
+<span><span class="sans-serif">[Math]</span></span>+<span><span
+class="sans-serif">[Cert]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:bounded</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(3\le
+J\le22\)</span> (finite table, exhaustive)</td>
+<td class="ta-l"><code>coord:rung-truncation</code></td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">Master achievement/greedy-survival
+criterion. <span><span class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall x\
+\forall n\)</span> (iff)</td>
+<td class="ta-l"><code>coord:greedy-orbit</code></td>
+</tr>
+<tr>
+<td class="ta-l">Membership iff every actually-skipped rank
+survives. <span><span class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+M\in\)</span> skipped support</td>
+<td class="ta-l"><code>coord:greedy-orbit</code></td>
+</tr>
+<tr>
+<td class="ta-l">Every crossing core is forced to be the
+canonical rational half-greedy prefix. <span><span
+class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall c\ge4\
+\forall D\)</span> bounded <span
+class="math inline" data-term-auto="off">\([2,c)\)</span></td>
+<td class="ta-l"><code>coord:greedy-orbit</code></td>
+</tr>
+<tr>
+<td class="ta-l">Theorem A payoff: reset <span
+class="math inline" data-term-auto="off">\(\sqrt{\ }\)</span>-escape socket <span
+class="math inline" data-term-auto="off">\(\Rightarrow\)</span> membership. <span><span
+class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+s\ge14\)</span>, given the socket hypothesis</td>
+<td class="ta-l"><code>coord:seam-integer</code></td>
+</tr>
+<tr>
+<td class="ta-l">Band-avoidance certified for every row
+<span class="math inline" data-term-auto="off">\(13\le r\le31\)</span> (feeds the F5/Theorem
+A uniform hypothesis as an exhaustively-verified finite range).
+<span><span class="sans-serif">[Cert]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(13\le
+r\le31\)</span>, exhaustive</td>
+<td class="ta-l"><code>coord:seam-integer</code></td>
+</tr>
+<tr>
+<td class="ta-l">Critical-band-index reduction: a <span
+class="math inline" data-term-auto="off">\((d{+}1)\)</span>-way check collapses to one
+nearest-boundary check. <span><span
+class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+d,E\)</span> with <span class="math inline" data-term-auto="off">\(E\le2^{d+1}\)</span></td>
+<td class="ta-l"><code>coord:other:dyadic-boundary</code></td>
+</tr>
+<tr>
+<td class="ta-l">Parity kill: no finite support hits <span
+class="math inline" data-term-auto="off">\(1/2\)</span> exactly. <span><span
+class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+A\)</span> finite, <span class="math inline" data-term-auto="off">\(0\notin A\)</span></td>
+<td class="ta-l"><code>coord:other:denominator-parity</code></td>
+</tr>
+<tr>
+<td class="ta-l">Erdős–Borwein irrationality at every
+integer base. <span><span class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+b\ge2\)</span></td>
+<td class="ta-l"><code>coord:mobius-mersenne</code></td>
+</tr>
+<tr>
+<td class="ta-l">Erdős 1968: any infinite,
+pairwise-coprime, reciprocal-summable index set gives an irrational
+support series. <span><span class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall b\ge2\
+\forall A\)</span> (infinite, coprime, summable)</td>
+<td class="ta-l"><code>coord:mobius-mersenne</code></td>
+</tr>
+<tr>
+<td class="ta-l">Generic block-certificate engine
+(problem-agnostic): weighted-coefficient series is irrational given a
+per-precision divisibility/window certificate. <span><span
+class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall b\ge2\
+\forall c\,(\forall m,c(m)\le m)\)</span>, given <span
+class="math inline" data-term-auto="off">\(\forall q\,\exists N,K,L,C\)</span></td>
+<td class="ta-l"><code>coord:binary-digit</code></td>
+</tr>
+<tr>
+<td class="ta-l">Finite greedy-prefix denominators are odd
+(source of the parity boundary exclusion, §<a class="math-ref" href="#sec:four-coordinates">9</a>). <span><span
+class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:uniform</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+n\)</span></td>
+<td class="ta-l"><code>coord:other:denominator-parity</code></td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+<tr>
+<td class="ta-l">THE master open supply: exact rows recur
+at arbitrarily large endpoints, with no coherence required between
+witnesses. <span><span class="sans-serif">[Open]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:cofinal</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall N\
+\exists n\ge N,\ \mathrm{ExactLocalMersenneHalfRow}(n)\)</span></td>
+<td class="ta-l"><code>coord:mobius-mersenne</code></td>
+</tr>
+<tr>
+<td class="ta-l">Payoff theorem consuming the row above:
+compactness of the achievement set forces <span
+class="math inline" data-term-auto="off">\(1/2\)</span> itself to be achieved. <span><span
+class="sans-serif">[Lean]</span></span> (theorem proved;
+<em>hypothesis</em> open)</td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:cofinal</span></span></td>
+<td class="ta-l">given <span class="math inline" data-term-auto="off">\(\forall
+N\,\exists n\ge N(\ldots)\)</span></td>
+<td class="ta-l"><code>coord:other:topological-achievement-set</code></td>
+</tr>
+<tr>
+<td class="ta-l">Shortest known open target: the canonical
+rational half-greedy orbit itself has infinitely many positive skip
+events. <span><span class="sans-serif">[Open]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:cofinal</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall N\
+\exists c\ge\max(N,4),\ 0&lt;\mathrm{rem}(c{-}1)&lt;w_c\)</span></td>
+<td class="ta-l"><code>coord:greedy-orbit</code></td>
+</tr>
+<tr>
+<td class="ta-l">Payoff theorem consuming the row above,
+with zero further combinatorial search once supplied. <span><span
+class="sans-serif">[Lean]</span></span> (theorem proved; hypothesis
+open)</td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:cofinal</span></span></td>
+<td class="ta-l">given <span class="math inline" data-term-auto="off">\(\forall
+N\,\exists c\ge N(\ldots)\)</span></td>
+<td class="ta-l"><code>coord:greedy-orbit</code></td>
+</tr>
+<tr>
+<td class="ta-l">Master half-branch dichotomy: membership
+iff the greedy skip set is infinite. <span><span
+class="sans-serif">[Lean]</span></span> (iff proved; both sides
+cofinal-shaped)</td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:cofinal</span></span></td>
+<td class="ta-l">iff <span
+class="math inline" data-term-auto="off">\((\mathrm{skippedSupport}).\mathrm{Infinite}\)</span></td>
+<td class="ta-l"><code>coord:greedy-orbit</code></td>
+</tr>
+<tr>
+<td class="ta-l">Seven-way classification hub: membership
+iff the seam word is not eventually right, iff unbounded terminal-false,
+iff cofinally many skipped ranks, <em>etc.</em> <span><span
+class="sans-serif">[Lean]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:cofinal</span></span></td>
+<td class="ta-l">every right-hand side is <span
+class="math inline" data-term-auto="off">\(\exists^\infty\)</span>/Unbounded-shaped</td>
+<td class="ta-l"><code>coord:seam-integer</code></td>
+</tr>
+<tr>
+<td class="ta-l">Ladder dichotomy: either infinitely many
+rungs survive (#257 false, explicit limit support) or an eventual
+bad-rank wall closes only this producer. (source:
+<code>erdos257_truncation_rung_ladder_2026_07_24.md</code>, Cor. 8)
+<span><span class="sans-serif">[Math]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:cofinal</span></span></td>
+<td class="ta-l">open branch (a): <span
+class="math inline" data-term-auto="off">\(\exists^\infty J,\
+\mathrm{HalfRung}(J)\)</span></td>
+<td class="ta-l"><code>coord:rung-truncation</code></td>
+</tr>
+<tr>
+<td class="ta-l">The unconditional wall, stated in its four
+equivalent forms (run length, deviation, distance-to-integer, greedy
+support). (source:
+<code>erdos257_sqrt_escape_digit_reduction_2026_07_24.md</code>, §5)
+<span><span class="sans-serif">[Conjecture]</span></span>/<span><span
+class="sans-serif">[Open]</span></span></td>
+<td class="ta-l"><span><span
+class="sans-serif">scale:cofinal</span></span></td>
+<td class="ta-l"><span class="math inline" data-term-auto="off">\(\forall
+r\ge10,\ |\mathrm{rem}(r{+}1)-2^{r+1}|&gt;2^{(r+5)/2}\)</span></td>
+<td class="ta-l"><code>coord:seam-integer</code></td>
+</tr>
+<tr>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+<td class="ta-l"></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="rem" id="rem:promotion-audit">
 <p><em>Remark 187</em> (Nothing promotes for free). A natural question,
 once the ladder is visible, is whether any <span><span

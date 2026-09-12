@@ -16,11 +16,14 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "394478725ffffc46a76749925dad522a1ca9e4ff43f83880a6ca4701ba399da2",
+    "source_sha256": "779f7114ee90f785834b047c1a9a42cf6a4b6fa00ec81b3f02b38de369eb93b7",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
@@ -28,78 +31,53 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "65ee5d2dc0717ec59bf27a631a69a71fa68b989d2c27613591031126099695c8",
-    "html_exact_tex_sha256": "261a70eb508002fee7cf4aad2442a8b697dcefa3173457b5f2e9b061f53ed420"
+    "html_mathml_sha256": "229453d65f4bd0551b38a535765d6dd1365ebabf9be1badacec598b5830bc10c",
+    "html_exact_tex_sha256": "aff2a71c96c5753435c47abdc73797f9c76c96944af5206d121e4728a38c4c17"
   },
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-this-repository-is",
       "label": "What this repository is"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "the-architecture-in-one-page",
       "label": "The architecture in one page"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "which-file-is-authoritative-for-what",
       "label": "Which file is authoritative for what"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "repository-map",
       "label": "Repository map"
     },
     {
-      "level": 3,
-      "anchor": null,
-      "label": "The job lifecycle"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Two libraries, two levels of claim"
-    },
-    {
       "level": 2,
-      "anchor": null,
+      "anchor": "a-complete-example",
       "label": "A complete example"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-happens-when-a-change-is-made",
       "label": "What happens when a change is made"
     },
     {
-      "level": 3,
-      "anchor": null,
-      "label": "A mathematical statement or proof changes"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "Only explanatory prose changes"
-    },
-    {
-      "level": 3,
-      "anchor": null,
-      "label": "A generated file is out of date"
-    },
-    {
       "level": 2,
-      "anchor": null,
+      "anchor": "how-the-checks-run",
       "label": "How the checks run"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "what-the-checks-do-not-prove",
       "label": "What the checks do not prove"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "where-to-start",
       "label": "Where to start"
     }
   ]

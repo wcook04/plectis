@@ -16,11 +16,14 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "62b5372eed7f90b1ea5800b40a464f435b74168fa0ad33ba4528d4d1e1deaf65",
+    "source_sha256": "d9d9cdbe4bc5493963c30e56ff766a9794a2d1ebebd2268d8bc4ad26da4de686",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
@@ -28,28 +31,38 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "f89d7f3ba85c4240fee4ae46708151d42260f0cdd992917d927f241c8d5a73a2",
-    "html_exact_tex_sha256": "a3bef0964c0dbab58dcea903558ff61d47aa708fd8db359112df4bbe71aad0d4"
+    "html_mathml_sha256": "e38389f9239230a773151c7f2332ab821b9e9adf8a0d6a3b95f7278a82a8d12c",
+    "html_exact_tex_sha256": "460e9a597ea8cad42af9a9403b80a13bc1621d2052b81dc5d896e6d34cd313b4"
   },
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "problem-papers",
       "label": "Problem papers"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "follow-the-argument-into-its-evidence",
+      "label": "Follow the argument into its evidence"
+    },
+    {
+      "level": 2,
+      "anchor": "project-papers",
       "label": "Project papers"
     },
     {
+      "level": 2,
+      "anchor": "sources-and-earlier-manuscripts",
+      "label": "Sources and earlier manuscripts"
+    },
+    {
       "level": 3,
-      "anchor": null,
+      "anchor": "returning-from-a-problem-note-to-checked-evidence",
       "label": "Returning from a problem note to checked evidence"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "build-and-update",
       "label": "Build and update"
     }
   ]

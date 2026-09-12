@@ -25,9 +25,9 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=bc11d00b7b50">
+  <link rel="stylesheet" href="../assets/style.css?v=71b3af9f4cb4">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
-  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=6c085cd44fc5"></script></template>
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=9328006d7585"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
 </head>
 <body>
@@ -90,7 +90,7 @@
         <a href="components.html" class="is-active" aria-current="page">Components</a>
         <a href="rules-and-ideas.html">Doctrine reference</a>
         <a href="paper-modules.html">Paper modules</a>
-        <a href="evidence.html">What the pass proves</a>
+        <a href="evidence.html">Evidence and checks</a>
         <a href="glossary.html">Glossary</a>
         <a href="lineage.html">Lineage &amp; changelog</a>
         <p class="docs-nav__group">Site</p>
@@ -142,7 +142,7 @@
         </aside>
 
         <h2 id="contract" data-term-auto="off">Contract</h2>
-          <p class="comp-card__what"><span class="comp-card__klabel">Does</span> Surfaces the public command-run singleflight <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-bundle" data-term="bundle">bundle</a> as a first-class operational-discipline <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-runtime" data-term="runtime">runtime</a>. It runs a small set of <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-bound" data-term="bound">bounded</a> command exercises and shows how duplicate runs collapse: a first run becomes the leader and runs once; a second run with the same content key reuses the completed run instead of executing again (the side-effecting counter stays at 1); mutating a scoped file flips the key so a stale working tree cannot answer for a different run; and an empty command is refused outright. The content key is built from the command words, the resolved working directory, the git HEAD commit, a scoped dirty-tree fingerprint, and an environment fingerprint, so what counts as &#x27;the same run&#x27; is decided by repo state rather than by the command words alone.</p>
+          <p class="comp-card__what"><span class="comp-card__klabel">Does</span> Surfaces the public command-run singleflight <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-bundle" data-term="bundle">bundle</a> as a first-class operational-discipline <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-runtime" data-term="runtime">runtime</a>. It runs a small set of <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-bound" data-term="bound">bounded</a> command exercises and shows how duplicate runs collapse: a first run becomes the leader and runs once; a second run with the same content key reuses the completed run instead of <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-execution" data-term="execution">executing</a> again (the side-effecting counter stays at 1); mutating a scoped file flips the key so a stale working tree cannot answer for a different run; and an empty command is refused outright. The content key is built from the command words, the resolved working directory, the git HEAD <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-commit" data-term="commit">commit</a>, a scoped dirty-tree fingerprint, and an <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-environment" data-term="environment">environment</a> fingerprint, so what counts as &#x27;the same run&#x27; is decided by repo state rather than by the command words alone.</p>
           <p class="comp-card__scope"><span class="comp-card__klabel">Scope limit</span> It keys and dedups command runs by a repo-state fingerprint over <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-bound" data-term="bound">bounded</a> public <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-fixture" data-term="fixture">fixture</a> commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-launch-scope-decision" data-term="launch_scope_decision">launch-scope decision</a>.</p>
 
         <h2 id="run" data-term-auto="off">Run</h2>

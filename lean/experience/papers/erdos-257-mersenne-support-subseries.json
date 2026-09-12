@@ -7,7 +7,7 @@
   "form": "Problem note",
   "pages": 14,
   "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
-  "precis": "For every finite support and integer base, the reduced denominator has multiplicative order exactly the support lcm. Restricted achievement sets also receive exact coding, topology, perfectness, and measure statements with their finite/infinite hypotheses. Rational infinite supports must satisfy explicit long-division and divisor-incidence constraints, but those constraints do not conflict. Prime support at base 2 and squarefree support at power-of-two bases are cited prior results, not contributions here. The targets 1/2 and 1/21 reduce to open infinite-orbit alternatives; Erdős #257 remains open.",
+  "precis": "For every infinite set A of positive integers with sum of 1/a finite, the paper proves that the reciprocal Mersenne-type subseries is irrational at every integer base b at least 2. Averaged modular divisor atoms give arbitrarily small positive displacements, contradicting the fixed lattice forced by rationality. This settles the reciprocal-summable regime, including the coprimality-free all-base extension stated by Erdős. Arbitrary infinite supports outside that regime, and hence universal Erdős #257, remain open.",
   "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
   "problem_id": "erdos_257",
@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "f27f8d97ce9f9bd83318ac3a97f4acbe7fc9072c9246dd2ef147dbfa63f07b66",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 344,
     "raw_math_fallback_count": 3,
@@ -60,93 +61,119 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:problem",
       "label": "Introduction and main results"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:reciprocal-support",
       "label": "Reciprocal-summable supports at every integer base"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:eight-return-extensions",
       "label": "Extensions beyond reciprocal summability"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "divisibility-weighted-and-quantitative-criteria",
       "label": "Divisibility-weighted and quantitative criteria"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "sec:common-kernel",
       "label": "A finite estimate on common observation scales"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "positive-fractional-divisor-covers",
       "label": "Positive fractional divisor covers"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "what-every-positive-cover-must-pay",
       "label": "What every positive cover must pay"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "combining-the-two-support-criteria",
       "label": "Combining the two support criteria"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "the-prime-power-regime.",
       "label": "The prime-power regime."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:period",
       "label": "Finite-support denominator periods"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:forced",
       "label": "Rational values and scaled tails"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:map",
       "label": "Where the return mechanism stops"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:geometry",
       "label": "Unique coding and arithmetic membership"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:actual-repairs",
       "label": "The actual greedy return inequality"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:open",
       "label": "Further questions"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "statements-and-declarations",
       "label": "Statements and declarations"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "app:sources",
       "label": "Guide to the formal sources"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:problem",
+        "title": "Introduction and main results",
+        "level": 2
+      },
+      {
+        "id": "sec:reciprocal-support",
+        "title": "Reciprocal-summable supports at every integer base",
+        "level": 2
+      },
+      {
+        "id": "sec:map",
+        "title": "Where the return mechanism stops",
+        "level": 2
+      },
+      {
+        "id": "sec:open",
+        "title": "Further questions",
+        "level": 2
+      }
+    ]
+  }
 }

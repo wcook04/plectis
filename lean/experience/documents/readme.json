@@ -16,11 +16,14 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "da0ac0da9b370dfa5d468039420f01bf363452ea5e57528d45c9c27fef50394e",
+    "source_sha256": "06a7aabd0744280262baeab5ec7f240ae715467fa9d913464c3b8547d2f2e636",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
@@ -28,58 +31,58 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "f0949422b34bfca49de9c27db40fb276badbd682cf30fb19261f47db7acc897f",
-    "html_exact_tex_sha256": "9a4cccc102aad45fc8d2a3a0d1fadf54c9a23c42f444abf48d0b2a4c6b0baaff"
+    "html_mathml_sha256": "057004556defd263e994a5004790f7316f50f3ebcad416849387c3147158ea20",
+    "html_exact_tex_sha256": "326e73d5cad54e4be8ea888ebfa6e1ae7404f67c427083e8779f90ab52c80eb4"
   },
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "where-to-start",
       "label": "Where to start"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "why-this-exists",
       "label": "Why this exists"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "problem-papers",
       "label": "Problem papers"
     },
     {
       "level": 2,
-      "anchor": null,
-      "label": "What the checks establish"
+      "anchor": "what-lean-and-comparator-verify",
+      "label": "What Lean and Comparator verify"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "contribute",
       "label": "Contribute"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "read-or-verify-locally",
       "label": "Read or verify locally"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "corpus-at-a-glance",
       "label": "Corpus at a glance"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "following-a-result-into-lean",
       "label": "Following a result into Lean"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "about-the-project",
       "label": "About the project"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "citation-and-licence",
       "label": "Citation and licence"
     }
   ]

@@ -25,9 +25,9 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=bc11d00b7b50">
+  <link rel="stylesheet" href="../assets/style.css?v=71b3af9f4cb4">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
-  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=6c085cd44fc5"></script></template>
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=9328006d7585"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
 </head>
 <body>
@@ -90,7 +90,7 @@
         <a href="components.html">Components</a>
         <a href="rules-and-ideas.html">Doctrine reference</a>
         <a href="paper-modules.html" class="is-active" aria-current="page">Paper modules</a>
-        <a href="evidence.html">What the pass proves</a>
+        <a href="evidence.html">Evidence and checks</a>
         <a href="glossary.html">Glossary</a>
         <a href="lineage.html">Lineage &amp; changelog</a>
         <p class="docs-nav__group">Site</p>
@@ -130,12 +130,12 @@
         <article class="docs-article">
         <p class="eyebrow docs-eyebrow">Reference</p>
         <h1>Paper modules</h1>
-        <p class="docs-lede"><a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-paper-module" data-term="paper_module" data-term-auto="1">Paper modules</a> are the long-form reasoning behind the system: one write-up per <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-mechanism" data-term="mechanism" data-term-auto="1">mechanism</a>, covering what it does, how it is <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>, and where its <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-scope" data-term="scope" data-term-auto="1">scope</a> stops. The <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a> index gives you the terse spec cards; a <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-paper-module" data-term="paper_module" data-term-auto="1">paper module</a> is where you go to actually understand one. Each row below opens its full write-up.</p>
+        <p class="docs-lede"><a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-paper-module" data-term="paper_module" data-term-auto="1">Paper modules</a> are the long-form reasoning behind the system: one write-up per <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-mechanism" data-term="mechanism" data-term-auto="1">mechanism</a>, covering what it does, how it is <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a>, and where its <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-scope" data-term="scope" data-term-auto="1">scope</a> stops. The <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> gives you the terse spec cards; a <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-paper-module" data-term="paper_module" data-term-auto="1">paper module</a> is where you go to actually understand one. Each row below opens its full write-up.</p>
         </article>
 
         <section class="artifact-stage artifact-stage--paper-modules" aria-label="Paper module reader stage">
         <h2 id="rule-feed">Rule feed</h2>
-        <p><a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-paper-module" data-term="paper_module" data-term-auto="1">Paper modules</a> carry typed handles into the same static rule <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-lattice" data-term="lattice" data-term-auto="1">lattice</a> used by the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-doctrine" data-term="doctrine" data-term-auto="1">Doctrine</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a> page. The browser reads this precomputed feed from <code>content-graph.json</code>; it does not fetch <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> JSON or run a backend.</p>
+        <p><a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-paper-module" data-term="paper_module" data-term-auto="1">Paper modules</a> carry typed handles into the same static rule <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-lattice" data-term="lattice" data-term-auto="1">lattice</a> used by the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-doctrine" data-term="doctrine" data-term-auto="1">Doctrine</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-reference" data-term="reference" data-term-auto="1">reference</a> page. The browser reads this precomputed feed from <code>content-graph.json</code>; it does not fetch <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-json-format" data-term="json_format" data-term-auto="1">JSON</a> or run a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-back-end" data-term="back_end" data-term-auto="1">backend</a>.</p>
         <dl class="status-grid">
           <div class="status-grid__row"><dt><a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-principle" data-term="principle" data-term-auto="1">Principles</a></dt><dd>20 <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-record" data-term="record" data-term-auto="1">records</a> &middot; 483 <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> links</dd></div>
           <div class="status-grid__row"><dt><a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-axiom" data-term="axiom" data-term-auto="1">Axioms</a></dt><dd>12 <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-record" data-term="record" data-term-auto="1">records</a> &middot; 385 <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> links</dd></div>
@@ -2003,7 +2003,7 @@
         </article>
       <nav class="docs-pager" aria-label="Page navigation" data-term-auto="off">
         <a class="docs-pager__link docs-pager__link--prev" href="rules-and-ideas.html"><span class="docs-pager__dir">Previous</span><span class="docs-pager__title">Doctrine reference</span></a>
-        <a class="docs-pager__link docs-pager__link--next" href="evidence.html"><span class="docs-pager__dir">Next</span><span class="docs-pager__title">What the pass proves</span></a>
+        <a class="docs-pager__link docs-pager__link--next" href="evidence.html"><span class="docs-pager__dir">Next</span><span class="docs-pager__title">Evidence and checks</span></a>
       </nav>
     </main>
   </div>

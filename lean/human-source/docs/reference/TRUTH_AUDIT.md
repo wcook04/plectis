@@ -482,7 +482,7 @@ independent theorem content.
 
 **Corrected.** Those numbers described the extraction snapshot.  The checked-in file currently exposes `101` named propositions, `23` labelled substantial; current semantic-corpus totals are generated separately.
 
-**Evidence.** Direct declaration count in `Basic.lean`; current `docs/semantic_corpus.json`.
+**Evidence.** Direct declaration count in `Basic.lean`; current `docs/semantic_corpus.json.gz`.
 
 ### `ErdosProblems/DemandLedger/edges/ClusterB.lean`
 

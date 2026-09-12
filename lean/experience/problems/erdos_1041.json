@@ -144,56 +144,22 @@
       }
     ]
   },
-  "frontier": {
-    "source": "state/formal_math/claim_frontier_v1.json",
-    "authority": "Editorial projection over the research packets and the Lean corpus. It records which statement is strongest and what is still open. It is never Lean proof authority, a registry outcome, or peer review.",
-    "target_status": "open",
-    "problem_statement": "If a monic polynomial f(z)=product_i(z-z_i) has all roots in the open unit disk, prove that two roots can be joined by a curve of length less than 2 contained in the open lemniscate |f|<1.",
-    "strongest_theorem": {
-      "claim_id": "erdos1041.solved_families",
-      "title": "sharp all-degree collinear root-diameter theorem with equality configurations, complete primitive sparse quintic, and translated cubic quotient fibres",
-      "statement": "The accompanying ordinary mathematics completely solves three structured families of Erdős #1041: collinear root configurations in every degree, the primitive sparse quintics, and translated cubic quotient fibres in every degree 3q with q at least two. This configuration verifies in Lean the three load-bearing kernels of those solutions, and only those three. For every degree n at least two, a monic polynomial of degree n vanishing at -1 and 1, with n-1 increasing interior nodes in the closed interval and values alternating in sign along them, has one node at which the absolute value is at most 2^-(n-1) times cos(pi/2n)^-n. Five real disk coordinates satisfying the first three rotated Newton moments for r strictly between 0 and 2 contain two distinct indices whose tail energy is strictly below one, and three roots in the open unit disc admit one complete radial spoke along which their monic cubic stays inside the closed unit lemniscate. Each family solution is reduced to a single finite inequality, so the delicate step in the geometry of polynomial sublevel sets is the part submitted for checking. The alternation argument sits in the classical Chebyshev context, a bounded search found no earlier form of the quintic selector, and priority is unresolved. Affine transport, the final selection, and the surrounding analytic assembly are ordinary proofs rather than Lean-checked conclusions, and the unrestricted problem is untouched.",
-      "altitude": "complete_subregime",
-      "band": "U",
-      "evidence_class": "lean_kernel_checked",
-      "public_entry": "ExternalVerification1041SolvedFamilies"
+  "results_guide": {
+    "document_id": "results",
+    "title": "Results and open boundaries",
+    "role": "mathematical_results_map",
+    "source_path": "docs/RESULTS.md",
+    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
+    "routes": {
+      "html_mathml": "documents/results.html",
+      "html_exact_tex": "documents/results.mathjax.html",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
     },
-    "strongest_longitudinal_theorem": {
-      "claim_id": "erdos1041.concyclic_alternation",
-      "title": "An adjacent-root chord in the open lemniscate for every concyclic root set of radius at most 2^(-1/n)",
-      "statement": "For a monic polynomial of degree n >= 3 with distinct zeros on a circle of radius rho, some adjacent-root chord has length at most 2 rho sin(pi/n) and maximum modulus strictly below 2 rho^n. Thus rho <= 2^(-1/n) gives a path of length less than 2 inside |f| < 1. Repeated roots are immediate; degree two follows directly for roots in the open unit disk. The all-degree arc comparison is sharp with constant 2; the stronger conjectured chord constant is not part of the theorem.",
-      "altitude": "complete_subregime",
-      "band": "U",
-      "evidence_class": "ordinary_proof",
-      "public_entry": null
-    },
-    "no_longitudinal_reason": null,
-    "live_obstruction": "The sharp constant is settled in every degree only under the critical-spectrum separation hypothesis, and the two surviving unconditional routes are the componentwise combined-charge lemma, that every nontrivial connected component C of the admissible critical forest satisfies the sum over edges e in C of D_e + K_e being at least 0, and the covering statement COVER, that for monic g with roots in the closed unit disk there is a level lambda in [mu, 1] and a compact connected subset Gamma of the first-merge component of {|g| <= lambda} carrying two roots with every point of Gamma within intrinsic distance 1 of a root.",
-    "strongest_open_producer": {
-      "id": "one_root_covering_of_the_first_merge_component",
-      "statement": "Prove (COVER): for monic g with roots in the closed unit disk there is a level lambda in [mu,1] and a compact CONNECTED subset Gamma of the first-merge component of {|g| <= lambda} carrying two roots, such that every point of Gamma lies within intrinsic distance 1 of a root of g, paths being allowed to run in the whole component. By visibility_overlap_reduction_to_a_one_root_statement this settles Erdos #1041, with no separate length obligation. Take Gamma as SMALL as possible and the ambient as LARGE as possible: the cheapest Gamma is the descending Newton branch pair from c*, on which the covering was measured in its strongest form -- straight segments at level 1 -- with zero uncovered points over 26 scored rows at 283 points per arc, at least 155 overlap points per row, and worst overlap length 1.90422 against a budget of 2. …"
-    },
-    "how_to_contribute": {
-      "kind": "computation",
-      "note": "Re-run the degree-five moment computation with directed rounding rather than IEEE double arithmetic, which converts the fifth arithmetic-mean strengthening into a certificate-backed statement and opens the sixth."
-    },
-    "what_this_does_not_establish": "Erdos #1041 remains open. Positive results include degree three, the sharp collinear theorem, the primitive quintic family, cyclic sparse families, and an all-degree constant-factor weakening; none settles the target. Counterexamples retire many direct, hub, coarea/tree, and simple concyclic selectors. The strongest surviving global routes are the admissible critical-branch/combined-charge route and COVER; both are unproved. Near Fekete, all-direction cusp signs, finite cones, and an actual quintic neighbourhood are proved. …",
-    "failed_approaches": [
-      "Universal scalar saddle-wall thresholds T ≤ 2√2(βγ)^{1/2n}: false for the actual wall of (z²−a²)(z²+b²).",
-      "Least-critical nearest-pair hub selectors: refuted in the quartic fixed-pair no-go (CEGMQuarticFixedPairNoGo.md).",
-      "Separate critical contours for resolved critical stars: a negative result for the monodromy route.",
-      "The shtuka tree-budget proposition: the Cassini level-length tail 4(√(a²+a) − a) falls below the root distance 2a for a > 4/5 (recorded countermodel, not re-derived on 2026-09-02)."
-    ],
-    "public_entry_ids": [
-      "ExternalVerification1041SolvedFamilies",
-      "ExternalVerification1041CyclicTrinomialFiber",
-      "ExternalVerification1041QuarticQuotientFiber",
-      "ExternalVerification1041CriticalGeometry",
-      "ExternalVerification1041TetranomialSpokes",
-      "ExternalVerification1041FirstMergeCriticalValueSeparation",
-      "ExternalVerification1041DiskFamilySeparation",
-      "ExternalVerification1041CollinearChord"
-    ]
+    "authority": "Reader-facing result selection from the source-selected Results guide edition. Exact proof authority remains with the sources and evidence boundaries named by that guide; publication_state and public_parity record whether this edition is public or a preview."
   },
   "palomar": null,
   "paper": {
@@ -205,7 +171,7 @@
     "form": "Problem note",
     "pages": 20,
     "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
-    "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
+    "precis": "The paper gives ordinary proofs of the length-less-than-2 conclusion for monic trinomials z^n+a z^m+b, with 1≤m<n and all roots in the open unit disc. For squarefree monic polynomials, if the least critical-value modulus μ is at most 13/25, there is also such a connector. Without a root-location restriction, the scaled result gives a path shorter than (5/2) μ^(1/n) in {|f|<(25/13)μ}. Separate length-area and critical-value estimates give further control. Exact counterexamples show why these ingredients do not yield the unrestricted connector theorem; Erdős #1041 remains open.",
     "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
     "problem_id": "erdos_1041",
@@ -225,9 +191,10 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 21,
-      "renderer_fingerprint": "f6b3e351ccb221fc",
+      "renderer_contract_version": 22,
+      "renderer_fingerprint": "e85419265bf94334",
       "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
+      "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 518,
       "raw_math_fallback_count": 0,
@@ -241,165 +208,191 @@
     "sections": [
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:trinomial",
         "label": "Monic trinomials, in every degree"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "a-finite-convex-certificate.",
         "label": "A finite convex certificate."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:problem",
         "label": "The problem and the general regimes"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:constant-factor",
         "label": "Low critical values and a uniform path bound"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-geometric-step-behind-1325.",
         "label": "The geometric step behind 13/2513/25."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "an-independent-area-proof.",
         "label": "An independent area proof."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:critical-proximity",
         "label": "Critical proximity and straight-path obstructions"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:solved-families",
         "label": "Solved polynomial families"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "translated-cubic-quotient-fibres",
         "label": "Translated cubic quotient fibres"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "primitive-sparse-quintics",
         "label": "Primitive sparse quintics"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "bdry:solved-polynomial-families",
         "label": "Sharp collinear roots"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:separation",
         "label": "Critical-value separation in every degree"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "bdry:critical-value-separation",
         "label": "Boundary."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:exact-obstructions",
         "label": "Three exact covering obstructions"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:newton",
         "label": "The Newton value equation"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:arguments",
         "label": "Arguments, not moduli"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:reciprocal",
         "label": "Local coordinates for perturbative competitors"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:gap",
         "label": "A proof gap in the unrestricted argument"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:finite",
         "label": "Computational searches"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:binomial",
         "label": "Exact symmetric benchmark: complementary chords for every binomial degree"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:collinear",
         "label": "The sharp collinear theorem: order buys an exact Chebyshev extremal"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:freepoint",
         "label": "A Poisson identity for critical-value means"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:orlicz",
         "label": "The exact nonlinear lifetime currency"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:open",
         "label": "The remaining geometric selection problem"
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "a-dense-generic-class-suffices.",
         "label": "A dense generic class suffices."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "a-sufficient-canonical-arc-estimate.",
         "label": "A sufficient canonical-arc estimate."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "the-attachment-obstruction-is-quantitative.",
         "label": "The attachment obstruction is quantitative."
       },
       {
         "level": 5,
-        "anchor": null,
+        "anchor": "which-information-is-insufficient.",
         "label": "Which information is insufficient."
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "sec:evidence-ledger",
         "label": "Proof boundaries"
       },
       {
         "level": 3,
-        "anchor": null,
+        "anchor": "sec:1041-sources",
         "label": "Sources and adjacent results"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "app:sources",
         "label": "Guide to the formal sources"
       },
       {
         "level": 2,
-        "anchor": null,
+        "anchor": "references",
         "label": "References"
       }
-    ]
+    ],
+    "first_pass": {
+      "stated_by_the_paper": false,
+      "provenance": "editorial selection for this guide",
+      "sections": [
+        {
+          "id": "sec:trinomial",
+          "title": "Monic trinomials, in every degree",
+          "level": 2
+        },
+        {
+          "id": "sec:constant-factor",
+          "title": "Low critical values and a uniform path bound",
+          "level": 2
+        },
+        {
+          "id": "sec:gap",
+          "title": "A proof gap in the unrestricted argument",
+          "level": 2
+        },
+        {
+          "id": "sec:open",
+          "title": "The remaining geometric selection problem",
+          "level": 2
+        }
+      ]
+    }
   },
   "routes": {
     "graph_node": "problem:erdos_1041",
@@ -417,7 +410,7 @@
       "form": "Problem note",
       "pages": 20,
       "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
-      "precis": "This note gives ordinary proofs for explicit short-path families, led by all-degree monic trinomials, and separately establishes a sharp critical-value mean. It records which subsidiary statements have Lean and Comparator checks. Exact obstruction examples show why the radial and critical-value estimates cannot be silently promoted to a general connector theorem. The work does not resolve unrestricted Erdős #1041; the recent degree-seven counterexample announcement is a separate external claim.",
+      "precis": "The paper gives ordinary proofs of the length-less-than-2 conclusion for monic trinomials z^n+a z^m+b, with 1≤m<n and all roots in the open unit disc. For squarefree monic polynomials, if the least critical-value modulus μ is at most 13/25, there is also such a connector. Without a root-location restriction, the scaled result gives a path shorter than (5/2) μ^(1/n) in {|f|<(25/13)μ}. Separate length-area and critical-value estimates give further control. Exact counterexamples show why these ingredients do not yield the unrestricted connector theorem; Erdős #1041 remains open.",
       "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
       "problem_id": "erdos_1041",
@@ -437,9 +430,10 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 518,
         "raw_math_fallback_count": 0,
@@ -453,165 +447,191 @@
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:trinomial",
           "label": "Monic trinomials, in every degree"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-finite-convex-certificate.",
           "label": "A finite convex certificate."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:problem",
           "label": "The problem and the general regimes"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:constant-factor",
           "label": "Low critical values and a uniform path bound"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-geometric-step-behind-1325.",
           "label": "The geometric step behind 13/2513/25."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "an-independent-area-proof.",
           "label": "An independent area proof."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:critical-proximity",
           "label": "Critical proximity and straight-path obstructions"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:solved-families",
           "label": "Solved polynomial families"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "translated-cubic-quotient-fibres",
           "label": "Translated cubic quotient fibres"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "primitive-sparse-quintics",
           "label": "Primitive sparse quintics"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "bdry:solved-polynomial-families",
           "label": "Sharp collinear roots"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:separation",
           "label": "Critical-value separation in every degree"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "bdry:critical-value-separation",
           "label": "Boundary."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:exact-obstructions",
           "label": "Three exact covering obstructions"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:newton",
           "label": "The Newton value equation"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:arguments",
           "label": "Arguments, not moduli"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:reciprocal",
           "label": "Local coordinates for perturbative competitors"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:gap",
           "label": "A proof gap in the unrestricted argument"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:finite",
           "label": "Computational searches"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:binomial",
           "label": "Exact symmetric benchmark: complementary chords for every binomial degree"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:collinear",
           "label": "The sharp collinear theorem: order buys an exact Chebyshev extremal"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:freepoint",
           "label": "A Poisson identity for critical-value means"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:orlicz",
           "label": "The exact nonlinear lifetime currency"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:open",
           "label": "The remaining geometric selection problem"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-dense-generic-class-suffices.",
           "label": "A dense generic class suffices."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-sufficient-canonical-arc-estimate.",
           "label": "A sufficient canonical-arc estimate."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-attachment-obstruction-is-quantitative.",
           "label": "The attachment obstruction is quantitative."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "which-information-is-insufficient.",
           "label": "Which information is insufficient."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:evidence-ledger",
           "label": "Proof boundaries"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:1041-sources",
           "label": "Sources and adjacent results"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "app:sources",
           "label": "Guide to the formal sources"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "sec:trinomial",
+            "title": "Monic trinomials, in every degree",
+            "level": 2
+          },
+          {
+            "id": "sec:constant-factor",
+            "title": "Low critical values and a uniform path bound",
+            "level": 2
+          },
+          {
+            "id": "sec:gap",
+            "title": "A proof gap in the unrestricted argument",
+            "level": 2
+          },
+          {
+            "id": "sec:open",
+            "title": "The remaining geometric selection problem",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "short",
       "current_github": {
@@ -649,9 +669,10 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 21,
-        "renderer_fingerprint": "f6b3e351ccb221fc",
+        "renderer_contract_version": 22,
+        "renderer_fingerprint": "e85419265bf94334",
         "source_sha256": "9238d40fede9fb8beebfcb9c0ac61a952548c8efd0d8136cb979b7d753aa2f6e",
+        "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1244,
         "raw_math_fallback_count": 2,
@@ -683,305 +704,331 @@
       "sections": [
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:problem",
           "label": "The problem"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:trinomials",
           "label": "Trinomials"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "subsec:abel-mechanism",
           "label": "The cancellation mechanism."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "bdry:trinomial",
           "label": "Evidence and exact boundary."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:low-critical-closure",
           "label": "An unconditional regime: a small least critical value"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-failure-inequalities.",
           "label": "The failure inequalities."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-arity-floor.",
           "label": "The arity floor."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "from-the-arity-floor-to-forced-area-growth.",
           "label": "From the arity floor to forced area growth."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "certificate.",
           "label": "Certificate."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "bdry:low-critical-closure",
           "label": "Evidence and exact boundary."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:constant-factor",
           "label": "An unconditional all-degree constant-factor path theorem"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "bdry:constant-factor",
           "label": "Evidence and exact boundary."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:degree-three",
           "label": "Degree three"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "bdry:degree-three",
           "label": "Evidence and exact boundary."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:critical-value-separation",
           "label": "An all-degree critical-value separation theorem"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "bdry:critical-value-separation",
           "label": "Evidence and exact boundary."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:solved-polynomial-families",
           "label": "Three exact solved polynomial families"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "subsec:sharp-collinear-chebyshev",
           "label": "Sharp collinear zeros"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "rem:sharp-collinear-formal-boundary",
           "label": "Formal boundary."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "subsec:primitive-sparse-quintic",
           "label": "The primitive sparse quintic"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "rem:primitive-quintic-formal-boundary",
           "label": "Formal boundary."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "subsec:translated-cubic-quotient-fibres",
           "label": "Translated cubic quotient fibres"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "rem:cubic-quotient-formal-boundary",
           "label": "Formal boundary."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "bdry:solved-polynomial-families",
           "label": "Shared assurance boundary."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:frontier",
           "label": "The current frontier: what survives near Fekete configurations"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "near-fekete-stability-removes-the-radial-distraction",
           "label": "Near-Fekete stability removes the radial distraction"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "a-bounded-radius-concyclic-class",
           "label": "A bounded-radius concyclic class"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "cyclic-trinomial-fibres",
           "label": "Cyclic trinomial fibres"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "coefficient-controlled-cyclic-tetranomial-spokes",
           "label": "Coefficient-controlled cyclic tetranomial spokes"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "sec:translated-quartic-quotient-fibres",
           "label": "Translated quartic quotient fibres"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "a-critical-value-budget-in-every-degree",
           "label": "A critical-value budget in every degree"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "the-weighted-poisson-proof-and-the-small-cardinality-conclusions.",
           "label": "The weighted Poisson proof and the small-cardinality conclusions."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "poisson-majorization-and-termwise-integration.",
           "label": "Poisson majorization and termwise integration."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "a-uniform-central-region-in-every-degree.",
           "label": "A uniform central region in every degree."
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "four-points-without-a-matching-or-numerical-split.",
           "label": "Four points without a matching or numerical split."
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-degree-five-target-is-now-explicit",
           "label": "The degree-five target is now explicit"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-no-go-boundaries-force-hub-selection",
           "label": "The no-go boundaries force hub selection"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-surviving-carrier-and-the-actual-open-endpoint",
           "label": "The surviving carrier and the actual open endpoint"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:newton",
           "label": "The Newton value equation"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:arguments",
           "label": "Arguments, not moduli"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:gap",
           "label": "A proof gap in the unrestricted argument"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:finite",
           "label": "Finite evidence"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:open",
           "label": "Complements and further questions"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "repair-or-refute-the-saddle-block",
           "label": "1. Repair or refute the saddle block"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-compact-ray-cut-decomposition",
           "label": "2. The compact ray-cut decomposition"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "metric-fan-in-after-the-printed-spanning-tree-coefficient-is-excluded",
           "label": "3. Metric fan-in after the printed spanning-tree coefficient is excluded"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "coefficient-perturbation-and-stability",
           "label": "4. Coefficient perturbation and stability"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "the-global-newton-flow-claim-ceiling",
           "label": "5. The global Newton-flow claim ceiling"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "statements-and-declarations",
           "label": "Statements and declarations"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "app:sources",
           "label": "Guide to the formal sources"
         },
         {
           "level": 5,
-          "anchor": null,
+          "anchor": "checked-declarations-behind-the-translated-quotient-fibre-families.",
           "label": "Checked declarations behind the translated quotient-fibre families."
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:record-circle-slice",
           "label": "Record: the circle-slice arity floor in numbers"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "sec:erdos-1041-complete-family-map",
           "label": "Complete result-family map"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "root-retention",
           "label": "Root retention"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "newton-value-decay",
           "label": "Newton value decay"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "ray-separation",
           "label": "Ray separation"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "published-proof-gap",
           "label": "Published proof gap"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "lemniscate-finite-search",
           "label": "Lemniscate finite search"
         },
         {
           "level": 3,
-          "anchor": null,
+          "anchor": "translation-avoidance",
           "label": "Translation avoidance"
         },
         {
           "level": 2,
-          "anchor": null,
+          "anchor": "references",
           "label": "References"
         }
       ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "sec:low-critical-closure",
+            "title": "An unconditional regime: a small least critical value",
+            "level": 2
+          },
+          {
+            "id": "sec:solved-polynomial-families",
+            "title": "Three exact solved polynomial families",
+            "level": 2
+          },
+          {
+            "id": "sec:gap",
+            "title": "A proof gap in the unrestricted argument",
+            "level": 2
+          },
+          {
+            "id": "sec:erdos-1041-complete-family-map",
+            "title": "Complete result-family map",
+            "level": 2
+          }
+        ]
+      },
       "hosted": true,
       "reading_role": "long",
       "current_github": {

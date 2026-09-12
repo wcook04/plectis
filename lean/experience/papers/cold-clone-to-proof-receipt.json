@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "326364ff51be753731daee255ea78e641d0390e715a52625e575eb3d90f6ac25",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
@@ -43,103 +44,134 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:problem",
       "label": "The cold-clone problem"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:layers",
       "label": "Four views of the mathematical library"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "complete-inventory.",
       "label": "Complete inventory."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "exact-formal-neighbourhoods.",
       "label": "Exact formal neighbourhoods."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "authored-mathematical-interpretation.",
       "label": "Authored mathematical interpretation."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "reviewed-public-claims.",
       "label": "Reviewed public claims."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:tour",
       "label": "A short tour with exact follow-up queries"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:authority",
       "label": "From navigation to proof authority"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:incremental",
       "label": "Compilation after comprehension"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:dogfood",
       "label": "A replayed case study"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:related",
       "label": "Relation to prior work"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:return",
       "label": "From a proof receipt to a public return"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:limits",
       "label": "Limits and transfer conditions"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:conclusion",
       "label": "What the architecture guarantees"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "app:repro",
       "label": "How to reproduce the audit"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "orient-without-compiling-lean.",
       "label": "1. Orient without compiling Lean."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "check-a-proof.",
       "label": "2. Check a proof."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "check-reuse-of-the-dependency-index.",
       "label": "3. Check reuse of the dependency index."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "inspect-the-return-lifecycle.",
       "label": "4. Inspect the return lifecycle."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:problem",
+        "title": "The cold-clone problem",
+        "level": 2
+      },
+      {
+        "id": "sec:tour",
+        "title": "A short tour with exact follow-up queries",
+        "level": 2
+      },
+      {
+        "id": "sec:authority",
+        "title": "From navigation to proof authority",
+        "level": 2
+      },
+      {
+        "id": "sec:dogfood",
+        "title": "A replayed case study",
+        "level": 2
+      },
+      {
+        "id": "sec:limits",
+        "title": "Limits and transfer conditions",
+        "level": 2
+      }
+    ]
+  }
 }

@@ -1167,8 +1167,8 @@ estimate <span class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</s
 conjecture enters. The classical theorem that a best approximation of
 the second kind is a convergent then converts the certified prefix into
 the denominator bound <span class="citation"
-data-cites="khinchin1964"><a href="#ref-7">[7]</a></span>. The receipt is
-<code>state/formal_math/probes/erdos251_certified_cf_receipt.json</code>,
+data-cites="khinchin1964"><a href="#ref-7">[7]</a></span>. The receipt is <a
+href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/certified-cf.json"><code>certified-cf.json</code></a>,
 which records the generating program and its digest, the power-of-two
 exponent <span class="math inline" data-term-auto="off">\(39997\)</span>, the bit length
 <span class="math inline" data-term-auto="off">\(39998\)</span>, the strict decimal power
@@ -1784,22 +1784,21 @@ class="math inline" data-term-auto="off">\(6\,841\,564\)</span> candidate indice
 at the prime <span class="math inline" data-term-auto="off">\(119\,995\,753\)</span>.
 Rescaled by <span class="math inline" data-term-auto="off">\(\log p\)</span> the band
 densities run from <span class="math inline" data-term-auto="off">\(0.17671\)</span> down to
-<span class="math inline" data-term-auto="off">\(0.13148\)</span> with decelerating drift, so
-the count up to <span class="math inline" data-term-auto="off">\(X\)</span> still grows like
-<span class="math inline" data-term-auto="off">\(X/(\log X)^2\)</span>, which is the rate
-Theorem <a class="math-ref" href="#long251:res:sparse">22</a>
-permits. The tails in this scan are double-precision floating-point, so
-an individual hit is a numerical observation and carries no certificate;
-the median distance from the shift to the nearer window boundary is
-<span class="math inline" data-term-auto="off">\(0.127\)</span> and the worst case over <span
+<span class="math inline" data-term-auto="off">\(0.13148\)</span> with decelerating drift
+over the measured bands. This finite observation does not establish an
+asymptotic counting law or cofinality. The tails in this scan are
+double-precision floating-point, so an individual hit is a numerical
+observation and carries no certificate; the median distance from the
+shift to the nearer window boundary is <span
+class="math inline" data-term-auto="off">\(0.127\)</span> and the worst case over <span
 class="math inline" data-term-auto="off">\(34\,000\)</span> hits is <span
 class="math inline" data-term-auto="off">\(6.1\times10^{-7}\)</span>, eight orders above the
 working resolution, and <span class="math inline" data-term-auto="off">\(3\,200\)</span>
 sampled hits across <span class="math inline" data-term-auto="off">\(h=1,\ldots,8\)</span>
 were rechecked against the literal three-part statement with no
 violations. Proposition <a class="math-ref" href="#long251:res:finite-smallpair">15</a> is the
-one pair certified by exact integer arithmetic. The receipt is
-<code>state/formal_math/probes/erdos251_adjacent_mismatch_receipt.json</code>.</p>
+one pair certified by exact integer arithmetic. The receipt is <a
+href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/adjacent-mismatch.json"><code>adjacent-mismatch.json</code></a>.</p>
 <p>Over the <span class="math inline" data-term-auto="off">\(1\,270\,607\)</span> primes
 below <span class="math inline" data-term-auto="off">\(2\times10^{7}\)</span>, and for every
 modulus <span class="math inline" data-term-auto="off">\(t\le20\)</span> and every residue
@@ -1808,13 +1807,18 @@ of Theorem <a class="math-ref" href="#long251:res:freepair">8</a> has witnesses
 running to the last usable index: the leanest class at <span
 class="math inline" data-term-auto="off">\(t=20\)</span> carries <span
 class="math inline" data-term-auto="off">\(90\,150\)</span> witnesses and the latest witness
-sits at index <span class="math inline" data-term-auto="off">\(1\,270\,519\)</span> of <span
-class="math inline" data-term-auto="off">\(1\,270\,540\)</span>. Every recorded witness
-satisfies the stronger two-window event, so it certifies both producers
-at once. What the scan does not supply is uniformity in <span
-class="math inline" data-term-auto="off">\(t\)</span> and in the cutoff. The receipt is
-<code>state/formal_math/erdos257_period_noncollapse/</code>
-<code>erdos251_free_pair_receipt.json</code>.</p>
+sits at index <span class="math inline" data-term-auto="off">\(1\,270\,520\)</span> of <span
+class="math inline" data-term-auto="off">\(1\,270\,540\)</span>. The recorded floating-point
+witnesses pass the stronger two-window test over this finite range; they
+are numerical observations, not exact certificates or a proof of either
+cofinal producer. What the scan does not supply is uniformity in <span
+class="math inline" data-term-auto="off">\(t\)</span> and in the cutoff. The receipt is <a
+href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/free-pair.json"><code>free-pair.json</code></a>.
+The <a
+href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md">public
+computation guide</a> provides the programs, dependencies and exact
+replay commands for all three recorded runs, including the
+continued-fraction calculation above.</p>
 </section>
 <section id="long251:sec:open" class="level2">
 <h2>The remaining obligation</h2>

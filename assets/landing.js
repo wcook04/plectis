@@ -515,6 +515,7 @@
     window.setTimeout(function () {
       if (gone) return;
       if (hint.contains(document.activeElement)) return;
+      if (window.getComputedStyle && window.getComputedStyle(hint).position === 'static') return;
       var sy = window.pageYOffset || root.scrollTop || 0;
       if (sy >= THRESHOLD) dismiss();
     }, 0);

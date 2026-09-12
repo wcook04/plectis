@@ -27,9 +27,10 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
     "source_sha256": "bda180c92168800fb3ec74ab12ef6f56d8f72c2ad11a78cc3e8c8253b3298dc9",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 7,
     "raw_math_fallback_count": 1,
@@ -60,148 +61,179 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:strategy",
       "label": "The strategy"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "two-coupled-goals-not-one-endless-agent",
       "label": "Two coupled goals, not one endless agent"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "what-one-clone-lets-a-contributor-do",
       "label": "What one clone lets a contributor do"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:model",
       "label": "A production model for mathematical progress"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:math",
       "label": "Why begin with hard mathematics"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:object",
       "label": "The public research object"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:protocol",
       "label": "The contribution protocol"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:attention",
       "label": "From an agent claim to mathematical attention"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:credit",
       "label": "Progress, provenance, and credit"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "record-now-trace-consequences-later",
       "label": "Record now, trace consequences later"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:security",
       "label": "Distributed compute without distributed authority"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:prior",
       "label": "Precedents and the missing composition"
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "distributed-compute.",
       "label": "Distributed compute."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "distributed-mathematical-insight.",
       "label": "Distributed mathematical insight."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "distributed-formalisation.",
       "label": "Distributed formalisation."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "multi-agent-formal-research.",
       "label": "Multi-agent formal research."
     },
     {
       "level": 5,
-      "anchor": null,
+      "anchor": "proof-abundance.",
       "label": "Proof abundance."
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:add-problem",
       "label": "Adding another problem world"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:growth",
       "label": "Participation and growth"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:evaluation",
       "label": "Evaluation"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:learning",
       "label": "Learning from every run"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "sec:local-to-general",
       "label": "The local-to-general track"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:science",
       "label": "A bounded transfer hypothesis beyond mathematics"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:limits",
       "label": "Limits and governance"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:execution",
       "label": "Execution order"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "sec:conclusion",
       "label": "Conclusion"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "app:routes",
       "label": "Public entry routes"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "declaration-of-generative-ai-use",
       "label": "Declaration of generative AI use"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "references",
       "label": "References"
     }
-  ]
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:strategy",
+        "title": "The strategy",
+        "level": 2
+      },
+      {
+        "id": "sec:protocol",
+        "title": "The contribution protocol",
+        "level": 2
+      },
+      {
+        "id": "sec:attention",
+        "title": "From an agent claim to mathematical attention",
+        "level": 2
+      },
+      {
+        "id": "sec:local-to-general",
+        "title": "The local-to-general track",
+        "level": 3
+      },
+      {
+        "id": "sec:limits",
+        "title": "Limits and governance",
+        "level": 2
+      }
+    ]
+  }
 }

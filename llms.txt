@@ -62,7 +62,7 @@ Objects: 781 across 16 kinds.
 - [Components](docs/components.html)
 - [Doctrine reference](docs/rules-and-ideas.html)
 - [Paper modules](docs/paper-modules.html)
-- [What the pass proves](docs/evidence.html)
+- [Evidence and checks](docs/evidence.html)
 - [Glossary](docs/glossary.html)
 - [Source & license](docs/source.html)
 - [Vulnerability disclosure](docs/vulnerability-disclosure.html)
@@ -84,7 +84,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos249-totient-reasoning-surface (Reasoning surface, 127 pp.)](maths/papers/erdos249-totient-reasoning-surface.html)
 - [Erdős #251](maths/problems/erdos_251.html)
 - [erdos-251-prime-gap-dyadic-series (Problem note, 19 pp.)](maths/papers/erdos-251-prime-gap-dyadic-series.html)
-- [erdos251-prime-gap-reasoning-surface (Reasoning surface, 35 pp.)](maths/papers/erdos251-prime-gap-reasoning-surface.html)
+- [erdos251-prime-gap-reasoning-surface (Reasoning surface, 34 pp.)](maths/papers/erdos251-prime-gap-reasoning-surface.html)
 - [Erdős #257](maths/problems/erdos_257.html)
 - [erdos-257-mersenne-support-subseries (Problem note, 14 pp.)](maths/papers/erdos-257-mersenne-support-subseries.html)
 - [erdos257-mersenne-reasoning-surface (Reasoning surface, 111 pp.)](maths/papers/erdos257-mersenne-reasoning-surface.html)
@@ -142,11 +142,11 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 
 ## Reader ladder (open in order of need)
 
-- [reviewer brief](plectis-reviewer-brief.json) (~10 MB): start here -- navigable public source for an AI, not a compact authored overlay. Paper LaTeX, mathematical assertion rows, glossary term records, a path index for each Erdős problem (Lean, Comparator, public pages), component records, and the software/maths site map. hologram_atlas names the parts before you open them. Reading it is not a verification run.
-- [reader digest](plectis-ai-reader-digest.json) (~338 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
+- [reviewer brief](plectis-reviewer-brief.json) (~9 MB): start here -- navigable public source for an AI, not a compact authored overlay. Paper LaTeX, mathematical assertion rows, glossary term records, a path index for each Erdős problem (Lean, Comparator, public pages), component records, and the software/maths site map. hologram_atlas names the parts before you open them. Reading it is not a verification run.
+- [reader digest](plectis-ai-reader-digest.json) (~345 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
 - [AI packet](plectis-ai-review-packet.json) (~17 MB): the whole public software site in one self-describing file -- read_me_first, answer contract, headline_results, question routes, every public text body. The most complete single artifact, and large enough that it is a deliberate choice rather than a default.
-- [complete text corpus](plectis-ai-reader-complete.json) (~11 MB): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, without instruction layers.
+- [complete text corpus](plectis-ai-reader-complete.json) (~10 MB): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, without instruction layers.
 - [reference index](docs/reference.html): the human middle layer -- areas, components, doctrine records, and paper modules in one navigable roster.
 - [full JSON map](plectis-site-map.json) (~17 MB): the raw map without the capsule's instruction layers -- visible_text_index bodies, page text, and diagrams, for automation.
 - source of record: the public repository linked from each component's source_links.

@@ -257,7 +257,7 @@ body::after {
    hand selection, instead of the UA's foreign default highlight. */
 ::target-text { background: var(--select-bg); color: var(--ink); }
 
-h1, h2, h3, h4 { margin: 0; font-weight: 600; color: var(--ink); text-wrap: balance; }
+h1, h2, h3, h4 { overflow-wrap: anywhere; margin: 0; font-weight: 600; color: var(--ink); text-wrap: balance; }
 h1, h2 { font-family: var(--font-serif); font-weight: 600; letter-spacing: -0.01em; line-height: var(--lh-tight); }
 p { margin: 0; }
 
@@ -660,6 +660,16 @@ html:not(.scripting) a.narrative-ref--term:hover {
 }
 .term-tip__back:hover { color: var(--ink); }
 .term-tip__rule[hidden], .term-tip__deep[hidden], .term-tip__full[hidden], .term-tip__back[hidden] { display: none; }
+
+@media (pointer: coarse), (max-width: 640px) {
+  .term-tip__actions { align-items: center; row-gap: 0.2rem; }
+  .term-tip__back, .term-tip__full {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 0.2rem;
+  }
+}
 
 /* Doctrine object-model map (taxonomy block on doctrine.html). */
 .docs-main .doctrine-map {
@@ -1123,6 +1133,7 @@ code, kbd, pre { font-family: var(--font-mono); }
 .wrap { width: min(var(--max), calc(100% - var(--gutter) * 2)); margin-inline: auto; }
 
 .site-header {
+  container: page-chrome / inline-size;
   position: sticky; top: 0; z-index: 30;
   background: color-mix(in srgb, var(--page) 88%, transparent);
   backdrop-filter: saturate(1.1) blur(8px);
@@ -1130,7 +1141,8 @@ code, kbd, pre { font-family: var(--font-mono); }
 }
 .site-header__inner {
   display: flex; align-items: center; justify-content: space-between;
-  height: 60px;
+  flex-wrap: wrap; gap: .35rem 1.5rem;
+  min-height: 60px; padding-block: .5rem;
 }
 /* Not a flex box. The ladder below aligns its three rungs on their baselines,
    and a flex container does not hand up the baseline you can see: it
@@ -1227,7 +1239,7 @@ code, kbd, pre { font-family: var(--font-mono); }
 .docs-topbar .brand-ladder { margin-right: 0.4rem; }
 .docs-topbar .brand-ladder .wordmark { margin-right: 0; }
 
-.site-header nav { display: flex; gap: 1.6rem; align-items: center; }
+.site-header nav { display: flex; flex-wrap: wrap; gap: .35rem 1.6rem; align-items: center; }
 .site-header nav a { color: var(--ink-soft); font-size: 0.92rem; }
 .site-header nav a:hover { color: var(--accent); text-decoration: none; }
 /* Quiet gold cue — the "press this" family (--link-ext): header Docs link,
@@ -1416,7 +1428,8 @@ main.hero {
   color: var(--faint); margin-bottom: 0.5rem;
 }
 .btn {
-  display: inline-flex; align-items: center; gap: 0.4rem;
+  display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.4rem;
+  max-width: 100%; overflow-wrap: anywhere;
   font-size: 0.95rem; font-weight: 500;
   padding: 0.62rem 1.05rem; border-radius: var(--r-control);
   border: 1px solid transparent; cursor: pointer;
@@ -1558,7 +1571,7 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
 }
 .link-row:hover { text-decoration: none; color: var(--ink); background: var(--surface-sunk); }
 .link-row:last-child { border-bottom: 1px solid var(--rule); }
-.link-row strong { font-weight: 600; }
+.link-row strong { min-width: 0; overflow-wrap: anywhere; font-weight: 600; }
 .link-row .desc { color: var(--muted); font-size: var(--fs-body); overflow-wrap: anywhere; }
 .link-row .go { color: var(--accent); font-size: var(--fs-meta); white-space: nowrap; text-align: right; }
 .link-row:hover .go,
@@ -1566,7 +1579,7 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
 .link-row[data-link-kind="exogenous"] .go { color: var(--link-ext); }
 .link-row[data-link-kind="exogenous"] .go::after { content: " \2197"; }  /* ↗ leaves the site */
 @media (max-width: 640px) {
-  .link-row { grid-template-columns: 1fr auto; column-gap: 1rem; }
+  .link-row { grid-template-columns: minmax(0, 1fr) auto; column-gap: 1rem; }
   .link-row .desc { grid-column: 1 / -1; }
 }
 .contact-line { margin-top: 1.6rem; font-size: 0.95rem; color: var(--ink-soft); }
@@ -1668,17 +1681,20 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
    Docs shell
 ---------------------------------------------------------------------------- */
 .docs-topbar {
+  container: page-chrome / inline-size;
   position: sticky; top: 0; z-index: 40;
   background: color-mix(in srgb, var(--page) 90%, transparent);
   backdrop-filter: saturate(1.1) blur(8px);
   border-bottom: 1px solid var(--rule);
 }
 .docs-topbar__inner {
-  display: flex; align-items: center; gap: 1rem; height: 58px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1rem;
+  min-height: 58px; padding-block: .5rem;
   width: min(1320px, calc(100% - 40px)); margin-inline: auto;
 }
 .docs-topbar .wordmark { margin-right: 0.4rem; }
-.docs-topbar__links { margin-left: auto; display: flex; gap: 1.3rem; }
+.docs-topbar__links { margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1.3rem; }
+.site-header nav a, .docs-topbar__links a { white-space: nowrap; }
 .docs-topbar__links a { color: var(--ink-soft); font-size: 0.9rem; }
 .docs-topbar__links a:hover { color: var(--accent); text-decoration: none; }
 
@@ -1695,8 +1711,8 @@ a.video-card:hover .video-card__go { text-decoration: underline; }
 }
 
 .docs-sidebar {
-  position: sticky; top: 58px; align-self: start;
-  height: calc(100vh - 58px); overflow-y: auto;
+  position: sticky; top: var(--topbar-h); align-self: start;
+  height: calc(100dvh - var(--topbar-h)); overflow-y: auto;
   padding: 28px 8px 40px 0;
 }
 .docs-nav { display: flex; flex-direction: column; gap: 0.1rem; }
@@ -1848,7 +1864,7 @@ pre .c { color: var(--faint); } /* comment */
    pinned below the header at the top, sliding up as you scroll so lower entries
    come into view, bottom-aligned when you reach the end. */
 .docs-toc {
-  position: sticky; top: 58px; align-self: start;
+  position: sticky; top: var(--topbar-h); align-self: start;
   padding: 36px 0; font-size: 0.84rem;
 }
 .docs-toc__title {
@@ -1886,7 +1902,8 @@ pre .c { color: var(--faint); } /* comment */
   border-radius: var(--r-control); padding: 0.45rem 0.85rem;
 }
 .comp-toolbar__input::placeholder { color: var(--faint); }
-.comp-toolbar__status { grid-column: 1 / -1; font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+.comp-toolbar__status { grid-column: 1 / -1; font-size: 0.82rem; color: var(--muted); }
+.comp-controls .comp-toolbar__status { margin: 0; }
 .comp-actions {
   display: flex; align-items: center; justify-content: flex-end;
   gap: 0.55rem; min-height: 2.4rem;
@@ -1928,8 +1945,13 @@ pre .c { color: var(--faint); } /* comment */
   .comp-controls { grid-template-columns: 1fr; }
   .comp-actions { justify-content: flex-start; }
 }
-.page-export-btn__label { white-space: nowrap; }
-.page-export-status { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+.page-export-btn__label { overflow-wrap: anywhere; text-align: left; }
+.page-export-status { font-size: 0.8rem; color: var(--muted); }
+.comp-actions .page-export-status:empty { display: none; }
+@container (max-width: 440px) {
+  .comp-actions { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .comp-actions .page-export-btn { width: 100%; min-height: 44px; }
+}
 .comp-empty { color: var(--muted); font-size: 0.92rem; margin: 1.2rem 0; }
 .comp-empty__clear {
   font: inherit; font-size: 0.92rem; color: var(--accent);
@@ -1983,7 +2005,8 @@ pre .c { color: var(--faint); } /* comment */
 details.comp-card[open] .comp-card__job {
   display: block; -webkit-line-clamp: unset; overflow: visible;
 }
-.comp-card__sig { flex: none; display: flex; gap: 0.3rem; margin-top: 0.1rem; }
+.comp-card__sig { flex: none; display: flex; flex-wrap: wrap; max-width: 100%; gap: 0.3rem; margin-top: 0.1rem; }
+.comp-card__sig .comp-chip { white-space: normal; overflow-wrap: anywhere; }
 .comp-chip--rank {
   color: var(--accent-strong); border-color: var(--accent-wash);
   background: var(--accent-wash); font-weight: 700;
@@ -2675,6 +2698,7 @@ pre:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
    buttons to the 44px touch floor without enlarging their desktop treatment.
    The theme track stays 1.6rem high inside the taller transparent button. */
 @media (hover: none) {
+  .comp-toolbar__input { font-size: max(1rem, 16px); min-height: 44px; }
   .site-header nav a, .docs-topbar__links a, .site-footer nav a {
     display: inline-flex; align-items: center; min-height: 44px;
   }
@@ -2884,7 +2908,7 @@ body.cmdk-open { overflow: hidden; }
 }
 .cmdk__head { display: flex; flex: none; align-items: center; gap: 0.5rem; padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--rule); }
 .cmdk__input {
-  flex: 1; border: 0; background: transparent; color: var(--ink);
+  flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink);
   font: inherit; font-size: 1.02rem; padding: 0.4rem 0.5rem;
 }
 .cmdk__input:focus { outline: none; }
@@ -2895,7 +2919,7 @@ body.cmdk-open { overflow: hidden; }
 }
 .cmdk__results { list-style: none; margin: 0; padding: 0.3rem; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
 .cmdk__item {
-  display: grid; grid-template-columns: 5.4rem 1fr; align-items: baseline; gap: 0.1rem 0.7rem;
+  display: grid; grid-template-columns: 5.4rem minmax(0, 1fr); align-items: baseline; gap: 0.1rem 0.7rem;
   padding: 0.5rem 0.6rem; border-left: 2px solid transparent; border-radius: 8px; cursor: pointer;
 }
 .cmdk__item.is-active { background: var(--surface-sunk); border-left-color: var(--accent); }
@@ -2904,7 +2928,7 @@ body.cmdk-open { overflow: hidden; }
   grid-row: span 2; align-self: center;
   font-size: 0.64rem; letter-spacing: var(--tracking-kicker); text-transform: uppercase; color: var(--faint);
 }
-.cmdk__label { color: var(--ink); font-weight: 600; }
+.cmdk__label { min-width: 0; overflow-wrap: anywhere; color: var(--ink); font-weight: 600; }
 .cmdk__rank {
   display: inline-block; margin-left: 0.45rem; vertical-align: baseline;
   font-size: 0.7rem; font-weight: 600; color: var(--accent-strong);
@@ -2928,6 +2952,18 @@ body.cmdk-open { overflow: hidden; }
   color: var(--muted); font-size: 0.74rem;
 }
 .cmdk__hint { font-family: var(--font-mono); }
+@media (max-width: 600px) {
+  .cmdk__panel { margin-top: 12px; width: calc(100% - 24px); max-height: calc(100dvh - 24px); }
+  .cmdk__item { grid-template-columns: minmax(0, 1fr); gap: .25rem; padding: .75rem; }
+  .cmdk__kind { grid-row: auto; font-size: .6875rem; }
+  .cmdk__meta, .cmdk__actions { grid-column: 1; }
+  .cmdk__actions { gap: .35rem; }
+  .cmdk__action { justify-content: center; font-size: .75rem; }
+  .cmdk__foot { flex-wrap: wrap; gap: .25rem; }
+}
+@media (hover: none) {
+  .cmdk__hint { display: none; }
+}
 
 /* ── Architecture map (interactive SVG) ────────────────────────────────── */
 .system-map__graph { margin: 1.4rem 0 0.4rem; contain: layout paint style; }
@@ -4889,21 +4925,17 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 .fold__intro { margin-bottom: 1.6rem; }
 .fold__intro p:first-child { margin-top: 0; }
 
-/* Disclosure motion. ::details-content targets the slot the browser actually
-   reveals, so opening AND closing both animate -- the previous keyframe ran on
-   the body and could only play an entrance. content-visibility needs
-   allow-discrete to stay visible for the duration of the close.
-   Baseline 2025; guarded by @supports, and the interaction is correct without
-   it (the fold simply opens instantly). */
+/* Disclosures reveal their content in place. Collapse immediately instead of
+   leaving a fading, full-height blank panel between the surrounding sections. */
 @supports selector(details::details-content) {
-  .fold::details-content {
-    opacity: 0;
-    translate: 0 -0.25rem;
-    transition: opacity var(--motion-panel) var(--ease-out),
-                translate var(--motion-panel) var(--ease-out),
-                content-visibility var(--motion-panel) allow-discrete;
+  details::details-content { opacity: 0; }
+  details[open]::details-content {
+    opacity: 1;
+    transition: opacity 120ms var(--ease-out);
   }
-  .fold[open]::details-content { opacity: 1; translate: none; }
+  @starting-style {
+    details[open]::details-content { opacity: 0; }
+  }
 }
 
 @media (max-width: 64rem) {
@@ -5502,23 +5534,15 @@ button, summary, .btn, .docs-nav a, .docs-topbar__links a, .next-card,
   .area-card:hover, .area-card:hover h3 .arrow { transform: none !important; }
 }
 
-/* Glossary hover preview, given a life cycle. Enter: a small rise out of the
-   word that summoned it — causal, immediate-feedback tier. Move: while the
-   card is visible, position changes glide, so reading along linked prose feels
-   like one card travelling with you rather than a popup blinking per word.
-   Leave: docs.js stamps .is-leaving and the card fades in 90ms before leaving
-   the layout — the departure starts sooner than before (110ms grace, was 160)
-   and lands softly instead of blinking off. The display:none round trip
-   restarts the entrance keyframes on each fresh open, so no JS choreography
-   is needed for the enter side. */
+/* Preview placement follows intent immediately. Animating left/top made the
+   card trail the word and perform layout work on every animation frame. */
 .term-tip {
-  animation: mc-tip-in var(--motion-fast) var(--ease-out);
-  transition: opacity 90ms var(--ease-out),
-              left 90ms var(--ease-out), top 90ms var(--ease-out);
+  animation: mc-tip-in 60ms var(--ease-out);
+  transition: opacity 90ms var(--ease-out);
 }
 .term-tip.is-leaving { opacity: 0; }
 @keyframes mc-tip-in {
-  from { opacity: 0; translate: 0 3px; }
+  from { opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .term-tip { animation: none; transition: none; }
@@ -5713,25 +5737,9 @@ p.muted a:not(.narrative-ref):focus-visible {
   }
 }
 
-/* One disclosure motion for the whole site. The landing folds already answer
-   with a quarter-rem rise at the panel tier; every other <details> — doctrine
-   cards, component cards, glossary entries, receipt logs, question sets —
-   answered instantly, so the site had two feels for one gesture. The same
-   settle now covers them all. Same tier, same curve, same reduced-motion
-   discipline; content-visibility rides allow-discrete so closing fades before
-   it collapses, exactly as the folds do. */
-@supports selector(details::details-content) {
-  details:not(.fold)::details-content {
-    opacity: 0;
-    translate: 0 -0.25rem;
-    transition: opacity var(--motion-panel) var(--ease-out),
-                translate var(--motion-panel) var(--ease-out),
-                content-visibility var(--motion-panel) allow-discrete;
-  }
-  details:not(.fold)[open]::details-content { opacity: 1; translate: none; }
-}
+/* This pseudo-element is outside the global *, ::before, ::after reset. */
 @media (prefers-reduced-motion: reduce) {
-  details::details-content { translate: none !important; }
+  details::details-content { transition: none !important; animation: none !important; }
 }
 
 /* Scrollbars in the palette. Inner scrollers — the sidebar, the palette
@@ -5969,6 +5977,13 @@ p.muted a:not(.narrative-ref):focus-visible {
 
 /* Small-screen chrome keeps one alignment and leaves the reading area clear. */
 .glossary-hint { box-shadow: var(--shadow); }
+/* Guidance shares the reading column instead of covering page controls. */
+.glossary-hint--inline-ready {
+  position: static; width: 100%; max-width: var(--prose);
+  margin: 1rem 0 1.25rem; box-shadow: none; backdrop-filter: none;
+}
+.glossary-hint--inline-ready .glossary-hint__body { flex: 1; }
+.glossary-hint--inline-ready.is-away { transform: none; }
 .glossary-hint__close {
   flex: none; display: grid; place-items: center;
   width: 32px; height: 32px; margin: -.35rem -.4rem 0 0;
@@ -5993,10 +6008,6 @@ p.muted a:not(.narrative-ref):focus-visible {
   .hero--simple .hero__modes .btn { justify-content: center; min-height: 46px; text-align: center; }
   .glossary-hint { bottom: max(12px, env(safe-area-inset-bottom)); }
   body.has-viewback .glossary-hint { bottom: calc(68px + env(safe-area-inset-bottom)); }
-  .glossary-hint--inline-ready {
-    position: static; width: 100%; max-width: var(--prose);
-    margin: 1rem 0 1.25rem; box-shadow: none;
-  }
   .glossary-hint__close { width: 36px; height: 36px; }
 }
 @media (max-width: 600px) {
@@ -6035,6 +6046,20 @@ p.muted a:not(.narrative-ref):focus-visible {
   .docs-main .docs-pagetools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .docs-main .docs-pagetools__label, .docs-main .docs-pagetools__status { grid-column: 1 / -1; }
   .docs-main .docs-pagetool { justify-content: center; min-width: 0; padding-inline: .5rem; }
+}
+
+@container (max-width: 20rem) {
+  .comp-card__summary { flex-wrap: wrap; }
+  .comp-card__head { flex-basis: 100%; }
+}
+
+/* Container rems follow enlarged text, so the brand gets its own row only
+   when text and controls no longer fit together in the narrow header. */
+@container page-chrome (max-width: 18rem) {
+  .brand-ladder { flex-wrap: wrap; }
+  .docs-topbar__inner { display: flex; padding-right: 0; }
+  .docs-topbar .brand-ladder { order: -1; flex-basis: 100%; padding-right: 54px; }
+  .docs-topbar__links { flex-basis: 100%; width: 100%; }
 }
 
 /* Navigation stays usable if scripting is disabled or the runtime fails. */

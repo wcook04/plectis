@@ -18,9 +18,12 @@
     "frontend_math_dependency": null,
     "source_sha256": "60a5e1a8ffca222d8abd74bcc4a4092f96d4eeb2d14142d878b1b12c28fd05ee",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 21,
-    "renderer_fingerprint": "f6b3e351ccb221fc",
+    "renderer_contract_version": 22,
+    "renderer_fingerprint": "e85419265bf94334",
+    "source_manifest_match": true,
     "publication_manifest_match": true,
+    "publication_state": "published_source",
+    "public_parity": true,
     "mathml_node_count": 0,
     "raw_math_fallback_count": 0,
     "warnings": {
@@ -34,132 +37,132 @@
   "sections": [
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "standing-rules",
       "label": "Standing rules"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "a-formal-result-is-the-exact-proposition-lean-checked",
       "label": "1. A formal result is the exact proposition Lean checked"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "formal-validity-and-mathematical-faithfulness-are-separate-questions",
       "label": "2. Formal validity and mathematical faithfulness are separate questions"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "a-public-claim-crosses-representations-only-through-proved-transport",
       "label": "3. A public claim crosses representations only through proved transport"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "a-reduction-keeps-the-remaining-hypothesis-visible",
       "label": "4. A reduction keeps the remaining hypothesis visible"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "finite-verification-does-not-change-quantifiers",
       "label": "5. Finite verification does not change quantifiers"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "a-claim-of-progress-names-both-the-theorem-and-the-outstanding-obligation",
       "label": "6. A claim of progress names both the theorem and the outstanding obligation"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "evidence-responsibilities",
       "label": "Evidence responsibilities"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "lean-check",
       "label": "Lean check"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "repository-check",
       "label": "Repository check"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "human-mathematical-review",
       "label": "Human mathematical review"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "blinded-recovery-evaluation",
       "label": "Blinded recovery evaluation"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "research-and-publication-paths",
       "label": "Research and publication paths"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "mathematical-research-path",
       "label": "Mathematical research path"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "public-claim-path",
       "label": "Public claim path"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "working-principles",
       "label": "Working principles"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "proving",
       "label": "Proving"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "publishing",
       "label": "Publishing"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "maintaining",
       "label": "Maintaining"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "three-examples-from-this-development",
       "label": "Three examples from this development"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "an-exact-reduction-that-does-not-close-249",
       "label": "An exact reduction that does not close #249"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "finite-verification-that-stays-finite",
       "label": "Finite verification that stays finite"
     },
     {
       "level": 3,
-      "anchor": null,
+      "anchor": "necessary-structure-that-does-not-yet-contradict",
       "label": "Necessary structure that does not yet contradict"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "before-changing-a-public-claim",
       "label": "Before changing a public claim"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "rejected-inferences",
       "label": "Rejected inferences"
     },
     {
       "level": 2,
-      "anchor": null,
+      "anchor": "authority-and-machine-identifiers",
       "label": "Authority and machine identifiers"
     }
   ]
