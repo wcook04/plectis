@@ -215,6 +215,11 @@ def test_skeptic_flight_recorder_is_publicly_discoverable() -> None:
     assert "make flight-recorder" in guide
     assert "make flight-recorder-verify" in guide
     normalized_guide = " ".join(guide.split())
-    assert "without rerunning the substrate" in normalized_guide
-    assert "blocked/non-zero command evidence" in normalized_guide
+    recorder_section = normalized_guide.split(
+        "### Record commands and compare their saved outputs", 1
+    )[1].split("### ", 1)[0]
+    assert "It retains failed commands" in recorder_section
+    assert "not run the recorded commands again" in recorder_section
+    assert "establishes internal consistency" in recorder_section
+    assert "not independent confirmation" in recorder_section
     assert "does not authorize release" in normalized_guide
