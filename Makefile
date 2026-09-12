@@ -75,6 +75,8 @@ PUBLIC_TESTS += tests/test_lean_proof_trust.py
 PUBLIC_TESTS += tests/test_documented_first_contact_commands.py
 PUBLIC_TESTS += tests/test_quickstart_docs.py
 PUBLIC_TESTS += tests/test_readme_front_door.py
+PUBLIC_TESTS += tests/test_cli.py::test_cli_project_commands_reject_invalid_project_directories_without_writing
+PUBLIC_TESTS += tests/test_cli.py::test_cli_project_directory_boundary_preserves_spaces_and_explicit_init
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card

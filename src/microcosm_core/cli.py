@@ -523,6 +523,38 @@ def _runtime_project_arg(project: str | None) -> str | None:
     return str(path.resolve(strict=False))
 
 
+PROJECT_DIRECTORY_COMMANDS = frozenset(
+    {
+        "architecture",
+        "catalog",
+        "compile",
+        "explain",
+        "graph",
+        "index",
+        "observe",
+        "patterns",
+        "python-lens",
+        "run",
+        "serve",
+        "status",
+        "status-card",
+        "tour",
+    }
+)
+
+
+def _project_directory_error(command: str | None, project: str | None) -> str | None:
+    """Return a clean CLI error when a project command receives no directory."""
+    if command not in PROJECT_DIRECTORY_COMMANDS or project is None:
+        return None
+    path = Path(project).expanduser()
+    if not path.exists():
+        return f"project directory does not exist: {project}"
+    if not path.is_dir():
+        return f"project path is not a directory: {project}"
+    return None
+
+
 def _runtime_root_for_project_arg(project: str | None) -> Path | None:
     """
     Return runtime root for project arg for the cli flow.
@@ -4189,6 +4221,13 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     args = parser.parse_args(argv)
+    project_error = _project_directory_error(
+        args.command,
+        getattr(args, "project", None),
+    )
+    if project_error is not None:
+        print(f"{display_program}: {project_error}", file=sys.stderr)
+        return 2
     if args.command == "init":
         return project_substrate.main(["init", args.project])
     if args.command == "index":
