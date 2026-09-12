@@ -79,6 +79,7 @@ PUBLIC_TESTS += tests/test_cli.py::test_cli_project_commands_reject_invalid_proj
 PUBLIC_TESTS += tests/test_cli.py::test_cli_project_directory_boundary_preserves_spaces_and_explicit_init
 PUBLIC_TESTS += tests/test_cli.py::test_package_metadata_describes_runtime_spine
 PUBLIC_TESTS += tests/test_cli.py::test_cli_authority_smoke
+PUBLIC_TESTS += tests/test_cli.py::test_cli_tour_on_fresh_project_exposes_first_screen_microcosm
 PUBLIC_TESTS += tests/test_cli.py::test_cli_tour_card_smoke
 PUBLIC_TESTS += tests/test_runtime_shell.py::test_runtime_shell_tour_card_is_compact_public_safe
 PUBLIC_TESTS += tests/test_project_substrate.py::test_reference_execution_case_binds_returned_work_id_not_first_closed

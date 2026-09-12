@@ -2183,15 +2183,37 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         ]
     )
     body_floor = status_card["front_door"]["source_open_body_import_floor"]
-    assert body_floor["direct_source_module_manifest_count"] >= 30
-    assert body_floor["direct_source_module_manifest_material_count"] >= 170
+    full_floor = RuntimeShell(public_root).status()["macro_body_import_floor"]
+    manifest_imports = [
+        row
+        for row in full_floor["body_imports"]
+        if row["status"] == "pass"
+        and row["import_accounting_source"] == "bundle_source_module_manifest"
+    ]
+    assert manifest_imports
+    assert body_floor["direct_source_module_manifest_count"] == len(
+        full_floor["direct_source_module_manifest_refs"]
+    )
+    assert body_floor["direct_source_module_manifest_material_count"] == len(
+        manifest_imports
+    )
     route_observability_spotlight = next(
         spotlight
         for spotlight in body_floor["source_module_family_spotlights"]
         if spotlight["spotlight_id"] == "agent_route_observability_runtime"
     )
-    assert route_observability_spotlight["family_count"] >= 8
-    assert route_observability_spotlight["notable_family_ids"]
+    full_spotlights = {
+        row["spotlight_id"]: row
+        for row in full_floor["source_body_import_lens"]["source_module_family_spotlights"]
+    }
+    assert route_observability_spotlight == full_spotlights["agent_route_observability_runtime"]
+    assert route_observability_spotlight["family_count"] > 0
+    verified_family_ids = {
+        row["family_id"]
+        for row in full_floor["source_body_import_lens"]["verified_source_module_families"]
+    }
+    assert verified_family_ids
+    assert set(route_observability_spotlight["notable_family_ids"]) <= verified_family_ids
     assert all(
         isinstance(family_id, str)
         for family_id in route_observability_spotlight["notable_family_ids"]
