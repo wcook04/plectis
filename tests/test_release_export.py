@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import tomllib
 from pathlib import Path, PurePosixPath
+from urllib.parse import unquote, urlsplit
 
 import pytest
 
@@ -227,6 +229,70 @@ def test_standalone_required_refs_exist_in_real_tree() -> None:
     assert missing == []
 
 
+def test_standalone_export_preserves_documentation_routes(tmp_path: Path) -> None:
+    """Exercise real reader links against copied release files, not the source tree."""
+    root = Path(__file__).resolve().parents[1]
+    files, _, missing = release_export._iter_allowed_files(root)
+    assert missing == []
+    target = tmp_path / "export"
+    guides = [
+        "README.md",
+        "QUICKSTART.md",
+        "CONTRIBUTING.md",
+        "docs/README.md",
+        "docs/UNDERSTANDING_PLECTIS.md",
+        "docs/papers/README.md",
+        "paper/README.md",
+        *sorted(
+            path.relative_to(root).as_posix()
+            for path in (root / "docs/maintainers").glob("*.md")
+        ),
+    ]
+    # Copy the documentation and each linked destination through the same
+    # writer as release_export. There is no need to rebuild generated receipts
+    # or install the toolkit to establish that its reading routes travel.
+    requested = set(guides)
+    links: list[tuple[str, str]] = []
+    for guide in guides:
+        text = (root / guide).read_text(encoding="utf-8")
+        text = re.sub(r"(?ms)^```.*?^```[^\n]*(?:\n|$)", "", text)
+        text = re.sub(r"(`+).*?\1", "", text)
+        for href in re.findall(r"!?\[[^\]\n]*\]\(([^)\n]+)\)", text):
+            url = urlsplit(href.strip("<>"))
+            if url.scheme or url.netloc or not url.path:
+                continue
+            destination = (root / guide).parent / unquote(url.path)
+            destination = destination.resolve()
+            assert destination.is_relative_to(root), (guide, href)
+            relative = destination.relative_to(root).as_posix()
+            links.append((guide, relative))
+            requested.add(relative)
+    by_ref = {path.relative_to(root).as_posix(): path for path in files}
+    selected: set[Path] = set()
+    for ref in requested:
+        if ref in by_ref:
+            selected.add(by_ref[ref])
+        else:
+            # A directory link only needs one exported member to prove that
+            # the destination exists; avoid copying the whole source corpus.
+            member = next(
+                (
+                    path for name, path in by_ref.items()
+                    if name.startswith(ref.rstrip("/") + "/")
+                ),
+                None,
+            )
+            if member is not None:
+                selected.add(member)
+    release_export._copy_allowed_files(sorted(selected), root=root, target=target)
+    assert links, "The reader guide fixture must contain local links"
+    assert all((target / guide).is_file() for guide in guides)
+    unresolved = [
+        (guide, ref) for guide, ref in links if not (target / ref).exists()
+    ]
+    assert unresolved == []
+
+
 def _make_release_root(root: Path) -> Path:
     root.mkdir()
     for file_name in (
@@ -237,6 +303,7 @@ def _make_release_root(root: Path) -> Path:
         "ANTI_PRINCIPLES.md",
         "ARCHITECTURE.md",
         "AXIOMS.md",
+        "CITATION.cff",
         "CLAUDE.md",
         "CONSTITUTION.md",
         "CONTRIBUTING.md",
@@ -296,6 +363,13 @@ where = ["src"]
     _write(root / "atlas/entry_packet.json", '{"status": "pass"}\n')
     _write(root / "atlas/agent_task_routes.json", '{"status": "pass"}\n')
     _write(root / "assets/.keep", "")
+    _write(root / "docs/README.md", "[Explanation](UNDERSTANDING_PLECTIS.md)\n")
+    _write(root / "docs/UNDERSTANDING_PLECTIS.md", "[Papers](papers/README.md)\n")
+    _write(root / "docs/papers/README.md", "[Paper source](../../paper/README.md)\n")
+    _write(root / "docs/maintainers/validation.md", "[Docs](../README.md)\n")
+    _write(root / "docs/.venv/local.txt", "local documentation environment\n")
+    _write(root / "paper/README.md", "[PDF](../plectis-public-system.pdf)\n")
+    _write(root / "plectis-public-system.pdf", "%PDF-1.4\nfixture\n")
     _write(
         root / "core/private_state_forbidden_classes.json",
         json.dumps(
@@ -638,6 +712,17 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert "Makefile" in receipt["inventory_receipt"]["include_refs"]
     assert "QUICKSTART.md" in receipt["inventory_receipt"]["include_refs"]
     assert "SECURITY.md" in receipt["inventory_receipt"]["include_refs"]
+    for ref in (
+        "docs/README.md",
+        "docs/UNDERSTANDING_PLECTIS.md",
+        "docs/papers/README.md",
+        "docs/maintainers/validation.md",
+        "paper/README.md",
+        "plectis-public-system.pdf",
+        "CITATION.cff",
+    ):
+        assert (target / ref).read_bytes() == (root / ref).read_bytes()
+    assert not (target / "docs/.venv").exists()
     assert receipt["inventory_receipt"]["role_counts"]["ci_workflow"] == 1
     assert receipt["inventory_receipt"]["role_counts"]["command_surface"] == 1
     assert candidate["authority_state"]["release_authorized"] is False
