@@ -4,9 +4,10 @@ Plectis is a standalone public Python toolkit. Its source code, examples and
 records can be inspected and run without access to the private research system
 from which it was developed.
 
-JSON contracts, registries, standards, validators and recorded results define
-what a component checks. Markdown explains those definitions and links to the
-code and evidence; it does not replace them.
+JSON contracts, registries, standards and validators define what a component
+checks. Recorded results show what happened on the named inputs. Markdown
+explains those definitions and links to the code and evidence; it does not
+replace them.
 
 Public-safe runtime material may contain:
 
