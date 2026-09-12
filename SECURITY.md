@@ -1,8 +1,9 @@
 # Security
 
 Plectis is a local research prototype and developer tool, not a production
-security product. A passing receipt proves only the command, fixture boundary,
-and contract named in that receipt.
+security product. A program writes its results into a receipt. To interpret a
+`pass`, read which command ran, which inputs it used, and which comparisons
+it performed.
 
 ## Supported versions
 
@@ -50,5 +51,5 @@ Before reporting a release-boundary or authority issue, the local verification
 route (including the release-authority receipt fields a report should cite) is
 documented in
 [docs/maintainers/security-runbook.md](docs/maintainers/security-runbook.md);
-the README's [Choose a route](README.md#choose-a-route) table names the public
-surfaces reports should reference.
+the README's [Choose a route](README.md#choose-a-route) table links to the
+public documentation for the affected component or command.
