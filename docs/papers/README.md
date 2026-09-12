@@ -12,6 +12,24 @@ companions are searchable here while their hosted publication remains pending.
 
 This checkout carries 20 active papers. Pick the question you are actually asking:
 
+## Choose a reading path
+
+For the project idea and its methods, start with a system paper:
+
+- [Problem-Sized Lean Worlds](full-text/claim-faithful-publication-systems-paper.md)
+- [From a Cold Clone to a Proof Receipt](full-text/cold-clone-to-proof-receipt.md)
+- [From Spare Compute to Cumulative Mathematics](full-text/open-source-mathematics-strategy.md)
+- [Plectis: What a Stranger Can Check](full-text/plectis-public-system.md)
+
+For a specific mathematical question, go straight to the [problem portfolio](#problem-portfolio).
+
+Start with a paper's abstract and introduction for the question and
+main idea. Follow the section links below for the argument and its
+limits, or open the PDF or LaTeX source for the full detail. You can
+enter at any of these points.
+
+<a id="problem-portfolio"></a>
+
 ## Problem portfolio (complete 20-paper inventory)
 
 The active mathematical notes form a growing problem-by-problem portfolio: Erdős #68, Erdős #243, Erdős #249, Erdős #251, Erdős #257, Erdős #269, Erdős #1041, Erdős #1049. Start with the named problem, then use its note for the exact checked results and remaining obligation. Retired combined manuscripts are provenance, not the portfolio's front door.
