@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import shutil
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from microcosm_core import cli
+from microcosm_core import release_export
 from microcosm_core.organs import bridge_phase_continuity_runtime as bridge_runtime
 
 
@@ -275,6 +279,270 @@ def test_bridge_phase_continuity_observe_apply_rollback_rejection_moves_with_inp
     assert "BRIDGE_CONTINUITY_ROLLBACK_CASE_MISSING" in {
         finding["error_code"] for finding in findings
     }
+
+
+def _synthetic_original_source_manifest(
+    tmp_path: Path,
+) -> tuple[dict[str, Any], Path]:
+    fixture = _load_json(FIXTURE_INPUT / bridge_runtime.INPUT_NAME)
+    public_root = tmp_path / "microcosm-substrate"
+    modules = []
+    for index, target_ref in enumerate(fixture["source_module_refs"]):
+        matched_private_ref = f"system/lib/source_{index}.py"
+        body = f"SOURCE_{index} = True\n".encode()
+        target = bridge_runtime._resolve_ref(target_ref, public_root=public_root)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(body)
+        modules.append(
+            {
+                "module_id": f"source_{index}_body_import",
+                "source_ref": matched_private_ref,
+                "target_ref": target_ref,
+                "body_copied": True,
+                "sha256_match": True,
+                "source_sha256": hashlib.sha256(body).hexdigest(),
+                "target_sha256": hashlib.sha256(body).hexdigest(),
+            }
+        )
+    return {"module_count": len(modules), "modules": modules}, public_root
+
+
+def test_bridge_phase_continuity_resolves_logical_public_root_in_renamed_checkout(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "plectis"
+
+    assert bridge_runtime._resolve_ref(
+        "microcosm-substrate/src/microcosm_core/example.py",
+        public_root=public_root,
+    ) == public_root / "src/microcosm_core/example.py"
+    assert bridge_runtime._resolve_ref(
+        "state/example.json", public_root=public_root
+    ) == tmp_path / "state/example.json"
+
+
+def _release_substituted_source_manifest(
+    tmp_path: Path,
+) -> tuple[dict[str, Any], Path]:
+    source_manifest, public_root = _synthetic_original_source_manifest(tmp_path)
+    omissions = []
+    for module in source_manifest["modules"]:
+        target_ref = module["target_ref"]
+        matched_private_ref = module["source_ref"]
+        substitution = {
+            "substitution": "public_safe_stub",
+            "matched_private_ref": matched_private_ref,
+            "contamination_class": "private_body_exact_match",
+            "body_in_receipt": False,
+        }
+        omissions.append(
+            {
+                "module_id": module["module_id"],
+                "path": target_ref,
+                "source_ref": matched_private_ref,
+                "release_substitution": substitution,
+                "body_in_receipt": False,
+            }
+        )
+        target = bridge_runtime._resolve_ref(target_ref, public_root=public_root)
+        target.write_text(
+            release_export._source_module_private_body_substitution_text(
+                rel=target_ref,
+                match_row=substitution,
+            ),
+            encoding="utf-8",
+        )
+    return {
+        "module_count": 0,
+        "modules": [],
+        "release_substitution_omissions": omissions,
+    }, public_root
+
+
+def _fixture_contract_inputs() -> tuple[dict[str, Any], dict[str, Any]]:
+    return (
+        _load_json(FIXTURE_INPUT / bridge_runtime.INPUT_NAME),
+        _load_json(
+            MICROCOSM_ROOT
+            / "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json"
+        ),
+    )
+
+
+def test_bridge_phase_continuity_accepts_exact_release_export_stubs(
+    tmp_path: Path,
+) -> None:
+    fixture, manifest = _fixture_contract_inputs()
+    source_manifest, public_root = _release_substituted_source_manifest(tmp_path)
+    findings: list[dict[str, Any]] = []
+
+    summary = bridge_runtime._validate_fixture_contract(
+        fixture, manifest, source_manifest, public_root=public_root, findings=findings
+    )
+
+    assert findings == []
+    assert len(summary["source_digest_results"]) == 5
+    assert all(
+        row["verification_mode"] == "release_export_public_safe_stub_exact_match"
+        and row["original_body_verified"] is False
+        and row["sha256_match"] is False
+        for row in summary["source_digest_results"]
+    )
+
+
+@pytest.mark.parametrize(
+    "mutation, expected_code",
+    (
+        ("tampered_stub", "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_STUB_MISSING_OR_TAMPERED"),
+        ("missing_stub", "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_STUB_MISSING_OR_TAMPERED"),
+        ("invalid_utf8", "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_STUB_MISSING_OR_TAMPERED"),
+        ("undeclared_ref", "BRIDGE_CONTINUITY_SOURCE_REF_MISMATCH"),
+        ("invalid_flags", "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID"),
+        ("duplicate_omission", "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID"),
+        ("malformed_omission", "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID"),
+        ("traversal_path", "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID"),
+        ("list_contamination_class", "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID"),
+        ("object_contamination_class", "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID"),
+    ),
+)
+def test_bridge_phase_continuity_rejects_unverified_release_substitutions(
+    tmp_path: Path,
+    mutation: str,
+    expected_code: str,
+) -> None:
+    fixture, manifest = _fixture_contract_inputs()
+    source_manifest, public_root = _release_substituted_source_manifest(tmp_path)
+    first = source_manifest["release_substitution_omissions"][0]
+    target = bridge_runtime._resolve_ref(first["path"], public_root=public_root)
+    if mutation == "tampered_stub":
+        target.write_text("tampered\n", encoding="utf-8")
+    elif mutation == "missing_stub":
+        target.unlink()
+    elif mutation == "invalid_utf8":
+        target.write_bytes(b"\xff\xfe")
+    elif mutation == "undeclared_ref":
+        source_manifest["release_substitution_omissions"].pop()
+    elif mutation == "invalid_flags":
+        first["body_in_receipt"] = True
+    elif mutation == "duplicate_omission":
+        source_manifest["release_substitution_omissions"].append(copy.deepcopy(first))
+    elif mutation == "malformed_omission":
+        source_manifest["release_substitution_omissions"].append("not-a-row")
+    elif mutation == "traversal_path":
+        first["path"] = "microcosm-substrate/../outside.py"
+    elif mutation == "list_contamination_class":
+        first["release_substitution"]["contamination_class"] = [
+            "private_body_exact_match"
+        ]
+    else:
+        first["release_substitution"]["contamination_class"] = {
+            "name": "private_body_exact_match"
+        }
+
+    findings: list[dict[str, Any]] = []
+    bridge_runtime._validate_fixture_contract(
+        fixture, manifest, source_manifest, public_root=public_root, findings=findings
+    )
+
+    assert expected_code in {finding["error_code"] for finding in findings}
+
+
+def test_bridge_phase_continuity_rejects_escaping_stub_without_probing_it(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    fixture, manifest = _fixture_contract_inputs()
+    source_manifest, public_root = _release_substituted_source_manifest(tmp_path)
+    first = source_manifest["release_substitution_omissions"][0]
+    target = bridge_runtime._resolve_ref(first["path"], public_root=public_root)
+    outside = tmp_path / "outside.py"
+    outside.write_text(target.read_text(encoding="utf-8"), encoding="utf-8")
+    target.unlink()
+    target.symlink_to(outside)
+    original_is_file = Path.is_file
+    original_read_text = Path.read_text
+
+    def guarded_is_file(self: Path) -> bool:
+        if self == target or self == outside:
+            raise AssertionError("escaping release stub must not be probed")
+        return original_is_file(self)
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == target or self == outside:
+            raise AssertionError("escaping release stub must not be read")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "is_file", guarded_is_file)
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+    findings: list[dict[str, Any]] = []
+
+    bridge_runtime._validate_fixture_contract(
+        fixture, manifest, source_manifest, public_root=public_root, findings=findings
+    )
+
+    assert "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID" in {
+        finding["error_code"] for finding in findings
+    }
+
+
+def test_bridge_phase_continuity_original_modules_retain_digest_verification(
+    tmp_path: Path,
+) -> None:
+    fixture, manifest = _fixture_contract_inputs()
+    source_manifest, public_root = _synthetic_original_source_manifest(tmp_path)
+    findings: list[dict[str, Any]] = []
+
+    summary = bridge_runtime._validate_fixture_contract(
+        fixture, manifest, source_manifest, public_root=public_root, findings=findings
+    )
+
+    assert findings == []
+    assert len(summary["source_digest_results"]) == 5
+    assert all(
+        row["verification_mode"] == "sha256"
+        and row["original_body_verified"] is True
+        and row["sha256_match"] is True
+        for row in summary["source_digest_results"]
+    )
+
+    first = source_manifest["modules"][0]
+    bridge_runtime._resolve_ref(first["target_ref"], public_root=public_root).write_text(
+        "tampered\n", encoding="utf-8"
+    )
+    tampered_findings: list[dict[str, Any]] = []
+    tampered = bridge_runtime._validate_fixture_contract(
+        fixture,
+        manifest,
+        source_manifest,
+        public_root=public_root,
+        findings=tampered_findings,
+    )
+    assert "BRIDGE_CONTINUITY_SOURCE_DIGEST_MISMATCH" in {
+        finding["error_code"] for finding in tampered_findings
+    }
+    assert any(
+        row["status"] == "blocked" and row["original_body_verified"] is False
+        for row in tampered["source_digest_results"]
+    )
+
+    source_manifest, public_root = _synthetic_original_source_manifest(tmp_path / "provenance")
+    source_manifest["modules"][0]["source_sha256"] = "0" * 64
+    source_manifest["modules"][0]["sha256_match"] = False
+    provenance_findings: list[dict[str, Any]] = []
+    provenance = bridge_runtime._validate_fixture_contract(
+        fixture,
+        manifest,
+        source_manifest,
+        public_root=public_root,
+        findings=provenance_findings,
+    )
+    assert "BRIDGE_CONTINUITY_SOURCE_PROVENANCE_MISMATCH" in {
+        finding["error_code"] for finding in provenance_findings
+    }
+    first_result = provenance["source_digest_results"][0]
+    assert first_result["sha256_match"] is True
+    assert first_result["original_body_verified"] is False
+    assert first_result["status"] == "blocked"
 
 
 def test_bridge_phase_continuity_transport_rejections_are_semantic_not_answer_keys() -> None:

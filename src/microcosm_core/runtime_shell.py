@@ -4048,6 +4048,67 @@ def _tour_command_causality_coverage_assay(
     }
 
 
+def _compact_tour_command_causality_coverage_assay(
+    assay: dict[str, Any],
+) -> dict[str, Any]:
+    """Project causality decisions while moving explanatory prose to full tour."""
+    compact = copy.deepcopy(assay)
+    compact["schema_version"] = (
+        "microcosm_tour_command_causality_coverage_assay_compact_v1"
+    )
+    gap_fields = {
+        "gap_id",
+        "status",
+        "blocks_tour_public_witness",
+        "selected_work_state_delta_refs_verified",
+        "selected_work_state_delta_scope_verified",
+        "evidence_ref",
+    }
+    compact["tour_command_root_gap_matrix"] = [
+        {key: value for key, value in row.items() if key in gap_fields}
+        for row in assay.get("tour_command_root_gap_matrix", [])
+        if isinstance(row, dict)
+    ]
+    compact["classification_matrix"] = [
+        {
+            key: value
+            for key, value in row.items()
+            if key
+            in {
+                "scope",
+                "claim_status",
+                "state_delta_ref_count",
+                "state_delta_refs_verified",
+                "state_delta_scope_verified",
+            }
+        }
+        for row in assay.get("classification_matrix", [])
+        if isinstance(row, dict)
+    ]
+    compact.pop("predicate_coverage_sources", None)
+    compact.pop("ambient_history_policy", None)
+    compact.pop("reader_action", None)
+    compact.pop("next_assay_step", None)
+    compact.pop("anti_claim", None)
+    compact.pop("safe_to_show", None)
+    compact.pop("command", None)
+    compact.pop("selected_work_reference_public_witness_status", None)
+    authority_ceiling = assay.get("authority_ceiling")
+    if isinstance(authority_ceiling, dict):
+        compact["authority_ceiling"] = {
+            key: authority_ceiling.get(key)
+            for key in (
+                "tour_command_public_occurrence_witness",
+                "selected_work_reference_case_may_be_occurrence_witness",
+            )
+        }
+    compact["full_assay_ref"] = (
+        "plectis tour <project>::tour_command_causality_coverage_assay"
+    )
+    compact["omission_receipt"] = {"drilldown": "plectis tour <project>"}
+    return compact
+
+
 def _project_runtime_state_cache_key(project_path: Path) -> tuple[Any, ...] | None:
     """
     Derive project runtime state cache key without touching module import state.
@@ -11110,7 +11171,9 @@ class RuntimeShell:
             "front_door_status": front_door_status,
             "command_reference_execution_case": command_reference_execution_case,
             "tour_command_causality_coverage_assay": (
-                tour_command_causality_coverage_assay
+                _compact_tour_command_causality_coverage_assay(
+                    tour_command_causality_coverage_assay
+                )
             ),
             "first_contact_surface_count": first_contact_surface_count,
             "first_contact_surface_ids": first_contact_surface_ids,
