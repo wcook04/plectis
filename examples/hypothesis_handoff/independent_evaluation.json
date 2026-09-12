@@ -29,7 +29,7 @@
     ],
     "evidence_for": [
       {
-        "ref": "paper/plectis-public-system.tex::sec:selection",
+        "ref": "paper/plectis-public-system.tex::sec:hand",
         "observation": "The paper identifies author control over component, case, expectation, and pass-rule selection.",
         "supports": "Selection can hide difficult or unrepresentative cases even when every published run is repeatable.",
         "authority_ceiling": "This is an argument about possible selection effects, not a measured effect size."
