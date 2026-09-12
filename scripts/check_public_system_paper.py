@@ -426,7 +426,7 @@ REQUIRED_FIRST_REVIEW_ANCHORS = (
     "Use the appendix's no-install block",
     "select the version analysed here",
     "tour describes the checkout but does not choose a component claim",
-    r"\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action",
+    "PYTHONPATH=src python3 -m plectis comprehend",
     r'--first-action "audio level calculation" --format text',
     "do not run its first suggested command",
     "writes to the repository's saved receipt paths",
@@ -1182,6 +1182,26 @@ def check_paper(
     for anchor in REQUIRED_FIRST_REVIEW_ANCHORS:
         if anchor not in normalized_conclusion_section:
             failures.append(f"missing executable first-review route: {anchor!r}")
+    # A plain Verbatim block survives both TeX and Pandoc. A command nested
+    # inside resizebox/Verb can be visible in the PDF but absent from HTML.
+    first_review_command = (
+        'PYTHONPATH=src python3 -m plectis comprehend '
+        '--first-action "audio level calculation" --format text'
+    )
+    review_code_blocks = re.findall(
+        r"\\begin\{Verbatim\}(?:\[[^\]]*\])?\s*\n(.*?)\\end\{Verbatim\}",
+        appendix_review_section,
+        flags=re.DOTALL,
+    )
+    review_commands = [
+        re.sub(r"\s+", " ", re.sub(r"\\[ \t]*\n", " ", block)).strip()
+        for block in review_code_blocks
+    ]
+    if first_review_command not in review_commands:
+        failures.append(
+            "missing executable first-review route in a copyable code block: "
+            + first_review_command
+        )
     provenance_section = text.split(
         r"\subsection*{Public execution versus where the code came from}", 1
     )[-1]

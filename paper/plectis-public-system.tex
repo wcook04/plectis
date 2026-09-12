@@ -1172,7 +1172,10 @@ evidence that the project is right.
 \paragraph{A first review.} Use the appendix's no-install block and select the
 version analysed here. The tour describes the checkout but does not choose a
 component claim. Ask the repository to find the audio example with
-\par\noindent\resizebox{\linewidth}{!}{\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
+\begin{Verbatim}[fontsize=\small]
+PYTHONPATH=src python3 -m plectis comprehend \
+  --first-action "audio level calculation" --format text
+\end{Verbatim}
 The response identifies the audio component, but do not run its first suggested
 command: it writes to the repository's saved receipt paths. Run the paper's exact
 no-install command near the start of Section~\ref{sec:run} instead; it writes only

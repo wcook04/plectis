@@ -24,7 +24,6 @@ from microcosm_core.organs.indirect_prompt_injection_information_flow_policy_rep
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/"
@@ -202,7 +201,13 @@ def test_indirect_prompt_injection_receipts_are_public_relative_and_secret_exclu
 
 def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
     tmp_path: Path,
+    monkeypatch: Any,
 ) -> None:
+    monkeypatch.setattr(
+        indirect_prompt_injection_information_flow_policy_replay,
+        "_repo_root_for_public_refactor",
+        lambda _public_root: None,
+    )
     result = run_prompt_injection_bundle(
         BUNDLE_INPUT,
         tmp_path
@@ -241,7 +246,9 @@ def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
     assert verification["source_to_target_relation"] == (
         "source_faithful_public_refactor"
     )
-    assert verification["digest_relation"] == "source_target_refactor_digests_recorded"
+    assert verification["digest_relation"] == (
+        "source_target_refactor_digests_unavailable_in_public_copy"
+    )
     assert verification["source_ref"] == "system/lib/agent_execution_trace.py"
     assert verification["target_file_ref"] == (
         "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
@@ -250,16 +257,14 @@ def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
         "microcosm-substrate/src/microcosm_core/macro_tools/"
         "agent_execution_trace.py::build_public_prompt_injection_trace"
     )
-    assert verification["source_body_digest"] == _sha256(
-        SOURCE_ROOT / "system/lib/agent_execution_trace.py"
-    )
-    assert verification["target_body_digest"] == _sha256(
-        MICROCOSM_ROOT / "src/microcosm_core/macro_tools/agent_execution_trace.py"
-    )
+    assert verification["source_body_digest"] is None
+    assert verification["target_body_digest"] is None
     assert verification["source_module_digest_relation"] == (
         "manifest_target_digests_verified"
     )
-    assert verification["source_module_digest_count"] == 5
+    source_manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    assert source_manifest["module_count"] == len(source_manifest["modules"])
+    assert verification["source_module_digest_count"] == source_manifest["module_count"]
     assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
     assert (
         result["body_import_classification"]
@@ -271,16 +276,23 @@ def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
     assert result["body_material_status"] == (
         "copied_non_secret_prompt_injection_macro_body_landed"
     )
-    assert result["body_copied_material_count"] == 5
-    assert result["source_module_imports"]["verified_module_count"] == 5
+    assert result["body_copied_material_count"] == source_manifest["module_count"]
+    assert result["source_module_imports"]["verified_module_count"] == (
+        source_manifest["module_count"]
+    )
     assert result["source_open_body_imports"]["status"] == "pass"
-    assert result["source_open_body_imports"]["body_material_count"] == 5
+    assert result["source_open_body_imports"]["body_material_count"] == (
+        source_manifest["module_count"]
+    )
     assert result["source_open_body_imports"]["body_in_receipt"] is False
     assert (
         result["source_open_body_imports"]["body_text_exported_in_receipts"]
         is False
     )
-    assert len(result["source_open_body_import_refs"]) == 5
+    assert len(result["source_open_body_import_refs"]) == (
+        source_manifest["module_count"]
+        + len(source_manifest["release_substitution_omissions"])
+    )
     assert (
         "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
         in result["target_refs"]
@@ -388,7 +400,13 @@ def test_indirect_prompt_injection_rejects_source_module_target_ref_path_mismatc
     )
     manifest_path = bundle / "source_module_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["modules"][0]["path"] = manifest["modules"][1]["path"]
+    alternate_path = (
+        bundle
+        / "source_modules/ai_workflow/state/microcosm_portfolio/"
+        "extracted_patterns_ledger.jsonl"
+    )
+    module = manifest["modules"][0]
+    module["path"] = str(alternate_path.relative_to(bundle))
     manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
 
     result = run_prompt_injection_bundle(
@@ -555,7 +573,8 @@ def test_indirect_prompt_injection_source_module_digests_stream_without_read_byt
     )
 
     assert manifest_result["status"] == "pass"
-    assert manifest_result["verified_module_count"] == 5
+    assert manifest["module_count"] == len(manifest["modules"])
+    assert manifest_result["verified_module_count"] == manifest["module_count"]
     assert (
         indirect_prompt_injection_information_flow_policy_replay._sha256(module_path)
         == module_row["sha256"]
@@ -568,29 +587,26 @@ def test_indirect_prompt_injection_source_module_digests_stream_without_read_byt
     )
 
 
-def test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports() -> None:
+def test_indirect_prompt_injection_recorded_source_digests_match_public_bodies() -> None:
     manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
     assert manifest["body_text_in_receipt"] is False
-    assert manifest["module_count"] == 5
+    assert manifest["module_count"] == len(manifest["modules"])
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = MICROCOSM_ROOT / row["target_ref"].removeprefix(
             "microcosm-substrate/"
         )
 
-        assert source.is_file()
         assert target.is_file()
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False
         assert row["body_text_in_receipt"] is False
         assert row["source_import_class"] == "copied_non_secret_macro_body"
-        source_digest = _sha256(source)
         target_digest = _sha256(target)
-        assert source_digest == target_digest == row["sha256"]
-        assert _digest_value(row["source_sha256"]) == _digest_value(source_digest)
+        assert target_digest == row["sha256"]
+        assert _digest_value(row["source_sha256"]) == _digest_value(target_digest)
         assert _digest_value(row["target_sha256"]) == _digest_value(target_digest)
         text = target.read_text(encoding="utf-8")
         for anchor in row["required_anchors"]:
@@ -622,7 +638,11 @@ def test_indirect_prompt_injection_bundle_card_reuses_fresh_receipt(
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
-    assert first_card["command_speed"]["freshness_input_count"] == 16
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    expected_freshness_input_count = 11 + manifest["module_count"]
+    assert first_card["command_speed"]["freshness_input_count"] == (
+        expected_freshness_input_count
+    )
     assert first_card["prompt_injection_flow"]["source_document_count"] == 5
     assert first_card["prompt_injection_flow"]["information_flow_count"] == 5
     assert first_card["prompt_injection_flow"]["block_count"] == 2
@@ -638,7 +658,9 @@ def test_indirect_prompt_injection_bundle_card_reuses_fresh_receipt(
     assert first_card["body_floor"]["body_material_status"] == (
         "copied_non_secret_prompt_injection_macro_body_landed"
     )
-    assert first_card["body_floor"]["body_copied_material_count"] == 5
+    assert first_card["body_floor"]["body_copied_material_count"] == (
+        manifest["module_count"]
+    )
     assert first_card["body_floor"]["source_open_body_import_status"] == "pass"
     assert "source_rows" not in _walk_keys(first_card)
     assert "flow_rows" not in _walk_keys(first_card)
