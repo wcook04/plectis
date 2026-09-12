@@ -149,7 +149,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "57a206e6909b919d0585e5732ef11fa1d76bd7f910b33999564545fc87847782",
+    "source_sha256": "80afb1575a0bed8822d0c91d6ccf590b440c607ee4cf0828ea07c493548e8f35",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -193,7 +193,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 22,
       "renderer_fingerprint": "e85419265bf94334",
-      "source_sha256": "350fc26605531fbe8742b967b5c49376b6ee0f836d40d468ca290138245ea338",
+      "source_sha256": "04315e411b12b356cff8967bc9e7077390635790905f83af455204e0c96db9f0",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 571,
@@ -432,7 +432,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "350fc26605531fbe8742b967b5c49376b6ee0f836d40d468ca290138245ea338",
+        "source_sha256": "04315e411b12b356cff8967bc9e7077390635790905f83af455204e0c96db9f0",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 571,
@@ -671,7 +671,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "d6ae93695c3877ab58cf3657a31bc0f5f586ee66e1436e5d0250e936639a7b85",
+        "source_sha256": "883d132d72acc361fe23233e3a52d1ca800271edb3c9eb4d608bf4593d7a7211",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1260,
@@ -698,8 +698,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "72470afc7b9579ed0842d174ef482791f0c85fbf2d7b32369d7a00a641c757fb",
-        "html_exact_tex_sha256": "2732bd324fdfbf870e3a7e5201d5f59dbfbcb45b6849ae5df295e7f6a40c31e6"
+        "html_mathml_sha256": "c9b746f354ab3505be0363ca4f2e51eb4ff13f38c1913458390242a5b05792da",
+        "html_exact_tex_sha256": "ff2e53ef223e893d39f2200f21b8fc2b58996a23ee787494de767abe4629feb4"
       },
       "sections": [
         {

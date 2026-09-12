@@ -170,15 +170,16 @@ kernel, not a new three-prime case of the running-LCM problem.
 
 \begin{corollary}[the same minors modulo every admissible denominator]
 \label{res:admissible-modular-minors}
-For $(p,q,r)=(2,3,5)$, the maps $I,J$ in
-Theorem~\ref{res:infinite-rank} can be chosen so that their minors are
-invertible over $\mathbb Z/B\mathbb Z$ for every $B\ge2$ coprime to $30$
-and every $k\ge0$.
+For $(p,q,r)=(2,3,5)$ and every $n\ge1$, there are injective maps
+$I,J:\{0,\ldots,n-1\}\to\N$, chosen independently of $B$ and $k$, such that
+for every $B\ge2$ coprime to $30$ and every $k\ge0$, the selected $n\times n$
+kernel matrix has unit determinant over $\mathbb Z/B\mathbb Z$, with each
+reciprocal prime power interpreted by its modular inverse.
 \end{corollary}
 \begin{proof}
-Every row and column factor is a unit modulo $B$.  The normalised determinant
-is $5^{-1}(-4/5)^{n-1}$, also a unit.  The choices of $I,J$ are independent
-of both $B$ and $k$.
+Choose the maps from Theorem~\ref{res:infinite-rank}.  Every row and column
+factor is a unit modulo $B$.  The normalised determinant is
+$5^{-1}(-4/5)^{n-1}$, also a unit.
 \end{proof}
 
 \noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133}{admissible modular minors}.

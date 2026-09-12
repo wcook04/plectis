@@ -11,7 +11,7 @@
 \renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
 \renewcommand{\commitshort}{99f4bf47422a}
 \hypersetup{
-  pdftitle={Reciprocal-summable support irrationality at every integer base (Erdős Problem 257)},
+  pdftitle={Weighted Support Criteria for Reciprocal Mersenne Subseries (Erdős Problem 257)},
   pdfsubject={Erdős Problem Notes: Problem 257},
   pdfkeywords={irrationality, Mersenne numbers, Lambert series, divisor incidence, scaled tails, achievement sets, squarefree, Lean 4},
 }
@@ -21,8 +21,8 @@
 \newcommand{\scA}{\operatorname{sc}}
 \newcommand{\Asf}{A_{\mathrm{sf}}}
 
-\runninghead{Erd\H{o}s \#257: all-base reciprocal-summable supports}
-\title{Reciprocal-Summable Support Irrationality at Every Integer Base}
+\runninghead{Erd\H{o}s \#257: weighted support criteria}
+\title{Weighted Support Criteria for Reciprocal Mersenne Subseries}
 \subtitle{The series $\sum_{a\in A}(b^a-1)^{-1}$ and Erd\H{o}s Problem~\#257}
 \author{Will Cook}
 \date{July 2026}
@@ -31,19 +31,28 @@
 \maketitle
 \noteprovenance
 \begin{abstract}
-For every infinite set $A$ of positive integers with $\sum_{a\in A}1/a<\infty$,
-we give a complete proof that $\sum_{a\in A}(b^a-1)^{-1}$ is irrational
-at every integer base $b\ge2$.  Averaging modular divisor atoms produces
-arbitrarily small positive displacements, which rationality would confine
-to a fixed lattice.  Erd\H{o}s stated this coprimality-free extension; the
-all-base quantifier is already his.  Finite denominator periods and the
-actual greedy return inequality delimit the remaining arithmetic problem.
-Universal irrationality remains unresolved.
+For a finite nonempty prime set $P$, put
+$h(a)=\prod_{p\in P}p^{v_p(a)}$.  We prove that every infinite $A$ with
+\[
+ \sum_{a\in A}\frac{h(a)}{a(2^{h(a)}-1)}<\infty
+\]
+has irrational $\sum_{a\in A}(b^a-1)^{-1}$ at every integer base $b\ge2$.
+The condition is hereditary and strictly weaker than reciprocal summability:
+an explicit host has divergent $\sum_{a\in A}1/a$ while satisfying the
+weighted condition.  Finite gcd-orbit averages and a second average over
+dyadic observation lengths produce arbitrarily small positive displacements,
+which rationality would confine to a fixed lattice.  Erd\H{o}s already stated
+the weaker coprimality-free reciprocal-summable theorem, including its
+all-base quantifier; a complete proof is printed here as well.  Both results
+are ordinary mathematics rather than end-to-end Lean theorems.  Universal
+irrationality remains unresolved.
 \end{abstract}
 
 \section{Introduction and main results}\label{sec:problem}
 Write $X_A(b)=\sum_{a\in A}(b^a-1)^{-1}$ for $A\subseteq\Npos$ and an
-integer $b\ge2$.  Our first result is the following.
+integer $b\ge2$.  We begin with the simpler reciprocal-summable case;
+Section~\ref{sec:eight-return-extensions} proves the stronger finite-prime
+weighted criterion.
 
 \begin{theorem}[reciprocal-summable supports]\label{res:reciprocal-support}
 Let $A\subseteq\Npos$ be infinite.  If
@@ -92,10 +101,12 @@ Thus arbitrary infinite thinnings of the powerful integers are included.
 Is $X_A(2)$ irrational for every infinite $A\subseteq\Npos$?
 \end{problem}
 Theorem~\ref{res:reciprocal-support} excludes the entire
-reciprocal-summable region.  Later sections record claimed extensions
-into the reciprocal-divergent region; those arguments are not
-independently assessable from this checkout.  The final section retains
-the actual arithmetic constraint for a proposed rational value.
+reciprocal-summable region.  Theorem~\ref{res:weighted-support} reaches a
+strictly larger class and an explicit reciprocal-divergent host.  Later
+sections keep the quantitative, mixed-support, prime-power and stronger
+host constructions separate where their arguments are not independently
+assessable from this checkout.  The final section retains the actual
+arithmetic constraint for a proposed rational value.
 
 Erd\H{o}s proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the details
@@ -172,55 +183,125 @@ with the modulus fixed, and only then does the modulus increase.
 Reciprocal summability controls both interchanges.
 
 Section~2 contains the complete reciprocal-summable support argument.
-Several stronger extensions in later sections refer to proof supplements
-that are not linked in this public checkout.  Their exposition is therefore
-incomplete here, and they are not promoted as independently assessable
-results of this release.
+The next section proves a strictly weaker finite-prime weighted hypothesis.
+The later quantitative, mixed-support, prime-power and cost-separation claims
+remain separately unassessed where their proofs are not printed here.
 
 \section{Extensions beyond reciprocal summability}
 \label{sec:eight-return-extensions}
 
-The weighted criterion (W), its reciprocal-divergent host example, and
-the quantitative criterion below are claimed extensions whose proof
-supplements are absent from this checkout.  They are not established
-results of this release.  The finite estimate (S) and the strengthened
-cover theorem later in this section have their own printed proofs and
-are separate from those unavailable arguments.
+The finite-prime weighted theorem below has a complete ordinary proof in this
+manuscript.  The finite estimate (S) and strengthened cover theorem later in
+this section retain their separate proofs.
 
-\subsection{Claimed weighted criterion (unassessed here)}
-For a finite nonempty prime set $P$, let
-$h(a)=\prod_{p\in P}p^{v_p(a)}$.  The absent supplement claims that the
-weighted condition
-\[
-  \sum_{a\in A}\frac{h(a)}{a(2^{h(a)}-1)}<\infty
-  \tag{W}\label{eq:weighted-return}
-\]
-implies irrationality of $\sum_{a\in A}(b^a-1)^{-1}$ for every infinite
-$A$ and every integer $b\ge2$.  The conclusion is hereditary under passage
-to infinite subsets.  A fixed-base version replaces $2$ by $b$ in the
-condition; arbitrary nested divisibility chains have the same criterion
-with $h(a)$ the largest chain element dividing $a$.  No complete proof
-of these claims is present in this checkout.
+\subsection{Finite prime-part weighted mass}
+For a finite nonempty prime set $P$, put
+$h(a)=\prod_{p\in P}p^{v_p(a)}$.
 
-Here the decisive estimate is a finite orbit average.  If $g=(a,Q)$, then
-\[
- \frac1T\sum_{m=1}^T
- \frac{b^{Qm\bmod a}-1}{b^a-1}
+\begin{theorem}[finite prime-part weighted mass]
+\label{res:weighted-support}
+Let $b\ge2$ be an integer and let $A\subseteq\Npos$ be infinite.  If
+\begin{equation}\label{eq:weighted-fixed-base}
+ W_{b,P}(A):=\sum_{a\in A}
+ \frac{h(a)}{a(b^{h(a)}-1)}<\infty,
+\end{equation}
+then $X_A(b)$ is irrational.  In particular, the base-two condition
+\begin{equation}\label{eq:weighted-return}
+ \sum_{a\in A}\frac{h(a)}{a(2^{h(a)}-1)}<\infty
+ \tag{W}
+\end{equation}
+implies that $X_A(b)$ is irrational for every integer $b\ge2$.  Both
+conclusions are hereditary under passage to infinite subsets.
+\end{theorem}
+
+\begin{proof}
+The rational-lattice obstruction is~\eqref{eq:intro-displacement}: if
+$X_A(b)=p/q$, every positive $\Delta_{b,A}(m)$ is at least $1/q$.
+For $d_a(m)=(b^{m\bmod a}-1)/(b^a-1)$ and $g=(Q,a)$, one complete orbit of
+$Qm\bmod a$ gives, for $Q,a,T\ge1$,
+\begin{equation}\label{eq:weighted-finite-orbit}
+ \frac1T\sum_{t=1}^T d_a(tQ)
  \le \frac{g}{a(b^g-1)}+\frac1{T(b^g-1)}.
+\end{equation}
+Indeed, the orbit has length $a/g$ and
+$\sum_{t=1}^{a/g}b^{tQ\bmod a}/(b^a-1)=1/(b^g-1)$; an incomplete orbit costs
+at most one more complete orbit.  Also, for $Y=QT$,
+\begin{equation}\label{eq:weighted-outer-short}
+ \frac1T\sum_{t=1}^T\sum_{\substack{a\in A\\a>Y}}d_a(tQ)
+ \le\frac4T,
+\end{equation}
+because $d_a(tQ)\le2\,2^{tQ-a}$ when $a>QT$ and
+$\sum_{t=1}^T2^{tQ-QT}\le2$.
+
+The incomplete-orbit errors are controlled by a second finite average.  For
+$\alpha_a\ge0$ with $\sum_a\alpha_a/a<\infty$,
+\begin{equation}\label{eq:weighted-dyadic-short}
+ \sum_{j=M}^{2M-1}\frac1{2^j}\sum_{a\le Q2^j}\alpha_a
+ \le2Q\sum_{a\ge1}\frac{\alpha_a}{a};
+\end{equation}
+for each fixed $a$, the admissible geometric tail is at most $2Q/a$.
+
+Fix $\varepsilon>0$.  Choose finite nonempty $F\subseteq A$ so that the
+\eqref{eq:weighted-fixed-base} mass outside $F$ is below $\varepsilon$, and
+let $L=\operatorname{lcm}(F)$.  With $p_*=\max P$, $r=|P|$, and large
+$H\ge2p_*$, set
+\[
+ Q=L\prod_{p\in P}p^{\lfloor\log_pH\rfloor},\qquad
+ G=\left\lfloor\frac H{p_*}\right\rfloor.
 \]
-The second term cannot be discarded before summing over $a$.  The claimed
-argument proceeds as follows; its truncation bounds remain unassessed.
-Choose $Q$
-to freeze the finite prefix and all small $P$-parts.  Average again over
-$T=2^j$, $M\le j<2M$.  The incomplete-period contribution from small
-$P$-parts is at most $2QW/M$, where $W$ is the sum in
-\eqref{eq:weighted-return}; the large-part contribution is suppressed by
-the exponential denominator.  This produces arbitrarily small positive
-shifted-atom displacements.  The integral lattice gap then gives
-irrationality, and the binary atom comparison gives every larger base.
-The named truncation estimates and an explicit reciprocal-divergent host
-with gaps $O(\log\log a)$ are referred to a supplement that is not in this
-checkout.
+The set $F$ is frozen.  If $h(a)\le H$, then $h(a)\mid Q$, so
+\eqref{eq:weighted-finite-orbit} is paid by the weighted tail plus its
+incomplete-orbit term.  If $h(a)>H$, then $(Q,a)\ge G$, and monotonicity of
+$n/(b^n-1)$ bounds that part by
+\[
+ \frac{G(1+\log(QT))+Q}{b^G-1}.
+\]
+For the gcd claim, either every $P$-prime-power component of $h(a)$ is at
+most $H$, in which case $h(a)\mid Q$, or some $p^{v_p(a)}>H$ contributes
+$p^{\lfloor\log_pH\rfloor}>H/p\ge H/p_*\ge G$ to the gcd.
+Combining this with~\eqref{eq:weighted-outer-short}, taking
+$M=\lfloor b^{G/2}\rfloor$, averaging over $T=2^j$ for $M\le j<2M$, and
+using~\eqref{eq:weighted-dyadic-short} with
+$\alpha_a={\bf1}_A(a)/(b^{h(a)}-1)$ yields
+\begin{equation}\label{eq:weighted-main-bound}
+ \frac1M\sum_{j=M}^{2M-1}\frac1{2^j}
+ \sum_{t=1}^{2^j}\Delta_{b,A}(tQ)
+ \le \varepsilon+\frac{2QW_{b,P}(A)}M
+ +\frac{G(1+\log Q+2M\log2)+Q}{b^G-1}+4\,2^{-M}.
+\end{equation}
+Here $Q\le LH^r$, $G=H/p_*+O(1)$ and $M\asymp b^{G/2}$, so every term after
+$\varepsilon$ tends to zero.  The left side is a finite average of positive
+displacements, so one is below $2\varepsilon$ for large $H$; rerunning with
+$\varepsilon/2$ gives the required bound.  This contradicts the rational
+lattice.  Finally
+$W_{b,P}(A)\le W_{2,P}(A)$ for $b\ge2$, and weighted mass decreases on taking
+subsets.
+\end{proof}
+
+The hypothesis is genuinely weaker than reciprocal summability.  Let
+\[
+ A_\star=\{2^k m:k\ge1,\ m\text{ odd},\ m\le2^{2^k}\}.
+\]
+If $N_k=2^{2^k}$, the reciprocal mass in its $k$th layer is
+\[
+ R_k=2^{-k}\sum_{\substack{m\le N_k\\m\text{ odd}}}\frac1m
+ =2^{-k}\bigl(H_{N_k}-\tfrac12H_{N_k/2}\bigr)
+ \longrightarrow\frac{\log2}{2},
+\]
+so $\sum_{a\in A_\star}1/a$ diverges.  For $P=\{2\}$ the weighted mass of
+that layer is
+\[
+ \frac{2^k}{2^{2^k}-1}R_k,
+\]
+and these terms are summable.  Thus every infinite subset of $A_\star$ has
+irrational $X_A(b)$ at every integer base.  This example establishes
+strictness only; the stronger previously proposed host with
+$O(\log\log a)$ gaps is not asserted here.
+
+The theorem and this example are complete ordinary proofs.  No single Lean
+declaration is cited as their proof, and no priority claim is made.  The
+arbitrary-chain, quantitative, mixed-support and prime-power extensions remain
+separate from Theorem~\ref{res:weighted-support}.
 
 \subsection{Claimed quantitative criterion (unassessed here)}
 The absent analytic supplement claims a second criterion admitting
@@ -331,11 +412,11 @@ The same proof permits any positive weights $\eta_j$ with $\sum_j\eta_j=1$,
 replacing $2^{-j}$ by $\eta_j$.
 The condition strengthens the earlier two-inverse-power cost
 $\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2<\infty$.
-There is a squarefree support $A^\star$ satisfying
-\eqref{eq:strengthened-cover} for which every cover with that older cost,
-and every finite-prime weighted criterion, fails.  Its complete construction
-is referred to \emph{Strengthened Variable-Exponent Cover}, which is not in
-this checkout.
+The unavailable \emph{Strengthened Variable-Exponent Cover} supplement claims
+a squarefree support $A^\star$ satisfying \eqref{eq:strengthened-cover} for
+which every cover with that older cost, and every finite-prime weighted
+criterion, fails.  Its construction is not in this checkout and is not a
+result of the present release.
 
 \subsection{What every positive cover must pay}
 The strengthening has a cover-independent boundary.  For finite $F$, write
@@ -378,16 +459,16 @@ $z=1/S$, and $\alpha=\log_2(1+z)$; its exact positive expansion has cost
 \]
 Thus the optimised cost is asymptotically $eS/q$.
 
-The weighted class and the strengthened-cover class are incomparable.
-The support $A^\star$ above lies only in the latter.  In the reverse
-direction, disjoint prime blocks with reciprocal mass of order $2^k$,
-placed in frames $\{2^kd:d\mid M_k\}$, give a support $A_W$ satisfying
-\eqref{eq:weighted-return}; its first logarithmic moments diverge,
-so \eqref{eq:cover-log-obstruction} excludes every strengthened cover.
-Exact constructions and the scalar minimisation are referred to
-\emph{First Logarithmic Moment of Positive Covers}, which is not in this
-checkout.
-These comparisons concern the individual sufficient classes.
+An unavailable supplement claims that the weighted class and the
+strengthened-cover class are incomparable.  Its proposed support $A^\star$
+lies only in the latter.  In the reverse direction, it proposes disjoint
+prime blocks with reciprocal mass of order $2^k$, placed in frames
+$\{2^kd:d\mid M_k\}$, to give a support $A_W$ satisfying
+\eqref{eq:weighted-return} whose first logarithmic moments diverge; then
+\eqref{eq:cover-log-obstruction} would exclude every strengthened cover.
+The exact constructions are referred to \emph{First Logarithmic Moment of
+Positive Covers}, which is not in this checkout, so this incomparability is
+not a result of the present release.
 
 \subsection{Combining the two support criteria}
 The following mixed statement is a claimed extension.  Its complete
@@ -801,11 +882,13 @@ than attributed to that checkpoint.
 
 The finite estimate~\eqref{eq:mixed-finite-kernel} and
 Theorem~\ref{thm:variable-fractional-cover} have complete ordinary proofs
-in this note and are results of this release.  The weighted criterion, the
-quantitative criterion, the claimed support \(A^\star\) separating the two
-cover costs, the mixed theorem, and prime-power thinning instead refer to
-ordinary proofs that are not linked in this public checkout
-(\emph{Strengthened Variable-Exponent Cover},
+in this note and are results of this release.  The finite-prime weighted
+criterion, Theorem~\ref{res:weighted-support}, and its simple
+reciprocal-divergent host also have complete ordinary proofs here.  They have
+no end-to-end Lean counterpart in this checkout.  The quantitative criterion,
+the stronger claimed support \(A^\star\) separating the two cover costs, the
+mixed theorem, and prime-power thinning instead refer to ordinary proofs that
+are not linked in this public checkout (\emph{Strengthened Variable-Exponent Cover},
 \emph{First Logarithmic Moment of Positive Covers},
 \emph{Mixed Support Synchronisation},
 \emph{Prime-Incidence Boundary}, and the analytic proof supplement).

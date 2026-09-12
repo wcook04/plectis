@@ -1033,7 +1033,7 @@
           "role": "Full problem-specific reasoning record for Erdős #257."
         },
         {
-          "title": "Denominator Periods, Rational-Value Constraints and Achievement-Set Geometry",
+          "title": "Weighted Support Criteria for Reciprocal Mersenne Subseries",
           "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
           "rendered": "paper/257/erdos-257-mersenne-support-subseries.pdf",
           "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
@@ -1043,7 +1043,9 @@
             "res:one-over-twenty-one-frontier",
             "prob:one-over-twenty-one-membership",
             "res:terminalhalf",
-            "res:cylinderhalf"
+            "res:cylinderhalf",
+            "res:reciprocal-support",
+            "res:weighted-support"
           ]
         },
         {
@@ -1115,7 +1117,7 @@
             "id": "erdos_257_reasoning_record",
             "source": "paper/257/erdos257-mersenne-reasoning-surface.tex",
             "decision": "retain_as_full_problem_reasoning_record",
-            "thesis": "Complete working record for Erdős #257: Lean full-support and structured-support theorems, finite-support geometry, and surviving arbitrary-infinite-support obligations."
+            "thesis": "Complete working record for Erdős #257: a complete ordinary finite-prime weighted support proof, Lean full-support and structured-support theorems, finite-support geometry, and surviving arbitrary-infinite-support obligations."
           },
           {
             "id": "erdos_1041_reasoning_record",
@@ -1145,7 +1147,7 @@
             "id": "erdos_251_reasoning_record",
             "source": "paper/251/erdos251-prime-gap-reasoning-surface.tex",
             "decision": "retain_as_full_problem_reasoning_record",
-            "thesis": "Complete reasoning record for Erdős #251. Countermodel and finite counting reduction; the prime-to-gap identity is already-known and does not use the prime-number theorem. The actual-prime tail witness remains open."
+            "thesis": "Complete reasoning record for Erdős #251: countermodels and finite counting reductions, the already-known prime-to-gap identity without the prime-number theorem, and an ordinary PNT-based compression argument for hypothetical rational actual-prime tails. Equal tails do not supply the still-open nonintegral tail witness."
           },
           {
             "id": "erdos_269_reasoning_record",
@@ -1171,7 +1173,7 @@
             "id": "erdos_249_note",
             "source": "paper/249/erdos-249-binary-totient-series.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "Exact dyadic-section rank 2^e+1 for e ≥ 1 (Lean), infinite-dimensionality equivalent to Coons for integer-valued sequence modules, all-base exact rank using Martin externally, finite Farey exclusion and t ≤ 82 certificates, and no infinite witness."
+            "thesis": "Exact section rank k^e+1 for every integer base k ≥ 2 and e ≥ 1 by an ordinary CRT–Dirichlet proof using Martin; dyadic rank and integral normal form are Lean-checked, while the all-base Lean wrapper retains its independence hypothesis. One hypothetical rational carry has both unbounded section ranks and periodic congruence sections, with no contradiction or cofinal producer proved."
           },
           {
             "id": "erdos_251_note",
@@ -1183,7 +1185,7 @@
             "id": "erdos_257_note",
             "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "Lean full-support irrationality and Lean structured supports (pairwise-coprime plus summable; eventually-periodic); ordinary reciprocal-summable theorem without coprimality; arbitrary infinite support and the 1/2 and 1/21 branches remain open and distinct."
+            "thesis": "Ordinary finite-prime weighted summability criterion, including supports with divergent reciprocal sum; Lean full-support and structured supports (pairwise-coprime plus summable; eventually-periodic); arbitrary infinite support and the 1/2 and 1/21 branches remain open and distinct."
           },
           {
             "id": "erdos_269_note",
@@ -15446,7 +15448,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 733
+        "line": 814
       }
     },
     {
@@ -15482,7 +15484,7 @@
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 119
+        "line": 126
       }
     },
     {
@@ -15518,7 +15520,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "exact nonintegrality of every reduced tail",
-        "line": 563
+        "line": 564
       }
     },
     {
@@ -15530,7 +15532,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "actual cofinal local-window escape",
-        "line": 569
+        "line": 570
       }
     },
     {
@@ -15542,7 +15544,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "function-faithful two-dimensional representation",
-        "line": 578
+        "line": 579
       }
     },
     {
@@ -15566,7 +15568,7 @@
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "first-harmonic anti-concentration on supplier fibres",
-        "line": 571
+        "line": 581
       }
     },
     {
@@ -15578,7 +15580,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "weakest native recurrence criterion",
-        "line": 747
+        "line": 828
       }
     },
     {
@@ -15590,7 +15592,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "actual-orbit invariant",
-        "line": 756
+        "line": 837
       }
     },
     {
@@ -15602,7 +15604,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 766
+        "line": 847
       }
     }
   ],

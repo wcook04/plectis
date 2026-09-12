@@ -665,14 +665,18 @@ and is a different object, and the sweep of the dyadic
 tail-recurrence and B\'ezivin-style functional-equation literature has not been
 run.
 
-The criterion rules out two shortcuts.  Rationality makes the tail a
-finite-state object at every scale, so pairs with $T_M=T_N$ are abundant for
-free and the whole difficulty sits in nonintegrality of the difference.  And
-under the free-pair lattice the difference is an integer whenever the modulus
-divides the offset, and an integer cannot lie in $(\tfrac12,1)$, so the window
-component of the reduced event below is already a contradiction on its own.
-Both derivations are ordinary proofs, recorded in the long record and not
-formalised.
+The criterion rules out two shortcuts.  For the actual prime-gap tail,
+Section~\ref{long251:sec:xr-compression} combines the prime number theorem with
+a first-moment bound to show that, under rationality, some tail value occurs
+$\gg_{C,d}X/\log X$ times in $(X,2X]$; here $d$ is the eventual odd reduced
+denominator and $C>1$ is fixed.  This is specific to the prime tail, rather
+than a consequence of rationality for arbitrary integer-digit orbits, and
+equal tails have integral difference, so they do not supply the free-pair
+producer.  Also, under the free-pair lattice the difference is an integer
+whenever the modulus divides the offset, and an integer cannot lie in
+$(\tfrac12,1)$, so the window component of the reduced event below is already
+a contradiction on its own.  Both derivations are ordinary proofs, recorded
+in the extended record and not formalised.
 
 A second exact reformulation collapses all shift lengths and basepoints onto a
 single schedule.  Let $L_0=1$ and $L_j=\lcm(1,\ldots,j)$.
@@ -1673,8 +1677,11 @@ linked here contain no proof placeholders and no project-defined axioms; Lean
 does not authorise the exposition, the citation choices, or the
 interpretation, for which the author remains responsible.  The two receipts
 named in Section~\ref{long251:sec:measurements} and the continued-fraction receipt of
-Theorem~\ref{long251:res:cfexclusion} record their generating programs with digests
-and are held in the private research development.
+Theorem~\ref{long251:res:cfexclusion}, together with their generating programs,
+are public at the immutable revision linked there.  The
+\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md}{computation guide}
+records dependencies, replay commands, source provenance, and the exact versus
+floating-point evidence boundary.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
@@ -2029,19 +2036,41 @@ quantifiers supplies no new estimate for the actual prime gaps.
 \subsection{Two ordinary proofs about the free-pair producer}
 \label{long251:sec:xr-compression}
 
-Both arguments below are ordinary mathematical deductions.  Neither is
-formalised or independently checked here.
+Both arguments below are ordinary mathematical deductions.  The first uses
+the prime number theorem, while the second consumes the free-pair lattice
+proved above.  Neither deduction is claimed to be kernel-checked; the exact
+tail recurrence and free-pair statements they use have their separate linked
+Lean evidence.
 
 \paragraph{State compression.}  Exchanging the order of summation gives
-$\sum_{N\le X}T_N\le(p_{X+1}-p_0)+2T_X$.  Under rationality with reduced odd
-denominator $d$, Markov's inequality supplies for each $C>1$ a set
-$B\subseteq(X,2X]$ of density at least $1-1/C$ on which $T_N\le C\log p_{2X}$;
-on that set $T_N$ lies in $\tfrac1d\Z$ and takes at most $dC\log p_{2X}+1$
-values, so some single value is attained more than a constant multiple of
-$X/\log X$ times.  Rationality therefore makes the tail a finite-state object
-at every scale: pairs with $T_M=T_N$ are abundant for free, and the whole
-difficulty in the free-pair producer is nonintegrality of the difference.  The
-naive form $\sum_{N\le X}T_N\le p_{X+1}$ is false.
+$\sum_{N\le X}T_N\le(p_{X+1}-p_0)+2T_X$.  The prime number theorem
+\cite[Ch.~6]{mv2007} also gives
+\begin{equation}\label{long251:eq:tail-small-relative-prime}
+ \frac{T_X}{p_X}
+ =\sum_{j\ge1}\frac{g_{X+j}}{2^jp_X}\longrightarrow0.
+\end{equation}
+Indeed, for each fixed $j$ the summand without $2^{-j}$ tends to zero because
+$p_{X+j}/p_X\to1$.  The usual two-sided bounds $p_n\asymp n\log n$ dominate
+$g_{X+j}/p_X$ by $K(1+j)^2$, independently of $X$; multiplication by $2^{-j}$
+therefore permits dominated convergence.  Applying the first-moment bound at
+$2X$ and using \eqref{long251:eq:tail-small-relative-prime}, there is an absolute
+$K_0$ such that
+\[
+ \sum_{X<N\le2X}T_N\le K_0X\log X
+\]
+for all large $X$.  Thus, for each fixed $C>1$, Markov's inequality leaves at
+least $(1-1/C)X$ indices in $(X,2X]$ with $T_N\le K_0C\log X$.
+
+Under rationality, take $X$ beyond the point where the reduced denominator is
+the fixed odd integer $d$.  On this set $T_N$ lies in $d^{-1}\Z_{\ge0}$ and
+takes at most $dK_0C\log X+1$ values.  Pigeonhole therefore gives one value at
+$\gg_{C,d}X/\log X$ indices.  This compression uses the growth of the actual
+primes.  It is false for a general rational integer-digit orbit: the quadratic
+countermodel of Proposition~\ref{long251:res:polynomialcountermodel} has the
+strictly increasing tails $T_N=2(N+4)^2$.  Even for the primes, equal-tail
+pairs have difference zero and hence do not supply the nonintegral difference
+required by the free-pair criterion.  The naive form
+$\sum_{N\le X}T_N\le p_{X+1}$ is false.
 
 \paragraph{Redundancy of the gap condition.}  Under the free-pair lattice the
 difference $T_M-T_N$ is an integer whenever the modulus divides the offset, and
@@ -2149,7 +2178,6 @@ of the real prime-gap tail module.  A second reading placed the kernel-decided
 denominator floor and the free-pair criterion outside the source revision the
 note pins.  Both modules are present at that revision, and both are linked from
 the note.
-
 % ---- part family_catalogue ----
 \clearpage
 \section{Complete result-family map}\label{sec:erdos-251-complete-family-map}
@@ -2365,6 +2393,14 @@ Odd rational denominators give totient-length integral shifts, and integrality p
   \href{https://doi.org/10.4007/annals.2015.181.1.7}
   {\emph{Small gaps between primes}},
   Ann. of Math. (2) \textbf{181} (2015), 383--413.
+\bibitem{mv2007} H.~L. Montgomery and R.~C. Vaughan,
+  \href{https://doi.org/10.1017/CBO9780511618314}
+  {\emph{Multiplicative Number Theory I: Classical Theory}},
+  Cambridge Stud. Adv. Math. 97, Cambridge UP, 2007,
+  Chapter~6, pp.~168--198; Theorem~6.9, pp.~179--181, and
+  Exercise~6.2.5, p.~183,
+  doi:\href{https://doi.org/10.1017/CBO9780511618314}
+  {10.1017/CBO9780511618314}.
 \bibitem{schlagepuchta2011} J.-C. Schlage-Puchta,
   \href{https://arxiv.org/abs/1105.1451}{\emph{The irrationality of some number
   theoretical series}}, arXiv:1105.1451, 2011.  Theorem~2 treats base-$b$

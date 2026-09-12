@@ -2223,8 +2223,8 @@ multiplicity.  Suppose every critical point of $f$ in $U$ is simple, its
 critical value is nonzero, and these critical values have pairwise distinct
 arguments and pairwise distinct moduli.  Then:
 \begin{enumerate}
-\item $-\log|f|$ is a proper excellent Morse function on
-$U\setminus f^{-1}(0)$, with exactly $k-1$ nondegenerate saddles;
+\item $-\log|f|:U\setminus f^{-1}(0)\to(0,\infty)$ is a proper excellent
+Morse function, with exactly $k-1$ nondegenerate saddles;
 \item cutting the value disc along the complete critical rays decomposes the
 preimage into conformal strips;
 \item cutting each ray only from its critical value to the unit circle gives
@@ -2242,7 +2242,9 @@ A polynomial sublevel component is simply connected, and
 $f:U\to\mathbb D$ is proper of degree $k$.  Riemann--Hurwitz gives exactly
 $k-1$ simple critical points.  The holomorphic Morse lemma makes them
 nondegenerate saddles of $-\log|f|$; the distinct moduli make their levels
-distinct, and properness follows at the boundary and at the deleted roots.
+distinct.  Properness here is for the displayed codomain $(0,\infty)$: a
+compact positive range stays away from both the level-one boundary and the
+deleted roots.
 Removing all critical rays leaves simply
 connected sectors without branch values, so every component of their
 preimage maps biholomorphically to its sector; logarithmic polar coordinates

@@ -31,25 +31,26 @@ Problem~\#249}
 \noteprovenance
 
 \begin{abstract}
-For every $e\ge1$, the dyadic sections of Euler's totient through level $e$
-have rational rank $2^e+1$. The two zero-residue sections and the odd-residue
-sections form a basis. Explicit scalar reductions give unique integral
-coordinates and a basis of all integral relations. The arithmetic step is
-independence: divisibility makes an evaluation matrix diagonal modulo a prime,
-with nonzero diagonal entries. The
-\mword{Erdos249257/TotientMahlerDefect.lean}{1084}{finrank_totientKernelThroughLevelFamily_eq}{dyadic rank $2^e+1$}
-holds for $e\ge1$.  The all-base rank
-$k^e+1$ is the
-\mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{rank transferred from linear independence},
-using Martin's external independence; Coons proved non-$k$-regularity
-of $\ph$. A separate ordinary argument uses isolated blocks to prove that
+For every integer $k\ge2$ and every $e\ge1$, the sections of Euler's totient
+through level $e$ have rational rank $k^e+1$. The zero-residue sections and
+the residues not divisible by $k$ form a basis. Explicit scalar reductions
+give unique integral coordinates and a basis of all integral relations. The
+arithmetic step is independence: divisibility makes an evaluation matrix
+diagonal modulo a prime, with nonzero diagonal entries. This CRT--Dirichlet
+argument proves the all-base theorem ordinarily in the note. Lean checks the
+dyadic theorem; its current all-base wrapper retains canonical-family
+independence as a hypothesis. Martin's theorem supplies a broader external
+affine-independence result, while Coons proved non-$k$-regularity of $\ph$.
+A separate ordinary argument uses isolated blocks to prove that
 $\sum_{n\ge1}(\ph(n)\bmod m)2^{-n}$ is irrational for every $m\ge3$,
 with a complete rationality classification for dyadic residue observables.
 For $S=\sum_{n\ge1}\ph(n)2^{-n}$, one nonintegral tail shift forces
 full-depth certificates in every sufficiently late pair of multipliers.
-The rank and bounded-residue results do not decide $S$: its irrationality is
-equivalent to an explicit central-residue gap for every prospective denominator,
-whose arithmetic supply remains open.
+If $S$ were rational, one tempered integral carry would simultaneously have
+section rank at least $2^e-1$ at every depth and one common eventual period
+modulo a fixed multiplier. These necessary conditions do not decide $S$: its
+irrationality is equivalent to an explicit central-residue gap for every
+prospective denominator, whose arithmetic supply remains open.
 \end{abstract}
 
 
@@ -82,13 +83,16 @@ $t=\max\{s:k^s\mid r\}\ge1$ and $k\nmid u$, then
 \end{theorem}
 \begin{enumerate}
 \item\label{res:rank} \stag{unconditional progress}
-\textbf{Exact finite-level rank.}  Theorem~\ref{thm:kkernelrank} is the
-coordinate statement: every totient $k$-kernel truncation has rank $k^e+1$.
-The dyadic case is the
+\textbf{Exact finite-level rank.}  For integers $k\ge2$ and $e\ge1$,
+Theorem~\ref{thm:kkernelrank} proves ordinarily that the totient $k$-kernel
+truncation has rank $k^e+1$. The dyadic case is also the
 \mword{Erdos249257/TotientMahlerDefect.lean}{1084}{finrank_totientKernelThroughLevelFamily_eq}{exact finite-truncation rank};
-the all-base form is
+the current all-base Lean wrapper is
 \mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{the same count from an independent family},
-and is not a Lean theorem without Martin's hypothesis.
+and retains linear independence of the canonical family as an explicit
+hypothesis. Martin's theorem supplies that independence externally; the direct
+CRT--Dirichlet proof in Section~\ref{sec:rank} proves precisely the family used
+here.
 \end{enumerate}
 The retained condition is $k\nmid r$. At $k=6$, for example, the residue
 $r=2$ is retained. At base $2$ and level $3$, the fifteen sections have nine
@@ -320,6 +324,12 @@ $\Phi_N=\sum_{n=1}^N\ph(n)2^{N-n}\in\Z$, gives
 \end{equation}
 In particular a nonintegral tail difference is a precise arithmetic
 statement about $S$.
+The complementary rationality consequence uses the same carry for both kinds
+of rigidity: the
+\mword{Erdos249257/TotientTailCarryPeriod.lean}{224}{not_irrational_totientSeries_implies_mod_period_and_unbounded_rank}{same-carry rank and modular-period theorem}
+gives rank at least $2^e-1$ at every depth and one common eventual period for
+all dyadic sections modulo a fixed positive multiplier. It supplies necessary
+structure under rationality, not a contradiction between the two properties.
 
 \subsection{One seed removes the full-depth restriction}
 For $h,N,L\in\N$, let

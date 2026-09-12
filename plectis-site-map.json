@@ -6033,7 +6033,7 @@
     "artifact_path": "assets/site-packet.js",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.assets/site-packet.js",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:9f85a6cbc7efd59d0f9ba0f47661314a2e21bfbddecb333e0300af4d58c98f3e",
+    "payload_sha256_excluding_identity": "sha256:f7b11a843fb5a3100722bb74f25b89ea1b44933a01d4f9c77e8d2eecd968b097",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_site_json_map_packet_v2",
     "source_fingerprint": "b3cd770524cbb9159e9e9ab24fe554b1"
@@ -7237,11 +7237,11 @@
       ],
       "title": "The papers",
       "visible_text": {
-        "byte_count": 35695,
+        "byte_count": 35719,
         "format": "markdown",
         "packaging": "full_public_main_content_markdown_without_repeated_global_nav",
         "schema": "microcosm_public_page_visible_text_v1",
-        "text": "The system\n\n### The papers\n\nShort and long papers on the mathematics, plus papers explaining the software and research approach.\n\nFor a particular problem, [choose it in the mathematics library](maths/index.html) to see its papers alongside its Lean proofs. The catalogue below includes the full abstracts and source links.\n\n#### The mathematics\n\nWhat is proved for each covered open Erd\u0151s problem, and what still blocks it?\n\nErd\u0151s #68 Problem note 14 pages\n\n##### Two Incomparable Denominator Exclusions for \u2211 n\u22652 (n!\u22121) \u22121\n\nWhat exact denominator obstructions are checked for Erd\u0151s #68, and which quantified producer could still prove irrationality?\n\n[Read online](maths/papers/erdos-68-factorial-denominator-irrationality.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-68-factorial-denominator-irrationality.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex)\n\nAbstract and reading guide\n\nThe paper proves that if S=a/q is rational, q cannot divide 299999! and is at least 2^39990 > 10^12038. The first exclusion comes from the exact strict-successor carry test and the second from continued fractions. Lean also checks the equivalent carry formulation and several consequences. A large common denominator alone does not control the reduced partial sums. Irrationality is reduced to a cofinal miss of the strict factorial successor, which remains open.\n\nExplains the problem-specific exposition for Erd\u0151s #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #68, which remains open. Where to start problem, channels, projection, open (our selection, not the paper's own advice)\n\nErd\u0151s #68 Reasoning surface 32 pages\n\n##### The Factorial-Denominator Series: Complete Reasoning Record\n\nWhat is the complete checked and failed-route record for Erd\u0151s #68, and which cofinal producer is still missing?\n\n[Read online](maths/papers/erdos68-factorial-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos68-factorial-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/68/erdos68-factorial-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #68. It retains the factorial-successor and carry normal forms, channel and projection mechanisms, exact finite denominator evidence, failed routes, and every registered family in the shared reader order. No cofinal divisibility-miss producer is proved, so irrationality remains open.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #68, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #68, which remains open. Where to start long68:sec:carry, long68:sec:finite, long68:sec:open, erdos 68 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #243 Problem note 12 pages\n\n##### Excluding the Bounded Negative Part\n\nWhich bounded negative-error behaviours can be excluded for Erd\u0151s #243, and which analytic hypotheses still keep it open?\n\n[Read online](maths/papers/erdos-243-reciprocal-tail-rigidity.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-243-reciprocal-tail-rigidity.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/243/erdos-243-reciprocal-tail-rigidity.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex)\n\nAbstract and reading guide\n\nClearing denominators turns Erd\u0151s #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.\n\nExplains the problem-specific exposition for Erd\u0151s #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #243, which remains open. Where to start problem, bounded, barrier, open (our selection, not the paper's own advice)\n\nErd\u0151s #243 Reasoning surface 44 pages\n\n##### Reciprocal-Tail Rigidity: Complete Reasoning Record\n\nWhat is the complete state-dynamics and no-go record for Erd\u0151s #243, and which unbounded negative orbit regime survives?\n\n[Read online](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos243-reciprocal-tail-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #243, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #243, which remains open. Where to start long243:sec:cubicrate, long243:sec:bounded, long243:sec:open, erdos 243 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #249 Problem note 11 pages\n\n##### A Basis for the 2-Kernel of Euler's Totient\n\nWhat is the exact rank of the totient kernel at every integer base, which parts are formalised, and why does Erd\u0151s #249 remain open?\n\n[Read online](maths/papers/erdos-249-binary-totient-series.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-249-binary-totient-series.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/249/erdos-249-binary-totient-series.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex)\n\nAbstract and reading guide\n\nFor every integer base k\u22652, including composite bases, the totient kernel through level e\u22651 has an explicit rational basis of size k^e + 1; level 0 has dimension 1. The paper gives an ordinary proof using arithmetic independence. Lean proves the dyadic rank unconditionally; its all-base rank theorem assumes the canonical family's independence. These coefficient-space results do not decide irrationality. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate or cofinal certificate supply is proved; Erd\u0151s #249 remains open.\n\nExplains problem-specific mathematical exposition for Erd\u0151s #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #249, which remains open. Where to start results, carry rank, frontier, nogo (our selection, not the paper's own advice)\n\nErd\u0151s #249 Reasoning surface 129 pages\n\n##### The Binary Totient Series\n\nWhat has been tried on Erd\u0151s #249, which routes are closed, and what exact cofinal obligations remain?\n\n[Read online](maths/papers/erdos249-totient-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos249-totient-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/249/erdos249-totient-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos249-totient-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded map of the formal attack on Erd\u0151s #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erd\u0151s #249 remains open.\n\nExplains a claim-bounded problem-specific reasoning surface for Erd\u0151s #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #249, which remains open. Where to start the unconditional record, wall, survivors, what is open stated exactly (our selection, not the paper's own advice)\n\nErd\u0151s #251 Problem note 20 pages\n\n##### A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series\n\nWhat tail-shift condition would prove irrationality in Erd\u0151s #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?\n\n[Read online](maths/papers/erdos-251-prime-gap-dyadic-series.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-251-prime-gap-dyadic-series.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/251/erdos-251-prime-gap-dyadic-series.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex)\n\nAbstract and reading guide\n\nThe paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.\n\nExplains the problem-specific exposition for Erd\u0151s #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #251, which remains open. Where to start problem, tail, local certificate, open (our selection, not the paper's own advice)\n\nErd\u0151s #251 Reasoning surface 38 pages\n\n##### Prime Gaps and Dyadic Tails: Complete Reasoning Record\n\nWhat is the complete shift, countermodel, and finite-evidence record for Erd\u0151s #251, and which cofinal mismatch is missing?\n\n[Read online](maths/papers/erdos251-prime-gap-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos251-prime-gap-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/251/erdos251-prime-gap-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #251, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #251, which remains open. Where to start long251:sec:tail, long251:sec:obstructions, long251:sec:open, erdos 251 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #257 Problem note 15 pages\n\n##### Reciprocal-Summable Support Irrationality at Every Integer Base\n\nWhich Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erd\u0151s #257?\n\n[Read online](maths/papers/erdos-257-mersenne-support-subseries.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-257-mersenne-support-subseries.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex)\n\nAbstract and reading guide\n\nThe paper gives a complete ordinary proof that every infinite support A with \u2211_{a\u2208A}1/a finite has an irrational reciprocal subseries at every integer base b\u22652. It separately proves a finite common-scale estimate and a strengthened positive-cover criterion. The finite-prime weighted and mixed criteria are explicitly unassessed claims in this accepted release. Exact finite periods and the greedy return inequality delimit the remaining arithmetic problem. Universal Erd\u0151s #257 remains open.\n\nExplains problem-specific mathematical exposition for Erd\u0151s #257: the coprimality-free reciprocal-summable all-base theorem and its ordinary proof, finite common-scale and strengthened positive-cover results, exact finite periods, method limits, and the open half-value edge. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #257, which remains open. Where to start problem, reciprocal support, eight return extensions, open (our selection, not the paper's own advice)\n\nErd\u0151s #257 Reasoning surface 113 pages\n\n##### Reciprocal Mersenne Subseries\n\nWhat has been tried on Erd\u0151s #257, which routes are closed, and what exact universal and half-value obligations remain?\n\n[Read online](maths/papers/erdos257-mersenne-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos257-mersenne-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/257/erdos257-mersenne-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.tex)\n\nAbstract and reading guide\n\nThe record prints the complete ordinary proof of the coprimality-free reciprocal-summable support theorem at every integer base; that proof is not formalised in Lean. It also retains finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.\n\nExplains a claim-bounded problem-specific reasoning surface for Erd\u0151s #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #257, whose universal and half-value questions remain open. Where to start 257 problem, 257 wall, 257 survivors, what is open stated exactly (our selection, not the paper's own advice)\n\nErd\u0151s #269 Reasoning surface 36 pages\n\n##### The Three-Prime Running LCM: Complete Reasoning Record\n\nWhat is the complete block, shell, carry, and observer record for Erd\u0151s #269, and which cofinal escape remains?\n\n[Read online](maths/papers/erdos269-running-lcm-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos269-running-lcm-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/269/erdos269-running-lcm-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #269, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #269, which remains open. Where to start long269:sec:problem, long269:sec:rank, long269:sec:open, erdos 269 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #269 Problem note 11 pages\n\n##### No Finite Separable Representation at Three Prime Generators\n\nFor Erd\u0151s #269, which two-prime running-LCM sums are transcendental, what infinite-rank structure is proved at three primes, and which escape condition remains open?\n\n[Read online](maths/papers/erdos-269-three-prime-running-lcm.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-269-three-prime-running-lcm.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex)\n\nAbstract and reading guide\n\nFor every pair of distinct primes, both the repeated running-LCM reciprocal sum and the version retaining one term per distinct LCM value are transcendental, by an ordinary deduction from a cited Hecke\u2013Mahler theorem. Steve Fan posted the repeated-sum factorisation, reduction and transcendence conclusion first; the paper claims no priority or Lean formalisation for that case. For three distinct primes, the paper proves that the reciprocal running-LCM kernel has nonsingular minors of every order, with one index choice valid in every third-coordinate layer. After row and column powers are removed, a binary carry gives disjoint threshold intervals; this proves arbitrary-order non-separability and the exact rank of every finite sample. The residue-escape condition and repeated three-prime irrationality question remain open.\n\nExplains the problem-specific exposition for Erd\u0151s #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #269, which remains open. Where to start problem, rank, lcm, escape (our selection, not the paper's own advice)\n\nErd\u0151s #1041 Problem note 22 pages\n\n##### Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates\n\nWhich explicit short-path families and critical-value estimates are proved for Erd\u0151s #1041, and which of those statements have Lean or Comparator checks?\n\n[Read online](maths/papers/erdos-1041-lemniscate-newton-flow.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-1041-lemniscate-newton-flow.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1041/erdos-1041-lemniscate-newton-flow.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex)\n\nAbstract and reading guide\n\nThe paper gives ordinary proofs of the length-less-than-2 conclusion for monic trinomials z^n+a z^m+b, with 1\u2264m<n and all roots in the open unit disc. It also proves that distinct concyclic zeros in degree n\u22653 admit an adjacent chord shorter than 2 in {|f|<1} when their circle radius \u03c1 satisfies 2\u03c1^n\u22641; this alternation proof is not formalised in Lean. For squarefree monic polynomials, if the least critical-value modulus \u03bc is at most 13/25, there is also such a connector. Without a root-location restriction, the scaled result gives a path shorter than (5/2) \u03bc^(1/n) in {|f|<(25/13)\u03bc}. Separate length-area and critical-value estimates give further control. Exact counterexamples show why these ingredients do not yield the unrestricted connector theorem; Erd\u0151s #1041 remains open.\n\nExplains the problem-specific exposition for Erd\u0151s #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1041, which remains open. Where to start trinomial, constant factor, gap, open (our selection, not the paper's own advice)\n\nErd\u0151s #1041 Reasoning surface 48 pages\n\n##### Lemniscates and Newton Flow: Complete Reasoning Record\n\nWhat is the complete short-path, critical-value, solved-family, and obstruction record for Erd\u0151s #1041, and what remains of the unrestricted path problem?\n\n[Read online](maths/papers/erdos1041-lemniscate-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1041/erdos1041-lemniscate-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA longer record of the same programme: ordinary all-degree trinomial paths, a sharp critical-value mean, solved-family kernels, Newton-flow checks, and exact obstructions including a Cassini counterexample to the printed global tree budget. It does not resolve unrestricted Erd\u0151s #1041.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #1041, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1041, which remains open. Where to start low critical closure, solved polynomial families, gap, erdos 1041 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #1049 Problem note 14 pages\n\n##### Irrationality of F(31/4) and the Exact Normalized Hankel Order\n\nFor Erd\u0151s #1049, which Lambert values at rational bases are proved irrational, what exact Hankel invariant does it compute, and why does the method still miss 3/2?\n\n[Read online](maths/papers/erdos-1049-rational-base-lambert.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-1049-rational-base-lambert.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex)\n\nAbstract and reading guide\n\nFor coprime integers a>b\u22651, the paper proves irrationality of F(a/b) when log b / log a is below the explicit threshold (approximately 0.40568); in particular F((31/4)^r) is irrational for every positive integer r, with a uniform irrationality-exponent bound. This is an ordinary proof using Zudilin's polynomial conclusion; Lean checks finite subclaims rather than the irrationality theorem. A second construction proves the exact normalised Hankel order and leading coefficient. The criterion does not cover 3/2, where a primitive noncollapsed kernel and analytic remainder control are still needed.\n\nExplains the problem-specific exposition for Erd\u0151s #1049: the ordinary rational-base irrationality theorem and uniform exponent bound for the (31/4)^r family, the exact normalised Hankel order and leading coefficient, the content and endpoint obstructions, and the remaining approximant and remainder construction at 3/2. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1049, which remains open. Where to start problem, rational base irrationality, hankel order, open (our selection, not the paper's own advice)\n\nErd\u0151s #1049 Reasoning surface 47 pages\n\n##### Rational-Base Lambert Series: Complete Reasoning Record\n\nWhat is the complete tail, height, Hermite\u2013Pad\u00e9, and mechanism record for Erd\u0151s #1049, and why is base 3/2 still open?\n\n[Read online](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos1049-rational-base-lambert-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite\u2013Pad\u00e9 and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #1049, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1049, which remains open. Where to start long1049:sec:region, long1049:sec:hankel order, long1049:sec:open, erdos 1049 complete family map (our selection, not the paper's own advice)\n\n#### The publication method\n\nA machine checked the proof. Who checks that the public wording describes it faithfully?\n\nSystems paper Research architecture 19 pages\n\n##### Problem-Sized Lean Worlds\n\nHow does a research system turn agent work into inspectable mathematical claims?\n\n[Read online](maths/papers/claim-faithful-publication-systems.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex)\n\nAbstract and reading guide\n\nProblem-sized worlds bring together proofs, experiments, literature, failed approaches and remaining questions. The architecture separates reasoning, changes to shared files, validation, evidence, public claims and reviewer attention. A public Lean repository demonstrates the workflow; it does not establish external adoption or solve any of the eight original problems.\n\nExplains the research architecture and its evidence and authority boundaries. Not authority for the mathematical content it uses as its worked example, and the correctness of the human review it preserves. Where to start lifecycle, mathloop, example, routes, trust (our selection, not the paper's own advice)\n\nSystems paper Agent navigation 11 pages\n\n##### From a Cold Clone to a Proof Receipt\n\nHow can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?\n\n[Read online](maths/papers/cold-clone-to-proof-receipt.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/cold-clone-to-proof-receipt.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex)\n\nAbstract and reading guide\n\nA large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes. The audit was author-operated; no external contributor had completed the tour or documented return path by 31 August 2026.\n\nExplains the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts. Not authority for proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project. Where to start problem, tour, authority, dogfood, limits (our selection, not the paper's own advice)\n\nSystems paper Open-source research strategy 20 pages\n\n##### From Spare Compute to Cumulative Mathematics\n\nHow can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?\n\n[Read online](maths/papers/open-source-mathematics-strategy.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/open-source-mathematics-strategy.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex)\n\nAbstract and reading guide\n\nA public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erd\u0151s problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.\n\nExplains the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons. Not authority for a solution to any Erd\u0151s problem, measured discovery-rate improvement, human peer review, novelty, significance, or community endorsement. Where to start strategy, protocol, attention, local to general, limits (our selection, not the paper's own advice)\n\n#### The evidence boundary\n\nWhat may a stranger conclude from evidence whose author chose both what to publish and what counts as a pass?\n\nSystems paper Evidence boundary 22 pages\n\n##### Plectis: What a Stranger Can Check\n\nWhat may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?\n\n[Read online](maths/papers/plectis-public-system.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/plectis-public-system.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis/paper/plectis-public-system.tex) \u00b7 [plectis](https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex)\n\nAbstract and reading guide\n\nThe author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.\n\nExplains the evidence boundary: what a passing public run does and does not establish. Not authority for the private system's internal state, which is not public, and the mathematical results it cites as evidence. Where to start problem, early example, distinctions, stronger (our selection, not the paper's own advice)\n\n#### Retired manuscripts\n\nSuperseded work is not deleted. Each of these remains in its home repository so an existing citation still resolves, and each is marked so no reader mistakes it for the current route.\n\nErd\u0151s #249 and #257 Combined note\n\n##### Tail Certificates and Achievement-Set Geometry for Erd\u0151s Problems 249 and 257\n\nWhat is mathematically proved about Erd\u0151s #249 and #257, and what exactly remains open?\n\n[Open the PDF on GitHub](https://github.com/wcook04/plectis-erdos/blob/main/erdos249-257-main-paper.pdf) \u00b7 [Read the LaTeX source](https://github.com/wcook04/plectis-erdos/blob/main/paper/archive/erdos249-257-main-paper.tex) \u00b7 plectis-erdos\n\nRetired: superseded by the problem-specific papers above, and kept here so an existing citation still resolves.\n\nAbstract and reading guide\n\nThe combined mathematical exposition for Erd\u0151s #249 and #257, superseded by the problem-specific notes and kept for provenance.\n\nExplains retired combined mathematical exposition preserved for provenance; its problem-specific successors are the active reader routes. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, and public claim status, which belongs to docs/claims.json. Where to start spines, architecture, unresolved (the paper's own reading route)"
+        "text": "The system\n\n### The papers\n\nShort and long papers on the mathematics, plus papers explaining the software and research approach.\n\nFor a particular problem, [choose it in the mathematics library](maths/index.html) to see its papers alongside its Lean proofs. The catalogue below includes the full abstracts and source links.\n\n#### The mathematics\n\nWhat is proved for each covered open Erd\u0151s problem, and what still blocks it?\n\nErd\u0151s #68 Problem note 14 pages\n\n##### Two Incomparable Denominator Exclusions for \u2211 n\u22652 (n!\u22121) \u22121\n\nWhat exact denominator obstructions are checked for Erd\u0151s #68, and which quantified producer could still prove irrationality?\n\n[Read online](maths/papers/erdos-68-factorial-denominator-irrationality.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-68-factorial-denominator-irrationality.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.tex)\n\nAbstract and reading guide\n\nThe paper proves that if S=a/q is rational, q cannot divide 299999! and is at least 2^39990 > 10^12038. The first exclusion comes from the exact strict-successor carry test and the second from continued fractions. Lean also checks the equivalent carry formulation and several consequences. A large common denominator alone does not control the reduced partial sums. Irrationality is reduced to a cofinal miss of the strict factorial successor, which remains open.\n\nExplains the problem-specific exposition for Erd\u0151s #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #68, which remains open. Where to start problem, channels, projection, open (our selection, not the paper's own advice)\n\nErd\u0151s #68 Reasoning surface 32 pages\n\n##### The Factorial-Denominator Series: Complete Reasoning Record\n\nWhat is the complete checked and failed-route record for Erd\u0151s #68, and which cofinal producer is still missing?\n\n[Read online](maths/papers/erdos68-factorial-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos68-factorial-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/68/erdos68-factorial-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #68. It retains the factorial-successor and carry normal forms, channel and projection mechanisms, exact finite denominator evidence, failed routes, and every registered family in the shared reader order. No cofinal divisibility-miss producer is proved, so irrationality remains open.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #68, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #68, which remains open. Where to start long68:sec:carry, long68:sec:finite, long68:sec:open, erdos 68 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #243 Problem note 12 pages\n\n##### Excluding the Bounded Negative Part\n\nWhich bounded negative-error behaviours can be excluded for Erd\u0151s #243, and which analytic hypotheses still keep it open?\n\n[Read online](maths/papers/erdos-243-reciprocal-tail-rigidity.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-243-reciprocal-tail-rigidity.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/243/erdos-243-reciprocal-tail-rigidity.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex)\n\nAbstract and reading guide\n\nClearing denominators turns Erd\u0151s #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.\n\nExplains the problem-specific exposition for Erd\u0151s #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #243, which remains open. Where to start problem, bounded, barrier, open (our selection, not the paper's own advice)\n\nErd\u0151s #243 Reasoning surface 44 pages\n\n##### Reciprocal-Tail Rigidity: Complete Reasoning Record\n\nWhat is the complete state-dynamics and no-go record for Erd\u0151s #243, and which unbounded negative orbit regime survives?\n\n[Read online](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos243-reciprocal-tail-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos243-reciprocal-tail-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #243, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #243, which remains open. Where to start long243:sec:cubicrate, long243:sec:bounded, long243:sec:open, erdos 243 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #249 Problem note 11 pages\n\n##### A Basis for the 2-Kernel of Euler's Totient\n\nWhat is the exact rank of the totient kernel at every integer base, which parts are formalised, and why does Erd\u0151s #249 remain open?\n\n[Read online](maths/papers/erdos-249-binary-totient-series.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-249-binary-totient-series.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/249/erdos-249-binary-totient-series.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex)\n\nAbstract and reading guide\n\nFor every integer base k\u22652, including composite bases, the totient kernel through level e\u22651 has an explicit rational basis of size k^e + 1; level 0 has dimension 1. The paper gives an ordinary proof using arithmetic independence. Lean proves the dyadic rank unconditionally; its all-base rank theorem assumes the canonical family's independence. These coefficient-space results do not decide irrationality. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate or cofinal certificate supply is proved; Erd\u0151s #249 remains open.\n\nExplains problem-specific mathematical exposition for Erd\u0151s #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #249, which remains open. Where to start results, carry rank, frontier, nogo (our selection, not the paper's own advice)\n\nErd\u0151s #249 Reasoning surface 129 pages\n\n##### The Binary Totient Series\n\nWhat has been tried on Erd\u0151s #249, which routes are closed, and what exact cofinal obligations remain?\n\n[Read online](maths/papers/erdos249-totient-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos249-totient-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/249/erdos249-totient-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos249-totient-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded map of the formal attack on Erd\u0151s #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erd\u0151s #249 remains open.\n\nExplains a claim-bounded problem-specific reasoning surface for Erd\u0151s #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #249, which remains open. Where to start the unconditional record, wall, survivors, what is open stated exactly (our selection, not the paper's own advice)\n\nErd\u0151s #251 Problem note 20 pages\n\n##### A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series\n\nWhat tail-shift condition would prove irrationality in Erd\u0151s #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?\n\n[Read online](maths/papers/erdos-251-prime-gap-dyadic-series.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-251-prime-gap-dyadic-series.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/251/erdos-251-prime-gap-dyadic-series.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.tex)\n\nAbstract and reading guide\n\nThe paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.\n\nExplains the problem-specific exposition for Erd\u0151s #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #251, which remains open. Where to start problem, tail, local certificate, open (our selection, not the paper's own advice)\n\nErd\u0151s #251 Reasoning surface 38 pages\n\n##### Prime Gaps and Dyadic Tails: Complete Reasoning Record\n\nWhat is the complete shift, countermodel, and finite-evidence record for Erd\u0151s #251, and which cofinal mismatch is missing?\n\n[Read online](maths/papers/erdos251-prime-gap-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos251-prime-gap-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/251/erdos251-prime-gap-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #251, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #251, which remains open. Where to start long251:sec:tail, long251:sec:obstructions, long251:sec:open, erdos 251 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #257 Problem note 16 pages\n\n##### Weighted Support Criteria for Reciprocal Mersenne Subseries\n\nWhich Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erd\u0151s #257?\n\n[Read online](maths/papers/erdos-257-mersenne-support-subseries.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-257-mersenne-support-subseries.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.tex)\n\nAbstract and reading guide\n\nFix a finite nonempty prime set P and put h(a)=\u220f_{p\u2208P}p^{v_p(a)}. If an infinite support A has \u2211_{a\u2208A}h(a)/(a(2^{h(a)}\u22121)) finite, its reciprocal Mersenne subseries is irrational at every integer base b\u22652, as is the subseries on every infinite subset of A. The paper prints a complete ordinary proof and a host with divergent reciprocal sum, so the criterion is strictly weaker than reciprocal summability. These are ordinary results, not Lean theorems, and no priority claim is made. Universal Erd\u0151s #257 remains open.\n\nExplains problem-specific mathematical exposition for Erd\u0151s #257: exact finite-prime weighted support criterion and its ordinary proof, exact finite periods, settled support families, method limits, and the open half-value edge. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #257, which remains open. Where to start problem, reciprocal support, eight return extensions, open (our selection, not the paper's own advice)\n\nErd\u0151s #257 Reasoning surface 116 pages\n\n##### Reciprocal Mersenne Subseries\n\nWhat has been tried on Erd\u0151s #257, which routes are closed, and what exact universal and half-value obligations remain?\n\n[Read online](maths/papers/erdos257-mersenne-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos257-mersenne-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/257/erdos257-mersenne-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.tex)\n\nAbstract and reading guide\n\nThe record prints the complete ordinary proof of the finite-prime weighted support criterion, including all-base hereditary irrationality and a reciprocal-divergent host; that proof is not formalised in Lean. It also retains finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.\n\nExplains a claim-bounded problem-specific reasoning surface for Erd\u0151s #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #257, whose universal and half-value questions remain open. Where to start 257 problem, 257 wall, 257 survivors, what is open stated exactly (our selection, not the paper's own advice)\n\nErd\u0151s #269 Reasoning surface 36 pages\n\n##### The Three-Prime Running LCM: Complete Reasoning Record\n\nWhat is the complete block, shell, carry, and observer record for Erd\u0151s #269, and which cofinal escape remains?\n\n[Read online](maths/papers/erdos269-running-lcm-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos269-running-lcm-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/269/erdos269-running-lcm-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos269-running-lcm-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #269, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #269, which remains open. Where to start long269:sec:problem, long269:sec:rank, long269:sec:open, erdos 269 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #269 Problem note 11 pages\n\n##### No Finite Separable Representation at Three Prime Generators\n\nFor Erd\u0151s #269, which two-prime running-LCM sums are transcendental, what infinite-rank structure is proved at three primes, and which escape condition remains open?\n\n[Read online](maths/papers/erdos-269-three-prime-running-lcm.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-269-three-prime-running-lcm.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.tex)\n\nAbstract and reading guide\n\nFor every pair of distinct primes, both the repeated running-LCM reciprocal sum and the version retaining one term per distinct LCM value are transcendental, by an ordinary deduction from a cited Hecke\u2013Mahler theorem. Steve Fan posted the repeated-sum factorisation, reduction and transcendence conclusion first; the paper claims no priority or Lean formalisation for that case. For three distinct primes, the paper proves that the reciprocal running-LCM kernel has nonsingular minors of every order, with one index choice valid in every third-coordinate layer. After row and column powers are removed, a binary carry gives disjoint threshold intervals; this proves arbitrary-order non-separability and the exact rank of every finite sample. The residue-escape condition and repeated three-prime irrationality question remain open.\n\nExplains the problem-specific exposition for Erd\u0151s #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #269, which remains open. Where to start problem, rank, lcm, escape (our selection, not the paper's own advice)\n\nErd\u0151s #1041 Problem note 22 pages\n\n##### Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates\n\nWhich explicit short-path families and critical-value estimates are proved for Erd\u0151s #1041, and which of those statements have Lean or Comparator checks?\n\n[Read online](maths/papers/erdos-1041-lemniscate-newton-flow.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-1041-lemniscate-newton-flow.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1041/erdos-1041-lemniscate-newton-flow.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex)\n\nAbstract and reading guide\n\nThe paper gives ordinary proofs of the length-less-than-2 conclusion for monic trinomials z^n+a z^m+b, with 1\u2264m<n and all roots in the open unit disc. It also proves that distinct concyclic zeros in degree n\u22653 admit an adjacent chord shorter than 2 in {|f|<1} when their circle radius \u03c1 satisfies 2\u03c1^n\u22641; this alternation proof is not formalised in Lean. For squarefree monic polynomials, if the least critical-value modulus \u03bc is at most 13/25, there is also such a connector. Without a root-location restriction, the scaled result gives a path shorter than (5/2) \u03bc^(1/n) in {|f|<(25/13)\u03bc}. Separate length-area and critical-value estimates give further control. Exact counterexamples show why these ingredients do not yield the unrestricted connector theorem; Erd\u0151s #1041 remains open.\n\nExplains the problem-specific exposition for Erd\u0151s #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1041, which remains open. Where to start trinomial, constant factor, gap, open (our selection, not the paper's own advice)\n\nErd\u0151s #1041 Reasoning surface 48 pages\n\n##### Lemniscates and Newton Flow: Complete Reasoning Record\n\nWhat is the complete short-path, critical-value, solved-family, and obstruction record for Erd\u0151s #1041, and what remains of the unrestricted path problem?\n\n[Read online](maths/papers/erdos1041-lemniscate-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1041/erdos1041-lemniscate-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA longer record of the same programme: ordinary all-degree trinomial paths, a sharp critical-value mean, solved-family kernels, Newton-flow checks, and exact obstructions including a Cassini counterexample to the printed global tree budget. It does not resolve unrestricted Erd\u0151s #1041.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #1041, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1041, which remains open. Where to start low critical closure, solved polynomial families, gap, erdos 1041 complete family map (our selection, not the paper's own advice)\n\nErd\u0151s #1049 Problem note 14 pages\n\n##### Irrationality of F(31/4) and the Exact Normalized Hankel Order\n\nFor Erd\u0151s #1049, which Lambert values at rational bases are proved irrational, what exact Hankel invariant does it compute, and why does the method still miss 3/2?\n\n[Read online](maths/papers/erdos-1049-rational-base-lambert.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos-1049-rational-base-lambert.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1049/erdos-1049-rational-base-lambert.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex)\n\nAbstract and reading guide\n\nFor coprime integers a>b\u22651, the paper proves irrationality of F(a/b) when log b / log a is below the explicit threshold (approximately 0.40568); in particular F((31/4)^r) is irrational for every positive integer r, with a uniform irrationality-exponent bound. This is an ordinary proof using Zudilin's polynomial conclusion; Lean checks finite subclaims rather than the irrationality theorem. A second construction proves the exact normalised Hankel order and leading coefficient. The criterion does not cover 3/2, where a primitive noncollapsed kernel and analytic remainder control are still needed.\n\nExplains the problem-specific exposition for Erd\u0151s #1049: the ordinary rational-base irrationality theorem and uniform exponent bound for the (31/4)^r family, the exact normalised Hankel order and leading coefficient, the content and endpoint obstructions, and the remaining approximant and remainder construction at 3/2. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1049, which remains open. Where to start problem, rational base irrationality, hankel order, open (our selection, not the paper's own advice)\n\nErd\u0151s #1049 Reasoning surface 47 pages\n\n##### Rational-Base Lambert Series: Complete Reasoning Record\n\nWhat is the complete tail, height, Hermite\u2013Pad\u00e9, and mechanism record for Erd\u0151s #1049, and why is base 3/2 still open?\n\n[Read online](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/erdos1049-rational-base-lambert-reasoning-surface.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-rational-base-lambert-reasoning-surface.tex)\n\nAbstract and reading guide\n\nA claim-bounded complete reasoning record for Erd\u0151s #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite\u2013Pad\u00e9 and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.\n\nExplains the complete problem-specific reasoning surface for Erd\u0151s #1049, including all registered result families and their boundaries. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erd\u0151s #1049, which remains open. Where to start long1049:sec:region, long1049:sec:hankel order, long1049:sec:open, erdos 1049 complete family map (our selection, not the paper's own advice)\n\n#### The publication method\n\nA machine checked the proof. Who checks that the public wording describes it faithfully?\n\nSystems paper Research architecture 19 pages\n\n##### Problem-Sized Lean Worlds\n\nHow does a research system turn agent work into inspectable mathematical claims?\n\n[Read online](maths/papers/claim-faithful-publication-systems.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/claim-faithful-publication-systems-paper.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex)\n\nAbstract and reading guide\n\nProblem-sized worlds bring together proofs, experiments, literature, failed approaches and remaining questions. The architecture separates reasoning, changes to shared files, validation, evidence, public claims and reviewer attention. A public Lean repository demonstrates the workflow; it does not establish external adoption or solve any of the eight original problems.\n\nExplains the research architecture and its evidence and authority boundaries. Not authority for the mathematical content it uses as its worked example, and the correctness of the human review it preserves. Where to start lifecycle, mathloop, example, routes, trust (our selection, not the paper's own advice)\n\nSystems paper Agent navigation 11 pages\n\n##### From a Cold Clone to a Proof Receipt\n\nHow can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?\n\n[Read online](maths/papers/cold-clone-to-proof-receipt.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/cold-clone-to-proof-receipt.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/cold-clone-to-proof-receipt.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/cold-clone-to-proof-receipt.tex)\n\nAbstract and reading guide\n\nA large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes. The audit was author-operated; no external contributor had completed the tour or documented return path by 31 August 2026.\n\nExplains the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts. Not authority for proof validity, optimal reasoning, external mathematical novelty, or demonstrated transfer to another formalisation project. Where to start problem, tour, authority, dogfood, limits (our selection, not the paper's own advice)\n\nSystems paper Open-source research strategy 20 pages\n\n##### From Spare Compute to Cumulative Mathematics\n\nHow can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?\n\n[Read online](maths/papers/open-source-mathematics-strategy.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/open-source-mathematics-strategy.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis-erdos/paper/systems/open-source-mathematics-strategy.tex) \u00b7 [plectis-erdos](https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex)\n\nAbstract and reading guide\n\nA public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erd\u0151s problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.\n\nExplains the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons. Not authority for a solution to any Erd\u0151s problem, measured discovery-rate improvement, human peer review, novelty, significance, or community endorsement. Where to start strategy, protocol, attention, local to general, limits (our selection, not the paper's own advice)\n\n#### The evidence boundary\n\nWhat may a stranger conclude from evidence whose author chose both what to publish and what counts as a pass?\n\nSystems paper Evidence boundary 22 pages\n\n##### Plectis: What a Stranger Can Check\n\nWhat may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?\n\n[Read online](maths/papers/plectis-public-system.html) \u00b7 [Open the PDF](https://wcook04.github.io/plectis/papers/plectis-public-system.pdf) \u00b7 [LaTeX source](https://wcook04.github.io/plectis/papers/source/plectis/paper/plectis-public-system.tex) \u00b7 [plectis](https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex)\n\nAbstract and reading guide\n\nThe author publishes selected code, fixed inputs, expected results, decision rules, and run records while the larger system stays private. What can a stranger conclude after rerunning them? A matching result shows repeatability for one stated public case. It does not establish where the code came from, whether the expected answer is correct, whether the published selection resembles the private whole, or whether the private system works reliably. The contribution is a method for making one selected disagreement local, not a score.\n\nExplains the evidence boundary: what a passing public run does and does not establish. Not authority for the private system's internal state, which is not public, and the mathematical results it cites as evidence. Where to start problem, early example, distinctions, stronger (our selection, not the paper's own advice)\n\n#### Retired manuscripts\n\nSuperseded work is not deleted. Each of these remains in its home repository so an existing citation still resolves, and each is marked so no reader mistakes it for the current route.\n\nErd\u0151s #249 and #257 Combined note\n\n##### Tail Certificates and Achievement-Set Geometry for Erd\u0151s Problems 249 and 257\n\nWhat is mathematically proved about Erd\u0151s #249 and #257, and what exactly remains open?\n\n[Open the PDF on GitHub](https://github.com/wcook04/plectis-erdos/blob/main/erdos249-257-main-paper.pdf) \u00b7 [Read the LaTeX source](https://github.com/wcook04/plectis-erdos/blob/main/paper/archive/erdos249-257-main-paper.tex) \u00b7 plectis-erdos\n\nRetired: superseded by the problem-specific papers above, and kept here so an existing citation still resolves.\n\nAbstract and reading guide\n\nThe combined mathematical exposition for Erd\u0151s #249 and #257, superseded by the problem-specific notes and kept for provenance.\n\nExplains retired combined mathematical exposition preserved for provenance; its problem-specific successors are the active reader routes. Not authority for the validity of claims tagged Lean, which belongs to the cited kernel-checked source, and public claim status, which belongs to docs/claims.json. Where to start spines, architecture, unresolved (the paper's own reading route)"
       }
     },
     {
@@ -15007,11 +15007,11 @@
       ],
       "title": "Contact",
       "visible_text": {
-        "byte_count": 8849,
+        "byte_count": 9160,
         "format": "markdown",
         "packaging": "full_public_main_content_markdown_without_repeated_global_nav",
         "schema": "microcosm_public_page_visible_text_v1",
-        "text": "Site\n\n### Contact\n\nThe person behind Plectis, and the routes for questions, corrections, and critique.\n\n#### Who built this\n\nMy name is Will Cook, 22, studying economics at the University of Bristol. I built this alone, self-funding.\n\nI am clearly not a mathematician. I'm not entirely sure what I am besides what some might call a \"vibe-coder\" or \"builder\", but these days those terms sound very cringe, almost self-aggrandising. I would say that I try my best to create things that I think of, because it's fun.\n\nFor the past year I have been building this with essentially no technical support.\n\nIt started as a private repo built for a trading system. UK financial regulation meant that seemed too hairy a path to go down without more guidance, but by then I had already built a large financial database, which I probably can't release. This was before I had even used Claude Code. I had built my own internal DAG orchestrator that self-improved the DAG of prompts in real time on frequent historic data. DAG 1 predicts, DAG 2 evaluates, DAG 3 modifies; slide window and there are second-order signals over how the DAG I/O behaves, etc.\n\nI then discovered coding agent apps, and it all changed. I spent months and months building whatever I could come up with. I developed a doctrine for my agents, and built a frontend that would evolve with the backend to be able to see what was happening in the system.\n\nI realised I couldn't release the entire thing, so I abandoned what I deemed risky and focused on building a new system, Plectis, that would let me showcase cross-sections of the system.\n\nI would call myself an early adopter of vibe-maths, so early in fact I was releasing AI-written papers on ArXiv before they even had moderation for new submissions. I was told by some mathematicians to give up and that AI would not surpass humans, and that AI being used by me certainly wouldn't.\n\nIf someone tells me to give up I make special note to try and prove them wrong, but I am also trying to become wise as a person. I stopped vibe-mathing and focused on trying to build AI systems, as I realised systems can do a much better job than I could at doing the most abstract repeatable tasks, and in organising work done, and ultimately in directing and planning the efforts of AI at any given moment.\n\nAs such, this is my progression I made over the last two years of full-sending AI, and the last year of building this project. My biggest problem has been that nobody with expertise can really judge the entire thing, because it spans so many domains.\n\nI see the mess of AI in mathematics in September 2026. The panic is palpable, and I hold most sympathy for people my age. I believe labs are setting the wrong example. Players will play the game, and I think it causes less friction to change behaviour by altering the payoffs rather than the choices. Labs obsess over benchmarks, and share their results when it makes them look better and doesn't harm their interests.\n\nWho can fail the best? That's what my open-source Lean repo is trying to answer. Showing just how epically I (and hopefully soon others) can fail, then turning to experts to say: please can we work together, I need your expertise and you might benefit from my system; together, maybe we can collaborate and mutually benefit. Your current function may change just like everyone's. That doesn't mean the utility you might generate can't actually increase, rather just that the function itself may need to change as we enter a new regime of civilisation (echoes of the cold depersonalisation of economics there).\n\nYou will get the credit. I just want my system used. This is in both our best interests and the payoff for you is high because my system can trace not just the direct effect, but how that effect propagated into later changes and compounded, which I know I can build -- worthwhile making if I got even a bit of traction.\n\nI hope I don't sound too grandiose in this. It's just the ethos behind it all, and I want to show there is a human buried somewhere deep inside this system.\n\nI have run out of money, I have run out of time. I chase perfection over attention; what you see is not the former, and doesn't seem to facilitate the latter, so I must try both harder and different things. Hopefully someday somebody gets deep enough into the website to read this, and I will know that perhaps what I'm doing is finally working in getting all of it seen and stimulating curiosity. If that is you, thank you for your time and interest.\n\nThe University of Bristol has no affiliation with this work and had no involvement in it.\n\nBuilder and operator credit is not mathematical authorship or independent verification: I am responsible for assembling the public projection and choosing what to release, while the cited Lean sources, papers, claim registry, and receipts carry mathematical authority.\n\nThe papers were made the same way, and it would be odd to describe the system honestly while leaving its own write-ups vague. I did not write their prose. Agents drafted and revised it from objectives and review criteria I set, and I selected the claims, reviewed the text, and authorised what was published. Each paper says so on its first page and declares it in full at the back. The byline stays mine because responsibility for the claims does, and that is not something a generative system can hold.\n\nThe public repository is not the whole system. The full version includes live tools, non-public data, and capabilities I did not think it appropriate to put online all at once. Plectis is the smaller standalone slice: source files, component records, evidence classes, stable source addresses, and scope limits. The [evidence page](docs/evidence.html) records which lane each component took, so the gap between what the public slice shows and what the private root contains is written down rather than implied.\n\nI am still working on the rough edges: making the code and docs easier to follow, checking more failure cases, and finding out whether this is useful in other people's research. Time and compute limit how much I can run. Wider use and independent review are work I need help with too. If you find mistakes, bad assumptions, or anything unclear, I would like to know.\n\nBecause I built this alone, the system grew its own private vocabulary along the way. For release I have tried to translate that language into plainer public terms. If an odd word has survived the cleanup, that is leftover translation work, not a term of art; please point it out.\n\n#### Choose a route\n\nDifferent readers need different next steps. These are direct routes into inspection, correction, use, and serious discussion; they are not endorsements, a funding solicitation, or a promise that every enquiry can be accepted.\n\n[**Inspect or verify a claim** Start with the public evidence classes, source links, and stated claim limits. Inspect](docs/evidence.html) [**Clone or reproduce the public slice** Use the source, license, quickstart, and replay routes for a cold local check. Reproduce](docs/source.html) [**Use or adapt the public source** Read the license and source boundary before reusing the released material in another project. Reuse](docs/source.html#license) **Suggest a correction or critique** Send a concrete page, file, claim, or assumption that needs checking. Correct **Collaborate or arrange a research review** Describe the relevant background, question, and bounded route you want to inspect together. Discuss **Discuss funding or hiring** Use this route for a serious fit conversation; it is not an investment or recruitment promise. Enquire **Discuss a partnership or license** Start with the source and license posture, then describe the use or partnership you have in mind. Enquire\n\n#### Get in touch\n\n**Email (personal, always works)** williamwkcook@gmail.com, for questions, feedback, or anything you think I have got wrong. Send **Email (University of Bristol)** gj23368@bristol.ac.uk. I may not keep access to this one. Copy the Gmail address if you use it. Send [**Repository discussions** Public questions, critique, or collaboration. Open](https://github.com/wcook04/plectis/discussions) [**LinkedIn** Will Cook, who builds and maintains Plectis. Open](https://www.linkedin.com/in/will-cook-278127234/) [**Security issues** The private reporting route for anything security-shaped. Open](docs/vulnerability-disclosure.html)\n\n#### Follow updates\n\nThere is no mailing list, newsletter provider, or signup form for Plectis at the moment. Follow public changes through the generated feed or repository surfaces.\n\n[**Follow updates** Generated feed, GitHub Watch route, releases route, and discussions route. Open](docs/updates.html) [**Atom feed** A static machine-readable feed generated from the public narrative owner. Open](updates.xml)"
+        "text": "Site\n\n### Contact\n\nThe person behind Plectis, and the routes for questions, corrections, and critique.\n\n#### Who built this\n\nMy name is Will Cook, 22, studying economics at the University of Bristol. I built this alone, self-funding.\n\nI am clearly not a mathematician. I'm not entirely sure what I am besides what some might call a \"vibe-coder\" or \"builder\", but these days those terms sound very cringe, almost self-aggrandising. I would say that I try my best to create things that I think of, because it's fun.\n\nFor the past year I have been building this with essentially no technical support.\n\nIt started as a private repo built for a trading system. UK financial regulation meant that seemed too hairy a path to go down without more guidance, but by then I had already built a large financial database, which I probably can't release. This was before I had even used Claude Code. I had built my own internal DAG orchestrator that self-improved the DAG of prompts in real time on frequent historic data. DAG 1 predicts, DAG 2 evaluates, DAG 3 modifies; slide window and there are second-order signals over how the DAG I/O behaves, etc.\n\nI then discovered coding agent apps, and it all changed. I spent months and months building whatever I could come up with. I developed a doctrine for my agents, and built a frontend that would evolve with the backend to be able to see what was happening in the system.\n\nI realised I couldn't release the entire thing, so I abandoned what I deemed risky and focused on building a new system, Plectis, that would let me showcase cross-sections of the system.\n\nI would call myself an early adopter of vibe-maths, so early in fact I was releasing AI-written papers on ArXiv before they even had moderation for new submissions. I was told by some mathematicians to give up and that AI would not surpass humans, and that AI being used by me certainly wouldn't.\n\nIf someone tells me to give up I make special note to try and prove them wrong, but I am also trying to become wise as a person. I stopped vibe-mathing and focused on trying to build AI systems, as I realised systems can do a much better job than I could at doing the most abstract repeatable tasks, and in organising work done, and ultimately in directing and planning the efforts of AI at any given moment.\n\nAs such, this is my progression I made over the last two years of full-sending AI, and the last year of building this project. My biggest problem has been that nobody with expertise can really judge the entire thing, because it spans so many domains.\n\nI see the mess of AI in mathematics in September 2026. The panic is palpable, and I hold most sympathy for people my age. I believe labs are setting the wrong example. Players will play the game, and I think it causes less friction to change behaviour by altering the payoffs rather than the choices. Labs obsess over benchmarks, and share their results when it makes them look better and doesn't harm their interests.\n\nWho can fail the best? That's what my open-source Lean repo is trying to answer. Showing just how epically I (and hopefully soon others) can fail, then turning to experts to say: please can we work together, I need your expertise and you might benefit from my system; together, maybe we can collaborate and mutually benefit. Your current function may change just like everyone's. That doesn't mean the utility you might generate can't actually increase, rather just that the function itself may need to change as we enter a new regime of civilisation (echoes of the cold depersonalisation of economics there).\n\nYou will get the credit. I just want my system used. This is in both our best interests and the payoff for you is high because my system can trace not just the direct effect, but how that effect propagated into later changes and compounded, which I know I can build -- worthwhile making if I got even a bit of traction.\n\nI hope I don't sound too grandiose in this. It's just the ethos behind it all, and I want to show there is a human buried somewhere deep inside this system.\n\nI have run out of money, I have run out of time. I chase perfection over attention; what you see is not the former, and doesn't seem to facilitate the latter, so I must try both harder and different things. Hopefully someday somebody gets deep enough into the website to read this, and I will know that perhaps what I'm doing is finally working in getting all of it seen and stimulating curiosity. If that is you, thank you for your time and interest.\n\nThe University of Bristol has no affiliation with this work and had no involvement in it.\n\nBuilder and operator credit is not mathematical authorship or independent verification: I am responsible for assembling the public projection and choosing what to release, while the cited Lean sources, papers, claim registry, and receipts carry mathematical authority.\n\nThe papers were made the same way, and it would be odd to describe the system honestly while leaving its own write-ups vague. I did not write their prose. Agents drafted and revised it from objectives and review criteria I set, and I selected the claims, reviewed the text, and authorised what was published. Each paper says so on its first page and declares it in full at the back. The byline stays mine because responsibility for the claims does, and that is not something a generative system can hold.\n\nThe public repository is not the whole system. The full version includes live tools, non-public data, and capabilities I did not think it appropriate to put online all at once. Plectis is the smaller standalone slice: source files, component records, evidence classes, stable source addresses, and scope limits. The [evidence page](docs/evidence.html) records which lane each component took, so the gap between what the public slice shows and what the private root contains is written down rather than implied.\n\nI am still working on the rough edges: making the code and docs easier to follow, checking more failure cases, and finding out whether this is useful in other people's research. Time and compute limit how much I can run. Wider use and independent review are work I need help with too. If you find mistakes, bad assumptions, or anything unclear, I would like to know.\n\nBecause I built this alone, the system grew its own private vocabulary along the way. For release I have tried to translate that language into plainer public terms. If an odd word has survived the cleanup, that is leftover translation work, not a term of art; please point it out.\n\n#### Choose a route\n\nDifferent readers need different next steps. These are direct routes into inspection, correction, use, and serious discussion; they are not endorsements, a funding solicitation, or a promise that every enquiry can be accepted.\n\n[**Inspect or verify a claim** Start with the public evidence classes, source links, and stated claim limits. Inspect](docs/evidence.html) [**Clone or reproduce the public slice** Use the source, license, quickstart, and replay routes for a cold local check. Reproduce](docs/source.html) [**Use or adapt the public source** Read the license and source boundary before reusing the released material in another project. Reuse](docs/source.html#license) **Suggest a correction or critique** Send a concrete page, file, claim, or assumption that needs checking. Correct **Collaborate or arrange a research review** Describe the relevant background, question, and bounded route you want to inspect together. Discuss **Discuss funding or hiring** Use this route for a serious fit conversation; it is not an investment or recruitment promise. Enquire **Discuss a partnership or license** Start with the source and license posture, then describe the use or partnership you have in mind. Enquire\n\n#### Get in touch\n\n**Email (personal, always works)** williamwkcook@gmail.com, for questions, feedback, or anything you think I have got wrong. Send **Email (University of Bristol)** gj23368@bristol.ac.uk. I may not keep access to this one. Copy the Gmail address if you use it. Send [**Software bugs and documentation** Report something broken or unclear in the public software or this site. Open](https://github.com/wcook04/plectis/issues) [**Mathematics and proof code** Report a problem with a mathematical claim, paper, or Lean proof. Open](https://github.com/wcook04/plectis-erdos/issues) [**Repository discussions** Public questions, critique, or collaboration. Open](https://github.com/wcook04/plectis/discussions) [**LinkedIn** Will Cook, who builds and maintains Plectis. Open](https://www.linkedin.com/in/will-cook-278127234/) [**Security issues** The private reporting route for anything security-shaped. Open](docs/vulnerability-disclosure.html)\n\n#### Follow updates\n\nThere is no mailing list, newsletter provider, or signup form for Plectis at the moment. Follow public changes through the generated feed or repository surfaces.\n\n[**Follow updates** Generated feed, GitHub Watch route, releases route, and discussions route. Open](docs/updates.html) [**Atom feed** A static machine-readable feed generated from the public narrative owner. Open](updates.xml)"
       }
     },
     {
@@ -19358,11 +19358,11 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 7,
+              "count": 5,
               "page": "papers.html"
             }
           ],
-          "total_occurrences": 7
+          "total_occurrences": 5
         },
         "visible_text_byte_count": 954
       },
@@ -24595,18 +24595,18 @@
         "term_kind": "public_projection",
         "used_in": {
           "page_count": 2,
-          "top_page": "papers.html",
+          "top_page": "paper-module-finite-erdos-denominator-certificate-strike.html",
           "top_pages": [
-            {
-              "count": 3,
-              "page": "papers.html"
-            },
             {
               "count": 1,
               "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
+            },
+            {
+              "count": 1,
+              "page": "papers.html"
             }
           ],
-          "total_occurrences": 4
+          "total_occurrences": 2
         },
         "visible_text_byte_count": 704
       },
@@ -26913,9 +26913,13 @@
         "status": "active",
         "term_kind": "mathematical_concept",
         "used_in": {
-          "page_count": 3,
-          "top_page": "paper-module-batch8-tools-tail-primitives-capsule.html",
+          "page_count": 4,
+          "top_page": "papers.html",
           "top_pages": [
+            {
+              "count": 2,
+              "page": "papers.html"
+            },
             {
               "count": 1,
               "page": "paper-module-batch8-tools-tail-primitives-capsule.html"
@@ -26929,7 +26933,7 @@
               "page": "paper-module-self-ignorance-coverage-ledger.html"
             }
           ],
-          "total_occurrences": 3
+          "total_occurrences": 5
         },
         "visible_text_byte_count": 833
       },
@@ -30425,7 +30429,7 @@
               "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
             },
             {
-              "count": 20,
+              "count": 19,
               "page": "papers.html"
             },
             {
@@ -30441,7 +30445,7 @@
               "page": "paper-modules.html"
             }
           ],
-          "total_occurrences": 122
+          "total_occurrences": 121
         },
         "visible_text_byte_count": 740
       },
@@ -34259,15 +34263,10 @@
         "status": "active",
         "term_kind": "mathematical_concept",
         "used_in": {
-          "page_count": 1,
-          "top_page": "papers.html",
-          "top_pages": [
-            {
-              "count": 1,
-              "page": "papers.html"
-            }
-          ],
-          "total_occurrences": 1
+          "page_count": 0,
+          "top_page": null,
+          "top_pages": [],
+          "total_occurrences": 0
         },
         "visible_text_byte_count": 763
       },
@@ -34378,7 +34377,7 @@
               "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
             },
             {
-              "count": 4,
+              "count": 5,
               "page": "papers.html"
             },
             {
@@ -34398,7 +34397,7 @@
               "page": "paper-modules.html"
             }
           ],
-          "total_occurrences": 14
+          "total_occurrences": 15
         },
         "visible_text_byte_count": 791
       },
@@ -36374,7 +36373,7 @@
               "page": "paper-module-formal-math-lean-proof-witness.html"
             }
           ],
-          "total_occurrences": 910
+          "total_occurrences": 912
         },
         "visible_text_byte_count": 839
       },
@@ -38249,11 +38248,11 @@
             },
             {
               "count": 3,
-              "page": "paper-module-proof-diagnostic-evidence-spine.html"
+              "page": "contact.html"
             },
             {
-              "count": 2,
-              "page": "contact.html"
+              "count": 3,
+              "page": "paper-module-proof-diagnostic-evidence-spine.html"
             },
             {
               "count": 2,
@@ -38268,7 +38267,7 @@
               "page": "architecture.html"
             }
           ],
-          "total_occurrences": 17
+          "total_occurrences": 18
         },
         "visible_text_byte_count": 877
       },
@@ -38704,11 +38703,11 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 2,
+              "count": 4,
               "page": "papers.html"
             }
           ],
-          "total_occurrences": 2
+          "total_occurrences": 4
         },
         "visible_text_byte_count": 707
       },
@@ -42582,7 +42581,7 @@
               "page": "component-research-replication-rubric-artifact-replay.html"
             }
           ],
-          "total_occurrences": 268
+          "total_occurrences": 269
         },
         "visible_text_byte_count": 1057
       },
@@ -44351,7 +44350,7 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 20,
+              "count": 22,
               "page": "papers.html"
             },
             {
@@ -44359,7 +44358,7 @@
               "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
             }
           ],
-          "total_occurrences": 23
+          "total_occurrences": 25
         },
         "visible_text_byte_count": 738
       },
@@ -44650,7 +44649,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 103,
+          "page_count": 104,
           "top_page": "paper-module-bridge-campaign-dag-validation.html",
           "top_pages": [
             {
@@ -44678,7 +44677,7 @@
               "page": "paper-module-semantic-singleflight-dedup-runtime.html"
             }
           ],
-          "total_occurrences": 111
+          "total_occurrences": 112
         },
         "visible_text_byte_count": 919
       },
@@ -45389,7 +45388,7 @@
         "status": "active",
         "term_kind": "mathematical_concept",
         "used_in": {
-          "page_count": 118,
+          "page_count": 119,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -45417,7 +45416,7 @@
               "page": "paper-module-formal-math-readiness-gate.html"
             }
           ],
-          "total_occurrences": 1597
+          "total_occurrences": 1599
         },
         "visible_text_byte_count": 883
       },
@@ -47179,11 +47178,11 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 1,
+              "count": 2,
               "page": "papers.html"
             }
           ],
-          "total_occurrences": 1
+          "total_occurrences": 2
         },
         "visible_text_byte_count": 876
       },
@@ -47826,7 +47825,7 @@
               "page": "architecture.html"
             }
           ],
-          "total_occurrences": 55
+          "total_occurrences": 54
         },
         "visible_text_byte_count": 789
       },
@@ -51306,12 +51305,16 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 21,
+          "page_count": 22,
           "top_page": "paper-module-macro-projection-import-protocol.html",
           "top_pages": [
             {
               "count": 3,
               "page": "paper-module-macro-projection-import-protocol.html"
+            },
+            {
+              "count": 2,
+              "page": "contact.html"
             },
             {
               "count": 2,
@@ -51328,13 +51331,9 @@
             {
               "count": 2,
               "page": "paper-module-pattern-binding-contract.html"
-            },
-            {
-              "count": 2,
-              "page": "paper-module-self-ignorance-coverage-ledger.html"
             }
           ],
-          "total_occurrences": 28
+          "total_occurrences": 30
         },
         "visible_text_byte_count": 789
       },
@@ -52655,11 +52654,11 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 3,
+              "count": 5,
               "page": "papers.html"
             }
           ],
-          "total_occurrences": 3
+          "total_occurrences": 5
         },
         "visible_text_byte_count": 857
       },
@@ -52707,7 +52706,7 @@
         "status": "active",
         "term_kind": "mathematical_concept",
         "used_in": {
-          "page_count": 4,
+          "page_count": 5,
           "top_page": "paper-module-bridge-campaign-dag-validation.html",
           "top_pages": [
             {
@@ -52724,10 +52723,14 @@
             },
             {
               "count": 1,
+              "page": "papers.html"
+            },
+            {
+              "count": 1,
               "page": "rules-and-ideas.html"
             }
           ],
-          "total_occurrences": 5
+          "total_occurrences": 6
         },
         "visible_text_byte_count": 769
       },
@@ -52896,11 +52899,11 @@
           "top_page": "papers.html",
           "top_pages": [
             {
-              "count": 3,
+              "count": 1,
               "page": "papers.html"
             }
           ],
-          "total_occurrences": 3
+          "total_occurrences": 1
         },
         "visible_text_byte_count": 884
       },
@@ -53014,7 +53017,7 @@
               "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
             },
             {
-              "count": 8,
+              "count": 10,
               "page": "papers.html"
             },
             {
@@ -53022,7 +53025,7 @@
               "page": "paper-module-durable-agent-work-landing-replay.html"
             }
           ],
-          "total_occurrences": 282
+          "total_occurrences": 284
         },
         "visible_text_byte_count": 909
       },
@@ -53691,7 +53694,7 @@
               "page": "paper-module-lean-proof-search-lab-runtime.html"
             }
           ],
-          "total_occurrences": 291
+          "total_occurrences": 290
         },
         "visible_text_byte_count": 913
       },
@@ -62964,7 +62967,7 @@
       "evidence_profile_record_count": 359,
       "logical_text_byte_count": 3990005,
       "page_count": 218,
-      "page_text_byte_count": 434222,
+      "page_text_byte_count": 434557,
       "paper_module_record_count": 103,
       "public_glossary_record_count": 660,
       "roster_section_count": 3,
@@ -191691,11 +191694,11 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 7,
+                "count": 5,
                 "page": "papers.html"
               }
             ],
-            "total_occurrences": 7
+            "total_occurrences": 5
           },
           "visible_text_byte_count": 954
         },
@@ -196928,18 +196931,18 @@
           "term_kind": "public_projection",
           "used_in": {
             "page_count": 2,
-            "top_page": "papers.html",
+            "top_page": "paper-module-finite-erdos-denominator-certificate-strike.html",
             "top_pages": [
-              {
-                "count": 3,
-                "page": "papers.html"
-              },
               {
                 "count": 1,
                 "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
+              },
+              {
+                "count": 1,
+                "page": "papers.html"
               }
             ],
-            "total_occurrences": 4
+            "total_occurrences": 2
           },
           "visible_text_byte_count": 704
         },
@@ -199246,9 +199249,13 @@
           "status": "active",
           "term_kind": "mathematical_concept",
           "used_in": {
-            "page_count": 3,
-            "top_page": "paper-module-batch8-tools-tail-primitives-capsule.html",
+            "page_count": 4,
+            "top_page": "papers.html",
             "top_pages": [
+              {
+                "count": 2,
+                "page": "papers.html"
+              },
               {
                 "count": 1,
                 "page": "paper-module-batch8-tools-tail-primitives-capsule.html"
@@ -199262,7 +199269,7 @@
                 "page": "paper-module-self-ignorance-coverage-ledger.html"
               }
             ],
-            "total_occurrences": 3
+            "total_occurrences": 5
           },
           "visible_text_byte_count": 833
         },
@@ -202758,7 +202765,7 @@
                 "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
               },
               {
-                "count": 20,
+                "count": 19,
                 "page": "papers.html"
               },
               {
@@ -202774,7 +202781,7 @@
                 "page": "paper-modules.html"
               }
             ],
-            "total_occurrences": 122
+            "total_occurrences": 121
           },
           "visible_text_byte_count": 740
         },
@@ -206592,15 +206599,10 @@
           "status": "active",
           "term_kind": "mathematical_concept",
           "used_in": {
-            "page_count": 1,
-            "top_page": "papers.html",
-            "top_pages": [
-              {
-                "count": 1,
-                "page": "papers.html"
-              }
-            ],
-            "total_occurrences": 1
+            "page_count": 0,
+            "top_page": null,
+            "top_pages": [],
+            "total_occurrences": 0
           },
           "visible_text_byte_count": 763
         },
@@ -206711,7 +206713,7 @@
                 "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
               },
               {
-                "count": 4,
+                "count": 5,
                 "page": "papers.html"
               },
               {
@@ -206731,7 +206733,7 @@
                 "page": "paper-modules.html"
               }
             ],
-            "total_occurrences": 14
+            "total_occurrences": 15
           },
           "visible_text_byte_count": 791
         },
@@ -208707,7 +208709,7 @@
                 "page": "paper-module-formal-math-lean-proof-witness.html"
               }
             ],
-            "total_occurrences": 910
+            "total_occurrences": 912
           },
           "visible_text_byte_count": 839
         },
@@ -210582,11 +210584,11 @@
               },
               {
                 "count": 3,
-                "page": "paper-module-proof-diagnostic-evidence-spine.html"
+                "page": "contact.html"
               },
               {
-                "count": 2,
-                "page": "contact.html"
+                "count": 3,
+                "page": "paper-module-proof-diagnostic-evidence-spine.html"
               },
               {
                 "count": 2,
@@ -210601,7 +210603,7 @@
                 "page": "architecture.html"
               }
             ],
-            "total_occurrences": 17
+            "total_occurrences": 18
           },
           "visible_text_byte_count": 877
         },
@@ -211037,11 +211039,11 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 2,
+                "count": 4,
                 "page": "papers.html"
               }
             ],
-            "total_occurrences": 2
+            "total_occurrences": 4
           },
           "visible_text_byte_count": 707
         },
@@ -214915,7 +214917,7 @@
                 "page": "component-research-replication-rubric-artifact-replay.html"
               }
             ],
-            "total_occurrences": 268
+            "total_occurrences": 269
           },
           "visible_text_byte_count": 1057
         },
@@ -216684,7 +216686,7 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 20,
+                "count": 22,
                 "page": "papers.html"
               },
               {
@@ -216692,7 +216694,7 @@
                 "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
               }
             ],
-            "total_occurrences": 23
+            "total_occurrences": 25
           },
           "visible_text_byte_count": 738
         },
@@ -216983,7 +216985,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 103,
+            "page_count": 104,
             "top_page": "paper-module-bridge-campaign-dag-validation.html",
             "top_pages": [
               {
@@ -217011,7 +217013,7 @@
                 "page": "paper-module-semantic-singleflight-dedup-runtime.html"
               }
             ],
-            "total_occurrences": 111
+            "total_occurrences": 112
           },
           "visible_text_byte_count": 919
         },
@@ -217722,7 +217724,7 @@
           "status": "active",
           "term_kind": "mathematical_concept",
           "used_in": {
-            "page_count": 118,
+            "page_count": 119,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -217750,7 +217752,7 @@
                 "page": "paper-module-formal-math-readiness-gate.html"
               }
             ],
-            "total_occurrences": 1597
+            "total_occurrences": 1599
           },
           "visible_text_byte_count": 883
         },
@@ -219512,11 +219514,11 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 1,
+                "count": 2,
                 "page": "papers.html"
               }
             ],
-            "total_occurrences": 1
+            "total_occurrences": 2
           },
           "visible_text_byte_count": 876
         },
@@ -220159,7 +220161,7 @@
                 "page": "architecture.html"
               }
             ],
-            "total_occurrences": 55
+            "total_occurrences": 54
           },
           "visible_text_byte_count": 789
         },
@@ -223639,12 +223641,16 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 21,
+            "page_count": 22,
             "top_page": "paper-module-macro-projection-import-protocol.html",
             "top_pages": [
               {
                 "count": 3,
                 "page": "paper-module-macro-projection-import-protocol.html"
+              },
+              {
+                "count": 2,
+                "page": "contact.html"
               },
               {
                 "count": 2,
@@ -223661,13 +223667,9 @@
               {
                 "count": 2,
                 "page": "paper-module-pattern-binding-contract.html"
-              },
-              {
-                "count": 2,
-                "page": "paper-module-self-ignorance-coverage-ledger.html"
               }
             ],
-            "total_occurrences": 28
+            "total_occurrences": 30
           },
           "visible_text_byte_count": 789
         },
@@ -224988,11 +224990,11 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 3,
+                "count": 5,
                 "page": "papers.html"
               }
             ],
-            "total_occurrences": 3
+            "total_occurrences": 5
           },
           "visible_text_byte_count": 857
         },
@@ -225040,7 +225042,7 @@
           "status": "active",
           "term_kind": "mathematical_concept",
           "used_in": {
-            "page_count": 4,
+            "page_count": 5,
             "top_page": "paper-module-bridge-campaign-dag-validation.html",
             "top_pages": [
               {
@@ -225057,10 +225059,14 @@
               },
               {
                 "count": 1,
+                "page": "papers.html"
+              },
+              {
+                "count": 1,
                 "page": "rules-and-ideas.html"
               }
             ],
-            "total_occurrences": 5
+            "total_occurrences": 6
           },
           "visible_text_byte_count": 769
         },
@@ -225229,11 +225235,11 @@
             "top_page": "papers.html",
             "top_pages": [
               {
-                "count": 3,
+                "count": 1,
                 "page": "papers.html"
               }
             ],
-            "total_occurrences": 3
+            "total_occurrences": 1
           },
           "visible_text_byte_count": 884
         },
@@ -225347,7 +225353,7 @@
                 "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
               },
               {
-                "count": 8,
+                "count": 10,
                 "page": "papers.html"
               },
               {
@@ -225355,7 +225361,7 @@
                 "page": "paper-module-durable-agent-work-landing-replay.html"
               }
             ],
-            "total_occurrences": 282
+            "total_occurrences": 284
           },
           "visible_text_byte_count": 909
         },
@@ -226024,7 +226030,7 @@
                 "page": "paper-module-lean-proof-search-lab-runtime.html"
               }
             ],
-            "total_occurrences": 291
+            "total_occurrences": 290
           },
           "visible_text_byte_count": 913
         },
@@ -266290,7 +266296,7 @@
         "title": "Working with a coding agent"
       },
       {
-        "byte_count": 35695,
+        "byte_count": 35719,
         "content_refs": {
           "component_refs": [],
           "family_id": null
@@ -270813,7 +270819,7 @@
         "title": "Source & license"
       },
       {
-        "byte_count": 8849,
+        "byte_count": 9160,
         "content_refs": {
           "component_refs": [],
           "family_id": null

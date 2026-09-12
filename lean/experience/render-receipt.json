@@ -100,6 +100,11 @@
       },
       "erdos-257-mersenne-support-subseries": {
         "mathml": [
+          "[WARNING] Could not convert TeX math \\alpha_a={\\bf1}_A(a)/(b^{h(a)}-1), rendering as TeX:",
+          "\\alpha_a={\\bf1}_A(a)/(b^{h(a)}-1)",
+          "^",
+          "unexpected control sequence \\bf",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
           "[WARNING] Could not convert TeX math f_A(n)=\\sum_{a\\in A}{\\bf1}_{a\\mid n}, rendering as TeX:",
           ")=\\sum_{a\\in A}{\\bf1}_{a\\mid n}",
           "^",
@@ -123,6 +128,11 @@
         "mathml": [
           "[WARNING] Could not convert TeX math \\sum_{r\\ge1}b^{-r}{\\bf1}_{d\\mid Qm+r}, rendering as TeX:",
           "m_{r\\ge1}b^{-r}{\\bf1}_{d\\mid Qm+r}",
+          "^",
+          "unexpected control sequence \\bf",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+          "[WARNING] Could not convert TeX math \\alpha_a={\\bf1}_A(a)/(b^{h(a)}-1), rendering as TeX:",
+          "\\alpha_a={\\bf1}_A(a)/(b^{h(a)}-1)",
           "^",
           "unexpected control sequence \\bf",
           "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",

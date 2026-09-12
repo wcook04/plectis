@@ -45,16 +45,20 @@ u}}\Bigl(1-\tfrac1p\Bigr).\]</span></div>
 </div>
 <ol>
 <li><p> <span><span class="smallcaps">[unconditional
-progress]</span></span> <strong>Exact finite-level rank.</strong>
-Theorem <a class="math-ref" href="#thm:kkernelrank">1</a> is
-the coordinate statement: every totient <span
-class="math inline" data-term-auto="off">\(k\)</span>-kernel truncation has rank <span
-class="math inline" data-term-auto="off">\(k^e+1\)</span>. The dyadic case is the <a
+progress]</span></span> <strong>Exact finite-level rank.</strong> For
+integers <span class="math inline" data-term-auto="off">\(k\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(e\ge1\)</span>, Theorem <a class="math-ref" href="#thm:kkernelrank">1</a> proves ordinarily
+that the totient <span class="math inline" data-term-auto="off">\(k\)</span>-kernel
+truncation has rank <span class="math inline" data-term-auto="off">\(k^e+1\)</span>. The
+dyadic case is also the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1084">exact
-finite-truncation rank</a>; the all-base form is <a
+finite-truncation rank</a>; the current all-base Lean wrapper is <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L215">the
-same count from an independent family</a>, and is not a Lean theorem
-without Martin’s hypothesis.</p></li>
+same count from an independent family</a>, and retains linear
+independence of the canonical family as an explicit hypothesis. Martin’s
+theorem supplies that independence externally; the direct CRT–Dirichlet
+proof in Section <a class="math-ref" href="#sec:rank">1.1</a>
+proves precisely the family used here.</p></li>
 </ol>
 <p>The retained condition is <span class="math inline" data-term-auto="off">\(k\nmid
 r\)</span>. At <span class="math inline" data-term-auto="off">\(k=6\)</span>, for example,
@@ -374,7 +378,14 @@ gives</p>
 \end{equation}\]</span></div>
 <p>In particular a nonintegral tail difference is a
 precise arithmetic statement about <span
-class="math inline" data-term-auto="off">\(S\)</span>.</p>
+class="math inline" data-term-auto="off">\(S\)</span>. The complementary rationality
+consequence uses the same carry for both kinds of rigidity: the <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailCarryPeriod.lean#L224">same-carry
+rank and modular-period theorem</a> gives rank at least <span
+class="math inline" data-term-auto="off">\(2^e-1\)</span> at every depth and one common
+eventual period for all dyadic sections modulo a fixed positive
+multiplier. It supplies necessary structure under rationality, not a
+contradiction between the two properties.</p>
 <section id="one-seed-removes-the-full-depth-restriction"
 class="level3">
 <h3>One seed removes the full-depth restriction</h3>

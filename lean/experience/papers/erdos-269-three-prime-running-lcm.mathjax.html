@@ -142,21 +142,24 @@ problem.</p>
 <div class="corollary" id="res:admissible-modular-minors">
 <p><strong>Corollary 2</strong> (the same minors modulo every admissible
 denominator). <em> For <span
-class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the maps <span
-class="math inline" data-term-auto="off">\(I,J\)</span> in Theorem <a class="math-ref" href="#res:infinite-rank">1</a> can be chosen so
-that their minors are invertible over <span
-class="math inline" data-term-auto="off">\(\mathbb Z/B\mathbb Z\)</span> for every <span
+class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span> and every <span
+class="math inline" data-term-auto="off">\(n\ge1\)</span>, there are injective maps <span
+class="math inline" data-term-auto="off">\(I,J:\{0,\ldots,n-1\}\to\N\)</span>, chosen
+independently of <span class="math inline" data-term-auto="off">\(B\)</span> and <span
+class="math inline" data-term-auto="off">\(k\)</span>, such that for every <span
 class="math inline" data-term-auto="off">\(B\ge2\)</span> coprime to <span
 class="math inline" data-term-auto="off">\(30\)</span> and every <span
-class="math inline" data-term-auto="off">\(k\ge0\)</span>.</em></p>
+class="math inline" data-term-auto="off">\(k\ge0\)</span>, the selected <span
+class="math inline" data-term-auto="off">\(n\times n\)</span> kernel matrix has unit
+determinant over <span class="math inline" data-term-auto="off">\(\mathbb Z/B\mathbb
+Z\)</span>, with each reciprocal prime power interpreted by its modular
+inverse.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Every row and column factor is a unit modulo <span
-class="math inline" data-term-auto="off">\(B\)</span>. The normalised determinant is <span
-class="math inline" data-term-auto="off">\(5^{-1}(-4/5)^{n-1}\)</span>, also a unit. The
-choices of <span class="math inline" data-term-auto="off">\(I,J\)</span> are independent of
-both <span class="math inline" data-term-auto="off">\(B\)</span> and <span
-class="math inline" data-term-auto="off">\(k\)</span>. ◻</p>
+<p><em>Proof.</em> Choose the maps from Theorem <a class="math-ref" href="#res:infinite-rank">1</a>. Every row and
+column factor is a unit modulo <span class="math inline" data-term-auto="off">\(B\)</span>.
+The normalised determinant is <span
+class="math inline" data-term-auto="off">\(5^{-1}(-4/5)^{n-1}\)</span>, also a unit. ◻</p>
 </div>
 <p>The statement is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">admissible

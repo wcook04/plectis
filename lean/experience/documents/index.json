@@ -180,7 +180,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "d9d9cdbe4bc5493963c30e56ff766a9794a2d1ebebd2268d8bc4ad26da4de686",
+        "source_sha256": "74dfa77d377f73167a43007ca856516645871219f59287c6eae0a883af722deb",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
@@ -195,8 +195,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "e38389f9239230a773151c7f2332ab821b9e9adf8a0d6a3b95f7278a82a8d12c",
-        "html_exact_tex_sha256": "460e9a597ea8cad42af9a9403b80a13bc1621d2052b81dc5d896e6d34cd313b4"
+        "html_mathml_sha256": "ca0939405ed195871f5fd1a7e106a30390bc26c31ad2ce15a81cad4a63b979d9",
+        "html_exact_tex_sha256": "112021378caeedd4ad68c279e934fbd8d70e7e2995f86b88abd50e25318f21f0"
       },
       "sections": [
         {
@@ -323,7 +323,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "57a206e6909b919d0585e5732ef11fa1d76bd7f910b33999564545fc87847782",
+        "source_sha256": "80afb1575a0bed8822d0c91d6ccf590b440c607ee4cf0828ea07c493548e8f35",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
@@ -338,8 +338,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "b54c2be2bce9b0b966c715bb68b8f16cbf667dac33115c9973779d42dd2d933b",
-        "html_exact_tex_sha256": "f7558dfe11a0253957d0d58ec5c858eb87054a0691267e7dad5a5420b78156b5"
+        "html_mathml_sha256": "8bbf548b731bc2dc2e6128bea26693f96eb229329cd2258bd7ccc6691f97af8f",
+        "html_exact_tex_sha256": "4a7fdb2d5b6eb9308941834908a198c6cba6a3e0a521f6f58566dc0ba4897c0c"
       },
       "sections": [
         {

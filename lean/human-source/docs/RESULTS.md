@@ -29,8 +29,9 @@ forms of Problem 257. Lean checks the classical full-support theorem for every
 integer base `b ≥ 2`, a pairwise-coprime support theorem under explicit
 summability hypotheses, and irrationality for nonnegative rational
 eventually-periodic coefficients with a positive periodic tail. An ordinary
-averaging proof covers every infinite reciprocal-summable support; Erdős stated
-that coprimality-free extension without printing the proof. The achievement-set
+averaging proof gives a weaker weighted summability criterion that also covers
+some supports with divergent reciprocal sum. The reciprocal-summable corollary
+was stated by Erdős without a printed proof. The achievement-set
 development adds exact topological and measure statements. Universal Problem
 257, which quantifies over every infinite support, remains open.
 
@@ -136,10 +137,18 @@ summation-by-parts equivalence still proves neither the prime-gap series nor
 the original series irrational; a prime-specific sieve or tail bridge remains
 open.
 
-**[#257](https://www.erdosproblems.com/257).** For every infinite
-reciprocal-summable support, the Mersenne subseries is irrational at every
-integer base `b ≥ 2` (short paper §2; ordinary averaging argument, not
-Lean). Erdős stated that coprimality-free extension. Full-support
+**[#257](https://www.erdosproblems.com/257).** Fix a finite nonempty set of
+primes `P` and let `h(a)` be the largest divisor of `a` supported on `P`.
+For an infinite support `A` and an integer base `b ≥ 2`, finiteness of
+`∑_{a∈A} h(a)/(a(b^{h(a)}−1))` implies irrationality of
+`∑_{a∈A} 1/(b^a−1)`. The
+[long paper gives the complete ordinary proof](../paper/257/erdos257-mersenne-reasoning-surface.pdf):
+average the residues along multiples of increasingly divisible moduli, then
+choose a finite range of averaging lengths to control the error uniformly.
+This is not a Lean theorem. The short paper gives a shorter proof and an
+explicit support with divergent reciprocal sum satisfying the criterion.
+Every infinite reciprocal-summable support satisfies it, yielding the
+coprimality-free extension stated by Erdős. Full-support
 irrationality at every integer base is classical (Erdős 1948) and
 Lean-checked here, as are pairwise-coprime summable-reciprocal support and
 Lebesgue measure one for the base-2 achievement set. Irrationality for

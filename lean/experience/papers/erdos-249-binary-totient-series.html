@@ -57,17 +57,23 @@ then
 </div>
 <ol>
 <li><p> <span><span class="smallcaps">[unconditional
-progress]</span></span> <strong>Exact finite-level rank.</strong>
-Theorem  is the coordinate statement: every totient
+progress]</span></span> <strong>Exact finite-level rank.</strong> For
+integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>,
+Theorem  proves ordinarily that the totient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-kernel
 truncation has rank
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mi>e</mi></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k^e+1</annotation></semantics></math>.
-The dyadic case is the <a
+The dyadic case is also the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1084">exact
-finite-truncation rank</a>; the all-base form is <a
+finite-truncation rank</a>; the current all-base Lean wrapper is <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L215">the
-same count from an independent family</a>, and is not a Lean theorem
-without Martin’s hypothesis.</p></li>
+same count from an independent family</a>, and retains linear
+independence of the canonical family as an explicit hypothesis. Martin’s
+theorem supplies that independence externally; the direct CRT–Dirichlet
+proof in Section  proves precisely the family used here.</p></li>
 </ol>
 <p>The retained condition is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>∤</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">k\nmid r</annotation></semantics></math>.
@@ -477,7 +483,15 @@ gives
  \Delta_h(N)\equiv2^N(2^h-1)S\pmod\mathbb{Z}.
 \end{equation}</annotation></semantics></math> In particular a
 nonintegral tail difference is a precise arithmetic statement about
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
+The complementary rationality consequence uses the same carry for both
+kinds of rigidity: the <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailCarryPeriod.lean#L224">same-carry
+rank and modular-period theorem</a> gives rank at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e-1</annotation></semantics></math>
+at every depth and one common eventual period for all dyadic sections
+modulo a fixed positive multiplier. It supplies necessary structure
+under rationality, not a contradiction between the two properties.</p>
 <section id="one-seed-removes-the-full-depth-restriction"
 class="level3">
 <h3>One seed removes the full-depth restriction</h3>

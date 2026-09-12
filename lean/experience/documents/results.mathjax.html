@@ -33,11 +33,12 @@ restricted forms of Problem 257. Lean checks the classical full-support
 theorem for every integer base <code>b ≥ 2</code>, a pairwise-coprime
 support theorem under explicit summability hypotheses, and irrationality
 for nonnegative rational eventually-periodic coefficients with a
-positive periodic tail. An ordinary averaging proof covers every
-infinite reciprocal-summable support; Erdős stated that coprimality-free
-extension without printing the proof. The achievement-set development
-adds exact topological and measure statements. Universal Problem 257,
-which quantifies over every infinite support, remains open.</p>
+positive periodic tail. An ordinary averaging proof gives a weaker
+weighted summability criterion that also covers some supports with
+divergent reciprocal sum. The reciprocal-summable corollary was stated
+by Erdős without a printed proof. The achievement-set development adds
+exact topological and measure statements. Universal Problem 257, which
+quantifies over every infinite support, remains open.</p>
 <p>Problem 249 contains the deepest collection of endpoint-facing
 mechanisms but no endpoint proof. Under hypothetical rationality, Lean
 constructs one tempered integral carry whose dyadic sections are
@@ -152,11 +153,20 @@ irrationality. The exact prime-gap summation-by-parts equivalence still
 proves neither the prime-gap series nor the original series irrational;
 a prime-specific sieve or tail bridge remains open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/257">#257</a>.</strong> For every
-infinite reciprocal-summable support, the Mersenne subseries is
-irrational at every integer base <code>b ≥ 2</code> (short paper §2;
-ordinary averaging argument, not Lean). Erdős stated that
-coprimality-free extension. Full-support irrationality at every integer
+href="https://www.erdosproblems.com/257">#257</a>.</strong> Fix a finite
+nonempty set of primes <code>P</code> and let <code>h(a)</code> be the
+largest divisor of <code>a</code> supported on <code>P</code>. For an
+infinite support <code>A</code> and an integer base <code>b ≥ 2</code>,
+finiteness of <code>∑_{a∈A} h(a)/(a(b^{h(a)}−1))</code> implies
+irrationality of <code>∑_{a∈A} 1/(b^a−1)</code>. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf">long paper
+gives the complete ordinary proof</a>: average the residues along
+multiples of increasingly divisible moduli, then choose a finite range
+of averaging lengths to control the error uniformly. This is not a Lean
+theorem. The short paper gives a shorter proof and an explicit support
+with divergent reciprocal sum satisfying the criterion. Every infinite
+reciprocal-summable support satisfies it, yielding the coprimality-free
+extension stated by Erdős. Full-support irrationality at every integer
 base is classical (Erdős 1948) and Lean-checked here, as are
 pairwise-coprime summable-reciprocal support and Lebesgue measure one
 for the base-2 achievement set. Irrationality for every infinite support

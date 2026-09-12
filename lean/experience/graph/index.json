@@ -1214,7 +1214,7 @@
     {
       "id": "paper:erdos-257-mersenne-support-subseries",
       "kind": "paper",
-      "label": "Reciprocal-Summable Support Irrationality at Every Integer Base",
+      "label": "Weighted Support Criteria for Reciprocal Mersenne Subseries",
       "subject": "Erdős #257",
       "form": "Problem note",
       "href": "papers/erdos-257-mersenne-support-subseries.json",

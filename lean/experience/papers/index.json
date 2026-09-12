@@ -1057,17 +1057,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "939e1053596e504bcead7dcd54e3f376754805314f8c3ac8907c8c547ec70a85",
+        "source_sha256": "9c42e5e921756f43997617bcdce4b4e6a41459e0230c67ce592d6e4563e78851",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 320,
+        "mathml_node_count": 323,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "28cc9283ca61d512da5a09b50a5143abca56dc0ce9e3728939f6812c23d7ba24",
-        "html_exact_tex_sha256": "f49d11de7aee67c9d707e8270912172476858c5a28d7bd0217d9676160176b3a"
+        "html_mathml_sha256": "4249e86d37e1dd6d39dd7006c7049e5f930a4294ed815da6e1e195b95b968767",
+        "html_exact_tex_sha256": "e132b3bdb2ceb1017345f3b7d5e3084456e150bfb7da208fb1d5cc7c0eda8ee1"
       },
       "sections": [
         {
@@ -2060,7 +2060,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "7c111262eefe587f2e1180a819f096e9c7e54aadcf1c9ecd00f9195ed79b6574",
+        "source_sha256": "c25ddd085af7824240c22ffffe690e91917032a4ffe1f82432c0ba27ad6465d7",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 517,
@@ -2082,8 +2082,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "f93574bfca3b44926e6e944f7c2926f24be566a3616df4c57a9de33c6304784b",
-        "html_exact_tex_sha256": "13499a1fe999759a284eb3818a694cdb09cd94f79635732025603b8cfa497c37"
+        "html_mathml_sha256": "df7add32dfc568b6d45bf134a4cf40d3dae8d51aa534c2e829ad6fd76c00aa85",
+        "html_exact_tex_sha256": "c972bd060e1e5471f97363b772ba39d6c46eac332f3b3d39a7514b1b257e324f"
       },
       "sections": [
         {
@@ -2275,10 +2275,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "4e2e98ab3bc00bf46d0094f10bff165733baae0f87930fc3110de4136e94b4c4",
+        "source_sha256": "09b7a81e2abe7dea9393920f5ec53e5512ffbb50bcc0dec6e9c157957c786fb6",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1057,
+        "mathml_node_count": 1074,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -2292,8 +2292,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "8b6dc46a20a1c54ab40e4e04aa15fccf6ea50a30406d1677c3cc519fcc63bf32",
-        "html_exact_tex_sha256": "468ae7a274084746c3c0710477d98d0561f0b7531eff1faaef0061c3cb03749d"
+        "html_mathml_sha256": "2718acdf1bdfde916a9a8a30d8681b32cf4042a7809d151a8d04d7435d40241a",
+        "html_exact_tex_sha256": "807550c766c178c438859df998e52ecc2cd316c2bcd6a2959d4ae7f9943f468c"
       },
       "sections": [
         {
@@ -2587,14 +2587,14 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-257-mersenne-support-subseries",
-      "title": "Reciprocal-Summable Support Irrationality at Every Integer Base",
+      "title": "Weighted Support Criteria for Reciprocal Mersenne Subseries",
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 15,
+      "pages": 16,
       "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
-      "precis": "The paper gives a complete ordinary proof that every infinite support A with ∑_{a∈A}1/a finite has an irrational reciprocal subseries at every integer base b≥2. It separately proves a finite common-scale estimate and a strengthened positive-cover criterion. The finite-prime weighted and mixed criteria are explicitly unassessed claims in this accepted release. Exact finite periods and the greedy return inequality delimit the remaining arithmetic problem. Universal Erdős #257 remains open.",
-      "owns": "problem-specific mathematical exposition for Erdős #257: the coprimality-free reciprocal-summable all-base theorem and its ordinary proof, finite common-scale and strengthened positive-cover results, exact finite periods, method limits, and the open half-value edge",
+      "precis": "Fix a finite nonempty prime set P and put h(a)=∏_{p∈P}p^{v_p(a)}. If an infinite support A has ∑_{a∈A}h(a)/(a(2^{h(a)}−1)) finite, its reciprocal Mersenne subseries is irrational at every integer base b≥2, as is the subseries on every infinite subset of A. The paper prints a complete ordinary proof and a host with divergent reciprocal sum, so the criterion is strictly weaker than reciprocal summability. These are ordinary results, not Lean theorems, and no priority claim is made. Universal Erdős #257 remains open.",
+      "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion and its ordinary proof, exact finite periods, settled support families, method limits, and the open half-value edge",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
       "problem_id": "erdos_257",
       "routes": {
@@ -2615,13 +2615,18 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "0ef2f12ed1bf4bdf38e4f742fe9b1f5cf3681d16bf53d48977647bdc2034c295",
+        "source_sha256": "0774a3b33e26faedcb366f2c9610b724dd8894b60f353e5f56666caf9ed4d02f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 356,
-        "raw_math_fallback_count": 3,
+        "mathml_node_count": 409,
+        "raw_math_fallback_count": 4,
         "warnings": {
           "mathml": [
+            "[WARNING] Could not convert TeX math \\alpha_a={\\bf1}_A(a)/(b^{h(a)}-1), rendering as TeX:",
+            "\\alpha_a={\\bf1}_A(a)/(b^{h(a)}-1)",
+            "^",
+            "unexpected control sequence \\bf",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
             "[WARNING] Could not convert TeX math f_A(n)=\\sum_{a\\in A}{\\bf1}_{a\\mid n}, rendering as TeX:",
             ")=\\sum_{a\\in A}{\\bf1}_{a\\mid n}",
             "^",
@@ -2641,8 +2646,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "a0cb949ad26ca36dd41279c2905108fab601e476d376f85607a95b132de14d5f",
-        "html_exact_tex_sha256": "c31f87497e07b95b4bd386eede9d1d29745f35dd22a8a19229b4f73ee8cfa595"
+        "html_mathml_sha256": "d092c2e1a3a5b1a1d95fb8ab5e58bd8a47f3b074fafbb6f9e58ddcc1537add71",
+        "html_exact_tex_sha256": "5f363f364f3919ad0dc18d40b70791f19fdbd3930ba30800790aa52ff5b01736"
       },
       "sections": [
         {
@@ -2662,8 +2667,8 @@
         },
         {
           "level": 3,
-          "anchor": "claimed-weighted-criterion-unassessed-here",
-          "label": "Claimed weighted criterion (unassessed here)"
+          "anchor": "finite-prime-part-weighted-mass",
+          "label": "Finite prime-part weighted mass"
         },
         {
           "level": 3,
@@ -2775,9 +2780,9 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 113,
+      "pages": 116,
       "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
-      "precis": "The record prints the complete ordinary proof of the coprimality-free reciprocal-summable support theorem at every integer base; that proof is not formalised in Lean. It also retains finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
+      "precis": "The record prints the complete ordinary proof of the finite-prime weighted support criterion, including all-base hereditary irrationality and a reciprocal-divergent host; that proof is not formalised in Lean. It also retains finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, whose universal and half-value questions remain open",
       "problem_id": "erdos_257",
@@ -2799,15 +2804,20 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "36d22372ae062f79585fc98e3f39d2958a6d80a114c4e014f200d17b2061a14f",
+        "source_sha256": "b23e469b99c5b8303a61c9267a522df29f897ec850463e4e91d70d1ce3bbc43b",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 3023,
-        "raw_math_fallback_count": 2,
+        "mathml_node_count": 3163,
+        "raw_math_fallback_count": 3,
         "warnings": {
           "mathml": [
             "[WARNING] Could not convert TeX math \\sum_{r\\ge1}b^{-r}{\\bf1}_{d\\mid Qm+r}, rendering as TeX:",
             "m_{r\\ge1}b^{-r}{\\bf1}_{d\\mid Qm+r}",
+            "^",
+            "unexpected control sequence \\bf",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\alpha_a={\\bf1}_A(a)/(b^{h(a)}-1), rendering as TeX:",
+            "\\alpha_a={\\bf1}_A(a)/(b^{h(a)}-1)",
             "^",
             "unexpected control sequence \\bf",
             "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
@@ -2819,8 +2829,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "4006e9012cb666d07e36509116ff8dbad6606fb6241bca57d57a00166493338d",
-        "html_exact_tex_sha256": "ffd9106e062860b58caa950e71ab7b2d2387e8dd366d33178dbede96443352be"
+        "html_mathml_sha256": "109f9d271b2135c188a27be40ec668c66926269225aebb3c60b18b5ee44f3f53",
+        "html_exact_tex_sha256": "6b183e96c9c9d5378f9d08c06cdac32deac2811fb3db0e3f84b834708d990d3b"
       },
       "sections": [
         {
@@ -2837,6 +2847,21 @@
           "level": 3,
           "anchor": "reciprocal-summable-supports",
           "label": "Reciprocal-summable supports"
+        },
+        {
+          "level": 3,
+          "anchor": "finite-prime-part-weighted-mass",
+          "label": "Finite prime-part weighted mass"
+        },
+        {
+          "level": 5,
+          "anchor": "evidence-boundary.",
+          "label": "Evidence boundary."
+        },
+        {
+          "level": 5,
+          "anchor": "why-the-hypothesis-is-strictly-weaker-than-reciprocal-summability.",
+          "label": "Why the hypothesis is strictly weaker than reciprocal summability."
         },
         {
           "level": 3,
@@ -3858,17 +3883,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "76f02465b4fffeddc6dee8319e694cd95a419f7ecaa3591355e2df683bada248",
+        "source_sha256": "fb754c767caf747cde71f0319b053b7d0de0265d6e2ae939ebc9332c0ae8064d",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 282,
+        "mathml_node_count": 283,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "d97d7698347999d24bfecb66e22c695d8d5b5f29af177f68fe4eab995398f2e9",
-        "html_exact_tex_sha256": "08fef93268482dd6294770d06eb5667e5035c4b07b294dff9a4b264013cfed27"
+        "html_mathml_sha256": "a12d48f3bc2463edff56035e48a0d9e592921a70a5c534fce58a23caa37a5fda",
+        "html_exact_tex_sha256": "0080738be7f2e2bc54cb607d63a7c266432ebe90e3d7f8630129e16c71eac3a4"
       },
       "sections": [
         {
@@ -4005,7 +4030,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "350fc26605531fbe8742b967b5c49376b6ee0f836d40d468ca290138245ea338",
+        "source_sha256": "04315e411b12b356cff8967bc9e7077390635790905f83af455204e0c96db9f0",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 571,
@@ -4237,7 +4262,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "d6ae93695c3877ab58cf3657a31bc0f5f586ee66e1436e5d0250e936639a7b85",
+        "source_sha256": "883d132d72acc361fe23233e3a52d1ca800271edb3c9eb4d608bf4593d7a7211",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1260,
@@ -4264,8 +4289,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "72470afc7b9579ed0842d174ef482791f0c85fbf2d7b32369d7a00a641c757fb",
-        "html_exact_tex_sha256": "2732bd324fdfbf870e3a7e5201d5f59dbfbcb45b6849ae5df295e7f6a40c31e6"
+        "html_mathml_sha256": "c9b746f354ab3505be0363ca4f2e51eb4ff13f38c1913458390242a5b05792da",
+        "html_exact_tex_sha256": "ff2e53ef223e893d39f2200f21b8fc2b58996a23ee787494de767abe4629feb4"
       },
       "sections": [
         {
