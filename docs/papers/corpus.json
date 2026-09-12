@@ -5949,7 +5949,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/claim-faithful-publication-systems-paper.md",
       "local_source": "docs/papers/mirror/claim-faithful-publication-systems-paper.tex",
-      "source_sha256": "sha256:378595461cbcf3738da3ff1f793543ec32befd874bc033536e880f891fe8af19",
+      "source_sha256": "sha256:65e0568a4e9bf919a0ab2ab8fb244fc8e1cadf04d1193ac68e763c6a48d0b8de",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/claim-faithful-publication-systems-paper.tex",
@@ -6134,110 +6134,110 @@
           "level": 1,
           "id": "sec:example",
           "title": "One complete boundary: finite is not unbounded",
-          "line": 386
+          "line": 390
         },
         {
           "level": 1,
           "id": "sec:routes",
           "title": "Inspection routes",
-          "line": 421
+          "line": 425
         },
         {
           "level": 1,
           "id": "sec:trust",
           "title": "What can be trusted",
-          "line": 445
+          "line": 449
         },
         {
           "level": 1,
           "id": "sec:scaling",
           "title": "Scaling from one clone to a search network",
-          "line": 484
+          "line": 488
         },
         {
           "level": 2,
           "id": "clone-attach-compute-and-mine-bounded-results",
           "title": "Clone, attach compute, and mine bounded results",
-          "line": 492
+          "line": 496
         },
         {
           "level": 2,
           "id": "the-no-go-graph-as-a-new-mathematical-object",
           "title": "The no-go graph as a new mathematical object",
-          "line": 520
+          "line": 524
         },
         {
           "level": 2,
           "id": "an-experimental-agenda",
           "title": "An experimental agenda",
-          "line": 530
+          "line": 534
         },
         {
           "level": 1,
           "id": "sec:related",
           "title": "Relation to other approaches",
-          "line": 536
+          "line": 540
         },
         {
           "level": 4,
           "id": "theorem-proving-agents.",
           "title": "Theorem-proving agents.",
-          "line": 540
+          "line": 544
         },
         {
           "level": 4,
           "id": "graphs-and-checked-exposition.",
           "title": "Graphs and checked exposition.",
-          "line": 546
+          "line": 550
         },
         {
           "level": 4,
           "id": "auditable-scientific-agents.",
           "title": "Auditable scientific agents.",
-          "line": 556
+          "line": 560
         },
         {
           "level": 4,
           "id": "contribution-and-limits.",
           "title": "Contribution and limits.",
-          "line": 564
+          "line": 568
         },
         {
           "level": 4,
           "id": "scaling-beyond-this-corpus.",
           "title": "Scaling beyond this corpus.",
-          "line": 570
+          "line": 574
         },
         {
           "level": 1,
           "id": "sec:conclusion",
           "title": "Conclusion",
-          "line": 576
+          "line": 580
         },
         {
           "level": 1,
           "id": "app:repro",
           "title": "Reproducibility",
-          "line": 588
+          "line": 592
         },
         {
           "level": 4,
           "id": "public-first-contact.",
           "title": "Public first contact.",
-          "line": 592
+          "line": 596
         },
         {
           "level": 4,
           "id": "source-versions-and-coverage.",
           "title": "Source versions and coverage.",
-          "line": 603
+          "line": 607
         }
       ],
-      "citations_rendered": 17,
+      "citations_rendered": 18,
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/claim-faithful-publication-systems-paper.pdf",
-      "pdf_sha256": "sha256:cc586ac1cddec64ececc118f73948e5af7bbd52435ac8822760fa4ba13ab1c3e",
-      "pdf_byte_count": 148340,
+      "pdf_sha256": "sha256:f9b42369c2711eff28ae90c64867d15b115b5038309a7bef703fd385d05b9025",
+      "pdf_byte_count": 149236,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",
@@ -6255,12 +6255,12 @@
           {
             "id": "sec:routes",
             "title": "Inspection routes",
-            "line": 421
+            "line": 425
           },
           {
             "id": "sec:trust",
             "title": "What can be trusted",
-            "line": 445
+            "line": 449
           }
         ],
         "unresolved_count": 0
@@ -6506,7 +6506,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/open-source-mathematics-strategy.md",
       "local_source": "docs/papers/mirror/open-source-mathematics-strategy.tex",
-      "source_sha256": "sha256:db9866b5319f42d35768a74652dd7365a7af033a851a40cf3ad5cc293cd82163",
+      "source_sha256": "sha256:11dab7fa4e76fd7642a961fec474e3587308e65681904fe639f1aa70329af2b2",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex",
@@ -6631,74 +6631,74 @@
           "level": 1,
           "id": "sec:add-problem",
           "title": "Adding another problem world",
-          "line": 344
+          "line": 346
         },
         {
           "level": 1,
           "id": "sec:growth",
           "title": "Participation and growth",
-          "line": 362
+          "line": 364
         },
         {
           "level": 1,
           "id": "sec:evaluation",
           "title": "Evaluation",
-          "line": 384
+          "line": 386
         },
         {
           "level": 1,
           "id": "sec:learning",
           "title": "Learning from every run",
-          "line": 418
+          "line": 420
         },
         {
           "level": 2,
           "id": "sec:local-to-general",
           "title": "The local-to-general track",
-          "line": 460
+          "line": 462
         },
         {
           "level": 1,
           "id": "sec:science",
           "title": "A bounded transfer hypothesis beyond mathematics",
-          "line": 495
+          "line": 497
         },
         {
           "level": 1,
           "id": "sec:limits",
           "title": "Limits and governance",
-          "line": 505
+          "line": 507
         },
         {
           "level": 1,
           "id": "sec:execution",
           "title": "Execution order",
-          "line": 529
+          "line": 531
         },
         {
           "level": 1,
           "id": "sec:conclusion",
           "title": "Conclusion",
-          "line": 551
+          "line": 553
         },
         {
           "level": 1,
           "id": "app:routes",
           "title": "Public entry routes",
-          "line": 561
+          "line": 563
         },
         {
           "level": 1,
           "id": "declaration-of-generative-ai-use",
           "title": "Declaration of generative AI use",
-          "line": 595
+          "line": 597
         }
       ],
-      "citations_rendered": 23,
+      "citations_rendered": 24,
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/open-source-mathematics-strategy.pdf",
-      "pdf_sha256": "sha256:1c194f74a6c4372a448d574864e846adfa1895267a54a2decf66b6dc8e054882",
-      "pdf_byte_count": 136364,
+      "pdf_sha256": "sha256:05f7e56059bc1f2bfe681d292c7e59226c03ac3b98fd2166e7cff9d7d7224f39",
+      "pdf_byte_count": 137297,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",
@@ -6731,12 +6731,12 @@
           {
             "id": "sec:growth",
             "title": "Participation and growth",
-            "line": 362
+            "line": 364
           },
           {
             "id": "sec:limits",
             "title": "Limits and governance",
-            "line": 505
+            "line": 507
           }
         ],
         "unresolved_count": 0
