@@ -168,6 +168,28 @@ def test_refresh_preserves_surrounding_prose_and_uses_literal_limits(
     assert path.read_text(encoding="utf-8") == refreshed
 
 
+@pytest.mark.parametrize("ending", ["", "\n"])
+def test_companion_block_scanner_handles_whitespace_and_eof(ending: str) -> None:
+    prefix = "Authored introduction.\n\n"
+    whitespace = "\t\t\n" * 4_000
+    first_bullet = "- [**Browse the Lean source**](source)\n" + whitespace
+    release_bullet = "- [**Release v1.0.0**](release)\n  Release description."
+    readme = prefix + first_bullet + release_bullet + ending
+    assert companion._replace_readme_companion_block(readme, "New block") == (
+        prefix + "New block" + ending
+    )
+    suffix = "\n## Authored next section\n\n  Keep this indentation.\n"
+    assert companion._replace_readme_companion_block(
+        prefix + first_bullet + release_bullet + "\n" + suffix, "New block",
+    ) == prefix + "New block\n" + suffix
+    # The old ambiguous regex backtracked on repeated tab-only lines when
+    # the required release bullet did not follow them.
+    with pytest.raises(ValueError, match="release bullet is missing"):
+        companion._replace_readme_companion_block(
+            prefix + first_bullet + "## A different section\n", "New block",
+        )
+
+
 def test_blocks_stale_companion_problem_count_in_the_agent_entry(
     tmp_path: Path,
 ) -> None:
