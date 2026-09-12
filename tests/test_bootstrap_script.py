@@ -39,7 +39,7 @@ def test_bootstrap_help_is_no_side_effect_public_entry() -> None:
     assert "--version" in result.stdout
     assert "first-wave" in result.stdout
     assert ".microcosm/cold_clone_probe.json" in result.stdout
-    assert "Microcosm cold-clone probe passed" in result.stdout
+    assert "Plectis cold-clone probe passed" in result.stdout
     assert "receipt: <receipt path>" in result.stdout
     assert "check: make smoke (source-only)" in result.stdout
     assert "next: README.md#choose-a-route" in result.stdout
@@ -67,7 +67,7 @@ def test_bootstrap_argument_errors_preserve_usage_boundary() -> None:
     assert unknown_suite.returncode == 2
     assert "unknown suite: missing-suite" in unknown_suite.stderr
     assert "supported suites: first-wave" in unknown_suite.stderr
-    assert "Microcosm cold-clone probe passed" not in unknown_suite.stdout
+    assert "Plectis cold-clone probe passed" not in unknown_suite.stdout
 
 
 def test_bootstrap_version_is_no_side_effect_public_entry() -> None:
@@ -76,7 +76,7 @@ def test_bootstrap_version_is_no_side_effect_public_entry() -> None:
     result = _run_bootstrap("--version")
 
     assert result.returncode == 0
-    assert result.stdout.strip() == f"microcosm {pyproject['project']['version']}"
+    assert result.stdout.strip() == f"plectis {pyproject['project']['version']}"
     assert result.stderr == ""
 
 
@@ -108,7 +108,7 @@ def test_bootstrap_dry_run_reports_command_without_running_probe(tmp_path: Path)
     assert result.returncode == 0
     assert result.stderr == ""
     assert result.stdout.splitlines() == [
-        "Microcosm cold-clone probe dry run",
+        "Plectis cold-clone probe dry run",
         "suite: first-wave",
         f"receipt: {receipt}",
         f"python: {fake_python}",
@@ -142,7 +142,7 @@ def test_bootstrap_custom_emit_writes_bound_probe_receipt(tmp_path: Path) -> Non
     assert result.returncode == 0
     assert result.stderr == ""
     assert result.stdout.splitlines() == [
-        "Microcosm cold-clone probe passed",
+        "Plectis cold-clone probe passed",
         "suite: first-wave",
         f"receipt: {receipt}",
         "check: make smoke (source-only)",
@@ -185,7 +185,7 @@ def test_bootstrap_honors_microcosm_python_override(tmp_path: Path) -> None:
     assert result.returncode == 0
     assert result.stderr == ""
     assert result.stdout.splitlines() == [
-        "Microcosm cold-clone probe passed",
+        "Plectis cold-clone probe passed",
         "suite: first-wave",
         "receipt: receipts/cold_clone_probe_test.json",
         "check: make smoke (source-only)",
@@ -220,7 +220,7 @@ def test_bootstrap_default_emit_uses_ignored_local_state(tmp_path: Path) -> None
     assert result.returncode == 0
     assert result.stderr == ""
     assert result.stdout.splitlines() == [
-        "Microcosm cold-clone probe passed",
+        "Plectis cold-clone probe passed",
         "suite: first-wave",
         "receipt: .microcosm/cold_clone_probe.json",
         "check: make smoke (source-only)",
