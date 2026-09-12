@@ -37,11 +37,11 @@ the guide also lists the other papers, with local PDFs and searchable text.
 If a paper’s Markdown copy is marked stale, open the current source or PDF
 linked in its catalogue entry.
 [Paper source and build instructions](../paper/README.md) give the commands for
-comparing manuscript assertions with repository data and compiling the PDF.
+comparing manuscript text with its recorded evidence and compiling the PDF.
 
 [Hypothesis handoffs](../HYPOTHESIS_HANDOFF.md) explain a further use: writing
-down an open question, the alternatives and the evidence that would distinguish
-them so an expert has a concrete request to answer. For other projects and
+down an open question, a tentative answer, alternatives and proposed
+observations or experiments to discuss with an expert. For other projects and
 walkthroughs, see [all public work](https://wcook04.github.io/).
 
 ## Contribute and maintain
@@ -51,8 +51,8 @@ review. The runbooks answer narrower questions:
 
 - [Validation](maintainers/validation.md): run example commands and automated
   tests, compare generated files with their source data, or produce a standalone export.
-- [Security](maintainers/security-runbook.md): scan for secrets and private
-  material, inspect the permitted operations, and report a security issue.
+- [Security](maintainers/security-runbook.md): search selected text files for
+  the policy's listed tokens, read recorded permission fields, and report a security issue.
 - [CLI decomposition plan](maintainers/cli-decomposition.md): the proposed split
   of the command module, for contributors working on that code.
 - [Root migration plan](maintainers/root-migration-plan.md): dependencies to
@@ -76,7 +76,7 @@ and incoming links, so they remain at those paths:
 | [Architecture](../ARCHITECTURE.md) | Trace the shared runtime and the complete component relationships. |
 | [Component map](../ORGANS.md) | Find a component's Python program, prepared inputs and saved results. |
 | [Agent task routes](../AGENT_ROUTES.md) | Find commands and implementation files for a coding task. |
-| [First action examples](../FIRST_ACTION.md) | See how a goal becomes a concrete first command. |
+| [Find a component command](../FIRST_ACTION.md) | Match words in a task description to a suggested command, then run that command separately. |
 | [Release review](../RELEASE_REVIEW.md) | Reproduce the candidate's example runs, file comparisons and installation tests. |
 
 Agent instructions: [first files and commands to use](../AGENTS.override.md)
