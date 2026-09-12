@@ -59,7 +59,7 @@ PYTHON_TOOL_CLASSIFIED_EXCEPTIONS = {
     name: "docs/maintainers/root-migration-plan.md"
     for name in (
         "AGENT_ROUTES.md", "ANTI_PRINCIPLES.md", "ARCHITECTURE.md", "AXIOMS.md",
-        "CODEX.md", "CONSTITUTION.md", "CURSOR.md", "FIRST_ACTION.md",
+        "CONSTITUTION.md", "FIRST_ACTION.md",
         "ORGANS.md", "PRINCIPLES.md", "PROVENANCE.md", "RELEASE_DISCIPLINE.md",
         "RELEASE_REVIEW.md", "SOURCE_STATUS.md",
     )

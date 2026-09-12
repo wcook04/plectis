@@ -65,8 +65,6 @@ def test_agents_size_is_ratcheted_down_not_up() -> None:
 def test_provider_adapters_stay_boot_sector_thin() -> None:
     for name in (
         "CLAUDE.md",
-        "CODEX.md",
-        "CURSOR.md",
         "GEMINI.md",
         ".github/copilot-instructions.md",
     ):

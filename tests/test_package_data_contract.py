@@ -186,8 +186,6 @@ def test_source_distribution_manifest_keeps_public_repo_entry_surface() -> None:
         "include AGENT_ROUTES.md",
         "include CLAUDE.md",
         "include CONTRIBUTING.md",
-        "include CODEX.md",
-        "include CURSOR.md",
         "include FIRST_ACTION.md",
         "include GEMINI.md",
         "include HYPOTHESIS_HANDOFF.md",
@@ -236,8 +234,6 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "CLAUDE.md",
         "CONSTITUTION.md",
         "CONTRIBUTING.md",
-        "CODEX.md",
-        "CURSOR.md",
         "FIRST_ACTION.md",
         "GEMINI.md",
         "HYPOTHESIS_HANDOFF.md",
@@ -356,8 +352,6 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
 def test_provider_adapter_files_stay_thin_and_route_to_canonical_agent_contract() -> None:
     for name in (
         "CLAUDE.md",
-        "CODEX.md",
-        "CURSOR.md",
         "GEMINI.md",
         ".github/copilot-instructions.md",
     ):
