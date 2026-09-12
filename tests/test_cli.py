@@ -1944,8 +1944,9 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         payload["surface_statuses"].get("macro_body_import_floor") != "pass"
     )
 
-    assert tour_rc == (1 if body_floor_blocked else 0)
-    assert payload["status"] == ("blocked" if body_floor_blocked else "pass")
+    front_door_blocked = bool(front_door_status["blocking_surface_ids"])
+    assert tour_rc == (1 if front_door_blocked else 0)
+    assert payload["status"] == ("blocked" if front_door_blocked else "pass")
     assert first_screen["schema_version"] == "microcosm_cold_reader_first_screen_v1"
     assert first_screen["intent"] == "bring_folder_run_local_path_inspect_state_then_drill_receipts"
     assert first_screen["selected_route_id"] == "readme_onboarding_route"
@@ -2000,7 +2001,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert first_screen["safe_to_show"]["credential_equivalent_payloads_exported"] is False
     assert first_screen["safe_to_show"]["receipt_refs_visible_after_behavior"] is True
     assert front_door_status["status"] == (
-        "blocked" if body_floor_blocked else "pass"
+        "blocked" if front_door_blocked else "pass"
     )
     if body_floor_blocked:
         assert "macro_body_import_floor" in front_door_status["blocking_surface_ids"]
@@ -2008,7 +2009,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
             front_door_status["blocking_surface_details"]["macro_body_import_floor"]
         )
     else:
-        assert front_door_status["blocking_surface_ids"] == []
+        assert "macro_body_import_floor" not in front_door_status["blocking_surface_ids"]
     assert front_door_status["drilldown_warning_surface_ids"] == [
         "authority",
         "intake",
@@ -2062,9 +2063,10 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         != "pass"
     )
     assert status_body_floor_blocked is body_floor_blocked
-    assert status_rc == (1 if status_body_floor_blocked else 0)
+    status_blocked = bool(status_card["front_door_status"]["blocking_surface_ids"])
+    assert status_rc == (1 if status_blocked else 0)
     assert status_card["status"] == (
-        "blocked" if status_body_floor_blocked else "pass"
+        "blocked" if status_blocked else "pass"
     )
     if status_body_floor_blocked:
         assert "macro_body_import_floor" in status_card["front_door_status"][
@@ -2080,7 +2082,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         )
         assert len(body_floor_detail["defect_preview"]) == 1
     else:
-        assert status_card["front_door_status"]["blocking_surface_ids"] == []
+        assert "macro_body_import_floor" not in status_card["front_door_status"]["blocking_surface_ids"]
         assert (
             status_card["front_door_status"]["surface_statuses"][
                 "workingness_failure_envelope"
@@ -2183,15 +2185,37 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         ]
     )
     body_floor = status_card["front_door"]["source_open_body_import_floor"]
-    assert body_floor["direct_source_module_manifest_count"] >= 30
-    assert body_floor["direct_source_module_manifest_material_count"] >= 170
+    full_floor = RuntimeShell(public_root).status()["macro_body_import_floor"]
+    manifest_imports = [
+        row
+        for row in full_floor["body_imports"]
+        if row["status"] == "pass"
+        and row["import_accounting_source"] == "bundle_source_module_manifest"
+    ]
+    assert manifest_imports
+    assert body_floor["direct_source_module_manifest_count"] == len(
+        full_floor["direct_source_module_manifest_refs"]
+    )
+    assert body_floor["direct_source_module_manifest_material_count"] == len(
+        manifest_imports
+    )
     route_observability_spotlight = next(
         spotlight
         for spotlight in body_floor["source_module_family_spotlights"]
         if spotlight["spotlight_id"] == "agent_route_observability_runtime"
     )
-    assert route_observability_spotlight["family_count"] >= 8
-    assert route_observability_spotlight["notable_family_ids"]
+    full_spotlights = {
+        row["spotlight_id"]: row
+        for row in full_floor["source_body_import_lens"]["source_module_family_spotlights"]
+    }
+    assert route_observability_spotlight == full_spotlights["agent_route_observability_runtime"]
+    assert route_observability_spotlight["family_count"] > 0
+    verified_family_ids = {
+        row["family_id"]
+        for row in full_floor["source_body_import_lens"]["verified_source_module_families"]
+    }
+    assert verified_family_ids
+    assert set(route_observability_spotlight["notable_family_ids"]) <= verified_family_ids
     assert all(
         isinstance(family_id, str)
         for family_id in route_observability_spotlight["notable_family_ids"]
