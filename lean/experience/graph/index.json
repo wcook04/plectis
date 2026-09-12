@@ -1409,7 +1409,7 @@
     {
       "id": "review-family:erdos_1041:newton_value_decay",
       "kind": "comparator_review_family",
-      "label": "The Newton value equation and its exponential first integral are checked exactly.",
+      "label": "Lean checks the local Newton value equation and the zero-derivative form of its exponentially scaled value; constancy along a real-time interval is an ordinary calculus consequence in the paper.",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -1421,7 +1421,7 @@
     {
       "id": "review-family:erdos_1041:ray_separation",
       "kind": "comparator_review_family",
-      "label": "Distinct positive rays exclude a finite Newton connection.",
+      "label": "Lean checks that distinct positive rays contradict an assumed exponential endpoint relation; the paper derives that relation for a finite real-time Newton trajectory by ordinary integration and endpoint continuity.",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {

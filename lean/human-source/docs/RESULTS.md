@@ -24,26 +24,28 @@ the displayed implication; it does not prove that its hypotheses occur.
 
 ## The short version
 
-The clearest completed endpoint cases are restricted forms of Problem 257.
-Lean checks the classical full-support theorem for every integer base `b ≥ 2`,
-a pairwise-coprime support theorem under explicit summability hypotheses, and
-irrationality for nonnegative rational eventually-periodic coefficients with a
-positive periodic tail. An ordinary averaging proof covers every infinite
-reciprocal-summable support; Erdős stated that coprimality-free extension
-without printing the proof. The achievement-set development adds exact
-topological and measure statements. None of these results covers every
-infinite support.
+The repository's clearest completed mathematics is concentrated in restricted
+forms of Problem 257. Lean checks the classical full-support theorem for every
+integer base `b ≥ 2`, a pairwise-coprime support theorem under explicit
+summability hypotheses, and irrationality for nonnegative rational
+eventually-periodic coefficients with a positive periodic tail. An ordinary
+averaging proof covers every infinite reciprocal-summable support; Erdős stated
+that coprimality-free extension without printing the proof. The achievement-set
+development adds exact topological and measure statements. Universal Problem
+257, which quantifies over every infinite support, remains open.
 
-Problem 249 has the strongest collection of endpoint-facing mechanisms without
-an endpoint proof. Under hypothetical rationality, Lean constructs one
+Problem 249 contains the deepest collection of endpoint-facing mechanisms but
+no endpoint proof. Under hypothetical rationality, Lean constructs one
 tempered integral carry whose dyadic sections are eventually periodic modulo a
 common multiplier while its canonical carry-kernel ranks are at least
 `2^e − 1` for every `e`. Those two conclusions are not proved contradictory:
 modulo a divisor of the multiplier, the forcing can vanish and the carry can
 become geometric. Separate checked results determine the coefficient kernel's
-exact finite-level rank `2^e + 1` and give conditional routes from actual-LCM
-separation or first-harmonic decorrelation to irrationality. Every such route
-still lacks its cofinal producer.
+exact finite-level rank `2^e + 1`, formalise finite denominator exclusions, and
+give conditional routes from actual-LCM separation or first-harmonic
+decorrelation to irrationality. Every such route still lacks its cofinal
+producer. Checked no-go results also explain why fixed precision, quotient
+periodicity, or coefficient structure alone does not close the gap.
 
 The other programmes have substantive but sharply bounded outcomes. For
 Problem 68, an ordinary proof gives a `3/2` lower growth exponent for the full
@@ -51,20 +53,23 @@ common denominator, while Lean gives exact carry equivalences and finite
 channel obstructions; neither controls the reduced denominator or supplies a
 cofinal carry. Problem 243 has a checked signed recovery theorem: exact
 centered-state dynamics, strict centering, a uniform lower bound on the signed
-error, and normalised vanishing force that error to vanish eventually. Problem
-251 has a source-backed Lean countermodel with positive even logarithmically
-bounded digits, dyadic sum `6`, integral tail shifts, recurring values `2` and
-`4` in every residue class, and prime-number-theorem-scale cumulative
-positions. An independent ordinary sparse perturbation shows that several
-natural prime-gap statistics do not suffice.
-Problem 269 has an ordinary two-prime transcendence theorem for both running-LCM
-variants, plus a checked actual rationality-to-reduced-carry bridge and exact
-conditional window-escape interfaces at three primes. Problem 1041 has ordinary all-degree
-trinomial and critical-value theorems, together with a source-backed ordinary
-bounded-radius concyclic theorem; Lean supplies supporting inputs for the
-programme. Problem 1049 has an ordinary irrationality region for rational
-bases and Lean-checked recurrences and route exclusions. None closes its Erdős
-problem.
+error, and normalised vanishing force that error to vanish eventually; a
+separate finite-normalised-negative-mass route also yields eventual Sylvester
+behaviour. Problem 251 has the checked prime-gap identity and exact tail-shift
+equivalences, plus a source-backed Lean countermodel with positive even
+logarithmically bounded digits, dyadic sum `6`, integral tail shifts, recurring
+values `2` and `4` in every residue class, and prime-number-theorem-scale
+cumulative positions. An independent ordinary sparse perturbation shows that
+several natural prime-gap statistics do not suffice. Problem 269 has an
+ordinary two-prime transcendence theorem for both running-LCM variants,
+Lean-checked three-prime height and finite-minor identities, a checked actual
+rationality-to-reduced-carry bridge, and exact conditional window-escape
+interfaces. Problem 1041 has ordinary all-degree trinomial,
+separated-critical-value connector, bounded-radius concyclic, and
+generic-topology theorems; its sharp critical-value mean is Lean-checked, as
+are supporting Newton-flow inputs. Problem 1049 has an ordinary irrationality
+region for rational bases, together with a Lean-checked rational-base tail
+recurrence, height region, and route exclusions. None closes its Erdős problem.
 
 ### Problem-by-problem guide
 
@@ -140,17 +145,23 @@ Lean-checked here, as are pairwise-coprime summable-reciprocal support and
 Lebesgue measure one for the base-2 achievement set. Irrationality for
 every infinite support and the `1/2` and `1/21` branches remain open.
 
-**[#269](https://www.erdosproblems.com/269).** For every pair of distinct
-primes, both the repeated running-LCM reciprocal sum and the version retaining
-one term at each distinct LCM value are transcendental. The
+**[#269](https://www.erdosproblems.com/269).** Steve Fan's repeated-sum
+two-prime factorisation, posted on 26 June 2026, is his and is not a Lean
+theorem. For every pair of distinct primes, both the repeated running-LCM
+reciprocal sum and the version retaining one term at each distinct LCM value
+are transcendental. The
 [ordinary proof](../paper/269/erdos-269-three-prime-running-lcm.tex) expresses
 them as nonconstant quadratic and affine polynomials in one transcendental
-Hecke–Mahler value. Steve Fan posted the repeated-sum argument on 26 June
-2026; the note also derives the de-duplicated formula and uses the cited
-Hecke–Mahler transcendence theorem. This result is not Lean-checked. At three
-primes, the ordinary paper proves that one binary carry produces nonsingular
-selected kernel minors of every order, excluding every finite separated
-kernel representation. For the actual `{2,3,5}` series, Lean checks the
+Hecke–Mahler value. The repeated-sum reduction was independently found and is
+not first; the note acknowledges Fan, derives the de-duplicated formula, and
+uses the cited Hecke–Mahler transcendence theorem.
+
+At three primes, the threshold-column argument produces nonsingular selected
+kernel minors of every order and excludes every finite separated kernel
+representation. The arbitrary-order theorem is present in the compiled public
+Lean source, but the Wave-A receipt's named axiom audit does not audit that
+rank declaration; Comparator checks only the displayed rank-two minor
+`-1/15`. For the actual `{2,3,5}` series, Lean checks the
 rationality-to-positive-reduced-carry bridge. Cofinal local-window escape then
 extinguishes such carries; under the explicit cap hypotheses recorded in the
 claim registry, that escape statement is equivalent to irrationality. This is
@@ -172,22 +183,32 @@ leaves radii sufficiently close to `1` outside this method.
 
 Every monic trinomial with roots in the open unit disc also has radial
 root-to-origin segments inside `{|f|<1}`, so any two roots join through the
-origin with length less than `2`. Separately, a sharp Poisson critical-value
-mean holds on the closed unit disc. Both are ordinary proofs. Lean checks
+origin with length less than `2`; that path assembly is ordinary mathematics.
+The sharp critical-value mean on the closed unit disc is Lean-checked with
+[source-bound audit evidence](../verification/erdos1041-returned-r18-v5-full-audit-evidence.json),
+and the paper also gives an ordinary proof. The mean controls critical values,
+not connectors.
+
+A further ordinary theorem gives a connector of length less than `2` in every
+degree `n≥3` when a simple nonzero critical value admits the stated separated
+critical-value disk at radius `4/3`; it asserts no existence of such a disk.
+On the generic stratum where simple nonzero critical values have pairwise
+distinct arguments and moduli, an ordinary slit-sheet theorem identifies the
+inverse-ray root-connection tree but gives no uniform length bound. Lean checks
 Newton-flow decay, ray-separating translations, and perturbative root
-retention. The unrestricted path problem remains open.
+retention. The unrestricted connector problem remains open.
 
 **[#1049](https://www.erdosproblems.com/1049).** The short paper gives an
 ordinary proof that `F(a/b)` is irrational for coprime integers `a>b≥1` when
 `log b/log a < θ*`, where `θ* ≈ 0.4056830214`. It uses the polynomial
 conclusion of Zudilin's 2004 Lemma 7, together with the arithmetic and growth
 estimates used in its proof, before that source's integer-specialisation step.
-It makes no priority claim for the rational-base extension. In
-particular, `F((31/4)^r)` is irrational for every integer `r≥1`. Lean checks
-supporting arithmetic, the rational-base tail recurrence, and specific route
-exclusions; it does not check this irrationality theorem. The base `3/2` lies
-outside the sufficient region, and the required approximants with analytic
-remainder control remain open.
+It makes no priority claim for the rational-base extension. In particular,
+`F((31/4)^r)` is irrational for every integer `r≥1`. Lean checks supporting
+arithmetic, the rational-base tail recurrence, and specific route exclusions;
+it does not check this irrationality theorem. The base `3/2` lies outside the
+sufficient region, and the required approximants with analytic remainder
+control remain open.
 
 This guide is not a new result ranking. The canonical order of mathematical
 attention is maintained in
@@ -871,9 +892,14 @@ core)**
   `ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean:721`): the Comparator
   theorem `kernel_235_minor_eq_neg_one_fifteen` identifies the smallest
   displayed `2,3,5` kernel minor as exactly `-1/15`. This rules out the
-  displayed rank-one route only; it does not imply irrationality. The paper's
-  stronger ordinary result is that selected minors of every order are
-  nonsingular; that rank theorem is not Comparator-checked.
+  displayed rank-one route only; it does not imply irrationality. The stronger
+  arbitrary-order minor and finite-nonseparation theorems are proved in
+  [`KernelCarryRank.lean`](../lean/ErdosProblems/Erdos269/KernelCarryRank.lean#L313),
+  whose exact source bytes belong to the successfully compiled public closure
+  in the [Wave-A validation record](../verification/erdos269-wavea-validation.json).
+  That record's named axiom audit covers the Wave-A declarations; it is not a
+  separate rank-declaration audit. Comparator covers the finite minor, not
+  the arbitrary-order theorem. The paper gives the threshold-column proof.
 - Open: any three-prime case. The actual-series reduction is given; the
   source-specific cofinal escape remains unproved.
 - The finite residue contradiction and conditional cofinal-window carry
@@ -912,10 +938,30 @@ core)**
   roots in the open unit disc has each root-to-origin segment inside `{|f|<1}`,
   so any two roots join through the origin with length less than `2`. This is
   coefficient-restricted, not a solution of the unrestricted path problem.
-- Ordinary sharp critical-value mean: for monic degree-`n` polynomials with
+- Lean-checked sharp critical-value mean: for monic degree-`n ≥ 2` polynomials with
   zeros in the closed unit disc,
   `∑_{j=1}^{n-1} |f(c_j)|^{2/(n-1)} ≤ n-1`, with equality for `z^n − λ` when
-  `|λ| = 1`. The bound controls critical values, not connectors.
+  `|λ| = 1`, counting critical points with multiplicity. The complete theorem
+  also gives `∑ |f(c_j)|^{1/n} ≤ (n−1)R` for roots in any closed disc of
+  radius `R ≥ 0`. See
+  [`paper_critical_value_mean`](../lean/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101)
+  and the [successful source-bound audit](../verification/erdos1041-returned-r18-v5-full-audit-evidence.json),
+  whose directly audited adapter is `ReturnV5.critical_value_mean_exact_target`.
+  The paper supplies an ordinary proof too. These moment bounds alone do not
+  construct a connecting curve or bound its length.
+- Ordinary separated-value connector theorem: let `f` be monic of degree
+  `n ≥ 3`, let `c` be a simple critical point with `0 < |v| < 1`, where
+  `v=f(c)`, and suppose some real `w₀ ∈ [0,1]` satisfies
+  `|f(d)/v − w₀| ≥ 4/3` for every other critical point `d`. Then two roots
+  have a connector of length `<2` inside `{|f|<1}`. The long paper gives the
+  two-sheeted uniformization, Bergman length estimate and component-capacity
+  argument; the numerical coefficient bound has a separate Lean kernel.
+  No existence of such a separated critical-value disk is asserted.
+- Ordinary generic topology theorem: in a unit-sublevel component, simple
+  critical points with nonzero critical values of pairwise distinct arguments
+  and moduli give a slit-sheet tree of inverse-ray root connections.
+  This identifies the topology on that stratum; it provides no uniform
+  length bound and does not resolve simultaneous critical levels.
 - Lean checks supporting Newton-flow inputs: quantitative root retention under
   constant perturbation (`constant_perturbation_roots_in_unitDisk`,
   `ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean:287`) and arbitrarily

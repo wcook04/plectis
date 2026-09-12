@@ -69,10 +69,15 @@ class="math display" data-term-auto="off">\[\ph(8n+2)=\ph(4n+1),\qquad
 <section id="sec:rank" class="level3">
 <h3>The evaluation matrix</h3>
 <p>The two ingredients are scalar reduction and arithmetic independence.
-The local formula for <span class="math inline" data-term-auto="off">\(\ph\)</span> gives the
-displayed reductions. For a prime <span class="math inline" data-term-auto="off">\(p\mid
-k\)</span> that does not divide <span class="math inline" data-term-auto="off">\(u\)</span>,
-the argument <span class="math inline" data-term-auto="off">\(k^{j-t}n+u\)</span> is a <span
+The reductions explain which sections must be dependent. The difficulty
+is to exclude every additional relation. We do this one coefficient at a
+time: an evaluation will annihilate all the other columns modulo a prime
+while leaving the chosen column nonzero. Thus no simultaneous primality
+assertion for several affine forms is needed. The local formula for
+<span class="math inline" data-term-auto="off">\(\ph\)</span> gives the displayed reductions.
+For a prime <span class="math inline" data-term-auto="off">\(p\mid k\)</span> that does not
+divide <span class="math inline" data-term-auto="off">\(u\)</span>, the argument <span
+class="math inline" data-term-auto="off">\(k^{j-t}n+u\)</span> is a <span
 class="math inline" data-term-auto="off">\(p\)</span>-adic unit, so multiplication by <span
 class="math inline" data-term-auto="off">\(k^t\)</span> contributes its power of <span
 class="math inline" data-term-auto="off">\(p\)</span> and one factor <span
@@ -649,12 +654,16 @@ class="math inline" data-term-auto="off">\(k\)</span>-regular sequences <span
 class="citation" data-cites="allouche-shallit"></span>. Coons proved
 that <span class="math inline" data-term-auto="off">\(\ph\)</span> is not <span
 class="math inline" data-term-auto="off">\(k\)</span>-regular <span class="citation"
-data-cites="coons"><a href="#ref-2">[2]</a></span>; Martin’s stronger affine ordering theorem
-implies the independence in Section <a class="math-ref" href="#sec:rank">1.1</a> <span class="citation"
-data-cites="martin-phi-inequalities"><a href="#ref-3">[3]</a></span>. The basis theorem gives
-the exact finite-level normal form. Wong <span class="citation"
+data-cites="coons"><a href="#ref-2">[2]</a></span>. Martin’s Theorem 1 makes the ratios of
+totients on any prescribed finite list of pairwise nonproportional
+affine forms with integer coefficients and positive slopes arbitrarily
+separated; this implies their linear independence <span class="citation"
+data-cites="martin-phi-inequalities"><a href="#ref-3">[3]</a></span>. Section <a class="math-ref" href="#sec:rank">1.1</a> gives a direct determinant
+proof tailored to the sections used here. The basis theorem gives the
+exact finite-level normal form. Wong <span class="citation"
 data-cites="wong2015"><a href="#ref-4">[4]</a></span> proved least-residue irrationality when
-the denominator base equals the modulus; Section <a class="math-ref" href="#sec:family">2</a> fixes base two and
+the denominator base and modulus are the same integer <span
+class="math inline" data-term-auto="off">\(k&gt;2\)</span>; Section <a class="math-ref" href="#sec:family">2</a> fixes base two and
 classifies dyadic observables. The original question appears in Erdős
 and Graham <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span>.</p>
@@ -688,13 +697,12 @@ universal gap.</p>
 <p>The remaining first-harmonic obligation is a four-term pivot budget,
 not an opening statement of this note. Write</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\operatorname{Re}\,\mathrm{pivotCenteredCorrelation}\le\tfrac{14}{25}X,
-\quad
-\lVert\mathrm{pivotFiberMean}\rVert\le\tfrac1{100}X,
-\quad
-\lVert\mathrm{pivotBad}\rVert\le\tfrac1{100}X,
-\quad
-\lVert\mathrm{pivotNonSupplier}\rVert\le\tfrac8{25}X.\]</span></div>
+class="math display" data-term-auto="off">\[\begin{aligned}
+\operatorname{Re}\,\mathrm{pivotCenteredCorrelation}&amp;\le\tfrac{14}{25}X,\\
+\lVert\mathrm{pivotFiberMean}\rVert&amp;\le\tfrac1{100}X,\\
+\lVert\mathrm{pivotBad}\rVert&amp;\le\tfrac1{100}X,\\
+\lVert\mathrm{pivotNonSupplier}\rVert&amp;\le\tfrac8{25}X.
+\end{aligned}\]</span></div>
 <div class="problem" id="prob:firstharmonic">
 <p><strong>Problem 10</strong> (first-harmonic anti-concentration on
 supplier fibres). <em> For each <span
@@ -1064,11 +1072,13 @@ doi:10.1016/0304-3975(92)90001-V.</p></li>
 functions</em>, J. Théor. Nombres Bordeaux <strong>22</strong> (2010),
 339–352, Theorem 3.2. doi:10.5802/jtnb.718.</p></li>
 <li id="ref-3"><p>G. Martin, <em>Simultaneous inequalities among values of the
-Euler phi-function</em>, 2006, arXiv:math/0603053, Theorem 1 and
-Corollary 4.</p></li>
-<li id="ref-4"><p>E. Wong, answer to <a
-href="https://math.stackexchange.com/questions/1210886">question
-1210886</a>, Mathematics Stack Exchange, 29 March 2015.</p></li>
+Euler phi-function</em>, 2006, arXiv:math/0603053, Theorem 1. <a
+href="https://arxiv.org/abs/math/0603053"
+class="uri">https://arxiv.org/abs/math/0603053</a>.</p></li>
+<li id="ref-4"><p>Erick Wong, <a
+href="https://math.stackexchange.com/a/1211557">answer 1211557</a> to
+<em>An infinite sum based on the mod-parity of Euler’s totient
+function</em>, Mathematics Stack Exchange, 29 March 2015.</p></li>
 <li id="ref-5"><p>P. Erdős and R. L. Graham, <em>Old and New Problems and Results
 in Combinatorial Number Theory</em>, 1980, p. 61.</p></li>
 <li id="ref-6"><p>S. Fan, comment on Erdős Problem #249, 16 May 2026, 19:01, <a

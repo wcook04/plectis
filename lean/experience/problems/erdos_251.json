@@ -202,7 +202,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_sha256": "57a206e6909b919d0585e5732ef11fa1d76bd7f910b33999564545fc87847782",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -222,7 +222,7 @@
     "subject": "Erdős #251",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 19,
+    "pages": 20,
     "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
     "precis": "The paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.",
     "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
@@ -246,10 +246,10 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 22,
       "renderer_fingerprint": "e85419265bf94334",
-      "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
+      "source_sha256": "7c111262eefe587f2e1180a819f096e9c7e54aadcf1c9ecd00f9195ed79b6574",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 496,
+      "mathml_node_count": 517,
       "raw_math_fallback_count": 1,
       "warnings": {
         "mathml": [
@@ -268,8 +268,8 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "775321482d3b62ccb657b799856842ea520ca5fb0aca7b18622ac41dd8b5f07b",
-      "html_exact_tex_sha256": "dfd2455c19ed547c87c0c83724eb98e8ea050077c9eb4248d04357c7476fd5d2"
+      "html_mathml_sha256": "f93574bfca3b44926e6e944f7c2926f24be566a3616df4c57a9de33c6304784b",
+      "html_exact_tex_sha256": "13499a1fe999759a284eb3818a694cdb09cd94f79635732025603b8cfa497c37"
     },
     "sections": [
       {
@@ -444,7 +444,7 @@
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 19,
+      "pages": 20,
       "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
       "precis": "The paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.",
       "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
@@ -468,10 +468,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "a46a59c67b32ff9b8aac9ddc770d28a90824037d290b927034f2f2df018af962",
+        "source_sha256": "7c111262eefe587f2e1180a819f096e9c7e54aadcf1c9ecd00f9195ed79b6574",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 496,
+        "mathml_node_count": 517,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -490,8 +490,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "775321482d3b62ccb657b799856842ea520ca5fb0aca7b18622ac41dd8b5f07b",
-        "html_exact_tex_sha256": "dfd2455c19ed547c87c0c83724eb98e8ea050077c9eb4248d04357c7476fd5d2"
+        "html_mathml_sha256": "f93574bfca3b44926e6e944f7c2926f24be566a3616df4c57a9de33c6304784b",
+        "html_exact_tex_sha256": "13499a1fe999759a284eb3818a694cdb09cd94f79635732025603b8cfa497c37"
       },
       "sections": [
         {
@@ -666,7 +666,7 @@
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 34,
+      "pages": 38,
       "question": "What is the complete shift, countermodel, and finite-evidence record for Erdős #251, and which cofinal mismatch is missing?",
       "precis": "A claim-bounded complete reasoning record for Erdős #251. It retains the prime-gap summation identities, rationality-to-shift reductions, small-mismatch consumers, coefficient countermodels, finite evidence, and all registered families. No theorem produces the required cofinal mismatch for the actual prime-gap series, so irrationality remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
@@ -690,10 +690,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "567a63c64b281217b3340b6b8611a667626bcb0661d38bb2027be31209feef12",
+        "source_sha256": "4e2e98ab3bc00bf46d0094f10bff165733baae0f87930fc3110de4136e94b4c4",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 920,
+        "mathml_node_count": 1057,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -707,8 +707,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "413988f96aa5f80bd4c033c46f5b70ace4aae1a41d9fd3136021e1a31a7b1eb9",
-        "html_exact_tex_sha256": "6e599ac90fb6a04d94af38883ace979c49da0b62e0429808487cf5678be502bc"
+        "html_mathml_sha256": "8b6dc46a20a1c54ab40e4e04aa15fccf6ea50a30406d1677c3cc519fcc63bf32",
+        "html_exact_tex_sha256": "468ae7a274084746c3c0710477d98d0561f0b7531eff1faaef0061c3cb03749d"
       },
       "sections": [
         {
@@ -788,13 +788,18 @@
         },
         {
           "level": 3,
+          "anchor": "long251:sec:paired-corrections",
+          "label": "Paired corrections and cumulative congruences"
+        },
+        {
+          "level": 3,
           "anchor": "algebraic-nonconcentration-survives-the-rationalising-perturbation",
           "label": "Algebraic nonconcentration survives the rationalising perturbation"
         },
         {
           "level": 3,
-          "anchor": "the-producer-is-an-event-of-density-zero",
-          "label": "The producer is an event of density zero"
+          "anchor": "the-two-window-event-has-density-zero",
+          "label": "The two-window event has density zero"
         },
         {
           "level": 3,
@@ -879,7 +884,7 @@
         {
           "level": 3,
           "anchor": "long251:sec:xr-divisorhit",
-          "label": "A weaker recurrence-level target"
+          "label": "Divisor-hitting shift escape"
         },
         {
           "level": 3,

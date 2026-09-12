@@ -1121,7 +1121,7 @@
             "id": "erdos_1041_reasoning_record",
             "source": "paper/1041/erdos1041-lemniscate-reasoning-surface.tex",
             "decision": "retain_as_full_problem_reasoning_record",
-            "thesis": "Complete working record for Erdős #1041: Lean Newton-flow decay, ray separation, translation geometry, Comparator-checked solved-family kernels, ordinary path assemblies, and the unresolved global topology and metric gluing."
+            "thesis": "Complete working record for Erdős #1041: the Lean-checked all-degree critical-value mean, local Newton derivatives, conditional ray separation, translation geometry, Comparator-checked solved-family kernels, ordinary disk-family 4/3 path bounds and ray-separated topology; the unrestricted global topology and metric gluing remain open."
           },
           {
             "id": "erdos_1049_reasoning_record",
@@ -1195,7 +1195,7 @@
             "id": "erdos_1041_note",
             "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "Lean Newton-flow/ray/root-retention and Comparator-checked solved-family kernels; ordinary all-degree trinomial, 13/25, Poisson, and length-<2 assemblies; global topology remains open."
+            "thesis": "All-degree trinomial radial containment with ordinary path assembly and a Lean-checked sharp critical-value mean; local Newton derivatives, conditional ray separation, root retention and Comparator-checked solved-family kernels; ordinary 13/25 and disk-family 4/3 length-<2 assemblies; the unrestricted problem remains open."
           },
           {
             "id": "erdos_1049_note",
@@ -15227,26 +15227,26 @@
           {
             "id": "newton_value_decay",
             "contribution_class": "locally proved result and formalised calculus; novelty unassessed",
-            "summary": "The Newton value equation and its exponential first integral are checked exactly.",
-            "evidence_mode": "Lean kernel",
+            "summary": "Lean checks the local Newton value equation and the zero-derivative form of its exponentially scaled value; constancy along a real-time interval is an ordinary calculus consequence in the paper.",
+            "evidence_mode": "Lean kernel plus authored synthesis",
             "declarations": [
               "ErdosProblems.Erdos1041.newtonFlow_value_hasDerivAt",
               "ErdosProblems.Erdos1041.newtonFlow_scaledValue_hasDerivAt_zero"
             ],
             "comparator_disposition": "not_selected_compact_calculus_family",
-            "boundary": "Value decay alone does not give a short connecting curve."
+            "boundary": "The cited declarations are pointwise derivative statements. The real-time first integral requires the paper’s interval integration step, and value decay alone does not construct a global trajectory or give a short connecting curve."
           },
           {
             "id": "ray_separation",
             "contribution_class": "locally proved result; novelty unassessed",
-            "summary": "Distinct positive rays exclude a finite Newton connection.",
-            "evidence_mode": "Lean kernel",
+            "summary": "Lean checks that distinct positive rays contradict an assumed exponential endpoint relation; the paper derives that relation for a finite real-time Newton trajectory by ordinary integration and endpoint continuity.",
+            "evidence_mode": "Lean kernel plus authored synthesis",
             "declarations": [
               "ErdosProblems.Erdos1041.samePositiveRay_of_real_exp_decay",
               "ErdosProblems.Erdos1041.no_newtonConnection_of_not_samePositiveRay"
             ],
             "comparator_disposition": "represented_by_translation_avoidance_targets",
-            "boundary": "The result is a route obstruction, not the global theorem."
+            "boundary": "The finite-trajectory conclusion retains continuity on the closed interval, differentiability and noncritical Newton evolution on its interior, and the ordinary endpoint passage. It supplies neither global trajectory existence nor geometric length control."
           },
           {
             "id": "translation_avoidance",
@@ -15410,7 +15410,7 @@
         "source": "paper/251/erdos-251-prime-gap-dyadic-series.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 57
+        "line": 47
       }
     },
     {
@@ -15446,7 +15446,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 720
+        "line": 733
       }
     },
     {
@@ -15482,7 +15482,7 @@
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 120
+        "line": 119
       }
     },
     {
@@ -15506,7 +15506,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "Erdős #243",
-        "line": 106
+        "line": 116
       }
     },
     {
@@ -15518,7 +15518,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "exact nonintegrality of every reduced tail",
-        "line": 525
+        "line": 563
       }
     },
     {
@@ -15530,7 +15530,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "actual cofinal local-window escape",
-        "line": 531
+        "line": 569
       }
     },
     {
@@ -15542,7 +15542,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "function-faithful two-dimensional representation",
-        "line": 540
+        "line": 578
       }
     },
     {
@@ -15554,7 +15554,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "global overlap-height growth",
-        "line": 566
+        "line": 581
       }
     },
     {
@@ -15566,7 +15566,7 @@
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "first-harmonic anti-concentration on supplier fibres",
-        "line": 563
+        "line": 571
       }
     },
     {
@@ -15578,7 +15578,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "weakest native recurrence criterion",
-        "line": 734
+        "line": 747
       }
     },
     {
@@ -15590,7 +15590,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "actual-orbit invariant",
-        "line": 743
+        "line": 756
       }
     },
     {
@@ -15602,7 +15602,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 753
+        "line": 766
       }
     }
   ],

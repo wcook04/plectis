@@ -54,6 +54,15 @@ unproved for the unrestricted problem.
 
 \section{Introduction}\label{sec:problem}
 
+For $a_n>1$, the recurrence $a_{n+1}=a_n^2-a_n+1$ is singled out by the telescope
+\[
+ \frac1{a_n-1}=\frac1{a_n}+\frac1{a_{n+1}-1}.
+\]
+Thus a Sylvester tail has the exact value $1/(a_n-1)$ beginning at index
+$n$.  The question is whether rationality and the asymptotic relation
+$a_{n+1}\sim a_n^2$ force that exact recurrence.  The following result
+isolates a sufficient one-sided bound on the departure from it.
+
 \begin{corollary}[original-coordinate bounded defect]\label{res:originalbounded}
 Let $a_1<a_2<\cdots$ be positive integers, $a_{n+1}/a_n^2\to1$, and
 $\sum_{n\ge1}1/a_n\in\Q$.  Put $P_n=\prod_{j<n}a_j$.  If
@@ -65,18 +74,19 @@ then $a_{n+1}=a_n^2-a_n+1$ for all sufficiently large $n$.
 \end{corollary}
 
 \noindent Corollary~\ref{res:originalbounded} is an ordinary transfer of the
-integer-state theorem below, proved in Section~\ref{sec:transfer}.  There is
-no module \texttt{PaperCompleteR7/ProductDefect.lean} in this checkout.
+integer-state theorem below, proved in Section~\ref{sec:transfer}.  The analytic transfer is separate from the linked Lean theorem.
 
 \paragraph{The obstruction.}
-The equation $C_{n+1}=C_n-E_n$ translates a bound on negative error into a
-bound on upward increments. At negative indices the common divisor of
-$C_n,D_n$ divides the bounded magnitude. Once this divisor stabilises,
-reduction makes the later numerators coprime to the old multipliers.
-The Chinese remainder theorem places consecutive forbidden heights beyond
-any fixed prefix. A first crossing then gives the contradiction.
-Section~\ref{sec:lcmrecords} uses the same divisibility at record sources,
-so that only record excess is charged.
+Clear the rational reciprocal tail as $C_n/D_n$.  On a Sylvester tail,
+$D_n=(a_n-1)C_n$; the integer error $E_n=D_n-(a_n-1)C_n$ measures the
+failure of this identity.  Its update $C_{n+1}=C_n-E_n$ turns a bound on
+negative error into a bound on upward increments.  Small increments alone
+are insufficient.  The arithmetic input is that, after the common divisor
+stabilises, every old multiplier must remain coprime to every later
+numerator.  The Chinese remainder theorem then produces a block of
+forbidden heights that no permitted jump can cross.  A numerator tending
+to infinity would have to cross it.  Section~\ref{sec:lcmrecords} adapts this crossing
+argument when only jumps setting new records are charged.
 
 \begin{samepage}
 Write $\ctr(a,D,C)=D-(a-1)C$. The following integer-state theorem
@@ -99,8 +109,8 @@ $K\,|E_n|<C_n$ for all $n\ge N$.
 Then $E_n=0$ for all sufficiently large $n$: this is the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{2265}{boundedNegativePart_eventually_zero}{bounded-negative-part rigidity}.
 \end{theorem}
-Eventual strict centring, a bounded negative part, and normalised vanishing
-remain explicit hypotheses.
+The eventual form follows by shifting past the centring and lower-bound
+thresholds; its exact source is linked in the formal-scope paragraph below.
 \end{samepage}
 
 \begin{problem}[Erd\H{o}s \#243]\label{res:problem}
@@ -222,10 +232,15 @@ integer $B>0$. There is no infinite pairwise coprime family $m_i\ge2$
 with $\gcd(m_i,u_t)=1$ whenever $i<t$.
 \end{theorem}
 \begin{proof}
-Choose $B$ old moduli and take a CRT block $[t,t+B)$ beyond every numerator
-in the prefix before they become old. At the first crossing of $t$, the
-new numerator lies in that block, so it is divisible by an old modulus.
-This contradicts coprimality. No monotonicity of $u$ is used.
+Choose $m_0,\ldots,m_{B-1}$ and use Lemma~\ref{res:crt} to find
+$t>\max(u_0,\ldots,u_B)$ with $m_i\mid t+i$.  Since $u_n\to\infty$,
+there is a first $n>B$ with $u_n\ge t$.  Minimality and the rise bound give
+\[
+ t\le u_n\le u_{n-1}+B<t+B.
+\]
+Hence $u_n=t+i$ for some $0\le i<B<n$, so $m_i\mid u_n$.
+This contradicts $\gcd(m_i,u_n)=1$.  The argument uses first crossing,
+not monotonicity: the numerator may fall before it reaches the block.
 \end{proof}
 
 \subsection{Reduction and stabilisation}
@@ -371,7 +386,7 @@ with divergent integral. The theorem in this section has an ordinary proof.
 
 Set
 \[
- L_n=\operatorname{lcm}(q,a_0,\ldots,a_{n-1}),\quad
+ L_n=\operatorname{lcm}(q,a_1,\ldots,a_{n-1}),\quad
  M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.
 \]
 The rational tail has denominator dividing $L_n$, so $U_n$ and $V_n$ are
@@ -636,12 +651,12 @@ reduction of Appendix~\ref{app:residue} is in
 \texttt{FiniteHorizonResidue.lean}.  Three distinctions are worth carrying into
 the source.  The
 identification of any of these modules with reciprocal tails is the exposition
-of Section~\ref{sec:state} and is not a checked statement.  The periodic exclusion
+of Section~\ref{sec:transfer} and is not a checked statement.  The periodic exclusion
 assumes the regime $e_n<a_n$.  And the final Lean declaration lists strict
 centring and normalised vanishing as hypotheses; the former follows eventually
 from the latter with $K=1$, while the formal source derives neither from the
-original analytic problem.  For the external bridge supplying them,
-see Sections~\ref{sec:problem} and~\ref{sec:bounded}.
+original analytic problem.  The ordinary canonical-tail transfer is proved in
+Section~\ref{sec:transfer}.
 
 % The exhaustive source manifest is retained in the authored TeX for automated
 % validation, and kept outside the printed note.

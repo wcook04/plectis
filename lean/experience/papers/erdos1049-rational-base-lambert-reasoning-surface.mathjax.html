@@ -50,6 +50,18 @@ class="math inline" data-term-auto="off">\(7/2\)</span> and does not contain <sp
 class="math inline" data-term-auto="off">\(3/2\)</span>. Between the two lies the question
 this note is about: what exactly stops the integer-base argument from
 running at <span class="math inline" data-term-auto="off">\(3/2\)</span>?</p>
+<section id="structure." class="level5">
+<h5>Structure.</h5>
+<p>The rational-base theorem and its cyclotomic degree calculation are
+Theorem <a class="math-ref" href="#long1049:res:region">2</a>;
+the first newly covered base is isolated in Theorem <a class="math-ref" href="#long1049:res:31over4">3</a>. The
+independent determinant argument is Theorem <a class="math-ref" href="#long1049:res:zudilin-sharp-qorder">10</a>,
+whose proof identifies the unique least-order term at every rank. The
+result-family catalogue at the end lists the older families admitted to
+the public review registry. It is not an exhaustive index of the
+theorems proved in this record, so these three labels are the direct
+route to its two principal arguments.</p>
+</section>
 <section id="relation-to-prior-work." class="level5">
 <h5>Relation to prior work.</h5>
 <p>The <em>Formal Conjectures</em> file for Problem #1049 contains the
@@ -417,7 +429,7 @@ class="math inline" data-term-auto="off">\(3/2\)</span>, the missing step is sti
 primitive approximation family with nonzero remainder and an asymptotic
 height margin.</p>
 </section>
-<section id="structure." class="level5">
+<section id="structure.-1" class="level5">
 <h5>Structure.</h5>
 <p>Section <a class="math-ref" href="#long1049:sec:region">2</a> states and
 proves the region theorem, the base <span
@@ -1139,13 +1151,18 @@ class="math inline" data-term-auto="off">\(\Lambda_n(x):=U_n(x)F(x)-V_n(x)\ne0\)
 every real <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>;</em></p></li>
 <li><p><em><span class="math inline" data-term-auto="off">\(\deg U_n,\deg V_n\le\delta
 n^{2}(1+o(1))\)</span>;</em></p></li>
-<li><p><em><span
-class="math inline" data-term-auto="off">\(\log\max\bigl(H(U_n),H(V_n)\bigr)\le
-hn^{2}(1+o(1))\)</span>, where <span class="math inline" data-term-auto="off">\(H(P)\)</span>
+<li><p><em>the coefficient heights satisfy </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\log\max\bigl(H(U_n),H(V_n)\bigr)\le
+hn^{2}(1+o(1)),\]</span></div>
+<p class="display-continue"><em> where <span class="math inline" data-term-auto="off">\(H(P)\)</span>
 is the largest absolute value of a coefficient of <span
 class="math inline" data-term-auto="off">\(P\)</span>;</em></p></li>
-<li><p><em><span class="math inline" data-term-auto="off">\(\log|\Lambda_n(x)|=-\sigma
-n^{2}\log x\,(1+o(1))\)</span> for every real <span
+<li><p><em>the remainders satisfy </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\log|\Lambda_n(x)|=-\sigma n^{2}\log
+x\,(1+o(1))\]</span></div>
+<p class="display-continue"><em> for every real <span
 class="math inline" data-term-auto="off">\(x&gt;1\)</span>.</em></p></li>
 </ol>
 <p><em>Put <span class="math inline" data-term-auto="off">\(d_n:=\max(\deg U_n,\deg
@@ -1169,12 +1186,27 @@ case has no decaying homogenised forms at <span
 class="math inline" data-term-auto="off">\(3/2\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The displayed inequality is the identity <span
-class="math inline" data-term-auto="off">\(n^{-2}\log|b^{d_n}\Lambda_n(a/b)|=(d_n/n^{2})\log
-b-\sigma\log(a/b)+o(1)\)</span> together with hypothesis (2); the degree
-bound is what makes <span class="math inline" data-term-auto="off">\(b^{d_n}U_n(a/b)\)</span>
-and <span class="math inline" data-term-auto="off">\(b^{d_n}V_n(a/b)\)</span> integers.</p>
-<p>For <span class="math inline" data-term-auto="off">\(\sigma\le\delta\)</span>, fix an
+<p><em>Proof.</em> The only point not immediate from homogenisation is
+the cap <span class="math inline" data-term-auto="off">\(\sigma\le\delta\)</span>. We apply
+the forms at arbitrarily large integer bases <span
+class="math inline" data-term-auto="off">\(p\)</span>: the upper bounds for their values and
+the two-sided remainder asymptotic give an upper bound for the
+irrationality exponent of <span class="math inline" data-term-auto="off">\(F(p)\)</span>,
+while Dirichlet’s theorem gives the lower bound <span
+class="math inline" data-term-auto="off">\(2\)</span>. Letting <span
+class="math inline" data-term-auto="off">\(p\)</span> grow removes the base-independent
+height term and forces the cap.</p>
+<p>The displayed inequality is the identity</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+n^{-2}\log|b^{d_n}\Lambda_n(a/b)|
+&amp;= (d_n/n^{2})\log b\\
+&amp;\quad{}-\sigma\log(a/b)+o(1)
+\end{aligned}\]</span></div>
+<p class="display-continue">together with hypothesis (2); the degree bound is
+what makes <span class="math inline" data-term-auto="off">\(b^{d_n}U_n(a/b)\)</span> and
+<span class="math inline" data-term-auto="off">\(b^{d_n}V_n(a/b)\)</span> integers.</p>
+<p>To prove <span class="math inline" data-term-auto="off">\(\sigma\le\delta\)</span>, fix an
 integer <span class="math inline" data-term-auto="off">\(p\ge2\)</span>, write <span
 class="math inline" data-term-auto="off">\(\xi=F(p)\)</span>, <span
 class="math inline" data-term-auto="off">\(\alpha=h+\delta\log p\)</span> and <span
@@ -1207,9 +1239,10 @@ class="math inline" data-term-auto="off">\(n^{2}\le(1+o(1))\log Q/\beta\)</span>
 class="math display" data-term-auto="off">\[|\varepsilon_n|\ge Q^{-1-o(1)},\qquad |U_n(p)|\le
 Q^{\alpha/\beta+o(1)} .\]</span></div>
 <p>If <span
-class="math inline" data-term-auto="off">\(U_n(p)P-V_n(p)Q\ne0\)</span>, then from <span
-class="math inline" data-term-auto="off">\(U_n(p)P-V_n(p)Q=Q\varepsilon_n-U_n(p)(Q\xi-P)\)</span>
-and <span class="math inline" data-term-auto="off">\(|Q\varepsilon_n|&lt;1/2\)</span> one
+class="math inline" data-term-auto="off">\(U_n(p)P-V_n(p)Q\ne0\)</span>, then from</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[U_n(p)P-V_n(p)Q=Q\varepsilon_n-U_n(p)(Q\xi-P)\]</span></div>
+<p class="display-continue">and <span class="math inline" data-term-auto="off">\(|Q\varepsilon_n|&lt;1/2\)</span> one
 gets <span class="math inline" data-term-auto="off">\(|U_n(p)|\,|Q\xi-P|&gt;1/2\)</span>, so
 <span
 class="math inline" data-term-auto="off">\(|\xi-P/Q|&gt;1/\bigl(2Q|U_n(p)|\bigr)\)</span>. If
@@ -1406,20 +1439,21 @@ class="math inline" data-term-auto="off">\(s\)</span>. Hence <span
 class="math inline" data-term-auto="off">\(31/4\)</span> is the new base of least denominator
 and least numerator.</p>
 </section>
-<section id="the-direction-is-optimal-in-its-box." class="level5">
-<h5>The direction is optimal in its box.</h5>
+<section id="the-bounded-direction-search." class="level5">
+<h5>The bounded direction search.</h5>
 <p>Over the <span class="math inline" data-term-auto="off">\(37{,}533\)</span> primitive
 directions on Zudilin’s cone with all entries at most <span
 class="math inline" data-term-auto="off">\(30\)</span>, the quantity <span
 class="math inline" data-term-auto="off">\(\theta^{*}(\mathrm{dir})=C_0/C_1\)</span> computed
-from his (25) and (26) is maximised by <span
+from his (25) and (26) has largest recorded value at <span
 class="math inline" data-term-auto="off">\((14,12,14;27)\)</span> and its group image <span
 class="math inline" data-term-auto="off">\((15,12,13;26)\)</span>, both at <span
 class="math inline" data-term-auto="off">\(0.4056830213840605\ldots\)</span>; the next value
 is <span class="math inline" data-term-auto="off">\(0.4056394327738419\ldots\)</span>, at
 <span class="math inline" data-term-auto="off">\((16,13,14;28)\)</span>. Larger boxes were
-not scanned, so this is a search result over that box and not a proof of
-optimality over the whole cone. The enumeration ranges over integer
+not scanned, and the floating-point comparisons were not
+interval-certified, so this is numerical evidence over that box rather
+than an exact optimality theorem. The enumeration ranges over integer
 tuples <span
 class="math inline" data-term-auto="off">\((\alpha_0,\alpha_1,\alpha_2;\beta)\)</span> with
 <span class="math inline" data-term-auto="off">\(1\le\alpha_j\le30\)</span>, <span
@@ -1427,17 +1461,32 @@ class="math inline" data-term-auto="off">\(1\le\beta\le30\)</span>, satisfying t
 conditions of <span class="citation" data-cites="zudilin2004"><a href="#ref-7">[7]</a></span>
 and taken up to the common factor of the four entries; the objective is
 the ratio <span class="math inline" data-term-auto="off">\(C_0/C_1\)</span> of the source’s
-(25) and (26), evaluated by the same thirteen-interval trigamma sum. The
-two maximising tuples are exchanged by the source’s permutation group,
-so they are one direction.</p>
+(25) and (26), evaluated from the exact rational breakpoints of the
+step-function weight and trigamma values at thirty decimal digits. The
+two leading tuples are exchanged by the source’s permutation group, so
+they are one direction.</p>
 </section>
 </section>
 <section id="long1049:sec:receipts" class="level3">
 <h3>Finite receipts</h3>
-<p>Four finite computations support statements above. Each is exact
-rational or integer arithmetic except where a numerical enclosure is
-named; none of them proves a statement quantified over all indices, and
+<p>Four finite computations support statements above. The reconstruction
+and degree calculations use exact rational or integer arithmetic; the
+constant evaluation and direction scan use the numerical precision
+stated below. None proves a statement quantified over all indices, and
 none is kernel-checked.</p>
+<p>The <a
+href="https://github.com/wcook04/plectis-erdos/blob/39a0a2078c8f9fbe7fc24f912654815cc24685df/research/experiments/erdos1049/README.md">public
+reproduction guide</a> gives the command and dependency pin for <a
+href="https://github.com/wcook04/plectis-erdos/blob/39a0a2078c8f9fbe7fc24f912654815cc24685df/research/experiments/erdos1049/direction_search.py">the
+direction-search program</a>. Run it with <code>--bound 30</code> and
+the output path named there; adding <code>--check</code> compares the
+result without replacing the <a
+href="https://github.com/wcook04/plectis-erdos/blob/39a0a2078c8f9fbe7fc24f912654815cc24685df/research/experiments/erdos1049/receipts/direction-search-bound30.json">tracked
+receipt</a>. The receipt records mpmath 1.3.0 at thirty decimal digits.
+Its exact enumeration count is <span
+class="math inline" data-term-auto="off">\(37{,}533\)</span>, but its ordering by <span
+class="math inline" data-term-auto="off">\(C_0/C_1\)</span> is numerical and has no interval
+certificate.</p>
 <p>The forms of Section <a class="math-ref" href="#long1049:sec:source-forms">2.1</a> were
 reconstructed as explicit elements of <span
 class="math inline" data-term-auto="off">\(\Z[X]\)</span> from cyclotomic products, without

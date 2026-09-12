@@ -1196,13 +1196,13 @@ This is Palomar's source-current reader order, not review-matrix or Comparator r
 1. **Newton value decay** (`newton_value_decay`; deep mechanism and classification; source disposition `represented`)
    - **Why here.** The Newton value equation and exponential first integral are the load-bearing local mechanism, while metric gluing to a short curve remains open.
    - **Source.** <code>Erdos249257.ExternalVerification.exists_two_roots_dist_sum_le_two_mul_geomMean</code> in [Lean](../verification/ExternalVerification/Statements.lean)
-   - **Boundary.** Value decay alone does not give a short connecting curve.
+   - **Boundary.** The cited declarations are pointwise derivative statements. The real-time first integral requires the paper’s interval integration step, and value decay alone does not construct a global trajectory or give a short connecting curve.
    - **Relation.** `mechanism_support_for` `ray_separation`: The exponential first integral confines a Newton trajectory to one value ray, yielding the separation obstruction.
 
 2. **Ray separation** (`ray_separation`; natural friction and no-go; source disposition `represented`)
    - **Why here.** Distinct value rays exactly obstruct finite Newton connections, a consequential route boundary but not the global lemniscate theorem.
    - **Source authority.** Canonical review family `ray_separation` in [claims](../docs/claims.json)
-   - **Boundary.** The result is a route obstruction, not the global theorem.
+   - **Boundary.** The finite-trajectory conclusion retains continuity on the closed interval, differentiability and noncritical Newton evolution on its interior, and the ordinary endpoint passage. It supplies neither global trajectory existence nor geometric length control.
    - **Relation.** `mechanism_support_for` `newton_value_decay`: The exponential first integral confines a Newton trajectory to one value ray, yielding the separation obstruction.
    - **Relation.** `supports_without_closing` `translation_avoidance`: Ray separation motivates avoiding collision lines, but global topology and metric gluing remain open.
 
@@ -1223,14 +1223,14 @@ This is Palomar's source-current reader order, not review-matrix or Comparator r
 Exact registry keys and Comparator routing are listed separately.
 
 - **Newton value decay**<br>
-  The Newton value equation and its exponential first integral are checked exactly.<br>
-  **Boundary.** Value decay alone does not give a short connecting curve.<br>
-  *Evidence.* locally proved result and formalised calculus; novelty unassessed · Lean kernel
+  Lean checks the local Newton value equation and the zero-derivative form of its exponentially scaled value; constancy along a real-time interval is an ordinary calculus consequence in the paper.<br>
+  **Boundary.** The cited declarations are pointwise derivative statements. The real-time first integral requires the paper’s interval integration step, and value decay alone does not construct a global trajectory or give a short connecting curve.<br>
+  *Evidence.* locally proved result and formalised calculus; novelty unassessed · Lean kernel plus authored synthesis
 
 - **Ray separation**<br>
-  Distinct positive rays exclude a finite Newton connection.<br>
-  **Boundary.** The result is a route obstruction, not the global theorem.<br>
-  *Evidence.* locally proved result; novelty unassessed · Lean kernel
+  Lean checks that distinct positive rays contradict an assumed exponential endpoint relation; the paper derives that relation for a finite real-time Newton trajectory by ordinary integration and endpoint continuity.<br>
+  **Boundary.** The finite-trajectory conclusion retains continuity on the closed interval, differentiability and noncritical Newton evolution on its interior, and the ordinary endpoint passage. It supplies neither global trajectory existence nor geometric length control.<br>
+  *Evidence.* locally proved result; novelty unassessed · Lean kernel plus authored synthesis
 
 - **Translation avoidance**<br>
   Collision translations are parameterised by real affine lines and an arbitrarily small common translation avoids finitely many of them.<br>

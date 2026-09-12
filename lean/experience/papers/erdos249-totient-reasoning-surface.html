@@ -50,8 +50,23 @@ additional mathematical objects or evidence classes.</p>
 otherwise, and a reduction of the problem to another statement is
 recorded as a reduction, never as progress toward a solution. </p>
 </section>
-<section id="the-problem-and-what-is-actually-known" class="level2">
-<h2>The problem, and what is actually known</h2>
+<section
+id="totient-sections-tail-differences-and-the-irrationality-question"
+class="level2">
+<h2>Totient sections, tail differences, and the irrationality
+question</h2>
+<p>The dyadic sections
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>↦</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n\mapsto\varphi(2^jn+r)</annotation></semantics></math>
+through each level
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>
+have exact rational rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e+1</annotation></semantics></math>.
+The two zero-residue sections and the odd-residue sections give
+independent coordinates; scalar reductions recover the omitted sections.
+The short paper proves the corresponding integral normal form and
+explains the evaluation-matrix argument. This record supplies the tail
+identities, countermodels, and individual arithmetic constructions
+needed to compare that structure with the irrationality question.</p>
 <p>Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
 be Euler’s totient function and put
@@ -62,15 +77,13 @@ series converges absolutely because
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\varphi(n) \le n</annotation></semantics></math>.
 Erdős Problem #249 asks whether
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
-is irrational. Nothing in this document decides it, no route recorded
-here is a proof, and no result here should be read as an approach that
-is close to working. What this document does is different in kind: it
-assembles every recorded failure, obstruction, countermodel and dead
-route the programme has produced against #249, and classifies each one
-by the exact class of argument it eliminates. The claim being made is
-that those failures are not independent — they are repeated measurements
-of a single obstruction, and that obstruction has a shape which can be
-stated.</p>
+is irrational, which remains open. The exact rank theorem controls
+linear relations among coefficient sections. Irrationality requires
+information about their weighted infinite sum. The countermodels below
+explain several ways that a passage from coefficient structure to the
+sum can fail. Each excludes its stated assumptions; they do not
+establish a single obstruction theorem covering all possible
+methods.</p>
 <div class="rem">
 <p><em>Remark 1</em> (Literature coordinates). The nearby literature
 serves three distinct roles. Kovač–Tao’s <a
@@ -171,8 +184,8 @@ resolution.</p>
 results a specialist should know before reading further; each is stated
 at the scale at which it is actually proved.</p>
 <div class="thm">
-<p><strong>Theorem 3</strong> (Denominator exclusion — the headline
-unconditional fact). <em> If
+<p><strong>Theorem 3</strong> (Denominator exclusion from a fixed Farey
+window). <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">S \in \mathbb{Q}</annotation></semantics></math>
 then its reduced denominator exceeds
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mn>0</mn></msub><mo>:=</mo><mn>79</mn><mspace width="0.167em"></mspace><mn>639</mn><mspace width="0.167em"></mspace><mn>646</mn><mspace width="0.167em"></mspace><mn>646</mn><mspace width="0.167em"></mspace><mn>701</mn><mspace width="0.167em"></mspace><mn>375</mn><mspace width="0.167em"></mspace><mn>323</mn><mspace width="0.167em"></mspace><mn>355</mn><mspace width="0.167em"></mspace><mn>774</mn><mspace width="0.167em"></mspace><mn>875</mn><mspace width="0.167em"></mspace><mn>831</mn><mspace width="0.167em"></mspace><mn>053</mn><mo>≈</mo><mn>7.96</mn><mo>×</mo><msup><mn>10</mn><mn>34</mn></msup></mrow><annotation encoding="application/x-tex">Q_0 := 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053 \approx 7.96 \times 10^{34}</annotation></semantics></math>.
@@ -182,7 +195,7 @@ for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">p \in \mathbb{Q}</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>≤</mo><msub><mi>Q</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">p.\mathrm{den} \le Q_0</annotation></semantics></math>.
-The bound is sharp for the method:
+The bound is sharp for this window:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><msub><mi>Q</mi><mn>0</mn></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q = Q_0 + 1</annotation></semantics></math>
 is the exact first failing denominator, exhibited as the mediant of two
 explicit unimodular Farey neighbours. <code>coord:farey</code>
@@ -329,20 +342,16 @@ countermodel.</p>
 </section>
 </section>
 <section id="sec:wall" class="level2">
-<h2>The wall</h2>
-<p>This programme has produced many exact reformulations of #249 and no
-proof. That is the honest summary, and the rest of this section is an
-argument that it is also the wrong way to read the record. The
-reformulations do not fail independently. They fail in a small number of
-recurring ways, and when each failure is stated as a claim about rather
-than as a report that something did not work, the classes fit together
-into one obstruction with a describable shape. A hundred reformulations
-that all die are not a hundred failures; they are a hundred measurements
-of one wall, taken from different angles. The measurements are
-below.</p>
-<p>The thesis, in one sentence: </p>
-<section id="the-plane-the-barriers-live-on" class="level3">
-<h3>The plane the barriers live on</h3>
+<h2>What the countermodels exclude</h2>
+<p>The countermodels distinguish information that determines a finite
+calculation from information that forces nonintegrality at unbounded
+indices. A fixed prefix, parity at every index, and a specified finite
+collection of linear relations are different hypotheses. The useful
+conclusion in each case is the precise information a rational control
+sequence can preserve.</p>
+<section id="range-resolution-and-the-scope-of-an-obstruction"
+class="level3">
+<h3>Range, resolution, and the scope of an obstruction</h3>
 <p>Fix two axes for a hypothetical proof of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi></mrow><annotation encoding="application/x-tex">\mathrm{Sep}</annotation></semantics></math>
 (Definition ): the of indices at which it consults
@@ -353,47 +362,36 @@ size of the proof’s internal bookkeeping (carry state,
 shift-polynomial degree), and whether the target is asserted at a chosen
 index or as an over a block.</p>
 <ul>
-<li><p>The quadrant [full resolution
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>×</mi><annotation encoding="application/x-tex">\times</annotation></semantics></math>
-bounded range] is closed by Theorem  (B1):
+<li><p>Fixed-prefix information alone is excluded by Theorem  (B1):
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
 may be pinned exactly on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[1,B]</annotation></semantics></math>
 and the series can still be rational.</p></li>
-<li><p>The complementary quadrant [coarse resolution
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>×</mi><annotation encoding="application/x-tex">\times</annotation></semantics></math>
-unbounded range] is closed by Proposition  (B7):
+<li><p>Parity information alone is excluded by Proposition  (B7):
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>’s
 parity may be pinned at index, together with boundedness,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">c(n) \le n</annotation></semantics></math>,
 and arbitrarily strong aperiodicity, and the series can still be
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>.</p></li>
-<li><p>The remaining quadrant is closed : B5 (no bounded carry state, no
-fixed-precision signature) and B6 (four independent finite truncations
-of the totient kernel, all with trivial kernel).</p></li>
-<li><p>B4 closes the one construction that tried to reach the good
-quadrant by values: residue engineering pays for amplitude in position,
-and position enters the certificate radius.</p></li>
-<li><p>B2 closes the escape of retargeting; B3 records that no bounded
-result in the corpus has ever promoted.</p></li>
+<li><p>B5 treats the stated bounds on carry state and precision. B6
+treats the displayed linear relations and truncations. Neither is a
+theorem against every finite-state or compressed argument.</p></li>
+<li><p>B4 records the cost of the specified congruence construction:
+prescribing divisibility can increase the index, which also increases
+the certificate’s tail bound.</p></li>
+<li><p>B2 identifies exact equivalences; their value depends on what new
+estimate the changed coordinates permit. B3 records finite checks and
+does not supply their missing universal quantifier.</p></li>
 </ul>
-<p>The corpus’s own results partition along these axes perfectly, which
-is the first evidence that the axes are the right ones. Every
-unconditional deposit (Proposition , the
+<p>The finite certificates in Proposition  and the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>240</mn></mrow><annotation encoding="application/x-tex">K=240</annotation></semantics></math>
-Farey rung of Theorem , the actual-LCM orbits at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">a = 4</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">a = 6</annotation></semantics></math>)
-sits at full resolution and bounded range, so B1 says extending them is
-evidence forever and proof never. Every unconditional theorem
-(letterwise positivity for all
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">a \ge 8</annotation></semantics></math>,
-the tail bounds from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\varphi(m) \le m</annotation></semantics></math>,
-unbounded Mersenne-shadow denominator growth) sits at coarse resolution
-and unbounded range, and Proposition  proves in the corpus’s own
-coordinate that this is exactly half a certificate.</p>
+Farey calculation in Theorem  have bounded ranges. B1 excludes an
+inference from one such fixed range uniformly over the whole coefficient
+class. It does not exclude a proof using the arithmetic of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
+at arbitrarily large horizons. Likewise, the cofinal positivity theorem
+does not by itself separate the residue from the top edge: that is the
+additional information identified by Proposition .</p>
 </section>
 <section id="b1-the-finite-inspection-barrier-as-a-theorem"
 class="level3">
@@ -1216,12 +1214,19 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mn>0</mn></msub><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">\max(X_0,1) \le X</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≤</mo><mi>L</mi><mo>−</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">h \le L - s</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mn>2</mn><mi>L</mi></msup></mrow><annotation encoding="application/x-tex">16(2X{+}h{+}L{+}2) \le 2^{L}</annotation></semantics></math>,
-and all four of
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">R</mi><mi mathvariant="normal">e</mi></mrow><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi></mrow><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>14</mn><mn>25</mn></mfrac></mstyle><mi>X</mi><mo>,</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>100</mn></mfrac></mstyle><mi>X</mi><mo>,</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>100</mn></mfrac></mstyle><mi>X</mi><mo>,</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>8</mn><mn>25</mn></mfrac></mstyle><mi>X</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathrm{Re}\,\mathrm{pivotCenteredCorrelation} \le \tfrac{14}{25}X, \quad
-  \lVert \mathrm{pivotFiberMean} \rVert \le \tfrac{1}{100}X, \quad
-  \lVert \mathrm{pivotBad} \rVert \le \tfrac{1}{100}X, \quad
-  \lVert \mathrm{pivotNonSupplier} \rVert \le \tfrac{8}{25}X .</annotation></semantics></math>
-It implies
+and all four of <span class="math display" data-term-auto="off">$$\adjustbox{max
+width=\linewidth}{$\displaystyle
+\begin{aligned}
+\mathrm{Re}\,\mathrm{pivotCenteredCorrelation}(h,X,L,s,\eta)
+   &amp;\le \tfrac{14}{25}X,\\
+\lVert\mathrm{pivotFiberMeanContribution}(h,X,L,s,\eta)\rVert
+   &amp;\le \tfrac{1}{100}X,\\
+\lVert\mathrm{pivotBadContribution}(h,X,L,s,\eta)\rVert
+   &amp;\le \tfrac{1}{100}X,\\
+\lVert\mathrm{pivotNonSupplierContribution}(h,X,L,s)\rVert
+   &amp;\le \tfrac{8}{25}X .
+\end{aligned}
+$}$$</span> It implies
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Irrational}(S)</annotation></semantics></math>.
 <code>coord:first-harmonic</code> <span><span
 class="sans-serif">scale:cofinal</span></span> <span><span
@@ -1232,8 +1237,15 @@ the four terms are exact finite sums over canonical largest-prime
 supplier fibres of the same accumulated-word phases, with no sample
 choice and nothing prescribed. Its specific advantages are three.</p>
 <p>The decomposition is an , proved unconditionally with
-<code>#print axioms</code> clean (, budget consumer ). The one-sided
-budget lowers the hard requirement from a norm bound
+<code>#print axioms</code> clean (, budget consumer ). Its proof first
+partitions the block into supplier and non-supplier bases, then
+partitions the supplier bases according to the good-cofactor condition.
+On the good part, subtracting the mean residual on each pivot fibre
+gives the centred-correlation term and leaves exactly the fibre-mean
+term. Thus the four displayed quantities sum to the original
+first-harmonic block; the identity itself provides no estimate for any
+of them. The one-sided budget lowers the hard requirement from a norm
+bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">‖</mo><mi>⋅</mi><mo stretchy="true" form="postfix">‖</mo></mrow><mo>≤</mo><mi>X</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\lVert \cdot \rVert \le X/2</annotation></semantics></math>
 to a real-part bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo><mn>14</mn><mi>X</mi><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">\le 14X/25</annotation></semantics></math>.
@@ -1246,17 +1258,19 @@ membership equality (), with the totient factorisation at the pivot the
 honest
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(mp) = \varphi(m)(p-1)</annotation></semantics></math>
 and the non-divisibility discharged by size.</p>
-<p>Three of the four terms are then counting bookkeeping; only the first
-needs a genuine correlation estimate, and only in real part.</p>
+<p>None of the four displayed inequalities is currently proved. The
+fibre-mean, bad-cofactor and non-supplier terms have the form of
+counting estimates, while the first is a genuine correlation estimate
+and is needed only in real part.</p>
 <p><strong>What it must respect.</strong> B6 has a residual-gauge
 instance: a residual-blind determinant or conditioning test cannot
 certify that genuine phase reconstruction rather than a locked
 degenerate configuration has occurred (). So this route must couple rows
 by an extra arithmetic identity, not merely gauge-normalise columns.
 <strong>Honest status:</strong> strictly a repackaging of Survivor 1’s
-burden; it is listed separately only because three quarters of it are
-already exact identities on disk. The module asserts no
-prime-distribution or decorrelation estimate — the socket is
+burden; it is listed separately because its decomposition and
+canonical-fibre identities are already exact on disk. The module asserts
+no prime-distribution or decorrelation estimate — the socket is
 deliberately empty. <span><span
 class="sans-serif">[Open]</span></span></p>
 </section>
@@ -1984,16 +1998,16 @@ anchors; none of them is cofinal, and none is presented as deciding
 <thead>
 <tr>
 <th class="ta-l"><strong>Anchor</strong></th>
-<th class="ta-l"><strong>Exact statement of what was
+<th class="ta-l"> <strong>Exact statement of what was
 checked</strong></th>
-<th class="ta-l"><strong>Scale</strong></th>
-<th class="ta-l"><strong>Site</strong></th>
+<th class="ta-l"> <strong>Scale</strong></th>
+<th class="ta-l"> <strong>Site</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="ta-l">Fixed-window deposit, depth 16</td>
-<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mn>12</mn><mo>,</mo><mn>16</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Sep}(h,12,16)</annotation></semantics></math>
+<td class="ta-l"><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mn>12</mn><mo>,</mo><mn>16</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Sep}(h,12,16)</annotation></semantics></math>
 holds for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>8</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">h \in \{1,\dots,8\}</annotation></semantics></math>
 (by <code>decide</code>,
@@ -2007,15 +2021,15 @@ for every
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>h</mi><mo>≤</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">1\le h\le 8</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>∣</mo><msup><mn>2</mn><mn>12</mn></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r.\mathrm{den} \mid 2^{12}(2^h-1)</annotation></semantics></math>.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:fixed</span></span></td>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>∣</mo><msup><mn>2</mn><mn>12</mn></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r.\mathrm{den} \mid 2^{12}(2^h-1)</annotation></semantics></math>.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:fixed</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Fixed-window deposit, depth 9, wider
 net</td>
-<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mn>14</mn><mo>,</mo><mn>9</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Sep}(h,14,9)</annotation></semantics></math>
+<td class="ta-l"><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mn>14</mn><mo>,</mo><mn>9</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Sep}(h,14,9)</annotation></semantics></math>
 holds for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>16</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">h\in\{1,\dots,16\}</annotation></semantics></math>:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>≠</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">S \ne r</annotation></semantics></math>
@@ -2024,15 +2038,15 @@ for every
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>h</mi><mo>≤</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">1\le h\le16</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>∣</mo><msup><mn>2</mn><mn>14</mn></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r.\mathrm{den}\mid 2^{14}(2^h-1)</annotation></semantics></math>.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:fixed</span></span></td>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>∣</mo><msup><mn>2</mn><mn>14</mn></msup><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r.\mathrm{den}\mid 2^{14}(2^h-1)</annotation></semantics></math>.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:fixed</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Diagonal-pincer certificates, base 12
 scales</td>
-<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>H</mi><mi>t</mi></msub><mo>,</mo><msub><mi>H</mi><mi>t</mi></msub><mo>,</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Sep}\bigl(H_t, H_t, D(t)\bigr)</annotation></semantics></math>,
+<td class="ta-l"><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>H</mi><mi>t</mi></msub><mo>,</mo><msub><mi>H</mi><mi>t</mi></msub><mo>,</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Sep}\bigl(H_t, H_t, D(t)\bigr)</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>t</mi></msub><mo>:=</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_t := \mathrm{lcm}(1,\dots,t)</annotation></semantics></math>,
 holds (by explicit <code>decide</code>/<code>norm_num</code> on checked
 <code>Nat.totient</code> values, via factored prime-power blocks with
@@ -2040,16 +2054,16 @@ Lucas-primality certificates) for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>7</mn><mo>,</mo><mn>8</mn><mo>,</mo><mn>9</mn><mo>,</mo><mn>11</mn><mo>,</mo><mn>13</mn><mo>,</mo><mn>16</mn><mo>,</mo><mn>17</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">t \in \{1,2,3,4,5,7,8,9,11,13,16,17\}</annotation></semantics></math>
 with certificate depths
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>6</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>7</mn><mo>,</mo><mn>7</mn><mo>,</mo><mn>9</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>15</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>21</mn><mo>,</mo><mn>22</mn><mo>,</mo><mn>23</mn><mo>,</mo><mn>26</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">D(t) \in \{6,5,7,7,9,14,15,14,21,22,23,26\}</annotation></semantics></math>
-respectively (in the same order).</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:fixed</span></span></td>
+respectively (in the same order).</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:fixed</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Diagonal-pincer certificates, extended
 scales through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">t=64</annotation></semantics></math></td>
-<td class="ta-l">The same predicate
+<td class="ta-l"><p>The same predicate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>t</mi></msub><mo>,</mo><msub><mi>H</mi><mi>t</mi></msub><mo>,</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{Sep}(H_t,H_t,D(t))</annotation></semantics></math>
 is additionally checked, one sibling module per scale, at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>19</mn><mo>,</mo><mn>23</mn><mo>,</mo><mn>25</mn><mo>,</mo><mn>27</mn><mo>,</mo><mn>29</mn><mo>,</mo><mn>31</mn><mo>,</mo><mn>32</mn><mo>,</mo><mn>37</mn><mo>,</mo><mn>41</mn><mo>,</mo><mn>43</mn><mo>,</mo><mn>47</mn><mo>,</mo><mn>49</mn><mo>,</mo><mn>53</mn><mo>,</mo><mn>59</mn><mo>,</mo><mn>61</mn><mo>,</mo><mn>64</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">t \in \{19,\allowbreak23,\allowbreak25,\allowbreak27,\allowbreak29,\allowbreak31,
@@ -2069,15 +2083,16 @@ This does establish
 for infinitely many
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>;
 these 28 deposits are a historical strict subset of the contiguous band
-in the next row.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:fixed</span></span></td>
-<td class="ta-l">Per-scale Lean modules; endpoint </td>
+in the next row.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:fixed</span></span></p></td>
+<td class="ta-l"><p>Per-scale Lean modules; endpoint
+</p></td>
 </tr>
 <tr>
 <td class="ta-l">Contiguous lcm-diagonal band through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le82</annotation></semantics></math></td>
-<td class="ta-l">For every natural
+<td class="ta-l"><p>For every natural
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mn>82</mn></mrow><annotation encoding="application/x-tex">t\le82</annotation></semantics></math>
 there exists a depth
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
@@ -2089,14 +2104,14 @@ transfers, with no holes. The next lcm jump is at the prime
 no certificate at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>83</mn></mrow><annotation encoding="application/x-tex">t=83</annotation></semantics></math>
 is claimed, and any such certificate must have depth at least
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>125</mn><annotation encoding="application/x-tex">125</annotation></semantics></math>.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:bounded</span></span></td>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>125</mn><annotation encoding="application/x-tex">125</annotation></semantics></math>.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:bounded</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Farey denominator floor</td>
-<td class="ta-l">Every
+<td class="ta-l"><p>Every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">q\in\mathbb{N}</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>q</mi><mo>≤</mo><msub><mi>Q</mi><mn>0</mn></msub><mo>=</mo><mn>79</mn><mspace width="0.167em"></mspace><mn>639</mn><mspace width="0.167em"></mspace><mn>646</mn><mspace width="0.167em"></mspace><mn>646</mn><mspace width="0.167em"></mspace><mn>701</mn><mspace width="0.167em"></mspace><mn>375</mn><mspace width="0.167em"></mspace><mn>323</mn><mspace width="0.167em"></mspace><mn>355</mn><mspace width="0.167em"></mspace><mn>774</mn><mspace width="0.167em"></mspace><mn>875</mn><mspace width="0.167em"></mspace><mn>831</mn><mspace width="0.167em"></mspace><mn>053</mn></mrow><annotation encoding="application/x-tex">0&lt;q\le Q_0=79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053</annotation></semantics></math>
@@ -2104,15 +2119,15 @@ satisfies the
 window-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>,</mo><mi>K</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>240</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(N,K)=(1,240)</annotation></semantics></math>
 gap certificate;
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><msub><mi>Q</mi><mn>0</mn></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q=Q_0+1</annotation></semantics></math>
-is the exact first failure.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:bounded</span></span></td>
+is the exact first failure.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:bounded</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Coprimality-probability / Möbius-square
 Farey floor</td>
-<td class="ta-l">Every
+<td class="ta-l"><p>Every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">d\in\mathbb{N}</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>d</mi><mo>≤</mo><msub><mi>Q</mi><mn>1</mn></msub><mo>=</mo><mn>39</mn><mspace width="0.167em"></mspace><mn>819</mn><mspace width="0.167em"></mspace><mn>823</mn><mspace width="0.167em"></mspace><mn>323</mn><mspace width="0.167em"></mspace><mn>350</mn><mspace width="0.167em"></mspace><mn>687</mn><mspace width="0.167em"></mspace><mn>661</mn><mspace width="0.167em"></mspace><mn>677</mn><mspace width="0.167em"></mspace><mn>887</mn><mspace width="0.167em"></mspace><mn>437</mn><mspace width="0.167em"></mspace><mn>915</mn><mspace width="0.167em"></mspace><mn>526</mn></mrow><annotation encoding="application/x-tex">0&lt;d\le Q_1=39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526</annotation></semantics></math>
@@ -2121,9 +2136,9 @@ with
 is excluded as a denominator of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Pr</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Pr(\gcd(X,Y)=1)</annotation></semantics></math>
 and, separately, of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msub><mo>∑</mo><mi>d</mi></msub><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">T=\sum_d\mu(d)/(2^d-1)^2</annotation></semantics></math>.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:bounded</span></span></td>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msub><mo>∑</mo><mi>d</mi></msub><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">T=\sum_d\mu(d)/(2^d-1)^2</annotation></semantics></math>.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:bounded</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 </tbody>
@@ -2198,8 +2213,14 @@ denominator.</em></p>
 <div class="thm">
 <p><strong>Theorem 53</strong> (cert:d5 —
 <code>not_irrational_totientSeries_implies_unbounded_carryRank_unconditional</code>).
-<em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>¬</mo><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo>∃</mo><mi>v</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mspace width="0.167em"></mspace><mo>∃</mo><mi>u</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℤ</mi><mo>,</mo><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">T</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mspace width="0.167em"></mspace><mi>φ</mi><mspace width="0.167em"></mspace><mi>v</mi><mspace width="0.167em"></mspace><mi>u</mi><mo>∧</mo><mo>∀</mo><mi>e</mi><mo>,</mo><mspace width="0.222em"></mspace><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn><mo>≤</mo><msub><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">k</mi></mrow><mi mathvariant="double-struck">ℚ</mi></msub><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">K</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">y</mi></mrow><mspace width="0.167em"></mspace><mi>u</mi><mspace width="0.167em"></mspace><mi>e</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\neg\mathrm{Irrational}(S) \to \exists v&gt;0,\, \exists u:\mathbb{N}\to\mathbb{Z},\, \mathrm{IsTemperedBinaryOrbit}\,\varphi\,v\,u \wedge \forall e,\ 2^e-1 \le \mathrm{finrank}_{\mathbb{Q}}(\mathrm{span}(\mathrm{range}(\mathrm{canonicalCarryKernelFamily}\,u\,e)))</annotation></semantics></math>.
-Rationality of
+<em><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mo>¬</mo><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>⇒</mo><mspace width="0.222em"></mspace><mrow></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>∃</mo><mi>v</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mspace width="0.222em"></mspace><mo>∃</mo><mi>u</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℤ</mi><mo>,</mo><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">T</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mspace width="0.167em"></mspace><mi>φ</mi><mspace width="0.167em"></mspace><mi>v</mi><mspace width="0.167em"></mspace><mi>u</mi><mspace width="0.222em"></mspace><mo>∧</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>∀</mo><mi>e</mi><mo>,</mo><mspace width="1.0em"></mspace><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn><mo>≤</mo><msub><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">k</mi></mrow><mi mathvariant="double-struck">ℚ</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">K</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">y</mi></mrow><mspace width="0.167em"></mspace><mi>u</mi><mspace width="0.167em"></mspace><mi>e</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\neg\mathrm{Irrational}(S) \ \Longrightarrow\ {}
+  &amp;\exists v&gt;0,\ \exists u:\mathbb{N}\to\mathbb{Z},\quad
+    \mathrm{IsTemperedBinaryOrbit}\,\varphi\,v\,u \ \wedge \\
+  &amp;\forall e,\quad 2^e-1 \le
+    \mathrm{finrank}_{\mathbb{Q}}
+      \bigl(\mathrm{span}(\mathrm{range}(\mathrm{canonicalCarryKernelFamily}\,u\,e))\bigr).
+\end{aligned}</annotation></semantics></math> Rationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 forces its associated tempered integral binary-carry orbit to have
 unboundedly rich dyadic-section rank; this is a second,
@@ -2302,8 +2323,12 @@ bound). <em>For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">t \ge 5</annotation></semantics></math>
 (Bertrand’s postulate supplies nonemptiness of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">u</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">P</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{upperHalfPrimes}(t)</annotation></semantics></math>):
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>t</mi><mi>/</mi><mn>2</mn></mrow></msup><mo>≤</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mrow><mi mathvariant="normal">u</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">P</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow></mrow><annotation encoding="application/x-tex">2^{t/2} \le \prod_{p \in \mathrm{upperHalfPrimes}(t)} \mathrm{mersenne}(p) \le \big(\mathrm{lcmHeight}(t)\cdot\mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\big).\mathrm{den}</annotation></semantics></math>.
-An
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msup><mn>2</mn><mrow><mi>t</mi><mi>/</mi><mn>2</mn></mrow></msup></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><munder><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mrow><mi mathvariant="normal">u</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">P</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow></munder><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+2^{t/2}
+  &amp;\le \prod_{p \in \mathrm{upperHalfPrimes}(t)} \mathrm{mersenne}(p) \\
+  &amp;\le \bigl(\mathrm{lcmHeight}(t)\cdot
+    \mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\bigr).\mathrm{den}.
+\end{aligned}</annotation></semantics></math> This is an
 exponential-in-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">t/2</annotation></semantics></math>
 growth lower bound for the reduced denominator at every LCM height,
 produced from mob:b6’s explicit surviving channel product.
@@ -2319,9 +2344,17 @@ foreign-defect term, hence does not by itself prove #249.</em></p>
 (no lower bound on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
 needed for this direction):
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>=</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">J</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\big(\mathrm{lcmHeight}(t)\cdot\mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\big).\mathrm{den} = \mathrm{mersenne}(\mathrm{lcmRadical}(t)) / \gcd\big(\mathrm{mersenne}(\mathrm{lcmRadical}(t)),\ \mathrm{lcmScale}(t)\cdot|\mathrm{oddJordanScalar}(\mathrm{lcmRadical}(t))|\big)</annotation></semantics></math>.
-A fully closed form for the reduced denominator at every scale, produced
-(not merely bounded) as an explicit rational function of
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="2.0em"></mspace><mo>=</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi minsize="180%" maxsize="180%" stretchy="true">/</mi></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="2.0em"></mspace><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">J</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+&amp;\bigl(\mathrm{lcmHeight}(t)\cdot
+  \mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\bigr).\mathrm{den} \\
+&amp;\qquad = \mathrm{mersenne}(\mathrm{lcmRadical}(t))\,\Big/ \\
+&amp;\qquad\quad \gcd\Bigl(
+  \mathrm{mersenne}(\mathrm{lcmRadical}(t)),
+  \ \mathrm{lcmScale}(t)\cdot
+  |\mathrm{oddJordanScalar}(\mathrm{lcmRadical}(t))|\Bigr).
+\end{aligned}</annotation></semantics></math> This is a fully closed
+form for the reduced denominator at every scale, produced (not merely
+bounded) as an explicit rational function of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.</em></p>
 <p><em> <span><span class="sans-serif">scale:uniform</span></span>
 <code>coord:mobius-mersenne</code> </em></p>
@@ -2913,20 +2946,26 @@ every denominator-survival theorem below.</em></p>
 </div>
 <div class="prop">
 <p><strong>Proposition 90</strong> (mob:b3 — radical shadow scale
-decomposition).
-<em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>r</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{baseMobiusShadow}(r) := \mathrm{mobiusNumerator}(r)/(2^r-1)</annotation></semantics></math>
-(unscaled);
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{numericMobiusShadow}(H) := \mathrm{baseMobiusShadow}(\mathrm{rad}(H))/\mathrm{rad}(H)</annotation></semantics></math>;
+decomposition). <em>The unscaled and numerical shadows are
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" class="ta-l pl0"><mo>:=</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>r</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" class="ta-l pl0"><mo>:=</mo><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\mathrm{baseMobiusShadow}(r)
+  &amp;:= \mathrm{mobiusNumerator}(r)/(2^r-1), \\
+\mathrm{numericMobiusShadow}(H)
+  &amp;:= \mathrm{baseMobiusShadow}(\mathrm{rad}(H))/\mathrm{rad}(H).
+\end{aligned}</annotation></semantics></math> For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H&gt;0</annotation></semantics></math>,
 exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>⋅</mo><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mi>/</mi><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H\cdot\mathrm{numericMobiusShadow}(H) = (H/\mathrm{rad}(H))\cdot\mathrm{baseMobiusShadow}(\mathrm{rad}(H))</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H&gt;0</annotation></semantics></math>.
-Reduced-denominator identity for the unscaled shadow:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>=</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>,</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{baseMobiusShadow}(r).\mathrm{den} = \mathrm{mersenne}(r)/\gcd(|\mathrm{mobiusNumerator}(r)|, \mathrm{mersenne}(r))</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r&gt;0</annotation></semantics></math>
-— exact and generic, no coprimality assumed, no channel-survival
-hidden.</em></p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>⋅</mo><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mi>/</mi><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">H\cdot\mathrm{numericMobiusShadow}(H)
+ = (H/\mathrm{rad}(H))\cdot
+   \mathrm{baseMobiusShadow}(\mathrm{rad}(H)).</annotation></semantics></math>
+The reduced-denominator identity for the unscaled shadow, for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">r&gt;0</annotation></semantics></math>,
+is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi></mrow><mo>=</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi minsize="180%" maxsize="180%" stretchy="true">/</mi><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>,</mo><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathrm{baseMobiusShadow}(r).\mathrm{den}
+ = \mathrm{mersenne}(r)\,\Big/
+   \gcd\bigl(|\mathrm{mobiusNumerator}(r)|,\mathrm{mersenne}(r)\bigr).</annotation></semantics></math>
+These identities are exact and generic: no coprimality is assumed and no
+channel survival is hidden.</em></p>
 <p><em> <span><span class="sans-serif">scale:uniform</span></span>
 <code>coord:mobius-mersenne</code> </em></p>
 </div>
@@ -3025,51 +3064,57 @@ this is #249 restated in positive Erdős–Borwein form.</em></p>
 <caption>The Mersenne–Lambert ladder five-row status table (docstring @
 <code>CertificateKernel.lean:18063--18083</code>, body
 <code>MersenneLambertLadder.lean</code>).</caption>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
 <thead>
 <tr>
 <th class="ta-l"><p>Weight
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math></p></th>
-<th class="ta-l">Value
+<th class="ta-l"> Value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L(f)</annotation></semantics></math></th>
-<th class="ta-l">Status</th>
+<th class="ta-l"> Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math></td>
-<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">L(\mu) = 1/2</annotation></semantics></math></td>
-<td class="ta-l">rational, trivial</td>
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">L(\mu) = 1/2</annotation></semantics></math></td>
+<td class="ta-l"> rational, trivial</td>
 </tr>
 <tr>
 <td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math></td>
-<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>φ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">L(\varphi) = 2</annotation></semantics></math></td>
-<td class="ta-l">rational</td>
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>φ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">L(\varphi) = 2</annotation></semantics></math></td>
+<td class="ta-l"> rational</td>
 </tr>
 <tr>
 <td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">d</mi></mrow><annotation encoding="application/x-tex">\mathrm{Id}</annotation></semantics></math></td>
-<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mi>m</mi></msub><mi>σ</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">L(\mathrm{Id}) = \sum_m \sigma(m)/2^m</annotation></semantics></math></td>
-<td class="ta-l">transcendental (Nesterenko 1996,
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mi>m</mi></msub><mi>σ</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">L(\mathrm{Id}) = \sum_m \sigma(m)/2^m</annotation></semantics></math></td>
+<td class="ta-l"> transcendental (Nesterenko 1996,
 <span><span class="sans-serif">[Cited]</span></span>, not
 formalised)</td>
 </tr>
 <tr>
 <td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math></td>
-<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi mathvariant="script">ℰ</mi></mrow><annotation encoding="application/x-tex">L(1) = \mathcal{E}</annotation></semantics></math>,
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi mathvariant="script">ℰ</mi></mrow><annotation encoding="application/x-tex">L(1) = \mathcal{E}</annotation></semantics></math>,
 Erdős–Borwein constant</td>
-<td class="ta-l">irrational, <span><span
+<td class="ta-l"> irrational, <span><span
 class="sans-serif">[Lean]</span></span>
-(<code>irrational_erdosBorwein_series</code>,</td>
-</tr>
-<tr>
-<td class="ta-l"></td>
-<td class="ta-l"></td>
-<td class="ta-l"><code>CertificateKernel.lean:8007</code>)
-— matches #257’s full-support case</td>
+(<code>irrational_erdosBorwein_series</code>,
+<code>CertificateKernel.lean:8007</code>) — matches #257’s full-support
+case</td>
 </tr>
 <tr>
 <td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mi>φ</mi><mo>*</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">A = \varphi*\mu</annotation></semantics></math></td>
-<td class="ta-l"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">L(A) = S</annotation></semantics></math></td>
-<td class="ta-l"><strong>OPEN</strong> — this is #249</td>
+<td class="ta-l">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">L(A) = S</annotation></semantics></math></td>
+<td class="ta-l"> <strong>OPEN</strong> — this is #249</td>
 </tr>
 </tbody>
 </table>
@@ -3589,10 +3634,11 @@ If, at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><mrow><mi mathvariant="monospace">𝚙</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙻</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚖</mi></mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H=\mathtt{periodLcm}(2^a)</annotation></semantics></math>
 and some fixed small
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="monospace">𝙼</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚁</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚔</mi><mi mathvariant="monospace">𝚃</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝙴</mi><mi mathvariant="monospace">𝚡</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚖</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚕</mi></mrow><mspace width="0.222em"></mspace><mi>H</mi><mspace width="0.222em"></mspace><mi>j</mi><mspace width="1.0em"></mspace><mo>:</mo><mo>⇔</mo><mspace width="1.0em"></mspace><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>H</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">is a strict min or max among</mtext><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">{</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>H</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>H</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathtt{MiddleRankTotientExtremal}\ H\ j
-\quad:\iff\quad
-\varphi(2H+j)\ \text{is a strict min or max among}\ \{\varphi(H+j),\varphi(2H+j),\varphi(3H+j)\},</annotation></semantics></math>
-then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mrow><mi mathvariant="monospace">𝙼</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚁</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚔</mi><mi mathvariant="monospace">𝚃</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝙴</mi><mi mathvariant="monospace">𝚡</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚖</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚕</mi></mrow><mspace width="0.222em"></mspace><mi>H</mi><mspace width="0.222em"></mspace><mi>j</mi></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="1.0em"></mspace><mo>:</mo><mo>⇔</mo><mspace width="1.0em"></mspace><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>H</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mtext mathvariant="normal">is a strict minimum or maximum of</mtext></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="7.0em"></mspace><mo stretchy="false" form="prefix">{</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>H</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>H</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+&amp;\mathtt{MiddleRankTotientExtremal}\ H\ j \\[2pt]
+&amp;\quad:\iff\quad \varphi(2H+j)\ \text{is a strict minimum or maximum of} \\
+&amp;\hspace{7em}\{\varphi(H+j),\varphi(2H+j),\varphi(3H+j)\},
+\end{aligned}</annotation></semantics></math> then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚡</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝚁</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚔</mi><mi mathvariant="monospace">𝚂</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙳</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚎</mi></mrow><mspace width="0.222em"></mspace><mi>H</mi><mspace width="0.222em"></mspace><mi>j</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mathtt{fixedRankSecondDifference}\ H\ j\ne 0</annotation></semantics></math>,
 with sign matching the extremum. Notably an suffices — no quantitative
 gap is required. This is a genuinely different coordinate from the
@@ -3610,8 +3656,12 @@ class="sans-serif">[Lean]</span></span> <code>coord:other:fixed-rank-curvature<
 certificate supply). <em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙲</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙺</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝚕</mi></mrow><mspace width="0.222em"></mspace><mi>h</mi><mspace width="0.222em"></mspace><mi>N</mi><mspace width="0.222em"></mspace><mi>L</mi></mrow><annotation encoding="application/x-tex">\mathtt{directedCertifiedKill}\ h\ N\ L</annotation></semantics></math>
 is sound :
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mo>∃</mo><mi>L</mi><mo>,</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙲</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙺</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝚕</mi></mrow><mspace width="0.222em"></mspace><mi>h</mi><mspace width="0.222em"></mspace><mi>N</mi><mspace width="0.222em"></mspace><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>⇔</mo><mrow><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚃</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mrow><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚃</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∉</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℤ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">(\exists L,\ \mathtt{directedCertifiedKill}\ h\ N\ L) \iff \mathtt{totientTail}(N+h)-\mathtt{totientTail}(N)\notin \mathrm{range}(\mathbb Z\to\mathbb R),</annotation></semantics></math>
-exactly, no gap; and
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo stretchy="false" form="prefix">(</mo><mo>∃</mo><mi>L</mi><mo>,</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙲</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙺</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝚕</mi></mrow><mspace width="0.222em"></mspace><mi>h</mi><mspace width="0.222em"></mspace><mi>N</mi><mspace width="0.222em"></mspace><mi>L</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="2.0em"></mspace><mo>⇔</mo><mrow><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚃</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mrow><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚃</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>∉</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℤ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+&amp;(\exists L,\ \mathtt{directedCertifiedKill}\ h\ N\ L) \\
+&amp;\qquad\iff
+  \mathtt{totientTail}(N+h)-\mathtt{totientTail}(N)
+  \notin \mathrm{range}(\mathbb Z\to\mathbb R),
+\end{aligned}</annotation></semantics></math> exactly, no gap; and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>⇔</mo><mrow><mi mathvariant="monospace">𝙲</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝙳</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙻</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚖</mi><mi mathvariant="monospace">𝙲</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚂</mi><mi mathvariant="monospace">𝚞</mi><mi mathvariant="monospace">𝚙</mi><mi mathvariant="monospace">𝚙</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝚢</mi></mrow></mrow><annotation encoding="application/x-tex">\mathrm{Irrational}(S)\iff \mathtt{CofinalDirectedLcmCertificateSupply}</annotation></semantics></math>
 (the LCM-diagonal specialisation). The asymmetric strip is a genuine
 finite-depth improvement over the symmetric certificate (kills
@@ -5165,16 +5215,19 @@ exact algebraic core underneath is reusable:</p>
 <div class="prop">
 <p><strong>Proposition 191</strong> (Anchor defect is a squared complex
 distance).
-<em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">D</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>L</mi><mo>,</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>N</mi><mo>∈</mo><mi>T</mi></mrow></msub><mo stretchy="false" form="postfix">∥</mo><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">p</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">∥</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\mathrm{firstHarmonicAnchorDefect}(h,L,T) = \sum_{N\in T}\|
-\mathrm{windowFirstExp}(h,N,L) - 1\|^2</annotation></semantics></math>,
-and it equals
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>T</mi><mo stretchy="false" form="prefix">|</mo><mi>−</mi><mn>2</mn><msub><mo>∑</mo><mrow><mi>N</mi><mo>∈</mo><mi>T</mi></mrow></msub><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2|T| - 2\sum_{N\in T}\mathrm{windowFirstCos}(h,N,L)</annotation></semantics></math>.
+<em><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">D</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>L</mi><mo>,</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><munder><mo>∑</mo><mrow><mi>N</mi><mo>∈</mo><mi>T</mi></mrow></munder><mo stretchy="false" form="postfix">∥</mo><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">p</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">∥</mo><mn>2</mn></msup></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>T</mi><mo stretchy="false" form="prefix">|</mo><mi>−</mi><mn>2</mn><munder><mo>∑</mo><mrow><mi>N</mi><mo>∈</mo><mi>T</mi></mrow></munder><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\mathrm{firstHarmonicAnchorDefect}(h,L,T)
+  &amp;= \sum_{N\in T}\|\mathrm{windowFirstExp}(h,N,L)-1\|^2 \\
+  &amp;= 2|T|-2\sum_{N\in T}\mathrm{windowFirstCos}(h,N,L).
+\end{aligned}</annotation></semantics></math>
 <code>coord:other:pivot-fiber</code>.</em></p>
 </div>
 <div class="lem">
 <p><strong>Lemma 192</strong> (Separated-pairs energy floor). <em>For a
 finite family
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>:</mo><mi>T</mi><mo>→</mo><mi mathvariant="double-struck">ℂ</mi></mrow><annotation encoding="application/x-tex">z:T\to\mathbb{C}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>:</mo><mi>T</mi><mo>→</mo><mi mathvariant="double-struck">ℂ</mi></mrow><annotation encoding="application/x-tex">z:T\to\mathbb{C}</annotation></semantics></math>,
+a real number
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\delta\ge0</annotation></semantics></math>,
 and any set of pairs
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>⊆</mo><mi>T</mi><mo>×</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">P\subseteq
 T\times T</annotation></semantics></math> each separated by
@@ -5519,9 +5572,12 @@ obligations, not proved here.</em></p>
 </section>
 <section id="rank-one-subrank" class="level4">
 <h4>Rank-one subrank obstruction: a uniform proved barrier</h4>
-<p><code>RankOneSubrankObstruction</code> is a uniform proved barrier:
-it names an entire family of candidate linear-form constructions and
-proves, uniformly, that none of them can work.</p>
+<p><code>RankOneSubrankObstruction</code> is a uniform proved barrier
+for primitive rational linear forms obtained from rank-one
+strict-subrank monomial quotients of finite Möbius–Mersenne prefixes. It
+proves that no construction in this class can approximate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Θ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\Theta_2</annotation></semantics></math>
+with a small linear form.</p>
 <div class="thm">
 <p><strong>Theorem 207</strong> (Uniform rank-one no-go). <em>Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Θ</mi><mi>r</mi></msub><annotation encoding="application/x-tex">\Theta_r</annotation></semantics></math>
@@ -7846,9 +7902,9 @@ such that
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙺</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝚕</mi></mrow><mspace width="0.222em"></mspace><mi>h</mi><mspace width="0.222em"></mspace><mi>N</mi><mspace width="0.222em"></mspace><mi>L</mi></mrow><annotation encoding="application/x-tex">\mathtt{certifiedKill}\ h\ N\ L</annotation></semantics></math>
 for all
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≤</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h\le f(N)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>h</mi><mo>≤</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1\le h\le f(N)</annotation></semantics></math>.
 This implies the obligation immediately (fix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>,
 take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>0</mn></msub><annotation encoding="application/x-tex">N_0</annotation></semantics></math>
 large enough that
@@ -8296,17 +8352,16 @@ shift-polynomial observation simultaneously, so finite-rank
 amplification per se is not the missing rigidity.</p>
 </div>
 <div class="prop">
-<p><strong>Proposition 262</strong> (What would close it). <em>A
-rationality-side rank upper bound:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">\exists C</annotation></semantics></math>
-such that any tempered integral binary carry orbit for a rational
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="monospace">𝚋</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚢</mi><mi mathvariant="monospace">𝙲</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚂</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚜</mi></mrow><annotation encoding="application/x-tex">\mathtt{binaryCoeffSeries}</annotation></semantics></math>
-has
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">k</mi></mrow><mi mathvariant="double-struck">ℚ</mi></msub><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚘</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝙲</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚢</mi><mi mathvariant="monospace">𝙺</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚗</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝙵</mi><mi mathvariant="monospace">𝚊</mi><mi mathvariant="monospace">𝚖</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝚢</mi></mrow><mspace width="0.222em"></mspace><mi>u</mi><mspace width="0.222em"></mspace><mi>e</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">\mathrm{finrank}_{\mathbb Q}\,\mathrm{span}(\mathtt{canonicalCarryKernelFamily}\ u\ e)\le C</annotation></semantics></math>
-for all
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>,
-or any bound growing slower than
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e{-}1</annotation></semantics></math>.
+<p><strong>Proposition 262</strong> (The extra hypothesis needed by a
+rank argument). <em>A rank bound that contradicts the lower bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e-1</annotation></semantics></math>
+would have to use additional arithmetic of the actual totient
+coefficients. The generic proposal that every rational coefficient
+series has bounded tempered-carry rank is ruled out by the rational
+control recorded in the short paper: its carry rank is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e-1</annotation></semantics></math>
+at every level. It is therefore not a remaining general lemma from which
+totient irrationality follows.
 <code>not_irrational_totientSeries_implies_mod_period_and_unbounded_rank</code>
 (<code>TotientTailCarryPeriod.lean:224</code>) pins the obstacle
 precisely: rationality buys uniform eventual periodicity of
@@ -8807,20 +8862,30 @@ has occurred.</p>
 <p><strong>(b) Exact mechanism.</strong></p>
 <div class="prop">
 <p><strong>Proposition 266</strong> (Locked reconstruction preserves a
-nonzero minor). <em>For a monomial matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>,</mo><mi>r</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\mathrm{residualMonomialMatrix}(e,r,z)(i,j) =
-r(i,j)\cdot z(j)^{e(i)}</annotation></semantics></math> with all
-residual entries
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">z(j)\ne0</annotation></semantics></math>
+nonzero minor). <em>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>:</mo><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow><mspace width="0.167em"></mspace><mi>d</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">e:\mathrm{Fin}\,d\to\mathbb N</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e(i)=1</annotation></semantics></math>
-for a distinguished row
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">P</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn><mo>⟹</mo><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\det(\mathrm{phasePowerMatrix})
-\ne0 \implies \det(\mathrm{residualMonomialMatrix})\ne0</annotation></semantics></math>,
-the distinguished row is identically
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-regardless.</em></p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>:</mo><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow><mspace width="0.167em"></mspace><mi>d</mi><mo>→</mo><mi mathvariant="double-struck">ℂ</mi></mrow><annotation encoding="application/x-tex">z:\mathrm{Fin}\,d\to\mathbb C</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">z(j)\ne0</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
+and fix a row
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>i</mi><mn>0</mn></msub><annotation encoding="application/x-tex">i_0</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>i</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e(i_0)=1</annotation></semantics></math>.
+Use the locked column weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">W(j)=z(j)^{-1}</annotation></semantics></math>,
+so that
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>,</mo><mi>W</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>W</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathrm{residualMonomialMatrix}(e,W,z)(i,j)
+ =W(j)z(j)^{e(i)}.</annotation></semantics></math> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">P</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\det(\mathrm{phasePowerMatrix}(e,z))\ne0</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>,</mo><mi>W</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\det(\mathrm{residualMonomialMatrix}(e,W,z))\ne0</annotation></semantics></math>,
+and every entry of row
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>i</mi><mn>0</mn></msub><annotation encoding="application/x-tex">i_0</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.</em></p>
 </div>
 <p>(row-dependent relaxation ; the column-gauge identity underlying it,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">P</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><msub><mo>∏</mo><mi>j</mi></msub><mi>W</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\det(\mathrm{residualMonomialMatrix}) =
@@ -8973,7 +9038,7 @@ obstruction) might be extracted.</p>
 <div class="thm">
 <p><strong>Theorem 269</strong> (Infinite dyadic totient-kernel rank).
 <em>For every depth
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e\ge0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>,
 the canonical family of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e+1</annotation></semantics></math>
 dyadic totient-kernel channels
@@ -9000,10 +9065,21 @@ with
 — is provably impossible, . <span><span
 class="sans-serif">[Lean]</span></span> <span><span
 class="sans-serif">scale:uniform</span></span> (holds for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>;
 existence side is unconditional, via Mathlib’s CRT + primes-in-AP
 machinery) <code>coord:binary-digit</code> (dyadic totient-kernel — the
 Möbius coordinate).</p>
+<p>The Lean independence theorem is also stated for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e=0</annotation></semantics></math>,
+but its auxiliary canonical index then still contains the two
+zero-residue channels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(2n)</annotation></semantics></math>.
+It is therefore not the actual truncation through level zero, which
+consists only of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n)</annotation></semantics></math>
+and has dimension one.</p>
 <section id="integral-coordinates-and-the-complete-relation-module."
 class="level5">
 <h5>Integral coordinates and the complete relation module.</h5>
@@ -10778,12 +10854,15 @@ and the corpus already contains the right one:
 a membership equality rather than a sampled surrogate (, <span><span
 class="sans-serif">[Lean]</span></span>).</p>
 <p>The proposal is to prove
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>h</mi><mo>≥</mo><mn>1</mn><mspace width="0.222em"></mspace><mo>∀</mo><msub><mi>X</mi><mn>0</mn></msub><mspace width="0.222em"></mspace><mo>∃</mo><mi>X</mi><mo>≥</mo><msub><mi>X</mi><mn>0</mn></msub><mo>,</mo><mspace width="0.222em"></mspace><mi>L</mi><mo>:</mo><mspace width="1.0em"></mspace><mn>16</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mn>2</mn><mi>L</mi></msup><mspace width="0.222em"></mspace><mo>∧</mo><mspace width="0.222em"></mspace><munder><mo>∑</mo><mrow><mi>N</mi><mo>∈</mo><msub><mi>T</mi><mrow><mi>h</mi><mo>,</mo><mi>X</mi><mo>,</mo><mi>L</mi></mrow></msub></mrow></munder><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>≤</mo><mspace width="0.222em"></mspace><mstyle displaystyle="false"><mfrac><mn>9</mn><mn>10</mn></mfrac></mstyle><mspace width="0.167em"></mspace><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">|</mo><msub><mi>T</mi><mrow><mi>h</mi><mo>,</mo><mi>X</mi><mo>,</mo><mi>L</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">|</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>∀</mo><mi>h</mi><mo>≥</mo><mn>1</mn><mspace width="0.222em"></mspace><mo>∀</mo><msub><mi>X</mi><mn>0</mn></msub><mspace width="0.222em"></mspace><mo>∃</mo><mi>X</mi><mo>≥</mo><msub><mi>X</mi><mn>0</mn></msub><mo>,</mo><mspace width="0.222em"></mspace><mi>L</mi><mo>:</mo><mspace width="1.0em"></mspace><mn>16</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>h</mi><mo>+</mo><mi>L</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mn>2</mn><mi>L</mi></msup></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="2.0em"></mspace><mo>∧</mo><mspace width="1.0em"></mspace><munder><mo>∑</mo><mrow><mi>N</mi><mo>∈</mo><msub><mi>T</mi><mrow><mi>h</mi><mo>,</mo><mi>X</mi><mo>,</mo><mi>L</mi></mrow></msub></mrow></munder><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mspace width="16.0em"></mspace><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>9</mn><mn>10</mn></mfrac></mstyle><mspace width="0.167em"></mspace><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">|</mo><msub><mi>T</mi><mrow><mi>h</mi><mo>,</mo><mi>X</mi><mo>,</mo><mi>L</mi></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">|</mo><mo>,</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:primefibre}
-  \forall h\ge1\ \forall X_0\ \exists X\ge X_0,\ L:\quad
-  16(2X+h+L+2)\le 2^{L}
-  \ \wedge\
-  \sum_{N\in T_{h,X,L}}\mathrm{windowFirstCos}(h,N,L)\ \le\ \tfrac{9}{10}\,\bigl|T_{h,X,L}\bigr| ,
+\begin{aligned}
+&amp;\forall h\ge1\ \forall X_0\ \exists X\ge X_0,\ L:\quad
+  16(2X+h+L+2)\le 2^{L} \\
+&amp;\qquad\wedge\quad
+  \sum_{N\in T_{h,X,L}}\mathrm{windowFirstCos}(h,N,L) \\
+&amp;\hspace{16em}\le \tfrac{9}{10}\,\bigl|T_{h,X,L}\bigr|,
+\end{aligned}
 \end{equation}</annotation></semantics></math> which by the landed
 subset consumer yields a certificate at some
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mi>X</mi><mo>≥</mo><msub><mi>X</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">N\ge X\ge X_0</annotation></semantics></math>,

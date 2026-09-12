@@ -64,12 +64,15 @@ data-cites="erdos1988 bloom"><a href="#ref-1">[1]</a><a href="#ref-2">[2]</a></s
 are specified in §.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">Adjacent
-factorial differences affect exactly their divisor channels</a>.
-Integral triangular elimination therefore solves the channel equations.
-The support restriction determines which factorial moments occur, while
-at a fixed moment every correction changes the residual by an integer.
-The argument separates coefficient feasibility from the real separation
-needed for irrationality.</p>
+factorial differences affect exactly their divisor channels</a>. This
+makes the channel equations solvable by integral triangular elimination.
+Solving them, however, does not make the residual small: at a fixed
+factorial moment every correction changes it by an integer. Sections –
+identify the exact carry test and this limitation of channel
+cancellation. Section  then shows, at the prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>139</mn><annotation encoding="application/x-tex">139</annotation></semantics></math>,
+why a large common denominator need not survive reduction; Section 
+states the additional real comparison needed.</p>
 </section>
 <section id="sec:companion-orbit" class="level2">
 <h2>The fixed companion orbit</h2>
@@ -202,7 +205,16 @@ unconditional. A floor-stability hypothesis is required only to discard
 the two wrap terms. Equality in the defining comparison is the no-wrap
 case. Canonical factorial expansions and their rationality criterion are
 classical <span class="citation"
-data-cites="cantor1869 galambos1976"><a href="#ref-3">[3]</a><a href="#ref-4">[4]</a></span>.</p>
+data-cites="cantor1869 galambos1976"><a href="#ref-3">[3]</a><a href="#ref-4">[4]</a></span>. For an integer-coefficient
+factorial series, the standard tail-integrality argument appears in
+Hančl and Tijdeman <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-5">[5]</a></span>: a rational sum has integral
+normalized tails once its denominator divides the preceding factorial.
+Their subsequent finite-difference criteria impose regularity on the
+coefficients. In the present series the denominators are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>;
+the companion expansion and the two wrap terms in account for that
+change.</p>
 <div class="theorem">
 <p><strong>Theorem 3</strong> (exact carry characterisation). <em> The
 following conditions are equivalent:
@@ -248,8 +260,10 @@ exactly when
 </section>
 <section id="sec:channels" class="level2">
 <h2>An integral basis for factorial channels</h2>
-<p>For a finite integer vector
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>,
+<p>We seek integer combinations that cancel selected denominator
+contributions without cancelling their factorial moment. To keep track
+of these two requirements, for a finite integer vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>
 define
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><mo>=</mo><mfrac><mrow><mi>n</mi><mi>!</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mi>n</mi></munder><msub><mi>λ</mi><mi>n</mi></msub><mi>n</mi><mi>!</mi><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mi>n</mi></munder><msub><mi>λ</mi><mi>n</mi></msub><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">W_{d,n}=\frac{n!}{(d!)^{\lfloor n/d\rfloor}},\qquad
 M(\lambda)=\sum_n\lambda_n n!,\qquad
@@ -475,21 +489,41 @@ Finally
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>≤</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">H\le D(2D-1)&lt;2D^2</annotation></semantics></math>. ◻</p>
 </div>
 <div class="theorem">
-<p><strong>Theorem 6</strong> (quotient-band breakpoint). <em> Under the
-band hypothesis,
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msup><msub><mi>C</mi><mi>d</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">M=(d!)^k C_d.</annotation></semantics></math>
-In particular, in the first band
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><msub><mi>i</mi><mi>j</mi></msub><mo>&lt;</mo><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">d\le i_j&lt;2d</annotation></semantics></math>,
-channel cancellation
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>d</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C_d=0</annotation></semantics></math>
-forces
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M=0</annotation></semantics></math>.
-If all indices are at least
+<p><strong>Theorem 6</strong> (quotient-band breakpoint). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>
+be a finitely supported integer vector, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k\ge0</annotation></semantics></math>
+be integers, and suppose each index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+in its support satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>d</mi><mo>≤</mo><mi>n</mi><mo>&lt;</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">kd\le n&lt;(k+1)d</annotation></semantics></math>.
+Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msup><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">M(\lambda)=(d!)^k V_d(\lambda).</annotation></semantics></math>
+In particular, support in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>d</mi><mo>,</mo><mn>2</mn><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[d,2d)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_d(\lambda)=0</annotation></semantics></math>
+force
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M(\lambda)=0</annotation></semantics></math>.
+If all supported indices are at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
-channel cancellation and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M\ne0</annotation></semantics></math>
-therefore force at least one index
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>i</mi><mi>j</mi></msub><mo>≥</mo><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">i_j\ge2d</annotation></semantics></math>.</em></p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_d(\lambda)=0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M(\lambda)\ne0</annotation></semantics></math>,
+some supported index is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">2d</annotation></semantics></math>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> On the stated band
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\lfloor n/d\rfloor=k</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msup><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">n!=(d!)^kW_{d,n}</annotation></semantics></math>.
+Sum against
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\lambda_n</annotation></semantics></math>;
+the final assertion follows by contraposition from the first-band
+case. ◻</p>
 </div>
 <p>The exact factorisation is checked for every quotient band at <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">the
@@ -906,8 +940,11 @@ a sharper extraction; no stronger numerical floor is asserted here. The
 exact sources, enclosure and integer-computation receipts are retained
 with the long record. Neither finite calculation supplies .</p>
 </section>
-<section id="app:sources" class="level2 unnumbered">
-<h2 class="unnumbered">Statements and declarations</h2>
+<section id="app:sources" class="level2">
+<h2>Guide to the formal sources</h2>
+<section id="source-current-statements-and-evidence-boundaries."
+class="level5">
+<h5>Source-current statements and evidence boundaries.</h5>
 <p>The finite divisor-event identities, isolated-channel recursion,
 vanishing moment, individual channel values, and the factor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>
@@ -943,31 +980,12 @@ and <a
 href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean">liminf</a>
 Lean files are proof candidates and are not being cited as kernel
 verification.</p>
-<p>The Comparator isolation pin for the carry equivalences is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean">factorial
-gap plateau core</a>. <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialZeroPlateau.lean">factorial
-zero plateau</a> is the default-root duplicate of that family and is not
-the isolation source. Companion-orbit rationality is in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
-orbit rationality</a>; the unconditional correction is in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean">companion
-constant carry law</a>. The pole-residue identity and the two displayed
-reciprocal equalities are in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PrimePoleCriterion.lean">prime
-pole criterion</a>. The complete maximal-hit data come from the separate
-exact modular scan. The carry census and continued-fraction certificate
-use exact integer computation outside Lean.</p>
-<p>The inherited public source pin is <code>99f4bf47422a</code>.
-Source-current additions and that public snapshot must be reconciled at
-one immutable release before its links are represented as a replay of
-the whole note. Formal proof checking does not assess external novelty
-or the significance of the remaining hypothesis. The complete source
-register, receipts and failed-route calculations belong to the long
-record.</p>
+<p>Formal proof checking does not assess external novelty or the
+significance of the remaining hypothesis. The complete source register,
+receipts and failed-route calculations belong to the long record.</p>
 </section>
-<section id="app:sources" class="level2">
-<h2>Guide to the formal sources</h2>
+<section id="pinned-declaration-index." class="level5">
+<h5>Pinned declaration index.</h5>
 <p>The public <code>ErdosProblems.Erdos68</code> package contains the
 checked source for this note. The pinned snapshot contains fifteen cited
 modules: <code>AdjacentUnitCarryWindow</code>,
@@ -1124,10 +1142,17 @@ subsequence radius three halves lower</a></p></li>
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1103">no
 eventual square subsequence three halves upper</a></p></li>
 </ul>
+</section>
 <section id="source-current-companion-orbit-and-comparator-routes."
 class="level5">
 <h5>Source-current companion orbit and Comparator routes.</h5>
-<p>The complete infinite rationality boundary is checked in <a
+<p>The Comparator isolation pin for the carry equivalences is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean">factorial
+gap plateau core</a>. <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialZeroPlateau.lean">Factorial
+zero plateau</a> is the default-root duplicate of that family and is not
+the isolation source. The complete infinite rationality boundary is
+checked in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
 orbit rationality</a>. Its paper-facing endpoints are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">not
@@ -1144,7 +1169,18 @@ record as the moving-factor scale split, the split-factor normalised
 collision, and the fixed-owner absorption boundary. These source-current
 modules, Comparator packages, and this manuscript stage require one
 common immutable public checkpoint before terminal external replay or
-Palomar readiness is claimed.</p>
+Palomar readiness is claimed. The unconditional correction is checked in
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean">companion
+constant carry law</a>, and the pole-residue identity and the two
+displayed reciprocal equalities are checked in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PrimePoleCriterion.lean">prime
+pole criterion</a>. The complete maximal-hit data come from the separate
+exact modular scan; the carry census and continued-fraction certificate
+use exact integer computation outside Lean. The inherited public source
+pin is <code>99f4bf47422a</code>; source-current additions and that
+snapshot require one immutable release before the links represent a
+replay of the whole note.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -1161,10 +1197,13 @@ class="uri">https://www.erdosproblems.com/68</a>, accessed 28 July
 121–128.</p></li>
 <li id="ref-4"><p>J. Galambos, , Lecture Notes in Math. <strong>502</strong>,
 Springer, 1976, Chapter 1.</p></li>
-<li id="ref-5"><p>J. Louwsma and J. Martino, , arXiv:<a
+<li id="ref-5"><p>J. Hančl and R. Tijdeman, , Acta Arith. <strong>118</strong>
+(2005), 383–401, doi:<a
+href="https://doi.org/10.4064/aa118-4-5">10.4064/aa118-4-5</a>.</p></li>
+<li id="ref-6"><p>J. Louwsma and J. Martino, , arXiv:<a
 href="https://arxiv.org/abs/2309.07280">2309.07280v1</a>, 2023,
 Lemma 4.1, p. 10.</p></li>
-<li id="ref-6"><p>L. Lai, , arXiv:<a
+<li id="ref-7"><p>L. Lai, , arXiv:<a
 href="https://arxiv.org/abs/2103.14894">2103.14894v1</a>, 2021, proof of
 Lemma 2.4, (2.5).</p></li>
 </ol>

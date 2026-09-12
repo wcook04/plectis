@@ -20,6 +20,18 @@ citation for this version and selected foundational or software references,
 not a duplicate bibliography. This map explains why the principal sources are
 credited.
 
+## Browse all source credits
+
+The [source attribution index](research-commons/SOURCE_ATTRIBUTIONS.md) connects
+named literature, public Erdős Problems contributions, and software sources to
+exact paper and Lean locations. It includes anonymous credit for implemented
+private advice until the correspondent confirms public naming. The
+[machine-readable view](research-commons/source-attribution-index.json) records
+citation coverage, source locators, content digests, and unresolved matches;
+the [authored registry](research-commons/source-attributions.json) owns the
+credit decisions. These records complement the principal-source comparisons
+below and the separate accepted-contribution receipts in Research Commons.
+
 ## Bounded comparison route
 
 Start with

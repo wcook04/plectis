@@ -5,7 +5,7 @@
   "subject": "Erdős #68",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 31,
+  "pages": 32,
   "question": "What is the complete checked and failed-route record for Erdős #68, and which cofinal producer is still missing?",
   "precis": "A claim-bounded complete reasoning record for Erdős #68. It retains the factorial-successor and carry normal forms, channel and projection mechanisms, exact finite denominator evidence, failed routes, and every registered family in the shared reader order. No cofinal divisibility-miss producer is proved, so irrationality remains open.",
   "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 22,
     "renderer_fingerprint": "e85419265bf94334",
-    "source_sha256": "05154a339954078b531faddc04a459796ac00ce45a32e01b4516cba23fea6b24",
+    "source_sha256": "76e95daa50248e33dccbcc4b555a152d5722a9832f9db19a63ce58ffea715217",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 883,
+    "mathml_node_count": 901,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "ecee1171fc8d7a54220c6dfad7cf7dcf0332a4985c823d8acd423627c809421c",
-    "html_exact_tex_sha256": "5341982f69c06ebc2952813a730f75565903cc35c4f0fb882a047739099215b4"
+    "html_mathml_sha256": "312cab083a3650d3c244187b898cb0f3d00c09808a76fd1e4ff1fef5da3b9e8a",
+    "html_exact_tex_sha256": "a7a19ad324037bd4ee53786101ef497000c6d3fa469b3accff01633441e1274d"
   },
   "sections": [
     {

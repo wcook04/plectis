@@ -52,12 +52,100 @@ otherwise, and a reduction of the problem to another statement is
 recorded as a reduction, never as progress toward a solution. </p>
 </section>
 <section id="sec:257-problem" class="level2">
-<h2>The problem, and what is actually known</h2>
+<h2>Support irrationality and its proof mechanisms</h2>
+<section id="reciprocal-summable-supports" class="level3">
+<h3>Reciprocal-summable supports</h3>
+<p>For every infinite set <span class="math inline" data-term-auto="off">\(A\)</span> of
+positive integers with <span class="math inline" data-term-auto="off">\(\sum_{a\in
+A}1/a&lt;\infty\)</span>, the series</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[X_A(b)=\sum_{a\in A}\frac1{b^a-1}\]</span></div>
+<p class="display-continue">is
+irrational at every integer base <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span>. The proof below is ordinary
+mathematics and is the proof of the short paper’s
+Theorem <code>res:reciprocal-support</code>. Erdős’s <a
+href="https://users.renyi.hu/~p_erdos/1969-09.pdf">1968 paper,
+p. 222</a> proves the pairwise-coprime case at every integer base and
+states the removal of coprimality without printing the details. The
+checked pairwise-coprime theorem listed below retains that extra
+hypothesis.</p>
+<p>The mechanism is to make positive displacements arbitrarily small.
+For <span class="math inline" data-term-auto="off">\(N&gt;0\)</span>, write <span
+class="math inline" data-term-auto="off">\(N=q_a a+r_a\)</span>, <span
+class="math inline" data-term-auto="off">\(0\le r_a&lt;a\)</span>. The identity</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{b^N-1}{b^a-1}
+=b^{r_a}\sum_{j=0}^{q_a-1}b^{ja}
+  +\frac{b^{r_a}-1}{b^a-1}\]</span></div>
+<p class="display-continue">shows that</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\Delta_{b,A}(N):=\sum_{a\in A}\frac{b^{N\bmod
+a}-1}{b^a-1}
+=(b^N-1)X_A(b)-J_N,\qquad J_N\in\mathbb Z.\]</span></div>
+<p>The integer sum is
+finite, since <span class="math inline" data-term-auto="off">\(q_a=0\)</span> for <span
+class="math inline" data-term-auto="off">\(a&gt;N\)</span>. Every summand of <span
+class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\)</span> is nonnegative and an
+exponent <span class="math inline" data-term-auto="off">\(a&gt;N\)</span> makes it positive.
+Thus <span class="math inline" data-term-auto="off">\(X_A(b)=p/q\)</span> would imply <span
+class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\ge1/q\)</span> for every <span
+class="math inline" data-term-auto="off">\(N&gt;0\)</span>.</p>
+<p>Put <span class="math inline" data-term-auto="off">\(w_{b,d}(N)=b^{N\bmod
+d}/(b^d-1)\)</span>. For a fixed positive modulus <span
+class="math inline" data-term-auto="off">\(Q\)</span> and <span
+class="math inline" data-term-auto="off">\(g=(Q,d)\)</span>, the orbit of <span
+class="math inline" data-term-auto="off">\(Qm\bmod d\)</span> has length <span
+class="math inline" data-term-auto="off">\(d/g\)</span>. Its geometric sum gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\lim_{X\to\infty}\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
+=M_{Q,b}(d):=\frac{g}{d(b^g-1)}\le\frac1d.\]</span></div>
+<p>The important
+interchange is with the infinite support. Expanding the atom as <span
+class="math inline" data-term-auto="off">\(\sum_{r\ge1}b^{-r}{\bf1}_{d\mid Qm+r}\)</span> and
+counting positive multiples of <span class="math inline" data-term-auto="off">\(d\)</span>
+gives the bound</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
+\le\sum_{r\ge1}b^{-r}\frac{Q+r}{d}
+\le\frac{Q+2}{d}.\]</span></div>
+<p>Here <span class="math inline" data-term-auto="off">\(Q\)</span>
+is fixed. Dominated convergence therefore identifies the limiting mean
+of <span class="math inline" data-term-auto="off">\(\sum_{d\in A}w_{b,d}(Qm)\)</span> with
+<span class="math inline" data-term-auto="off">\(\sum_{d\in A}M_{Q,b}(d)\)</span>.</p>
+<p>Now choose <span
+class="math inline" data-term-auto="off">\(Q_t=\operatorname{lcm}(1,\ldots,t)\)</span>. For
+each fixed <span class="math inline" data-term-auto="off">\(d\)</span>, eventually <span
+class="math inline" data-term-auto="off">\(d\mid Q_t\)</span>, so <span
+class="math inline" data-term-auto="off">\(M_{Q_t,b}(d)=(b^d-1)^{-1}\)</span>. The bound
+<span class="math inline" data-term-auto="off">\(M_{Q_t,b}(d)\le1/d\)</span> permits a second
+dominated-convergence argument:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{d\in
+A}M_{Q_t,b}(d)\longrightarrow X_A(b).\]</span></div>
+<p>Consequently the limiting
+mean of <span class="math inline" data-term-auto="off">\(\Delta_{b,A}(Q_tm)\)</span> tends to
+zero. Given <span class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, first
+choose <span class="math inline" data-term-auto="off">\(t\)</span> and then a sufficiently
+long finite average with mean below <span
+class="math inline" data-term-auto="off">\(\varepsilon\)</span>; one term of that average is
+below <span class="math inline" data-term-auto="off">\(\varepsilon\)</span>. Its strict
+positivity contradicts the rational lattice. This proves the assertion.
+<span><span class="sans-serif">[Math]</span></span></p>
+<p>The order of the two limits matters: the observation length increases
+with <span class="math inline" data-term-auto="off">\(Q_t\)</span> fixed before <span
+class="math inline" data-term-auto="off">\(t\)</span> increases. No independence of different
+divisibility events is assumed. The mechanism also has a definite limit.
+At base two and full support, the contribution of exponents <span
+class="math inline" data-term-auto="off">\(a&gt;N\)</span> alone gives <span
+class="math inline" data-term-auto="off">\(\Delta_{2,\mathbb
+N_{&gt;0}}(N)&gt;1-2^{-N}\ge1/2\)</span>. Full-support irrationality
+therefore uses a different argument; its checked form appears below.</p>
+</section>
 <section id="the-object-and-the-two-exact-statements" class="level3">
 <h3>The object and the two exact statements</h3>
-<p>For an integer <span class="math inline" data-term-auto="off">\(n \ge 2\)</span> set <span
+<p>For an integer <span class="math inline" data-term-auto="off">\(n \ge 1\)</span> set <span
 class="math inline" data-term-auto="off">\(x_n := 1/(2^n-1)\)</span>, and for <span
-class="math inline" data-term-auto="off">\(A \subseteq \{2,3,4,\dots\}\)</span> write <span
+class="math inline" data-term-auto="off">\(A \subseteq \{1,2,3,\dots\}\)</span> write <span
 class="math inline" data-term-auto="off">\(x_A := \sum_{n \in A} x_n\)</span>; the sum always
 converges, since <span class="math inline" data-term-auto="off">\(x_n = O(2^{-n})\)</span>.
 Erdős’s Problem #257 asks a single universally quantified question about
@@ -66,7 +154,7 @@ this family.</p>
 <p><strong>Definition 1</strong> (Universal #257, written (U)). Is <span
 class="math inline" data-term-auto="off">\(x_A = \sum_{n \in A} 1/(2^n-1)\)</span> irrational
 for <em>every</em> infinite <span class="math inline" data-term-auto="off">\(A \subseteq
-\mathbb{N}\)</span>? <strong>OPEN.</strong> <span><span
+\mathbb N_{&gt;0}\)</span>? <strong>OPEN.</strong> <span><span
 class="sans-serif">[Open]</span></span></p>
 </div>
 <div class="defn" id="defn:H">
@@ -93,22 +181,22 @@ leaves (U) entirely open. So (H) is the maximally symmetric candidate
 counterexample to (U), not a restatement of it; the asymmetry is
 load-bearing and recurs below as Barrier <a class="math-ref" href="#bar:asym">3.5</a>. <span><span
 class="sans-serif">[Math]</span></span></p>
-<p>Nothing in this document decides (U) or (H). What it does contain is
-(i) the unconditional record, stated with hypotheses and evidence bands,
-and (ii) a characterisation of <em>why</em> the recorded attacks fail —
-assembled so that the failures function as measurements of one
-obstruction rather than as a list of disappointments.</p>
+<p>The reciprocal-summable theorem and the checked support theorems
+below leave (U) and (H) open. The later countermodels identify the
+particular arithmetic information lost by individual approaches; they do
+not prove that all such failures have one common cause.</p>
 </section>
 <section id="the-unconditional-record-universal-direction"
 class="level3">
 <h3>The unconditional record, universal direction</h3>
-<p>Every landed unconditional irrationality theorem for (U) instantiates
-one engine: a weighted-coefficient block certificate over the divisor
-incidence <span class="math inline" data-term-auto="off">\(\operatorname{sc}_A(n) := \#\{d
-\mid n : d \in A\}\)</span>, the generic form being
+<p>The checked support families in the following table use
+weighted-coefficient block certificates over the divisor incidence <span
+class="math inline" data-term-auto="off">\(\operatorname{sc}_A(n) := \#\{d \mid n : d \in
+A\}\)</span>, the generic form being
 <code>irrational_coeff_series_of_weighted_coeff_block_certificates</code>.
-The complete inventory of what that engine has been made to prove,
-uniformly in the base <span class="math inline" data-term-auto="off">\(b \ge 2\)</span>:</p>
+The table records their hypotheses at integer bases <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span>; it is separate from the ordinary
+averaging proof above.</p>
 <div class="center">
 <table>
 <thead>
@@ -198,9 +286,12 @@ hypotheses; none establishes irrationality for every infinite support.
 The <span class="math inline" data-term-auto="off">\(b=2\)</span> case of the first row
 recovers the Erdős–Borwein constant <span class="math inline" data-term-auto="off">\(E =
 \sum_{n \ge 1} 1/(2^n-1)\)</span> as a one-line corollary of that
-classical theorem. Separately, <em>every</em> row lies inside a two-axis
-box — divisor independence plus a global reciprocal-tail budget — and
-the box is not an accident of effort. That is Barrier <a class="math-ref" href="#bar:box">3.7</a>.</p>
+classical theorem. Separately, the independence and tail estimates used
+by a particular certificate construction must be checked for that
+support. Barrier <a class="math-ref" href="#bar:box">3.7</a>
+discusses those construction requirements; the averaging proof above
+does not assume pairwise coprimality or independence of divisor
+events.</p>
 <p>The one conditional extension worth naming is , which strictly
 generalises pairwise coprimality (cores may be arbitrary divisors of one
 fixed <span class="math inline" data-term-auto="off">\(Q\)</span>) but still demands globally

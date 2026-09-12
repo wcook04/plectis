@@ -1871,7 +1871,7 @@ pre .c { color: var(--faint); } /* comment */
   font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--faint); margin-bottom: 0.7rem;
 }
-.docs-toc a { display: block; color: var(--muted); padding: 0.25rem 0; border-left: 2px solid var(--rule); padding-left: 0.8rem; }
+.docs-toc a { display: block; overflow-wrap: anywhere; color: var(--muted); padding: 0.25rem 0; border-left: 2px solid var(--rule); padding-left: 0.8rem; }
 .docs-toc a:hover { color: var(--accent); text-decoration: none; border-left-color: var(--accent); }
 
 .page-foot {
@@ -2641,14 +2641,16 @@ a.comp-card__reltarget:hover, a.comp-card__reltarget:focus-visible {
     contain-intrinsic-size: auto 360px;
   }
 
-  /* Glossary term cards have no section wrapper above them: 435 cards lay out
-     as one flat run, so the per-card defer is the only thing standing between
-     a cold load and a hundred-thousand-pixel layout. 221px is the measured
-     median closed height; `auto` remembers the real height once a card has
-     rendered, so anchor jumps sharpen after first contact. */
+  /* Defer the long glossary one card at a time. Reserve the compact summary's
+     measured height, with extra room for phone wrapping; `auto` remembers each
+     actual height after rendering. Rem units follow the reader's text size. */
   .term-card {
     content-visibility: auto;
-    contain-intrinsic-size: auto 221px;
+    contain-intrinsic-size: auto 6.5rem;
+  }
+
+  @media (max-width: 540px) {
+    .term-card { contain-intrinsic-size: auto 10rem; }
   }
 
   .term-card[open] {
@@ -4239,17 +4241,57 @@ html:not(.js) .landing-pagetools .docs-pagetools > * { visibility: hidden; }
   .reads-as__row { grid-template-columns: 1fr; gap: 0.15rem; }
 }
 
+.glossary-guide {
+  margin: 1.2rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.glossary-guide > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 44px;
+  padding: 0.6rem 0.15rem;
+  list-style: none;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+.glossary-guide > summary::-webkit-details-marker { display: none; }
+.glossary-guide > summary::before {
+  content: "";
+  flex: none;
+  width: 0.4em;
+  height: 0.4em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.glossary-guide[open] > summary::before { transform: rotate(45deg); }
+.glossary-guide > summary:hover { color: var(--accent-strong); }
+.glossary-guide > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.glossary-guide .callout { margin: 0.4rem 0 0.8rem; }
 .term-list { margin: 1.4rem 0 1.2rem; }
+/* Long vocabulary and enlarged text must fit the reading column. */
+.docs-main .term-list { grid-template-columns: minmax(0, 1fr); }
+.docs-main .term-card { min-width: 0; overflow-wrap: anywhere; }
+.docs-main .term-card .dcard__head { gap: 0.35rem 0.65rem; }
 .term-card__kind {
   padding: 1px 8px;
   border: 1px solid var(--rule-strong);
   border-radius: 999px;
   color: var(--muted);
   font-size: var(--fs-micro);
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  white-space: nowrap;
+  letter-spacing: 0.01em;
+  white-space: normal;
 }
+.term-card__record { display: block; margin-bottom: 0.3rem; overflow-wrap: anywhere; }
 .term-card__phrase {
   display: block;
   margin: 0 0 0.3rem;
@@ -6063,6 +6105,9 @@ p.muted a:not(.narrative-ref):focus-visible {
 }
 
 /* Navigation stays usable if scripting is disabled or the runtime fails. */
+/* Without script, a wrapped header cannot supply its measured anchor offset. */
+html:not(.scripting):not(.js):has(.docs-topbar) { scroll-padding-top: 8px; }
+html:not(.scripting):not(.js) .docs-topbar { position: static; }
 html:not(.scripting):not(.js) .docs-menu-btn,
 html:not(.scripting):not(.js) .docs-search-btn,
 html[data-plectis-docs-runtime="failed"] .docs-menu-btn,

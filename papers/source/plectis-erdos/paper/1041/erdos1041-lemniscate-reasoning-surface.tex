@@ -54,22 +54,24 @@ entire segment from the origin to each zero inside $\{|f|<1\}$, so any two
 zeros are joined through the origin by a broken line of length below $2$, in
 every degree and with the middle coefficient unrestricted.  Separation of one
 critical value gives the same conclusion for an arbitrary monic polynomial: if
-$c$ is a simple critical point, $v=f(c)\ne0$, and $|1-f(d)/v|\ge2$ at every
-other critical point, then two zeros are joined inside $\{|f|<1\}$ by a curve
-of length below $2$ in every degree $n\ge3$.
+$c$ is a simple critical point, $v=f(c)\ne0$, and some real centre
+$w_0\in[0,1]$ satisfies $|f(d)/v-w_0|\ge4/3$ at every other critical point,
+then two zeros are joined inside $\{|f|<1\}$ by a curve of length below $2$ in
+every degree $n\ge3$, provided $|v|<1$.
 
-The separation theorem resolves the saddle by a square-root coordinate.
-Separation makes the resolved inverse branch $Z$ univalent on the disc of
-radius $\sqrt S$, the identity $P(Z(\xi))=1-\xi^2$ pins the exact Dirichlet
-integral $\int|P'|^2$ over its image, and Crane's sharp lower bound for the
-area of a polynomial image then bounds the Taylor coefficients of $Z$ and
-hence its length by
+The separation theorem resolves the saddle by a square-root coordinate.  A
+disk centred at $w_0$ and containing the value segment $[0,1]$ isolates the
+selected simple branch point.  The resulting two-sheeted component is
+uniformised by $\xi^2=1-P$, then mapped to the unit disc so that the connector
+becomes a diameter.  The Bergman segment inequality and the exterior-fibre
+capacity gap give
 \[
- 2\Bigl(\frac2n\Bigr)^{1/(2n)}|v|^{1/n}S^{1/n}
-   \sqrt{\log\!\frac{S}{S-1}}.
+ \operatorname{length}(\Gamma)^2
+ \le 2|v|^{2/n}\Bigl(\frac{S}{n-1}\Bigr)^{2/n}
+   \log\!\frac{S^2+S+w_0(1-w_0)}{S^2-S+w_0(1-w_0)}.
 \]
-The threshold $S=2$ therefore reaches every degree $n\ge3$, where the earlier
-form of the estimate reached only $n\ge6$.
+The threshold $S=4/3$ reaches every degree $n\ge3$ and every real centre;
+$S=2$ remains an immediate weaker corollary.
 
 Write $\mu=\min_{f'(c)=0}|f(c)|$ and $\rho=\mu^{1/n}$.  Two further statements
 hold for arbitrary monic polynomials.  Every squarefree $f$ of degree $n\ge2$
@@ -89,10 +91,11 @@ Degree three is settled in full.  We also prove the sharp adjacent-zero
 envelope for collinear zeros, with affine Chebyshev equality configurations,
 and solve the primitive sparse quintic and translated cubic quotient-fibre
 families.  An auxiliary sharp power-sum bound
-$\sum_{j=1}^{n-1}|f(c_j)|^{1/(n-1)}\le(n-1)R^{n/(n-1)}$ holds in every degree
-$n\ge2$ for zeros in a closed disc of radius $R\ge0$.
+$\sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}$ holds in every degree
+$n\ge2$ for zeros in a closed disc of radius $R\ge0$; the previously used
+exponents follow from this quadratic mean.
 
-The unrestricted problem remains open.  Critical values near a tie and multiple
+These results do not settle the unrestricted problem.  Critical values near a tie and multiple
 saddles escape the separation argument, and the regime $13/25<\mu<1$ is
 untouched by the threshold argument.  Exact counterexamples show that short
 Euclidean chords and critical spokes need not stay in the lemniscate.  The
@@ -104,13 +107,15 @@ critical-value budget alone does not bound its length.
 \textbf{Trinomials.} Theorem~\ref{res:trinomial-all-degree} settles the
 Erd\H{o}s--Herzog--Piranian conclusion for every monic trinomial in every
 degree, with a prescribed path and an unrestricted middle coefficient.  The
-statement is ordinary mathematics; \texttt{PaperTrinomial.lean} is not in this
-checkout.
+statement uses checked radial inequalities and the radius budget from the
+pinned Abel control-polygon source; the final conversion to one rectifiable
+path is ordinary mathematics (Section~\ref{sec:trinomials}).
 \textbf{Separated critical values.}
 Theorem~\ref{res:critical-value-separation} bounds the length of the resolved
 inverse-ray connector at a simple isolated critical value, and
 Corollary~\ref{res:critical-value-thresholds} turns that bound into the target
-conclusion at separation $S=2$ in every degree $n\ge3$.
+conclusion at separation $S=4/3$ in every degree $n\ge3$, for any real centre
+of the normalised value segment.
 \textbf{Regimes with no root hypothesis.}
 Theorem~\ref{res:low-critical-thirteen-twentyfifths} settles every squarefree
 monic polynomial with least critical-value modulus at most $13/25$, in every
@@ -126,10 +131,10 @@ require another construction.  An admissible-hub selector is one sufficient
 route to the target; no characterization of every possible solution is proved.
 \end{paperresult}
 
-\externalreviewobject{The paper gives an ordinary all-degree path theorem for
-every monic trinomial, a separately ordinary sharp critical-value mean, a
+\externalreviewobject{The paper gives an all-degree path theorem for every monic trinomial,
+a sharp critical-value mean checked in Lean, a
 quantitative connector at a separated simple critical value whose threshold
-$S=2$ reaches every degree $n\ge3$, a short contained connector whenever the
+$S=4/3$ reaches every degree $n\ge3$, a short contained connector whenever the
 least critical-value modulus is at most $13/25$, a constant-factor connector
 of length at most $(71/10)\mu^{1/n}$ inside $\{|f|\le2\mu\}$, the full
 degree-three case, a sharp all-degree collinear theorem, a complete primitive
@@ -138,21 +143,20 @@ degree $3q$.  Lean checks exponential Newton-value decay, positive-ray
 collision interfaces, finite translation avoidance, and quantified root
 retention.  Exact obstruction examples, including a Cassini counterexample to
 the printed global tree budget, show why those estimates cannot be promoted to
-a general connector theorem.}{The trinomial paths, the Poisson critical-value
-mean, the separation regime, the two threshold-free theorems, the
-degree-three theorem and the solved-family path assemblies are ordinary
-mathematics.  The $13/25$ threshold, the $(71/10)$ constant and the
-degree-three theorem have no formal endpoint in the pinned corpus, and the
-regime $13/25<\mu<1$ is untouched by the threshold argument.  The checked
+a general connector theorem.}{The critical-value mean and translated cubic fibre path have complete
+Lean statements.  The trinomial radial inequalities and radius budget are
+checked at their own public pin, with the final rectifiable-path interpretation
+ordinary.  The analytic low-critical and separation arguments retain the
+source boundaries stated in their sections; the regime $13/25<\mu<1$ is
+untouched by the threshold argument.  The checked
 dynamical and perturbative inputs do not construct unrestricted connectors, so
-Problem~\#1041 remains open.  A reported degree-seven counterexample
+the unrestricted conclusion is not established here.  A reported degree-seven counterexample
 announcement is a separate external claim, not a theorem of this record.}
-{Comparator checks three solved-family kernels (collinear, primitive quintic,
-translated cubic fibres), not the ordinary length-below-two assemblies.
-Critical-value separation, including its threshold analysis, has no
-corresponding formal endpoint in the pinned corpus.  \texttt{PaperTrinomial.lean}
-and \texttt{PaperCriticalValueMeanR10.lean} are not cited as kernel-checked
-complete statements.}
+{The selected solved-family Comparator interfaces are separate from the
+full proof coverage: they check the registered kernels.  The complete
+critical-value mean and translated cubic fibre path have the source-bound
+Lean evidence cited in their sections.  Those checks provide neither a
+general connector theorem nor an assessment of novelty or significance.}
 
 The two selected perturbation interfaces have the following exact boundaries.
 For a finite type $\iota$, an injective family of critical values
@@ -172,6 +176,21 @@ and a shift of norm less than $\varepsilon$; it then places every root of
 $f+\operatorname{C}(\text{shift})$ in the open unit disc.  These are finite
 perturbation and stability interfaces only: neither row supplies the missing
 global topology or the length-$2$ gluing argument.
+
+\paragraph{The principal arguments and their dependencies.}
+The trinomial proof in Section~\ref{sec:trinomials} uses the root equation
+to control an entire radial segment; it does not use Newton flow.
+The low-critical theorem in
+Section~\ref{sec:low-critical-closure} follows a different chain:
+absence of a short connector forces separated points in a conformal disc,
+circle slices bound how many can occur at each radius, and the resulting
+root count forces too much area growth.  The finite dual inequality is the
+summation step of that argument, not a replacement for its geometric inputs.
+The later solved families and obstructions can be consulted independently.
+Sections~\ref{sec:newton}--\ref{sec:gap} distinguish the scalar Newton
+identity from the global topology and metric estimates that it does not
+supply.  This record retains those distinctions when a short-paper proof
+refers here for detail.
 
 \section{The problem}\label{sec:problem}
 
@@ -242,18 +261,18 @@ We study the Newton flow whose trajectories foliate the lemniscate.
 Statement & Status & Exact boundary \\
 \midrule
 Erd\H{o}s \#1041 & Open & No proof is claimed. \\
-Every monic trinomial $z^n+az^m+b$ & Ordinary all-degree theorem & $1\le m<n$ and every zero in the open unit disc; the middle coefficient is unrestricted and $|b|<1$ comes from Vieta.  The radial inequalities and the two-segment path are ordinary mathematics; \texttt{PaperTrinomial.lean} is not in this checkout.  Two intermediate coefficients break the radial mechanism. \\
-Separated critical value, $S=2$, $n\ge3$ & Ordinary all-degree theorem & A simple selected saddle with $|1-f(d)/v|\ge2$ at every other critical point; the continuation, injectivity and area arguments are ordinary, and near ties and multiple saddles are excluded.  No existence of a separated critical value is asserted. \\
+Every monic trinomial $z^n+az^m+b$ & Checked radial bounds; ordinary path interpretation & $1\le m<n$ and every zero in the open unit disc; the middle coefficient is unrestricted and $|b|<1$ comes from Vieta.  The pinned Abel source checks both complete spokes and the radius-sum bound.  Two intermediate coefficients can break the radial mechanism. \\
+Separated critical-value disk, $S=4/3$, $n\ge3$ & Ordinary all-degree theorem; Lean-checked numerical kernel & A simple selected saddle with $|f(d)/v-w_0|\ge4/3$ at every other critical point for some $w_0\in[0,1]$, and $|f(c)|<1$ for the parent conclusion.  The two-sheeted uniformisation, Bergman estimate and exterior-fibre capacity gap are ordinary.  No existence of such a disk is asserted. \\
 Low critical value $\mu\le13/25$ & Ordinary all-degree theorem with an exact rational certificate & Squarefree monic, $n\ge2$, least critical-value modulus at most $13/25$; no hypothesis on root locations, component arity or component capacity.  The analytic chain and the certificate are ordinary; nothing here is Lean-checked; the regime $13/25<\mu<1$ is untouched. \\
 Unconditional constant factor $(71/10)\mu^{1/n}$ & Ordinary all-degree theorem & Monic, $n\ge2$, no further hypothesis; containment is $\{|f|\le2\mu\}$; the target set is $\{|f|<1\}$, and the constant $71/10$ exceeds the target $2$.  Degree two is the separate exact case with constant $2$. \\
 Degree three & Ordinary theorem, complete for that degree & Roots in the open unit disc, listed with multiplicity; the two selected roots are distinct in the squarefree case.  The spoke identity and its norm bound have a Lean companion in the research corpus, outside the pinned formal-source library. \\
-Critical-value separation, general $S$ & Ordinary all-degree theorem & A simple nonzero hub and $(2S^2/n)^{1/n}\log(S/(S-1))<1$; the threshold, covering and area arguments remain ordinary; near ties and multiple saddles are excluded. \\
-Critical-value budget in every degree & Ordinary theorem & $\sum_j|f(c_j)|^{1/n}\le(n-1)R$ for every $n\ge2$ and $R\ge0$, with the sharper Poisson mean $\sum_j|f(c_j)|^{2/(n-1)}\le n-1$ on the closed unit disc.  The complete mean is ordinary mathematics, not a kernel-checked assembly of \texttt{PaperCriticalValueMeanR10.lean}.  No inverse-ray length estimate is implied. \\
+Critical-value separation, general disk & Ordinary all-degree theorem & A simple nonzero hub, $S>\max(w_0,1-w_0)$ and the coefficient inequality in Theorem~\ref{res:critical-value-separation}; the covering, Bergman and capacity arguments remain ordinary. \\
+Critical-value budget in every degree & Lean-checked theorem & $\sum_j|f(c_j)|^{1/n}\le(n-1)R$ for every $n\ge2$ and $R\ge0$, with the sharper Poisson mean $\sum_j|f(c_j)|^{2/(n-1)}\le n-1$ on the closed unit disc.  The complete mean is checked in \texttt{PaperCriticalValueMeanR10.lean}, with matching source-bound build evidence cited below.  No inverse-ray length estimate is implied. \\
 Coefficient energy to path length & Checked & Termwise differentiation and the length integral of the actual power series; the inverse branch and area bound must be supplied. \\
 Uniform central free-point region & Checked & Every positive number of points; $|c_i|\le\sqrt{1-e^{-2}}$, with no additional series hypotheses. \\
-Newton value equation $w'=-w$ & Checked & Away from critical points, along any trajectory tangent to $-f/f'$. \\
-Exponential first integral & Checked & $\tfrac{d}{dt}\bigl(e^{t}f(z(t))\bigr)=0$. \\
-Ray separation of critical values & Candidate finite-endpoint completion & Continuity at the endpoints and noncritical Newton evolution on the open interval imply a common positive multiplier; distinct nonzero rays exclude such a connection. No global trajectory producer is supplied. \\
+Newton value equation $w'=-w$ & Checked local derivative & For a complex local parameter, away from critical points and along a curve tangent to $-f/f'$. \\
+Scaled-value derivative & Checked local derivative & For the same complex local parameter, $\tfrac{d}{dt}\bigl(e^{t}f(z(t))\bigr)=0$; constancy on a real interval is an ordinary integration step. \\
+Ray separation of critical values & Lean-checked endpoint consumer plus ordinary finite-trajectory deduction & Lean contradicts distinct rays from an assumed exponential endpoint relation.  Continuity at the endpoints and noncritical Newton evolution on the open interval yield that relation by ordinary integration; no global trajectory producer is supplied. \\
 Ray-collision locus & Checked & $\beta=(ra-b)/(1-r)$, $r>0$, $r\ne1$: one real parameter per pair. \\
 Quartic case & Cited & Proved in \cite[Thm.~1, p.~1]{june2026}; does not extend to general degree. \\
 Translated quartic quotient fibres & Ordinary theorem with a Lean-checked metric kernel & For $f(z)=P((z-h)^q)$, $P$ monic quartic and $q\ge2$; Pendyala supplies the quartic geometry, while Lean checks the root-lift density, exact primitive, and strict endpoint budget. \\
@@ -262,7 +281,8 @@ Concyclic zeros with $2\rho^n\le1$ & Ordinary proof; finite exact and numerical 
 Unrestricted proof of \cite[Theorem~1, p.~1]{march2026} & Printed tree budget false & Proposition~12 uses a false three-ended local saddle block, and the Cassini polynomial $z^2-a^2$ at $a=9/10$ refutes the printed $1/(2\pi)$ spanning-tree estimate.  A different route cannot retain that coefficient.  This does not refute Erdős \#1041. \\
 Constant-translation ray separation and root retention & Checked & After critical-value injectivity, arbitrary small ray avoidance and an explicit unit-disc margin. \\
 Coefficient perturbation and slack stability & Open & Must first create injective critical values and preserve the component, collars and length budget. \\
-Reeb decomposition and length fan-in & Open & The two surviving producers. \\
+Ray-separated slit-sheet decomposition & Ordinary theorem on a generic stratum & Critical points in the component are simple, critical values are nonzero, and their arguments and moduli are pairwise distinct.  Simultaneous levels and the broader compact-band cut problem are not covered. \\
+Metric fan-in & Open & The generic topology supplies a canonical inverse-ray tree but no target-scale length estimate; near-tied arguments, multiple saddles and the general compact-band gluing problem remain open. \\
 Random search to degree $10$ & Numerical candidate connectors & Grid distances for sampled configurations, with no continuous sublevel certificate on any edge. \\
 \bottomrule
 \end{longtable}
@@ -648,6 +668,8 @@ $66517563/9392500<71/10$.  Degree two has the exact root-segment bound
 $2\rho$.
 
 \begin{proof}[Proof architecture]
+If $f$ has a repeated zero, the constant path between two occurrences
+proves the theorem.  Otherwise $f$ is squarefree and $\mu>0$.
 Choose a critical point at level $\mu$ and a component at a regular level
 $t\in[\mu,\lambda\mu]$ that contains the corresponding first merge.  If a
 regular component $C'$ at level $\sigma$ contains $k'$ roots, winding and
@@ -923,183 +945,161 @@ and a higher-degree proof needs a replacement for that sparsity.
 The first result is the strongest direct parent-theorem regime in this note.
 It is not a statement about a sampled family or a fixed degree: the condition
 is an exact inequality on the other critical values after normalising one
-simple first-merge hub.
+simple selected hub.
 
-\begin{theorem}[critical-value separation]
+\begin{theorem}[disk-family critical-value separation]
 \label{res:critical-value-separation}
 Let $P$ be a polynomial of degree $n\ge3$ whose leading coefficient has
-modulus one.  Suppose
+modulus one, with
 \[
- P(0)=1,\qquad P'(0)=0,\qquad P''(0)\ne0,
+ P(0)=1,\qquad P'(0)=0,\qquad P''(0)\ne0.
 \]
-and, for some $S>1$, every other critical point $d\ne0$ satisfies
+Fix $w_0\in[0,1]$ and $S>\max(w_0,1-w_0)$.  Suppose every other critical
+point $d\ne0$ satisfies
 \[
- |1-P(d)|\ge S.
+ |P(d)-w_0|\ge S.                                      \tag{4}
 \]
-If $Z$ is either local solution at the saddle of
-\[
- P(Z(\xi))=1-\xi^2,\qquad Z(0)=0,
-\]
-then $Z$ continues holomorphically and injectively to
-$|\xi|<\sqrt S$.  Its endpoints $Z(-1)$ and $Z(1)$ are distinct roots, the
-curve $Z([-1,1])$ lies in $\{|P|\le1\}$, and their resolved inverse-ray
-connector satisfies
-\[
- \int_{-1}^{1}|Z'(\xi)|\,d\xi
- \le 2\Bigl(\frac2n\Bigr)^{1/(2n)}S^{1/n}
-     \sqrt{\log\!\frac{S}{S-1}}.       \tag{4}
-\]
-In particular the connector has length strictly below $2$ whenever
-\[
- \Bigl(\frac{2S^{2}}{n}\Bigr)^{1/n}\log\!\frac{S}{S-1}<1. \tag{5}
-\]
+Put $p=w_0(1-w_0)$.  The two local solutions of
+$P(Z(\xi))=1-\xi^2$, $Z(0)=0$, continue along the real segment to one
+injective root-to-root connector $\Gamma$.  Its endpoints are distinct roots,
+$\Gamma\subseteq\{|P|\le1\}$, and
+\begin{equation}\label{eq:disk-family-length}
+ \operatorname{length}(\Gamma)^2
+ \le 2\Bigl(\frac{S}{n-1}\Bigr)^{2/n}
+ \log\!\frac{S^2+S+p}{S^2-S+p}.                       \tag{5}
+\end{equation}
+Consequently the connector is shorter than $2$ whenever
+\begin{equation}\label{eq:disk-family-coefficient}
+ \Bigl(\frac{S}{n-1}\Bigr)^{2/n}
+ \log\!\frac{S^2+S+p}{S^2-S+p}<2.                    \tag{6}
+\end{equation}
 \end{theorem}
 
 \begin{proof}
-The simple saddle has local form $P(z)=1+Az^2+O(z^3)$ with $A\ne0$, so the
-substitution $P(Z(\xi))=1-\xi^2$ resolves it into two local holomorphic
-sheets.  Normalize the algebraic curve
-$X=\{(\xi,z):P(z)=1-\xi^2\}$.  A finite ramification point of its projection
-to the $\xi$-plane can occur only at a critical point $d$ of $P$, where
-$\xi^2=1-P(d)$.  The node over $(0,0)$ is replaced in the normalization by
-the two resolved local points, and the separation hypothesis puts every
-other ramification point on or outside $|\xi|=\sqrt S$.  Polynomial
-properness makes the normalized projection finite and proper.  Its inverse
-image over $D_{\sqrt S}$ is therefore an unramified finite cover.  Since the
-disc is simply connected, every connected cover component maps
-biholomorphically to it; in particular either resolved local sheet continues
-as a single holomorphic branch $Z$ throughout the disc.
+Let $Q=D(w_0,S)$ and let $U$ be the component of $P^{-1}(Q)$ containing
+$0$.  Both $0$ and $1$ lie in $Q$, and (4) says that $0$ is the only critical
+point in $U$.  A component of a polynomial lemniscate is simply connected.
+The proper map $P:U\to Q$ therefore has degree two: Riemann--Hurwitz gives
+$1=\deg(P|_U)-1$ because the simple critical point contributes the only unit
+of ramification.
 
-This branch is also injective as a map into the $z$-plane.  Indeed,
-$Z(\xi_1)=Z(\xi_2)$ implies $\xi_1^2=\xi_2^2$.  The involution
-$\iota(\xi,z)=(-\xi,z)$ exchanges the two distinct normalized points over
-$(0,0)$ and hence exchanges their two cover components.  If
-$\xi_2=-\xi_1\ne0$ and $Z(\xi_1)=Z(\xi_2)$, one component would meet its
-$\iota$-image; connected cover components are disjoint, so they would have to
-coincide, contradicting the two distinct points over $0$.  Thus
-$\xi_1=\xi_2$.
+Set $a=1-w_0$.  On $U$, the function $1-P$ has only its double zero at $0$,
+so it has a single-valued square root
+\[
+ \xi(z)^2=1-P(z).
+\]
+The map $\xi$ is proper and locally injective from $U$ onto
+\[
+ \widetilde Q=\{\xi:|\xi^2-a|<S\}.
+\]
+Here $\widetilde Q$ is the connected simply connected double cover of
+$D(a,S)$ branched at $0$.  Hence $\xi$ is a conformal bijection; its inverse
+$Z$ is the continued saddle branch.  Since $[-1,1]\subset\widetilde Q$, the
+curve $Z([-1,1])$ joins the two distinct points over $P=0$, and
+$P(Z(\xi))=1-\xi^2\in[0,1]$ gives its containment.
 
-Write $Z(\xi)=\sum_{k\ge1}a_k\xi^k$.  For
-$1<R<\sqrt S$, injectivity and the area formula give
+The next change of coordinate puts the exact curve, rather than a larger
+disc, into Bergman normal form.  The map
 \[
- \pi\sum_{k\ge1}k|a_k|^2R^{2k}
-   =\operatorname{Area}(Z(D_R)).                    \tag{6}
+ M(w)=\frac{Sw}{S^2+aw-a^2}
 \]
-The image is bounded and open, and $Z$ is holomorphic on a neighbourhood of
-$\overline{D_R}$, so the area of $U_R:=Z(D_R)$ may be computed by the change
-of variables $z=Z(\xi)$, whose real Jacobian is $|Z'|^2$.  Differentiating
-$P(Z(\xi))=1-\xi^2$ gives $P'(Z(\xi))Z'(\xi)=-2\xi$, and therefore the exact
-Dirichlet integral
+sends $D(a,S)$ conformally to the unit disc and fixes $0$.  Choosing the
+analytic square root gives a conformal bijection
 \[
- \int_{U_R}|P'(z)|^2\,dA(z)
- =\int_{D_R}\bigl|P'(Z(\xi))Z'(\xi)\bigr|^2\,dA(\xi)
- =4\int_{D_R}|\xi|^2\,dA(\xi)=2\pi R^4.            \tag{7}
+ \zeta(\xi)=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}
+     :\widetilde Q\longrightarrow\mathbb D.
 \]
-Write $P=e^{i\alpha}\widetilde P$ with $\widetilde P$ monic; this changes
-neither $|P'|$ nor any area.  Crane's sharp lower bound for the area of a
-polynomial image counted with multiplicity \cite[Theorem~3]{crane} states that
-$\int_K|\widetilde P'|^2\,dA\ge n\pi(\operatorname{Area}(K)/\pi)^n$ for every
-measurable $K$.  Applied to $K=U_R$ and combined with~(7), it gives
+It sends $[-1,1]$ to $[-q,q]$, where
 \[
- \operatorname{Area}(U_R)
- \le \pi\Bigl(\frac{2R^4}{n}\Bigr)^{1/n}
- = \pi\Bigl(\frac2n\Bigr)^{1/n}R^{4/n}.            \tag{8}
+ q^2=\frac{S}{S^2+p}.
 \]
-Cauchy--Schwarz applied to (6) and (8) now gives
+For $\Phi=Z\circ\zeta^{-1}:\mathbb D\to U$, the Bergman segment inequality
+therefore gives
+\begin{align*}
+ \operatorname{length}(\Gamma)^2
+ &\le \frac2\pi\log\frac{1+q^2}{1-q^2}
+       \operatorname{Area}(U)\\
+ &=\frac2\pi\log\frac{S^2+S+p}{S^2-S+p}
+       \operatorname{Area}(U).                       \tag{7}
+\end{align*}
+
+It remains to bound the area of this particular component.  For
+$1-w_0<S'<S$, let $U'$ be the component of
+$\{|P-w_0|<S'\}$ containing $0$.  It is a proper regular component carrying
+exactly two zeros of $P-w_0$, counted with multiplicity.  The exterior-fibre
+capacity gap for a proper $k$-zero component, here with $k=2$, gives
 \[
- \sum_{k\ge1}|a_k|
- \le \Bigl(\frac2n\Bigr)^{1/(2n)}R^{2/n}
-      \sqrt{\sum_{k\ge1}\frac1{kR^{2k}}}
- = \Bigl(\frac2n\Bigr)^{1/(2n)}R^{2/n}
-   \sqrt{\log\!\frac{R^2}{R^2-1}}.                  \tag{9}
+ \frac{\operatorname{cap}(\overline{U'})^n}{S'}
+ <\frac{k}{2n-k}=\frac1{n-1}.
 \]
-The \href{https://github.com/wcook04/plectis-erdos/blob/0d34630e1cc9d2b1ac6edfa7cfdba83b31bdc8fe/ErdosProblems/Erdos1041/PowerSeriesDerivative.lean#L120}{checked coefficient-to-length theorem} formalises the passage from the subradius energy bounds to the actual power-series derivative. Termwise integration on $[-1,1]$ gives
-$\int_{-1}^{1}|Z'|\le2\sum_{k\ge1}|a_k|$.  Letting
-$R\nearrow\sqrt S$ proves (4).  Injectivity makes $Z(-1)$ and $Z(1)$
-distinct, while $P(Z(\xi))=1-\xi^2\in[0,1]$ on the real segment proves the
-claimed containment.  Squaring (4) gives (5).
+P\'olya's area--capacity inequality then yields
+$\operatorname{Area}(U')<\pi(S'/(n-1))^{2/n}$.  These components exhaust
+$U$ as $S'\nearrow S$, so
+\[
+ \operatorname{Area}(U)\le\pi\Bigl(\frac{S}{n-1}\Bigr)^{2/n}.
+\]
+Substitution into (7) proves (5), and (6) makes its right side strictly less
+than $4$.
 \end{proof}
 
-\begin{corollary}[separation two suffices in every degree]
+\begin{corollary}[uniform radius $4/3$]
 \label{res:critical-value-thresholds}
-Condition~\emph{(5)} holds at $S=2$ for every integer $n\ge3$.
-Consequently, if $f$ is monic with roots in the open unit disc, $c$ is a
-simple critical point with $v=f(c)\ne0$, and every other critical point
-satisfies $|1-f(d)/v|\ge2$, then two roots of $f$ are joined inside
+Inequality~\eqref{eq:disk-family-coefficient} holds for every $n\ge3$,
+every $w_0\in[0,1]$, and every $4/3\le S\le2$.  Thus, if $f$ is monic with
+roots in the open unit disc, $c$ is a simple critical point with
+$v=f(c)\ne0$ and $|v|<1$, and
+\[
+ \left|\frac{f(d)}v-w_0\right|\ge\frac43
+\]
+for every other critical point $d$, then two roots of $f$ are joined inside
 $\{|f|<1\}$ by a curve of length strictly below $2$.
 \end{corollary}
 
 \begin{proof}
-At $S=2$ the left side of~\emph{(5)} is $B_n=(8/n)^{1/n}\log2$.  For
-$3\le n\le8$ the base $8/n$ is at least one and decreases with $n$, and the
-exponent $1/n$ decreases as well, so $(8/n)^{1/n}\le(8/3)^{1/3}$; for $n\ge8$
-the base is at most one, so $(8/n)^{1/n}\le1\le(8/3)^{1/3}$.  Next,
+For $S\ge4/3$ and $p\ge0$,
 \[
- e^{7/10}>1+\frac7{10}+\frac{49}{200}+\frac{343}{6000}
-        =\frac{12013}{6000}>2,
+ \frac{S^2+S+p}{S^2-S+p}\le\frac{S+1}{S-1}\le7.
 \]
-because every term of the exponential series is positive, so $\log2<7/10$.
-Cubing the resulting bound on $B_n$ gives
-\[
- \Bigl[\Bigl(\frac83\Bigr)^{1/3}\frac7{10}\Bigr]^{3}
- =\frac83\cdot\frac{343}{1000}=\frac{343}{375}<1,
-\]
-so $B_n<1$ in every degree $n\ge3$.
-
-For the polynomial $f$, set $z=c+\rho e^{i\theta}w$ with
-$\rho=|v|^{1/n}$ and choose $\theta$ so that $P(w)=f(z)/v$ has
-unit-modulus leading coefficient.  The theorem gives a connector of length
-strictly below $2|v|^{1/n}$ inside $\{|f|\le|v|\}$.  At $S=2$, separation
-gives $|f(d)|\ge(S-1)|v|=|v|$ at every other critical point, so $|v|=\mu$ is
-the least critical-value modulus.  If the roots lie in a disc of radius
-$R<1$, the resultant identity and Fekete's Vandermonde bound give, with
-critical points counted with multiplicity,
-\[
- \mu^{n-1}
- \le \prod_{f'(d)=0}|f(d)|
- =\frac{|\operatorname{Disc}(f)|}{n^n}
- =\frac{\prod_{i<j}|z_i-z_j|^2}{n^n}
- \le R^{n(n-1)}.
-\]
-The last step writes $z_i=z_0+Ru_i$ with $|u_i|\le1$ and applies Hadamard's
-inequality to the Vandermonde matrix $(u_i^{j-1})$, each of whose rows has
-Euclidean norm at most $\sqrt n$.  Thus $|v|=\mu\le R^n<1$, so both the length
-and containment are strict at the target scale.
+Also $S/(n-1)\le1$ when $S\le2$ and $n\ge3$, while $\log7<2$.
+This proves~\eqref{eq:disk-family-coefficient}.  For the unnormalised
+polynomial, set $z=c+\rho w$, where $\rho=|v|^{1/n}$; then
+$P(w)=f(z)/v$ has leading coefficient $|v|/v$, of modulus one.  Scaling the
+connector multiplies its length by $\rho<1$
+and takes $\{|P|\le1\}$ to $\{|f|\le|v|\}\subset\{|f|<1\}$.
 \end{proof}
 
-The threshold $S=2$ is sufficient and no optimality is asserted.  As $n$ grows
-the first factor of \emph{(5)} tends to one, so the limiting cutoff is the
-solution of $\log(S/(S-1))=1$, namely $S=e/(e-1)=1.5820\ldots$; at $n=3$ the
-numerical cutoff is near $1.903$.  For orientation, the normalised length bound at
-$S=2$ is about $1.9608$ in degree three, $1.8158$ in degree four, and
-$1.7452$ in degree five.  The polynomial $P(z)=1-3z^2+z^3$ satisfies the
-hypotheses with $S=4$: its other critical point is $2$, and $1-P(2)=4$.
+Taking $S=2$ gives the earlier branch-centred criterion
+$|1-f(d)/v|\ge2$ in every degree $n\ge3$.  If $c$ minimises the nonzero
+critical-value modulus, the Fekete--resultant bound gives
+$|v|\le R^n<1$ when all roots lie in a disc of radius $R<1$; for a general
+selected hub, the condition $|v|<1$ must remain explicit.
+In degree three the branch-centred choice $w_0=1$ already works at
+$S=6/5$, since
+\[
+ \Bigl(\frac35\Bigr)^{2/3}\log 11<2.
+\]
+This sharper cubic constant is part of the numerical Lean kernel cited below.
 
 \paragraph{Evidence and exact boundary.}
 \label{bdry:critical-value-separation}
-The analytic continuation, monodromy, area formula, change of variables and
-external area inequalities in Theorem~\ref{res:critical-value-separation} are
-ordinary mathematics.  Two external theorems enter, both used as stated.
-P\'olya's area inequality \cite[printed pp.~280--282]{polya1928} bounds the
-area of a polynomial sublevel set; Crane's Theorem~3 \cite{crane} bounds from
-below the area of a polynomial image counted with multiplicity, sharply, with
-equality exactly when the set is a disc and the polynomial has a single
-critical value at its centre.  The route through P\'olya alone, applied to
-$P-1$ on $\{|P-1|<R^2\}$, already gives
-$\operatorname{Area}(U_R)\le\pi R^{4/n}$ and the length bound
-$2S^{1/n}\sqrt{\log(S/(S-1))}$; the factor $(2/n)^{1/(2n)}$ recorded in~(4) is
-the additional gain from the exact Dirichlet integral~(7), and it is what
-carries $S=2$ down to degree three.  The coefficient-energy estimate, termwise
-differentiation and length integral are Lean-checked for the actual power
-series; the companion symbolic replay checks the branch-value algebra and the
-boundary example $P(z)=1-3z^2+z^3$.  Constructing the univalent branch remains
-an ordinary input to the full theorem.
+The two-sheeted component, its square-root uniformisation, the Bergman segment
+inequality, the exterior-fibre capacity gap, P\'olya's area--capacity
+inequality and the exhaustion in the proof are ordinary mathematics.  Their
+complete source proof is the immutable
+\href{https://github.com/wcook04/plectis-erdos/blob/8efbccc235df64a38d83f5dc7b1949e2ad18270d/research_corpus/Erdos1041/problem/DiskFamilyCriticalValueSeparation.md}{disk-family critical-value separation record}.
+The separate
+\href{https://github.com/wcook04/plectis-erdos/blob/f36e325c8b05fe5c3ce8a2ca32a699f6dc6336b9/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.lean}{Lean numerical kernel}
+checks the coefficient bound for $n\ge3$, $4/3\le S\le2$ and $p\ge0$, and
+the implication from the squared length bound to length below $2$.  It does
+not formalise the analytic hypotheses producing~\eqref{eq:disk-family-length}.
+The adjacent axiom-audit source names those numerical declarations; it is not
+an axiom audit of the ordinary analytic theorem.
 
-The method stops when a
-second critical value enters the resolved disc, and it assumes the selected
-saddle is simple.  It therefore leaves the near-tie and multiple-saddle
-strata, makes no sharpness claim for the threshold $S=2$, asserts no existence
-of a separated critical value, and does not prove an unrestricted
+The method stops when no disk centred on $[0,1]$ isolates the selected
+critical value, and it assumes the selected saddle is simple.  It therefore
+leaves the near-tie and multiple-saddle strata, makes no sharpness claim for
+the uniform threshold $S=4/3$, asserts no existence of a separated disk, and
+does not prove an unrestricted
 admissible-hub selector, a COVER theorem, or Erd\H{o}s~\#1041.
 
 The literature disposition for Dubinin's Theorem~1 is settled here.  The
@@ -1116,19 +1116,13 @@ theorem.  Tao cited it on the Erd\H{o}s Problem~\#1041 discussion page on
 two nested sublevel sets, which is the reading of the displayed inequality in
 which $E$ and $E\cup D$ are those two sublevel sets and the covering
 hypothesis holds.  No step of this note uses that relative inequality.  The
-area estimate~(8) above uses Crane's absolute image inequality together with
-the exact Dirichlet integral~(7), and the absolute sublevel inequality
-$\operatorname{Area}\{|P|<T\}\le\pi T^{2/n}$ for a polynomial with
-unit-modulus leading coefficient, taken from P\'olya
-\cite[printed pp.~280--282]{polya1928}, is the area input to
+disk-family theorem instead uses P\'olya's absolute area--capacity inequality
+on one proper component, after the exterior-fibre argument supplies its strict
+capacity gap.  The absolute sublevel inequality
+$\operatorname{Area}\{|P|<T\}\le\pi T^{2/n}$ remains the area input to
 Theorem~\ref{res:low-critical-thirteen-twentyfifths} and to
-Theorem~\ref{res:constant-factor-path}.  Dubinin's theorem is a
-neighbouring result on lemniscate areas under a covering hypothesis.  It
-bounds areas and supplies no curve joining two roots, so it leaves every
-statement of this note unchanged.  Corollary~\ref{res:critical-value-thresholds}
-states $S=2$ in every degree $n\ge3$; earlier forms of this threshold recorded
-$n\ge7$ and then $n\ge6$, and the exact image-area step~(7)--(8) supersedes
-both.
+Theorem~\ref{res:constant-factor-path}.  Dubinin's theorem is a neighbouring
+result under a full covering hypothesis and supplies no root connector.
 
 \section{Three exact solved polynomial families}
 \label{sec:solved-polynomial-families}
@@ -1442,12 +1436,14 @@ zero value, contrary to the hypothesis.
 
 \paragraph{Formal boundary.}
 \label{rem:cubic-quotient-formal-boundary}
-Lean checks the charge identity and selection, the two-distance envelope,
-the cubic product bound, the safe-spoke disjunction in
-Theorem~\ref{lem:cubic-safe-root-spoke}, and an exact quartic falsifier for
-this charge method.  It does not check the finite $q$-fibre construction,
-root-of-unity average \emph{(14)}, zero-root fallback, pullback, or geometric
-path assembly.  These remain ordinary proof steps.
+Lean checks the charge identity, safe-spoke selection and quartic falsifier,
+and also \href{https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos1041/PaperCubicFibres.lean#L240}{the complete translated cubic fibre theorem}.  The latter supplies the finite fibre
+construction, root-of-unity average, nonzero-root selection, pullback and
+explicit rectifiable hub path under the hypotheses displayed above.
+Its exact source occurs in the successfully compiled dependency closure of
+\href{https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/verification/erdos1041-returned-r18-v5-full-audit-evidence.json}{the source-bound Lean build and axiom-audit record}.  The theorem gives length below $2$; the sharper
+$2\sqrt{1-|h|^2}$ reading in the proof is recorded here as an ordinary
+consequence of the mean-square identity, not as a separately audited endpoint.
 
 \paragraph{Shared assurance boundary.}
 \label{bdry:solved-polynomial-families}
@@ -1698,10 +1694,16 @@ bound the lengths of the paths that reach them.
 Let $f$ be monic of degree $n\ge2$, with roots in a closed disc of radius
 $R\ge0$.  If $c_1,\ldots,c_{n-1}$ are its critical points counted with
 multiplicity, then
-\begin{equation}\label{eq:critical-value-power-budget}
- \sum_{j=1}^{n-1}|f(c_j)|^{1/(n-1)}\le(n-1)R^{n/(n-1)}.
+\begin{equation}\label{eq:critical-value-quadratic-budget}
+ \sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}
+ \le(n-1)R^{2n/(n-1)}.
 \end{equation}
-Consequently
+Consequently the lower exponents used elsewhere in the record satisfy
+\begin{equation}\label{eq:critical-value-power-budget}
+ \sum_{j=1}^{n-1}|f(c_j)|^{1/(n-1)}
+ \le(n-1)R^{n/(n-1)}
+\end{equation}
+and
 \[
  \sum_{j=1}^{n-1}|f(c_j)|^{1/n}\le(n-1)R.
 \]
@@ -1710,11 +1712,10 @@ disk centred at $\tau$ and radius $R=|\lambda|^{1/n}$.
 \end{theorem}
 
 The finite inequality behind the theorem concerns arbitrary points of the
-disk, without asking them to arise as critical points.  Write $(\mathrm{FP}_m)$
-for
+disk, without asking them to arise as critical points.  Its quadratic form is
 \[
  \sum_{j=1}^m\left(\prod_{k=1}^m
-       |1-\overline{c_j}c_k|\right)^{1/m}\le m,
+       |1-\overline{c_j}c_k|\right)^{2/m}\le m,
  \qquad |c_j|\le1.
 \]
 The following pointwise bound explains why these finite inequalities
@@ -1759,35 +1760,29 @@ Let $r\uparrow1$.  This also handles boundary critical points and all
 multiplicities without selecting local branches.
 \end{proof}
 
-Set $m=n-1$. By Gauss--Lucas and the lemma, $(\mathrm{FP}_m)$ gives
-\[
- \sum_j |f(c_j)|^{1/m}\le m
-\]
-on the unit disk. Apply this to $R^{-n}f(h+Rz)$ for a root disk
-centred at $h$ with $R>0$. Scaling the critical values back gives
-\eqref{eq:critical-value-power-budget}. If $R=0$, all critical values
-vanish. For the linear consequence put $y_j=|f(c_j)|^{1/m}$ in the
-unit-disk normalization and use
-\[
- y^{m/(m+1)}\le\frac{my+1}{m+1}\quad(y\ge0).
-\]
-Summation gives $\sum_j|f(c_j)|^{1/n}\le m$, and scaling back multiplies
-this sum by $R$. The weighted Poisson proof below establishes $(\mathrm{FP}_m)$
-for every $m\ge1$, including its equality case. Its quadratic form gives the
-stronger bound
-\[
- \sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)}.
-\]
-The displayed mean, and the stronger Poisson form
-\[
- \sum_{j=1}^{n-1}|f(c_j)|^{2/(n-1)}\le(n-1)R^{2n/(n-1)},
-\]
-are ordinary mathematics in this record.
-\texttt{PaperCriticalValueMeanR10.lean} is not cited as a kernel-checked
-complete statement.
+Set $m=n-1$.  The weighted Poisson proof below gives the quadratic finite
+inequality for every $m\ge1$.  Gauss--Lucas and
+Lemma~\ref{res:reflected-critical-value} then give
+$\sum_j|f(c_j)|^{2/m}\le m$ on the unit disc.  Applying this to
+$R^{-n}f(h+Rz)$ and scaling back proves
+\eqref{eq:critical-value-quadratic-budget} for $R>0$; if $R=0$, all critical
+values vanish.
+
+The two displayed consequences are the lower power means of the same
+nonnegative $m$-tuple.  Equivalently, after unit-disc normalization, apply
+the monotonicity of normalized $L^p$ means from exponent $2/m$ first to
+$1/m$ and then to $1/(m+1)=1/n$.  Scaling back contributes respectively
+$R^{n/m}$ and $R$.  Thus the older exponent is retained as a consequence,
+rather than as the principal theorem.
+
+The quadratic mean and both lower-exponent consequences are checked as
+\href{https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101}{the complete critical-value mean}.  This includes arbitrary centre, zero radius,
+and critical points counted with multiplicity.  The exact source hash and
+the directly audited target alias match \href{https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/verification/erdos1041-returned-r18-v5-full-audit-evidence.json}{the source-bound Lean build and axiom-audit record}; the source
+header's earlier candidate status predates that successful run.
 
 The stronger exponent controls concentration of the critical values.
-For $R>0$, write $r_j=|f(c_j)|^{1/n}$ and $p=n/(n-1)$. Then
+For $R>0$, write $r_j=|f(c_j)|^{1/n}$ and $p=2n/(n-1)$. Then
 \[
  \sum_j(r_j/R)^p\le n-1,\qquad
  \#\{j:r_j\ge tR\}\le\frac{n-1}{t^p}\quad(t>0).
@@ -1841,8 +1836,8 @@ For $M=\sum_jw_jG(c_j)$ the identity
  M^2+\sum_jw_j(G(c_j)-M)^2=\sum_jw_jG(c_j)^2
 \]
 gives weighted Cauchy--Schwarz, with equality precisely when the observations
-are constant on positive support. Equal weights therefore give
-$(\mathrm{FP}_m)$ for every $m\ge1$, with equality only at the zero
+are constant on positive support. Equal weights therefore give the quadratic
+finite inequality above for every $m\ge1$, with equality only at the zero
 configuration. The
 \href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperWeightedCoverageR11.lean\#L138}{three-point theorem}
 and
@@ -2084,11 +2079,15 @@ assume $z$ is differentiable, $f'(z(t))\ne0$, and $z'(t)=N(z(t))$;
 put $w(t)=f(z(t))$.
 
 \begin{theorem}[value equation]\label{res:value}
+Let $f$ be a polynomial and $z:I\to\mathbb C$ a differentiable curve on
+an interval $I$, with $f'(z(t))\ne0$ and
+$z'(t)=-f(z(t))/f'(z(t))$ throughout $I$.  For $w=f\circ z$, one has
 $w'(t)=-w(t)$ on $I$.
 \end{theorem}
 
 \noindent The computation is one line: $w'=f'(z)\,z'=f'(z)\cdot(-f(z)/f'(z))=-f(z)=-w$.
-The kernel checks it as \lref{Erdos1041/NewtonFlowRaySeparation.lean}{50}{newtonFlow_value_hasDerivAt}, together with the
+The kernel checks the local complex-parameter chain rule as
+\lref{Erdos1041/NewtonFlowRaySeparation.lean}{50}{newtonFlow_value_hasDerivAt}, together with the
 differential form of the first integral,
 \lref{Erdos1041/NewtonFlowRaySeparation.lean}{64}{newtonFlow_scaledValue_hasDerivAt_zero}:
 \[
@@ -2096,6 +2095,8 @@ differential form of the first integral,
   \qquad\text{equivalently}\qquad
   f(z(t))=e^{-(t-t_0)}f(z(t_0)),\qquad t_0\le t,\quad t_0,t\in I .
 \]
+Integration on the real interval gives the last identity as an ordinary
+consequence of the differential equation.
 For an existing trajectory with nonzero initial value, its value moves
 inward on one positive ray; a zero value has no argument and remains zero.
 Thus $|f|<1$ is preserved for later times in that trajectory's existing
@@ -2211,11 +2212,76 @@ root, or use a different global metric inequality.
 The shorter descriptions of the same three-ended block do not repair the
 four-sector topology.
 
-Corollary~\ref{res:ray} supplies one independent input for a different route:
-distinct critical-value arguments exclude saddle-to-saddle Newton
-connections.  It does not itself prove the compact planar decomposition,
-classify all orbit endpoints or provide the metric gluing estimate.  Those are
-separate problems below.
+There is nevertheless a complete ordinary topology theorem on the generic
+stratum where the critical values separate both by angle and by level.
+
+\begin{theorem}[ray-separated slit-sheet decomposition]
+\label{res:attachment-aware-reeb}
+Let $f$ be monic, and let $U$ be a component of $\{|f|<1\}$ containing
+$k\ge2$ roots, counted with
+multiplicity.  Suppose every critical point of $f$ in $U$ is simple, its
+critical value is nonzero, and these critical values have pairwise distinct
+arguments and pairwise distinct moduli.  Then:
+\begin{enumerate}
+\item $-\log|f|$ is a proper excellent Morse function on
+$U\setminus f^{-1}(0)$, with exactly $k-1$ nondegenerate saddles;
+\item cutting the value disc along the complete critical rays decomposes the
+preimage into conformal strips;
+\item cutting each ray only from its critical value to the unit circle gives
+$k$ conformal sheets, one per root, whose critical transpositions form a tree;
+\item for each critical point $c$, the two inverse lifts of
+$[0,f(c)]$ join two roots through $c$ inside $\{|f|\le|f(c)|\}$, and the union
+of these arcs is an embedded geometric realisation of that tree.
+\end{enumerate}
+Small neighbourhoods of the saddles can be chosen with diameter
+$O(\sqrt\delta)$ at value radius $\delta$.
+\end{theorem}
+
+\begin{proof}
+A polynomial sublevel component is simply connected, and
+$f:U\to\mathbb D$ is proper of degree $k$.  Riemann--Hurwitz gives exactly
+$k-1$ simple critical points.  The holomorphic Morse lemma makes them
+nondegenerate saddles of $-\log|f|$; the distinct moduli make their levels
+distinct, and properness follows at the boundary and at the deleted roots.
+Removing all critical rays leaves simply
+connected sectors without branch values, so every component of their
+preimage maps biholomorphically to its sector; logarithmic polar coordinates
+turn these components into strips.
+
+For the sheet tree, remove only the outward slits
+$\{tf(c):1\le t<1/|f(c)|\}$.  Distinct critical-value arguments make the
+remaining value domain star-shaped about $0$, hence simply connected.  Its
+preimage splits into $k$ sheets labelled by the roots.  Local monodromy at a
+simple critical value is a transposition.  The monodromy action before the
+slits are made is transitive because the punctured domain upstairs is
+connected; therefore the graph of the $k-1$ transpositions is connected.  A
+connected graph with $k$ vertices and $k-1$ edges is a tree.
+
+The inward segment from $f(c)$ to $0$ contains no other critical value:
+distinct arguments exclude a different ray, and distinct moduli separate
+critical levels on the same ray.  Its two inverse lifts converge to $c$ by
+the holomorphic Morse coordinate and start at two roots.  Lifts belonging to
+different critical points cannot cross away from roots, since an intersection
+would give one nonzero value on two critical rays.  Their union is therefore
+an embedded tree.  The same local Morse coordinate identifies a value disc of
+radius $\delta$ with a spatial neighbourhood of diameter
+$O(\sqrt\delta)$.
+\end{proof}
+
+The complete ordinary argument is recorded in
+\href{https://github.com/wcook04/plectis-erdos/blob/a729f05c40398663fd586c9da487ad874d898639/research_corpus/Erdos1041/AttachmentAwareReeb.md}{the attachment-aware Reeb source}.
+Its Lean companion checks the ray-distance, averaging and finite-tree kernels;
+it explicitly does not formalise Riemann--Hurwitz, monodromy, the strip
+diffeomorphisms or the geometric assembly.  The theorem supplies topology,
+not a useful length sum: the canonical inverse-ray tree can already have the
+Cassini deficit discussed above.
+
+Corollary~\ref{res:ray} shows that the distinct-argument hypothesis also
+excludes finite nonsingular saddle-to-saddle Newton connections.  The theorem
+does not cover coincident arguments, simultaneous
+critical levels, multiple saddles, boundary tangencies in a general compact
+band, or non-Hausdorff orbit spaces, and it gives no target-scale metric
+gluing estimate.  Those broader questions remain below.
 
 \section{Finite evidence}\label{sec:finite}
 
@@ -2446,27 +2512,33 @@ unit disc and $\mu\le1/2$, and both fall short of the target constant $2$.
 Theorem~\ref{res:degree-three} settles degree three completely for roots in
 the open unit disc.  Theorem~\ref{res:critical-value-separation} holds in
 every degree and is conditional on the critical-value separation $S$, with the
-threshold $S=2$ reaching every degree $n\ge3$ by
+uniform threshold $S=4/3$ reaching every degree $n\ge3$ and every real centre
+of the normalised value segment by
 Corollary~\ref{res:critical-value-thresholds}.
 Theorem~\ref{res:trinomial-all-degree} settles the whole trinomial family in
-every degree by an ordinary radial argument.  All five are
-ordinary proofs at the level of the assembled path.  Their Lean companions check named numerical, algebraic and
+every degree by an ordinary radial argument.  Their formal coverage differs: the translated cubic fibres have a complete
+rectifiable-path theorem; the trinomial source checks both radial bounds and
+the radius sum.  The remaining companions check the named numerical, algebraic and
 power-series steps inside them, the degree-three companion lies outside the
 pinned formal-source library and carries no kernel receipt in this release,
-and the univalent branch, the area bounds and the certificate chain remain
-ordinary mathematics.  The source now publicly verifies the Newton
+and the disk uniformisation, Bergman estimate, capacity gap, area bounds and
+certificate chain remain ordinary mathematics.  The source now publicly verifies the Newton
 kernel, finite ray avoidance and quantitative constant-translation root
-control; the coefficient perturbation, corrected planar decomposition and
-metric gluing remain the exact unresolved producers.
+control.  The ray-separated generic stratum has the ordinary slit-sheet
+decomposition of Theorem~\ref{res:attachment-aware-reeb}; coefficient
+perturbation, the exceptional compact-band decompositions and metric gluing
+remain unresolved.
 
 \section*{Statements and declarations}
 
 Lean does not check the exposition, citation choices, or interpretation. This
 manuscript cites Lean only for the formal statements and proofs that the pinned
-kernel accepts. The checked
-core is the Newton value equation, the exponential first integral, the consumer
-form of ray separation, the finite planar-avoidance theorem, quantitative
-constant-translation root retention, and the ray-collision parameterisation.  The
+kernel accepts. The checked core is the local Newton value equation, the zero-derivative form
+of its exponentially scaled value, the algebraic consumer from an assumed
+exponential endpoint relation, the finite planar-avoidance theorem, quantitative
+constant-translation root retention, and the ray-collision parameterisation.
+The real-time first integral and finite-trajectory ray exclusion use the ordinary
+interval-integration and endpoint-continuity argument given in the paper.  The
 decomposition and length statements of \S\ref{sec:open} are not proved.  The
 diagnosis of Proposition~12 in \S\ref{sec:gap} records both the invalid local
 saddle block and the Cassini obstruction to the printed global tree budget.
@@ -2630,13 +2702,13 @@ A quantified small constant perturbation keeps every polynomial root inside the 
 \subsection{Newton value decay}
 \textbf{Reader position.} 13 of 70; display band: major result.  Formal editorial disposition: split.  These are separate classifications.
 
-\textbf{Reader entry.} The Newton value equation and its exponential first integral are checked exactly.
+\textbf{Reader entry.} Lean checks the local Newton value equation and the zero-derivative form of its exponentially scaled value; constancy along a real-time interval is an ordinary calculus consequence in the paper.
 
-The Newton value equation and its exponential first integral are checked exactly.
+Lean checks the local Newton value equation and the zero-derivative form of its exponentially scaled value; constancy along a real-time interval is an ordinary calculus consequence in the paper.
 
-\textbf{Authority and reach.} Lean kernel; locally proved result and formalised calculus; novelty unassessed.
+\textbf{Authority and reach.} Lean kernel plus authored synthesis; locally proved result and formalised calculus; novelty unassessed.
 
-\textbf{Exact boundary.} Value decay alone does not give a short connecting curve.
+\textbf{Exact boundary.} The cited declarations are pointwise derivative statements. The real-time first integral requires the paper’s interval integration step, and value decay alone does not construct a global trajectory or give a short connecting curve.
 
 \textbf{Result-atom population.} 95 of 681 public coordinates. The public atom catalog groups them under this family.
 
@@ -2652,13 +2724,13 @@ The Newton value equation and its exponential first integral are checked exactly
 \subsection{Ray separation}
 \textbf{Reader position.} 25 of 70; display band: mechanism.  Formal editorial disposition: split.  These are separate classifications.
 
-\textbf{Reader entry.} Distinct positive rays exclude a finite Newton connection.
+\textbf{Reader entry.} Lean checks that distinct positive rays contradict an assumed exponential endpoint relation; the paper derives that relation for a finite real-time Newton trajectory by ordinary integration and endpoint continuity.
 
-Distinct positive rays exclude a finite Newton connection.
+Lean checks that distinct positive rays contradict an assumed exponential endpoint relation; the paper derives that relation for a finite real-time Newton trajectory by ordinary integration and endpoint continuity.
 
-\textbf{Authority and reach.} Lean kernel; locally proved result; novelty unassessed.
+\textbf{Authority and reach.} Lean kernel plus authored synthesis; locally proved result; novelty unassessed.
 
-\textbf{Exact boundary.} The result is a route obstruction, not the global theorem.
+\textbf{Exact boundary.} The finite-trajectory conclusion retains continuity on the closed interval, differentiability and noncritical Newton evolution on its interior, and the ordinary endpoint passage. It supplies neither global trajectory existence nor geometric length control.
 
 \textbf{Result-atom population.} 19 of 681 public coordinates. The public atom catalog groups them under this family.
 
@@ -2785,11 +2857,11 @@ Collision translations are parameterised by real affine lines and an arbitrarily
   arXiv:0805.2295. \url{https://arxiv.org/abs/0805.2295}.
   Bound $9.173\,n$ for the same level-curve arclength.
 \bibitem{fryntovnazarov2008} A.~Fryntov and F.~Nazarov,
+  \emph{New estimates for the length of the Erd\H{o}s--Herzog--Piranian lemniscate},
   arXiv:0808.0717 (2008).
   \url{https://arxiv.org/abs/0808.0717}.
-  Asymptotically sharp $2n+o(n)$ for the level-curve arclength, extremal at
-  $p(z)=z^n-1$.  The title of this preprint is not recorded in this
-  repository's prior-art file.
+  Proves $|L_p|\le 2n+o(n)$ for all monic degree-$n$ polynomials and local
+  maximality at $p(z)=z^n-1$.
 \bibitem{tao2025} T.~Tao,
   \emph{The maximal length of the Erd\H{o}s--Herzog--Piranian lemniscate in
   high degree}, arXiv:2512.12455 (December 2025).

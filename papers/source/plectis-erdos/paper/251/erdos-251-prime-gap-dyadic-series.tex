@@ -28,31 +28,21 @@ and integral-shift criteria for Erd\H{o}s Problem~\#251}
 \noteprovenance
 
 \begin{abstract}
-The positive even word $a_n=2(n^2+4n+2)$ has complete dyadic tails
-$U_N=2(N+4)^2$ and rational sum $\sum_{j\ge1}a_j2^{-j}=32$.
-Its unbounded, nonperiodic coefficients therefore coexist with integral
-shifts at every pair of indices.  A sparse rationalising perturbation of the
-actual prime gaps preserves every fixed eventual congruence of both gaps
-and cumulative sums, together with the empirical distributions of all
-unnormalised gap blocks of length $o(\log\log X)$.  Its corrections can be
-bounded by $(\log n)^\varepsilon$ for any $0<\varepsilon<1$.
-We identify the actual complete prime-gap tails and classify rationality by
-integrality of their shifts.  Two adjacent shifts in $(-1,1)$ with unequal
+A sparse perturbation of the actual prime gaps can make their dyadic sum
+rational while preserving every fixed eventual congruence of the gaps and
+cumulative sums, and the empirical distributions of all unnormalised gap
+blocks of length $o(\log\log X)$.  For every $0<\varepsilon<1$, its
+corrections can be bounded by $(\log n)^\varepsilon$ eventually.  The
+construction uses pairs with fixed unweighted total and variable dyadic
+weight; its elementary pair identities are checked in Lean, while the sparse
+scheduling argument is ordinary mathematics.  The simpler positive even word
+$a_n=2(n^2+4n+2)$ has complete dyadic tails $U_N=2(N+4)^2$ and rational sum
+$\sum_{j\ge1}a_j2^{-j}=32$.  We identify the actual complete prime-gap tails
+and classify rationality by integrality of their shifts.  Two adjacent shifts in $(-1,1)$ with unequal
 associated gaps cannot both be integral.  Their joint occurrence cofinally
 for every positive shift would prove irrationality of the prime series;
 this prime-specific assertion remains unproved.
 \end{abstract}
-
-There is an exact finite obstruction recorded in the pinned source: a second
-example has finite sum $-n/2^n$ and non-eventually-periodic coefficients
-(\lword{Erdos251/PrimeGapDyadicTail.lean}{1157}
-      {carryPartialSum_natCast_eq}{finite endpoint};
-\lword{Erdos251/PrimeGapDyadicTail.lean}{1163}
-      {carryCoeff_natCast_not_eventually_periodic}{coefficient nonperiodicity}).
-The actual prime gaps are also not eventually periodic
-(\lword{Erdos251/PrimeGapDyadicTail.lean}{1023}
-      {primeGap0_not_eventually_periodic}{prime-gap nonperiodicity}),
-but that fact alone is insufficient.
 
 \section{Introduction}\label{sec:problem}
 
@@ -93,9 +83,12 @@ the polynomial example's growth.  Neither construction asserts that its
 cumulative sums are prime.
 
 \paragraph{Sparse corrections and local information.}
-The following construction preserves congruences of cumulative sums as well
-as coefficients.  Its sparse support also preserves the empirical laws of
-short gap blocks.
+A single changed coefficient can alter every later cumulative residue.
+We therefore pair corrections: changing their allocation changes the dyadic
+value while leaving their unweighted total fixed.  Sparsity has a separate
+job.  Most short blocks then meet no correction at all, which preserves
+their empirical distributions without requiring the corrected positions
+to be prime.
 
 \begin{proposition}[sparse congruence-preserving rationalisation]\label{res:sparserationalisation}
 Let $a_n$ be nonnegative integers with $\sum_{n\ge0}a_n2^{-(n+1)}=A<\infty$,
@@ -104,42 +97,87 @@ $S\subseteq[K,\infty)$ of upper Banach density zero and a nondegenerate
 interval $I\subset(A,\infty)$ such that every $r\in I$ is realised by a
 nonnegative correction $e$ supported on $S$, with $0\le e_n\le f(n)$
 eventually, $\sum(a_n+e_n)2^{-(n+1)}=r$, and every fixed modulus eventually
-dividing both $e_n$ and $\sum_{i<n}e_i$.  For the actual prime gaps and
-every $0<\varepsilon<1$ the same construction may be taken with
-$e_n\le(\log(n+3))^\varepsilon$ eventually and
+dividing both $e_n$ and $\sum_{i<n}e_i$.  For the actual prime gaps and the
+specific choice $f(n)=(\log(n+3))^\varepsilon$, $0<\varepsilon<1$, one
+can in addition require
 $|S\cap[X,2X)|=O_\varepsilon(X/\log\log X)$, so that all unnormalised blocks
 of length $o(\log\log X)$ are preserved in total variation.
 \end{proposition}
 
 \begin{proof}[Construction]
-At selected centres $n_j$, choose a free digit $0\le d_j\le D_j$ and put
-$e_{n_j}=M_jd_j$, $e_{n_j+1}=M_j(D_j-d_j)$.  The two identities
+Use disjoint triples of coordinates $n_j-1,n_j,n_j+1$, with spacings
+$s_j=n_j-n_{j-1}\ge4$, and moduli $M_j$ forming a divisibility chain.
+Put $D_j=2^{s_j}-1$.  Starting from $C_0=0$, define
 \[
- e_{n_j}+e_{n_j+1}=M_jD_j,\qquad
- \frac{e_{n_j}}{2^{n_j+1}}+\frac{e_{n_j+1}}{2^{n_j+2}}
-   =\frac{M_j(D_j+d_j)}{2^{n_j+2}}
+ c_j=(-C_j)\bmod M_j,\qquad C_{j+1}=C_j+c_j+M_jD_j.
 \]
-separate the cumulative correction from its weighted value.
-If $C_j$ is the preceding cumulative correction, a buffer
-$c_j=(-C_j)\bmod M_j$ makes the new cumulative sum divisible by $M_j$.
-The divisibility chain $M_{j-1}\mid M_j$ ensures that earlier congruences
-remain valid.  With $w_j=M_j2^{-n_j-2}$ and
-$D_j=2^{n_j-n_{j-1}}-1$ for $j\ge1$, telescoping gives
+For a free digit $0\le d_j\le D_j$, assign all three corrections:
 \[
- w_j\le\sum_{i>j}D_iw_i.
+ e_{n_j-1}=c_j,\qquad e_{n_j}=M_jd_j,\qquad
+ e_{n_j+1}=M_j(D_j-d_j),
 \]
-The allowed digits therefore have overlapping continuation intervals.
-Greedy selection keeps the remainder between zero and the remaining
-capacity, which tends to zero, and fills an interval of complete sums.
-The centres may be delayed to keep the corrections below $f$ while their
-spacing tends to infinity.  For the polylogarithmic bound the spacing is
-comparable to $\log\log n$.  At most $m$ starting blocks of length $m$ meet
-one changed coefficient, so the total variation error is
+and set $e_n=0$ elsewhere.  The complete triple has total
+$c_j+M_jD_j$, independent of $d_j$, so every buffer is fixed before the
+free digits are chosen.  Immediately after the buffer, the cumulative
+correction is divisible by $M_j$; both pair entries preserve it.  Later
+buffers preserve every previously imposed divisor.  Thus each fixed
+modulus eventually divides both individual and cumulative corrections if
+it eventually divides $M_j$.
+
+Here is an explicit schedule for an arbitrary $f\to\infty$.  Set
+\[
+ h(n)=\inf_{m\ge n}\min(f(m),m),
+\]
+choose $n_{-1}\ge K$ so large that $h(n_{-1})\ge32$, and recursively let
+\[
+ k_j=\max\{k\ge2:k!2^{k+2}\le h(n_{j-1})\},\quad
+ M_j=k_j!,\quad s_j=k_j+2,\quad n_j=n_{j-1}+s_j.
+\]
+The function $h$ is nondecreasing, tends to infinity, and satisfies
+$h(n)\le n$.  Hence $k_j$ is nondecreasing and tends to infinity.  Each
+triple entry is at most $M_j2^{s_j}\le h(n_{j-1})$, which is at most $f(n)$
+at every coordinate of that triple and at most $n_{j-1}$.  This proves the
+size bound and summability of the correction.  The spacings tend to
+infinity, so the union of triples has upper Banach density zero.
+
+Put $w_j=M_j2^{-n_j-2}$.  The weighted correction separates as
+\[
+ \sum_n\frac{e_n}{2^{n+1}}=\beta+\sum_jd_jw_j,
+ \qquad \beta=\sum_j\bigl(c_j2^{-n_j}+D_jw_j\bigr).
+\]
+The buffer contribution is included in the fixed, positive number $\beta$.
+For $i>j$, monotonicity of the moduli gives
+\[
+ D_iw_i\ge M_j\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr),
+ \qquad \sum_{i>j}D_iw_i\ge w_j.
+\]
+The digit intervals therefore overlap.  Greedy selection fills the complete
+interval $[0,F]$, where $F=\sum_jD_jw_j>0$: at each step the remainder is
+between zero and the remaining capacity, which tends to zero.  Take
+$I=(A+\beta,A+\beta+F)$.
+
+For the polylogarithmic bound, instead set, after a sufficiently large
+initial cutoff,
+\[
+ s_j=\left\lfloor\frac{\varepsilon}{2}\log_2\log(n_{j-1}+3)\right\rfloor,
+ \qquad
+ k_j=\max\{k\ge2:k!\le(\log(n_{j-1}+3))^{\varepsilon/4}\},
+\]
+with $M_j=k_j!$, $n_j=n_{j-1}+s_j$ and the same $D_j$ and buffers.
+Then $s_j\ge4$ and
+$M_j2^{s_j}\le(\log(n_{j-1}+3))^{3\varepsilon/4}$.
+The preceding congruence, convergence and interval arguments still apply.
+Spacing comparable to $\log\log n_j$ gives
+$|S\cap[X,2X)|=O_\varepsilon(X/\log\log X)$.
+Couple the original and corrected length-$m$ blocks at the same starting
+index in $[X,2X)$.  At most $m|S\cap[X,2X+m)|$ starts meet a correction,
+so their empirical distributions differ in total variation by
 $O_\varepsilon(m/\log\log X)$ for $m=o(\log\log X)$.
-The identities used above are the Lean-checked elementary core; the
-explicit spacing and block-law estimates in this paragraph are ordinary
-mathematics. There is no separately published companion file
-\texttt{SparseRationalisation.md}.
+The complete argument and the all-index congruence check are expanded in
+the companion record, subsection ``Paired corrections and cumulative
+congruences''.  The pair, buffer and conditional interval-filling identities
+are the Lean-checked core; the scheduling and density arguments are ordinary
+mathematics.
 \end{proof}
 
 Every bounded test of these blocks has the same asymptotic empirical
@@ -427,10 +465,9 @@ For every rational sequence $P$ and every $n\ge0$,
 \end{proposition}
 
 \begin{proof}
-A routine induction on $n$.  At $n=0$ both sides equal $P(0)/2$.  For the step, adding
-$P(n+1)/2^{\,n+2}$ to the left and
-$\bigl(P(n+1)-P(n)\bigr)/2^{\,n+1}$ to the difference sum changes the endpoint
-term from $P(n)/2^{\,n+1}$ to $P(n+1)/2^{\,n+2}$, and the two adjustments agree.
+Expand the difference sum and shift its first index.  All interior
+coefficients of $P(i)$ become $2^{-i-1}$; the remaining terms are $P(0)$
+and the displayed endpoint $-P(n)2^{-n-1}$.  This also covers $n=0$.
 \end{proof}
 
 \noindent This is the
@@ -617,9 +654,8 @@ let $B_{h,N}$ be as above.  For every $N$ and $h$,
 \end{theorem}
 
 \begin{proof}
-A routine induction on $h$; the step is one application of the recurrence together with
-$2\cdot2^{h}=2^{h+1}$ and the recursion defining $B$.  The second identity is
-the first minus $T_N$.
+Induct on $h$ using the recursions for $T$ and $B$, then subtract $T_N$
+to obtain the shift identity.
 \end{proof}
 
 \noindent The first identity is the
@@ -926,12 +962,9 @@ not eventually integral.
 \end{corollary}
 
 \begin{proof}
-The real recurrence gives the same shift step identity
-$\sigma_h(N+1)=2\sigma_h(N)-\bigl(g_{N+h+1}-g_{N+1}\bigr)$, and an integer
-strictly between $-1$ and $1$ is zero.  If both shifts lay in $\Z$, both would
-therefore vanish, and substitution in that identity would give
-$g_{N+h+1}=g_{N+1}$, a contradiction.  The cofinal statement chooses one such
-adjacent pair after the alleged onset of integrality.
+The shift identity holds over $\R$, and the only integer in $(-1,1)$
+is still zero.  Thus the proof of Theorem~\ref{res:smallpair} applies
+without change, including its cofinal conclusion.
 \end{proof}
 
 \noindent Corollary~\ref{res:smallpair-real} is
@@ -976,11 +1009,21 @@ here.
 
 \section{Nonperiodic coefficients with a rational sum}\label{sec:carry}
 
-Proposition~\ref{res:gap-nonperiodic} shows that the prime gaps are not
-eventually periodic.  One might therefore hope that rationality of a dyadic
-series forces its integer coefficients to be eventually periodic, and play the
-two against each other.  The hoped-for implication is false, and a single
-explicit sequence refutes it.
+There is an exact finite obstruction recorded in the pinned source: a second
+example has finite sum $-n/2^n$ and non-eventually-periodic coefficients
+(\lword{Erdos251/PrimeGapDyadicTail.lean}{1157}
+      {carryPartialSum_natCast_eq}{finite endpoint};
+\lword{Erdos251/PrimeGapDyadicTail.lean}{1163}
+      {carryCoeff_natCast_not_eventually_periodic}{coefficient nonperiodicity}).
+The actual prime gaps are also not eventually periodic
+(\lword{Erdos251/PrimeGapDyadicTail.lean}{1023}
+      {primeGap0_not_eventually_periodic}{prime-gap nonperiodicity}),
+but that fact alone is insufficient.
+
+For a bounded canonical base-two digit expansion, rationality forces
+eventual periodicity.  Prime gaps are unbounded coefficients, so that
+criterion does not apply.  The following telescoping construction shows
+explicitly how nonperiodic coefficients can have a rational sum.
 
 The construction runs the emission of coefficients backwards.  Let
 $K:\N\to\Q$ be arbitrary, read $K_n$ as the value carried into level $n$, and
@@ -1256,11 +1299,10 @@ choices, or the interpretation, for which the author remains responsible.
 
 For Proposition~\ref{res:sparserationalisation}, the pair identities,
 congruence buffer and abstract variable-alphabet filling are checked in
-\texttt{SparseRationalisationCore.lean}.  The schedule, upper Banach density,
-and block-law transfer are ordinary proofs, given in the Construction
-paragraph of that proposition; they are not Lean- or Comparator-verified.
-There is no separately published companion file
-\texttt{SparseRationalisation.md}.  End-to-end sparse candidate sources in
+\texttt{SparseRationalisationCore.lean}.  The explicit three-coordinate schedule, upper Banach density, and
+block-law transfer are ordinary proofs, given in that proposition and in
+the companion record, subsection ``Paired corrections and cumulative
+congruences''; they are not Lean- or Comparator-verified.  End-to-end sparse candidate sources in
 the repository are labelled UNRUN and are not presented as checked theorems.
 
 \paragraph{Funding and competing interests.} This work received no external
@@ -1411,13 +1453,13 @@ cofinal irrationality classifier & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{1572
   {\emph{Small gaps between primes}},
   Ann. of Math. (2) \textbf{181} (2015), 383--413.
 \bibitem{mv2007} H.~L. Montgomery and R.~C. Vaughan,
-  \href{https://doi.org/10.1017/CBO9780511618314.008}
+  \href{https://doi.org/10.1017/CBO9780511618314}
   {\emph{Multiplicative Number Theory I: Classical Theory}},
   Cambridge Stud. Adv. Math. 97, Cambridge UP, 2007,
   Chapter~6, pp.~168--198; Theorem~6.9, pp.~179--181, and
   Exercise~6.2.5, p.~183,
-  doi:\href{https://doi.org/10.1017/CBO9780511618314.008}
-  {10.1017/CBO9780511618314.008}.
+  doi:\href{https://doi.org/10.1017/CBO9780511618314}
+  {10.1017/CBO9780511618314}.
 \bibitem{zhang2014} Y.~Zhang,
   \href{https://doi.org/10.4007/annals.2014.179.3.7}
   {\emph{Bounded gaps between primes}},

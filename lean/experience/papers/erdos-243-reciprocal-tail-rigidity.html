@@ -7,6 +7,20 @@
   <div class="lean-paper__body" data-source="../../../paper/243/erdos-243-reciprocal-tail-rigidity.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_n&gt;1</annotation></semantics></math>,
+the recurrence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}=a_n^2-a_n+1</annotation></semantics></math>
+is singled out by the telescope
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><msub><mi>a</mi><mi>n</mi></msub></mfrac><mo>+</mo><mfrac><mn>1</mn><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac1{a_n-1}=\frac1{a_n}+\frac1{a_{n+1}-1}.</annotation></semantics></math>
+Thus a Sylvester tail has the exact value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(a_n-1)</annotation></semantics></math>
+beginning at index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+The question is whether rationality and the asymptotic relation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∼</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">a_{n+1}\sim a_n^2</annotation></semantics></math>
+force that exact recurrence. The following result isolates a sufficient
+one-sided bound on the departure from it.</p>
 <div class="corollary">
 <p><strong>Corollary 1</strong> (original-coordinate bounded defect).
 <em> Let
@@ -26,21 +40,25 @@ for all sufficiently large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</em></p>
 </div>
 <p>Corollary  is an ordinary transfer of the integer-state theorem
-below, proved in Section . There is no module
-<code>PaperCompleteR7/ProductDefect.lean</code> in this checkout.</p>
+below, proved in Section . The analytic transfer is separate from the
+linked Lean theorem.</p>
 <section id="the-obstruction." class="level5">
 <h5>The obstruction.</h5>
-<p>The equation
+<p>Clear the rational reciprocal tail as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><msub><mi>D</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_n/D_n</annotation></semantics></math>.
+On a Sylvester tail,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">D_n=(a_n-1)C_n</annotation></semantics></math>;
+the integer error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">E_n=D_n-(a_n-1)C_n</annotation></semantics></math>
+measures the failure of this identity. Its update
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mo>−</mo><msub><mi>E</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_{n+1}=C_n-E_n</annotation></semantics></math>
-translates a bound on negative error into a bound on upward increments.
-At negative indices the common divisor of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>,</mo><msub><mi>D</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_n,D_n</annotation></semantics></math>
-divides the bounded magnitude. Once this divisor stabilises, reduction
-makes the later numerators coprime to the old multipliers. The Chinese
-remainder theorem places consecutive forbidden heights beyond any fixed
-prefix. A first crossing then gives the contradiction. Section  uses the
-same divisibility at record sources, so that only record excess is
-charged.</p>
+turns a bound on negative error into a bound on upward increments. Small
+increments alone are insufficient. The arithmetic input is that, after
+the common divisor stabilises, every old multiplier must remain coprime
+to every later numerator. The Chinese remainder theorem then produces a
+block of forbidden heights that no permitted jump can cross. A numerator
+tending to infinity would have to cross it. Section  adapts this
+crossing argument when only jumps setting new records are charged.</p>
 <p>Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ctr</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>D</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">\operatorname{ctr}(a,D,C)=D-(a-1)C</annotation></semantics></math>.
 The following integer-state theorem implies Corollary ; the ordinary
@@ -93,8 +111,9 @@ this is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
 rigidity</a>.</em></p>
 </div>
-<p>Eventual strict centring, a bounded negative part, and normalised
-vanishing remain explicit hypotheses.</p>
+<p>The eventual form follows by shifting past the centring and
+lower-bound thresholds; its exact source is linked in the formal-scope
+paragraph below.</p>
 <div class="problem">
 <p><strong>Problem 3</strong> (Erdős #243). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><msub><mi>a</mi><mn>1</mn></msub><mo>&lt;</mo><msub><mi>a</mi><mn>2</mn></msub><mo>&lt;</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">1\le a_1&lt;a_2&lt;\cdots</annotation></semantics></math>
@@ -271,16 +290,29 @@ whenever
 </div>
 <div class="proof">
 <p><em>Proof.</em> Choose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-old moduli and take a CRT block
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>t</mi><mo>,</mo><mi>t</mi><mo>+</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[t,t+B)</annotation></semantics></math>
-beyond every numerator in the prefix before they become old. At the
-first crossing of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>,
-the new numerator lies in that block, so it is divisible by an old
-modulus. This contradicts coprimality. No monotonicity of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
-is used. ◻</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>m</mi><mrow><mi>B</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">m_0,\ldots,m_{B-1}</annotation></semantics></math>
+and use Lemma  to find
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>u</mi><mi>B</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t&gt;\max(u_0,\ldots,u_B)</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>i</mi></msub><mo>∣</mo><mi>t</mi><mo>+</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">m_i\mid t+i</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">u_n\to\infty</annotation></semantics></math>,
+there is a first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">n&gt;B</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>≥</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">u_n\ge t</annotation></semantics></math>.
+Minimality and the rise bound give
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><msub><mi>u</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>u</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mi>B</mi><mo>&lt;</mo><mi>t</mi><mo>+</mo><mi>B</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">t\le u_n\le u_{n-1}+B&lt;t+B.</annotation></semantics></math>
+Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi>t</mi><mo>+</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">u_n=t+i</annotation></semantics></math>
+for some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>B</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">0\le i&lt;B&lt;n</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>i</mi></msub><mo>∣</mo><msub><mi>u</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">m_i\mid u_n</annotation></semantics></math>.
+This contradicts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>i</mi></msub><mo>,</mo><msub><mi>u</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(m_i,u_n)=1</annotation></semantics></math>.
+The argument uses first crossing, not monotonicity: the numerator may
+fall before it reaches the block. ◻</p>
 </div>
 </section>
 <section id="reduction-and-stabilisation" class="level3">
@@ -480,7 +512,7 @@ first-crossing argument permits subtraction of a fixed baseline and any
 decreasing weight with divergent integral. The theorem in this section
 has an ordinary proof.</p>
 <p>Set
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><msub><mi>a</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>M</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mi>/</mi><msub><mi>L</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>V</mi><mi>n</mi></msub><mo>=</mo><msub><mi>E</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">L_n=\operatorname{lcm}(q,a_0,\ldots,a_{n-1}),\quad
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>M</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mi>/</mi><msub><mi>L</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>V</mi><mi>n</mi></msub><mo>=</mo><msub><mi>E</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">L_n=\operatorname{lcm}(q,a_1,\ldots,a_{n-1}),\quad
  M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.</annotation></semantics></math>
 The rational tail has denominator dividing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>n</mi></msub><annotation encoding="application/x-tex">L_n</annotation></semantics></math>,
@@ -856,7 +888,7 @@ vanishing as hypotheses; the former follows eventually from the latter
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K=1</annotation></semantics></math>,
 while the formal source derives neither from the original analytic
-problem. For the external bridge supplying them, see Sections  and .</p>
+problem. The ordinary canonical-tail transfer is proved in Section .</p>
 </section>
 <section id="app:residue" class="level2">
 <h2>A factorial residue reduction for forced orbits</h2>

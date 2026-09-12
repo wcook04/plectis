@@ -45,71 +45,52 @@
 \date{July 2026}
 
 \setlength{\emergencystretch}{2em}
-\def\UrlBreaks{\do\.\do\_\do\/}
+% Permit breaks inside long declaration names in the generated catalogue.
+\usepackage{xurl}
 \begin{document}
 % ---- part core ----
 \maketitle
 \noteprovenance
 
 \begin{abstract}
-\noindent
-For every pair of distinct primes \(p,q\) both series of Erd\H{o}s
-Problem~\#269 are transcendental: the original series \(\mathcal R_{p,q}\), in
-which a reciprocal of the running least common multiple is taken at every
-\(\{p,q\}\)-smooth integer, and the de-duplicated series \(\mathcal D_{p,q}\),
-in which each distinct running least common multiple contributes once.  The
-hypotheses are that \(p\) and \(q\) are prime and distinct, and nothing else.
-Every instance of the problem with \(|P|=2\) is therefore settled, at the
-stronger level of transcendence.  Ordering the two pure-power channels gives a
-Beatty word, both values become explicit polynomials in one Hecke--Mahler
-boundary sum, and transcendence of that sum is the theorem of Loxton and van
-der Poorten in the modern form of Bugeaud and Laurent.  This is an argument in
-this paper over a cited external theorem, and no Lean declaration formalises
-it.  Steve Fan posted the same factorisation, reduction and conclusion first,
-on 26 June 2026, so the priority for the two-prime case is his.
+For three pairwise distinct primes, the reciprocal running-LCM kernel has
+nonsingular minors of every order, with the same indices valid in every
+third-coordinate layer.  Removing row and column factors leaves a binary
+floor carry.  Its threshold columns give both the arbitrary-order rank
+obstruction and the exact rank of a finite sample.  The normalised carry
+also has a sharp uniform finite-rank approximation barrier, although the
+original summable kernel admits finite-rank approximation in the summation
+norm.  These are statements about representations, not irrationality of
+the resulting scalar sum.
 
-The third prime changes the linear algebra of the problem, and the change is
-exact.  Write \(\Kernel(i,j,k)=1/\Lprefix(p^{i}q^{j}r^{k})\) for the reciprocal
-running-LCM kernel.  At two generators the kernel is an outer product and every
-two-by-two minor vanishes.  At three pairwise distinct generators, for every
-order \(n\) there are injective index families \(I,J\) whose minor
-\(\det(\Kernel(I(a),J(b),k))_{0\le a,b<n}\) is nonzero simultaneously in every
-layer \(k\), so for no finite \(d\) do there exist rational-valued
-\(f_\ell(i)\) and \(G_\ell(j,k)\) with
-\(\Kernel(i,j,k)=\sum_{\ell<d}f_\ell(i)G_\ell(j,k)\).  Those statements are
-ordinary mathematics in this paper.  A single binary floor carry is the whole difference,
-and after row and column normalisation that carry matrix admits no better
-uniform approximation by a finite separated sum than \((r-1)/(2r)\), which is
-half its own jump and is attained by a constant.  These statements exclude
-classes of representations and settle no instance of the problem.
+For two distinct primes, both the repeated and de-duplicated running-LCM
+series are transcendental.  They are nonconstant polynomials in one
+Hecke--Mahler value, whose transcendence follows from the theorem of Loxton
+and van der Poorten in the form given by Bugeaud and Laurent.  Steve Fan
+posted the factorisation, reduction and conclusion first, on 26 June 2026.
+The argument recorded here uses that external theorem; it is not a Lean
+formalisation of the two-prime result.
 
-For the repeated \(\{2,3,5\}\) series the note constructs the literal infinite
-object.  The dyadic shell masses are summable, their normalised tails \(X_a\)
-satisfy the integer-coefficient recurrence \(X_{a+1}=b_aX_a-m_a\) with
-\(b_a\in\{2,6,10,30\}\), and \(0<X_a\le(n_a^{2}+8n_a+18)/9\) where \(n_a\) is
-the total height rank at \(2^{a}\).  A rational value with denominator
-\(2^{u}3^{v}5^{w}B\), \(\gcd(B,30)=1\), forces \(BX_a\) to be a positive
-integer from the explicit onset \(a_D=u+1+2v+3w\), bounded by
-\(K(B,a)=\lfloor B(j_a^{2}+10j_a+27)/9\rfloor\) at the endpoint jump index
-\(j_a=n_a-1\).  Let \(\Esc(G)\) be cofinal local-window residue escape against
-a bound \(G\).  Then \(\Esc(G)\) is equivalent to irrationality of the series
-for every \(G\) with \(K\le G\) and \(G(B,a)=o(2^{a})\), and the lower half of
-that band cannot be removed, since \(\Esc(0)\) is vacuous.  Nonintegrality of
-every reduced tail is equivalent to irrationality as well.  Both remaining
-questions are therefore restatements of the problem, and neither of them is a
-weaker sufficient condition.
-
-The finite evidence is exact and bounded.  The pinned integer checker finds an
-escaping window of length at most \(18\) for each of \(3{,}869{,}934\)
-denominator/start pairs, covering every \(B\le5000\) coprime to \(30\) and
-every start \(100\le\ell\le3000\); a window-growth law
-\(8^{h}/15<W_{\ell,h}<15\cdot8^{h}\) shows that this behaviour cannot persist
-at bounded length for all starts, so the scan measures a bounded region and
-leaves the cofinal quantifier untouched.  A window-\(128\) lattice certificate at launch
-\(a_1=10005\) excludes an arithmetically described family of rational values,
-and a continued-fraction certificate excludes every reduced denominator below
-\(2^{22482}\).  Erd\H{o}s~\#269 remains open for every \(|P|\ge3\).
+For the repeated $\{2,3,5\}$ series, the complete record constructs the
+literal tail recurrence and proves that rationality forces eventually
+positive integral tails under a quadratic bound.  Escape of the exact
+window residues is equivalent to irrationality.  Finite certificates test
+that criterion and exclude bounded denominator ranges, but do not supply
+its unbounded quantifiers.  The record gives the proofs, exact finite
+evidence and failed representation methods behind the short paper;
+the repeated-series problem with three or more primes remains open.
 \end{abstract}
+
+\paragraph{How the short paper uses this record.}
+The short paper centres on the binary carry and its rank obstruction.
+Section~\ref{long269:sec:rank} gives the rank and approximation arguments;
+Section~\ref{long269:sec:two-prime} gives the two-prime comparison.
+Sections~\ref{long269:sec:blocks}--\ref{long269:sec:escape} recover the
+literal tails, denominator clearing and window criterion, while
+Section~\ref{long269:sec:evidence} retains the finite certificates.
+These are two distinct mathematical tasks: the rank argument excludes a
+separated representation, and the tail argument identifies the arithmetic
+condition still needed for irrationality.  Neither substitutes for the other.
 
 \section{The problem, and what is settled}\label{long269:sec:problem}
 
@@ -651,11 +632,18 @@ entries are $1$ and $t$.
 
 Each of $\alpha$ and $\beta$ is irrational, since a rational value would give
 an equality of positive powers of distinct primes, so each fractional-part
-orbit is dense in $(0,1)$ and each is injective.  Choose indices with
-$0<x_{I(0)}<\cdots<x_{I(n-1)}<1$, then $y_{J(0)}$ in $(1-x_{I(0)},1)$ and, for
-$b>0$, $y_{J(b)}$ in $(1-x_{I(b)},1-x_{I(b-1)})$.  These intervals are
-disjoint, so both index maps are injective, and $x_{I(a)}+y_{J(b)}\ge1$ exactly
-when $b\le a$.  The remaining matrix is therefore
+orbit is dense in $(0,1)$ and each is injective.  No simultaneous density of
+the pair of rotations is required.  First choose indices with
+$0<x_{I(0)}<\cdots<x_{I(n-1)}<1$.  For the columns write
+$s_b=1-y_{J(b)}$, and use density of the second orbit to choose
+\[
+ s_0\in(0,x_{I(0)}),\qquad
+ s_b\in(x_{I(b-1)},x_{I(b)})\quad(1\le b<n).
+\]
+The intervals are disjoint, so the $J(b)$ are distinct.  Their strict
+endpoints ensure that no selected entry lies on a threshold, and
+$x_{I(a)}+y_{J(b)}\ge1$ holds exactly when $b\le a$.  Dividing row $a$ by
+$R_{I(a)}(k)$ and column $b$ by $C_{J(b)}(k)$ therefore leaves
 \[
  C_n(t)=\begin{pmatrix}
  t&1&1&\cdots&1\\
@@ -668,11 +656,22 @@ when $b\le a$.  The remaining matrix is therefore
  \det C_n(t)=t(t-1)^{n-1}\ne0 ,
 \]
 the determinant following by subtracting from each row its predecessor, working
-upwards from the last.  Equation~\eqref{long269:eq:carry-factorisation} multiplies this
-determinant by nonzero row and column factors, for every $k$, which is the
-asserted uniformity.  Finally, a representation with $d$ summands would factor
-every $(d+1)\times(d+1)$ restriction through a $d$-dimensional space and force
-its determinant to vanish.
+upwards from the last.  Before the division, the determinant equals
+\[
+ \det C_n(t)\prod_{a<n}R_{I(a)}(k)\prod_{b<n}C_{J(b)}(k),
+\]
+which is nonzero for every $k$; this also explains why the same indices work
+in every layer.
+
+For the last assertion, suppose that a representation with $d$ summands
+exists and fix $k$.  On the selected rows $I(0),\ldots,I(d)$ and columns
+$J(0),\ldots,J(d)$ the resulting matrix factors as
+\[
+ (f_\ell(I(a)))_{0\le a\le d,\,\ell<d}
+ (G_\ell(J(b),k))_{\ell<d,\,0\le b\le d}.
+\]
+It has rank at most $d$ and hence zero determinant, contradicting the
+nonzero minor of order $d+1$.
 \end{proof}
 
 \noindent The factorisation~\eqref{long269:eq:carry-factorisation} is the
@@ -700,6 +699,39 @@ $j\le3$
 and the proportionality fails at $j=4$
 (\lword{Erdos269/KernelCarryRank.lean}{592}{kernel_235_row_three_ne_smul_row_zero_at_four}{checked}).
 A proof that read off leading minors alone would be false.
+
+The same threshold description determines every finite sampled rank, rather
+than only producing one nonsingular minor.
+
+\begin{proposition}[finite sampled cut rank]\label{long269:res:finite-cut-rank}
+Let $m\ge1$ and let $c$ lie in a field with $c\ne0,1$.  For $0\le h\le m$,
+let $v_h$ be the length-$m$ column whose first $h$ entries are $1$ and whose
+remaining entries are $c$.  If the distinct columns of a matrix are the
+$v_h$ with $h$ in a nonempty set $E\subseteq\{0,\ldots,m\}$, then its rank is
+\[
+ |E|-\mathbf 1_{\{0,m\}\subseteq E}.
+\]
+\end{proposition}
+
+\begin{proof}
+Write $E=\{h_1<\cdots<h_s\}$.  The $s-1$ consecutive differences are
+\[
+ v_{h_{a+1}}-v_{h_a}
+   =(1-c)\mathbf 1_{\{h_a,\ldots,h_{a+1}-1\}},
+\]
+so they are linearly independent because their nonempty supports are
+disjoint.  If $h_1>0$ or $h_s<m$, those supports miss a coordinate on which
+$v_{h_1}$ is nonzero, and adjoining $v_{h_1}$ gives rank $s$.  If
+$h_1=0$ and $h_s=m$, the differences sum to $(1-c)\mathbf 1$ while
+$v_0=c\mathbf 1$, so $v_0$ is already in their span and the rank is $s-1$.
+\end{proof}
+
+To apply the proposition, sort any chosen row phases $x_i$.  Each normalised
+column is a threshold column $v_h$, where $h$ is the number of sampled phases
+strictly below $1-y_j$.  Repeated threshold positions give proportional
+columns before column normalisation, and the nonzero row and column factors in
+\eqref{long269:eq:carry-factorisation} do not change rank.  Thus the displayed
+formula is the exact rank of every finite sample.
 
 \paragraph{Attribution and reach.}
 Fan recorded the qualitative obstruction for $|P|\ge3$ in his comment of
@@ -786,6 +818,22 @@ What it does add to Theorem~\ref{long269:res:infinite-rank} is robustness: no fi
 separated model of the carry, however chosen, gets uniformly closer than half a
 carry jump.  The threshold is exact in both directions, since rank one attains
 it.
+
+The original kernel behaves differently in the summation norm because its row
+and column factors decay.  Let $K^{(N)}(i,j,k)=\Kernel(i,j,k)$ for $i<N$ and
+$K^{(N)}(i,j,k)=0$ otherwise.  This is a sum of at most $N$ terms separated
+between $i$ and $(j,k)$.  Since
+$\hgt(x)>x^3/(pqr)$ for $x>0$, geometric summation gives
+\begin{equation}\label{long269:eq:l1-finite-rank-approximation}
+ \sum_{i,j,k\ge0}|\Kernel(i,j,k)-K^{(N)}(i,j,k)|
+ \le
+ \frac{pqr\,p^{-3N}}
+ {(1-p^{-3})(1-q^{-3})(1-r^{-3})}.
+\end{equation}
+Hence the original summable kernel has finite separated-rank approximants in
+$\ell^1$, even though its normalised carry matrix has the sharp uniform
+barrier of Theorem~\ref{long269:res:uniform-rank}.  This norm distinction is
+why neither statement decides the arithmetic nature of the scalar sum.
 
 \section{Dyadic blocks and the literal infinite tail}\label{long269:sec:blocks}
 
@@ -1005,8 +1053,8 @@ The cutoff in \eqref{long269:eq:endpoint-index} is $2^{a}$ and it is strict.
 \begin{lemma}[finite denominator clearing]\label{long269:res:all-scale-lattice}
 For all integers $0\le u\le b$ the window mass $h_b\sum_{a=u}^{b-1}s_a$ is a
 natural number.  If $S=N/D$ with $N\in\Z$ and $D\in\N_{>0}$, then $DX_a\in\Z$
-for every $a\ge1$, and two states $X_i$, $X_j$ with $1\le i<j$ differ by an
-integer.
+for every $a\ge1$, and there are indices $1\le i<j\le D+1$ for which
+$X_i-X_j\in\Z$.
 \end{lemma}
 
 \begin{proof}
@@ -1212,11 +1260,13 @@ $G(B,\ell+h)$, so the numerator has absolute value at most
 $\max\bigl(BQ(n_{\ell+h}),G(B,\ell+h)\bigr)$.  Each $b_a\ge2$ gives
 $W_{\ell,h}\ge2^{h}$, so
 \[
+ \begin{aligned}
  0<\delta\le|BX_\ell-k_h|
- \le\frac{\max\bigl(BQ(n_{\ell+h}),\,G(B,\ell+h)\bigr)}{2^{h}}
- =2^{\ell}\cdot
+ &\le\frac{\max\bigl(BQ(n_{\ell+h}),\,G(B,\ell+h)\bigr)}{2^{h}}\\
+ &=2^{\ell}\cdot
  \frac{\max\bigl(BQ(n_{\ell+h}),\,G(B,\ell+h)\bigr)}{2^{\ell+h}}
- \longrightarrow0
+ \longrightarrow0.
+ \end{aligned}
 \]
 as $h\to\infty$, because $Q(n_{\ell+h})$ is quadratic in $\ell+h$ and
 $G(B,a)=o(2^{a})$.  This contradiction proves $\Esc(G)$.
@@ -1414,8 +1464,8 @@ below that height.
 
 Each exclusion is finite and neither contains the other: one is indexed by a
 lattice at a fixed launch and fixed smooth part, the other by continued-fraction
-depth at $a=1$.  Every larger denominator survives both, so neither settles an
-instance of the problem.
+depth at $a=1$.  Denominators beyond the recorded finite ranges are not
+excluded by either certificate, so neither settles an instance of the problem.
 
 \section{The remaining arithmetic questions}\label{long269:sec:open}
 
@@ -1583,10 +1633,17 @@ the denominator and to begin beyond the onset.
 
 \paragraph{Evidence.}  Steve Fan's two-prime argument is an ordinary proof over
 the cited Bugeaud--Laurent theorem and carries no Lean declaration.  The
-arbitrary-order kernel minors and the exclusion of finite separation are
-ordinary mathematics in this paper; they are not in the Comparator manifest.
-Comparator names the $(2,3,5)$ minor $-1/15$, the running-LCM height identity,
-and a conditional carry-escape consumer.  The actual-series reduction is given;
+arbitrary-order kernel minors and the exclusion of finite separation are Lean
+theorems in \texttt{KernelCarryRank}.  The named source statements for the
+literal recurrence and fixed-split rationality bridge are Lean theorems as
+well.  The
+\href{https://github.com/wcook04/plectis-erdos/blob/06f57893e0f9c6d80668048f26f096367ae4cfe7/verification/erdos269-wavea-validation.json}{source-current validation receipt}
+byte-matches these modules and records their compilation inside the public
+recursive import closure; its named declaration-by-declaration axiom audit is
+for the R12 Wave~A results, not for these rank declarations.  Comparator names
+the finite $(2,3,5)$ minor $-1/15$, the running-LCM height identity, and a
+conditional carry-escape consumer; it is not the evidence for the
+arbitrary-order theorem.  The actual-series reduction is given;
 the source-specific cofinal escape remains unproved.  Named Lean sources below
 are locators, not a blanket end-to-end coverage claim.  The quadratic tail
 bound, the explicit onset $a_D$, the sharp bound $K$, and

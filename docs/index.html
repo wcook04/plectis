@@ -25,9 +25,9 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=71b3af9f4cb4">
+  <link rel="stylesheet" href="../assets/style.css?v=7ea45e15d43b">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
-  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=9328006d7585"></script></template>
+  <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=b735a0659399"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
 </head>
 <body>
@@ -135,32 +135,23 @@
 
         <h2 id="do">What you can do here</h2>
         <ul>
-          <li><a href="quickstart.html"><strong>Run an example</strong></a>: install the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-software" data-term="software" data-term-auto="1">software</a> and try your first <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a>.</li>
+          <li><a href="quickstart.html"><strong>Run an example</strong></a>: run the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a>-form tour with Git and Python 3.11+.</li>
           <li><a href="components.html"><strong>Find a tool</strong></a>: browse the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a> and their <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-source-file" data-term="source_file" data-term-auto="1">source files</a>.</li>
-          <li><a href="coding-agents.html"><strong>Work with a coding agent</strong></a>: give it the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> and a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> task.</li>
+          <li><a href="coding-agents.html"><strong>Work with a <span data-term-preview-only data-term="coding_agent" data-term-auto="1">coding agent</span></strong></a>: give it the <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> and a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> task.</li>
         </ul>
 
-        <h2 id="areas"><a class="section-route" href="components.html">The seven areas<span class="section-route__arrow" aria-hidden="true"> &rarr;</span></a></h2>
-        <p>There are 88 <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a> in total. That's a lot to meet at once, so they're grouped into seven areas; the one that matches why you came is the way in:</p>
-        <ul>
-          <li><a href="area-entry.html">Entry &amp; orientation</a>. How a newcomer first meets Plectis and follows a short guided path through it.</li>
-          <li><a href="area-architecture.html">Architecture &amp; navigation</a>. The core primitives, pattern rules, and <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-routing" data-term="routing" data-term-auto="1">routing</a> that give the system its shape.</li>
-          <li><a href="area-formal-math.html">Formal math &amp; proof</a>. Inspectable pieces of a <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-pipeline" data-term="pipeline" data-term-auto="1">pipeline</a>: <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-premise" data-term="premise" data-term-auto="1">premise</a> retrieval over a copied <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> Std <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a>, tactic <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-routing" data-term="routing" data-term-auto="1">routing</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-checker" data-term="checker" data-term-auto="1">verifier</a>-trace repair, and <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a>-separation <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-result-record" data-term="result_record" data-term-auto="1">result records</a>. Three <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a> run the real <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>/Lake prover locally on <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> examples; the rest publish the <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-pipeline" data-term="pipeline" data-term-auto="1">pipeline</a>&#x27;s checking layers as <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-standard" data-term="standard" data-term-auto="1">contracts</a> you can open.</li>
-          <li><a href="area-agent-reliability.html">Agent reliability &amp; safety</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a>-open <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replays</a> of <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-failure-modes" data-term="failure_modes" data-term-auto="1">failure modes</a> as inspectable specimens.</li>
-          <li><a href="area-research.html">Research &amp; science</a>. <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-replay" data-term="replay" data-term-auto="1">Replays</a> that stand in for scientific and <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-forecasting" data-term="forecasting" data-term-auto="1">forecasting</a> workflows, run over <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-synthetic" data-term="synthetic" data-term-auto="1">synthetic fixtures</a>.</li>
-          <li><a href="area-import-drift.html">Import &amp; drift control</a>. The boundary that brings non-secret material into the public tree and flags <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-drift" data-term="drift" data-term-auto="1">drift</a>.</li>
-          <li><a href="area-continuity.html">Work &amp; continuity</a>. How reversible work is recorded, landing decisions are made, and runs resume.</li>
-        </ul>
+        <h2 id="areas"><a class="section-route" href="tour.html">The seven areas<span class="section-route__arrow" aria-hidden="true"> &rarr;</span></a></h2>
+        <p>The <a href="tour.html">full tour</a> explains the seven areas and the work they do. Use it to find what interests you before browsing all 88 <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-component" data-term="component" data-term-auto="1">components</a>.</p>
 
         <h2 id="next">Next steps</h2>
         <div class="next-cards">
-          <a class="next-card" href="architecture.html#whole-system-map"><strong>Software map &rarr;</strong><span>See how the components connect.</span></a>
-          <a class="next-card" href="evidence.html"><strong>Understanding the checks &rarr;</strong><span>What the test results establish.</span></a>
-          <a class="next-card" href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener"><strong>Source on GitHub &rarr;</strong><span>Code, installation and tests.</span></a>
+          <a class="next-card" href="architecture.html#whole-system-map"><strong><span data-term-preview-only data-term="software" data-term-auto="1">Software</span> <span data-term-preview-only data-term="map" data-term-auto="1">map</span> &rarr;</strong><span>See how the <span data-term-preview-only data-term="component" data-term-auto="1">components</span> connect.</span></a>
+          <a class="next-card" href="evidence.html"><strong>Understanding the <span data-term-preview-only data-term="check" data-term-auto="1">checks</span> &rarr;</strong><span>What the test results establish.</span></a>
+          <a class="next-card" href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener"><strong><span data-term-preview-only data-term="source" data-term-auto="1">Source</span> on <span data-term-preview-only data-term="github" data-term-auto="1">GitHub</span> &rarr;</strong><span>Code, installation and <span data-term-preview-only data-term="test" data-term-auto="1">tests</span>.</span></a>
         </div>
 
         <div class="page-foot">
-          <a href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener">Open on GitHub &rarr;</a>
+          <a href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener">Open on <span data-term-preview-only data-term="github" data-term-auto="1">GitHub</span> &rarr;</a>
         </div>
       </article>
 

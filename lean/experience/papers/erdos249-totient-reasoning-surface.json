@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 127,
+  "pages": 129,
   "question": "What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?",
   "precis": "A claim-bounded map of the formal attack on Erdős #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erdős #249 remains open.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -29,13 +29,29 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 22,
     "renderer_fingerprint": "e85419265bf94334",
-    "source_sha256": "e56ae41b7c9c25babd97b581554f2b160d352cb0ce7fd42114a07b0c4d656739",
+    "source_sha256": "d4b7730ab3a447daf9baa9ae6be7c9fb2b8259470a3e81176b71a8a960f44dfb",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 3194,
-    "raw_math_fallback_count": 6,
+    "mathml_node_count": 3198,
+    "raw_math_fallback_count": 7,
     "warnings": {
       "mathml": [
+        "[WARNING] Could not convert TeX math \\adjustbox{max width=\\linewidth}{$\\displaystyle",
+        "\\begin{aligned}",
+        "\\mathrm{Re}\\,\\mathrm{pivotCenteredCorrelation}(h,X,L,s,\\eta)",
+        "&\\le \\tfrac{14}{25}X,\\\\",
+        "\\lVert\\mathrm{pivotFiberMeanContribution}(h,X,L,s,\\eta)\\rVert",
+        "&\\le \\tfrac{1}{100}X,\\\\",
+        "\\lVert\\mathrm{pivotBadContribution}(h,X,L,s,\\eta)\\rVert",
+        "&\\le \\tfrac{1}{100}X,\\\\",
+        "\\lVert\\mathrm{pivotNonSupplierContribution}(h,X,L,s)\\rVert",
+        "&\\le \\tfrac{8}{25}X .",
+        "\\end{aligned}",
+        "$}, rendering as TeX:",
+        "\\adjustbox{max width=\\linewidth}{$\\displ",
+        "^",
+        "unexpected control sequence \\adjustbox",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
         "[WARNING] Could not convert TeX math \\text{bounding the dyadic-section rank of \\mathit{every} rationality-supplied tempered carry}, rendering as TeX:",
         "c-section rank of \\mathit{every} rationa",
         "^",
@@ -81,8 +97,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "d1dac2543f7ea34a5db33fce880979262d8841b77818f137d8950089c7af2199",
-    "html_exact_tex_sha256": "d36d8ab88aca288a9ca7404f534009057f48455366d6c4439565cdca5d4c9a7e"
+    "html_mathml_sha256": "3b71b4fa15dab30d3931eff3e471f7adc3dfec1c0ff43c8b14ca8d764199aee4",
+    "html_exact_tex_sha256": "6d18c3740aab74c6aa385866ed0f034d2850e22f0e41b769aa6a524eb7f0b14d"
   },
   "sections": [
     {
@@ -92,8 +108,8 @@
     },
     {
       "level": 2,
-      "anchor": "the-problem-and-what-is-actually-known",
-      "label": "The problem, and what is actually known"
+      "anchor": "totient-sections-tail-differences-and-the-irrationality-question",
+      "label": "Totient sections, tail differences, and the irrationality question"
     },
     {
       "level": 3,
@@ -103,12 +119,12 @@
     {
       "level": 2,
       "anchor": "sec:wall",
-      "label": "The wall"
+      "label": "What the countermodels exclude"
     },
     {
       "level": 3,
-      "anchor": "the-plane-the-barriers-live-on",
-      "label": "The plane the barriers live on"
+      "anchor": "range-resolution-and-the-scope-of-an-obstruction",
+      "label": "Range, resolution, and the scope of an obstruction"
     },
     {
       "level": 3,
@@ -842,7 +858,7 @@
       },
       {
         "id": "sec:wall",
-        "title": "The wall",
+        "title": "What the countermodels exclude",
         "level": 2
       },
       {

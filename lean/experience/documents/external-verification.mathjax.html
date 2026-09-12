@@ -2669,8 +2669,10 @@ to a short curve remains open.</li>
 <code>Erdos249257.ExternalVerification.exists_two_roots_dist_sum_le_two_mul_geomMean</code>
 in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/verification/ExternalVerification/Statements.lean">Lean</a></li>
-<li><strong>Boundary.</strong> Value decay alone does not give a short
-connecting curve.</li>
+<li><strong>Boundary.</strong> The cited declarations are pointwise
+derivative statements. The real-time first integral requires the paper’s
+interval integration step, and value decay alone does not construct a
+global trajectory or give a short connecting curve.</li>
 <li><strong>Relation.</strong> <code>mechanism_support_for</code>
 <code>ray_separation</code>: The exponential first integral confines a
 Newton trajectory to one value ray, yielding the separation
@@ -2685,8 +2687,11 @@ global lemniscate theorem.</li>
 <li><strong>Source authority.</strong> Canonical review family
 <code>ray_separation</code> in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json">claims</a></li>
-<li><strong>Boundary.</strong> The result is a route obstruction, not
-the global theorem.</li>
+<li><strong>Boundary.</strong> The finite-trajectory conclusion retains
+continuity on the closed interval, differentiability and noncritical
+Newton evolution on its interior, and the ordinary endpoint passage. It
+supplies neither global trajectory existence nor geometric length
+control.</li>
 <li><strong>Relation.</strong> <code>mechanism_support_for</code>
 <code>newton_value_decay</code>: The exponential first integral confines
 a Newton trajectory to one value ray, yielding the separation
@@ -2732,16 +2737,26 @@ Contribution families (6)
 </summary>
 <p>Exact registry keys and Comparator routing are listed separately.</p>
 <ul>
-<li><p><strong>Newton value decay</strong><br> The Newton value equation
-and its exponential first integral are checked exactly.<br>
-<strong>Boundary.</strong> Value decay alone does not give a short
+<li><p><strong>Newton value decay</strong><br> Lean checks the local
+Newton value equation and the zero-derivative form of its exponentially
+scaled value; constancy along a real-time interval is an ordinary
+calculus consequence in the paper.<br> <strong>Boundary.</strong> The
+cited declarations are pointwise derivative statements. The real-time
+first integral requires the paper’s interval integration step, and value
+decay alone does not construct a global trajectory or give a short
 connecting curve.<br> <em>Evidence.</em> locally proved result and
-formalised calculus; novelty unassessed · Lean kernel</p></li>
-<li><p><strong>Ray separation</strong><br> Distinct positive rays
-exclude a finite Newton connection.<br> <strong>Boundary.</strong> The
-result is a route obstruction, not the global theorem.<br>
-<em>Evidence.</em> locally proved result; novelty unassessed · Lean
-kernel</p></li>
+formalised calculus; novelty unassessed · Lean kernel plus authored
+synthesis</p></li>
+<li><p><strong>Ray separation</strong><br> Lean checks that distinct
+positive rays contradict an assumed exponential endpoint relation; the
+paper derives that relation for a finite real-time Newton trajectory by
+ordinary integration and endpoint continuity.<br>
+<strong>Boundary.</strong> The finite-trajectory conclusion retains
+continuity on the closed interval, differentiability and noncritical
+Newton evolution on its interior, and the ordinary endpoint passage. It
+supplies neither global trajectory existence nor geometric length
+control.<br> <em>Evidence.</em> locally proved result; novelty
+unassessed · Lean kernel plus authored synthesis</p></li>
 <li><p><strong>Translation avoidance</strong><br> Collision translations
 are parameterised by real affine lines and an arbitrarily small common
 translation avoids finitely many of them.<br> <strong>Boundary.</strong>

@@ -50,15 +50,123 @@ otherwise, and a reduction of the problem to another statement is
 recorded as a reduction, never as progress toward a solution. </p>
 </section>
 <section id="sec:257-problem" class="level2">
-<h2>The problem, and what is actually known</h2>
+<h2>Support irrationality and its proof mechanisms</h2>
+<section id="reciprocal-summable-supports" class="level3">
+<h3>Reciprocal-summable supports</h3>
+<p>For every infinite set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+of positive integers with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a&lt;\infty</annotation></semantics></math>,
+the series
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mn>1</mn><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">X_A(b)=\sum_{a\in A}\frac1{b^a-1}</annotation></semantics></math>
+is irrational at every integer base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>.
+The proof below is ordinary mathematics and is the proof of the short
+paper’s Theorem <code>res:reciprocal-support</code>. Erdős’s <a
+href="https://users.renyi.hu/~p_erdos/1969-09.pdf">1968 paper,
+p. 222</a> proves the pairwise-coprime case at every integer base and
+states the removal of coprimality without printing the details. The
+checked pairwise-coprime theorem listed below retains that extra
+hypothesis.</p>
+<p>The mechanism is to make positive displacements arbitrarily small.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N&gt;0</annotation></semantics></math>,
+write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msub><mi>q</mi><mi>a</mi></msub><mi>a</mi><mo>+</mo><msub><mi>r</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">N=q_a a+r_a</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>r</mi><mi>a</mi></msub><mo>&lt;</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">0\le r_a&lt;a</annotation></semantics></math>.
+The identity
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msup><mi>b</mi><mi>N</mi></msup><mo>−</mo><mn>1</mn></mrow><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><msup><mi>b</mi><msub><mi>r</mi><mi>a</mi></msub></msup><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mrow><msub><mi>q</mi><mi>a</mi></msub><mo>−</mo><mn>1</mn></mrow></munderover><msup><mi>b</mi><mrow><mi>j</mi><mi>a</mi></mrow></msup><mo>+</mo><mfrac><mrow><msup><mi>b</mi><msub><mi>r</mi><mi>a</mi></msub></msup><mo>−</mo><mn>1</mn></mrow><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{b^N-1}{b^a-1}
+ =b^{r_a}\sum_{j=0}^{q_a-1}b^{ja}
+  +\frac{b^{r_a}-1}{b^a-1}</annotation></semantics></math> shows that
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><msup><mi>b</mi><mrow><mi>N</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow></msup><mo>−</mo><mn>1</mn></mrow><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>N</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>J</mi><mi>N</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>J</mi><mi>N</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N):=\sum_{a\in A}\frac{b^{N\operatorname{mod} a}-1}{b^a-1}
+ =(b^N-1)X_A(b)-J_N,\qquad J_N\in\mathbb Z.</annotation></semantics></math>
+The integer sum is finite, since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>a</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q_a=0</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">a&gt;N</annotation></semantics></math>.
+Every summand of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)</annotation></semantics></math>
+is nonnegative and an exponent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">a&gt;N</annotation></semantics></math>
+makes it positive. Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">X_A(b)=p/q</annotation></semantics></math>
+would imply
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)\ge1/q</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N&gt;0</annotation></semantics></math>.</p>
+<p>Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><mi>b</mi><mo>,</mo><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>b</mi><mrow><mi>N</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>d</mi></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>d</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_{b,d}(N)=b^{N\operatorname{mod} d}/(b^d-1)</annotation></semantics></math>.
+For a fixed positive modulus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo>,</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g=(Q,d)</annotation></semantics></math>,
+the orbit of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>m</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">Qm\operatorname{mod} d</annotation></semantics></math>
+has length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>/</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">d/g</annotation></semantics></math>.
+Its geometric sum gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">lim</mi><mrow><mi>X</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mn>1</mn><mi>X</mi></mfrac><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mi>X</mi></munderover><msub><mi>w</mi><mrow><mi>b</mi><mo>,</mo><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>M</mi><mrow><mi>Q</mi><mo>,</mo><mi>b</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><mfrac><mi>g</mi><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>g</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>≤</mo><mfrac><mn>1</mn><mi>d</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\lim_{X\to\infty}\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
+ =M_{Q,b}(d):=\frac{g}{d(b^g-1)}\le\frac1d.</annotation></semantics></math>
+The important interchange is with the infinite support. Expanding the
+atom as <span class="math inline" data-term-auto="off">$\sum_{r\ge1}b^{-r}{\bf1}_{d\mid
+Qm+r}$</span> and counting positive multiples of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+gives the bound
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>X</mi></mfrac><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mi>X</mi></munderover><msub><mi>w</mi><mrow><mi>b</mi><mo>,</mo><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><munder><mo>∑</mo><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow></munder><msup><mi>b</mi><mrow><mi>−</mi><mi>r</mi></mrow></msup><mfrac><mrow><mi>Q</mi><mo>+</mo><mi>r</mi></mrow><mi>d</mi></mfrac><mo>≤</mo><mfrac><mrow><mi>Q</mi><mo>+</mo><mn>2</mn></mrow><mi>d</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
+ \le\sum_{r\ge1}b^{-r}\frac{Q+r}{d}
+ \le\frac{Q+2}{d}.</annotation></semantics></math> Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+is fixed. Dominated convergence therefore identifies the limiting mean
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>d</mi><mo>∈</mo><mi>A</mi></mrow></msub><msub><mi>w</mi><mrow><mi>b</mi><mo>,</mo><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{d\in A}w_{b,d}(Qm)</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>d</mi><mo>∈</mo><mi>A</mi></mrow></msub><msub><mi>M</mi><mrow><mi>Q</mi><mo>,</mo><mi>b</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{d\in A}M_{Q,b}(d)</annotation></semantics></math>.</p>
+<p>Now choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>t</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Q_t=\operatorname{lcm}(1,\ldots,t)</annotation></semantics></math>.
+For each fixed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+eventually
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>∣</mo><msub><mi>Q</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">d\mid Q_t</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mrow><msub><mi>Q</mi><mi>t</mi></msub><mo>,</mo><mi>b</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>b</mi><mi>d</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">M_{Q_t,b}(d)=(b^d-1)^{-1}</annotation></semantics></math>.
+The bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mrow><msub><mi>Q</mi><mi>t</mi></msub><mo>,</mo><mi>b</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn><mi>/</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">M_{Q_t,b}(d)\le1/d</annotation></semantics></math>
+permits a second dominated-convergence argument:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>d</mi><mo>∈</mo><mi>A</mi></mrow></munder><msub><mi>M</mi><mrow><msub><mi>Q</mi><mi>t</mi></msub><mo>,</mo><mi>b</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{d\in A}M_{Q_t,b}(d)\longrightarrow X_A(b).</annotation></semantics></math>
+Consequently the limiting mean of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>Q</mi><mi>t</mi></msub><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(Q_tm)</annotation></semantics></math>
+tends to zero. Given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon&gt;0</annotation></semantics></math>,
+first choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+and then a sufficiently long finite average with mean below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>;
+one term of that average is below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>.
+Its strict positivity contradicts the rational lattice. This proves the
+assertion. <span><span class="sans-serif">[Math]</span></span></p>
+<p>The order of the two limits matters: the observation length increases
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>t</mi></msub><annotation encoding="application/x-tex">Q_t</annotation></semantics></math>
+fixed before
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+increases. No independence of different divisibility events is assumed.
+The mechanism also has a definite limit. At base two and full support,
+the contribution of exponents
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">a&gt;N</annotation></semantics></math>
+alone gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>N</mi></mrow></msup><mo>≥</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\Delta_{2,\mathbb N_{&gt;0}}(N)&gt;1-2^{-N}\ge1/2</annotation></semantics></math>.
+Full-support irrationality therefore uses a different argument; its
+checked form appears below.</p>
+</section>
 <section id="the-object-and-the-two-exact-statements" class="level3">
 <h3>The object and the two exact statements</h3>
 <p>For an integer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n \ge 2</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n \ge 1</annotation></semantics></math>
 set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub><mo>:=</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_n := 1/(2^n-1)</annotation></semantics></math>,
 and for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo>,</mo><mi>…</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A \subseteq \{2,3,4,\dots\}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mi>…</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A \subseteq \{1,2,3,\dots\}</annotation></semantics></math>
 write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>:=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>A</mi></mrow></msub><msub><mi>x</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">x_A := \sum_{n \in A} x_n</annotation></semantics></math>;
 the sum always converges, since
@@ -69,7 +177,7 @@ this family.</p>
 <p><strong>Definition 1</strong> (Universal #257, written (U)). Is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_A = \sum_{n \in A} 1/(2^n-1)</annotation></semantics></math>
 irrational for infinite
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">A \subseteq \mathbb{N}</annotation></semantics></math>?
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A \subseteq \mathbb N_{&gt;0}</annotation></semantics></math>?
 <strong>OPEN.</strong> <span><span
 class="sans-serif">[Open]</span></span></p>
 </div>
@@ -103,24 +211,22 @@ leaves (U) entirely open. So (H) is the maximally symmetric candidate
 counterexample to (U), not a restatement of it; the asymmetry is
 load-bearing and recurs below as Barrier . <span><span
 class="sans-serif">[Math]</span></span></p>
-<p>Nothing in this document decides (U) or (H). What it does contain is
-(i) the unconditional record, stated with hypotheses and evidence bands,
-and (ii) a characterisation of the recorded attacks fail — assembled so
-that the failures function as measurements of one obstruction rather
-than as a list of disappointments.</p>
+<p>The reciprocal-summable theorem and the checked support theorems
+below leave (U) and (H) open. The later countermodels identify the
+particular arithmetic information lost by individual approaches; they do
+not prove that all such failures have one common cause.</p>
 </section>
 <section id="the-unconditional-record-universal-direction"
 class="level3">
 <h3>The unconditional record, universal direction</h3>
-<p>Every landed unconditional irrationality theorem for (U) instantiates
-one engine: a weighted-coefficient block certificate over the divisor
-incidence
+<p>The checked support families in the following table use
+weighted-coefficient block certificates over the divisor incidence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">sc</mi><mo>&#8289;</mo></mrow><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>:=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>d</mi><mo>∣</mo><mi>n</mi><mo>:</mo><mi>d</mi><mo>∈</mo><mi>A</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\operatorname{sc}_A(n) := \#\{d \mid n : d \in A\}</annotation></semantics></math>,
 the generic form being
 <code>irrational_coeff_series_of_weighted_coeff_block_certificates</code>.
-The complete inventory of what that engine has been made to prove,
-uniformly in the base
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b \ge 2</annotation></semantics></math>:</p>
+The table records their hypotheses at integer bases
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>;
+it is separate from the ordinary averaging proof above.</p>
 <div class="center">
 <table>
 <thead>
@@ -212,10 +318,11 @@ establishes irrationality for every infinite support. The
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b=2</annotation></semantics></math>
 case of the first row recovers the Erdős–Borwein constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E = \sum_{n \ge 1} 1/(2^n-1)</annotation></semantics></math>
-as a one-line corollary of that classical theorem. Separately, row lies
-inside a two-axis box — divisor independence plus a global
-reciprocal-tail budget — and the box is not an accident of effort. That
-is Barrier .</p>
+as a one-line corollary of that classical theorem. Separately, the
+independence and tail estimates used by a particular certificate
+construction must be checked for that support. Barrier  discusses those
+construction requirements; the averaging proof above does not assume
+pairwise coprimality or independence of divisor events.</p>
 <p>The one conditional extension worth naming is , which strictly
 generalises pairwise coprimality (cores may be arbitrary divisors of one
 fixed

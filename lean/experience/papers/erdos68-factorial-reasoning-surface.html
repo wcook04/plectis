@@ -330,7 +330,18 @@ Taking logarithms of the resulting divisibility gives . ◻</p>
  \ \ge\ \frac{2\sqrt2}{3}.</annotation></semantics></math></em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Fix
+<p><em>Proof.</em> A terminal block keeps every factorial near
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">N!</annotation></semantics></math>,
+but increasing its length also increases the total pairwise-gcd loss.
+The gain is of order
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>N</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">kN\log N</annotation></semantics></math>
+and the loss of order
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>3</mn></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">k^3\log N</annotation></semantics></math>,
+so the useful balance is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+of order
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>N</mi></msqrt><annotation encoding="application/x-tex">\sqrt N</annotation></semantics></math>.
+Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha&gt;0</annotation></semantics></math>
 and take
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>α</mi><msqrt><mi>N</mi></msqrt><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">k=\lfloor\alpha\sqrt N\rfloor</annotation></semantics></math>,
@@ -434,13 +445,40 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2593</mn><annotation encoding="application/x-tex">2593</annotation></semantics></math>
 show why the substitution fails: a prime may occupy the common
 denominator and be absent from the reduced one. One cancelled prime is
-not an asymptotic cancellation theorem. Bounding the reduced denominator
-from below at every index is a stronger assertion, and it is exactly
-what an irrationality proof through the clearing-scale route needs. That
-stronger assertion has not been shown to follow from rationality of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
-alone; it would require an extra small-tail hypothesis such as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d_N(S-H_N)&lt;1</annotation></semantics></math>.</p>
+not an asymptotic cancellation theorem.</p>
+<p>The direction of denominator control matters. Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>N</mi></msub><mo>=</mo><msub><mi>A</mi><mi>N</mi></msub><mi>/</mi><msub><mi>Q</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">H_N=A_N/Q_N</annotation></semantics></math>
+in lowest terms. Under the hypothetical identity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a\in\mathbb{Z}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\ge1</annotation></semantics></math>,
+positivity of the tail gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi>Q</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>a</mi><msub><mi>Q</mi><mi>N</mi></msub><mo>−</mo><mi>q</mi><msub><mi>A</mi><mi>N</mi></msub><mo>∈</mo><msub><mi mathvariant="double-struck">ℤ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">qQ_N(S-H_N)=aQ_N-qA_N\in\mathbb{Z}_{&gt;0}.</annotation></semantics></math>
+A direct clearing contradiction therefore requires an upper estimate
+that makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi>Q</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">qQ_N(S-H_N)&lt;1</annotation></semantics></math>
+for some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>;
+equivalently, it needs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>N</mi></msub><annotation encoding="application/x-tex">Q_N</annotation></semantics></math>
+to be small relative to the reciprocal tail. A lower bound on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>N</mi></msub><annotation encoding="application/x-tex">Q_N</annotation></semantics></math>
+points in the opposite direction. Indeed, the rational limit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+and the approximants
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mn>1</mn><mi>/</mi><msub><mi>Q</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">1-1/Q_N</annotation></semantics></math>
+have arbitrarily large reduced denominators without any irrationality.
+The inequality
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d_N(S-H_N)&lt;1</annotation></semantics></math>
+alone would not repair the argument, because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>N</mi></msub><annotation encoding="application/x-tex">d_N</annotation></semantics></math>
+generally does not clear the earlier summands of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>N</mi></msub><annotation encoding="application/x-tex">H_N</annotation></semantics></math>.
+The prime-pole analysis describes which factors survive reduction, but
+it does not yet supply the required upper control on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>N</mi></msub><annotation encoding="application/x-tex">Q_N</annotation></semantics></math>.</p>
 </section>
 <section id="long68:sec:carry" class="level2">
 <h2>Carries and the rationality boundary</h2>
@@ -1033,8 +1071,9 @@ comes out of the sum. The two consequences follow by taking
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=1</annotation></semantics></math>
 and by contraposition. ◻</p>
 </div>
-<p>The hard step is the constant quotient; no valuation estimate enters.
-A nonzero moment therefore cannot be hidden entirely below
+<p>This is a direct consequence of the constant quotient; no valuation
+estimate enters. A nonzero moment therefore cannot be hidden entirely
+below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">2d</annotation></semantics></math>
 while the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-channel
@@ -1411,23 +1450,26 @@ strictly nonzero rounded residual has been produced.</p>
 in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>,
 and they constrain different features of it:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∤</mo><mn>299999</mn><mi>!</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>q</mi><mo>≥</mo><msup><mn>2</mn><mn>39990</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>q</mi><mo>&gt;</mo><msup><mn>10</mn><mn>12040</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∤</mo><mn>299999</mn><mi>!</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>q</mi><mo>≥</mo><msup><mn>2</mn><mn>39990</mn></msup><mo>&gt;</mo><msup><mn>10</mn><mn>12038</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long68:eq:finite-bounds}
- q\nmid299999!,\qquad q\ge2^{39990},\qquad q&gt;10^{12040}.
-\end{equation}</annotation></semantics></math> The size bounds hold for
+ q\nmid299999!,\qquad q\ge2^{39990}&gt;10^{12038}.
+\end{equation}</annotation></semantics></math> The size bound holds for
 every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
 and positive natural
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>;
-no reducedness assumption is needed. They are <a
-href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos68/PaperCompleteFiniteSizeCertificate.lean#L58">kernel-checked
-in Lean</a>. The factorial-grid exclusion
+no reducedness assumption is needed. Its evidence is the exact
+continued-fraction computation described below. The stronger candidate
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos68/PaperCompleteFiniteSizeCertificate.lean#L58">finite-size
+Lean certificate</a> is not cited as kernel verification: its source
+records that the computation has not yet been kernel checked. The
+factorial-grid exclusion
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∤</mo><mn>299999</mn><mi>!</mi></mrow><annotation encoding="application/x-tex">q\nmid299999!</annotation></semantics></math>
-is supported separately by the external GMP computation. It is not a
-conclusion of the linked Lean theorem; the full factorial-grid
-certificate remains an outstanding formal obligation.</p>
+is supported separately by the external GMP computation; its full Lean
+certificate also remains an outstanding formal obligation.</p>
 <p>Neither implies the other. A denominator with no prime factor above
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>299999</mn><annotation encoding="application/x-tex">299999</annotation></semantics></math>
 can still fail to divide

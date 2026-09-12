@@ -87,7 +87,11 @@ sections satisfy
 <section id="sec:rank" class="level3">
 <h3>The evaluation matrix</h3>
 <p>The two ingredients are scalar reduction and arithmetic independence.
-The local formula for
+The reductions explain which sections must be dependent. The difficulty
+is to exclude every additional relation. We do this one coefficient at a
+time: an evaluation will annihilate all the other columns modulo a prime
+while leaving the chosen column nonzero. Thus no simultaneous primality
+assertion for several affine forms is needed. The local formula for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
 gives the displayed reductions. For a prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">p\mid k</annotation></semantics></math>
@@ -829,14 +833,19 @@ Coons proved that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
 is not
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular <span
-class="citation" data-cites="coons"></span>; Martin’s stronger affine
-ordering theorem implies the independence in Section  <span
-class="citation" data-cites="martin-phi-inequalities"></span>. The basis
-theorem gives the exact finite-level normal form. Wong <span
-class="citation" data-cites="wong2015"></span> proved least-residue
-irrationality when the denominator base equals the modulus; Section 
-fixes base two and classifies dyadic observables. The original question
-appears in Erdős and Graham <span class="citation"
+class="citation" data-cites="coons"></span>. Martin’s Theorem 1 makes
+the ratios of totients on any prescribed finite list of pairwise
+nonproportional affine forms with integer coefficients and positive
+slopes arbitrarily separated; this implies their linear
+independence <span class="citation"
+data-cites="martin-phi-inequalities"><a href="#ref-3">[3]</a></span>. Section  gives a direct
+determinant proof tailored to the sections used here. The basis theorem
+gives the exact finite-level normal form. Wong <span class="citation"
+data-cites="wong2015"><a href="#ref-4">[4]</a></span> proved least-residue irrationality when
+the denominator base and modulus are the same integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&gt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k&gt;2</annotation></semantics></math>;
+Section  fixes base two and classifies dyadic observables. The original
+question appears in Erdős and Graham <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span>.</p>
 <p>The <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1084">dyadic
@@ -869,13 +878,12 @@ under rationality, alongside the Lean-checked Farey exclusion. Neither
 implies the universal gap.</p>
 <p>The remaining first-harmonic obligation is a four-term pivot budget,
 not an opening statement of this note. Write
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Re</mi><mo>&#8289;</mo></mrow><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi></mrow><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>14</mn><mn>25</mn></mfrac></mstyle><mi>X</mi><mo>,</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>100</mn></mfrac></mstyle><mi>X</mi><mo>,</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>100</mn></mfrac></mstyle><mi>X</mi><mo>,</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>8</mn><mn>25</mn></mfrac></mstyle><mi>X</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{Re}\,\mathrm{pivotCenteredCorrelation}\le\tfrac{14}{25}X,
- \quad
- \lVert\mathrm{pivotFiberMean}\rVert\le\tfrac1{100}X,
- \quad
- \lVert\mathrm{pivotBad}\rVert\le\tfrac1{100}X,
- \quad
- \lVert\mathrm{pivotNonSupplier}\rVert\le\tfrac8{25}X.</annotation></semantics></math></p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mi mathvariant="normal">Re</mi><mo>&#8289;</mo></mrow><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>14</mn><mn>25</mn></mfrac></mstyle><mi>X</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>100</mn></mfrac></mstyle><mi>X</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>100</mn></mfrac></mstyle><mi>X</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>8</mn><mn>25</mn></mfrac></mstyle><mi>X</mi><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+ \operatorname{Re}\,\mathrm{pivotCenteredCorrelation}&amp;\le\tfrac{14}{25}X,\\
+ \lVert\mathrm{pivotFiberMean}\rVert&amp;\le\tfrac1{100}X,\\
+ \lVert\mathrm{pivotBad}\rVert&amp;\le\tfrac1{100}X,\\
+ \lVert\mathrm{pivotNonSupplier}\rVert&amp;\le\tfrac8{25}X.
+ \end{aligned}</annotation></semantics></math></p>
 <div class="problem">
 <p><strong>Problem 10</strong> (first-harmonic anti-concentration on
 supplier fibres). <em> For each
@@ -1248,11 +1256,12 @@ Theoret. Comput. Sci. <strong>98</strong> (1992), 163–197.
 doi:10.1016/0304-3975(92)90001-V.</p></li>
 <li id="ref-2"><p>M. Coons, , J. Théor. Nombres Bordeaux <strong>22</strong>
 (2010), 339–352, Theorem 3.2. doi:10.5802/jtnb.718.</p></li>
-<li id="ref-3"><p>G. Martin, , 2006, arXiv:math/0603053, Theorem 1 and
-Corollary 4.</p></li>
-<li id="ref-4"><p>E. Wong, answer to <a
-href="https://math.stackexchange.com/questions/1210886">question
-1210886</a>, Mathematics Stack Exchange, 29 March 2015.</p></li>
+<li id="ref-3"><p>G. Martin, , 2006, arXiv:math/0603053, Theorem 1. <a
+href="https://arxiv.org/abs/math/0603053"
+class="uri">https://arxiv.org/abs/math/0603053</a>.</p></li>
+<li id="ref-4"><p>Erick Wong, <a
+href="https://math.stackexchange.com/a/1211557">answer 1211557</a> to ,
+Mathematics Stack Exchange, 29 March 2015.</p></li>
 <li id="ref-5"><p>P. Erdős and R. L. Graham, , 1980, p. 61.</p></li>
 <li id="ref-6"><p>S. Fan, comment on Erdős Problem #249, 16 May 2026, 19:01, <a
 href="https://www.erdosproblems.com/forum/thread/249">Erdős Problems

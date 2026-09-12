@@ -26,6 +26,15 @@ q^{\lfloor\log_q x\rfloor}r^{\lfloor\log_r x\rfloor},\qquad
 <p>Prime-power divisibility gives <span
 class="math inline" data-term-auto="off">\(\operatorname{L}=\operatorname{H}\)</span>
 (Proposition <a class="math-ref" href="#res:lcm">6</a>).</p>
+<p>With two primes, the corresponding kernel factors into a function of
+each exponent separately, reducing the double sum to a product. The
+first question at three primes is whether finitely many such products
+still suffice. Theorem <a class="math-ref" href="#res:infinite-rank">1</a> rules this out:
+one floor carry survives after all row and column factors have been
+removed. We first explain that obstruction, then recover the two-prime
+comparison, and finally identify the arithmetic of the actual
+three-prime tails. The last step is necessary because the rank of a
+kernel does not determine the irrationality of its sum.</p>
 </section>
 <section id="sec:rank" class="level2">
 <h2>The binary carry and arbitrary-order rank</h2>
@@ -68,17 +77,27 @@ V_j(k)&amp;=q^j p^{\lfloor\log_p(q^jr^k)\rfloor}
 <p>Both factors are positive. Distinct primes make
 <span class="math inline" data-term-auto="off">\(\log_r p\)</span> and <span
 class="math inline" data-term-auto="off">\(\log_r q\)</span> irrational, so each individual
-rotation is dense. For <span class="math inline" data-term-auto="off">\(n\ge1\)</span>,
-choose distinct row indices with <span
+rotation is dense. No joint density of <span
+class="math inline" data-term-auto="off">\((x_i,y_j)\)</span> is needed. For <span
+class="math inline" data-term-auto="off">\(n\ge1\)</span>, use density of <span
+class="math inline" data-term-auto="off">\((x_i)\)</span> to choose distinct row indices with
+<span
 class="math inline" data-term-auto="off">\(0&lt;x_{I(0)}&lt;\cdots&lt;x_{I(n-1)}&lt;1\)</span>.
-Choose <span class="math inline" data-term-auto="off">\(1-y_{J(0)}\)</span> in <span
-class="math inline" data-term-auto="off">\((0,x_{I(0)})\)</span>, and, for <span
-class="math inline" data-term-auto="off">\(1\le b&lt;n\)</span>, choose <span
-class="math inline" data-term-auto="off">\(1-y_{J(b)}\)</span> in <span
-class="math inline" data-term-auto="off">\((x_{I(b-1)},x_{I(b)})\)</span>. The intervals are
-disjoint, so the column indices are distinct. These choices give</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[T_n(c)=\begin{pmatrix}
+Now put <span class="math inline" data-term-auto="off">\(s_b=1-y_{J(b)}\)</span>. Density of
+<span class="math inline" data-term-auto="off">\((y_j)\)</span> lets us choose</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[s_0\in(0,x_{I(0)}),\qquad
+s_b\in(x_{I(b-1)},x_{I(b)})\quad(1\le b&lt;n).\]</span></div>
+<p>The intervals for the <span class="math inline" data-term-auto="off">\(s_b\)</span> are
+disjoint, so the column indices are distinct. The strict inequalities
+also avoid the threshold itself, and give <span
+class="math inline" data-term-auto="off">\(x_{I(a)}+y_{J(b)}\ge1\)</span> exactly when <span
+class="math inline" data-term-auto="off">\(b\le a\)</span>. Thus multiplying row <span
+class="math inline" data-term-auto="off">\(a\)</span> by <span
+class="math inline" data-term-auto="off">\(U_{I(a)}(k)\)</span> and column <span
+class="math inline" data-term-auto="off">\(b\)</span> by <span
+class="math inline" data-term-auto="off">\(V_{J(b)}(k)\)</span> reduces the selected kernel
+minor to</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[T_n(c)=\begin{pmatrix}
 c&amp;1&amp;\cdots&amp;1\\
 c&amp;c&amp;\cdots&amp;1\\
 \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
@@ -87,20 +106,39 @@ c&amp;c&amp;\cdots&amp;c
 \det T_n(c)=c(c-1)^{n-1}.\]</span></div>
 <p>Indeed, subtracting each preceding
 row from the next, working upwards from the last row, leaves diagonal
-entries <span class="math inline" data-term-auto="off">\(c,c-1,\ldots,c-1\)</span>. The same
-<span class="math inline" data-term-auto="off">\(I,J\)</span> work for every <span
-class="math inline" data-term-auto="off">\(k\)</span>, whose only effect is multiplication by
-nonzero row and column factors. The empty minor for <span
+entries <span class="math inline" data-term-auto="off">\(c,c-1,\ldots,c-1\)</span>. Before
+normalisation, the determinant is this nonzero number times</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\prod_{a&lt;n}U_{I(a)}(k)^{-1}\prod_{b&lt;n}V_{J(b)}(k)^{-1}.\]</span></div>
+<p>The factors are nonzero, and the same <span
+class="math inline" data-term-auto="off">\(I,J\)</span> work for every <span
+class="math inline" data-term-auto="off">\(k\)</span>. The empty minor for <span
 class="math inline" data-term-auto="off">\(n=0\)</span> equals <span
-class="math inline" data-term-auto="off">\(1\)</span>. Finally, <span
-class="math inline" data-term-auto="off">\(d\)</span> separated summands would factor every
-<span class="math inline" data-term-auto="off">\((d+1)\times(d+1)\)</span> restriction
-through a <span class="math inline" data-term-auto="off">\(d\)</span>-dimensional space,
-contradicting the nonzero minor. ◻</p>
+class="math inline" data-term-auto="off">\(1\)</span>.</p>
+<p>For the final assertion, suppose a separation with <span
+class="math inline" data-term-auto="off">\(d\)</span> summands existed and fix any <span
+class="math inline" data-term-auto="off">\(k\)</span>. On the rows <span
+class="math inline" data-term-auto="off">\(I(0),\ldots,I(d)\)</span> and columns <span
+class="math inline" data-term-auto="off">\(J(0),\ldots,J(d)\)</span> its matrix would be the
+product of the <span class="math inline" data-term-auto="off">\((d+1)\times d\)</span> matrix
+<span class="math inline" data-term-auto="off">\((f_\ell(I(a)))_{a,\ell}\)</span> and the
+<span class="math inline" data-term-auto="off">\(d\times(d+1)\)</span> matrix <span
+class="math inline" data-term-auto="off">\((G_\ell(J(b),k))_{\ell,b}\)</span>. Its rank would
+be at most <span class="math inline" data-term-auto="off">\(d\)</span>, so its determinant
+would vanish, contrary to the minor just constructed. ◻</p>
 </div>
-<p>Both clauses are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">uniform
-rank and nonseparation</a>.</p>
+<p>The two clauses are the Lean declarations <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/KernelCarryRank.lean#L376">uniform
+nonsingular minors</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/KernelCarryRank.lean#L388">no
+finite separation</a>. Those declarations require <span
+class="math inline" data-term-auto="off">\(p\ne r\)</span> and <span
+class="math inline" data-term-auto="off">\(q\ne r\)</span>, but not <span
+class="math inline" data-term-auto="off">\(p\ne q\)</span>. The theorem above keeps pairwise
+distinctness because it is stated for a three-prime set; allowing <span
+class="math inline" data-term-auto="off">\(p=q\)</span> gives an extension of the abstract
+indexed kernel, not a new three-prime case of the running-LCM
+problem.</p>
 <div class="corollary" id="res:admissible-modular-minors">
 <p><strong>Corollary 2</strong> (the same minors modulo every admissible
 denominator). <em> For <span
@@ -222,10 +260,11 @@ class="math inline" data-term-auto="off">\(N\)</span> and</p>
 class="math display" data-term-auto="off">\[\|K-K^{(N)}\|_{\ell^1}
 \le\frac{pqr\,p^{-3N}}{(1-p^{-3})(1-q^{-3})(1-r^{-3})}.\]</span></div>
 <p>This
-follows from <span class="math inline" data-term-auto="off">\(H(x)&gt;x^3/(pqr)\)</span>.
-Thus the infinite uniform obstruction coexists with geometric
-approximation in the summation norm. The scalar irrationality question
-requires arithmetic information about the actual multiplicities.</p>
+follows from <span
+class="math inline" data-term-auto="off">\(\operatorname{H}(x)&gt;x^3/(pqr)\)</span>. Thus
+the infinite uniform obstruction coexists with geometric approximation
+in the summation norm. The scalar irrationality question requires
+arithmetic information about the actual multiplicities.</p>
 </section>
 </section>
 <section id="sec:two-prime" class="level2">
@@ -243,12 +282,16 @@ value. The same boundary-channel calculation also yields the
 de-duplicated affine formula displayed below <span class="citation"
 data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
 <div class="theorem" id="res:two-prime-transcendence"><span class="tex-label" id="res:two-prime-repeated-transcendence" hidden></span>
-<p><strong>Theorem 5</strong> (both two-prime sums). <em> Put <span
+<p><strong>Theorem 5</strong> (both two-prime sums). <em> Let <span
+class="math inline" data-term-auto="off">\(p&lt;q\)</span> be distinct primes. Put <span
 class="math inline" data-term-auto="off">\(\theta=\log p/\log q\)</span> and <span
 class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}p^{-n}q^{-\lfloor
-n\theta\rfloor}\)</span>. Then </em></p>
-<div class="math-display" id="eq:two-prime-affine" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+n\theta\rfloor}\)</span>. Let <span class="math inline" data-term-auto="off">\(\mathcal
+R_{p,q}\)</span> sum the reciprocal running LCM at every positive <span
+class="math inline" data-term-auto="off">\(\{p,q\}\)</span>-smooth integer, and let <span
+class="math inline" data-term-auto="off">\(\mathcal D_{p,q}\)</span> count each distinct
+running LCM once. Then </em></p>
+<div class="math-display" id="eq:two-prime-affine" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:two-prime-affine}
 \mathcal D_{p,q}=\frac{(q-p)A+p}{q-1},\qquad
 \mathcal R_{p,q}=\frac{(p+q-1)A-(p-1)A^2}{q-1}.
@@ -679,14 +722,22 @@ scopes.</p>
 <h5>Proof sources.</h5>
 <p>The two-prime argument uses the cited Hecke–Mahler value theorem and
 is Steve Fan’s; it is not a Lean theorem. The arbitrary-order kernel
-theorem, the actual recurrence and the rationality bridge are ordinary
-mathematics in this paper; source locations are recorded below.
-Comparator records the <span class="math inline" data-term-auto="off">\((2,3,5)\)</span>
-minor <span class="math inline" data-term-auto="off">\(-1/15\)</span>, the running-LCM height
-identity, and a conditional carry-escape consumer, not the
-arbitrary-order rank theorem. The finite cut-rank argument and the
-modular corollary are proved above; no additional formal verification
-claim is made for the latter. The actual-series reduction is given; the
+theorem is proved in the Lean module <code>KernelCarryRank</code>: it
+contains the uniform minors and the exact finite-separation
+contradiction used above. The literal recurrence and the fixed-split
+rationality bridge likewise have the named Lean statements linked at
+their occurrences above. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/06f57893e0f9c6d80668048f26f096367ae4cfe7/verification/erdos269-wavea-validation.json">source-current
+validation receipt</a> byte-matches these modules and records their
+compilation inside the public recursive import closure. The receipt’s
+declaration-by-declaration axiom audit concerns the named R12 Wave A
+results, not these rank declarations. Comparator separately records the
+finite <span class="math inline" data-term-auto="off">\((2,3,5)\)</span> minor <span
+class="math inline" data-term-auto="off">\(-1/15\)</span>, the running-LCM height identity,
+and a conditional carry-escape consumer; it is not the evidence for the
+arbitrary-order theorem. The finite cut-rank argument and the modular
+corollary are proved above; no additional formal verification claim is
+made for the latter. The actual-series reduction is given; the
 source-specific cofinal escape remains unproved.</p>
 </section>
 <section id="artefact-and-data-availability." class="level5">

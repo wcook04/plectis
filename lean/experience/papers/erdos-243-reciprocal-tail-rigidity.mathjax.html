@@ -7,6 +7,17 @@
   <div class="lean-paper__body" data-source="../../../paper/243/erdos-243-reciprocal-tail-rigidity.tex">
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
+<p>For <span class="math inline" data-term-auto="off">\(a_n&gt;1\)</span>, the recurrence
+<span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> is singled out
+by the telescope</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac1{a_n-1}=\frac1{a_n}+\frac1{a_{n+1}-1}.\]</span></div>
+<p>Thus a Sylvester tail has the exact value <span
+class="math inline" data-term-auto="off">\(1/(a_n-1)\)</span> beginning at index <span
+class="math inline" data-term-auto="off">\(n\)</span>. The question is whether rationality
+and the asymptotic relation <span class="math inline" data-term-auto="off">\(a_{n+1}\sim
+a_n^2\)</span> force that exact recurrence. The following result
+isolates a sufficient one-sided bound on the departure from it.</p>
 <div class="corollary" id="res:originalbounded">
 <p><strong>Corollary 1</strong> (original-coordinate bounded defect).
 <em> Let <span class="math inline" data-term-auto="off">\(a_1&lt;a_2&lt;\cdots\)</span> be
@@ -22,20 +33,23 @@ class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> for all 
 large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
 <p>Corollary <a class="math-ref" href="#res:originalbounded">1</a> is an ordinary
-transfer of the integer-state theorem below, proved in Section <a class="math-ref" href="#sec:transfer">4</a>. There is no module
-<code>PaperCompleteR7/ProductDefect.lean</code> in this checkout.</p>
+transfer of the integer-state theorem below, proved in Section <a class="math-ref" href="#sec:transfer">4</a>. The analytic transfer
+is separate from the linked Lean theorem.</p>
 <section id="the-obstruction." class="level5">
 <h5>The obstruction.</h5>
-<p>The equation <span class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>
-translates a bound on negative error into a bound on upward increments.
-At negative indices the common divisor of <span
-class="math inline" data-term-auto="off">\(C_n,D_n\)</span> divides the bounded magnitude.
-Once this divisor stabilises, reduction makes the later numerators
-coprime to the old multipliers. The Chinese remainder theorem places
-consecutive forbidden heights beyond any fixed prefix. A first crossing
-then gives the contradiction. Section <a class="math-ref" href="#sec:lcmrecords">6</a> uses the same
-divisibility at record sources, so that only record excess is
-charged.</p>
+<p>Clear the rational reciprocal tail as <span
+class="math inline" data-term-auto="off">\(C_n/D_n\)</span>. On a Sylvester tail, <span
+class="math inline" data-term-auto="off">\(D_n=(a_n-1)C_n\)</span>; the integer error <span
+class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span> measures the failure
+of this identity. Its update <span
+class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span> turns a bound on negative
+error into a bound on upward increments. Small increments alone are
+insufficient. The arithmetic input is that, after the common divisor
+stabilises, every old multiplier must remain coprime to every later
+numerator. The Chinese remainder theorem then produces a block of
+forbidden heights that no permitted jump can cross. A numerator tending
+to infinity would have to cross it. Section <a class="math-ref" href="#sec:lcmrecords">6</a> adapts this crossing
+argument when only jumps setting new records are charged.</p>
 <p>Write <span
 class="math inline" data-term-auto="off">\(\operatorname{ctr}(a,D,C)=D-(a-1)C\)</span>. The
 following integer-state theorem implies Corollary <a class="math-ref" href="#res:originalbounded">1</a>; the ordinary
@@ -75,8 +89,9 @@ sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>: 
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
 rigidity</a>.</em></p>
 </div>
-<p>Eventual strict centring, a bounded negative part, and normalised
-vanishing remain explicit hypotheses.</p>
+<p>The eventual form follows by shifting past the centring and
+lower-bound thresholds; its exact source is linked in the formal-scope
+paragraph below.</p>
 <div class="problem" id="res:problem">
 <p><strong>Problem 3</strong> (Erdős #243). <em> Let <span
 class="math inline" data-term-auto="off">\(1\le a_1&lt;a_2&lt;\cdots\)</span> be a sequence
@@ -228,13 +243,21 @@ with <span class="math inline" data-term-auto="off">\(\gcd(m_i,u_t)=1\)</span> w
 class="math inline" data-term-auto="off">\(i&lt;t\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Choose <span class="math inline" data-term-auto="off">\(B\)</span> old
-moduli and take a CRT block <span class="math inline" data-term-auto="off">\([t,t+B)\)</span>
-beyond every numerator in the prefix before they become old. At the
-first crossing of <span class="math inline" data-term-auto="off">\(t\)</span>, the new
-numerator lies in that block, so it is divisible by an old modulus. This
-contradicts coprimality. No monotonicity of <span
-class="math inline" data-term-auto="off">\(u\)</span> is used. ◻</p>
+<p><em>Proof.</em> Choose <span
+class="math inline" data-term-auto="off">\(m_0,\ldots,m_{B-1}\)</span> and use Lemma <a class="math-ref" href="#res:crt">8</a> to find <span
+class="math inline" data-term-auto="off">\(t&gt;\max(u_0,\ldots,u_B)\)</span> with <span
+class="math inline" data-term-auto="off">\(m_i\mid t+i\)</span>. Since <span
+class="math inline" data-term-auto="off">\(u_n\to\infty\)</span>, there is a first <span
+class="math inline" data-term-auto="off">\(n&gt;B\)</span> with <span
+class="math inline" data-term-auto="off">\(u_n\ge t\)</span>. Minimality and the rise bound
+give</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[t\le u_n\le u_{n-1}+B&lt;t+B.\]</span></div>
+<p>Hence <span class="math inline" data-term-auto="off">\(u_n=t+i\)</span> for some <span
+class="math inline" data-term-auto="off">\(0\le i&lt;B&lt;n\)</span>, so <span
+class="math inline" data-term-auto="off">\(m_i\mid u_n\)</span>. This contradicts <span
+class="math inline" data-term-auto="off">\(\gcd(m_i,u_n)=1\)</span>. The argument uses first
+crossing, not monotonicity: the numerator may fall before it reaches the
+block. ◻</p>
 </div>
 </section>
 <section id="reduction-and-stabilisation" class="level3">
@@ -413,7 +436,7 @@ decreasing weight with divergent integral. The theorem in this section
 has an ordinary proof.</p>
 <p>Set</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[L_n=\operatorname{lcm}(q,a_0,\ldots,a_{n-1}),\quad
+class="math display" data-term-auto="off">\[L_n=\operatorname{lcm}(q,a_1,\ldots,a_{n-1}),\quad
 M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.\]</span></div>
 <p>The rational
 tail has denominator dividing <span class="math inline" data-term-auto="off">\(L_n\)</span>,
@@ -737,14 +760,14 @@ repair-entropy inequalities are in <code>RepairEntropy.lean</code>. The
 residue reduction of Appendix <a class="math-ref" href="#app:residue">10</a> is in
 <code>FiniteHorizonResidue.lean</code>. Three distinctions are worth
 carrying into the source. The identification of any of these modules
-with reciprocal tails is the exposition of Section <a class="math-ref" href="#sec:state">3</a> and is not a checked
+with reciprocal tails is the exposition of Section <a class="math-ref" href="#sec:transfer">4</a> and is not a checked
 statement. The periodic exclusion assumes the regime <span
 class="math inline" data-term-auto="off">\(e_n&lt;a_n\)</span>. And the final Lean
 declaration lists strict centring and normalised vanishing as
 hypotheses; the former follows eventually from the latter with <span
 class="math inline" data-term-auto="off">\(K=1\)</span>, while the formal source derives
-neither from the original analytic problem. For the external bridge
-supplying them, see Sections <a class="math-ref" href="#sec:problem">1</a> and <a class="math-ref" href="#sec:bounded">2</a>.</p>
+neither from the original analytic problem. The ordinary canonical-tail
+transfer is proved in Section <a class="math-ref" href="#sec:transfer">4</a>.</p>
 </section>
 <section id="app:residue" class="level2">
 <h2>A factorial residue reduction for forced orbits</h2>

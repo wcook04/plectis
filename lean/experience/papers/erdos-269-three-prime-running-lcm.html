@@ -27,6 +27,15 @@ define
 Prime-power divisibility gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo>=</mo><mi mathvariant="normal">H</mi></mrow><annotation encoding="application/x-tex">\operatorname{L}=\operatorname{H}</annotation></semantics></math>
 (Proposition ).</p>
+<p>With two primes, the corresponding kernel factors into a function of
+each exponent separately, reducing the double sum to a product. The
+first question at three primes is whether finitely many such products
+still suffice. Theorem  rules this out: one floor carry survives after
+all row and column factors have been removed. We first explain that
+obstruction, then recover the two-prime comparison, and finally identify
+the arithmetic of the actual three-prime tails. The last step is
+necessary because the rank of a kernel does not determine the
+irrationality of its sum.</p>
 </section>
 <section id="sec:rank" class="level2">
 <h2>The binary carry and arbitrary-order rank</h2>
@@ -77,22 +86,37 @@ Distinct primes make
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">\log_r p</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi></mrow><annotation encoding="application/x-tex">\log_r q</annotation></semantics></math>
-irrational, so each individual rotation is dense. For
+irrational, so each individual rotation is dense. No joint density of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_i,y_j)</annotation></semantics></math>
+is needed. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>,
-choose distinct row indices with
+use density of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_i)</annotation></semantics></math>
+to choose distinct row indices with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>&lt;</mo><mi>⋯</mi><mo>&lt;</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;x_{I(0)}&lt;\cdots&lt;x_{I(n-1)}&lt;1</annotation></semantics></math>.
-Choose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">1-y_{J(0)}</annotation></semantics></math>
-in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,x_{I(0)})</annotation></semantics></math>,
-and, for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>b</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1\le b&lt;n</annotation></semantics></math>,
-choose
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">1-y_{J(b)}</annotation></semantics></math>
-in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>,</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_{I(b-1)},x_{I(b)})</annotation></semantics></math>.
-The intervals are disjoint, so the column indices are distinct. These
-choices give
+Now put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>b</mi></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">s_b=1-y_{J(b)}</annotation></semantics></math>.
+Density of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>y</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(y_j)</annotation></semantics></math>
+lets us choose</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mn>0</mn></msub><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>s</mi><mi>b</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>,</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>≤</mo><mi>b</mi><mo>&lt;</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">s_0\in(0,x_{I(0)}),\qquad
+ s_b\in(x_{I(b-1)},x_{I(b)})\quad(1\le b&lt;n).</annotation></semantics></math></p>
+<p>The intervals for the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>b</mi></msub><annotation encoding="application/x-tex">s_b</annotation></semantics></math>
+are disjoint, so the column indices are distinct. The strict
+inequalities also avoid the threshold itself, and give
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>+</mo><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x_{I(a)}+y_{J(b)}\ge1</annotation></semantics></math>
+exactly when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≤</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">b\le a</annotation></semantics></math>.
+Thus multiplying row
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U_{I(a)}(k)</annotation></semantics></math>
+and column
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_{J(b)}(k)</annotation></semantics></math>
+reduces the selected kernel minor to
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>⋮</mi></mtd><mtd columnalign="center" class="ta-c"><mi>⋮</mi></mtd><mtd columnalign="center" class="ta-c"><mo>⋱</mo></mtd><mtd columnalign="center" class="ta-c"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mi>c</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><msub><mi>T</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">T_n(c)=\begin{pmatrix}
  c&amp;1&amp;\cdots&amp;1\\
  c&amp;c&amp;\cdots&amp;1\\
@@ -103,26 +127,52 @@ choices give
 subtracting each preceding row from the next, working upwards from the
 last row, leaves diagonal entries
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>,</mo><mi>c</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>c</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c,c-1,\ldots,c-1</annotation></semantics></math>.
-The same
+Before normalisation, the determinant is this nonzero number times
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∏</mo><mrow><mi>a</mi><mo>&lt;</mo><mi>n</mi></mrow></munder><msub><mi>U</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><munder><mo>∏</mo><mrow><mi>b</mi><mo>&lt;</mo><mi>n</mi></mrow></munder><msub><mi>V</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\prod_{a&lt;n}U_{I(a)}(k)^{-1}\prod_{b&lt;n}V_{J(b)}(k)^{-1}.</annotation></semantics></math>
+The factors are nonzero, and the same
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>,</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">I,J</annotation></semantics></math>
 work for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
-whose only effect is multiplication by nonzero row and column factors.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
 The empty minor for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n=0</annotation></semantics></math>
 equals
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-Finally,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.</p>
+<p>For the final assertion, suppose a separation with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
-separated summands would factor every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(d+1)\times(d+1)</annotation></semantics></math>
-restriction through a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-dimensional
-space, contradicting the nonzero minor. ◻</p>
+summands existed and fix any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
+On the rows
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(0),\ldots,I(d)</annotation></semantics></math>
+and columns
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi><mo>,</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(0),\ldots,J(d)</annotation></semantics></math>
+its matrix would be the product of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">(d+1)\times d</annotation></semantics></math>
+matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>f</mi><mi>ℓ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>a</mi><mo>,</mo><mi>ℓ</mi></mrow></msub></mrow><annotation encoding="application/x-tex">(f_\ell(I(a)))_{a,\ell}</annotation></semantics></math>
+and the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d\times(d+1)</annotation></semantics></math>
+matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>G</mi><mi>ℓ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>ℓ</mi><mo>,</mo><mi>b</mi></mrow></msub></mrow><annotation encoding="application/x-tex">(G_\ell(J(b),k))_{\ell,b}</annotation></semantics></math>.
+Its rank would be at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+so its determinant would vanish, contrary to the minor just
+constructed. ◻</p>
 </div>
-<p>Both clauses are <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">uniform
-rank and nonseparation</a>.</p>
+<p>The two clauses are the Lean declarations <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/KernelCarryRank.lean#L376">uniform
+nonsingular minors</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/KernelCarryRank.lean#L388">no
+finite separation</a>. Those declarations require
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≠</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">p\ne r</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≠</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">q\ne r</annotation></semantics></math>,
+but not
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≠</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p\ne q</annotation></semantics></math>.
+The theorem above keeps pairwise distinctness because it is stated for a
+three-prime set; allowing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p=q</annotation></semantics></math>
+gives an extension of the abstract indexed kernel, not a new three-prime
+case of the running-LCM problem.</p>
 <div class="corollary">
 <p><strong>Corollary 2</strong> (the same minors modulo every admissible
 denominator). <em> For
@@ -281,7 +331,7 @@ and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="postfix">∥</mo><mi>K</mi><mo>−</mo><msup><mi>K</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><msub><mo stretchy="false" form="postfix">∥</mo><msup><mi>ℓ</mi><mn>1</mn></msup></msub><mo>≤</mo><mfrac><mrow><mi>p</mi><mi>q</mi><mi>r</mi><mspace width="0.167em"></mspace><msup><mi>p</mi><mrow><mi>−</mi><mn>3</mn><mi>N</mi></mrow></msup></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>p</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>q</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>r</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\|K-K^{(N)}\|_{\ell^1}
  \le\frac{pqr\,p^{-3N}}{(1-p^{-3})(1-q^{-3})(1-r^{-3})}.</annotation></semantics></math>
 This follows from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msup><mi>x</mi><mn>3</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mi>q</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H(x)&gt;x^3/(pqr)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msup><mi>x</mi><mn>3</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mi>q</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{H}(x)&gt;x^3/(pqr)</annotation></semantics></math>.
 Thus the infinite uniform obstruction coexists with geometric
 approximation in the summation norm. The scalar irrationality question
 requires arithmetic information about the actual multiplicities.</p>
@@ -305,11 +355,19 @@ boundary-channel calculation also yields the de-duplicated affine
 formula displayed below <span class="citation"
 data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
 <div class="theorem">
-<p><strong>Theorem 5</strong> (both two-prime sums). <em> Put
+<p><strong>Theorem 5</strong> (both two-prime sums). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p&lt;q</annotation></semantics></math>
+be distinct primes. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>=</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">\theta=\log p/\log q</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></msub><msup><mi>p</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup><msup><mi>q</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">⌊</mo><mi>n</mi><mi>θ</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow><annotation encoding="application/x-tex">A=\sum_{n\ge0}p^{-n}q^{-\lfloor n\theta\rfloor}</annotation></semantics></math>.
-Then
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℛ</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><annotation encoding="application/x-tex">\mathcal R_{p,q}</annotation></semantics></math>
+sum the reciprocal running LCM at every positive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>p</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{p,q\}</annotation></semantics></math>-smooth
+integer, and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒟</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><annotation encoding="application/x-tex">\mathcal D_{p,q}</annotation></semantics></math>
+count each distinct running LCM once. Then
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒟</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>A</mi><mo>+</mo><mi>p</mi></mrow><mrow><mi>q</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi mathvariant="script">ℛ</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>+</mo><mi>q</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>A</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>A</mi><mn>2</mn></msup></mrow><mrow><mi>q</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{eq:two-prime-affine}
  \mathcal D_{p,q}=\frac{(q-p)A+p}{q-1},\qquad
@@ -807,18 +865,26 @@ other proposed representations at their stated scopes.</p>
 <h5>Proof sources.</h5>
 <p>The two-prime argument uses the cited Hecke–Mahler value theorem and
 is Steve Fan’s; it is not a Lean theorem. The arbitrary-order kernel
-theorem, the actual recurrence and the rationality bridge are ordinary
-mathematics in this paper; source locations are recorded below.
-Comparator records the
+theorem is proved in the Lean module <code>KernelCarryRank</code>: it
+contains the uniform minors and the exact finite-separation
+contradiction used above. The literal recurrence and the fixed-split
+rationality bridge likewise have the named Lean statements linked at
+their occurrences above. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/06f57893e0f9c6d80668048f26f096367ae4cfe7/verification/erdos269-wavea-validation.json">source-current
+validation receipt</a> byte-matches these modules and records their
+compilation inside the public recursive import closure. The receipt’s
+declaration-by-declaration axiom audit concerns the named R12 Wave A
+results, not these rank declarations. Comparator separately records the
+finite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,3,5)</annotation></semantics></math>
 minor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mn>15</mn></mrow><annotation encoding="application/x-tex">-1/15</annotation></semantics></math>,
 the running-LCM height identity, and a conditional carry-escape
-consumer, not the arbitrary-order rank theorem. The finite cut-rank
-argument and the modular corollary are proved above; no additional
-formal verification claim is made for the latter. The actual-series
-reduction is given; the source-specific cofinal escape remains
-unproved.</p>
+consumer; it is not the evidence for the arbitrary-order theorem. The
+finite cut-rank argument and the modular corollary are proved above; no
+additional formal verification claim is made for the latter. The
+actual-series reduction is given; the source-specific cofinal escape
+remains unproved.</p>
 </section>
 <section id="artefact-and-data-availability." class="level5">
 <h5>Artefact and data availability.</h5>

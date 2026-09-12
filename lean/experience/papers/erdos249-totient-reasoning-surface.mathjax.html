@@ -52,8 +52,21 @@ objects or evidence classes.</p>
 otherwise, and a reduction of the problem to another statement is
 recorded as a reduction, never as progress toward a solution. </p>
 </section>
-<section id="the-problem-and-what-is-actually-known" class="level2">
-<h2>The problem, and what is actually known</h2>
+<section
+id="totient-sections-tail-differences-and-the-irrationality-question"
+class="level2">
+<h2>Totient sections, tail differences, and the irrationality
+question</h2>
+<p>The dyadic sections <span
+class="math inline" data-term-auto="off">\(n\mapsto\varphi(2^jn+r)\)</span> through each
+level <span class="math inline" data-term-auto="off">\(e\ge1\)</span> have exact rational
+rank <span class="math inline" data-term-auto="off">\(2^e+1\)</span>. The two zero-residue
+sections and the odd-residue sections give independent coordinates;
+scalar reductions recover the omitted sections. The short paper proves
+the corresponding integral normal form and explains the
+evaluation-matrix argument. This record supplies the tail identities,
+countermodels, and individual arithmetic constructions needed to compare
+that structure with the irrationality question.</p>
 <p>Let <span class="math inline" data-term-auto="off">\(\varphi\)</span> be Euler’s totient
 function and put</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S \;:=\; \sum_{n \ge 1}
@@ -64,16 +77,13 @@ function and put</p>
 <p>The series converges
 absolutely because <span class="math inline" data-term-auto="off">\(\varphi(n) \le
 n\)</span>. Erdős Problem #249 asks whether <span
-class="math inline" data-term-auto="off">\(S\)</span> is irrational. <em>It is open.</em>
-Nothing in this document decides it, no route recorded here is a proof,
-and no result here should be read as an approach that is close to
-working. What this document does is different in kind: it assembles
-every recorded failure, obstruction, countermodel and dead route the
-programme has produced against #249, and classifies each one by the
-exact class of argument it eliminates. The claim being made is that
-those failures are not independent — they are repeated measurements of a
-single obstruction, and that obstruction has a shape which can be
-stated.</p>
+class="math inline" data-term-auto="off">\(S\)</span> is irrational, which remains open. The
+exact rank theorem controls linear relations among coefficient sections.
+Irrationality requires information about their weighted infinite sum.
+The countermodels below explain several ways that a passage from
+coefficient structure to the sum can fail. Each excludes its stated
+assumptions; they do not establish a single obstruction theorem covering
+all possible methods.</p>
 <div class="rem">
 <p><em>Remark 1</em> (Literature coordinates). The nearby literature
 serves three distinct roles. Kovač–Tao’s <a
@@ -162,15 +172,14 @@ the centre of its dyadic arc, at full arithmetic resolution.</p>
 results a specialist should know before reading further; each is stated
 at the scale at which it is actually proved.</p>
 <div class="thm" id="thm:denom">
-<p><strong>Theorem 3</strong> (Denominator exclusion — the headline
-unconditional fact). <em> If <span class="math inline" data-term-auto="off">\(S \in
-\mathbb{Q}\)</span> then its reduced denominator exceeds <span
-class="math inline" data-term-auto="off">\(Q_0 :=
+<p><strong>Theorem 3</strong> (Denominator exclusion from a fixed Farey
+window). <em> If <span class="math inline" data-term-auto="off">\(S \in \mathbb{Q}\)</span>
+then its reduced denominator exceeds <span class="math inline" data-term-auto="off">\(Q_0 :=
 79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053 \approx 7.96
 \times 10^{34}\)</span>. Equivalently, <span class="math inline" data-term-auto="off">\(S \ne
 p\)</span> for every <span class="math inline" data-term-auto="off">\(p \in
 \mathbb{Q}\)</span> with <span class="math inline" data-term-auto="off">\(p.\mathrm{den} \le
-Q_0\)</span>. The bound is sharp for the method: <span
+Q_0\)</span>. The bound is sharp for this window: <span
 class="math inline" data-term-auto="off">\(q = Q_0 + 1\)</span> is the exact first failing
 denominator, exhibited as the mediant of two explicit unimodular Farey
 neighbours. <code>coord:farey</code> <span><span
@@ -289,22 +298,16 @@ word are satisfied by a rational countermodel.</p>
 </section>
 </section>
 <section id="sec:wall" class="level2">
-<h2>The wall</h2>
-<p>This programme has produced many exact reformulations of #249 and no
-proof. That is the honest summary, and the rest of this section is an
-argument that it is also the wrong way to read the record. The
-reformulations do not fail independently. They fail in a small number of
-recurring ways, and when each failure is stated as a claim about
-<em>which class of argument it eliminates</em> rather than as a report
-that something did not work, the classes fit together into one
-obstruction with a describable shape. A hundred reformulations that all
-die are not a hundred failures; they are a hundred measurements of one
-wall, taken from different angles. The measurements are below.</p>
-<p>The thesis, in one sentence: <em>every barrier in the record is a
-bound, and the quantity a certificate measures is invariant under
-exactly the bounds that make an argument finite.</em></p>
-<section id="the-plane-the-barriers-live-on" class="level3">
-<h3>The plane the barriers live on</h3>
+<h2>What the countermodels exclude</h2>
+<p>The countermodels distinguish information that determines a finite
+calculation from information that forces nonintegrality at unbounded
+indices. A fixed prefix, parity at every index, and a specified finite
+collection of linear relations are different hypotheses. The useful
+conclusion in each case is the precise information a rational control
+sequence can preserve.</p>
+<section id="range-resolution-and-the-scope-of-an-obstruction"
+class="level3">
+<h3>Range, resolution, and the scope of an obstruction</h3>
 <p>Fix two axes for a hypothetical proof of <span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> (Definition <a class="math-ref" href="#defn:sep">2</a>): the <em>range</em> of
 indices at which it consults <span
@@ -315,44 +318,34 @@ class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span>-rank, shift-polyn
 degree), and whether the target is asserted <em>pointwise</em> at a
 chosen index or as an <em>average</em> over a block.</p>
 <ul>
-<li><p>The quadrant [full resolution <span
-class="math inline" data-term-auto="off">\(\times\)</span> bounded range] is closed by
-Theorem <a class="math-ref" href="#thm:gamma">13</a> (B1): <span
+<li><p>Fixed-prefix information alone is excluded by Theorem <a class="math-ref" href="#thm:gamma">13</a> (B1): <span
 class="math inline" data-term-auto="off">\(\varphi\)</span> may be pinned exactly on <span
 class="math inline" data-term-auto="off">\([1,B]\)</span> and the series can still be
 rational.</p></li>
-<li><p>The complementary quadrant [coarse resolution <span
-class="math inline" data-term-auto="off">\(\times\)</span> unbounded range] is closed by
-Proposition <a class="math-ref" href="#prop:parity">9</a> (B7):
-<span class="math inline" data-term-auto="off">\(\varphi\)</span>’s parity may be pinned at
+<li><p>Parity information alone is excluded by Proposition <a class="math-ref" href="#prop:parity">9</a> (B7): <span
+class="math inline" data-term-auto="off">\(\varphi\)</span>’s parity may be pinned at
 <em>every</em> index, together with boundedness, <span
 class="math inline" data-term-auto="off">\(c(n) \le n\)</span>, and arbitrarily strong
 aperiodicity, and the series can still be <span
 class="math inline" data-term-auto="off">\(3/2\)</span>.</p></li>
-<li><p>The remaining quadrant is closed <em>whenever the proof
-compresses</em>: B5 (no bounded carry state, no fixed-precision
-signature) and B6 (four independent finite truncations of the totient
-kernel, all with trivial kernel).</p></li>
-<li><p>B4 closes the one construction that tried to reach the good
-quadrant by <em>prescribing</em> values: residue engineering pays for
-amplitude in position, and position enters the certificate
-radius.</p></li>
-<li><p>B2 closes the escape of retargeting; B3 records that no bounded
-result in the corpus has ever promoted.</p></li>
+<li><p>B5 treats the stated bounds on carry state and precision. B6
+treats the displayed linear relations and truncations. Neither is a
+theorem against every finite-state or compressed argument.</p></li>
+<li><p>B4 records the cost of the specified congruence construction:
+prescribing divisibility can increase the index, which also increases
+the certificate’s tail bound.</p></li>
+<li><p>B2 identifies exact equivalences; their value depends on what new
+estimate the changed coordinates permit. B3 records finite checks and
+does not supply their missing universal quantifier.</p></li>
 </ul>
-<p>The corpus’s own results partition along these axes perfectly, which
-is the first evidence that the axes are the right ones. Every
-unconditional <em>finite</em> deposit (Proposition <a class="math-ref" href="#prop:deposits">4</a>, the <span
-class="math inline" data-term-auto="off">\(K=240\)</span> Farey rung of Theorem <a class="math-ref" href="#thm:denom">3</a>, the actual-LCM orbits at
-<span class="math inline" data-term-auto="off">\(a = 4\)</span> and <span
-class="math inline" data-term-auto="off">\(a = 6\)</span>) sits at full resolution and
-bounded range, so B1 says extending them is evidence forever and proof
-never. Every unconditional <em>cofinal</em> theorem (letterwise
-positivity for all <span class="math inline" data-term-auto="off">\(a \ge 8\)</span>, the
-tail bounds from <span class="math inline" data-term-auto="off">\(\varphi(m) \le m\)</span>,
-unbounded Mersenne-shadow denominator growth) sits at coarse resolution
-and unbounded range, and Proposition <a class="math-ref" href="#prop:sign">5</a> proves in the corpus’s
-own coordinate that this is exactly half a certificate.</p>
+<p>The finite certificates in Proposition <a class="math-ref" href="#prop:deposits">4</a> and the <span
+class="math inline" data-term-auto="off">\(K=240\)</span> Farey calculation in Theorem <a class="math-ref" href="#thm:denom">3</a> have bounded ranges. B1
+excludes an inference from one such fixed range uniformly over the whole
+coefficient class. It does not exclude a proof using the arithmetic of
+<span class="math inline" data-term-auto="off">\(\varphi\)</span> at arbitrarily large
+horizons. Likewise, the cofinal positivity theorem does not by itself
+separate the residue from the top edge: that is the additional
+information identified by Proposition <a class="math-ref" href="#prop:sign">5</a>.</p>
 </section>
 <section id="b1-the-finite-inspection-barrier-as-a-theorem"
 class="level3">
@@ -1029,13 +1022,21 @@ class="math inline" data-term-auto="off">\(\max(X_0,1) \le X\)</span>, <span
 class="math inline" data-term-auto="off">\(h \le L - s\)</span>, <span
 class="math inline" data-term-auto="off">\(16(2X{+}h{+}L{+}2) \le 2^{L}\)</span>, and all
 four of</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\mathrm{Re}\,\mathrm{pivotCenteredCorrelation}
-\le \tfrac{14}{25}X, \quad
-  \lVert \mathrm{pivotFiberMean} \rVert \le \tfrac{1}{100}X, \quad
-  \lVert \mathrm{pivotBad} \rVert \le \tfrac{1}{100}X, \quad
-  \lVert \mathrm{pivotNonSupplier} \rVert \le \tfrac{8}{25}X .\]</span></div>
-<p>It implies <span class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\)</span>.
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\adjustbox{max
+width=\linewidth}{$\displaystyle
+\begin{aligned}
+\mathrm{Re}\,\mathrm{pivotCenteredCorrelation}(h,X,L,s,\eta)
+   &amp;\le \tfrac{14}{25}X,\\
+\lVert\mathrm{pivotFiberMeanContribution}(h,X,L,s,\eta)\rVert
+   &amp;\le \tfrac{1}{100}X,\\
+\lVert\mathrm{pivotBadContribution}(h,X,L,s,\eta)\rVert
+   &amp;\le \tfrac{1}{100}X,\\
+\lVert\mathrm{pivotNonSupplierContribution}(h,X,L,s)\rVert
+   &amp;\le \tfrac{8}{25}X .
+\end{aligned}
+$}\]</span></div>
+<p>It implies <span
+class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\)</span>.
 <code>coord:first-harmonic</code> <span><span
 class="sans-serif">scale:cofinal</span></span> <span><span
 class="sans-serif">[Lean]</span></span></p>
@@ -1046,28 +1047,36 @@ supplier fibres of the same accumulated-word phases, with no sample
 choice and nothing prescribed. Its specific advantages are three.</p>
 <p>The decomposition is an <em>exact identity</em>, proved
 unconditionally with <code>#print axioms</code> clean (, budget consumer
-). The one-sided budget lowers the hard requirement from a norm bound
-<span class="math inline" data-term-auto="off">\(\lVert \cdot \rVert \le X/2\)</span> to a
-real-part bound <span class="math inline" data-term-auto="off">\(\le 14X/25\)</span>. And the
-pivot rests on genuine arithmetic rather than a sampled surrogate: on
-the canonical fibre <span class="math inline" data-term-auto="off">\(m = 1\)</span>, <span
-class="math inline" data-term-auto="off">\(s = L-h\)</span> the supplier set is
-<em>literally</em> the shifted dyadic interval of primes, proved as a
-membership equality (), with the totient factorisation at the pivot the
-honest <span class="math inline" data-term-auto="off">\(\varphi(mp) =
+). Its proof first partitions the block into supplier and non-supplier
+bases, then partitions the supplier bases according to the good-cofactor
+condition. On the good part, subtracting the mean residual on each pivot
+fibre gives the centred-correlation term and leaves exactly the
+fibre-mean term. Thus the four displayed quantities sum to the original
+first-harmonic block; the identity itself provides no estimate for any
+of them. The one-sided budget lowers the hard requirement from a norm
+bound <span class="math inline" data-term-auto="off">\(\lVert \cdot \rVert \le X/2\)</span>
+to a real-part bound <span class="math inline" data-term-auto="off">\(\le 14X/25\)</span>.
+And the pivot rests on genuine arithmetic rather than a sampled
+surrogate: on the canonical fibre <span class="math inline" data-term-auto="off">\(m =
+1\)</span>, <span class="math inline" data-term-auto="off">\(s = L-h\)</span> the supplier
+set is <em>literally</em> the shifted dyadic interval of primes, proved
+as a membership equality (), with the totient factorisation at the pivot
+the honest <span class="math inline" data-term-auto="off">\(\varphi(mp) =
 \varphi(m)(p-1)\)</span> and the non-divisibility discharged by
 size.</p>
-<p>Three of the four terms are then counting bookkeeping; only the first
-needs a genuine correlation estimate, and only in real part.</p>
+<p>None of the four displayed inequalities is currently proved. The
+fibre-mean, bad-cofactor and non-supplier terms have the form of
+counting estimates, while the first is a genuine correlation estimate
+and is needed only in real part.</p>
 <p><strong>What it must respect.</strong> B6 has a residual-gauge
 instance: a residual-blind determinant or conditioning test cannot
 certify that genuine phase reconstruction rather than a locked
 degenerate configuration has occurred (). So this route must couple rows
 by an extra arithmetic identity, not merely gauge-normalise columns.
 <strong>Honest status:</strong> strictly a repackaging of Survivor 1’s
-burden; it is listed separately only because three quarters of it are
-already exact identities on disk. The module asserts no
-prime-distribution or decorrelation estimate — the socket is
+burden; it is listed separately because its decomposition and
+canonical-fibre identities are already exact on disk. The module asserts
+no prime-distribution or decorrelation estimate — the socket is
 deliberately empty. <span><span
 class="sans-serif">[Open]</span></span></p>
 </section>
@@ -1698,16 +1707,16 @@ cofinal, and none is presented as deciding #249.</p>
 <thead>
 <tr>
 <th class="ta-l"><strong>Anchor</strong></th>
-<th class="ta-l"><strong>Exact statement of what was
+<th class="ta-l"> <strong>Exact statement of what was
 checked</strong></th>
-<th class="ta-l"><strong>Scale</strong></th>
-<th class="ta-l"><strong>Site</strong></th>
+<th class="ta-l"> <strong>Scale</strong></th>
+<th class="ta-l"> <strong>Site</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="ta-l">Fixed-window deposit, depth 16</td>
-<td class="ta-l"><span
+<td class="ta-l"><p><span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}(h,12,16)\)</span> holds for every
 <span class="math inline" data-term-auto="off">\(h \in \{1,\dots,8\}\)</span> (by
 <code>decide</code>, <span class="math inline" data-term-auto="off">\(256\)</span> totient
@@ -1715,29 +1724,31 @@ values below <span class="math inline" data-term-auto="off">\(37\)</span>); cons
 <span class="math inline" data-term-auto="off">\(S \ne r\)</span> for every <span
 class="math inline" data-term-auto="off">\(r\in\mathbb{Q}\)</span> with <span
 class="math inline" data-term-auto="off">\(1\le h\le 8\)</span> and <span
-class="math inline" data-term-auto="off">\(r.\mathrm{den} \mid 2^{12}(2^h-1)\)</span>.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:fixed</span></span></td>
+class="math inline" data-term-auto="off">\(r.\mathrm{den} \mid
+2^{12}(2^h-1)\)</span>.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:fixed</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Fixed-window deposit, depth 9, wider
 net</td>
-<td class="ta-l"><span
+<td class="ta-l"><p><span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}(h,14,9)\)</span> holds for every
 <span class="math inline" data-term-auto="off">\(h\in\{1,\dots,16\}\)</span>: <span
 class="math inline" data-term-auto="off">\(S \ne r\)</span> for every <span
 class="math inline" data-term-auto="off">\(r\in\mathbb{Q}\)</span> with <span
 class="math inline" data-term-auto="off">\(1\le h\le16\)</span> and <span
-class="math inline" data-term-auto="off">\(r.\mathrm{den}\mid 2^{14}(2^h-1)\)</span>.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:fixed</span></span></td>
+class="math inline" data-term-auto="off">\(r.\mathrm{den}\mid
+2^{14}(2^h-1)\)</span>.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:fixed</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Diagonal-pincer certificates, base 12
 scales</td>
-<td class="ta-l"><span
+<td class="ta-l"><p><span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}\bigl(H_t, H_t, D(t)\bigr)\)</span>,
 <span class="math inline" data-term-auto="off">\(H_t := \mathrm{lcm}(1,\dots,t)\)</span>,
 holds (by explicit <code>decide</code>/<code>norm_num</code> on checked
@@ -1746,15 +1757,15 @@ Lucas-primality certificates) for <span class="math inline" data-term-auto="off"
 \{1,2,3,4,5,7,8,9,11,13,16,17\}\)</span> with certificate depths <span
 class="math inline" data-term-auto="off">\(D(t) \in
 \{6,5,7,7,9,14,15,14,21,22,23,26\}\)</span> respectively (in the same
-order).</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:fixed</span></span></td>
+order).</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:fixed</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Diagonal-pincer certificates, extended
 scales through <span class="math inline" data-term-auto="off">\(t=64\)</span></td>
-<td class="ta-l">The same predicate <span
+<td class="ta-l"><p>The same predicate <span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}(H_t,H_t,D(t))\)</span> is
 additionally checked, one sibling module per scale, at <span
 class="math inline" data-term-auto="off">\(t \in
@@ -1773,15 +1784,16 @@ does <em>not</em> establish <span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}(H_t,H_t,\cdot)\)</span> for
 infinitely many <span class="math inline" data-term-auto="off">\(t\)</span>; these 28
 deposits are a historical strict subset of the contiguous band in the
-next row.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:fixed</span></span></td>
-<td class="ta-l">Per-scale Lean modules; endpoint </td>
+next row.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:fixed</span></span></p></td>
+<td class="ta-l"><p>Per-scale Lean modules; endpoint
+</p></td>
 </tr>
 <tr>
 <td class="ta-l">Contiguous lcm-diagonal band through <span
 class="math inline" data-term-auto="off">\(t\le82\)</span></td>
-<td class="ta-l">For every natural <span
+<td class="ta-l"><p>For every natural <span
 class="math inline" data-term-auto="off">\(t\le82\)</span> there exists a depth <span
 class="math inline" data-term-auto="off">\(L\)</span> with <span
 class="math inline" data-term-auto="off">\(\mathrm{Sep}(H_t,H_t,L)\)</span>. This closes
@@ -1789,37 +1801,38 @@ every scale in the finite interval, including plateau transfers, with no
 holes. The next lcm jump is at the prime <span
 class="math inline" data-term-auto="off">\(83\)</span>; no certificate at <span
 class="math inline" data-term-auto="off">\(t=83\)</span> is claimed, and any such certificate
-must have depth at least <span class="math inline" data-term-auto="off">\(125\)</span>.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:bounded</span></span></td>
+must have depth at least <span
+class="math inline" data-term-auto="off">\(125\)</span>.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:bounded</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Farey denominator floor</td>
-<td class="ta-l">Every <span
+<td class="ta-l"><p>Every <span
 class="math inline" data-term-auto="off">\(q\in\mathbb{N}\)</span> with <span
 class="math inline" data-term-auto="off">\(0&lt;q\le
 Q_0=79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053\)</span>
 satisfies the window-<span class="math inline" data-term-auto="off">\((N,K)=(1,240)\)</span>
 gap certificate; <span class="math inline" data-term-auto="off">\(q=Q_0+1\)</span> is the
-exact first failure.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:bounded</span></span></td>
+exact first failure.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:bounded</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 <tr>
 <td class="ta-l">Coprimality-probability / Möbius-square
 Farey floor</td>
-<td class="ta-l">Every <span
+<td class="ta-l"><p>Every <span
 class="math inline" data-term-auto="off">\(d\in\mathbb{N}\)</span> with <span
 class="math inline" data-term-auto="off">\(0&lt;d\le
 Q_1=39\,819\,823\,323\,350\,687\,661\,677\,887\,437\,915\,526\)</span>
 (exactly <span class="math inline" data-term-auto="off">\(\lfloor Q_0/2\rfloor\)</span>) is
 excluded as a denominator of <span
 class="math inline" data-term-auto="off">\(\Pr(\gcd(X,Y)=1)\)</span> and, separately, of
-<span class="math inline" data-term-auto="off">\(T=\sum_d\mu(d)/(2^d-1)^2\)</span>.</td>
-<td class="ta-l"><span><span
-class="sans-serif">scale:bounded</span></span></td>
+<span class="math inline" data-term-auto="off">\(T=\sum_d\mu(d)/(2^d-1)^2\)</span>.</p></td>
+<td class="ta-l"><p><span><span
+class="sans-serif">scale:bounded</span></span></p></td>
 <td class="ta-l"></td>
 </tr>
 </tbody>
@@ -1891,22 +1904,26 @@ denominator.</em></p>
 <div class="thm">
 <p><strong>Theorem 53</strong> (cert:d5 —
 <code>not_irrational_totientSeries_implies_unbounded_carryRank_unconditional</code>).
-<em><span class="math inline" data-term-auto="off">\(\neg\mathrm{Irrational}(S) \to \exists
-v&gt;0,\, \exists u:\mathbb{N}\to\mathbb{Z},\,
-\mathrm{IsTemperedBinaryOrbit}\,\varphi\,v\,u \wedge \forall e,\ 2^e-1
-\le
-\mathrm{finrank}_{\mathbb{Q}}(\mathrm{span}(\mathrm{range}(\mathrm{canonicalCarryKernelFamily}\,u\,e)))\)</span>.
-Rationality of <span class="math inline" data-term-auto="off">\(S\)</span> forces its
-associated tempered integral binary-carry orbit to have unboundedly rich
-dyadic-section rank; this is a second, coordinate-independent necessary
-condition on rationality, parallel to cert:a9 but in the
-carry-kernel-rank coordinate rather than the binary-digit-periodicity
-coordinate. It is not by itself an irrationality proof. In particular,
-the later countermodels rule out treating generic finite-rank
-shift-polynomial or compressed-adjoint observations as the missing
-opposite inequality; an actual-totient-specific upper bound would be a
-genuinely new theorem, not a surviving consequence of the present rank
-machinery.</em></p>
+<em></em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{aligned}
+\neg\mathrm{Irrational}(S) \ \Longrightarrow\ {}
+  &amp;\exists v&gt;0,\ \exists u:\mathbb{N}\to\mathbb{Z},\quad
+    \mathrm{IsTemperedBinaryOrbit}\,\varphi\,v\,u \ \wedge \\
+  &amp;\forall e,\quad 2^e-1 \le
+    \mathrm{finrank}_{\mathbb{Q}}
+      \bigl(\mathrm{span}(\mathrm{range}(\mathrm{canonicalCarryKernelFamily}\,u\,e))\bigr).
+\end{aligned}\]</span></div>
+<p><em> Rationality of <span
+class="math inline" data-term-auto="off">\(S\)</span> forces its associated tempered integral
+binary-carry orbit to have unboundedly rich dyadic-section rank; this is
+a second, coordinate-independent necessary condition on rationality,
+parallel to cert:a9 but in the carry-kernel-rank coordinate rather than
+the binary-digit-periodicity coordinate. It is not by itself an
+irrationality proof. In particular, the later countermodels rule out
+treating generic finite-rank shift-polynomial or compressed-adjoint
+observations as the missing opposite inequality; an
+actual-totient-specific upper bound would be a genuinely new theorem,
+not a surviving consequence of the present rank machinery.</em></p>
 <p><em> <span><span class="sans-serif">scale:uniform</span></span>
 <code>coord:other:carry-kernel-rank</code> </em></p>
 </div>
@@ -1983,29 +2000,42 @@ class="math inline" data-term-auto="off">\(t\)</span>, not merely bounded below.
 <p><strong>Proposition 58</strong> (mob:b7a — denominator growth lower
 bound). <em>For <span class="math inline" data-term-auto="off">\(t \ge 5\)</span> (Bertrand’s
 postulate supplies nonemptiness of <span
-class="math inline" data-term-auto="off">\(\mathrm{upperHalfPrimes}(t)\)</span>): <span
-class="math inline" data-term-auto="off">\(2^{t/2} \le \prod_{p \in
-\mathrm{upperHalfPrimes}(t)} \mathrm{mersenne}(p) \le
-\big(\mathrm{lcmHeight}(t)\cdot\mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\big).\mathrm{den}\)</span>.
-An exponential-in-<span class="math inline" data-term-auto="off">\(t/2\)</span> growth lower
-bound for the reduced denominator at every LCM height, produced from
-mob:b6’s explicit surviving channel product. Denominator-only: does not
-by itself rule out cancellation by a foreign-defect term, hence does not
-by itself prove #249.</em></p>
+class="math inline" data-term-auto="off">\(\mathrm{upperHalfPrimes}(t)\)</span>): </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+2^{t/2}
+  &amp;\le \prod_{p \in \mathrm{upperHalfPrimes}(t)}
+\mathrm{mersenne}(p) \\
+  &amp;\le \bigl(\mathrm{lcmHeight}(t)\cdot
+    \mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\bigr).\mathrm{den}.
+\end{aligned}\]</span></div>
+<p><em> This is an exponential-in-<span
+class="math inline" data-term-auto="off">\(t/2\)</span> growth lower bound for the reduced
+denominator at every LCM height, produced from mob:b6’s explicit
+surviving channel product. Denominator-only: does not by itself rule out
+cancellation by a foreign-defect term, hence does not by itself prove
+#249.</em></p>
 <p><em> <span><span class="sans-serif">scale:uniform</span></span>
 <code>coord:mobius-mersenne</code> </em></p>
 </div>
 <div class="prop">
 <p><strong>Proposition 59</strong> (mob:b7b — exact denominator value).
 <em>For every <span class="math inline" data-term-auto="off">\(t\)</span> (no lower bound on
-<span class="math inline" data-term-auto="off">\(t\)</span> needed for this direction): <span
-class="math inline" data-term-auto="off">\(\big(\mathrm{lcmHeight}(t)\cdot\mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\big).\mathrm{den}
-= \mathrm{mersenne}(\mathrm{lcmRadical}(t)) /
-\gcd\big(\mathrm{mersenne}(\mathrm{lcmRadical}(t)),\
-\mathrm{lcmScale}(t)\cdot|\mathrm{oddJordanScalar}(\mathrm{lcmRadical}(t))|\big)\)</span>.
-A fully closed form for the reduced denominator at every scale, produced
-(not merely bounded) as an explicit rational function of <span
-class="math inline" data-term-auto="off">\(t\)</span>.</em></p>
+<span class="math inline" data-term-auto="off">\(t\)</span> needed for this direction): </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+&amp;\bigl(\mathrm{lcmHeight}(t)\cdot
+  \mathrm{numericMobiusShadow}(\mathrm{lcmHeight}(t))\bigr).\mathrm{den}
+\\
+&amp;\qquad = \mathrm{mersenne}(\mathrm{lcmRadical}(t))\,\Big/ \\
+&amp;\qquad\quad \gcd\Bigl(
+  \mathrm{mersenne}(\mathrm{lcmRadical}(t)),
+  \ \mathrm{lcmScale}(t)\cdot
+  |\mathrm{oddJordanScalar}(\mathrm{lcmRadical}(t))|\Bigr).
+\end{aligned}\]</span></div>
+<p><em> This is a fully closed form for the reduced
+denominator at every scale, produced (not merely bounded) as an explicit
+rational function of <span class="math inline" data-term-auto="off">\(t\)</span>.</em></p>
 <p><em> <span><span class="sans-serif">scale:uniform</span></span>
 <code>coord:mobius-mersenne</code> </em></p>
 </div>
@@ -2543,21 +2573,30 @@ denominator-survival theorem below.</em></p>
 </div>
 <div class="prop">
 <p><strong>Proposition 90</strong> (mob:b3 — radical shadow scale
-decomposition). <em><span
-class="math inline" data-term-auto="off">\(\mathrm{baseMobiusShadow}(r) :=
-\mathrm{mobiusNumerator}(r)/(2^r-1)\)</span> (unscaled); <span
-class="math inline" data-term-auto="off">\(\mathrm{numericMobiusShadow}(H) :=
-\mathrm{baseMobiusShadow}(\mathrm{rad}(H))/\mathrm{rad}(H)\)</span>;
-exactly <span
-class="math inline" data-term-auto="off">\(H\cdot\mathrm{numericMobiusShadow}(H) =
-(H/\mathrm{rad}(H))\cdot\mathrm{baseMobiusShadow}(\mathrm{rad}(H))\)</span>
-for <span class="math inline" data-term-auto="off">\(H&gt;0\)</span>. Reduced-denominator
-identity for the unscaled shadow: <span
-class="math inline" data-term-auto="off">\(\mathrm{baseMobiusShadow}(r).\mathrm{den} =
-\mathrm{mersenne}(r)/\gcd(|\mathrm{mobiusNumerator}(r)|,
-\mathrm{mersenne}(r))\)</span> for <span
-class="math inline" data-term-auto="off">\(r&gt;0\)</span> — exact and generic, no
-coprimality assumed, no channel-survival hidden.</em></p>
+decomposition). <em>The unscaled and numerical shadows are </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+\mathrm{baseMobiusShadow}(r)
+  &amp;:= \mathrm{mobiusNumerator}(r)/(2^r-1), \\
+\mathrm{numericMobiusShadow}(H)
+  &amp;:= \mathrm{baseMobiusShadow}(\mathrm{rad}(H))/\mathrm{rad}(H).
+\end{aligned}\]</span></div>
+<p><em> For <span class="math inline" data-term-auto="off">\(H&gt;0\)</span>,
+exactly </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[H\cdot\mathrm{numericMobiusShadow}(H)
+= (H/\mathrm{rad}(H))\cdot
+   \mathrm{baseMobiusShadow}(\mathrm{rad}(H)).\]</span></div>
+<p><em> The
+reduced-denominator identity for the unscaled shadow, for <span
+class="math inline" data-term-auto="off">\(r&gt;0\)</span>, is </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathrm{baseMobiusShadow}(r).\mathrm{den}
+= \mathrm{mersenne}(r)\,\Big/
+   \gcd\bigl(|\mathrm{mobiusNumerator}(r)|,\mathrm{mersenne}(r)\bigr).\]</span></div>
+<p><em>
+These identities are exact and generic: no coprimality is assumed and no
+channel survival is hidden.</em></p>
 <p><em> <span><span class="sans-serif">scale:uniform</span></span>
 <code>coord:mobius-mersenne</code> </em></p>
 </div>
@@ -2640,60 +2679,62 @@ inside this ladder as <span class="math inline" data-term-auto="off">\(L(A)\)</s
 <caption>The Mersenne–Lambert ladder five-row status table (docstring @
 <code>CertificateKernel.lean:18063--18083</code>, body
 <code>MersenneLambertLadder.lean</code>).</caption>
+<colgroup>
+<col />
+<col />
+<col />
+</colgroup>
 <thead>
 <tr>
 <th class="ta-l"><p>Weight <span
 class="math inline" data-term-auto="off">\(f\)</span></p></th>
-<th class="ta-l">Value <span
+<th class="ta-l"> Value <span
 class="math inline" data-term-auto="off">\(L(f)\)</span></th>
-<th class="ta-l">Status</th>
+<th class="ta-l"> Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="ta-l"><span
 class="math inline" data-term-auto="off">\(\mu\)</span></td>
-<td class="ta-l"><span class="math inline" data-term-auto="off">\(L(\mu) =
+<td class="ta-l"> <span class="math inline" data-term-auto="off">\(L(\mu) =
 1/2\)</span></td>
-<td class="ta-l">rational, trivial</td>
+<td class="ta-l"> rational, trivial</td>
 </tr>
 <tr>
 <td class="ta-l"><span
 class="math inline" data-term-auto="off">\(\varphi\)</span></td>
-<td class="ta-l"><span class="math inline" data-term-auto="off">\(L(\varphi) =
+<td class="ta-l"> <span class="math inline" data-term-auto="off">\(L(\varphi) =
 2\)</span></td>
-<td class="ta-l">rational</td>
+<td class="ta-l"> rational</td>
 </tr>
 <tr>
 <td class="ta-l"><span
 class="math inline" data-term-auto="off">\(\mathrm{Id}\)</span></td>
-<td class="ta-l"><span class="math inline" data-term-auto="off">\(L(\mathrm{Id})
-= \sum_m \sigma(m)/2^m\)</span></td>
-<td class="ta-l">transcendental (Nesterenko 1996,
+<td class="ta-l"> <span
+class="math inline" data-term-auto="off">\(L(\mathrm{Id}) = \sum_m
+\sigma(m)/2^m\)</span></td>
+<td class="ta-l"> transcendental (Nesterenko 1996,
 <span><span class="sans-serif">[Cited]</span></span>, not
 formalised)</td>
 </tr>
 <tr>
 <td class="ta-l"><span
 class="math inline" data-term-auto="off">\(1\)</span></td>
-<td class="ta-l"><span class="math inline" data-term-auto="off">\(L(1) =
+<td class="ta-l"> <span class="math inline" data-term-auto="off">\(L(1) =
 \mathcal{E}\)</span>, Erdős–Borwein constant</td>
-<td class="ta-l">irrational, <span><span
+<td class="ta-l"> irrational, <span><span
 class="sans-serif">[Lean]</span></span>
-(<code>irrational_erdosBorwein_series</code>,</td>
-</tr>
-<tr>
-<td class="ta-l"></td>
-<td class="ta-l"></td>
-<td class="ta-l"><code>CertificateKernel.lean:8007</code>)
-— matches #257’s full-support case</td>
+(<code>irrational_erdosBorwein_series</code>,
+<code>CertificateKernel.lean:8007</code>) — matches #257’s full-support
+case</td>
 </tr>
 <tr>
 <td class="ta-l"><span class="math inline" data-term-auto="off">\(A =
 \varphi*\mu\)</span></td>
-<td class="ta-l"><span class="math inline" data-term-auto="off">\(L(A) =
+<td class="ta-l"> <span class="math inline" data-term-auto="off">\(L(A) =
 S\)</span></td>
-<td class="ta-l"><strong>OPEN</strong> — this is #249</td>
+<td class="ta-l"> <strong>OPEN</strong> — this is #249</td>
 </tr>
 </tbody>
 </table>
@@ -3217,10 +3258,12 @@ class="math inline" data-term-auto="off">\(\mathtt{fixedRankSecondDifference}\ H
 class="math inline" data-term-auto="off">\(H=\mathtt{periodLcm}(2^a)\)</span> and some fixed
 small <span class="math inline" data-term-auto="off">\(j\)</span>, </em></p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\mathtt{MiddleRankTotientExtremal}\ H\ j
-\quad:\iff\quad
-\varphi(2H+j)\ \text{is a strict min or max among}\
-\{\varphi(H+j),\varphi(2H+j),\varphi(3H+j)\},\]</span></div>
+class="math display" data-term-auto="off">\[\begin{aligned}
+&amp;\mathtt{MiddleRankTotientExtremal}\ H\ j \\[2pt]
+&amp;\quad:\iff\quad \varphi(2H+j)\ \text{is a strict minimum or maximum
+of} \\
+&amp;\hspace{7em}\{\varphi(H+j),\varphi(2H+j),\varphi(3H+j)\},
+\end{aligned}\]</span></div>
 <p class="display-continue"><em> then <span
 class="math inline" data-term-auto="off">\(\mathtt{fixedRankSecondDifference}\ H\ j\ne
 0\)</span>, with sign matching the extremum. Notably an
@@ -3238,12 +3281,15 @@ class="sans-serif">[Lean]</span></span> <code>coord:other:fixed-rank-curvature<
 certificate supply). <em> <span
 class="math inline" data-term-auto="off">\(\mathtt{directedCertifiedKill}\ h\ N\ L\)</span>
 is sound <em>and complete</em>: </em></p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[(\exists
-L,\ \mathtt{directedCertifiedKill}\ h\ N\ L) \iff
-\mathtt{totientTail}(N+h)-\mathtt{totientTail}(N)\notin
-\mathrm{range}(\mathbb Z\to\mathbb R),\]</span></div>
-<p class="display-continue"><em> exactly, no gap; and
-<span class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\iff
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+&amp;(\exists L,\ \mathtt{directedCertifiedKill}\ h\ N\ L) \\
+&amp;\qquad\iff
+  \mathtt{totientTail}(N+h)-\mathtt{totientTail}(N)
+  \notin \mathrm{range}(\mathbb Z\to\mathbb R),
+\end{aligned}\]</span></div>
+<p class="display-continue"><em> exactly, no gap; and <span
+class="math inline" data-term-auto="off">\(\mathrm{Irrational}(S)\iff
 \mathtt{CofinalDirectedLcmCertificateSupply}\)</span> (the LCM-diagonal
 specialisation). The asymmetric strip is a genuine finite-depth
 improvement over the symmetric certificate (kills <span
@@ -4659,18 +4705,19 @@ equivalences (again reductions, flagged as such). The exact algebraic
 core underneath is reusable:</p>
 <div class="prop">
 <p><strong>Proposition 191</strong> (Anchor defect is a squared complex
-distance). <em><span
-class="math inline" data-term-auto="off">\(\mathrm{firstHarmonicAnchorDefect}(h,L,T) =
-\sum_{N\in T}\|
-\mathrm{windowFirstExp}(h,N,L) - 1\|^2\)</span>, and it equals <span
-class="math inline" data-term-auto="off">\(2|T| - 2\sum_{N\in
-T}\mathrm{windowFirstCos}(h,N,L)\)</span>.
-<code>coord:other:pivot-fiber</code>.</em></p>
+distance). <em></em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{aligned}
+\mathrm{firstHarmonicAnchorDefect}(h,L,T)
+  &amp;= \sum_{N\in T}\|\mathrm{windowFirstExp}(h,N,L)-1\|^2 \\
+  &amp;= 2|T|-2\sum_{N\in T}\mathrm{windowFirstCos}(h,N,L).
+\end{aligned}\]</span></div>
+<p class="display-continue"><em> <code>coord:other:pivot-fiber</code>.</em></p>
 </div>
 <div class="lem">
 <p><strong>Lemma 192</strong> (Separated-pairs energy floor). <em>For a
-finite family <span class="math inline" data-term-auto="off">\(z:T\to\mathbb{C}\)</span> and
-any set of pairs <span class="math inline" data-term-auto="off">\(P\subseteq
+finite family <span class="math inline" data-term-auto="off">\(z:T\to\mathbb{C}\)</span>, a
+real number <span class="math inline" data-term-auto="off">\(\delta\ge0\)</span>, and any set
+of pairs <span class="math inline" data-term-auto="off">\(P\subseteq
 T\times T\)</span> each separated by <span
 class="math inline" data-term-auto="off">\(\ge\delta\)</span>, <span
 class="math inline" data-term-auto="off">\(|P|\cdot\delta^2 \le
@@ -4942,9 +4989,11 @@ here.</em></p>
 </section>
 <section id="rank-one-subrank" class="level4">
 <h4>Rank-one subrank obstruction: a uniform proved barrier</h4>
-<p><code>RankOneSubrankObstruction</code> is a uniform proved barrier:
-it names an entire family of candidate linear-form constructions and
-proves, uniformly, that none of them can work.</p>
+<p><code>RankOneSubrankObstruction</code> is a uniform proved barrier
+for primitive rational linear forms obtained from rank-one
+strict-subrank monomial quotients of finite Möbius–Mersenne prefixes. It
+proves that no construction in this class can approximate <span
+class="math inline" data-term-auto="off">\(\Theta_2\)</span> with a small linear form.</p>
 <div class="thm">
 <p><strong>Theorem 207</strong> (Uniform rank-one no-go). <em>Let <span
 class="math inline" data-term-auto="off">\(\Theta_r\)</span> be the Möbius–Mersenne ladder
@@ -7234,9 +7283,9 @@ class="math inline" data-term-auto="off">\(\exists f:\mathbb N\to\mathbb N\)</sp
 <span class="math inline" data-term-auto="off">\(f(N)\to\infty\)</span> such that <span
 class="math inline" data-term-auto="off">\(\forall N_0\ \exists N\ge N_0\ \exists L\)</span>
 with <span class="math inline" data-term-auto="off">\(\mathtt{certifiedKill}\ h\ N\
-L\)</span> for all <span class="math inline" data-term-auto="off">\(h\le f(N)\)</span>. This
-implies the obligation immediately (fix <span
-class="math inline" data-term-auto="off">\(h\)</span>, take <span
+L\)</span> for all <span class="math inline" data-term-auto="off">\(1\le h\le f(N)\)</span>.
+This implies the obligation immediately (fix <span
+class="math inline" data-term-auto="off">\(h\ge1\)</span>, take <span
 class="math inline" data-term-auto="off">\(N_0\)</span> large enough that <span
 class="math inline" data-term-auto="off">\(f(N)\ge h\)</span>) and, unlike the obligation, is
 a statement about one window at a time rather than a per-period
@@ -7606,14 +7655,15 @@ shift-polynomial observation simultaneously, so finite-rank
 amplification per se is not the missing rigidity.</p>
 </div>
 <div class="prop">
-<p><strong>Proposition 262</strong> (What would close it). <em>A
-rationality-side rank upper bound: <span class="math inline" data-term-auto="off">\(\exists
-C\)</span> such that any tempered integral binary carry orbit for a
-rational <span class="math inline" data-term-auto="off">\(\mathtt{binaryCoeffSeries}\)</span>
-has <span class="math inline" data-term-auto="off">\(\mathrm{finrank}_{\mathbb
-Q}\,\mathrm{span}(\mathtt{canonicalCarryKernelFamily}\ u\ e)\le
-C\)</span> for all <span class="math inline" data-term-auto="off">\(e\)</span>, or any bound
-growing slower than <span class="math inline" data-term-auto="off">\(2^e{-}1\)</span>.
+<p><strong>Proposition 262</strong> (The extra hypothesis needed by a
+rank argument). <em>A rank bound that contradicts the lower bound <span
+class="math inline" data-term-auto="off">\(2^e-1\)</span> would have to use additional
+arithmetic of the actual totient coefficients. The generic proposal that
+every rational coefficient series has bounded tempered-carry rank is
+ruled out by the rational control recorded in the short paper: its carry
+rank is at least <span class="math inline" data-term-auto="off">\(2^e-1\)</span> at every
+level. It is therefore not a remaining general lemma from which totient
+irrationality follows.
 <code>not_irrational_totientSeries_implies_mod_period_and_unbounded_rank</code>
 (<code>TotientTailCarryPeriod.lean:224</code>) pins the obstacle
 precisely: rationality buys uniform eventual periodicity of <span
@@ -8039,16 +8089,23 @@ has occurred.</p>
 <p><strong>(b) Exact mechanism.</strong></p>
 <div class="prop">
 <p><strong>Proposition 266</strong> (Locked reconstruction preserves a
-nonzero minor). <em>For a monomial matrix <span
-class="math inline" data-term-auto="off">\(\mathrm{residualMonomialMatrix}(e,r,z)(i,j) =
-r(i,j)\cdot z(j)^{e(i)}\)</span> with all residual entries <span
-class="math inline" data-term-auto="off">\(z(j)\ne0\)</span> and <span
-class="math inline" data-term-auto="off">\(e(i)=1\)</span> for a distinguished row <span
-class="math inline" data-term-auto="off">\(i\)</span>: <span
-class="math inline" data-term-auto="off">\(\det(\mathrm{phasePowerMatrix})
-\ne0 \implies \det(\mathrm{residualMonomialMatrix})\ne0\)</span>,
-<em>and</em> the distinguished row is identically <span
-class="math inline" data-term-auto="off">\(1\)</span> regardless.</em></p>
+nonzero minor). <em>Let <span
+class="math inline" data-term-auto="off">\(e:\mathrm{Fin}\,d\to\mathbb N\)</span> and <span
+class="math inline" data-term-auto="off">\(z:\mathrm{Fin}\,d\to\mathbb C\)</span>, with <span
+class="math inline" data-term-auto="off">\(z(j)\ne0\)</span> for every <span
+class="math inline" data-term-auto="off">\(j\)</span>, and fix a row <span
+class="math inline" data-term-auto="off">\(i_0\)</span> with <span
+class="math inline" data-term-auto="off">\(e(i_0)=1\)</span>. Use the locked column weights
+<span class="math inline" data-term-auto="off">\(W(j)=z(j)^{-1}\)</span>, so that </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathrm{residualMonomialMatrix}(e,W,z)(i,j)
+=W(j)z(j)^{e(i)}.\]</span></div>
+<p><em> If <span
+class="math inline" data-term-auto="off">\(\det(\mathrm{phasePowerMatrix}(e,z))\ne0\)</span>,
+then <span
+class="math inline" data-term-auto="off">\(\det(\mathrm{residualMonomialMatrix}(e,W,z))\ne0\)</span>,
+and every entry of row <span class="math inline" data-term-auto="off">\(i_0\)</span> is <span
+class="math inline" data-term-auto="off">\(1\)</span>.</em></p>
 </div>
 <p>(row-dependent relaxation ; the column-gauge identity underlying it,
 <span class="math inline" data-term-auto="off">\(\det(\mathrm{residualMonomialMatrix}) =
@@ -8186,7 +8243,7 @@ be extracted.</p>
 <p><strong>(b) Exact mechanism.</strong></p>
 <div class="thm">
 <p><strong>Theorem 269</strong> (Infinite dyadic totient-kernel rank).
-<em>For every depth <span class="math inline" data-term-auto="off">\(e\ge0\)</span>, the
+<em>For every depth <span class="math inline" data-term-auto="off">\(e\ge1\)</span>, the
 canonical family of <span class="math inline" data-term-auto="off">\(2^e+1\)</span> dyadic
 totient-kernel channels (<span
 class="math inline" data-term-auto="off">\(\mathtt{card\_totientCanonicalIndex}\)</span>, )
@@ -8208,9 +8265,17 @@ class="math inline" data-term-auto="off">\(|\mathrm{boundary}|&lt;Q\cdot v\)</sp
 class="math inline" data-term-auto="off">\(A\ne0\)</span> — is provably impossible, .
 <span><span class="sans-serif">[Lean]</span></span> <span><span
 class="sans-serif">scale:uniform</span></span> (holds for every <span
-class="math inline" data-term-auto="off">\(e\)</span>; existence side is unconditional, via
-Mathlib’s CRT + primes-in-AP machinery) <code>coord:binary-digit</code>
-(dyadic totient-kernel — <em>not</em> the Möbius coordinate).</p>
+class="math inline" data-term-auto="off">\(e\ge1\)</span>; existence side is unconditional,
+via Mathlib’s CRT + primes-in-AP machinery)
+<code>coord:binary-digit</code> (dyadic totient-kernel — <em>not</em>
+the Möbius coordinate).</p>
+<p>The Lean independence theorem is also stated for <span
+class="math inline" data-term-auto="off">\(e=0\)</span>, but its auxiliary canonical index
+then still contains the two zero-residue channels <span
+class="math inline" data-term-auto="off">\(\varphi(n)\)</span> and <span
+class="math inline" data-term-auto="off">\(\varphi(2n)\)</span>. It is therefore not the
+actual truncation through level zero, which consists only of <span
+class="math inline" data-term-auto="off">\(\varphi(n)\)</span> and has dimension one.</p>
 <section id="integral-coordinates-and-the-complete-relation-module."
 class="level5">
 <h5>Integral coordinates and the complete relation module.</h5>
@@ -9784,11 +9849,13 @@ class="sans-serif">[Lean]</span></span>).</p>
 <div class="math-display" id="eq:primefibre" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:primefibre}
-  \forall h\ge1\ \forall X_0\ \exists X\ge X_0,\ L:\quad
-  16(2X+h+L+2)\le 2^{L}
-  \ \wedge\
-  \sum_{N\in T_{h,X,L}}\mathrm{windowFirstCos}(h,N,L)\ \le\
-\tfrac{9}{10}\,\bigl|T_{h,X,L}\bigr| ,
+\begin{aligned}
+&amp;\forall h\ge1\ \forall X_0\ \exists X\ge X_0,\ L:\quad
+  16(2X+h+L+2)\le 2^{L} \\
+&amp;\qquad\wedge\quad
+  \sum_{N\in T_{h,X,L}}\mathrm{windowFirstCos}(h,N,L) \\
+&amp;\hspace{16em}\le \tfrac{9}{10}\,\bigl|T_{h,X,L}\bigr|,
+\end{aligned}
 \end{equation}\]</span></div>
 <p class="display-continue">which by the landed subset consumer yields a
 certificate at some <span class="math inline" data-term-auto="off">\(N\ge X\ge X_0\)</span>,

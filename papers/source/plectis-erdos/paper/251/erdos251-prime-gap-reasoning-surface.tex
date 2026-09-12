@@ -43,11 +43,13 @@ dyadic series converge and
  \Pi=\sum_{n\ge0}\frac{p_n}{2^{\,n+1}}
  \;=\;2+\sum_{n\ge0}\frac{g_n}{2^{\,n+1}}\;=\;2+S .
 \]
-The identity is exact, carries no hypothesis, and rests on the elementary
-polynomial bound $p_n\le1250(n+1)^4$ proved in Appendix~\ref{long251:app:prime-bound}.
-The prime number theorem is not used.  Everything after it is negative
-knowledge or an exact reformulation, and each statement is labelled by what it
-is.
+The identity follows from summation by parts and the elementary polynomial
+bound $p_n\le1250(n+1)^4$ proved in Appendix~\ref{long251:app:prime-bound}.
+The substantive limitation comes from rationalising perturbations: bounded
+residue-preserving changes to the actual gaps can make their dyadic value
+rational.  The record recovers this construction, the exact tail criteria,
+and the finite denominator exclusions; the identity provides their common
+normalisation.
 
 Write $T_N=\sum_{j\ge1}g_{N+j}2^{-j}$ for the scaled tails, so that
 $T_{N+1}=2T_N-g_{N+1}$.  Irrationality of $\Pi$ is equivalent to
@@ -309,6 +311,7 @@ Explicit remainder bound and the certified pair at $h=1$, $N=2$ & Ordinary proof
 Denominator floor $b\ge2^{589}$ & Lean-checked by \texttt{decide +kernel}; ordinary proof reprinted here & Theorem~\ref{long251:res:denominatorfloor}. \\
 Certified continued-fraction exclusion $q\ge2^{39997}$ & Exact computation over a Lean-checked tail bound & Theorem~\ref{long251:res:cfexclusion}; no Lean declaration. \\
 Bounded-perturbation obstruction & Lean-checked & Theorem~\ref{long251:res:boundedperturbation}. \\
+Sparse rationalisation with cumulative congruences & Ordinary theorem; elementary Lean core only & Theorem~\ref{long251:res:sparse-rationalisation}; upper Banach density zero, arbitrarily slow eventual coefficient bound, and eventual divisibility of coefficients and cumulative corrections. The explicit schedule is proved in the paper. \\
 Nonconcentration survives the rationalising perturbation & Ordinary proof; external lemma cited & Theorem~\ref{long251:res:nonconcentration} and Corollary~\ref{long251:res:nonconc-primes}. \\
 The two-window event has density zero & Ordinary proof; external lemma cited & Theorem~\ref{long251:res:sparse}. \\
 Recurring gap values differing by $2$ do not suffice & Ordinary proof & Theorem~\ref{long251:res:polignacfail}. \\
@@ -656,8 +659,9 @@ equivalence}, over the
 \lword{Erdos251/FreePairReduction.lean}{186}{primeGapRealTail_recurrence}{actual
 real tail recurrence}.  No antecedent for this packaging has been located; the
 nearest located neighbour is Schlage-Puchta's
-Theorem~2~\cite{schlagepuchta2011}, which treats periodic base-$b$ digit
-expansions and is a different object, and the sweep of the dyadic
+Theorem~2~\cite{schlagepuchta2011}, which treats base-$b$ digit strings formed
+by concatenating a slowly growing integer sequence under a rationality hypothesis,
+and is a different object, and the sweep of the dyadic
 tail-recurrence and B\'ezivin-style functional-equation literature has not been
 run.
 
@@ -928,9 +932,11 @@ reproduces the same statement form.  Neither decides the problem.
 
 \section{What cannot supply the missing input}\label{long251:sec:obstructions}
 
-This section proves four boundaries.  Each says that a named class of
-hypotheses about the prime gaps is compatible with a rational dyadic value, or
-that a named event is too sparse for a named method.
+The counterexamples in this section test which information about the gaps
+could force irrationality.  They preserve selected growth, residue and
+nonconcentration properties while changing the dyadic value.  The sparsity
+result has a different role: it rules out a positive-proportion lower bound
+for the two-window event, while leaving sparse-witness arguments available.
 
 \subsection{Bounded residue-preserving perturbations}
 
@@ -966,11 +972,199 @@ includes the bounded-gap and large-gap theorems cited in
 Section~\ref{long251:sec:open} and equidistribution of $p_n$ modulo any fixed $q$, on
 taking $M=2q$.  The perturbed digits need not remain prime gaps.
 
+\subsection{Paired corrections and cumulative congruences}
+\label{long251:sec:paired-corrections}
+
+The sparse construction preserves cumulative residues as well as coefficient
+residues.  Two adjacent corrections provide a free weighted digit while
+fixing their unweighted total.  A third coordinate is needed to repair the
+cumulative residue before that pair.  We account separately for its location,
+size and contribution to the series.
+
+\begin{theorem}[sparse rationalisation with cumulative congruences]
+\label{long251:res:sparse-rationalisation}
+Let $a_n\in\N$ and $A=\sum_{n\ge0}a_n2^{-n-1}<\infty$.  For every cutoff
+$K$ and every $f:\N\to\R$ tending to infinity, there are a set
+$S\subseteq[K,\infty)$ of upper Banach density zero and a nondegenerate
+interval $I\subset(A,\infty)$ with the following property.  Every $r\in I$
+has the form
+\[
+ r=\sum_{n\ge0}(a_n+e_n)2^{-n-1},
+\]
+where $e_n\in\N$ is supported on $S$, $e_n\le f(n)$ eventually, and, for
+every integer $q\ge1$, there is an $N_q$ such that
+\[
+ q\mid e_n\quad\hbox{and}\quad q\mid\sum_{i<n}e_i
+ \qquad(n\ge N_q).
+\]
+For every $0<\varepsilon<1$, the construction can instead be chosen with
+$e_n\le(\log(n+3))^\varepsilon$ eventually and
+$|S\cap[X,2X)|=O_\varepsilon(X/\log\log X)$.  In that case the empirical
+distributions of original and corrected unnormalised blocks of length
+$m(X)=o(\log\log X)$, sampled at the same integer starts in $[X,2X)$,
+have total variation distance tending to zero.
+\end{theorem}
+
+\noindent This theorem has an ordinary proof below.  The general interval
+and pair algebra is covered by the elementary Lean core; the explicit
+schedule and its density and size estimates are not claimed to be
+kernel-checked.
+
+\begin{proof}
+Choose increasing centres $n_j$, indexed by $j\ge0$, together with an initial
+$n_{-1}\ge K$.  Their spacings $s_j=n_j-n_{j-1}$ will be at least $4$.
+Let $M_j$ be positive integer moduli with $M_j\mid M_{j+1}$, and set
+$D_j=2^{s_j}-1$.  These parameters will be specified below independently of
+all free digits.
+
+\emph{Place the buffer before the pair.}
+Set $C_0=0$ and recursively define the deterministic integers
+\[
+ c_j=(-C_j)\bmod M_j,\qquad C_{j+1}=C_j+c_j+M_jD_j.
+\]
+For any choice $d_j\in\{0,\ldots,D_j\}$, put
+\begin{equation}\label{long251:eq:sparse-triple}
+ e_{n_j-1}=c_j,\qquad e_{n_j}=M_jd_j,\qquad
+ e_{n_j+1}=M_j(D_j-d_j),
+\end{equation}
+and put $e_n=0$ off these triples.  The spacing makes the triples disjoint.
+Their total is $c_j+M_jD_j$, independent of $d_j$, so $C_j$ really is the
+cumulative correction $C_j=\sum_{i<n_j-1}e_i$ before its buffer, for every choice of free digits.
+The pair alone could not repair that cumulative residue: its total is
+already a multiple of $M_j$.  The buffer does, since $M_j\mid C_j+c_j$.
+
+For example, $M=2,D=3$ permits the pairs $(0,6),(2,4),(4,2),(6,0)$.
+Each has total $6$, but their weighted contributions have numerators
+$6,8,10,12$ over $2^{n+2}$.  A preceding cumulative total $C=1$ needs the
+additional buffer $c=1$ at $n-1$; its weighted contribution is $2^{-n}$.
+This fixed contribution changes the location of the attainable interval,
+not its free-digit capacity.
+
+\emph{Check every late coordinate.}
+Assume that each fixed $q$ divides $M_j$ eventually, and choose $J$ with
+$q\mid M_J$.  At index $n_J$, just after its buffer, the cumulative sum
+is divisible by $q$.  Both entries of the pair are also divisible by $q$,
+so every later cumulative sum through that stage remains divisible by $q$.
+Inductively $q\mid C_j$ and $q\mid M_j$ imply
+$q\mid c_j$, since $M_j\mid C_j+c_j$.  Thus every subsequent buffer,
+pair entry and zero entry is divisible by $q$, as is every intermediate
+cumulative sum.  We may take $N_q=n_J$.  The first buffer need not itself
+be divisible by $q$, and its coordinate $n_J-1$ is deliberately outside
+this eventual range.
+
+\emph{Choose a schedule for arbitrary $f$.}
+Define
+\[
+ h(n)=\inf_{m\ge n}\min(f(m),m).
+\]
+This finite real number is nondecreasing in $n$, satisfies $h(n)\le n$,
+and tends to infinity.  Choose $n_{-1}\ge K$ with $h(n_{-1})\ge32$ and
+recursively set
+\begin{equation}\label{long251:eq:sparse-general-schedule}
+ \begin{split}
+ k_j&=\max\{k\in\N:k\ge2,\ k!2^{k+2}\le h(n_{j-1})\},\\
+ M_j&=k_j!,\qquad s_j=k_j+2,\qquad n_j=n_{j-1}+s_j.
+ \end{split}
+\end{equation}
+The maximum exists: $k=2$ is eligible and $k!2^{k+2}$ tends to infinity.
+Since $h$ is nondecreasing, the integers $k_j$ are nondecreasing; since
+$n_j\to\infty$, they tend to infinity.  The factorials form a divisibility
+chain and eventually contain every fixed divisor.  At each of the three
+coordinates $n$ in stage $j$,
+\[
+ 0\le e_n\le M_j2^{s_j}\le h(n_{j-1})\le f(n),
+ \qquad e_n\le n_{j-1}<n.
+\]
+Here the buffer is smaller than $M_j$ and each pair entry is at most
+$M_jD_j$.  Thus every correction series converges by comparison with
+$\sum_n n2^{-n-1}$.
+
+Let $S=\bigcup_j\{n_j-1,n_j,n_j+1\}$.  It is independent of the digits.
+To see upper Banach density zero, fix $H>0$.  Outside a finite initial
+segment, consecutive centres are at least $H$ apart, since $s_j\to\infty$.
+An interval of length $L$ therefore meets at most
+$3(L/H+2)$ late support coordinates, plus the fixed finite number of early
+coordinates.  Divide by $L$, take the supremum over interval positions,
+then let $L\to\infty$ and $H\to\infty$.
+
+\emph{Retain an interval of values.}
+Put $w_j=M_j2^{-n_j-2}$ and
+\[
+ F_j=\sum_{i\ge j}D_iw_i,\qquad
+ \beta=\sum_{j\ge0}\bigl(c_j2^{-n_j}+D_jw_j\bigr).
+\]
+The size estimates just proved give convergence of both series, $F_j\to0$,
+and $F_0>0$.  The baseline $\beta$ is positive and independent of the digits.
+The complete weighted correction, including every buffer, is exactly
+\begin{equation}\label{long251:eq:sparse-baseline}
+ \sum_n e_n2^{-n-1}=\beta+\sum_jd_jw_j.
+\end{equation}
+For $i>j$, we have $M_i\ge M_j$ and
+\[
+ D_iw_i=M_i\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr)
+ \ge M_j\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr).
+\]
+Telescoping over $i=j+1,\ldots,J$ and letting $J\to\infty$ yields
+$F_{j+1}\ge w_j$.  This is the needed overlap condition.  The intervals
+$[dw_j,dw_j+F_{j+1}]$, for $0\le d\le D_j$, cover $[0,F_j]$.
+For any $y\in[0,F_0]$, choose successive digits leaving each remainder in
+$[0,F_{j+1}]$.  Since these capacities tend to zero, the resulting series
+has sum $y$.  Equation~\eqref{long251:eq:sparse-baseline} therefore realises
+every $r$ in the fixed interval $I=(A+\beta,A+\beta+F_0)\subset(A,\infty)$.
+
+\emph{Choose a polylogarithmic schedule.}
+Fix $0<\varepsilon<1$.  Replace~\eqref{long251:eq:sparse-general-schedule} by
+\begin{equation}\label{long251:eq:sparse-polylog-schedule}
+ \begin{split}
+ s_j&=\left\lfloor\frac{\varepsilon}{2}
+          \log_2\log(n_{j-1}+3)\right\rfloor,\qquad n_j=n_{j-1}+s_j,\\
+ k_j&=\max\{k\in\N:k\ge2,\ k!\le(\log(n_{j-1}+3))^{\varepsilon/4}\},
+ \qquad M_j=k_j!.
+ \end{split}
+\end{equation}
+Take the initial cutoff so large that $s_j\ge4$ and the maximum is nonempty
+from the first step.  Again $k_j$ is nondecreasing and tends to infinity.
+Keep $D_j=2^{s_j}-1$ and the same buffer recursion.  All triple entries obey
+\[
+ e_n\le M_j2^{s_j}\le(\log(n_{j-1}+3))^{3\varepsilon/4}
+ \le(\log(n+3))^\varepsilon.
+\]
+These polylogarithmic bounds still give convergence of $F_j$ and $\beta$.
+Every argument above concerning congruences and interval filling remains
+valid.  Also $s_j$ is comparable, with constants depending on $\varepsilon$,
+to $\log\log(n_{j-1}+3)$, and $s_j=o(n_{j-1})$.  Hence consecutive centres
+near $X$ are separated by at least a constant multiple of
+$\log\log X$, giving $|S\cap[X,2X)|=O_\varepsilon(X/\log\log X)$.
+The same estimate holds on $[X,3X)$.
+
+Finally sample both length-$m$ blocks at the same uniform integer start in
+$[X,2X)$.  They can differ only if that block meets $S$.  Each changed
+coordinate belongs to at most $m$ such blocks, so the total variation
+distance is at most
+\[
+ \frac{m\,|S\cap[X,2X+m)|}{X}
+ =O_\varepsilon\!\left(\frac{m}{\log\log X}\right).
+\]
+For integer $m=m(X)=o(\log\log X)$ this tends to zero.  This comparison
+uses the literal, unnormalised blocks and requires no limiting distribution
+for the original sequence.
+\end{proof}
+
+The pair identities, modular repair, and conditional interval filling are the
+elementary core in
+\path{lean/ErdosProblems/Erdos251/SparseRationalisationCore.lean}.
+The source does not itself establish the schedules
+\eqref{long251:eq:sparse-general-schedule}--\eqref{long251:eq:sparse-polylog-schedule},
+upper Banach density, or block-law transfer.  Those parts are the ordinary
+proof above, not a new Lean or Comparator verification claim.  Applied to
+prime gaps, the construction makes no assertion that the corrected
+cumulative positions remain prime.
+
 \subsection{Algebraic nonconcentration survives the rationalising perturbation}
 
-The obvious reply to Theorem~\ref{long251:res:boundedperturbation} is to demand a
-finer property of the actual gaps than size and residue.  A relevant such
-property is Schlage-Puchta's Lemma~4: for every polynomial
+Fixed-block polynomial nonconcentration is a finer property than size and
+residue, but it too survives the bounded perturbation.  The relevant input
+is Schlage-Puchta's Lemma~4: for every polynomial
 $F\in\Z[x_0,\ldots,x_k]$ which does not vanish identically,
 $F(g_n,\ldots,g_{n+k})\ne0$ for almost all $n$~\cite[Lemma~4,
 pp.~5--6]{schlagepuchta2011}.  Say that an integer sequence $a$ has
@@ -1060,7 +1254,7 @@ $b_n\le g_n+2q$.  The boundary is exact: the terms $P_n$ are not asserted to be 
 and the conclusion says nothing about constraints with a block length or a
 polynomial family growing with the index.
 
-\subsection{The producer is an event of density zero}
+\subsection{The two-window event has density zero}
 
 The same lemma bounds the event that the local certificate consumes.
 
@@ -1812,26 +2006,31 @@ modulo $2^{L}$.  A one-block certificate would be a prime-gap theorem
 producing such an avoided arc on a logarithmic block.  This rewriting is
 paper-level and carries no Lean declaration.
 
-\subsection{A weaker recurrence-level target}\label{long251:sec:xr-divisorhit}
+\subsection{Divisor-hitting shift escape}\label{long251:sec:xr-divisorhit}
 
 \begin{problem}[divisor-hitting shift escape]\label{long251:xr:divisor-hit}
 For every $r\ge1$, does some positive multiple of $r$ escape cofinally, in the
 sense of \eqref{long251:eq:shift-escape} at shift length $mr$ for some $m\ge1$?
 \end{problem}
 
-A hypothetical rational value produces an eventually integral fixed shift, and
-the tail-shift cocycle propagates integrality forward and through positive
-multiples of that shift, so hitting one compatible multiple suffices in place
-of escaping at every prescribed $h$.  Forward propagation is Lean-checked; the
-short multiple-in-shift closure is an elementary paper-level derivation with no
-named declaration, so this is recorded as a sharper proposed criterion rather
-than a registered equivalence.
+This is an exact reformulation, not a weaker mathematical target.
+If $T_0$ is irrational, every positive shift is nonintegral by the block
+identity, so divisor-hitting escape follows with $m=1$.  Conversely,
+rationality gives a shift $h\ge1$ that is integral at every sufficiently
+late index.  For each positive integer $m$, the identity
+\[
+ T_{N+mh}-T_N=\sum_{j=0}^{m-1}(T_{N+(j+1)h}-T_{N+jh})
+\]
+makes every multiple $mh$ eventually integral.  Taking $r=h$ contradicts
+divisor-hitting escape.  This ordinary deduction uses the checked
+rationality classification and a finite telescope; rearranging the
+quantifiers supplies no new estimate for the actual prime gaps.
 
 \subsection{Two ordinary proofs about the free-pair producer}
 \label{long251:sec:xr-compression}
 
-Both statements below are ordinary proofs recorded in the private research
-development.  Neither is formalised and neither carries an independent check.
+Both arguments below are ordinary mathematical deductions.  Neither is
+formalised or independently checked here.
 
 \paragraph{State compression.}  Exchanging the order of summation gives
 $\sum_{N\le X}T_N\le(p_{X+1}-p_0)+2T_X$.  Under rationality with reduced odd

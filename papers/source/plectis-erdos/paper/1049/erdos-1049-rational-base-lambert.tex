@@ -69,6 +69,12 @@ with integral coefficient polynomials of degree at most $W_n$, and
 \]
 A negative exponent yields positive integral linear forms tending to zero.
 
+The order of these operations explains the region. At a rational base $a/b$,
+each remaining polynomial degree costs a power of $b$ when denominators are
+cleared. Cancelling a common cyclotomic factor first reduces that degree.
+The proof must then compare the actual cancelled degree with the decay of
+the positive remainder; divisibility alone gives neither estimate.
+
 The Hankel argument concerns a different family.  Its moment expansion makes
 one increasing index tuple responsible for the first coefficient.  The final
 sections explain what local cancellation can establish at $3/2$ and specify
@@ -415,6 +421,12 @@ particular family requires its actual degree and remainder asymptotics.
 
 \section{Exact normalized-Hankel order in Zudilin's construction}
 \label{sec:hankel-order}
+
+Here the problem is cancellation inside a determinant. Entrywise orders give
+only a lower bound because terms of that order may cancel. The moment
+expansion below resolves this by finding one uniquely least-order index
+tuple, whose coefficient is nonzero. This is a formal-power-series argument;
+fixed-base estimates are a separate question addressed after the proof.
 
 At $x=z=1$, Zudilin's normalized moments are
 \[

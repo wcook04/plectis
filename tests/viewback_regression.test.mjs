@@ -14,7 +14,7 @@
 // npm install: node:test + node:vm + node:fs only.
 //
 // Run from repo root:
-//   node --test sites/microcosm/tests/
+//   node --test sites/microcosm/tests/*.test.mjs
 //   node sites/microcosm/tests/viewback_regression.test.mjs
 //
 // Guards CAP cap_quick_add_an_automated_regression_guard_for_th_a25d1b843628 and
@@ -435,6 +435,7 @@ function loadPage(tab, page) {
     clearTimeout() {},
     URL,
     URLSearchParams,
+    getComputedStyle: win.getComputedStyle,
     CustomEvent: class CustomEvent { constructor(type, init = {}) { this.type = type; this.detail = init.detail; } },
   };
   vm.createContext(sandbox);
@@ -2215,5 +2216,221 @@ test('new visible glossary fragments still open and align after popstate, includ
       assert.equal(page.loc.search, search);
       assert.ok(tab.scrollToCalls.length > 0, 'new fragments retain normal alignment');
     }
+  }
+});
+
+function drawerFixture() {
+  let mobile = true;
+  const header = makeEl('header'); header.className = 'docs-topbar';
+  const menu = makeEl('button'); menu.className = 'docs-menu-btn'; menu.textContent = 'Menu';
+  menu.setAttribute('aria-expanded', 'false');
+  const headerLink = makeLink('/maths/index.html'); headerLink.textContent = 'Maths';
+  header.appendChild(menu); header.appendChild(headerLink);
+  const sidebar = makeEl('aside'); sidebar.className = 'docs-sidebar';
+  const first = makeLink('/docs/index.html'); first.textContent = 'Overview';
+  const last = makeLink('/docs/contact.html'); last.textContent = 'Contact';
+  sidebar.appendChild(first); sidebar.appendChild(last);
+  const main = makeEl('main');
+  const destination = makeLink('/index.html'); destination.textContent = 'Plectis';
+  main.appendChild(destination);
+  const page = loadPage(makeTab(), hubPage({
+    bodyChildren: [header, sidebar, main],
+    windowGlobals: {
+      getComputedStyle(el) {
+        return { display: el === menu && !mobile ? 'none' : 'block', getPropertyValue() { return ''; } };
+      },
+    },
+  }));
+  assert.equal(page.error, null);
+  const focus = (el, options) => {
+    page.doc.activeElement = el;
+    el._focused = true;
+    el._focusPreventScroll = !!(options && options.preventScroll);
+    page.doc.dispatch('focusin', { target: el });
+  };
+  for (const el of [menu, headerLink, first, last, destination]) el.focus = options => focus(el, options);
+  return {
+    page, menu, sidebar, headerLink, first, last, destination, focus,
+    open() { menu.dispatch('click', { target: menu }); },
+    setDesktop() { mobile = false; page.doc.dispatch('focusin', { target: page.doc.activeElement }); },
+  };
+}
+
+test('mobile drawer reveals the page when keyboard focus leaves its final link', () => {
+  const f = drawerFixture();
+  f.open(); f.last.focus(); f.destination.focus();
+  assert.equal(f.page.body.classList.contains('nav-open'), false);
+  assert.equal(f.menu.getAttribute('aria-expanded'), 'false');
+  assert.equal(f.sidebar.hasAttribute('inert'), true);
+  assert.equal(f.page.doc.activeElement, f.destination, 'closing must keep the destination chosen by Tab');
+  f.page.doc.dispatch('keydown', { key: 'Escape', target: f.destination });
+  assert.equal(f.page.doc.activeElement, f.destination, 'Escape outside a closed drawer must not return to Menu');
+});
+
+test('mobile drawer keeps header controls and its own links available', () => {
+  const f = drawerFixture();
+  f.open(); f.last.focus();
+  assert.equal(f.page.body.classList.contains('nav-open'), true);
+  f.headerLink.focus();
+  assert.equal(f.page.body.classList.contains('nav-open'), true, 'the visible header can hold focus while the drawer stays open');
+  assert.equal(f.sidebar.hasAttribute('inert'), false);
+  f.menu.focus();
+  assert.equal(f.menu.getAttribute('aria-expanded'), 'true');
+});
+
+test('mobile drawer opening and Escape preserve their focus contract', () => {
+  const f = drawerFixture();
+  assert.equal(f.sidebar.hasAttribute('inert'), true);
+  f.open();
+  assert.equal(f.page.doc.activeElement, f.first);
+  assert.equal(f.first._focusPreventScroll, true);
+  f.page.doc.dispatch('keydown', { key: 'Escape', target: f.first });
+  assert.equal(f.page.body.classList.contains('nav-open'), false);
+  assert.equal(f.page.doc.activeElement, f.menu);
+  assert.equal(f.sidebar.hasAttribute('inert'), true);
+});
+
+test('drawer focus guard leaves the standing desktop sidebar available after resize', () => {
+  const f = drawerFixture();
+  f.open(); f.setDesktop(); f.destination.focus();
+  assert.equal(f.sidebar.hasAttribute('inert'), false);
+  assert.equal(f.page.body.classList.contains('nav-open'), true, 'desktop focus does not invoke the mobile close guard');
+  assert.equal(f.page.doc.activeElement, f.destination);
+  f.first.focus();
+  assert.equal(f.page.doc.activeElement, f.first);
+  assert.equal(f.sidebar.hasAttribute('inert'), false);
+});
+
+function passiveLinkFixture({ warm = true, inline = false, summary = false } = {}) {
+  const link = summary ? makeEl('summary') : makeLink('/maths/papers/original.html#result');
+  if (!summary) link.setAttribute('target', '_blank');
+  const span = makeEl('span'); span.setAttribute('data-term-preview-only', '');
+  span.setAttribute('data-term', 'sum'); span.textContent = 'sum';
+  const nested = makeEl('em'); nested.textContent = 'sum'; span.appendChild(nested);
+  link.appendChild(span);
+  const container = summary ? makeEl('details') : link;
+  if (summary) container.appendChild(link);
+  if (inline) { span.setAttribute('data-term', 'inline_sum'); span.setAttribute('data-term-preview', 'Inline sum definition.'); span.setAttribute('data-term-label', 'Inline sum'); }
+  const normal = makeLink('glossary.html#glossary-product');
+  normal.className = 'narrative-ref--term'; normal.setAttribute('data-term', 'product'); normal.textContent = 'product';
+  const notation = makeEl('span');
+  const idle = [];
+  const terms = [
+    { object_id:'term:sum', preferred_label:'Sum', reader_preview:'Adds terms.', reader_card:'The longer sum definition.' },
+    { object_id:'term:product', preferred_label:'Product', reader_preview:'Multiplies terms.', reader_card:'The longer product definition.' },
+  ];
+  const page = loadPage(makeTab(), hubPage({ bodyChildren:[container, normal, notation], links:summary ? [normal] : [link, normal], windowGlobals:{
+    requestIdleCallback(fn) { idle.push(fn); },
+    ...(warm ? {__MICROCOSM_TERM_PREVIEWS__:{terms}} : {}),
+  } }));
+  assert.equal(page.error, null);
+  page.win.PlectisTermHelp.registerNotation(notation, ['sum','product']);
+  span.matches = selector => selector === ':hover';
+  function deliver() {
+    page.win.__MICROCOSM_TERM_PREVIEWS__ = {terms};
+    const script = page.doc.head.querySelector('script[data-term-previews]');
+    assert.ok(script, 'passive hover must request the shared preview payload');
+    script.dispatch('load', {});
+    return page.doc.querySelector('.term-tip');
+  }
+  function hover() { page.doc.dispatch('mouseover', {target:nested}); return page.doc.querySelector('.term-tip'); }
+  function click(modifiers = {}, type = 'click') {
+    let prevented = false;
+    page.doc.dispatch(type, {target:nested,button:0,...modifiers,preventDefault(){prevented=true;}});
+    assert.equal(prevented, false, 'the containing anchor keeps native activation');
+    assert.equal(page.loc.href, ORIGIN + page.page.path, 'the glossary runtime must not assign a replacement location');
+    assert.equal(link.getAttribute('href'), summary ? null : '/maths/papers/original.html#result');
+    assert.equal(link.getAttribute('target'), summary ? null : '_blank');
+  }
+  return {page,link,span,nested,normal,notation,idle,terms,deliver,hover,click};
+}
+
+test('passive link text previews without changing link semantics or term grading', () => {
+  const f=passiveLinkFixture();
+  const tip=f.hover();
+  assert.ok(tip && !tip.hidden);
+  assert.equal(tip.querySelector('.term-tip__label').textContent, 'Sum');
+  assert.equal(tip.classList.contains('is-expanded'), false);
+  assert.equal(tip.querySelector('.term-tip__full').hidden, true);
+  assert.equal(tip.querySelector('.term-tip__cue').hidden, true);
+  assert.equal(tip.querySelector('.term-tip__cue').textContent, '');
+  f.idle.forEach(fn=>fn());
+  for(const name of ['href','role','tabindex']) assert.equal(f.span.getAttribute(name), null);
+  assert.equal(f.span.className, '', 'passive spans do not consume ordinary term grades');
+  f.click();
+  assert.equal(tip.hidden, true);
+  assert.equal(tip.classList.contains('is-expanded'), false);
+});
+
+test('warm passive link clicks including modifiers and middle button stay native and dismiss', () => {
+  for(const [modifiers,type] of [[{},'click'],[{metaKey:true},'click'],[{ctrlKey:true},'click'],[{shiftKey:true},'click'],[{altKey:true},'click'],[{button:1},'auxclick']]) {
+    const f=passiveLinkFixture();const tip=f.hover();assert.ok(tip&&!tip.hidden);
+    f.click(modifiers,type);assert.equal(tip.hidden,true);
+  }
+});
+
+test('cold passive link clicks cancel lazy hover intent before records arrive', () => {
+  for(const [modifiers,type] of [[{},'click'],[{metaKey:true},'click'],[{ctrlKey:true},'click'],[{button:1},'auxclick']]) {
+    const f=passiveLinkFixture({warm:false});f.hover();f.click(modifiers,type);
+    const tip=f.deliver();assert.equal(tip.hidden,true,'late payload cannot reopen a clicked native link');
+  }
+});
+
+test('passive previews are pointer-only and retain inline fallback records', () => {
+  const f=passiveLinkFixture({warm:false,inline:true});
+  f.page.doc.activeElement=f.link;f.page.doc.dispatch('focusin',{target:f.link});
+  let tip=f.page.doc.querySelector('.term-tip');assert.ok(!tip||tip.hidden);
+  f.page.doc.dispatch('focusin',{target:f.span});
+  tip=f.page.doc.querySelector('.term-tip');assert.ok(!tip||tip.hidden);
+  f.hover();tip=f.deliver();assert.equal(tip.querySelector('.term-tip__label').textContent,'Inline sum');
+  assert.match(tip.querySelector('.term-tip__text').innerHTML,/Inline sum definition/);
+});
+
+test('a passive inline fallback does not preempt ordinary cold term loading', () => {
+  const f=passiveLinkFixture({warm:false,inline:true});f.hover();
+  let prevented=false;
+  f.page.doc.dispatch('click',{target:f.normal,button:0,preventDefault(){prevented=true;}});
+  assert.equal(prevented,true,'ordinary first click still waits for its glossary record');
+  const tip=f.deliver();
+  assert.equal(tip.querySelector('.term-tip__label').textContent,'Product');
+  assert.equal(tip.classList.contains('is-expanded'),true);
+});
+
+test('passive-only pages warm shared records without grading or opening a preview', () => {
+  const span=makeEl('span');span.setAttribute('data-term-preview-only','');span.setAttribute('data-term','sum');
+  const link=makeLink('/destination.html');link.appendChild(span);const idle=[];
+  const page=loadPage(makeTab(),hubPage({bodyChildren:[link],links:[link],windowGlobals:{requestIdleCallback(fn){idle.push(fn);}}}));
+  assert.equal(page.error,null);idle.forEach(fn=>fn());
+  assert.ok(page.doc.head.querySelector('script[data-term-previews]'));
+  assert.equal(span.className,'');assert.equal(page.doc.querySelector('.term-tip'),null);
+});
+
+test('passive link preview does not change ordinary term or notation activation', () => {
+  const f=passiveLinkFixture();const tip=f.hover();f.click();
+  let prevented=false;
+  f.page.doc.dispatch('click',{target:f.normal,button:0,preventDefault(){prevented=true;}});
+  assert.equal(prevented,true);assert.equal(tip.classList.contains('is-expanded'),true);
+  assert.equal(tip.querySelector('.term-tip__cue').hidden,false);
+  assert.equal(tip.querySelector('.term-tip__label').textContent,'Product');
+  prevented=false;f.page.doc.dispatch('click',{target:f.normal,button:0,preventDefault(){prevented=true;}});
+  assert.equal(prevented,false,'second full-term click retains glossary navigation');
+  f.page.doc.activeElement=f.notation;f.page.doc.dispatch('focusin',{target:f.notation});
+  f.page.doc.dispatch('keydown',{target:f.notation,key:'Enter',preventDefault(){}});
+  assert.equal(tip.classList.contains('is-expanded'),true);
+  assert.equal(tip.querySelector('.term-tip__label').textContent,'Sum');
+  f.page.doc.dispatch('keydown',{target:f.notation,key:'ArrowRight',preventDefault(){}});
+  assert.equal(tip.querySelector('.term-tip__label').textContent,'Product');
+});
+
+test('warm and cold passive summary text preserves native disclosure activation', () => {
+  for (const warm of [true,false]) {
+    const f=passiveLinkFixture({warm,summary:true});
+    let tip=f.hover();
+    if(warm)assert.ok(tip&&!tip.hidden);
+    f.click();
+    if(!warm)tip=f.deliver();
+    assert.equal(tip.hidden,true,'summary activation dismisses even a pending pointer preview');
+    for(const attr of ['href','role','tabindex'])assert.equal(f.span.getAttribute(attr),null);
+    assert.equal(f.link.querySelectorAll('a').length,0);
   }
 });

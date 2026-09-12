@@ -30,12 +30,6 @@
 \begin{document}
 \maketitle
 \noteprovenance
-The source annotations in this note deliberately name two immutable revisions. Links produced by
-the standard note macros use \texttt{\commitshort}; across this note and its long reasoning
-surface, fourteen paper-local coordinates link revision \texttt{f36a98bf3d3e}. These families are audited separately; a historical aggregate
-reference count is not asserted to be an exact inventory of this PDF.
-
-
 \begin{abstract}
 For every infinite set $A$ of positive integers with $\sum_{a\in A}1/a<\infty$,
 we give a complete proof that $\sum_{a\in A}(b^a-1)^{-1}$ is irrational
@@ -78,7 +72,9 @@ For infinite $A$ and $N>0$, division of $N$ by each $a\in A$ gives
  =(b^N-1)X_A(b)-J_{b,A}(N),\qquad J_{b,A}(N)\in\Z.
  \label{eq:intro-displacement}\tag{D}
 \]
-Only $a\le N$ contribute to $J_{b,A}(N)$.  Rationality $X_A(b)=p/q$
+Only $a\le N$ contribute to $J_{b,A}(N)$. Every summand in the displacement
+is nonnegative, and an exponent $a>N$ gives a positive summand; such an
+exponent exists because $A$ is infinite. Rationality $X_A(b)=p/q$
 would force every positive displacement to be at least $1/q$.
 The proof makes these positive displacements arbitrarily small by
 averaging along multiples of a growing divisibility modulus.
@@ -120,6 +116,11 @@ exceed one, and their common origin in a single support will matter below.
 \section{Reciprocal-summable supports at every integer base}
 \label{sec:reciprocal-support}
 
+The proof freezes a finite portion of the support and averages the rest.
+Making the shift divisible by the frozen exponents makes their displacement
+exactly zero. The remaining exponents need not have a common period of
+manageable size: reciprocal summability bounds their total average directly.
+
 Fix the integer base $b\ge2$ and put
 \[
  w_{b,d}(N)=\frac{b^{N\bmod d}}{b^d-1},\qquad
@@ -133,6 +134,11 @@ $d/g$ residues, where $g=(Q,d)$.  Summing the geometric progression gives
  =\frac{g}{d(b^g-1)}\le\frac1d.
  \label{eq:gcd-orbit-mean}
 \end{equation}
+For example, at $b=2$, $Q=4$ and $d=6$, the orbit is $4,2,0$ modulo $6$.
+Its mean atom is $(16+4+1)/(3\cdot63)=1/9$, whereas its zero-shift atom is
+$1/63$. If $6\mid Q$, the orbit instead stays at zero and the mean is
+exactly $1/63$. This is the effect of freezing an exponent; the infinite
+tail still requires the bound that follows.
 The passage from individual atoms to their infinite sum needs a uniform
 bound.  Counting positive multiples of $d$ gives
 \begin{align*}
@@ -174,16 +180,17 @@ results of this release.
 \section{Extensions beyond reciprocal summability}
 \label{sec:eight-return-extensions}
 
-The two criteria below use different controls on the same positive
-displacement.  The estimates named in this section are not independently
-checkable from the files in this checkout: the cited supplements and
-\texttt{MixedSupportSynchronisation.md} are absent from the public
-packet.  The statements are retained as claimed extensions, not as
-results of this release.
+The weighted criterion (W), its reciprocal-divergent host example, and
+the quantitative criterion below are claimed extensions whose proof
+supplements are absent from this checkout.  They are not established
+results of this release.  The finite estimate (S) and the strengthened
+cover theorem later in this section have their own printed proofs and
+are separate from those unavailable arguments.
 
-\subsection{Divisibility-weighted and quantitative criteria}
+\subsection{Claimed weighted criterion (unassessed here)}
 For a finite nonempty prime set $P$, let
-$h(a)=\prod_{p\in P}p^{v_p(a)}$.  The weighted condition
+$h(a)=\prod_{p\in P}p^{v_p(a)}$.  The absent supplement claims that the
+weighted condition
 \[
   \sum_{a\in A}\frac{h(a)}{a(2^{h(a)}-1)}<\infty
   \tag{W}\label{eq:weighted-return}
@@ -192,7 +199,8 @@ implies irrationality of $\sum_{a\in A}(b^a-1)^{-1}$ for every infinite
 $A$ and every integer $b\ge2$.  The conclusion is hereditary under passage
 to infinite subsets.  A fixed-base version replaces $2$ by $b$ in the
 condition; arbitrary nested divisibility chains have the same criterion
-with $h(a)$ the largest chain element dividing $a$.
+with $h(a)$ the largest chain element dividing $a$.  No complete proof
+of these claims is present in this checkout.
 
 Here the decisive estimate is a finite orbit average.  If $g=(a,Q)$, then
 \[
@@ -200,7 +208,9 @@ Here the decisive estimate is a finite orbit average.  If $g=(a,Q)$, then
  \frac{b^{Qm\bmod a}-1}{b^a-1}
  \le \frac{g}{a(b^g-1)}+\frac1{T(b^g-1)}.
 \]
-The second term cannot be discarded before summing over $a$.  Choose $Q$
+The second term cannot be discarded before summing over $a$.  The claimed
+argument proceeds as follows; its truncation bounds remain unassessed.
+Choose $Q$
 to freeze the finite prefix and all small $P$-parts.  Average again over
 $T=2^j$, $M\le j<2M$.  The incomplete-period contribution from small
 $P$-parts is at most $2QW/M$, where $W$ is the sum in
@@ -212,12 +222,15 @@ The named truncation estimates and an explicit reciprocal-divergent host
 with gaps $O(\log\log a)$ are referred to a supplement that is not in this
 checkout.
 
-A quantitative consequence also admits reciprocal-divergent supports.
+\subsection{Claimed quantitative criterion (unassessed here)}
+The absent analytic supplement claims a second criterion admitting
+reciprocal-divergent supports.
 Put $H_A(x)=\sum_{a\in A,\ a\le x}1/a$, $T_0=2$, $T_{j+1}=2^{T_j}$,
 and $\ell(x)=\min\{j:x\le T_j\}$.  The condition
-$H_A(x)=o(\ell(x))$ implies all-base irrationality.  The proof and the
-sharper rational-phase lower bound are referred to an analytic supplement
-that is not in this checkout; no positive density of $A$ is required.
+$H_A(x)=o(\ell(x))$ is claimed to imply all-base irrationality, with no
+positive density assumption on $A$.  Neither a proof of this implication
+nor the claimed sharper rational-phase lower bound is present in this
+checkout.
 
 \subsection{A finite estimate on common observation scales}\label{sec:common-kernel}
 For $1<B\le2$, positive integers $L,d,M$, and $R\ge0$, put
@@ -786,19 +799,29 @@ note and has no Lean counterpart in this checkout: the filenames
 is \texttt{\commitshort}; later counterparts are identified separately rather
 than attributed to that checkpoint.
 
-The weighted and cover arguments, the mixed theorem, the cost
-separations, and the prime-power thinning argument refer to ordinary
-proofs that are not linked in this public checkout
+The finite estimate~\eqref{eq:mixed-finite-kernel} and
+Theorem~\ref{thm:variable-fractional-cover} have complete ordinary proofs
+in this note and are results of this release.  The weighted criterion, the
+quantitative criterion, the claimed support \(A^\star\) separating the two
+cover costs, the mixed theorem, and prime-power thinning instead refer to
+ordinary proofs that are not linked in this public checkout
 (\emph{Strengthened Variable-Exponent Cover},
 \emph{First Logarithmic Moment of Positive Covers},
 \emph{Mixed Support Synchronisation},
 \emph{Prime-Incidence Boundary}, and the analytic proof supplement).
-Those extensions are therefore not independently assessable here and are
-not promoted as results of this release.
+Those latter extensions are therefore not independently assessable here
+and are not promoted as results of this release.
 No universal irrationality conclusion is asserted.
 
 \appendix
 \section{Guide to the formal sources}\label{app:sources}
+The source annotations in this note deliberately name two immutable revisions.
+Links produced by the standard note macros use \texttt{\commitshort};
+across this note and its long reasoning surface, fourteen paper-local
+coordinates link revision \texttt{f36a98bf3d3e}. These families are audited
+separately; a historical aggregate reference count is not asserted to be
+an exact inventory of this PDF.
+
 
 The following source links are the public snapshot used by this note.
 

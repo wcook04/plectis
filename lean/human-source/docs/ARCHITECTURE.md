@@ -96,7 +96,7 @@ is archived provenance only, not an active gateway.
 | [docs/](README.md) | Reading guides, claim records and generated indexes. |
 | [scripts/](../scripts/) | Queries, builders, release checks and tests. |
 | [skills/](../skills/README.md) | Workflows for research, validation and contribution. |
-| [research/experiments/](../research/experiments/publication_mutations.json) | Reproducible test changes used to exercise the release checker. |
+| [research/experiments/](../research/experiments/) | [Rerun the finite #251 computations and compare their outputs with saved results](../research/experiments/erdos251/README.md), or inspect [test changes used to exercise the release checker](../research/experiments/publication_mutations.json). |
 
 Start from a problem or a statement, then follow the source map to its
 modules. The [agent workbench](agents/AGENT_WORKBENCH.md) documents the query

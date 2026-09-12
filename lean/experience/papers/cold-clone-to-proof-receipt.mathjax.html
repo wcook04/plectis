@@ -192,6 +192,15 @@ rejected. The agent cannot type a verdict into the ledger. A claim must
 cite an accepted probe receipt; the notary rejects weaker citations.
 Replay reruns every stored probe and compares the current result with
 the recorded verdict.</p>
+<p>Workflow-provenance systems already record what ran, when and where
+it ran, how tasks and data were connected, and who initiated them; they
+also distinguish a planned workflow from the trace of an executed one
+<span class="citation" data-cites="workflowprovenance"><a href="#ref-12">[12]</a></span>. That is
+the closest established role for the notary’s execution metadata. The
+notary adds a different contract: its ledger types an agent’s
+conjectures, abandonments, probes, and claims, while the pinned Lean
+process alone supplies probe verdicts. The comparison does not show that
+the resulting record improves the agent’s research choices.</p>
 <p>This design deliberately leaves search policy open. LeanDojo couples
 an open programmatic Lean environment with extracted proof data, premise
 annotations, retrieval, and a theorem-proving benchmark <span
@@ -306,6 +315,16 @@ is that one cold-clone contract composes source addresses, selective
 semantics, dependency cones, incremental validation, and authority
 receipts without requiring a hosted service or an initial Lean
 build.</p>
+<p>Repository question answering provides a second comparison. Abedu,
+Khatoonabadi, and Shihab combine an LLM with a knowledge graph built
+from users, commits, issues, and files; their evaluation spans five
+open-source repositories and a 20-participant task study <span
+class="citation" data-cites="repokg"></span>. They explicitly leave code
+entities and program-analysis edges to future work. The tour here does
+not evaluate a conversational interface. It commits code-level Lean
+declarations, elaborated dependencies, authored mathematical
+interpretations, and claim-status boundaries so that a reader can
+inspect the route before an LLM explains it.</p>
 <p>Large-library maintenance supplies the relevant compilation lesson.
 <em>Growing Mathlib</em> describes performance-aware library design,
 deprecation, semantic linters, benchmarks, review tooling, and explicit
@@ -485,6 +504,16 @@ href="https://doi.org/10.48550/arXiv.2508.21593">arXiv:2508.21593</a>.</p></li>
 Environment for Scalable Human–AI Collaborative Formalization</em>,
 2026, <a
 href="https://doi.org/10.48550/arXiv.2604.16347">arXiv:2604.16347</a>.</p></li>
+<li id="ref-12"><p>R. Souza, T. Poteet, B. Etz, D. Rosendo, A. Gueroudji, W. Shin,
+P. Balaprakash, and R. Ferreira da Silva, <em>LLM Agents for Interactive
+Workflow Provenance: Reference Architecture and Evaluation
+Methodology</em>, WORKS at the ACM/IEEE International Conference for
+High Performance Computing, Networking, Storage and Analysis, 2025, <a
+href="https://doi.org/10.1145/3731599.3767582">DOI</a>.</p></li>
+<li id="ref-13"><p>S. Abedu, S. Khatoonabadi, and E. Shihab, <em>Synergizing LLMs
+and Knowledge Graphs: A Novel Approach to Software Repository-Related
+Question Answering</em>, 2024, revised 2025, <a
+href="https://arxiv.org/abs/2412.03815">arXiv:2412.03815</a>.</p></li>
 </ol>
 </section>
   </div>

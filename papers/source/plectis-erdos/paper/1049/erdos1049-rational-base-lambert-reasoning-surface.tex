@@ -27,70 +27,39 @@
 \noteprovenance
 
 \begin{abstract}
-\noindent
-Erd\H{o}s Problem~\#1049 asks whether
-\(F(t)=\sum_{n\ge1}(t^n-1)^{-1}\) is irrational for every rational \(t>1\).
-We prove that \(F(a/b)\) is irrational for every pair of coprime integers
+We prove that \(F(a/b)=\sum_{n\ge1}((a/b)^n-1)^{-1}\) is irrational for every pair of coprime integers
 \(a>b\ge1\) with \(b^{\mu}<a\), where \(\mu=C_1/C_0=2.464978683574975\ldots\),
 equivalently \(\log b/\log a<\theta^{*}=1/\mu=0.40568302138406054\ldots\), and
 where \(C_1=1091/2\) and \(C_0=266-(3/\pi^{2})(225-J)\) are the constants
 printed by Zudilin in 2004 for his \((14,12,14;27)\) direction, whose ratio is
-the integer-base irrationality-exponent bound proved there.  The first base this settles beyond the
-published region of Bundschuh and V\"a\"an\"anen is \(31/4\), together with
-every power \((31/4)^{r}\), \(r\ge1\).
+the integer-base irrationality-exponent bound proved there. This region
+contains \(31/4\) and every power \((31/4)^r\), \(r\ge1\), beyond the
+published sufficient region of Bundschuh and V\"a\"an\"anen.
 
-The region theorem is an ordinary proof.  It cites the polynomial conclusion of
-Zudilin's Lemma~7 together with the inputs of that lemma's own proof, and every
-remaining step is proved here: the exact degrees, the cyclotomic limit,
-positivity, the homogenisation and the denominator balance.  The finite
-arithmetic is checked by the Lean kernel: the rational bracket
-\(81/200<\theta^{*}<1/2\) around the derived constant, the integer identities of
-the degree computation, and the comparisons that place \(31/4\) inside the
-region and outside the earlier one.
+The proof cancels cyclotomic factors before clearing the rational-base
+denominator. The degree of the cancelled polynomial pair measures the cost,
+and positivity prevents the remainder from vanishing. This is an ordinary
+proof using the polynomial conclusion of Zudilin's Lemma~7; Lean checks
+supporting finite arithmetic, not the irrationality theorem.
 
-A degree-budget theorem bounds the reach of the same mechanism.  For a family
-of integer polynomial pairs with decay exponent \(\sigma\), degree exponent
-\(\delta\) and coefficient-height exponent \(h\), all three independent of the
-base, one has \(\sigma\le\delta\), so the homogenised forms are proved to decay
-only below \(\sigma/(\sigma+\delta)\le1/2\).  The base \(3/2\) sits at
-\(\log2/\log3=0.6309297535714574\ldots\), which is \(0.2252467\ldots\) above
-\(\theta^{*}\).
+A separate degree-budget theorem bounds the sufficient cutoff delivered by
+the stated base-uniform estimates by \(1/2\). It does not exclude every
+approximation family at \(3/2\).
 
 We also determine the \(q\)-order of Zudilin's normalised Hankel determinant
 exactly: \(\operatorname{ord}_qV_N^{*}=N(N-1)(2N-1)/6\) at every rank, with
 leading coefficient \((N!)^{2}(N+1)!/2^{N}\), where the source proves the
-inequality alone.  The initial monomial of every transformed row is identified
-here by a filtered reciprocal-state argument.  That all-rank identification,
-including the first transformed-row initial monomial and the closed-form
-assembly, is ordinary mathematics, not a kernel-checked theorem of this
-library.  The all-depth associated-graded recurrence is kernel-checked.  The
-Lean formalisation of the row identity stops at the second row, so the Lean
-identification of the determinant itself retains a row hypothesis.
+inequality alone. After a row transformation, one determinant term has
+uniquely least order, so its coefficient cannot cancel. This complete identification
+is ordinary mathematics; the corresponding Lean assembly retains a row
+hypothesis. The record also gives a separate positive-measure proof of
+fixed-real-base size estimates.
 
-At \(3/2\) we prove exact obstructions to several approximation methods and a
-conditional reduction of the number of rows needed to cancel endpoint residues.
-The integer bracket \(2^{64}<3^{41}<2^{65}\) gives a uniform gap greater than
-\(3/13\) between \(\log2/\log3\) and every threshold in the rectangular
-Hermite--Pad\'e exponent model studied here.  The scalar factor and its
-universally forced first-order border also fall short of the required
-\(39/41\) charge.  These comparisons exclude the stated height mechanisms.
-
-For the additive alternative, the same bracket gives a four-jet collision
-among binary selectors whenever \(M\ge130T+2S\) polynomial pairs are used at
-bottom depth \(41T\) and top depth \(S\).  The counting threshold is exact
-at \(T=1\).  If the rows modulo \(2^S3^R\) are unimodular and their adjacent
-determinants vanish, a B\'ezout shear reduces all selector sums to one residue
-coordinate; \(S+2R\) rows then suffice for \(R>0\).  Neither coordinate need
-be invertible.  A separate bounded-fibre theorem states the additional
-multiplicity estimate that would force a collision with distinct analytic
-remainders.
-
-Integer scalar content cannot improve the ratio of a determinant's local
-divisor to its absolute height, while coordinatewise clearing at \(3/2\)
-fails an exact exponential growth bound.  The unresolved step at that base is
-an actual approximation family combining primitive coefficients, a nonzero
-remainder, and decay faster than height growth.  No irrationality theorem at
-\(3/2\) is proved.
+At \(3/2\), local residue collisions yield divisible row combinations. To
+prove irrationality one still needs combinations whose divided integral
+linear forms are nonzero and tend to zero as real numbers. The record
+preserves the source-specific obstructions and quantitative criterion for
+that missing step. The universal rational-base assertion remains open.
 \end{abstract}
 
 \begin{paperresult}{What the paper proves}
@@ -147,6 +116,16 @@ settles a family of rational bases restricted by a
 height condition; that family contains $7/2$ and does not contain $3/2$.
 Between the two lies the question this note is about: what exactly stops the
 integer-base argument from running at $3/2$?
+
+\paragraph{Structure.}
+The rational-base theorem and its cyclotomic degree calculation are
+Theorem~\ref{long1049:res:region}; the first newly covered base is isolated in
+Theorem~\ref{long1049:res:31over4}.  The independent determinant argument is
+Theorem~\ref{long1049:res:zudilin-sharp-qorder}, whose proof identifies the
+unique least-order term at every rank.  The result-family catalogue at the end
+lists the older families admitted to the public review registry.  It is not an
+exhaustive index of the theorems proved in this record, so these three labels
+are the direct route to its two principal arguments.
 
 \paragraph{Relation to prior work.}
 The \emph{Formal Conjectures} file for Problem~\#1049 contains the conjecture
@@ -937,9 +916,17 @@ $\sigma,\delta>0$ and $h\ge0$ independent of $n$ and of the base,
 \begin{enumerate}
 \item $\Lambda_n(x):=U_n(x)F(x)-V_n(x)\ne0$ for every real $x>1$;
 \item $\deg U_n,\deg V_n\le\delta n^{2}(1+o(1))$;
-\item $\log\max\bigl(H(U_n),H(V_n)\bigr)\le hn^{2}(1+o(1))$, where $H(P)$ is the
+\item the coefficient heights satisfy
+\[
+ \log\max\bigl(H(U_n),H(V_n)\bigr)\le hn^{2}(1+o(1)),
+\]
+where $H(P)$ is the
 largest absolute value of a coefficient of $P$;
-\item $\log|\Lambda_n(x)|=-\sigma n^{2}\log x\,(1+o(1))$ for every real $x>1$.
+\item the remainders satisfy
+\[
+ \log|\Lambda_n(x)|=-\sigma n^{2}\log x\,(1+o(1))
+\]
+for every real $x>1$.
 \end{enumerate}
 Put $d_n:=\max(\deg U_n,\deg V_n)$.  Then $\sigma\le\delta$, and for every fixed
 rational base $a/b>1$,
@@ -957,12 +944,25 @@ homogenised forms at $3/2$.
 \end{theorem}
 
 \begin{proof}
+The only point not immediate from homogenisation is the cap
+$\sigma\le\delta$.  We apply the forms at arbitrarily large integer bases
+$p$: the upper bounds for their values and the two-sided remainder asymptotic
+give an upper bound for the irrationality exponent of $F(p)$, while
+Dirichlet's theorem gives the lower bound $2$.  Letting $p$ grow removes the
+base-independent height term and forces the cap.
+
 The displayed inequality is the identity
-$n^{-2}\log|b^{d_n}\Lambda_n(a/b)|=(d_n/n^{2})\log b-\sigma\log(a/b)+o(1)$
+\[
+ \begin{aligned}
+ n^{-2}\log|b^{d_n}\Lambda_n(a/b)|
+ &= (d_n/n^{2})\log b\\
+ &\quad{}-\sigma\log(a/b)+o(1)
+ \end{aligned}
+\]
 together with hypothesis~(2); the degree bound is what makes
 $b^{d_n}U_n(a/b)$ and $b^{d_n}V_n(a/b)$ integers.
 
-For $\sigma\le\delta$, fix an integer $p\ge2$, write $\xi=F(p)$,
+To prove $\sigma\le\delta$, fix an integer $p\ge2$, write $\xi=F(p)$,
 $\alpha=h+\delta\log p$ and $\beta=\sigma\log p$, and set
 $\varepsilon_n=\Lambda_n(p)$.  Hypotheses~(2) and~(3) give the upper bound
 $|U_n(p)|\le e^{(\alpha+o(1))n^{2}}$, an inequality and not an equality: a
@@ -980,7 +980,10 @@ $n^{2}\le(1+o(1))\log Q/\beta$, hence
  |\varepsilon_n|\ge Q^{-1-o(1)},\qquad |U_n(p)|\le Q^{\alpha/\beta+o(1)} .
 \]
 If $U_n(p)P-V_n(p)Q\ne0$, then from
-$U_n(p)P-V_n(p)Q=Q\varepsilon_n-U_n(p)(Q\xi-P)$ and $|Q\varepsilon_n|<1/2$ one
+\[
+ U_n(p)P-V_n(p)Q=Q\varepsilon_n-U_n(p)(Q\xi-P)
+\]
+and $|Q\varepsilon_n|<1/2$ one
 gets $|U_n(p)|\,|Q\xi-P|>1/2$, so
 $|\xi-P/Q|>1/\bigl(2Q|U_n(p)|\bigr)$.  If instead $P/Q=V_n(p)/U_n(p)$, then
 $|\xi-P/Q|=|\varepsilon_n|/|U_n(p)|$.  In both cases
@@ -1104,26 +1107,38 @@ its width $s^{\mu_{\mathrm{BV}}}-s^{\mu}$ eventually exceeds $s$, so for every
 large enough denominator it contains an integer congruent to $1$ modulo $s$.
 Hence $31/4$ is the new base of least denominator and least numerator.
 
-\paragraph{The direction is optimal in its box.}
+\paragraph{The bounded direction search.}
 Over the $37{,}533$ primitive directions on Zudilin's cone with all entries at
 most $30$, the quantity $\theta^{*}(\mathrm{dir})=C_0/C_1$ computed from his
-(25) and (26) is maximised by $(14,12,14;27)$ and its group image
+(25) and (26) has largest recorded value at $(14,12,14;27)$ and its group image
 $(15,12,13;26)$, both at $0.4056830213840605\ldots$; the next value is
 $0.4056394327738419\ldots$, at $(16,13,14;28)$.  Larger boxes were not scanned,
-so this is a search result over that box and not a proof of optimality over the
-whole cone.  The enumeration ranges over integer tuples
+and the floating-point comparisons were not interval-certified, so this is
+numerical evidence over that box rather than an exact optimality theorem.
+The enumeration ranges over integer tuples
 $(\alpha_0,\alpha_1,\alpha_2;\beta)$ with $1\le\alpha_j\le30$,
 $1\le\beta\le30$, satisfying the cone conditions of \cite[Sec.~5]{zudilin2004}
 and taken up to the common factor of the four entries; the objective is the
-ratio $C_0/C_1$ of the source's (25) and (26), evaluated by the same
-thirteen-interval trigamma sum.  The two maximising tuples are exchanged by the
-source's permutation group, so they are one direction.
+ratio $C_0/C_1$ of the source's (25) and (26), evaluated from the exact rational
+breakpoints of the step-function weight and trigamma values at thirty decimal
+digits.  The two leading tuples are exchanged by the source's permutation
+group, so they are one direction.
 
 \subsection{Finite receipts}\label{long1049:sec:receipts}
 
-Four finite computations support statements above.  Each is exact rational or
-integer arithmetic except where a numerical enclosure is named; none of them
+Four finite computations support statements above.  The reconstruction and
+degree calculations use exact rational or integer arithmetic; the constant
+evaluation and direction scan use the numerical precision stated below.  None
 proves a statement quantified over all indices, and none is kernel-checked.
+
+The \href{https://github.com/wcook04/plectis-erdos/blob/39a0a2078c8f9fbe7fc24f912654815cc24685df/research/experiments/erdos1049/README.md}{public reproduction guide} gives the command and dependency pin for
+\href{https://github.com/wcook04/plectis-erdos/blob/39a0a2078c8f9fbe7fc24f912654815cc24685df/research/experiments/erdos1049/direction_search.py}{the direction-search program}.
+Run it with \texttt{--bound 30} and the output path named there; adding
+\texttt{--check} compares the result without replacing the
+\href{https://github.com/wcook04/plectis-erdos/blob/39a0a2078c8f9fbe7fc24f912654815cc24685df/research/experiments/erdos1049/receipts/direction-search-bound30.json}{tracked receipt}.
+The receipt records mpmath~1.3.0 at thirty decimal digits.  Its exact enumeration
+count is $37{,}533$, but its ordering by $C_0/C_1$ is numerical and has no
+interval certificate.
 
 The forms of Section~\ref{long1049:sec:source-forms} were reconstructed as explicit
 elements of $\Z[X]$ from cyclotomic products, without rational-function

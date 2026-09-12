@@ -8,6 +8,22 @@
     "warnings": {
       "erdos249-totient-reasoning-surface": {
         "mathml": [
+          "[WARNING] Could not convert TeX math \\adjustbox{max width=\\linewidth}{$\\displaystyle",
+          "\\begin{aligned}",
+          "\\mathrm{Re}\\,\\mathrm{pivotCenteredCorrelation}(h,X,L,s,\\eta)",
+          "&\\le \\tfrac{14}{25}X,\\\\",
+          "\\lVert\\mathrm{pivotFiberMeanContribution}(h,X,L,s,\\eta)\\rVert",
+          "&\\le \\tfrac{1}{100}X,\\\\",
+          "\\lVert\\mathrm{pivotBadContribution}(h,X,L,s,\\eta)\\rVert",
+          "&\\le \\tfrac{1}{100}X,\\\\",
+          "\\lVert\\mathrm{pivotNonSupplierContribution}(h,X,L,s)\\rVert",
+          "&\\le \\tfrac{8}{25}X .",
+          "\\end{aligned}",
+          "$}, rendering as TeX:",
+          "\\adjustbox{max width=\\linewidth}{$\\displ",
+          "^",
+          "unexpected control sequence \\adjustbox",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
           "[WARNING] Could not convert TeX math \\text{bounding the dyadic-section rank of \\mathit{every} rationality-supplied tempered carry}, rendering as TeX:",
           "c-section rank of \\mathit{every} rationa",
           "^",
@@ -105,6 +121,11 @@
       },
       "erdos257-mersenne-reasoning-surface": {
         "mathml": [
+          "[WARNING] Could not convert TeX math \\sum_{r\\ge1}b^{-r}{\\bf1}_{d\\mid Qm+r}, rendering as TeX:",
+          "m_{r\\ge1}b^{-r}{\\bf1}_{d\\mid Qm+r}",
+          "^",
+          "unexpected control sequence \\bf",
+          "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
           "[WARNING] Could not convert TeX math \\leanlink{HalfCylinderMiddleCarryLowerBound.lean:4790}, rendering as TeX:",
           "\\leanlink{HalfCylinderMiddleCarryLowerBo",
           "^",

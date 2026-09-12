@@ -36,12 +36,12 @@ class="math display" data-term-auto="off">\[|f(t\zeta)|\le |b|(1-t^m)+|\zeta|^n(
 &lt;1-t^n\le1.\]</span></div>
 <p>At <span class="math inline" data-term-auto="off">\(t=1\)</span> the
 value is zero. Concatenating the two segments gives length <span
-class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span>. The displayed
-statement is ordinary mathematics in this note.
-<code>PaperTrinomial.lean</code> is not in this checkout. Lean checks
-Newton-flow decay, ray/translation geometry and root retention in
-<code>NewtonFlowRaySeparation.lean</code>, and solved-family kernels
-rather than this all-degree trinomial assembly. ◻</p>
+class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span>. Lean checks <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L330">the
+trinomial radial inequalities and radius budget</a>, including the
+constant-term bound from the root-disc hypothesis. The conversion of
+those two segment inequalities and their radius-sum bound into the
+single rectifiable path stated here is an ordinary geometric step. ◻</p>
 </div>
 <section id="a-finite-convex-certificate." class="level5">
 <h5>A finite convex certificate.</h5>
@@ -79,9 +79,10 @@ six roots have modulus <span class="math inline" data-term-auto="off">\(r\)</spa
 class="math inline" data-term-auto="off">\(r\)</span> with <span
 class="math inline" data-term-auto="off">\(320/327&lt;r^6&lt;1\)</span> proves the assertion.
 Only this prescribed spoke is excluded; other connectors remain
-available. The statement with the radius supplied is ordinary
-mathematics; <code>PaperTrinomial.lean</code> is not in this
-checkout.</p>
+available. The corresponding radial evaluation is checked in <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L555">the
+sextic guardrail</a>. The factorisation above explains the root
+locations.</p>
 </section>
 </section>
 <section id="sec:problem" class="level2">
@@ -99,7 +100,11 @@ class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span>?</em></p>
 so the geometric question concerns squarefree polynomials. The original
 question is Problem 5 of Erdős–Herzog–Piranian <span class="citation"
 data-cites="ehp1958"><a href="#ref-2">[2]</a></span>. Pendyala <span class="citation"
-data-cites="june2026"><a href="#ref-4">[4]</a></span> proves the complete degree-four case.</p>
+data-cites="june2026"><a href="#ref-4">[4]</a></span> proves the complete degree-four case. A
+separate degree-seven counterexample has been announced on the <a
+href="https://www.erdosproblems.com/1041">problem’s discussion page</a>.
+That external claim is not assessed in this note; the results below
+concern the stated polynomial families and sufficient conditions.</p>
 <p>Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">4</a>
 treats arbitrary geometry when <span
 class="math inline" data-term-auto="off">\(\mu\le13/25\)</span>, without a root-location
@@ -188,12 +193,16 @@ class="math inline" data-term-auto="off">\(d_*&gt;0\)</span> and</p>
 class="math display" data-term-auto="off">\[d_j\ge d_*,\qquad
 \sum_j\ell(d_j)\ge x:=\log(t/\mu),\qquad
 \ell(d)=-\log\tanh(d/2).\]</span></div>
-<p>The open balls of radius <span
+<p>The difficulty is to use the pairwise
+separation without discarding the radial positions of the points.
+Projecting all the balls onto the circle of directions loses this
+information: balls at different radii can have overlapping projections.
+Instead, the open balls of radius <span
 class="math inline" data-term-auto="off">\(D/2\)</span> around the <span
-class="math inline" data-term-auto="off">\(b_j\)</span> are disjoint. Their intersections
-with any fixed hyperbolic circle of radius <span
-class="math inline" data-term-auto="off">\(r\)</span> are therefore disjoint arcs. The
-hyperbolic cosine law gives their angular half-widths</p>
+class="math inline" data-term-auto="off">\(b_j\)</span> are intersected with the same
+hyperbolic circle of radius <span class="math inline" data-term-auto="off">\(r\)</span>.
+Their intersections are disjoint, possibly empty, arcs. The hyperbolic
+cosine law gives their angular half-widths</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[w(d,r)=\arccos\!\left[\frac{\cosh d\cosh
 r-\cosh(D/2)}
@@ -216,10 +225,11 @@ inequality is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperFiniteDual.lean#L68">the
 finite dual arity floor, with the packing bound and the boundedness of
 the dual values as premises</a>; the hyperbolic supplier of those
-premises is ordinary. Angular projection alone loses the disjointness
-used here: balls at different radii may have overlapping shadows. Common
-circle slices retain it. The resulting lower bound for <span
-class="math inline" data-term-auto="off">\(k\)</span> feeds the length–area comparison until
+premises is ordinary. The nonnegative weights combine valid bounds from
+several radii; the summation is elementary once the uniform majorant has
+been proved. Establishing that majorant and the geometric separation
+estimates is the substantive input. The resulting lower bound for <span
+class="math inline" data-term-auto="off">\(k\)</span> enters the length–area comparison until
 a short boundary connection is forced. The complete comparison proof and
 rational certificate are in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AngularBudgetLowCriticalClosure.md">the
@@ -268,10 +278,13 @@ class="math inline" data-term-auto="off">\(r=3/20\)</span> makes the bracket les
 class="math inline" data-term-auto="off">\(71/10\)</span>; degree two has the exact
 root-segment bound <span class="math inline" data-term-auto="off">\(2\rho\)</span>.</p>
 <div class="proof">
-<p><em>Proof.</em> Write <span class="math inline" data-term-auto="off">\(K_t=\{|f|\le
-t\}\)</span>, <span class="math inline" data-term-auto="off">\(C_T\)</span> for the component
-of <span class="math inline" data-term-auto="off">\(K_T\)</span> containing a minimising
-critical point, and <span
+<p><em>Proof.</em> A repeated zero gives a constant path of length zero,
+so assume <span class="math inline" data-term-auto="off">\(f\)</span> is squarefree; then
+<span class="math inline" data-term-auto="off">\(\mu&gt;0\)</span>. Write <span
+class="math inline" data-term-auto="off">\(K_t=\{|f|\le t\}\)</span>, <span
+class="math inline" data-term-auto="off">\(C_T\)</span> for the component of <span
+class="math inline" data-term-auto="off">\(K_T\)</span> containing a minimising critical
+point, and <span
 class="math inline" data-term-auto="off">\(A(\sigma)=\operatorname{Area}(K_\sigma\cap
 C_T)\)</span>. Degree two is the root segment of length <span
 class="math inline" data-term-auto="off">\(2\rho\)</span> inside <span
@@ -344,10 +357,13 @@ argument.</p>
 </section>
 <section id="sec:critical-proximity" class="level2">
 <h2>Critical proximity and straight-path obstructions</h2>
-<p>The strongest source-current theorem that applies in every degree is
-a sharp metric selection principle at a critical point. It consumes the
-complete logarithmic-derivative balance rather than a degree-specific
-coefficient pattern.</p>
+<p>A critical point gives a different way to select two nearby roots,
+without assuming a sparse coefficient pattern. The
+logarithmic-derivative balance prevents one root from being arbitrarily
+closer to the critical point than all the others. This yields a bound on
+the sum of two distances. To turn that bound into a path theorem, both
+connecting segments would also have to stay inside the lemniscate; the
+examples below show why that extra step cannot be assumed.</p>
 <div class="theorem" id="res:critical-proximity">
 <p><strong>Theorem 7</strong> (critical geometric-mean proximity). <em>
 Let <span class="math inline" data-term-auto="off">\(n\ge2\)</span>, let <span
@@ -369,17 +385,42 @@ distinct indices <span class="math inline" data-term-auto="off">\(i,j\)</span> s
 class="math inline" data-term-auto="off">\(d_i\le d_j\)</span>. The reciprocal balance gives
 <span class="math inline" data-term-auto="off">\(d_j\le(n-1)d_i\)</span>, while minimality
 and the geometric-mean identity give <span class="math inline" data-term-auto="off">\(d_i
-d_j^{\,n-1}\le r^n\)</span>. After normalising by <span
-class="math inline" data-term-auto="off">\(r\)</span>, a sharp two-variable Bernoulli
-inequality yields <span class="math inline" data-term-auto="off">\(d_i+d_j\le2r\)</span>. The
-complete complex theorem, including the selector and both inequalities,
-is checked as <a
+d_j^{\,n-1}\le r^n\)</span>. The role of the balance is visible on
+setting <span class="math inline" data-term-auto="off">\(t=d_j/d_i\)</span>: it restricts
+<span class="math inline" data-term-auto="off">\(t\)</span> to <span
+class="math inline" data-term-auto="off">\([1,n-1]\)</span>, where</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[1+t\le2t^{(n-1)/n}.\]</span></div>
+<p>Indeed, <span
+class="math inline" data-term-auto="off">\(\log(2t^{(n-1)/n}/(1+t))\)</span> vanishes at
+<span class="math inline" data-term-auto="off">\(t=1\)</span> and has derivative <span
+class="math inline" data-term-auto="off">\((n-1-t)/(nt(1+t))\ge0\)</span> on that interval.
+Consequently <span class="math inline" data-term-auto="off">\(d_i+d_j\le2(d_i
+d_j^{\,n-1})^{1/n}\le2r\)</span>. Without the reciprocal balance, the
+required restriction on <span class="math inline" data-term-auto="off">\(t\)</span> would be
+missing. The complete complex theorem, including the selector and both
+inequalities, is checked as <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L289">the
 critical geometric-mean proximity</a>.</p>
+<div class="corollary">
+<p><strong>Corollary 8</strong> (two nearest roots). <em>If the roots
+lie in the open unit disc and <span class="math inline" data-term-auto="off">\(c\)</span> is
+a non-root critical point, the two nearest roots to <span
+class="math inline" data-term-auto="off">\(c\)</span> have total distance strictly below
+<span class="math inline" data-term-auto="off">\(2\)</span>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Apply the closed-disc two-nearest-root inequality
+after scaling by any radius <span class="math inline" data-term-auto="off">\(R&lt;1\)</span>
+containing all the roots. The ordinary reduction is recorded in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/a729f05c40398663fd586c9da487ad874d898639/research_corpus/Erdos1041/GlobalCriticalTwoNearestBudget.md">global
+two-nearest-root budget</a>; Lean checks its algebraic core as
+<em>two add le two of disk inverse balance</em>. ◻</p>
+</div>
 <p>This is not silently promoted to a path theorem. The same source
 module checks two exact barriers to the most tempting completions.</p>
 <div class="proposition" id="res:straight-no-go">
-<p><strong>Proposition 8</strong> (two straight-path no-go families).
+<p><strong>Proposition 9</strong> (two straight-path no-go families).
 <em> There is a monic quintic with all roots in the open unit disc and a
 non-root critical point <span class="math inline" data-term-auto="off">\(c\)</span> whose
 unique nearest root has a point on the straight spoke to <span
@@ -406,14 +447,15 @@ geometry.</p>
 </section>
 <section id="sec:solved-families" class="level2">
 <h2>Solved polynomial families</h2>
-<p>Three source-current families do cross that containment gap. Their
-complete paper theorems are ordinary mathematics assembled from
-formalised load-bearing kernels; this section keeps that authority split
-explicit.</p>
+<p>The following families cross that containment gap by controlling
+entire spokes or segments. The translated cubic fibre theorem has a
+complete rectifiable-path formalisation. For the other two families, the
+displayed proofs identify the checked kernels and the ordinary geometric
+steps.</p>
 <section id="translated-cubic-quotient-fibres" class="level3">
 <h3>Translated cubic quotient fibres</h3>
 <div class="theorem" id="res:cubic-fibres">
-<p><strong>Theorem 9</strong> (translated cubic quotient fibres). <em>
+<p><strong>Theorem 10</strong> (translated cubic quotient fibres). <em>
 Let <span class="math inline" data-term-auto="off">\(q\ge2\)</span>, <span
 class="math inline" data-term-auto="off">\(h\in\mathbb C\)</span>, and let <span
 class="math inline" data-term-auto="off">\(P\)</span> be a monic cubic. Put </em></p>
@@ -441,13 +483,20 @@ class="math inline" data-term-auto="off">\(q\)</span> safe spokes from <span
 class="math inline" data-term-auto="off">\(h\)</span>; two different fibre points are joined
 through <span class="math inline" data-term-auto="off">\(h\)</span> with length <span
 class="math inline" data-term-auto="off">\(2|y|&lt;2\)</span>. The finite root-of-unity
-mean-square argument and fibre assembly are ordinary, not hidden Lean
-claims.</p>
+mean-square argument and fibre assembly are also formalised in <a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos1041/PaperCubicFibres.lean#L240">the
+complete translated cubic fibre theorem</a>. Its conclusion constructs
+the explicit continuous rectifiable two-segment path with strict
+containment and variation below <span class="math inline" data-term-auto="off">\(2\)</span>.
+The exact source files occur in the successful compiled dependency
+closure of <a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/verification/erdos1041-returned-r18-v5-full-audit-evidence.json">the
+source-bound Lean build and axiom-audit record</a>.</p>
 </section>
 <section id="primitive-sparse-quintics" class="level3">
 <h3>Primitive sparse quintics</h3>
 <div class="theorem" id="res:primitive-quintic">
-<p><strong>Theorem 10</strong> (primitive sparse quintics). <em> Let
+<p><strong>Theorem 11</strong> (primitive sparse quintics). <em> Let
 </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[p(z)=z^5+az^4+bz+c\]</span></div>
 <p class="display-continue"><em> be monic with
@@ -501,65 +550,50 @@ above an exact cutoff, and where it holds it gives the target
 constant <span class="math inline" data-term-auto="off">\(2\)</span> rather than a constant
 multiple of it.</p>
 <div class="theorem" id="res:critical-value-separation">
-<p><strong>Theorem 11</strong> (critical-value separation). <em> Let
-<span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
-class="math inline" data-term-auto="off">\(n\)</span>, let <span
-class="math inline" data-term-auto="off">\(c\)</span> be a simple critical point with <span
-class="math inline" data-term-auto="off">\(v=f(c)\ne0\)</span>, and let <span
-class="math inline" data-term-auto="off">\(S&gt;1\)</span>. Suppose every other critical
-point <span class="math inline" data-term-auto="off">\(d\)</span> of <span
-class="math inline" data-term-auto="off">\(f\)</span> satisfies </em></p>
+<p><strong>Theorem 12</strong> (disk-family critical-value separation).
+<em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
+class="math inline" data-term-auto="off">\(n\ge3\)</span>, let <span
+class="math inline" data-term-auto="off">\(c\)</span> be a simple critical point, and put
+<span class="math inline" data-term-auto="off">\(v=f(c)\ne0\)</span>. Fix <span
+class="math inline" data-term-auto="off">\(w_0\in[0,1]\)</span> and <span
+class="math inline" data-term-auto="off">\(S&gt;\max(w_0,1-w_0)\)</span>. Suppose every other
+critical point <span class="math inline" data-term-auto="off">\(d\)</span> satisfies </em></p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\Bigl|1-\frac{f(d)}{v}\Bigr|\ge S .\]</span></div>
-<p><em> Then
-the square-root-resolved inverse branch through <span
-class="math inline" data-term-auto="off">\(c\)</span> joins two roots of <span
-class="math inline" data-term-auto="off">\(f\)</span> inside <span
-class="math inline" data-term-auto="off">\(\{|f|\le|v|\}\)</span> by a path of length at most
-</em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[2\,|v|^{1/n}(1+S)^{1/n}\sqrt{\log\frac{S}{S-1}}
-.\]</span></div>
-<p><em> In particular the connector is shorter than <span
-class="math inline" data-term-auto="off">\(2|v|^{1/n}\)</span> whenever </em></p>
-<div class="math-display" id="eq:separation-threshold" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\left|\frac{f(d)}v-w_0\right|\ge S .\]</span></div>
+<p><em> Put
+<span class="math inline" data-term-auto="off">\(p=w_0(1-w_0)\)</span>. Then two distinct
+roots are joined inside <span
+class="math inline" data-term-auto="off">\(\{|f|\le|v|\}\)</span> by a curve <span
+class="math inline" data-term-auto="off">\(\Gamma\)</span> satisfying </em></p>
+<div class="math-display" id="eq:disk-family-length" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
-\label{eq:separation-threshold}
-  (1+S)^{2/n}\log\frac{S}{S-1}&lt;1 .
+\label{eq:disk-family-length}
+\operatorname{length}(\Gamma)^2
+\le 2|v|^{2/n}\Bigl(\frac{S}{n-1}\Bigr)^{2/n}
+\log\!\frac{S^2+S+p}{S^2-S+p}.
 \end{equation}\]</span></div>
 </div>
 <div class="corollary" id="res:critical-value-thresholds">
-<p><strong>Corollary 12</strong> (disk-family uniform radius). <em> A
-strictly stronger disk-family theorem, proved in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.md">disk
-family critical value separation</a>, replaces the coefficientwise
-logarithm <span class="math inline" data-term-auto="off">\(\log(S/(S-1))\)</span> by the
-Bergman segment identity </em></p>
+<p><strong>Corollary 13</strong> (uniform radius <span
+class="math inline" data-term-auto="off">\(4/3\)</span>). <em> Let <span
+class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
+class="math inline" data-term-auto="off">\(n\ge3\)</span> with all roots in the open unit
+disc. If <span class="math inline" data-term-auto="off">\(c\)</span> is a simple critical
+point with <span class="math inline" data-term-auto="off">\(0&lt;|f(c)|&lt;1\)</span> and,
+for some <span class="math inline" data-term-auto="off">\(w_0\in[0,1]\)</span>, every other
+critical point <span class="math inline" data-term-auto="off">\(d\)</span> satisfies </em></p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\Bigl(\int_{-q}^{q}|h|\Bigr)^2
-\le\frac4\pi\operatorname{artanh}(q^2)\,\|h\|_{A^2}^2\]</span></div>
-<p class="display-continue"><em> and
-yields a uniform radius <span class="math inline" data-term-auto="off">\(S=4/3\)</span> in
-every degree <span class="math inline" data-term-auto="off">\(n\ge3\)</span>, at every real
-centre. The smallest degree-uniform radius certified by that coefficient
-at centre <span class="math inline" data-term-auto="off">\(a\in[0,1]\)</span> is <span
-class="math inline" data-term-auto="off">\(S_\infty(a)=(A+\sqrt{A^2-4a(1-a)})/2\)</span> with
-<span class="math inline" data-term-auto="off">\(A=\coth 1\)</span>; the endpoints recover
-<span class="math inline" data-term-auto="off">\(S_\infty(0)=S_\infty(1)=\coth1\)</span>
-already on file. An obstructing critical value may depend on the
-proposed centre. The older coefficientwise regimes <span
-class="math inline" data-term-auto="off">\(S=4\)</span> (<span
-class="math inline" data-term-auto="off">\(n\ge3\)</span>), <span
-class="math inline" data-term-auto="off">\(S=3\)</span> (<span
-class="math inline" data-term-auto="off">\(n\ge4\)</span>), and <span
-class="math inline" data-term-auto="off">\(S=2\)</span> (<span
-class="math inline" data-term-auto="off">\(n\ge6\)</span>) remain valid and are superseded. A
-proposed all-degree cutoff <span class="math inline" data-term-auto="off">\(S=3/2\)</span>
-for the older bound is strictly weaker than <span
-class="math inline" data-term-auto="off">\(4/3\)</span> and is not used.</em></p>
+class="math display" data-term-auto="off">\[\left|\frac{f(d)}{f(c)}-w_0\right|\ge\frac43,\]</span></div>
+<p class="display-continue"><em>
+then two roots are joined inside <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> by a curve of length
+strictly below <span class="math inline" data-term-auto="off">\(2\)</span>. In degree three
+the branch-centred choice <span class="math inline" data-term-auto="off">\(w_0=1\)</span>
+already works with <span class="math inline" data-term-auto="off">\(4/3\)</span> replaced by
+<span class="math inline" data-term-auto="off">\(6/5\)</span>.</em></p>
 </div>
 <div class="corollary" id="res:separation-parent">
-<p><strong>Corollary 13</strong> (a parent-problem regime). <em> Let
+<p><strong>Corollary 14</strong> (a parent-problem regime). <em> Let
 <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
 class="math inline" data-term-auto="off">\(n\ge3\)</span> with all roots in the open unit
 disc, and let <span class="math inline" data-term-auto="off">\(c\)</span> be a simple
@@ -578,84 +612,121 @@ lemniscate only when <span class="math inline" data-term-auto="off">\(|v|&lt;1\)
 Fekete chain supplies <span class="math inline" data-term-auto="off">\(|v|&lt;1\)</span> at a
 minimum-modulus critical point, but an arbitrary selected critical value
 need not. The hypothesis is sufficient, not necessary: it does not
-assert that some critical value is always separated by two, and the
-cubic <span class="math inline" data-term-auto="off">\(z^3+(3/100)z-3/4\)</span> shows that
-no such covering statement is true.</p>
-<p>The proof of Theorem <a class="math-ref" href="#res:critical-value-separation">11</a> is
-the same area–capacity argument used in Section <a class="math-ref" href="#sec:constant-factor">3</a>, run at a
-single saddle instead of over a merge tree. Normalise so that <span
-class="math inline" data-term-auto="off">\(c=0\)</span>, <span
-class="math inline" data-term-auto="off">\(v=1\)</span>, and <span
-class="math inline" data-term-auto="off">\(|f&#39;&#39;(0)|\ne0\)</span>. The square
-substitution resolves the saddle, so <span
-class="math inline" data-term-auto="off">\(f(Z(\xi))=1-\xi^2\)</span> has two local
-holomorphic solutions interchanged by <span
-class="math inline" data-term-auto="off">\(\xi\mapsto-\xi\)</span>. A finite branch point of
-the algebraic continuation of <span class="math inline" data-term-auto="off">\(Z\)</span>
-requires <span class="math inline" data-term-auto="off">\(f&#39;(d)=0\)</span> and <span
-class="math inline" data-term-auto="off">\(\xi^2=1-f(d)\)</span>, and the separation
-hypothesis puts every such point on or outside <span
-class="math inline" data-term-auto="off">\(|\xi|=\sqrt S\)</span>; properness of a polynomial
-rules out escape to infinity over a bounded value set, so the monodromy
-theorem continues <span class="math inline" data-term-auto="off">\(Z\)</span> holomorphically
-through <span class="math inline" data-term-auto="off">\(|\xi|&lt;\sqrt S\)</span>. It is
-injective there, because <span
-class="math inline" data-term-auto="off">\(Z(\xi_1)=Z(\xi_2)\)</span> forces <span
-class="math inline" data-term-auto="off">\(\xi_1^2=\xi_2^2\)</span>, and the two inverse
-sheets can meet only at an excluded branch point. Writing <span
-class="math inline" data-term-auto="off">\(Z(\xi)=\sum_{k\ge1}a_k\xi^k\)</span> and fixing
-<span class="math inline" data-term-auto="off">\(1&lt;R&lt;\sqrt S\)</span>, injectivity and
-the area formula give</p>
+assert that some critical value always admits such a disk. The cubic
+<span class="math inline" data-term-auto="off">\(z^3+(3/100)z-3/4\)</span> shows in
+particular that the older separation-two condition does not cover all
+polynomials.</p>
+<div class="proof">
+<p><em>Proof of Theorem <a class="math-ref" href="#res:critical-value-separation">12</a>.</em>
+Set <span class="math inline" data-term-auto="off">\(\rho=|v|^{1/n}\)</span> and</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\pi\sum_{k\ge1}k|a_k|^2R^{2k}=\operatorname{Area}Z(D_R),\]</span></div>
-<p class="display-continue">while <span class="math inline" data-term-auto="off">\(f(Z(\xi))=1-\xi^2\)</span> confines
-the image to <span class="math inline" data-term-auto="off">\(\{|f|&lt;1+R^2\}\)</span>,
-whose area is bounded by <span
-class="math inline" data-term-auto="off">\(\pi(1+R^2)^{2/n}\)</span> for a monic <span
-class="math inline" data-term-auto="off">\(f\)</span>. That bound is the absolute area
-inequality <span
-class="math inline" data-term-auto="off">\(\operatorname{Area}\{|f|&lt;T\}\le\pi
-T^{2/n}\)</span> for a polynomial with unit-modulus leading coefficient,
-taken from Pólya <span class="citation" data-cites="polya1928"><a href="#ref-7">[7]</a></span>.
-No relative area inequality is used here; the disposition of Dubinin’s
+class="math display" data-term-auto="off">\[P(w)=\frac{f(c+\rho w)}v.\]</span></div>
+<p>Then <span
+class="math inline" data-term-auto="off">\(P(0)=1\)</span>, <span
+class="math inline" data-term-auto="off">\(P&#39;(0)=0\)</span>, <span
+class="math inline" data-term-auto="off">\(P&#39;&#39;(0)\ne0\)</span>, and its leading
+coefficient is <span class="math inline" data-term-auto="off">\(|v|/v\)</span>, of modulus
+one. This is the normalization used below; lengths scale back by <span
+class="math inline" data-term-auto="off">\(\rho\)</span>.</p>
+<p>Let <span class="math inline" data-term-auto="off">\(Q=D(w_0,S)\)</span> and let <span
+class="math inline" data-term-auto="off">\(U\)</span> be the component of <span
+class="math inline" data-term-auto="off">\(P^{-1}(Q)\)</span> containing <span
+class="math inline" data-term-auto="off">\(0\)</span>. The hypotheses put both <span
+class="math inline" data-term-auto="off">\(0,1\)</span> and the segment <span
+class="math inline" data-term-auto="off">\([0,1]\)</span> in <span
+class="math inline" data-term-auto="off">\(Q\)</span>, while <span
+class="math inline" data-term-auto="off">\(0\)</span> is the only critical point in <span
+class="math inline" data-term-auto="off">\(U\)</span>. The restriction <span
+class="math inline" data-term-auto="off">\(P:U\to Q\)</span> is proper. Riemann–Hurwitz, with
+one simple ramification point, makes it a degree-two map and makes <span
+class="math inline" data-term-auto="off">\(U\)</span> simply connected. Thus <span
+class="math inline" data-term-auto="off">\(1-P\)</span> has only its double zero at <span
+class="math inline" data-term-auto="off">\(0\)</span> on <span
+class="math inline" data-term-auto="off">\(U\)</span> and admits a single-valued square root
+<span class="math inline" data-term-auto="off">\(\xi^2=1-P\)</span>. This map is proper and
+locally injective onto</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\widetilde
+Q=\{\xi:|\xi^2-(1-w_0)|&lt;S\},\]</span></div>
+<p class="display-continue">the connected simply connected
+double cover of <span class="math inline" data-term-auto="off">\(Q\)</span>. It is therefore
+a conformal bijection. Its inverse <span
+class="math inline" data-term-auto="off">\(Z\)</span> is the global resolved branch, and
+<span class="math inline" data-term-auto="off">\(Z([-1,1])\)</span> joins the two distinct
+points over <span class="math inline" data-term-auto="off">\(P=0\)</span> inside <span
+class="math inline" data-term-auto="off">\(\{|P|\le1\}\)</span>. This component argument is
+what prevents the local inverse germ from changing sheets or escaping
+during continuation.</p>
+<p>Put <span class="math inline" data-term-auto="off">\(a=1-w_0\)</span>. The conformal map</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\zeta(\xi)=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}
+       :\widetilde Q\longrightarrow\mathbb D\]</span></div>
+<p class="display-continue">sends <span
+class="math inline" data-term-auto="off">\([-1,1]\)</span> to <span
+class="math inline" data-term-auto="off">\([-q,q]\)</span>, where <span
+class="math inline" data-term-auto="off">\(q^2=S/(S^2+p)\)</span>. Applying the Bergman
+segment inequality to <span
+class="math inline" data-term-auto="off">\(Z\circ\zeta^{-1}\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\operatorname{length}(Z([-1,1]))^2
+\le\frac2\pi\log\!\frac{S^2+S+p}{S^2-S+p}
+       \operatorname{Area}(U).                       \tag{*}\]</span></div>
+<p>The area estimate concerns this particular two-sheeted component. For
+<span class="math inline" data-term-auto="off">\(1-w_0&lt;S&#39;&lt;S\)</span>, let <span
+class="math inline" data-term-auto="off">\(U&#39;\)</span> be the component of <span
+class="math inline" data-term-auto="off">\(\{|P-w_0|&lt;S&#39;\}\)</span> containing <span
+class="math inline" data-term-auto="off">\(0\)</span>. It is a proper regular component
+containing exactly two zeros of <span
+class="math inline" data-term-auto="off">\(P-w_0\)</span>, counted with multiplicity. The
+exterior-fibre capacity gap gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{\operatorname{cap}(\overline{U&#39;})^n}{S&#39;}&lt;\frac1{n-1}.\]</span></div>
+<p>Pólya’s area–capacity inequality <span class="citation"
+data-cites="polya1928"><a href="#ref-8">[8]</a></span> then gives <span
+class="math inline" data-term-auto="off">\(\operatorname{Area}(U&#39;)&lt;\pi(S&#39;/(n-1))^{2/n}\)</span>.
+The components <span class="math inline" data-term-auto="off">\(U&#39;\)</span> exhaust <span
+class="math inline" data-term-auto="off">\(U\)</span> as <span
+class="math inline" data-term-auto="off">\(S&#39;\nearrow S\)</span>, so <span
+class="math inline" data-term-auto="off">\(\operatorname{Area}(U)\le\pi(S/(n-1))^{2/n}\)</span>.
+Substitute this in (*) and scale lengths by <span
+class="math inline" data-term-auto="off">\(\rho\)</span> to obtain <a class="math-ref" data-equation-ref="true" href="#eq:disk-family-length">eq:disk-family-length</a>. No
+relative area inequality is used here; the disposition of Dubinin’s
 Theorem 1 is recorded in the bibliography entry <span class="citation"
-data-cites="dubinin"><a href="#ref-6">[6]</a></span>. Cauchy–Schwarz then gives</p>
+data-cites="dubinin"><a href="#ref-7">[7]</a></span>. That theorem has a full covering
+hypothesis; neither that hypothesis nor its relative-area conclusion is
+used in this proof. ◻</p>
+</div>
+<p>For <span class="math inline" data-term-auto="off">\(4/3\le S\le2\)</span> and <span
+class="math inline" data-term-auto="off">\(p\ge0\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\sum_{k\ge1}|a_k|
-    \le(1+R^2)^{1/n}\Bigl(\sum_{k\ge1}\frac1{kR^{2k}}\Bigr)^{1/2}
-    =(1+R^2)^{1/n}\sqrt{\log\frac{R^2}{R^2-1}},\]</span></div>
-<p class="display-continue">and termwise
-integration of <span class="math inline" data-term-auto="off">\(|Z&#39;|\)</span> over <span
-class="math inline" data-term-auto="off">\([-1,1]\)</span> bounds the connector length by
-<span class="math inline" data-term-auto="off">\(2\sum_{k\ge1}|a_k|\)</span>. Letting <span
-class="math inline" data-term-auto="off">\(R\uparrow\sqrt S\)</span> proves the theorem.</p>
+class="math display" data-term-auto="off">\[\frac{S^2+S+p}{S^2-S+p}\le\frac{S+1}{S-1}\le7,
+\qquad \frac{S}{n-1}\le1,\]</span></div>
+<p class="display-continue">and <span
+class="math inline" data-term-auto="off">\(\log7&lt;2\)</span>. Thus <a class="math-ref" data-equation-ref="true" href="#eq:disk-family-length">eq:disk-family-length</a> is strictly
+below <span class="math inline" data-term-auto="off">\(4|v|^{2/n}&lt;4\)</span> under the
+corollary’s hypotheses. The cubic constant follows from <span
+class="math inline" data-term-auto="off">\((3/5)^{2/3}\log11&lt;2\)</span>.</p>
 <section id="bdry:critical-value-separation" class="level5">
 <h5>Boundary.</h5>
-<p>The analytic continuation, the univalence, the area formula, and the
-area–capacity inequality are ordinary mathematics; they are proved in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FirstMergeCriticalValueSeparationCertificate.md">first
-merge critical value separation certificate</a> and are not formalised.
-What Lean checks is the numerical half of the statement, in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FirstMergeCriticalValueSeparation.lean">first
-merge critical value separation</a>: the squared coefficient <span
-class="math inline" data-term-auto="off">\(\emph{first merge squared coefficient}\)</span> is
-antitone in the degree (<em>first merge squared
-coefficient antitone degree</em>), a squared connector length below
-<span class="math inline" data-term-auto="off">\(4\)</span> times a coefficient below <span
-class="math inline" data-term-auto="off">\(1\)</span> forces length below <span
-class="math inline" data-term-auto="off">\(2\)</span> (<em>first
-merge length lt two of squared bound</em>), and the older three
-coefficientwise regimes hold exactly (<em>first
-merge exact convenient thresholds</em>), while the live uniform radius
-<span class="math inline" data-term-auto="off">\(4/3\)</span> is checked in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.lean">disk
-family critical value separation</a>. The Comparator entry is <a
-href="https://github.com/wcook04/plectis-erdos/tree/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ExternalVerification1041FirstMergeCriticalValueSeparation">the
-first-merge critical-value separation Comparator</a>. Lean does not
-prove the analytic hypothesis <span
-class="math inline" data-term-auto="off">\(\ell^2\le4\,\mathrm{c}(n,S)\)</span> that those
-consumers take as input, and nothing in this section asserts the
-unrestricted problem or the complementary near-tie regime.</p>
+<p>The two-sheeted component, its square-root uniformisation, the
+Bergman segment inequality, the exterior-fibre capacity gap, Pólya’s
+inequality and the exhaustion are ordinary mathematics. Their complete
+immutable source is the <a
+href="https://github.com/wcook04/plectis-erdos/blob/8efbccc235df64a38d83f5dc7b1949e2ad18270d/research_corpus/Erdos1041/problem/DiskFamilyCriticalValueSeparation.md">disk-family
+critical-value separation record</a>. The separate <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36e325c8b05fe5c3ce8a2ca32a699f6dc6336b9/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.lean">Lean
+numerical kernel</a> checks the coefficient bound for <span
+class="math inline" data-term-auto="off">\(n\ge3\)</span>, <span class="math inline" data-term-auto="off">\(4/3\le
+S\le2\)</span>, the cubic <span class="math inline" data-term-auto="off">\(S=6/5\)</span>
+inequality, and the implication from the squared bound to length below
+<span class="math inline" data-term-auto="off">\(2\)</span>. It does not formalise the
+analytic hypotheses producing <a class="math-ref" data-equation-ref="true" href="#eq:disk-family-length">eq:disk-family-length</a>; the
+adjacent axiom-audit source audits those numerical declarations rather
+than the ordinary analytic theorem. Nothing in this section asserts a
+separated disk always exists, covers the near-tie or multiple-saddle
+strata, or proves the unrestricted problem. The argument uses Pólya’s
+absolute area–capacity inequality, not the relative covering inequality
+in Dubinin’s Theorem 1 <span class="citation"
+data-cites="dubinin"><a href="#ref-7">[7]</a></span>.</p>
 <p>Pendyala’s degree-four theorem <span class="citation"
 data-cites="june2026"><a href="#ref-4">[4]</a></span> has no critical-spectrum hypothesis. The
 present separation criterion applies in every degree <span
@@ -673,7 +744,7 @@ r2 exact cores</a>; the ordinary arguments are in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/ExactObstructionsR2.md">exact
 obstructions r2</a>.</p>
 <div class="proposition" id="res:sep-or-false">
-<p><strong>Proposition 14</strong> (no separation-or covering). <em> Let
+<p><strong>Proposition 15</strong> (no separation-or covering). <em> Let
 <span class="math inline" data-term-auto="off">\(f(z)=z^3+(3/100)z-3/4\)</span>. Every root
 lies in the open unit disc, both critical points are simple, the
 critical values lie on distinct positive rays, <span
@@ -687,7 +758,7 @@ than a supplied minimum, is ordinary in this note.
 the distinct quartic file <code>SeparationCounterexampleR13.lean</code>
 is not this cubic example.</p>
 <div class="proposition" id="res:one-root-gamma-false">
-<p><strong>Proposition 15</strong> (one-root gamma bound is false). <em>
+<p><strong>Proposition 16</strong> (one-root gamma bound is false). <em>
 Let <span class="math inline" data-term-auto="off">\(p(z)=z^8-(3/2)z\)</span> and let <span
 class="math inline" data-term-auto="off">\(C\)</span> be the component of <span
 class="math inline" data-term-auto="off">\(\{|p|\le1\}\)</span> containing the origin. Then
@@ -715,7 +786,7 @@ class="math inline" data-term-auto="off">\(z^N-z\)</span> at level <span
 class="math inline" data-term-auto="off">\(1\)</span> does not supply a one-root component.
 Neither general path theorem uses the rejected perimeter bound.</p>
 <div class="proposition" id="res:arity-not-capacity">
-<p><strong>Proposition 16</strong> (arity does not force a capacity
+<p><strong>Proposition 17</strong> (arity does not force a capacity
 gap). <em> Let <span
 class="math inline" data-term-auto="off">\(g(z)=z^3-(3/400)z-3/32\)</span>. All roots lie in
 the open unit disc, <span
@@ -731,45 +802,65 @@ normalised capacity <span class="math inline" data-term-auto="off">\(1\)</span>.
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[N(z)=-\frac{f(z)}{f&#39;(z)} .\]</span></div>
 <p>Let <span
-class="math inline" data-term-auto="off">\(z(t)\)</span> be differentiable with <span
-class="math inline" data-term-auto="off">\(z&#39;(t)=N(z(t))\)</span>, and put <span
+class="math inline" data-term-auto="off">\(I\subseteq\mathbb R\)</span> be an interval on
+which a differentiable curve <span class="math inline" data-term-auto="off">\(z\)</span>
+satisfies <span class="math inline" data-term-auto="off">\(f&#39;(z(t))\ne0\)</span> and
+<span class="math inline" data-term-auto="off">\(z&#39;(t)=N(z(t))\)</span>. Put <span
 class="math inline" data-term-auto="off">\(w(t)=f(z(t))\)</span>.</p>
 <div class="theorem" id="res:value">
-<p><strong>Theorem 17</strong> (value equation). <em> <span
-class="math inline" data-term-auto="off">\(w&#39;(t)=-w(t)\)</span>.</em></p>
-</div>
-<p>The computation is one line: <span
-class="math inline" data-term-auto="off">\(w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w\)</span>.
-The kernel checks it as <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">the
-Newton-flow value equation</a>, together with the differential form of
-the first integral, <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">vanishing
-of the exponentially scaled value</a>:</p>
+<p><strong>Theorem 18</strong> (value equation). <em> For a polynomial
+<span class="math inline" data-term-auto="off">\(f\)</span> and a differentiable curve <span
+class="math inline" data-term-auto="off">\(z:I\to\mathbb C\)</span> on an interval <span
+class="math inline" data-term-auto="off">\(I\)</span>, assume <span
+class="math inline" data-term-auto="off">\(f&#39;(z(t))\ne0\)</span> and <span
+class="math inline" data-term-auto="off">\(z&#39;(t)=-f(z(t))/f&#39;(z(t))\)</span>
+throughout <span class="math inline" data-term-auto="off">\(I\)</span>. Then <span
+class="math inline" data-term-auto="off">\(w=f\circ z\)</span> satisfies <span
+class="math inline" data-term-auto="off">\(w&#39;=-w\)</span>, and </em></p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
-  \qquad\text{equivalently}\qquad
-  f(z(t))=e^{-t}f(z(0)) .\]</span></div>
-<p>Observe what this says about the
-geometry. The value moves radially inward at exponential rate and never
-changes argument. The lemniscate <span
-class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> is therefore
-forward-invariant, and the flow lines are exactly the preimages of rays
-from the origin.</p>
-<div class="corollary" id="res:ray">
-<p><strong>Corollary 18</strong> (ray separation). <em> The values <span
-class="math inline" data-term-auto="off">\(f\)</span> at the endpoints of any finite
-Newton-flow connection lie on the same oriented ray from <span
-class="math inline" data-term-auto="off">\(0\)</span> in the value plane; the trajectory in
-<span class="math inline" data-term-auto="off">\(z\)</span> need not be radial. Consequently,
-if two critical values lie on distinct positive rays, no Newton-flow
-saddle connection joins the corresponding critical points.</em></p>
+class="math display" data-term-auto="off">\[f(z(t))=e^{-(t-t_0)}f(z(t_0))\qquad(t,t_0\in
+I).\]</span></div>
 </div>
-<p>This is checked in consumer form: the kernel accepts <a
+<p>The local computation is one line: <span
+class="math inline" data-term-auto="off">\(w&#39;=f&#39;(z)z&#39;=-f(z)=-w\)</span>.
+Multiplication by <span class="math inline" data-term-auto="off">\(e^t\)</span> and
+integration on <span class="math inline" data-term-auto="off">\(I\)</span> give the displayed
+identity. Lean checks the local complex-parameter chain rule as <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">the
+Newton-flow value equation</a> and its scaled zero-derivative form as <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">vanishing
+of the exponentially scaled value</a>. The integrated real-time
+assertion above is an ordinary consequence.</p>
+<p>For an existing trajectory with nonzero initial value, the value
+moves inward on one positive ray. A zero value remains zero and has no
+argument. Thus a trajectory starting in <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> stays there at later times
+in its interval of existence. The equation neither constructs a global
+trajectory nor identifies a whole ray preimage with one flow line.</p>
+<div class="corollary" id="res:ray">
+<p><strong>Corollary 19</strong> (ray separation). <em> Let <span
+class="math inline" data-term-auto="off">\(a&lt;b\)</span>, let <span
+class="math inline" data-term-auto="off">\(z:[a,b]\to\mathbb C\)</span> be continuous, and
+suppose <span class="math inline" data-term-auto="off">\(z\)</span> is differentiable on
+<span class="math inline" data-term-auto="off">\((a,b)\)</span> with <span
+class="math inline" data-term-auto="off">\(f&#39;(z(t))\ne0\)</span> and <span
+class="math inline" data-term-auto="off">\(z&#39;(t)=-f(z(t))/f&#39;(z(t))\)</span> there.
+Then </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[f(z(b))=e^{a-b}f(z(a)).\]</span></div>
+<p><em> If
+the endpoint values are nonzero, they lie on the same positive ray. In
+particular, critical points whose values lie on distinct positive rays
+cannot be the endpoints of such a finite connection.</em></p>
+</div>
+<p>Apply the value equation inside <span
+class="math inline" data-term-auto="off">\((a,b)\)</span> and pass to the endpoints by
+continuity. This does not evaluate <span
+class="math inline" data-term-auto="off">\(-f/f&#39;\)</span> at a critical endpoint. Lean
+checks the algebraic contradiction from an assumed exponential endpoint
+relation in <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315">the
-implication from distinct rays to the absence of a Newton
-connection</a>. It is the statement the topology needs, and it is a
-genuine sharpening of the criterion used in the literature.</p>
+distinct-ray endpoint implication</a>; the existence and endpoint
+behaviour of trajectories are additional geometric questions.</p>
 </section>
 <section id="sec:arguments" class="level2">
 <h2>Arguments, not moduli</h2>
@@ -780,7 +871,7 @@ is enough.</p>
 <p>Two distinct critical values can lie on one ray, and two critical
 values with distinct moduli certainly can: the ray records the argument,
 and the modulus is exactly the coordinate the flow contracts. By
-Corollary <a class="math-ref" href="#res:ray">18</a> the
+Corollary <a class="math-ref" href="#res:ray">19</a> the
 invariant that excludes connections is the argument. What a perturbation
 must therefore achieve is pairwise distinct critical-value
 <em>arguments</em>, which is a condition on <span
@@ -788,7 +879,7 @@ class="math inline" data-term-auto="off">\(n-1\)</span> points modulo the circle
 on their positions in the plane.</p>
 <p>The cost of that condition is also checked, and it is small.</p>
 <div class="theorem" id="res:locus">
-<p><strong>Theorem 19</strong> (ray-collision locus). <em> Let <span
+<p><strong>Theorem 20</strong> (ray-collision locus). <em> Let <span
 class="math inline" data-term-auto="off">\(a\ne b\)</span> be complex. Every common
 translation <span class="math inline" data-term-auto="off">\(\beta\)</span> for which <span
 class="math inline" data-term-auto="off">\(a+\beta\)</span> and <span
@@ -898,7 +989,7 @@ positive attachment cost, select only one short pair instead of spanning
 every root, or use a different global metric inequality. The shorter
 descriptions of the same three-ended block do not repair the four-sector
 topology.</p>
-<p>Corollary <a class="math-ref" href="#res:ray">18</a> supplies
+<p>Corollary <a class="math-ref" href="#res:ray">19</a> supplies
 one independent input for a different route: distinct critical-value
 arguments exclude saddle-to-saddle Newton connections. It does not
 itself prove the compact planar decomposition, classify all orbit
@@ -930,7 +1021,7 @@ class="math inline" data-term-auto="off">\(c=\cos(\pi/n)\)</span>, and set</p>
 class="math display" data-term-auto="off">\[r_*=(1+c^n)^{-1/n},\qquad
 \varepsilon=(1-r^n)^{1/n}.\]</span></div>
 <div class="theorem">
-<p><strong>Theorem 20</strong> (complementary binomial chords). <em>Two
+<p><strong>Theorem 21</strong> (complementary binomial chords). <em>Two
 adjacent zeros of <span class="math inline" data-term-auto="off">\(z^n-a\)</span> can be
 joined by an explicit polygonal path inside <span
 class="math inline" data-term-auto="off">\(\{|z^n-a|&lt;1\}\)</span> of length strictly below
@@ -987,7 +1078,7 @@ sets lack, and it yields a sharp all-degree solved subcase. Put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C_n=\frac{1}{2^{n-1}\cos^n(\pi/(2n))}.\]</span></div>
 <div class="theorem" id="res:sharp-collinear-root-diameter">
-<p><strong>Theorem 21</strong> (sharp collinear root-diameter bound).
+<p><strong>Theorem 22</strong> (sharp collinear root-diameter bound).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span>, with collinear zero occurrences of
 diameter <span class="math inline" data-term-auto="off">\(D\)</span>. Then some two zero
@@ -1062,7 +1153,7 @@ positive Poisson mixture. Their logarithmic-derivative relation converts
 the desired nonlinear estimate into a diagonal Taylor-coefficient
 inequality.</p>
 <div class="theorem" id="res:fp-weighted-all-degree">
-<p><strong>Theorem 22</strong> (weighted free-point inequality in every
+<p><strong>Theorem 23</strong> (weighted free-point inequality in every
 degree). <em> Let <span
 class="math inline" data-term-auto="off">\(c_1,\ldots,c_m\in\overline{\mathbb D}\)</span> and
 let <span class="math inline" data-term-auto="off">\(w_j&gt;0\)</span> satisfy <span
@@ -1123,7 +1214,7 @@ nonzero. The specialised four-point and central-radius proofs are
 retained in the long record; the all-degree inequality above removes
 their cardinality restriction.</p>
 <div class="theorem" id="res:fp-to-s">
-<p><strong>Theorem 23</strong> (critical-value mean in every degree).
+<p><strong>Theorem 24</strong> (critical-value mean in every degree).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span>, with roots in a closed disc of
 radius <span class="math inline" data-term-auto="off">\(R\)</span>, and let <span
@@ -1169,10 +1260,17 @@ proofs are recorded in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FreePointQuadraticAllDegrees.md">free
 point quadratic all degrees</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/CentredCircleQuadrinomialConnector.md">centred
-circle quadrinomial connector</a>. The circle comparison and finite
-Taylor-coefficient identity have checked kernels; Poisson integration
-and the maximum-principle assembly remain ordinary. A critical-value
-mean supplies no attachment or path-length estimate by itself.</p>
+circle quadrinomial connector</a>. Lean checks <a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101">the
+complete critical-value mean</a>, with the complete all-degree
+conclusion, arbitrary centre, <span class="math inline" data-term-auto="off">\(R=0\)</span>,
+and critical points counted with multiplicity. The exact source bytes
+and its directly audited target alias are recorded in <a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/verification/erdos1041-returned-r18-v5-full-audit-evidence.json">the
+source-bound Lean build and axiom-audit record</a>. The argument above
+explains that statement; the earlier candidate status in the source
+header predates the successful audit. A critical-value mean supplies no
+attachment or path-length estimate by itself.</p>
 </section>
 <section id="sec:orlicz" class="level2">
 <h2>The exact nonlinear lifetime currency</h2>
@@ -1191,7 +1289,7 @@ class="math display" data-term-auto="off">\[\lambda_k(q)=\log\frac{1+q^{2/k}}{1-
 \qquad
 I_k(r)=\int_r^1\frac{dq}{q\lambda_k(q)}.\]</span></div>
 <div class="theorem" id="res:orlicz-currency">
-<p><strong>Theorem 24</strong> (exact attachment-age/lifetime currency).
+<p><strong>Theorem 25</strong> (exact attachment-age/lifetime currency).
 <em> Define </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Phi(x)=\int_0^x\frac{dt}{\log(\coth
@@ -1386,14 +1484,21 @@ general problem is claimed.</p>
 <p>The original root-to-root problem is <span class="citation"
 data-cites="ehp1958"><a href="#ref-2">[2]</a></span>. Pendyala’s degree-four theorem <span
 class="citation" data-cites="june2026"></span> is directly comparable.
-His marked-point-to-boundary problem <span class="citation"
-data-cites="pendyala2026shortest"><a href="#ref-5">[5]</a></span> has different endpoints and
-does not imply the root-pair conclusion. The exact Cassini obstruction
-in Section <a class="math-ref" href="#sec:gap">11</a> concerns
-the metric assertion of <span class="citation"
-data-cites="march2026"><a href="#ref-3">[3]</a></span>. Downloaded-source digests, precise
-locators, and withdrawal history are retained in the long record. No
-uniqueness or priority claim is inferred from this comparison.</p>
+His separate Erdős Problem #1120 <span class="citation"
+data-cites="pendyala2026shortest"><a href="#ref-5">[5]</a></span> asks for a path from the
+origin to the unit circle inside a filled sublevel set; its endpoints
+differ, and it does not imply the root-pair conclusion. The exact
+Cassini obstruction in Section <a class="math-ref" href="#sec:gap">11</a> concerns the metric
+assertion of <span class="citation" data-cites="march2026"><a href="#ref-3">[3]</a></span>.
+Eremenko and Hayman prove the global boundary estimate <span
+class="math inline" data-term-auto="off">\(\operatorname{length}\{z:|p(z)|=1\}&lt;9.173\deg
+p\)</span> and show that an extremal level set is connected <span
+class="citation" data-cites="eremenko-hayman"></span>. Their metric is
+the total length of a level curve, so this does not supply the short
+internal root-to-root connector asked for here. Downloaded-source
+digests, precise locators, and withdrawal history are retained in the
+long record. No uniqueness or priority claim is inferred from this
+comparison.</p>
 </section>
 </section>
 <section id="app:sources" class="level2">
@@ -1490,11 +1595,15 @@ class="uri">https://arxiv.org/abs/2606.24875</a>, doi:<a
 href="https://doi.org/10.48550/arXiv.2606.24875">10.48550/arXiv.2606.24875</a>.</p></li>
 <li id="ref-5"><p>V. S. Pendyala, <em>Shortest paths in polynomial lemniscate
 sublevel sets and a problem of Erdős</em>, arXiv:2606.19178v1 (2026),
-Theorem 1.2 and introductory discussion, pp. 1–2. <a
-href="https://arxiv.org/abs/2606.19178"
+Erdős Problem #1120, Theorem 1.2 and introductory discussion, pp. 2–3.
+<a href="https://arxiv.org/abs/2606.19178"
 class="uri">https://arxiv.org/abs/2606.19178</a>, doi:<a
 href="https://doi.org/10.48550/arXiv.2606.19178">10.48550/arXiv.2606.19178</a>.</p></li>
-<li id="ref-6"><p>V. N. Dubinin, <em>Some inequalities for polynomials and rational
+<li id="ref-6"><p>A. Eremenko and W. Hayman, <em>On the length of lemniscates</em>,
+Michigan Math. J. <strong>46</strong> (1999), 409–415. <a
+href="https://arxiv.org/abs/0805.2295"
+class="uri">https://arxiv.org/abs/0805.2295</a>.</p></li>
+<li id="ref-7"><p>V. N. Dubinin, <em>Some inequalities for polynomials and rational
 functions associated with a lemniscate</em>, Zap. Nauchn. Sem. POMI
 <strong>404</strong> (2012), 83–99; English translation, J. Math. Sci.
 <strong>193</strong> (2013), no. 1, 45–54, doi:<a
@@ -1502,7 +1611,7 @@ href="https://doi.org/10.1007/s10958-013-1432-4">10.1007/s10958-013-1432-4</a>.
 This neighbouring covering theorem is discussed in the long record; the
 area input used here is the absolute Pólya inequality <span
 class="citation" data-cites="polya1928"></span>.</p></li>
-<li id="ref-7"><p>G. Pólya, <em>Beitrag zur Verallgemeinerung des Verzerrungssatzes
+<li id="ref-8"><p>G. Pólya, <em>Beitrag zur Verallgemeinerung des Verzerrungssatzes
 auf mehrfach zusammenhängende Gebiete</em>, Sitzungsberichte der
 Preussischen Akademie der Wissenschaften, Physikalisch-Mathematische
 Klasse (1928), printed pp. 228–232 and 280–282. <a

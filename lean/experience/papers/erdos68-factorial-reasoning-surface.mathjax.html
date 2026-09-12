@@ -273,11 +273,18 @@ N}
 \ \ge\ \frac{2\sqrt2}{3}.\]</span></div>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Fix <span class="math inline" data-term-auto="off">\(\alpha&gt;0\)</span>
-and take <span class="math inline" data-term-auto="off">\(k=\lfloor\alpha\sqrt
-N\rfloor\)</span>, which satisfies <span class="math inline" data-term-auto="off">\(2\le k\le
-N-1\)</span> for all large <span class="math inline" data-term-auto="off">\(N\)</span>. Put
-<span class="math inline" data-term-auto="off">\(u=N-k+1\)</span>.</p>
+<p><em>Proof.</em> A terminal block keeps every factorial near <span
+class="math inline" data-term-auto="off">\(N!\)</span>, but increasing its length also
+increases the total pairwise-gcd loss. The gain is of order <span
+class="math inline" data-term-auto="off">\(kN\log N\)</span> and the loss of order <span
+class="math inline" data-term-auto="off">\(k^3\log N\)</span>, so the useful balance is <span
+class="math inline" data-term-auto="off">\(k\)</span> of order <span
+class="math inline" data-term-auto="off">\(\sqrt N\)</span>. Fix <span
+class="math inline" data-term-auto="off">\(\alpha&gt;0\)</span> and take <span
+class="math inline" data-term-auto="off">\(k=\lfloor\alpha\sqrt N\rfloor\)</span>, which
+satisfies <span class="math inline" data-term-auto="off">\(2\le k\le N-1\)</span> for all
+large <span class="math inline" data-term-auto="off">\(N\)</span>. Put <span
+class="math inline" data-term-auto="off">\(u=N-k+1\)</span>.</p>
 <p>For the left-hand side of <a class="math-ref" data-equation-ref="true" href="#long68:eq:segment">long68:eq:segment</a>, use <span
 class="math inline" data-term-auto="off">\(n!-1\ge n!/2\)</span> and <span
 class="math inline" data-term-auto="off">\(\log n!\ge n\log n-n\)</span>. Since <span
@@ -350,13 +357,31 @@ the quantitative growth statement. Theorem <a class="math-ref" href="#long68:re
 cancellations at <span class="math inline" data-term-auto="off">\(139\)</span> and <span
 class="math inline" data-term-auto="off">\(2593\)</span> show why the substitution fails: a
 prime may occupy the common denominator and be absent from the reduced
-one. One cancelled prime is not an asymptotic cancellation theorem.
-Bounding the reduced denominator from below at every index is a stronger
-assertion, and it is exactly what an irrationality proof through the
-clearing-scale route needs. That stronger assertion has not been shown
-to follow from rationality of <span class="math inline" data-term-auto="off">\(S\)</span>
-alone; it would require an extra small-tail hypothesis such as <span
-class="math inline" data-term-auto="off">\(d_N(S-H_N)&lt;1\)</span>.</p>
+one. One cancelled prime is not an asymptotic cancellation theorem.</p>
+<p>The direction of denominator control matters. Write <span
+class="math inline" data-term-auto="off">\(H_N=A_N/Q_N\)</span> in lowest terms. Under the
+hypothetical identity <span class="math inline" data-term-auto="off">\(S=a/q\)</span>, with
+<span class="math inline" data-term-auto="off">\(a\in\Z\)</span> and <span
+class="math inline" data-term-auto="off">\(q\ge1\)</span>, positivity of the tail gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[qQ_N(S-H_N)=aQ_N-qA_N\in\Z_{&gt;0}.\]</span></div>
+<p>A
+direct clearing contradiction therefore requires an upper estimate that
+makes <span class="math inline" data-term-auto="off">\(qQ_N(S-H_N)&lt;1\)</span> for some
+<span class="math inline" data-term-auto="off">\(N\)</span>; equivalently, it needs <span
+class="math inline" data-term-auto="off">\(Q_N\)</span> to be small relative to the
+reciprocal tail. A lower bound on <span
+class="math inline" data-term-auto="off">\(Q_N\)</span> points in the opposite direction.
+Indeed, the rational limit <span class="math inline" data-term-auto="off">\(1\)</span> and
+the approximants <span class="math inline" data-term-auto="off">\(1-1/Q_N\)</span> have
+arbitrarily large reduced denominators without any irrationality. The
+inequality <span class="math inline" data-term-auto="off">\(d_N(S-H_N)&lt;1\)</span> alone
+would not repair the argument, because <span
+class="math inline" data-term-auto="off">\(d_N\)</span> generally does not clear the earlier
+summands of <span class="math inline" data-term-auto="off">\(H_N\)</span>. The prime-pole
+analysis describes which factors survive reduction, but it does not yet
+supply the required upper control on <span
+class="math inline" data-term-auto="off">\(Q_N\)</span>.</p>
 </section>
 <section id="long68:sec:carry" class="level2">
 <h2>Carries and the rationality boundary</h2>
@@ -843,9 +868,9 @@ index and the factor <span class="math inline" data-term-auto="off">\((d!)^k\)</
 out of the sum. The two consequences follow by taking <span
 class="math inline" data-term-auto="off">\(k=1\)</span> and by contraposition. ◻</p>
 </div>
-<p>The hard step is the constant quotient; no valuation estimate enters.
-A nonzero moment therefore cannot be hidden entirely below <span
-class="math inline" data-term-auto="off">\(2d\)</span> while the <span
+<p>This is a direct consequence of the constant quotient; no valuation
+estimate enters. A nonzero moment therefore cannot be hidden entirely
+below <span class="math inline" data-term-auto="off">\(2d\)</span> while the <span
 class="math inline" data-term-auto="off">\(d\)</span>-channel cancels. This is a
 finite-family obstruction: it constructs no cancelling family and says
 nothing about simultaneous channels or residual size.</p>
@@ -1138,19 +1163,21 @@ class="math inline" data-term-auto="off">\(S=a/q\)</span>, and they constrain di
 features of it:</p>
 <div class="math-display" id="long68:eq:finite-bounds" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:finite-bounds}
-q\nmid299999!,\qquad q\ge2^{39990},\qquad q&gt;10^{12040}.
+q\nmid299999!,\qquad q\ge2^{39990}&gt;10^{12038}.
 \end{equation}\]</span></div>
-<p>The size bounds hold for every integer <span
+<p>The size bound holds for every integer <span
 class="math inline" data-term-auto="off">\(a\)</span> and positive natural <span
 class="math inline" data-term-auto="off">\(q\)</span> with <span
 class="math inline" data-term-auto="off">\(S=a/q\)</span>; no reducedness assumption is
-needed. They are <a
-href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos68/PaperCompleteFiniteSizeCertificate.lean#L58">kernel-checked
-in Lean</a>. The factorial-grid exclusion <span
+needed. Its evidence is the exact continued-fraction computation
+described below. The stronger candidate <a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos68/PaperCompleteFiniteSizeCertificate.lean#L58">finite-size
+Lean certificate</a> is not cited as kernel verification: its source
+records that the computation has not yet been kernel checked. The
+factorial-grid exclusion <span
 class="math inline" data-term-auto="off">\(q\nmid299999!\)</span> is supported separately by
-the external GMP computation. It is not a conclusion of the linked Lean
-theorem; the full factorial-grid certificate remains an outstanding
-formal obligation.</p>
+the external GMP computation; its full Lean certificate also remains an
+outstanding formal obligation.</p>
 <p>Neither implies the other. A denominator with no prime factor above
 <span class="math inline" data-term-auto="off">\(299999\)</span> can still fail to divide
 <span class="math inline" data-term-auto="off">\(299999!\)</span> by carrying one prime to a

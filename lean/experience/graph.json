@@ -13757,9 +13757,9 @@
     {
       "id": "review-family:erdos_1041:newton_value_decay",
       "kind": "comparator_review_family",
-      "label": "The Newton value equation and its exponential first integral are checked exactly.",
+      "label": "Lean checks the local Newton value equation and the zero-derivative form of its exponentially scaled value; constancy along a real-time interval is an ordinary calculus consequence in the paper.",
       "disposition": "not_selected_compact_calculus_family",
-      "boundary": "Value decay alone does not give a short connecting curve.",
+      "boundary": "The cited declarations are pointwise derivative statements. The real-time first integral requires the paper’s interval integration step, and value decay alone does not construct a global trajectory or give a short connecting curve.",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -13773,9 +13773,9 @@
     {
       "id": "review-family:erdos_1041:ray_separation",
       "kind": "comparator_review_family",
-      "label": "Distinct positive rays exclude a finite Newton connection.",
+      "label": "Lean checks that distinct positive rays contradict an assumed exponential endpoint relation; the paper derives that relation for a finite real-time Newton trajectory by ordinary integration and endpoint continuity.",
       "disposition": "represented_by_translation_avoidance_targets",
-      "boundary": "The result is a route obstruction, not the global theorem.",
+      "boundary": "The finite-trajectory conclusion retains continuity on the closed interval, differentiability and noncritical Newton evolution on its interior, and the ordinary endpoint passage. It supplies neither global trajectory existence nor geometric length control.",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {

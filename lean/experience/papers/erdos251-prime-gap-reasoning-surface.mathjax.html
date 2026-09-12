@@ -222,7 +222,7 @@ of rescaled tails. Rationality of the sum is equivalent to an eventual
 integrality condition on differences of those tails, and that condition
 uses nothing about the numerators beyond the fact that they are
 integers. The condition does not by itself force the numerators to
-repeat: Proposition <a class="math-ref" href="#long251:res:telescope">25</a>, applied to
+repeat: Proposition <a class="math-ref" href="#long251:res:telescope">26</a>, applied to
 <span class="math inline" data-term-auto="off">\(K_n=n\)</span>, produces the integer
 sequence <span class="math inline" data-term-auto="off">\(\kappa_n=n-1\)</span>, which is
 unbounded and hence not eventually periodic, and whose dyadic sum is
@@ -355,40 +355,50 @@ declaration.</td>
 <td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:boundedperturbation">18</a>.</td>
 </tr>
 <tr>
+<td class="ta-l">Sparse rationalisation with cumulative
+congruences</td>
+<td class="ta-l"> Ordinary theorem; elementary Lean core
+only</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:sparse-rationalisation">19</a>;
+upper Banach density zero, arbitrarily slow eventual coefficient bound,
+and eventual divisibility of coefficients and cumulative corrections.
+The explicit schedule is proved in the paper.</td>
+</tr>
+<tr>
 <td class="ta-l">Nonconcentration survives the
 rationalising perturbation</td>
 <td class="ta-l"> Ordinary proof; external lemma cited</td>
-<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:nonconcentration">20</a> and
-Corollary <a class="math-ref" href="#long251:res:nonconc-primes">21</a>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:nonconcentration">21</a> and
+Corollary <a class="math-ref" href="#long251:res:nonconc-primes">22</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">The two-window event has density zero</td>
 <td class="ta-l"> Ordinary proof; external lemma cited</td>
-<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:sparse">22</a>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:sparse">23</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Recurring gap values differing by <span
 class="math inline" data-term-auto="off">\(2\)</span> do not suffice</td>
 <td class="ta-l"> Ordinary proof</td>
-<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:polignacfail">24</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Quadratic polynomial-shift
 countermodel</td>
 <td class="ta-l"> Lean-checked</td>
-<td class="ta-l"> Proposition <a class="math-ref" href="#long251:res:polynomialcountermodel">24</a>.</td>
+<td class="ta-l"> Proposition <a class="math-ref" href="#long251:res:polynomialcountermodel">25</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Rationality alone forces periodic integer
 coefficients</td>
 <td class="ta-l"> False</td>
-<td class="ta-l"> Proposition <a class="math-ref" href="#long251:res:telescope">25</a>.</td>
+<td class="ta-l"> Proposition <a class="math-ref" href="#long251:res:telescope">26</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Affine and fixed-lattice cofinal escape
 tests</td>
 <td class="ta-l"> Lean-checked; both equivalences</td>
-<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:affinecollapse">26</a>.</td>
+<td class="ta-l"> Theorem <a class="math-ref" href="#long251:res:affinecollapse">27</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Actual prime gaps are unbounded and not
@@ -413,7 +423,7 @@ class="math inline" data-term-auto="off">\(2\times10^{7}\)</span></td>
 <tr>
 <td class="ta-l">Cofinal adjacent small mismatch</td>
 <td class="ta-l"> Sufficient condition; not proved</td>
-<td class="ta-l"> Problem <a class="math-ref" href="#long251:prob:smallpair">28</a>.</td>
+<td class="ta-l"> Problem <a class="math-ref" href="#long251:prob:smallpair">29</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -831,10 +841,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 real tail recurrence</a>. No antecedent for this packaging has been
 located; the nearest located neighbour is Schlage-Puchta’s
 Theorem 2 <span class="citation" data-cites="schlagepuchta2011"><a href="#ref-13">[13]</a></span>,
-which treats periodic base-<span class="math inline" data-term-auto="off">\(b\)</span> digit
-expansions and is a different object, and the sweep of the dyadic
-tail-recurrence and Bézivin-style functional-equation literature has not
-been run.</p>
+which treats base-<span class="math inline" data-term-auto="off">\(b\)</span> digit strings
+formed by concatenating a slowly growing integer sequence under a
+rationality hypothesis, and is a different object, and the sweep of the
+dyadic tail-recurrence and Bézivin-style functional-equation literature
+has not been run.</p>
 <p>The criterion rules out two shortcuts. Rationality makes the tail a
 finite-state object at every scale, so pairs with <span
 class="math inline" data-term-auto="off">\(T_M=T_N\)</span> are abundant for free and the
@@ -998,7 +1009,7 @@ window. ◻</p>
 every <span class="math inline" data-term-auto="off">\(\delta_N\)</span> is even, so
 Theorem <a class="math-ref" href="#long251:res:signedwindow">13</a> applies
 throughout the range where the local certificate is sought. The same
-computation for a real orbit is one line and is used in Theorem <a class="math-ref" href="#long251:res:sparse">22</a> below.</p>
+computation for a real orbit is one line and is used in Theorem <a class="math-ref" href="#long251:res:sparse">23</a> below.</p>
 <section id="an-explicit-remainder-and-a-certified-actual-pair"
 class="level3">
 <h3>An explicit remainder and a certified actual pair</h3>
@@ -1189,9 +1200,12 @@ problem.</p>
 </section>
 <section id="long251:sec:obstructions" class="level2">
 <h2>What cannot supply the missing input</h2>
-<p>This section proves four boundaries. Each says that a named class of
-hypotheses about the prime gaps is compatible with a rational dyadic
-value, or that a named event is too sparse for a named method.</p>
+<p>The counterexamples in this section test which information about the
+gaps could force irrationality. They preserve selected growth, residue
+and nonconcentration properties while changing the dyadic value. The
+sparsity result has a different role: it rules out a positive-proportion
+lower bound for the two-window event, while leaving sparse-witness
+arguments available.</p>
 <section id="bounded-residue-preserving-perturbations" class="level3">
 <h3>Bounded residue-preserving perturbations</h3>
 <div class="theorem" id="long251:res:boundedperturbation">
@@ -1242,16 +1256,272 @@ fixed <span class="math inline" data-term-auto="off">\(q\)</span>, on taking <sp
 class="math inline" data-term-auto="off">\(M=2q\)</span>. The perturbed digits need not
 remain prime gaps.</p>
 </section>
+<section id="long251:sec:paired-corrections" class="level3">
+<h3>Paired corrections and cumulative congruences</h3>
+<p>The sparse construction preserves cumulative residues as well as
+coefficient residues. Two adjacent corrections provide a free weighted
+digit while fixing their unweighted total. A third coordinate is needed
+to repair the cumulative residue before that pair. We account separately
+for its location, size and contribution to the series.</p>
+<div class="theorem" id="long251:res:sparse-rationalisation">
+<p><strong>Theorem 19</strong> (sparse rationalisation with cumulative
+congruences). <em> Let <span class="math inline" data-term-auto="off">\(a_n\in\N\)</span> and
+<span
+class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}a_n2^{-n-1}&lt;\infty\)</span>. For
+every cutoff <span class="math inline" data-term-auto="off">\(K\)</span> and every <span
+class="math inline" data-term-auto="off">\(f:\N\to\R\)</span> tending to infinity, there are
+a set <span class="math inline" data-term-auto="off">\(S\subseteq[K,\infty)\)</span> of upper
+Banach density zero and a nondegenerate interval <span
+class="math inline" data-term-auto="off">\(I\subset(A,\infty)\)</span> with the following
+property. Every <span class="math inline" data-term-auto="off">\(r\in I\)</span> has the form
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[r=\sum_{n\ge0}(a_n+e_n)2^{-n-1},\]</span></div>
+<p class="display-continue"><em>
+where <span class="math inline" data-term-auto="off">\(e_n\in\N\)</span> is supported on
+<span class="math inline" data-term-auto="off">\(S\)</span>, <span
+class="math inline" data-term-auto="off">\(e_n\le f(n)\)</span> eventually, and, for every
+integer <span class="math inline" data-term-auto="off">\(q\ge1\)</span>, there is an <span
+class="math inline" data-term-auto="off">\(N_q\)</span> such that </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[q\mid e_n\quad\hbox{and}\quad
+q\mid\sum_{i&lt;n}e_i
+\qquad(n\ge N_q).\]</span></div>
+<p><em> For every <span
+class="math inline" data-term-auto="off">\(0&lt;\varepsilon&lt;1\)</span>, the construction
+can instead be chosen with <span
+class="math inline" data-term-auto="off">\(e_n\le(\log(n+3))^\varepsilon\)</span> eventually
+and <span class="math inline" data-term-auto="off">\(|S\cap[X,2X)|=O_\varepsilon(X/\log\log
+X)\)</span>. In that case the empirical distributions of original and
+corrected unnormalised blocks of length <span
+class="math inline" data-term-auto="off">\(m(X)=o(\log\log X)\)</span>, sampled at the same
+integer starts in <span class="math inline" data-term-auto="off">\([X,2X)\)</span>, have
+total variation distance tending to zero.</em></p>
+</div>
+<p>This theorem has an ordinary proof below. The general interval and
+pair algebra is covered by the elementary Lean core; the explicit
+schedule and its density and size estimates are not claimed to be
+kernel-checked.</p>
+<div class="proof">
+<p><em>Proof.</em> Choose increasing centres <span
+class="math inline" data-term-auto="off">\(n_j\)</span>, indexed by <span
+class="math inline" data-term-auto="off">\(j\ge0\)</span>, together with an initial <span
+class="math inline" data-term-auto="off">\(n_{-1}\ge K\)</span>. Their spacings <span
+class="math inline" data-term-auto="off">\(s_j=n_j-n_{j-1}\)</span> will be at least <span
+class="math inline" data-term-auto="off">\(4\)</span>. Let <span
+class="math inline" data-term-auto="off">\(M_j\)</span> be positive integer moduli with <span
+class="math inline" data-term-auto="off">\(M_j\mid M_{j+1}\)</span>, and set <span
+class="math inline" data-term-auto="off">\(D_j=2^{s_j}-1\)</span>. These parameters will be
+specified below independently of all free digits.</p>
+<p><em>Place the buffer before the pair.</em> Set <span
+class="math inline" data-term-auto="off">\(C_0=0\)</span> and recursively define the
+deterministic integers</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[c_j=(-C_j)\bmod
+M_j,\qquad C_{j+1}=C_j+c_j+M_jD_j.\]</span></div>
+<p>For any choice <span
+class="math inline" data-term-auto="off">\(d_j\in\{0,\ldots,D_j\}\)</span>, put</p>
+<div class="math-display" id="long251:eq:sparse-triple" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{long251:eq:sparse-triple}
+e_{n_j-1}=c_j,\qquad e_{n_j}=M_jd_j,\qquad
+e_{n_j+1}=M_j(D_j-d_j),
+\end{equation}\]</span></div>
+<p class="display-continue">and put <span
+class="math inline" data-term-auto="off">\(e_n=0\)</span> off these triples. The spacing
+makes the triples disjoint. Their total is <span
+class="math inline" data-term-auto="off">\(c_j+M_jD_j\)</span>, independent of <span
+class="math inline" data-term-auto="off">\(d_j\)</span>, so <span
+class="math inline" data-term-auto="off">\(C_j\)</span> really is the cumulative correction
+<span class="math inline" data-term-auto="off">\(C_j=\sum_{i&lt;n_j-1}e_i\)</span> before its
+buffer, for every choice of free digits. The pair alone could not repair
+that cumulative residue: its total is already a multiple of <span
+class="math inline" data-term-auto="off">\(M_j\)</span>. The buffer does, since <span
+class="math inline" data-term-auto="off">\(M_j\mid C_j+c_j\)</span>.</p>
+<p>For example, <span class="math inline" data-term-auto="off">\(M=2,D=3\)</span> permits the
+pairs <span class="math inline" data-term-auto="off">\((0,6),(2,4),(4,2),(6,0)\)</span>. Each
+has total <span class="math inline" data-term-auto="off">\(6\)</span>, but their weighted
+contributions have numerators <span
+class="math inline" data-term-auto="off">\(6,8,10,12\)</span> over <span
+class="math inline" data-term-auto="off">\(2^{n+2}\)</span>. A preceding cumulative total
+<span class="math inline" data-term-auto="off">\(C=1\)</span> needs the additional buffer
+<span class="math inline" data-term-auto="off">\(c=1\)</span> at <span
+class="math inline" data-term-auto="off">\(n-1\)</span>; its weighted contribution is <span
+class="math inline" data-term-auto="off">\(2^{-n}\)</span>. This fixed contribution changes
+the location of the attainable interval, not its free-digit
+capacity.</p>
+<p><em>Check every late coordinate.</em> Assume that each fixed <span
+class="math inline" data-term-auto="off">\(q\)</span> divides <span
+class="math inline" data-term-auto="off">\(M_j\)</span> eventually, and choose <span
+class="math inline" data-term-auto="off">\(J\)</span> with <span class="math inline" data-term-auto="off">\(q\mid
+M_J\)</span>. At index <span class="math inline" data-term-auto="off">\(n_J\)</span>, just
+after its buffer, the cumulative sum is divisible by <span
+class="math inline" data-term-auto="off">\(q\)</span>. Both entries of the pair are also
+divisible by <span class="math inline" data-term-auto="off">\(q\)</span>, so every later
+cumulative sum through that stage remains divisible by <span
+class="math inline" data-term-auto="off">\(q\)</span>. Inductively <span
+class="math inline" data-term-auto="off">\(q\mid C_j\)</span> and <span
+class="math inline" data-term-auto="off">\(q\mid M_j\)</span> imply <span
+class="math inline" data-term-auto="off">\(q\mid c_j\)</span>, since <span
+class="math inline" data-term-auto="off">\(M_j\mid C_j+c_j\)</span>. Thus every subsequent
+buffer, pair entry and zero entry is divisible by <span
+class="math inline" data-term-auto="off">\(q\)</span>, as is every intermediate cumulative
+sum. We may take <span class="math inline" data-term-auto="off">\(N_q=n_J\)</span>. The first
+buffer need not itself be divisible by <span
+class="math inline" data-term-auto="off">\(q\)</span>, and its coordinate <span
+class="math inline" data-term-auto="off">\(n_J-1\)</span> is deliberately outside this
+eventual range.</p>
+<p><em>Choose a schedule for arbitrary <span
+class="math inline" data-term-auto="off">\(f\)</span>.</em> Define</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[h(n)=\inf_{m\ge n}\min(f(m),m).\]</span></div>
+<p>This
+finite real number is nondecreasing in <span
+class="math inline" data-term-auto="off">\(n\)</span>, satisfies <span
+class="math inline" data-term-auto="off">\(h(n)\le n\)</span>, and tends to infinity. Choose
+<span class="math inline" data-term-auto="off">\(n_{-1}\ge K\)</span> with <span
+class="math inline" data-term-auto="off">\(h(n_{-1})\ge32\)</span> and recursively set</p>
+<div class="math-display" id="long251:eq:sparse-general-schedule" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{long251:eq:sparse-general-schedule}
+\begin{split}
+k_j&amp;=\max\{k\in\N:k\ge2,\ k!2^{k+2}\le h(n_{j-1})\},\\
+M_j&amp;=k_j!,\qquad s_j=k_j+2,\qquad n_j=n_{j-1}+s_j.
+\end{split}
+\end{equation}\]</span></div>
+<p>The maximum exists: <span
+class="math inline" data-term-auto="off">\(k=2\)</span> is eligible and <span
+class="math inline" data-term-auto="off">\(k!2^{k+2}\)</span> tends to infinity. Since <span
+class="math inline" data-term-auto="off">\(h\)</span> is nondecreasing, the integers <span
+class="math inline" data-term-auto="off">\(k_j\)</span> are nondecreasing; since <span
+class="math inline" data-term-auto="off">\(n_j\to\infty\)</span>, they tend to infinity. The
+factorials form a divisibility chain and eventually contain every fixed
+divisor. At each of the three coordinates <span
+class="math inline" data-term-auto="off">\(n\)</span> in stage <span
+class="math inline" data-term-auto="off">\(j\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[0\le
+e_n\le M_j2^{s_j}\le h(n_{j-1})\le f(n),
+\qquad e_n\le n_{j-1}&lt;n.\]</span></div>
+<p>Here the buffer is smaller than
+<span class="math inline" data-term-auto="off">\(M_j\)</span> and each pair entry is at most
+<span class="math inline" data-term-auto="off">\(M_jD_j\)</span>. Thus every correction
+series converges by comparison with <span class="math inline" data-term-auto="off">\(\sum_n
+n2^{-n-1}\)</span>.</p>
+<p>Let <span
+class="math inline" data-term-auto="off">\(S=\bigcup_j\{n_j-1,n_j,n_j+1\}\)</span>. It is
+independent of the digits. To see upper Banach density zero, fix <span
+class="math inline" data-term-auto="off">\(H&gt;0\)</span>. Outside a finite initial segment,
+consecutive centres are at least <span class="math inline" data-term-auto="off">\(H\)</span>
+apart, since <span class="math inline" data-term-auto="off">\(s_j\to\infty\)</span>. An
+interval of length <span class="math inline" data-term-auto="off">\(L\)</span> therefore
+meets at most <span class="math inline" data-term-auto="off">\(3(L/H+2)\)</span> late support
+coordinates, plus the fixed finite number of early coordinates. Divide
+by <span class="math inline" data-term-auto="off">\(L\)</span>, take the supremum over
+interval positions, then let <span
+class="math inline" data-term-auto="off">\(L\to\infty\)</span> and <span
+class="math inline" data-term-auto="off">\(H\to\infty\)</span>.</p>
+<p><em>Retain an interval of values.</em> Put <span
+class="math inline" data-term-auto="off">\(w_j=M_j2^{-n_j-2}\)</span> and</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[F_j=\sum_{i\ge j}D_iw_i,\qquad
+\beta=\sum_{j\ge0}\bigl(c_j2^{-n_j}+D_jw_j\bigr).\]</span></div>
+<p>The size
+estimates just proved give convergence of both series, <span
+class="math inline" data-term-auto="off">\(F_j\to0\)</span>, and <span
+class="math inline" data-term-auto="off">\(F_0&gt;0\)</span>. The baseline <span
+class="math inline" data-term-auto="off">\(\beta\)</span> is positive and independent of the
+digits. The complete weighted correction, including every buffer, is
+exactly</p>
+<div class="math-display" id="long251:eq:sparse-baseline" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\label{long251:eq:sparse-baseline}
+\sum_n e_n2^{-n-1}=\beta+\sum_jd_jw_j.
+\end{equation}\]</span></div>
+<p>For <span class="math inline" data-term-auto="off">\(i&gt;j\)</span>,
+we have <span class="math inline" data-term-auto="off">\(M_i\ge M_j\)</span> and</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[D_iw_i=M_i\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr)
+\ge M_j\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr).\]</span></div>
+<p>Telescoping over
+<span class="math inline" data-term-auto="off">\(i=j+1,\ldots,J\)</span> and letting <span
+class="math inline" data-term-auto="off">\(J\to\infty\)</span> yields <span
+class="math inline" data-term-auto="off">\(F_{j+1}\ge w_j\)</span>. This is the needed
+overlap condition. The intervals <span
+class="math inline" data-term-auto="off">\([dw_j,dw_j+F_{j+1}]\)</span>, for <span
+class="math inline" data-term-auto="off">\(0\le d\le D_j\)</span>, cover <span
+class="math inline" data-term-auto="off">\([0,F_j]\)</span>. For any <span
+class="math inline" data-term-auto="off">\(y\in[0,F_0]\)</span>, choose successive digits
+leaving each remainder in <span
+class="math inline" data-term-auto="off">\([0,F_{j+1}]\)</span>. Since these capacities tend
+to zero, the resulting series has sum <span
+class="math inline" data-term-auto="off">\(y\)</span>. Equation <a class="math-ref" data-equation-ref="true" href="#long251:eq:sparse-baseline">long251:eq:sparse-baseline</a>
+therefore realises every <span class="math inline" data-term-auto="off">\(r\)</span> in the
+fixed interval <span
+class="math inline" data-term-auto="off">\(I=(A+\beta,A+\beta+F_0)\subset(A,\infty)\)</span>.</p>
+<p><em>Choose a polylogarithmic schedule.</em> Fix <span
+class="math inline" data-term-auto="off">\(0&lt;\varepsilon&lt;1\)</span>. Replace <a class="math-ref" data-equation-ref="true" href="#long251:eq:sparse-general-schedule">long251:eq:sparse-general-schedule</a>
+by</p>
+<div class="math-display" id="long251:eq:sparse-polylog-schedule" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+\label{long251:eq:sparse-polylog-schedule}
+\begin{split}
+s_j&amp;=\left\lfloor\frac{\varepsilon}{2}
+          \log_2\log(n_{j-1}+3)\right\rfloor,\qquad n_j=n_{j-1}+s_j,\\
+k_j&amp;=\max\{k\in\N:k\ge2,\ k!\le(\log(n_{j-1}+3))^{\varepsilon/4}\},
+\qquad M_j=k_j!.
+\end{split}
+\end{equation}\]</span></div>
+<p>Take the initial cutoff so large that <span
+class="math inline" data-term-auto="off">\(s_j\ge4\)</span> and the maximum is nonempty from
+the first step. Again <span class="math inline" data-term-auto="off">\(k_j\)</span> is
+nondecreasing and tends to infinity. Keep <span
+class="math inline" data-term-auto="off">\(D_j=2^{s_j}-1\)</span> and the same buffer
+recursion. All triple entries obey</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[e_n\le
+M_j2^{s_j}\le(\log(n_{j-1}+3))^{3\varepsilon/4}
+\le(\log(n+3))^\varepsilon.\]</span></div>
+<p>These polylogarithmic bounds still
+give convergence of <span class="math inline" data-term-auto="off">\(F_j\)</span> and <span
+class="math inline" data-term-auto="off">\(\beta\)</span>. Every argument above concerning
+congruences and interval filling remains valid. Also <span
+class="math inline" data-term-auto="off">\(s_j\)</span> is comparable, with constants
+depending on <span class="math inline" data-term-auto="off">\(\varepsilon\)</span>, to <span
+class="math inline" data-term-auto="off">\(\log\log(n_{j-1}+3)\)</span>, and <span
+class="math inline" data-term-auto="off">\(s_j=o(n_{j-1})\)</span>. Hence consecutive centres
+near <span class="math inline" data-term-auto="off">\(X\)</span> are separated by at least a
+constant multiple of <span class="math inline" data-term-auto="off">\(\log\log X\)</span>,
+giving <span
+class="math inline" data-term-auto="off">\(|S\cap[X,2X)|=O_\varepsilon(X/\log\log
+X)\)</span>. The same estimate holds on <span
+class="math inline" data-term-auto="off">\([X,3X)\)</span>.</p>
+<p>Finally sample both length-<span class="math inline" data-term-auto="off">\(m\)</span>
+blocks at the same uniform integer start in <span
+class="math inline" data-term-auto="off">\([X,2X)\)</span>. They can differ only if that
+block meets <span class="math inline" data-term-auto="off">\(S\)</span>. Each changed
+coordinate belongs to at most <span class="math inline" data-term-auto="off">\(m\)</span>
+such blocks, so the total variation distance is at most</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{m\,|S\cap[X,2X+m)|}{X}
+=O_\varepsilon\!\left(\frac{m}{\log\log X}\right).\]</span></div>
+<p>For integer
+<span class="math inline" data-term-auto="off">\(m=m(X)=o(\log\log X)\)</span> this tends to
+zero. This comparison uses the literal, unnormalised blocks and requires
+no limiting distribution for the original sequence. ◻</p>
+</div>
+<p>The pair identities, modular repair, and conditional interval filling
+are the elementary core in . The source does not itself establish the
+schedules <a class="math-ref" data-equation-ref="true" href="#long251:eq:sparse-general-schedule">long251:eq:sparse-general-schedule</a>–<a class="math-ref" data-equation-ref="true" href="#long251:eq:sparse-polylog-schedule">long251:eq:sparse-polylog-schedule</a>,
+upper Banach density, or block-law transfer. Those parts are the
+ordinary proof above, not a new Lean or Comparator verification claim.
+Applied to prime gaps, the construction makes no assertion that the
+corrected cumulative positions remain prime.</p>
+</section>
 <section
 id="algebraic-nonconcentration-survives-the-rationalising-perturbation"
 class="level3">
 <h3>Algebraic nonconcentration survives the rationalising
 perturbation</h3>
-<p>The obvious reply to Theorem <a class="math-ref" href="#long251:res:boundedperturbation">18</a> is
-to demand a finer property of the actual gaps than size and residue. A
-relevant such property is Schlage-Puchta’s Lemma 4: for every polynomial
-<span class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span> which does
-not vanish identically, <span
+<p>Fixed-block polynomial nonconcentration is a finer property than size
+and residue, but it too survives the bounded perturbation. The relevant
+input is Schlage-Puchta’s Lemma 4: for every polynomial <span
+class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span> which does not
+vanish identically, <span
 class="math inline" data-term-auto="off">\(F(g_n,\ldots,g_{n+k})\ne0\)</span> for almost all
 <span class="math inline" data-term-auto="off">\(n\)</span> <span class="citation"
 data-cites="schlagepuchta2011"><a href="#ref-13">[13]</a></span>. Say that an integer sequence
@@ -1262,7 +1532,7 @@ class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span>. The 
 transfers across bounded perturbations with no independence or
 randomness assumption.</p>
 <div class="proposition" id="long251:res:shiftedcount">
-<p><strong>Proposition 19</strong> (finite counting for shifted gap
+<p><strong>Proposition 20</strong> (finite counting for shifted gap
 differences). <em> Write <span class="math inline" data-term-auto="off">\(p_n\)</span> for
 the primes indexed from <span class="math inline" data-term-auto="off">\(p_0=2\)</span> and
 <span class="math inline" data-term-auto="off">\(g_n=p_{n+1}-p_n\)</span>. For <span
@@ -1304,7 +1574,7 @@ would coincide. The all-shift implication records these analytic
 premises explicitly; it supplies neither estimate and does not prove
 irrationality.</p>
 <div class="theorem" id="long251:res:nonconcentration">
-<p><strong>Theorem 20</strong> (nonconcentration is
+<p><strong>Theorem 21</strong> (nonconcentration is
 perturbation-stable). <em> Let <span
 class="math inline" data-term-auto="off">\(a:\N\to\Z\)</span> have fixed-block
 nonconcentration, let <span class="math inline" data-term-auto="off">\(E\subset\Z\)</span> be
@@ -1341,7 +1611,7 @@ index set <span class="math inline" data-term-auto="off">\(E^{k+1}\)</span>, so 
 union of density-zero sets has density zero. ◻</p>
 </div>
 <div class="corollary" id="long251:res:nonconc-primes">
-<p><strong>Corollary 21</strong> (nonconcentration does not force
+<p><strong>Corollary 22</strong> (nonconcentration does not force
 irrationality). <em> Fix <span class="math inline" data-term-auto="off">\(M\ge1\)</span> and
 <span class="math inline" data-term-auto="off">\(K\ge0\)</span>, and let <span
 class="math inline" data-term-auto="off">\(b\)</span> be the perturbed sequence supplied by
@@ -1363,7 +1633,7 @@ class="math inline" data-term-auto="off">\(P_n\sim n\log n\)</span>.</em></p>
 together with <span
 class="math inline" data-term-auto="off">\(\sum_{i&lt;n}g_i=p_n-2\)</span>. The perturbation
 takes values in the fixed two-element set <span
-class="math inline" data-term-auto="off">\(E=\{0,M\}\)</span>, so Theorem <a class="math-ref" href="#long251:res:nonconcentration">20</a>
+class="math inline" data-term-auto="off">\(E=\{0,M\}\)</span>, so Theorem <a class="math-ref" href="#long251:res:nonconcentration">21</a>
 applies to the actual gaps, which have fixed-block nonconcentration by
 Schlage-Puchta’s Lemma 4. ◻</p>
 </div>
@@ -1381,12 +1651,12 @@ is exact: the terms <span class="math inline" data-term-auto="off">\(P_n\)</span
 asserted to be prime, and the conclusion says nothing about constraints
 with a block length or a polynomial family growing with the index.</p>
 </section>
-<section id="the-producer-is-an-event-of-density-zero" class="level3">
-<h3>The producer is an event of density zero</h3>
+<section id="the-two-window-event-has-density-zero" class="level3">
+<h3>The two-window event has density zero</h3>
 <p>The same lemma bounds the event that the local certificate
 consumes.</p>
 <div class="theorem" id="long251:res:sparse">
-<p><strong>Theorem 22</strong> (sparsity of the two-window event). <em>
+<p><strong>Theorem 23</strong> (sparsity of the two-window event). <em>
 Fix <span class="math inline" data-term-auto="off">\(h\ge1\)</span>. The set of <span
 class="math inline" data-term-auto="off">\(N\ge1\)</span> at which the three hypotheses of
 Theorem <a class="math-ref" href="#long251:res:smallpair">10</a>
@@ -1422,7 +1692,7 @@ class="math inline" data-term-auto="off">\(N\)</span>, which is strictly stronge
 cofinal statement Proposition <a class="math-ref" href="#long251:res:gap-nonperiodic">12</a>
 supplies. The full conjunction is confined to a set of density zero,
 because the two window conditions force the mismatch to be exactly <span
-class="math inline" data-term-auto="off">\(\pm2\)</span>. A producer for Problem <a class="math-ref" href="#long251:prob:smallpair">28</a> therefore
+class="math inline" data-term-auto="off">\(\pm2\)</span>. A producer for Problem <a class="math-ref" href="#long251:prob:smallpair">29</a> therefore
 has to be a cofinality statement about a sparse set. Consequently, this
 event cannot be supplied on a set of positive lower density. A
 sufficient producer would have to yield cofinally many witnesses in a
@@ -1448,7 +1718,7 @@ suffice. At the level of integer-digit recurrences that implication is
 false, and it stays false under growth at the scale the primes actually
 have.</p>
 <div class="theorem" id="long251:res:polignacfail">
-<p><strong>Theorem 23</strong> (recurring values are not enough). <em>
+<p><strong>Theorem 24</strong> (recurring values are not enough). <em>
 There is a sequence <span class="math inline" data-term-auto="off">\((a_n)_{n\ge1}\)</span>
 of positive even integers with the following properties. The values
 <span class="math inline" data-term-auto="off">\(2\)</span> and <span
@@ -1631,7 +1901,7 @@ gaps.</p>
 <section id="two-further-boundaries" class="level3">
 <h3>Two further boundaries</h3>
 <div class="proposition" id="long251:res:polynomialcountermodel">
-<p><strong>Proposition 24</strong> (quadratic polynomial-shift
+<p><strong>Proposition 25</strong> (quadratic polynomial-shift
 countermodel). <em> Put <span
 class="math inline" data-term-auto="off">\(c_n=2(n^2+4n+2)\)</span> and <span
 class="math inline" data-term-auto="off">\(U_n=2(n+4)^2\)</span>. Then <span
@@ -1684,7 +1954,7 @@ class="math inline" data-term-auto="off">\(\kappa_n=2K_n-K_{n+1}\)</span>: the <
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1129">carry
 coefficient</a>.</p>
 <div class="proposition" id="long251:res:telescope">
-<p><strong>Proposition 25</strong> (exact telescoping). <em> For every
+<p><strong>Proposition 26</strong> (exact telescoping). <em> For every
 <span class="math inline" data-term-auto="off">\(n\ge0\)</span>, <span
 class="math inline" data-term-auto="off">\(\sum_{i=0}^{n-1}\kappa_i2^{-(i+1)}=K_0-K_n2^{-n}\)</span>.</em></p>
 </div>
@@ -1717,7 +1987,7 @@ and call the data-dependent affine condition <span
 class="math inline" data-term-auto="off">\(\mathcal A_{N,r}\)</span> the assertion <span
 class="math inline" data-term-auto="off">\(D_{N+r}\in-B_{h,N,r}+2^{\,r+1}\Z\)</span>.</p>
 <div class="theorem" id="long251:res:affinecollapse">
-<p><strong>Theorem 26</strong> (affine and fixed-lattice circularity).
+<p><strong>Theorem 27</strong> (affine and fixed-lattice circularity).
 <em> For every rational dyadic tail recurrence and all <span
 class="math inline" data-term-auto="off">\(h,N,r\ge0\)</span>, <span
 class="math inline" data-term-auto="off">\(\mathcal A_{N,r}\)</span> holds if and only if
@@ -1826,7 +2096,7 @@ continued-fraction calculation above.</p>
 irrationality by Theorem <a class="math-ref" href="#long251:res:escape-irrational">7</a> and
 the escape equivalence for the actual tail, is the following.</p>
 <div class="problem" id="long251:prob:escape">
-<p><strong>Problem 27</strong> (universal prime-gap shift escape). <em>
+<p><strong>Problem 28</strong> (universal prime-gap shift escape). <em>
 For every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
 class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies </em></p>
@@ -1836,7 +2106,7 @@ class="math display" data-term-auto="off">\[\sum_{j\ge1}\frac{g_{N+h+j}-g_{N+j}}
 \tag{8.1}\label{long251:eq:shift-escape}\]</span></div>
 </div>
 <div class="problem" id="long251:prob:smallpair">
-<p><strong>Problem 28</strong> (cofinal adjacent small mismatch). <em>
+<p><strong>Problem 29</strong> (cofinal adjacent small mismatch). <em>
 For every <span class="math inline" data-term-auto="off">\(h\ge1\)</span> and every <span
 class="math inline" data-term-auto="off">\(N_0\)</span>, prove that some <span
 class="math inline" data-term-auto="off">\(N\ge N_0\)</span> satisfies </em></p>
@@ -1847,20 +2117,20 @@ g_{N+h+1}\ne g_{N+1} .
 \tag{8.2}\label{long251:eq:smallpair}\]</span></div>
 </div>
 <p>Corollary <a class="math-ref" href="#long251:res:smallpair-real">11</a> makes
-Problem <a class="math-ref" href="#long251:prob:smallpair">28</a> sufficient
-for Problem <a class="math-ref" href="#long251:prob:escape">27</a>, and
+Problem <a class="math-ref" href="#long251:prob:smallpair">29</a> sufficient
+for Problem <a class="math-ref" href="#long251:prob:escape">28</a>, and
 Theorem <a class="math-ref" href="#long251:res:freepair">8</a>
 supplies an equivalent target in which the offset is free. The three
 formulations are equivalent or ordered by implication; none of them is
 an analytic saving on its own.</p>
 <p>What the proved obstructions leave. By Theorem <a class="math-ref" href="#long251:res:boundedperturbation">18</a> no
 hypothesis stable under bounded residue-preserving perturbation can
-work; by Corollary <a class="math-ref" href="#long251:res:nonconc-primes">21</a> adding
+work; by Corollary <a class="math-ref" href="#long251:res:nonconc-primes">22</a> adding
 fixed-block polynomial nonconcentration to that list does not repair it;
-the construction in Section <a class="math-ref" href="#long251:res:all-residue-log-countermodel">6.5</a>
+the construction in Section <a class="math-ref" href="#long251:res:all-residue-log-countermodel">6.6</a>
 shows that recurring gap values differing by <span
 class="math inline" data-term-auto="off">\(2\)</span> in every residue class do not work at
-the level of integer recurrences; and by Theorem <a class="math-ref" href="#long251:res:sparse">22</a> the event in
+the level of integer recurrences; and by Theorem <a class="math-ref" href="#long251:res:sparse">23</a> the event in
 <a class="math-ref" data-equation-ref="true" href="#long251:eq:smallpair">long251:eq:smallpair</a> has
 density zero, so it must be produced cofinally on a sparse set. Isolated
 small gaps, isolated large gaps and average gap estimates are
@@ -1921,9 +2191,9 @@ unconditional substitutes cannot replace that hypothesis.</p>
 <p>The two finite certificates of Propositions <a class="math-ref" href="#long251:res:explicit-remainder">14</a>
 and <a class="math-ref" href="#long251:res:finite-smallpair">15</a>, the
 continued-fraction exclusion of Theorem <a class="math-ref" href="#long251:res:cfexclusion">17</a>, the
-nonconcentration transfer of Theorem <a class="math-ref" href="#long251:res:nonconcentration">20</a> with
-its corollary, the sparsity statement of Theorem <a class="math-ref" href="#long251:res:sparse">22</a>, and the
-construction of Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a> are
+nonconcentration transfer of Theorem <a class="math-ref" href="#long251:res:nonconcentration">21</a> with
+its corollary, the sparsity statement of Theorem <a class="math-ref" href="#long251:res:sparse">23</a>, and the
+construction of Theorem <a class="math-ref" href="#long251:res:polignacfail">24</a> are
 ordinary mathematical proofs with exact arithmetic replay and no Lean
 declaration. Everything else linked above is checked by the kernel at
 the pinned commit.</p>
@@ -1955,8 +2225,8 @@ competing interests.</p>
 <p>The problem numbering and status follow the Erdős Problems catalogue
 maintained by Thomas Bloom <span class="citation"
 data-cites="erdosproblems"><a href="#ref-15">[15]</a></span>. The logarithmic-scale construction
-of Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a> and the
-transfer argument of Theorem <a class="math-ref" href="#long251:res:nonconcentration">20</a> arose
+of Theorem <a class="math-ref" href="#long251:res:polignacfail">24</a> and the
+transfer argument of Theorem <a class="math-ref" href="#long251:res:nonconcentration">21</a> arose
 in an external review of an earlier draft of this note; both proofs
 printed here were checked independently.</p>
 </section>
@@ -2114,7 +2384,7 @@ uses.</p>
 directly. The classical witness that produced it is worth recording,
 because it is the form in which the shift length first appears.</p>
 <div class="proposition" id="long251:xr:totient">
-<p><strong>Proposition 29</strong> (a shift of totient length). <em> Let
+<p><strong>Proposition 30</strong> (a shift of totient length). <em> Let
 <span class="math inline" data-term-auto="off">\(T:\N\to\Q\)</span> satisfy the dyadic tail
 recurrence with integer digits. If the reduced denominator <span
 class="math inline" data-term-auto="off">\(d\)</span> of <span
@@ -2133,7 +2403,7 @@ class="math inline" data-term-auto="off">\((2^{\ph(d)}-1)T_N=ku\)</span> is an i
 the integral-shift criterion transfers this to the shift. ◻</p>
 </div>
 <div class="proposition" id="long251:xr:propagate">
-<p><strong>Proposition 30</strong> (propagation). <em> If <span
+<p><strong>Proposition 31</strong> (propagation). <em> If <span
 class="math inline" data-term-auto="off">\(\sigma_h(N)\)</span> is an integer, then <span
 class="math inline" data-term-auto="off">\(\sigma_h(N+k)\)</span> is an integer for every
 <span class="math inline" data-term-auto="off">\(k\ge0\)</span>.</em></p>
@@ -2172,7 +2442,7 @@ the odd part.</p>
 general truncation statement behind it, valid for any dominating
 majorant, is the following.</p>
 <div class="proposition" id="long251:xr:truncation">
-<p><strong>Proposition 31</strong> (finite truncation). <em> Let <span
+<p><strong>Proposition 32</strong> (finite truncation). <em> Let <span
 class="math inline" data-term-auto="off">\(M(n)\ge g_n\)</span> for every <span
 class="math inline" data-term-auto="off">\(n\)</span>, assume the series below converges, and
 put </em></p>
@@ -2185,7 +2455,7 @@ class="math inline" data-term-auto="off">\(N_0\)</span> there are <span
 class="math inline" data-term-auto="off">\(N\ge N_0\)</span> and <span
 class="math inline" data-term-auto="off">\(L\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(\operatorname{dist}(S_{h,N,L},\Z)&gt;R_{h,N,L}(M)\)</span>,
-then the universal shift escape of Problem <a class="math-ref" href="#long251:prob:escape">27</a> holds.</em></p>
+then the universal shift escape of Problem <a class="math-ref" href="#long251:prob:escape">28</a> holds.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> The part of <span
@@ -2218,29 +2488,34 @@ prime-gap theorem producing such an avoided arc on a logarithmic block.
 This rewriting is paper-level and carries no Lean declaration.</p>
 </section>
 <section id="long251:sec:xr-divisorhit" class="level3">
-<h3>A weaker recurrence-level target</h3>
+<h3>Divisor-hitting shift escape</h3>
 <div class="problem" id="long251:xr:divisor-hit">
-<p><strong>Problem 32</strong> (divisor-hitting shift escape). <em> For
+<p><strong>Problem 33</strong> (divisor-hitting shift escape). <em> For
 every <span class="math inline" data-term-auto="off">\(r\ge1\)</span>, does some positive
 multiple of <span class="math inline" data-term-auto="off">\(r\)</span> escape cofinally, in
 the sense of <a class="math-ref" data-equation-ref="true" href="#long251:eq:shift-escape">long251:eq:shift-escape</a> at shift
 length <span class="math inline" data-term-auto="off">\(mr\)</span> for some <span
 class="math inline" data-term-auto="off">\(m\ge1\)</span>?</em></p>
 </div>
-<p>A hypothetical rational value produces an eventually integral fixed
-shift, and the tail-shift cocycle propagates integrality forward and
-through positive multiples of that shift, so hitting one compatible
-multiple suffices in place of escaping at every prescribed <span
-class="math inline" data-term-auto="off">\(h\)</span>. Forward propagation is Lean-checked;
-the short multiple-in-shift closure is an elementary paper-level
-derivation with no named declaration, so this is recorded as a sharper
-proposed criterion rather than a registered equivalence.</p>
+<p>This is an exact reformulation, not a weaker mathematical target. If
+<span class="math inline" data-term-auto="off">\(T_0\)</span> is irrational, every positive
+shift is nonintegral by the block identity, so divisor-hitting escape
+follows with <span class="math inline" data-term-auto="off">\(m=1\)</span>. Conversely,
+rationality gives a shift <span class="math inline" data-term-auto="off">\(h\ge1\)</span>
+that is integral at every sufficiently late index. For each positive
+integer <span class="math inline" data-term-auto="off">\(m\)</span>, the identity</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[T_{N+mh}-T_N=\sum_{j=0}^{m-1}(T_{N+(j+1)h}-T_{N+jh})\]</span></div>
+<p class="display-continue">makes every multiple <span class="math inline" data-term-auto="off">\(mh\)</span> eventually
+integral. Taking <span class="math inline" data-term-auto="off">\(r=h\)</span> contradicts
+divisor-hitting escape. This ordinary deduction uses the checked
+rationality classification and a finite telescope; rearranging the
+quantifiers supplies no new estimate for the actual prime gaps.</p>
 </section>
 <section id="long251:sec:xr-compression" class="level3">
 <h3>Two ordinary proofs about the free-pair producer</h3>
-<p>Both statements below are ordinary proofs recorded in the private
-research development. Neither is formalised and neither carries an
-independent check.</p>
+<p>Both arguments below are ordinary mathematical deductions. Neither is
+formalised or independently checked here.</p>
 <section id="state-compression." class="level5">
 <h5>State compression.</h5>
 <p>Exchanging the order of summation gives <span
@@ -2276,12 +2551,12 @@ to produce.</p>
 </section>
 <section id="long251:sec:xr-boundedpolignac" class="level3">
 <h3>A bounded companion to the recurring-values countermodel</h3>
-<p>Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a> carries a
+<p>Theorem <a class="math-ref" href="#long251:res:polignacfail">24</a> carries a
 logarithmic growth profile so that its cumulative sequence matches the
 primes. The mechanism is visible in a much smaller example, which is
 recorded here because it is checkable by hand.</p>
 <div class="proposition" id="long251:xr:boundedpolignac">
-<p><strong>Proposition 33</strong> (bounded recurring-values
+<p><strong>Proposition 34</strong> (bounded recurring-values
 countermodel). <em> Put <span class="math inline" data-term-auto="off">\(U_0=4\)</span> and,
 for <span class="math inline" data-term-auto="off">\(n\ge1\)</span>, <span
 class="math inline" data-term-auto="off">\(U_n=6\)</span> when <span
@@ -2406,7 +2681,7 @@ class="math display" data-term-auto="off">\[\begin{array}{l}
 class="math inline" data-term-auto="off">\(0.744\)</span> at <span
 class="math inline" data-term-auto="off">\(h=1\)</span> and lies between <span
 class="math inline" data-term-auto="off">\(0.744\)</span> and <span
-class="math inline" data-term-auto="off">\(0.8121\)</span> across all offsets. Theorem <a class="math-ref" href="#long251:res:sparse">22</a> proves that the
+class="math inline" data-term-auto="off">\(0.8121\)</span> across all offsets. Theorem <a class="math-ref" href="#long251:res:sparse">23</a> proves that the
 limiting density is zero, so the observed decline is the expected
 behaviour rather than a failure of the event.</p>
 </section>
@@ -2438,7 +2713,7 @@ certified nonintegral tail difference. A further record proposed that
 two even values differing by <span class="math inline" data-term-auto="off">\(2\)</span>,
 each occurring infinitely often inside a common index residue class,
 would supply the two-condition form. No proof of that implication was
-ever produced, and Theorem <a class="math-ref" href="#long251:res:polignacfail">23</a> shows that
+ever produced, and Theorem <a class="math-ref" href="#long251:res:polignacfail">24</a> shows that
 no proof exists at the level of integer-digit recurrences. That entry is
 withdrawn.</p>
 </section>

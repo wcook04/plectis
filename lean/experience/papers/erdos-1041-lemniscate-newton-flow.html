@@ -45,11 +45,12 @@ are nonnegative, so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t=1</annotation></semantics></math>
 the value is zero. Concatenating the two segments gives length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>ζ</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">|</mo><mi>+</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>ζ</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|\zeta_1|+|\zeta_2|&lt;2</annotation></semantics></math>.
-The displayed statement is ordinary mathematics in this note.
-<code>PaperTrinomial.lean</code> is not in this checkout. Lean checks
-Newton-flow decay, ray/translation geometry and root retention in
-<code>NewtonFlowRaySeparation.lean</code>, and solved-family kernels
-rather than this all-degree trinomial assembly. ◻</p>
+Lean checks <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L330">the
+trinomial radial inequalities and radius budget</a>, including the
+constant-term bound from the root-disc hypothesis. The conversion of
+those two segment inequalities and their radius-sum bound into the
+single rectifiable path stated here is an ordinary geometric step. ◻</p>
 </div>
 <section id="a-finite-convex-certificate." class="level5">
 <h5>A finite convex certificate.</h5>
@@ -99,9 +100,11 @@ Any
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>320</mn><mi>/</mi><mn>327</mn><mo>&lt;</mo><msup><mi>r</mi><mn>6</mn></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">320/327&lt;r^6&lt;1</annotation></semantics></math>
 proves the assertion. Only this prescribed spoke is excluded; other
-connectors remain available. The statement with the radius supplied is
-ordinary mathematics; <code>PaperTrinomial.lean</code> is not in this
-checkout.</p>
+connectors remain available. The corresponding radial evaluation is
+checked in <a
+href="https://github.com/wcook04/plectis-erdos/blob/0ba585f632fbbbb43af2ee9532d4e83752af3f67/ErdosProblems/Erdos1041/AbelControlPolygon.lean#L555">the
+sextic guardrail</a>. The factorisation above explains the root
+locations.</p>
 </section>
 </section>
 <section id="sec:problem" class="level2">
@@ -123,7 +126,11 @@ inside
 so the geometric question concerns squarefree polynomials. The original
 question is Problem 5 of Erdős–Herzog–Piranian <span class="citation"
 data-cites="ehp1958"><a href="#ref-2">[2]</a></span>. Pendyala <span class="citation"
-data-cites="june2026"><a href="#ref-4">[4]</a></span> proves the complete degree-four case.</p>
+data-cites="june2026"><a href="#ref-4">[4]</a></span> proves the complete degree-four case. A
+separate degree-seven counterexample has been announced on the <a
+href="https://www.erdosproblems.com/1041">problem’s discussion page</a>.
+That external claim is not assessed in this note; the results below
+concern the stated polynomial families and sufficient conditions.</p>
 <p>Theorem  treats arbitrary geometry when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>≤</mo><mn>13</mn><mi>/</mi><mn>25</mn></mrow><annotation encoding="application/x-tex">\mu\le13/25</annotation></semantics></math>,
 without a root-location assumption. Its scaling corollary gives length
@@ -231,16 +238,18 @@ The inverse-map estimates also give a lower radius
 and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mo>≥</mo><msub><mi>d</mi><mo>*</mo></msub><mo>,</mo><mspace width="2.0em"></mspace><munder><mo>∑</mo><mi>j</mi></munder><mi>ℓ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>x</mi><mo>:=</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>/</mi><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>ℓ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">tanh</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">d_j\ge d_*,\qquad
  \sum_j\ell(d_j)\ge x:=\log(t/\mu),\qquad
- \ell(d)=-\log\tanh(d/2).</annotation></semantics></math> The open balls
-of radius
+ \ell(d)=-\log\tanh(d/2).</annotation></semantics></math> The difficulty
+is to use the pairwise separation without discarding the radial
+positions of the points. Projecting all the balls onto the circle of
+directions loses this information: balls at different radii can have
+overlapping projections. Instead, the open balls of radius
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">D/2</annotation></semantics></math>
 around the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mi>j</mi></msub><annotation encoding="application/x-tex">b_j</annotation></semantics></math>
-are disjoint. Their intersections with any fixed hyperbolic circle of
-radius
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
-are therefore disjoint arcs. The hyperbolic cosine law gives their
-angular half-widths
+are intersected with the same hyperbolic circle of radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>.
+Their intersections are disjoint, possibly empty, arcs. The hyperbolic
+cosine law gives their angular half-widths
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">arccos</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><msubsup><mrow><mo stretchy="true" form="prefix">[</mo><mfrac><mrow><mrow><mi mathvariant="normal">cosh</mi><mo>&#8289;</mo></mrow><mi>d</mi><mrow><mi mathvariant="normal">cosh</mi><mo>&#8289;</mo></mrow><mi>r</mi><mo>−</mo><mrow><mi mathvariant="normal">cosh</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>D</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mrow><mi mathvariant="normal">sinh</mi><mo>&#8289;</mo></mrow><mi>d</mi><mrow><mi mathvariant="normal">sinh</mi><mo>&#8289;</mo></mrow><mi>r</mi></mrow></mfrac><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mi>−</mi><mn>1</mn></mrow><mn>1</mn></msubsup><mo>,</mo><mspace width="2.0em"></mspace><munder><mo>∑</mo><mi>j</mi></munder><mi>w</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>j</mi></msub><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>π</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">w(d,r)=\arccos\!\left[\frac{\cosh d\cosh r-\cosh(D/2)}
                               {\sinh d\sinh r}\right]_{-1}^{1},
  \qquad \sum_j w(d_j,r)\le\pi,</annotation></semantics></math> where
@@ -259,11 +268,12 @@ to the boxed inequality is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperFiniteDual.lean#L68">the
 finite dual arity floor, with the packing bound and the boundedness of
 the dual values as premises</a>; the hyperbolic supplier of those
-premises is ordinary. Angular projection alone loses the disjointness
-used here: balls at different radii may have overlapping shadows. Common
-circle slices retain it. The resulting lower bound for
+premises is ordinary. The nonnegative weights combine valid bounds from
+several radii; the summation is elementary once the uniform majorant has
+been proved. Establishing that majorant and the geometric separation
+estimates is the substantive input. The resulting lower bound for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-feeds the length–area comparison until a short boundary connection is
+enters the length–area comparison until a short boundary connection is
 forced. The complete comparison proof and rational certificate are in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AngularBudgetLowCriticalClosure.md">the
 angular budget low critical closure</a>. The certified terminal time is
@@ -324,7 +334,12 @@ makes the bracket less than
 degree two has the exact root-segment bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>ρ</mi></mrow><annotation encoding="application/x-tex">2\rho</annotation></semantics></math>.</p>
 <div class="proof">
-<p><em>Proof.</em> Write
+<p><em>Proof.</em> A repeated zero gives a constant path of length zero,
+so assume
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+is squarefree; then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mu&gt;0</annotation></semantics></math>.
+Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>t</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>t</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">K_t=\{|f|\le t\}</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>T</mi></msub><annotation encoding="application/x-tex">C_T</annotation></semantics></math>
 for the component of
@@ -420,10 +435,13 @@ persistence-window argument.</p>
 </section>
 <section id="sec:critical-proximity" class="level2">
 <h2>Critical proximity and straight-path obstructions</h2>
-<p>The strongest source-current theorem that applies in every degree is
-a sharp metric selection principle at a critical point. It consumes the
-complete logarithmic-derivative balance rather than a degree-specific
-coefficient pattern.</p>
+<p>A critical point gives a different way to select two nearby roots,
+without assuming a sparse coefficient pattern. The
+logarithmic-derivative balance prevents one root from being arbitrarily
+closer to the critical point than all the others. This yields a bound on
+the sum of two distances. To turn that bound into a path theorem, both
+connecting segments would also have to stay inside the lemniscate; the
+examples below show why that extra step cannot be assumed.</p>
 <div class="theorem">
 <p><strong>Theorem 7</strong> (critical geometric-mean proximity). <em>
 Let
@@ -451,18 +469,49 @@ The reciprocal balance gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d_j\le(n-1)d_i</annotation></semantics></math>,
 while minimality and the geometric-mean identity give
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub><msubsup><mi>d</mi><mi>j</mi><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo>≤</mo><msup><mi>r</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">d_i d_j^{\,n-1}\le r^n</annotation></semantics></math>.
-After normalising by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>,
-a sharp two-variable Bernoulli inequality yields
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub><mo>+</mo><msub><mi>d</mi><mi>j</mi></msub><mo>≤</mo><mn>2</mn><mi>r</mi></mrow><annotation encoding="application/x-tex">d_i+d_j\le2r</annotation></semantics></math>.
-The complete complex theorem, including the selector and both
-inequalities, is checked as <a
+The role of the balance is visible on setting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><msub><mi>d</mi><mi>j</mi></msub><mi>/</mi><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">t=d_j/d_i</annotation></semantics></math>:
+it restricts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[1,n-1]</annotation></semantics></math>,
+where
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mi>t</mi><mo>≤</mo><mn>2</mn><msup><mi>t</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>n</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">1+t\le2t^{(n-1)/n}.</annotation></semantics></math>
+Indeed,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msup><mi>t</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>n</mi></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(2t^{(n-1)/n}/(1+t))</annotation></semantics></math>
+vanishes at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t=1</annotation></semantics></math>
+and has derivative
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>t</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(n-1-t)/(nt(1+t))\ge0</annotation></semantics></math>
+on that interval. Consequently
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub><mo>+</mo><msub><mi>d</mi><mi>j</mi></msub><mo>≤</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>i</mi></msub><msubsup><mi>d</mi><mi>j</mi><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msubsup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>≤</mo><mn>2</mn><mi>r</mi></mrow><annotation encoding="application/x-tex">d_i+d_j\le2(d_i d_j^{\,n-1})^{1/n}\le2r</annotation></semantics></math>.
+Without the reciprocal balance, the required restriction on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+would be missing. The complete complex theorem, including the selector
+and both inequalities, is checked as <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L289">the
 critical geometric-mean proximity</a>.</p>
+<div class="corollary">
+<p><strong>Corollary 8</strong> (two nearest roots). <em>If the roots
+lie in the open unit disc and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+is a non-root critical point, the two nearest roots to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+have total distance strictly below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Apply the closed-disc two-nearest-root inequality
+after scaling by any radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">R&lt;1</annotation></semantics></math>
+containing all the roots. The ordinary reduction is recorded in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/a729f05c40398663fd586c9da487ad874d898639/research_corpus/Erdos1041/GlobalCriticalTwoNearestBudget.md">global
+two-nearest-root budget</a>; Lean checks its algebraic core as . ◻</p>
+</div>
 <p>This is not silently promoted to a path theorem. The same source
 module checks two exact barriers to the most tempting completions.</p>
 <div class="proposition">
-<p><strong>Proposition 8</strong> (two straight-path no-go families).
+<p><strong>Proposition 9</strong> (two straight-path no-go families).
 <em> There is a monic quintic with all roots in the open unit disc and a
 non-root critical point
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
@@ -491,14 +540,15 @@ geometry.</p>
 </section>
 <section id="sec:solved-families" class="level2">
 <h2>Solved polynomial families</h2>
-<p>Three source-current families do cross that containment gap. Their
-complete paper theorems are ordinary mathematics assembled from
-formalised load-bearing kernels; this section keeps that authority split
-explicit.</p>
+<p>The following families cross that containment gap by controlling
+entire spokes or segments. The translated cubic fibre theorem has a
+complete rectifiable-path formalisation. For the other two families, the
+displayed proofs identify the checked kernels and the ordinary geometric
+steps.</p>
 <section id="translated-cubic-quotient-fibres" class="level3">
 <h3>Translated cubic quotient fibres</h3>
 <div class="theorem">
-<p><strong>Theorem 9</strong> (translated cubic quotient fibres). <em>
+<p><strong>Theorem 10</strong> (translated cubic quotient fibres). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">q\ge2</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>∈</mo><mi mathvariant="double-struck">ℂ</mi></mrow><annotation encoding="application/x-tex">h\in\mathbb C</annotation></semantics></math>,
@@ -540,12 +590,21 @@ two different fibre points are joined through
 with length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2|y|&lt;2</annotation></semantics></math>.
 The finite root-of-unity mean-square argument and fibre assembly are
-ordinary, not hidden Lean claims.</p>
+also formalised in <a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos1041/PaperCubicFibres.lean#L240">the
+complete translated cubic fibre theorem</a>. Its conclusion constructs
+the explicit continuous rectifiable two-segment path with strict
+containment and variation below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
+The exact source files occur in the successful compiled dependency
+closure of <a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/verification/erdos1041-returned-r18-v5-full-audit-evidence.json">the
+source-bound Lean build and axiom-audit record</a>.</p>
 </section>
 <section id="primitive-sparse-quintics" class="level3">
 <h3>Primitive sparse quintics</h3>
 <div class="theorem">
-<p><strong>Theorem 10</strong> (primitive sparse quintics). <em> Let
+<p><strong>Theorem 11</strong> (primitive sparse quintics). <em> Let
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>5</mn></msup><mo>+</mo><mi>a</mi><msup><mi>z</mi><mn>4</mn></msup><mo>+</mo><mi>b</mi><mi>z</mi><mo>+</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">p(z)=z^5+az^4+bz+c</annotation></semantics></math>
 be monic with all five root occurrences in the open unit disc. Then two
 distinct root occurrences
@@ -602,78 +661,67 @@ holds it gives the target
 constant <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 rather than a constant multiple of it.</p>
 <div class="theorem">
-<p><strong>Theorem 11</strong> (critical-value separation). <em> Let
+<p><strong>Theorem 12</strong> (disk-family critical-value separation).
+<em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 be monic of degree
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>,
 let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
-be a simple critical point with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">v=f(c)\ne0</annotation></semantics></math>,
-and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">S&gt;1</annotation></semantics></math>.
+be a simple critical point, and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">v=f(c)\ne0</annotation></semantics></math>.
+Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>0</mn></msub><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">w_0\in[0,1]</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>&gt;</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>w</mi><mn>0</mn></msub><mo>,</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S&gt;\max(w_0,1-w_0)</annotation></semantics></math>.
 Suppose every other critical point
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
-of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 satisfies
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">|</mo><mn>1</mn><mo>−</mo><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>v</mi></mfrac><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">|</mo><mo>≥</mo><mi>S</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\Bigl|1-\frac{f(d)}{v}\Bigr|\ge S .</annotation></semantics></math>
-Then the square-root-resolved inverse branch through
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
-joins two roots of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-inside
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>v</mi></mfrac><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>≥</mo><mi>S</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\left|\frac{f(d)}v-w_0\right|\ge S .</annotation></semantics></math>
+Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p=w_0(1-w_0)</annotation></semantics></math>.
+Then two distinct roots are joined inside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mo stretchy="false" form="prefix">|</mo><mi>v</mi><mo stretchy="false" form="prefix">|</mo><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|\le|v|\}</annotation></semantics></math>
-by a path of length at most
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">|</mo><mi>v</mi><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>S</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mfrac><mi>S</mi><mrow><mi>S</mi><mo>−</mo><mn>1</mn></mrow></mfrac></mrow></msqrt><mi>.</mi></mrow><annotation encoding="application/x-tex">2\,|v|^{1/n}(1+S)^{1/n}\sqrt{\log\frac{S}{S-1}} .</annotation></semantics></math>
-In particular the connector is shorter than
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>v</mi><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">2|v|^{1/n}</annotation></semantics></math>
-whenever
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>S</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mfrac><mi>S</mi><mrow><mi>S</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
-\label{eq:separation-threshold}
-  (1+S)^{2/n}\log\frac{S}{S-1}&lt;1 .
+by a curve
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Γ</mi><annotation encoding="application/x-tex">\Gamma</annotation></semantics></math>
+satisfying
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">length</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Γ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>≤</mo><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mi>v</mi><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mfrac><mi>S</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mfrac><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>−</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:disk-family-length}
+ \operatorname{length}(\Gamma)^2
+ \le 2|v|^{2/n}\Bigl(\frac{S}{n-1}\Bigr)^{2/n}
+ \log\!\frac{S^2+S+p}{S^2-S+p}.
 \end{equation}</annotation></semantics></math></em></p>
 </div>
 <div class="corollary">
-<p><strong>Corollary 12</strong> (disk-family uniform radius). <em> A
-strictly stronger disk-family theorem, proved in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.md">disk
-family critical value separation</a>, replaces the coefficientwise
-logarithm
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(S/(S-1))</annotation></semantics></math>
-by the Bergman segment identity
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>q</mi></mrow><mi>q</mi></msubsup><mo stretchy="false" form="prefix">|</mo><mi>h</mi><mo stretchy="false" form="prefix">|</mo><msup><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mn>2</mn></msup><mo>≤</mo><mfrac><mn>4</mn><mi>π</mi></mfrac><mrow><mi mathvariant="normal">artanh</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">∥</mo><mi>h</mi><msubsup><mo stretchy="false" form="postfix">∥</mo><msup><mi>A</mi><mn>2</mn></msup><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\Bigl(\int_{-q}^{q}|h|\Bigr)^2
- \le\frac4\pi\operatorname{artanh}(q^2)\,\|h\|_{A^2}^2</annotation></semantics></math>
-and yields a uniform radius
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">S=4/3</annotation></semantics></math>
-in every degree
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>,
-at every real centre. The smallest degree-uniform radius certified by
-that coefficient at centre
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">a\in[0,1]</annotation></semantics></math>
-is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>∞</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>+</mo><msqrt><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">S_\infty(a)=(A+\sqrt{A^2-4a(1-a)})/2</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mrow><mi mathvariant="normal">coth</mi><mo>&#8289;</mo></mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">A=\coth 1</annotation></semantics></math>;
-the endpoints recover
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>∞</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>S</mi><mi>∞</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">coth</mi><mo>&#8289;</mo></mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">S_\infty(0)=S_\infty(1)=\coth1</annotation></semantics></math>
-already on file. An obstructing critical value may depend on the
-proposed centre. The older coefficientwise regimes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">S=4</annotation></semantics></math>
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>),
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">S=3</annotation></semantics></math>
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n\ge4</annotation></semantics></math>),
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">S=2</annotation></semantics></math>
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">n\ge6</annotation></semantics></math>)
-remain valid and are superseded. A proposed all-degree cutoff
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">S=3/2</annotation></semantics></math>
-for the older bound is strictly weaker than
+<p><strong>Corollary 13</strong> (uniform radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/3</annotation></semantics></math>).
+<em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+be monic of degree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>
+with all roots in the open unit disc. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+is a simple critical point with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;|f(c)|&lt;1</annotation></semantics></math>
+and, for some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>0</mn></msub><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">w_0\in[0,1]</annotation></semantics></math>,
+every other critical point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+satisfies
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>≥</mo><mfrac><mn>4</mn><mn>3</mn></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\left|\frac{f(d)}{f(c)}-w_0\right|\ge\frac43,</annotation></semantics></math>
+then two roots are joined inside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
+by a curve of length strictly below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
+In degree three the branch-centred choice
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">w_0=1</annotation></semantics></math>
+already works with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/3</annotation></semantics></math>
-and is not used.</em></p>
+replaced by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">6/5</annotation></semantics></math>.</em></p>
 </div>
 <div class="corollary">
-<p><strong>Corollary 13</strong> (a parent-problem regime). <em> Let
+<p><strong>Corollary 14</strong> (a parent-problem regime). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 be monic of degree
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>
@@ -704,100 +752,152 @@ The Fekete chain supplies
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>v</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|v|&lt;1</annotation></semantics></math>
 at a minimum-modulus critical point, but an arbitrary selected critical
 value need not. The hypothesis is sufficient, not necessary: it does not
-assert that some critical value is always separated by two, and the
-cubic
+assert that some critical value always admits such a disk. The cubic
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mn>3</mn></msup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>100</mn><mo stretchy="false" form="postfix">)</mo><mi>z</mi><mo>−</mo><mn>3</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">z^3+(3/100)z-3/4</annotation></semantics></math>
-shows that no such covering statement is true.</p>
-<p>The proof of Theorem  is the same area–capacity argument used in
-Section , run at a single saddle instead of over a merge tree. Normalise
-so that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c=0</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">v=1</annotation></semantics></math>,
+shows in particular that the older separation-two condition does not
+cover all polynomials.</p>
+<div class="proof">
+<p><em>Proof of Theorem .</em> Set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>v</mi><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\rho=|v|^{1/n}</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>f</mi><mo>″</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">|f&#39;&#39;(0)|\ne0</annotation></semantics></math>.
-The square substitution resolves the saddle, so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><mi>ξ</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>ξ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">f(Z(\xi))=1-\xi^2</annotation></semantics></math>
-has two local holomorphic solutions interchanged by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ξ</mi><mo>↦</mo><mi>−</mi><mi>ξ</mi></mrow><annotation encoding="application/x-tex">\xi\mapsto-\xi</annotation></semantics></math>.
-A finite branch point of the algebraic continuation of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Z</mi><annotation encoding="application/x-tex">Z</annotation></semantics></math>
-requires
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f&#39;(d)=0</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>ξ</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn><mo>−</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\xi^2=1-f(d)</annotation></semantics></math>,
-and the separation hypothesis puts every such point on or outside
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msqrt><mi>S</mi></msqrt></mrow><annotation encoding="application/x-tex">|\xi|=\sqrt S</annotation></semantics></math>;
-properness of a polynomial rules out escape to infinity over a bounded
-value set, so the monodromy theorem continues
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Z</mi><annotation encoding="application/x-tex">Z</annotation></semantics></math>
-holomorphically through
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>ξ</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msqrt><mi>S</mi></msqrt></mrow><annotation encoding="application/x-tex">|\xi|&lt;\sqrt S</annotation></semantics></math>.
-It is injective there, because
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>ξ</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>ξ</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Z(\xi_1)=Z(\xi_2)</annotation></semantics></math>
-forces
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>ξ</mi><mn>1</mn><mn>2</mn></msubsup><mo>=</mo><msubsup><mi>ξ</mi><mn>2</mn><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\xi_1^2=\xi_2^2</annotation></semantics></math>,
-and the two inverse sheets can meet only at an excluded branch point.
-Writing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><mi>ξ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow></msub><msub><mi>a</mi><mi>k</mi></msub><msup><mi>ξ</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">Z(\xi)=\sum_{k\ge1}a_k\xi^k</annotation></semantics></math>
-and fixing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>&lt;</mo><mi>R</mi><mo>&lt;</mo><msqrt><mi>S</mi></msqrt></mrow><annotation encoding="application/x-tex">1&lt;R&lt;\sqrt S</annotation></semantics></math>,
-injectivity and the area formula give
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><munder><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow></munder><mi>k</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>a</mi><mi>k</mi></msub><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><msup><mi>R</mi><mrow><mn>2</mn><mi>k</mi></mrow></msup><mo>=</mo><mrow><mi mathvariant="normal">Area</mi><mo>&#8289;</mo></mrow><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>R</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\pi\sum_{k\ge1}k|a_k|^2R^{2k}=\operatorname{Area}Z(D_R),</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>+</mo><mi>ρ</mi><mi>w</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>v</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">P(w)=\frac{f(c+\rho w)}v.</annotation></semantics></math>
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P(0)=1</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P&#39;(0)=0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mo>″</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P&#39;&#39;(0)\ne0</annotation></semantics></math>,
+and its leading coefficient is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>v</mi><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">|v|/v</annotation></semantics></math>,
+of modulus one. This is the normalization used below; lengths scale back
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>.</p>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>w</mi><mn>0</mn></msub><mo>,</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Q=D(w_0,S)</annotation></semantics></math>
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
+be the component of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P^{-1}(Q)</annotation></semantics></math>
+containing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>.
+The hypotheses put both
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0,1</annotation></semantics></math>
+and the segment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>,
 while
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><mi>ξ</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>ξ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">f(Z(\xi))=1-\xi^2</annotation></semantics></math>
-confines the image to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo>+</mo><msup><mi>R</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1+R^2\}</annotation></semantics></math>,
-whose area is bounded by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>R</mi><mn>2</mn></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\pi(1+R^2)^{2/n}</annotation></semantics></math>
-for a monic
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>.
-That bound is the absolute area inequality
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Area</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>T</mi><mo stretchy="false" form="postfix">}</mo><mo>≤</mo><mi>π</mi><msup><mi>T</mi><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\operatorname{Area}\{|f|&lt;T\}\le\pi T^{2/n}</annotation></semantics></math>
-for a polynomial with unit-modulus leading coefficient, taken from Pólya
-<span class="citation" data-cites="polya1928"><a href="#ref-7">[7]</a></span>. No relative area
-inequality is used here; the disposition of Dubinin’s Theorem 1 is
-recorded in the bibliography entry <span class="citation"
-data-cites="dubinin"><a href="#ref-6">[6]</a></span>. Cauchy–Schwarz then gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow></munder><mo stretchy="false" form="prefix">|</mo><msub><mi>a</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>R</mi><mn>2</mn></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><munder><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mn>1</mn><mrow><mi>k</mi><msup><mi>R</mi><mrow><mn>2</mn><mi>k</mi></mrow></msup></mrow></mfrac><msup><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msup><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>R</mi><mn>2</mn></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mfrac><msup><mi>R</mi><mn>2</mn></msup><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn></mrow></mfrac></mrow></msqrt><mo>,</mo></mrow><annotation encoding="application/x-tex">\sum_{k\ge1}|a_k|
-    \le(1+R^2)^{1/n}\Bigl(\sum_{k\ge1}\frac1{kR^{2k}}\Bigr)^{1/2}
-    =(1+R^2)^{1/n}\sqrt{\log\frac{R^2}{R^2-1}},</annotation></semantics></math>
-and termwise integration of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>Z</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|Z&#39;|</annotation></semantics></math>
-over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+is the only critical point in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>.
+The restriction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>:</mo><mi>U</mi><mo>→</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">P:U\to Q</annotation></semantics></math>
+is proper. Riemann–Hurwitz, with one simple ramification point, makes it
+a degree-two map and makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
+simply connected. Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">1-P</annotation></semantics></math>
+has only its double zero at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
+and admits a single-valued square root
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>ξ</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn><mo>−</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">\xi^2=1-P</annotation></semantics></math>.
+This map is proper and locally injective onto
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>Q</mi><mo accent="true">̃</mo></mover><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>ξ</mi><mo>:</mo><mo stretchy="false" form="prefix">|</mo><msup><mi>ξ</mi><mn>2</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>S</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\widetilde Q=\{\xi:|\xi^2-(1-w_0)|&lt;S\},</annotation></semantics></math>
+the connected simply connected double cover of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
+It is therefore a conformal bijection. Its inverse
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Z</mi><annotation encoding="application/x-tex">Z</annotation></semantics></math>
+is the global resolved branch, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Z([-1,1])</annotation></semantics></math>
+joins the two distinct points over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P=0</annotation></semantics></math>
+inside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|P|\le1\}</annotation></semantics></math>.
+This component argument is what prevents the local inverse germ from
+changing sheets or escaping during continuation.</p>
+<p>Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">a=1-w_0</annotation></semantics></math>.
+The conformal map
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo stretchy="false" form="prefix">(</mo><mi>ξ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>ξ</mi><msqrt><mfrac><mi>S</mi><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi><msup><mi>ξ</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow></mfrac></msqrt><mo>:</mo><mover><mi>Q</mi><mo accent="true">̃</mo></mover><mo>→</mo><mi mathvariant="double-struck">𝔻</mi></mrow><annotation encoding="application/x-tex">\zeta(\xi)=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}
+       :\widetilde Q\longrightarrow\mathbb D</annotation></semantics></math>
+sends
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-1,1]</annotation></semantics></math>
-bounds the connector length by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>a</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">2\sum_{k\ge1}|a_k|</annotation></semantics></math>.
-Letting
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>↑</mo><msqrt><mi>S</mi></msqrt></mrow><annotation encoding="application/x-tex">R\uparrow\sqrt S</annotation></semantics></math>
-proves the theorem.</p>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mi>q</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-q,q]</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mn>2</mn></msup><mo>=</mo><mi>S</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">q^2=S/(S^2+p)</annotation></semantics></math>.
+Applying the Bergman segment inequality to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>∘</mo><msup><mi>ζ</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">Z\circ\zeta^{-1}</annotation></semantics></math>
+gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">length</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>Z</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>≤</mo><mfrac><mn>2</mn><mi>π</mi></mfrac><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mfrac><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>−</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow></mfrac><mrow><mi mathvariant="normal">Area</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{length}(Z([-1,1]))^2
+ \le\frac2\pi\log\!\frac{S^2+S+p}{S^2-S+p}
+       \operatorname{Area}(U).                       \tag{*}</annotation></semantics></math></p>
+<p>The area estimate concerns this particular two-sheeted component. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo>&lt;</mo><msup><mi>S</mi><mo>′</mo></msup><mo>&lt;</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">1-w_0&lt;S&#39;&lt;S</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>U</mi><mo>′</mo></msup><annotation encoding="application/x-tex">U&#39;</annotation></semantics></math>
+be the component of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msup><mi>S</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|P-w_0|&lt;S&#39;\}</annotation></semantics></math>
+containing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>.
+It is a proper regular component containing exactly two zeros of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>−</mo><msub><mi>w</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">P-w_0</annotation></semantics></math>,
+counted with multiplicity. The exterior-fibre capacity gap gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mrow><mi mathvariant="normal">cap</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mover><msup><mi>U</mi><mo>′</mo></msup><mo accent="true">¯</mo></mover><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup></mrow><msup><mi>S</mi><mo>′</mo></msup></mfrac><mo>&lt;</mo><mfrac><mn>1</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{\operatorname{cap}(\overline{U&#39;})^n}{S&#39;}&lt;\frac1{n-1}.</annotation></semantics></math>
+Pólya’s area–capacity inequality <span class="citation"
+data-cites="polya1928"><a href="#ref-8">[8]</a></span> then gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Area</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>U</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>π</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>S</mi><mo>′</mo></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\operatorname{Area}(U&#39;)&lt;\pi(S&#39;/(n-1))^{2/n}</annotation></semantics></math>.
+The components
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>U</mi><mo>′</mo></msup><annotation encoding="application/x-tex">U&#39;</annotation></semantics></math>
+exhaust
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
+as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>S</mi><mo>′</mo></msup><mo>↗</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">S&#39;\nearrow S</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Area</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\operatorname{Area}(U)\le\pi(S/(n-1))^{2/n}</annotation></semantics></math>.
+Substitute this in (*) and scale lengths by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+to obtain . No relative area inequality is used here; the disposition of
+Dubinin’s Theorem 1 is recorded in the bibliography entry <span
+class="citation" data-cites="dubinin"></span>. That theorem has a full
+covering hypothesis; neither that hypothesis nor its relative-area
+conclusion is used in this proof. ◻</p>
+</div>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn><mo>≤</mo><mi>S</mi><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">4/3\le S\le2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">p\ge0</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>−</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow></mfrac><mo>≤</mo><mfrac><mrow><mi>S</mi><mo>+</mo><mn>1</mn></mrow><mrow><mi>S</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≤</mo><mn>7</mn><mo>,</mo><mspace width="2.0em"></mspace><mfrac><mi>S</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>≤</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{S^2+S+p}{S^2-S+p}\le\frac{S+1}{S-1}\le7,
+ \qquad \frac{S}{n-1}\le1,</annotation></semantics></math> and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>7</mn><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\log7&lt;2</annotation></semantics></math>.
+Thus  is strictly below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo stretchy="false" form="prefix">|</mo><mi>v</mi><msup><mo stretchy="false" form="prefix">|</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>&lt;</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4|v|^{2/n}&lt;4</annotation></semantics></math>
+under the corollary’s hypotheses. The cubic constant follows from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>5</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>11</mn><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">(3/5)^{2/3}\log11&lt;2</annotation></semantics></math>.</p>
 <section id="bdry:critical-value-separation" class="level5">
 <h5>Boundary.</h5>
-<p>The analytic continuation, the univalence, the area formula, and the
-area–capacity inequality are ordinary mathematics; they are proved in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FirstMergeCriticalValueSeparationCertificate.md">first
-merge critical value separation certificate</a> and are not formalised.
-What Lean checks is the numerical half of the statement, in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FirstMergeCriticalValueSeparation.lean">first
-merge critical value separation</a>: the squared coefficient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="italic">𝑓</mi><mi mathvariant="italic">𝑖</mi><mi mathvariant="italic">𝑟</mi><mi mathvariant="italic">𝑠</mi><mi mathvariant="italic">𝑡</mi><mi mathvariant="italic">𝑚</mi><mi mathvariant="italic">𝑒</mi><mi mathvariant="italic">𝑟</mi><mi mathvariant="italic">𝑔</mi><mi mathvariant="italic">𝑒</mi><mi mathvariant="italic">𝑠</mi><mi mathvariant="italic">𝑞</mi><mi mathvariant="italic">𝑢</mi><mi mathvariant="italic">𝑎</mi><mi mathvariant="italic">𝑟</mi><mi mathvariant="italic">𝑒</mi><mi mathvariant="italic">𝑑</mi><mi mathvariant="italic">𝑐</mi><mi mathvariant="italic">𝑜</mi><mi mathvariant="italic">𝑒</mi><mi mathvariant="italic">𝑓</mi><mi mathvariant="italic">𝑓</mi><mi mathvariant="italic">𝑖</mi><mi mathvariant="italic">𝑐</mi><mi mathvariant="italic">𝑖</mi><mi mathvariant="italic">𝑒</mi><mi mathvariant="italic">𝑛</mi><mi mathvariant="italic">𝑡</mi></mrow><annotation encoding="application/x-tex">\mathit{first merge squared coefficient}</annotation></semantics></math>
-is antitone in the degree (), a squared connector length below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
-times a coefficient below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-forces length below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
-(), and the older three coefficientwise regimes hold exactly (), while
-the live uniform radius
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/3</annotation></semantics></math>
-is checked in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.lean">disk
-family critical value separation</a>. The Comparator entry is <a
-href="https://github.com/wcook04/plectis-erdos/tree/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ExternalVerification1041FirstMergeCriticalValueSeparation">the
-first-merge critical-value separation Comparator</a>. Lean does not
-prove the analytic hypothesis
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>ℓ</mi><mn>2</mn></msup><mo>≤</mo><mn>4</mn><mspace width="0.167em"></mspace><mi mathvariant="normal">c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ell^2\le4\,\mathrm{c}(n,S)</annotation></semantics></math>
-that those consumers take as input, and nothing in this section asserts
-the unrestricted problem or the complementary near-tie regime.</p>
+<p>The two-sheeted component, its square-root uniformisation, the
+Bergman segment inequality, the exterior-fibre capacity gap, Pólya’s
+inequality and the exhaustion are ordinary mathematics. Their complete
+immutable source is the <a
+href="https://github.com/wcook04/plectis-erdos/blob/8efbccc235df64a38d83f5dc7b1949e2ad18270d/research_corpus/Erdos1041/problem/DiskFamilyCriticalValueSeparation.md">disk-family
+critical-value separation record</a>. The separate <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36e325c8b05fe5c3ce8a2ca32a699f6dc6336b9/ErdosProblems/Erdos1041/DiskFamilyCriticalValueSeparation.lean">Lean
+numerical kernel</a> checks the coefficient bound for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn><mo>≤</mo><mi>S</mi><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">4/3\le S\le2</annotation></semantics></math>,
+the cubic
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>6</mn><mi>/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">S=6/5</annotation></semantics></math>
+inequality, and the implication from the squared bound to length below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
+It does not formalise the analytic hypotheses producing ; the adjacent
+axiom-audit source audits those numerical declarations rather than the
+ordinary analytic theorem. Nothing in this section asserts a separated
+disk always exists, covers the near-tie or multiple-saddle strata, or
+proves the unrestricted problem. The argument uses Pólya’s absolute
+area–capacity inequality, not the relative covering inequality in
+Dubinin’s Theorem 1 <span class="citation"
+data-cites="dubinin"><a href="#ref-7">[7]</a></span>.</p>
 <p>Pendyala’s degree-four theorem <span class="citation"
 data-cites="june2026"><a href="#ref-4">[4]</a></span> has no critical-spectrum hypothesis. The
 present separation criterion applies in every degree
@@ -815,7 +915,7 @@ r2 exact cores</a>; the ordinary arguments are in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/ExactObstructionsR2.md">exact
 obstructions r2</a>.</p>
 <div class="proposition">
-<p><strong>Proposition 14</strong> (no separation-or covering). <em> Let
+<p><strong>Proposition 15</strong> (no separation-or covering). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>3</mn></msup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>100</mn><mo stretchy="false" form="postfix">)</mo><mi>z</mi><mo>−</mo><mn>3</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">f(z)=z^3+(3/100)z-3/4</annotation></semantics></math>.
 Every root lies in the open unit disc, both critical points are simple,
 the critical values lie on distinct positive rays,
@@ -829,7 +929,7 @@ than a supplied minimum, is ordinary in this note.
 the distinct quartic file <code>SeparationCounterexampleR13.lean</code>
 is not this cubic example.</p>
 <div class="proposition">
-<p><strong>Proposition 15</strong> (one-root gamma bound is false). <em>
+<p><strong>Proposition 16</strong> (one-root gamma bound is false). <em>
 Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>8</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">p(z)=z^8-(3/2)z</annotation></semantics></math>
 and let
@@ -875,7 +975,7 @@ at level
 does not supply a one-root component. Neither general path theorem uses
 the rejected perimeter bound.</p>
 <div class="proposition">
-<p><strong>Proposition 16</strong> (arity does not force a capacity
+<p><strong>Proposition 17</strong> (arity does not force a capacity
 gap). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>z</mi><mn>3</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>400</mn><mo stretchy="false" form="postfix">)</mo><mi>z</mi><mo>−</mo><mn>3</mn><mi>/</mi><mn>32</mn></mrow><annotation encoding="application/x-tex">g(z)=z^3-(3/400)z-3/32</annotation></semantics></math>.
 All roots lie in the open unit disc,
@@ -893,48 +993,83 @@ has normalised capacity
 <p>Away from the critical set, define the complex Newton field
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">N(z)=-\frac{f(z)}{f&#39;(z)} .</annotation></semantics></math>
 Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z(t)</annotation></semantics></math>
-be differentiable with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z&#39;(t)=N(z(t))</annotation></semantics></math>,
-and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>⊆</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">I\subseteq\mathbb R</annotation></semantics></math>
+be an interval on which a differentiable curve
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>
+satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f&#39;(z(t))\ne0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z&#39;(t)=N(z(t))</annotation></semantics></math>.
+Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w(t)=f(z(t))</annotation></semantics></math>.</p>
 <div class="theorem">
-<p><strong>Theorem 17</strong> (value equation). <em>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>w</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w&#39;(t)=-w(t)</annotation></semantics></math>.</em></p>
-</div>
-<p>The computation is one line:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo>′</mo></msup><mo>=</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msup><mi>z</mi><mo>′</mo></msup><mo>=</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w</annotation></semantics></math>.
-The kernel checks it as <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">the
-Newton-flow value equation</a>, together with the differential form of
-the first integral, <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">vanishing
-of the exponentially scaled value</a>:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><msup><mi>e</mi><mi>t</mi></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">equivalently</mtext><mspace width="2.0em"></mspace><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>t</mi></mrow></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{d}{dt}\Bigl(e^{t}f(z(t))\Bigr)=0,
-  \qquad\text{equivalently}\qquad
-  f(z(t))=e^{-t}f(z(0)) .</annotation></semantics></math> Observe what
-this says about the geometry. The value moves radially inward at
-exponential rate and never changes argument. The lemniscate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
-is therefore forward-invariant, and the flow lines are exactly the
-preimages of rays from the origin.</p>
-<div class="corollary">
-<p><strong>Corollary 18</strong> (ray separation). <em> The values
+<p><strong>Theorem 18</strong> (value equation). <em> For a polynomial
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-at the endpoints of any finite Newton-flow connection lie on the same
-oriented ray from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
-in the value plane; the trajectory in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>
-need not be radial. Consequently, if two critical values lie on distinct
-positive rays, no Newton-flow saddle connection joins the corresponding
-critical points.</em></p>
+and a differentiable curve
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>:</mo><mi>I</mi><mo>→</mo><mi mathvariant="double-struck">ℂ</mi></mrow><annotation encoding="application/x-tex">z:I\to\mathbb C</annotation></semantics></math>
+on an interval
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>,
+assume
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f&#39;(z(t))\ne0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z&#39;(t)=-f(z(t))/f&#39;(z(t))</annotation></semantics></math>
+throughout
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>=</mo><mi>f</mi><mo>∘</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">w=f\circ z</annotation></semantics></math>
+satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo>′</mo></msup><mo>=</mo><mi>−</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">w&#39;=-w</annotation></semantics></math>,
+and
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><msub><mi>t</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>,</mo><msub><mi>t</mi><mn>0</mn></msub><mo>∈</mo><mi>I</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">f(z(t))=e^{-(t-t_0)}f(z(t_0))\qquad(t,t_0\in I).</annotation></semantics></math></em></p>
 </div>
-<p>This is checked in consumer form: the kernel accepts <a
+<p>The local computation is one line:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo>′</mo></msup><mo>=</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>z</mi><mo>′</mo></msup><mo>=</mo><mi>−</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">w&#39;=f&#39;(z)z&#39;=-f(z)=-w</annotation></semantics></math>.
+Multiplication by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mi>t</mi></msup><annotation encoding="application/x-tex">e^t</annotation></semantics></math>
+and integration on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+give the displayed identity. Lean checks the local complex-parameter
+chain rule as <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">the
+Newton-flow value equation</a> and its scaled zero-derivative form as <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">vanishing
+of the exponentially scaled value</a>. The integrated real-time
+assertion above is an ordinary consequence.</p>
+<p>For an existing trajectory with nonzero initial value, the value
+moves inward on one positive ray. A zero value remains zero and has no
+argument. Thus a trajectory starting in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
+stays there at later times in its interval of existence. The equation
+neither constructs a global trajectory nor identifies a whole ray
+preimage with one flow line.</p>
+<div class="corollary">
+<p><strong>Corollary 19</strong> (ray separation). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&lt;</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a&lt;b</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>:</mo><mo stretchy="false" form="prefix">[</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">]</mo><mo>→</mo><mi mathvariant="double-struck">ℂ</mi></mrow><annotation encoding="application/x-tex">z:[a,b]\to\mathbb C</annotation></semantics></math>
+be continuous, and suppose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>
+is differentiable on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a,b)</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f&#39;(z(t))\ne0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z&#39;(t)=-f(z(t))/f&#39;(z(t))</annotation></semantics></math>
+there. Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>a</mi><mo>−</mo><mi>b</mi></mrow></msup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">f(z(b))=e^{a-b}f(z(a)).</annotation></semantics></math>
+If the endpoint values are nonzero, they lie on the same positive ray.
+In particular, critical points whose values lie on distinct positive
+rays cannot be the endpoints of such a finite connection.</em></p>
+</div>
+<p>Apply the value equation inside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a,b)</annotation></semantics></math>
+and pass to the endpoints by continuity. This does not evaluate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>f</mi><mi>/</mi><msup><mi>f</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">-f/f&#39;</annotation></semantics></math>
+at a critical endpoint. Lean checks the algebraic contradiction from an
+assumed exponential endpoint relation in <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315">the
-implication from distinct rays to the absence of a Newton
-connection</a>. It is the statement the topology needs, and it is a
-genuine sharpening of the criterion used in the literature.</p>
+distinct-ray endpoint implication</a>; the existence and endpoint
+behaviour of trajectories are additional geometric questions.</p>
 </section>
 <section id="sec:arguments" class="level2">
 <h2>Arguments, not moduli</h2>
@@ -953,7 +1088,7 @@ points modulo the circle rather than on their positions in the
 plane.</p>
 <p>The cost of that condition is also checked, and it is small.</p>
 <div class="theorem">
-<p><strong>Theorem 19</strong> (ray-collision locus). <em> Let
+<p><strong>Theorem 20</strong> (ray-collision locus). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≠</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a\ne b</annotation></semantics></math>
 be complex. Every common translation
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
@@ -1123,7 +1258,7 @@ and set
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mo>*</mo></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>c</mi><mi>n</mi></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>ε</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>r</mi><mi>n</mi></msup><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">r_*=(1+c^n)^{-1/n},\qquad
  \varepsilon=(1-r^n)^{1/n}.</annotation></semantics></math></p>
 <div class="theorem">
-<p><strong>Theorem 20</strong> (complementary binomial chords). <em>Two
+<p><strong>Theorem 21</strong> (complementary binomial chords). <em>Two
 adjacent zeros of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mi>n</mi></msup><mo>−</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">z^n-a</annotation></semantics></math>
 can be joined by an explicit polygonal path inside
@@ -1191,7 +1326,7 @@ extremal</h2>
 sets lack, and it yields a sharp all-degree solved subcase. Put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><msup><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mi>n</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">C_n=\frac{1}{2^{n-1}\cos^n(\pi/(2n))}.</annotation></semantics></math></p>
 <div class="theorem">
-<p><strong>Theorem 21</strong> (sharp collinear root-diameter bound).
+<p><strong>Theorem 22</strong> (sharp collinear root-diameter bound).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 be monic of degree
@@ -1287,7 +1422,7 @@ positive Poisson mixture. Their logarithmic-derivative relation converts
 the desired nonlinear estimate into a diagonal Taylor-coefficient
 inequality.</p>
 <div class="theorem">
-<p><strong>Theorem 22</strong> (weighted free-point inequality in every
+<p><strong>Theorem 23</strong> (weighted free-point inequality in every
 degree). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>c</mi><mi>m</mi></msub><mo>∈</mo><mover><mi mathvariant="double-struck">𝔻</mi><mo accent="true">¯</mo></mover></mrow><annotation encoding="application/x-tex">c_1,\ldots,c_m\in\overline{\mathbb D}</annotation></semantics></math>
 and let
@@ -1350,7 +1485,7 @@ nonzero. The specialised four-point and central-radius proofs are
 retained in the long record; the all-degree inequality above removes
 their cardinality restriction.</p>
 <div class="theorem">
-<p><strong>Theorem 23</strong> (critical-value mean in every degree).
+<p><strong>Theorem 24</strong> (critical-value mean in every degree).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 be monic of degree
@@ -1403,10 +1538,18 @@ These ordinary analytic proofs are recorded in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FreePointQuadraticAllDegrees.md">free
 point quadratic all degrees</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/CentredCircleQuadrinomialConnector.md">centred
-circle quadrinomial connector</a>. The circle comparison and finite
-Taylor-coefficient identity have checked kernels; Poisson integration
-and the maximum-principle assembly remain ordinary. A critical-value
-mean supplies no attachment or path-length estimate by itself.</p>
+circle quadrinomial connector</a>. Lean checks <a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101">the
+complete critical-value mean</a>, with the complete all-degree
+conclusion, arbitrary centre,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R=0</annotation></semantics></math>,
+and critical points counted with multiplicity. The exact source bytes
+and its directly audited target alias are recorded in <a
+href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/verification/erdos1041-returned-r18-v5-full-audit-evidence.json">the
+source-bound Lean build and axiom-audit record</a>. The argument above
+explains that statement; the earlier candidate status in the source
+header predates the successful audit. A critical-value mean supplies no
+attachment or path-length estimate by itself.</p>
 </section>
 <section id="sec:orlicz" class="level2">
 <h2>The exact nonlinear lifetime currency</h2>
@@ -1425,7 +1568,7 @@ The edge lifetime is written
  \qquad
  I_k(r)=\int_r^1\frac{dq}{q\lambda_k(q)}.</annotation></semantics></math></p>
 <div class="theorem">
-<p><strong>Theorem 24</strong> (exact attachment-age/lifetime currency).
+<p><strong>Theorem 25</strong> (exact attachment-age/lifetime currency).
 <em> Define
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>x</mi></msubsup><mfrac><mrow><mi>d</mi><mi>t</mi></mrow><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">coth</mi><mo>&#8289;</mo></mrow><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>≥</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\Phi(x)=\int_0^x\frac{dt}{\log(\coth t)}\qquad(x\ge0).</annotation></semantics></math>
 At
@@ -1646,13 +1789,21 @@ general problem is claimed.</p>
 <p>The original root-to-root problem is <span class="citation"
 data-cites="ehp1958"><a href="#ref-2">[2]</a></span>. Pendyala’s degree-four theorem <span
 class="citation" data-cites="june2026"></span> is directly comparable.
-His marked-point-to-boundary problem <span class="citation"
-data-cites="pendyala2026shortest"><a href="#ref-5">[5]</a></span> has different endpoints and
-does not imply the root-pair conclusion. The exact Cassini obstruction
-in Section  concerns the metric assertion of <span class="citation"
-data-cites="march2026"><a href="#ref-3">[3]</a></span>. Downloaded-source digests, precise
-locators, and withdrawal history are retained in the long record. No
-uniqueness or priority claim is inferred from this comparison.</p>
+His separate Erdős Problem #1120 <span class="citation"
+data-cites="pendyala2026shortest"><a href="#ref-5">[5]</a></span> asks for a path from the
+origin to the unit circle inside a filled sublevel set; its endpoints
+differ, and it does not imply the root-pair conclusion. The exact
+Cassini obstruction in Section  concerns the metric assertion of <span
+class="citation" data-cites="march2026"></span>. Eremenko and Hayman
+prove the global boundary estimate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">length</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>:</mo><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo>&lt;</mo><mn>9.173</mn><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">\operatorname{length}\{z:|p(z)|=1\}&lt;9.173\deg p</annotation></semantics></math>
+and show that an extremal level set is connected <span class="citation"
+data-cites="eremenko-hayman"><a href="#ref-6">[6]</a></span>. Their metric is the total length
+of a level curve, so this does not supply the short internal
+root-to-root connector asked for here. Downloaded-source digests,
+precise locators, and withdrawal history are retained in the long
+record. No uniqueness or priority claim is inferred from this
+comparison.</p>
 </section>
 </section>
 <section id="app:sources" class="level2">
@@ -1748,18 +1899,22 @@ class="uri">https://arxiv.org/abs/2606.24875</a>, doi:<a
 href="https://doi.org/10.48550/arXiv.2606.24875">10.48550/arXiv.2606.24875</a>.</p></li>
 <li id="ref-5"><p>V. S. Pendyala, <em>Shortest paths in polynomial lemniscate
 sublevel sets and a problem of Erdős</em>, arXiv:2606.19178v1 (2026),
-Theorem 1.2 and introductory discussion, pp. 1–2. <a
-href="https://arxiv.org/abs/2606.19178"
+Erdős Problem #1120, Theorem 1.2 and introductory discussion, pp. 2–3.
+<a href="https://arxiv.org/abs/2606.19178"
 class="uri">https://arxiv.org/abs/2606.19178</a>, doi:<a
 href="https://doi.org/10.48550/arXiv.2606.19178">10.48550/arXiv.2606.19178</a>.</p></li>
-<li id="ref-6"><p>V. N. Dubinin, , Zap. Nauchn. Sem. POMI <strong>404</strong>
+<li id="ref-6"><p>A. Eremenko and W. Hayman, , Michigan Math. J.
+<strong>46</strong> (1999), 409–415. <a
+href="https://arxiv.org/abs/0805.2295"
+class="uri">https://arxiv.org/abs/0805.2295</a>.</p></li>
+<li id="ref-7"><p>V. N. Dubinin, , Zap. Nauchn. Sem. POMI <strong>404</strong>
 (2012), 83–99; English translation, J. Math. Sci. <strong>193</strong>
 (2013), no. 1, 45–54, doi:<a
 href="https://doi.org/10.1007/s10958-013-1432-4">10.1007/s10958-013-1432-4</a>.
 This neighbouring covering theorem is discussed in the long record; the
 area input used here is the absolute Pólya inequality <span
 class="citation" data-cites="polya1928"></span>.</p></li>
-<li id="ref-7"><p>G. Pólya, , Sitzungsberichte der Preussischen Akademie der
+<li id="ref-8"><p>G. Pólya, , Sitzungsberichte der Preussischen Akademie der
 Wissenschaften, Physikalisch-Mathematische Klasse (1928), printed
 pp. 228–232 and 280–282. <a
 href="https://archive.org/details/sitzungsbericht1928preu"

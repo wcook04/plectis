@@ -5,13 +5,6 @@
     <p class="lean-paper__subject">Erdős #257</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/257/erdos-257-mersenne-support-subseries.tex">
-<p>The source annotations in this note deliberately name two immutable
-revisions. Links produced by the standard note macros use
-<code>99f4bf47422a</code>; across this note and its long reasoning
-surface, fourteen paper-local coordinates link revision
-<code>f36a98bf3d3e</code>. These families are audited separately; a
-historical aggregate reference count is not asserted to be an exact
-inventory of this PDF.</p>
 <section id="sec:problem" class="level2">
 <h2>Introduction and main results</h2>
 <p>Write
@@ -60,7 +53,11 @@ Only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">a\le N</annotation></semantics></math>
 contribute to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J_{b,A}(N)</annotation></semantics></math>.
-Rationality
+Every summand in the displacement is nonnegative, and an exponent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">a&gt;N</annotation></semantics></math>
+gives a positive summand; such an exponent exists because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+is infinite. Rationality
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>p</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">X_A(b)=p/q</annotation></semantics></math>
 would force every positive displacement to be at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">1/q</annotation></semantics></math>.
@@ -103,6 +100,11 @@ origin in a single support will matter below.</p>
 </section>
 <section id="sec:reciprocal-support" class="level2">
 <h2>Reciprocal-summable supports at every integer base</h2>
+<p>The proof freezes a finite portion of the support and averages the
+rest. Making the shift divisible by the frozen exponents makes their
+displacement exactly zero. The remaining exponents need not have a
+common period of manageable size: reciprocal summability bounds their
+total average directly.</p>
 <p>Fix the integer base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>
 and put
@@ -124,9 +126,26 @@ Summing the geometric progression gives
  M_{Q,b}(d):=\lim_{X\to\infty}\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
  =\frac{g}{d(b^g-1)}\le\frac1d.
  \label{eq:gcd-orbit-mean}
-\end{equation}</annotation></semantics></math> The passage from
-individual atoms to their infinite sum needs a uniform bound. Counting
-positive multiples of
+\end{equation}</annotation></semantics></math> For example, at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b=2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">Q=4</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">d=6</annotation></semantics></math>,
+the orbit is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">4,2,0</annotation></semantics></math>
+modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>.
+Its mean atom is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>16</mn><mo>+</mo><mn>4</mn><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo>⋅</mo><mn>63</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">(16+4+1)/(3\cdot63)=1/9</annotation></semantics></math>,
+whereas its zero-shift atom is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>63</mn></mrow><annotation encoding="application/x-tex">1/63</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>∣</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">6\mid Q</annotation></semantics></math>,
+the orbit instead stays at zero and the mean is exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>63</mn></mrow><annotation encoding="application/x-tex">1/63</annotation></semantics></math>.
+This is the effect of freezing an exponent; the infinite tail still
+requires the bound that follows. The passage from individual atoms to
+their infinite sum needs a uniform bound. Counting positive multiples of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
 gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mfrac><mn>1</mn><mi>X</mi></mfrac><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mi>X</mi></munderover><msub><mi>w</mi><mrow><mi>b</mi><mo>,</mo><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><munder><mo>∑</mo><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow></munder><msup><mi>b</mi><mrow><mi>−</mi><mi>r</mi></mrow></msup><mfrac><mrow><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>≤</mo><mi>m</mi><mo>≤</mo><mi>X</mi><mo>:</mo><mi>d</mi><mo>∣</mo><mi>Q</mi><mi>m</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">}</mo></mrow><mi>X</mi></mfrac></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><munder><mo>∑</mo><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow></munder><msup><mi>b</mi><mrow><mi>−</mi><mi>r</mi></mrow></msup><mfrac><mrow><mi>Q</mi><mo>+</mo><mi>r</mi></mrow><mi>d</mi></mfrac><mo>=</mo><mfrac><mrow><mi>Q</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>b</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mi>d</mi></mfrac><mo>≤</mo><mfrac><mrow><mi>Q</mi><mo>+</mo><mn>2</mn></mrow><mi>d</mi></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*}
@@ -177,20 +196,19 @@ assessable results of this release.</p>
 </section>
 <section id="sec:eight-return-extensions" class="level2">
 <h2>Extensions beyond reciprocal summability</h2>
-<p>The two criteria below use different controls on the same positive
-displacement. The estimates named in this section are not independently
-checkable from the files in this checkout: the cited supplements and
-<code>MixedSupportSynchronisation.md</code> are absent from the public
-packet. The statements are retained as claimed extensions, not as
-results of this release.</p>
-<section id="divisibility-weighted-and-quantitative-criteria"
-class="level3">
-<h3>Divisibility-weighted and quantitative criteria</h3>
+<p>The weighted criterion (W), its reciprocal-divergent host example,
+and the quantitative criterion below are claimed extensions whose proof
+supplements are absent from this checkout. They are not established
+results of this release. The finite estimate (S) and the strengthened
+cover theorem later in this section have their own printed proofs and
+are separate from those unavailable arguments.</p>
+<section id="claimed-weighted-criterion-unassessed-here" class="level3">
+<h3>Claimed weighted criterion (unassessed here)</h3>
 <p>For a finite nonempty prime set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
 let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></msub><msup><mi>p</mi><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">h(a)=\prod_{p\in P}p^{v_p(a)}</annotation></semantics></math>.
-The weighted condition
+The absent supplement claims that the weighted condition
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}\frac{h(a)}{a(2^{h(a)}-1)}&lt;\infty
   \tag{W}\label{eq:weighted-return}</annotation></semantics></math>
 implies irrationality of
@@ -208,7 +226,8 @@ in the condition; arbitrary nested divisibility chains have the same
 criterion with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(a)</annotation></semantics></math>
 the largest chain element dividing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.
+No complete proof of these claims is present in this checkout.</p>
 <p>Here the decisive estimate is a finite orbit average. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g=(a,Q)</annotation></semantics></math>,
 then
@@ -217,7 +236,8 @@ then
  \le \frac{g}{a(b^g-1)}+\frac1{T(b^g-1)}.</annotation></semantics></math>
 The second term cannot be discarded before summing over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.
-Choose
+The claimed argument proceeds as follows; its truncation bounds remain
+unassessed. Choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
 to freeze the finite prefix and all small
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>-parts.
@@ -238,8 +258,12 @@ The named truncation estimates and an explicit reciprocal-divergent host
 with gaps
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(\log\log a)</annotation></semantics></math>
 are referred to a supplement that is not in this checkout.</p>
-<p>A quantitative consequence also admits reciprocal-divergent supports.
-Put
+</section>
+<section id="claimed-quantitative-criterion-unassessed-here"
+class="level3">
+<h3>Claimed quantitative criterion (unassessed here)</h3>
+<p>The absent analytic supplement claims a second criterion admitting
+reciprocal-divergent supports. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>a</mi><mo>≤</mo><mi>x</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">H_A(x)=\sum_{a\in A,\ a\le x}1/a</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mn>0</mn></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">T_0=2</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msup><mn>2</mn><msub><mi>T</mi><mi>j</mi></msub></msup></mrow><annotation encoding="application/x-tex">T_{j+1}=2^{T_j}</annotation></semantics></math>,
@@ -247,11 +271,11 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>j</mi><mo>:</mo><mi>x</mi><mo>≤</mo><msub><mi>T</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\ell(x)=\min\{j:x\le T_j\}</annotation></semantics></math>.
 The condition
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mi>ℓ</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_A(x)=o(\ell(x))</annotation></semantics></math>
-implies all-base irrationality. The proof and the sharper rational-phase
-lower bound are referred to an analytic supplement that is not in this
-checkout; no positive density of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-is required.</p>
+is claimed to imply all-base irrationality, with no positive density
+assumption on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.
+Neither a proof of this implication nor the claimed sharper
+rational-phase lower bound is present in this checkout.</p>
 </section>
 <section id="sec:common-kernel" class="level3">
 <h3>A finite estimate on common observation scales</h3>
@@ -1084,15 +1108,26 @@ this note and has no Lean counterpart in this checkout: the filenames
 <code>GreedyRepairCriterion.lean</code> are not present. The source
 checkpoint is <code>99f4bf47422a</code>; later counterparts are
 identified separately rather than attributed to that checkpoint.</p>
-<p>The weighted and cover arguments, the mixed theorem, the cost
-separations, and the prime-power thinning argument refer to ordinary
-proofs that are not linked in this public checkout (, , , , and the
-analytic proof supplement). Those extensions are therefore not
-independently assessable here and are not promoted as results of this
-release. No universal irrationality conclusion is asserted.</p>
+<p>The finite estimate  and Theorem  have complete ordinary proofs in
+this note and are results of this release. The weighted criterion, the
+quantitative criterion, the claimed support
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>A</mi><mo>⋆</mo></msup><annotation encoding="application/x-tex">A^\star</annotation></semantics></math>
+separating the two cover costs, the mixed theorem, and prime-power
+thinning instead refer to ordinary proofs that are not linked in this
+public checkout (, , , , and the analytic proof supplement). Those
+latter extensions are therefore not independently assessable here and
+are not promoted as results of this release. No universal irrationality
+conclusion is asserted.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
+<p>The source annotations in this note deliberately name two immutable
+revisions. Links produced by the standard note macros use
+<code>99f4bf47422a</code>; across this note and its long reasoning
+surface, fourteen paper-local coordinates link revision
+<code>f36a98bf3d3e</code>. These families are audited separately; a
+historical aggregate reference count is not asserted to be an exact
+inventory of this PDF.</p>
 <p>The following source links are the public snapshot used by this
 note.</p>
 <p><a

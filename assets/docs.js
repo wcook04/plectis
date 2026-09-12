@@ -935,7 +935,15 @@
     if (mqDrawer.addEventListener) mqDrawer.addEventListener('change', syncInert);
     else if (mqDrawer.addListener) mqDrawer.addListener(syncInert);
     window.addEventListener('resize', syncInert);
-    document.addEventListener('focusin', syncInert);
+    document.addEventListener('focusin', function (e) {
+      syncInert();
+      if (!inDrawerRegime() || !document.body.classList.contains('nav-open') ||
+          sidebar.contains(e.target) || e.target.closest('.docs-topbar')) return;
+      // Tab can leave the last drawer link for content hidden by its scrim.
+      // Reveal that destination without moving focus back to Menu. Header
+      // controls stay reachable while the drawer is open.
+      setOpen(false);
+    });
     document.addEventListener('keydown', syncInert, true);
     btn.addEventListener('click', function () {
       setOpen(!document.body.classList.contains('nav-open'));
@@ -4315,8 +4323,17 @@
        thousands of cross-references only adds work and visual recursion. */
     if (/\/glossary\.html$/.test(window.location.pathname || '')) return;
     var anchors = document.querySelectorAll('a.narrative-ref--term[data-term]');
+    var passiveAnchors = document.querySelectorAll('a[href] span[data-term-preview-only][data-term], summary span[data-term-preview-only][data-term]');
     var notationStates = new WeakMap();
 
+    function passivePreviewFrom(target) {
+      if (!target || !target.closest) return null;
+      var span = target.closest('span[data-term-preview-only][data-term]');
+      return span && span.closest('a[href], summary') ? span : null;
+    }
+    function isPassivePreview(trigger) {
+      return !!(trigger && trigger.hasAttribute('data-term-preview-only'));
+    }
     function termAnchorFrom(target) {
       if (!target || !target.closest) return null;
       return target.closest('a.narrative-ref--term[data-term]');
@@ -4327,7 +4344,7 @@
       return trigger && notationStates.has(trigger) ? trigger : null;
     }
     function previewTriggerFrom(target) {
-      return notationFrom(target) || termAnchorFrom(target);
+      return passivePreviewFrom(target) || notationFrom(target) || termAnchorFrom(target);
     }
     function stateFor(trigger) {
       return notationStates.get(trigger) || null;
@@ -4405,11 +4422,11 @@
       window.setTimeout(gradeTermAnchors, 0);
     }
 
-    function inlineTerms() {
+    function inlineTerms(source) {
       var rows = [];
       var seen = {};
-      for (var n = 0; n < anchors.length; n++) {
-        var anchor = anchors[n];
+      for (var n = 0; n < source.length; n++) {
+        var anchor = source[n];
         var key = anchor.getAttribute('data-term');
         var preview = anchor.getAttribute('data-term-preview');
         if (!key || !preview || seen[key]) continue;
@@ -4426,7 +4443,8 @@
       return rows;
     }
 
-    var inlineTermRows = inlineTerms();
+    var inlineTermRows = inlineTerms(anchors);
+    var passiveInlineRows = inlineTerms(passiveAnchors);
 
     function fullTerms() {
       var idx = window.__MICROCOSM_INDEX__ || {};
@@ -4482,6 +4500,7 @@
         withSearchIndex(function () {
           layerLoading = false;
           var loaded = currentTerms();
+          if (!loaded.length) loaded = passiveInlineRows;
           if (loaded.length) initTermLayer(loaded);
           else if (pendingIntent === 'click') followTermLink(pendingAnchor);
         });
@@ -4494,11 +4513,18 @@
        the same preview -> drilldown contract as an already-warm term. */
     function onTermIntent(event) {
       var anchor = previewTriggerFrom(event.target);
-      if (!anchor) {
-        if (event.type === 'focusin' || event.type === 'click') clearPendingIntent();
+      var nativeClick = event.type === 'click' || event.type === 'auxclick';
+      // Marked text offers a pointer definition only. The containing link or
+      // summary owns activation, including modified and middle-button clicks.
+      if (isPassivePreview(anchor) && event.type !== 'mouseover') {
+        clearPendingIntent();
         return;
       }
-      if (event.type === 'click') {
+      if (!anchor) {
+        if (event.type === 'focusin' || nativeClick) clearPendingIntent();
+        return;
+      }
+      if (nativeClick) {
         if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
         ensureLayer(anchor, 'click');
@@ -4510,6 +4536,7 @@
     document.addEventListener('mouseover', onTermIntent, true);
     document.addEventListener('focusin', onTermIntent, true);
     document.addEventListener('click', onTermIntent, true);
+    document.addEventListener('auxclick', onTermIntent, true);
     function onColdNotationKey(event) {
       if (event.key === 'Escape' || event.key === 'Esc') {
         clearPendingIntent();
@@ -4542,9 +4569,9 @@
        the failure fell entirely on the first word anyone tried.
        ensureLayer(null) stores no pending anchor, so this warms the index and
        swaps the delegated listeners without ever opening a tip on its own. */
-    if (anchors.length && window.requestIdleCallback) {
+    if ((anchors.length || passiveAnchors.length) && window.requestIdleCallback) {
       window.requestIdleCallback(function () { ensureLayer(null, null); }, { timeout: 3000 });
-    } else if (anchors.length) {
+    } else if (anchors.length || passiveAnchors.length) {
       window.setTimeout(function () { ensureLayer(null, null); }, 1200);
     }
 
@@ -4554,6 +4581,7 @@
     document.removeEventListener('mouseover', onTermIntent, true);
     document.removeEventListener('focusin', onTermIntent, true);
     document.removeEventListener('click', onTermIntent, true);
+    document.removeEventListener('auxclick', onTermIntent, true);
     document.removeEventListener('keydown', onColdNotationKey, true);
     document.removeEventListener('focusout', onColdIntentLeave, true);
     document.removeEventListener('mouseout', onColdIntentLeave, true);
@@ -4566,6 +4594,9 @@
         if (key) byId[key] = Object.assign({}, byId[key] || {}, record);
       }
     }
+    // Passive inline records fill gaps without marking a partial payload as
+    // the complete glossary before ordinary links have loaded their records.
+    mergeTerms(passiveInlineRows);
     mergeTerms(terms);
 
     // Reuses the module-scope el(tag, cls, text) helper (single-sourced).
@@ -4601,7 +4632,7 @@
       var block = anchor && anchor.closest &&
         anchor.closest('p, li, dd, dt, blockquote, h1, h2, h3, h4');
       if (block) {
-        var others = block.querySelectorAll('a.narrative-ref--term[data-term]');
+        var others = block.querySelectorAll('a.narrative-ref--term[data-term], span[data-term-preview-only][data-term]');
         for (var t = 0; t < others.length; t++) {
           if (others[t] === anchor) continue;
           pushRect(rects, others[t], 'term');
@@ -4741,6 +4772,7 @@
     }
     function renderTier(data, anchor) {
       tipLabel.textContent = data.preferred_label || data.label || '';
+      tipCue.hidden = isPassivePreview(anchor);
       if (tier === 1) {
         tip.classList.add('is-expanded');
         var previewText = data.reader_preview || data.text || '';
@@ -4768,7 +4800,7 @@
         tipDeep.textContent = ''; tipDeep.hidden = true;
         tipFull.hidden = true;
         tipBack.hidden = true;
-        tipCue.textContent = 'Click for a longer definition';
+        tipCue.textContent = isPassivePreview(anchor) ? '' : 'Click for a longer definition';
       }
       var notationState = stateFor(anchor);
       var hasSeveral = !!(notationState && notationState.records && notationState.records.length > 1);
@@ -4995,9 +5027,14 @@
     // preview -> drilldown control without losing native link semantics. The
     // destination's view-state pill provides the bottom-left exact return;
     // modified clicks retain native new-tab behaviour from either tier.
-    document.addEventListener('click', function (ev) {
+    function onTermClick(ev) {
       if (tip.contains(ev.target)) return;
       var onTerm = previewTriggerFrom(ev.target);
+      if (isPassivePreview(onTerm)) {
+        clearPendingIntent();
+        hideTip(true);
+        return;
+      }
       if (onTerm) {
         if (ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
         if (!stateFor(onTerm) && !byId[onTerm.getAttribute('data-term')]) return;
@@ -5015,7 +5052,9 @@
         return;
       }
       if (!tip.hidden) hideTip();
-    });
+    }
+    document.addEventListener('click', onTermClick);
+    document.addEventListener('auxclick', onTermClick);
     window.addEventListener('resize', function () {
       if (!tip.hidden && tipFor) placeFloater(tip, tipFor);
     });
@@ -5045,7 +5084,7 @@
     document.addEventListener('focusin', function (ev) {
       if (suppressFocusPreview) return;
       var anchor = previewTriggerFrom(ev.target);
-      if (anchor) showTip(anchor, 'focus');
+      if (anchor && !isPassivePreview(anchor)) showTip(anchor, 'focus');
     }, true);
     document.addEventListener('focusout', function (ev) {
       var anchor = previewTriggerFrom(ev.target);

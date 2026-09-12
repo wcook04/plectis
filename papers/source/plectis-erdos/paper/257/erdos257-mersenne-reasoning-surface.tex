@@ -248,18 +248,86 @@ reduction, never as progress toward a solution.
 % barrier analysis, the surviving routes, and the reading contract. Everything
 % before the premise catalogue.
 
-\section{The problem, and what is actually known}
+\section{Support irrationality and its proof mechanisms}
 \label{sec:257-problem}
+
+\subsection{Reciprocal-summable supports}
+
+For every infinite set $A$ of positive integers with
+$\sum_{a\in A}1/a<\infty$, the series
+\[
+ X_A(b)=\sum_{a\in A}\frac1{b^a-1}
+\]
+is irrational at every integer base $b\ge2$. The proof below is ordinary
+mathematics and is the proof of the short paper's
+Theorem~\texttt{res:reciprocal-support}. Erd\H{o}s's
+\href{https://users.renyi.hu/~p_erdos/1969-09.pdf}{1968 paper, p.~222}
+proves the pairwise-coprime case at every integer base and states the removal
+of coprimality without printing the details. The checked pairwise-coprime
+theorem listed below retains that extra hypothesis.
+
+The mechanism is to make positive displacements arbitrarily small. For $N>0$,
+write $N=q_a a+r_a$, $0\le r_a<a$. The identity
+\[
+ \frac{b^N-1}{b^a-1}
+ =b^{r_a}\sum_{j=0}^{q_a-1}b^{ja}
+  +\frac{b^{r_a}-1}{b^a-1}
+\]
+shows that
+\[
+ \Delta_{b,A}(N):=\sum_{a\in A}\frac{b^{N\bmod a}-1}{b^a-1}
+ =(b^N-1)X_A(b)-J_N,\qquad J_N\in\mathbb Z.
+\]
+The integer sum is finite, since $q_a=0$ for $a>N$. Every summand of
+$\Delta_{b,A}(N)$ is nonnegative and an exponent $a>N$ makes it positive.
+Thus $X_A(b)=p/q$ would imply $\Delta_{b,A}(N)\ge1/q$ for every $N>0$.
+
+Put $w_{b,d}(N)=b^{N\bmod d}/(b^d-1)$. For a fixed positive modulus $Q$
+and $g=(Q,d)$, the orbit of $Qm\bmod d$ has length $d/g$. Its geometric sum
+gives
+\[
+ \lim_{X\to\infty}\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
+ =M_{Q,b}(d):=\frac{g}{d(b^g-1)}\le\frac1d.
+\]
+The important interchange is with the infinite support. Expanding the atom
+as $\sum_{r\ge1}b^{-r}{\bf1}_{d\mid Qm+r}$ and counting positive multiples
+of $d$ gives the bound
+\[
+ \frac1X\sum_{m=1}^Xw_{b,d}(Qm)
+ \le\sum_{r\ge1}b^{-r}\frac{Q+r}{d}
+ \le\frac{Q+2}{d}.
+\]
+Here $Q$ is fixed. Dominated convergence therefore identifies the limiting
+mean of $\sum_{d\in A}w_{b,d}(Qm)$ with $\sum_{d\in A}M_{Q,b}(d)$.
+
+Now choose $Q_t=\operatorname{lcm}(1,\ldots,t)$. For each fixed $d$,
+eventually $d\mid Q_t$, so $M_{Q_t,b}(d)=(b^d-1)^{-1}$. The bound
+$M_{Q_t,b}(d)\le1/d$ permits a second dominated-convergence argument:
+\[
+ \sum_{d\in A}M_{Q_t,b}(d)\longrightarrow X_A(b).
+\]
+Consequently the limiting mean of $\Delta_{b,A}(Q_tm)$ tends to zero.
+Given $\varepsilon>0$, first choose $t$ and then a sufficiently long finite
+average with mean below $\varepsilon$; one term of that average is below
+$\varepsilon$. Its strict positivity contradicts the rational lattice.
+This proves the assertion. \ev{Math}
+
+The order of the two limits matters: the observation length increases with
+$Q_t$ fixed before $t$ increases. No independence of different divisibility
+events is assumed. The mechanism also has a definite limit. At base two and
+full support, the contribution of exponents $a>N$ alone gives
+$\Delta_{2,\mathbb N_{>0}}(N)>1-2^{-N}\ge1/2$. Full-support irrationality
+therefore uses a different argument; its checked form appears below.
 
 \subsection{The object and the two exact statements}
 
-For an integer $n \ge 2$ set $x_n := 1/(2^n-1)$, and for $A \subseteq \{2,3,4,\dots\}$ write
+For an integer $n \ge 1$ set $x_n := 1/(2^n-1)$, and for $A \subseteq \{1,2,3,\dots\}$ write
 $x_A := \sum_{n \in A} x_n$; the sum always converges, since $x_n = O(2^{-n})$. Erd\H{o}s's
 Problem \#257 asks a single universally quantified question about this family.
 
 \begin{defn}[Universal \#257, written (U)]
 \label{defn:U}
-Is $x_A = \sum_{n \in A} 1/(2^n-1)$ irrational for \emph{every} infinite $A \subseteq \N$?
+Is $x_A = \sum_{n \in A} 1/(2^n-1)$ irrational for \emph{every} infinite $A \subseteq \mathbb N_{>0}$?
 \textbf{OPEN.} \ev{Open}
 \end{defn}
 
@@ -280,18 +348,19 @@ uncountably many, and a proof of $1/2 \notin \mathcal{A}$ leaves (U) entirely op
 maximally symmetric candidate counterexample to (U), not a restatement of it; the asymmetry is
 load-bearing and recurs below as Barrier~\ref{bar:asym}. \ev{Math}
 
-Nothing in this document decides (U) or (H). What it does contain is (i) the unconditional record,
-stated with hypotheses and evidence bands, and (ii) a characterisation of \emph{why} the recorded
-attacks fail --- assembled so that the failures function as measurements of one obstruction rather
-than as a list of disappointments.
+The reciprocal-summable theorem and the checked support theorems below leave
+(U) and (H) open. The later countermodels identify the particular arithmetic
+information lost by individual approaches; they do not prove that all such
+failures have one common cause.
 
 \subsection{The unconditional record, universal direction}
 
-Every landed unconditional irrationality theorem for (U) instantiates one engine: a
-weighted-coefficient block certificate over the divisor incidence
+The checked support families in the following table use
+weighted-coefficient block certificates over the divisor incidence
 $\operatorname{sc}_A(n) := \#\{d \mid n : d \in A\}$, the generic form being
-\texttt{irrational\_coeff\_series\_of\_weighted\_coeff\_block\_certificates}. The complete
-inventory of what that engine has been made to prove, uniformly in the base $b \ge 2$:
+\texttt{irrational\_coeff\_series\_of\_weighted\_coeff\_block\_certificates}.
+The table records their hypotheses at integer bases $b\ge2$; it is separate
+from the ordinary averaging proof above.
 
 \begin{center}
 \begin{longtable}{@{}p{0.30\textwidth}p{0.32\textwidth}p{0.30\textwidth}@{}}
@@ -319,8 +388,10 @@ structured-support developments, not a new extension from base two to arbitrary 
 Each support family retains its stated hypotheses; none establishes irrationality for every
 infinite support. The $b=2$ case of the first row recovers the Erd\H{o}s--Borwein constant
 $E = \sum_{n \ge 1} 1/(2^n-1)$ as a one-line corollary of that classical theorem. Separately,
-\emph{every} row lies inside a two-axis box --- divisor independence plus a global reciprocal-tail
-budget --- and the box is not an accident of effort. That is Barrier~\ref{bar:box}.
+the independence and tail estimates used by a particular certificate
+construction must be checked for that support. Barrier~\ref{bar:box}
+discusses those construction requirements; the averaging proof above does
+not assume pairwise coprimality or independence of divisor events.
 
 The one conditional extension worth naming is
 \lean{irrational\_erdosSupportSeries\_of\_orthogonalPetalBouquet}{SupportSunflowerDichotomy.lean:540},

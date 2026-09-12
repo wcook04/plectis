@@ -5,6 +5,17 @@
     <p class="lean-paper__subject">Erdős #269</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/269/erdos269-running-lcm-reasoning-surface.tex">
+<section id="how-the-short-paper-uses-this-record." class="level5">
+<h5>How the short paper uses this record.</h5>
+<p>The short paper centres on the binary carry and its rank obstruction.
+Section  gives the rank and approximation arguments; Section  gives the
+two-prime comparison. Sections – recover the literal tails, denominator
+clearing and window criterion, while Section  retains the finite
+certificates. These are two distinct mathematical tasks: the rank
+argument excludes a separated representation, and the tail argument
+identifies the arithmetic condition still needed for irrationality.
+Neither substitutes for the other.</p>
+</section>
 <section id="long269:sec:problem" class="level2">
 <h2>The problem, and what is settled</h2>
 <p>Let
@@ -896,22 +907,30 @@ and
 is irrational, since a rational value would give an equality of positive
 powers of distinct primes, so each fractional-part orbit is dense in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>
-and each is injective. Choose indices with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>&lt;</mo><mi>⋯</mi><mo>&lt;</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;x_{I(0)}&lt;\cdots&lt;x_{I(n-1)}&lt;1</annotation></semantics></math>,
-then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><annotation encoding="application/x-tex">y_{J(0)}</annotation></semantics></math>
-in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1-x_{I(0)},1)</annotation></semantics></math>
-and, for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">b&gt;0</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><annotation encoding="application/x-tex">y_{J(b)}</annotation></semantics></math>
-in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>,</mo><mn>1</mn><mo>−</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1-x_{I(b)},1-x_{I(b-1)})</annotation></semantics></math>.
-These intervals are disjoint, so both index maps are injective, and
+and each is injective. No simultaneous density of the pair of rotations
+is required. First choose indices with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>&lt;</mo><mi>⋯</mi><mo>&lt;</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;x_{I(0)}&lt;\cdots&lt;x_{I(n-1)}&lt;1</annotation></semantics></math>.
+For the columns write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>b</mi></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">s_b=1-y_{J(b)}</annotation></semantics></math>,
+and use density of the second orbit to choose
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mn>0</mn></msub><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>s</mi><mi>b</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>,</mo><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>≤</mo><mi>b</mi><mo>&lt;</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">s_0\in(0,x_{I(0)}),\qquad
+ s_b\in(x_{I(b-1)},x_{I(b)})\quad(1\le b&lt;n).</annotation></semantics></math>
+The intervals are disjoint, so the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(b)</annotation></semantics></math>
+are distinct. Their strict endpoints ensure that no selected entry lies
+on a threshold, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>+</mo><msub><mi>y</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x_{I(a)}+y_{J(b)}\ge1</annotation></semantics></math>
-exactly when
+holds exactly when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≤</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">b\le a</annotation></semantics></math>.
-The remaining matrix is therefore
+Dividing row
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_{I(a)}(k)</annotation></semantics></math>
+and column
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C_{J(b)}(k)</annotation></semantics></math>
+therefore leaves
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>⋮</mi></mtd><mtd columnalign="center" class="ta-c"><mi>⋮</mi></mtd><mtd columnalign="center" class="ta-c"><mo>⋱</mo></mtd><mtd columnalign="center" class="ta-c"><mo>⋱</mo></mtd><mtd columnalign="center" class="ta-c"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd><mtd columnalign="center" class="ta-c"><mi>⋯</mi></mtd><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd><mtd columnalign="center" class="ta-c"><mi>t</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><msub><mi>C</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>t</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>≠</mo><mn>0</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">C_n(t)=\begin{pmatrix}
  t&amp;1&amp;1&amp;\cdots&amp;1\\
  t&amp;t&amp;1&amp;\cdots&amp;1\\
@@ -922,16 +941,27 @@ The remaining matrix is therefore
  \qquad
  \det C_n(t)=t(t-1)^{n-1}\ne0 ,</annotation></semantics></math> the
 determinant following by subtracting from each row its predecessor,
-working upwards from the last. Equation  multiplies this determinant by
-nonzero row and column factors, for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
-which is the asserted uniformity. Finally, a representation with
+working upwards from the last. Before the division, the determinant
+equals
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><msub><mi>C</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><munder><mo>∏</mo><mrow><mi>a</mi><mo>&lt;</mo><mi>n</mi></mrow></munder><msub><mi>R</mi><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><munder><mo>∏</mo><mrow><mi>b</mi><mo>&lt;</mo><mi>n</mi></mrow></munder><msub><mi>C</mi><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\det C_n(t)\prod_{a&lt;n}R_{I(a)}(k)\prod_{b&lt;n}C_{J(b)}(k),</annotation></semantics></math>
+which is nonzero for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>;
+this also explains why the same indices work in every layer.</p>
+<p>For the last assertion, suppose that a representation with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
-summands would factor every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(d+1)\times(d+1)</annotation></semantics></math>
-restriction through a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-dimensional
-space and force its determinant to vanish. ◻</p>
+summands exists and fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
+On the selected rows
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi><mo>,</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(0),\ldots,I(d)</annotation></semantics></math>
+and columns
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi><mo>,</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(0),\ldots,J(d)</annotation></semantics></math>
+the resulting matrix factors as
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>f</mi><mi>ℓ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><msub><mo stretchy="false" form="postfix">)</mo><mrow><mn>0</mn><mo>≤</mo><mi>a</mi><mo>≤</mo><mi>d</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>ℓ</mi><mo>&lt;</mo><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>G</mi><mi>ℓ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>ℓ</mi><mo>&lt;</mo><mi>d</mi><mo>,</mo><mspace width="0.167em"></mspace><mn>0</mn><mo>≤</mo><mi>b</mi><mo>≤</mo><mi>d</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">(f_\ell(I(a)))_{0\le a\le d,\,\ell&lt;d}
+ (G_\ell(J(b),k))_{\ell&lt;d,\,0\le b\le d}.</annotation></semantics></math>
+It has rank at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+and hence zero determinant, contradicting the nonzero minor of order
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d+1</annotation></semantics></math>. ◻</p>
 </div>
 <p>The factorisation  is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L259">checked
@@ -976,6 +1006,80 @@ and the proportionality fails at
 (<a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L592">checked</a>).
 A proof that read off leading minors alone would be false.</p>
+<p>The same threshold description determines every finite sampled rank,
+rather than only producing one nonsingular minor.</p>
+<div class="proposition">
+<p><strong>Proposition 11</strong> (finite sampled cut rank). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m\ge1</annotation></semantics></math>
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+lie in a field with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≠</mo><mn>0</mn><mo>,</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c\ne0,1</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>h</mi><mo>≤</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">0\le h\le m</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>h</mi></msub><annotation encoding="application/x-tex">v_h</annotation></semantics></math>
+be the
+length-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+column whose first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+entries are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+and whose remaining entries are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>.
+If the distinct columns of a matrix are the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>h</mi></msub><annotation encoding="application/x-tex">v_h</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+in a nonempty set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>m</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E\subseteq\{0,\ldots,m\}</annotation></semantics></math>,
+then its rank is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mi>−</mi><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>m</mi><mo stretchy="false" form="postfix">}</mo><mo>⊆</mo><mi>E</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">|E|-\mathbf 1_{\{0,m\}\subseteq E}.</annotation></semantics></math></em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>h</mi><mn>1</mn></msub><mo>&lt;</mo><mi>⋯</mi><mo>&lt;</mo><msub><mi>h</mi><mi>s</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E=\{h_1&lt;\cdots&lt;h_s\}</annotation></semantics></math>.
+The
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s-1</annotation></semantics></math>
+consecutive differences are
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><msub><mi>h</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub></msub><mo>−</mo><msub><mi>v</mi><msub><mi>h</mi><mi>a</mi></msub></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><msub><mn mathvariant="bold">𝟏</mn><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>h</mi><mi>a</mi></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>h</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">v_{h_{a+1}}-v_{h_a}
+   =(1-c)\mathbf 1_{\{h_a,\ldots,h_{a+1}-1\}},</annotation></semantics></math>
+so they are linearly independent because their nonempty supports are
+disjoint. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mn>1</mn></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h_1&gt;0</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>s</mi></msub><mo>&lt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">h_s&lt;m</annotation></semantics></math>,
+those supports miss a coordinate on which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><msub><mi>h</mi><mn>1</mn></msub></msub><annotation encoding="application/x-tex">v_{h_1}</annotation></semantics></math>
+is nonzero, and adjoining
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><msub><mi>h</mi><mn>1</mn></msub></msub><annotation encoding="application/x-tex">v_{h_1}</annotation></semantics></math>
+gives rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h_1=0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>s</mi></msub><mo>=</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">h_s=m</annotation></semantics></math>,
+the differences sum to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mn mathvariant="bold">𝟏</mn></mrow><annotation encoding="application/x-tex">(1-c)\mathbf 1</annotation></semantics></math>
+while
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>0</mn></msub><mo>=</mo><mi>c</mi><mn mathvariant="bold">𝟏</mn></mrow><annotation encoding="application/x-tex">v_0=c\mathbf 1</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mn>0</mn></msub><annotation encoding="application/x-tex">v_0</annotation></semantics></math>
+is already in their span and the rank is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s-1</annotation></semantics></math>. ◻</p>
+</div>
+<p>To apply the proposition, sort any chosen row phases
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>i</mi></msub><annotation encoding="application/x-tex">x_i</annotation></semantics></math>.
+Each normalised column is a threshold column
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>h</mi></msub><annotation encoding="application/x-tex">v_h</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+is the number of sampled phases strictly below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>y</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">1-y_j</annotation></semantics></math>.
+Repeated threshold positions give proportional columns before column
+normalisation, and the nonzero row and column factors in do not change
+rank. Thus the displayed formula is the exact rank of every finite
+sample.</p>
 <section id="attribution-and-reach." class="level5">
 <h5>Attribution and reach.</h5>
 <p>Fan recorded the qualitative obstruction for
@@ -1017,7 +1121,7 @@ and some sequences
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>ℓ</mi></msub><mo>,</mo><msub><mi>g</mi><mi>ℓ</mi></msub></mrow><annotation encoding="application/x-tex">f_\ell,g_\ell</annotation></semantics></math>,
 with no continuity or boundedness assumed.</p>
 <div class="theorem">
-<p><strong>Theorem 11</strong> (sharp uniform separated approximation).
+<p><strong>Theorem 12</strong> (sharp uniform separated approximation).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">p,q,r</annotation></semantics></math>
 be pairwise distinct primes and let
@@ -1133,6 +1237,36 @@ conclusion. What it does add to Theorem  is robustness: no finite
 separated model of the carry, however chosen, gets uniformly closer than
 half a carry jump. The threshold is exact in both directions, since rank
 one attains it.</p>
+<p>The original kernel behaves differently in the summation norm because
+its row and column factors decay. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>K</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K^{(N)}(i,j,k)=\operatorname{K}(i,j,k)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>&lt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">i&lt;N</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>K</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">K^{(N)}(i,j,k)=0</annotation></semantics></math>
+otherwise. This is a sum of at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+terms separated between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(j,k)</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><msup><mi>x</mi><mn>3</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mi>q</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{H}(x)&gt;x^3/(pqr)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x&gt;0</annotation></semantics></math>,
+geometric summation gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo>≥</mo><mn>0</mn></mrow></munder><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msup><mi>K</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>,</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mfrac><mrow><mi>p</mi><mi>q</mi><mi>r</mi><mspace width="0.167em"></mspace><msup><mi>p</mi><mrow><mi>−</mi><mn>3</mn><mi>N</mi></mrow></msup></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>p</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>q</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>r</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long269:eq:l1-finite-rank-approximation}
+ \sum_{i,j,k\ge0}|\operatorname{K}(i,j,k)-K^{(N)}(i,j,k)|
+ \le
+ \frac{pqr\,p^{-3N}}
+ {(1-p^{-3})(1-q^{-3})(1-r^{-3})}.
+\end{equation}</annotation></semantics></math> Hence the original
+summable kernel has finite separated-rank approximants in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℓ</mi><mn>1</mn></msup><annotation encoding="application/x-tex">\ell^1</annotation></semantics></math>,
+even though its normalised carry matrix has the sharp uniform barrier of
+Theorem . This norm distinction is why neither statement decides the
+arithmetic nature of the scalar sum.</p>
 </section>
 </section>
 <section id="long269:sec:blocks" class="level2">
@@ -1195,7 +1329,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>a</mi></msup><mo>&lt;</mo><msup><mi>p</mi><mi>e</mi></msup><mo>&lt;</mo><msup><mn>2</mn><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{a}&lt;p^{e}&lt;2^{a+1}</annotation></semantics></math>,
 in increasing order.</p>
 <div class="proposition">
-<p><strong>Proposition 12</strong> (the dyadic block alphabet). <em> For
+<p><strong>Proposition 13</strong> (the dyadic block alphabet). <em> For
 every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>a</mi></msub><mo>=</mo><mfrac><msub><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mrow><mi mathvariant="normal">H</mi><mo>&#8289;</mo></mrow><mi>a</mi></msub></mfrac><mo>=</mo><mn>2</mn><munder><mo>∏</mo><mrow><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>,</mo><mi>e</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><msub><mi>I</mi><mi>a</mi></msub></mrow></munder><mi>p</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>6</mn><mo>,</mo><mn>10</mn><mo>,</mo><mn>30</mn><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">so</mtext><mspace width="2.0em"></mspace><mn>2</mn><mo>≤</mo><msub><mi>b</mi><mi>a</mi></msub><mo>≤</mo><mn>30</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
@@ -1263,7 +1397,7 @@ are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mo>,</mo><mn>7</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(6,7)</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>30</mn><mo>,</mo><mn>65</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(30,65)</annotation></semantics></math>.</p>
 <div class="theorem">
-<p><strong>Theorem 13</strong> (the literal shell recurrence). <em> The
+<p><strong>Theorem 14</strong> (the literal shell recurrence). <em> The
 shell masses are summable and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>s</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">S=\sum_{a\ge0}s_a</annotation></semantics></math>.
 For every
@@ -1354,7 +1488,7 @@ for the genuine infinite tail</a>, over the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean#L110">normalised
 state step</a>.</p>
 <div class="proposition">
-<p><strong>Proposition 14</strong> (integral state or cofinal
+<p><strong>Proposition 15</strong> (integral state or cofinal
 separation). <em> Either
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">X_a\in\mathbb{Z}</annotation></semantics></math>
 for some
@@ -1414,7 +1548,7 @@ that case is the subject of Section .</p>
 is the sum of the three height exponents at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>a</mi></msup><annotation encoding="application/x-tex">2^{a}</annotation></semantics></math>.</p>
 <div class="theorem">
-<p><strong>Theorem 15</strong> (quadratic bound for the actual tail).
+<p><strong>Theorem 16</strong> (quadratic bound for the actual tail).
 <em> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a\ge0</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>X</mi><mi>a</mi></msub><mo>≤</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0&lt;X_a\le Q(n_a)</annotation></semantics></math>.</em></p>
@@ -1522,7 +1656,7 @@ gives the integer bound used throughout the rest of the note:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>a</mi></msup><annotation encoding="application/x-tex">2^{a}</annotation></semantics></math>
 and it is strict.</p>
 <div class="lemma">
-<p><strong>Lemma 16</strong> (finite denominator clearing). <em> For all
+<p><strong>Lemma 17</strong> (finite denominator clearing). <em> For all
 integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>u</mi><mo>≤</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">0\le u\le b</annotation></semantics></math>
 the window mass
@@ -1537,12 +1671,10 @@ then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><msub><mi>X</mi><mi>a</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">DX_a\in\mathbb{Z}</annotation></semantics></math>
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a\ge1</annotation></semantics></math>,
-and two states
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>i</mi></msub><annotation encoding="application/x-tex">X_i</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>j</mi></msub><annotation encoding="application/x-tex">X_j</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">1\le i&lt;j</annotation></semantics></math>
-differ by an integer.</em></p>
+and there are indices
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>j</mi><mo>≤</mo><mi>D</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\le i&lt;j\le D+1</annotation></semantics></math>
+for which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>i</mi></msub><mo>−</mo><msub><mi>X</mi><mi>j</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">X_i-X_j\in\mathbb{Z}</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> An empty window has mass zero. Otherwise
@@ -1582,7 +1714,7 @@ divisibility</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/RationalLatticeReduction.lean#L101">half-height
 identity</a>.</p>
 <div class="theorem">
-<p><strong>Theorem 17</strong> (positive reduced carries from
+<p><strong>Theorem 18</strong> (positive reduced carries from
 rationality). <em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>N</mi><mi>/</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">S=N/D</annotation></semantics></math>
 with
@@ -1659,7 +1791,7 @@ transfer</a>).</p>
 <p>The integral branch has one further exact property, recorded because
 it constrains any attempt to build a surviving seed by hand.</p>
 <div class="proposition">
-<p><strong>Proposition 18</strong> (upward closure and rigidity). <em>
+<p><strong>Proposition 19</strong> (upward closure and rigidity). <em>
 For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>a</mi></msub><mo>+</mo><msub><mi>X</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mi>b</mi><mi>a</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">X_a=(m_a+X_{a+1})/b_a&gt;0</annotation></semantics></math>,
@@ -1762,7 +1894,7 @@ checked. The vanishing residue is represented by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>,
 and that choice is what makes the next statement a modular one.</p>
 <div class="proposition">
-<p><strong>Proposition 19</strong> (the finite residue contradiction).
+<p><strong>Proposition 20</strong> (the finite residue contradiction).
 <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C&gt;0</annotation></semantics></math>
 and let
@@ -1847,7 +1979,7 @@ is positive, so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">W_{\ell,h}&gt;0</annotation></semantics></math>
 is automatic.</p>
 <div class="theorem">
-<p><strong>Theorem 20</strong> (the equivalence band). <em> Let
+<p><strong>Theorem 21</strong> (the equivalence band). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>:</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mo>×</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">G:\mathbb{N}_{&gt;0}\times\mathbb{N}\to\mathbb{N}</annotation></semantics></math>
 satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K(B,a)\le G(B,a)</annotation></semantics></math>
@@ -1954,11 +2086,13 @@ Each
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>ℓ</mi><mo>,</mo><mi>h</mi></mrow></msub><mo>≥</mo><msup><mn>2</mn><mi>h</mi></msup></mrow><annotation encoding="application/x-tex">W_{\ell,h}\ge2^{h}</annotation></semantics></math>,
 so
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>δ</mi><mo>≤</mo><mo stretchy="false" form="prefix">|</mo><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub><mo>−</mo><msub><mi>k</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mfrac><mrow><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>B</mi><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.167em"></mspace><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><msup><mn>2</mn><mi>h</mi></msup></mfrac><mo>=</mo><msup><mn>2</mn><mi>ℓ</mi></msup><mo>⋅</mo><mfrac><mrow><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>B</mi><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.167em"></mspace><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><msup><mn>2</mn><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msup></mfrac><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">0&lt;\delta\le|BX_\ell-k_h|
- \le\frac{\max\bigl(BQ(n_{\ell+h}),\,G(B,\ell+h)\bigr)}{2^{h}}
- =2^{\ell}\cdot
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mn>0</mn><mo>&lt;</mo><mi>δ</mi><mo>≤</mo><mo stretchy="false" form="prefix">|</mo><mi>B</mi><msub><mi>X</mi><mi>ℓ</mi></msub><mo>−</mo><msub><mi>k</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">|</mo></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mfrac><mrow><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>B</mi><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.167em"></mspace><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><msup><mn>2</mn><mi>h</mi></msup></mfrac></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><msup><mn>2</mn><mi>ℓ</mi></msup><mo>⋅</mo><mfrac><mrow><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>B</mi><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.167em"></mspace><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>ℓ</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><msup><mn>2</mn><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msup></mfrac><mo>→</mo><mn>0</mn><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+ 0&lt;\delta\le|BX_\ell-k_h|
+ &amp;\le\frac{\max\bigl(BQ(n_{\ell+h}),\,G(B,\ell+h)\bigr)}{2^{h}}\\
+ &amp;=2^{\ell}\cdot
  \frac{\max\bigl(BQ(n_{\ell+h}),\,G(B,\ell+h)\bigr)}{2^{\ell+h}}
- \longrightarrow0</annotation></semantics></math> as
+ \longrightarrow0.
+ \end{aligned}</annotation></semantics></math> as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">h\to\infty</annotation></semantics></math>,
 because
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Q(n_{\ell+h})</annotation></semantics></math>
@@ -2045,7 +2179,7 @@ residue. The window may therefore depend genuinely on
 is all the equivalence needs. The actual height formula gives more, and
 the extra information sets the scale of any finite search.</p>
 <div class="proposition">
-<p><strong>Proposition 21</strong> (window-growth law). <em> Put
+<p><strong>Proposition 22</strong> (window-growth law). <em> Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>3</mn></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>32</mn></msub></mrow><annotation encoding="application/x-tex">\theta_3=\log_32</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mn>5</mn></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>52</mn></msub></mrow><annotation encoding="application/x-tex">\theta_5=\log_52</annotation></semantics></math>.
@@ -2082,7 +2216,7 @@ and
 Multiplying the three ranges gives the bounds. ◻</p>
 </div>
 <div class="corollary">
-<p><strong>Corollary 22</strong> (no bounded-length escape at all
+<p><strong>Corollary 23</strong> (no bounded-length escape at all
 starts). <em> Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B\ge1</annotation></semantics></math>
 coprime to
@@ -2211,7 +2345,7 @@ length can.</p>
 <section id="two-finite-denominator-exclusions" class="level3">
 <h3>Two finite denominator exclusions</h3>
 <div class="theorem">
-<p><strong>Theorem 23</strong>
+<p><strong>Theorem 24</strong>
 (window-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>128</mn><annotation encoding="application/x-tex">128</annotation></semantics></math>
 block exclusion, computational certificate). <em> At window length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>128</mn></mrow><annotation encoding="application/x-tex">L=128</annotation></semantics></math>,
@@ -2266,7 +2400,7 @@ the exact integer engine that produced it, and the certificate record is
 held in the author’s formal-mathematics archive, outside the public
 source of this release.</p>
 <div class="theorem">
-<p><strong>Theorem 24</strong> (continued-fraction exclusion,
+<p><strong>Theorem 25</strong> (continued-fraction exclusion,
 computational certificate). <em> The normalised tail
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>
 has
@@ -2314,14 +2448,14 @@ continued-fraction structure appears below that height.</p>
 indexed by a lattice at a fixed launch and fixed smooth part, the other
 by continued-fraction depth at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a=1</annotation></semantics></math>.
-Every larger denominator survives both, so neither settles an instance
-of the problem.</p>
+Denominators beyond the recorded finite ranges are not excluded by
+either certificate, so neither settles an instance of the problem.</p>
 </section>
 </section>
 <section id="long269:sec:open" class="level2">
 <h2>The remaining arithmetic questions</h2>
 <div class="problem">
-<p><strong>Problem 25</strong> (actual cofinal residue escape). <em>
+<p><strong>Problem 26</strong> (actual cofinal residue escape). <em>
 Prove
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathsf E(K)</annotation></semantics></math>
 for the actual digits  and the bound .</em></p>
@@ -2333,7 +2467,7 @@ are proved above and are not additional hypotheses. By Theorem  the
 problem is a restatement of Erdős #269 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{2,3,5\}</annotation></semantics></math>.</p>
 <div class="problem">
-<p><strong>Problem 26</strong> (nonintegrality of every reduced tail).
+<p><strong>Problem 27</strong> (nonintegrality of every reduced tail).
 <em> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B\ge1</annotation></semantics></math>
 with
@@ -2347,7 +2481,7 @@ prove
 \end{equation}</annotation></semantics></math></em></p>
 </div>
 <div class="proposition">
-<p><strong>Proposition 27</strong> (the reduced-tail question is also
+<p><strong>Proposition 28</strong> (the reduced-tail question is also
 the target). <em> Statement , quantified over every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B\ge1</annotation></semantics></math>
 coprime to
@@ -2408,7 +2542,7 @@ and
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>a</mi></msub><mo>=</mo><mn>2</mn><mo>⋅</mo><msup><mn>3</mn><msub><mi>δ</mi><mrow><mn>3</mn><mo>,</mo><mi>a</mi></mrow></msub></msup><msup><mn>5</mn><msub><mi>δ</mi><mrow><mn>5</mn><mo>,</mo><mi>a</mi></mrow></msub></msup></mrow><annotation encoding="application/x-tex">b_a=2\cdot3^{\delta_{3,a}}5^{\delta_{5,a}}</annotation></semantics></math>.</p>
 <div class="problem">
-<p><strong>Problem 28</strong> (function-faithful two-dimensional
+<p><strong>Problem 29</strong> (function-faithful two-dimensional
 representation). <em> Express
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒟</mi><mrow><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub><annotation encoding="application/x-tex">\mathcal D_{2,3,5}</annotation></semantics></math>
 as a nonconstant algebraic combination of values of a specified
@@ -2555,16 +2689,22 @@ denominator and to begin beyond the onset.</p>
 <p>Steve Fan’s two-prime argument is an ordinary proof over the cited
 Bugeaud–Laurent theorem and carries no Lean declaration. The
 arbitrary-order kernel minors and the exclusion of finite separation are
-ordinary mathematics in this paper; they are not in the Comparator
-manifest. Comparator names the
+Lean theorems in <code>KernelCarryRank</code>. The named source
+statements for the literal recurrence and fixed-split rationality bridge
+are Lean theorems as well. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/06f57893e0f9c6d80668048f26f096367ae4cfe7/verification/erdos269-wavea-validation.json">source-current
+validation receipt</a> byte-matches these modules and records their
+compilation inside the public recursive import closure; its named
+declaration-by-declaration axiom audit is for the R12 Wave A results,
+not for these rank declarations. Comparator names the finite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,3,5)</annotation></semantics></math>
 minor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mn>15</mn></mrow><annotation encoding="application/x-tex">-1/15</annotation></semantics></math>,
 the running-LCM height identity, and a conditional carry-escape
-consumer. The actual-series reduction is given; the source-specific
-cofinal escape remains unproved. Named Lean sources below are locators,
-not a blanket end-to-end coverage claim. The quadratic tail bound, the
-explicit onset
+consumer; it is not the evidence for the arbitrary-order theorem. The
+actual-series reduction is given; the source-specific cofinal escape
+remains unproved. Named Lean sources below are locators, not a blanket
+end-to-end coverage claim. The quadratic tail bound, the explicit onset
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>D</mi></msub><annotation encoding="application/x-tex">a_D</annotation></semantics></math>,
 the sharp bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
@@ -2674,7 +2814,7 @@ for an integer radix word
 and forcing word
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(m_n)</annotation></semantics></math>.</p>
 <div class="proposition">
-<p><strong>Proposition 29</strong> (conditional denominator reduction).
+<p><strong>Proposition 30</strong> (conditional denominator reduction).
 <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">m</mi></mrow></msub><msub><mi>d</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">c_n=D_{\mathrm{sm}}d_n</annotation></semantics></math>
 for every
@@ -2697,7 +2837,7 @@ of Lemma  is what supplies it for the actual orbit, and Theorem  is the
 instance in which the note uses it. The formal consumer takes the
 common-factor form as a hypothesis.</p>
 <div class="proposition">
-<p><strong>Proposition 30</strong> (conditional extinction of bounded
+<p><strong>Proposition 31</strong> (conditional extinction of bounded
 carries). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(b_n)</annotation></semantics></math>
 and

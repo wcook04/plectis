@@ -33,24 +33,23 @@ Problem~\#249}
 \begin{abstract}
 For every $e\ge1$, the dyadic sections of Euler's totient through level $e$
 have rational rank $2^e+1$. The two zero-residue sections and the odd-residue
-sections form a basis, and two families of scalar reductions generate every relation.
-Divisibility makes an evaluation matrix diagonal modulo a prime, with nonzero
-diagonal entries. The
+sections form a basis. Explicit scalar reductions give unique integral
+coordinates and a basis of all integral relations. The arithmetic step is
+independence: divisibility makes an evaluation matrix diagonal modulo a prime,
+with nonzero diagonal entries. The
 \mword{Erdos249257/TotientMahlerDefect.lean}{1084}{finrank_totientKernelThroughLevelFamily_eq}{dyadic rank $2^e+1$}
 holds for $e\ge1$.  The all-base rank
 $k^e+1$ is the
 \mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{rank transferred from linear independence},
-using Martin's external independence; Coons owns non-$k$-regularity
-of $\ph$, equivalently infinite-dimensionality for integer-valued sequence
-modules.  A separate ordinary argument treats bounded-residue series $A_m$.
-Finite Farey exclusion and Lean diagonal certificates through $t\le 82$ are
-finite; neither $t=83$ nor an unbounded family is supplied.
-Separately, $\sum_{n\ge1}(\ph(n)\bmod m)2^{-n}$ is irrational for every
-$m\ge3$, with a complete rationality classification at dyadic moduli.
+using Martin's external independence; Coons proved non-$k$-regularity
+of $\ph$. A separate ordinary argument uses isolated blocks to prove that
+$\sum_{n\ge1}(\ph(n)\bmod m)2^{-n}$ is irrational for every $m\ge3$,
+with a complete rationality classification for dyadic residue observables.
 For $S=\sum_{n\ge1}\ph(n)2^{-n}$, one nonintegral tail shift forces
 full-depth certificates in every sufficiently late pair of multipliers.
-Irrationality is equivalent to an explicit central-residue gap for every
-prospective denominator; its arithmetic supply remains open.
+The rank and bounded-residue results do not decide $S$: its irrationality is
+equivalent to an explicit central-residue gap for every prospective denominator,
+whose arithmetic supply remains open.
 \end{abstract}
 
 
@@ -102,6 +101,11 @@ coordinates; the omitted positive-residue sections satisfy
 
 \subsection{The evaluation matrix}\label{sec:rank}
 The two ingredients are scalar reduction and arithmetic independence.
+The reductions explain which sections must be dependent. The difficulty is
+to exclude every additional relation. We do this one coefficient at a time:
+an evaluation will annihilate all the other columns modulo a prime while
+leaving the chosen column nonzero. Thus no simultaneous primality assertion
+for several affine forms is needed.
 The local formula for $\ph$ gives the displayed reductions. For a prime
 $p\mid k$ that does not divide $u$, the argument $k^{j-t}n+u$ is a $p$-adic
 unit, so multiplication by $k^t$ contributes its power of $p$ and one factor
@@ -516,11 +520,16 @@ endpoint; the approximation estimate is one stronger sufficient route.
 
 \section{Antecedents and proof record}\label{sec:open}
 Allouche and Shallit introduced $k$-regular sequences~\cite{allouche-shallit}.
-Coons proved that $\ph$ is not $k$-regular~\cite{coons}; Martin's stronger
-affine ordering theorem implies the independence in
-Section~\ref{sec:rank}~\cite{martin-phi-inequalities}. The basis theorem
+Coons proved that $\ph$ is not $k$-regular~\cite[Thm.~3.2]{coons}.
+Martin's Theorem~1 makes the ratios of totients on any prescribed finite list
+of pairwise nonproportional affine forms with integer coefficients and positive
+slopes arbitrarily separated; this implies
+their linear independence~\cite[Thm.~1]{martin-phi-inequalities}.
+Section~\ref{sec:rank} gives a direct determinant proof tailored to the
+sections used here. The basis theorem
 gives the exact finite-level normal form. Wong~\cite{wong2015} proved
-least-residue irrationality when the denominator base equals the modulus;
+least-residue irrationality when the denominator base and modulus are the
+same integer $k>2$;
 Section~\ref{sec:family} fixes base two and classifies dyadic observables.
 The original question appears in Erd\H{o}s and Graham~\cite[p.~61]{erdosgraham1980}.
 
@@ -552,13 +561,12 @@ Lean-checked Farey exclusion. Neither implies the universal gap.
 The remaining first-harmonic obligation is a four-term pivot budget,
 not an opening statement of this note. Write
 \[
- \operatorname{Re}\,\mathrm{pivotCenteredCorrelation}\le\tfrac{14}{25}X,
- \quad
- \lVert\mathrm{pivotFiberMean}\rVert\le\tfrac1{100}X,
- \quad
- \lVert\mathrm{pivotBad}\rVert\le\tfrac1{100}X,
- \quad
- \lVert\mathrm{pivotNonSupplier}\rVert\le\tfrac8{25}X.
+ \begin{aligned}
+ \operatorname{Re}\,\mathrm{pivotCenteredCorrelation}&\le\tfrac{14}{25}X,\\
+ \lVert\mathrm{pivotFiberMean}\rVert&\le\tfrac1{100}X,\\
+ \lVert\mathrm{pivotBad}\rVert&\le\tfrac1{100}X,\\
+ \lVert\mathrm{pivotNonSupplier}\rVert&\le\tfrac8{25}X.
+ \end{aligned}
 \]
 \begin{problem}[first-harmonic anti-concentration on supplier fibres]
 \label{prob:firstharmonic}
@@ -753,9 +761,10 @@ functions}, J.\ Th\'eor.\ Nombres Bordeaux \textbf{22} (2010), 339--352,
 Theorem~3.2. doi:10.5802/jtnb.718.
 \bibitem{martin-phi-inequalities} G.~Martin, \emph{Simultaneous inequalities
 among values of the Euler phi-function}, 2006, arXiv:math/0603053,
-Theorem~1 and Corollary~4.
-\bibitem{wong2015} E.~Wong, answer to
-\href{https://math.stackexchange.com/questions/1210886}{question 1210886},
+Theorem~1. \url{https://arxiv.org/abs/math/0603053}.
+\bibitem{wong2015} Erick Wong,
+\href{https://math.stackexchange.com/a/1211557}{answer 1211557}
+to \emph{An infinite sum based on the mod-parity of Euler's totient function},
 Mathematics Stack Exchange, 29 March 2015.
 \bibitem{erdosgraham1980} P.~Erd\H{o}s and R.~L.~Graham,
 \emph{Old and New Problems and Results in Combinatorial Number Theory},

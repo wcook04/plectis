@@ -5,17 +5,6 @@
     <p class="lean-paper__subject">Erdős #251</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/251/erdos-251-prime-gap-dyadic-series.tex">
-<p>There is an exact finite obstruction recorded in the pinned source: a
-second example has finite sum
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>n</mi><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">-n/2^n</annotation></semantics></math>
-and non-eventually-periodic coefficients (<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1157">finite
-endpoint</a>; <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1163">coefficient
-nonperiodicity</a>). The actual prime gaps are also not eventually
-periodic (<a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023">prime-gap
-nonperiodicity</a>), but that fact alone is insufficient.</p>
 <section id="sec:problem" class="level2">
 <h2>Introduction</h2>
 <section id="the-complete-countermodel-in-one-calculation."
@@ -86,9 +75,12 @@ are prime.</p>
 </section>
 <section id="sparse-corrections-and-local-information." class="level5">
 <h5>Sparse corrections and local information.</h5>
-<p>The following construction preserves congruences of cumulative sums
-as well as coefficients. Its sparse support also preserves the empirical
-laws of short gap blocks.</p>
+<p>A single changed coefficient can alter every later cumulative
+residue. We therefore pair corrections: changing their allocation
+changes the dyadic value while leaving their unweighted total fixed.
+Sparsity has a separate job. Most short blocks then meet no correction
+at all, which preserves their empirical distributions without requiring
+the corrected positions to be prime.</p>
 <div class="proposition">
 <p><strong>Proposition 1</strong> (sparse congruence-preserving
 rationalisation). <em> Let
@@ -119,64 +111,126 @@ and every fixed modulus eventually dividing both
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>e</mi><mi>n</mi></msub><annotation encoding="application/x-tex">e_n</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i&lt;n}e_i</annotation></semantics></math>.
-For the actual prime gaps and every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>ε</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;\varepsilon&lt;1</annotation></semantics></math>
-the same construction may be taken with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mi>ε</mi></msup></mrow><annotation encoding="application/x-tex">e_n\le(\log(n+3))^\varepsilon</annotation></semantics></math>
-eventually and
+For the actual prime gaps and the specific choice
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mi>ε</mi></msup></mrow><annotation encoding="application/x-tex">f(n)=(\log(n+3))^\varepsilon</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>ε</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;\varepsilon&lt;1</annotation></semantics></math>,
+one can in addition require
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msub><mi>O</mi><mi>ε</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|S\cap[X,2X)|=O_\varepsilon(X/\log\log X)</annotation></semantics></math>,
 so that all unnormalised blocks of length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(\log\log X)</annotation></semantics></math>
 are preserved in total variation.</em></p>
 </div>
 <div class="proof">
-<p><em>Construction.</em> At selected centres
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>j</mi></msub><annotation encoding="application/x-tex">n_j</annotation></semantics></math>,
-choose a free digit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>d</mi><mi>j</mi></msub><mo>≤</mo><msub><mi>D</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">0\le d_j\le D_j</annotation></semantics></math>
-and put
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><msub><mi>n</mi><mi>j</mi></msub></msub><mo>=</mo><msub><mi>M</mi><mi>j</mi></msub><msub><mi>d</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">e_{n_j}=M_jd_j</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>M</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>j</mi></msub><mo>−</mo><msub><mi>d</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">e_{n_j+1}=M_j(D_j-d_j)</annotation></semantics></math>.
-The two identities
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><msub><mi>n</mi><mi>j</mi></msub></msub><mo>+</mo><msub><mi>e</mi><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>M</mi><mi>j</mi></msub><msub><mi>D</mi><mi>j</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><mfrac><msub><mi>e</mi><msub><mi>n</mi><mi>j</mi></msub></msub><msup><mn>2</mn><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>+</mo><mfrac><msub><mi>e</mi><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn></mrow></msub><msup><mn>2</mn><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>2</mn></mrow></msup></mfrac><mo>=</mo><mfrac><mrow><msub><mi>M</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>j</mi></msub><mo>+</mo><msub><mi>d</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><msup><mn>2</mn><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>2</mn></mrow></msup></mfrac></mrow><annotation encoding="application/x-tex">e_{n_j}+e_{n_j+1}=M_jD_j,\qquad
- \frac{e_{n_j}}{2^{n_j+1}}+\frac{e_{n_j+1}}{2^{n_j+2}}
-   =\frac{M_j(D_j+d_j)}{2^{n_j+2}}</annotation></semantics></math>
-separate the cumulative correction from its weighted value. If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>j</mi></msub><annotation encoding="application/x-tex">C_j</annotation></semantics></math>
-is the preceding cumulative correction, a buffer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>j</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>C</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><msub><mi>M</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">c_j=(-C_j)\operatorname{mod} M_j</annotation></semantics></math>
-makes the new cumulative sum divisible by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>.
-The divisibility chain
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>∣</mo><msub><mi>M</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">M_{j-1}\mid M_j</annotation></semantics></math>
-ensures that earlier congruences remain valid. With
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub><mo>=</mo><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">w_j=M_j2^{-n_j-2}</annotation></semantics></math>
+<p><em>Construction.</em> Use disjoint triples of coordinates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><mn>1</mn><mo>,</mo><msub><mi>n</mi><mi>j</mi></msub><mo>,</mo><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_j-1,n_j,n_j+1</annotation></semantics></math>,
+with spacings
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>=</mo><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">s_j=n_j-n_{j-1}\ge4</annotation></semantics></math>,
+and moduli
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>
+forming a divisibility chain. Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>j</mi></msub><mo>=</mo><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D_j=2^{s_j}-1</annotation></semantics></math>.
+Starting from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C_0=0</annotation></semantics></math>,
+define
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>j</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>C</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><msub><mi>M</mi><mi>j</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>C</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>C</mi><mi>j</mi></msub><mo>+</mo><msub><mi>c</mi><mi>j</mi></msub><mo>+</mo><msub><mi>M</mi><mi>j</mi></msub><msub><mi>D</mi><mi>j</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">c_j=(-C_j)\operatorname{mod} M_j,\qquad C_{j+1}=C_j+c_j+M_jD_j.</annotation></semantics></math>
+For a free digit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>d</mi><mi>j</mi></msub><mo>≤</mo><msub><mi>D</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">0\le d_j\le D_j</annotation></semantics></math>,
+assign all three corrections:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>c</mi><mi>j</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>e</mi><msub><mi>n</mi><mi>j</mi></msub></msub><mo>=</mo><msub><mi>M</mi><mi>j</mi></msub><msub><mi>d</mi><mi>j</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>e</mi><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>M</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>j</mi></msub><mo>−</mo><msub><mi>d</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">e_{n_j-1}=c_j,\qquad e_{n_j}=M_jd_j,\qquad
+ e_{n_j+1}=M_j(D_j-d_j),</annotation></semantics></math> and set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e_n=0</annotation></semantics></math>
+elsewhere. The complete triple has total
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>j</mi></msub><mo>+</mo><msub><mi>M</mi><mi>j</mi></msub><msub><mi>D</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">c_j+M_jD_j</annotation></semantics></math>,
+independent of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>j</mi></msub><annotation encoding="application/x-tex">d_j</annotation></semantics></math>,
+so every buffer is fixed before the free digits are chosen. Immediately
+after the buffer, the cumulative correction is divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>;
+both pair entries preserve it. Later buffers preserve every previously
+imposed divisor. Thus each fixed modulus eventually divides both
+individual and cumulative corrections if it eventually divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>.</p>
+<p>Here is an explicit schedule for an arbitrary
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">f\to\infty</annotation></semantics></math>.
+Set
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mi mathvariant="normal">inf</mi><mrow><mi>m</mi><mo>≥</mo><mi>n</mi></mrow></munder><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">h(n)=\inf_{m\ge n}\min(f(m),m),</annotation></semantics></math>
+choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msub><mo>≥</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">n_{-1}\ge K</annotation></semantics></math>
+so large that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">h(n_{-1})\ge32</annotation></semantics></math>,
+and recursively let
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>j</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>k</mi><mo>≥</mo><mn>2</mn><mo>:</mo><mi>k</mi><mi>!</mi><msup><mn>2</mn><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></msup><mo>≤</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>M</mi><mi>j</mi></msub><mo>=</mo><msub><mi>k</mi><mi>j</mi></msub><mi>!</mi><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>s</mi><mi>j</mi></msub><mo>=</mo><msub><mi>k</mi><mi>j</mi></msub><mo>+</mo><mn>2</mn><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>n</mi><mi>j</mi></msub><mo>=</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>s</mi><mi>j</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">k_j=\max\{k\ge2:k!2^{k+2}\le h(n_{j-1})\},\quad
+ M_j=k_j!,\quad s_j=k_j+2,\quad n_j=n_{j-1}+s_j.</annotation></semantics></math>
+The function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+is nondecreasing, tends to infinity, and satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">h(n)\le n</annotation></semantics></math>.
+Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>j</mi></msub><annotation encoding="application/x-tex">k_j</annotation></semantics></math>
+is nondecreasing and tends to infinity. Each triple entry is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup><mo>≤</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M_j2^{s_j}\le h(n_{j-1})</annotation></semantics></math>,
+which is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math>
+at every coordinate of that triple and at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">n_{j-1}</annotation></semantics></math>.
+This proves the size bound and summability of the correction. The
+spacings tend to infinity, so the union of triples has upper Banach
+density zero.</p>
+<p>Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub><mo>=</mo><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">w_j=M_j2^{-n_j-2}</annotation></semantics></math>.
+The weighted correction separates as
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mi>n</mi></munder><mfrac><msub><mi>e</mi><mi>n</mi></msub><msup><mn>2</mn><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>=</mo><mi>β</mi><mo>+</mo><munder><mo>∑</mo><mi>j</mi></munder><msub><mi>d</mi><mi>j</mi></msub><msub><mi>w</mi><mi>j</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><mi>β</mi><mo>=</mo><munder><mo>∑</mo><mi>j</mi></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>j</mi></msub></mrow></msup><mo>+</mo><msub><mi>D</mi><mi>j</mi></msub><msub><mi>w</mi><mi>j</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_n\frac{e_n}{2^{n+1}}=\beta+\sum_jd_jw_j,
+ \qquad \beta=\sum_j\bigl(c_j2^{-n_j}+D_jw_j\bigr).</annotation></semantics></math>
+The buffer contribution is included in the fixed, positive number
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>&gt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i&gt;j</annotation></semantics></math>,
+monotonicity of the moduli gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>i</mi></msub><msub><mi>w</mi><mi>i</mi></msub><mo>≥</mo><msub><mi>M</mi><mi>j</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>2</mn></mrow></msup><mo>−</mo><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>i</mi></msub><mo>−</mo><mn>2</mn></mrow></msup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><munder><mo>∑</mo><mrow><mi>i</mi><mo>&gt;</mo><mi>j</mi></mrow></munder><msub><mi>D</mi><mi>i</mi></msub><msub><mi>w</mi><mi>i</mi></msub><mo>≥</mo><msub><mi>w</mi><mi>j</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">D_iw_i\ge M_j\bigl(2^{-n_{i-1}-2}-2^{-n_i-2}\bigr),
+ \qquad \sum_{i&gt;j}D_iw_i\ge w_j.</annotation></semantics></math> The
+digit intervals therefore overlap. Greedy selection fills the complete
+interval
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,F]</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>D</mi><mi>j</mi></msub><msub><mi>w</mi><mi>j</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F=\sum_jD_jw_j&gt;0</annotation></semantics></math>:
+at each step the remainder is between zero and the remaining capacity,
+which tends to zero. Take
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>+</mo><mi>β</mi><mo>,</mo><mi>A</mi><mo>+</mo><mi>β</mi><mo>+</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I=(A+\beta,A+\beta+F)</annotation></semantics></math>.</p>
+<p>For the polylogarithmic bound, instead set, after a sufficiently
+large initial cutoff,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mi>ε</mi><mn>2</mn></mfrac><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mi mathvariant="normal">log</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">⌋</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>k</mi><mi>j</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>k</mi><mo>≥</mo><mn>2</mn><mo>:</mo><mi>k</mi><mi>!</mi><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>ε</mi><mi>/</mi><mn>4</mn></mrow></msup><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">s_j=\left\lfloor\frac{\varepsilon}{2}\log_2\log(n_{j-1}+3)\right\rfloor,
+ \qquad
+ k_j=\max\{k\ge2:k!\le(\log(n_{j-1}+3))^{\varepsilon/4}\},</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><mo>=</mo><msub><mi>k</mi><mi>j</mi></msub><mi>!</mi></mrow><annotation encoding="application/x-tex">M_j=k_j!</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>=</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>s</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">n_j=n_{j-1}+s_j</annotation></semantics></math>
+and the same
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mi>j</mi></msub><annotation encoding="application/x-tex">D_j</annotation></semantics></math>
+and buffers. Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">s_j\ge4</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>j</mi></msub><mo>=</mo><msup><mn>2</mn><mrow><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D_j=2^{n_j-n_{j-1}}-1</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>,
-telescoping gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub><mo>≤</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>&gt;</mo><mi>j</mi></mrow></munder><msub><mi>D</mi><mi>i</mi></msub><msub><mi>w</mi><mi>i</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">w_j\le\sum_{i&gt;j}D_iw_i.</annotation></semantics></math>
-The allowed digits therefore have overlapping continuation intervals.
-Greedy selection keeps the remainder between zero and the remaining
-capacity, which tends to zero, and fills an interval of complete sums.
-The centres may be delayed to keep the corrections below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-while their spacing tends to infinity. For the polylogarithmic bound the
-spacing is comparable to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">\log\log n</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>3</mn><mi>ε</mi><mi>/</mi><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">M_j2^{s_j}\le(\log(n_{j-1}+3))^{3\varepsilon/4}</annotation></semantics></math>.
+The preceding congruence, convergence and interval arguments still
+apply. Spacing comparable to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>n</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">\log\log n_j</annotation></semantics></math>
+gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msub><mi>O</mi><mi>ε</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|S\cap[X,2X)|=O_\varepsilon(X/\log\log X)</annotation></semantics></math>.
+Couple the original and corrected
+length-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+blocks at the same starting index in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[X,2X)</annotation></semantics></math>.
 At most
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-starting blocks of length
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-meet one changed coefficient, so the total variation error is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo stretchy="false" form="prefix">|</mo><mi>S</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>,</mo><mn>2</mn><mi>X</mi><mo>+</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">m|S\cap[X,2X+m)|</annotation></semantics></math>
+starts meet a correction, so their empirical distributions differ in
+total variation by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>ε</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_\varepsilon(m/\log\log X)</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">m=o(\log\log X)</annotation></semantics></math>.
-The identities used above are the Lean-checked elementary core; the
-explicit spacing and block-law estimates in this paragraph are ordinary
-mathematics. There is no separately published companion file
-<code>SparseRationalisation.md</code>. ◻</p>
+The complete argument and the all-index congruence check are expanded in
+the companion record, subsection “Paired corrections and cumulative
+congruences”. The pair, buffer and conditional interval-filling
+identities are the Lean-checked core; the scheduling and density
+arguments are ordinary mathematics. ◻</p>
 </div>
 <p>Every bounded test of these blocks has the same asymptotic empirical
 average. A density-zero witness family can lie inside the changed
@@ -544,21 +598,17 @@ and every
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo>,</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mfrac><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">D(P,n+1)=P(0)+\Delta(P,n)-\frac{P(n)}{2^{\,n+1}} .</annotation></semantics></math></em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> A routine induction on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
-At
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n=0</annotation></semantics></math>
-both sides equal
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P(0)/2</annotation></semantics></math>.
-For the step, adding
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">P(n+1)/2^{\,n+2}</annotation></semantics></math>
-to the left and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\bigl(P(n+1)-P(n)\bigr)/2^{\,n+1}</annotation></semantics></math>
-to the difference sum changes the endpoint term from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">P(n)/2^{\,n+1}</annotation></semantics></math>
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>n</mi><mo>+</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">P(n+1)/2^{\,n+2}</annotation></semantics></math>,
-and the two adjustments agree. ◻</p>
+<p><em>Proof.</em> Expand the difference sum and shift its first index.
+All interior coefficients of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(i)</annotation></semantics></math>
+become
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msup><annotation encoding="application/x-tex">2^{-i-1}</annotation></semantics></math>;
+the remaining terms are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(0)</annotation></semantics></math>
+and the displayed endpoint
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-P(n)2^{-n-1}</annotation></semantics></math>.
+This also covers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">n=0</annotation></semantics></math>. ◻</p>
 </div>
 <p>This is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L138">finite
@@ -838,14 +888,15 @@ and
  \sigma_h(N)=(2^{h}-1)\,T_N-B_{h,N} .</annotation></semantics></math></em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> A routine induction on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>;
-the step is one application of the recurrence together with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>⋅</mo><msup><mn>2</mn><mi>h</mi></msup><mo>=</mo><msup><mn>2</mn><mrow><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2\cdot2^{h}=2^{h+1}</annotation></semantics></math>
-and the recursion defining
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.
-The second identity is the first minus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>N</mi></msub><annotation encoding="application/x-tex">T_N</annotation></semantics></math>. ◻</p>
+<p><em>Proof.</em> Induct on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+using the recursions for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
+then subtract
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>N</mi></msub><annotation encoding="application/x-tex">T_N</annotation></semantics></math>
+to obtain the shift identity. ◻</p>
 </div>
 <p>The first identity is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L653">iterated
@@ -1291,20 +1342,12 @@ Consequently, if such a pair occurs beyond every threshold, the
 is not eventually integral.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The real recurrence gives the same shift step
-identity
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sigma_h(N+1)=2\sigma_h(N)-\bigl(g_{N+h+1}-g_{N+1}\bigr)</annotation></semantics></math>,
-and an integer strictly between
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-is zero. If both shifts lay in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>,
-both would therefore vanish, and substitution in that identity would
-give
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">g_{N+h+1}=g_{N+1}</annotation></semantics></math>,
-a contradiction. The cofinal statement chooses one such adjacent pair
-after the alleged onset of integrality. ◻</p>
+<p><em>Proof.</em> The shift identity holds over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℝ</mi><annotation encoding="application/x-tex">\mathbb{R}</annotation></semantics></math>,
+and the only integer in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-1,1)</annotation></semantics></math>
+is still zero. Thus the proof of Theorem  applies without change,
+including its cofinal conclusion. ◻</p>
 </div>
 <p>Corollary  is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos251/PaperCoreR7.lean#L282">real
@@ -1367,11 +1410,21 @@ not asserted here.</p>
 </section>
 <section id="sec:carry" class="level2">
 <h2>Nonperiodic coefficients with a rational sum</h2>
-<p>Proposition  shows that the prime gaps are not eventually periodic.
-One might therefore hope that rationality of a dyadic series forces its
-integer coefficients to be eventually periodic, and play the two against
-each other. The hoped-for implication is false, and a single explicit
-sequence refutes it.</p>
+<p>There is an exact finite obstruction recorded in the pinned source: a
+second example has finite sum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>n</mi><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">-n/2^n</annotation></semantics></math>
+and non-eventually-periodic coefficients (<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1157">finite
+endpoint</a>; <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1163">coefficient
+nonperiodicity</a>). The actual prime gaps are also not eventually
+periodic (<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023">prime-gap
+nonperiodicity</a>), but that fact alone is insufficient.</p>
+<p>For a bounded canonical base-two digit expansion, rationality forces
+eventual periodicity. Prime gaps are unbounded coefficients, so that
+criterion does not apply. The following telescoping construction shows
+explicitly how nonperiodic coefficients can have a rational sum.</p>
 <p>The construction runs the emission of coefficients backwards. Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">K:\mathbb{N}\to\mathbb{Q}</annotation></semantics></math>
 be arbitrary, read
@@ -1712,11 +1765,11 @@ citation choices, or the interpretation, for which the author remains
 responsible.</p>
 <p>For Proposition , the pair identities, congruence buffer and abstract
 variable-alphabet filling are checked in
-<code>SparseRationalisationCore.lean</code>. The schedule, upper Banach
-density, and block-law transfer are ordinary proofs, given in the
-Construction paragraph of that proposition; they are not Lean- or
-Comparator-verified. There is no separately published companion file
-<code>SparseRationalisation.md</code>. End-to-end sparse candidate
+<code>SparseRationalisationCore.lean</code>. The explicit
+three-coordinate schedule, upper Banach density, and block-law transfer
+are ordinary proofs, given in that proposition and in the companion
+record, subsection “Paired corrections and cumulative congruences”; they
+are not Lean- or Comparator-verified. End-to-end sparse candidate
 sources in the repository are labelled UNRUN and are not presented as
 checked theorems.</p>
 </section>
@@ -1792,10 +1845,10 @@ repository lock owns the current revision.</p></li>
 href="https://doi.org/10.4007/annals.2015.181.1.7"></a>, Ann. of Math.
 (2) <strong>181</strong> (2015), 383–413.</p></li>
 <li id="ref-11"><p>H. L. Montgomery and R. C. Vaughan, <a
-href="https://doi.org/10.1017/CBO9780511618314.008"></a>, Cambridge
-Stud. Adv. Math. 97, Cambridge UP, 2007, Chapter 6, pp. 168–198;
-Theorem 6.9, pp. 179–181, and Exercise 6.2.5, p. 183, doi:<a
-href="https://doi.org/10.1017/CBO9780511618314.008">10.1017/CBO9780511618314.008</a>.</p></li>
+href="https://doi.org/10.1017/CBO9780511618314"></a>, Cambridge Stud.
+Adv. Math. 97, Cambridge UP, 2007, Chapter 6, pp. 168–198; Theorem 6.9,
+pp. 179–181, and Exercise 6.2.5, p. 183, doi:<a
+href="https://doi.org/10.1017/CBO9780511618314">10.1017/CBO9780511618314</a>.</p></li>
 <li id="ref-12"><p>Y. Zhang, <a
 href="https://doi.org/10.4007/annals.2014.179.3.7"></a>, Ann. of Math.
 (2) <strong>179</strong> (2014), 1121–1174.</p></li>

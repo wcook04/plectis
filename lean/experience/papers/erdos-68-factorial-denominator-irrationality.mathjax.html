@@ -55,12 +55,15 @@ data-cites="erdos1988 bloom"><a href="#ref-1">[1]</a><a href="#ref-2">[2]</a></s
 are specified in §<a class="math-ref" href="#sec:finite">8</a>.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">Adjacent
-factorial differences affect exactly their divisor channels</a>.
-Integral triangular elimination therefore solves the channel equations.
-The support restriction determines which factorial moments occur, while
-at a fixed moment every correction changes the residual by an integer.
-The argument separates coefficient feasibility from the real separation
-needed for irrationality.</p>
+factorial differences affect exactly their divisor channels</a>. This
+makes the channel equations solvable by integral triangular elimination.
+Solving them, however, does not make the residual small: at a fixed
+factorial moment every correction changes it by an integer.
+Sections <a class="math-ref" href="#sec:companion-orbit">2</a>–<a class="math-ref" href="#sec:translator">4</a> identify the exact
+carry test and this limitation of channel cancellation. Section <a class="math-ref" href="#sec:prime-pole">5</a> then shows, at the
+prime <span class="math inline" data-term-auto="off">\(139\)</span>, why a large common
+denominator need not survive reduction; Section <a class="math-ref" href="#sec:projection">6</a> states the
+additional real comparison needed.</p>
 </section>
 <section id="sec:companion-orbit" class="level2">
 <h2>The fixed companion orbit</h2>
@@ -187,7 +190,16 @@ floor-stability hypothesis is required only to discard the two wrap
 terms. Equality in the defining comparison is the no-wrap case.
 Canonical factorial expansions and their rationality criterion are
 classical <span class="citation"
-data-cites="cantor1869 galambos1976"><a href="#ref-3">[3]</a><a href="#ref-4">[4]</a></span>.</p>
+data-cites="cantor1869 galambos1976"><a href="#ref-3">[3]</a><a href="#ref-4">[4]</a></span>. For an integer-coefficient
+factorial series, the standard tail-integrality argument appears in
+Hančl and Tijdeman <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-5">[5]</a></span>: a rational sum has integral
+normalized tails once its denominator divides the preceding factorial.
+Their subsequent finite-difference criteria impose regularity on the
+coefficients. In the present series the denominators are <span
+class="math inline" data-term-auto="off">\(n!-1\)</span>; the companion expansion and the two
+wrap terms in <a class="math-ref" data-equation-ref="true" href="#eq:companion-wrap">eq:companion-wrap</a> account for
+that change.</p>
 <div class="theorem" id="res:carry-characterization"><span class="tex-label" id="res:strict-successor-complete-characterization" hidden></span>
 <p><strong>Theorem 3</strong> (exact carry characterisation). <em> The
 following conditions are equivalent: </em></p>
@@ -225,8 +237,10 @@ class="math inline" data-term-auto="off">\(b_m=1\)</span>. ◻</p>
 </section>
 <section id="sec:channels" class="level2">
 <h2>An integral basis for factorial channels</h2>
-<p>For a finite integer vector <span
-class="math inline" data-term-auto="off">\(\lambda\)</span>, define</p>
+<p>We seek integer combinations that cancel selected denominator
+contributions without cancelling their factorial moment. To keep track
+of these two requirements, for a finite integer vector <span
+class="math inline" data-term-auto="off">\(\lambda\)</span> define</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[W_{d,n}=\frac{n!}{(d!)^{\lfloor
 n/d\rfloor}},\qquad
@@ -422,17 +436,29 @@ class="math inline" data-term-auto="off">\(D=2\)</span>. Finally <span
 class="math inline" data-term-auto="off">\(H\le D(2D-1)&lt;2D^2\)</span>. ◻</p>
 </div>
 <div class="theorem" id="res:bandbreakpoint">
-<p><strong>Theorem 6</strong> (quotient-band breakpoint). <em> Under the
-band hypothesis, </em></p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[M=(d!)^k C_d.\]</span></div>
+<p><strong>Theorem 6</strong> (quotient-band breakpoint). <em> Let <span
+class="math inline" data-term-auto="off">\(\lambda\)</span> be a finitely supported integer
+vector, let <span class="math inline" data-term-auto="off">\(d\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(k\ge0\)</span> be integers, and suppose each index
+<span class="math inline" data-term-auto="off">\(n\)</span> in its support satisfies <span
+class="math inline" data-term-auto="off">\(kd\le n&lt;(k+1)d\)</span>. Then </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[M(\lambda)=(d!)^k V_d(\lambda).\]</span></div>
 <p><em> In
-particular, in the first band <span class="math inline" data-term-auto="off">\(d\le
-i_j&lt;2d\)</span>, channel cancellation <span
-class="math inline" data-term-auto="off">\(C_d=0\)</span> forces <span
-class="math inline" data-term-auto="off">\(M=0\)</span>. If all indices are at least <span
-class="math inline" data-term-auto="off">\(d\)</span>, channel cancellation and <span
-class="math inline" data-term-auto="off">\(M\ne0\)</span> therefore force at least one index
-<span class="math inline" data-term-auto="off">\(i_j\ge2d\)</span>.</em></p>
+particular, support in <span class="math inline" data-term-auto="off">\([d,2d)\)</span> and
+<span class="math inline" data-term-auto="off">\(V_d(\lambda)=0\)</span> force <span
+class="math inline" data-term-auto="off">\(M(\lambda)=0\)</span>. If all supported indices
+are at least <span class="math inline" data-term-auto="off">\(d\)</span>, <span
+class="math inline" data-term-auto="off">\(V_d(\lambda)=0\)</span> and <span
+class="math inline" data-term-auto="off">\(M(\lambda)\ne0\)</span>, some supported index is
+at least <span class="math inline" data-term-auto="off">\(2d\)</span>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> On the stated band <span
+class="math inline" data-term-auto="off">\(\lfloor n/d\rfloor=k\)</span>, so <span
+class="math inline" data-term-auto="off">\(n!=(d!)^kW_{d,n}\)</span>. Sum against <span
+class="math inline" data-term-auto="off">\(\lambda_n\)</span>; the final assertion follows by
+contraposition from the first-band case. ◻</p>
 </div>
 <p>The exact factorisation is checked for every quotient band at <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71">the
@@ -528,7 +554,7 @@ P(j)-(j!/i!)P(i);\]</span></div>
 <p class="display-continue">the additional <span
 class="math inline" data-term-auto="off">\(O_P(k^2\log N)\)</span> loss is lower order. The
 subtraction identity is recorded by Lai <span class="citation"
-data-cites="lai"><a href="#ref-6">[6]</a></span>. For <span class="math inline" data-term-auto="off">\(P=0\)</span>,
+data-cites="lai"><a href="#ref-7">[7]</a></span>. For <span class="math inline" data-term-auto="off">\(P=0\)</span>,
 the lcm is only <span class="math inline" data-term-auto="off">\(N!\)</span>. These are
 common-denominator estimates. Consecutive denominators <span
 class="math inline" data-term-auto="off">\((N-1)!-1\)</span> and <span
@@ -788,8 +814,11 @@ sharper extraction; no stronger numerical floor is asserted here. The
 exact sources, enclosure and integer-computation receipts are retained
 with the long record. Neither finite calculation supplies <a class="math-ref" data-equation-ref="true" href="#eq:canonical-open-target">eq:canonical-open-target</a>.</p>
 </section>
-<section id="app:sources" class="level2 unnumbered">
-<h2 class="unnumbered">Statements and declarations</h2>
+<section id="app:sources" class="level2">
+<h2>Guide to the formal sources</h2>
+<section id="source-current-statements-and-evidence-boundaries."
+class="level5">
+<h5>Source-current statements and evidence boundaries.</h5>
 <p>The finite divisor-event identities, isolated-channel recursion,
 vanishing moment, individual channel values, and the factor <span
 class="math inline" data-term-auto="off">\(12\)</span> are checked in <a
@@ -822,31 +851,12 @@ and <a
 href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean">liminf</a>
 Lean files are proof candidates and are not being cited as kernel
 verification.</p>
-<p>The Comparator isolation pin for the carry equivalences is <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean">factorial
-gap plateau core</a>. <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialZeroPlateau.lean">factorial
-zero plateau</a> is the default-root duplicate of that family and is not
-the isolation source. Companion-orbit rationality is in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
-orbit rationality</a>; the unconditional correction <a class="math-ref" data-equation-ref="true" href="#eq:companion-wrap">eq:companion-wrap</a> is in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean">companion
-constant carry law</a>. The pole-residue identity and the two displayed
-reciprocal equalities are in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PrimePoleCriterion.lean">prime
-pole criterion</a>. The complete maximal-hit data come from the separate
-exact modular scan. The carry census and continued-fraction certificate
-use exact integer computation outside Lean.</p>
-<p>The inherited public source pin is <code>99f4bf47422a</code>.
-Source-current additions and that public snapshot must be reconciled at
-one immutable release before its links are represented as a replay of
-the whole note. Formal proof checking does not assess external novelty
-or the significance of the remaining hypothesis. The complete source
-register, receipts and failed-route calculations belong to the long
-record.</p>
+<p>Formal proof checking does not assess external novelty or the
+significance of the remaining hypothesis. The complete source register,
+receipts and failed-route calculations belong to the long record.</p>
 </section>
-<section id="app:sources--2" class="level2">
-<h2>Guide to the formal sources</h2>
+<section id="pinned-declaration-index." class="level5">
+<h5>Pinned declaration index.</h5>
 <p>The public <code>ErdosProblems.Erdos68</code> package contains the
 checked source for this note. The pinned snapshot contains fifteen cited
 modules: <code>AdjacentUnitCarryWindow</code>,
@@ -1002,10 +1012,17 @@ subsequence radius three halves lower</a></p></li>
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1103">no
 eventual square subsequence three halves upper</a></p></li>
 </ul>
+</section>
 <section id="source-current-companion-orbit-and-comparator-routes."
 class="level5">
 <h5>Source-current companion orbit and Comparator routes.</h5>
-<p>The complete infinite rationality boundary is checked in <a
+<p>The Comparator isolation pin for the carry equivalences is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean">factorial
+gap plateau core</a>. <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/FactorialZeroPlateau.lean">Factorial
+zero plateau</a> is the default-root duplicate of that family and is not
+the isolation source. The complete infinite rationality boundary is
+checked in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">companion
 orbit rationality</a>. Its paper-facing endpoints are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionOrbitRationality.lean">not
@@ -1022,7 +1039,19 @@ reasoning record as the moving-factor scale split, the split-factor
 normalised collision, and the fixed-owner absorption boundary. These
 source-current modules, Comparator packages, and this manuscript stage
 require one common immutable public checkpoint before terminal external
-replay or Palomar readiness is claimed.</p>
+replay or Palomar readiness is claimed. The unconditional correction
+<a class="math-ref" data-equation-ref="true" href="#eq:companion-wrap">eq:companion-wrap</a> is
+checked in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean">companion
+constant carry law</a>, and the pole-residue identity and the two
+displayed reciprocal equalities are checked in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PrimePoleCriterion.lean">prime
+pole criterion</a>. The complete maximal-hit data come from the separate
+exact modular scan; the carry census and continued-fraction certificate
+use exact integer computation outside Lean. The inherited public source
+pin is <code>99f4bf47422a</code>; source-current additions and that
+snapshot require one immutable release before the links represent a
+replay of the whole note.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -1041,11 +1070,14 @@ Phys. <strong>14</strong> (1869), 121–128.</p></li>
 <li id="ref-4"><p>J. Galambos, <em>Representations of Real Numbers by Infinite
 Series</em>, Lecture Notes in Math. <strong>502</strong>, Springer,
 1976, Chapter 1.</p></li>
-<li id="ref-5"><p>J. Louwsma and J. Martino, <em>Rational numbers with odd greedy
+<li id="ref-5"><p>J. Hančl and R. Tijdeman, <em>On the irrationality of factorial
+series</em>, Acta Arith. <strong>118</strong> (2005), 383–401, doi:<a
+href="https://doi.org/10.4064/aa118-4-5">10.4064/aa118-4-5</a>.</p></li>
+<li id="ref-6"><p>J. Louwsma and J. Martino, <em>Rational numbers with odd greedy
 expansion of fixed length</em>, arXiv:<a
 href="https://arxiv.org/abs/2309.07280">2309.07280v1</a>, 2023,
 Lemma 4.1, p. 10.</p></li>
-<li id="ref-6"><p>L. Lai, <em>On the largest prime divisor of <span
+<li id="ref-7"><p>L. Lai, <em>On the largest prime divisor of <span
 class="math inline" data-term-auto="off">\(n!+1\)</span></em>, arXiv:<a
 href="https://arxiv.org/abs/2103.14894">2103.14894v1</a>, 2021, proof of
 Lemma 2.4, (2.5).</p></li>

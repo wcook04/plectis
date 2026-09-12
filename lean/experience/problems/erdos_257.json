@@ -358,7 +358,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_sha256": "57a206e6909b919d0585e5732ef11fa1d76bd7f910b33999564545fc87847782",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -378,10 +378,10 @@
     "subject": "Erdős #257",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 14,
+    "pages": 15,
     "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
-    "precis": "For every infinite set A of positive integers with sum of 1/a finite, the paper proves that the reciprocal Mersenne-type subseries is irrational at every integer base b at least 2. Averaged modular divisor atoms give arbitrarily small positive displacements, contradicting the fixed lattice forced by rationality. This settles the reciprocal-summable regime, including the coprimality-free all-base extension stated by Erdős. Arbitrary infinite supports outside that regime, and hence universal Erdős #257, remain open.",
-    "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
+    "precis": "The paper gives a complete ordinary proof that every infinite support A with ∑_{a∈A}1/a finite has an irrational reciprocal subseries at every integer base b≥2. It separately proves a finite common-scale estimate and a strengthened positive-cover criterion. The finite-prime weighted and mixed criteria are explicitly unassessed claims in this accepted release. Exact finite periods and the greedy return inequality delimit the remaining arithmetic problem. Universal Erdős #257 remains open.",
+    "owns": "problem-specific mathematical exposition for Erdős #257: the coprimality-free reciprocal-summable all-base theorem and its ordinary proof, finite common-scale and strengthened positive-cover results, exact finite periods, method limits, and the open half-value edge",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
     "problem_id": "erdos_257",
     "routes": {
@@ -402,10 +402,10 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 22,
       "renderer_fingerprint": "e85419265bf94334",
-      "source_sha256": "f27f8d97ce9f9bd83318ac3a97f4acbe7fc9072c9246dd2ef147dbfa63f07b66",
+      "source_sha256": "0ef2f12ed1bf4bdf38e4f742fe9b1f5cf3681d16bf53d48977647bdc2034c295",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 344,
+      "mathml_node_count": 356,
       "raw_math_fallback_count": 3,
       "warnings": {
         "mathml": [
@@ -428,8 +428,8 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "90cf2ad508f3e1142326f10445948e9a1d8ad5902fd0f7b00d64310f79708026",
-      "html_exact_tex_sha256": "926b225528e7394f351227b4262e6ec6c74e4a72216dd6d2423d238fc2d6ba0e"
+      "html_mathml_sha256": "a0cb949ad26ca36dd41279c2905108fab601e476d376f85607a95b132de14d5f",
+      "html_exact_tex_sha256": "c31f87497e07b95b4bd386eede9d1d29745f35dd22a8a19229b4f73ee8cfa595"
     },
     "sections": [
       {
@@ -449,8 +449,13 @@
       },
       {
         "level": 3,
-        "anchor": "divisibility-weighted-and-quantitative-criteria",
-        "label": "Divisibility-weighted and quantitative criteria"
+        "anchor": "claimed-weighted-criterion-unassessed-here",
+        "label": "Claimed weighted criterion (unassessed here)"
+      },
+      {
+        "level": 3,
+        "anchor": "claimed-quantitative-criterion-unassessed-here",
+        "label": "Claimed quantitative criterion (unassessed here)"
       },
       {
         "level": 3,
@@ -538,8 +543,8 @@
           "level": 2
         },
         {
-          "id": "sec:map",
-          "title": "Where the return mechanism stops",
+          "id": "sec:eight-return-extensions",
+          "title": "Extensions beyond reciprocal summability",
           "level": 2
         },
         {
@@ -564,10 +569,10 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 14,
+      "pages": 15,
       "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
-      "precis": "For every infinite set A of positive integers with sum of 1/a finite, the paper proves that the reciprocal Mersenne-type subseries is irrational at every integer base b at least 2. Averaged modular divisor atoms give arbitrarily small positive displacements, contradicting the fixed lattice forced by rationality. This settles the reciprocal-summable regime, including the coprimality-free all-base extension stated by Erdős. Arbitrary infinite supports outside that regime, and hence universal Erdős #257, remain open.",
-      "owns": "problem-specific mathematical exposition for Erdős #257: exact finite periods, settled support families, method limits, and the open half-value edge",
+      "precis": "The paper gives a complete ordinary proof that every infinite support A with ∑_{a∈A}1/a finite has an irrational reciprocal subseries at every integer base b≥2. It separately proves a finite common-scale estimate and a strengthened positive-cover criterion. The finite-prime weighted and mixed criteria are explicitly unassessed claims in this accepted release. Exact finite periods and the greedy return inequality delimit the remaining arithmetic problem. Universal Erdős #257 remains open.",
+      "owns": "problem-specific mathematical exposition for Erdős #257: the coprimality-free reciprocal-summable all-base theorem and its ordinary proof, finite common-scale and strengthened positive-cover results, exact finite periods, method limits, and the open half-value edge",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
       "problem_id": "erdos_257",
       "routes": {
@@ -588,10 +593,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "f27f8d97ce9f9bd83318ac3a97f4acbe7fc9072c9246dd2ef147dbfa63f07b66",
+        "source_sha256": "0ef2f12ed1bf4bdf38e4f742fe9b1f5cf3681d16bf53d48977647bdc2034c295",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 344,
+        "mathml_node_count": 356,
         "raw_math_fallback_count": 3,
         "warnings": {
           "mathml": [
@@ -614,8 +619,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "90cf2ad508f3e1142326f10445948e9a1d8ad5902fd0f7b00d64310f79708026",
-        "html_exact_tex_sha256": "926b225528e7394f351227b4262e6ec6c74e4a72216dd6d2423d238fc2d6ba0e"
+        "html_mathml_sha256": "a0cb949ad26ca36dd41279c2905108fab601e476d376f85607a95b132de14d5f",
+        "html_exact_tex_sha256": "c31f87497e07b95b4bd386eede9d1d29745f35dd22a8a19229b4f73ee8cfa595"
       },
       "sections": [
         {
@@ -635,8 +640,13 @@
         },
         {
           "level": 3,
-          "anchor": "divisibility-weighted-and-quantitative-criteria",
-          "label": "Divisibility-weighted and quantitative criteria"
+          "anchor": "claimed-weighted-criterion-unassessed-here",
+          "label": "Claimed weighted criterion (unassessed here)"
+        },
+        {
+          "level": 3,
+          "anchor": "claimed-quantitative-criterion-unassessed-here",
+          "label": "Claimed quantitative criterion (unassessed here)"
         },
         {
           "level": 3,
@@ -724,8 +734,8 @@
             "level": 2
           },
           {
-            "id": "sec:map",
-            "title": "Where the return mechanism stops",
+            "id": "sec:eight-return-extensions",
+            "title": "Extensions beyond reciprocal summability",
             "level": 2
           },
           {
@@ -750,9 +760,9 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 111,
+      "pages": 113,
       "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
-      "precis": "A Lean-backed, claim-bounded structural audit of Erdős #257. It front-loads finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
+      "precis": "The record prints the complete ordinary proof of the coprimality-free reciprocal-summable support theorem at every integer base; that proof is not formalised in Lean. It also retains finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, whose universal and half-value questions remain open",
       "problem_id": "erdos_257",
@@ -774,13 +784,18 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "e8b38efaff6e3b1a95c1bb209ea408bdead1992de755676bb13246eb20b75d5a",
+        "source_sha256": "36d22372ae062f79585fc98e3f39d2958a6d80a114c4e014f200d17b2061a14f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2981,
-        "raw_math_fallback_count": 1,
+        "mathml_node_count": 3023,
+        "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
+            "[WARNING] Could not convert TeX math \\sum_{r\\ge1}b^{-r}{\\bf1}_{d\\mid Qm+r}, rendering as TeX:",
+            "m_{r\\ge1}b^{-r}{\\bf1}_{d\\mid Qm+r}",
+            "^",
+            "unexpected control sequence \\bf",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
             "[WARNING] Could not convert TeX math \\leanlink{HalfCylinderMiddleCarryLowerBound.lean:4790}, rendering as TeX:",
             "\\leanlink{HalfCylinderMiddleCarryLowerBo",
             "^",
@@ -789,8 +804,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "13f25d11b58ff1005e54d0637bfda79f6ee38986b2cc9192353b5ba28505cfc8",
-        "html_exact_tex_sha256": "6a14e9954f8ef4a069b2c1200c63bab0edca84a925066a4a439b3df8e5d06dba"
+        "html_mathml_sha256": "4006e9012cb666d07e36509116ff8dbad6606fb6241bca57d57a00166493338d",
+        "html_exact_tex_sha256": "ffd9106e062860b58caa950e71ab7b2d2387e8dd366d33178dbede96443352be"
       },
       "sections": [
         {
@@ -801,7 +816,12 @@
         {
           "level": 2,
           "anchor": "sec:257-problem",
-          "label": "The problem, and what is actually known"
+          "label": "Support irrationality and its proof mechanisms"
+        },
+        {
+          "level": 3,
+          "anchor": "reciprocal-summable-supports",
+          "label": "Reciprocal-summable supports"
         },
         {
           "level": 3,
@@ -1485,7 +1505,7 @@
         "sections": [
           {
             "id": "sec:257-problem",
-            "title": "The problem, and what is actually known",
+            "title": "Support irrationality and its proof mechanisms",
             "level": 2
           },
           {

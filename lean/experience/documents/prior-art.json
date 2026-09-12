@@ -16,7 +16,7 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "40b89e1c9e520ab7b77860e2355224523326e894b2e0ed780933b68841c4dc99",
+    "source_sha256": "217588c45c7691010ba9b3529b1244446ee2f470ee634320cec7bbdf0eda2d4b",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 22,
     "renderer_fingerprint": "e85419265bf94334",
@@ -31,10 +31,15 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "350a089cb08aec4664269c4efea3c3190e250ab2576e67e0d4eaf24e736f1392",
-    "html_exact_tex_sha256": "a274b188bb837ba1a78dceb667130d258dbd1534bc267cc193238ccc9f95735b"
+    "html_mathml_sha256": "af343cdbae9aaf201ac2e9623042dadc5b8b6955e9ec96089be6a60f83b0dcb7",
+    "html_exact_tex_sha256": "385cfe013c05a1c265e70ecdfc45a00497b3c3d77a1f846e4f5004d536ff5167"
   },
   "sections": [
+    {
+      "level": 2,
+      "anchor": "browse-all-source-credits",
+      "label": "Browse all source credits"
+    },
     {
       "level": 2,
       "anchor": "bounded-comparison-route",

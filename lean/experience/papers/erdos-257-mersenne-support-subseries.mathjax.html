@@ -5,13 +5,6 @@
     <p class="lean-paper__subject">Erdős #257</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/257/erdos-257-mersenne-support-subseries.tex">
-<p>The source annotations in this note deliberately name two immutable
-revisions. Links produced by the standard note macros use
-<code>99f4bf47422a</code>; across this note and its long reasoning
-surface, fourteen paper-local coordinates link revision
-<code>f36a98bf3d3e</code>. These families are audited separately; a
-historical aggregate reference count is not asserted to be an exact
-inventory of this PDF.</p>
 <section id="sec:problem" class="level2">
 <h2>Introduction and main results</h2>
 <p>Write <span class="math inline" data-term-auto="off">\(X_A(b)=\sum_{a\in
@@ -51,11 +44,15 @@ class="math display" data-term-auto="off">\[0&lt;\Delta_{b,A}(N)
 \label{eq:intro-displacement}\tag{D}\]</span></div>
 <p>Only <span
 class="math inline" data-term-auto="off">\(a\le N\)</span> contribute to <span
-class="math inline" data-term-auto="off">\(J_{b,A}(N)\)</span>. Rationality <span
-class="math inline" data-term-auto="off">\(X_A(b)=p/q\)</span> would force every positive
-displacement to be at least <span class="math inline" data-term-auto="off">\(1/q\)</span>.
-The proof makes these positive displacements arbitrarily small by
-averaging along multiples of a growing divisibility modulus.</p>
+class="math inline" data-term-auto="off">\(J_{b,A}(N)\)</span>. Every summand in the
+displacement is nonnegative, and an exponent <span
+class="math inline" data-term-auto="off">\(a&gt;N\)</span> gives a positive summand; such an
+exponent exists because <span class="math inline" data-term-auto="off">\(A\)</span> is
+infinite. Rationality <span class="math inline" data-term-auto="off">\(X_A(b)=p/q\)</span>
+would force every positive displacement to be at least <span
+class="math inline" data-term-auto="off">\(1/q\)</span>. The proof makes these positive
+displacements arbitrarily small by averaging along multiples of a
+growing divisibility modulus.</p>
 <p>The conclusion is hereditary: every infinite subset of such an <span
 class="math inline" data-term-auto="off">\(A\)</span> satisfies the theorem at every base.
 For example, every powerful integer can be written as <span
@@ -94,6 +91,11 @@ support will matter below.</p>
 </section>
 <section id="sec:reciprocal-support" class="level2">
 <h2>Reciprocal-summable supports at every integer base</h2>
+<p>The proof freezes a finite portion of the support and averages the
+rest. Making the shift divisible by the frozen exponents makes their
+displacement exactly zero. The remaining exponents need not have a
+common period of manageable size: reciprocal summability bounds their
+total average directly.</p>
 <p>Fix the integer base <span class="math inline" data-term-auto="off">\(b\ge2\)</span> and
 put</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[w_{b,d}(N)=\frac{b^{N\bmod
@@ -112,7 +114,18 @@ M_{Q,b}(d):=\lim_{X\to\infty}\frac1X\sum_{m=1}^Xw_{b,d}(Qm)
 =\frac{g}{d(b^g-1)}\le\frac1d.
 \label{eq:gcd-orbit-mean}
 \end{equation}\]</span></div>
-<p>The passage from individual atoms to their
+<p>For example, at <span
+class="math inline" data-term-auto="off">\(b=2\)</span>, <span
+class="math inline" data-term-auto="off">\(Q=4\)</span> and <span
+class="math inline" data-term-auto="off">\(d=6\)</span>, the orbit is <span
+class="math inline" data-term-auto="off">\(4,2,0\)</span> modulo <span
+class="math inline" data-term-auto="off">\(6\)</span>. Its mean atom is <span
+class="math inline" data-term-auto="off">\((16+4+1)/(3\cdot63)=1/9\)</span>, whereas its
+zero-shift atom is <span class="math inline" data-term-auto="off">\(1/63\)</span>. If <span
+class="math inline" data-term-auto="off">\(6\mid Q\)</span>, the orbit instead stays at zero
+and the mean is exactly <span class="math inline" data-term-auto="off">\(1/63\)</span>. This
+is the effect of freezing an exponent; the infinite tail still requires
+the bound that follows. The passage from individual atoms to their
 infinite sum needs a uniform bound. Counting positive multiples of <span
 class="math inline" data-term-auto="off">\(d\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
@@ -159,21 +172,20 @@ assessable results of this release.</p>
 </section>
 <section id="sec:eight-return-extensions" class="level2">
 <h2>Extensions beyond reciprocal summability</h2>
-<p>The two criteria below use different controls on the same positive
-displacement. The estimates named in this section are not independently
-checkable from the files in this checkout: the cited supplements and
-<code>MixedSupportSynchronisation.md</code> are absent from the public
-packet. The statements are retained as claimed extensions, not as
-results of this release.</p>
-<section id="divisibility-weighted-and-quantitative-criteria"
-class="level3">
-<h3>Divisibility-weighted and quantitative criteria</h3>
+<p>The weighted criterion (W), its reciprocal-divergent host example,
+and the quantitative criterion below are claimed extensions whose proof
+supplements are absent from this checkout. They are not established
+results of this release. The finite estimate (S) and the strengthened
+cover theorem later in this section have their own printed proofs and
+are separate from those unavailable arguments.</p>
+<section id="claimed-weighted-criterion-unassessed-here" class="level3">
+<h3>Claimed weighted criterion (unassessed here)</h3>
 <p>For a finite nonempty prime set <span
 class="math inline" data-term-auto="off">\(P\)</span>, let <span
-class="math inline" data-term-auto="off">\(h(a)=\prod_{p\in P}p^{v_p(a)}\)</span>. The
-weighted condition</p>
-<div class="math-display" id="eq:weighted-return" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{a\in
-A}\frac{h(a)}{a(2^{h(a)}-1)}&lt;\infty
+class="math inline" data-term-auto="off">\(h(a)=\prod_{p\in P}p^{v_p(a)}\)</span>. The absent
+supplement claims that the weighted condition</p>
+<div class="math-display" id="eq:weighted-return" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{a\in A}\frac{h(a)}{a(2^{h(a)}-1)}&lt;\infty
   \tag{W}\label{eq:weighted-return}\]</span></div>
 <p class="display-continue">implies irrationality of
 <span class="math inline" data-term-auto="off">\(\sum_{a\in A}(b^a-1)^{-1}\)</span> for every
@@ -184,7 +196,8 @@ class="math inline" data-term-auto="off">\(2\)</span> by <span
 class="math inline" data-term-auto="off">\(b\)</span> in the condition; arbitrary nested
 divisibility chains have the same criterion with <span
 class="math inline" data-term-auto="off">\(h(a)\)</span> the largest chain element dividing
-<span class="math inline" data-term-auto="off">\(a\)</span>.</p>
+<span class="math inline" data-term-auto="off">\(a\)</span>. No complete proof of these
+claims is present in this checkout.</p>
 <p>Here the decisive estimate is a finite orbit average. If <span
 class="math inline" data-term-auto="off">\(g=(a,Q)\)</span>, then</p>
 <div class="math-display" data-term-auto="off"><span
@@ -193,12 +206,14 @@ class="math display" data-term-auto="off">\[\frac1T\sum_{m=1}^T
 \le \frac{g}{a(b^g-1)}+\frac1{T(b^g-1)}.\]</span></div>
 <p>The second term cannot
 be discarded before summing over <span class="math inline" data-term-auto="off">\(a\)</span>.
-Choose <span class="math inline" data-term-auto="off">\(Q\)</span> to freeze the finite
-prefix and all small <span class="math inline" data-term-auto="off">\(P\)</span>-parts.
-Average again over <span class="math inline" data-term-auto="off">\(T=2^j\)</span>, <span
-class="math inline" data-term-auto="off">\(M\le j&lt;2M\)</span>. The incomplete-period
-contribution from small <span class="math inline" data-term-auto="off">\(P\)</span>-parts is
-at most <span class="math inline" data-term-auto="off">\(2QW/M\)</span>, where <span
+The claimed argument proceeds as follows; its truncation bounds remain
+unassessed. Choose <span class="math inline" data-term-auto="off">\(Q\)</span> to freeze the
+finite prefix and all small <span
+class="math inline" data-term-auto="off">\(P\)</span>-parts. Average again over <span
+class="math inline" data-term-auto="off">\(T=2^j\)</span>, <span class="math inline" data-term-auto="off">\(M\le
+j&lt;2M\)</span>. The incomplete-period contribution from small <span
+class="math inline" data-term-auto="off">\(P\)</span>-parts is at most <span
+class="math inline" data-term-auto="off">\(2QW/M\)</span>, where <span
 class="math inline" data-term-auto="off">\(W\)</span> is the sum in <a class="math-ref" data-equation-ref="true" href="#eq:weighted-return">eq:weighted-return</a>; the
 large-part contribution is suppressed by the exponential denominator.
 This produces arbitrarily small positive shifted-atom displacements. The
@@ -207,16 +222,21 @@ comparison gives every larger base. The named truncation estimates and
 an explicit reciprocal-divergent host with gaps <span
 class="math inline" data-term-auto="off">\(O(\log\log a)\)</span> are referred to a
 supplement that is not in this checkout.</p>
-<p>A quantitative consequence also admits reciprocal-divergent supports.
-Put <span class="math inline" data-term-auto="off">\(H_A(x)=\sum_{a\in A,\ a\le
-x}1/a\)</span>, <span class="math inline" data-term-auto="off">\(T_0=2\)</span>, <span
+</section>
+<section id="claimed-quantitative-criterion-unassessed-here"
+class="level3">
+<h3>Claimed quantitative criterion (unassessed here)</h3>
+<p>The absent analytic supplement claims a second criterion admitting
+reciprocal-divergent supports. Put <span
+class="math inline" data-term-auto="off">\(H_A(x)=\sum_{a\in A,\ a\le x}1/a\)</span>, <span
+class="math inline" data-term-auto="off">\(T_0=2\)</span>, <span
 class="math inline" data-term-auto="off">\(T_{j+1}=2^{T_j}\)</span>, and <span
 class="math inline" data-term-auto="off">\(\ell(x)=\min\{j:x\le T_j\}\)</span>. The condition
-<span class="math inline" data-term-auto="off">\(H_A(x)=o(\ell(x))\)</span> implies all-base
-irrationality. The proof and the sharper rational-phase lower bound are
-referred to an analytic supplement that is not in this checkout; no
-positive density of <span class="math inline" data-term-auto="off">\(A\)</span> is
-required.</p>
+<span class="math inline" data-term-auto="off">\(H_A(x)=o(\ell(x))\)</span> is claimed to
+imply all-base irrationality, with no positive density assumption on
+<span class="math inline" data-term-auto="off">\(A\)</span>. Neither a proof of this
+implication nor the claimed sharper rational-phase lower bound is
+present in this checkout.</p>
 </section>
 <section id="sec:common-kernel" class="level3">
 <h3>A finite estimate on common observation scales</h3>
@@ -918,18 +938,29 @@ checkout: the filenames
 <code>GreedyRepairCriterion.lean</code> are not present. The source
 checkpoint is <code>99f4bf47422a</code>; later counterparts are
 identified separately rather than attributed to that checkpoint.</p>
-<p>The weighted and cover arguments, the mixed theorem, the cost
-separations, and the prime-power thinning argument refer to ordinary
-proofs that are not linked in this public checkout (<em>Strengthened
-Variable-Exponent Cover</em>, <em>First Logarithmic Moment of Positive
-Covers</em>, <em>Mixed Support Synchronisation</em>, <em>Prime-Incidence
-Boundary</em>, and the analytic proof supplement). Those extensions are
-therefore not independently assessable here and are not promoted as
-results of this release. No universal irrationality conclusion is
-asserted.</p>
+<p>The finite estimate <a class="math-ref" data-equation-ref="true" href="#eq:mixed-finite-kernel">eq:mixed-finite-kernel</a> and
+Theorem <a class="math-ref" href="#thm:variable-fractional-cover">3</a> have
+complete ordinary proofs in this note and are results of this release.
+The weighted criterion, the quantitative criterion, the claimed support
+<span class="math inline" data-term-auto="off">\(A^\star\)</span> separating the two cover
+costs, the mixed theorem, and prime-power thinning instead refer to
+ordinary proofs that are not linked in this public checkout
+(<em>Strengthened Variable-Exponent Cover</em>, <em>First Logarithmic
+Moment of Positive Covers</em>, <em>Mixed Support Synchronisation</em>,
+<em>Prime-Incidence Boundary</em>, and the analytic proof supplement).
+Those latter extensions are therefore not independently assessable here
+and are not promoted as results of this release. No universal
+irrationality conclusion is asserted.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
+<p>The source annotations in this note deliberately name two immutable
+revisions. Links produced by the standard note macros use
+<code>99f4bf47422a</code>; across this note and its long reasoning
+surface, fourteen paper-local coordinates link revision
+<code>f36a98bf3d3e</code>. These families are audited separately; a
+historical aggregate reference count is not asserted to be an exact
+inventory of this PDF.</p>
 <p>The following source links are the public snapshot used by this
 note.</p>
 <p><a

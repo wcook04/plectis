@@ -213,7 +213,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_sha256": "57a206e6909b919d0585e5732ef11fa1d76bd7f910b33999564545fc87847782",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -234,9 +234,9 @@
     "subject_kind": "problem",
     "form": "Problem note",
     "pages": 14,
-    "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
+    "question": "For Erdős #1049, which Lambert values at rational bases are proved irrational, what exact Hankel invariant does it compute, and why does the method still miss 3/2?",
     "precis": "For coprime integers a>b≥1, the paper proves irrationality of F(a/b) when log b / log a is below the explicit threshold (approximately 0.40568); in particular F((31/4)^r) is irrational for every positive integer r, with a uniform irrationality-exponent bound. This is an ordinary proof using Zudilin's polynomial conclusion; Lean checks finite subclaims rather than the irrationality theorem. A second construction proves the exact normalised Hankel order and leading coefficient. The criterion does not cover 3/2, where a primitive noncollapsed kernel and analytic remainder control are still needed.",
-    "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
+    "owns": "the problem-specific exposition for Erdős #1049: the ordinary rational-base irrationality theorem and uniform exponent bound for the (31/4)^r family, the exact normalised Hankel order and leading coefficient, the content and endpoint obstructions, and the remaining approximant and remainder construction at 3/2",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open",
     "problem_id": "erdos_1049",
     "routes": {
@@ -257,17 +257,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 22,
       "renderer_fingerprint": "e85419265bf94334",
-      "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
+      "source_sha256": "1a6dd502b3013576ae92cad74fc32269889effd86caacfbd708f1b93c1414e1d",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 405,
+      "mathml_node_count": 407,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "e5a2d2cdbae204ccfc20fa0df5a363cde4da09cbd32ed245fa3a10133c8bed88",
-      "html_exact_tex_sha256": "c573104f7382244f2095c240de3a48e13b39ac95e0eb1e627cdb7121765fdb47"
+      "html_mathml_sha256": "65f7a71a5b62d37d9ca16a246e00c8a06d1af1f1b8423fa1d32ddd09d6a46fa6",
+      "html_exact_tex_sha256": "70180afbe28a5f1061618f86c41b53fc41d3e8f4b212ae489d53aaaaf368d32b"
     },
     "sections": [
       {
@@ -418,9 +418,9 @@
       "subject_kind": "problem",
       "form": "Problem note",
       "pages": 14,
-      "question": "Which linear-form constructions fail at the rational base 3/2 for Erdős #1049, and what primitive kernel is still needed?",
+      "question": "For Erdős #1049, which Lambert values at rational bases are proved irrational, what exact Hankel invariant does it compute, and why does the method still miss 3/2?",
       "precis": "For coprime integers a>b≥1, the paper proves irrationality of F(a/b) when log b / log a is below the explicit threshold (approximately 0.40568); in particular F((31/4)^r) is irrational for every positive integer r, with a uniform irrationality-exponent bound. This is an ordinary proof using Zudilin's polynomial conclusion; Lean checks finite subclaims rather than the irrationality theorem. A second construction proves the exact normalised Hankel order and leading coefficient. The criterion does not cover 3/2, where a primitive noncollapsed kernel and analytic remainder control are still needed.",
-      "owns": "the problem-specific exposition for Erdős #1049: content and endpoint obstructions, the failed coordinatewise-clearing route, height arithmetic, and the remaining primitive construction",
+      "owns": "the problem-specific exposition for Erdős #1049: the ordinary rational-base irrationality theorem and uniform exponent bound for the (31/4)^r family, the exact normalised Hankel order and leading coefficient, the content and endpoint obstructions, and the remaining approximant and remainder construction at 3/2",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1049, which remains open",
       "problem_id": "erdos_1049",
       "routes": {
@@ -441,17 +441,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "a7bb347e9f34f942a59bbcb627b624172e7c78e27b87d4330bbdf536b4f121b4",
+        "source_sha256": "1a6dd502b3013576ae92cad74fc32269889effd86caacfbd708f1b93c1414e1d",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 405,
+        "mathml_node_count": 407,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "e5a2d2cdbae204ccfc20fa0df5a363cde4da09cbd32ed245fa3a10133c8bed88",
-        "html_exact_tex_sha256": "c573104f7382244f2095c240de3a48e13b39ac95e0eb1e627cdb7121765fdb47"
+        "html_mathml_sha256": "65f7a71a5b62d37d9ca16a246e00c8a06d1af1f1b8423fa1d32ddd09d6a46fa6",
+        "html_exact_tex_sha256": "70180afbe28a5f1061618f86c41b53fc41d3e8f4b212ae489d53aaaaf368d32b"
       },
       "sections": [
         {
@@ -625,23 +625,28 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "a5c09456c0438ac64804182b66110e2a1de6b0993918a82676d77347d34c7f62",
+        "source_sha256": "f9cc5c00ba2a095f2464964afc1ff149cc607dae4c09e127a4eb9987e58a3559",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1538,
+        "mathml_node_count": 1545,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "9e9098a36f455c959e3c5bb362682634e78f4efd53b9888c9e7cf9d16f5a4d46",
-        "html_exact_tex_sha256": "9285b786685ff05e447a56befa5c20fdb28107245adc3b195f98e0feefc94f91"
+        "html_mathml_sha256": "ec9bcfd1dc850d8989f4fec533a92219aa8c3d4c5311e68b6c69514ffcd97a80",
+        "html_exact_tex_sha256": "a142acbc93e1542f36228f3fa31b1e12bf01ed8f9d689eb8296b299a7a01afe3"
       },
       "sections": [
         {
           "level": 2,
           "anchor": "long1049:sec:problem",
           "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": "structure.",
+          "label": "Structure."
         },
         {
           "level": 5,
@@ -680,7 +685,7 @@
         },
         {
           "level": 5,
-          "anchor": "structure.",
+          "anchor": "structure.-1",
           "label": "Structure."
         },
         {
@@ -745,8 +750,8 @@
         },
         {
           "level": 5,
-          "anchor": "the-direction-is-optimal-in-its-box.",
-          "label": "The direction is optimal in its box."
+          "anchor": "the-bounded-direction-search.",
+          "label": "The bounded direction search."
         },
         {
           "level": 3,

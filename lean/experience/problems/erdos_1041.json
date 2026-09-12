@@ -89,26 +89,26 @@
       {
         "id": "newton_value_decay",
         "contribution_class": "locally proved result and formalised calculus; novelty unassessed",
-        "summary": "The Newton value equation and its exponential first integral are checked exactly.",
-        "evidence_mode": "Lean kernel",
+        "summary": "Lean checks the local Newton value equation and the zero-derivative form of its exponentially scaled value; constancy along a real-time interval is an ordinary calculus consequence in the paper.",
+        "evidence_mode": "Lean kernel plus authored synthesis",
         "declarations": [
           "ErdosProblems.Erdos1041.newtonFlow_value_hasDerivAt",
           "ErdosProblems.Erdos1041.newtonFlow_scaledValue_hasDerivAt_zero"
         ],
         "comparator_disposition": "not_selected_compact_calculus_family",
-        "boundary": "Value decay alone does not give a short connecting curve."
+        "boundary": "The cited declarations are pointwise derivative statements. The real-time first integral requires the paper’s interval integration step, and value decay alone does not construct a global trajectory or give a short connecting curve."
       },
       {
         "id": "ray_separation",
         "contribution_class": "locally proved result; novelty unassessed",
-        "summary": "Distinct positive rays exclude a finite Newton connection.",
-        "evidence_mode": "Lean kernel",
+        "summary": "Lean checks that distinct positive rays contradict an assumed exponential endpoint relation; the paper derives that relation for a finite real-time Newton trajectory by ordinary integration and endpoint continuity.",
+        "evidence_mode": "Lean kernel plus authored synthesis",
         "declarations": [
           "ErdosProblems.Erdos1041.samePositiveRay_of_real_exp_decay",
           "ErdosProblems.Erdos1041.no_newtonConnection_of_not_samePositiveRay"
         ],
         "comparator_disposition": "represented_by_translation_avoidance_targets",
-        "boundary": "The result is a route obstruction, not the global theorem."
+        "boundary": "The finite-trajectory conclusion retains continuity on the closed interval, differentiability and noncritical Newton evolution on its interior, and the ordinary endpoint passage. It supplies neither global trajectory existence nor geometric length control."
       },
       {
         "id": "translation_avoidance",
@@ -149,7 +149,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "d6c28d500020faf0ffff1bb1a135a9fb048b744a7ba9e892334baa62e8b89efa",
+    "source_sha256": "57a206e6909b919d0585e5732ef11fa1d76bd7f910b33999564545fc87847782",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -169,10 +169,10 @@
     "subject": "Erdős #1041",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 20,
+    "pages": 22,
     "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
-    "precis": "The paper gives ordinary proofs of the length-less-than-2 conclusion for monic trinomials z^n+a z^m+b, with 1≤m<n and all roots in the open unit disc. For squarefree monic polynomials, if the least critical-value modulus μ is at most 13/25, there is also such a connector. Without a root-location restriction, the scaled result gives a path shorter than (5/2) μ^(1/n) in {|f|<(25/13)μ}. Separate length-area and critical-value estimates give further control. Exact counterexamples show why these ingredients do not yield the unrestricted connector theorem; Erdős #1041 remains open.",
-    "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
+    "precis": "The paper gives ordinary proofs of the length-less-than-2 conclusion for monic trinomials z^n+a z^m+b, with 1≤m<n and all roots in the open unit disc. It also proves that distinct concyclic zeros in degree n≥3 admit an adjacent chord shorter than 2 in {|f|<1} when their circle radius ρ satisfies 2ρ^n≤1; this alternation proof is not formalised in Lean. For squarefree monic polynomials, if the least critical-value modulus μ is at most 13/25, there is also such a connector. Without a root-location restriction, the scaled result gives a path shorter than (5/2) μ^(1/n) in {|f|<(25/13)μ}. Separate length-area and critical-value estimates give further control. Exact counterexamples show why these ingredients do not yield the unrestricted connector theorem; Erdős #1041 remains open.",
+    "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
     "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
     "problem_id": "erdos_1041",
     "routes": {
@@ -193,17 +193,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 22,
       "renderer_fingerprint": "e85419265bf94334",
-      "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
+      "source_sha256": "350fc26605531fbe8742b967b5c49376b6ee0f836d40d468ca290138245ea338",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 518,
+      "mathml_node_count": 571,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
-      "html_exact_tex_sha256": "c12855661ed75e917c9fde379c39a3440d3ccd818e099bef0f07b953894d931c"
+      "html_mathml_sha256": "6f9e5a2d049f0f150421bca9bf791c9be87e842edfe8a59311531dca8d5c4b12",
+      "html_exact_tex_sha256": "29527d433ce960929f364719302a2c520e4123b296f13089119688f8f97f3e33"
     },
     "sections": [
       {
@@ -408,10 +408,10 @@
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 20,
+      "pages": 22,
       "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
-      "precis": "The paper gives ordinary proofs of the length-less-than-2 conclusion for monic trinomials z^n+a z^m+b, with 1≤m<n and all roots in the open unit disc. For squarefree monic polynomials, if the least critical-value modulus μ is at most 13/25, there is also such a connector. Without a root-location restriction, the scaled result gives a path shorter than (5/2) μ^(1/n) in {|f|<(25/13)μ}. Separate length-area and critical-value estimates give further control. Exact counterexamples show why these ingredients do not yield the unrestricted connector theorem; Erdős #1041 remains open.",
-      "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
+      "precis": "The paper gives ordinary proofs of the length-less-than-2 conclusion for monic trinomials z^n+a z^m+b, with 1≤m<n and all roots in the open unit disc. It also proves that distinct concyclic zeros in degree n≥3 admit an adjacent chord shorter than 2 in {|f|<1} when their circle radius ρ satisfies 2ρ^n≤1; this alternation proof is not formalised in Lean. For squarefree monic polynomials, if the least critical-value modulus μ is at most 13/25, there is also such a connector. Without a root-location restriction, the scaled result gives a path shorter than (5/2) μ^(1/n) in {|f|<(25/13)μ}. Separate length-area and critical-value estimates give further control. Exact counterexamples show why these ingredients do not yield the unrestricted connector theorem; Erdős #1041 remains open.",
+      "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
       "problem_id": "erdos_1041",
       "routes": {
@@ -432,17 +432,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "2e811f496be4e927cd6e399951363863b3331b761f3332c35640103d6efb0319",
+        "source_sha256": "350fc26605531fbe8742b967b5c49376b6ee0f836d40d468ca290138245ea338",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 518,
+        "mathml_node_count": 571,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "54c54331d36f86381f99e4412eccfb1e050399ba573316d57adcd689515bd2bf",
-        "html_exact_tex_sha256": "c12855661ed75e917c9fde379c39a3440d3ccd818e099bef0f07b953894d931c"
+        "html_mathml_sha256": "6f9e5a2d049f0f150421bca9bf791c9be87e842edfe8a59311531dca8d5c4b12",
+        "html_exact_tex_sha256": "29527d433ce960929f364719302a2c520e4123b296f13089119688f8f97f3e33"
       },
       "sections": [
         {
@@ -647,7 +647,7 @@
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 47,
+      "pages": 48,
       "question": "What is the complete short-path, critical-value, solved-family, and obstruction record for Erdős #1041, and what remains of the unrestricted path problem?",
       "precis": "A longer record of the same programme: ordinary all-degree trinomial paths, a sharp critical-value mean, solved-family kernels, Newton-flow checks, and exact obstructions including a Cassini counterexample to the printed global tree budget. It does not resolve unrestricted Erdős #1041.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
@@ -671,10 +671,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "9238d40fede9fb8beebfcb9c0ac61a952548c8efd0d8136cb979b7d753aa2f6e",
+        "source_sha256": "d6ae93695c3877ab58cf3657a31bc0f5f586ee66e1436e5d0250e936639a7b85",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1244,
+        "mathml_node_count": 1260,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -698,10 +698,15 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "b72ed97c340c2a8acf094a4531656b0bcb9c31e14eb366b99fe9993e6eacfda2",
-        "html_exact_tex_sha256": "63defd81a8de8777036cbed6a38d0d3099e36d272ccb5b0f95cda8bb65839410"
+        "html_mathml_sha256": "72470afc7b9579ed0842d174ef482791f0c85fbf2d7b32369d7a00a641c757fb",
+        "html_exact_tex_sha256": "2732bd324fdfbf870e3a7e5201d5f59dbfbcb45b6849ae5df295e7f6a40c31e6"
       },
       "sections": [
+        {
+          "level": 5,
+          "anchor": "the-principal-arguments-and-their-dependencies.",
+          "label": "The principal arguments and their dependencies."
+        },
         {
           "level": 2,
           "anchor": "sec:problem",
