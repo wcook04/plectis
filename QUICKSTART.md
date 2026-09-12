@@ -24,7 +24,7 @@ PYTHONPATH=src python3 -m plectis tour --card .
 PYTHONPATH=src python3 -m plectis hello .
 ```
 
-`tour --card` prints JSON including the selected job's identifier; `hello`
+`plectis tour --card` prints JSON including the selected job's identifier; `hello`
 prints introductory text without creating files. In PowerShell, set `$env:PYTHONPATH = "src"` and use
 `python -m plectis` in place of `PYTHONPATH=src python3 -m plectis`.
 
