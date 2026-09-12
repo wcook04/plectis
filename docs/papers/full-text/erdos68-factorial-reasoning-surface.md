@@ -179,8 +179,7 @@ Taking logarithms of the resulting divisibility gives <a href="#long68:eq:segmen
 *``` math
 \liminf_{N\to\infty}\frac{\log L_N}{N^{3/2}\log N}
  \ \ge\ \frac{2\sqrt2}{3}.
-```
-The historical manuscript cites `Erdos68/PaperCompleteLiminf.lean`, line 42. This module is absent from the retained source pin; this citation does not establish kernel verification at that pin.*
+```*
 
 </div>
 
@@ -203,11 +202,11 @@ The right-hand side is maximised at $`\alpha=\sqrt2`$, with value $`\sqrt2-\tfra
 
 </div>
 
-The proof is an ordinary proof and is not kernel-checked. Its two ingredients are Lemmas <a href="#long68:res:product-lcm" data-reference-type="ref" data-reference="long68:res:product-lcm">4</a> and <a href="#long68:res:gap-gcd" data-reference-type="ref" data-reference="long68:res:gap-gcd">5</a>, and it needs no factorial-congruence multiplicity theorem. A weaker exponent $`4/3`$ follows instead from Theorem 12 of Garaev, Luca and Shparlinski \[garaev-luca-shparlinski, arXiv v1, Thm. 12, p. 16\], which bounds by $`O(N^{2/3})`$ the number of solutions of $`n!\equiv a\pmod r`$ with $`r`$ prime, $`a\not\equiv0\pmod r`$, and $`H+1\le n\le H+N`$ where $`0\le H<H+N<r`$; that deduction is recorded in the complete reasoning record and is superseded here. No antecedent for a lower bound on the least common multiple of the numbers $`n!-1`$ was located, and the searches were for factorial values shifted by one; least common multiples of consecutive integers and of linear recurrences are a different family. The finding is that the statement is possibly known and was not located.
+The LCM asymptotic is proved here by an ordinary mathematical argument and is not kernel-checked. The associated asymptotic Lean files are proof candidates and are not being cited as kernel verification. The finite-block inequality has a separate Lean source, [finite terminal-block inequality](https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529). Its two ingredients are Lemmas <a href="#long68:res:product-lcm" data-reference-type="ref" data-reference="long68:res:product-lcm">4</a> and <a href="#long68:res:gap-gcd" data-reference-type="ref" data-reference="long68:res:gap-gcd">5</a>, and it needs no factorial-congruence multiplicity theorem. A weaker exponent $`4/3`$ follows instead from Theorem 12 of Garaev, Luca and Shparlinski \[garaev-luca-shparlinski, arXiv v1, Thm. 12, p. 16\], which bounds by $`O(N^{2/3})`$ the number of solutions of $`n!\equiv a\pmod r`$ with $`r`$ prime, $`a\not\equiv0\pmod r`$, and $`H+1\le n\le H+N`$ where $`0\le H<H+N<r`$; that deduction is recorded in the complete reasoning record and is superseded here. No antecedent for a lower bound on the least common multiple of the numbers $`n!-1`$ was located, and the searches were for factorial values shifted by one; least common multiples of consecutive integers and of linear recurrences are a different family. The finding is that the statement is possibly known and was not located.
 
 The constant $`2\sqrt2/3`$ is the best this argument gives. The gain from a block of $`k`$ indices is largest at the top of the range and the pairwise-gcd loss grows with the spread, so consecutive top indices are simultaneously optimal for both terms, and the bound $`j!/i!<N^{\,j-i}`$ is sharp to first order there. Convergence is slow: the omitted term $`-ku`$ is of order $`N^{3/2}`$, so the finite ratio falls short of the limit by about $`\sqrt2/\log N`$.
 
-Theorem <a href="#long68:res:lcm-growth" data-reference-type="ref" data-reference="long68:res:lcm-growth">7</a> is a statement about $`L_N`$ and not about $`\operatorname{den}(H_N)`$. Theorem <a href="#long68:res:prime-pole" data-reference-type="ref" data-reference="long68:res:prime-pole">2</a> and the cancellations at $`139`$ and $`2593`$ show why the substitution fails: a prime may occupy the common denominator and be absent from the reduced one. Bounding the reduced denominator from below at every index is a stronger assertion, and it is exactly what an irrationality proof through the clearing-scale route needs.
+Theorem <a href="#long68:res:lcm-growth" data-reference-type="ref" data-reference="long68:res:lcm-growth">7</a> is a statement about $`L_N`$ and not about $`\operatorname{den}(H_N)`$. Consecutive denominators $`(N-1)!-1`$ and $`N!-1`$ are already coprime for $`N\ge3`$, so the qualitative failure of common-denominator clearing follows from two terms; the estimate is the quantitative growth statement. Theorem <a href="#long68:res:prime-pole" data-reference-type="ref" data-reference="long68:res:prime-pole">2</a> and the cancellations at $`139`$ and $`2593`$ show why the substitution fails: a prime may occupy the common denominator and be absent from the reduced one. One cancelled prime is not an asymptotic cancellation theorem. Bounding the reduced denominator from below at every index is a stronger assertion, and it is exactly what an irrationality proof through the clearing-scale route needs. That stronger assertion has not been shown to follow from rationality of $`S`$ alone; it would require an extra small-tail hypothesis such as $`d_N(S-H_N)<1`$.
 
 <a id="long68:sec:carry"></a>
 
@@ -649,8 +648,7 @@ Theorem <a href="#long68:res:lcm-growth" data-reference-type="ref" data-referen
 **Corollary 18** (asymptotic radius constant). *Let $`M(t),R(t)`$ satisfy $`M(t)>0`$, $`L_{2t^2}\mid M(t)`$ and $`M(t)<(R(t)+1)!-1`$ for all sufficiently large $`t`$. Then
 ``` math
 \liminf_{t\to\infty}\frac{R(t)+1}{t^3}\ \ge\ \frac{16}{9}.
-```
-The historical manuscript cites `Erdos68/PaperCompleteLiminf.lean`, line 54. This module is absent from the retained source pin; this citation does not establish kernel verification at that pin.*
+```*
 
 </div>
 
@@ -667,7 +665,7 @@ Suppose $`r\le ct^3`$ for arbitrarily large $`t`$, with $`c<16/9`$ fixed. On tha
 
 </div>
 
-This corollary is asymptotic, and it does not give the strict finite inequality $`R+1>\tfrac{16}9t^3`$ at every large $`t`$. The finite logarithmic constraint of the channel argument is compatible with equality $`9(R+1)=16t^3`$ for $`t\ge4`$, so that constraint alone cannot force a strict finite endpoint at $`16/9`$. The two statements are separate, and Corollary <a href="#long68:res:radius-constant" data-reference-type="ref" data-reference="long68:res:radius-constant">18</a> rests on the ordinary proof of Theorem <a href="#long68:res:lcm-growth" data-reference-type="ref" data-reference="long68:res:lcm-growth">7</a>; the kernel-checked finite theorem does not carry it.
+This corollary is asymptotic, and it does not give the strict finite inequality $`R+1>\tfrac{16}9t^3`$ at every large $`t`$. The finite logarithmic constraint of the channel argument is compatible with equality $`9(R+1)=16t^3`$ for $`t\ge4`$, so that constraint alone cannot force a strict finite endpoint at $`16/9`$. The two statements are separate, and Corollary <a href="#long68:res:radius-constant" data-reference-type="ref" data-reference="long68:res:radius-constant">18</a> rests on the ordinary proof of Theorem <a href="#long68:res:lcm-growth" data-reference-type="ref" data-reference="long68:res:lcm-growth">7</a>; the finite-block Lean source does not carry the asymptotic deduction, and the asymptotic Lean files are proof candidates rather than kernel verification.
 
 The congruence <a href="#long68:eq:channel-congruence" data-reference-type="eqref" data-reference="long68:eq:channel-congruence">[long68:eq:channel-congruence]</a> also explains the prime-channel corrector.
 
@@ -812,27 +810,27 @@ Erdős #68 is open. Every rational representation with positive denominator has
 
 # Sources and evidence
 
-The formal counterparts below are checked by the Lean 4 kernel against Mathlib at source snapshot `1da2a504f8d8`, with no `sorry`, added axioms, or unchecked evaluation. Theorem <a href="#long68:res:lcm-growth" data-reference-type="ref" data-reference="long68:res:lcm-growth">7</a> and Corollary <a href="#long68:res:radius-constant" data-reference-type="ref" data-reference="long68:res:radius-constant">18</a> are ordinary proofs given in full above and are not kernel-checked. The two prefix cancellations, the index-$`52`$ example and the continued-fraction enclosure are finite integer calculations with the procedures displayed above. The carry census through $`300000`$ is a separate exact-interval computation with the receipt named in §<a href="#long68:sec:finite" data-reference-type="ref" data-reference="long68:sec:finite">6</a>.
+The formal counterparts below are checked by the Lean 4 kernel against Mathlib at source snapshot `92b88dc1bbe0`, with no `sorry`, added axioms, or unchecked evaluation. Theorem <a href="#long68:res:lcm-growth" data-reference-type="ref" data-reference="long68:res:lcm-growth">7</a> and Corollary <a href="#long68:res:radius-constant" data-reference-type="ref" data-reference="long68:res:radius-constant">18</a> are ordinary proofs given in full above and are not kernel-checked; the associated asymptotic Lean files are proof candidates. The finite-block inequality is the separate Lean source [finite terminal-block inequality](https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529). The two prefix cancellations, the index-$`52`$ example and the continued-fraction enclosure are finite integer calculations with the procedures displayed above. The carry census through $`300000`$ is a separate exact-interval computation with the receipt named in §<a href="#long68:sec:finite" data-reference-type="ref" data-reference="long68:sec:finite">6</a>.
 
 <div class="center">
 
 | Statement | Formal counterpart |
 |:---|:---|
-| Theorem <a href="#long68:res:prime-pole" data-reference-type="ref" data-reference="long68:res:prime-pole">2</a> | [maximal-power survival](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L223), with the residue formula at [line 129](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L129) and the denominator form at [line 41](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimePoleDenominator.lean#L41) |
-| Proposition <a href="#long68:res:wilson-cofinality" data-reference-type="ref" data-reference="long68:res:wilson-cofinality">3</a> | [cofinal private hits](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3097); reflection at [line 3139](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3139) |
-| Theorem <a href="#long68:res:carry-equivalence" data-reference-type="ref" data-reference="long68:res:carry-equivalence">8</a> | [strict-successor misses](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L986); denominator exclusions at [line 812](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L812) and [line 836](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L836) |
-| Proposition <a href="#long68:res:companion-orbit" data-reference-type="ref" data-reference="long68:res:companion-orbit">9</a> | [companion orbit](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CompanionOrbitRationality.lean#L438) |
-| Proposition <a href="#long68:res:lower-escape" data-reference-type="ref" data-reference="long68:res:lower-escape">10</a> | [lower-interval normal form](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L82); finite window at [line 122](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L122), cofinal consumer at [line 145](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L145), classification <a href="#long68:eq:escape-classification" data-reference-type="eqref" data-reference="long68:eq:escape-classification">[long68:eq:escape-classification]</a> at [line 39](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L39), radius at [line 158](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L158) |
-| Theorem <a href="#long68:res:shift-family" data-reference-type="ref" data-reference="long68:res:shift-family">11</a> | [family boundary](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L139); escape form at [line 156](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L156), member $`t=-1`$ at [line 175](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L175), and the irrationality of $`e`$ at [line 211](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L211) |
-| Theorem <a href="#long68:res:global-residue" data-reference-type="ref" data-reference="long68:res:global-residue">12</a> | [global complementary residue](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L6164); coprimality <a href="#long68:eq:gap-normalisation" data-reference-type="eqref" data-reference="long68:eq:gap-normalisation">[long68:eq:gap-normalisation]</a> at [line 4209](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4209) |
-| Equation <a href="#long68:eq:factor-split" data-reference-type="eqref" data-reference="long68:eq:factor-split">[long68:eq:factor-split]</a> | [unit-factor scale split](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766), floor identity at [line 4701](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4701), consumer at [line 1574](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1574) |
-| Fixed-owner absorption | [absorbed owner](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2677) |
-| Theorem <a href="#long68:res:normalform" data-reference-type="ref" data-reference="long68:res:normalform">13</a> and <a href="#long68:eq:channel-congruence" data-reference-type="eqref" data-reference="long68:eq:channel-congruence">[long68:eq:channel-congruence]</a> | [integral channel weight](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25), [exact cancellation](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L43) |
-| Theorem <a href="#long68:res:channel-radius" data-reference-type="ref" data-reference="long68:res:channel-radius">17</a> | [finite radius bound](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1222); sequence form at [line 1241](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1241), little-$`o`$ form at [line 1043](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1043), method ceiling at [line 764](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L764) |
-| Prime channel corrector | [remote reduction](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1657), residual identity at [line 1559](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559) |
-| Equation <a href="#long68:eq:doubled-prime" data-reference-type="eqref" data-reference="long68:eq:doubled-prime">[long68:eq:doubled-prime]</a> | [doubled-prime criterion](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialZeroPlateauSupplement.lean#L257) |
-| Canonical factorial digits | [termination equivalence](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L78) |
-| Amplification modulus | [divisibility](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5604), nonvanishing at [line 5619](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5619) |
+| Theorem <a href="#long68:res:prime-pole" data-reference-type="ref" data-reference="long68:res:prime-pole">2</a> | [maximal-power survival](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L223), with the residue formula at [line 129](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L129) and the denominator form at [line 41](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleDenominator.lean#L41) |
+| Proposition <a href="#long68:res:wilson-cofinality" data-reference-type="ref" data-reference="long68:res:wilson-cofinality">3</a> | [cofinal private hits](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3097); reflection at [line 3139](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3139) |
+| Theorem <a href="#long68:res:carry-equivalence" data-reference-type="ref" data-reference="long68:res:carry-equivalence">8</a> | [strict-successor misses](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L986); denominator exclusions at [line 812](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L812) and [line 836](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L836) |
+| Proposition <a href="#long68:res:companion-orbit" data-reference-type="ref" data-reference="long68:res:companion-orbit">9</a> | [companion orbit](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CompanionOrbitRationality.lean#L438) |
+| Proposition <a href="#long68:res:lower-escape" data-reference-type="ref" data-reference="long68:res:lower-escape">10</a> | [lower-interval normal form](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L82); finite window at [line 122](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L122), cofinal consumer at [line 145](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L145), classification <a href="#long68:eq:escape-classification" data-reference-type="eqref" data-reference="long68:eq:escape-classification">[long68:eq:escape-classification]</a> at [line 39](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L39), radius at [line 158](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L158) |
+| Theorem <a href="#long68:res:shift-family" data-reference-type="ref" data-reference="long68:res:shift-family">11</a> | [family boundary](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L139); escape form at [line 156](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L156), member $`t=-1`$ at [line 175](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L175), and the irrationality of $`e`$ at [line 211](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L211) |
+| Theorem <a href="#long68:res:global-residue" data-reference-type="ref" data-reference="long68:res:global-residue">12</a> | [global complementary residue](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L6164); coprimality <a href="#long68:eq:gap-normalisation" data-reference-type="eqref" data-reference="long68:eq:gap-normalisation">[long68:eq:gap-normalisation]</a> at [line 4209](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4209) |
+| Equation <a href="#long68:eq:factor-split" data-reference-type="eqref" data-reference="long68:eq:factor-split">[long68:eq:factor-split]</a> | [unit-factor scale split](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4766), floor identity at [line 4701](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4701), consumer at [line 1574](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1574) |
+| Fixed-owner absorption | [absorbed owner](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2677) |
+| Theorem <a href="#long68:res:normalform" data-reference-type="ref" data-reference="long68:res:normalform">13</a> and <a href="#long68:eq:channel-congruence" data-reference-type="eqref" data-reference="long68:eq:channel-congruence">[long68:eq:channel-congruence]</a> | [integral channel weight](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25), [exact cancellation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L43) |
+| Theorem <a href="#long68:res:channel-radius" data-reference-type="ref" data-reference="long68:res:channel-radius">17</a> | [finite radius bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1084); sequence form at [line 1103](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1103), little-$`o`$ form at [line 905](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L905), method ceiling ordinary in this record (`sharp_radius_satisfies_square_log_constraint` is not in this checkout) |
+| Prime channel corrector | [remote reduction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1657), residual identity at [line 1559](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeUnitTranslator.lean#L1559) |
+| Equation <a href="#long68:eq:doubled-prime" data-reference-type="eqref" data-reference="long68:eq:doubled-prime">[long68:eq:doubled-prime]</a> | [doubled-prime criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialZeroPlateauSupplement.lean#L257) |
+| Canonical factorial digits | [termination equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L78) |
+| Amplification modulus | [divisibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5557), nonvanishing at [line 5572](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L5572) |
 
 </div>
 
@@ -844,109 +842,109 @@ Attribution. Wilson’s theorem and the Wilson reflection identity are classical
 
 The public `ErdosProblems.Erdos68` package carries the checked source for this note. The declarations below are the dependency chain behind the statements above, together with the subsidiary results developed alongside them; they are pinned to the formal-source commit named at the start of this note.
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L47)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L47)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L81)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L81)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L124)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L124)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L153)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L153)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L162)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L162)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L196)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L196)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L269)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialDigits.lean#L269)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L38)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L38)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L54)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CanonicalFactorialTermination.lean#L54)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L82)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L82)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L945)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L945)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialZeroPlateauCertificates.lean#L136)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialZeroPlateauCertificates.lean#L136)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6146)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L6099)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3047)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3047)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3231)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3231)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3252)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3252)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1419)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1419)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1524)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L1524)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L148)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L215)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L243)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L243)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/AdjacentUnitCarryWindow.lean#L337)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L71)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L91)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L101)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1006)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L868)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1023)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L885)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L156)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L156)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L52)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L52)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L84)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L84)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L131)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialAnalyticBoundary.lean#L131)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L556)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L556)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L586)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L586)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L698)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L698)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L739)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L739)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L800)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L800)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2707)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L2707)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3327)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3327)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3394)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3394)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3443)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3443)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3472)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3472)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3602)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3602)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3790)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3790)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3848)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3848)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3982)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L3982)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4387)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4387)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4854)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L4854)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5213)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5213)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5277)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5277)
 
-- [](https://github.com/wcook04/plectis-erdos/blob/1da2a504f8d8aa3cdc2cf686ec48bc8a67457984/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5389)
+- [](https://github.com/wcook04/plectis-lean-erdos249-257/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L5389)
 
 <a id="long68:sec:extended-record"></a>
 
@@ -1250,13 +1248,13 @@ Cofinal zero-branch or large private-factor hypotheses imply the required irrati
 
 **Reader position.** 48 of 70; display band: frontier. Formal editorial disposition: hold. These are separate classifications.
 
-**Reader entry.** A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.
+**Reader entry.** An elementary terminal-block argument gives $`\liminf\log L_N/(N^{3/2}\log N)\ge 2\sqrt2/3`$ for the lcm of factorial-gap denominators. The displayed bound needs no external multiplicity theorem.
 
-A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.
+An elementary terminal-block argument gives a lower bound of order $`N^{3/2}\log N`$ for the lcm of factorial-gap denominators. The displayed bound is ordinary mathematics. An older, weaker multiplicity-based route is historical context only. The linked asymptotic Lean files are proof candidates and are not cited as kernel verification. The finite-block inequality has a separate Lean source.
 
-**Authority and reach.** paper argument plus cited theorem; paper plus external theorem.
+**Authority and reach.** ordinary mathematical argument.
 
-**Exact boundary.** Comparator cannot certify the cited input or authored deduction.
+**Exact boundary.** The LCM asymptotic is an ordinary paper proof, not a Lean-checked theorem. Comparator cannot certify the authored deduction. The bound does not decide irrationality.
 
 **Result-atom population.** 3 of 681 public coordinates. The public atom catalog groups them under this family.
 

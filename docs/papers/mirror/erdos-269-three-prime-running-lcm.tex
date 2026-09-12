@@ -47,8 +47,11 @@ nonsingular minors of every order, with one choice of indices valid in every
 third-coordinate layer.  Dividing out row and column powers leaves a binary
 carry whose consecutive threshold columns differ on disjoint intervals.
 This gives both arbitrary-order non-separability and the exact rank of every
-finite sample.  The two-prime sums are polynomials in one transcendental
-Hecke--Mahler value.  The repeated three-prime irrationality question remains
+finite sample.  Steve Fan posted the two-prime factorisation, reduction and
+transcendence conclusion first (erdosproblems.com/269, 26~June~2026,
+post-7218).  This paper records that argument as an ordinary deduction from
+Bugeaud--Laurent and does not claim priority or a Lean theorem for the
+two-prime case.  The repeated three-prime irrationality question remains
 open.
 \end{abstract}
 
@@ -103,7 +106,13 @@ where
             r^{\lfloor\log_r q^j\rfloor}.
 \end{aligned}
 \]
-Both factors are positive.  Distinct primes make $\log_r p$ and
+Both factors are positive.  After removing these row and column factors,
+an entry is $c$ when $x_i+y_j\ge1$ and $1$ otherwise.  We choose the column
+thresholds $1-y_j$ so that each successive row introduces exactly one new
+$c$.  Subtracting consecutive rows will then isolate one nonzero entry at a
+time.
+
+Distinct primes make $\log_r p$ and
 $\log_r q$ irrational, so each individual rotation is dense.
 For $n\ge1$, choose distinct row indices with
 $0<x_{I(0)}<\cdots<x_{I(n-1)}<1$.
@@ -128,7 +137,7 @@ Finally, $d$ separated summands would factor every $(d+1)\times(d+1)$
 restriction through a $d$-dimensional space, contradicting the nonzero minor.
 \end{proof}
 
-\noindent Both clauses are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22}{Lean source}.
+\noindent Both clauses are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22}{uniform rank and nonseparation}.
 
 \begin{corollary}[the same minors modulo every admissible denominator]
 \label{res:admissible-modular-minors}
@@ -143,7 +152,7 @@ is $5^{-1}(-4/5)^{n-1}$, also a unit.  The choices of $I,J$ are independent
 of both $B$ and $k$.
 \end{proof}
 
-\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133}{Lean source}.
+\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133}{admissible modular minors}.
 
 
 
@@ -153,7 +162,7 @@ its four entries are $1,1/6,1/2,1/60$, so it equals $1/60-1/12$.
 \end{example}
 
 \noindent The four entries and the determinant are
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L102}{Lean source}.
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L102}{two by two fixture}.
 
 \paragraph{The indices must be selected.}
 The leading $4\times4$ block at $\{2,3,5\}$ is singular:
@@ -183,7 +192,7 @@ If $k_1=0$ and $k_t=m$, then $v_0=c\,\mathbf 1$ lies in the span of the
 differences (their sum is $(1-c)\mathbf 1$), so the rank is $t-1$.
 \end{proof}
 
-\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182}{Lean source}.
+\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182}{rank cut matrix}.
 
 The formula classifies every finite sampled kernel rank after the row and
 column factors of Theorem~\ref{res:infinite-rank}, independently of the third
@@ -295,8 +304,9 @@ introduced next.  The de-duplicated irrationality assertion is historical
 \label{sec:actual-orbit}
 
 \begin{proposition}[the running least common multiple]\label{res:lcm}
-Let $p,q,r$ be pairwise distinct primes and $x\ge1$.  Then
-$\Lprefix(x)=\hgt(x)$.
+Let $p,q,r$ be pairwise distinct primes and $x\ge1$.  Then the
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{123}{smoothPrefixLcm_eq_threePrimeHeight}{smooth-prefix LCM}
+equals the three-prime height: $\Lprefix(x)=\hgt(x)$.
 \end{proposition}
 \begin{proof}
 Every smooth $n\le x$ has prime exponents bounded by the corresponding
@@ -305,21 +315,50 @@ powers occur among those smooth numbers; their product divides the running
 LCM because they are pairwise coprime.
 \end{proof}
 
-\noindent The statement is \lloc{Erdos269/ThreePrimeRunningLcm.lean}{124}.
+\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124}{smooth prefix lcm equals three-prime height}.
 The same definition gives
 \begin{equation}\label{res:cube}
  x^3/(pqr)<\hgt(x)\le x^3.
 \end{equation}
-Both inequalities are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112}{Lean source}.
-The height is constant between consecutive pure-power boundaries and gains
-a factor equal to the prime at each boundary.  If $F(H)$ is a height fibre
-in a finite exponent box $\mathcal B$, exact regrouping gives
+Both inequalities are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112}{cubic height bounds}.
+
+\begin{proposition}[smooth-prefix LCM cells]\label{res:cell}
+If $x,y\ge1$ lie in the same logarithmic cell, then $\Lprefix(x)=\Lprefix(y)$:
+the
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{179}{smoothPrefixLcm_eq_of_sameLogCell}{smooth-prefix LCM cell}
+is constant.  Advancing exactly one logarithm multiplies the running value
+by the corresponding
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{326}{smoothPrefixLcm_firstLogStep}{first-channel step},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{339}{smoothPrefixLcm_secondLogStep}{second-channel step}
+or
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{352}{smoothPrefixLcm_thirdLogStep}{third-channel step}.
+The
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{278}{threePrimeJumpSetWithOrigin_card}{jump set with the origin},
+formed from the first $n$ positive powers in each channel together with $1$,
+has cardinality $3n+1$.
+\end{proposition}
+\begin{proof}
+Cell constancy and the three jump ratios follow from
+Proposition~\ref{res:lcm}, since the height depends on $x$ only through the
+three integer logarithms.  Within one channel the first $n$ positive powers
+are distinct; across channels a common value would be a positive power of
+two distinct primes; and $1$ is not a positive prime power.
+\end{proof}
+
+\begin{proposition}[height-fibre regrouping]\label{res:fibre-prop}
+If $F(H)$ is a height fibre in a finite exponent box $\mathcal B$, the
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{406}{finiteSmoothKernelSum_groupedByHeight}{height-fibre regrouping}
+gives
 \begin{equation}\label{res:fibre}
  \sum_{(i,j,k)\in\mathcal B}\Kernel(i,j,k)=\sum_H\frac{\#F(H)}H.
 \end{equation}
-Each term in $F(H)$ equals $1/H$, which proves the identity.  The
-multiplicities remain present in every subsequent infinite sum.
-The regrouping is \lloc{Erdos269/ThreePrimeRunningLcm.lean}{407}.
+\end{proposition}
+\begin{proof}
+Each term in $F(H)$ equals $1/H$.  The multiplicities remain present in
+every subsequent infinite sum.
+\end{proof}
+
+\noindent The regrouping is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407}{finite smooth kernel sum grouped by height}.
 
 From now on let $P=\{2,3,5\}$ and $S=\mathcal R_P$.  For $a\ge0$ define
 \[
@@ -337,19 +376,21 @@ The literal radix and forcing digit are
 
 \begin{lemma}[integer forcing and the four radices]
 \label{res:dyadic-alphabet}
-For every $a\ge0$, $m_a$ is a positive integer and
-$b_a\in\{2,6,10,30\}$.
+For every $a\ge0$, $m_a$ is a positive integer and the
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{699}{dyadicBlockBase235_cases}{four-letter dyadic alphabet}
+satisfies $b_a\in\{2,6,10,30\}$.
 \end{lemma}
 \begin{proof}
 If $x<2^{a+1}$, the two-exponent of $\hgt(x)$ is at most $a$, while the
 other exponents are bounded by those of $\hgt(2^{a+1})$.  Hence
 $2\hgt(x)\mid\hgt(2^{a+1})$.  Each forcing summand is an integer,
-and the shell contains $2^a$.  Between consecutive two-powers there is at
-most one three-power and at most one five-power.  Their optional factors,
-together with the terminal factor two, give the four radices.
+and the shell contains $2^a$.  Between consecutive two-powers,
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{668}{dyadicInternalPower_exponent_unique}{internal-power uniqueness}
+leaves at most one three-power and at most one five-power.  Their optional
+factors, together with the terminal factor two, give the four radices.
 \end{proof}
 
-\noindent Both clauses are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48}{Lean source}.
+\noindent Both clauses are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48}{literal integer forcing and four radices}.
 
 \begin{proposition}[the actual recurrence and a polynomial bound]
 \label{res:actual-orbit}
@@ -364,8 +405,9 @@ at arbitrarily large indices.
 \end{proposition}
 \begin{proof}
 A dyadic shell contains at most one two-exponent for each pair of three-
-and five-exponents.  Each of the latter lies between $0$ and $a$, so its
-count is at most $(a+1)^2$.  By~\eqref{res:cube},
+and five-exponents.  Each of the latter lies between $0$ and $a$, so the
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{646}{smoothExponentShell_card_quadratic}{quadratic shell bound}
+gives at most $(a+1)^2$ terms.  By~\eqref{res:cube},
 $s_a\le30(a+1)^2/8^a$.  Therefore
 \[
  X_a\le15(a+1)^2\sum_{j\ge0}\frac{(j+1)^2}{8^j}
@@ -373,7 +415,7 @@ $s_a\le30(a+1)^2/8^a$.  Therefore
 \]
 This proves convergence and the bound.  Splitting the first shell gives
 the recurrence because $m_a=h_{a+1}s_a$ and $h_{a+1}=b_ah_a$.
-All four clauses are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168}{Lean source}.
+All four clauses are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168}{short actual orbit}.
 
 Put $Y_a=BX_a$.  If all sufficiently late distances are strictly below
 $1/31$, write $Y_a=z_a+e_a$ with $z_a\in\mathbb Z$ and $|e_a|<1/31$.
@@ -412,7 +454,7 @@ $BX_a=h_aA/(2^u3^v5^w)-BZ_a$ is integral.  Positivity, the recurrence
 and the bound follow from Proposition~\ref{res:actual-orbit}.
 \end{proof}
 
-\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80}{Lean source}.
+\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80}{short fixed split bridge}.
 
 \section{A window test and the remaining arithmetic}
 \label{sec:escape}\label{sec:open}
@@ -442,7 +484,7 @@ Every positive representative of the residue is at least its least
 positive representative, so $\operatorname{lpr}_W(-BF)\le d\le K$.
 \end{proof}
 
-\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138}{Lean source}.
+\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138}{finite endpoint obstruction}.
 
 \begin{theorem}[the actual window criterion]\label{res:windowconsumer}
 The number $S$ is irrational if and only if
@@ -478,7 +520,7 @@ $K(B,\ell+h)$.  This proves~\eqref{eq:escape}, in fact from each fixed start.
 \end{proof}
 
 \noindent The equivalence, at the literal smooth-number series, is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L51}{Lean source}.
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L51}{short window equivalence}.
 
 The validity of the cap is needed in the rational direction; an upper
 polynomial growth condition by itself would not suffice.  The zero cap,
@@ -529,11 +571,18 @@ representations at their stated scopes.
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
 \subsection*{Statements and declarations}
 \paragraph{Proof sources.}
-The two-prime argument uses the cited Hecke--Mahler value theorem.
+The two-prime argument uses the cited Hecke--Mahler value theorem and is
+Steve Fan's; it is not a Lean theorem.
 The arbitrary-order kernel theorem, the actual recurrence and the
-rationality bridge have the formal source locations recorded below.
+rationality bridge are ordinary mathematics in this paper; source locations
+are recorded below.
+Comparator records the $(2,3,5)$ minor $-1/15$, the running-LCM height
+identity, and a conditional carry-escape consumer, not the arbitrary-order
+rank theorem.
 The finite cut-rank argument and the modular corollary are proved above;
 no additional formal verification claim is made for the latter.
+The actual-series reduction is given; the source-specific cofinal escape
+remains unproved.
 
 \paragraph{Artefact and data availability.}
 Each source link is pinned to its own immutable revision.  The exact-reference
@@ -564,10 +613,10 @@ The formal sources are recorded by the following per-link immutable revisions.
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{84}{pureFirst_mem_smoothPrefixExponents},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{97}{pureSecond_mem_smoothPrefixExponents},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{110}{pureThird_mem_smoothPrefixExponents},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{123}{smoothPrefixLcm_eq_threePrimeHeight},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{123}{smoothPrefixLcm_eq_threePrimeHeight}{smooth-prefix LCM},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{163}{SameThreePrimeLogCell},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{169}{threePrimeHeight_eq_of_sameLogCell},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{179}{smoothPrefixLcm_eq_of_sameLogCell},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{179}{smoothPrefixLcm_eq_of_sameLogCell}{smooth-prefix LCM cell},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{191}{threePrimeKernelQ_eq_of_sameLogCell},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{204}{positivePrimePowers},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{208}{positivePrimePowers_card},
@@ -576,18 +625,18 @@ The formal sources are recorded by the following per-link immutable revisions.
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{243}{threePrimePositiveJumpSet},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{249}{threePrimePositiveJumpSet_card},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{273}{threePrimeJumpSetWithOrigin},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{278}{threePrimeJumpSetWithOrigin_card},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{278}{threePrimeJumpSetWithOrigin_card}{jump set with the origin},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{294}{threePrimeHeight_firstLogStep},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{305}{threePrimeHeight_secondLogStep},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{316}{threePrimeHeight_thirdLogStep},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{326}{smoothPrefixLcm_firstLogStep},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{339}{smoothPrefixLcm_secondLogStep},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{352}{smoothPrefixLcm_thirdLogStep},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{326}{smoothPrefixLcm_firstLogStep}{first-channel step},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{339}{smoothPrefixLcm_secondLogStep}{second-channel step},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{352}{smoothPrefixLcm_thirdLogStep}{third-channel step},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{368}{smoothExponentBox},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{373}{smoothPointHeight},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{377}{smoothHeightFiber},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{384}{smoothHeightFiber_kernel_sum},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{406}{finiteSmoothKernelSum_groupedByHeight},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{406}{finiteSmoothKernelSum_groupedByHeight}{height-fibre regrouping},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{430}{threePrimeHeight_le_cube},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{443}{kernel_235_origin},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{450}{kernel_235_two},
@@ -601,11 +650,11 @@ The formal sources are recorded by the following per-link immutable revisions.
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{543}{smoothExponentShell_card_le_dropFirst},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{585}{smoothExponentShell_card_le_dropThird},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{629}{sorted_pair_quadratic},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{646}{smoothExponentShell_card_quadratic},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{646}{smoothExponentShell_card_quadratic}{quadratic shell bound},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{662}{DyadicInternalPower},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{668}{dyadicInternalPower_exponent_unique},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{668}{dyadicInternalPower_exponent_unique}{internal-power uniqueness},
 \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L688}{\leanlabel{dyadicBlockBase235}},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{699}{dyadicBlockBase235_cases},
+\lword{Erdos269/ThreePrimeRunningLcm.lean}{699}{dyadicBlockBase235_cases}{four-letter dyadic alphabet},
 \lref{Erdos269/ThreePrimeRunningLcm.lean}{711}{dyadicBlockBase235_mem_interval},
 \lref{Erdos269/ResidueEscape.lean}{26}{leastPositiveResidue},
 \lref{Erdos269/ResidueEscape.lean}{31}{leastPositiveResidue_pos_le},

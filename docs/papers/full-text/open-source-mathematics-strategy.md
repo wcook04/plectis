@@ -10,7 +10,7 @@
 
 This paper describes an open-source strategy for agent-assisted mathematical research. The starting point is a practical asymmetry. Building a durable research environment requires navigation, experiment records, formal proof checking, claim boundaries, review tools, and attribution machinery. Once that fixed cost has been paid, another person should not have to rebuild it in order to contribute a mathematical idea or a night of spare compute.
 
-The proposed research commons accepts four independently useful inputs: compute, mathematical direction, infrastructure improvements, and review. Its outputs are not limited to solved problems. Proofs, counterexamples, finite computations, corrected statements, failed mechanisms, formal no-go theorems, and better research tools all reduce the cost or improve the direction of later work. Accepted mathematical returns enlarge a versioned problem corpus; accepted architectural returns improve the process that turns future compute and insight into reviewable mathematics. Provenance and role-specific credit remain attached when a contribution is assimilated.
+The proposed research commons accepts four independently useful inputs: compute, mathematical direction, infrastructure improvements, and review. Its outputs are not limited to solved problems. Proofs, counterexamples, finite computations, corrected statements, failed mechanisms, formal no-go theorems, and better research tools can reduce the cost or improve the direction of later work. Accepted mathematical returns enlarge a versioned problem corpus; accepted architectural returns improve the process that turns future compute and insight into reviewable mathematics. Provenance and role-specific credit remain attached when a contribution is assimilated.
 
 The implemented case is a public Lean repository organised around eight open Erdős problems. The problems were chosen as difficult research worlds, not because the present system was expected to solve them. A fresh clone contains papers, formal source, explicit open boundaries, corpus queries, validation programs, and structured return paths. All eight problems remain open. The repository is therefore a proof of concept for cumulative research infrastructure, not evidence that distributed agents already outperform mathematicians or that additional compute will solve a named problem. As of 31 August 2026, the author had not recorded a completed external cold-clone use or an accepted external contribution, so the contributor experience remains untested outside author-operated runs.
 
@@ -40,9 +40,19 @@ The intended answer is an open research commons. A mathematician may supply a th
 
 The project is AI-native in a narrow, declared sense. Contributors may use language models and agent harnesses throughout the work, provided that their use is disclosed. Model assistance is neither a defect nor evidence of mathematical value. What enters the accepted record is the attributable delta: a mathematical idea, a question or direction that produces useful mathematics, a proof or counterexample, a review, or an architectural change that makes later research more effective. Each still needs the evidence and review appropriate to its claim.
 
-The repository is deliberately centred on hard problems that current systems cannot simply dispatch in one prompt. The purpose is to expose the complete research process: selecting a useful subproblem, reading prior work, testing conjectures, recording failed routes, formalising stable steps, explaining the result, and preserving the exact statement that remains open. A solution is one possible output of this process. The cumulative record is the output that can be produced on every serious run.
+The repository is centred on unresolved mathematical questions. The purpose is to expose the complete research process: selecting a useful subproblem, reading prior work, testing conjectures, recording failed routes, formalising stable steps, explaining the result, and preserving the exact statement that remains open. A solution is one possible output of this process. The cumulative record is the output that can be produced on every serious run.
 
 Each problem is therefore treated as a continuous goal rather than a sequence of blank-slate prompts. The endpoint persists while the frontier changes. A new agent run starts from the accumulated theorems, computations, counterexamples, failed mechanisms, citations, and open obligations; chooses a direct mathematical transition worth attempting; and returns an inspectable delta plus the boundary that survived. It may hand back a theorem, a narrower reduction, a killed route, a source correction, or a better next question. When the endpoint remains open, that is not a failed run. Losing the state and paying to rediscover it would be.
+
+<a id="choosing-what-to-automate"></a>
+
+## Choosing what to automate
+
+The choice of task should state what someone hopes to understand and what would change their next mathematical decision. Recovering an earlier proof, checking one calculation, comparing two mechanisms, or explaining a counterexample may be the useful task. A newly available solver is not by itself a reason to expand the search. When the purpose is learning, a hint or a check of the reader’s own attempt may serve it better than the completed argument. The contributor guide and coupled-goals skill now make this distinction explicit; the reading guide offers an optional worked countermodel with the hint and explanation separated.
+
+The September 2026 Math and AI declaration identifies conceptual understanding, the development of students and ideas, attribution, and human transmission as purposes that a race to solve problems can undermine \[mathandai2026\]. For this project, that means choosing automation with the people doing the work and respecting the terms on which a question was shared. An open discussion of a student’s project or an unfinished approach is not a request for an automated search to complete it. A bounded collaboration can still welcome substantial automation, but its purpose and expectations should be clear before the search begins.
+
+For a substantial search, the record should preserve the details needed to interpret or reproduce it, including alternatives that explained a change of direction. Relevant details may include starting sources, tools, material human interventions, effort and the stopping condition; estimates and unknowns remain labelled. Small corrections need no run history. A reported success rate must include unsuccessful attempts. A timeout records a limit of that run; a mathematical obstruction requires an argument at its stated scope. These records can help compare methods under declared conditions. They do not establish a fixed boundary between problems that AI can and cannot solve, a distinction raised by Tao in his discussion of the changing difficulty landscape \[tao2026landscape\].
 
 <a id="two-coupled-goals-not-one-endless-agent"></a>
 
@@ -60,7 +70,7 @@ The stewardship role is not a ceremonial reviewer added after the work. Its appr
 
 The coupling is event-driven. A stable mathematical delta wakes the steward; a changed appraisal, missing consumer, or sharper open boundary can wake the miner. An unchanged repository should consume no agent turn merely to report that it is unchanged. This makes continuous work a sequence of inspectable state transitions rather than an expensive synonym for leaving a chat window open.
 
-The public [`run-coupled-research-goals skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/run-coupled-research-goals/SKILL.md) makes this control shape executable in a cold clone. It invokes the existing mining and consequence-propagation jobs, preserves a shared source pin, and passes committed objects and receipts rather than conversational claims of progress. One agent may alternate between the roles, or different people, models, subscriptions, and machines may supply them. The architecture requires distinct decisions, not an unnecessarily grand collection of laptops.
+The public [`run-coupled-research-goals skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/run-coupled-research-goals/SKILL.md) makes this control shape executable in a cold clone. It invokes the existing mining and consequence-propagation jobs, preserves a shared source pin, and passes committed objects and receipts rather than conversational claims of progress. One agent may alternate between the roles, or different people, models, subscriptions, and machines may supply them. The architecture requires distinct decisions, not an unnecessarily grand collection of laptops.
 
 This is not a proposal to place a public queue in front of a private machine. The public clone must stand on its own. The larger private workbench explains how the initial corpus was produced, but it grants no proof or publication authority to a returned result. Contributors may use any model runner or no model at all. What joins their work is the public problem definition, evidence contract, and review path.
 
@@ -70,7 +80,9 @@ The [systems paper](../mirror/claim-faithful-publication-systems-paper.pdf#named
 
 ## What one clone lets a contributor do
 
-A contributor does not need to understand the whole repository before doing useful work. From one clone, a person or agent can choose one of five first actions: mine a bounded problem route; contribute mathematical direction without paying for the compute that follows it; formalise or review one claim; repair the research machinery; or propose another sourced problem world. The clone-local [`explain-public-system skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/explain-public-system/SKILL.md) lets an agent read the public corpus and companion papers on the newcomer’s behalf, explain the claim boundaries at the requested level, and point back to exact evidence. The reader can therefore begin with the ordinary request “explain this repository to me” rather than first mastering its file layout. The other skills select and run a frontier, coordinate the coupled goals, install the same workflows in a compatible agent harness, and describe the present multi-stage process for adding a problem.
+A contributor does not need to understand the whole repository before doing useful work. From one clone, a person or agent can choose one of five first actions: mine a bounded problem route; contribute mathematical direction without paying for the compute that follows it; formalise or review one claim; repair the research machinery; or propose another sourced problem world. The clone-local [`explain-public-system skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/explain-public-system/SKILL.md) lets an agent read the public corpus and companion papers on the newcomer’s behalf, explain the claim boundaries at the requested level, and point back to exact evidence. The reader can therefore begin with the ordinary request “explain this repository to me” rather than first mastering its file layout. The other skills select and run a frontier, coordinate the coupled goals, install the same workflows in a compatible agent harness, and describe the present multi-stage process for adding a problem.
+
+The clone-local [`task-entry command`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/scripts/agent_entry.py) makes that first choice inspectable. A request to “maintain public infrastructure” selects the maintenance workflow and its checks; a request to prove a remaining implication selects bounded research and points to the relevant corpus support and proof-plan queries. The output names the lane, a small set of documents to read, the next commands, and the claim boundary before work begins. These routes and their regression checks are implemented. Whether they reduce contributor effort or improve distributed research remains unmeasured.
 
 <figure id="fig:first-actions" data-latex-placement="H">
 
@@ -157,7 +169,7 @@ The project is a composition layer around substantial prior work, not a replacem
 
 The same underlying substrate can support several reader projections: a short public primer, a specialist paper, a detailed proof account, Lean declarations, an agent explanation, and machine-readable queries. Each projection must link back to its source claims and evidence. A shorter or friendlier account does not acquire permission to strengthen them.
 
-An external runner begins at [`the compact agent entry`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/AGENTS.override.md). It can inspect all problem frontiers, choose a bounded question, read the relevant paper and source neighbourhood, run experiments or edit formal code, validate the result, and prepare a return. None of these steps requires access to the private workbench. A contributor is free to replace the agent, the scheduler, or the entire search policy while retaining the public evidence boundary.
+An external runner begins at [`the compact agent entry`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/AGENTS.md). It can inspect all problem frontiers, choose a bounded question, read the relevant paper and source neighbourhood, run experiments or edit formal code, validate the result, and prepare a return. None of these steps requires access to the private workbench. A contributor is free to replace the agent, the scheduler, or the entire search policy while retaining the public evidence boundary.
 
 <a id="sec:protocol"></a>
 
@@ -401,6 +413,8 @@ The present work supplies no such evaluation. It establishes an implemented case
 
 The first study should be small and diagnostic rather than a population estimate. An outside researcher receives one problem world and is asked to recover its strongest established statement, explain the main idea, state what remains unproved, distinguish a genuine obstruction from an unsuccessful attempt, and then undertake one bounded task and return it in a form the maintainer can assess without substantial reconstruction. Three presentations of the same material should be compared: the source, papers, and records in an ordinary repository; an information-equivalent static briefing written with care; and the navigation and record surfaces described here. The second condition is what separates the effect of the mechanisms from the effect of a better introductory paragraph. Failures are recorded at their own level: a command that could not be run, a source that could not be located, an interpretation that was corrected, or a result judged uninteresting are four different findings.
 
+That study should also ask what the reader can do after the session: reconstruct the decisive step without copying it, explain why a tempting alternative fails, locate the prior idea, or formulate a nearby question with a mathematical reason for asking it. Record the actual explanation, correction or follow-up use and the help the reader needed. A completed checklist, shorter reading time or a model’s judgement that the prose is clear cannot substitute for those observations. Nor should these activities become a compulsory score for exploratory work. They are proposed ways to learn whether the record helps people think; this paper reports no such reader outcomes.
+
 <a id="sec:learning"></a>
 
 # Learning from every run
@@ -437,7 +451,7 @@ A continuous stewardship run executes a second loop beside it:
 
 6.  return a source-pinned frontier update: the strongest surviving result, its hard step, the exact boundary, and the next discriminating question.
 
-This second loop explains why paper order is allowed to change as the corpus improves. A paper is a reader-facing projection of current mathematical judgement, not a chronological dump of agent activity. The strongest exact results and mechanisms should lead; routine scaffolding remains available but receives less space. Comparator remains an exact-interface firewall, and Palomar remains an external review route. The stewardship goal may prepare and prioritise those objects, but it cannot award novelty, acceptance, or canonical status to itself.
+This second loop explains why paper order is allowed to change as the corpus improves. A paper is a reader-facing projection of current mathematical judgement, not a chronological dump of agent activity. The strongest exact results and mechanisms should lead; routine scaffolding remains available but receives less space. Comparator remains an exact-interface firewall, and Palomar remains an external registration route. The stewardship goal may prepare and prioritise those objects, but it cannot award novelty, acceptance, or canonical status to itself.
 
 Subagents can divide literature reading, computation, proof search, formalisation, and adversarial review when their questions and evidence remain independent. The integrating agent must read and verify their returns, and each lane keeps its own starting state and stop condition. Parallel agents can multiply attempts. They do not multiply truth.
 
@@ -558,23 +572,23 @@ The public repository is [`wcook04/plectis-erdos`](https://github.com/wcook04/pl
 
 | Question | Public route |
 |:---|:---|
-| What is the experiment? | [`README.md`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/README.md) |
-| Where should an agent begin? | [`AGENTS.override.md`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/AGENTS.override.md) |
-| How can an agent explain the system? | [`explain-public-system skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/explain-public-system/SKILL.md) |
-| How can an agent run the coupled research lifecycle? | [`coupled-goal skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/run-coupled-research-goals/SKILL.md) |
-| How can an agent mine a frontier? | [`mine-open-problem skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/mine-open-problem/SKILL.md) |
-| How is a bounded Lean change validated? | [`lean-concurrent-validation skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/lean-concurrent-validation/SKILL.md) |
-| How are downstream consequences reconciled? | [`propagate-research-consequences skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/propagate-research-consequences/SKILL.md) |
-| How are clone skills installed elsewhere? | [`install-clone-skills skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/install-clone-skills/SKILL.md) |
-| What is proved and what remains open? | [`docs/RESULTS.md`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/docs/RESULTS.md) |
-| Which papers and problems exist? | [`docs/papers/README.md`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/docs/papers/README.md) |
-| How can I contribute mathematics? | [`CONTRIBUTING.md`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/CONTRIBUTING.md) and the research-progress issue form |
-| How can I improve the architecture? | [`architecture contribution guide`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md) and the architecture-proposal issue form |
-| How can an agent prepare a pull request? | [`submit-pull-request skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/submit-pull-request/SKILL.md) |
-| How can I propose or add another problem? | [`add-open-problem skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/add-open-problem/SKILL.md) |
-| How is a return validated? | [`erdos-research-return skill`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/skills/erdos-research-return/SKILL.md) and the [`research-commons protocol`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/docs/research-commons/README.md) |
-| How is credit recorded? | [`credit policy`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/docs/research-commons/CREDIT_POLICY.md) |
-| What do Comparator and Palomar establish? | [`Comparator guide`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/docs/EXTERNAL_VERIFICATION.md) and [`Palomar qualification`](https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/docs/PALOMAR_QUALIFICATION.md) |
+| What is the experiment? | [`README.md`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/README.md) |
+| Where should an agent begin? | [`AGENTS.md`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/AGENTS.md) |
+| How can an agent explain the system? | [`explain-public-system skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/explain-public-system/SKILL.md) |
+| How can an agent run the coupled research lifecycle? | [`coupled-goal skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/run-coupled-research-goals/SKILL.md) |
+| How can an agent mine a frontier? | [`mine-open-problem skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/mine-open-problem/SKILL.md) |
+| How is a bounded Lean change validated? | [`lean-concurrent-validation skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/lean-concurrent-validation/SKILL.md) |
+| How are downstream consequences reconciled? | [`propagate-research-consequences skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/propagate-research-consequences/SKILL.md) |
+| How are clone skills installed elsewhere? | [`install-clone-skills skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/install-clone-skills/SKILL.md) |
+| What is proved and what remains open? | [`docs/RESULTS.md`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/docs/RESULTS.md) |
+| Which papers and problems exist? | [`docs/papers/README.md`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/docs/papers/README.md) |
+| How can I contribute mathematics? | [`CONTRIBUTING.md`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/CONTRIBUTING.md) and the research-progress issue form |
+| How can I improve the architecture? | [`architecture contribution guide`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md) and the architecture-proposal issue form |
+| How can an agent prepare a pull request? | [`submit-pull-request skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/submit-pull-request/SKILL.md) |
+| How can I propose or add another problem? | [`add-open-problem skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/add-open-problem/SKILL.md) |
+| How is a return validated? | [`erdos-research-return skill`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/skills/erdos-research-return/SKILL.md) and the [`research-commons protocol`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/docs/research-commons/README.md) |
+| How is credit recorded? | [`credit policy`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/docs/research-commons/CREDIT_POLICY.md) |
+| What do Comparator and Palomar establish? | [`Comparator guide`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/docs/EXTERNAL_VERIFICATION.md) and [`Palomar qualification`](https://github.com/wcook04/plectis-erdos/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/docs/verification/PALOMAR_QUALIFICATION.md) |
 
 </div>
 
@@ -589,6 +603,10 @@ Every word of this manuscript was generated by agents based on large language mo
 99
 
 T. Tao, *Mathematics in the age of AI*, 2026, [arXiv:2608.16753](https://arxiv.org/abs/2608.16753).
+
+Math and AI, *A Severe Misalignment of AI in Mathematics*, [declaration](https://mathandai.org/), accessed 12 September 2026.
+
+T. Tao, *Discussion of the difficulty landscape for mathematical problems*, Mathstodon post, 8 September 2026, [part 3 of 4](https://mathstodon.xyz/@tao/117237322160500501), accessed 12 September 2026.
 
 D. P. Anderson, *BOINC: A Platform for Volunteer Computing*, Journal of Grid Computing 18 (2020), 99–122, [DOI](https://doi.org/10.1007/s10723-019-09497-9).
 

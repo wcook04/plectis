@@ -15,8 +15,8 @@
   pdflang={en-GB},
   pdfkeywords={open source, formal mathematics, Lean 4, AI agents, volunteer computing, research commons, attribution},
 }
-\newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257}
-\newcommand{\repolink}[2]{\href{\repobase/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/#1}{\texttt{#2}}}
+\newcommand{\repobase}{https://github.com/wcook04/plectis-erdos}
+\newcommand{\repolink}[2]{\href{\repobase/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/#1}{\texttt{#2}}}
 \newcommand{\repoissue}[2]{\href{\repobase/issues/new?template=#1}{#2}}
 \emergencystretch=1.7em
 
@@ -24,7 +24,7 @@
 \title{From Spare Compute to Cumulative Mathematics}
 \subtitle{An open-source strategy for agent-assisted research on hard problems}
 \author{Will Cook}
-\date{August 2026}
+\date{September 2026}
 
 \begin{document}
 \maketitle
@@ -49,7 +49,7 @@ The proposed research commons accepts four independently useful inputs:
 compute, mathematical direction, infrastructure improvements, and review.
 Its outputs are not limited to solved problems.  Proofs, counterexamples,
 finite computations, corrected statements, failed mechanisms, formal no-go
-theorems, and better research tools all reduce the cost or improve the
+theorems, and better research tools can reduce the cost or improve the
 direction of later work.  Accepted mathematical returns enlarge a versioned
 problem corpus; accepted architectural returns improve the process that
 turns future compute and insight into reviewable mathematics.  Provenance and
@@ -115,8 +115,8 @@ mathematics, a proof or counterexample, a review, or an architectural change
 that makes later research more effective.  Each still needs the evidence and
 review appropriate to its claim.
 
-The repository is deliberately centred on hard problems that current systems
-cannot simply dispatch in one prompt.  The purpose is to expose the complete
+The repository is centred on unresolved mathematical questions.  The purpose
+is to expose the complete
 research process: selecting a useful subproblem, reading prior work, testing
 conjectures, recording failed routes, formalising stable steps, explaining the
 result, and preserving the exact statement that remains open.  A solution is
@@ -132,6 +132,40 @@ delta plus the boundary that survived.  It may hand back a theorem, a narrower
 reduction, a killed route, a source correction, or a better next question.
 When the endpoint remains open, that is not a failed run.  Losing the state and
 paying to rediscover it would be.
+
+\subsection*{Choosing what to automate}
+
+The choice of task should state what someone hopes to understand and what
+would change their next mathematical decision.  Recovering an earlier proof,
+checking one calculation, comparing two mechanisms, or explaining a
+counterexample may be the useful task.  A newly available solver is not by
+itself a reason to expand the search.  When the purpose is learning, a hint or
+a check of the reader's own attempt may serve it better than the completed
+argument.  The contributor guide and coupled-goals skill now make this
+distinction explicit; the reading guide offers an optional worked
+countermodel with the hint and explanation separated.
+
+The September 2026 Math and AI declaration identifies conceptual understanding,
+the development of students and ideas, attribution, and human transmission as
+purposes that a race to solve problems can undermine \cite{mathandai2026}.
+For this project, that means choosing automation with the people doing the
+work and respecting the terms on which a question was shared.  An open
+discussion of a student's project or an unfinished approach is not a request
+for an automated search to complete it.  A bounded collaboration can still
+welcome substantial automation, but its purpose and expectations should be
+clear before the search begins.
+
+For a substantial search, the record should preserve the details needed to
+interpret or reproduce it, including alternatives that explained a change of
+direction.  Relevant details may include starting sources, tools, material
+human interventions, effort and the stopping condition; estimates and unknowns
+remain labelled.  Small corrections need no run history.  A reported success
+rate must include unsuccessful attempts.  A timeout records a limit of that
+run; a mathematical obstruction
+requires an argument at its stated scope.  These records can help compare
+methods under declared conditions.  They do not establish a fixed boundary
+between problems that AI can and cannot solve, a distinction raised by Tao in
+his discussion of the changing difficulty landscape \cite{tao2026landscape}.
 
 \subsection*{Two coupled goals, not one endless agent}
 \papersectiontarget{strategy-coupled-goals}
@@ -213,6 +247,15 @@ the ordinary request ``explain this repository to me'' rather than first
 mastering its file layout.  The other skills select and run a frontier,
 coordinate the coupled goals, install the same workflows in a compatible agent
 harness, and describe the present multi-stage process for adding a problem.
+
+The clone-local \repolink{scripts/agent_entry.py}{task-entry command} makes
+that first choice inspectable. A request to ``maintain public infrastructure''
+selects the maintenance workflow and its checks; a request to prove a remaining
+implication selects bounded research and points to the relevant corpus support
+and proof-plan queries. The output names the lane, a small set of documents to
+read, the next commands, and the claim boundary before work begins. These routes
+and their regression checks are implemented. Whether they reduce contributor
+effort or improve distributed research remains unmeasured.
 
 \begin{figure}[H]
 \centering
@@ -504,7 +547,7 @@ an agent explanation, and machine-readable queries.  Each projection must link
 back to its source claims and evidence.  A shorter or friendlier account does
 not acquire permission to strengthen them.
 
-An external runner begins at \repolink{AGENTS.override.md}{the compact agent
+An external runner begins at \repolink{AGENTS.md}{the compact agent
 entry}.  It can inspect all problem frontiers, choose a bounded question, read
 the relevant paper and source neighbourhood, run experiments or edit formal
 code, validate the result, and prepare a return.  None of these steps requires
@@ -998,6 +1041,16 @@ command that could not be run, a source that could not be located, an
 interpretation that was corrected, or a result judged uninteresting are four
 different findings.
 
+That study should also ask what the reader can do after the session: reconstruct
+the decisive step without copying it, explain why a tempting alternative fails,
+locate the prior idea, or formulate a nearby question with a mathematical
+reason for asking it.  Record the actual explanation, correction or follow-up
+use and the help the reader needed.  A completed checklist, shorter reading
+time or a model's judgement that the prose is clear cannot substitute for
+those observations.  Nor should these activities become a compulsory score
+for exploratory work.  They are proposed ways to learn whether the record
+helps people think; this paper reports no such reader outcomes.
+
 \section{Learning from every run}\label{sec:learning}
 
 The research memory has three levels.  Problem-local memory records the exact
@@ -1049,7 +1102,7 @@ improves.  A paper is a reader-facing projection of current mathematical
 judgement, not a chronological dump of agent activity.  The strongest exact
 results and mechanisms should lead; routine scaffolding remains available but
 receives less space.  Comparator remains an exact-interface firewall, and
-Palomar remains an external review route.  The stewardship goal may prepare
+Palomar remains an external registration route.  The stewardship goal may prepare
 and prioritise those objects, but it cannot award novelty, acceptance, or
 canonical status to itself.
 
@@ -1291,7 +1344,7 @@ next attempt genuinely better.
 \section{Public entry routes}\label{app:routes}
 \papersectiontarget{strategy-entry-routes}
 
-The public repository is \href{\repobase}{\texttt{wcook04/plectis-lean-erdos249-257}}.
+The public repository is \href{\repobase}{\texttt{wcook04/plectis-erdos}}.
 The shortest current routes are:
 
 \begin{center}
@@ -1302,7 +1355,7 @@ The shortest current routes are:
 Question & Public route \\
 \midrule
 What is the experiment? & \repolink{README.md}{README.md} \\
-Where should an agent begin? & \repolink{AGENTS.override.md}{AGENTS.override.md} \\
+Where should an agent begin? & \repolink{AGENTS.md}{AGENTS.md} \\
 How can an agent explain the system? &
 \repolink{skills/explain-public-system/SKILL.md}{explain-public-system skill} \\
 How can an agent run the coupled research lifecycle? &
@@ -1333,7 +1386,7 @@ How is credit recorded? &
 \repolink{docs/research-commons/CREDIT_POLICY.md}{credit policy} \\
 What do Comparator and Palomar establish? &
 \repolink{docs/EXTERNAL_VERIFICATION.md}{Comparator guide} and
-\repolink{docs/PALOMAR_QUALIFICATION.md}{Palomar qualification} \\
+\repolink{docs/verification/PALOMAR_QUALIFICATION.md}{Palomar qualification} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1353,6 +1406,17 @@ are production tools, not authors, and supply no independent authority.
 \bibitem{tao2026}
 T. Tao, \emph{Mathematics in the age of AI}, 2026,
 \href{https://arxiv.org/abs/2608.16753}{arXiv:2608.16753}.
+
+\bibitem{mathandai2026}
+Math and AI, \emph{A Severe Misalignment of AI in Mathematics},
+\href{https://mathandai.org/}{declaration},
+accessed 12 September 2026.
+
+\bibitem{tao2026landscape}
+T. Tao, \emph{Discussion of the difficulty landscape for mathematical
+problems}, Mathstodon post, 8 September 2026,
+\href{https://mathstodon.xyz/@tao/117237322160500501}{part 3 of 4},
+accessed 12 September 2026.
 
 \bibitem{boinc}
 D. P. Anderson, \emph{BOINC: A Platform for Volunteer Computing}, Journal of

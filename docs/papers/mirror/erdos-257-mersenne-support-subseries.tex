@@ -41,13 +41,10 @@ For every infinite set $A$ of positive integers with $\sum_{a\in A}1/a<\infty$,
 we give a complete proof that $\sum_{a\in A}(b^a-1)^{-1}$ is irrational
 at every integer base $b\ge2$.  Averaging modular divisor atoms produces
 arbitrarily small positive displacements, which rationality would confine
-to a fixed lattice.  Two extensions accommodate divergent reciprocal mass:
-prime-power weights and positive fractional divisor covers.  Their classes
-are incomparable, but a common finite averaging estimate combines them
-and yields supports in neither class.  A logarithmic incidence invariant
-quantifies the cost of every positive cover.  Finite denominator periods
-and the actual greedy return inequality delimit the remaining arithmetic
-problem.  Universal irrationality remains unresolved.
+to a fixed lattice.  Erd\H{o}s stated this coprimality-free extension; the
+all-base quantifier is already his.  Finite denominator periods and the
+actual greedy return inequality delimit the remaining arithmetic problem.
+Universal irrationality remains unresolved.
 \end{abstract}
 
 \section{Introduction and main results}\label{sec:problem}
@@ -62,8 +59,17 @@ Let $A\subseteq\Npos$ be infinite.  If
 then \(X_A(b)\) is irrational for every integer \(b\ge2\).
 \end{theorem}
 
-The statement is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/Erdos249257/AllBaseReciprocalSupportIrrationality.lean#L395}{\leanlabel{irrational_erdosSupportSeries_of_summable_reciprocal}}.
+The statement is ordinary mathematics in this note.  This checkout has no
+module \texttt{AllBaseReciprocalSupportIrrationality.lean} and no Lean
+declaration \texttt{irrational\_erdosSupportSeries\_of\_summable\_reciprocal}.
+The nearby
+\mword{Erdos249257/CertificateKernel.lean}{10776}{irrational_erdosSupportSeries_pairwise_coprime}{pairwise-coprime support theorem}
+keeps an extra pairwise-coprimality hypothesis together with summable
+reciprocal mass, and is therefore a structured-support theorem, not
+Theorem~\ref{res:reciprocal-support}.  Full support at every integer base is
+the separate
+\mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{full-support irrationality theorem}.
+Arbitrary infinite support remains open.
 
 For infinite $A$ and $N>0$, division of $N$ by each $a\in A$ gives
 \[
@@ -90,10 +96,10 @@ Thus arbitrary infinite thinnings of the powerful integers are included.
 Is $X_A(2)$ irrational for every infinite $A\subseteq\Npos$?
 \end{problem}
 Theorem~\ref{res:reciprocal-support} excludes the entire
-reciprocal-summable region.  Section~\ref{sec:eight-return-extensions}
-gives two different extensions into the reciprocal-divergent region.
-The final section retains the actual arithmetic constraint for a proposed
-rational value.
+reciprocal-summable region.  Later sections record claimed extensions
+into the reciprocal-divergent region; those arguments are not
+independently assessable from this checkout.  The final section retains
+the actual arithmetic constraint for a proposed rational value.
 
 Erd\H{o}s proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the details
@@ -127,6 +133,11 @@ $d/g$ residues, where $g=(Q,d)$.  Summing the geometric progression gives
  =\frac{g}{d(b^g-1)}\le\frac1d.
  \label{eq:gcd-orbit-mean}
 \end{equation}
+For example, take $b=2$, $Q=6$ and $d=4$. Since $(Q,d)=2$, the
+residues $6m\bmod4$ alternate between $2$ and $0$, and the weights
+alternate between $4/15$ and $1/15$. Their mean is $1/6$, exactly
+$2/[4(2^2-1)]$ as in \eqref{eq:gcd-orbit-mean}.
+
 The passage from individual atoms to their infinite sum needs a uniform
 bound.  Counting positive multiples of $d$ gives
 \begin{align*}
@@ -157,17 +168,23 @@ Theorem~\ref{res:reciprocal-support} directly at every integer base.
 
 The order of limits is essential: the observation length tends to infinity
 with the modulus fixed, and only then does the modulus increase.
-Reciprocal summability controls both interchanges.  Beyond that hypothesis,
-the next arguments replace the summable majorant or use a finite estimate
-which remains effective as the modulus changes.
+Reciprocal summability controls both interchanges.
+
+Section~2 contains the complete reciprocal-summable support argument.
+Several stronger extensions in later sections refer to proof supplements
+that are not linked in this public checkout.  Their exposition is therefore
+incomplete here, and they are not promoted as independently assessable
+results of this release.
 
 \section{Extensions beyond reciprocal summability}
 \label{sec:eight-return-extensions}
 
-The two criteria use different controls on the same positive displacement.
-Both remain valid for arbitrary infinite thinnings.  The finite estimate
-in Section~\ref{sec:common-kernel} will put their error terms on one
-observation scheme and prove the mixed extension.
+The two criteria below use different controls on the same positive
+displacement.  The estimates named in this section are not independently
+checkable from the files in this checkout: the cited supplements and
+\texttt{MixedSupportSynchronisation.md} are absent from the public
+packet.  The statements are retained as claimed extensions, not as
+results of this release.
 
 \subsection{Divisibility-weighted and quantitative criteria}
 For a finite nonempty prime set $P$, let
@@ -196,15 +213,16 @@ $P$-parts is at most $2QW/M$, where $W$ is the sum in
 the exponential denominator.  This produces arbitrarily small positive
 shifted-atom displacements.  The integral lattice gap then gives
 irrationality, and the binary atom comparison gives every larger base.
-The supplement gives all truncation estimates and an explicit
-reciprocal-divergent host with gaps $O(\log\log a)$.
+The named truncation estimates and an explicit reciprocal-divergent host
+with gaps $O(\log\log a)$ are referred to a supplement that is not in this
+checkout.
 
 A quantitative consequence also admits reciprocal-divergent supports.
 Put $H_A(x)=\sum_{a\in A,\ a\le x}1/a$, $T_0=2$, $T_{j+1}=2^{T_j}$,
 and $\ell(x)=\min\{j:x\le T_j\}$.  The condition
 $H_A(x)=o(\ell(x))$ implies all-base irrationality.  The proof and the
-sharper rational-phase lower bound are in the analytic proof supplement;
-no positive density of $A$ is required.
+sharper rational-phase lower bound are referred to an analytic supplement
+that is not in this checkout; no positive density of $A$ is required.
 
 \subsection{A finite estimate on common observation scales}\label{sec:common-kernel}
 For $1<B\le2$, positive integers $L,d,M$, and $R\ge0$, put
@@ -245,12 +263,10 @@ For that length the geometric sum and convexity give
  \le\frac{2L}{d(B-1)}.
 \]
 Summing the main terms and these two error budgets proves~\eqref{eq:mixed-finite-kernel}.
-The complete-cycle mass $1/(B-1)$ is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L150}{Lean source}, the bound
-$g/(B^g-1)\le1/(B-1)$ used for complete cycles is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L140}{Lean source}, and the no-wrap
-inequality $\sum_{i<d}B^i\ge dB^{(d-1)/2}$ is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L343}{Lean source}.
+The complete-cycle mass $1/(B-1)$, the bound
+$g/(B^g-1)\le1/(B-1)$ used for complete cycles, and the no-wrap
+inequality $\sum_{i<d}B^i\ge dB^{(d-1)/2}$ are ordinary in this note;
+\texttt{PaperCompleteR7/CoverKernel.lean} is not in this checkout.
 Nonnegative interchange permits summation against any coefficients $c_d$
 with $\sum_dc_d/d<\infty$.
 
@@ -298,7 +314,7 @@ The fixed rational lattice excludes rationality at base two.
 For every $b\ge2$, the elementary atom inequality
 $(b^r-1)/(b^d-1)\le2(2^r-1)/(2^d-1)$ for $0\le r<d$
 gives the same conclusion at base $b$; that inequality is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L232}{Lean source}.
+ordinary in this note (\texttt{CoverKernel.lean} is absent).
 Any prescribed positive divisor can be included in $L$, so the witnesses
 can also be required to be arbitrarily large.
 \end{proof}
@@ -310,7 +326,8 @@ $\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2<\infty$.
 There is a squarefree support $A^\star$ satisfying
 \eqref{eq:strengthened-cover} for which every cover with that older cost,
 and every finite-prime weighted criterion, fails.  Its complete construction
-is in the accompanying \emph{Strengthened Variable-Exponent Cover} proof.
+is referred to \emph{Strengthened Variable-Exponent Cover}, which is not in
+this checkout.
 
 \subsection{What every positive cover must pay}
 The strengthening has a cover-independent boundary.  For finite $F$, write
@@ -331,11 +348,9 @@ $f_{F_j}(n)\ge\eta_jt$.  Otherwise summing contradicts coverage.
 The corresponding weighted majorant is at least $\Psi(t)$.
 Averaging and using $\lfloor X/d\rfloor/X\le1/d$ proves the first
 inequality.  Convexity gives $2^\alpha-1\le\alpha$, and
-$e^u/u\ge e$ proves the second.  Those two scalar steps are
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L170}{Lean source} and
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L177}{Lean source}, and the bound
-$t^\alpha/(2^\alpha-1)\ge e\log t$ at every admissible exponent is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean#L188}{Lean source}.
+$e^u/u\ge e$ proves the second.  Those two scalar steps, and the bound
+$t^\alpha/(2^\alpha-1)\ge e\log t$ at every admissible exponent, are
+ordinary in this note (\texttt{CoverKernel.lean} is absent).
 
 This bound survives optimisation over all covers.  For
 $F(q,P)=\{qd:d\mid\prod_{p\in P}p\}$, where $q\ge2$ and no $p\in P$
@@ -361,12 +376,18 @@ direction, disjoint prime blocks with reciprocal mass of order $2^k$,
 placed in frames $\{2^kd:d\mid M_k\}$, give a support $A_W$ satisfying
 \eqref{eq:weighted-return}; its first logarithmic moments diverge,
 so \eqref{eq:cover-log-obstruction} excludes every strengthened cover.
-Exact constructions and the scalar minimisation are in the accompanying
-\emph{First Logarithmic Moment of Positive Covers} proof.
+Exact constructions and the scalar minimisation are referred to
+\emph{First Logarithmic Moment of Positive Covers}, which is not in this
+checkout.
 These comparisons concern the individual sufficient classes.
 
 \subsection{Combining the two support criteria}
-\begin{theorem}[mixed weighted and cover supports]\label{res:mixed-supports}
+The following mixed statement is a claimed extension.  Its complete
+parameter schedule is referred to
+\texttt{ErdosProblems/Erdos257/MixedSupportSynchronisation.md}, which is
+not in this public checkout, so the argument is not independently
+assessable here and is not a result of this release.
+\begin{theorem}[mixed weighted and cover supports; claimed, complete argument not in this checkout]\label{res:mixed-supports}
 Suppose $E$ has finite weighted mass \eqref{eq:weighted-return} for a
 finite nonempty prime set, and $V$ admits a strengthened positive cover
 \eqref{eq:strengthened-cover}.  Then $X_A(b)$ is irrational for every
@@ -382,9 +403,9 @@ exactly the same finite measure, with factor $1+4Q/M$.
 Choose the two tail budgets so that the mean of their normalised sum is
 less than one.  One common sample then makes both displacements small.
 Infinitude supplies strict positivity and the rational lattice excludes
-rationality.  The full estimates and parameter schedule are in
+rationality.  The full estimates and parameter schedule are referred to
 \texttt{ErdosProblems/Erdos257/MixedSupportSynchronisation.md},
-Theorems~2.1 and~5.1.
+Theorems~2.1 and~5.1, which are not in this checkout.
 \end{proof}
 
 In particular, every infinite subset of $A_W\cup A^\star$ has irrational
@@ -400,16 +421,17 @@ proof of that baseline case.
 
 
 \paragraph{The prime-power regime.}
-A separate ordinary argument proves irrationality for every infinite
+A further claimed extension would give irrationality for every infinite
 subset of the prime powers, at every integer base, including fixed
-dilations and finite modifications.  Its analytic input is
+dilations and finite modifications.  Its intended analytic input is
 Tao--Ter\"av\"ainen~\cite[Theorem~3.1]{taoteravainen2025}.
-The proof uses the reciprocal mass of the selected primes as its scale,
-so arbitrarily slow divergence is retained; higher prime powers produce
-errors only on prime-square events.  The equidistribution, small-prime,
-progression and exceptional-set hypotheses are checked in the supplement.
-The full-prime theorem and the authors' stated full-prime-power extension
-are theirs; no priority claim is made for the returned thinning argument.
+The argument would use the reciprocal mass of the selected primes as its
+scale, so arbitrarily slow divergence is retained; higher prime powers
+produce errors only on prime-square events.  The equidistribution,
+small-prime, progression and exceptional-set hypotheses are referred to a
+supplement that is not in this checkout.  The full-prime theorem and the
+authors' stated full-prime-power extension are theirs.  No arbitrary
+thinning argument is promoted from this release.
 
 The actual greedy membership problem is treated in
 Section~\ref{sec:actual-repairs}; its repair inequality has a different
@@ -438,8 +460,8 @@ coprimality of the reduced denominator}, the order statement is
 exact multiplicative order}, and the size bound is
 \mword{Erdos249257/CertificateKernel.lean}{5260}{lcm_lt_den_finiteErdosSum}{the
 strict denominator inequality}.
-The three clauses hold together in one declaration,
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/Assemblies.lean#L29}{\leanlabel{short_finite_period}}.
+The three clauses are the CertificateKernel declarations just cited;
+\texttt{PaperCompleteR7/Assemblies.lean} is not in this checkout.
 
 Put $L=\operatorname{lcm}(F)$.  Clearing denominators gives
 $D_F\mid b^L-1$, so the upper divisibility for the order is immediate.
@@ -455,8 +477,8 @@ $\operatorname{ord}_{D_F}(b)\mid\varphi(D_F)<D_F$ when $L\ge2$.
 The case $F=\{1\}$ has order one directly.
 
 The same unique-valuation argument permits any signs $\pm1$ on the
-finite summands, and that signed statement is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/SignedFinitePeriodNoncollapse.lean#L507}{\leanlabel{signed_finite_period_noncollapse}}.  Its cyclotomic prime-power lemma, including the
+finite summands; that signed extension is ordinary in this note
+(\texttt{SignedFinitePeriodNoncollapse.lean} is not in this checkout).  Its cyclotomic prime-power lemma, including the
 $2$-adic case, is proved in \emph{Finite Denominator Realisation}.
 The distinction between primes and prime powers is visible in
 \[
@@ -506,7 +528,8 @@ returns.  This mechanism already fails at the full support:
  >(2^N-1)\sum_{a>N}2^{-a}=1-2^{-N}\ge\frac12
  \qquad(N\ge1).
 \]
-The full-support value is nevertheless irrational~\cite{erdos1968}.
+The full-support value is nevertheless
+\mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{irrational}~\cite{erdos1968}.
 A universal proof must therefore control arithmetic behaviour beyond
 small returns.
 
@@ -532,8 +555,8 @@ member of $A$.  Already for the dilated prime support $2\mathcal P$,
 where covariance is taken over a common arithmetic period.
 Thus multiplicative size conditions alone do not supply the independence
 used by the prime argument.  The accompanying \emph{Prime-Incidence
-Boundary} proof identifies the exact dilation condition and accumulated
-covariance error.
+Boundary} proof is not in this checkout; it is not an independently
+assessable result of this release.
 
 \section{Unique coding and arithmetic membership}\label{sec:geometry}
 Let $w_n=(2^n-1)^{-1}$ and
@@ -585,12 +608,9 @@ For every real $x\ge0$, the following are equivalent:
 \]
 \end{theorem}
 
-The cofinal form is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/GreedyRepairCriterion.lean#L175}{\leanlabel{mem_iff_greedyBinaryDefect_cofinal_repairs}}
-and the windowed form with the constant $12$ is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/GreedyRepairCriterion.lean#L192}{\leanlabel{mem_iff_greedyBinaryDefect_sqrt_windows}}.
-Both equivalences hold together in one declaration,
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/Assemblies.lean#L40}{\leanlabel{short_general_repair}}.
+The cofinal and windowed equivalences are ordinary in this note;
+\texttt{GreedyRepairCriterion.lean} and \texttt{PaperCompleteR7/Assemblies.lean}
+are not in this checkout.
 
 \begin{proof}
 Strict domination of each Mersenne weight over its tail implies that a
@@ -657,14 +677,14 @@ The following statements hold.
 \end{theorem}
 
 \noindent The equivalence is
-\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{3507}{one_div_twenty_one_mem_iff_not_fatalAlignedBranch}{kernel checked};
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{3507}{one_div_twenty_one_mem_iff_not_fatalAlignedBranch}{one div twenty one mem iff not fatal Aligned Branch};
 the closed-row compactness step is
-\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5554}{twentyOneCofinalEvenQuotientGreedyDecay_of_closedRows}{kernel checked};
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5554}{twentyOneCofinalEvenQuotientGreedyDecay_of_closedRows}{twenty One Cofinal Even Quotient Greedy Decay of closed Rows};
 and the eventual affine regime is
-\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5658}{twentyOneFatalAlignedBranch_eventually_affine_supercapacity}{kernel checked}.
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5658}{twentyOneFatalAlignedBranch_eventually_affine_supercapacity}{twenty One Fatal Aligned Branch eventually affine supercapacity}.
 The denominator-specific separation theorem additionally proves that every
 closed Boolean quotient row is exactly the canonical quotient-greedy row
-(\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{231}{twentyOneClosedRow_forces_quotientGreedy}{kernel checked}).
+(\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{231}{twentyOneClosedRow_forces_quotientGreedy}{twenty One Closed Row forces quotient Greedy}).
 An aligned crossing from saturation into strict supercapacity forces a
 missing canonical ancestor and a real skipped exponent
 (\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5179}{twentyOneAlignedSaturatedCrossing_forces_canonical_ancestor_hole}{ancestor hole},
@@ -757,25 +777,29 @@ budget: every prime singleton is admitted, while the full prime support
 has displacement greater than $1/3$ at every positive shift.
 
 \section*{Statements and declarations}
-Theorem~\ref{res:reciprocal-support}, the finite-period statement and the
-general repair criterion have formal counterparts in the supplied Lean
-corpus.  Their mathematical assertions, historical antecedents and formal
-coverage are separate entries in the source record.  The principal modules
-are \texttt{AllBaseReciprocalSupportIrrationality.lean},
+Finite-period noncollapse has the counterpart
+\mword{Erdos249257/CertificateKernel.lean}{5246}{finite_period_noncollapse_rat_den}{rational-denominator noncollapse}.
+Full-support irrationality is
+\mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{the full-support theorem};
+pairwise-coprime summable-reciprocal support is
+\mword{Erdos249257/CertificateKernel.lean}{10776}{irrational_erdosSupportSeries_pairwise_coprime}{the pairwise-coprime theorem}.
+Theorem~\ref{res:reciprocal-support} itself is ordinary mathematics in this
+note and has no Lean counterpart in this checkout: the filenames
+\texttt{AllBaseReciprocalSupportIrrationality.lean},
 \texttt{SignedFinitePeriodNoncollapse.lean} and
-\texttt{GreedyRepairCriterion.lean}.
-The source checkpoint is \texttt{\commitshort}; later counterparts are
-identified separately rather than attributed to that checkpoint.
+\texttt{GreedyRepairCriterion.lean} are not present.  The source checkpoint
+is \texttt{\commitshort}; later counterparts are identified separately rather
+than attributed to that checkpoint.
 
-The weighted and cover arguments, the mixed theorem and the cost
-separations use the accompanying ordinary proofs:
-\emph{Strengthened Variable-Exponent Cover},
+The weighted and cover arguments, the mixed theorem, the cost
+separations, and the prime-power thinning argument refer to ordinary
+proofs that are not linked in this public checkout
+(\emph{Strengthened Variable-Exponent Cover},
 \emph{First Logarithmic Moment of Positive Covers},
-\emph{Mixed Support Synchronisation} and \emph{Prime-Incidence Boundary}.
-The mixed proof's complete parameter schedule is in
-\texttt{MixedSupportSynchronisation.md}, Sections 3--5.
-The analytic proof supplement also contains the tower-scale reciprocal-mass
-criterion and the prime-power thinning argument.
+\emph{Mixed Support Synchronisation},
+\emph{Prime-Incidence Boundary}, and the analytic proof supplement).
+Those extensions are therefore not independently assessable here and are
+not promoted as results of this release.
 No universal irrationality conclusion is asserted.
 
 \appendix
@@ -783,50 +807,52 @@ No universal irrationality conclusion is asserted.
 
 The following source links are the public snapshot used by this note.
 
-\mword{Erdos249257/CertificateKernel.lean}{5091}{finite_period_noncollapse}{checked},
-\mword{Erdos249257/CertificateKernel.lean}{5246}{finite_period_noncollapse_rat_den}{checked},
-\mword{Erdos249257/CertificateKernel.lean}{5221}{coprime_base_den_finiteErdosSum}{checked},
-\mword{Erdos249257/CertificateKernel.lean}{5260}{lcm_lt_den_finiteErdosSum}{checked}.
-(\mword{Erdos249257/GenericTailOrbitRigidity.lean}{426}{binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit}{checked}).
-\mword{Erdos249257/RationalSupportCarrySkeleton.lean}{2383}{exists_unbounded_shifted_odd_tail_nat_state_of_support_fraction}{Lean}.
-\mword{Erdos249257/SublogDivisorCoverage.lean}{392}{supportCoeffZeroWindow_length_le_eps_logb_add}{Lean}.
-\mword{Erdos249257/RationalSupportCarrySkeleton.lean}{1480}{one_div_oddOrder_le_reciprocalMass_of_support_fraction}{Lean}.
-\mword{Erdos249257/RationalSupportCarrySkeleton.lean}{2210}{dyadic_support_fraction_reciprocalMass_diverges_or_gt_one}{Lean}.
-\mword{Erdos249257/BooleanMobiusCarry.lean}{949}{exists_normalized_support_fraction_iff_exists_booleanMobiusCarry}{Lean}.
-  \mword{Erdos249257/CertificateKernel.lean}{9045}{irrational_erdosSupportSeries_univ}{formalised here} \\
-  (\mword{Erdos249257/CertificateKernel.lean}{9103}{irrational_erdosSupportSeries_multiples}{checked}) \\
-  \mword{Erdos249257/CertificateKernel.lean}{12811}{irrational_ratWeightSeries_eventuallyPeriodic}{checked here};
+\mword{Erdos249257/CertificateKernel.lean}{5091}{finite_period_noncollapse}{finite period noncollapse},
+\mword{Erdos249257/CertificateKernel.lean}{5246}{finite_period_noncollapse_rat_den}{finite period noncollapse rat den},
+\mword{Erdos249257/CertificateKernel.lean}{5221}{coprime_base_den_finiteErdosSum}{coprime base den finite Erdos Sum},
+\mword{Erdos249257/CertificateKernel.lean}{5260}{lcm_lt_den_finiteErdosSum}{lcm lt den finite Erdos Sum}.
+(\mword{Erdos249257/GenericTailOrbitRigidity.lean}{426}{binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit}{binary Coeff Series rational iff exists tempered Binary Orbit}).
+\mword{Erdos249257/RationalSupportCarrySkeleton.lean}{2383}{exists_unbounded_shifted_odd_tail_nat_state_of_support_fraction}{exists unbounded shifted odd tail nat state of support fraction}.
+\mword{Erdos249257/SublogDivisorCoverage.lean}{392}{supportCoeffZeroWindow_length_le_eps_logb_add}{support Coeff Zero Window length le eps logb add}.
+\mword{Erdos249257/RationalSupportCarrySkeleton.lean}{1480}{one_div_oddOrder_le_reciprocalMass_of_support_fraction}{one div odd Order le reciprocal Mass of support fraction}.
+\mword{Erdos249257/RationalSupportCarrySkeleton.lean}{2210}{dyadic_support_fraction_reciprocalMass_diverges_or_gt_one}{dyadic support fraction reciprocal Mass diverges or gt one}.
+\mword{Erdos249257/BooleanMobiusCarry.lean}{949}{exists_normalized_support_fraction_iff_exists_booleanMobiusCarry}{exists normalized support fraction iff exists boolean Mobius Carry}.
+  \mword{Erdos249257/CertificateKernel.lean}{9045}{irrational_erdosSupportSeries_univ}{irrational erdos Support Series univ} \\
+  (\mword{Erdos249257/CertificateKernel.lean}{9103}{irrational_erdosSupportSeries_multiples}{irrational erdos Support Series multiples}) \\
+  \mword{Erdos249257/CertificateKernel.lean}{12811}{irrational_ratWeightSeries_eventuallyPeriodic}{irrational rat Weight Series eventually Periodic};
   above (\mword{Erdos249257/CertificateKernel.lean}{11672}{irrational_erdosSupportSeries_residueClass}{residue class},
   \mword{Erdos249257/CertificateKernel.lean}{11686}{irrational_erdosSupportSeries_odd}{odd});
-  \mword{Erdos249257/CertificateKernel.lean}{6035}{irrational_erdosSum_factorial_support}{checked here} \\
-  \mword{Erdos249257/CertificateKernel.lean}{6059}{irrational_erdosSum_two_pow_support}{checked here} \\
-  \mword{Erdos249257/CertificateKernel.lean}{10776}{irrational_erdosSupportSeries_pairwise_coprime}{formalised here} \\
-\mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{the exact checked statement};
-(\mword{Erdos249257/CertificateKernel.lean}{6272}{lcm_gap_hypothesis_fails_full_support}{checked}).
-(\mword{Erdos249257/CertificateKernel.lean}{14175}{irrational_or_bpow_mul_eq_intCast_intWeightedErdosSeries_periodic}{checked}).
-\lword{Erdos257/SquarefreeSupportIncidence.lean}{94}{card_squarefreeDivisors}{checked},
-\lword{Erdos257/SquarefreeSupportIncidence.lean}{111}{squarefreeIncidence_eq}{checked},
-\lword{Erdos257/SquarefreeSupportIncidence.lean}{140}{odd_squarefreeIncidence}{checked}.
-(\lword{Erdos257/SquarefreeSupportIncidence.lean}{71}{squarefreeDivisors_eq_image}{Lean}),
+  \mword{Erdos249257/CertificateKernel.lean}{6035}{irrational_erdosSum_factorial_support}{factorial support} \\
+  \mword{Erdos249257/CertificateKernel.lean}{6059}{irrational_erdosSum_two_pow_support}{powers-of-two support} \\
+  \mword{Erdos249257/CertificateKernel.lean}{6082}{erdos257_family_factorial_instance}{factorial-support instance} \\
+  \mword{Erdos249257/CertificateKernel.lean}{6090}{erdos257_family_two_pow_instance}{powers-of-two-support instance} \\
+  \mword{Erdos249257/CertificateKernel.lean}{10776}{irrational_erdosSupportSeries_pairwise_coprime}{pairwise-coprime support} \\
+\mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{full-support irrationality};
+(\mword{Erdos249257/CertificateKernel.lean}{6272}{lcm_gap_hypothesis_fails_full_support}{lcm gap hypothesis fails full support}).
+(\mword{Erdos249257/CertificateKernel.lean}{14175}{irrational_or_bpow_mul_eq_intCast_intWeightedErdosSeries_periodic}{irrational or bpow mul eq int Cast int Weighted Erdos Series periodic}).
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{94}{card_squarefreeDivisors}{card squarefree Divisors},
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{111}{squarefreeIncidence_eq}{squarefree Incidence eq},
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{140}{odd_squarefreeIncidence}{odd squarefree Incidence}.
+(\lword{Erdos257/SquarefreeSupportIncidence.lean}{71}{squarefreeDivisors_eq_image}{squarefree Divisors eq image}),
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{274}{not_exists_carry_certificates_squarefreeSupport}{the carry-aware no-go}
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{292}{not_exists_digitwise_certificates_squarefreeSupport}{the digitwise no-go}.
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{314}{supportCoeff_squarefreeShiftedSupport}{$2^{\omega(n)}$ incidence}
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{335}{irrational_erdosSupportSeries_squarefreeSupport_iff_shifted}{the shift iff}.
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{441}{exists_omega_ge_block}{for $\omega$}
 \lword{Erdos257/SquarefreeSupportIncidence.lean}{485}{exists_digitwise_block_squarefreeShiftedSupport}{for the shifted incidence}.
-\mword{Erdos249257/CertificateKernel.lean}{9467}{irrational_erdosSupportSeries_of_tail}{Lean}
-\mword{Erdos249257/CertificateKernel.lean}{9476}{irrational_erdosSupportSeries_tail_of_irrational}{Lean}.
+\mword{Erdos249257/CertificateKernel.lean}{9467}{irrational_erdosSupportSeries_of_tail}{irrational erdos Support Series of tail}
+\mword{Erdos249257/CertificateKernel.lean}{9476}{irrational_erdosSupportSeries_tail_of_irrational}{irrational erdos Support Series tail of irrational}.
 \mword{Erdos249257/GreedyAchievementSet.lean}{656}{isCompact_mersenneAchievementSet}{compact},
 \mword{Erdos249257/GreedyAchievementSet.lean}{1656}{perfect_mersenneAchievementSet}{perfect},
 \mword{Erdos249257/GreedyAchievementSet.lean}{1672}{isTotallyDisconnected_mersenneAchievementSet}{totally disconnected},
 \mword{Erdos249257/GreedyAchievementSet.lean}{1681}{isNowhereDense_mersenneAchievementSet}{nowhere dense},
 \mword{Erdos249257/GreedyAchievementSet.lean}{996}{volume_mersenneAchievementSet}{of measure one}.
-(\mword{Erdos249257/GreedyAchievementSet.lean}{1458}{mem_mersenneAchievementSet_iff_greedy_survival}{Lean}).
-(\mword{Erdos249257/GreedyAchievementSet.lean}{1784}{three_fourths_not_mem_mersenneAchievementSet}{Lean}).
-(\lword{Erdos257/MersenneSubseriesRigidity.lean}{20}{selectedMersenneTail}{definition},
-\lword{Erdos257/MersenneSubseriesRigidity.lean}{24}{summable_selectedMersenneTail}{Lean}).
-(\lword{Erdos257/MersenneSubseriesRigidity.lean}{30}{selectedMersenneTail_lt_weight}{checked}),
-(\lword{Erdos257/MersenneSubseriesRigidity.lean}{54}{supportedMersenneDigitValue_injective}{checked}),
+(\mword{Erdos249257/GreedyAchievementSet.lean}{1458}{mem_mersenneAchievementSet_iff_greedy_survival}{mem mersenne Achievement Set iff greedy survival}).
+(\mword{Erdos249257/GreedyAchievementSet.lean}{1784}{three_fourths_not_mem_mersenneAchievementSet}{three fourths not mem mersenne Achievement Set}).
+(\lword{Erdos257/MersenneSubseriesRigidity.lean}{20}{selectedMersenneTail}{selected Mersenne Tail},
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{24}{summable_selectedMersenneTail}{summable selected Mersenne Tail}).
+(\lword{Erdos257/MersenneSubseriesRigidity.lean}{30}{selectedMersenneTail_lt_weight}{selected Mersenne Tail lt weight}),
+(\lword{Erdos257/MersenneSubseriesRigidity.lean}{54}{supportedMersenneDigitValue_injective}{supported Mersenne Digit Value injective}),
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{45}{SupportedMersenneDigits}{digit strings vanishing off $J$}
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{49}{supportedMersenneDigitValue}{restricted digit map},
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{63}{supportedMersenneDigitSet}{supported digit set},
@@ -848,7 +874,7 @@ The following source links are the public snapshot used by this note.
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{300}{supportedMersenneAchievementSet_univ}{by definition}.
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{313}{volume_supportedMersenneAchievementSet_finset_compl_scaled}{multiplies the face volume by $2^{|F|}$}
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{349}{volume_supportedMersenneAchievementSet_finset_compl}{gives $2^{-|F|}$}.
-\lword{Erdos257/MersenneSubseriesRigidity.lean}{358}{supportedMersenneAchievementSet_mono}{checked}.
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{358}{supportedMersenneAchievementSet_mono}{supported Mersenne Achievement Set mono}.
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{368}{volume_supportedMersenneAchievementSet_eq_zero_of_compl_infinite}{measure zero}.
 \lword{Erdos257/MersenneSubseriesRigidity.lean}{397}{volume_supportedMersenneAchievementSet_dichotomy}{the formal dichotomy}.
 \mword{Erdos249257/GreedyAchievementSet.lean}{2583}{half_mem_mersenneAchievementSet_iff_greedySkippedSupport_infinite}{the greedy form},
@@ -888,27 +914,27 @@ The following source links are the public snapshot used by this note.
 (\mword{Erdos249257/MobiusSignSupportNoGo.lean}{111}{tsum_negativeMobius_eq_half_add_positiveMobiusTail}{identity},
 \mword{Erdos249257/MobiusSignSupportNoGo.lean}{150}{half_add_one_div_sixty_three_le_tsum_negativeMobius}{bound}).
 \lword{Erdos257/HalfCounterexampleFrontier.lean}{61}{finiteErdosSum_ne_one_div_twenty_one}{the formal theorem}.
-(\mword{Erdos249257/Primitive23Multiplicity.lean}{52}{exists_primitive23_solution_of_eleven_le}{checked}),
-(\mword{Erdos249257/Primitive23Multiplicity.lean}{26}{no_primitive23_solution_ten}{checked}).
+(\mword{Erdos249257/Primitive23Multiplicity.lean}{52}{exists_primitive23_solution_of_eleven_le}{exists primitive23 solution of eleven le}),
+(\mword{Erdos249257/Primitive23Multiplicity.lean}{26}{no_primitive23_solution_ten}{no primitive23 solution ten}).
 (\mword{Erdos249257/Primitive23Multiplicity.lean}{38}{exists_two_primitive23_solutions_eleven}{rank eleven},
 \mword{Erdos249257/Primitive23Multiplicity.lean}{86}{exists_two_primitive23_solutions_mul_ten}{multiples of ten}).
-\mword{Erdos249257/GreedyTrapDynamics.lean}{262}{mersenneAchievementSet_eq_scaledGreedyTrap}{kernel checked},
-\mword{Erdos249257/GreedyTrapDynamics.lean}{189}{scaledGreedyRemainder_tendsto_atTop_of_not_mem}{kernel checked},
-\mword{Erdos249257/GreedyTrapDynamics.lean}{225}{mem_mersenneAchievementSet_iff_scaledRemainder_cofinallyBounded}{kernel checked}.
-\mword{Erdos249257/GreedyTrapDynamics.lean}{152}{rat_mem_mersenneAchievementSet_iff_scaledLowerBranchCofinally}{kernel checked},
-\mword{Erdos249257/GreedyTrapDynamics.lean}{283}{one_div_twentyOne_mem_iff_scaledLowerBranchCofinally}{kernel checked}.
-(\mword{Erdos249257/BooleanMobiusCarry.lean}{2117}{twentyOneGreedyDefect_add_mod_div_eq_scaled_remainder_add_tail}{checked}).
+\mword{Erdos249257/GreedyTrapDynamics.lean}{262}{mersenneAchievementSet_eq_scaledGreedyTrap}{mersenne Achievement Set eq scaled Greedy Trap},
+\mword{Erdos249257/GreedyTrapDynamics.lean}{189}{scaledGreedyRemainder_tendsto_atTop_of_not_mem}{scaled Greedy Remainder tendsto at Top of not mem},
+\mword{Erdos249257/GreedyTrapDynamics.lean}{225}{mem_mersenneAchievementSet_iff_scaledRemainder_cofinallyBounded}{mem mersenne Achievement Set iff scaled Remainder cofinally Bounded}.
+\mword{Erdos249257/GreedyTrapDynamics.lean}{152}{rat_mem_mersenneAchievementSet_iff_scaledLowerBranchCofinally}{rat mem mersenne Achievement Set iff scaled Lower Branch Cofinally},
+\mword{Erdos249257/GreedyTrapDynamics.lean}{283}{one_div_twentyOne_mem_iff_scaledLowerBranchCofinally}{one div twenty One mem iff scaled Lower Branch Cofinally}.
+(\mword{Erdos249257/BooleanMobiusCarry.lean}{2117}{twentyOneGreedyDefect_add_mod_div_eq_scaled_remainder_add_tail}{twenty One Greedy Defect add mod div eq scaled remainder add tail}).
 (\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{32}{twentyOneEvenQuotientGreedySupport}{support},
 \mword{Erdos249257/TwentyOneQuotientGreedy.lean}{39}{twentyOneEvenQuotientGreedyRemainder}{remainder}).
-\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{3507}{one_div_twenty_one_mem_iff_not_fatalAlignedBranch}{kernel checked};
-\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5554}{twentyOneCofinalEvenQuotientGreedyDecay_of_closedRows}{kernel checked};
-\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5658}{twentyOneFatalAlignedBranch_eventually_affine_supercapacity}{kernel checked}.
-(\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{231}{twentyOneClosedRow_forces_quotientGreedy}{kernel checked}).
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{3507}{one_div_twenty_one_mem_iff_not_fatalAlignedBranch}{one div twenty one mem iff not fatal Aligned Branch};
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5554}{twentyOneCofinalEvenQuotientGreedyDecay_of_closedRows}{twenty One Cofinal Even Quotient Greedy Decay of closed Rows};
+\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5658}{twentyOneFatalAlignedBranch_eventually_affine_supercapacity}{twenty One Fatal Aligned Branch eventually affine supercapacity}.
+(\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{231}{twentyOneClosedRow_forces_quotientGreedy}{twenty One Closed Row forces quotient Greedy}).
 (\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5179}{twentyOneAlignedSaturatedCrossing_forces_canonical_ancestor_hole}{ancestor hole},
 \mword{Erdos249257/TwentyOneQuotientGreedy.lean}{5223}{twentyOneAlignedSaturatedCrossing_forces_scaled_greedy_skip}{scaled skip}).
-(\mword{Erdos249257/GreedyTrapDynamics.lean}{275}{one_div_twentyOne_mem_iff_scaledRemainder_cofinallyBounded}{checked}).
+(\mword{Erdos249257/GreedyTrapDynamics.lean}{275}{one_div_twentyOne_mem_iff_scaledRemainder_cofinallyBounded}{one div twenty One mem iff scaled Remainder cofinally Bounded}).
 (\mword{Erdos249257/BooleanMobiusCarry.lean}{2843}{one_div_twenty_one_mem_mersenneAchievementSet_of_defect_le_one_cofinally}{sufficient condition})
-(\mword{Erdos249257/BooleanMobiusCarry.lean}{1892}{twentyOneGreedyDefect_add_six}{checked}).
+(\mword{Erdos249257/BooleanMobiusCarry.lean}{1892}{twentyOneGreedyDefect_add_six}{twenty One Greedy Defect add six}).
 \mword{Erdos249257/BooleanMobiusCarry.lean}{1927}{twentyOneGreedyDefect_add_six_le_div_six_iff_repairLoad}{the exact equivalence}.
 \mword{Erdos249257/TwentyOneQuotientGreedy.lean}{3735}{lastTwentyOneSkip_erdosBorwein_fatalInterval}{an exact one-sided approximation}.
 (\mword{Erdos249257/TwentyOneQuotientGreedy.lean}{3569}{lastTwentyOneSkip_oddDoublingOrder_eq_lcm}{order identity},

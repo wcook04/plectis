@@ -15,7 +15,7 @@
   pdflang={en-GB},
   pdfkeywords={formal mathematics, Lean 4, AI agents, research architecture, claim verification, reproducibility},
 }
-\newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257}
+\newcommand{\repobase}{https://github.com/wcook04/plectis-erdos}
 % BEGIN generated_semantic_coverage_macros
 \newcommand{\SemanticAuthoredTheoremLike}{145,515}
 \newcommand{\SemanticAuthoredInterpreted}{139,817}
@@ -24,14 +24,14 @@
 \newcommand{\SemanticStructuralOnly}{5,698}
 \newcommand{\SemanticAuthoredPercent}{96.1}
 % END generated_semantic_coverage_macros
-\newcommand{\repolink}[2]{\href{\repobase/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/#1}{\texttt{#2}}}
+\newcommand{\repolink}[2]{\href{\repobase/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/#1}{#2}}
 \emergencystretch=1.7em
 
 \runninghead{Problem-sized Lean worlds}
 \title{Problem-Sized Lean Worlds}
 \subtitle{An authority-separated architecture from AI search to public mathematical claims}
 \author{Will Cook}
-\date{August 2026}
+\date{September 2026}
 
 \begin{document}
 \maketitle
@@ -51,7 +51,7 @@ worlds}, not isolated theorem files. Each world joins formal declarations,
 experiments, source literature, failed mechanisms, open obligations, and a
 reviewed public boundary. Formal dependencies, authored mathematical meaning,
 and public claims remain separate graphs, so a dense connection cannot make a
-claim stronger. An agent enters a world through a compiled comprehension
+claim stronger. In the private workbench, an agent enters a world through a compiled comprehension
 packet: it federates the corpora by content digest, states the endpoint and
 claim ceiling before any route, separates proved results from open producers
 and closed routes, and declares both what it omitted and when it exceeded its
@@ -126,6 +126,17 @@ it supports research, agent coordination, computational experiments,
 formalisation, exposition, and controlled public projection. Private machinery
 explains how the work was produced; it supplies no hidden proof authority to
 the public clone.
+
+The central engineering problem is preserving the meaning of a result when
+it crosses these representations. A theorem name locates a declaration; it
+does not specify which informal sentence that declaration supports. Conversely,
+a paper can explain a sound argument whose steps have not all been formalised.
+The implementation therefore records the correspondence explicitly and checks
+that subsequent edits preserve it. Section~\ref{sec:example} follows one such
+correspondence from a finite certificate to its public limitation. The
+\repolink{docs/ARCHITECTURE.md}{public architecture guide} supplies the
+clone-local map; the private mechanisms below describe the production design
+and are not additional services that a reader must install.
 
 \paragraph{The novelty claim and its ceiling.}
 This paper does not claim to have invented agents, queues, file locks, theorem
@@ -244,7 +255,8 @@ external review route cannot alter what Lean checked.
 \end{tikzpicture}
 \caption{The end-to-end architecture. The dashed vertical line marks the
 release boundary. Everything to its right remains usable without the private
-workbench.}
+workbench. The labels describe the production deployment; a contributor can
+also select and test new mathematics using the public clone.}
 \label{fig:lifecycle}
 \end{figure}
 
@@ -257,11 +269,12 @@ later agent does not have to rediscover them. The final feedback step turns a
 local success or failure into a reusable route, check, or warning when it
 genuinely generalises.
 
-The public \path{scripts/proof_cockpit.py} card gives an agent this separation.
+The public \repolink{scripts/proof_cockpit.py}{proof-cockpit card}
+gives an agent this separation.
 It reads checkout and toolchain
 identity, corpus scale, registered open propositions, problem obligations, and
 workbench sessions from public files.  It imports no private state and adds no
-evidence layer to Figure~\ref{fig:architecture}.  Its \texttt{--check} mode
+evidence layer to Figure~\ref{fig:lifecycle}.  Its \texttt{--check} mode
 runs the claim-registry, cold-clone, and projection-freshness checks; neither
 mode invokes Lean or decides whether prose follows from a theorem.
 
@@ -313,17 +326,12 @@ solved.}
 \label{fig:job-lifecycle}
 \end{figure}
 
-The current owners are \texttt{explain-public-system} for reader orientation,
-\texttt{run-coupled-research-goals} for discovery--stewardship coordination,
-\texttt{mine-open-problem} for invocation and research,
-\texttt{lean-concurrent-validation} for bounded Lean checks,
-\texttt{propagate-research-consequences} for downstream reconciliation,
-\texttt{erdos-research-return} for packaging and maintainer assimilation, and
-\texttt{submit-pull-request} for preparing the Git proposal. The separate
-\texttt{add-open-problem} lifecycle moves through proposal, incubating formal
-lane, and fully indexed public world. \texttt{public-mathematical-writing}
-governs a paper projection when propagation reaches exposition. These names
-are repository entrypoints rather than a second claim taxonomy.
+The stable roles are orientation, bounded discovery, Lean validation,
+consequence propagation, return packaging, proposal, and maintainer adoption.
+Problem admission and manuscript revision have their own bounded lifecycles.
+The live \repolink{skills/README.md}{skill catalogue} lists the current entry
+names and routes to their definitions; those definitions own the executable
+details. This paper owns the lifecycle and the authority boundary.
 
 \section{The private workbench}\label{sec:private}
 
@@ -454,34 +462,29 @@ available transition in that state. It may close a lemma, produce a
 counterexample, sharpen a reduction, repair a source claim, or expose a
 smaller obstruction. Merely producing more activity is not a transition.
 
-A representative internal trace makes this less abstract. Over fifteen
-successive turns, one problem-directed run recorded 313 visible progress
-updates and 3,491 command events, with linked workers exploring separate
-analytic, computational, and formal lanes. The movement was not a straight
-line from prompt to proof. Numerical probes exposed structure; exact arithmetic
-replaced promising samples; several attractive strengthenings were killed by
-counterexamples; partial inequalities were narrowed to their valid domains;
-Lean targets were attempted only after an ordinary mathematical kernel had
-stabilised; and successful local results were propagated into the problem
-frontier before the next search began. While long exact computations ran, the
-controller advanced independent work instead of repeatedly polling them.
+The public continuation interface makes part of this design inspectable.
+\repolink{scripts/continue_research.py}{The continuation program}
+records a bounded session at a named starting commit, checks a returned result
+against that session, and packages the return for inspection. It composes
+existing query, workbench, and return-validation tools. It does not execute
+commands merely because they appear in a contributor's return. Its optional
+replay checks stored session probes; it is not a repository build or release
+check. Persistence here means that the next contributor can recover the
+question, starting source, attempted work, and evidence without recovering the
+original conversation.
 
-That trace also displays why the architecture keeps several evidence layers.
-Its compact narrative reported no observed changed paths even though its own
-turn summaries referred to landed commits. This is not evidence that nothing
-changed, nor that the summaries were correct. It is evidence that a compressed
-trace has an observation boundary. Repository state, command results, diffs,
-formal builds, and commit objects must settle the question. Likewise, four
-turns lacked complete closeout events and only sixteen of forty-two linked
-session outcomes appeared in the compact projection. Completeness is therefore
-an explicit field, not an impression created by fluent prose.
+A compressed trace has an observation boundary. A missing path or worker
+outcome in a summary is not evidence that no change occurred. Repository
+state, command results, diffs, formal builds, and commit objects must settle
+that question. Completeness is therefore an explicit field in the workbench's
+design, not an impression created by fluent prose. Private activity traces
+are production records; this paper does not use their event counts as public
+evidence of throughput or successful mathematical progress.
 
-The example is illustrative rather than a throughput benchmark. It shows the
-control shape actually used: search and validation interleave; failed routes
-remain informative; concurrency is conditional on separable work; and every
-claimed advance must eventually cross from a narrative of activity into an
-authority-bearing artefact and receipt. The design aim is continuous
-mathematical pressure with discrete, inspectable commitments. A run may stop
+The design interleaves search and validation, retains scoped failed routes,
+and permits concurrency when work can be separated. Every claimed advance
+must cross from a narrative of activity into an authority-bearing artefact and
+receipt. A run may stop
 because the next step needs an unavailable validator, a human decision, or a
 new idea. It must then preserve a useful re-entry point rather than manufacture
 busywork or quietly weaken the endpoint. Long-running computation is likewise
@@ -535,9 +538,10 @@ uses. Neither role receives the other's authority.
   node[below left, font=\tiny\sffamily, align=center]
   {ranked next question, missing evidence,\\discriminating test} (mine.south);
 \end{tikzpicture}
-\caption{The coupled continuous-goal lifecycle. A landed mathematical delta
-wakes stewardship; a changed appraisal or consumer gap can change the next
-mining target. An unchanged corpus produces no model heartbeat.}
+\caption{The coupled continuous-goal protocol. A landed mathematical delta
+is a reason to resume stewardship; a changed appraisal or consumer gap can
+change the next mining target. The protocol calls for a new pass only after
+a relevant change.}
 \label{fig:coupled-goals}
 \end{figure}
 
@@ -563,18 +567,22 @@ agreement, or polished exposition into a proof. Lean validation, intended-
 meaning review, prior-art assessment, and community acceptance remain
 distinct gates.
 
-The clone-local \texttt{run-coupled-research-goals} skill operationalises this
-division by invoking \texttt{mine-open-problem} and
-\texttt{propagate-research-consequences} as separate jobs with source-pinned
-hand-offs. A single agent may execute the two jobs sequentially; two tasks,
+The clone-local
+\repolink{skills/run-coupled-research-goals/SKILL.md}{coupled-goals skill}
+specifies this division using
+\repolink{skills/mine-open-problem/SKILL.md}{bounded discovery} and
+\repolink{skills/propagate-research-consequences/SKILL.md}{consequence propagation}
+as separate jobs with source-pinned hand-offs. These are instructions for an
+agent or controller, not a resident scheduler. A single agent may execute the
+two jobs sequentially; two tasks,
 machines, models, or people may also hold the roles. The separation is logical,
 not a requirement to buy two computers.
 
-The coupling is event-driven. A newly landed theorem, counterexample,
-authority change, paper correction, or external review outcome can wake the
-stewardship goal. Its output is a source-pinned appraisal and a changed
+The prescribed coupling is event-driven. A newly landed theorem, counterexample,
+authority change, paper correction, or external review outcome supplies the
+trigger for a stewardship pass. Its output is a source-pinned appraisal and a changed
 consumer or frontier disposition, not a recurring status report. That output
-may in turn wake the discovery goal with a stronger target, a missing
+may in turn direct discovery toward a stronger target, a missing
 hypothesis, a counterexample request, or the cheapest discriminating
 computation. If neither the mathematical frontier nor a downstream consumer
 has changed, both goals yield rather than polling one another.
@@ -649,9 +657,10 @@ the existing Lean and semantic graph, then uses proof search and bounded
 computation to probe promising gaps and patterns that may be too distributed
 for an unaided manual scan. The checking pass records the kernel result,
 reconciles formal and informal statements, and packages either a theorem, a
-counterexample, or a diagnosed failure. Accepted nodes and edges improve the
-next search; reusable process lessons improve heuristics and context, never
-mathematical truth. When a mechanism comes from the literature, its annex
+counterexample, or a diagnosed failure. Accepted nodes and edges become inputs
+to the next search; whether they improve it is an evaluation question.
+Reusable process lessons can change heuristics and context, never mathematical
+truth. When a mechanism comes from the literature, its annex
 record, locator, and public citation preserve the original authorship and
 claim scope while Lean checks only the new formal statement. Thus the cycle
 is: ground sources, navigate, compute, conjecture, formalise, interpret,
@@ -696,30 +705,32 @@ participation and credit protocol.
 \subsection{Problem-sized Lean worlds and bounded theorem neighbourhoods}
 
 Large formal corpora need several maps because ``everything is indexed'' is
-not the same as ``everything is understood.'' The declaration atlas answers
-``where is it?''; exact imports and dependencies answer ``what does it formally
-use?''; authored semantic relations answer ``what role does it play?''; and the
-claim graph answers ``what may the project publicly say?'' Generated or inferred
-edges can select evidence, but only source-specific gates can supply proof,
-interpretation, or publication authority.
+not the same as ``everything is understood.'' The
+\repolink{docs/declaration_atlas.json}{declaration atlas} locates statements.
+The \repolink{scripts/query_corpus.py}{dependency queries} distinguish module
+imports from constant references extracted from elaborated Lean declarations;
+an unavailable or stale extraction is not evidence that a dependency is absent.
+The \repolink{docs/semantic/README.md}{authored semantic layer} explains a
+statement's mathematical role, including specialisation, transport, and scoped
+obstruction. The \repolink{docs/claims.json}{claim record} connects selected
+results to reviewed wording and exact open propositions. These maps answer
+different questions about the same source. A dependency can guide premise
+selection without establishing an authored analogy; an analogy can suggest a
+proof without supplying one.
 
-The scale is already problem-sized. At the August 2026 snapshot the attached
-public corpus described 1,024 Lean modules and 153,396 declarations. The much
-deeper private record for Problem 1041 contained 177 exact results, seven open
-producers, 72 negative results, 134 Lean modules, and 335 executable experiment
-programs. Its public research-corpus manifest alone recorded 685 files and 35
-selected strongest results. These are dated inventory facts, not a throughput
-benchmark; generated certificate families also make raw theorem counts a poor
-measure of mathematical value.
-
-Depth is not readiness. The canonical public 1041 library currently has two
-integrated Lean modules, while its separately governed public research export
-has 125 Lean sources and its private world is larger again. The public route
-memory still records no reviewed 1041 claim family. Across the whole semantic
-corpus, structural linkage is broad, but only 25 statement nodes and eight
-relations carry digest-bound semantic-review receipts at this snapshot. These
-differences are intentional status boundaries: a discoverable declaration is
-not thereby understood, integrated, reviewed, or publishable.
+The public Problem 1041 materials illustrate why these distinctions matter.
+The \repolink{docs/problems.json}{problem index} identifies the integrated
+library and its separately governed research export. The export's
+\repolink{research_corpus/Erdos1041/CORPUS_MANIFEST.json}{manifest} inventories
+its files; its
+\repolink{research_corpus/Erdos1041/FRONTIER.md}{frontier account} records
+surviving mechanisms and refutations; and its
+\repolink{research_corpus/Erdos1041/STRONGEST_RESULTS.json}{selected-results map}
+binds statements to source with their premises and falsifiers. An exported
+file, an integrated module, a semantic interpretation, and a reviewed public
+claim are different objects. The declaration and semantic inventories expose
+their respective coverage; generated certificate families make raw theorem
+counts a poor measure of mathematical value.
 
 An agent does not receive this world as one prompt. First the problem cockpit
 fixes the endpoint, status, claim ceiling, and canonical frontier. It keeps open
@@ -727,19 +738,33 @@ producers distinct from the target so a promising route cannot silently replace
 the problem. Next a bounded neighbourhood selects the strongest relevant
 results, exact source coordinates, imports, consumers, alternative formulations,
 experiments, counterexamples, no-gos, and literature. It labels every item by
-evidence class and emits an omission receipt with an expansion route. One 1041
-packet exposed only four of 134 Lean modules, four of 335 experiments, and four
-of 55 no-go notes; designed omission, not exhaustive loading, made the context
-usable. When an exact path is claimed, a local connection card can put its
+evidence class and emits an omission receipt with an expansion route. This is
+designed omission, not exhaustive loading: a bounded answer must expose how to
+recover the source outside its selection. When an exact path is claimed, a local connection card can put its
 prerequisites, sibling mechanisms, consumers, falsifiers, and validation target
 before broader retrieval.
 
 \subsection{Comprehension before the mathematics}
 \papersectiontarget{systems-comprehension}
 
-The neighbourhood is compiled, not remembered. Before attempting mathematics an
-agent asks a working-memory compiler for a packet conditioned on its query, and
-that packet, rather than the repository, is what it reasons over.
+The private workbench compiles this neighbourhood into a packet conditioned on
+the agent's query. The following federation and inference-workspace behaviour
+belongs to that workbench. In a public clone, the independently usable
+\repolink{scripts/query_corpus.py}{corpus query tool} supplies local claim,
+declaration, dependency, and connection-card routes; it does not require the
+private compiler or its attached corpora.
+
+Infrastructure questions have a separate entry path. The private workbench
+offers a small choice of architecture, source layout, local connections,
+validation, experiment evidence, and paper ownership; the agent selects an
+existing owner without scanning the proof corpus to discover its organisation.
+The public clone's \repolink{scripts/agent_entry.py}{task-entry tool} routes
+architecture and navigation work to its
+\repolink{skills/maintain-public-infrastructure/SKILL.md}{infrastructure
+maintenance workflow}. In both settings, source topology locates work, module
+imports guide inspection, and a build plan selects validation. These routes
+help an agent choose what to inspect or run; passing their structural checks
+does not establish a mathematical claim.
 
 Federation works by identity. Each corpus keeps its own authority and nothing
 is copied into a central index. The compiler holds a compact descriptor and a
@@ -796,7 +821,9 @@ reason, or mark outside scope. Empty lexical search is not evidence of no
 consequence, and no projection may bulk-strengthen a family of claims. A formal
 evidence cell carries the result, its explicit non-claim, evidence class,
 source and receipt links, and next unresolved obligation through this fan-out.
-The public \texttt{propagate-research-consequences} skill implements the same
+The public
+\repolink{skills/propagate-research-consequences/SKILL.md}{consequence-propagation skill}
+specifies the same
 discipline without depending on the private workbench. For work returned from
 an older clone, it runs once against the contributor's recorded starting
 commit and again after the reviewed change has been reconciled with current
@@ -820,7 +847,12 @@ alter the durable control plane without altering mathematical truth.
 The public checkout begins at a deliberate boundary. It contains every file
 needed to inspect its claims and replay its checks. It does not call back into
 the private workbench, and no public theorem depends on an unpublished private
-lemma. The larger workflow is provenance: it explains production, not truth.
+lemma. A build also needs the public toolchain and dependency versions recorded
+by \repolink{lean-toolchain}{lean-toolchain} and
+\repolink{lake-manifest.json}{lake-manifest.json}; a fresh checkout may need to
+download them. Self-contained here concerns source and authority, not an
+offline installation. The larger workflow is provenance: it explains
+production, not truth.
 
 The repository has two Lean roots. The reviewed root contains the established
 249/257 publication lane. The problem-owned expansion root contains work on six
@@ -875,8 +907,11 @@ authority from the other, and neither is a public mirror of the private root.
 
 Comparator protects a narrow but important boundary. Selected propositions are
 declared again in a challenge module without their proofs. A solution module
-must provide terms of those exact types. The configuration pins the permitted
-axioms, the modules, and a runtime receipt. A named altered statement must fail,
+must provide terms of those exact types. The
+\repolink{verification/comparator.json}{configuration} names the permitted
+axioms, modules, and runtime receipt; the
+\repolink{docs/EXTERNAL_VERIFICATION.md}{verification guide} explains their
+separate roles. A named altered statement must fail,
 which checks that the harness has not become vacuous.
 
 Comparator therefore answers: ``Does the proof-bearing corpus still implement
@@ -892,8 +927,11 @@ Comparator's roster is an evidence inventory, not a ranking. A local
 review-selection layer adds the missing editorial step. It groups declarations
 into result families, ranks them by mathematical signal, keeps the hard
 mechanism and surviving boundary adjacent, and selects a small review
-portfolio. A qualification check can say that the local packet satisfies its
-structural requirements. Its records sit under a Palomar-named showcase file
+portfolio. The
+\repolink{docs/verification/PALOMAR_QUALIFICATION.md}{qualification record}
+can say that the local packet satisfies its structural requirements. The
+\repolink{docs/PALOMAR_RESULT_SHOWCASE.json}{local selection record}
+uses Palomar's name
 because selected families may then be submitted to the external Palomar
 registry of Lean-verified mathematics. Palomar's own documentation describes
 mechanical proof checks and automated editorial filtering; it performs no human
@@ -912,10 +950,15 @@ status.
 \subsection{Publication and propagation}
 
 After formal proof and statement reconciliation, a result may enter an authored
-paper, a claim record, a Comparator packet, and a local review unit. Each is a
-separate projection with a separate ceiling. A public release is made only
-after the Lean build and the release-surface checks pass, and publication
-remains a human action.
+paper, a claim record, a Comparator packet, and a local review unit. Each
+records a different decision with a different ceiling. The
+\repolink{docs/publication_contract.json}{publication contract} inventories
+the manuscripts and rendered files. The
+\repolink{scripts/check_release.py}{release program} and
+\repolink{.github/workflows/lean.yml}{continuous-integration workflow}
+check the recorded relationships. Release policy requires both the Lean build
+and the public-surface checks; the Python release program does not itself
+elaborate Lean.
 
 The return path is equally important. A proof failure may improve a
 formalisation heuristic. A counterexample may close a family of tempting
@@ -975,21 +1018,40 @@ Erd\H{o}s Problem 249 asks whether
 S=\sum_{n\ge1}\frac{\varphi(n)}{2^n}
 \]
 is irrational, where \(\varphi(n)\) is Euler's totient function
-\cite{erdosgraham}. The development reduces irrationality to a family of exact
-non-integrality certificates. Along the diagonal
-\(H_t=\operatorname{lcm}(1,\ldots,t)\), write \(\mathrm{Cert}(t)\) for the
-existence of the required finite certificate.
+\cite{erdosgraham}. We use this example because its finite and unbounded
+statements can be followed through every publication layer; it is not a
+ranking of the corpus's strongest mathematics.
+
+The development reduces irrationality to exact non-integrality certificates.
+For \(t\in\mathbb{N}\), let
+\(H_t=\operatorname{lcm}(1,\ldots,t)\), with \(H_0=1\), and write
+\[
+\mathrm{Cert}(t)\quad\Longleftrightarrow\quad
+\exists L\in\mathbb{N},\ \mathrm{certifiedKill}(H_t,H_t,L).
+\]
+The \repolink{lean/Erdos249257/TotientTailPeriodKiller.lean\#L70-L74}{certificate predicate}
+uses a finite integer truncation of the difference of two totient tails.
+It requires the truncation's residue modulo \(2^L\) to avoid both ends of
+the residue interval by an explicit tail-error bound. Thus a certificate
+can be checked using finite integer arithmetic, although its consequence
+concerns an infinite series.
 
 Lean checks the finite theorem
 \[
 \forall t\le82,\quad \mathrm{Cert}(t).
 \]
+This is the
+\repolink{lean/ErdosProblems/Skip/LadderT67.lean\#L71264-L71271}{finite diagonal-certificate theorem}.
 The endpoint needs an unbounded supply:
 \[
 \forall T,\quad \exists t>T,\quad \mathrm{Cert}(t).
 \]
-The development proves that the unbounded statement is equivalent to the
-irrationality claim. It does not prove the missing implication from the finite
+The
+\repolink{lean/Erdos249257/LcmConeFlatness.lean\#L426-L435}{diagonal-supply equivalence}
+proves that this unbounded statement is equivalent to irrationality.
+The source uses \(\forall t_0,\exists t\ge t_0\); over natural numbers this
+is equivalent to the strict-cutoff form displayed here.
+It does not prove the missing implication from the finite
 range to the unbounded statement. No matter how large a fixed checked bound is,
 a larger cutoff exists.
 
@@ -1018,7 +1080,12 @@ reconstructed against the repaired checklist. The other nine edits were not
 rerun against the extended checklist. The finite theorem makes no
 \(t=83\) or cofinal claim. These limitations are part of the evidence, not
 footnotes to be discarded after the repair.
-The evidence marks a coverage boundary, not a reliability score.
+The \repolink{docs/publication_evidence.json}{historical evidence record}
+marks a coverage boundary, not a reliability score. The
+\repolink{research/experiments/publication_mutations.json}{reconstruction manifest}
+and \repolink{scripts/run_publication_mutations.py}{mutation harness}
+make the registered test edits inspectable; they are not the missing original
+run logs.
 The post-repair witness accepts the current README and
 rejects a test copy containing the false clause.
 
@@ -1047,13 +1114,13 @@ URLs.
 Question & Start here \\
 \midrule
 How does the public repository fit together? &
-\repolink{ARCHITECTURE.md}{ARCHITECTURE.md} \\
+\repolink{docs/ARCHITECTURE.md}{docs/ARCHITECTURE.md} \\
 What may the project say, and what remains open? &
 \repolink{docs/claims.json}{docs/claims.json} and
 \repolink{docs/methodology.json}{docs/methodology.json} \\
 Where is the checked mathematics? &
-\repolink{Erdos249257.lean}{Erdos249257.lean} and
-\repolink{ErdosProblems.lean}{ErdosProblems.lean} \\
+\repolink{lean/Erdos249257.lean}{lean/Erdos249257.lean} and
+\repolink{lean/ErdosProblems.lean}{lean/ErdosProblems.lean} \\
 How can I navigate without reading the whole corpus? &
 \repolink{docs/ORIENTATION.md}{docs/ORIENTATION.md} and
 \repolink{scripts/query_corpus.py}{scripts/query\_corpus.py} \\
@@ -1061,7 +1128,7 @@ What exactly does Comparator check? &
 \repolink{docs/EXTERNAL_VERIFICATION.md}{docs/EXTERNAL\_VERIFICATION.md} and
 \repolink{verification/comparator.json}{verification/comparator.json} \\
 What does the local review selection qualify? &
-\repolink{docs/PALOMAR_QUALIFICATION.md}{docs/PALOMAR\_QUALIFICATION.md} and
+\repolink{docs/verification/PALOMAR_QUALIFICATION.md}{PALOMAR\_QUALIFICATION.md} and
 \repolink{docs/PALOMAR_RESULT_SHOWCASE.json}{docs/PALOMAR\_RESULT\_SHOWCASE.json} \\
 Which papers exist and what question does each answer? &
 \repolink{docs/papers/README.md}{docs/papers/README.md} \\
@@ -1116,7 +1183,9 @@ in this paper, which of four kinds of support stands behind it.
 
 \begin{center}
 \small
-\begin{tabular}{p{3.1cm}p{5.2cm}p{5.2cm}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth}
+                    >{\raggedright\arraybackslash}p{0.35\linewidth}
+                    >{\raggedright\arraybackslash}p{0.37\linewidth}@{}}
 \toprule
 Kind of support & Example & What may be said \\
 \midrule
@@ -1171,22 +1240,29 @@ computation may fan out widely while mutation remains path-leased and heavy
 Lean work is narrower. This prevents ``more agents'' from meaning ``more
 processes contending for the same compiler and checkout.''
 
-Lean validation uses a semantic single-flight queue. A request is identified
-by the reachable source, logical targets, toolchain, dependency lock, and
-authority mode. Its command string and working directory do not determine
-request identity.
-Equivalent requests share one owner and may reuse a completed receipt; changed
-inputs require a fresh build. Distinct requests that would still compete for
-the same host-wide Mathlib resource are serialized by a shared conflict key.
-An interactive agent that cannot acquire the slot receives a typed deferral,
-not a false theorem failure: it can advance result-independent work while a
-detached process owns the queued build. Thus the fleet may grow much wider
-than the expensive validator without corrupting the evidence or wasting every
-agent as a queue supervisor.
+Public Lean validation uses
+\repolink{scripts/validation_singleflight.py}{single-flight request coordination}:
+equivalent requests share a detached owner and may reuse its completed receipt.
+The request key conservatively includes all visible Lean source content,
+build authorities, toolchain and dependency-lock identities, and the normalised
+command, which includes the targets. It is independent of the checkout path;
+unrelated paper edits do not change the Lean request key. This is content-based
+reuse, not a claim that arbitrary equivalent commands or proofs are recognised.
+
+Distinct requests still compete for the same host-wide Mathlib resource.
+The worker attempts a nonblocking host lock. If another Lean validation owns
+it, the request ends with a typed resource deferral, exit~75, and must be
+submitted again after that owner finishes. The transient state named
+\texttt{queued} does not promise automatic eventual execution. The ordinary
+\repolink{scripts/lean_fast_build.py}{focused-build wrapper} submits and waits
+for its result; the explicit submit interface returns a receipt that can be
+collected later. This lets a controller advance independent work while an
+admitted build runs. A deferral reports resource availability, not a failed
+mathematical theorem.
 
 There are consequently four separate scaling limits: logical search width,
 safe concurrent mutation, mechanical validation throughput, and scarce expert
-review. Path leases govern the second, the Lean queue governs the third, and
+review. Path leases govern the second, validation admission governs the third, and
 review-selection ranking governs the fourth. Fan-in joins their outputs only after
 the appropriate receipts exist. This separation is what allows additional
 models and compute to enlarge exploration without silently enlarging any
@@ -1410,30 +1486,28 @@ The first reads committed public metadata; the second checks the claim
 registry, cold-clone contract, and orientation freshness.  Neither checks a
 proof.  Formal authority begins with the pinned Lean build named by the card.
 
-\paragraph{Dated navigation counts.}
-At the semantic review's snapshot, taken before the eight-problem
-consolidation of 2026-08-02 enlarged the corpus to 153,238 declarations, all
-151,761 then-live declarations were inventoried and routed, and all
-\SemanticAuthoredTheoremLike\ author-written theorem-like
-declarations had an exact node link.  Of those,
-\SemanticAuthoredInterpreted\ (\SemanticAuthoredPercent\%) participated in
-authored mathematical interpretations: \SemanticDirectEvidence\ as exact
-proposition evidence and \SemanticContextual\ as bounded certificate- or
-module-family context.  The remaining \SemanticStructuralOnly\ were linked only
-through exact source-module and normalised-signature families, not authored
-mathematical paraphrases.  Every declaration selected for a public claim had
-an authored route.  The command
-\texttt{python3 scripts/query\_semantic.py coverage} derives these volatile
-navigation counts and checks their references.  They do not measure semantic
-review quality or public-claim completeness.
+\paragraph{Source versions and coverage.}
+Repository source links in this revision resolve at public commit
+\texttt{9b654f4cce44}; they identify inspectable source, not a new validation
+run. The \repolink{docs/publication_entry_packet.json}{publication entry packet}
+separately identifies the formal-source checkpoint, release identity, and
+evidence owners. A reader working from another revision should query those
+identities again before comparing its output with this paper.
 
-The paper inventory, \path{docs/publication_contract.json}, records source
-and PDF cryptographic hashes and validation commands. The worked-example evidence is recorded in
-\path{docs/publication_evidence.json}. The reconstruction file
-\path{experiments/publication_mutations.json} specifies the deliberately false
-edits and their limitations. Comparator's public configuration and receipt are
-named by \path{verification/comparator.json}; the local review-selection readiness and
-ranking surfaces are named by the corresponding files under \path{docs/}.
+The \repolink{scripts/query_semantic.py}{semantic query tool}'s
+\texttt{coverage} command distinguishes exact proposition evidence, authored
+family context, and structural-only linkage. Contextual membership does not
+mean that every member received statement-level mathematical review. Coverage
+counts belong to the generated receipt at its source digest; they do not
+measure review quality, mathematical value, or public-claim completeness.
+
+The \repolink{docs/publication_contract.json}{paper inventory} records source
+and PDF cryptographic hashes and validation commands. The
+\repolink{docs/publication_evidence.json}{worked-example evidence} and
+\repolink{research/experiments/publication_mutations.json}{reconstruction manifest}
+specify the deliberately false edits and their limitations. Comparator's
+configuration and the local qualification and selection records are linked
+in Section~\ref{sec:assurance}.
 These artefacts identify what was checked. They do not interpret unrestricted
 prose or confer external acceptance.
 

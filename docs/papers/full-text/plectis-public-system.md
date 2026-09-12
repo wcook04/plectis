@@ -371,6 +371,11 @@ A typed hypothesis handoff makes the next outside contribution more specific: it
 
 Use the appendix’s no-install block and select the version analysed here. The tour describes the checkout but does not choose a component claim. Ask the repository to find the audio example with
 
+```
+PYTHONPATH=src python3 -m plectis comprehend \
+  --first-action "audio level calculation" --format text
+```
+
 The response identifies the audio component, but do not run its first suggested command: it writes to the repository’s saved receipt paths. Run the paper’s exact no-install command near the start of Section <a href="#sec:run" data-reference-type="ref" data-reference="sec:run">4</a> instead; it writes only to `/tmp` and leaves the checkout unchanged. Under `/tmp/plectis-audio-rms/`, open `batch8_audio_level_rms_port_result.json`; JSON is a plain-text field-and-value format. Open `exercise`. In each `reference_cases` item, compare `expected_level` with `observed_level`. The top-level `anti_claim` says what a pass does not establish; `claim_ceiling` inside `exercise` gives the project’s strongest conclusion. The project wrote both cautions; no independent reviewer checked their limits. To challenge rather than repeat the supplied case, make a disposable copy of the fixture input:
 
 ```

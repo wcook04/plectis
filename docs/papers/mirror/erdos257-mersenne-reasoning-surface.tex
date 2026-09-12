@@ -313,13 +313,14 @@ Signed periodic weights & periodic integer weights, nonnegative, frequently nonz
 \end{longtable}
 \end{center}
 
-Two facts about this table are worth a specialist's attention more than any single row. First, the
-base restriction of the classical results is gone: the $b=2$ case of the first row recovers
-Erd\H{o}s's 1948 irrationality theorem for the Erd\H{o}s--Borwein constant
-$E = \sum_{n \ge 1} 1/(2^n-1)$ as a one-line corollary, and every row holds for all $b \ge 2$.
-Second, and more important, \emph{every} row lies inside a two-axis box --- divisor independence
-plus a global reciprocal-tail budget --- and the box is not an accident of effort. That is
-Barrier~\ref{bar:box}.
+Full-support irrationality for every integer base $b\ge2$ is classical (Erd\H{o}s, 1948). The
+contribution recorded here is its Lean formalisation and the explicitly delimited
+structured-support developments, not a new extension from base two to arbitrary integer bases.
+Each support family retains its stated hypotheses; none establishes irrationality for every
+infinite support. The $b=2$ case of the first row recovers the Erd\H{o}s--Borwein constant
+$E = \sum_{n \ge 1} 1/(2^n-1)$ as a one-line corollary of that classical theorem. Separately,
+\emph{every} row lies inside a two-axis box --- divisor independence plus a global reciprocal-tail
+budget --- and the box is not an accident of effort. That is Barrier~\ref{bar:box}.
 
 The one conditional extension worth naming is
 \lean{irrational\_erdosSupportSeries\_of\_orthogonalPetalBouquet}{SupportSunflowerDichotomy.lean:540},
@@ -462,8 +463,9 @@ This programme has produced many reformulations of \#257 and no proof of it. Tha
 summary, and expert readers have said so. The claim of this section is that the reformulations are
 not a hundred separate failures. They are repeated measurements of \emph{one} obstruction, taken in
 different coordinates, and once they are assembled the obstruction has a describable shape. A
-systematic elimination that says exactly which classes of argument cannot work, and why, is a
-result about the problem; a reformulation is not. The elimination is what follows.
+record of which attacks were tried, which landed calculations obstructed them, and which
+hypotheses remain, is a result about the problem; a reformulation is not. That record follows. It
+does not claim an impossibility theorem for every method in a named class.
 
 The generating fact is a single structural one, and it is not a convenience of the formalisation.
 
@@ -483,11 +485,12 @@ specific real orbit. There is no family to range over.
 \end{obs}
 
 All six barriers below are consequences of Observation~\ref{obs:no-ensemble} in different
-directions: there is nothing to choose (\ref{bar:canon}), nothing weaker to prove
-(\ref{bar:collapse}), nothing to average over (\ref{bar:measure}), no information at the available
-scales (\ref{bar:scale}), no certificate in the provable direction (\ref{bar:asym}), and, on the
-universal side, no way to make a general support satisfy the certificate engine's first hypothesis
-(\ref{bar:box}).
+directions: the recorded witness space is a singleton (\ref{bar:canon}), the listed sufficient
+conditions are equivalent to the goal rather than strictly weaker (\ref{bar:collapse}), measure and
+category disagree on $\mathcal{A}$ (\ref{bar:measure}), the available information sits at the wrong
+scale for the short-window bound (\ref{bar:scale}), survival certificates point the wrong way for
+membership (\ref{bar:asym}), and, on the universal side, a general support need not satisfy the
+certificate engine's first hypothesis (\ref{bar:box}).
 
 \subsection{Barrier 1: canonicalisation --- the witness space is a singleton}
 \label{bar:canon}
@@ -633,10 +636,12 @@ The reverse directions of (d) and (e) are derived here from Lemma~\ref{lem:sqrt-
 \coord{half-carry / exact-row} \scale{cofinal} \ev{Lean}\ev{Math}
 \end{prop}
 
-\textbf{Rules out.} Every strategy of the form ``the full problem is hard, so prove this weaker
-sufficient condition instead''. In particular the specific hope that mutually \emph{incompatible}
-witnesses at different endpoints buy flexibility is void, and reading the $\Pi^0_2$ shape of these
-sockets as evidence of extra room is an error.
+\textbf{Scope of the equivalences.} These conditions are equivalent to membership, not strictly
+weaker substitutes. Equivalence does not make a formulation useless as an invariant, but it does
+mean that proving any of them is the same problem as (H). The equivalent conditions remain
+unproved. In particular, mutually \emph{incompatible} witnesses at different endpoints do not buy
+a weaker sufficient condition, and the $\Pi^0_2$ shape of these sockets is not evidence of extra
+room.
 
 \textbf{Scope limit, preserved exactly.} Item (a) does \emph{not} extend to every $A$ with
 $1 \notin A$. Dropping the greedy-specific fact $x_G \le 1/2$ yields only the one-sided statement
@@ -717,7 +722,7 @@ depth alone does not establish membership; a uniform theorem or inductive invari
 The arithmetical-hierarchy form by itself proves neither undecidability nor the absence of finite
 proofs.
 \coord{meta} \scale{uniform} \ev{Lean}
-  The statement is checked in Lean: \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos257/PaperCompleteR7/CatalogueAssemblies.lean#L50}{\textsc{Lean~source}}.
+  The statement is checked in Lean by the HalfCutLocator and GreedyAchievementSet declarations in the proof; \texttt{PaperCompleteR7/CatalogueAssemblies.lean} is not in this checkout.
 \end{thm}
 
 \begin{proof}
@@ -737,42 +742,44 @@ therefore proves nothing. Membership asserts survival at \emph{every} rank
 implying it.
 \end{proof}
 
-\textbf{Rules out.} Any programme whose plan is ``extend the certified depth''. Pushing the
-truncation rung to $J = 23$, the seam to row $10^6$, or the macro receipt to depth $10^8$ cannot in
-principle decide the branch --- each raises a lower bound on a death rank which, if the supported
-branch is correct, does not exist.
+\textbf{Finite search versus infinite survival.} Survival through any tested finite depth does not
+by itself establish membership. A discovered fatal-gap certificate would establish non-membership,
+while a proved uniform invariant could establish membership. Extending the computation --- the
+truncation rung to $J = 23$, the seam to row $10^6$, or the macro receipt to depth $10^8$ --- can
+therefore produce evidence or a decisive obstruction, but additional surviving prefixes are not a
+proof of infinite survival. If the supported branch is correct, each such extension merely raises
+a lower bound on a death rank that does not exist.
 
-\textbf{Explains.} Every certificate the programme owns is of this one type. The certified depths
-grew by roughly two orders of magnitude across the recorded history with no change whatsoever in
-decision status; that is not a coincidence to be pushed through, it is the theorem above being
-observed empirically. Accumulated survival is not convergence toward proof.
+\textbf{Explains.} Every certificate the programme currently owns is of the survival type. The
+certified depths grew by roughly two orders of magnitude across the recorded history with no
+change in membership status. Accumulated survival is not, by itself, convergence toward a
+membership proof.
 
 \subsection{Barrier 5: measure and category point in opposite directions}
 \label{bar:measure}
 
-\begin{prop}[The two soft heuristics contradict each other; \textsc{proved}]
+\begin{prop}[Achievement-set geometry does not decide rational-target membership]
 \label{prop:soft}
-$\mathcal{A}$ has Lebesgue measure exactly $1$ inside an ambient span of $E \approx 1.6067$, a
-relative density of about $62\%$, and is simultaneously nowhere dense, perfect and totally
-disconnected (Theorem~\ref{thm:geometry}). Hence the measure heuristic --- ``a random point lies in
-$\mathcal{A}$ with probability $\approx 0.62$'' --- predicts \#257 \emph{false}, while the category
-heuristic --- ``$\mathcal{A}$ is meagre, so a generic point misses it'' --- predicts \#257
-\emph{true}. \coord{achievement-set} \scale{uniform} \ev{Lean}
+The achievement set has positive measure and is nowhere dense
+(Theorem~\ref{thm:geometry}). Neither fact alone decides membership of a specified rational.
+Injectivity fixes the support of an achievable value, but it does not exclude averaging over
+indices, shifts, residues, observation scales or auxiliary constructions. The recorded
+calculations obstruct the particular models and estimates analysed here; no impossibility theorem
+for all probabilistic, measure-theoretic or averaging methods is claimed.
+\coord{achievement-set} \scale{uniform} \ev{Math}
 \end{prop}
 
-\textbf{Rules out.} Every soft argument: measure-theoretic, Baire-category, metric number theory
-(almost-all / almost-none), and probabilistic digit models. The two standard notions of ``typical''
-disagree on this object, so neither can be the mechanism. Worse, by injectivity of the digit coding
-(Observation~\ref{obs:no-ensemble}) there is no ensemble of candidate representations to average
-over: each rational has exactly one candidate support, so counting, second-moment and pigeonhole
-arguments have nothing to range over. It also rules out deciding (U) by showing $\mathcal{A}$ is
-``small'': it is not small --- it is $62\%$ of its ambient interval by measure.
+The geometry itself is Lean-checked in Theorem~\ref{thm:geometry}: $\mathcal{A}$ has Lebesgue
+measure exactly $1$ inside an ambient span of $E \approx 1.6067$, a relative density of about
+$62\%$, and is simultaneously nowhere dense, perfect and totally disconnected. Those facts may hold
+together. They do not yield competing theorems about specified rationals. Showing that
+$\mathcal{A}$ is ``small'' cannot decide (U) by measure: it is $62\%$ of its ambient interval.
 
-\textbf{Explains.} The programme's own probabilistic estimate sits squarely on the losing side of
-this split: under a Bernoulli$(1/2)$ digit model the expected number of counterexamples with
-$n \ge 32$ is about $2 \times 10^{-4}$, i.e.\ the model predicts $1/2 \in \mathcal{A}$. That
-estimate is worth exactly as much as the model, and the model is a measure-side object that cannot
-see a specific point of a nowhere-dense set having Lebesgue measure exactly $1$. \ev{Cert}
+\textbf{Recorded models.} Under a Bernoulli$(1/2)$ digit model the expected number of
+counterexamples with $n \ge 32$ is about $2 \times 10^{-4}$, so that model predicts
+$1/2 \in \mathcal{A}$. The estimate is worth exactly as much as the model, and the model is a
+measure-side object that cannot see a specific point of a nowhere-dense set of measure one.
+\ev{Cert}
 
 \subsection{Barrier 6: the two-axis certificate box (universal direction)}
 \label{bar:box}
@@ -6126,10 +6133,14 @@ be injective (\lean{positiveMersenneDigitValue_injective}{GreedyAchievementSet.l
 \ev{Lean}), collapses every witness space to a singleton, and makes the static adversarial tier
 coincide with the dynamic greedy orbit. That structure is rigid, not random. So the honest
 description is a hybrid: a rigid skeleton with a pseudorandom digit stream running along it. The
-rigidity is why every soft method fails (there is no ensemble to average over: $\mathcal{A}$ has
+rigidity constrains representation uniqueness. It does not by itself exclude averaging over
+indices, shifts, residues, observation scales or auxiliary constructions. $\mathcal{A}$ has
 Lebesgue measure exactly $1$ inside an interval of length $E\approx1.6067$ and is nowhere dense,
-and the two standard notions of ``typical''
-disagree on it); the pseudorandomness is why every arithmetic method returns no information.
+so the two standard notions of ``typical'' disagree on it; neither fact decides membership of a
+specified rational. The recorded calculations obstruct the particular models and estimates
+analysed here; no impossibility theorem for all probabilistic, measure-theoretic or averaging
+methods is claimed. Separately, the observed lack of arithmetic bias is why the specific
+arithmetic methods recorded here returned no information.
 
 \subsubsection*{The universal branch reads differently, and this weakens the one-wall thesis}
 
@@ -6153,14 +6164,16 @@ that ordering would overstate the unity of the wall.
 It does not determine whether a short proof exists. Nothing in a catalogue of failed methods
 bounds the length of a successful one, and this document should not pretend otherwise.
 
-It does determine, with proof rather than inference, where a short proof cannot be. It cannot
-proceed by finite inspection, by fixed-precision arithmetic, by a bounded carry state, by a
-measure or category argument, by an irrationality-measure bound on $E$ or any constant of that
-type, or --- on the universal side, as of Proposition~\ref{prop:squarefree} --- by instantiating
-the present block-certificate engine at a general support. Each of those is closed with a
-mechanism, and a mechanism is reusable in a way that a failed attempt is not. That is the
-contribution: not a proof, and not a reduction, but a map of the region in which a proof cannot
-live, drawn tightly enough that the remaining region is small and its coordinates are named.
+It records, with proof rather than inference, several closed routes. Fixed-precision arithmetic
+and a bounded carry state are obstructed by the landed no-go theorems cited above. An
+irrationality-measure bound on $E$ does not classify a specified rational in $\mathcal{A}$.
+Instantiating the present block-certificate engine at a general support is blocked, on the
+universal side, by Proposition~\ref{prop:squarefree}. Survival through any tested finite depth does
+not by itself establish membership; a fatal-gap certificate would establish non-membership. These
+facts do not decide rational-target membership, and they do not yield an impossibility theorem for
+all probabilistic, measure-theoretic or averaging methods. Each recorded obstruction is reusable
+in a way that a failed attempt is not. That is the contribution: not a proof, not a reduction, and
+not a map of every region in which a proof cannot live.
 % ---- part a257_p5 ----
 \section{What is open, stated exactly}
 
@@ -6320,16 +6333,22 @@ $\mathrm{CofinalExactLocalMersenneHalfRows}\Rightarrow\mathrm{HALF}$ is proved u
 via compactness of $\mathcal{A}$ (continuous image of $(\mathbb{N}\to\mathrm{Fin}\,2)$ under the
 digit-coding map, hence closed)
 (\lean{half_mem_mersenneAchievementSet_of_cofinalExactLocalRows}{BooleanMobiusCofinalExactRows.lean:71},
-\ev{Lean}). This direction is \emph{strictly weaker} than $\mathrm{HALF}$ as currently proved:
-the argument uses closedness alone and discards the producing rows, so the theorem as it stands
-does not pin a single limiting support $A$; a genuine sequential-compactness extraction (Cantor-space
-diagonal argument over $(\mathrm{Fin}\,2)^{\mathbb{N}}$, using the file's own
+\ev{Lean}). The Lean-landed theorem uses closedness of $\mathcal{A}$ and discards the producing
+rows, so it does not exhibit a single limiting support $A$. A genuine sequential-compactness
+extraction (Cantor-space diagonal argument over $(\mathrm{Fin}\,2)^{\mathbb{N}}$, using the file's
+own
 \lean{continuous_positiveMersenneDigitValue}{GreedyAchievementSet.lean:628}) would upgrade this to
 producing $A$ explicitly, and would additionally transfer $2\in A$ for free
 (\lean{two_mem_of_exact_localMersenneQuotient}{BooleanMobiusExactRowRankTwo.lean:23}) --- but this
-upgrade is itself unformalised (Survivor 1, \ev{Math, adversarially verified, weakened}). So O3
-sits strictly below $\mathrm{HALF}$ in the current Lean state of the corpus, not merely
-logically.
+upgrade is itself unformalised (Survivor 1, \ev{Math, adversarially verified}). That is a
+constructive extraction task, not a proof that O3 is a strictly weaker logical condition.
+
+Proposition~\ref{prop:collapsed-list}(c) already identifies
+$\mathrm{CofinalExactLocalMersenneHalfRows}$ as logically equivalent to $1/2\in\mathcal{A}$.
+Equivalence of a membership condition, constructive extraction of a coherent support, and a
+rejected sufficient strengthening are not interchangeable descriptions. Absence of a Lean
+extraction theorem does not make O3 a strictly weaker substitute for $\mathrm{HALF}$. The remaining
+work on O3 is to supply the cofinal exact rows, or any equivalent membership condition.
 
 \subsubsection{Sharp critical-capacity conditions --- the BooleanM\"obius lane's producer for O3}
 The corpus's engine for O3 is a sharp $c$-2-bit capacity test. Write
@@ -6513,13 +6532,13 @@ condition; "?" means no transport has been attempted in the corpus.
 \papertablehead
 Target & Relation to its endpoint & Status \\
 \midrule
-O1 U257 (universal) & O1 $\Rightarrow$ everything below is moot & \ev{Open} \\
+O1 U257 (universal) & O1 $\Rightarrow$ everything below is moot; $\mathrm{O1'}$ is false & \ev{Open} \\
 O2 HALF & pivot target; $\neg$O1 witness once true & \ev{Open} \\
 O2b $1/21$ membership & fatal-aligned branch exclusion; $\neg$O1 witness once true & \ev{Open} \\
 CPGS (Prop.~\ref{prop:cpgs-equiv}) & $\Leftrightarrow$ O2 & \ev{Open}, no shortcut \\
 Terminal-only strip (Prop.~\ref{prop:strip-equiv}) & $\Leftrightarrow$ O2 & \ev{Open}, no shortcut \\
 mobiusCenteredHalfCarry sqrtBound (for $A=G$ only) & $\Leftrightarrow$ O2 & \ev{Open}, no shortcut \\
-O3 CofinalExactLocalMersenneHalfRows & $\Rightarrow$ O2 (strict, Lean) & \ev{Open} \\
+O3 CofinalExactLocalMersenneHalfRows & $\Leftrightarrow$ O2 (Prop.~\ref{prop:collapsed-list}(c)); Lean lands $\Rightarrow$ & \ev{Open}, no shortcut \\
 (O3-supply) linear-width capacity band & $\Rightarrow$ O3 (Lean, given lemma) & \ev{Open} \\
 HalfGreedySkippedCriticalQuotientSupply & $\Rightarrow$ O3 (Lean) & \ev{Open}, strictly harder than O3-supply \\
 O4 SQRTESC / RUNBOUND & $\Leftrightarrow$ each other; $\Rightarrow$ O2 (Lean fan-in) & \ev{Open} \\
@@ -6537,12 +6556,14 @@ O5 SeamUpperResetDyadicBandEscape & $\Rightarrow$ O2 (Lean), linear-width & \ev{
 None of the following is offered as a plan of attack, and none is close. Each is stated to make
 the shape of the missing ingredient legible.
 
-\textbf{O1 (universal).} A producer for $\mathrm{Cert}(A)$ at an arbitrary infinite $A$ is a
-statement about geometrically-weighted divisor sums achieving controlled residues modulo powers of
-two on prescribed dyadic blocks, uniformly over all infinite supports. No general result of this
-shape exists in the analytic-number-theory literature surveyed for this programme; the corpus's
-own honest assessment is that this is a genuinely new near-integer anti-concentration theorem for
-a divisor-weighted sum, not a variant of an existing one.
+\textbf{O1 (universal).} The honest target is $\mathrm{U257}$ itself. The stronger schema
+$\mathrm{O1'}=\forall A\,\mathrm{Cert}(A)$ is a rejected sufficient strengthening, not future work:
+Proposition~\ref{prop:squarefree} already exhibits a squarefree support on which neither the
+digitwise nor the carry-aware block-certificate producer exists, while Duverney--Tachiya still
+prove that squarefree value irrational. Supplying $\mathrm{Cert}(A)$ for arbitrary infinite
+supports is therefore not an open equivalent normal form of $\mathrm{U257}$. Remaining work on O1
+is the universal irrationality statement, or a different method that covers supports the
+certificate schemas cannot.
 
 \textbf{O2/O3/O5 (Mersenne-specific).} The sharp-capacity gap $(\ast)\to(\ast\ast)$ and the
 $-2,-1$ middle-cell exclusion are both, at bottom, requests for anti-concentration of an explicit
@@ -6563,12 +6584,14 @@ different arithmetic functions (a Mersenne binary-digit count versus Euler's tot
 
 \subsection{Summary}
 
-Erd\H{o}s \#257 is open in the universal form (O1), and both rational
-membership targets $1/2$ (O2) and $1/21$ (O2b) remain open. Every route surveyed above either (a) is proved equivalent to O2 and therefore offers no
-reduction, (b) is a genuine strict weakening (O3, O4, O5, O3-supply) whose own supply is
-unproved at cofinal scale, or (c) is certified only on a finite initial segment, however large a
-margin that segment exhibits. Nothing in this paper closes any of these gaps, and no claim above
-should be read as progress toward doing so.
+Erd\H{o}s \#257 is open in the universal form (O1${}={}$U257), and both rational
+membership targets $1/2$ (O2) and $1/21$ (O2b) remain open. Every route surveyed above either
+(a) is proved equivalent to O2, including O3 by Proposition~\ref{prop:collapsed-list}(c), and
+therefore offers no logical reduction, (b) is a sufficient condition not known to be equivalent
+(O4, O5, O3-supply) whose own supply is unproved at cofinal scale, (c) is the rejected
+certificate strengthening $\mathrm{O1'}$, already false on squarefree support, or (d) is certified
+only on a finite initial segment, however large a margin that segment exhibits. Nothing in this
+paper closes any of these gaps, and no claim above should be read as progress toward doing so.
 
 \clearpage
 \section*{Statements and declarations}

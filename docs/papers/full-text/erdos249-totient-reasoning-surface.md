@@ -127,7 +127,7 @@ This is obtained from a classical Stern–Brocot gap lemma () applied at window 
 
 </div>
 
-Propositions <a href="#prop:sign" data-reference-type="ref" data-reference="prop:sign">5</a>–<a href="#prop:parity" data-reference-type="ref" data-reference="prop:parity">9</a> are the four facts a reader should carry into the next section: the corpus’s best cofinal information is half a certificate, its best rank information runs the wrong way, its reformulations are equivalences rather than reductions, and every purely qualitative property of the coefficient word is satisfied by a rational countermodel.
+Propositions <a href="#prop:sign" data-reference-type="ref" data-reference="prop:sign">5</a>–<a href="#prop:parity" data-reference-type="ref" data-reference="prop:parity">9</a> are the four facts a reader should carry into the next section: the corpus’s best cofinal information is half a certificate, its best rank information runs the wrong way, its reformulations are equivalences rather than reductions, and the listed size bound, parity and aperiodicity of the coefficient word are satisfied by a rational countermodel.
 
 <a id="sec:wall"></a>
 
@@ -389,7 +389,7 @@ This is the only route in the corpus that evades all seven barrier classes, and 
 
 What selects this route is a sharper pair: (1) B4, proved, kills the only mechanism the corpus ever found for reaching full resolution at unbounded range by *prescribing* values, and its own stated repair is accumulation over the word — which is what an exponential sum measures; and (2) Observation <a href="#obs:pointwise" data-reference-type="ref" data-reference="obs:pointwise">19</a>, an observed pattern and not a theorem, shows that every single-index producer has failed to be supplied at even one large index, while this route’s missing input is a block average and therefore never requires naming a good index.
 
-B1’s real contribution is narrower but still load-bearing: it proves that the finite deposits can never be extended into a proof, so the gap between the census and the obligation is a gap in kind, not in degree. That is a genuine no-go about method, of the same species as a relativization barrier. It is not a selector.
+B1’s real contribution is narrower but still load-bearing: no finite deposit by itself proves the cofinal assertion. Extending the deposit is not a substitute for a uniform arithmetic argument; a new theorem that propagates finite information could change the situation. The gap between the census and the obligation is therefore a gap in kind for the method actually used, not a proof that every possible proof is impossible. It is not a selector.
 
 </div>
 
@@ -451,11 +451,13 @@ It evades B1, B4, B5, B6 and B7 for the reasons given for Survivor 1: a statemen
 N + 2td + 2 \;<\; \mathrm{windowDiscrepancy}(td,N,td) \bmod 2^{td}
   \;<\; 2^{td} - (N + 2td + 2).
 ```
-It implies $`\mathrm{Irrational}(S)`$. `coord:period-ray` <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>
+It is equivalent to $`\mathrm{Irrational}(S)`$. `coord:period-ray` <span class="sans-serif">scale:cofinal</span> <span class="sans-serif">\[Lean\]</span>
 
 </div>
 
-This is the shortest fully stated open inequality the programme has produced. Its evasion of B2 is recorded on disk rather than argued: its ambient parent $`\mathrm{PeriodMultipleKillSupply}`$ is *proved* equivalent to $`\mathrm{Irrational}(S)`$ and $`\mathrm{ApFullDepthEscape}`$ implies it (), so it is at least as strong, and possibly strictly stronger — the file’s own docstring records “sufficient for irrationality; not known necessary”. Being possibly strictly stronger, certificate completeness cannot collapse it back. It evades B1 (both $`N`$ and $`t`$ unbounded), B4 (locking depth to the period means the entire word accumulates and no letter is prescribed), B5 and B6 (no state, no rank). Its substance is pure anti-concentration: via , the difference of two adjacent period blocks must have central residue mod $`2^{h}`$ at some multiple period $`h = td`$, and the room condition is automatic once $`h`$ is large, so nothing but the residue’s position is at stake.
+For the actual totient series, $`\mathrm{ApFullDepthEscape}`$ is equivalent to irrationality, by the full-depth amplification argument of the short note (Theorem 3.1 there; ). For a fixed pair $`(d,N)`$, a nonintegral tail difference supplies a certificate in every sufficiently late adjacent pair of multipliers. The missing arithmetic input is a nonintegral seed for every relevant pair, not a converse implication for the depth-locked condition. This remains an exact reformulation of the open problem, not a proof of it. An older one-direction lemma () is still on disk; it is not the current classification.
+
+It evades B1 (both $`N`$ and $`t`$ unbounded), B4 (locking depth to the period means the entire word accumulates and no letter is prescribed), B5 and B6 (no state, no rank). Its substance is pure anti-concentration: via , the difference of two adjacent period blocks must have central residue mod $`2^{h}`$ at some multiple period $`h = td`$, and the room condition is automatic once $`h`$ is large, so nothing but the residue’s position is at stake.
 
 **Honest demotion,** identical to Survivor 3: it is a pointwise producer and names an index. It is listed because it is the cleanest target for computational exploration — with Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">13</a> as the standing reminder that no amount of such exploration becomes a proof. <span class="sans-serif">\[Open\]</span>
 
@@ -2112,7 +2114,7 @@ S-1/2`$ by a fixed positive margin, uniformly in $`e`$ and $`Y`$; the bound uses
 
 <div class="obs">
 
-*Observation 212* (Eight new certified denominator exclusions past the 64-smooth diagonal bank). The kernel certifies kills, unconditionally, at the eight prime-power periods the diagonal bank could not reach ($`67,81,97,101,121,125,127,128`$, all at basepoint $`N=300`$), each yielding $`S\ne r`$ for every $`r`$ with $`r.\mathrm{den}\mid 2^{300}(2^h-1)`$ — new odd denominator classes, including the Cole factors of $`2^{67}-1`$ and the Mersenne prime $`2^{127}-1`$. One of the eight is certified at its own locked depth $`L=h=67`$, the concrete instance of the sufficient (not known necessary) depth-equals-period form $`\mathrm{ApFullDepthEscape}`$. `coord:other:lcm-period-multiple` — eight finite exclusions, not evidence toward the cofinal supply.
+*Observation 212* (Eight new certified denominator exclusions past the 64-smooth diagonal bank). The kernel certifies kills, unconditionally, at the eight prime-power periods the diagonal bank could not reach ($`67,81,97,101,121,125,127,128`$, all at basepoint $`N=300`$), each yielding $`S\ne r`$ for every $`r`$ with $`r.\mathrm{den}\mid 2^{300}(2^h-1)`$ — new odd denominator classes, including the Cole factors of $`2^{67}-1`$ and the Mersenne prime $`2^{127}-1`$. One of the eight is certified at its own locked depth $`L=h=67`$, a concrete instance of the depth-equals-period form $`\mathrm{ApFullDepthEscape}`$ (equivalent to irrationality; this is one finite certificate, not a seed for every pair). `coord:other:lcm-period-multiple` — eight finite exclusions, not evidence toward the cofinal supply.
 
 </div>
 
@@ -4428,7 +4430,7 @@ Three features make this the sharpest available target.
 \mathrm{ApFullDepthEscape} :\equiv
   \forall d\ge 1\ \forall N\ \exists t\ge 1:\ \mathrm{certifiedKill}(td,\,N,\,td),
 ```
-unpacked, $`(N+2td+2:\mathbb{Z})<D(td,N,td)\bmod 2^{td}<2^{td}-(N+2td+2)`$. , consumer , ambient equivalence . It is the shortest fully stated open inequality the programme has produced.
+unpacked, $`(N+2td+2:\mathbb{Z})<D(td,N,td)\bmod 2^{td}<2^{td}-(N+2td+2)`$. , consumer , ambient equivalence , equivalence . The depth-locked condition is equivalent to irrationality; the remaining gap is a nonintegral seed for every ray and basepoint, not an unknown converse.
 
 <a id="what-it-says-an-anti-self-similarity-statement-about-the-digits-of-s-alone."></a>
 
