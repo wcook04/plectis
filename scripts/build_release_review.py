@@ -1,12 +1,4 @@
-"""
-Implements scripts build release review for the public Plectis package.
-
-Callers enter through `build_contract` and `main`; constants such as `CONTRACT_SCHEMA`,
-`DOC_REL`, `RECEIPT_REL`, `REFRESH_COMMAND`, and 11 more pin local fixture names;
-dependencies include `argparse`, `json`, `re`, `sys`, and 2 more. Importing it does not
-authorize release work or hidden private-state access; those effects live behind explicit
-calls.
-"""
+"""Generate the release-review guide and JSON contract from the saved demonstration."""
 
 from __future__ import annotations
 
@@ -51,9 +43,7 @@ GENERATED_MARKER = (
     f"Refresh: {REFRESH_COMMAND}"
 )
 FIRST_ACTION_DOC_REL = "FIRST_ACTION.md"
-# The committed files this contract reviews. Their digests bind the contract
-# to the demonstration: edit either subject and the drift gate forces a regen,
-# so the contract can never describe a promise the tree no longer makes.
+# Record these files' hashes so --check detects changes to the saved example.
 ARTIFACT_SUBJECT_RELS = (FIRST_ACTION_DOC_REL, COMMITTED_DEMO_RECEIPT_REL)
 PROOF_OUT_DIR = ".microcosm/release-candidate-proof"
 
@@ -69,37 +59,33 @@ REVIEW_ALIAS_COMMAND = "make release-review"
 PUBLIC_SITE_PARITY_COMMAND = "make public-site-parity"
 
 NONCLAIMS = (
-    "not release authorization or publication approval",
-    "not a security audit or a secure-artifact claim",
-    "not domain correctness of any component's outputs",
-    "not whole-system correctness",
-    "not agent success beyond the committed first-action assay battery",
-    "not externally signed or attested provenance",
-    "not equivalence with any private system",
+    "A passing result does not give you permission to publish a release.",
+    "This review does not establish that the package is secure.",
+    "It does not establish forecast accuracy or the correctness of another component's output.",
+    "It does not establish that every part of Plectis works correctly.",
+    "It does not show how an agent will perform outside the supplied scenario tests.",
+    "The packet has no external signature proving who recorded the run or when.",
+    "Matching results in these three copies do not establish equivalence with a private system.",
 )
 
 INTEGRITY_REQUIREMENTS = (
-    "no private absolute path may appear in any written evidence file",
-    "no tracked source file may change while the proof runs",
-    "provider credential environment keys are never available to proof subprocesses",
-    "the fresh-install context must scrub PYTHONPATH and import from the venv, not a shadowing checkout",
-    "install and export work trees live under a transient work root outside the source root (an in-tree work root is refused at allocation) and are removed after evidence copy unless --keep-work is passed",
-    "captured evidence and recorded argv refer to transient work locations only by the symbolic tokens <work-dir>, <export-out>, and <work-root>, never by absolute host paths; the source root and home directory are never normalized away, so a product output echoing them still fails the scan",
+    "scan saved files for the source-root and home-directory strings and the patterns in `FORBIDDEN_OUTPUT_NEEDLES`; a match prevents a passing result",
+    "compare source-file hashes before and after the run and record changed, added, and removed files; this detects changes rather than preventing another process from writing",
+    "remove environment keys whose names contain a marker in `PROVIDER_ENV_MARKERS`, ignoring case; examples include `OPENAI`, `API_KEY`, and `SECRET`. This name-based filter does not detect credentials stored under other names or in files",
+    "remove `PYTHONPATH` for the package-install subprocess so its commands import the installed package",
+    "create temporary install and export directories outside the source root, refuse an in-tree work root, and remove those directories after copying the output unless `--keep-work` is passed",
+    "replace temporary work locations in saved output and recorded arguments with `<work-dir>`, `<export-out>`, and `<work-root>` before calculating hashes. Do not replace the source-root or home-directory strings: the path scan must still detect them",
 )
 
 ASSAY_REQUIREMENTS = (
-    "the first-action assay exits zero in every context",
-    "the assay reports zero source-body leaks",
-    "the assay reports itself not degraded",
+    "the recorded exit code is zero (using the combined package-smoke exit code in fresh_install, as explained above)",
+    "source_body_leaks equals 0 in the scenario-test JSON",
+    "degraded is not true in the scenario-test JSON",
 )
 
 
 def _encounter_check_names() -> list[str]:
-    """
-    Derive encounter check names without touching module import state.
-
-    Notable helpers are `derive_context_encounter`.
-    """
+    """Read the condition names from the same function used by the generator."""
     sample = derive_context_encounter(
         context_id=CONTEXT_IDS[0],
         hero_payload=None,
@@ -126,13 +112,7 @@ def _surface_heading(surface: str) -> str:
 
 
 def build_contract(root: Path) -> tuple[str, str]:
-    """
-    Return build contract for the scripts build release review flow.
-
-    Inputs are `root`; notable helpers are `extract_committed_expectation`,
-    `_encounter_check_names`, `append`, `join`, and 10 more; invalid cases raise from the
-    explicit checks in the body.
-    """
+    """Render the guide and receipt using the saved example and current code."""
     demo_path = root / COMMITTED_DEMO_RECEIPT_REL
     try:
         demo_payload = json.loads(demo_path.read_text(encoding="utf-8"))
@@ -170,32 +150,41 @@ def build_contract(root: Path) -> tuple[str, str]:
     check_names = _encounter_check_names()
 
     lines: list[str] = []
-    lines.append("# Release Review — the reviewer contract")
+    lines.append("# Release review")
+    lines.append("")
+    lines.append('<a id="release-review--the-reviewer-contract"></a>')
     lines.append("")
     lines.append(f"<!-- {GENERATED_MARKER} -->")
     lines.append("")
     lines.append(
-        "This file is the review contract for the release candidate: the exact "
-        "claim under review, the artifact subjects it binds to, the expectation "
-        "policy the proof enforces, the commands that exercise it, how to read "
-        "a failure, and what verification cannot prove. It is generated from "
-        "the same sources the proof itself checks against, and a drift test "
-        "fails when this text stops matching them. Its machine-readable twin "
-        f"is `{RECEIPT_REL}`."
+        "Use this guide to compare the component ID and suggested commands "
+        "returned for one query in a source checkout, a newly installed "
+        "package, and a standalone export. "
+        "`make release-review` runs the comparison, saves the command output, "
+        "then verifies the saved files. Below are the expected values, the "
+        "commands to run, and the meaning of each result."
     )
     lines.append("")
 
     lines.append("## The claim under review")
     lines.append("")
     lines.append(
-        f"For the goal **“{FIRST_ACTION_HERO_GOAL}”**, this artifact "
-        "resolves the goal to one complete first-action contract — owner, "
-        "runnable command, validator, stop condition, claim ceiling — with "
-        "the owner, command, and validator identical in all three "
-        f"distribution contexts (`{'`, `'.join(CONTEXT_IDS)}`) and equal to "
-        "the committed demonstration this repository ships; the remaining "
-        "contract elements are checked for presence, with an all-false "
-        "authority ceiling, in every context. That is the whole claim."
+        f"For **“{FIRST_ACTION_HERO_GOAL}”**, the three copies should return "
+        "the same component ID, suggested command, and validator command as "
+        "the saved demonstration. The JSON calls the selected component its "
+        "`owner`. Component IDs must match exactly. Command comparisons "
+        "normalize whitespace and remove recognized invocation prefixes, "
+        "such as `PYTHONPATH=src python3 -m microcosm_core` and `plectis`, "
+        "before comparing the remaining command and arguments."
+    )
+    lines.append("")
+    lines.append(
+        "The generator runs `plectis comprehend --first-action` and the supplied "
+        "`plectis comprehension-assay --first-action` scenario tests. It does not "
+        "execute the suggested finance command or validator. The output must "
+        "also contain instructions for when to stop and what not to claim; "
+        "all permission flags in `authority_ceiling` must be false. Presence "
+        "of those fields does not establish forecast accuracy."
     )
     lines.append("")
     lines.append("What is explicitly not claimed:")
@@ -207,14 +196,22 @@ def build_contract(root: Path) -> tuple[str, str]:
     lines.append("## The artifact under review")
     lines.append("")
     lines.append(
-        "You are reviewing whichever distribution of this repository you hold "
-        "— a source checkout, a built and installed package, or the standalone "
-        "export. The proof exercises all three from a checkout. The claim is "
-        "bound to these committed subjects:"
+        "Run the review from a checkout. The generator creates the installed "
+        "copy and export for you:"
     )
     lines.append("")
+    lines.extend([
+        "| Context ID in the JSON | What runs |",
+        "|---|---|",
+        f"| `{CONTEXT_IDS[0]}` | Commands import this checkout's `src/` directory. |",
+        f"| `{CONTEXT_IDS[1]}` | `scripts/package_install_smoke.py` creates a virtual environment, installs the package, and runs its console commands with `PYTHONPATH` removed. |",
+        f"| `{CONTEXT_IDS[2]}` | `microcosm_core.release_export` creates an export, then the lookup and scenario tests run from that exported tree. |",
+        "",
+        "The expected values come from the JSON demonstration below. The review also records the size and hash of FIRST_ACTION.md, which explains those values:",
+        "",
+    ])
     for subject in subjects:
-        lines.append(f"- `{subject['ref']}` — {subject['bytes']} bytes")
+        lines.append(f"- [{subject['ref']}]({subject['ref']}) — {subject['bytes']} bytes")
     lines.append("")
     lines.append("Their SHA-256 digests, in `shasum -a 256` output form:")
     lines.append("")
@@ -224,23 +221,28 @@ def build_contract(root: Path) -> tuple[str, str]:
     lines.append("```")
     lines.append("")
     lines.append(
-        "If these digests no longer match the files in your tree, this "
-        f"contract is stale for your tree — refresh it with `{REFRESH_COMMAND}` "
-        "and review the diff. The proof does not embed a commit hash: the "
-        "artifact may arrive as an export without git history, so identity is "
-        "carried by these subject digests plus the per-file digests inside the "
-        "proof packet. No public release artifact has been published or "
-        f"attested yet (`external_signature_status: {EXTERNAL_SIGNATURE_STATUS}`)."
+        "If these hashes differ from the files in your checkout, regenerate "
+        f"this guide with `{REFRESH_COMMAND}` and review the changes. "
+        "The generated packet records file hashes rather than a Git commit "
+        "because exports can omit Git history. The JSON version of this "
+        f"guide is `{RECEIPT_REL}`; the builder's `--check` command compares "
+        "both generated files with a fresh rendering."
+    )
+    lines.append("")
+    lines.append(
+        "Plectis has [published GitHub releases](https://github.com/wcook04/plectis/releases). This review packet has no "
+        "external signature or attestation. Its legacy field value "
+        f"`external_signature_status: {EXTERNAL_SIGNATURE_STATUS}` describes "
+        "that unsigned packet; it is not a statement that no GitHub release exists."
     )
     lines.append("")
 
     lines.append("## Expectation policy")
     lines.append("")
     lines.append(
-        "The committed demonstration is the promise; the proof refuses any "
-        "encounter that differs from it. Expected values, verbatim from "
+        "These expected values are read directly from "
         f"`{COMMITTED_DEMO_RECEIPT_REL}` (copied into every proof packet at "
-        f"`{EXPECTATION_EVIDENCE_REF}` and digest-bound there):"
+        f"`{EXPECTATION_EVIDENCE_REF}`, with its SHA-256 hash recorded):"
     )
     lines.append("")
     lines.append(f"- Expected owner: `{expectation['expected_owner_organ_id']}`")
@@ -250,38 +252,55 @@ def build_contract(root: Path) -> tuple[str, str]:
     )
     lines.append("")
     lines.append(
-        "Each context must satisfy every named completeness obligation "
-        "(`committed_demo_byte_fresh` applies to the checkout and export; the "
-        "fresh install runs from the installed package rather than a "
-        "repository tree, so it records that arm as not applicable):"
+        "The `checks` object records these conditions. "
+        "In the checkout and export, `command_exit_zero` refers to the lookup "
+        "command's exit code, not execution of the suggested command. "
+        "In `fresh_install`, both `command_exit_zero` and `assay_exit_zero` "
+        "use the single exit code from `scripts/package_install_smoke.py`; "
+        "installation or another console-command test can make both false. "
+        "Read the package-smoke output and stderr listed in the packet's "
+        "`commands` records to identify that failure. `command_cold_runnable` tests "
+        "the suggested command's prefix; `command_placeholder_free` requires "
+        "nonempty text with no `<` placeholder. `committed_demo_byte_fresh` "
+        "records the result of `scripts/build_first_action_demo.py --check` "
+        "in the checkout and export. That step does not run in the installed "
+        "copy, where `demo_check_applicable` is false."
     )
     lines.append("")
     for name in check_names:
         lines.append(f"- `{name}`")
     lines.append("")
     lines.append(
-        "Contract field vocabulary — owner, validator, stop condition, claim "
-        "ceiling — is demonstrated with real compiled contracts in "
-        f"`{FIRST_ACTION_DOC_REL}`. The assay is the committed scenario "
-        "battery `PYTHONPATH=src python3 -m microcosm_core comprehension-assay "
-        "--first-action`, run inside each context, and it must satisfy:"
+        f"See [{FIRST_ACTION_DOC_REL}]({FIRST_ACTION_DOC_REL}) for examples of the returned fields. "
+        "The scenario-test command is `PYTHONPATH=src python3 -m microcosm_core "
+        "comprehension-assay --first-action`. In each copy, its recorded "
+        "output must satisfy:"
     )
     lines.append("")
     for requirement in ASSAY_REQUIREMENTS:
         lines.append(f"- {requirement}")
     lines.append("")
     lines.append(
-        "Agreement is then required twice: the three contexts must select an "
-        "identical owner, command, and validator (`cross_context_agreement`), "
-        "and that agreed selection must equal the committed expectation above "
-        "(`expectation_policy`) — three contexts agreeing with each other on "
-        "the wrong product is a named failure, not a pass."
+        "`cross_context_agreement` records whether the component IDs and "
+        "normalized commands match across the three copies. "
+        "`expectation_policy` records whether they match the saved "
+        "demonstration. Both comparisons must pass: three copies can return "
+        "the same values and still differ from that demonstration."
     )
     lines.append("")
-    lines.append("Integrity obligations on the run itself:")
+    lines.append(
+        "The generator compares source hashes and scans saved outputs. It "
+        "also controls the subprocess environment and temporary-directory "
+        "locations. The operations are:"
+    )
     lines.append("")
     for requirement in INTEGRITY_REQUIREMENTS:
         lines.append(f"- {requirement}")
+    lines.append("")
+    lines.append(
+        "`FORBIDDEN_OUTPUT_NEEDLES` and `PROVIDER_ENV_MARKERS` are defined in "
+        "[skeptic_flight_recorder.py](src/microcosm_core/skeptic_flight_recorder.py)."
+    )
     lines.append("")
 
     lines.append("## Run the review")
@@ -291,50 +310,63 @@ def build_contract(root: Path) -> tuple[str, str]:
     lines.append("```")
     lines.append("")
     lines.append(
-        f"`{REVIEW_ALIAS_COMMAND}` is the one cold-review command: it "
-        "regenerates the proof packet fresh from your checkout, runs the "
-        "strict no-rerun verifier against the fresh packet, and prints its "
-        f"card. The steps are also available separately: `{GENERATE_COMMANDS[0]}` "
-        f"to generate, `{VERIFY_COMMANDS[0]}` to re-verify an existing packet "
-        "without rerunning anything. Without make: "
-        f"`{GENERATE_COMMANDS[1]}` then `{VERIFY_COMMANDS[1]}`. Transient "
-        "install/export work runs under an out-of-source temporary root by "
-        "default (`--work-root` to relocate it; an in-tree work root is "
-        "refused), so no hidden environment override is needed for a clean "
-        "run."
+        f"`{REVIEW_ALIAS_COMMAND}` first runs `{GENERATE_COMMANDS[0]}` to "
+        f"create a new packet. It then runs `{VERIFY_COMMANDS[0]}` to compare "
+        "the packet with its saved output files, and prints the Markdown "
+        "summary. Verification does not rerun the recorded commands. To "
+        f"verify a packet you already have, run `{VERIFY_COMMANDS[0]}` on its own."
     )
     lines.append("")
+    lines.append("Without `make`, run these two commands in order:")
+    lines.append("")
+    lines.append("```bash")
+    lines.append(GENERATE_COMMANDS[1])
+    lines.append(VERIFY_COMMANDS[1])
+    lines.append("```")
+    lines.append("")
     lines.append(
-        f"The run writes `{PACKET_FILENAME}` (the digest-bound evidence "
-        f"packet), `{CARD_FILENAME}` (the human card), and — on verify — "
-        f"`{VERIFICATION_FILENAME}` under `{PROOF_OUT_DIR}/`. The review "
-        "passes when generation reports status `pass` and verification "
-        "reports `packet_valid`. Expect minutes, not seconds: the proof "
-        "builds a fresh venv install and a full standalone export. The "
-        "packet schema under review is "
+        "Generation can take several minutes because it installs the package "
+        "in a new virtual environment and builds an export. Temporary install "
+        "and export directories are created outside the source root and "
+        "removed after their output is copied. Use `--work-root` to choose "
+        "another temporary location or `--keep-work` to retain them. A work "
+        "root inside the source tree is refused."
+    )
+    lines.append("")
+    lines.append(f"The results are written under `{PROOF_OUT_DIR}/`:")
+    lines.append("")
+    lines.append(f"- `{PACKET_FILENAME}`: command arguments, exit codes, output-file hashes, comparisons, and the generator's status.")
+    lines.append(f"- `{CARD_FILENAME}`: a Markdown summary of the packet.")
+    lines.append(f"- `{VERIFICATION_FILENAME}`: the verifier's recomputed hashes, comparisons, and status.")
+    lines.append("")
+    lines.append(
+        "The review passes only when the generator's status is `pass` and "
+        "the verifier's status is `packet_valid`. A `packet_valid` result "
+        "can describe a correctly recorded failed run; it does not turn a "
+        "generator status of `blocked` into a pass. The packet schema is "
         f"`{PACKET_SCHEMA_VERSION}`."
     )
     lines.append("")
     lines.append(
-        f"`{PUBLIC_SITE_PARITY_COMMAND}` is the separate public-site parity "
-        "check, backed by `PYTHONPATH=src python3 -m microcosm_core "
-        "public-site-parity`: it reads the generated `gh-pages` surface and the "
-        "live Pages URL, parses the downloadable AI handoff packets, verifies their "
-        "recorded byte hashes, and compares their component/family/paper-module "
-        "counts and boundary fields with this source tree. It is "
-        "deployment-packet evidence, not part of the local three-context "
-        "release-candidate proof."
+        f"`{PUBLIC_SITE_PARITY_COMMAND}` runs a separate comparison of the "
+        "published website and this checkout. Its command is "
+        "`PYTHONPATH=src python3 -m microcosm_core public-site-parity`. It reads "
+        "the generated `gh-pages` files and live Pages URL, parses the "
+        "downloadable AI handoff packets, recalculates their recorded hashes, "
+        "and compares component, family, paper-module and limitation fields "
+        "with this source tree. `make release-review` does not run it."
     )
     lines.append("")
 
     lines.append("## Reading a failure")
     lines.append("")
     lines.append(
-        "A red result classifies; it is never a bare “bad repo”. "
-        "Generate-side codes name which packet block reads `blocked` (the "
-        "generate summary lists them as `blocked_codes`); verify-side codes "
-        "appear literally in the verification receipt's `statuses`. Every "
-        "named failure below carries what it does and does not mean."
+        "Start with the generator summary's `blocked_codes` or the verifier's "
+        "`statuses`. For a generation failure, open the named context and its "
+        "`failed_checks`; use `evidence_refs` to find the saved command output. "
+        "For a verification failure, read the matching row in `checks`. "
+        "A mismatch identifies what differed; it does not identify who "
+        "changed a file or why."
     )
     lines.append("")
     surfaces_in_order: list[str] = []
@@ -355,16 +387,14 @@ def build_contract(root: Path) -> tuple[str, str]:
 
     lines.append("## What verification proves — and what it cannot")
     lines.append("")
-    lines.append(f"The proof boundary, verbatim from the packet: {PROOF_BOUNDARY}.")
+    lines.append(f"The packet's `proof_boundary` field contains this explanation: {PROOF_BOUNDARY}.")
     lines.append("")
     lines.append(
-        "Verification never reruns the substrate: it re-hashes every "
-        "referenced output, re-derives every context encounter, the agreement "
-        "block, the expectation policy, and the top-level status from the "
-        "digest-bound evidence, and refuses a packet that has silently gained "
-        "authority. A reviewer who needs provenance rather than internal "
-        "consistency reruns the generator. Nothing here is signed or "
-        "externally attested yet."
+        "The verifier does not independently observe the original process. "
+        "Someone who changes the saved outputs and all corresponding hashes "
+        "could construct a consistent packet. Run generation yourself when "
+        "you need to know how the commands behave in your environment; "
+        "that new run does not authenticate an earlier unsigned record."
     )
     lines.append("")
     md_body = "\n".join(lines)
