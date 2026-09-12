@@ -1,44 +1,42 @@
 # Contributing
 
-Contributions and error reports are welcome. You do not need to understand the
-whole toolkit to improve one example, challenge a check or explain a component
-more clearly. Useful contributions include:
+Contributions and error reports are welcome. You can improve one example or
+report a wrong result without understanding every program in the repository.
+Useful contributions include:
 
 - fixing a command, adding a test case or making an example easier to run;
-- improving an explanation or a route through the documentation;
-- showing where a passing check fails to support the claim made for it;
-- adding a working mechanism with its source history, runnable example,
-  tests and an explicit account of what the result establishes.
+- explaining what a command reads, computes and writes, or repairing a broken link;
+- showing an input that a validator accepts although it violates the stated rule;
+- adding a program with its source history, input files, expected output and
+  test functions, and stating which claim follows from that output.
 
 If you are still choosing where to start, [Understanding Plectis](docs/UNDERSTANDING_PLECTIS.md)
-follows one component through its inputs, code and checks. The README's
+names three JSON-field comparisons in the prompt-injection example. The README's
 [Choose a route](README.md#choose-a-route) table helps you find another area.
 Pick one concrete discrepancy or improvement and keep the change focused on it.
 
 ## Reporting a discrepancy
 
-If a run does not match its stored receipt, a validator's pass rule does not
-seem to bear on the component's stated claim, or a generated document
-disagrees with the records it is built from, that is a finding worth
-reporting, not noise. Open a GitHub issue at
+Report an output that differs from the documented expected result, a validator
+that accepts an invalid input, or a generated table whose entries differ from
+its source JSON. Open a GitHub issue at
 <https://github.com/wcook04/plectis/issues> with:
 
 - the commit you ran (`git rev-parse HEAD`);
 - the exact command and the operating system and Python version;
-- what you expected, with the receipt path where one applies;
+- what you expected, with the saved result file's path where one applies;
 - what you observed, with the failing output pasted or attached.
 
-Keep the original failing output rather than substituting a component or
-input that happens to pass. Reports that dispute a pass rule or an expected
-value are as welcome as reports of failing runs: the success criteria are
-part of what is published for challenge, and so is the unit of counting:
-report it if two components look like one mechanism, or if a boundary
-excludes the difficult part of a task.
+Keep the input and failing output so another contributor can reproduce the
+same result. You can also dispute an expected value or a claim made for a
+passing result. For example, comparing prepared JSON records does not measure
+how a model responds to a hostile web page; an explanation that confuses those
+two experiments needs correcting even if every Python assertion passes.
 
 ## Development setup
 
-Clone the repository, check that its prepared examples work, then install the
-development tools. These commands use a macOS or Linux shell (or WSL):
+Clone the repository, run the prepared examples, then install the development
+tools. These commands use a macOS or Linux shell (or WSL):
 
 ```bash
 git clone https://github.com/wcook04/plectis && cd plectis
@@ -46,25 +44,31 @@ git clone https://github.com/wcook04/plectis && cd plectis
 VENV=/tmp/plectis-dev-venv make install
 ```
 
-`./bootstrap.sh` runs the clone's prepared example and boundary checks, and
-writes ignored `.microcosm/cold_clone_probe.json` evidence. Use
+`./bootstrap.sh` runs the supplied examples in
+`fixtures/first_wave/pattern_binding_contract/input` and scans for forbidden
+secret strings. It writes the status in
+`.microcosm/cold_clone_probe.json`, which is ignored by git. Use
 `./bootstrap.sh --dry-run` to preview the command first.
 
-`make install` creates a checkout-keyed temporary venv and installs the
-`[test]` extra there (pytest, requests, NumPy, pandas), so a clean clone does
-not need pytest preinstalled. Set `VENV` explicitly (as above) when you want a
-stable interpreter path such as `/tmp/plectis-dev-venv/bin/plectis hello .`.
+`make install` installs Plectis and its test dependencies (pytest, requests,
+NumPy and pandas) in a virtual environment. `VENV` selects the directory used
+in the examples below. Without that setting, the Makefile chooses a temporary
+directory from the checkout path. You do not need pytest installed beforehand.
 
 ## Tests and validation
 
 ```bash
-make check      # registry and proof-trust preflight
+make check      # reject registry errors and prohibited Lean source syntax
 make test       # public entry and safety tests
-make ci         # the GitHub Actions floor: test + smoke + package-smoke
-make validate   # ci plus the doctrine-lattice drift check (maintainer gate)
+make ci         # check, test, smoke, package-smoke
+make validate   # ci plus comparison of generated doctrine tables with source data
 ```
 
-Run the focused tests for the surface you touched first, for example:
+`make check` rejects missing or unknown component/evidence-class IDs and
+prohibited syntax in shipped Lean source. `make test` runs the test files listed
+in `Makefile`; `make ci` also runs example commands and installs the package in
+a fresh environment before invoking it. Start with the test file for the code
+you changed, for example:
 
 ```bash
 PYTHONPATH=src /tmp/plectis-dev-venv/bin/python -m pytest tests/test_public_entry_docs.py --basetemp=/tmp/plectis-bt
@@ -72,39 +76,42 @@ PYTHONPATH=src /tmp/plectis-dev-venv/bin/python -m pytest tests/test_public_entr
 
 Two rules the Makefile enforces that direct pytest runs must respect:
 
-- **One basetemp per process.** If you run separate pytest subsets at the same
-  time, pass a unique `--basetemp` to each; parallel direct invocations can
-  race while copying fixture trees if they share one.
+- **One temporary test directory per process.** If you run separate pytest
+  commands at the same time, give each a different `--basetemp` directory;
+  otherwise one process can delete or replace another's test inputs.
 - **Tracked receipts are read-only under pytest.** Generated output that needs
-  to change belongs in its owner lane (a builder or an explicit
-  `MICROCOSM_TRACKED_RECEIPT_WRITES=1` opt-in), never a hand edit.
+  to change must be regenerated by the program named in that result's contract.
+  Use `MICROCOSM_TRACKED_RECEIPT_WRITES=1` only when you intentionally refresh
+  committed result files. Do not edit a result by hand to make a test pass.
 
-The full review lanes (complete smoke card set, the `make test-all` drift
-suite, flight recorder, release-candidate proof, standalone export and its
-exported-clone validation) are documented in
+The commands for running all smoke examples, comparing generated files with
+source data (`make test-all`), collecting a reviewer packet, producing a
+standalone export and running that export's tests are documented in
 [docs/maintainers/validation.md](docs/maintainers/validation.md).
 
 ## Generated files
 
 `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, `FIRST_ACTION.md`,
-`RELEASE_REVIEW.md`, and the atlas/registry JSON records are builder-owned.
-Do not hand-edit them; change the source and regenerate (for the atlas:
+`RELEASE_REVIEW.md`, and generated atlas/registry JSON records are produced by
+the repository's build scripts. Change the source data and regenerate them
+(for the atlas:
 `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`). Tests compare
-committed output to live regeneration and fail on drift.
+committed files with freshly generated files and fail if they differ.
 
 ## Documentation changes
 
-The [documentation hub](docs/README.md) separates explanations, runnable
-guides and reference. Give a new page a clear reader and purpose, link it from
-the relevant guide, and include a next step. Define unfamiliar project terms
+Use the [documentation index](docs/README.md) to choose where a new page belongs.
+State what the reader will learn or run, link the page from the relevant guide,
+and include the next document or command. Define unfamiliar project terms
 where a reader first needs them; [the short terminology guide](docs/UNDERSTANDING_PLECTIS.md#the-terms-used-in-the-repository)
 is there for reference.
 
-Run the commands you add as a reader would, from a clone without an activated
-development environment. Check relative links and section anchors. Keep the
-author's meaning and qualifications when editing prose, and check any changed
-claim against the code and evidence it describes. The existing first-contact
-tests are a useful starting point:
+Run new commands from a clone without an activated development environment.
+Open relative links and section anchors. Describe the actual input, operation
+and output: for example, say which JSON fields are compared and what causes
+`blocked`, rather than just saying a program "checks the policy". Keep the
+author's meaning and qualifications, and verify changed claims against the
+source code and recorded results. The existing first-contact tests include:
 
 ```bash
 PYTHONPATH=src /tmp/plectis-dev-venv/bin/python -m pytest tests/test_documented_first_contact_commands.py tests/test_public_entry_docs.py
@@ -112,21 +119,20 @@ PYTHONPATH=src /tmp/plectis-dev-venv/bin/python -m pytest tests/test_documented_
 
 ## Pull requests
 
-Use `.github/PULL_REQUEST_TEMPLATE.md` as the inline checklist for validation
-evidence, public/private payload exclusions, claim boundaries, and standalone
-source inventory. The template is a guardrail, not a release approval surface.
-State which tests you ran; `make ci` or an explained narrower lane is the
-floor.
+Use `.github/PULL_REQUEST_TEMPLATE.md` to record the files changed, tests run
+and claims made. Run `make ci`, or explain why the particular tests you ran are
+sufficient for the change. A completed template does not authorise publication.
 
 ## Hard boundaries
 
-Do not contribute secrets, credentials, sessions, provider payload bodies, raw
-operator voice, private personal material, live account data, live external
-target details, hidden rubric bodies, or unsafe exploit steps.
+Do not contribute secrets, credentials, saved sessions, private messages or
+request/response bodies from model providers, unedited operator writing,
+recordings or transcripts, private personal material, live account data, details of live
+external targets, hidden evaluation rubrics, or unsafe exploit steps.
 
-Do not add source-mutation, provider-call, hosted-release, recipient-send,
-financial-advice, product-readiness, proof-correctness, or production-security
-authority unless the surface is explicitly a negative fixture proving that the
-authority is rejected. Nothing in a contribution changes the release
-boundary: export receipts keep `release_authorized=false` until a separate
-operator decision exists.
+Do not treat a passing result as permission to change a user's source files,
+call a model provider, publish a site or send a message. Do not cite that result
+as proof of product readiness, proof correctness or production security, or as
+a basis for financial advice. A test input may contain these permissions
+only to demonstrate that the program rejects them. Exported result files keep
+`release_authorized=false` until the operator separately authorises publication.

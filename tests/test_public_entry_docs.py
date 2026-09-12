@@ -210,10 +210,10 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "make ci",
         "release_authorized=false",
         "source history",
-        "passing check fails to support the claim",
+        "a validator accepts although it violates the stated rule",
         "Do not contribute secrets",
         "tests/test_public_entry_docs.py",
-        "ignored `.microcosm/cold_clone_probe.json` evidence",
+        "`.microcosm/cold_clone_probe.json`, which is ignored by git",
         "docs/maintainers/validation.md",
     ):
         assert phrase in contributing, phrase
@@ -950,28 +950,12 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     # human README only routes to them in plain English and states the boundary.
     # The raw JSON paths / status-enum / field-name tokens were retired from
     # human prose (their truth is enforced independently by the registries
-    # themselves), so the README now passes the registry-route gate via its
-    # human links to the generated System map and Release review.
+    # themselves), so retain links to the generated System map and Release
+    # review. The README binding validator owns inventory/claim constraints;
+    # this test must not force a particular explanation or internal field name.
     assert "[System map](ORGANS.md)" in text
     assert "[Release review](RELEASE_REVIEW.md)" in text
-    assert (
-        "generated from the repository's governed component records"
-        in normalized_text
-    )
-    assert "not a quality or progress score" in normalized_text
-    # Bounded-claim truth: anti-claims present, witness reports no source mutation.
-    assert "executable research prototype" in normalized_text
-    assert "source_files_mutated" in text
     assert "repo -> .microcosm" in text
-    for anti_claim in (
-        "release",
-        "hosting",
-        "provider calls",
-        "source mutation",
-        "not a copy of any private system",
-        "proof authority",
-    ):
-        assert anti_claim in normalized_text, anti_claim
     # The agent first-action product is reachable from the human front door.
     assert "comprehend --first-action" in text
     # Negative guards: no stale macro / reconstruction / false-coverage framing.
@@ -1942,12 +1926,8 @@ def test_entry_surfaces_route_mechanism_preflight_before_assessment() -> None:
     # (6) whole-substrate framing, not a brittle hardcoded organ count.
     assert "every organ" in reflex
 
-    # (5) the human route-map maps an assessment-shaped goal to the mechanism command.
-    readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
-    route_rows = [ln for ln in readme.splitlines() if ln.startswith("|") and preflight in ln]
-    assert any(
-        ("component computes" in ln) or ("what each one actually does" in ln) for ln in route_rows
-    ), "README 'Choose a route' lacks an assessment-goal -> mechanism row"
+    # The README command is already required above. It may appear in a command
+    # block or a table; its placement and explanatory sentence are not contracts.
 
 
 def test_public_entry_docs_avoid_status_seeking_copy() -> None:
