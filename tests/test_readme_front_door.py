@@ -295,7 +295,9 @@ def test_blocks_missing_claim_grammar_read_order(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     _mutate(
         root,
-        "Read Plectis in this order: **mechanisms -> evidence discipline -> local\nruntime**.",
+        "To inspect a component, follow its input through the code to the result, then\n"
+        "read the check and its stated limit. The shared runtime records that work so\n"
+        "you can retrace it.",
         "Read Plectis by running the tour first.",
     )
     receipt = validate_readme_front_door(root)
@@ -304,6 +306,29 @@ def test_blocks_missing_claim_grammar_read_order(tmp_path: Path) -> None:
         "mechanism-evidence-runtime-read-order"
         in receipt["findings"]["front_door_claim_grammar_missing"]
     )
+
+
+def test_reading_journey_allows_plain_language_without_slogan(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _mutate(
+        root,
+        "To inspect a component, follow its input through the code to the result, then\n"
+        "read the check and its stated limit. The shared runtime records that work so\n"
+        "you can retrace it.",
+        "Choose a component. Inspect its input and code, then the result. Read the\n"
+        "check and the limit it states. The runtime records the work for inspection.",
+    )
+    receipt = validate_readme_front_door(root)
+    assert receipt["status"] == "pass", receipt["blocking_codes"]
+
+
+def test_reading_journey_requires_evidence_before_record(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _mutate(root, "read the check and its stated limit.", "trust the result.")
+    receipt = validate_readme_front_door(root)
+    assert "mechanism-evidence-runtime-read-order" in receipt["findings"][
+        "front_door_claim_grammar_missing"
+    ]
 
 
 def test_blocks_missing_family_specific_claim_ceiling(tmp_path: Path) -> None:
