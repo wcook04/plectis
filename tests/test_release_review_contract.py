@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import re
 import tomllib
 from pathlib import Path
 
@@ -172,8 +173,10 @@ def test_review_contract_ships_in_every_distribution_lane() -> None:
     assert "RELEASE_REVIEW.md" in release_export.STANDALONE_REQUIRED_PUBLIC_REFS
 
     readme = (_ROOT / "README.md").read_text(encoding="utf-8")
-    assert "RELEASE_REVIEW.md" in readme
-    assert "make release-review" in readme
+    review_ref = review_mod.DOC_REL
+    assert re.search(rf"\[[^\]\n]+\]\({re.escape(review_ref)}(?:#[^)\s]+)?\)", readme)
+    review = (_ROOT / review_ref).read_text(encoding="utf-8")
+    assert "make release-review" in review
 
     makefile = (_ROOT / "Makefile").read_text(encoding="utf-8")
     assert "release-review:" in makefile

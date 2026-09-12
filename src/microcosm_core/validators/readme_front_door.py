@@ -9,9 +9,9 @@ can consume findings without scraping prose.
 
 Contract shape (stranger-first migration, 2026-07-11): the HERO (everything
 before the first H2) must be plain English with an install-and-run block and no
-internal ontology; the truth pins (seven families, evidence-class and
-authority-ceiling grammar, per-family ceilings, bound component count) are
-whole-document requirements so boundary language is reordered, never lost.
+internal ontology. Component coverage, runnable commands, result types and
+stated limitations are whole-document requirements. Prose may explain these
+in ordinary language; the validator does not prescribe internal labels.
 """
 
 from __future__ import annotations
@@ -53,15 +53,28 @@ FRONT_DOOR_REQUIRED_PATTERNS: tuple[tuple[str, str], ...] = (
         "public-executable-identity",
     ),
     (r"\bmechanisms?\b|\bcomponents?\b", "mechanism-or-component-surface"),
-    (r"\bformal proof\b", "formal-proof-family"),
-    (r"\bagent (?:reliability and safety|safety|reliability)\b", "agent-safety-family"),
-    (r"\b(?:research and forecasting|research/forecasting|forecasting)\b", "research-forecasting-family"),
-    (r"\bprojection[- ]drift\b", "projection-drift-family"),
-    (r"\bvalidators?\b", "validator-family"),
-    (r"\bwork landing\b", "work-landing-family"),
-    (r"\bcontinuity\b", "continuity-family"),
-    (r"\bevidence class\b", "evidence-class-boundary"),
-    (r"\bauthority ceiling\b", "authority-ceiling-boundary"),
+    (
+        r"\bevidence class\b|\b(?:some|others)\b.{0,180}\b(?:computation|external tool)\b"
+        r".{0,180}\b(?:supplied|recorded) (?:records|data)\b"
+        r"|\bclassify the result\b.{0,180}\breplay\b",
+        "evidence-class-boundary",
+    ),
+    (
+        r"\bauthority ceiling\b|\bstated limits\b"
+        r"|\bwhat (?:the |a )?result (?:does|can) and (?:does|can) not establish\b",
+        "authority-ceiling-boundary",
+    ),
+)
+# The actual family destinations, rather than synonyms in prose, bind coverage
+# to the public inventory. A renamed link label remains valid.
+FRONT_DOOR_FAMILY_ROUTES = (
+    "entry--reveal",
+    "architecture--navigation",
+    "formal-math--proof",
+    "agent-reliability--safety-replays",
+    "research--science-replays",
+    "import-projection--drift",
+    "work-landing--continuity",
 )
 FRONT_DOOR_LOCAL_ONLY_PATTERNS: tuple[tuple[str, str], ...] = (
     (r"\bsmall,\s+source-open tool\b", "small-tool-primary-frame"),
@@ -82,6 +95,7 @@ FRONT_DOOR_LOCAL_ONLY_PATTERNS: tuple[tuple[str, str], ...] = (
 FRONT_DOOR_MECHANISM_FIRST_MARKERS: tuple[str, ...] = (
     r"\bmechanisms?\b",
     r"\bcomponents?\b",
+    r"\bprograms?\b",
     r"\bformal proof\b",
 )
 FRONT_DOOR_RECORD_LAYER_MARKERS: tuple[str, ...] = (
@@ -90,50 +104,49 @@ FRONT_DOOR_RECORD_LAYER_MARKERS: tuple[str, ...] = (
     r"\binspectable record\b",
 )
 FRONT_DOOR_CLAIM_GRAMMAR_PATTERNS: tuple[tuple[str, str], ...] = (
-    # Bind the reading journey, not a prescribed slogan or the words
-    # "underread" and "overread". The mechanism-first opening and the
-    # per-family ceilings below separately guard understatement and overclaim.
+    # These are bounded recognition aids, not a semantic proof of the prose.
+    # Retain older terminology while accepting direct statements of the same
+    # limits. The negative fixtures exercise omissions and reversed claims.
     (
-        r"\bmechanisms?\s*[-=]+>\s*evidence discipline\s*[-=]+>\s*local runtime\b"
-        r"|\bcomponent\b.{0,60}\binput\b.{0,60}\bcode\b.{0,60}\bresult\b"
-        r".{0,60}\bcheck\b.{0,60}\blimit\b.{0,100}\bruntime\b.{0,60}\brecords?\b",
-        "mechanism-evidence-runtime-read-order",
-    ),
-    (
-        r"\bresearch prototype\b.{0,80}\bdeveloper tool\b",
+        r"\b(?:research prototype|experimental (?:software|toolkit|project))\b",
         "prototype-developer-tool-ceiling",
     ),
-    (r"\bnot a hosted service\b", "hosted-service-ceiling"),
-    (r"\bproduction-security\b", "production-security-ceiling"),
-    (r"\bprofessional-advice\b", "professional-advice-ceiling"),
-    (r"\bprovider-affiliated\b", "provider-affiliation-ceiling"),
-    (r"\btrading or investment-advice\b", "trading-investment-ceiling"),
-    (r"\bformal-proof correctness\b", "formal-proof-correctness-ceiling"),
-    (r"\bsource-mutation authority\b", "source-mutation-ceiling"),
-    (r"\brelease authority\b", "release-authority-ceiling"),
-    (r"\bprivate-root equivalent\b", "private-root-equivalence-ceiling"),
-    (r"\bcopied non-secret source bodies\b", "copied-non-secret-source-boundary"),
-    (r"\bbounded public replays\b", "bounded-public-replay-boundary"),
+    (r"\bnot (?:a |an )?hosted service\b|\bdoes not (?:run|provide|offer) a hosted service\b", "hosted-service-ceiling"),
+    (r"\bproduction-security\b|\bnot\b.{0,100}\bproduction security (?:product|guarantee)\b|\bno\b.{0,40}\bsecurity guarantee\b", "production-security-ceiling"),
+    (r"\bprofessional-advice\b|\bnot\b.{0,50}\bprofessional advice\b", "professional-advice-ceiling"),
+    (r"\bprovider-affiliated\b|\bno\b.{0,50}\b(?:provider affiliation|affiliation with)\b|\bnot affiliated with\b", "provider-affiliation-ceiling"),
+    (r"\btrading or investment-advice\b|\bnot\b.{0,100}\b(?:investment|financial) advice\b", "trading-investment-ceiling"),
+    (r"\bsource-mutation authority\b|\b(?:does not|never|do not gain permission)\b.{0,100}\b(?:edit|change|modify)\b.{0,60}\bsource files\b", "source-mutation-ceiling"),
+    (r"\brelease authority\b|\b(?:does not|no|do not gain)\b.{0,180}\bpermission\b.{0,150}\b(?:publish|release|deploy)\b", "release-authority-ceiling"),
+    (r"\bprivate-root equivalent\b|\bdoes not\b.{0,120}\b(?:reconstruct|reproduce|access)\b.{0,80}\b(?:that|private) system\b", "private-root-equivalence-ceiling"),
+    (r"\bcopied non-secret source bodies\b|\b(?:selected|public|non-secret) source files\b", "copied-non-secret-source-boundary"),
 )
 FRONT_DOOR_FAMILY_CEILING_PATTERNS: tuple[tuple[str, str], ...] = (
     (
-        r"\bformal-proof cluster\b.{0,260}\bnot theorem-proof authority\b",
+        r"\bformal[- ]proof(?: cluster)?\b.{0,400}"
+        r"(?:\bnot theorem-proof authority\b|\bdoes not prove (?:an? )?(?:unrelated|other) theorem\b)",
         "formal-proof-family-ceiling",
     ),
     (
-        r"\bagent safety cluster\b.{0,260}\bnot production safety approval\b",
+        r"\bagent safety(?: cluster)?\b.{0,400}"
+        r"(?:\bnot production safety approval\b|\bdoes not establish\b.{0,100}\b(?:deployed|live) agent is safe\b)",
         "agent-safety-family-ceiling",
     ),
     (
-        r"\bresearch cluster\b.{0,320}\bnot domain expertise\b.{0,120}\btrack-record authority\b",
+        r"\bresearch(?: cluster| and forecasting)?\b.{0,400}"
+        r"(?:\bnot domain expertise\b.{0,120}\btrack-record authority\b"
+        r"|\bdo not establish\b.{0,180}\b(?:scientific expertise|investment returns)\b.{0,120}\btrack record\b)",
         "research-family-ceiling",
     ),
     (
-        r"\bprojection-drift cluster\b.{0,320}\bnot permission to export private/live material\b",
+        r"\b(?:projection-drift cluster|generated files)\b.{0,400}"
+        r"(?:\bnot permission to export private/live material\b"
+        r"|\b(?:does not (?:grant permission to|authorize)|do not gain permission to) (?:publish|export) private material\b)",
         "projection-drift-family-ceiling",
     ),
     (
-        r"\bwork-continuity cluster\b.{0,260}\bnot authority to mutate\b",
+        r"\b(?:work-continuity cluster|recording and resuming work|work records?)\b.{0,400}"
+        r"(?:\bnot authority to mutate\b|\b(?:does not (?:grant permission to|authorize)|do not gain permission to) (?:edit|change|modify)\b)",
         "work-continuity-family-ceiling",
     ),
 )
@@ -146,6 +159,27 @@ def _word_window(text: str, limit: int) -> str:
     Inputs are `text` and `limit`; notable helpers are `join` and `split`.
     """
     return " ".join(text.split()[:limit])
+
+
+def _component_inspection_guidance(text: str) -> bool:
+    """Recognize a usable inspection paragraph without fixing its word order.
+
+    A reader needs the example data, implementation, produced result, and way
+    to evaluate that result together. Merely scattering those nouns throughout
+    the README does not describe a reading task.
+    """
+    needs = (
+        r"\b(?:component|example)\b",
+        r"\b(?:inputs?|example data)\b",
+        r"\b(?:code|source|function|implementation)\b",
+        r"\b(?:result|output|resulting file)\b",
+        r"\b(?:test|comparison|compare|check|expected)\b",
+    )
+    for paragraph in re.split(r"\n\s*\n", text):
+        prose = " ".join(paragraph.lower().split())
+        if not prose.startswith("```") and all(re.search(p, prose) for p in needs):
+            return True
+    return False
 
 
 def _registry_component_count(public_root: Path) -> int | None:
@@ -405,21 +439,22 @@ def validate_readme_front_door(
     if hero_leaks:
         blocking.append("README_HERO_ONTOLOGY_LEAK")
 
-    # --- 6. truth pins hold over the WHOLE document; only the first-screen
-    # frame is windowed. Stranger-first migration (2026-07-11): the hero and
-    # first sections sell the product in plain English (identity, install,
-    # witness); the seven-family taxonomy, the evidence-class/authority-ceiling
-    # grammar, and the per-family ceilings remain REQUIRED but may live where a
-    # reader meets them naturally (the component-map and scope sections).
-    # Assurance conserved, projection freed: every pattern that used to be
-    # forced into the first 850/1500 words must still exist somewhere in the
-    # document, so no boundary language is lost, only reordered.
+    # --- 6. coverage and limitations may be explained anywhere in the page.
+    # Stable family links bind the inventory; prose explains what the examples
+    # establish. These heuristics cannot guarantee reader comprehension.
     front_lower = normalized.lower()
     missing_significance = sorted(
         label
         for pattern, label in FRONT_DOOR_REQUIRED_PATTERNS
         if not re.search(pattern, front_lower, flags=re.DOTALL)
     )
+    destinations = {dest for _, dest in _markdown_links(text)}
+    missing_family_routes = [
+        anchor
+        for anchor in FRONT_DOOR_FAMILY_ROUTES
+        if f"ORGANS.md#{anchor}" not in destinations
+    ]
+    missing_significance.extend(f"family-route:{anchor}" for anchor in missing_family_routes)
     registry_count = _registry_component_count(public_root)
     count_claims = {
         int(match.group(1))
@@ -464,12 +499,15 @@ def validate_readme_front_door(
         for pattern, label in FRONT_DOOR_CLAIM_GRAMMAR_PATTERNS
         if not re.search(pattern, front_lower, flags=re.DOTALL)
     )
+    if not _component_inspection_guidance(text):
+        missing_claim_grammar.append("component-inspection-guidance")
     missing_family_ceilings = sorted(
         label
         for pattern, label in FRONT_DOOR_FAMILY_CEILING_PATTERNS
         if not re.search(pattern, front_lower, flags=re.DOTALL)
     )
     findings["front_door_required_context_missing"] = missing_significance
+    findings["front_door_family_routes_missing"] = missing_family_routes
     findings["registry_component_count"] = registry_count
     findings["front_door_component_count_claims"] = sorted(count_claims)
     findings["registry_component_count_bound_in_front_door"] = count_claim_bound

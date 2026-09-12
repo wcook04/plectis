@@ -10,6 +10,7 @@ claim from digest-bound evidence and refuse tampered or divergent packets.
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 import tomllib
@@ -1222,7 +1223,12 @@ def test_release_candidate_proof_is_publicly_discoverable() -> None:
         "$(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root ."
     ) in makefile
 
-    assert "make release-candidate-proof" in readme
-    assert "make release-candidate-proof-verify" in readme
-    assert "distribution-true" in readme
-    assert "does not authorize release" in readme
+    # Follow the public review instructions from the README instead of
+    # requiring its overview to duplicate the complete command reference.
+    review_ref = "RELEASE_REVIEW.md"
+    assert re.search(rf"\[[^\]\n]+\]\({re.escape(review_ref)}(?:#[^)\s]+)?\)", readme)
+    review = (MICROCOSM_ROOT / review_ref).read_text(encoding="utf-8")
+    assert "make release-candidate-proof" in review
+    assert "make release-candidate-proof-verify" in review
+    assert "distribution-true" in review
+    assert "does not authorize release" in review

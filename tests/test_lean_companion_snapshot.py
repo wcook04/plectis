@@ -4,6 +4,9 @@ import json
 import shutil
 from pathlib import Path
 
+import pytest
+
+from microcosm_core.validators import lean_companion_snapshot as companion
 from microcosm_core.validators.lean_companion_snapshot import (
     refresh_lean_companion_snapshot,
     validate_lean_companion_snapshot,
@@ -87,6 +90,104 @@ def test_blocks_stale_readme_counts(tmp_path: Path) -> None:
     assert "LEAN_COMPANION_README_DRIFT" in {
         row["code"] for row in receipt["errors"]
     }
+
+
+def test_accepts_previous_scale_and_citation_wording(tmp_path: Path) -> None:
+    root = _fixture_root(tmp_path)
+    path = root / "README.md"
+    text = path.read_text(encoding="utf-8")
+    text = text.replace(
+        "These counts include library declarations; they do\n"
+        "  not count solutions to Erdős problems.",
+        "These are scale and navigation counts, not separate\n"
+        "  mathematical claims;",
+    ).replace("remains the version to cite", "remains the tagged citation anchor")
+    path.write_text(text, encoding="utf-8")
+    receipt = validate_lean_companion_snapshot(root)
+    assert receipt["status"] == "pass", receipt["errors"]
+
+
+@pytest.mark.parametrize(
+    ("old", "new"),
+    [
+        ("These counts include library declarations; they do\n"
+         "  not count solutions to Erdős problems.", ""),
+        ("they do\n  not count solutions", "they do count solutions"),
+        ("remains the version to cite", "is not the version to cite"),
+        ("releases/tag/", "releases/retired-tag/"),
+    ],
+)
+def test_blocks_missing_or_reversed_count_and_citation_limits(
+    tmp_path: Path, old: str, new: str,
+) -> None:
+    root = _fixture_root(tmp_path)
+    path = root / "README.md"
+    text = path.read_text(encoding="utf-8")
+    assert old in text
+    path.write_text(text.replace(old, new), encoding="utf-8")
+    receipt = validate_lean_companion_snapshot(root)
+    assert receipt["status"] == "blocked"
+    assert "LEAN_COMPANION_README_DRIFT" in {row["code"] for row in receipt["errors"]}
+
+
+@pytest.mark.parametrize("legacy_prose", [False, True])
+def test_refresh_preserves_surrounding_prose_and_uses_literal_limits(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, legacy_prose: bool,
+) -> None:
+    """Refreshing either prose edition needs no sibling checkout or network."""
+    root = _fixture_root(tmp_path)
+    path = root / "README.md"
+    text = path.read_text(encoding="utf-8")
+    if legacy_prose:
+        text = text.replace(
+            "the version to cite when referring to that release.",
+            "the tagged, citable scholarly artefact and citation anchor.",
+        )
+    prefix, _ = text.split("- [**Browse the Lean source**]", 1)
+    suffix = "\n## A later section\n\nKeep this prose exactly.\n"
+    path.write_text(text + suffix, encoding="utf-8")
+    payload = json.loads((root / "docs/lean_companion_snapshot.json").read_text())
+    payload["upstream"]["public_ref"] = "a" * 40
+    payload["upstream"]["latest_tag"] = "v99.0.0"
+    payload["scale"]["module_count"] += 1
+    monkeypatch.setattr(companion, "_build_snapshot_from_upstream", lambda *_: payload)
+    monkeypatch.setattr(companion, "_validate_upstream", lambda *_: {})
+
+    first = refresh_lean_companion_snapshot(root, upstream_root=tmp_path)
+    assert first["status"] == "pass", first["errors"]
+    refreshed = path.read_text(encoding="utf-8")
+    assert refreshed.startswith(prefix)
+    assert refreshed.endswith(suffix)
+    assert "not count solutions to Erdős problems" in refreshed
+    assert "`v99.0.0` remains the version to cite" in refreshed
+    assert "/releases/tag/v99.0.0" in refreshed
+    assert f"{payload['scale']['module_count']:,} Lean modules" in refreshed
+    assert "citation anchor" not in refreshed[len(prefix):]
+    second = refresh_lean_companion_snapshot(root, upstream_root=tmp_path)
+    assert second["status"] == "pass", second["errors"]
+    assert path.read_text(encoding="utf-8") == refreshed
+
+
+@pytest.mark.parametrize("ending", ["", "\n"])
+def test_companion_block_scanner_handles_whitespace_and_eof(ending: str) -> None:
+    prefix = "Authored introduction.\n\n"
+    whitespace = "\t\t\n" * 4_000
+    first_bullet = "- [**Browse the Lean source**](source)\n" + whitespace
+    release_bullet = "- [**Release v1.0.0**](release)\n  Release description."
+    readme = prefix + first_bullet + release_bullet + ending
+    assert companion._replace_readme_companion_block(readme, "New block") == (
+        prefix + "New block" + ending
+    )
+    suffix = "\n## Authored next section\n\n  Keep this indentation.\n"
+    assert companion._replace_readme_companion_block(
+        prefix + first_bullet + release_bullet + "\n" + suffix, "New block",
+    ) == prefix + "New block\n" + suffix
+    # The old ambiguous regex backtracked on repeated tab-only lines when
+    # the required release bullet did not follow them.
+    with pytest.raises(ValueError, match="release bullet is missing"):
+        companion._replace_readme_companion_block(
+            prefix + first_bullet + "## A different section\n", "New block",
+        )
 
 
 def test_blocks_stale_companion_problem_count_in_the_agent_entry(
