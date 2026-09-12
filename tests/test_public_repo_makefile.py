@@ -336,7 +336,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "tests/test_public_site_parity.py",
         ".PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean",
         ".PHONY: release-candidate-proof release-candidate-proof-verify release-review public-site-parity",
-        "Microcosm public repo commands:",
+        "Plectis commands:",
         "make install             create temp venv and install test extras",
         "make test                run public entry and safety tests",
         "make test-all            run full suite with pytest receipt writes blocked",

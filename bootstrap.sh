@@ -14,13 +14,13 @@ usage() {
   cat <<'USAGE'
 Usage: ./bootstrap.sh [--suite SUITE] [--emit RECEIPT_PATH] [--dry-run] [--version]
 
-Run the Microcosm cold-clone probe from the repository root.
+Run the Plectis cold-clone probe from the repository root.
 
 Options:
   --suite SUITE          Probe suite to run (default: first-wave; supported: first-wave)
   --emit RECEIPT_PATH    Receipt path to write (default: .microcosm/cold_clone_probe.json)
   --dry-run              Show the probe command without running or writing receipts
-  --version              Show the Microcosm package version without running the probe
+  --version              Show the Plectis package version without running the probe
   -h, --help             Show this help message without running the probe
 
 Environment:
@@ -28,7 +28,7 @@ Environment:
   PYTHON                 Fallback Python executable override
 
 Success output:
-  Microcosm cold-clone probe passed
+  Plectis cold-clone probe passed
   suite: <suite>
   receipt: <receipt path>
   check: make smoke (source-only)
@@ -103,7 +103,7 @@ if [[ "$show_version" == "1" ]]; then
     echo "could not read version from pyproject.toml" >&2
     exit 1
   fi
-  printf 'microcosm %s\n' "$version"
+  printf 'plectis %s\n' "$version"
   exit 0
 fi
 
@@ -122,7 +122,7 @@ else
 fi
 
 if [[ "$dry_run" == "1" ]]; then
-  printf 'Microcosm cold-clone probe dry run\n'
+  printf 'Plectis cold-clone probe dry run\n'
   printf 'suite: %s\n' "$suite"
   printf 'receipt: %s\n' "$emit"
   printf 'python: %s\n' "$python_bin"
@@ -137,7 +137,7 @@ fi
 
 "$python_bin" -m microcosm_core.cold_clone_probe --suite "$suite" --emit "$emit"
 
-printf 'Microcosm cold-clone probe passed\n'
+printf 'Plectis cold-clone probe passed\n'
 printf 'suite: %s\n' "$suite"
 printf 'receipt: %s\n' "$emit"
 printf 'check: make smoke (source-only)\n'

@@ -1,4 +1,4 @@
-# GEMINI.md - Microcosm Substrate Adapter
+# GEMINI.md - Plectis adapter
 
 This is a thin adapter for Gemini-style agents. Read `AGENTS.override.md` as the
 compact cold-clone entry; `AGENTS.md` remains the deep public mutation contract.

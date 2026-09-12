@@ -1,4 +1,4 @@
-# CODEX.md - Microcosm Substrate Adapter
+# CODEX.md - Plectis adapter
 
 This is a thin adapter for Codex-style agents. Codex discovers
 `AGENTS.override.md` as the compact cold-clone entry; `AGENTS.md` remains the
