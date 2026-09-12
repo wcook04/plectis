@@ -233,17 +233,8 @@ def refresh_lean_companion_snapshot(
     refreshed = _build_snapshot_from_upstream(payload, upstream_root)
 
     readme = readme_path.read_text(encoding="utf-8")
-    block_pattern = re.compile(
-        r"(?m)^- \[\*\*Browse the Lean source\*\*\][^\n]*\n"
-        r"(?:[ \t]+[^\n]*\n)*"
-        r"- \[\*\*Release [^\n]*\n(?:[ \t]+[^\n]*(?:\n|$))*"
-    )
-    if block_pattern.search(readme) is None:
-        raise ValueError("README Lean companion block is missing")
-    refreshed_readme = block_pattern.sub(
-        _readme_companion_block(refreshed) + "\n",
-        readme,
-        count=1,
+    refreshed_readme = _replace_readme_companion_block(
+        readme, _readme_companion_block(refreshed),
     )
 
     snapshot_path.write_text(
@@ -257,6 +248,28 @@ def refresh_lean_companion_snapshot(
     )
     receipt["mode"] = "refreshed"
     return receipt
+
+
+def _replace_readme_companion_block(readme: str, replacement: str) -> str:
+    """Replace two named bullets, scanning each continuation line once."""
+    lines = readme.splitlines(keepends=True)
+    for start, line in enumerate(lines):
+        if line.startswith("- [**Browse the Lean source**]"):
+            break
+    else:
+        raise ValueError("README Lean companion block is missing")
+
+    end = start + 1
+    while end < len(lines) and lines[end].startswith((" ", "\t")):
+        end += 1
+    if end == len(lines) or not lines[end].startswith("- [**Release "):
+        raise ValueError("README Lean companion release bullet is missing")
+    end += 1
+    while end < len(lines) and lines[end].startswith((" ", "\t")):
+        end += 1
+    # Keep the author's surrounding bytes and original EOF newline choice.
+    ending = "\n" if lines[end - 1].endswith("\n") else ""
+    return "".join(lines[:start]) + replacement + ending + "".join(lines[end:])
 
 
 def _expected_readme_fragments(payload: dict[str, Any]) -> list[tuple[str, ...]]:
