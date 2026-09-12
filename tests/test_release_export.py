@@ -243,6 +243,9 @@ def test_standalone_export_preserves_documentation_routes(tmp_path: Path) -> Non
         "docs/UNDERSTANDING_PLECTIS.md",
         "docs/papers/README.md",
         "paper/README.md",
+        "docs/governance/public-boundary.md",
+        "docs/governance/release-discipline.md",
+        "docs/guides/hypothesis-handoffs.md",
         *sorted(
             path.relative_to(root).as_posix()
             for path in (root / "docs/maintainers").glob("*.md")
@@ -305,13 +308,13 @@ def _make_release_root(root: Path) -> Path:
         "AXIOMS.md",
         "CITATION.cff",
         "CLAUDE.md",
-        "CONSTITUTION.md",
+        "docs/governance/public-boundary.md",
         "CONTRIBUTING.md",
         "CODEX.md",
         "CURSOR.md",
         "FIRST_ACTION.md",
         "GEMINI.md",
-        "HYPOTHESIS_HANDOFF.md",
+        "docs/guides/hypothesis-handoffs.md",
         "LICENSE",
         "MANIFEST.in",
         "Makefile",
@@ -320,7 +323,7 @@ def _make_release_root(root: Path) -> Path:
         "PRINCIPLES.md",
         "PROVENANCE.md",
         "QUICKSTART.md",
-        "RELEASE_DISCIPLINE.md",
+        "docs/governance/release-discipline.md",
         "RELEASE_REVIEW.md",
         "README.md",
         "SECURITY.md",
@@ -627,7 +630,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert (target / ".github/workflows/ci.yml").is_file()
     assert (target / "CONTRIBUTING.md").is_file()
     assert (target / "QUICKSTART.md").is_file()
-    assert (target / "RELEASE_DISCIPLINE.md").is_file()
+    assert (target / "docs/governance/release-discipline.md").is_file()
     assert (target / "SECURITY.md").is_file()
     assert receipt["authority_receipt"]["release_authorized"] is False
     assert (
@@ -822,7 +825,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
             "ANTI_PRINCIPLES.md",
             "ARCHITECTURE.md",
             "AXIOMS.md",
-            "CONSTITUTION.md",
+            "docs/governance/public-boundary.md",
             "ORGANS.md",
             "PRINCIPLES.md",
             "MANIFEST.in",
@@ -834,7 +837,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
             ".github",
             "CONTRIBUTING.md",
             "QUICKSTART.md",
-            "RELEASE_DISCIPLINE.md",
+            "docs/governance/release-discipline.md",
             "SECURITY.md",
         }
     )

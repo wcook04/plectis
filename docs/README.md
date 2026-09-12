@@ -39,7 +39,7 @@ linked in its catalogue entry.
 [Paper source and build instructions](../paper/README.md) give the commands for
 comparing manuscript text with its recorded evidence and compiling the PDF.
 
-[Hypothesis handoffs](../HYPOTHESIS_HANDOFF.md) explain a further use: writing
+[Hypothesis handoffs](guides/hypothesis-handoffs.md) explain a further use: writing
 down an open question, a tentative answer, alternatives and proposed
 observations or experiments to discuss with an expert. For other projects and
 walkthroughs, see [all public work](https://wcook04.github.io/).
@@ -49,6 +49,10 @@ walkthroughs, see [all public work](https://wcook04.github.io/).
 Start with [Contributing](../CONTRIBUTING.md) for changes, corrections and
 review. The runbooks answer narrower questions:
 
+- [Public boundary](governance/public-boundary.md): which material belongs in the
+  public toolkit and what a passing check establishes.
+- [Release discipline](governance/release-discipline.md): rules for publishing
+  changes and interpreting their evidence.
 - [Validation](maintainers/validation.md): run example commands and automated
   tests, compare generated files with their source data, or produce a standalone export.
 - [Security](maintainers/security-runbook.md): search selected text files for

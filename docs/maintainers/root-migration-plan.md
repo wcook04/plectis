@@ -1,15 +1,13 @@
 # Root migration plan
 
-The documents listed in tiers 1–3 remain at the public root. The proposed
-moves would put detailed guides and generated references under `docs/`,
-leaving the README and common contribution, installation and security files
-easier to find. Tier 4 is complete: the duplicate Codex and Cursor adapters
-have been removed.
+The public root is being reduced in stages. The hypothesis guide and two
+publishing policies now live under `docs/`; the duplicate Codex and Cursor
+adapters have been removed. The README, Quickstart and common contribution,
+installation and security files remain at the root.
 
-Packaging lists, generators, validators and some commands refer to these
-paths. Moving a document also requires updating the programs and links that
-use it. Tiers 1–3 are planned work; this page records the known dependencies
-to inspect before making each move.
+Generated references and doctrine sources still have consumers that expect
+their current paths. The remaining moves below require changes to those
+consumers and their builders as well as the files themselves.
 
 ## Why this is not a simple `git mv`
 
@@ -45,17 +43,26 @@ The known dependencies include:
   individually and canonicalize the result rather than replacing every
   occurrence of a filename.
 
-## Tiers (each tier is one synchronized commit, gated by `make ci`)
+## Stages (each change is gated by `make ci`)
 
-### Tier 1: inert prose (lowest coupling)
+### Tier 1: authored guides and policies
 
-Planned; these files have not moved.
+The specialist guide and public policies have moved:
 
-`PROVENANCE.md`, `SOURCE_STATUS.md`, `RELEASE_DISCIPLINE.md`,
-`CONSTITUTION.md` → `docs/`. Touch: release_export lists, MANIFEST,
-data-files, `private_state_scan.py` list (CONSTITUTION), the two packaging
-tests, `test_readme_front_door._LINKED_SIBLINGS`, README/AGENTS links, and
-`core/public_surface_manifest.json` rows (splice + canonicalize).
+| Previous root path | Current document |
+| --- | --- |
+| `HYPOTHESIS_HANDOFF.md` | [Hypothesis handoffs](../guides/hypothesis-handoffs.md) |
+| `CONSTITUTION.md` | [Public boundary](../governance/public-boundary.md) |
+| `RELEASE_DISCIPLINE.md` | [Release discipline](../governance/release-discipline.md) |
+
+Their package destinations, source manifest, export lists, scanner paths and
+reader links move with them. Export tests check that links in these guides
+resolve inside the exported tree. Historical receipts retain the paths they
+recorded at the time.
+
+`PROVENANCE.md` and `SOURCE_STATUS.md` remain at the root. They explain the
+copied source and its limits; any later move must update the exporter's
+licensing and provenance checks, package lists, README links and tests.
 
 ### Tier 2: generated projections
 

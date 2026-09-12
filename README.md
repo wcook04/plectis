@@ -124,7 +124,7 @@ source references and the stated limits of the example. It does not execute
 the suggested command or verify a claim you type into the search.
 
 For a research question with several possible answers, the
-[hypothesis handoff example](HYPOTHESIS_HANDOFF.md) records a leading hypothesis,
+[hypothesis handoff example](docs/guides/hypothesis-handoffs.md) records a leading hypothesis,
 alternatives, observations that would distinguish them, and proposed tests.
 The following command validates the supplied JSON example:
 

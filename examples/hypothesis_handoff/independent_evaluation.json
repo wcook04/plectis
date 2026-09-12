@@ -144,7 +144,7 @@
       },
       {
         "role": "public first-contact route",
-        "path": "HYPOTHESIS_HANDOFF.md",
+        "path": "docs/guides/hypothesis-handoffs.md",
         "purpose": "Keep the expert request and the current public command discoverable after the authority record changes.",
         "validator": "python -m pytest -q tests/test_hypothesis_handoff.py"
       }

@@ -61,7 +61,7 @@ PUBLIC_ROOT_RELATIVE_PREFIXES = (
     "AGENTS.md",
     "ANTI_PRINCIPLES.md",
     "AXIOMS.md",
-    "CONSTITUTION.md",
+    "docs/governance/public-boundary.md",
     "PRINCIPLES.md",
     "README.md",
     "bootstrap.sh",
