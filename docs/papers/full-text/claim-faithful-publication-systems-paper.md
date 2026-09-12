@@ -151,14 +151,14 @@ At entry, a deterministic router selects a small context packet for the task. Th
 
 ## Type A and Type B
 
-The system uses *Type A* and *Type B* to describe substrate access, not model quality.
+*Type A* means a coding agent working in the repository, such as Claude Code, Codex, Cursor, Antigravity, or OpenCode. *Type B* means a chat AI used through a web interface: the operator gives it a selected research packet and brings its response back to the repository. This is a distinction in substrate access, not model quality: it does not rank either AI’s intelligence.
 
 <div id="tab:typeab">
 
 | Actor | What it can do | Governing limit |
 |:---|:---|:---|
 | Type A | Inspect live project state; use repository tools; edit claimed files; run tests; bind receipts and status. | It may change only the substrate and paths its task authorises, and its claims remain limited by the relevant validator or human review. |
-| Type B | Reason over a selected packet through an external model, web, API, or operator-carried exchange; return research, critique, or a candidate. | It has no direct private-substrate authority. A Type A actor or the operator must check and apply useful output. |
+| Type B | Read a selected packet in web chat; return research, critique, or a candidate for the operator to carry back. | It has no direct access to these project files or tools. A Type A agent or the operator must check and apply useful output. |
 
 Type A/B is an authority distinction. Either type may be weak or strong; a delegated tool-using agent is still Type A if it has live substrate access.
 
