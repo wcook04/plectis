@@ -90,14 +90,15 @@ FRONT_DOOR_RECORD_LAYER_MARKERS: tuple[str, ...] = (
     r"\binspectable record\b",
 )
 FRONT_DOOR_CLAIM_GRAMMAR_PATTERNS: tuple[tuple[str, str], ...] = (
+    # Bind the reading journey, not a prescribed slogan or the words
+    # "underread" and "overread". The mechanism-first opening and the
+    # per-family ceilings below separately guard understatement and overclaim.
     (
-        r"\bmechanisms?\s*[-=]+>\s*evidence discipline\s*[-=]+>\s*local runtime\b",
+        r"\bmechanisms?\s*[-=]+>\s*evidence discipline\s*[-=]+>\s*local runtime\b"
+        r"|\bcomponent\b.{0,60}\binput\b.{0,60}\bcode\b.{0,60}\bresult\b"
+        r".{0,60}\bcheck\b.{0,60}\blimit\b.{0,100}\bruntime\b.{0,60}\brecords?\b",
         "mechanism-evidence-runtime-read-order",
     ),
-    (r"\bunderclaimed?\b|\bunderclaiming\b", "underclaim-guard"),
-    (r"\bunderread\b", "underclaim-underread-guard"),
-    (r"\boverclaimed?\b|\boverclaiming\b", "overclaim-guard"),
-    (r"\boverread\b", "overclaim-overread-guard"),
     (
         r"\bresearch prototype\b.{0,80}\bdeveloper tool\b",
         "prototype-developer-tool-ceiling",
