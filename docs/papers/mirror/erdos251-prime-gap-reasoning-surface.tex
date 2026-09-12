@@ -914,7 +914,7 @@ enters it.  The bracket uses the Lean-checked tail estimate
 $p_n\le1250(n+1)^4$, so no conjecture enters.  The classical theorem that a
 best approximation of the second kind is a convergent then converts the
 certified prefix into the denominator bound~\cite{khinchin1964}.  The receipt
-is \texttt{state/formal\_math/probes/erdos251\_certified\_cf\_receipt.json},
+is \href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/certified-cf.json}{\texttt{certified-cf.json}},
 which records the generating program and its digest, the power-of-two exponent
 $39997$, the bit length $39998$, the strict decimal power $12040$, the decimal
 digit count $12041$, the largest partial quotient $973919$ at index $16442$,
@@ -1350,9 +1350,9 @@ Theorem~\ref{long251:res:signedwindow} occurs at every offset, with density betw
 $0.00418$ and $0.008248$ and the two signs near balanced; at $h=1$ there are
 $56\,427$ occurrences among $6\,841\,564$ candidate indices, the last at the
 prime $119\,995\,753$.  Rescaled by $\log p$ the band densities run from
-$0.17671$ down to $0.13148$ with decelerating drift, so the count up to $X$
-still grows like $X/(\log X)^2$, which is the rate
-Theorem~\ref{long251:res:sparse} permits.  The tails in this scan are double-precision
+$0.17671$ down to $0.13148$ with decelerating drift over the measured bands.
+This finite observation does not establish an asymptotic counting law or
+cofinality.  The tails in this scan are double-precision
 floating-point, so an individual hit is a numerical observation and carries no
 certificate; the median distance from the shift to the nearer window boundary
 is $0.127$ and the worst case over $34\,000$ hits is $6.1\times10^{-7}$, eight
@@ -1360,17 +1360,20 @@ orders above the working resolution, and $3\,200$ sampled hits across
 $h=1,\ldots,8$ were rechecked against the literal three-part statement with no
 violations.  Proposition~\ref{long251:res:finite-smallpair} is the one pair certified
 by exact integer arithmetic.  The receipt is
-\texttt{state/formal\_math/probes/erdos251\_adjacent\_mismatch\_receipt.json}.
+\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/adjacent-mismatch.json}{\texttt{adjacent-mismatch.json}}.
 
 Over the $1\,270\,607$ primes below $2\times10^{7}$, and for every modulus
 $t\le20$ and every residue class modulo $t$, the free-pair event of
 Theorem~\ref{long251:res:freepair} has witnesses running to the last usable index: the
 leanest class at $t=20$ carries $90\,150$ witnesses and the latest witness sits
-at index $1\,270\,519$ of $1\,270\,540$.  Every recorded witness satisfies the
-stronger two-window event, so it certifies both producers at once.  What the
+at index $1\,270\,520$ of $1\,270\,540$.  The recorded floating-point witnesses
+pass the stronger two-window test over this finite range; they are numerical
+observations, not exact certificates or a proof of either cofinal producer.  What the
 scan does not supply is uniformity in $t$ and in the cutoff.  The receipt is
-\texttt{state/formal\_math/erdos257\_period\_noncollapse/}\allowbreak
-\texttt{erdos251\_free\_pair\_receipt.json}.
+\href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/free-pair.json}{\texttt{free-pair.json}}.
+The \href{https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/README.md}{public computation guide}
+provides the programs, dependencies and exact replay commands for all three
+recorded runs, including the continued-fraction calculation above.
 
 \section{The remaining obligation}\label{long251:sec:open}
 
