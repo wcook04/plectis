@@ -37,9 +37,9 @@ the residues not divisible by $k$ form a basis. Explicit scalar reductions
 give unique integral coordinates and a basis of all integral relations. The
 arithmetic step is independence: divisibility makes an evaluation matrix
 diagonal modulo a prime, with nonzero diagonal entries. This CRT--Dirichlet
-argument proves the all-base theorem ordinarily in the note. Lean checks the
-dyadic theorem; its current all-base wrapper retains canonical-family
-independence as a hypothesis. Martin's theorem supplies a broader external
+argument proves the all-base theorem ordinarily in the note. Lean also checks
+canonical-family independence and the complete all-base rank unconditionally.
+Martin's theorem supplies a broader external
 affine-independence result, while Coons proved non-$k$-regularity of $\ph$.
 A separate ordinary argument uses isolated blocks to prove that
 $\sum_{n\ge1}(\ph(n)\bmod m)2^{-n}$ is irrational for every $m\ge3$,
@@ -87,12 +87,14 @@ $t=\max\{s:k^s\mid r\}\ge1$ and $k\nmid u$, then
 Theorem~\ref{thm:kkernelrank} proves ordinarily that the totient $k$-kernel
 truncation has rank $k^e+1$. The dyadic case is also the
 \mword{Erdos249257/TotientMahlerDefect.lean}{1084}{finrank_totientKernelThroughLevelFamily_eq}{exact finite-truncation rank};
-the current all-base Lean wrapper is
+the reusable all-base Lean wrapper is
 \mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{the same count from an independent family},
-and retains linear independence of the canonical family as an explicit
-hypothesis. Martin's theorem supplies that independence externally; the direct
-CRT--Dirichlet proof in Section~\ref{sec:rank} proves precisely the family used
-here.
+and retains linear independence as an explicit input. That input is discharged
+by the independent CRT--Dirichlet proof in
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1118}{\texttt{AllBaseTotientKernel.lean}};
+the \href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239}{complete truncation rank}
+therefore has no independence hypothesis. Martin supplies the broader external
+antecedent, rather than an axiom of this Lean proof.
 \end{enumerate}
 The retained condition is $k\nmid r$. At $k=6$, for example, the residue
 $r=2$ is retained. At base $2$ and level $3$, the fifteen sections have nine
@@ -550,9 +552,11 @@ residue-series irrationality,
 canonical equivalence and the
 \lword{Erdos249/RankOneSharpFloor.lean}{624}{rankOneSubrankQuotient_sub_theta_two_gt_twentyOne_div_threeTwenty}{positive rank-one floor}
 are in the public snapshot.  The
-unconditional all-base exact-rank theorem is not a Lean theorem without
-Martin's independence hypothesis; the formal transfer is
-\mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{rank from an independent all-base family}.
+unconditional all-base exact-rank theorem is also
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239}{kernel-checked}:
+its CRT--Dirichlet independence proof does not assume Martin's theorem.
+\mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{Rank from an independent all-base family}
+remains the reusable conditional factorisation.
 The
 \lword{Erdos249/CyclotomicAnchoredKill.lean}{3165}{fullMersenneCanonicalBasepointResidueGapSupply_iff_irrational}{canonical gap}
 is the remaining arithmetic endpoint.
@@ -761,6 +765,11 @@ The public snapshot used by this note is recorded by the following source links.
 \mword{Erdos249257/TotientKernelConditional.lean}{185}{span_allBaseTotientKernelThroughLevelFamily_eq_canonical}{span equality},
 \mword{Erdos249257/TotientKernelConditional.lean}{203}{finrank_canonicalAllBaseTotientKernel_eq_of_linearIndependent}{canonical all-base rank from independence},
 \mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{all-base truncation rank from independence}.
+At the later public checkpoint \texttt{25ef6245d15a},
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1118}{\texttt{linearIndependent\_allBaseCanonicalFamily}},
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1231}{\texttt{finrank\_allBaseTotientKernel\_eq}}, and
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239}{\texttt{finrank\_allBaseThroughLevelFamily\_eq}}
+provide the unconditional all-base independence and both exact ranks.
 
 \begin{thebibliography}{9}\small
 \bibitem{allouche-shallit} J.-P.~Allouche and J.~Shallit,

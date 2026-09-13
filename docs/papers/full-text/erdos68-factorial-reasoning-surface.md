@@ -1055,9 +1055,11 @@ There is a second, more arithmetic mechanism at doubled prime indices, stated as
 
 Beyond the definitions used in the short note, the record keeps the exact interfaces of the collision-core reduction.
 
-The collision core has an exact incremental law. For the positive factorial-gap denominators, adjoining $`d_a`$ to a finite family $`S`$ gives
+Write $`D(S)=\operatorname{lcm}_{i<j,\ i,j\in S}\gcd(d_i,d_j)`$, with $`D(S)=1`$ for an empty or singleton family. For each prime $`r`$, its valuation is the second-largest valuation among the $`d_i`$, counting missing values as zero; the denominator lcm has the largest valuation. This proves $`D(S)\operatorname{lcm}_{i\in S}d_i\mid\prod_{i\in S}d_i`$ prime by prime.
+
+The collision core has an exact incremental law. For the positive factorial-gap denominators, adjoining a new index $`a\notin S`$ gives
 ``` math
-C(S\cup\{a\})=\operatorname{lcm}\!\Bigl(C(S),\ \gcd\bigl(d_a,\operatorname{lcm}_{j\in S}d_j\bigr)\Bigr),
+D(S\cup\{a\})=\operatorname{lcm}\!\Bigl(D(S),\ \gcd\bigl(d_a,\operatorname{lcm}_{j\in S}d_j\bigr)\Bigr),
 ```
 since finite-family gcd and lcm distributivity collapses the lcm of all pairwise gcds against $`d_a`$ to a single gcd. The same formula holds after adjoining the distinguished base, so each step needs only the old denominator lcm and the old core, with no pairwise rescan.
 
@@ -1067,12 +1069,12 @@ There is an exact product and lcm bound. If $`\widetilde C(S)`$ is the core afte
 ```
 an exact bridge from lower estimates for the factorial-gap lcm to upper estimates for the normalised core. It does not close the local scale bound.
 
-The base cancellation is exact prime by prime. With $`F_p=(p-1)!`$ and $`C_p`$ the unnormalised core,
+The base cancellation is exact prime by prime. With $`F_p=(p-1)!`$, $`D_p=D(I_p)`$ and $`C_p=\operatorname{lcm}(F_p,D_p)`$, as in the main record,
 ``` math
-\widetilde C_p=\frac{\operatorname{lcm}(F_p,C_p)}{F_p}=\frac{C_p}{\gcd(F_p,C_p)},\qquad
- v_r(\widetilde C_p)=v_r(C_p)-\min\{v_r(F_p),v_r(C_p)\} .
+\widetilde C_p=\frac{C_p}{F_p}=\frac{D_p}{\gcd(F_p,D_p)},\qquad
+ v_r(\widetilde C_p)=\max\{0,v_r(D_p)-v_r(F_p)\} .
 ```
-So $`r^e\mid\widetilde C_p`$ exactly when the pairwise core carries $`r^{e+v_r(F_p)}`$, which in the block forces two distinct gaps to be divisible by that higher power. The sharp surviving valuation cap $`v_r(\widetilde C_p)+v_r(F_p)<r`$ then gives $`p-1<r(r-1)<r^2`$ for every support prime, and $`\widetilde C_p`$ is coprime to $`k!`$ whenever $`k(k-1)\le p-1`$. This removes every factorial channel below the moving square-root cutoff, and it does not bound the aggregate product of the remaining large prime powers.
+For $`e>0`$, $`r^e\mid\widetilde C_p`$ exactly when the pairwise core carries $`r^{e+v_r(F_p)}`$, which in the block forces two distinct gaps to be divisible by that higher power, by the second-largest-valuation formula. If $`i<j`$ are two such hits and $`f=v_r(F_p)`$, then $`r^{e+f}\mid j!/i!-1`$. Since $`r\mid j!-1`$ forces $`j<r`$, $`0<j!/i!-1<r^{j-i}`$, hence $`e+f<j-i`$. The sharp surviving valuation cap $`v_r(\widetilde C_p)+v_r(F_p)<r`$ then gives $`p-1<r(r-1)<r^2`$ for every support prime, and $`\widetilde C_p`$ is coprime to $`k!`$ whenever $`k(k-1)\le p-1`$. This removes every factorial channel below the moving square-root cutoff, and it does not bound the aggregate product of the remaining large prime powers.
 
 For collision estimates that already provide an upper-half hit, no exponent is lost to normalisation: if $`r`$ divides a displayed gap at some $`n\ge p`$, then $`r\nmid F_p`$ and $`r^e\mid\widetilde C_p\iff r^e\mid C_p`$ for every $`e>0`$. This has an exact incidence-count form,
 ``` math

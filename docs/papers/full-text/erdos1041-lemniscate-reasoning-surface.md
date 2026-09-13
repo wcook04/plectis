@@ -329,7 +329,7 @@ a_\iota`$, a value $`m`$ with $`m<a_\iota+(x_r-x_\ell)g(x_\ell,x_r,m)`$ is a str
 
 #### Certificate.
 
-The threshold is the level at which the forced area passes the cap. The companion program `experiments/erdos1041_low_critical_path_certificate.py` evaluates every accepted inequality in exact rational arithmetic, with directed rounding on every exponential, logarithm and square root, and with the rational brackets for $`\pi`$ and $`\log2`$ checked from Machin’s identity. The full replay uses $`18`$ area-table levels, $`14`$ radii per dual, $`126`$ certified duals, step $`1/400`$, and the single initial lower area $`10^{-6}`$. It certifies
+The threshold is the level at which the forced area passes the cap. The companion program [`check_erdos1041_angular_budget_closure.py`](https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/scripts/check_erdos1041_angular_budget_closure.py) evaluates every accepted inequality in exact rational arithmetic, with directed rounding on every exponential, logarithm and square root, and with the rational brackets for $`\pi`$ and $`\log2`$ checked from Machin’s identity. The full replay uses $`18`$ area-table levels, $`14`$ radii per dual, $`126`$ certified duals, step $`1/400`$, and the single initial lower area $`10^{-6}`$. It certifies
 ``` math
 X=\frac{635762889599}{1000000000000}<0.6357629,
  \qquad \frac{13}{25}e^{X}<1,
@@ -340,7 +340,7 @@ which is Theorem <a href="#res:low-critical-thirteen-twentyfifths" data-referen
 
 #### Evidence and exact boundary.
 
-The analytic chain above is ordinary mathematics. Its general inputs are the Riemann mapping theorem, the Bergman kernel, the argument principle, the coarea formula, and Pólya’s area inequality $`\operatorname{Area}\{|f|\le t\}\le\pi t^{2/n}`$ \[polya1928, printed pp. 280–282\]. The exact rational certificate is a kernel-free replayable computation, and no part of this theorem is Lean-checked or independently reviewed. Prior art for the assembled statement is unassessed; the hyperbolic slice inequality follows from disjointness of the balls and the law of cosines and should be assumed known. The public source of record is `research_corpus/Erdos1041/LowCriticalPathCertificate.md`, which carries the full analytic chain, the certified dual table and the replay route. The exact remaining obligation is that this threshold argument does not cover $`13/25<\mu<1`$; other results in this note intersect that range, so the globally open set is not obtained by subtracting one scalar regime. Fixed-degree arguments remain stronger at $`n=4`$ and $`n=5`$, where the corresponding thresholds are $`61/100`$ and $`139/250`$; from $`n=6`$ on the all-degree constant $`13/25`$ is the better statement. Erdős #1041 remains open.
+The analytic chain above is ordinary mathematics. Its general inputs are the Riemann mapping theorem, the Bergman kernel, the argument principle, the coarea formula, and Pólya’s area inequality $`\operatorname{Area}\{|f|\le t\}\le\pi t^{2/n}`$ \[polya1928, printed pp. 280–282\]. The exact rational certificate is a kernel-free replayable computation, and no part of this theorem is Lean-checked or independently reviewed. Prior art for the assembled statement is unassessed; the hyperbolic slice inequality follows from disjointness of the balls and the law of cosines and should be assumed known. The public source of record is [`AngularBudgetLowCriticalClosure.md`](https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AngularBudgetLowCriticalClosure.md), which carries the full analytic chain, the certified dual table and the replay route. The exact remaining obligation is that this threshold argument does not cover $`13/25<\mu<1`$; other results in this note intersect that range, so the globally open set is not obtained by subtracting one scalar regime. Fixed-degree arguments remain stronger at $`n=4`$ and $`n=5`$, where the corresponding thresholds are $`61/100`$ and $`139/250`$; from $`n=6`$ on the all-degree constant $`13/25`$ is the better statement. Erdős #1041 remains open.
 
 <a id="sec:constant-factor"></a>
 
@@ -388,7 +388,18 @@ For an argument avoiding the finitely many critical-value rays, lift the radial 
 ``` math
 \sum_i\frac{\mu^2}{|f'(z_i)|^2}\le\rho^2          \tag{CF2}
 ```
-aggregates those pieces without paying once per root. Coarea and (CF1) control the high pieces on average over the argument. Choose one argument realising that average, order the lift endpoints cyclically on $`\partial C_t`$, and use the shortest adjacent boundary arc. Averaging the two lifts and the boundary arcs over the $`k`$ adjacent pairs gives (CF). For the final assertion, the repeated-zero case is already a constant path, and in degree two the root segment has length $`2\rho=2\sqrt\mu\le\sqrt2`$. For $`n\ge3`$, take $`\lambda=2`$ and $`r=3/20`$. Since $`k\ge2`$ and $`\mu\le1/2`$, (CF) gives
+aggregates those pieces without paying once per root. Coarea and (CF1) control the high pieces on average over the argument. Choose one argument realising that average, order the lift endpoints cyclically on $`\partial C_t`$, and use the shortest adjacent boundary arc. Averaging the two lifts and the boundary arcs over the $`k`$ adjacent pairs gives (CF). The three contributions are, explicitly,
+``` math
+\begin{aligned}
+ \frac2k\sum_i\ell_i^{\rm low}
+ &\le\frac{2r\rho}{\sqrt{k}(1-r)^2},\\
+ \frac2k\sum_i\ell_i^{\rm high}
+ &\le\sqrt{\frac2k}\sqrt{\log(\lambda/r)}\,T^{1/n},\\
+ \frac{\mathcal H^1(\partial C_t)}k
+ &\le\sqrt{\frac2k}\frac{\pi T^{1/n}}{\sqrt{\log\lambda}}.
+\end{aligned}
+```
+The low bound holds on every ray, the high bound on the ray chosen from its mean, and the boundary bound at the level selected before either choice. They therefore hold together. Adding and substituting $`T^{1/n}=\lambda^{1/n}\rho`$ recovers (CF). For the final assertion, the repeated-zero case is already a constant path, and in degree two the root segment has length $`2\rho=2\sqrt\mu\le\sqrt2`$. For $`n\ge3`$, take $`\lambda=2`$ and $`r=3/20`$. Since $`k\ge2`$ and $`\mu\le1/2`$, (CF) gives
 ``` math
 \begin{aligned}
  \operatorname{length}

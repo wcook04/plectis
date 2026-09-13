@@ -313,7 +313,22 @@ once per root.  Coarea and~(CF1) bound the high pieces only after averaging
 in the argument.  Choose one argument realising that average, order the lift
 endpoints cyclically on $\partial C_t$, and hop along the shortest adjacent
 boundary arc.  Averaging the two lifts and the $k$ arcs over adjacent pairs
-gives~(CF).  For the final assertion, the repeated-zero case is already a
+gives~(CF). Explicitly, the three contributions to that pair average satisfy
+\[
+\begin{aligned}
+ \frac2k\sum_i\ell_i^{\rm low}
+ &\le\frac{2r\rho}{\sqrt{k}(1-r)^2},\\
+ \frac2k\sum_i\ell_i^{\rm high}
+ &\le\sqrt{\frac2k}\sqrt{\log(\lambda/r)}\,T^{1/n},\\
+ \frac{\mathcal H^1(\partial C_t)}k
+ &\le\sqrt{\frac2k}\frac{\pi T^{1/n}}{\sqrt{\log\lambda}}.
+\end{aligned}
+\]
+The low estimate is pointwise in the ray; the high estimate holds for the
+single ray chosen from its mean. The boundary estimate uses the level already
+selected. Thus these estimates apply together, and
+$T^{1/n}=\lambda^{1/n}\rho$ gives the three terms in~(CF).
+For the final assertion, the repeated-zero case is already a
 constant path, and in degree two the root segment has length
 $2\rho=2\sqrt\mu\le\sqrt2$.  For $n\ge3$, take $\lambda=2$ and $r=3/20$.
 Since $k\ge2$ and $\mu\le1/2$, (CF) gives

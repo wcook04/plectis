@@ -327,7 +327,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/erdos68-factorial-reasoning-surface.md",
       "local_source": "docs/papers/mirror/erdos68-factorial-reasoning-surface.tex",
-      "source_sha256": "sha256:fa96a42188acbdde059278535f7a5422cf37762e37d345423f6c3f1a869bc09c",
+      "source_sha256": "sha256:69e294f068212a49f1ac06b29936faedfa3d0303fecbcad7f60c18cfd557732f",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.tex",
@@ -506,62 +506,62 @@
           "level": 2,
           "id": "long68:sec:ext-certificates",
           "title": "Finite channel and carry certificates",
-          "line": 1118
+          "line": 1120
         },
         {
           "level": 2,
           "id": "long68:sec:ext-nogo",
           "title": "Limits of fixed-coordinate arguments",
-          "line": 1132
+          "line": 1134
         },
         {
           "level": 2,
           "id": "long68:sec:ext-generic",
           "title": "The generic shape behind the lower-interval form",
-          "line": 1148
+          "line": 1150
         },
         {
           "level": 1,
           "id": "sec:erdos-68-complete-family-map",
           "title": "Complete result-family map",
-          "line": 1160
+          "line": 1162
         },
         {
           "level": 2,
           "id": "factorial-carry-characterisation",
           "title": "Factorial carry characterisation",
-          "line": 1166
+          "line": 1168
         },
         {
           "level": 2,
           "id": "factorial-channel-and-projection-rigidity",
           "title": "Factorial channel and projection rigidity",
-          "line": 1190
+          "line": 1192
         },
         {
           "level": 2,
           "id": "factorial-conditional-producers",
           "title": "Factorial conditional producers",
-          "line": 1236
+          "line": 1238
         },
         {
           "level": 2,
           "id": "factorial-lcm-growth",
           "title": "Factorial lcm growth",
-          "line": 1256
+          "line": 1258
         },
         {
           "level": 2,
           "id": "factorial-finite-certificates",
           "title": "Factorial finite certificates",
-          "line": 1276
+          "line": 1278
         }
       ],
       "citations_rendered": 24,
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos68-factorial-reasoning-surface.pdf",
-      "pdf_sha256": "sha256:4a8f6fff4e290133bbbc3b28a7f1050ae3f398ce53dc124c809de94238609096",
-      "pdf_byte_count": 199374,
+      "pdf_sha256": "sha256:8010d34f8fe54075bf35509712ead43523b527d015c4ca8efbd6597a7cd3dde4",
+      "pdf_byte_count": 200601,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",
@@ -584,7 +584,7 @@
           {
             "id": "sec:erdos-68-complete-family-map",
             "title": "Complete result-family map",
-            "line": 1160
+            "line": 1162
           }
         ],
         "unresolved_count": 0
@@ -1329,7 +1329,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/erdos-249-binary-totient-series.md",
       "local_source": "docs/papers/mirror/erdos-249-binary-totient-series.tex",
-      "source_sha256": "sha256:9c42e5e921756f43997617bcdce4b4e6a41459e0230c67ce592d6e4563e78851",
+      "source_sha256": "sha256:6e8b62b1d01edbff1acb9bca7e5182e90cfdc6810d24fb3ad22e2df660b66635",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.tex",
@@ -1410,8 +1410,8 @@
       },
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-249-binary-totient-series.pdf",
-      "pdf_sha256": "sha256:966ceedc9b20137513cf4c7aafab7a682662360cf9c1ba80932f0210f3eeb9c4",
-      "pdf_byte_count": 110138,
+      "pdf_sha256": "sha256:7f02838fd5bd4d11ca6e88a77e1b6e483228670d5d0a1c6fb1e3ac1e670d3beb",
+      "pdf_byte_count": 111920,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",
@@ -2689,7 +2689,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/erdos251-prime-gap-reasoning-surface.md",
       "local_source": "docs/papers/mirror/erdos251-prime-gap-reasoning-surface.tex",
-      "source_sha256": "sha256:09b7a81e2abe7dea9393920f5ec53e5512ffbb50bcc0dec6e9c157957c786fb6",
+      "source_sha256": "sha256:8384ef06093676c4100203c52d616c66faca6a0c6cb1544c7fb2886efb04140c",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.tex",
@@ -3012,8 +3012,8 @@
       "citations_rendered": 36,
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos251-prime-gap-reasoning-surface.pdf",
-      "pdf_sha256": "sha256:9d9a3a1c74486f0a2b807ca7603ae1bff4cc6d82ee11272aa078e47872038ee4",
-      "pdf_byte_count": 242812,
+      "pdf_sha256": "sha256:cac68aa8e9fe9c74d256b988b36ad2102c7ab82f309535fef6ac7f4a514f2ce6",
+      "pdf_byte_count": 243003,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",
@@ -4717,7 +4717,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md",
       "local_source": "docs/papers/mirror/erdos-1041-lemniscate-newton-flow.tex",
-      "source_sha256": "sha256:2bc07a8c96785088ab5067db62f1b6385cd2e3ca93116930a006c891db329040",
+      "source_sha256": "sha256:35cb79686bf46d554b7c392dc00841a7a712f9f3a3a1abb4f989f1456b965995",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos-1041-lemniscate-newton-flow.tex",
@@ -4770,158 +4770,158 @@
           "level": 1,
           "id": "sec:critical-proximity",
           "title": "Critical proximity and straight-path obstructions",
-          "line": 205
+          "line": 216
         },
         {
           "level": 1,
           "id": "sec:solved-families",
           "title": "Solved polynomial families",
-          "line": 256
+          "line": 267
         },
         {
           "level": 2,
           "id": "translated-cubic-quotient-fibres",
           "title": "Translated cubic quotient fibres",
-          "line": 262
+          "line": 273
         },
         {
           "level": 2,
           "id": "primitive-sparse-quintics",
           "title": "Primitive sparse quintics",
-          "line": 278
+          "line": 289
         },
         {
           "level": 2,
           "id": "bdry:solved-polynomial-families",
           "title": "Sharp collinear roots",
-          "line": 300
+          "line": 311
         },
         {
           "level": 1,
           "id": "sec:separation",
           "title": "Critical-value separation in every degree",
-          "line": 306
+          "line": 317
         },
         {
           "level": 4,
           "id": "bdry:critical-value-separation",
           "title": "Boundary.",
-          "line": 389
+          "line": 400
         },
         {
           "level": 1,
           "id": "sec:exact-obstructions",
           "title": "Three exact covering obstructions",
-          "line": 397
+          "line": 408
         },
         {
           "level": 1,
           "id": "sec:newton",
           "title": "The Newton value equation",
-          "line": 428
+          "line": 439
         },
         {
           "level": 1,
           "id": "sec:arguments",
           "title": "Arguments, not moduli",
-          "line": 463
+          "line": 474
         },
         {
           "level": 1,
           "id": "sec:reciprocal",
           "title": "Local coordinates for perturbative competitors",
-          "line": 485
+          "line": 496
         },
         {
           "level": 1,
           "id": "sec:gap",
           "title": "A proof gap in the unrestricted argument",
-          "line": 495
+          "line": 506
         },
         {
           "level": 1,
           "id": "sec:finite",
           "title": "Computational searches",
-          "line": 523
+          "line": 534
         },
         {
           "level": 1,
           "id": "sec:binomial",
           "title": "Exact symmetric benchmark: complementary chords for every binomial degree",
-          "line": 529
+          "line": 540
         },
         {
           "level": 1,
           "id": "sec:collinear",
           "title": "The sharp collinear theorem: order buys an exact Chebyshev extremal",
-          "line": 562
+          "line": 573
         },
         {
           "level": 1,
           "id": "sec:freepoint",
           "title": "A Poisson identity for critical-value means",
-          "line": 604
+          "line": 615
         },
         {
           "level": 1,
           "id": "sec:orlicz",
           "title": "The exact nonlinear lifetime currency",
-          "line": 685
+          "line": 696
         },
         {
           "level": 1,
           "id": "sec:open",
           "title": "The remaining geometric selection problem",
-          "line": 738
+          "line": 749
         },
         {
           "level": 4,
           "id": "a-dense-generic-class-suffices.",
           "title": "A dense generic class suffices.",
-          "line": 748
+          "line": 759
         },
         {
           "level": 4,
           "id": "a-sufficient-canonical-arc-estimate.",
           "title": "A sufficient canonical-arc estimate.",
-          "line": 760
+          "line": 771
         },
         {
           "level": 4,
           "id": "the-attachment-obstruction-is-quantitative.",
           "title": "The attachment obstruction is quantitative.",
-          "line": 770
+          "line": 781
         },
         {
           "level": 4,
           "id": "which-information-is-insufficient.",
           "title": "Which information is insufficient.",
-          "line": 781
+          "line": 792
         },
         {
           "level": 1,
           "id": "sec:evidence-ledger",
           "title": "Proof boundaries",
-          "line": 789
+          "line": 800
         },
         {
           "level": 2,
           "id": "sec:1041-sources",
           "title": "Sources and adjacent results",
-          "line": 799
+          "line": 810
         },
         {
           "level": 1,
           "id": "app:sources",
           "title": "Guide to the formal sources",
-          "line": 805
+          "line": 816
         }
       ],
       "citations_rendered": 12,
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-1041-lemniscate-newton-flow.pdf",
-      "pdf_sha256": "sha256:2762dd58c3fc62d4c47a683953f4076bdc1b00b959f6eca3b0667cc7f9ab7310",
-      "pdf_byte_count": 156655,
+      "pdf_sha256": "sha256:85eee58aa2bb9ba9feb94653572d1b7d095f05b6a2c08bbf8ab636664a9c56a8",
+      "pdf_byte_count": 158069,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",
@@ -4939,12 +4939,12 @@
           {
             "id": "sec:gap",
             "title": "A proof gap in the unrestricted argument",
-            "line": 495
+            "line": 506
           },
           {
             "id": "sec:open",
             "title": "The remaining geometric selection problem",
-            "line": 738
+            "line": 749
           }
         ],
         "unresolved_count": 0
@@ -4987,7 +4987,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/erdos1041-lemniscate-reasoning-surface.md",
       "local_source": "docs/papers/mirror/erdos1041-lemniscate-reasoning-surface.tex",
-      "source_sha256": "sha256:e4fc4f822650b1f5dd5762ce0d412a958ff3146226221f1e5e0ee8d2e1b6ad30",
+      "source_sha256": "sha256:f0332da7f2d0cff25c4fe6401ab378303646e1ed1b8a10ec932265200faf4d66",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1041/erdos1041-lemniscate-reasoning-surface.tex",
@@ -5076,296 +5076,296 @@
           "level": 4,
           "id": "bdry:constant-factor",
           "title": "Evidence and exact boundary.",
-          "line": 481
+          "line": 492
         },
         {
           "level": 1,
           "id": "sec:degree-three",
           "title": "Degree three",
-          "line": 487
+          "line": 498
         },
         {
           "level": 4,
           "id": "bdry:degree-three",
           "title": "Evidence and exact boundary.",
-          "line": 517
+          "line": 528
         },
         {
           "level": 1,
           "id": "sec:critical-value-separation",
           "title": "An all-degree critical-value separation theorem",
-          "line": 523
+          "line": 534
         },
         {
           "level": 4,
           "id": "bdry:critical-value-separation",
           "title": "Evidence and exact boundary.",
-          "line": 636
+          "line": 647
         },
         {
           "level": 1,
           "id": "sec:solved-polynomial-families",
           "title": "Three exact solved polynomial families",
-          "line": 650
+          "line": 661
         },
         {
           "level": 2,
           "id": "subsec:sharp-collinear-chebyshev",
           "title": "Sharp collinear zeros",
-          "line": 656
+          "line": 667
         },
         {
           "level": 4,
           "id": "rem:sharp-collinear-formal-boundary",
           "title": "Formal boundary.",
-          "line": 727
+          "line": 738
         },
         {
           "level": 2,
           "id": "subsec:primitive-sparse-quintic",
           "title": "The primitive sparse quintic",
-          "line": 733
+          "line": 744
         },
         {
           "level": 4,
           "id": "rem:primitive-quintic-formal-boundary",
           "title": "Formal boundary.",
-          "line": 819
+          "line": 830
         },
         {
           "level": 2,
           "id": "subsec:translated-cubic-quotient-fibres",
           "title": "Translated cubic quotient fibres",
-          "line": 825
+          "line": 836
         },
         {
           "level": 4,
           "id": "rem:cubic-quotient-formal-boundary",
           "title": "Formal boundary.",
-          "line": 886
+          "line": 897
         },
         {
           "level": 4,
           "id": "bdry:solved-polynomial-families",
           "title": "Shared assurance boundary.",
-          "line": 892
+          "line": 903
         },
         {
           "level": 1,
           "id": "sec:frontier",
           "title": "The current frontier: what survives near Fekete configurations",
-          "line": 898
+          "line": 909
         },
         {
           "level": 2,
           "id": "near-fekete-stability-removes-the-radial-distraction",
           "title": "Near-Fekete stability removes the radial distraction",
-          "line": 904
+          "line": 915
         },
         {
           "level": 2,
           "id": "a-bounded-radius-concyclic-class",
           "title": "A bounded-radius concyclic class",
-          "line": 922
+          "line": 933
         },
         {
           "level": 2,
           "id": "cyclic-trinomial-fibres",
           "title": "Cyclic trinomial fibres",
-          "line": 932
+          "line": 943
         },
         {
           "level": 2,
           "id": "coefficient-controlled-cyclic-tetranomial-spokes",
           "title": "Coefficient-controlled cyclic tetranomial spokes",
-          "line": 951
+          "line": 962
         },
         {
           "level": 2,
           "id": "sec:translated-quartic-quotient-fibres",
           "title": "Translated quartic quotient fibres",
-          "line": 999
+          "line": 1010
         },
         {
           "level": 2,
           "id": "a-critical-value-budget-in-every-degree",
           "title": "A critical-value budget in every degree",
-          "line": 1027
+          "line": 1038
         },
         {
           "level": 4,
           "id": "the-weighted-poisson-proof-and-the-small-cardinality-conclusions.",
           "title": "The weighted Poisson proof and the small-cardinality conclusions.",
-          "line": 1115
+          "line": 1126
         },
         {
           "level": 4,
           "id": "poisson-majorization-and-termwise-integration.",
           "title": "Poisson majorization and termwise integration.",
-          "line": 1142
+          "line": 1153
         },
         {
           "level": 4,
           "id": "a-uniform-central-region-in-every-degree.",
           "title": "A uniform central region in every degree.",
-          "line": 1153
+          "line": 1164
         },
         {
           "level": 4,
           "id": "four-points-without-a-matching-or-numerical-split.",
           "title": "Four points without a matching or numerical split.",
-          "line": 1174
+          "line": 1185
         },
         {
           "level": 2,
           "id": "the-degree-five-target-is-now-explicit",
           "title": "The degree-five target is now explicit",
-          "line": 1189
+          "line": 1200
         },
         {
           "level": 2,
           "id": "the-no-go-boundaries-force-hub-selection",
           "title": "The no-go boundaries force hub selection",
-          "line": 1224
+          "line": 1235
         },
         {
           "level": 2,
           "id": "the-surviving-carrier-and-the-actual-open-endpoint",
           "title": "The surviving carrier and the actual open endpoint",
-          "line": 1242
+          "line": 1253
         },
         {
           "level": 1,
           "id": "sec:newton",
           "title": "The Newton value equation",
-          "line": 1254
+          "line": 1265
         },
         {
           "level": 1,
           "id": "sec:arguments",
           "title": "Arguments, not moduli",
-          "line": 1290
+          "line": 1301
         },
         {
           "level": 1,
           "id": "sec:gap",
           "title": "A proof gap in the unrestricted argument",
-          "line": 1312
+          "line": 1323
         },
         {
           "level": 1,
           "id": "sec:finite",
           "title": "Finite evidence",
-          "line": 1370
+          "line": 1381
         },
         {
           "level": 1,
           "id": "sec:open",
           "title": "Complements and further questions",
-          "line": 1385
+          "line": 1396
         },
         {
           "level": 2,
           "id": "repair-or-refute-the-saddle-block",
           "title": "1. Repair or refute the saddle block",
-          "line": 1391
+          "line": 1402
         },
         {
           "level": 2,
           "id": "the-compact-ray-cut-decomposition",
           "title": "2. The compact ray-cut decomposition",
-          "line": 1403
+          "line": 1414
         },
         {
           "level": 2,
           "id": "metric-fan-in-after-the-printed-spanning-tree-coefficient-is-excluded",
           "title": "3. Metric fan-in after the printed spanning-tree coefficient is excluded",
-          "line": 1429
+          "line": 1440
         },
         {
           "level": 2,
           "id": "coefficient-perturbation-and-stability",
           "title": "4. Coefficient perturbation and stability",
-          "line": 1478
+          "line": 1489
         },
         {
           "level": 2,
           "id": "the-global-newton-flow-claim-ceiling",
           "title": "5. The global Newton-flow claim ceiling",
-          "line": 1512
+          "line": 1523
         },
         {
           "level": 1,
           "id": "statements-and-declarations",
           "title": "Statements and declarations",
-          "line": 1535
+          "line": 1546
         },
         {
           "level": 1,
           "id": "app:sources",
           "title": "Guide to the formal sources",
-          "line": 1541
+          "line": 1552
         },
         {
           "level": 4,
           "id": "checked-declarations-behind-the-translated-quotient-fibre-families.",
           "title": "Checked declarations behind the translated quotient-fibre families.",
-          "line": 1589
+          "line": 1600
         },
         {
           "level": 1,
           "id": "sec:record-circle-slice",
           "title": "Record: the circle-slice arity floor in numbers",
-          "line": 1595
+          "line": 1606
         },
         {
           "level": 1,
           "id": "sec:erdos-1041-complete-family-map",
           "title": "Complete result-family map",
-          "line": 1642
+          "line": 1653
         },
         {
           "level": 2,
           "id": "root-retention",
           "title": "Root retention",
-          "line": 1648
+          "line": 1659
         },
         {
           "level": 2,
           "id": "newton-value-decay",
           "title": "Newton value decay",
-          "line": 1668
+          "line": 1679
         },
         {
           "level": 2,
           "id": "ray-separation",
           "title": "Ray separation",
-          "line": 1692
+          "line": 1703
         },
         {
           "level": 2,
           "id": "published-proof-gap",
           "title": "Published proof gap",
-          "line": 1716
+          "line": 1727
         },
         {
           "level": 2,
           "id": "lemniscate-finite-search",
           "title": "Lemniscate finite search",
-          "line": 1736
+          "line": 1747
         },
         {
           "level": 2,
           "id": "translation-avoidance",
           "title": "Translation avoidance",
-          "line": 1756
+          "line": 1767
         }
       ],
       "citations_rendered": 18,
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos1041-lemniscate-reasoning-surface.pdf",
-      "pdf_sha256": "sha256:00ec667edb24f9a2787bac7dc71ff4a6fe1d29dde5ecc01da904d1610fffd598",
-      "pdf_byte_count": 289584,
+      "pdf_sha256": "sha256:161d0ae589b1442fa0f877f3c70ac80f6d978aa6d5fdb7920930be01a884dc89",
+      "pdf_byte_count": 290410,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",
@@ -5378,17 +5378,17 @@
           {
             "id": "sec:solved-polynomial-families",
             "title": "Three exact solved polynomial families",
-            "line": 650
+            "line": 661
           },
           {
             "id": "sec:gap",
             "title": "A proof gap in the unrestricted argument",
-            "line": 1312
+            "line": 1323
           },
           {
             "id": "sec:erdos-1041-complete-family-map",
             "title": "Complete result-family map",
-            "line": 1642
+            "line": 1653
           }
         ],
         "unresolved_count": 0
@@ -5431,7 +5431,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/erdos-1049-rational-base-lambert.md",
       "local_source": "docs/papers/mirror/erdos-1049-rational-base-lambert.tex",
-      "source_sha256": "sha256:1a6dd502b3013576ae92cad74fc32269889effd86caacfbd708f1b93c1414e1d",
+      "source_sha256": "sha256:3270ee095c9c2b2baa38deeacf655a1c732b55615d274732f9a7b55cb69c583f",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "moving_default_ref",
       "canonical_source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.tex",
@@ -5544,8 +5544,8 @@
       "citations_rendered": 8,
       "mirror_note": "generated copy; the manuscript is owned by plectis-erdos and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-1049-rational-base-lambert.pdf",
-      "pdf_sha256": "sha256:ad2eea204146cd8d5920f08eae47bd2e1df073802552d7624bb5a69bc1596e04",
-      "pdf_byte_count": 117934,
+      "pdf_sha256": "sha256:f3aeae3d69e6d3402de013d25e277501a6fd99eb0c6ca3bf01246aba8b86f291",
+      "pdf_byte_count": 118003,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",

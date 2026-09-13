@@ -576,7 +576,7 @@ with the nonnegative merger jumps contradicts that.
 \paragraph{Certificate.}
 The threshold is the level at which the forced area passes the cap.  The
 companion program
-\texttt{experiments/erdos1041\_low\_critical\_path\_certificate.py} evaluates
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/scripts/check_erdos1041_angular_budget_closure.py}{\texttt{check\_erdos1041\_angular\_budget\_closure.py}} evaluates
 every accepted inequality in exact rational arithmetic, with directed rounding
 on every exponential, logarithm and square root, and with the rational
 brackets for $\pi$ and $\log2$ checked from Machin's identity.  The full
@@ -617,7 +617,7 @@ Lean-checked or independently reviewed.  Prior art for the assembled statement
 is unassessed; the hyperbolic slice inequality follows from disjointness of
 the balls and the law of cosines and should be assumed known.  The public
 source of record is
-\texttt{research\_corpus/Erdos1041/LowCriticalPathCertificate.md}, which
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AngularBudgetLowCriticalClosure.md}{\texttt{AngularBudgetLowCriticalClosure.md}}, which
 carries the full analytic chain, the certified dual table and the replay
 route.  The exact remaining obligation is that this threshold argument does
 not cover $13/25<\mu<1$; other results in this note intersect that range, so
@@ -695,6 +695,21 @@ control the high pieces on average over the argument.  Choose one argument
 realising that average, order the lift endpoints cyclically on
 $\partial C_t$, and use the shortest adjacent boundary arc.  Averaging the
 two lifts and the boundary arcs over the $k$ adjacent pairs gives~(CF).
+The three contributions are, explicitly,
+\[
+\begin{aligned}
+ \frac2k\sum_i\ell_i^{\rm low}
+ &\le\frac{2r\rho}{\sqrt{k}(1-r)^2},\\
+ \frac2k\sum_i\ell_i^{\rm high}
+ &\le\sqrt{\frac2k}\sqrt{\log(\lambda/r)}\,T^{1/n},\\
+ \frac{\mathcal H^1(\partial C_t)}k
+ &\le\sqrt{\frac2k}\frac{\pi T^{1/n}}{\sqrt{\log\lambda}}.
+\end{aligned}
+\]
+The low bound holds on every ray, the high bound on the ray chosen from
+its mean, and the boundary bound at the level selected before either choice.
+They therefore hold together. Adding and substituting
+$T^{1/n}=\lambda^{1/n}\rho$ recovers~(CF).
 For the final assertion, the repeated-zero case is already a constant path,
 and in degree two the root segment has length
 $2\rho=2\sqrt\mu\le\sqrt2$.  For $n\ge3$, take $\lambda=2$ and $r=3/20$.
