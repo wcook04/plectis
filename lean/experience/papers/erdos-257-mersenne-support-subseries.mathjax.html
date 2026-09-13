@@ -80,10 +80,12 @@ independently assessable from this checkout. The final section retains
 the actual arithmetic constraint for a proposed rational value.</p>
 <p>Erdős proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the
-details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-5">[5]</a></span>.
+details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-6">[6]</a></span>.
 Theorem <a class="math-ref" href="#res:reciprocal-support">1</a> gives a
-complete proof of that stated extension. The all-base quantifier is
-already in Erdős’s statement.</p>
+complete proof of that stated extension, obtained independently. The
+all-base quantifier is already in Erdős’s statement. No priority over
+Erdős is claimed and no identification with his omitted argument is
+asserted.</p>
 <p>The coefficient sequence throughout is the divisor transform of one
 Boolean selector:</p>
 <div class="math-display" id="eq:incidence" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
@@ -812,7 +814,7 @@ class="math display" data-term-auto="off">\[\Delta_{2,\Npos}(N)
 \qquad(N\ge1).\]</span></div>
 <p>The full-support value is nevertheless <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8328">irrational</a> <span
-class="citation" data-cites="erdos1968"></span>. A universal proof must
+class="citation" data-cites="erdos1948"></span>. A universal proof must
 therefore control arithmetic behaviour beyond small returns.</p>
 <p>The distinction also appears in the squarefree support. Its series is
 known to be irrational at powers-of-two bases by Duverney–Tachiya <span
@@ -1119,7 +1121,18 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 full-support theorem</a>; pairwise-coprime summable-reciprocal support
 is <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L10776">the
-pairwise-coprime theorem</a>. Theorem <a class="math-ref" href="#res:reciprocal-support">1</a> itself is
+pairwise-coprime theorem</a>. The statement of Problem <a class="math-ref" href="#res:problem">2</a> has been formalised
+before, as a conjecture with an unfilled proof, in the <em>Formal
+Conjectures</em> collection <span class="citation"
+data-cites="formalconjectures257"><a href="#ref-5">[5]</a></span>. That collection proves the
+Lambert identity for the full-support value and states its
+irrationality, the 1948 theorem of Erdős, with proof <code>sorry</code>.
+Its role here is statement-level prior art; no theorem in this note is
+derived from it, and the full-support statement it leaves unproved is
+the checked <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8328">full-support
+theorem</a> cited above.</p>
+<p>Theorem <a class="math-ref" href="#res:reciprocal-support">1</a> itself is
 ordinary mathematics in this note and has no Lean counterpart in this
 checkout: the filenames
 <code>AllBaseReciprocalSupportIrrationality.lean</code>,
@@ -1460,7 +1473,14 @@ several bases under its mass hypothesis; it is not a fixed-base
 counterexample.</p></li>
 <li id="ref-4"><p>P. Erdős, <em>On arithmetical properties of Lambert series</em>,
 J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
-<li id="ref-5"><p>P. Erdős, <a
+<li id="ref-5"><p>The Formal Conjectures Authors, <a
+href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/257.lean"><em>FormalConjectures.ErdosProblems.<code>257</code></em></a>,
+Lean source at commit <code>f776d2f</code>, 2025, accessed 13 September
+2026. Its statement of the problem ends in <code>sorry</code>; the
+Lambert identity <code>tsum_top_eq</code> is proved there and the
+full-support irrationality variant <code>tsum_top</code> ends in
+<code>sorry</code>.</p></li>
+<li id="ref-6"><p>P. Erdős, <a
 href="https://users.renyi.hu/~p_erdos/1969-09.pdf"><em>On the
 irrationality of certain series</em></a>, Math. Student 36 (1968),
 222–226 (issued 1969). The theorem on p. 222 treats pairwise-coprime

@@ -2239,8 +2239,10 @@ begins after its state hypotheses have been supplied.</p>
 <section id="attribution." class="level5">
 <h5>Attribution.</h5>
 <p>Erdős and Straus require <span
-class="math inline" data-term-auto="off">\(\limsup_nQ_n\le0\)</span> in the corresponding
-criterion, with the least common multiple in place of the product <span
+class="math inline" data-term-auto="off">\(\limsup\le0\)</span> in the corresponding
+criterion, with the least common multiple in place of the product and
+the growth factor one index later, so their quantity is <span
+class="math inline" data-term-auto="off">\([a_1,\ldots,a_n]a_{n+1}^{-1}(a_{n+1}^{2}/a_{n+2}-1)\)</span> <span
 class="citation" data-cites="erdosstraus1964"></span>; Koizumi’s
 Corollary 4(1) uses the product form <span class="citation"
 data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>. The statement above is the same
@@ -3311,10 +3313,11 @@ being precise about what is left.</p>
 <p>Each exclusion holds only in its stated regime. Theorems <a class="math-ref" href="#long243:res:constant">39</a> and <a class="math-ref" href="#long243:res:periodic">40</a> exclude the
 constant and the stated periodic magnitudes on an all-negative tail, and
 do not exclude those patterns merely along the negative indices of a
-mixed-sign tail; Theorems <a class="math-ref" href="#long243:res:bounded">48</a> and <a class="math-ref" href="#long243:res:mass">50</a> exclude a bounded
-negative part and finite normalised negative mass under normalised
-vanishing. Together with absorption and descent they fix the profile of
-any counterexample.</p>
+mixed-sign tail; Theorem <a class="math-ref" href="#long243:res:bounded">48</a> excludes a
+bounded negative part under normalised vanishing, and Theorem <a class="math-ref" href="#long243:res:mass">50</a> excludes finite
+normalised negative mass with no normalised-vanishing hypothesis.
+Together with absorption and descent they fix the profile of any
+counterexample.</p>
 <div class="proposition" id="long243:res:frontier">
 <p><strong>Proposition 52</strong> (frontier profile for a
 counterexample). <em> For the canonical integer state attached to any
@@ -3458,7 +3461,7 @@ K^L\lcm(m_q:q\in R)^2&lt;(K+1)^L.
 \end{equation}\]</span></div>
 <p>This is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/RepairEntropy.lean#L48">repair-entropy
-conservation law</a>.</p>
+inequality</a>.</p>
 <p>The square in <a class="math-ref" data-equation-ref="true" href="#long243:eq:repair-entropy">long243:eq:repair-entropy</a> is the
 key point. Exact denominator reduction charges <span
 class="math inline" data-term-auto="off">\(c_n^2\)</span> to the scale growth, so a repaired

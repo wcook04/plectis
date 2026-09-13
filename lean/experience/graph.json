@@ -100,7 +100,7 @@
       "id": "claim:all_base_totient_kernel_index_reduction",
       "kind": "public_claim",
       "label": "All-base totient-kernel reduction, spanning, and conditional rank",
-      "statement": "For every integer base k at least 2, Lean checks the zero-residue scaling identity, the exact nonzero scalar used in composite-base residue reduction, unique quotient/nonzero-digit coordinates, and cardinality k^e + 1 of the canonical finite-level index. It proves unconditionally that this canonical family spans the complete kernel through level e, and proves exact rank k^e + 1 under the explicit hypothesis that the family is linearly independent. Lean does not prove that hypothesis or formalise Martin's positive-density theorem; the unconditional basis and rank theorem in the paper uses Martin externally.",
+      "statement": "For every integer base k at least 2, Lean checks the zero-residue scaling identity, the exact nonzero scalar used in composite-base residue reduction, unique quotient/nonzero-digit coordinates, and cardinality k^e + 1 of the canonical finite-level index. It proves unconditionally that this canonical family spans the complete kernel through level e, and proves exact rank k^e + 1 under the explicit hypothesis that the family is linearly independent. Lean does not prove that hypothesis here; the note's evaluation-matrix argument and AllBaseTotientKernel.lean at public checkpoint 25ef6245d15a discharge it by an independent finite-determinant construction, so the unconditional basis and rank theorem takes Martin's positive-density theorem as prior art rather than as an input.",
       "status": "proved here",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
@@ -13672,7 +13672,7 @@
       "kind": "problem",
       "label": "Lambert-type series at rational bases",
       "status": "open",
-      "question": "For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.",
+      "question": "For which rational bases is the corresponding series irrational? The first resistant explicit base is three halves.",
       "href": "problems/erdos_1049.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json",
       "source_directory_github": "https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos1049"

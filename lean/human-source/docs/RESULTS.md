@@ -123,9 +123,10 @@ rational branch is carry anti-compression: one carry would have uniformly
 eventually-periodic dyadic sections modulo its multiplier while retaining
 canonical section rank at least `2^e − 1` at every level. No finite-rank upper
 bound is proved, so this is a necessary consequence rather than a
-contradiction. The exact coefficient-kernel rank `2^e + 1`, a finite
-denominator exclusion, and conditional actual-LCM and first-harmonic routes
-remain useful, but none supplies the missing cofinal producer.
+contradiction. The exact coefficient-kernel rank `2^e + 1` for every
+`e ≥ 1`, a finite denominator exclusion, and conditional actual-LCM and
+first-harmonic routes remain useful, but none supplies the missing cofinal
+producer.
 
 **[#251](https://www.erdosproblems.com/251).** A
 [public Lean declaration](../lean/ErdosProblems/Erdos251/AllResidueLogarithmicR9.lean)
@@ -186,10 +187,10 @@ not first; the note acknowledges Fan, derives the de-duplicated formula, and
 uses the cited Hecke–Mahler transcendence theorem.
 
 At three primes, the threshold-column argument produces nonsingular selected
-kernel minors of every order and excludes every finite separated kernel
-representation. The arbitrary-order theorem is present in the compiled public
-Lean source, but the Wave-A receipt's named axiom audit does not audit that
-rank declaration; Comparator checks only the displayed rank-two minor
+kernel minors of every order and excludes every finite rational separated
+kernel representation. The arbitrary-order theorem is present in the compiled
+public Lean source, but the Wave-A receipt's named axiom audit does not audit
+that rank declaration; Comparator checks only the displayed rank-two minor
 `-1/15`. For the actual `{2,3,5}` series, Lean checks the
 rationality-to-positive-reduced-carry bridge. Cofinal local-window escape then
 extinguishes such carries; under the explicit cap hypotheses recorded in the

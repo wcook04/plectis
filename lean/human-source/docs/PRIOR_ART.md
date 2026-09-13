@@ -232,11 +232,23 @@ grouped by the problem whose note they serve.
 
   **Boundary.** Concerns the variable-denominator variant, not the fixed dyadic series studied here.
 
+- J.-C. Schlage-Puchta, *The irrationality of some number theoretical series*, [arXiv:1105.1451](https://arxiv.org/abs/1105.1451)
+
+  Lemma 4, a Selberg-sieve density-zero statement for polynomial relations among consecutive prime gaps, is the input the reasoning record uses. Theorem 2 treats base-`b` digit strings that concatenate the representations of a slowly growing integer sequence, and Theorem 3 gives the `ℚ`-linear independence of `1, S_0, S_1, …` with `S_k = ∑ p_n^k / n!`.
+
+  **Boundary.** No antecedent for the tail criteria recorded here has been located. Theorem 2 is the nearest located neighbour and treats a different object; no declaration in this release uses Lemma 4.
+
 - Y. Zhang (2014); J. Maynard (2015), doi:10.4007/annals.2015.181.1.7; Ford–Green–Konyagin–Maynard–Tao (2018), doi:10.1090/jams/876
 
-  Bounded-gap and large-gap prime results, cited and each shown insufficient for the required joint dyadic distribution of a logarithmic block of gap differences.
+  Bounded-gap and large-gap prime results, cited and each shown insufficient for the required joint dyadic distribution of a logarithmic block of gap differences. Maynard's Theorem 1.1 bounds `liminf (p_(n+m) - p_n)` for every fixed `m`; the explicit bound 600 for consecutive gaps is cited by page. The 2018 large-gap Theorem 1 gives an effective lower bound for the largest single consecutive-prime gap below a threshold.
 
   **Boundary.** Context; none is used as a proof input.
+
+- J. Land, conditional proof of the irrationality of `∑_(n≥1) p_n 2^(-n)` (research draft, 5 September 2026), with an accompanying Lean formalisation of the conditional argument
+
+  Assumes Kuperberg's uniform Hardy-Littlewood prime-tuples conjecture and constructs weighted prime-gap tails; announced on the problem's discussion thread. The #251 note and reasoning record both cite it.
+
+  **Boundary.** Every #251 declaration in this release is unconditional and was proved independently of it. A proof conditional on a prime-tuples conjecture leaves Erdős #251 open unconditionally.
 
 ### #269
 

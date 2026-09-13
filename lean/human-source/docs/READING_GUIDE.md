@@ -59,9 +59,9 @@ a more specific rate of growth.
 Problem 249 asks about the binary series of Euler's totient. The paper proves
 that reducing the totient modulo any m at least 3 gives an irrational series,
 and classifies the rational cases for powers of two. It also determines the
-exact rank of the totient kernel at every integer base, with an unconditional
-Lean proof, and gives conditional routes to the original series. The
-original, unreduced series is not settled.
+exact rank of every finite-level truncation of the totient kernel at every
+integer base, with an unconditional Lean proof, and gives conditional routes
+to the original series. The original, unreduced series is not settled.
 
 Problem 251 is the dyadic series of the primes. The paper builds a sparse
 change to the prime gaps that makes the sum rational while keeping the prime
@@ -80,8 +80,8 @@ values remain open.
 Problem 269 is the running least common multiple of three primes. Building on
 Steve Fan's two-prime work on the problem page, the paper shows that one
 binary carry makes a chosen minor of the kernel matrix nonzero at every order,
-so no finite sum of separated kernel terms can represent it. This is a Lean
-theorem. Three-prime irrationality is not proved.
+so no finite sum of separated kernel terms with rational values can represent
+it. This is a Lean theorem. Three-prime irrationality is not proved.
 
 Problem 1041 asks whether two roots of a polynomial can always be joined by a
 short path inside the set where the polynomial is small. The paper gives an

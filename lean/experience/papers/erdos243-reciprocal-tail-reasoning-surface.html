@@ -2781,14 +2781,16 @@ supplied.</p>
 <section id="attribution." class="level5">
 <h5>Attribution.</h5>
 <p>Erdős and Straus require
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msub><mi>Q</mi><mi>n</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\limsup_nQ_n\le0</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\limsup\le0</annotation></semantics></math>
 in the corresponding criterion, with the least common multiple in place
-of the product <span class="citation"
-data-cites="erdosstraus1964"><a href="#ref-1">[1]</a></span>; Koizumi’s Corollary 4(1) uses the
-product form <span class="citation" data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>.
-The statement above is the same Lean-checked endpoint as Theorem ,
-transported into that language, and its content over the published
-criteria is the passage from
+of the product and the growth factor one index later, so their quantity
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">]</mo><msubsup><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[a_1,\ldots,a_n]a_{n+1}^{-1}(a_{n+1}^{2}/a_{n+2}-1)</annotation></semantics></math> <span
+class="citation" data-cites="erdosstraus1964"></span>; Koizumi’s
+Corollary 4(1) uses the product form <span class="citation"
+data-cites="koizumi2025"><a href="#ref-7">[7]</a></span>. The statement above is the same
+Lean-checked endpoint as Theorem , transported into that language, and
+its content over the published criteria is the passage from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\le0</annotation></semantics></math>
 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">&lt;\infty</annotation></semantics></math>.
@@ -4208,10 +4210,11 @@ being precise about what is left.</p>
 <p>Each exclusion holds only in its stated regime. Theorems  and 
 exclude the constant and the stated periodic magnitudes on an
 all-negative tail, and do not exclude those patterns merely along the
-negative indices of a mixed-sign tail; Theorems  and  exclude a bounded
-negative part and finite normalised negative mass under normalised
-vanishing. Together with absorption and descent they fix the profile of
-any counterexample.</p>
+negative indices of a mixed-sign tail; Theorem  excludes a bounded
+negative part under normalised vanishing, and Theorem  excludes finite
+normalised negative mass with no normalised-vanishing hypothesis.
+Together with absorption and descent they fix the profile of any
+counterexample.</p>
 <div class="proposition">
 <p><strong>Proposition 52</strong> (frontier profile for a
 counterexample). <em> For the canonical integer state attached to any
@@ -4359,7 +4362,7 @@ throughout the interval. Then
  K^L\operatorname{lcm}(m_q:q\in R)^2&lt;(K+1)^L.
 \end{equation}</annotation></semantics></math> This is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/RepairEntropy.lean#L48">repair-entropy
-conservation law</a>.</p>
+inequality</a>.</p>
 <p>The square in  is the key point. Exact denominator reduction charges
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>c</mi><mi>n</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">c_n^2</annotation></semantics></math>
 to the scale growth, so a repaired family whose LCM is at least

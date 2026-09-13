@@ -15450,7 +15450,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 870
+        "line": 873
       }
     },
     {
@@ -15582,7 +15582,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "weakest native recurrence criterion",
-        "line": 884
+        "line": 887
       }
     },
     {
@@ -15594,7 +15594,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "actual-orbit invariant",
-        "line": 893
+        "line": 896
       }
     },
     {
@@ -15606,7 +15606,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 903
+        "line": 906
       }
     }
   ],
@@ -18240,7 +18240,7 @@
       "id": "all_base_totient_kernel_index_reduction",
       "label": "All-base totient-kernel reduction, spanning, and conditional rank",
       "status": "proved here",
-      "statement": "For every integer base k at least 2, Lean checks the zero-residue scaling identity, the exact nonzero scalar used in composite-base residue reduction, unique quotient/nonzero-digit coordinates, and cardinality k^e + 1 of the canonical finite-level index. It proves unconditionally that this canonical family spans the complete kernel through level e, and proves exact rank k^e + 1 under the explicit hypothesis that the family is linearly independent. Lean does not prove that hypothesis or formalise Martin's positive-density theorem; the unconditional basis and rank theorem in the paper uses Martin externally.",
+      "statement": "For every integer base k at least 2, Lean checks the zero-residue scaling identity, the exact nonzero scalar used in composite-base residue reduction, unique quotient/nonzero-digit coordinates, and cardinality k^e + 1 of the canonical finite-level index. It proves unconditionally that this canonical family spans the complete kernel through level e, and proves exact rank k^e + 1 under the explicit hypothesis that the family is linearly independent. Lean does not prove that hypothesis here; the note's evaluation-matrix argument and AllBaseTotientKernel.lean at public checkpoint 25ef6245d15a discharge it by an independent finite-determinant construction, so the unconditional basis and rank theorem takes Martin's positive-density theorem as prior art rather than as an input.",
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_249_irrationality"
       ],

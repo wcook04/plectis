@@ -247,7 +247,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "270db315a3db525621e40c82e8cac4c9114a99f80c5239f945f7e6dcccf88af1",
+    "source_sha256": "19360e688acca1a99348ecac842120d669c1adb6e70e86aba5747f368b85bccb",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -291,7 +291,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 22,
       "renderer_fingerprint": "e85419265bf94334",
-      "source_sha256": "a501a76f9bfaff688d4b244bbd1e6d624bd46fd24362f98cd8a1ed66d0001509",
+      "source_sha256": "6545a844d11879b64bd00cf8e0d7c8a77e6553a9ace7296a303695941542dbdd",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 302,
@@ -455,7 +455,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "a501a76f9bfaff688d4b244bbd1e6d624bd46fd24362f98cd8a1ed66d0001509",
+        "source_sha256": "6545a844d11879b64bd00cf8e0d7c8a77e6553a9ace7296a303695941542dbdd",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 302,
@@ -619,17 +619,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "d38d014d60524dc66ac96cf724f753324492c5fc28bad54584b002f530bb5821",
+        "source_sha256": "4070d3c7d68a54475766a06266a3dd4aeef9c772fc8062202efe260d64e07a17",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1639,
+        "mathml_node_count": 1640,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "516c8258571567cbe87288f15a58ea5a0dc477e227bf6c9dd40b6aa044573bce",
-        "html_exact_tex_sha256": "84b986ebd8f9d4aeba83f9d34dc065e3a4b3c36ccb066dc5bc2cda9039bb2638"
+        "html_mathml_sha256": "86969cc4a514fe9f17cf2ceab0c9a2c36b70123e500ea099bdb11993674b49c7",
+        "html_exact_tex_sha256": "cc20d114d73591bde9adb9f6fde6f35c4c6524d534708c55b980bb018a06771f"
       },
       "sections": [
         {

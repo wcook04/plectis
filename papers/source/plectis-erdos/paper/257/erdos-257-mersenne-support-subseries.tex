@@ -43,7 +43,8 @@ weighted condition.  Finite gcd-orbit averages and a second average over
 dyadic observation lengths produce arbitrarily small positive displacements,
 which rationality would confine to a fixed lattice.  Erd\H{o}s already stated
 the weaker coprimality-free reciprocal-summable theorem, including its
-all-base quantifier; a complete proof is printed here as well.  A uniform
+all-base quantifier, leaving its proof unprinted; an independent complete
+proof is printed here.  A uniform
 finite averaging estimate also combines the weighted criterion with positive
 divisor covers: their union has the same hereditary irrationality property.
 These results have ordinary proofs; their analytic steps are not end-to-end
@@ -116,8 +117,10 @@ arithmetic constraint for a proposed rational value.
 Erd\H{o}s proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the details
 unprinted~\cite[p.~222]{erdos1968}.  Theorem~\ref{res:reciprocal-support}
-gives a complete proof of that stated extension.  The all-base quantifier
-is already in Erd\H{o}s's statement.
+gives a complete proof of that stated extension, obtained independently.  The
+all-base quantifier is already in Erd\H{o}s's statement.  No priority over
+Erd\H{o}s is claimed and no identification with his omitted argument is
+asserted.
 
 The coefficient sequence throughout is the divisor transform of one
 Boolean selector:
@@ -671,7 +674,7 @@ returns.  This mechanism already fails at the full support:
  \qquad(N\ge1).
 \]
 The full-support value is nevertheless
-\mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{irrational}~\cite{erdos1968}.
+\mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{irrational}~\cite{erdos1948}.
 A universal proof must therefore control arithmetic behaviour beyond
 small returns.
 
@@ -928,6 +931,16 @@ Full-support irrationality is
 \mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{the full-support theorem};
 pairwise-coprime summable-reciprocal support is
 \mword{Erdos249257/CertificateKernel.lean}{10776}{irrational_erdosSupportSeries_pairwise_coprime}{the pairwise-coprime theorem}.
+The statement of Problem~\ref{res:problem} has been formalised before, as a
+conjecture with an unfilled proof, in the \emph{Formal Conjectures}
+collection~\cite{formalconjectures257}.  That collection proves the Lambert
+identity for the full-support value and states its irrationality, the 1948
+theorem of Erd\H{o}s, with proof \texttt{sorry}.  Its role here is
+statement-level prior art; no theorem in this note is derived from it, and the
+full-support statement it leaves unproved is the checked
+\mword{Erdos249257/CertificateKernel.lean}{8328}{irrational_erdosSum_full_support}{full-support theorem}
+cited above.
+
 Theorem~\ref{res:reciprocal-support} itself is ordinary mathematics in this
 note and has no Lean counterpart in this checkout: the filenames
 \texttt{AllBaseReciprocalSupportIrrationality.lean},
@@ -1125,6 +1138,13 @@ The following source links are the public snapshot used by this note.
   counterexample.
 \bibitem{erdos1948} P.~Erd\H{o}s, \emph{On arithmetical properties of Lambert
   series}, J.~Indian Math.\ Soc.\ 12 (1948), 63--66.
+\bibitem{formalconjectures257} The Formal Conjectures Authors,
+  \href{https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/257.lean}
+  {\emph{FormalConjectures.ErdosProblems.\texttt{257}}},
+  Lean source at commit \texttt{f776d2f}, 2025, accessed 13 September 2026.
+  Its statement of the problem ends in \texttt{sorry}; the Lambert identity
+  \texttt{tsum\_top\_eq} is proved there and the full-support irrationality
+  variant \texttt{tsum\_top} ends in \texttt{sorry}.
 \bibitem{erdos1968} P.~Erd\H{o}s,
   \href{https://users.renyi.hu/~p_erdos/1969-09.pdf}{\emph{On the
   irrationality of certain series}}, Math.\ Student 36 (1968), 222--226

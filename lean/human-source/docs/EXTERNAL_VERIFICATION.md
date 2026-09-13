@@ -1282,7 +1282,7 @@ Exact registry keys and Comparator routing are listed separately.
 <a id="programme-1049"></a>
 ## #1049: Lambert-type series at rational bases
 
-**Question.** For which rational bases is the corresponding series irrational? The smallest resistant explicit base is three halves.
+**Question.** For which rational bases is the corresponding series irrational? The first resistant explicit base is three halves.
 
 **Checked frontier.** That a literal coordinatewise transfer of the integer-base clearing argument forces a power-versus-linear inequality, and that this inequality is impossible at base three halves.
 
