@@ -11,13 +11,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.pdf",
-      "source_sha256": "f910c15ed58e769c256a34b82acb0012f235d32eb16d4d211271d5f52122d913",
-      "bytes": 108239,
+      "source_sha256": "cddf7df1a7fd6b2a35bc74cd674ae7b1f14f1acd5596c9693443a50da4cfcd57",
+      "bytes": 111185,
       "source_tex_path": "paper/68/erdos-68-factorial-denominator-irrationality.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/68/erdos-68-factorial-denominator-irrationality.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex",
-      "hosted_tex_sha256": "ce5bedc1843ce2568eb58a62dec69e238598ed04f2eb5e5704f1529558849356",
-      "tex_bytes": 43035
+      "hosted_tex_sha256": "da02c2c3a00d6120a6a894851d0678814db462cc9b6d368952ac53af465e3106",
+      "tex_bytes": 44664
     },
     {
       "hosted_path": "papers/erdos68-factorial-reasoning-surface.pdf",
@@ -37,13 +37,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/243/erdos-243-reciprocal-tail-rigidity.pdf",
-      "source_sha256": "3f41b7cbc204b438ef4e03a50c6784187efa070e2bdf3724ded902ea4ce6cab6",
-      "bytes": 102960,
+      "source_sha256": "e33e9b1ea749009116a61f8f7e52d7218e3923aa7d10dbf4360c46d510d99053",
+      "bytes": 104182,
       "source_tex_path": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/243/erdos-243-reciprocal-tail-rigidity.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/243/erdos-243-reciprocal-tail-rigidity.tex",
-      "hosted_tex_sha256": "6545a844d11879b64bd00cf8e0d7c8a77e6553a9ace7296a303695941542dbdd",
-      "tex_bytes": 42930
+      "hosted_tex_sha256": "7dd30aa4144c5a17fcdd59c9b964fbf710eb131abee179a37cf3e7f13ba87194",
+      "tex_bytes": 43598
     },
     {
       "hosted_path": "papers/erdos243-reciprocal-tail-reasoning-surface.pdf",
@@ -63,13 +63,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/249/erdos-249-binary-totient-series.pdf",
-      "source_sha256": "6863ad5e1c9bd74c4d88fc9c5fa8c4d296e2026b9dcc0dfc2af7ddf92ae6fd68",
-      "bytes": 111951,
+      "source_sha256": "ffc5f5766fd3fd1aec01db692331f25b3e8ba3198509a8615019b979feefc9a3",
+      "bytes": 114176,
       "source_tex_path": "paper/249/erdos-249-binary-totient-series.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/249/erdos-249-binary-totient-series.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/249/erdos-249-binary-totient-series.tex",
-      "hosted_tex_sha256": "b17d35bc71bc9ed2b7de2fe15e854dbe7f2c418c4dd5ad0bd054f189b2ec1b13",
-      "tex_bytes": 52408
+      "hosted_tex_sha256": "8436611e9df1d0d6fc4c0d69b40f361f577c080489b5fea554111e1e81961c85",
+      "tex_bytes": 53337
     },
     {
       "hosted_path": "papers/erdos249-totient-reasoning-surface.pdf",
@@ -115,13 +115,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf",
-      "source_sha256": "d5f6c3a5407dd27a932335b40f9796262faeca8a2cffbc0df57c486721e7541c",
-      "bytes": 147494,
+      "source_sha256": "98d4a4fcab08461a8bf7b40e4edb6b011593348876aa09b208cbad224fb53d51",
+      "bytes": 150732,
       "source_tex_path": "paper/257/erdos-257-mersenne-support-subseries.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos-257-mersenne-support-subseries.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex",
-      "hosted_tex_sha256": "f98d6dd96955422fbc52e8695711c67e8e30f6967ed7b47469230933a3271962",
-      "tex_bytes": 64748
+      "hosted_tex_sha256": "d3194d8f59eb6b7fd9f22cddb2177a8364f466fb73d29f41a174527fe4886da8",
+      "tex_bytes": 66993
     },
     {
       "hosted_path": "papers/erdos257-mersenne-reasoning-surface.pdf",
@@ -154,13 +154,13 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/269/erdos-269-three-prime-running-lcm.pdf",
-      "source_sha256": "a9b1a1d442c50c6ee98fafe43c5ea11ef0abd8641f42af1c14904db622872ea0",
-      "bytes": 107354,
+      "source_sha256": "6559c1364e2ad74f8963f427764b2092702033481d4755036f72dc7f50693cc9",
+      "bytes": 110592,
       "source_tex_path": "paper/269/erdos-269-three-prime-running-lcm.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/269/erdos-269-three-prime-running-lcm.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/269/erdos-269-three-prime-running-lcm.tex",
-      "hosted_tex_sha256": "fb754c767caf747cde71f0319b053b7d0de0265d6e2ae939ebc9332c0ae8064d",
-      "tex_bytes": 46557
+      "hosted_tex_sha256": "5f7cf99dd746279f16604e181b545c67470e9cc1258a51527f4846910898615d",
+      "tex_bytes": 47712
     },
     {
       "hosted_path": "papers/erdos-1041-lemniscate-newton-flow.pdf",

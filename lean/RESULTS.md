@@ -87,7 +87,12 @@ cofinally many non-unit factorial carries, and checks a finite quotient-band
 channel obstruction. The required cofinal carries are not produced. The
 `PaperCompleteAsymptotics` and `PaperCompleteLiminf` files are presented by the
 public paper as proof candidates, not as registered kernel evidence for the
-`3/2` theorem.
+`3/2` theorem. The separate public Lean release
+[`wcook04/plectis-erdos-lean`](https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E68/Challenge.lean#L249)
+states the `3/2` bound at commit `52f29ad1` as `common_denominator_growth` in
+its entry `PalomarCorpus/E68` and proves it; that repository's Linux replay of
+Palomar's Comparator stage accepted the entry with both kernels
+(run 34782407633).
 
 **[#243](https://www.erdosproblems.com/243).** The short paper proves an
 ordinary original-sequence corollary. Let `a_1<a_2<⋯` be positive integers,

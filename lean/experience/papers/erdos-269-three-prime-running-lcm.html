@@ -887,9 +887,38 @@ minor
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mn>15</mn></mrow><annotation encoding="application/x-tex">-1/15</annotation></semantics></math>,
 the running-LCM height identity, and a conditional carry-escape
 consumer; it is not the evidence for the arbitrary-order theorem. The
-finite cut-rank argument and the modular corollary are proved above; no
-additional formal verification claim is made for the latter. The
-actual-series reduction is given; the source-specific cofinal escape
+separate public Lean release <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E269/Challenge.lean#L487"><code>wcook04/plectis-erdos-lean</code></a>
+at commit <code>52f29ad1</code> selects the arbitrary-order theorem
+itself in <code>PalomarCorpus/E269/Challenge.lean</code>:
+<code>exists_uniform_nonsingular_threePrimeKernel_minor</code> gives
+nonsingular minors of every order, with one index choice valid in every
+layer of the third exponent, for bases
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>r</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p,q,r&gt;1</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">\log_r p</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi></mrow><annotation encoding="application/x-tex">\log_r q</annotation></semantics></math>
+irrational, and
+<code>threePrimeKernel_infiniteRank_and_noFiniteSeparation</code> gives,
+for primes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">p,q,r</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≠</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">p\ne r</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≠</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">q\ne r</annotation></semantics></math>,
+both those minors and the absence of a finite separated representation
+with rational-valued factors; the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,3,5)</annotation></semantics></math>
+minor is selected beside them as
+<code>kernel_235_minor_eq_neg_one_fifteen</code>. That repository’s
+Linux replay of Palomar’s Comparator stage accepted the entry with the
+Lean kernel and with NanoDa (<a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633">run
+34782407633</a>). Neither selected clause yields irrationality of the
+sum. The finite cut-rank argument and the modular corollary are proved
+above; no additional formal verification claim is made for the latter.
+The actual-series reduction is given; the source-specific cofinal escape
 remains unproved.</p>
 </section>
 <section id="artefact-and-data-availability." class="level5">

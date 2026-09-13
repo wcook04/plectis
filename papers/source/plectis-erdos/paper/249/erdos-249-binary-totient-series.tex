@@ -281,6 +281,14 @@ The left zero block now gives
 $T_{N-L-1}=a_N2^{-L-1}$, a nonzero element of $q^{-1}\Z$ with absolute
 value less than $1/q$, a contradiction. The statement is
 ordinary in this note (that \texttt{PaperCompleteR7} file is absent).
+The separate public Lean release
+\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E249/Challenge.lean#L572}{\texttt{wcook04/plectis-erdos-lean}}
+at commit \texttt{52f29ad1} states this lemma as
+\texttt{irrational\_dyadicValue\_of\_pulses} in
+\texttt{PalomarCorpus/E249/Challenge.lean} and proves it.  That repository's
+Linux replay of Palomar's Comparator stage accepted the entry with the Lean
+kernel and with NanoDa
+(\href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633}{run 34782407633}).
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{res:residueseries}]
@@ -424,6 +432,12 @@ $H$ arithmetically without assuming the desired irrationality. The
 equivalence, with the modulus written as the natural quotient $(2^H-1)/v$
 and $v$ odd, is
 ordinary in this note (that \texttt{PaperCompleteR7} file is absent).
+The separate public Lean release \texttt{wcook04/plectis-erdos-lean} at
+commit \texttt{52f29ad1} states the equivalence in this form, with
+$vM=2^H-1$, as
+\texttt{fullMersenneCanonicalBasepointResidueGapSupply\_iff\_irrational} in
+\texttt{PalomarCorpus/E249/Challenge.lean} and proves it; the replay receipt
+is cited at Lemma~\ref{lem:bounded-pulse}.
 The finite residues also satisfy
 \[
  \rho_{H,N+1,M}=

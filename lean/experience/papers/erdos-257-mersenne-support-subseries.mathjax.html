@@ -27,6 +27,19 @@ integer <span class="math inline" data-term-auto="off">\(b\ge2\)</span>.</em></p
 no module <code>AllBaseReciprocalSupportIrrationality.lean</code> and no
 Lean declaration
 <code>irrational_erdosSupportSeries_of_summable_reciprocal</code>. The
+separate public Lean release <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E257/Challenge.lean#L713"><code>wcook04/plectis-erdos-lean</code></a>
+states Theorem <a class="math-ref" href="#res:reciprocal-support">1</a> at commit
+<code>52f29ad1</code> as
+<code>irrational_supportPowerSeries_of_summable_reciprocal</code> in
+<code>PalomarCorpus/E257/Challenge.lean</code>, with the base an integer
+at least 2, the support infinite and the reciprocal support terms
+summable, and proves it under <code>Solutions/PalomarCorpus/E257</code>.
+That repository’s Linux replay of Palomar’s Comparator stage accepted
+the entry with the Lean kernel and with NanoDa (<a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633">run
+34782407633</a>). The checked proof is a later counterpart, identified
+separately rather than attributed to the checkpoint of this note. The
 nearby <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L10776">pairwise-coprime
 support theorem</a> keeps an extra pairwise-coprimality hypothesis
@@ -911,8 +924,16 @@ x\in\mathcal A;\\
 </div>
 <p>The cofinal and windowed equivalences are ordinary in this note;
 <code>GreedyRepairCriterion.lean</code> and
-<code>PaperCompleteR7/Assemblies.lean</code> are not in this
-checkout.</p>
+<code>PaperCompleteR7/Assemblies.lean</code> are not in this checkout.
+The separate public Lean release <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E257/Challenge.lean#L512"><code>wcook04/plectis-erdos-lean</code></a>
+at commit <code>52f29ad1</code> states both equivalences, with the same
+window <span class="math inline" data-term-auto="off">\([K,K+2\lfloor\sqrt
+K\rfloor+12)\)</span>, as
+<code>mem_iff_greedyBinaryDefect_cofinal_repairs</code> and
+<code>mem_iff_greedyBinaryDefect_sqrt_windows</code> in
+<code>PalomarCorpus/E257/Challenge.lean</code> and proves them; the
+replay receipt is cited at Theorem <a class="math-ref" href="#res:reciprocal-support">1</a>.</p>
 <div class="proof">
 <p><em>Proof.</em> Strict domination of each Mersenne weight over its
 tail implies that a represented target is recovered by the greedy rule.
@@ -1139,14 +1160,27 @@ checkout: the filenames
 <code>SignedFinitePeriodNoncollapse.lean</code> and
 <code>GreedyRepairCriterion.lean</code> are not present. The source
 checkpoint is <code>99f4bf47422a</code>; later counterparts are
-identified separately rather than attributed to that checkpoint.</p>
+identified separately rather than attributed to that checkpoint. One
+such later counterpart is the checked theorem
+<code>irrational_supportPowerSeries_of_summable_reciprocal</code> of the
+public Lean release <code>wcook04/plectis-erdos-lean</code> at commit
+<code>52f29ad1</code>, cited at Theorem <a class="math-ref" href="#res:reciprocal-support">1</a>.</p>
 <p>The finite estimate <a class="math-ref" data-equation-ref="true" href="#eq:mixed-finite-kernel">eq:mixed-finite-kernel</a> and
 Theorem <a class="math-ref" href="#thm:variable-fractional-cover">4</a> have
 complete ordinary proofs in this note and are results of this release.
 The finite-prime weighted criterion, Theorem <a class="math-ref" href="#res:weighted-support">3</a>, and its
 simple reciprocal-divergent host, the mixed theorem <a class="math-ref" href="#res:mixed-supports">5</a>, and the
 prime-incidence calculation also have complete ordinary proofs here.
-They have no end-to-end Lean counterpart in this checkout. The
+They have no end-to-end Lean counterpart in this checkout. The separate
+public Lean release <code>wcook04/plectis-erdos-lean</code> at commit
+<code>52f29ad1</code> states both clauses of Theorem <a class="math-ref" href="#res:weighted-support">3</a> as
+<code>divisibilityWeightedClaim</code>, a reciprocal-divergent weighted
+host as <code>exists_weighted_not_strengthened_host</code>, and
+Theorem <a class="math-ref" href="#res:mixed-supports">5</a>
+for a strengthened positive cover host as
+<code>mixedSupportClaim</code>, all in
+<code>PalomarCorpus/E257/Challenge.lean</code>, and proves them; the
+replay receipt is cited at Theorem <a class="math-ref" href="#res:reciprocal-support">1</a>. The
 quantitative criterion, the stronger claimed support <span
 class="math inline" data-term-auto="off">\(A^\star\)</span> separating the two cover costs,
 and prime-power thinning instead refer to ordinary proofs that are not

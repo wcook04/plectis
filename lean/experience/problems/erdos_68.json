@@ -265,7 +265,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "19360e688acca1a99348ecac842120d669c1adb6e70e86aba5747f368b85bccb",
+    "source_sha256": "6d29381e8c0705925902c70a2b16013267fec627e0ab0d41fe237dddf0a50d67",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -285,7 +285,7 @@
     "subject": "Erdős #68",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 14,
+    "pages": 15,
     "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
     "precis": "The paper proves that if S=a/q is rational, q cannot divide 299999! and is at least 2^39990 > 10^12038. The first exclusion comes from the exact strict-successor carry test and the second from continued fractions. Lean also checks the equivalent carry formulation and several consequences. A large common denominator alone does not control the reduced partial sums. Irrationality is reduced to a cofinal miss of the strict factorial successor, which remains open.",
     "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
@@ -309,17 +309,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 22,
       "renderer_fingerprint": "e85419265bf94334",
-      "source_sha256": "ce5bedc1843ce2568eb58a62dec69e238598ed04f2eb5e5704f1529558849356",
+      "source_sha256": "da02c2c3a00d6120a6a894851d0678814db462cc9b6d368952ac53af465e3106",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 314,
+      "mathml_node_count": 316,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "6d793bacbfdd7efc6433ffa6c7ca6eb315294e8df9ce67488ad31483c5f801a1",
-      "html_exact_tex_sha256": "013fd7bb06a8f1102b64a9c65100881e0ad651d3a062edfe4eb6c34fc3ca1c1d"
+      "html_mathml_sha256": "3a472f0fa2107fe7aba6571b6e3a497d2220dd4c52b32e59ca7bda3d485131fa",
+      "html_exact_tex_sha256": "51a390c2abbb6ba432b66e911c9e250415dfeb413d629d08abca32ae9a80784d"
     },
     "sections": [
       {
@@ -459,7 +459,7 @@
       "subject": "Erdős #68",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 14,
+      "pages": 15,
       "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
       "precis": "The paper proves that if S=a/q is rational, q cannot divide 299999! and is at least 2^39990 > 10^12038. The first exclusion comes from the exact strict-successor carry test and the second from continued fractions. Lean also checks the equivalent carry formulation and several consequences. A large common denominator alone does not control the reduced partial sums. Irrationality is reduced to a cofinal miss of the strict factorial successor, which remains open.",
       "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
@@ -483,17 +483,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "ce5bedc1843ce2568eb58a62dec69e238598ed04f2eb5e5704f1529558849356",
+        "source_sha256": "da02c2c3a00d6120a6a894851d0678814db462cc9b6d368952ac53af465e3106",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 314,
+        "mathml_node_count": 316,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "6d793bacbfdd7efc6433ffa6c7ca6eb315294e8df9ce67488ad31483c5f801a1",
-        "html_exact_tex_sha256": "013fd7bb06a8f1102b64a9c65100881e0ad651d3a062edfe4eb6c34fc3ca1c1d"
+        "html_mathml_sha256": "3a472f0fa2107fe7aba6571b6e3a497d2220dd4c52b32e59ca7bda3d485131fa",
+        "html_exact_tex_sha256": "51a390c2abbb6ba432b66e911c9e250415dfeb413d629d08abca32ae9a80784d"
       },
       "sections": [
         {

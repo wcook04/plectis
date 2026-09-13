@@ -618,6 +618,22 @@ audit concerns the named R12 Wave~A results, not these rank declarations.
 Comparator separately records the finite $(2,3,5)$ minor $-1/15$, the
 running-LCM height identity, and a conditional carry-escape consumer; it is
 not the evidence for the arbitrary-order theorem.
+The separate public Lean release
+\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E269/Challenge.lean#L487}{\texttt{wcook04/plectis-erdos-lean}}
+at commit \texttt{52f29ad1} selects the arbitrary-order theorem itself in
+\texttt{PalomarCorpus/E269/Challenge.lean}:
+\texttt{exists\_uniform\_nonsingular\_threePrimeKernel\_minor} gives
+nonsingular minors of every order, with one index choice valid in every layer
+of the third exponent, for bases $p,q,r>1$ with $\log_r p$ and $\log_r q$
+irrational, and \texttt{threePrimeKernel\_infiniteRank\_and\_noFiniteSeparation}
+gives, for primes $p,q,r$ with $p\ne r$ and $q\ne r$, both those minors and
+the absence of a finite separated representation with rational-valued
+factors; the $(2,3,5)$ minor is selected beside them as
+\texttt{kernel\_235\_minor\_eq\_neg\_one\_fifteen}.  That repository's Linux
+replay of Palomar's Comparator stage accepted the entry with the Lean kernel
+and with NanoDa
+(\href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633}{run 34782407633}).
+Neither selected clause yields irrationality of the sum.
 The finite cut-rank argument and the modular corollary are proved above;
 no additional formal verification claim is made for the latter.
 The actual-series reduction is given; the source-specific cofinal escape

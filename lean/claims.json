@@ -15450,7 +15450,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 873
+        "line": 892
       }
     },
     {
@@ -15510,7 +15510,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "Erdős #243",
-        "line": 116
+        "line": 125
       }
     },
     {
@@ -15558,7 +15558,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "global overlap-height growth",
-        "line": 595
+        "line": 604
       }
     },
     {
@@ -15570,7 +15570,7 @@
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "first-harmonic anti-concentration on supplier fibres",
-        "line": 585
+        "line": 599
       }
     },
     {
@@ -15582,7 +15582,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "weakest native recurrence criterion",
-        "line": 887
+        "line": 906
       }
     },
     {
@@ -15594,7 +15594,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "actual-orbit invariant",
-        "line": 896
+        "line": 915
       }
     },
     {
@@ -15606,7 +15606,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 906
+        "line": 925
       }
     }
   ],
