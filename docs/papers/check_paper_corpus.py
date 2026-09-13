@@ -8,11 +8,12 @@ The corpus under ``docs/papers/`` is exported by a tool that needs pandoc and a
 checkout of both public repositories. Neither is available here, so this check
 does not regenerate anything. It verifies what can be verified locally and
 cheaply: every manuscript and every shipped PDF recorded in ``corpus.json``
-still hashes to the value the corpus was built from.
+still hashes to the value the corpus was built from, and every recommended
+starting section resolves in the exported text at its recorded line.
 
-That catches both failures that matter at this boundary: someone edits a paper
+That catches failures at this boundary: someone edits a paper
 and the generated text silently keeps describing the old one; or a generated
-catalogue drops an active paper while every retained file still hashes. It uses
+catalogue drops a paper or breaks a reading route while retained files hash. It uses
 nothing but the standard library, so it can run in any CI job.
 
 Exit status is 0 when the corpus is current, 1 when a manuscript has moved on,
@@ -30,6 +31,67 @@ import sys
 from pathlib import Path
 
 CORPUS_REL = "docs/papers/corpus.json"
+
+
+def reading_route_errors(paper: dict, markdown: str) -> list[str]:
+    """Check the exported route, not merely its declared unresolved count.
+
+    This verifies links and coordinates. Whether the suggested sections still
+    explain the strongest result and its limits requires reading the paper.
+    The exporter uses this same check before writing any files for a repository.
+    """
+    route = paper.get("first_pass")
+    if route is None:
+        return []
+    if not isinstance(route, dict):
+        return ["first_pass is not an object"]
+    entries = route.get("sections")
+    if not isinstance(entries, list) or not entries:
+        return ["first_pass has no sections"]
+    errors = []
+    if type(route.get("unresolved_count")) is not int or route["unresolved_count"] != 0:
+        errors.append("first_pass reports unresolved sections")
+    stated = route.get("stated_by_the_paper")
+    provenance = (
+        "the paper's own stated reading route"
+        if stated is True
+        else "editorial selection for this guide"
+    )
+    if type(stated) is not bool or route.get("provenance") != provenance:
+        errors.append("reading route provenance disagrees with stated_by_the_paper")
+    if stated is False and "stated_at" in route:
+        errors.append("editorial reading route cannot claim a manuscript recommendation location")
+    index = paper.get("sections", [])
+    if not isinstance(index, list):
+        return errors + ["section index is not a list"]
+    lines = markdown.splitlines()
+    if "stated_at" in route:
+        entries = [*entries, route["stated_at"]]
+    for entry in entries:
+        if not isinstance(entry, dict) or not isinstance(entry.get("id"), str):
+            errors.append("reading route entry has no section id")
+            continue
+        label = entry["id"]
+        sections = [s for s in index if isinstance(s, dict) and s.get("id") == label]
+        if entry.get("resolved") is False or len(sections) != 1:
+            errors.append(f"reading route {label}: section is absent or ambiguous")
+            continue
+        section = sections[0]
+        line = entry.get("line")
+        if (
+            type(line) is not int or line < 1 or line > len(lines)
+            or line != section.get("line")
+        ):
+            errors.append(f"reading route {label}: invalid section line")
+            continue
+        anchor = f'<a id="{label}"></a>'
+        if lines[line - 1].strip() != anchor or sum(
+            row.strip() == anchor for row in lines
+        ) != 1:
+            errors.append(f"reading route {label}: exported anchor is absent or ambiguous")
+        if "title" in entry and entry["title"] != section.get("title"):
+            errors.append(f"reading route {label}: title differs from section index")
+    return errors
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -90,6 +152,20 @@ def main(argv: list[str] | None = None) -> int:
         if not isinstance(paper, dict):
             incomplete.append("non-object paper record")
             continue
+        if "first_pass" in paper:
+            full_text_rel = paper.get("local_full_text")
+            if not isinstance(full_text_rel, str) or not full_text_rel:
+                incomplete.append(f"{paper.get('paper_id')}: reading route has no local full text")
+            else:
+                try:
+                    markdown = (repo_root / full_text_rel).read_text(encoding="utf-8")
+                except (OSError, UnicodeError):
+                    missing.append(full_text_rel)
+                else:
+                    incomplete.extend(
+                        f"{paper.get('paper_id')}: {error}"
+                        for error in reading_route_errors(paper, markdown)
+                    )
         source_rel = paper.get("local_source")
         expected = paper.get("source_sha256")
         if not source_rel or not expected:
@@ -127,7 +203,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if missing:
         for rel in missing:
-            print(f"missing manuscript: {rel}", file=sys.stderr)
+            print(f"missing or unreadable paper artefact: {rel}", file=sys.stderr)
         return 2
 
     if stale:
@@ -155,7 +231,7 @@ def main(argv: list[str] | None = None) -> int:
 
     print(
         f"paper corpus current: {checked} recorded artefacts "
-        "(manuscripts and shipped PDFs) match their hashes"
+        "(manuscripts and shipped PDFs) match their hashes; reading routes resolve"
     )
     return 0
 
