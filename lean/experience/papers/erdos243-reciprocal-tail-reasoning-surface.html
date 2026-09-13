@@ -1899,15 +1899,15 @@ logarithmically discounted.</p>
 <section id="evidence.-1" class="level5">
 <h5>Evidence.</h5>
 <p>The result in this section is an ordinary mathematical proof. Its
-finite arithmetic and charging step are kernel-checked at the pinned
-revision: the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L14">freshness
+finite arithmetic and charging steps are kernel-checked at an immutable
+source revision: the <a
+href="https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean#L14-L27">freshness
 of a rise</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L31">covered-wall
+href="https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean#L31-L43">covered-wall
 excess bound</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L47">wall
+href="https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean#L47-L60">wall
 count</a>, and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L64">weighted
+href="https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean#L64-L72">weighted
 wall charge</a>. The global analytic argument, which is the passage from
 the per-step charge to divergence of the whole sum, is not formalised.
 An exact finite replay covers
@@ -1978,10 +1978,20 @@ Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>n</mi></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mrow><mi>j</mi><mo>≤</mo><mi>n</mi></mrow></msub><msub><mi>U</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">R_n=\max_{j\le n}U_j</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>n</mi><mo>:</mo><msub><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>&gt;</mo><msub><mi>R</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal R=\{n:U_{n+1}&gt;R_n\}</annotation></semantics></math>.
-Centring implies that every sufficiently late strict rise has
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\rho_n=1</annotation></semantics></math>:
-otherwise
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≤</mo><mn>3</mn><msub><mi>U</mi><mi>n</mi></msub><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">U_{n+1}\le3U_n/4</annotation></semantics></math>.
+Strict centring already gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>&lt;</mo><msub><mi>U</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">U_{n+1}&lt;U_n</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>n</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\rho_n\ge2</annotation></semantics></math>,
+so every sufficiently late strict rise has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\rho_n=1</annotation></semantics></math>.
+The stronger eventual bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msub><mi>U</mi><mi>n</mi></msub><mo>≤</mo><mn>2</mn><msub><mi>V</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">-U_n\le2V_n</annotation></semantics></math>,
+supplied by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>n</mi></msub><mi>/</mi><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><msub><mi>E</mi><mi>n</mi></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_n/U_n=E_n/C_n\to0</annotation></semantics></math>,
+gives the quantitative estimate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≤</mo><mn>3</mn><msub><mi>U</mi><mi>n</mi></msub><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">U_{n+1}\le3U_n/4</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>n</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\rho_n\ge2</annotation></semantics></math>.
 Its actual jump is therefore
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>=</mo><msub><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><mi>−</mi><msub><mi>V</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">d_n=U_{n+1}-U_n=-V_n</annotation></semantics></math>.</p>
 <div class="theorem">
@@ -2735,6 +2745,38 @@ where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\lambda&gt;0</annotation></semantics></math>
 depends only on the sequence, the same conclusion holds.</em></p>
 </div>
+<p>For the bounded clause, choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>
+clearing the reciprocal sum, put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∏</mo><mrow><mi>j</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><msub><mi>a</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">P_n=\prod_{j&lt;n}a_j</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mi>n</mi></mrow></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">x_n=\sum_{k\ge n}1/a_k</annotation></semantics></math>,
+and use the canonical state
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>=</mo><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">D_n=qP_n</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><msub><mi>x</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_n=D_nx_n</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">E_n=D_n-(a_n-1)C_n</annotation></semantics></math>.
+With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>n</mi></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gamma_n=a_n^2/a_{n+1}-1</annotation></semantics></math>,
+the two-term tail estimate gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><msub><mi>E</mi><mi>n</mi></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mfrac><mrow><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub></mrow><msub><mi>a</mi><mi>n</mi></msub></mfrac><mo>−</mo><mfrac><mrow><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>+</mo><mi>O</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub><msub><mi>a</mi><mi>n</mi></msub></mrow><msubsup><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></msubsup></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mi>q</mi><mfrac><msub><mi>P</mi><mi>n</mi></msub><msub><mi>a</mi><mi>n</mi></msub></mfrac><msub><mi>γ</mi><mi>n</mi></msub></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mfrac><mrow><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub><msub><mi>a</mi><mi>n</mi></msub></mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>−</mo><mfrac><mrow><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub></mrow><msub><mi>a</mi><mi>n</mi></msub></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+ E_n&amp;=\frac{qP_n}{a_n}-\frac{qP_n(a_n-1)}{a_{n+1}}
+ +O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right),\\
+ q\frac{P_n}{a_n}\gamma_n
+ &amp;=\frac{qP_na_n}{a_{n+1}}-\frac{qP_n}{a_n}.
+ \end{aligned}</annotation></semantics></math> The leading terms cancel
+when these identities are added. Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">exp</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P_n/a_n=\exp(o(n))</annotation></semantics></math>
+and quadratic growth makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math>
+doubly exponential,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>+</mo><mi>q</mi><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><mfrac><mrow><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub></mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>+</mo><mi>O</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>q</mi><msub><mi>P</mi><mi>n</mi></msub><msub><mi>a</mi><mi>n</mi></msub></mrow><msubsup><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></msubsup></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">E_n+qQ_n=\frac{qP_n}{a_{n+1}}
+ +O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right)=o(1).</annotation></semantics></math>
+Thus the extra assumption
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><msub><mi>Q</mi><mi>n</mi></msub><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup Q_n&lt;\infty</annotation></semantics></math>
+supplies the eventual lower bound on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>
+required by Theorem . This canonical-tail transfer is ordinary analysis;
+the linked Lean theorem begins after its state hypotheses have been
+supplied.</p>
 </section>
 <section id="attribution." class="level5">
 <h5>Attribution.</h5>

@@ -36,9 +36,13 @@ for nonnegative rational eventually-periodic coefficients with a
 positive periodic tail. An ordinary averaging proof gives a weaker
 weighted summability criterion that also covers some supports with
 divergent reciprocal sum. The reciprocal-summable corollary was stated
-by Erdős without a printed proof. The achievement-set development adds
-exact topological and measure statements. Universal Problem 257, which
-quantifies over every infinite support, remains open.</p>
+by Erdős without a printed proof. The same finite averaging window also
+combines weighted supports with positive divisor covers, preserving
+irrationality for every infinite subset of their union at all integer
+bases. This combination has an ordinary proof. The achievement-set
+development adds exact topological and measure statements. Universal
+Problem 257, which quantifies over every infinite support, remains
+open.</p>
 <p>Problem 249 contains the deepest collection of endpoint-facing
 mechanisms but no endpoint proof. Under hypothetical rationality, Lean
 constructs one tempered integral carry whose dyadic sections are
@@ -95,8 +99,21 @@ produced. The <code>PaperCompleteAsymptotics</code> and
 as proof candidates, not as registered kernel evidence for the
 <code>3/2</code> theorem.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/243">#243</a>.</strong> Lean checks
-the following signed bounded-negative theorem. Let
+href="https://www.erdosproblems.com/243">#243</a>.</strong> The short
+paper proves an ordinary original-sequence corollary. Let
+<code>a_1&lt;a_2&lt;⋯</code> be positive integers,
+<code>a_(n+1)/a_n²→1</code>, <code>∑ 1/a_n</code> rational, and
+<code>P_n=∏_{j&lt;n} a_j</code>. If
+<code>limsup (P_n/a_n)(a_n²/a_(n+1)−1)&lt;+∞</code>, then
+<code>a_(n+1)=a_n²−a_n+1</code> eventually. The needed limsup bound, or
+the paper’s alternative weighted record budget, is not proved for the
+unrestricted problem. Take a positive denominator <code>q</code> of the
+full reciprocal sum and clear the nth tail by <code>qP_n</code>. The
+resulting integer error is minus <code>q</code> times the scaled defect,
+up to a term tending to zero. This cancellation turns the upper bound in
+the original sequence into the lower bound on the integer error used
+below. The analytic transfer to this corollary is ordinary mathematics;
+Lean checks the following signed bounded-negative theorem. Let
 <code>a,C,D : ℕ → ℕ</code> and <code>E : ℕ → ℤ</code>. Assume
 <code>a(n)&gt;1</code>, <code>C(n)&gt;0</code>, the exact recurrences
 <code>C(n+1)+D(n)=a(n)C(n)</code> and <code>D(n+1)=a(n)D(n)</code>, and
@@ -164,13 +181,19 @@ gives the complete ordinary proof</a>: average the residues along
 multiples of increasingly divisible moduli, then choose a finite range
 of averaging lengths to control the error uniformly. This is not a Lean
 theorem. The short paper gives a shorter proof and an explicit support
-with divergent reciprocal sum satisfying the criterion. Every infinite
-reciprocal-summable support satisfies it, yielding the coprimality-free
-extension stated by Erdős. Full-support irrationality at every integer
-base is classical (Erdős 1948) and Lean-checked here, as are
-pairwise-coprime summable-reciprocal support and Lebesgue measure one
-for the base-2 achievement set. Irrationality for every infinite support
-and the <code>1/2</code> and <code>1/21</code> branches remain open.</p>
+with divergent reciprocal sum satisfying the criterion. At base two, the
+weighted condition can also be combined with the positive divisor-cover
+criterion: the long paper proves that a common finite averaging window
+makes both displacements small. Every infinite subset of their union
+then has irrational subseries at every integer base. This ordinary
+combination does not establish the separately proposed hosts separating
+the two classes. Every infinite reciprocal-summable support satisfies
+it, yielding the coprimality-free extension stated by Erdős.
+Full-support irrationality at every integer base is classical (Erdős
+1948) and Lean-checked here, as are pairwise-coprime summable-reciprocal
+support and Lebesgue measure one for the base-2 achievement set.
+Irrationality for every infinite support and the <code>1/2</code> and
+<code>1/21</code> branches remain open.</p>
 <p><strong><a
 href="https://www.erdosproblems.com/269">#269</a>.</strong> Steve Fan’s
 repeated-sum two-prime factorisation, posted on 26 June 2026, is his and
@@ -2422,12 +2445,13 @@ irrationality of <code>S</code>.</td>
 <td><strong>unconditional progress</strong></td>
 <td>For every integer <code>k ≥ 2</code>, the sections through level
 <code>e ≥ 1</code> have rank <code>kᵉ + 1</code>, with an explicit basis
-and complete scalar relation normal form. The paper combines Martin’s
-external affine-independence theorem with Lean-checked zero-channel and
-composite-base reduction identities, exact fixed-level residue
-coordinates, unconditional spanning, and a <code>kᵉ + 1</code> rank
-theorem parameterised by explicit linear independence. Martin’s theorem
-and the all-base linear-independence premise are not formalised.</td>
+and complete scalar relation normal form. <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1118">AllBaseTotientKernel.lean</a>
+proves canonical-family independence by CRT and Dirichlet, and <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239">the
+complete rank theorem</a> discharges the reusable conditional wrapper’s
+independence premise. Martin’s broader affine-independence theorem
+remains an external antecedent, not an axiom of that Lean proof.</td>
 </tr>
 <tr>
 <td><strong>formalised here</strong></td>

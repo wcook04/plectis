@@ -35,6 +35,10 @@ printed by Zudilin in 2004 for his \((14,12,14;27)\) direction, whose ratio is
 the integer-base irrationality-exponent bound proved there. This region
 contains \(31/4\) and every power \((31/4)^r\), \(r\ge1\), beyond the
 published sufficient region of Bundschuh and V\"a\"an\"anen.
+The same construction gives
+\(\mu_{\rm irr}(F((a/b)^r))\le(1-\theta)/(\theta^{*}-\theta)\), uniformly for
+every integer $r\ge1$, and in particular a bound below $301$ for every power
+of $31/4$.
 
 The proof cancels cyclotomic factors before clearing the rational-base
 denominator. The degree of the cancelled polynomial pair measures the cost,
@@ -777,6 +781,58 @@ $\log4/\log31>2/5$, and $\pi^{2}<10$ gives $1/2-1/\pi^{2}<2/5$, so
 \]
 The remaining comparison $81/200<\theta^{*}$ is proved in
 Section~\ref{long1049:sec:regionbracket}.  Theorem~\ref{long1049:res:region} then applies.
+\end{proof}
+
+\begin{corollary}[an irrationality measure uniform over powers]
+\label{long1049:cor:rational-base-measure}
+For coprime $a>b\ge1$ with $\theta=\log b/\log a<\theta^*$ and every
+integer $r\ge1$,
+\[
+ \mu_{\rm irr}\!\left(F((a/b)^r)\right)
+ \le\frac{1-\theta}{\theta^*-\theta}.
+\]
+Here $\mu_{\rm irr}(\xi)$ is the supremum of the exponents $\nu$ for which
+$|\xi-p/q|<q^{-\nu}$ has infinitely many reduced rational solutions.
+In particular, $\mu_{\rm irr}(F((31/4)^r))<301$ for every $r\ge1$.
+\end{corollary}
+\begin{proof}
+The raw source coefficient is a sum of $O(n)$ Laurent monomials times two
+Gaussian polynomials, each of coefficient sum at most $2^{27n+2}$.
+Its coefficient norm is $\exp(O(n))$, and every exponent is at most $K_n$.
+The same normalising multiplier used above therefore gives
+\[
+ |U_n(x)|\le x^{W_n}\exp(O_x(n))\qquad(x>1\text{ fixed}).
+\]
+Set $\xi=F(a/b)$, $Q_n=b^{W_n}U_n(a/b)$ and
+$P_n=b^{W_n}V_n(a/b)$.  With
+\[
+ \alpha=(C_1-C_0)\log a,\qquad
+ \tau=C_0\log a-C_1\log b>0,
+\]
+we have $\log(Q_n\xi-P_n)=-\tau n^2+o(n^2)$ and
+$|Q_n|\le\exp(\alpha n^2+o(n^2))$.
+
+For integers $A,B,p,q$ with $q>0$, if $L=A\xi-B$ and $2q|L|\le1$, then
+\[
+ |L|\le |A|\,|\xi-p/q|.
+\]
+When $Ap-Bq=0$ this is equality.  Otherwise the nonzero integer $Ap-Bq$
+gives $1/q\le |L|+|A|\,|\xi-p/q|$, which proves the inequality.
+For a fixed $\eta\in(0,\tau)$ choose
+$n=\lceil\sqrt{\log(2q)/(\tau-\eta)}\rceil$ and apply it to $(Q_n,P_n)$.
+The two-sided remainder estimate yields
+\[
+ |\xi-p/q|\ge
+ q^{-(\alpha+\tau+2\eta)/(\tau-\eta)-o(1)}.
+\]
+Let $\eta\downarrow0$.  The resulting bound is
+$1+\alpha/\tau=(1-\theta)/(\theta^*-\theta)$.
+Taking a common power multiplies $\alpha,\tau$ by $r$, leaving this quotient
+unchanged; the constants in the approximation inequality may depend on $r$.
+For $31/4$, sixteen terms of each trigamma difference and
+$\pi>314159/100000$ give $\theta^*>0.40568$.
+The logarithm series gives $\log4/\log31<0.4036982$.
+Thus the bound is less than $2981509/9909<301$.
 \end{proof}
 
 \subsection{The rational bracket around \texorpdfstring{$\theta^{*}$}{theta*}}\label{long1049:sec:regionbracket}
@@ -2698,11 +2754,14 @@ function.  That contradicts Rivin's periodic-coefficient corollary
 
 The proposition uses no property of the point $2/3$: the obstruction is
 functional and appears before regularity at a particular point is considered.
-It closes the simultaneous route only.  It says nothing about a single
-$k$-Mahler system, about $q$-difference or Mahler-type arguments that do not
-require stability under two multiplicatively independent substitutions, or about
-special-value theorems reached by other means.  Neither ingredient is proved
-here; both are cited.
+The classification of Bell and Smertnig implies that $\mathcal L$ is not
+$k$-Mahler for any $k\ge2$ \cite[Theorem~1.3 and p.~3]{bellsmertnig2026}, so the
+simultaneous obstruction is subsumed for this scalar function.  The proposition
+remains useful as an elementary proof isolating simultaneous closure.  A
+construction using additional functions or functional relations must specify
+those functions and its closure conditions; the single-base statement is not
+an obstruction to every approximation method.  The classification and the two
+external ingredients in the proposition are cited, not proved here.
 
 \subsection{The quantitative height limitation}
 
@@ -3101,6 +3160,12 @@ Binary selectors collide in the four-jet signature at the stated rank and depth.
   labels the problem open, cites \textup{[Er88c, p.~102]} and \textup{[Er48]},
   and explicitly describes its status as the website owner's present
   assessment, with no guarantee of literature completeness.
+\bibitem{bellsmertnig2026} J.~Bell and D.~Smertnig,
+  \href{https://arxiv.org/abs/2603.23456}{\emph{Mahler series with
+  multiplicative coefficient sequences}}, arXiv:2603.23456v1,
+  24 March 2026.  Theorem~1.3 is on pp.~2--3; its stated consequences on
+  p.~3 include that the divisor and totient generating series are not
+  $k$-Mahler for any $k\ge2$.
 \bibitem{formalconjectures1049} The Formal Conjectures Authors,
   \href{https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/1049.lean}
   {\emph{FormalConjectures.ErdosProblems.\texttt{1049}}},

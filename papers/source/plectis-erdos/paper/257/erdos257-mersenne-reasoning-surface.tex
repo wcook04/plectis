@@ -184,18 +184,21 @@ that every infinite $A$ satisfying
 \]
 has irrational $\sum_{a\in A}(b^a-1)^{-1}$.  A base-two instance gives the
 conclusion hereditarily at every integer base and includes an explicit host
-with divergent reciprocal mass.  The proof freezes a finite weighted tail,
+with divergent reciprocal mass.  The proof freezes a finite prefix,
 uses exact gcd-orbit averages on a growing prime-power modulus, and averages
 the incomplete-period error over dyadic observation lengths.  Erd\H{o}s
 already stated the weaker reciprocal-summable theorem without the
 coprimality restriction; its complete ordinary proof is also printed here.
+A finite estimate uniform in the moving modulus lets the weighted and
+positive-cover arguments share one observation window.  This proves the
+same hereditary all-base conclusion for the union of their two hosts.
 
 The checked structural record includes finite-denominator noncollapse and
 the topology and measure of restricted achievement sets.  The targets $1/2$
 and $1/21$ reduce to explicit infinite-orbit alternatives but neither is
 decided. Published work independently settles prime support at base~$2$ and
 squarefree support at every power-of-two base; no priority is claimed here.
-The weighted theorem is not an end-to-end Lean result, and universal \#257
+These analytic proofs are not end-to-end Lean results, and universal \#257
 and both target membership questions remain open.
 \end{abstract}
 
@@ -430,7 +433,7 @@ hidden here.
 We now choose the diagonal scale.  Fix $\varepsilon>0$ and a lower bound
 $N$.  Select a finite $F\subseteq A$ such that
 \begin{equation}\label{eq:257-weighted-tail-choice}
- \sum_{a\in A\setminus F}
+ \sum_{a\in A\mathbin{\backslash} F}
  \frac{h(a)}{a(b^{h(a)}-1)}<\varepsilon,
 \end{equation}
 and put $L=\operatorname{lcm}(F)$, with $L=1$ if $F$ is empty.  Write
@@ -444,7 +447,7 @@ set
 Then $Q\le LH^r$, $G\ge1$, and every $a\in F$ divides $Q$, so its
 $d_a(tQ)$ contribution vanishes.
 
-Consider first $a\in A\setminus F$ with $a\le QT$ and $h(a)\le H$.
+Consider first $a\in A\mathbin{\backslash} F$ with $a\le QT$ and $h(a)\le H$.
 Every prime-power factor of $h(a)$ occurs in $Q_0(H)$, hence
 $h(a)\mid Q_0(H)$ and $(Q,a)\ge h(a)$.  Applying
 \eqref{eq:257-weighted-gcd-average} and the monotonicity above, the total
@@ -559,6 +562,202 @@ and these contributions are summable.  The theorem therefore proves
 hereditary all-base irrationality for every infinite subset of an explicit
 reciprocal-divergent host.
 
+
+\subsection{A finite estimate on common observation scales}\label{sec:257-common-kernel}
+For $1<B\le2$, positive integers $L,d,M$, and an integer $R\ge0$, put
+\[
+ w_{B,d}(n)=\frac{B^{n\bmod d}}{B^d-1},\qquad
+ \mathscr D_{L;R,M}F
+ =\frac1M\sum_{j=R}^{R+M-1}\frac1{2^j}
+      \sum_{m=1}^{2^j}F(Lm).
+\]
+The finite estimate
+\begin{equation}
+ \mathscr D_{L;R,M}w_{B,d}
+ \le\frac{1+4L/M}{d(B-1)}
+ \label{eq:257-mixed-finite-kernel}
+\end{equation}
+is uniform in $d$, $R$, and $B$ as $B$ decreases to one.
+The ratio $L/M$ measures the cost of incomplete modular periods.
+
+To prove it, fix $T=2^j$ and average over $1\le m\le T$.
+When $d\le LT$, the complete orbit has length $d/g$, with $g=(L,d)$,
+and total weight $1/(B^g-1)$.  Complete cycles and one remaining piece give
+\[
+ \frac1T\sum_{m=1}^T w_{B,d}(Lm)
+ \le\frac{g}{d(B^g-1)}+\frac1{T(B^g-1)}
+ \le\frac1{d(B-1)}+\frac1{T(B-1)}.
+\]
+Across dyadic lengths satisfying $d\le L2^j$, the reciprocal-length
+errors sum to at most $2L/[d(B-1)]$.
+When $d>2LT$, there is no wrap and $2Lm\le d-1$; hence
+$\sum_{i=0}^{d-1}B^i\ge dB^{(d-1)/2}\ge dB^{Lm}$.
+Each atom is then at most $1/[d(B-1)]$.
+Finally, at most one dyadic length satisfies $LT<d\le2LT$.
+For that length the geometric sum and convexity give
+\[
+ \frac1T\sum_{m=1}^T w_{B,d}(Lm)
+ =\frac{B^L}{T(B^L-1)}\frac{B^{LT}-1}{B^d-1}
+ \le\frac{LB^L}{d(B^L-1)}
+ \le\frac{2L}{d(B-1)}.
+\]
+Summing the main terms and these two error budgets proves~\eqref{eq:257-mixed-finite-kernel}.
+The complete-cycle mass $1/(B-1)$, the bound
+$g/(B^g-1)\le1/(B-1)$ used for complete cycles, and the no-wrap
+inequality $\sum_{i<d}B^i\ge dB^{(d-1)/2}$ are ordinary in this note;
+\texttt{PaperCompleteR7/CoverKernel.lean} is not in this checkout.
+Nonnegative interchange permits summation against any coefficients $c_d$
+with $\sum_dc_d/d<\infty$.
+
+\subsection{Positive fractional divisor covers}
+For a finite set $F$, put $f_F(n)=\#\{a\in F:a\mid n\}$.
+Let $F_j$ be finite sets of positive integers, let $0<\alpha_j\le1$, and
+suppose $c_{j,d}\ge0$ satisfy
+\[
+ f_{F_j}(n)^{\alpha_j}\le\sum_{d\mid n}c_{j,d},\qquad
+ C_j=\sum_{d\ge1}\frac{c_{j,d}}d.
+\]
+
+\begin{thm}[strengthened positive covers]\label{thm:257-variable-fractional-cover}
+If
+\begin{equation}
+ \sum_{j\ge1}\frac{C_j2^{j\alpha_j}}{2^{\alpha_j}-1}<\infty,
+ \label{eq:257-strengthened-cover}
+\end{equation}
+then $X_A(b)$ is irrational for every infinite
+$A\subseteq\bigcup_jF_j$ and every integer $b\ge2$.
+\end{thm}
+
+\begin{proof}
+Write $B_j=2^{\alpha_j}$ and
+\[
+ U_j(N)=\sum_{r\ge1}2^{-r}f_{F_j}(N+r),\qquad
+ V_j(N)=\sum_{d\ge1}c_{j,d}w_{B_j,d}(N).
+\]
+Subadditivity of the fractional powers and the positive majorants give
+$U_j(N)^{\alpha_j}\le V_j(N)$.
+The geometric-series identity also gives
+\[
+ \Delta_{2,F_j}(N)=U_j(N)-X_{F_j}(2)\le U_j(N).
+\]
+Consequently, once the first $J$ frames have zero displacement, nonnegativity
+bounds the displacement of their union by $\sum_{j>J}U_j(N)$.
+
+Fix $\varepsilon>0$, set $t_j=\varepsilon2^{-j}$, and choose $J$ with
+\[
+ K_J:=\sum_{j>J}\frac{C_jt_j^{-\alpha_j}}{B_j-1}<\frac14.
+\]
+This is possible since $\varepsilon^{-\alpha_j}\le\max(1,\varepsilon^{-1})$.
+Choose $L$ divisible by every member of the first $J$ frames.  Equation~\eqref{eq:257-mixed-finite-kernel} bounds the finite mean of
+$S_J(N):=\sum_{j>J}t_j^{-\alpha_j}V_j(N)$ by
+$(1+4L/M)K_J<1/2$ whenever $M\ge4L$.
+One sample therefore has $S_J(N)<1$, forcing $U_j(N)<t_j$ for every $j>J$.
+The frozen frames have zero displacement, so
+\[
+ 0<\Delta_{2,A}(N)\le\sum_{j>J}U_j(N)\le\varepsilon.
+\]
+The fixed rational lattice excludes rationality at base two.
+For every $b\ge2$, the elementary atom inequality
+$(b^r-1)/(b^d-1)\le2(2^r-1)/(2^d-1)$ for $0\le r<d$
+gives the same conclusion at base $b$; that inequality is
+ordinary in this note (\texttt{CoverKernel.lean} is absent).
+Any prescribed positive divisor can be included in $L$, so the witnesses
+can also be required to be arbitrarily large.
+\end{proof}
+
+The same proof permits any positive weights $\eta_j$ with $\sum_j\eta_j=1$:
+replace $2^{j\alpha_j}$ in~\eqref{eq:257-strengthened-cover} by
+$\eta_j^{-\alpha_j}$ and take $t_j=\varepsilon\eta_j$.
+\subsection{Combining the two support criteria}
+Separate small-displacement witnesses need not occur at the same index.
+For example, a sequence small only at even indices and one small only at odd
+indices need never have a small sum.  The useful feature of~\eqref{eq:257-mixed-finite-kernel} is its
+uniformity in the moving modulus: the positive-cover argument can use the
+exact observation window selected by the weighted proof.
+\begin{thm}[mixed weighted and cover supports]\label{thm:257-mixed-supports}
+Suppose $E$ has finite weighted mass \eqref{eq:257-weighted-mass} at $b=2$ for a
+finite nonempty prime set $\mathcal P$, and $V$ admits a strengthened positive cover
+\eqref{eq:257-strengthened-cover}, or its positive-weight variant above.
+Then $X_A(b)$ is irrational for every
+infinite $A\subseteq E\cup V$ and every integer $b\ge2$.
+\end{thm}
+\begin{proof}
+Fix $\varepsilon>0$ and an integer $N_0\ge1$, and put $\rho=\varepsilon/3$.
+Use the cover notation $B_j,U_j,V_j$ above, with $\eta_j=2^{-j}$ in
+the case~\eqref{eq:257-strengthened-cover}.  Set $t_j=\rho\eta_j$ and choose
+$J$ so that
+\[
+ K_J=\sum_{j>J}\frac{C_jt_j^{-\alpha_j}}{B_j-1}<\frac1{16}.
+\]
+Choose a finite $F\subseteq E$ whose complementary weighted mass is
+$\kappa<\rho/16$.  Let $L$ be a positive common multiple of $N_0$, all
+members of $F$, and all members of the first $J$ cover frames.
+For large $H$, take exactly the binary weighted schedule
+\[
+ Q=L\prod_{p\in\mathcal P}p^{\lfloor\log_pH\rfloor},\qquad
+ G=\lfloor H/\max\mathcal P\rfloor,\qquad M=\lfloor2^{G/2}\rfloor.
+\]
+The finite estimate~\eqref{eq:257-weighted-final-diagonal}, with tail budget
+$\kappa$, remains valid for this $L$: its proof requires only that $L$
+freeze $F$.  It also applies to finite or empty $E$, since positivity was
+used only after the averaging estimate.  Thus
+\[
+ \mathscr D_{Q;M,M}(\Delta_{2,E}/\rho)<\frac18
+\]
+for sufficiently large $H$.  For the same finite distribution, \eqref{eq:257-mixed-finite-kernel} and
+nonnegative interchange give
+\[
+ \mathscr D_{Q;M,M}S_J\le(1+4Q/M)K_J<\frac18,
+ \qquad S_J=\sum_{j>J}t_j^{-\alpha_j}V_j,
+\]
+because $Q/M\to0$.  Hence some sample $N=Qm$ satisfies
+$\Delta_{2,E}(N)/\rho+S_J(N)<1$.  At this one index the weighted
+displacement is below $\rho$ and every unfrozen cover frame has
+$U_j(N)<t_j$.  Therefore
+\[
+ \Delta_{2,A}(N)\le\Delta_{2,E}(N)+\Delta_{2,V}(N)<2\rho<\varepsilon,
+ \qquad N\ge Q\ge L\ge N_0.
+\]
+Overlaps between the supports only improve the inequality.  Infinitude of
+$A$ makes its displacement positive.  The atom comparison used in the cover
+proof transfers arbitrarily small displacements to every integer base;
+the fixed rational lattice then excludes rationality.
+\end{proof}
+
+The analytic estimates and their synchronisation are ordinary proofs.
+No Lean declaration in this checkout is offered as their complete proof.
+This theorem does not establish strict enlargement over both individual
+classes; the short note keeps the proposed separation hosts unassessed.
+It also leaves universal irrationality and the quantitative and prime-power
+thinning claims open here. \ev{Math}
+
+With arbitrary positive cover weights, the class of subsets of such mixed
+hosts is closed under finite unions and finite changes.  For weighted
+supports use the union of the two finite prime sets: the prime part grows
+and $h/(2^h-1)$ decreases.  For two covers, interleave their frames with
+weights $\eta_j/2$ and $\theta_j/2$; the total cost grows by at most two,
+since $2^{\alpha_j}\le2$.  Subsets inherit the same hosts, and finite sets
+have finite weighted mass.  This argument uses the positive-weight variant;
+it does not silently reindex the dyadic weights in~\eqref{eq:257-strengthened-cover}.
+Countable unions require a tail budget.  Every prime singleton is admitted,
+but for the full prime support $\mathcal P$ one has
+$\Delta_{2,\mathcal P}(N)>1/3$ for every $N\ge1$: indeed
+$\sum_{r\ge1}2^{-r}\omega(N+r)\ge1$, whereas
+$X_{\mathcal P}(2)\le\sum_{a\ge2}(2^a-1)^{-1}<2/3$.
+Here $\omega(n)$ is the number of distinct prime divisors of $n$.
+
+\paragraph{The elementary independence boundary.}
+For $f_A(n)=\sum_{a\in A}\mathbf1_{a\mid n}$ and a fixed $a\in A$,
+the identity $f_A(an)-f_A(n)=1-\mathbf1_{a\mid n}$ holds for every
+$n\ge1$ exactly when $a$ is coprime to every other member of $A$.
+Every summand $\mathbf1_{t\mid an}-\mathbf1_{t\mid n}$ is nonnegative;
+$t=a$ supplies the right side, and coprimality makes all other terms zero.
+If $g=(a,t)>1$ for some $t\ne a$, take $n=t/g$ to obtain an additional
+positive term.  For distinct odd primes $p,q$, the covariance of
+$\mathbf1_{2p\mid n}$ and $\mathbf1_{2q\mid n}$ over a common period is
+$1/(2pq)-1/(4pq)=1/(4pq)$.  Thus dilating a prime support already destroys
+the independence used in the prime-incidence argument.  This brief ordinary
+calculation marks a boundary of that argument, not an irrationality criterion.
 
 \subsection{The object and the two exact statements}
 

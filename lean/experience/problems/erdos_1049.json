@@ -213,7 +213,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "80afb1575a0bed8822d0c91d6ccf590b440c607ee4cf0828ea07c493548e8f35",
+    "source_sha256": "270db315a3db525621e40c82e8cac4c9114a99f80c5239f945f7e6dcccf88af1",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -257,17 +257,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 22,
       "renderer_fingerprint": "e85419265bf94334",
-      "source_sha256": "1a6dd502b3013576ae92cad74fc32269889effd86caacfbd708f1b93c1414e1d",
+      "source_sha256": "3270ee095c9c2b2baa38deeacf655a1c732b55615d274732f9a7b55cb69c583f",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 407,
+      "mathml_node_count": 410,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "65f7a71a5b62d37d9ca16a246e00c8a06d1af1f1b8423fa1d32ddd09d6a46fa6",
-      "html_exact_tex_sha256": "70180afbe28a5f1061618f86c41b53fc41d3e8f4b212ae489d53aaaaf368d32b"
+      "html_mathml_sha256": "a2ee4aa3bd9490549a50c70b50bcaedadd4e64161d5e9cefe5d27f5ad076b953",
+      "html_exact_tex_sha256": "bb020ce192df29438f7fa0668fd8aeedb96b790987aa0d586cc491d91757ecfb"
     },
     "sections": [
       {
@@ -441,17 +441,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "1a6dd502b3013576ae92cad74fc32269889effd86caacfbd708f1b93c1414e1d",
+        "source_sha256": "3270ee095c9c2b2baa38deeacf655a1c732b55615d274732f9a7b55cb69c583f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 407,
+        "mathml_node_count": 410,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "65f7a71a5b62d37d9ca16a246e00c8a06d1af1f1b8423fa1d32ddd09d6a46fa6",
-        "html_exact_tex_sha256": "70180afbe28a5f1061618f86c41b53fc41d3e8f4b212ae489d53aaaaf368d32b"
+        "html_mathml_sha256": "a2ee4aa3bd9490549a50c70b50bcaedadd4e64161d5e9cefe5d27f5ad076b953",
+        "html_exact_tex_sha256": "bb020ce192df29438f7fa0668fd8aeedb96b790987aa0d586cc491d91757ecfb"
       },
       "sections": [
         {
@@ -625,17 +625,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "f9cc5c00ba2a095f2464964afc1ff149cc607dae4c09e127a4eb9987e58a3559",
+        "source_sha256": "8fdaed7bb939f5909d447e09c7b0b06f7382b809019694e0ceaa457fb90c7f3a",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1545,
+        "mathml_node_count": 1590,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "ec9bcfd1dc850d8989f4fec533a92219aa8c3d4c5311e68b6c69514ffcd97a80",
-        "html_exact_tex_sha256": "a142acbc93e1542f36228f3fa31b1e12bf01ed8f9d689eb8296b299a7a01afe3"
+        "html_mathml_sha256": "aca14f1f1d7965e4970ae10b7c4c627a0e1bba54b7c6890c7b1256b765b0b83e",
+        "html_exact_tex_sha256": "1d71c5e5cb89c3a02d2c540dd8ac9d610c1ee3b715ef636aceb988fb7a5d2bb9"
       },
       "sections": [
         {

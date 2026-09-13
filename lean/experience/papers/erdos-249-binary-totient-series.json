@@ -7,7 +7,7 @@
   "form": "Problem note",
   "pages": 11,
   "question": "What is the exact rank of the totient kernel at every integer base, which parts are formalised, and why does Erdős #249 remain open?",
-  "precis": "For every integer base k≥2, including composite bases, the totient kernel through level e≥1 has an explicit rational basis of size k^e + 1; level 0 has dimension 1. The paper gives an ordinary proof using arithmetic independence. Lean proves the dyadic rank unconditionally; its all-base rank theorem assumes the canonical family's independence. These coefficient-space results do not decide irrationality. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate or cofinal certificate supply is proved; Erdős #249 remains open.",
+  "precis": "For every integer base k≥2, including composite bases, the totient kernel through level e≥1 has an explicit rational basis of size k^e + 1; level 0 has dimension 1. The paper gives an ordinary proof using arithmetic independence. Lean also proves all-base canonical-family independence and the complete rank unconditionally by CRT and Dirichlet. These coefficient-space results do not decide irrationality. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate or cofinal certificate supply is proved; Erdős #249 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #249, which remains open",
   "problem_id": "erdos_249",
@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 22,
     "renderer_fingerprint": "e85419265bf94334",
-    "source_sha256": "9c42e5e921756f43997617bcdce4b4e6a41459e0230c67ce592d6e4563e78851",
+    "source_sha256": "6e8b62b1d01edbff1acb9bca7e5182e90cfdc6810d24fb3ad22e2df660b66635",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 323,
@@ -38,8 +38,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "4249e86d37e1dd6d39dd7006c7049e5f930a4294ed815da6e1e195b95b968767",
-    "html_exact_tex_sha256": "e132b3bdb2ceb1017345f3b7d5e3084456e150bfb7da208fb1d5cc7c0eda8ee1"
+    "html_mathml_sha256": "23ff547346f8cf1094d7245d6ac6a185e699d2b4d4f3c707e344dbff93614c37",
+    "html_exact_tex_sha256": "243bd9b2c7ec28ae51b5a8c585db1e54a9e004170edabb3262fcf76ee32491f8"
   },
   "sections": [
     {

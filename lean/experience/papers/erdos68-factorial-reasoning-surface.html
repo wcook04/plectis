@@ -896,10 +896,11 @@ integer.</p>
 <p><strong>Theorem 12</strong> (complementary-residue criterion). <em>
 Suppose that for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-there is a prime
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">p&gt;B</annotation></semantics></math>
+there is a natural parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">p\ge3</annotation></semantics></math>
 with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">R_p&gt;1</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">p&gt;B</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">R_p&gt;1</annotation></semantics></math>,
 and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msubsup><mi>L</mi><mi>p</mi><mrow><mi mathvariant="normal">b</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">k</mi></mrow></msubsup><mo>&lt;</mo><msub><mi>K</mi><mi>p</mi></msub><msub><mi>ρ</mi><mi>p</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long68:eq:global-scale}
@@ -908,12 +909,15 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 is irrational.</em></p>
 </div>
+<p>This natural-parameter form is also the <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L156-L168">checked
+global complementary criterion</a>.</p>
 <div class="proof">
 <p><em>Proof.</em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\ge1</annotation></semantics></math>,
-and take a block with
+and take such a parameter with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p&gt;\max(q,3)</annotation></semantics></math>
 satisfying the hypotheses. Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><msub><mi>F</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">q\mid F_p</annotation></semantics></math>,
@@ -2474,13 +2478,23 @@ prime-power criterion specialised to the literal prefixes.</p>
 <h3>The collision-core interfaces</h3>
 <p>Beyond the definitions used in the short note, the record keeps the
 exact interfaces of the collision-core reduction.</p>
+<p>Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>i</mi><mo>,</mo><mi>j</mi><mo>∈</mo><mi>S</mi></mrow></msub><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>i</mi></msub><mo>,</mo><msub><mi>d</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D(S)=\operatorname{lcm}_{i&lt;j,\ i,j\in S}\gcd(d_i,d_j)</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D(S)=1</annotation></semantics></math>
+for an empty or singleton family. For each prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>,
+its valuation is the second-largest valuation among the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>i</mi></msub><annotation encoding="application/x-tex">d_i</annotation></semantics></math>,
+counting missing values as zero; the denominator lcm has the largest
+valuation. This proves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mi>i</mi><mo>∈</mo><mi>S</mi></mrow></msub><msub><mi>d</mi><mi>i</mi></msub><mo>∣</mo><msub><mo>∏</mo><mrow><mi>i</mi><mo>∈</mo><mi>S</mi></mrow></msub><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">D(S)\operatorname{lcm}_{i\in S}d_i\mid\prod_{i\in S}d_i</annotation></semantics></math>
+prime by prime.</p>
 <p>The collision core has an exact incremental law. For the positive
-factorial-gap denominators, adjoining
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>a</mi></msub><annotation encoding="application/x-tex">d_a</annotation></semantics></math>
-to a finite family
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+factorial-gap denominators, adjoining a new index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∉</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">a\notin S</annotation></semantics></math>
 gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>d</mi><mi>a</mi></msub><mo>,</mo><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mi>j</mi><mo>∈</mo><mi>S</mi></mrow></msub><msub><mi>d</mi><mi>j</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">C(S\cup\{a\})=\operatorname{lcm}\!\Bigl(C(S),\ \gcd\bigl(d_a,\operatorname{lcm}_{j\in S}d_j\bigr)\Bigr),</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>d</mi><mi>a</mi></msub><mo>,</mo><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mi>j</mi><mo>∈</mo><mi>S</mi></mrow></msub><msub><mi>d</mi><mi>j</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">D(S\cup\{a\})=\operatorname{lcm}\!\Bigl(D(S),\ \gcd\bigl(d_a,\operatorname{lcm}_{j\in S}d_j\bigr)\Bigr),</annotation></semantics></math>
 since finite-family gcd and lcm distributivity collapses the lcm of all
 pairwise gcds against
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>a</mi></msub><annotation encoding="application/x-tex">d_a</annotation></semantics></math>
@@ -2503,18 +2517,33 @@ an exact bridge from lower estimates for the factorial-gap lcm to upper
 estimates for the normalised core. It does not close the local scale
 bound.</p>
 <p>The base cancellation is exact prime by prime. With
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>p</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">F_p=(p-1)!</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>p</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">F_p=(p-1)!</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>p</mi></msub><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>I</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D_p=D(I_p)</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>p</mi></msub><annotation encoding="application/x-tex">C_p</annotation></semantics></math>
-the unnormalised core,
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo>=</mo><mfrac><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mi>p</mi></msub><mo>,</mo><msub><mi>C</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><msub><mi>F</mi><mi>p</mi></msub></mfrac><mo>=</mo><mfrac><msub><mi>C</mi><mi>p</mi></msub><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mi>p</mi></msub><mo>,</mo><msub><mi>C</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\widetilde C_p=\frac{\operatorname{lcm}(F_p,C_p)}{F_p}=\frac{C_p}{\gcd(F_p,C_p)},\qquad
- v_r(\widetilde C_p)=v_r(C_p)-\min\{v_r(F_p),v_r(C_p)\} .</annotation></semantics></math>
-So
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>p</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mi>p</mi></msub><mo>,</mo><msub><mi>D</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C_p=\operatorname{lcm}(F_p,D_p)</annotation></semantics></math>,
+as in the main record,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo>=</mo><mfrac><msub><mi>C</mi><mi>p</mi></msub><msub><mi>F</mi><mi>p</mi></msub></mfrac><mo>=</mo><mfrac><msub><mi>D</mi><mi>p</mi></msub><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mi>p</mi></msub><mo>,</mo><msub><mi>D</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\widetilde C_p=\frac{C_p}{F_p}=\frac{D_p}{\gcd(F_p,D_p)},\qquad
+ v_r(\widetilde C_p)=\max\{0,v_r(D_p)-v_r(F_p)\} .</annotation></semantics></math>
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e&gt;0</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mi>e</mi></msup><mo>∣</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">r^e\mid\widetilde C_p</annotation></semantics></math>
 exactly when the pairwise core carries
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>r</mi><mrow><mi>e</mi><mo>+</mo><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">r^{e+v_r(F_p)}</annotation></semantics></math>,
 which in the block forces two distinct gaps to be divisible by that
-higher power. The sharp surviving valuation cap
+higher power, by the second-largest-valuation formula. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i&lt;j</annotation></semantics></math>
+are two such hits and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>=</mo><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f=v_r(F_p)</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mrow><mi>e</mi><mo>+</mo><mi>f</mi></mrow></msup><mo>∣</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r^{e+f}\mid j!/i!-1</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>∣</mo><mi>j</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r\mid j!-1</annotation></semantics></math>
+forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>&lt;</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">j&lt;r</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>&lt;</mo><msup><mi>r</mi><mrow><mi>j</mi><mo>−</mo><mi>i</mi></mrow></msup></mrow><annotation encoding="application/x-tex">0&lt;j!/i!-1&lt;r^{j-i}</annotation></semantics></math>,
+hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>+</mo><mi>f</mi><mo>&lt;</mo><mi>j</mi><mo>−</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">e+f&lt;j-i</annotation></semantics></math>.
+The sharp surviving valuation cap
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>v</mi><mi>r</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">v_r(\widetilde C_p)+v_r(F_p)&lt;r</annotation></semantics></math>
 then gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>−</mo><mn>1</mn><mo>&lt;</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><msup><mi>r</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">p-1&lt;r(r-1)&lt;r^2</annotation></semantics></math>

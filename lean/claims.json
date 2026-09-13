@@ -1045,7 +1045,9 @@
             "res:terminalhalf",
             "res:cylinderhalf",
             "res:reciprocal-support",
-            "res:weighted-support"
+            "res:weighted-support",
+            "thm:variable-fractional-cover",
+            "res:mixed-supports"
           ]
         },
         {
@@ -1117,7 +1119,7 @@
             "id": "erdos_257_reasoning_record",
             "source": "paper/257/erdos257-mersenne-reasoning-surface.tex",
             "decision": "retain_as_full_problem_reasoning_record",
-            "thesis": "Complete working record for Erdős #257: a complete ordinary finite-prime weighted support proof, Lean full-support and structured-support theorems, finite-support geometry, and surviving arbitrary-infinite-support obligations."
+            "thesis": "Complete working record for Erdős #257: complete ordinary finite-prime weighted and mixed weighted/positive-cover support proofs, Lean full-support and structured-support theorems, finite-support geometry, and surviving arbitrary-infinite-support obligations."
           },
           {
             "id": "erdos_1041_reasoning_record",
@@ -1173,7 +1175,7 @@
             "id": "erdos_249_note",
             "source": "paper/249/erdos-249-binary-totient-series.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "Exact section rank k^e+1 for every integer base k ≥ 2 and e ≥ 1 by an ordinary CRT–Dirichlet proof using Martin; dyadic rank and integral normal form are Lean-checked, while the all-base Lean wrapper retains its independence hypothesis. One hypothetical rational carry has both unbounded section ranks and periodic congruence sections, with no contradiction or cofinal producer proved."
+            "thesis": "Exact section rank k^e+1 for every integer base k ≥ 2 and e ≥ 1 by a CRT–Dirichlet independence proof, also formalised unconditionally in AllBaseTotientKernel.lean at public checkpoint 25ef6245d15a. Martin is the broader external affine-independence antecedent. One hypothetical rational carry has both unbounded section ranks and periodic congruence sections, with no contradiction or cofinal producer proved."
           },
           {
             "id": "erdos_251_note",
@@ -1185,7 +1187,7 @@
             "id": "erdos_257_note",
             "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "Ordinary finite-prime weighted summability criterion, including supports with divergent reciprocal sum; Lean full-support and structured supports (pairwise-coprime plus summable; eventually-periodic); arbitrary infinite support and the 1/2 and 1/21 branches remain open and distinct."
+            "thesis": "Ordinary finite-prime weighted summability criterion, including supports with divergent reciprocal sum, and a complete ordinary common-witness proof combining weighted and positive-cover hosts; Lean full-support and structured supports (pairwise-coprime plus summable; eventually-periodic); arbitrary infinite support and the 1/2 and 1/21 branches remain open and distinct."
           },
           {
             "id": "erdos_269_note",
@@ -1548,11 +1550,11 @@
             "residual_gauge_obstruction",
             "totient_carry_kernel_anti_compression"
           ],
-          "status_summary": "Exact finite obstructions and interfaces, a constructive dyadic basis, and an all-base arithmetic/spanning layer with exact rank conditional on explicit linear independence.",
-          "prior_art_posture": "Classical Euler/Möbius, CRT, determinant, and Lambert tools; Coons already implies full-kernel infinite rank, and Martin supplies the external all-base affine-independence step. No completed irrationality endpoint or priority claim.",
+          "status_summary": "Exact finite obstructions and interfaces, a constructive dyadic basis, and an all-base arithmetic/spanning layer. The reusable rank wrapper is conditional; AllBaseTotientKernel.lean separately proves its independence premise and the complete rank unconditionally.",
+          "prior_art_posture": "Classical Euler/Möbius, CRT, determinant, and Lambert tools; Coons already implies full-kernel infinite rank, and Martin supplies a broader external affine-independence antecedent. The Lean all-base proof uses CRT and Dirichlet independently. No completed irrationality endpoint or priority claim.",
           "primary_narrative_owner": "docs/claims.json::claims",
           "source_route": "python3 scripts/query_corpus.py --route lambert_obstruction_interfaces",
-          "consumer_or_open_obligation": "No rationality-to-finite-rank bridge is proved; all-base linear independence remains external to Lean, while spanning and the rank conclusion conditional on that input are checked.",
+          "consumer_or_open_obligation": "No rationality-to-finite-rank bridge or #249 irrationality endpoint is proved. The all-base independence premise is discharged in AllBaseTotientKernel.lean; the reusable conditional interface remains separately recorded.",
           "view_decision": "gateway_selected_boundaries_and_living_reference_detail"
         },
         {
@@ -13125,7 +13127,7 @@
           "remaining_open_effect": {
             "remaining_open_proposition_id": "remaining_open.erdos_249_irrationality",
             "operation": "narrows",
-            "statement": "Provides the exact rank of the actual all-base finite truncation under the explicit external linear-independence hypothesis, while leaving the rationality-to-finite-rank bridge and the #249 irrationality endpoint open."
+            "statement": "Provides the exact rank of the actual all-base finite truncation under an explicit linear-independence input. AllBaseTotientKernel.lean separately discharges that input; the rationality-to-finite-rank bridge and #249 irrationality endpoint remain open."
           }
         },
         {
@@ -13995,7 +13997,7 @@
       },
       "totient_kernel_rank": {
         "source_statement": "Coons proved that Euler's totient sequence is not k-regular for every integer k at least 2, while Martin's affine-totient ordering theorem implies linear independence of every finite family of pairwise nonproportional positive-slope affine totient sections.",
-        "mapping": "The dyadic Lean development gives an independent constructive finite-level basis and rank proof. Its full-kernel infinite-dimensionality corollary is kernel-checked here but is not an independent contribution: for integer-valued sequence modules it is equivalent to Coons's non-k-regularity result. The all-base Lean modules check the zero-channel identity, the exact composite-base scalar reduction, residue coordinates, index cardinality k^e+1, and unconditional spanning by the canonical family. Lean also checks the exact-rank conclusion under an explicit linear-independence hypothesis. Martin remains the external authority for that hypothesis, so the unconditional all-base basis and rank theorem remains a paper conclusion rather than a Lean theorem without assumptions.",
+        "mapping": "The dyadic Lean development gives an independent constructive finite-level basis and rank proof. Its full-kernel infinite-dimensionality corollary is kernel-checked here but is not an independent contribution: for integer-valued sequence modules it is equivalent to Coons's non-k-regularity result. The all-base Lean modules check zero-channel and composite-base reductions, residue coordinates, index cardinality k^e+1, canonical spanning and the reusable conditional-rank interface. Separately, AllBaseTotientKernel.lean at public checkpoint 25ef6245d15a proves canonical independence and the complete rank unconditionally by CRT and Dirichlet. This does not enlarge the Comparator target represented below or formalise Martin's broader theorem.",
         "references": [
           "paper/249/erdos-249-binary-totient-series.tex",
           "docs/PRIOR_ART.md",
@@ -14003,7 +14005,7 @@
           "https://doi.org/10.1007/s11139-004-4633-4"
         ],
         "historical_attribution": "Coons for non-k-regularity of Euler's totient sequence; Martin for the positive-density affine ordering theorem from which the paper's finite-family independence step follows.",
-        "logical_dependency": "The dyadic finite-level proof is local. In the all-base development, arithmetic reduction and canonical spanning are unconditional; exact rank is conditional on an explicit linear-independence hypothesis. The paper discharges that hypothesis using Martin externally, whose positive-density theorem is not formalised."
+        "logical_dependency": "Arithmetic reduction and canonical spanning are unconditional. The recorded reusable rank wrapper takes independence as an input. AllBaseTotientKernel.lean discharges that input independently; Martin's broader positive-density theorem remains cited external prior work, not an axiom of the Lean proof."
       },
       "prime_gap_irrationality_equivalence": {
         "source_statement": "The prime-value dyadic series equals 2 plus the prime-gap dyadic series by summation by parts, so one series is irrational exactly when the other is.",
@@ -14695,11 +14697,11 @@
           },
           {
             "id": "totient_kernel_all_base_index",
-            "contribution_class": "formalised unconditional spanning and conditional rank with external independence input",
+            "contribution_class": "formalised arithmetic, spanning and reusable conditional rank interface",
             "summary": "For every base k at least 2, Lean checks the arithmetic reduction, exact nonmultiple-residue coordinates, unconditional canonical spanning, and exact rank k^e+1 conditional on canonical-family linear independence.",
-            "evidence_mode": "Lean kernel for arithmetic, finite indexing, spanning, and the conditional-rank theorem; paper argument plus Martin's cited theorem for independence",
+            "evidence_mode": "Lean kernel for this arithmetic, finite indexing, spanning and conditional-rank interface; the independent all-base proof is a separate public source result",
             "comparator_disposition": "targeted",
-            "boundary": "Lean does not prove all-base affine-section independence or formalise Martin's theorem. The unconditional basis and rank conclusions in the paper use that external input."
+            "boundary": "This Comparator target reviews the reusable conditional interface. AllBaseTotientKernel.lean separately proves canonical all-base independence and exact rank unconditionally at 25ef6245d15a; it does not formalise Martin's broader theorem or solve #249."
           },
           {
             "id": "totient_visible_coprime_lattice_mass",
@@ -15448,7 +15450,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 814
+        "line": 870
       }
     },
     {
@@ -15556,7 +15558,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "global overlap-height growth",
-        "line": 581
+        "line": 595
       }
     },
     {
@@ -15568,7 +15570,7 @@
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "first-harmonic anti-concentration on supplier fibres",
-        "line": 581
+        "line": 585
       }
     },
     {
@@ -15580,7 +15582,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "weakest native recurrence criterion",
-        "line": 828
+        "line": 884
       }
     },
     {
@@ -15592,7 +15594,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "actual-orbit invariant",
-        "line": 837
+        "line": 893
       }
     },
     {
@@ -15604,7 +15606,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 847
+        "line": 903
       }
     }
   ],
@@ -19333,7 +19335,7 @@
       "id": "all_base_totient_kernel_conditional_rank",
       "label": "Conditional exact rank of the all-base totient kernel",
       "status": "conditional reduction",
-      "statement": "For integers k and e with 2 ≤ k and 1 ≤ e, if the explicit canonical all-base family is linearly independent over ℚ, then the span of the actual all-base totient kernel through level e has dimension k^e + 1. The linear-independence hypothesis is an external affine-ordering boundary; this coefficient-space result does not prove irrationality of the binary totient series.",
+      "statement": "For integers k and e with 2 ≤ k and 1 ≤ e, if the explicit canonical all-base family is linearly independent over ℚ, then the span of the actual all-base totient kernel through level e has dimension k^e + 1. This reusable interface retains the independence input; AllBaseTotientKernel.lean separately discharges it at public checkpoint 25ef6245d15a. As before, this coefficient-space result does not prove irrationality of the binary totient series.",
       "remaining_open_proposition_ids": [
         "remaining_open.erdos_249_irrationality"
       ],

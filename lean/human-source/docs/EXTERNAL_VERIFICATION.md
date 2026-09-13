@@ -462,7 +462,7 @@ This is Palomar's source-current reader order, not review-matrix or Comparator r
 7. **Totient kernel all base index** (`totient_kernel_all_base_index`; deep mechanism and classification; source disposition `represented`)
    - **Why here.** The rank theorem retains an external linear-independence hypothesis, so it is valuable structural support rather than an unconditional endpoint result.
    - **Source.** <code>Erdos249257.ExternalVerification.finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent</code> in [Lean](../lean/Erdos249257/TotientKernelConditional.lean)
-   - **Boundary.** Lean does not prove all-base affine-section independence or formalise Martin's theorem. The unconditional basis and rank conclusions in the paper use that external input.
+   - **Boundary.** This Comparator target reviews the reusable conditional interface. AllBaseTotientKernel.lean separately proves canonical all-base independence and exact rank unconditionally at 25ef6245d15a; it does not formalise Martin's broader theorem or solve #249.
 
 8. **Totient kernel basis** (`totient_kernel_basis`; deep mechanism and classification; source disposition `represented`)
    - **Why here.** An explicit basis is useful kernel infrastructure, yet it does not connect finite span structure to the binary totient irrationality endpoint.
@@ -533,8 +533,8 @@ Exact registry keys and Comparator routing are listed separately.
 
 - **Totient kernel all base index**<br>
   For every base k at least 2, Lean checks the arithmetic reduction, exact nonmultiple-residue coordinates, unconditional canonical spanning, and exact rank k^e+1 conditional on canonical-family linear independence.<br>
-  **Boundary.** Lean does not prove all-base affine-section independence or formalise Martin's theorem. The unconditional basis and rank conclusions in the paper use that external input.<br>
-  *Evidence.* formalised unconditional spanning and conditional rank with external independence input · Lean kernel for arithmetic, finite indexing, spanning, and the conditional-rank theorem; paper argument plus Martin's cited theorem for independence
+  **Boundary.** This Comparator target reviews the reusable conditional interface. AllBaseTotientKernel.lean separately proves canonical all-base independence and exact rank unconditionally at 25ef6245d15a; it does not formalise Martin's broader theorem or solve #249.<br>
+  *Evidence.* formalised arithmetic, spanning and reusable conditional rank interface · Lean kernel for this arithmetic, finite indexing, spanning and conditional-rank interface; the independent all-base proof is a separate public source result
 
 - **Totient visible coprime lattice mass**<br>
   The positive coprime Mersenne weights on the visible lattice sum to one, exposing the reduced-direction mass behind the fair-coin coprimality form of #249.<br>

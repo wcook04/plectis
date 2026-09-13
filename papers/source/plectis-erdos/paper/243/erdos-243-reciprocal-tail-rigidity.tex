@@ -325,11 +325,22 @@ Put $\gamma_n=a_n^2/a_{n+1}-1$. Since
  \qquad P_n/a_n=\exp(o(n)),
 \]
 the two-term estimate gives
+\[
+ \begin{aligned}
+ E_n&=\frac{qP_n}{a_n}-\frac{qP_n(a_n-1)}{a_{n+1}}
+ +O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right),\\
+ q\frac{P_n}{a_n}\gamma_n
+ &=\frac{qP_na_n}{a_{n+1}}-\frac{qP_n}{a_n}.
+ \end{aligned}
+\]
+Adding cancels the two terms of size $qP_n/a_n$ and leaves
 \begin{equation}\label{eq:canonical-dictionary}
  E_n+q\frac{P_n}{a_n}\gamma_n
  =\frac{qP_n}{a_{n+1}}+
  O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right)=o(1).
 \end{equation}
+Indeed, quadratic growth makes the two terms on the right respectively
+$\exp(o(n))/a_n$ and $\exp(o(n))/a_n^2$, up to bounded factors.
 The assumed upper bound therefore gives an eventual lower bound on the
 integer $E_n$. After deleting a finite prefix, all hypotheses of
 Theorem~\ref{res:bounded} hold. Apply Corollary~\ref{res:cor}.
@@ -396,8 +407,11 @@ integers. With $\rho_n=\gcd(L_n,a_n)$, the exact updates are
  \rho_nU_{n+1}=U_n-V_n,\qquad V_n=L_n-(a_n-1)U_n.
 \]
 Write $R_n=\max_{j\le n}U_j$ and
-$\mathcal R=\{n:U_{n+1}>R_n\}$. Centring implies that every sufficiently
-late strict rise has $\rho_n=1$: otherwise $U_{n+1}\le3U_n/4$.
+$\mathcal R=\{n:U_{n+1}>R_n\}$.  Strict centring already gives
+$U_{n+1}<U_n$ when $\rho_n\ge2$, so every sufficiently late strict rise has
+$\rho_n=1$.  The stronger eventual bound $-U_n\le2V_n$, supplied by
+$V_n/U_n=E_n/C_n\to0$, gives the quantitative estimate
+$U_{n+1}\le3U_n/4$ when $\rho_n\ge2$.
 Its actual jump is therefore $d_n=U_{n+1}-U_n=-V_n$.
 
 \begin{theorem}[weighted record excess]\label{res:weightedrecord}
@@ -591,7 +605,7 @@ Equivalently, must there be a $K\ge1$ for which
 at infinitely many indices?
 \end{problem}
 \noindent The canonical necessary profile is ordinary in this note.
-\texttt{PaperCompleteR7/Frontier.lean} is not in this checkout.
+\nolinkurl{PaperCompleteR7/Frontier.lean} is not in this checkout.
 
 For $B\ge0$ put
 \[

@@ -52,13 +52,17 @@ that the totient <span class="math inline" data-term-auto="off">\(k\)</span>-ker
 truncation has rank <span class="math inline" data-term-auto="off">\(k^e+1\)</span>. The
 dyadic case is also the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1084">exact
-finite-truncation rank</a>; the current all-base Lean wrapper is <a
+finite-truncation rank</a>; the reusable all-base Lean wrapper is <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L215">the
 same count from an independent family</a>, and retains linear
-independence of the canonical family as an explicit hypothesis. Martin’s
-theorem supplies that independence externally; the direct CRT–Dirichlet
-proof in Section <a class="math-ref" href="#sec:rank">1.1</a>
-proves precisely the family used here.</p></li>
+independence as an explicit input. That input is discharged by the
+independent CRT–Dirichlet proof in <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1118"><code>AllBaseTotientKernel.lean</code></a>;
+the <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239">complete
+truncation rank</a> therefore has no independence hypothesis. Martin
+supplies the broader external antecedent, rather than an axiom of this
+Lean proof.</p></li>
 </ol>
 <p>The retained condition is <span class="math inline" data-term-auto="off">\(k\nmid
 r\)</span>. At <span class="math inline" data-term-auto="off">\(k=6\)</span>, for example,
@@ -686,10 +690,13 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 amplification</a>, canonical equivalence and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L624">positive
 rank-one floor</a> are in the public snapshot. The unconditional
-all-base exact-rank theorem is not a Lean theorem without Martin’s
-independence hypothesis; the formal transfer is <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L215">rank
-from an independent all-base family</a>. The <a
+all-base exact-rank theorem is also <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239">kernel-checked</a>:
+its CRT–Dirichlet independence proof does not assume Martin’s theorem.
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L215">Rank
+from an independent all-base family</a> remains the reusable conditional
+factorisation. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean#L3165">canonical
 gap</a> is the remaining arithmetic endpoint. The historical source
 links retain <code>99f4bf47422a</code>. The integral normal form has its
@@ -1070,7 +1077,15 @@ equality</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L203">canonical
 all-base rank from independence</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientKernelConditional.lean#L215">all-base
-truncation rank from independence</a>.</p>
+truncation rank from independence</a>. At the later public checkpoint
+<code>25ef6245d15a</code>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1118"><code>linearIndependent_allBaseCanonicalFamily</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1231"><code>finrank_allBaseTotientKernel_eq</code></a>,
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239"><code>finrank_allBaseThroughLevelFamily_eq</code></a>
+provide the unconditional all-base independence and both exact
+ranks.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>

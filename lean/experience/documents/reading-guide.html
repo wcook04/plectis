@@ -11,8 +11,8 @@
 <p>This repository follows eight unsolved problems of Paul Erdős. For
 each one it holds a short paper, a longer research record, Lean proofs
 of selected statements, finite computations, and a written account of
-the approaches that stopped and why. You do not need Lean or any
-knowledge of the folder layout to read the papers.</p>
+the approaches that stopped and why. You do not need Lean to read the
+papers.</p>
 <p>All eight problems remain open. The work proves intermediate
 theorems, writes out proofs of results that were stated but not printed
 in the literature, checks exact finite cases, and records obstructions
@@ -55,32 +55,34 @@ example that cancellation after addition does happen, and gives an exact
 congruence criterion for irrationality. The congruence failures that
 criterion needs remain unproved.</p>
 <p>Problem 243 concerns reciprocal sums of integers growing roughly like
-squares. The paper shows that if the sum is rational and the upward
-steps of a certain integer numerator are bounded, the sequence must
-eventually follow the Sylvester recurrence. The numerator itself is not
-assumed bounded. A separate theorem proves irrationality under a
-specific rate of growth. The original problem is not settled.</p>
+squares. The paper proves an ordinary theorem: rationality and a
+one-sided bound on a scaled defect force the exact Sylvester recurrence
+eventually. The <a href="results.html#problem-by-problem-guide">results
+guide</a> states the bound in the original sequence. Cancellation turns
+that upper bound into a lower bound on an integer error. Lean checks the
+integer-state rigidity step; the analytic transfer is separate. The
+needed bound is not proved for the unrestricted problem. A separate
+ordinary theorem proves irrationality under a more specific rate of
+growth.</p>
 <p>Problem 249 asks about the binary series of Euler’s totient. The
 paper proves that reducing the totient modulo any m at least 3 gives an
 irrational series, and classifies the rational cases for powers of two.
-It also determines the exact rank of the dyadic totient kernel and
-proves several conditional routes to the original series. The missing
-input for each route is stated. The original, unreduced series is not
-settled.</p>
+It also determines the exact rank of the totient kernel at every integer
+base, with an unconditional Lean proof, and gives conditional routes to
+the original series. The original, unreduced series is not settled.</p>
 <p>Problem 251 is the dyadic series of the primes. The paper builds a
 sparse change to the prime gaps that makes the sum rational while
 keeping the prime growth scale, every fixed eventual congruence, and the
 same short block statistics in the limit. This rules out a class of
 weaker hypotheses and says nothing against the conditional results
 already on the problem page.</p>
-<p>Problem 257 is the clearest place to start. For every infinite set of
-exponents whose reciprocals have a finite sum, the paper writes out an
-averaging proof that the Mersenne series is irrational at every integer
-base. Erdős stated that result without printing the proof. Lean
-separately checks the classical full-support case, the pairwise-coprime
-case, and a measure theorem for the achievement set. The universal
-question, over every infinite support, and the two proposed values
-discussed in the paper remain open.</p>
+<p>Problem 257 is a useful place to start. Its averaging proof gives
+irrational Mersenne subseries at every integer base for supports
+satisfying a weighted summability condition, including some with
+divergent reciprocal sums. A common observation window combines weighted
+supports with positive-cover supports. These are ordinary proofs. Lean
+separately checks selected support cases and achievement-set results.
+Universal irrationality and the proposed target values remain open.</p>
 <p>Problem 269 is the running least common multiple of three primes.
 Building on Steve Fan’s two-prime work on the problem page, the paper
 shows that one binary carry makes a chosen minor of the kernel matrix

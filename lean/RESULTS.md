@@ -31,7 +31,10 @@ summability hypotheses, and irrationality for nonnegative rational
 eventually-periodic coefficients with a positive periodic tail. An ordinary
 averaging proof gives a weaker weighted summability criterion that also covers
 some supports with divergent reciprocal sum. The reciprocal-summable corollary
-was stated by Erdős without a printed proof. The achievement-set
+was stated by Erdős without a printed proof. The same finite averaging window
+also combines weighted supports with positive divisor covers, preserving
+irrationality for every infinite subset of their union at all integer bases.
+This combination has an ordinary proof. The achievement-set
 development adds exact topological and measure statements. Universal Problem
 257, which quantifies over every infinite support, remains open.
 
@@ -86,8 +89,20 @@ channel obstruction. The required cofinal carries are not produced. The
 public paper as proof candidates, not as registered kernel evidence for the
 `3/2` theorem.
 
-**[#243](https://www.erdosproblems.com/243).** Lean checks the following signed
-bounded-negative theorem. Let `a,C,D : ℕ → ℕ` and `E : ℕ → ℤ`. Assume
+**[#243](https://www.erdosproblems.com/243).** The short paper proves an
+ordinary original-sequence corollary. Let `a_1<a_2<⋯` be positive integers,
+`a_(n+1)/a_n²→1`, `∑ 1/a_n` rational, and `P_n=∏_{j<n} a_j`. If
+`limsup (P_n/a_n)(a_n²/a_(n+1)−1)<+∞`, then
+`a_(n+1)=a_n²−a_n+1` eventually. The needed limsup bound, or the paper's
+alternative weighted record budget, is not proved for the unrestricted problem.
+Take a positive denominator `q` of the full reciprocal sum and clear the nth
+tail by `qP_n`. The resulting integer error is minus `q` times the scaled
+defect, up to a term tending to zero. This
+cancellation turns the upper bound in the original sequence into the lower
+bound on the integer error used below.
+The analytic transfer to this corollary is ordinary mathematics; Lean checks
+the following signed bounded-negative theorem. Let `a,C,D : ℕ → ℕ` and
+`E : ℕ → ℤ`. Assume
 `a(n)>1`, `C(n)>0`, the exact recurrences
 `C(n+1)+D(n)=a(n)C(n)` and `D(n+1)=a(n)D(n)`, and that `E(n)` is the exact
 centered state with `|E(n)|<C(n)`. If one constant `B` satisfies `E(n)≥−B`
@@ -147,6 +162,11 @@ average the residues along multiples of increasingly divisible moduli, then
 choose a finite range of averaging lengths to control the error uniformly.
 This is not a Lean theorem. The short paper gives a shorter proof and an
 explicit support with divergent reciprocal sum satisfying the criterion.
+At base two, the weighted condition can also be combined with the positive
+divisor-cover criterion: the long paper proves that a common finite averaging
+window makes both displacements small. Every infinite subset of their union
+then has irrational subseries at every integer base. This ordinary combination
+does not establish the separately proposed hosts separating the two classes.
 Every infinite reciprocal-summable support satisfies it, yielding the
 coprimality-free extension stated by Erdős. Full-support
 irrationality at every integer base is classical (Erdős 1948) and
@@ -1822,7 +1842,7 @@ conclusion depends on a named open condition.
 | **proved here** | For the #257 test value `1/2`, achievement-set membership is equivalent to infinitely many greedy skips and would produce an infinite support of rational sum, refuting universal #257. Under the last-skip schema's hypotheses (a rank floor, a carry condition, and a strict middle-cell inequality), the upper branch and the middle coordinate `-3` are impossible. |
 | **conditional reduction** | Within that same last-skip contradiction schema, the two still-unexcluded middle coordinates, `-2` and `-1`, would also be ruled out if one current contribution were larger than the sum of all later possible contributions. That inequality is not proved. |
 | **formalised here** | The dyadic sections of Euler's totient have an explicit rational basis; for `e ≥ 1` the level-`e` span has dimension exactly `2ᵉ + 1`. The Lean proof is an independent constructive route to an independence consequence of Martin's stronger theorem; this is a theorem about the coefficient sequence, not the irrationality of `S`. |
-| **unconditional progress** | For every integer `k ≥ 2`, the sections through level `e ≥ 1` have rank `kᵉ + 1`, with an explicit basis and complete scalar relation normal form. The paper combines Martin's external affine-independence theorem with Lean-checked zero-channel and composite-base reduction identities, exact fixed-level residue coordinates, unconditional spanning, and a `kᵉ + 1` rank theorem parameterised by explicit linear independence. Martin's theorem and the all-base linear-independence premise are not formalised. |
+| **unconditional progress** | For every integer `k ≥ 2`, the sections through level `e ≥ 1` have rank `kᵉ + 1`, with an explicit basis and complete scalar relation normal form. [AllBaseTotientKernel.lean](https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1118) proves canonical-family independence by CRT and Dirichlet, and [the complete rank theorem](https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239) discharges the reusable conditional wrapper's independence premise. Martin's broader affine-independence theorem remains an external antecedent, not an axiom of that Lean proof. |
 | **formalised here** | Applying the classical Farey/mediant bound directly to the committed `K=240` interval excludes rational denominators through `79 639 646 646 701 375 323 355 774 875 831 053` (about `7.96 × 10³⁴`). This is exactly the Farey bound, not an improvement on it; Lean also checks that the next denominator fails this finite window. |
 | **proved here** | `S` is irrational exactly when every positive binary tail difference is non-integral, equivalently when every fixed pair has a finite certificate. Finishing the argument would require certificates at arbitrarily large stages; that step is not proved. |
 | **verified finite instance** | Lean proves a diagonal certificate at every `t ≤ 82`. Historical free-position audit: 125 verified log rows represent 123 distinct off-diagonal `(h,N,L)` certificates in 122 Lean files. This finite evidence does not prove successful cases beyond every fixed cutoff. |

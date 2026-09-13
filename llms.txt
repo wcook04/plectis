@@ -29,7 +29,7 @@ Scope: this is a local-first static/public project doorway. Use it to clone, ins
 - Strongest checked results by problem: the headline_results block inside the AI packet and reader digest carries verbatim reviewed claim statements with Lean source anchors; the Lean repository's docs/RESULTS.md is the human per-problem map. Counts are navigation scale, not results.
 - Agent entry: AGENTS.md at the repository root
 
-Objects: 781 across 16 kinds.
+Objects: 780 across 16 kinds.
 
 ## Object families (coverage)
 
@@ -47,7 +47,7 @@ Objects: 781 across 16 kinds.
 - paper_module: 103 objects -- 103 routed, 103 searchable, 103 source-linked, 0 omitted
 - principle: 20 objects -- 20 routed, 20 searchable, 20 source-linked, 0 omitted
 - relation: 239 objects -- 239 routed, 239 searchable, 0 source-linked, 0 omitted
-- source_ref: 58 objects -- 58 routed, 58 searchable, 58 source-linked, 0 omitted
+- source_ref: 57 objects -- 57 routed, 57 searchable, 57 source-linked, 0 omitted
 - standard: 1 objects -- 0 routed, 0 searchable, 0 source-linked, 1 omitted
 
 ## Pages
@@ -78,7 +78,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos68-factorial-reasoning-surface (Reasoning surface, 32 pp.)](maths/papers/erdos68-factorial-reasoning-surface.html)
 - [Erdős #243](maths/problems/erdos_243.html)
 - [erdos-243-reciprocal-tail-rigidity (Problem note, 12 pp.)](maths/papers/erdos-243-reciprocal-tail-rigidity.html)
-- [erdos243-reciprocal-tail-reasoning-surface (Reasoning surface, 44 pp.)](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html)
+- [erdos243-reciprocal-tail-reasoning-surface (Reasoning surface, 45 pp.)](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html)
 - [Erdős #249](maths/problems/erdos_249.html)
 - [erdos-249-binary-totient-series (Problem note, 11 pp.)](maths/papers/erdos-249-binary-totient-series.html)
 - [erdos249-totient-reasoning-surface (Reasoning surface, 129 pp.)](maths/papers/erdos249-totient-reasoning-surface.html)
@@ -86,14 +86,14 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos-251-prime-gap-dyadic-series (Problem note, 20 pp.)](maths/papers/erdos-251-prime-gap-dyadic-series.html)
 - [erdos251-prime-gap-reasoning-surface (Reasoning surface, 38 pp.)](maths/papers/erdos251-prime-gap-reasoning-surface.html)
 - [Erdős #257](maths/problems/erdos_257.html)
-- [erdos-257-mersenne-support-subseries (Problem note, 16 pp.)](maths/papers/erdos-257-mersenne-support-subseries.html)
-- [erdos257-mersenne-reasoning-surface (Reasoning surface, 116 pp.)](maths/papers/erdos257-mersenne-reasoning-surface.html)
+- [erdos-257-mersenne-support-subseries (Problem note, 17 pp.)](maths/papers/erdos-257-mersenne-support-subseries.html)
+- [erdos257-mersenne-reasoning-surface (Reasoning surface, 120 pp.)](maths/papers/erdos257-mersenne-reasoning-surface.html)
 - [Erdős #269](maths/problems/erdos_269.html)
 - [erdos269-running-lcm-reasoning-surface (Reasoning surface, 36 pp.)](maths/papers/erdos269-running-lcm-reasoning-surface.html)
 - [erdos-269-three-prime-running-lcm (Problem note, 11 pp.)](maths/papers/erdos-269-three-prime-running-lcm.html)
 - [Erdős #1041](maths/problems/erdos_1041.html)
 - [erdos-1041-lemniscate-newton-flow (Problem note, 22 pp.)](maths/papers/erdos-1041-lemniscate-newton-flow.html)
-- [erdos1041-lemniscate-reasoning-surface (Reasoning surface, 48 pp.)](maths/papers/erdos1041-lemniscate-reasoning-surface.html)
+- [erdos1041-lemniscate-reasoning-surface (Reasoning surface, 49 pp.)](maths/papers/erdos1041-lemniscate-reasoning-surface.html)
 - [Erdős #1049](maths/problems/erdos_1049.html)
 - [erdos-1049-rational-base-lambert (Problem note, 14 pp.)](maths/papers/erdos-1049-rational-base-lambert.html)
 - [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 47 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
@@ -142,10 +142,10 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 
 ## Reader ladder (open in order of need)
 
-- [reviewer brief](plectis-reviewer-brief.json) (~10 MB): start here -- navigable public source for an AI, not a compact authored overlay. Paper LaTeX, mathematical assertion rows, glossary term records, a path index for each Erdős problem (Lean, Comparator, public pages), component records, and the software/maths site map. hologram_atlas names the parts before you open them. Reading it is not a verification run.
+- [AI packet](plectis-ai-review-packet.json) (~17 MB): start here -- upload this file and ask for a guided tour of the website or either GitHub repository. It carries the papers, full glossary, page prose and source records, with question routes, indexed names, section links and exact source pointers. Open question_router.routes.guided_tour for a tour; use retrieval_index for a term, page, paper or repository file.
+- [reviewer brief](plectis-reviewer-brief.json) (~10 MB): smaller optional source download -- paper LaTeX, assertions, glossary, repository documents and path indexes. Use the full AI packet for website prose and guided tours.
 - [reader digest](plectis-ai-reader-digest.json) (~350 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
-- [AI packet](plectis-ai-review-packet.json) (~17 MB): the whole public software site in one self-describing file -- read_me_first, answer contract, headline_results, question routes, every public text body. The most complete single artifact, and large enough that it is a deliberate choice rather than a default.
 - [complete text corpus](plectis-ai-reader-complete.json) (~11 MB): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, without instruction layers.
 - [reference index](docs/reference.html): the human middle layer -- areas, components, doctrine records, and paper modules in one navigable roster.
 - [full JSON map](plectis-site-map.json) (~17 MB): the raw map without the capsule's instruction layers -- visible_text_index bodies, page text, and diagrams, for automation.

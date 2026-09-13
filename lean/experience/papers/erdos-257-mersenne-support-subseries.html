@@ -14,7 +14,8 @@ for
 and an integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>.
 We begin with the simpler reciprocal-summable case; Section  proves the
-stronger finite-prime weighted criterion.</p>
+stronger finite-prime weighted criterion and its combination with
+positive divisor covers.</p>
 <div class="theorem">
 <p><strong>Theorem 1</strong> (reciprocal-summable supports). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">ℕ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">A\subseteq\mathbb{N}_{&gt;0}</annotation></semantics></math>
@@ -81,10 +82,12 @@ irrational for every infinite
 </div>
 <p>Theorem  excludes the entire reciprocal-summable region. Theorem 
 reaches a strictly larger class and an explicit reciprocal-divergent
-host. Later sections keep the quantitative, mixed-support, prime-power
-and stronger host constructions separate where their arguments are not
-independently assessable from this checkout. The final section retains
-the actual arithmetic constraint for a proposed rational value.</p>
+host. Theorem  combines weighted supports and positive covers by
+producing a common small displacement. Later sections keep the
+quantitative, prime-power and stronger host constructions separate where
+their arguments are not independently assessable from this checkout. The
+final section retains the actual arithmetic constraint for a proposed
+rational value.</p>
 <p>Erdős proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the
 details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-5">[5]</a></span>.
@@ -192,9 +195,9 @@ infinity with the modulus fixed, and only then does the modulus
 increase. Reciprocal summability controls both interchanges.</p>
 <p>Section 2 contains the complete reciprocal-summable support argument.
 The next section proves a strictly weaker finite-prime weighted
-hypothesis. The later quantitative, mixed-support, prime-power and
-cost-separation claims remain separately unassessed where their proofs
-are not printed here.</p>
+hypothesis. The later quantitative, prime-power and cost-separation
+claims remain separately unassessed where their proofs are not printed
+here.</p>
 </section>
 <section id="sec:eight-return-extensions" class="level2">
 <h2>Extensions beyond reciprocal summability</h2>
@@ -221,11 +224,11 @@ be infinite. If
 \end{equation}</annotation></semantics></math> then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(b)</annotation></semantics></math>
 is irrational. In particular, the base-two condition
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
 \label{eq:weighted-return}
  \sum_{a\in A}\frac{h(a)}{a(2^{h(a)}-1)}&lt;\infty
  \tag{W}
-\end{equation}</annotation></semantics></math> implies that
+\end{equation*}</annotation></semantics></math> implies that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(b)</annotation></semantics></math>
 is irrational for every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>.
@@ -290,7 +293,9 @@ so that the mass outside
 is below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>,
 and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L=\operatorname{lcm}(F)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+be any fixed positive common multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>.
 With
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mo>*</mo></msub><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">p_*=\max P</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">r=|P|</annotation></semantics></math>,
@@ -384,8 +389,8 @@ stronger previously proposed host with
 gaps is not asserted here.</p>
 <p>The theorem and this example are complete ordinary proofs. No single
 Lean declaration is cited as their proof, and no priority claim is made.
-The arbitrary-chain, quantitative, mixed-support and prime-power
-extensions remain separate from Theorem .</p>
+The arbitrary-chain, quantitative and prime-power extensions remain
+separate from Theorem .</p>
 </section>
 <section id="claimed-quantitative-criterion-unassessed-here"
 class="level3">
@@ -411,7 +416,7 @@ rational-phase lower bound is present in this checkout.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>&lt;</mo><mi>B</mi><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1&lt;B\le2</annotation></semantics></math>,
 positive integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>,</mo><mi>d</mi><mo>,</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">L,d,M</annotation></semantics></math>,
-and
+and an integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">R\ge0</annotation></semantics></math>,
 put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><mi>B</mi><mo>,</mo><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msup><mi>B</mi><mrow><mi>n</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>d</mi></mrow></msup><mrow><msup><mi>B</mi><mi>d</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi mathvariant="script">𝒟</mi><mrow><mi>L</mi><mo>;</mo><mi>R</mi><mo>,</mo><mi>M</mi></mrow></msub><mi>F</mi><mo>=</mo><mfrac><mn>1</mn><mi>M</mi></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mi>R</mi></mrow><mrow><mi>R</mi><mo>+</mo><mi>M</mi><mo>−</mo><mn>1</mn></mrow></munderover><mfrac><mn>1</mn><msup><mn>2</mn><mi>j</mi></msup></mfrac><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><msup><mn>2</mn><mi>j</mi></msup></munderover><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">w_{B,d}(n)=\frac{B^{n\operatorname{mod} d}}{B^d-1},\qquad
@@ -419,10 +424,11 @@ put
  =\frac1M\sum_{j=R}^{R+M-1}\frac1{2^j}
       \sum_{m=1}^{2^j}F(Lm).</annotation></semantics></math> The finite
 estimate
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒟</mi><mrow><mi>L</mi><mo>;</mo><mi>R</mi><mo>,</mo><mi>M</mi></mrow></msub><msub><mi>w</mi><mrow><mi>B</mi><mo>,</mo><mi>d</mi></mrow></msub><mo>≤</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mn>4</mn><mi>L</mi><mi>/</mi><mi>M</mi></mrow><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\mathscr D_{L;R,M}w_{B,d}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒟</mi><mrow><mi>L</mi><mo>;</mo><mi>R</mi><mo>,</mo><mi>M</mi></mrow></msub><msub><mi>w</mi><mrow><mi>B</mi><mo>,</mo><mi>d</mi></mrow></msub><mo>≤</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mn>4</mn><mi>L</mi><mi>/</mi><mi>M</mi></mrow><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\begin{equation*}
+ \mathscr D_{L;R,M}w_{B,d}
  \le\frac{1+4L/M}{d(B-1)}
- \label{eq:mixed-finite-kernel}\tag{S}</annotation></semantics></math>
-is uniform in
+ \tag{S}\label{eq:mixed-finite-kernel}
+\end{equation*}</annotation></semantics></math> is uniform in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>,
 and
@@ -497,9 +503,10 @@ satisfy
  C_j=\sum_{d\ge1}\frac{c_{j,d}}d.</annotation></semantics></math></p>
 <div class="theorem">
 <p><strong>Theorem 4</strong> (strengthened positive covers). <em> If
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><msub><mi>C</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>j</mi><msub><mi>α</mi><mi>j</mi></msub></mrow></msup></mrow><mrow><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mi>∞</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\sum_{j\ge1}\frac{C_j2^{j\alpha_j}}{2^{\alpha_j}-1}&lt;\infty,
- \tag{V}\label{eq:strengthened-cover}</annotation></semantics></math>
-then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><msub><mi>C</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>j</mi><msub><mi>α</mi><mi>j</mi></msub></mrow></msup></mrow><mrow><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mi>∞</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation*}
+ \sum_{j\ge1}\frac{C_j2^{j\alpha_j}}{2^{\alpha_j}-1}&lt;\infty,
+ \tag{V}\label{eq:strengthened-cover}
+\end{equation*}</annotation></semantics></math> then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(b)</annotation></semantics></math>
 is irrational for every infinite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><msub><mo>⋃</mo><mi>j</mi></msub><msub><mi>F</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">A\subseteq\bigcup_jF_j</annotation></semantics></math>
@@ -514,7 +521,14 @@ and
  V_j(N)=\sum_{d\ge1}c_{j,d}w_{B_j,d}(N).</annotation></semantics></math>
 Subadditivity of the fractional powers and the positive majorants give
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><msup><mo stretchy="false" form="postfix">)</mo><msub><mi>α</mi><mi>j</mi></msub></msup><mo>≤</mo><msub><mi>V</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U_j(N)^{\alpha_j}\le V_j(N)</annotation></semantics></math>.
-Fix
+The geometric-series identity also gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><msub><mi>F</mi><mi>j</mi></msub></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>U</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>X</mi><msub><mi>F</mi><mi>j</mi></msub></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msub><mi>U</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\Delta_{2,F_j}(N)=U_j(N)-X_{F_j}(2)\le U_j(N).</annotation></semantics></math>
+Consequently, once the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
+frames have zero displacement, nonnegativity bounds the displacement of
+their union by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>j</mi><mo>&gt;</mo><mi>J</mi></mrow></msub><msub><mi>U</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{j&gt;J}U_j(N)</annotation></semantics></math>.</p>
+<p>Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon&gt;0</annotation></semantics></math>,
 set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>j</mi></msub><mo>=</mo><mi>ε</mi><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup></mrow><annotation encoding="application/x-tex">t_j=\varepsilon2^{-j}</annotation></semantics></math>,
@@ -558,11 +572,13 @@ so the witnesses can also be required to be arbitrarily large. ◻</p>
 <p>The same proof permits any positive weights
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>η</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\eta_j</annotation></semantics></math>
 with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>η</mi><mi>j</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum_j\eta_j=1</annotation></semantics></math>,
-replacing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup><annotation encoding="application/x-tex">2^{-j}</annotation></semantics></math>
-by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>η</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\eta_j</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>η</mi><mi>j</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum_j\eta_j=1</annotation></semantics></math>:
+replace
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>j</mi><msub><mi>α</mi><mi>j</mi></msub></mrow></msup><annotation encoding="application/x-tex">2^{j\alpha_j}</annotation></semantics></math>
+in  by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>j</mi><mrow><mi>−</mi><msub><mi>α</mi><mi>j</mi></msub></mrow></msubsup><annotation encoding="application/x-tex">\eta_j^{-\alpha_j}</annotation></semantics></math>
+and take
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>j</mi></msub><mo>=</mo><mi>ε</mi><msub><mi>η</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">t_j=\varepsilon\eta_j</annotation></semantics></math>.
 The condition strengthens the earlier two-inverse-power cost
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>C</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>j</mi><msub><mi>α</mi><mi>j</mi></msub></mrow></msup><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2&lt;\infty</annotation></semantics></math>.
 The unavailable supplement claims a squarefree support
@@ -662,18 +678,21 @@ of the present release.</p>
 </section>
 <section id="combining-the-two-support-criteria" class="level3">
 <h3>Combining the two support criteria</h3>
-<p>The following mixed statement is a claimed extension. Its complete
-parameter schedule is referred to
-<code>ErdosProblems/Erdos257/MixedSupportSynchronisation.md</code>,
-which is not in this public checkout, so the argument is not
-independently assessable here and is not a result of this release.</p>
+<p>Separate small-displacement witnesses need not occur at the same
+index. For example, a sequence small only at even indices and one small
+only at odd indices need never have a small sum. The useful feature of
+(S) is its uniformity in the moving modulus: the positive-cover argument
+can use the exact observation window selected by the weighted proof.</p>
 <div class="theorem">
-<p><strong>Theorem 5</strong> (mixed weighted and cover supports;
-claimed, complete argument not in this checkout). <em> Suppose
+<p><strong>Theorem 5</strong> (mixed weighted and cover supports). <em>
+Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
-has finite weighted mass for a finite nonempty prime set, and
+has finite weighted mass for a finite nonempty prime set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
-admits a strengthened positive cover . Then
+admits a strengthened positive cover , or its positive-weight variant
+above. Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(b)</annotation></semantics></math>
 is irrational for every infinite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mi>E</mi><mo>∪</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">A\subseteq E\cup V</annotation></semantics></math>
@@ -681,35 +700,109 @@ and every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof of the combination step.</em> Freeze a sufficiently large
-finite prefix from each component with one modulus. The weighted
-argument supplies subsequent moduli
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-and observation ranges
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>≤</mo><mi>j</mi><mo>&lt;</mo><mn>2</mn><mi>M</mi></mrow><annotation encoding="application/x-tex">M\le j&lt;2M</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>/</mi><mi>M</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Q/M\to0</annotation></semantics></math>
-and arbitrarily small weighted-displacement mean. By nonnegative
-interchange, bounds the positive-cover tail test under exactly the same
-finite measure, with factor
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>4</mn><mi>Q</mi><mi>/</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">1+4Q/M</annotation></semantics></math>.
-Choose the two tail budgets so that the mean of their normalised sum is
-less than one. One common sample then makes both displacements small.
-Infinitude supplies strict positivity and the rational lattice excludes
-rationality. The full estimates and parameter schedule are referred to
-<code>ErdosProblems/Erdos257/MixedSupportSynchronisation.md</code>,
-Theorems 2.1 and 5.1, which are not in this checkout. ◻</p>
+<p><em>Proof.</em> Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon&gt;0</annotation></semantics></math>
+and an integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mn>0</mn></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N_0\ge1</annotation></semantics></math>,
+and put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mi>ε</mi><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\rho=\varepsilon/3</annotation></semantics></math>.
+Use the cover notation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>j</mi></msub><mo>,</mo><msub><mi>U</mi><mi>j</mi></msub><mo>,</mo><msub><mi>V</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">B_j,U_j,V_j</annotation></semantics></math>
+above, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mi>j</mi></msub><mo>=</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\eta_j=2^{-j}</annotation></semantics></math>
+in the case . Set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>j</mi></msub><mo>=</mo><mi>ρ</mi><msub><mi>η</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">t_j=\rho\eta_j</annotation></semantics></math>
+and choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
+so that
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>J</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>&gt;</mo><mi>J</mi></mrow></munder><mfrac><mrow><msub><mi>C</mi><mi>j</mi></msub><msubsup><mi>t</mi><mi>j</mi><mrow><mi>−</mi><msub><mi>α</mi><mi>j</mi></msub></mrow></msubsup></mrow><mrow><msub><mi>B</mi><mi>j</mi></msub><mo>−</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mfrac><mn>1</mn><mn>16</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">K_J=\sum_{j&gt;J}\frac{C_jt_j^{-\alpha_j}}{B_j-1}&lt;\frac1{16}.</annotation></semantics></math>
+Choose a finite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>⊆</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">F\subseteq E</annotation></semantics></math>
+whose complementary weighted mass is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>κ</mi><mo>&lt;</mo><mi>ρ</mi><mi>/</mi><mn>16</mn></mrow><annotation encoding="application/x-tex">\kappa&lt;\rho/16</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+be a positive common multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>0</mn></msub><annotation encoding="application/x-tex">N_0</annotation></semantics></math>,
+all members of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>,
+and all members of the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
+cover frames. For large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>,
+take exactly the binary weighted schedule
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mi>L</mi><munder><mo>∏</mo><mrow><mi>p</mi><mo>∈</mo><mi>P</mi></mrow></munder><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>H</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>G</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>H</mi><mi>/</mi><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mi>P</mi><mo stretchy="false" form="postfix">⌋</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><msup><mn>2</mn><mrow><mi>G</mi><mi>/</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">⌋</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">Q=L\prod_{p\in P}p^{\lfloor\log_pH\rfloor},\qquad
+ G=\lfloor H/\max P\rfloor,\qquad M=\lfloor2^{G/2}\rfloor.</annotation></semantics></math>
+The finite estimate , with tail budget
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>κ</mi><annotation encoding="application/x-tex">\kappa</annotation></semantics></math>,
+remains valid for this
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>:
+its proof requires only that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+freeze
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>.
+It also applies to finite or empty
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>,
+since positivity was used only after the averaging estimate. Thus
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒟</mi><mrow><mi>Q</mi><mo>;</mo><mi>M</mi><mo>,</mo><mi>M</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><mi>E</mi></mrow></msub><mi>/</mi><mi>ρ</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow><annotation encoding="application/x-tex">\mathscr D_{Q;M,M}(\Delta_{2,E}/\rho)&lt;\frac18</annotation></semantics></math>
+for sufficiently large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>.
+For the same finite distribution, (S) and nonnegative interchange give
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒟</mi><mrow><mi>Q</mi><mo>;</mo><mi>M</mi><mo>,</mo><mi>M</mi></mrow></msub><msub><mi>S</mi><mi>J</mi></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mn>4</mn><mi>Q</mi><mi>/</mi><mi>M</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>K</mi><mi>J</mi></msub><mo>&lt;</mo><mfrac><mn>1</mn><mn>8</mn></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>S</mi><mi>J</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>&gt;</mo><mi>J</mi></mrow></munder><msubsup><mi>t</mi><mi>j</mi><mrow><mi>−</mi><msub><mi>α</mi><mi>j</mi></msub></mrow></msubsup><msub><mi>V</mi><mi>j</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathscr D_{Q;M,M}S_J\le(1+4Q/M)K_J&lt;\frac18,
+ \qquad S_J=\sum_{j&gt;J}t_j^{-\alpha_j}V_j,</annotation></semantics></math>
+because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>/</mi><mi>M</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Q/M\to0</annotation></semantics></math>.
+Hence some sample
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mi>Q</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">N=Qm</annotation></semantics></math>
+satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><mi>E</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>ρ</mi><mo>+</mo><msub><mi>S</mi><mi>J</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\Delta_{2,E}(N)/\rho+S_J(N)&lt;1</annotation></semantics></math>.
+At this one index the weighted displacement is below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+and every unfrozen cover frame has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><msub><mi>t</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">U_j(N)&lt;t_j</annotation></semantics></math>.
+Therefore
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><mi>E</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><mi>V</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>2</mn><mi>ρ</mi><mo>&lt;</mo><mi>ε</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>N</mi><mo>≥</mo><mi>Q</mi><mo>≥</mo><mi>L</mi><mo>≥</mo><msub><mi>N</mi><mn>0</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\Delta_{2,A}(N)\le\Delta_{2,E}(N)+\Delta_{2,V}(N)&lt;2\rho&lt;\varepsilon,
+ \qquad N\ge Q\ge L\ge N_0.</annotation></semantics></math> Overlaps
+between the supports only improve the inequality. Infinitude of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+makes its displacement positive. The atom comparison used in the cover
+proof transfers arbitrarily small displacements to every integer base;
+the fixed rational lattice then excludes rationality. ◻</p>
 </div>
-<p>In particular, every infinite subset of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>W</mi></msub><mo>∪</mo><msup><mi>A</mi><mo>⋆</mo></msup></mrow><annotation encoding="application/x-tex">A_W\cup A^\star</annotation></semantics></math>
-has irrational subseries at every integer base. Downward closure and the
-two earlier separations show that this mixed host belongs to neither
-individual class. The mixed class is closed under finite unions and
-finite changes. Countable unions require an additional budget: all prime
-singletons are admitted, while the full prime support has
+<p>This is a complete ordinary proof. It does not establish the
+unavailable constructions
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>W</mi></msub><mo>,</mo><msup><mi>A</mi><mo>⋆</mo></msup></mrow><annotation encoding="application/x-tex">A_W,A^\star</annotation></semantics></math>
+or strict enlargement over both individual classes. Those separation
+claims retain the boundary stated above.</p>
+<p>With arbitrary positive cover weights, the class of subsets of such
+mixed hosts is closed under finite unions and finite changes. For
+weighted supports use the union of the two finite prime sets: the prime
+part grows and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h/(2^h-1)</annotation></semantics></math>
+decreases. For two covers, interleave their frames with weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mi>j</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\eta_j/2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mi>j</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\theta_j/2</annotation></semantics></math>;
+the total cost grows by at most two, since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><msub><mi>α</mi><mi>j</mi></msub></msup><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2^{\alpha_j}\le2</annotation></semantics></math>.
+Subsets inherit the same hosts, and finite sets have finite weighted
+mass. This argument uses the positive-weight variant; it does not
+silently reindex the dyadic weights in (V). Countable unions require a
+tail budget. Every prime singleton is admitted, but for the full prime
+support
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>
+one has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mn>2</mn><mo>,</mo><mi mathvariant="script">𝒫</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\Delta_{2,\mathcal P}(N)&gt;1/3</annotation></semantics></math>
 for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>:
+indeed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow></msub><msup><mn>2</mn><mrow><mi>−</mi><mi>r</mi></mrow></msup><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum_{r\ge1}2^{-r}\omega(N+r)\ge1</annotation></semantics></math>,
+whereas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi mathvariant="script">𝒫</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>≥</mo><mn>2</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>a</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>&lt;</mo><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">X_{\mathcal P}(2)\le\sum_{a\ge2}(2^a-1)^{-1}&lt;2/3</annotation></semantics></math>.
+Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\omega(n)</annotation></semantics></math>
+is the number of distinct prime divisors of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
 The reciprocal-summable class is contained in the weighted class, since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h/(2^h-1)\le1</annotation></semantics></math>.
 Theorem  supplies the direct proof of that baseline case.</p>
@@ -910,15 +1003,31 @@ holds exactly when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
 is coprime to every other member of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.
-Already for the dilated prime support
+To see this, every summand
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mn mathvariant="bold">𝟏</mn><mrow><mi>t</mi><mo>∣</mo><mi>a</mi><mi>n</mi></mrow></msub><mo>−</mo><msub><mn mathvariant="bold">𝟏</mn><mrow><mi>t</mi><mo>∣</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\mathbf1_{t\mid an}-\mathbf1_{t\mid n}</annotation></semantics></math>
+is nonnegative. The term
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">t=a</annotation></semantics></math>
+is the displayed right side; all others vanish if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(a,t)=1</annotation></semantics></math>.
+Conversely, if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">g=(a,t)&gt;1</annotation></semantics></math>
+for some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≠</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">t\ne a</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>t</mi><mi>/</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">n=t/g</annotation></semantics></math>
+gives an additional positive term, contradicting the identity. Already
+for the dilated prime support
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi mathvariant="script">𝒫</mi></mrow><annotation encoding="application/x-tex">2\mathcal P</annotation></semantics></math>,
 <span class="math display" data-term-auto="off">$$\operatorname{Cov}({\bf1}_{2p\mid
 n},{\bf1}_{2q\mid n})
 =\frac1{4pq}\qquad(p\ne q\text{ odd primes}),$$</span> where covariance
-is taken over a common arithmetic period. Thus multiplicative size
-conditions alone do not supply the independence used by the prime
-argument. The accompanying proof is not in this checkout; it is not an
-independently assessable result of this release.</p>
+is taken over a common arithmetic period: the joint mean is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2pq)</annotation></semantics></math>
+and the product of the means is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mi>p</mi><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(4pq)</annotation></semantics></math>.
+Thus multiplicative size conditions alone do not supply the independence
+used by the prime argument. These are elementary ordinary
+calculations.</p>
 </section>
 <section id="sec:geometry" class="level2">
 <h2>Unique coding and arithmetic membership</h2>
@@ -1238,17 +1347,16 @@ checkpoint is <code>99f4bf47422a</code>; later counterparts are
 identified separately rather than attributed to that checkpoint.</p>
 <p>The finite estimate  and Theorem  have complete ordinary proofs in
 this note and are results of this release. The finite-prime weighted
-criterion, Theorem , and its simple reciprocal-divergent host also have
-complete ordinary proofs here. They have no end-to-end Lean counterpart
-in this checkout. The quantitative criterion, the stronger claimed
-support
+criterion, Theorem , and its simple reciprocal-divergent host, the mixed
+theorem , and the prime-incidence calculation also have complete
+ordinary proofs here. They have no end-to-end Lean counterpart in this
+checkout. The quantitative criterion, the stronger claimed support
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>A</mi><mo>⋆</mo></msup><annotation encoding="application/x-tex">A^\star</annotation></semantics></math>
-separating the two cover costs, the mixed theorem, and prime-power
-thinning instead refer to ordinary proofs that are not linked in this
-public checkout (, , , , and the analytic proof supplement). Those
-latter extensions are therefore not independently assessable here and
-are not promoted as results of this release. No universal irrationality
-conclusion is asserted.</p>
+separating the two cover costs, and prime-power thinning instead refer
+to ordinary proofs that are not linked in this public checkout (, , and
+the analytic proof supplement). Those latter extensions are therefore
+not independently assessable here and are not promoted as results of
+this release. No universal irrationality conclusion is asserted.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>

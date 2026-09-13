@@ -934,8 +934,8 @@ contradicts that.</p>
 <section id="certificate." class="level5">
 <h5>Certificate.</h5>
 <p>The threshold is the level at which the forced area passes the cap.
-The companion program
-<code>experiments/erdos1041_low_critical_path_certificate.py</code>
+The companion program <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/scripts/check_erdos1041_angular_budget_closure.py"><code>check_erdos1041_angular_budget_closure.py</code></a>
 evaluates every accepted inequality in exact rational arithmetic, with
 directed rounding on every exponential, logarithm and square root, and
 with the rational brackets for
@@ -1014,8 +1014,8 @@ rational certificate is a kernel-free replayable computation, and no
 part of this theorem is Lean-checked or independently reviewed. Prior
 art for the assembled statement is unassessed; the hyperbolic slice
 inequality follows from disjointness of the balls and the law of cosines
-and should be assumed known. The public source of record is
-<code>research_corpus/Erdos1041/LowCriticalPathCertificate.md</code>,
+and should be assumed known. The public source of record is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AngularBudgetLowCriticalClosure.md"><code>AngularBudgetLowCriticalClosure.md</code></a>,
 which carries the full analytic chain, the certified dual table and the
 replay route. The exact remaining obligation is that this threshold
 argument does not cover
@@ -1057,8 +1057,7 @@ inside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mrow><mn>2</mn><mi>μ</mi></mrow></msub><annotation encoding="application/x-tex">K_{2\mu}</annotation></semantics></math>.
 If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-is squarefree, their locations are distinct. If every root lies in the
-open unit disc and
+is squarefree, their locations are distinct. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu\le1/2</annotation></semantics></math>,
 the construction may be chosen inside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
@@ -1137,9 +1136,47 @@ argument realising that average, order the lift endpoints cyclically on
 and use the shortest adjacent boundary arc. Averaging the two lifts and
 the boundary arcs over the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-adjacent pairs gives (CF). The strict unit-sublevel statement chooses
-the regular level below the top of the window when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mi>μ</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lambda\mu\le1</annotation></semantics></math>. ◻</p>
+adjacent pairs gives (CF). The three contributions are, explicitly,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mfrac><mn>2</mn><mi>k</mi></mfrac><munder><mo>∑</mo><mi>i</mi></munder><msubsup><mi>ℓ</mi><mi>i</mi><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow></msubsup></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mfrac><mrow><mn>2</mn><mi>r</mi><mi>ρ</mi></mrow><mrow><msqrt><mi>k</mi></msqrt><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>r</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></mfrac><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mfrac><mn>2</mn><mi>k</mi></mfrac><munder><mo>∑</mo><mi>i</mi></munder><msubsup><mi>ℓ</mi><mi>i</mi><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi></mrow></msubsup></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><msqrt><mfrac><mn>2</mn><mi>k</mi></mfrac></msqrt><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mi>/</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mspace width="0.167em"></mspace><msup><mi>T</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mfrac><mrow><msup><mi mathvariant="script">ℋ</mi><mn>1</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>∂</mi><msub><mi>C</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mi>k</mi></mfrac></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><msqrt><mfrac><mn>2</mn><mi>k</mi></mfrac></msqrt><mfrac><mrow><mi>π</mi><msup><mi>T</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>λ</mi></mrow></msqrt></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+ \frac2k\sum_i\ell_i^\mathrm{low}
+ &amp;\le\frac{2r\rho}{\sqrt{k}(1-r)^2},\\
+ \frac2k\sum_i\ell_i^\mathrm{high}
+ &amp;\le\sqrt{\frac2k}\sqrt{\log(\lambda/r)}\,T^{1/n},\\
+ \frac{\mathcal H^1(\partial C_t)}k
+ &amp;\le\sqrt{\frac2k}\frac{\pi T^{1/n}}{\sqrt{\log\lambda}}.
+\end{aligned}</annotation></semantics></math> The low bound holds on
+every ray, the high bound on the ray chosen from its mean, and the
+boundary bound at the level selected before either choice. They
+therefore hold together. Adding and substituting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>T</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>=</mo><msup><mi>λ</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mi>ρ</mi></mrow><annotation encoding="application/x-tex">T^{1/n}=\lambda^{1/n}\rho</annotation></semantics></math>
+recovers (CF). For the final assertion, the repeated-zero case is
+already a constant path, and in degree two the root segment has length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>ρ</mi><mo>=</mo><mn>2</mn><msqrt><mi>μ</mi></msqrt><mo>≤</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">2\rho=2\sqrt\mu\le\sqrt2</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>,
+take
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\lambda=2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>3</mn><mi>/</mi><mn>20</mn></mrow><annotation encoding="application/x-tex">r=3/20</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu\le1/2</annotation></semantics></math>,
+(CF) gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mi mathvariant="normal">length</mi></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mfrac><mrow><mn>60</mn><msqrt><mn>2</mn></msqrt></mrow><mn>289</mn></mfrac><msup><mi>μ</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>μ</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>40</mn><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo>+</mo><mfrac><mi>π</mi><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></mrow></msqrt></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mfrac><mrow><mn>60</mn><msqrt><mn>2</mn></msqrt></mrow><mn>289</mn></mfrac><mo>+</mo><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>40</mn><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo>+</mo><mfrac><mi>π</mi><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></mrow></msqrt></mfrac></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>5.676476</mn><mi>…</mi><mo>&lt;</mo><mn>5.7</mn><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+ \operatorname{length}
+ &amp;\le \frac{60\sqrt2}{289}\mu^{1/n}
+ +(2\mu)^{1/n}\left(
+   \sqrt{\log(40/3)}+\frac{\pi}{\sqrt{\log2}}
+ \right)\\
+ &amp;\le \frac{60\sqrt2}{289}+\sqrt{\log(40/3)}
+      +\frac{\pi}{\sqrt{\log2}}\\
+ &amp;=5.676476\ldots&lt;5.7.
+ \end{aligned}</annotation></semantics></math> Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>μ</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2\mu\le1</annotation></semantics></math>,
+and the mean-value choice may be taken at a regular level strictly below
+the top of its positive-measure window. Thus the entire path lies in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>. ◻</p>
 </div>
 <p>The bracket (CF) retains two quantities that the constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>71</mn><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">71/10</annotation></semantics></math>
@@ -1674,20 +1711,20 @@ continue along the real segment to one injective root-to-root connector
 Its endpoints are distinct roots,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Γ</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\Gamma\subseteq\{|P|\le1\}</annotation></semantics></math>,
 and
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">length</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Γ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>≤</mo><mn>2</mn><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mfrac><mi>S</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mfrac><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>−</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">length</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Γ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>≤</mo><mn>2</mn><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mfrac><mi>S</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mfrac><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>−</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
 \label{eq:disk-family-length}
  \operatorname{length}(\Gamma)^2
  \le 2\Bigl(\frac{S}{n-1}\Bigr)^{2/n}
  \log\!\frac{S^2+S+p}{S^2-S+p}.                       \tag{5}
-\end{equation}</annotation></semantics></math> Consequently the
+\end{equation*}</annotation></semantics></math> Consequently the
 connector is shorter than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 whenever
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mfrac><mi>S</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mfrac><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>−</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow></mfrac><mo>&lt;</mo><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mfrac><mi>S</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msup><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mrow><mn>2</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mspace width="-0.167em"></mspace><mfrac><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow><mrow><msup><mi>S</mi><mn>2</mn></msup><mo>−</mo><mi>S</mi><mo>+</mo><mi>p</mi></mrow></mfrac><mo>&lt;</mo><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
 \label{eq:disk-family-coefficient}
  \Bigl(\frac{S}{n-1}\Bigr)^{2/n}
  \log\!\frac{S^2+S+p}{S^2-S+p}&lt;2.                    \tag{6}
-\end{equation}</annotation></semantics></math></em></p>
+\end{equation*}</annotation></semantics></math></em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Let
@@ -3472,7 +3509,7 @@ in
 is simple, its critical value is nonzero, and these critical values have
 pairwise distinct arguments and pairwise distinct moduli. Then:</em></p>
 <ol>
-<li><p><em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>:</mo><mi>U</mi><mo>\</mo><msup><mi>f</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-\log|f|:U\setminus f^{-1}(0)\to(0,\infty)</annotation></semantics></math>
+<li><p><em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>:</mo><mi>U</mi><mo>∖</mo><msup><mi>f</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-\log|f|:U\mathbin{\backslash}f^{-1}(0)\to(0,\infty)</annotation></semantics></math>
 is a proper excellent Morse function, with exactly
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k-1</annotation></semantics></math>
 nondegenerate saddles;</em></p></li>
@@ -3740,10 +3777,11 @@ coefficient). <em> Assuming Problem , do one of the following, for every
 containing all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
 roots whose length obeys
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">len</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>C</mi><msubsup><mo>∫</mo><mrow><mn>2</mn><mi>α</mi></mrow><mi>∞</mi></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">\operatorname{len}(G)
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">len</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>G</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>C</mi><msubsup><mo>∫</mo><mrow><mn>2</mn><mi>α</mi></mrow><mi>∞</mi></msubsup><msub><mi>P</mi><mi>V</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>t</mi><mo>+</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
+ \operatorname{len}(G)
  \le C\int_{2\alpha}^{\infty}P_V(t)\,dt+\eta
-\tag{6.1}\label{eq:metric-fanin1041}</annotation></semantics></math> for
-an explicit constant
+\tag{6.1}\label{eq:metric-fanin1041}
+\end{equation*}</annotation></semantics></math> for an explicit constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>&gt;</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C&gt;1/(2\pi)</annotation></semantics></math>
 that accounts for attachment cost and for a valid allocation of the
 strip fluxes
@@ -3869,9 +3907,9 @@ the containment
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
 with length at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5.7</mn><annotation encoding="application/x-tex">5.7</annotation></semantics></math>
-needs roots in the open unit disc and
+needs only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu\le1/2</annotation></semantics></math>,
-and both fall short of the target constant
+and both bounds fall short of the target constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
 Theorem  settles degree three completely for roots in the open unit
 disc. Theorem  holds in every degree and is conditional on the

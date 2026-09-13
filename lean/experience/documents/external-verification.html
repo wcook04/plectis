@@ -1202,10 +1202,11 @@ rather than an unconditional endpoint result.</li>
 <code>Erdos249257.ExternalVerification.finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent</code>
 in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientKernelConditional.lean">Lean</a></li>
-<li><strong>Boundary.</strong> Lean does not prove all-base
-affine-section independence or formalise Martin’s theorem. The
-unconditional basis and rank conclusions in the paper use that external
-input.</li>
+<li><strong>Boundary.</strong> This Comparator target reviews the
+reusable conditional interface. AllBaseTotientKernel.lean separately
+proves canonical all-base independence and exact rank unconditionally at
+25ef6245d15a; it does not formalise Martin’s broader theorem or solve
+#249.</li>
 </ul></li>
 <li><strong>Totient kernel basis</strong>
 (<code>totient_kernel_basis</code>; deep mechanism and classification;
@@ -1410,13 +1411,15 @@ consequence · Lean kernel plus Comparator</p></li>
 k at least 2, Lean checks the arithmetic reduction, exact
 nonmultiple-residue coordinates, unconditional canonical spanning, and
 exact rank k^e+1 conditional on canonical-family linear
-independence.<br> <strong>Boundary.</strong> Lean does not prove
-all-base affine-section independence or formalise Martin’s theorem. The
-unconditional basis and rank conclusions in the paper use that external
-input.<br> <em>Evidence.</em> formalised unconditional spanning and
-conditional rank with external independence input · Lean kernel for
-arithmetic, finite indexing, spanning, and the conditional-rank theorem;
-paper argument plus Martin’s cited theorem for independence</p></li>
+independence.<br> <strong>Boundary.</strong> This Comparator target
+reviews the reusable conditional interface. AllBaseTotientKernel.lean
+separately proves canonical all-base independence and exact rank
+unconditionally at 25ef6245d15a; it does not formalise Martin’s broader
+theorem or solve #249.<br> <em>Evidence.</em> formalised arithmetic,
+spanning and reusable conditional rank interface · Lean kernel for this
+arithmetic, finite indexing, spanning and conditional-rank interface;
+the independent all-base proof is a separate public source
+result</p></li>
 <li><p><strong>Totient visible coprime lattice mass</strong><br> The
 positive coprime Mersenne weights on the visible lattice sum to one,
 exposing the reduced-direction mass behind the fair-coin coprimality

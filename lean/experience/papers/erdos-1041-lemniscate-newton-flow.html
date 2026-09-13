@@ -299,8 +299,7 @@ inside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mrow><mn>2</mn><mi>μ</mi></mrow></msub><annotation encoding="application/x-tex">K_{2\mu}</annotation></semantics></math>.
 If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-is squarefree, their locations are distinct. If every root lies in the
-open unit disc and
+is squarefree, their locations are distinct. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu\le1/2</annotation></semantics></math>,
 the construction may be chosen inside
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>
@@ -414,10 +413,48 @@ average, order the lift endpoints cyclically on
 and hop along the shortest adjacent boundary arc. Averaging the two
 lifts and the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-arcs over adjacent pairs gives (CF). When
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mi>μ</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lambda\mu\le1</annotation></semantics></math>
-the same mean-value choice may be taken strictly below the top of the
-window, so the path lies in
+arcs over adjacent pairs gives (CF). Explicitly, the three contributions
+to that pair average satisfy
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mfrac><mn>2</mn><mi>k</mi></mfrac><munder><mo>∑</mo><mi>i</mi></munder><msubsup><mi>ℓ</mi><mi>i</mi><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi></mrow></msubsup></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mfrac><mrow><mn>2</mn><mi>r</mi><mi>ρ</mi></mrow><mrow><msqrt><mi>k</mi></msqrt><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>r</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></mfrac><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mfrac><mn>2</mn><mi>k</mi></mfrac><munder><mo>∑</mo><mi>i</mi></munder><msubsup><mi>ℓ</mi><mi>i</mi><mrow><mi mathvariant="normal">h</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">h</mi></mrow></msubsup></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><msqrt><mfrac><mn>2</mn><mi>k</mi></mfrac></msqrt><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mi>/</mi><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mspace width="0.167em"></mspace><msup><mi>T</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mfrac><mrow><msup><mi mathvariant="script">ℋ</mi><mn>1</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>∂</mi><msub><mi>C</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mi>k</mi></mfrac></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><msqrt><mfrac><mn>2</mn><mi>k</mi></mfrac></msqrt><mfrac><mrow><mi>π</mi><msup><mi>T</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup></mrow><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>λ</mi></mrow></msqrt></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+ \frac2k\sum_i\ell_i^\mathrm{low}
+ &amp;\le\frac{2r\rho}{\sqrt{k}(1-r)^2},\\
+ \frac2k\sum_i\ell_i^\mathrm{high}
+ &amp;\le\sqrt{\frac2k}\sqrt{\log(\lambda/r)}\,T^{1/n},\\
+ \frac{\mathcal H^1(\partial C_t)}k
+ &amp;\le\sqrt{\frac2k}\frac{\pi T^{1/n}}{\sqrt{\log\lambda}}.
+\end{aligned}</annotation></semantics></math> The low estimate is
+pointwise in the ray; the high estimate holds for the single ray chosen
+from its mean. The boundary estimate uses the level already selected.
+Thus these estimates apply together, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>T</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>=</mo><msup><mi>λ</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mi>ρ</mi></mrow><annotation encoding="application/x-tex">T^{1/n}=\lambda^{1/n}\rho</annotation></semantics></math>
+gives the three terms in (CF). For the final assertion, the
+repeated-zero case is already a constant path, and in degree two the
+root segment has length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>ρ</mi><mo>=</mo><mn>2</mn><msqrt><mi>μ</mi></msqrt><mo>≤</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">2\rho=2\sqrt\mu\le\sqrt2</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>,
+take
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\lambda=2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>3</mn><mi>/</mi><mn>20</mn></mrow><annotation encoding="application/x-tex">r=3/20</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu\le1/2</annotation></semantics></math>,
+(CF) gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mi mathvariant="normal">length</mi></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mfrac><mrow><mn>60</mn><msqrt><mn>2</mn></msqrt></mrow><mn>289</mn></mfrac><msup><mi>μ</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>μ</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>40</mn><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo>+</mo><mfrac><mi>π</mi><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></mrow></msqrt></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mfrac><mrow><mn>60</mn><msqrt><mn>2</mn></msqrt></mrow><mn>289</mn></mfrac><mo>+</mo><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>40</mn><mi>/</mi><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo>+</mo><mfrac><mi>π</mi><msqrt><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></mrow></msqrt></mfrac></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"></mtd><mtd columnalign="left" class="ta-l pl0"><mo>=</mo><mn>5.676476</mn><mi>…</mi><mo>&lt;</mo><mn>5.7</mn><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+ \operatorname{length}
+ &amp;\le \frac{60\sqrt2}{289}\mu^{1/n}
+ +(2\mu)^{1/n}\left(
+   \sqrt{\log(40/3)}+\frac{\pi}{\sqrt{\log2}}
+ \right)\\
+ &amp;\le \frac{60\sqrt2}{289}+\sqrt{\log(40/3)}
+      +\frac{\pi}{\sqrt{\log2}}\\
+ &amp;=5.676476\ldots&lt;5.7.
+ \end{aligned}</annotation></semantics></math> Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>μ</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2\mu\le1</annotation></semantics></math>,
+and the mean-value choice may be taken at a regular level strictly below
+the top of its positive-measure window. Thus the entire path lies in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|f|&lt;1\}</annotation></semantics></math>. ◻</p>
 </div>
 <p>The component-arity, capacity and two-root persistence-window

@@ -359,6 +359,15 @@ class="math inline" data-term-auto="off">\(\gamma_n=a_n^2/a_{n+1}-1\)</span>. Si
 class="math display" data-term-auto="off">\[\frac{P_{n+1}/a_{n+1}}{P_n/a_n}=1+\gamma_n\longrightarrow1,
 \qquad P_n/a_n=\exp(o(n)),\]</span></div>
 <p class="display-continue">the two-term estimate gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+E_n&amp;=\frac{qP_n}{a_n}-\frac{qP_n(a_n-1)}{a_{n+1}}
++O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right),\\
+q\frac{P_n}{a_n}\gamma_n
+&amp;=\frac{qP_na_n}{a_{n+1}}-\frac{qP_n}{a_n}.
+\end{aligned}\]</span></div>
+<p>Adding cancels the two terms of size <span
+class="math inline" data-term-auto="off">\(qP_n/a_n\)</span> and leaves</p>
 <div class="math-display" id="eq:canonical-dictionary" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:canonical-dictionary}
@@ -366,10 +375,13 @@ E_n+q\frac{P_n}{a_n}\gamma_n
 =\frac{qP_n}{a_{n+1}}+
 O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right)=o(1).
 \end{equation}\]</span></div>
-<p>The assumed upper bound therefore gives an
-eventual lower bound on the integer <span
-class="math inline" data-term-auto="off">\(E_n\)</span>. After deleting a finite prefix, all
-hypotheses of Theorem <a class="math-ref" href="#res:bounded">2</a> hold. Apply
+<p>Indeed, quadratic growth makes the two terms on
+the right respectively <span
+class="math inline" data-term-auto="off">\(\exp(o(n))/a_n\)</span> and <span
+class="math inline" data-term-auto="off">\(\exp(o(n))/a_n^2\)</span>, up to bounded factors.
+The assumed upper bound therefore gives an eventual lower bound on the
+integer <span class="math inline" data-term-auto="off">\(E_n\)</span>. After deleting a
+finite prefix, all hypotheses of Theorem <a class="math-ref" href="#res:bounded">2</a> hold. Apply
 Corollary <a class="math-ref" href="#res:cor">4</a>. ◻</p>
 </div>
 <p>The same calculation is valid with <span
@@ -448,11 +460,18 @@ are</p>
 \rho_nU_{n+1}=U_n-V_n,\qquad V_n=L_n-(a_n-1)U_n.\]</span></div>
 <p>Write <span
 class="math inline" data-term-auto="off">\(R_n=\max_{j\le n}U_j\)</span> and <span
-class="math inline" data-term-auto="off">\(\mathcal R=\{n:U_{n+1}&gt;R_n\}\)</span>. Centring
-implies that every sufficiently late strict rise has <span
-class="math inline" data-term-auto="off">\(\rho_n=1\)</span>: otherwise <span
-class="math inline" data-term-auto="off">\(U_{n+1}\le3U_n/4\)</span>. Its actual jump is
-therefore <span class="math inline" data-term-auto="off">\(d_n=U_{n+1}-U_n=-V_n\)</span>.</p>
+class="math inline" data-term-auto="off">\(\mathcal R=\{n:U_{n+1}&gt;R_n\}\)</span>. Strict
+centring already gives <span
+class="math inline" data-term-auto="off">\(U_{n+1}&lt;U_n\)</span> when <span
+class="math inline" data-term-auto="off">\(\rho_n\ge2\)</span>, so every sufficiently late
+strict rise has <span class="math inline" data-term-auto="off">\(\rho_n=1\)</span>. The
+stronger eventual bound <span
+class="math inline" data-term-auto="off">\(-U_n\le2V_n\)</span>, supplied by <span
+class="math inline" data-term-auto="off">\(V_n/U_n=E_n/C_n\to0\)</span>, gives the
+quantitative estimate <span
+class="math inline" data-term-auto="off">\(U_{n+1}\le3U_n/4\)</span> when <span
+class="math inline" data-term-auto="off">\(\rho_n\ge2\)</span>. Its actual jump is therefore
+<span class="math inline" data-term-auto="off">\(d_n=U_{n+1}-U_n=-V_n\)</span>.</p>
 <div class="theorem" id="res:weightedrecord">
 <p><strong>Theorem 13</strong> (weighted record excess). <em> Assume the
 growth and rationality hypotheses of Problem <a class="math-ref" href="#res:problem">3</a>. Let <span

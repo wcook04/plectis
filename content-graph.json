@@ -132085,7 +132085,7 @@
       "status": "active_compatibility",
       "term_kind": "evidence",
       "used_in": {
-        "page_count": 51,
+        "page_count": 52,
         "top_page": "doctrine.html",
         "top_pages": [
           {
@@ -132113,7 +132113,7 @@
             "page": "paper-module-microcosm-axiom-substrate.html"
           }
         ],
-        "total_occurrences": 306
+        "total_occurrences": 307
       },
       "visible_text_byte_count": 1297
     },
@@ -143652,11 +143652,11 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 4,
+            "count": 3,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 4
+        "total_occurrences": 3
       },
       "visible_text_byte_count": 702
     },
@@ -151190,11 +151190,11 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 20,
+            "count": 21,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 20
+        "total_occurrences": 21
       },
       "visible_text_byte_count": 784
     },
@@ -161508,7 +161508,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 1599
+        "total_occurrences": 1600
       },
       "visible_text_byte_count": 883
     },
@@ -169105,19 +169105,19 @@
             "page": "rules-and-ideas.html"
           },
           {
-            "count": 10,
-            "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
+            "count": 14,
+            "page": "papers.html"
           },
           {
             "count": 10,
-            "page": "papers.html"
+            "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
           },
           {
             "count": 7,
             "page": "paper-module-durable-agent-work-landing-replay.html"
           }
         ],
-        "total_occurrences": 284
+        "total_occurrences": 288
       },
       "visible_text_byte_count": 909
     },
@@ -276988,11 +276988,11 @@
     },
     "dyadic": {
       "by_page": {
-        "papers.html": 4
+        "papers.html": 3
       },
       "page_count": 1,
       "top_page": "papers.html",
-      "total_occurrences": 4
+      "total_occurrences": 3
     },
     "edge": {
       "by_page": {
@@ -279762,11 +279762,11 @@
     },
     "irrational": {
       "by_page": {
-        "papers.html": 20
+        "papers.html": 21
       },
       "page_count": 1,
       "top_page": "papers.html",
-      "total_occurrences": 20
+      "total_occurrences": 21
     },
     "javascript": {
       "by_page": {
@@ -283590,7 +283590,7 @@
         "paper-module-verifier-lab-execution-spine.html": 29,
         "paper-module-verifier-lab-kernel.html": 25,
         "paper-modules.html": 147,
-        "papers.html": 16,
+        "papers.html": 17,
         "reference.html": 24,
         "rules-and-ideas.html": 231,
         "source.html": 1,
@@ -283599,7 +283599,7 @@
       },
       "page_count": 119,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1599
+      "total_occurrences": 1600
     },
     "proof_assistant": {
       "by_page": {
@@ -287346,13 +287346,13 @@
         "paper-module-work-landing-control-spine.html": 1,
         "paper-module-world-model-projection-drift-control-room.html": 1,
         "paper-modules.html": 5,
-        "papers.html": 10,
+        "papers.html": 14,
         "reference.html": 1,
         "rules-and-ideas.html": 16
       },
       "page_count": 101,
       "top_page": "doctrine.html",
-      "total_occurrences": 284
+      "total_occurrences": 288
     },
     "sylvester_sequence": {
       "by_page": {
@@ -288540,12 +288540,13 @@
         "paper-module-work-landing-control-spine.html": 1,
         "paper-module-world-model-projection-drift-control-room.html": 7,
         "paper-modules.html": 18,
+        "papers.html": 1,
         "reference.html": 6,
         "rules-and-ideas.html": 36
       },
-      "page_count": 51,
+      "page_count": 52,
       "top_page": "doctrine.html",
-      "total_occurrences": 306
+      "total_occurrences": 307
     },
     "work_landing": {
       "by_page": {

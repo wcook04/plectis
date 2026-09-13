@@ -12,7 +12,8 @@ A}(b^a-1)^{-1}\)</span> for <span
 class="math inline" data-term-auto="off">\(A\subseteq\Npos\)</span> and an integer <span
 class="math inline" data-term-auto="off">\(b\ge2\)</span>. We begin with the simpler
 reciprocal-summable case; Section <a class="math-ref" href="#sec:eight-return-extensions">3</a> proves
-the stronger finite-prime weighted criterion.</p>
+the stronger finite-prime weighted criterion and its combination with
+positive divisor covers.</p>
 <div class="theorem" id="res:reciprocal-support">
 <p><strong>Theorem 1</strong> (reciprocal-summable supports). <em> Let
 <span class="math inline" data-term-auto="off">\(A\subseteq\Npos\)</span> be infinite. If
@@ -70,11 +71,13 @@ class="math inline" data-term-auto="off">\(X_A(2)\)</span> irrational for every 
 </div>
 <p>Theorem <a class="math-ref" href="#res:reciprocal-support">1</a> excludes the
 entire reciprocal-summable region. Theorem <a class="math-ref" href="#res:weighted-support">3</a> reaches a
-strictly larger class and an explicit reciprocal-divergent host. Later
-sections keep the quantitative, mixed-support, prime-power and stronger
-host constructions separate where their arguments are not independently
-assessable from this checkout. The final section retains the actual
-arithmetic constraint for a proposed rational value.</p>
+strictly larger class and an explicit reciprocal-divergent host.
+Theorem <a class="math-ref" href="#res:mixed-supports">5</a>
+combines weighted supports and positive covers by producing a common
+small displacement. Later sections keep the quantitative, prime-power
+and stronger host constructions separate where their arguments are not
+independently assessable from this checkout. The final section retains
+the actual arithmetic constraint for a proposed rational value.</p>
 <p>Erdős proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the
 details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-5">[5]</a></span>.
@@ -169,9 +172,9 @@ infinity with the modulus fixed, and only then does the modulus
 increase. Reciprocal summability controls both interchanges.</p>
 <p>Section 2 contains the complete reciprocal-summable support argument.
 The next section proves a strictly weaker finite-prime weighted
-hypothesis. The later quantitative, mixed-support, prime-power and
-cost-separation claims remain separately unassessed where their proofs
-are not printed here.</p>
+hypothesis. The later quantitative, prime-power and cost-separation
+claims remain separately unassessed where their proofs are not printed
+here.</p>
 </section>
 <section id="sec:eight-return-extensions" class="level2">
 <h2>Extensions beyond reciprocal summability</h2>
@@ -196,11 +199,11 @@ W_{b,P}(A):=\sum_{a\in A}
 <p class="display-continue"><em> then <span class="math inline" data-term-auto="off">\(X_A(b)\)</span>
 is irrational. In particular, the base-two condition </em></p>
 <div class="math-display" id="eq:weighted-return" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+class="math display" data-term-auto="off">\[\begin{equation*}
 \label{eq:weighted-return}
 \sum_{a\in A}\frac{h(a)}{a(2^{h(a)}-1)}&lt;\infty
 \tag{W}
-\end{equation}\]</span></div>
+\end{equation*}\]</span></div>
 <p class="display-continue"><em> implies that <span
 class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for every integer
 <span class="math inline" data-term-auto="off">\(b\ge2\)</span>. Both conclusions are
@@ -254,7 +257,8 @@ finite nonempty <span class="math inline" data-term-auto="off">\(F\subseteq A\)<
 that the <a class="math-ref" data-equation-ref="true" href="#eq:weighted-fixed-base">eq:weighted-fixed-base</a> mass
 outside <span class="math inline" data-term-auto="off">\(F\)</span> is below <span
 class="math inline" data-term-auto="off">\(\varepsilon\)</span>, and let <span
-class="math inline" data-term-auto="off">\(L=\operatorname{lcm}(F)\)</span>. With <span
+class="math inline" data-term-auto="off">\(L\)</span> be any fixed positive common multiple
+of <span class="math inline" data-term-auto="off">\(F\)</span>. With <span
 class="math inline" data-term-auto="off">\(p_*=\max P\)</span>, <span
 class="math inline" data-term-auto="off">\(r=|P|\)</span>, and large <span
 class="math inline" data-term-auto="off">\(H\ge2p_*\)</span>, set</p>
@@ -329,8 +333,8 @@ host with <span class="math inline" data-term-auto="off">\(O(\log\log a)\)</span
 asserted here.</p>
 <p>The theorem and this example are complete ordinary proofs. No single
 Lean declaration is cited as their proof, and no priority claim is made.
-The arbitrary-chain, quantitative, mixed-support and prime-power
-extensions remain separate from Theorem <a class="math-ref" href="#res:weighted-support">3</a>.</p>
+The arbitrary-chain, quantitative and prime-power extensions remain
+separate from Theorem <a class="math-ref" href="#res:weighted-support">3</a>.</p>
 </section>
 <section id="claimed-quantitative-criterion-unassessed-here"
 class="level3">
@@ -350,8 +354,8 @@ present in this checkout.</p>
 <section id="sec:common-kernel" class="level3">
 <h3>A finite estimate on common observation scales</h3>
 <p>For <span class="math inline" data-term-auto="off">\(1&lt;B\le2\)</span>, positive
-integers <span class="math inline" data-term-auto="off">\(L,d,M\)</span>, and <span
-class="math inline" data-term-auto="off">\(R\ge0\)</span>, put</p>
+integers <span class="math inline" data-term-auto="off">\(L,d,M\)</span>, and an integer
+<span class="math inline" data-term-auto="off">\(R\ge0\)</span>, put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[w_{B,d}(n)=\frac{B^{n\bmod d}}{B^d-1},\qquad
 \mathscr D_{L;R,M}F
@@ -359,9 +363,11 @@ class="math display" data-term-auto="off">\[w_{B,d}(n)=\frac{B^{n\bmod d}}{B^d-1
       \sum_{m=1}^{2^j}F(Lm).\]</span></div>
 <p>The finite estimate</p>
 <div class="math-display" id="eq:mixed-finite-kernel" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\mathscr D_{L;R,M}w_{B,d}
+class="math display" data-term-auto="off">\[\begin{equation*}
+\mathscr D_{L;R,M}w_{B,d}
 \le\frac{1+4L/M}{d(B-1)}
-\label{eq:mixed-finite-kernel}\tag{S}\]</span></div>
+\tag{S}\label{eq:mixed-finite-kernel}
+\end{equation*}\]</span></div>
 <p class="display-continue">is uniform in <span
 class="math inline" data-term-auto="off">\(d\)</span>, <span
 class="math inline" data-term-auto="off">\(R\)</span>, and <span
@@ -421,9 +427,10 @@ C_j=\sum_{d\ge1}\frac{c_{j,d}}d.\]</span></div>
 <div class="theorem" id="thm:variable-fractional-cover">
 <p><strong>Theorem 4</strong> (strengthened positive covers). <em> If
 </em></p>
-<div class="math-display" id="eq:strengthened-cover" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\sum_{j\ge1}\frac{C_j2^{j\alpha_j}}{2^{\alpha_j}-1}&lt;\infty,
-\tag{V}\label{eq:strengthened-cover}\]</span></div>
+<div class="math-display" id="eq:strengthened-cover" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation*}
+\sum_{j\ge1}\frac{C_j2^{j\alpha_j}}{2^{\alpha_j}-1}&lt;\infty,
+\tag{V}\label{eq:strengthened-cover}
+\end{equation*}\]</span></div>
 <p class="display-continue"><em> then <span
 class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for every infinite
 <span class="math inline" data-term-auto="off">\(A\subseteq\bigcup_jF_j\)</span> and every
@@ -437,8 +444,16 @@ class="math display" data-term-auto="off">\[U_j(N)=\sum_{r\ge1}2^{-r}f_{F_j}(N+r
 V_j(N)=\sum_{d\ge1}c_{j,d}w_{B_j,d}(N).\]</span></div>
 <p>Subadditivity of the
 fractional powers and the positive majorants give <span
-class="math inline" data-term-auto="off">\(U_j(N)^{\alpha_j}\le V_j(N)\)</span>. Fix <span
-class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, set <span
+class="math inline" data-term-auto="off">\(U_j(N)^{\alpha_j}\le V_j(N)\)</span>. The
+geometric-series identity also gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\Delta_{2,F_j}(N)=U_j(N)-X_{F_j}(2)\le
+U_j(N).\]</span></div>
+<p>Consequently, once the first <span
+class="math inline" data-term-auto="off">\(J\)</span> frames have zero displacement,
+nonnegativity bounds the displacement of their union by <span
+class="math inline" data-term-auto="off">\(\sum_{j&gt;J}U_j(N)\)</span>.</p>
+<p>Fix <span class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, set <span
 class="math inline" data-term-auto="off">\(t_j=\varepsilon2^{-j}\)</span>, and choose <span
 class="math inline" data-term-auto="off">\(J\)</span> with</p>
 <div class="math-display" data-term-auto="off"><span
@@ -471,10 +486,11 @@ to be arbitrarily large. ◻</p>
 </div>
 <p>The same proof permits any positive weights <span
 class="math inline" data-term-auto="off">\(\eta_j\)</span> with <span
-class="math inline" data-term-auto="off">\(\sum_j\eta_j=1\)</span>, replacing <span
-class="math inline" data-term-auto="off">\(2^{-j}\)</span> by <span
-class="math inline" data-term-auto="off">\(\eta_j\)</span>. The condition strengthens the
-earlier two-inverse-power cost <span
+class="math inline" data-term-auto="off">\(\sum_j\eta_j=1\)</span>: replace <span
+class="math inline" data-term-auto="off">\(2^{j\alpha_j}\)</span> in <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a> by <span
+class="math inline" data-term-auto="off">\(\eta_j^{-\alpha_j}\)</span> and take <span
+class="math inline" data-term-auto="off">\(t_j=\varepsilon\eta_j\)</span>. The condition
+strengthens the earlier two-inverse-power cost <span
 class="math inline" data-term-auto="off">\(\sum_jC_j2^{j\alpha_j}2^{\alpha_j}/(2^{\alpha_j}-1)^2&lt;\infty\)</span>.
 The unavailable <em>Strengthened Variable-Exponent Cover</em> supplement
 claims a squarefree support <span class="math inline" data-term-auto="off">\(A^\star\)</span>
@@ -555,49 +571,106 @@ release.</p>
 </section>
 <section id="combining-the-two-support-criteria" class="level3">
 <h3>Combining the two support criteria</h3>
-<p>The following mixed statement is a claimed extension. Its complete
-parameter schedule is referred to
-<code>ErdosProblems/Erdos257/MixedSupportSynchronisation.md</code>,
-which is not in this public checkout, so the argument is not
-independently assessable here and is not a result of this release.</p>
+<p>Separate small-displacement witnesses need not occur at the same
+index. For example, a sequence small only at even indices and one small
+only at odd indices need never have a small sum. The useful feature of
+(S) is its uniformity in the moving modulus: the positive-cover argument
+can use the exact observation window selected by the weighted proof.</p>
 <div class="theorem" id="res:mixed-supports">
-<p><strong>Theorem 5</strong> (mixed weighted and cover supports;
-claimed, complete argument not in this checkout). <em> Suppose <span
-class="math inline" data-term-auto="off">\(E\)</span> has finite weighted mass <a class="math-ref" data-equation-ref="true" href="#eq:weighted-return">eq:weighted-return</a> for a finite
-nonempty prime set, and <span class="math inline" data-term-auto="off">\(V\)</span> admits a
-strengthened positive cover <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a>. Then <span
+<p><strong>Theorem 5</strong> (mixed weighted and cover supports). <em>
+Suppose <span class="math inline" data-term-auto="off">\(E\)</span> has finite weighted mass
+<a class="math-ref" data-equation-ref="true" href="#eq:weighted-return">eq:weighted-return</a> for a
+finite nonempty prime set <span class="math inline" data-term-auto="off">\(P\)</span>, and
+<span class="math inline" data-term-auto="off">\(V\)</span> admits a strengthened positive
+cover <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a>, or its
+positive-weight variant above. Then <span
 class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for every infinite
 <span class="math inline" data-term-auto="off">\(A\subseteq E\cup V\)</span> and every
 integer <span class="math inline" data-term-auto="off">\(b\ge2\)</span>.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof of the combination step.</em> Freeze a sufficiently large
-finite prefix from each component with one modulus. The weighted
-argument supplies subsequent moduli <span
-class="math inline" data-term-auto="off">\(Q\)</span> and observation ranges <span
-class="math inline" data-term-auto="off">\(M\le j&lt;2M\)</span> with <span
-class="math inline" data-term-auto="off">\(Q/M\to0\)</span> and arbitrarily small
-weighted-displacement mean. By nonnegative interchange, <a class="math-ref" data-equation-ref="true" href="#eq:mixed-finite-kernel">eq:mixed-finite-kernel</a> bounds the
-positive-cover tail test under exactly the same finite measure, with
-factor <span class="math inline" data-term-auto="off">\(1+4Q/M\)</span>. Choose the two tail
-budgets so that the mean of their normalised sum is less than one. One
-common sample then makes both displacements small. Infinitude supplies
-strict positivity and the rational lattice excludes rationality. The
-full estimates and parameter schedule are referred to
-<code>ErdosProblems/Erdos257/MixedSupportSynchronisation.md</code>,
-Theorems 2.1 and 5.1, which are not in this checkout. ◻</p>
+<p><em>Proof.</em> Fix <span
+class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> and an integer <span
+class="math inline" data-term-auto="off">\(N_0\ge1\)</span>, and put <span
+class="math inline" data-term-auto="off">\(\rho=\varepsilon/3\)</span>. Use the cover
+notation <span class="math inline" data-term-auto="off">\(B_j,U_j,V_j\)</span> above, with
+<span class="math inline" data-term-auto="off">\(\eta_j=2^{-j}\)</span> in the case <a class="math-ref" data-equation-ref="true" href="#eq:strengthened-cover">eq:strengthened-cover</a>. Set <span
+class="math inline" data-term-auto="off">\(t_j=\rho\eta_j\)</span> and choose <span
+class="math inline" data-term-auto="off">\(J\)</span> so that</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[K_J=\sum_{j&gt;J}\frac{C_jt_j^{-\alpha_j}}{B_j-1}&lt;\frac1{16}.\]</span></div>
+<p>Choose a finite <span class="math inline" data-term-auto="off">\(F\subseteq E\)</span> whose
+complementary weighted mass is <span
+class="math inline" data-term-auto="off">\(\kappa&lt;\rho/16\)</span>. Let <span
+class="math inline" data-term-auto="off">\(L\)</span> be a positive common multiple of <span
+class="math inline" data-term-auto="off">\(N_0\)</span>, all members of <span
+class="math inline" data-term-auto="off">\(F\)</span>, and all members of the first <span
+class="math inline" data-term-auto="off">\(J\)</span> cover frames. For large <span
+class="math inline" data-term-auto="off">\(H\)</span>, take exactly the binary weighted
+schedule</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[Q=L\prod_{p\in
+P}p^{\lfloor\log_pH\rfloor},\qquad
+G=\lfloor H/\max P\rfloor,\qquad M=\lfloor2^{G/2}\rfloor.\]</span></div>
+<p>The
+finite estimate <a class="math-ref" data-equation-ref="true" href="#eq:weighted-main-bound">eq:weighted-main-bound</a>, with tail
+budget <span class="math inline" data-term-auto="off">\(\kappa\)</span>, remains valid for
+this <span class="math inline" data-term-auto="off">\(L\)</span>: its proof requires only
+that <span class="math inline" data-term-auto="off">\(L\)</span> freeze <span
+class="math inline" data-term-auto="off">\(F\)</span>. It also applies to finite or empty
+<span class="math inline" data-term-auto="off">\(E\)</span>, since positivity was used only
+after the averaging estimate. Thus</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathscr
+D_{Q;M,M}(\Delta_{2,E}/\rho)&lt;\frac18\]</span></div>
+<p class="display-continue">for sufficiently large
+<span class="math inline" data-term-auto="off">\(H\)</span>. For the same finite
+distribution, (S) and nonnegative interchange give</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathscr D_{Q;M,M}S_J\le(1+4Q/M)K_J&lt;\frac18,
+\qquad S_J=\sum_{j&gt;J}t_j^{-\alpha_j}V_j,\]</span></div>
+<p class="display-continue">because <span
+class="math inline" data-term-auto="off">\(Q/M\to0\)</span>. Hence some sample <span
+class="math inline" data-term-auto="off">\(N=Qm\)</span> satisfies <span
+class="math inline" data-term-auto="off">\(\Delta_{2,E}(N)/\rho+S_J(N)&lt;1\)</span>. At this
+one index the weighted displacement is below <span
+class="math inline" data-term-auto="off">\(\rho\)</span> and every unfrozen cover frame has
+<span class="math inline" data-term-auto="off">\(U_j(N)&lt;t_j\)</span>. Therefore</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\Delta_{2,A}(N)\le\Delta_{2,E}(N)+\Delta_{2,V}(N)&lt;2\rho&lt;\varepsilon,
+\qquad N\ge Q\ge L\ge N_0.\]</span></div>
+<p>Overlaps between the supports only
+improve the inequality. Infinitude of <span
+class="math inline" data-term-auto="off">\(A\)</span> makes its displacement positive. The
+atom comparison used in the cover proof transfers arbitrarily small
+displacements to every integer base; the fixed rational lattice then
+excludes rationality. ◻</p>
 </div>
-<p>In particular, every infinite subset of <span
-class="math inline" data-term-auto="off">\(A_W\cup A^\star\)</span> has irrational subseries
-at every integer base. Downward closure and the two earlier separations
-show that this mixed host belongs to neither individual class. The mixed
-class is closed under finite unions and finite changes. Countable unions
-require an additional budget: all prime singletons are admitted, while
-the full prime support has <span
+<p>This is a complete ordinary proof. It does not establish the
+unavailable constructions <span
+class="math inline" data-term-auto="off">\(A_W,A^\star\)</span> or strict enlargement over
+both individual classes. Those separation claims retain the boundary
+stated above.</p>
+<p>With arbitrary positive cover weights, the class of subsets of such
+mixed hosts is closed under finite unions and finite changes. For
+weighted supports use the union of the two finite prime sets: the prime
+part grows and <span class="math inline" data-term-auto="off">\(h/(2^h-1)\)</span> decreases.
+For two covers, interleave their frames with weights <span
+class="math inline" data-term-auto="off">\(\eta_j/2\)</span> and <span
+class="math inline" data-term-auto="off">\(\theta_j/2\)</span>; the total cost grows by at
+most two, since <span class="math inline" data-term-auto="off">\(2^{\alpha_j}\le2\)</span>.
+Subsets inherit the same hosts, and finite sets have finite weighted
+mass. This argument uses the positive-weight variant; it does not
+silently reindex the dyadic weights in (V). Countable unions require a
+tail budget. Every prime singleton is admitted, but for the full prime
+support <span class="math inline" data-term-auto="off">\(\mathcal P\)</span> one has <span
 class="math inline" data-term-auto="off">\(\Delta_{2,\mathcal P}(N)&gt;1/3\)</span> for every
-<span class="math inline" data-term-auto="off">\(N\ge1\)</span>. The reciprocal-summable
-class is contained in the weighted class, since <span
-class="math inline" data-term-auto="off">\(h/(2^h-1)\le1\)</span>. Theorem <a class="math-ref" href="#res:reciprocal-support">1</a> supplies the
+<span class="math inline" data-term-auto="off">\(N\ge1\)</span>: indeed <span
+class="math inline" data-term-auto="off">\(\sum_{r\ge1}2^{-r}\omega(N+r)\ge1\)</span>,
+whereas <span class="math inline" data-term-auto="off">\(X_{\mathcal
+P}(2)\le\sum_{a\ge2}(2^a-1)^{-1}&lt;2/3\)</span>. Here <span
+class="math inline" data-term-auto="off">\(\omega(n)\)</span> is the number of distinct prime
+divisors of <span class="math inline" data-term-auto="off">\(n\)</span>. The
+reciprocal-summable class is contained in the weighted class, since
+<span class="math inline" data-term-auto="off">\(h/(2^h-1)\le1\)</span>. Theorem <a class="math-ref" href="#res:reciprocal-support">1</a> supplies the
 direct proof of that baseline case.</p>
 <section id="the-prime-power-regime." class="level5">
 <h5>The prime-power regime.</h5>
@@ -757,18 +830,25 @@ n}\quad(n\ge1)\]</span></div>
 <p class="display-continue">for a fixed <span class="math inline" data-term-auto="off">\(a\in
 A\)</span> holds exactly when <span class="math inline" data-term-auto="off">\(a\)</span> is
 coprime to every other member of <span class="math inline" data-term-auto="off">\(A\)</span>.
-Already for the dilated prime support <span
+To see this, every summand <span class="math inline" data-term-auto="off">\(\mathbf1_{t\mid
+an}-\mathbf1_{t\mid n}\)</span> is nonnegative. The term <span
+class="math inline" data-term-auto="off">\(t=a\)</span> is the displayed right side; all
+others vanish if <span class="math inline" data-term-auto="off">\((a,t)=1\)</span>.
+Conversely, if <span class="math inline" data-term-auto="off">\(g=(a,t)&gt;1\)</span> for
+some <span class="math inline" data-term-auto="off">\(t\ne a\)</span>, then <span
+class="math inline" data-term-auto="off">\(n=t/g\)</span> gives an additional positive term,
+contradicting the identity. Already for the dilated prime support <span
 class="math inline" data-term-auto="off">\(2\mathcal P\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{Cov}({\bf1}_{2p\mid
 n},{\bf1}_{2q\mid n})
 =\frac1{4pq}\qquad(p\ne q\text{ odd primes}),\]</span></div>
 <p class="display-continue">where covariance
-is taken over a common arithmetic period. Thus multiplicative size
+is taken over a common arithmetic period: the joint mean is <span
+class="math inline" data-term-auto="off">\(1/(2pq)\)</span> and the product of the means is
+<span class="math inline" data-term-auto="off">\(1/(4pq)\)</span>. Thus multiplicative size
 conditions alone do not supply the independence used by the prime
-argument. The accompanying <em>Prime-Incidence Boundary</em> proof is
-not in this checkout; it is not an independently assessable result of
-this release.</p>
+argument. These are elementary ordinary calculations.</p>
 </section>
 <section id="sec:geometry" class="level2">
 <h2>Unique coding and arithmetic membership</h2>
@@ -1051,18 +1131,17 @@ identified separately rather than attributed to that checkpoint.</p>
 Theorem <a class="math-ref" href="#thm:variable-fractional-cover">4</a> have
 complete ordinary proofs in this note and are results of this release.
 The finite-prime weighted criterion, Theorem <a class="math-ref" href="#res:weighted-support">3</a>, and its
-simple reciprocal-divergent host also have complete ordinary proofs
-here. They have no end-to-end Lean counterpart in this checkout. The
+simple reciprocal-divergent host, the mixed theorem <a class="math-ref" href="#res:mixed-supports">5</a>, and the
+prime-incidence calculation also have complete ordinary proofs here.
+They have no end-to-end Lean counterpart in this checkout. The
 quantitative criterion, the stronger claimed support <span
 class="math inline" data-term-auto="off">\(A^\star\)</span> separating the two cover costs,
-the mixed theorem, and prime-power thinning instead refer to ordinary
-proofs that are not linked in this public checkout (<em>Strengthened
-Variable-Exponent Cover</em>, <em>First Logarithmic Moment of Positive
-Covers</em>, <em>Mixed Support Synchronisation</em>, <em>Prime-Incidence
-Boundary</em>, and the analytic proof supplement). Those latter
-extensions are therefore not independently assessable here and are not
-promoted as results of this release. No universal irrationality
-conclusion is asserted.</p>
+and prime-power thinning instead refer to ordinary proofs that are not
+linked in this public checkout (<em>Strengthened Variable-Exponent
+Cover</em>, <em>First Logarithmic Moment of Positive Covers</em>, and
+the analytic proof supplement). Those latter extensions are therefore
+not independently assessable here and are not promoted as results of
+this release. No universal irrationality conclusion is asserted.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>

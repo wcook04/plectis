@@ -265,7 +265,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "80afb1575a0bed8822d0c91d6ccf590b440c607ee4cf0828ea07c493548e8f35",
+    "source_sha256": "270db315a3db525621e40c82e8cac4c9114a99f80c5239f945f7e6dcccf88af1",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -657,17 +657,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 22,
         "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "76e95daa50248e33dccbcc4b555a152d5722a9832f9db19a63ce58ffea715217",
+        "source_sha256": "69e294f068212a49f1ac06b29936faedfa3d0303fecbcad7f60c18cfd557732f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 901,
+        "mathml_node_count": 915,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "312cab083a3650d3c244187b898cb0f3d00c09808a76fd1e4ff1fef5da3b9e8a",
-        "html_exact_tex_sha256": "a7a19ad324037bd4ee53786101ef497000c6d3fa469b3accff01633441e1274d"
+        "html_mathml_sha256": "b88a8f745542a6c9703ed4e6b7196205fd23113ab56730c1d5967e578be2fda7",
+        "html_exact_tex_sha256": "d66603b84f04656006ab78ec6d70d045a49b224bc9f3fe553d2d14d7b24fab04"
       },
       "sections": [
         {

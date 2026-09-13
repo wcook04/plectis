@@ -591,15 +591,20 @@ $T_p/R_p=C_pH_{2p-1}$ is not an integer and
 a gap to the next integer.
 
 \begin{theorem}[complementary-residue criterion]\label{long68:res:global-residue}
-Suppose that for every $B$ there is a prime $p>B$ with $R_p>1$ and
+Suppose that for every $B$ there is a natural parameter $p\ge3$ with
+$p>B$, $R_p>1$, and
 \begin{equation}\label{long68:eq:global-scale}
  (2p+1)\Lc^{\mathrm{blk}}_p<K_p\rho_p .
 \end{equation}
 Then $\Ser$ is irrational.
 \end{theorem}
 
+\noindent This natural-parameter form is also the
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L156-L168}{checked global complementary criterion}.
+
 \begin{proof}
-Suppose $\Ser=a/q$ with $q\ge1$, and take a block with $p>\max(q,3)$
+Suppose $\Ser=a/q$ with $q\ge1$, and take such a parameter with
+$p>\max(q,3)$
 satisfying the hypotheses.  Then $q\mid F_p$, so
 $U=\Lc^{\mathrm{blk}}_p(\Ser-H_{2p-1})$ is a positive integer, and
 $\Lc^{\mathrm{blk}}_p\Ser=R_p(C_p\Ser)$ is a multiple of $R_p$; hence
@@ -1473,10 +1478,16 @@ criterion specialised to the literal prefixes.
 Beyond the definitions used in the short note, the record keeps the exact
 interfaces of the collision-core reduction.
 
-The collision core has an exact incremental law.  For the positive
-factorial-gap denominators, adjoining $d_a$ to a finite family $S$ gives
+Write $D(S)=\lcm_{i<j,\ i,j\in S}\gcd(d_i,d_j)$, with $D(S)=1$
+for an empty or singleton family. For each prime $r$, its valuation is the
+second-largest valuation among the $d_i$, counting missing values as zero;
+the denominator lcm has the largest valuation. This proves
+$D(S)\lcm_{i\in S}d_i\mid\prod_{i\in S}d_i$ prime by prime.
+
+The collision core has an exact incremental law. For the positive
+factorial-gap denominators, adjoining a new index $a\notin S$ gives
 \[
- C(S\cup\{a\})=\lcm\!\Bigl(C(S),\ \gcd\bigl(d_a,\lcm_{j\in S}d_j\bigr)\Bigr),
+ D(S\cup\{a\})=\lcm\!\Bigl(D(S),\ \gcd\bigl(d_a,\lcm_{j\in S}d_j\bigr)\Bigr),
 \]
 since finite-family gcd and lcm distributivity collapses the lcm of all
 pairwise gcds against $d_a$ to a single gcd.  The same formula holds after
@@ -1493,15 +1504,19 @@ $\widetilde C(S)\le P(S)/L(S)$.  For the factorial block this specialises to
 an exact bridge from lower estimates for the factorial-gap lcm to upper
 estimates for the normalised core.  It does not close the local scale bound.
 
-The base cancellation is exact prime by prime.  With $F_p=(p-1)!$ and $C_p$
-the unnormalised core,
+The base cancellation is exact prime by prime. With $F_p=(p-1)!$,
+$D_p=D(I_p)$ and $C_p=\lcm(F_p,D_p)$, as in the main record,
 \[
- \widetilde C_p=\frac{\lcm(F_p,C_p)}{F_p}=\frac{C_p}{\gcd(F_p,C_p)},\qquad
- v_r(\widetilde C_p)=v_r(C_p)-\min\{v_r(F_p),v_r(C_p)\} .
+ \widetilde C_p=\frac{C_p}{F_p}=\frac{D_p}{\gcd(F_p,D_p)},\qquad
+ v_r(\widetilde C_p)=\max\{0,v_r(D_p)-v_r(F_p)\} .
 \]
-So $r^e\mid\widetilde C_p$ exactly when the pairwise core carries
+For $e>0$, $r^e\mid\widetilde C_p$ exactly when the pairwise core carries
 $r^{e+v_r(F_p)}$, which in the block forces two distinct gaps to be divisible
-by that higher power.  The sharp surviving valuation cap
+by that higher power, by the second-largest-valuation formula. If $i<j$
+are two such hits and $f=v_r(F_p)$, then
+$r^{e+f}\mid j!/i!-1$. Since $r\mid j!-1$ forces $j<r$,
+$0<j!/i!-1<r^{j-i}$, hence $e+f<j-i$.
+The sharp surviving valuation cap
 $v_r(\widetilde C_p)+v_r(F_p)<r$ then gives $p-1<r(r-1)<r^2$ for every
 support prime, and $\widetilde C_p$ is coprime to $k!$ whenever
 $k(k-1)\le p-1$.  This removes every factorial channel below the moving

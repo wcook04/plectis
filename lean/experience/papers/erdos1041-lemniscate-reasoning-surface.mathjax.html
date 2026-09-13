@@ -792,8 +792,8 @@ nonnegative merger jumps contradicts that.</p>
 <section id="certificate." class="level5">
 <h5>Certificate.</h5>
 <p>The threshold is the level at which the forced area passes the cap.
-The companion program
-<code>experiments/erdos1041_low_critical_path_certificate.py</code>
+The companion program <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/scripts/check_erdos1041_angular_budget_closure.py"><code>check_erdos1041_angular_budget_closure.py</code></a>
 evaluates every accepted inequality in exact rational arithmetic, with
 directed rounding on every exponential, logarithm and square root, and
 with the rational brackets for <span class="math inline" data-term-auto="off">\(\pi\)</span>
@@ -850,8 +850,8 @@ The exact rational certificate is a kernel-free replayable computation,
 and no part of this theorem is Lean-checked or independently reviewed.
 Prior art for the assembled statement is unassessed; the hyperbolic
 slice inequality follows from disjointness of the balls and the law of
-cosines and should be assumed known. The public source of record is
-<code>research_corpus/Erdos1041/LowCriticalPathCertificate.md</code>,
+cosines and should be assumed known. The public source of record is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AngularBudgetLowCriticalClosure.md"><code>AngularBudgetLowCriticalClosure.md</code></a>,
 which carries the full analytic chain, the certified dual table and the
 replay route. The exact remaining obligation is that this threshold
 argument does not cover <span
@@ -884,10 +884,10 @@ class="math display" data-term-auto="off">\[\frac{71}{10}\,\rho\]</span></div>
 <p class="display-continue"><em> inside <span
 class="math inline" data-term-auto="off">\(K_{2\mu}\)</span>. If <span
 class="math inline" data-term-auto="off">\(f\)</span> is squarefree, their locations are
-distinct. If every root lies in the open unit disc and <span
-class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>, the construction may be chosen
-inside <span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> with length at
-most <span class="math inline" data-term-auto="off">\(5.7\)</span>.</em></p>
+distinct. If <span class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>, the
+construction may be chosen inside <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> with length at most <span
+class="math inline" data-term-auto="off">\(5.7\)</span>.</em></p>
 </div>
 <p>The constant is the rationally certified specialization of a
 two-parameter bound. If the selected working component contains <span
@@ -947,9 +947,45 @@ argument realising that average, order the lift endpoints cyclically on
 <span class="math inline" data-term-auto="off">\(\partial C_t\)</span>, and use the shortest
 adjacent boundary arc. Averaging the two lifts and the boundary arcs
 over the <span class="math inline" data-term-auto="off">\(k\)</span> adjacent pairs
-gives (CF). The strict unit-sublevel statement chooses the regular level
-below the top of the window when <span
-class="math inline" data-term-auto="off">\(\lambda\mu\le1\)</span>. ◻</p>
+gives (CF). The three contributions are, explicitly,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+\frac2k\sum_i\ell_i^{\rm low}
+&amp;\le\frac{2r\rho}{\sqrt{k}(1-r)^2},\\
+\frac2k\sum_i\ell_i^{\rm high}
+&amp;\le\sqrt{\frac2k}\sqrt{\log(\lambda/r)}\,T^{1/n},\\
+\frac{\mathcal H^1(\partial C_t)}k
+&amp;\le\sqrt{\frac2k}\frac{\pi T^{1/n}}{\sqrt{\log\lambda}}.
+\end{aligned}\]</span></div>
+<p>The low bound holds on every ray, the high bound
+on the ray chosen from its mean, and the boundary bound at the level
+selected before either choice. They therefore hold together. Adding and
+substituting <span
+class="math inline" data-term-auto="off">\(T^{1/n}=\lambda^{1/n}\rho\)</span> recovers (CF).
+For the final assertion, the repeated-zero case is already a constant
+path, and in degree two the root segment has length <span
+class="math inline" data-term-auto="off">\(2\rho=2\sqrt\mu\le\sqrt2\)</span>. For <span
+class="math inline" data-term-auto="off">\(n\ge3\)</span>, take <span
+class="math inline" data-term-auto="off">\(\lambda=2\)</span> and <span
+class="math inline" data-term-auto="off">\(r=3/20\)</span>. Since <span
+class="math inline" data-term-auto="off">\(k\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>, (CF) gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+\operatorname{length}
+&amp;\le \frac{60\sqrt2}{289}\mu^{1/n}
++(2\mu)^{1/n}\left(
+   \sqrt{\log(40/3)}+\frac{\pi}{\sqrt{\log2}}
+\right)\\
+&amp;\le \frac{60\sqrt2}{289}+\sqrt{\log(40/3)}
+      +\frac{\pi}{\sqrt{\log2}}\\
+&amp;=5.676476\ldots&lt;5.7.
+\end{aligned}\]</span></div>
+<p>Here <span
+class="math inline" data-term-auto="off">\(2\mu\le1\)</span>, and the mean-value choice may
+be taken at a regular level strictly below the top of its
+positive-measure window. Thus the entire path lies in <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span>. ◻</p>
 </div>
 <p>The bracket (CF) retains two quantities that the constant <span
 class="math inline" data-term-auto="off">\(71/10\)</span> discards, namely the root count
@@ -1341,20 +1377,20 @@ to one injective root-to-root connector <span
 class="math inline" data-term-auto="off">\(\Gamma\)</span>. Its endpoints are distinct roots,
 <span class="math inline" data-term-auto="off">\(\Gamma\subseteq\{|P|\le1\}\)</span>, and
 </em></p>
-<div class="math-display" id="eq:disk-family-length" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
+<div class="math-display" id="eq:disk-family-length" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation*}
 \label{eq:disk-family-length}
 \operatorname{length}(\Gamma)^2
 \le 2\Bigl(\frac{S}{n-1}\Bigr)^{2/n}
 \log\!\frac{S^2+S+p}{S^2-S+p}.                       \tag{5}
-\end{equation}\]</span></div>
-<p><em> Consequently the connector is shorter than <span
-class="math inline" data-term-auto="off">\(2\)</span> whenever </em></p>
+\end{equation*}\]</span></div>
+<p><em> Consequently the connector is shorter than
+<span class="math inline" data-term-auto="off">\(2\)</span> whenever </em></p>
 <div class="math-display" id="eq:disk-family-coefficient" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+class="math display" data-term-auto="off">\[\begin{equation*}
 \label{eq:disk-family-coefficient}
 \Bigl(\frac{S}{n-1}\Bigr)^{2/n}
 \log\!\frac{S^2+S+p}{S^2-S+p}&lt;2.                    \tag{6}
-\end{equation}\]</span></div>
+\end{equation*}\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Let <span class="math inline" data-term-auto="off">\(Q=D(w_0,S)\)</span>
@@ -2875,10 +2911,10 @@ in <span class="math inline" data-term-auto="off">\(U\)</span> is simple, its cr
 is nonzero, and these critical values have pairwise distinct arguments
 and pairwise distinct moduli. Then:</em></p>
 <ol>
-<li><p><em><span class="math inline" data-term-auto="off">\(-\log|f|:U\setminus
-f^{-1}(0)\to(0,\infty)\)</span> is a proper excellent Morse function,
-with exactly <span class="math inline" data-term-auto="off">\(k-1\)</span> nondegenerate
-saddles;</em></p></li>
+<li><p><em><span
+class="math inline" data-term-auto="off">\(-\log|f|:U\mathbin{\backslash}f^{-1}(0)\to(0,\infty)\)</span>
+is a proper excellent Morse function, with exactly <span
+class="math inline" data-term-auto="off">\(k-1\)</span> nondegenerate saddles;</em></p></li>
 <li><p><em>cutting the value disc along the complete critical rays
 decomposes the preimage into conformal strips;</em></p></li>
 <li><p><em>cutting each ray only from its critical value to the unit
@@ -3100,11 +3136,13 @@ class="math inline" data-term-auto="off">\(\eta&gt;0\)</span>.</em></p>
 class="math inline" data-term-auto="off">\(G\)</span> containing all <span
 class="math inline" data-term-auto="off">\(m\)</span> roots whose length obeys </em></p>
 <div class="math-display" id="eq:metric-fanin1041" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\operatorname{len}(G)
+class="math display" data-term-auto="off">\[\begin{equation*}
+\operatorname{len}(G)
 \le C\int_{2\alpha}^{\infty}P_V(t)\,dt+\eta
-\tag{6.1}\label{eq:metric-fanin1041}\]</span></div>
-<p class="display-continue"><em> for an explicit constant
-<span class="math inline" data-term-auto="off">\(C&gt;1/(2\pi)\)</span> that accounts for
+\tag{6.1}\label{eq:metric-fanin1041}
+\end{equation*}\]</span></div>
+<p class="display-continue"><em> for an explicit constant <span
+class="math inline" data-term-auto="off">\(C&gt;1/(2\pi)\)</span> that accounts for
 attachment cost and for a valid allocation of the strip fluxes <span
 class="math inline" data-term-auto="off">\(\Phi_S\)</span>.</em></p></li>
 <li><p><em>Connect only one pair of distinct roots, rather than spanning
@@ -3222,11 +3260,12 @@ every threshold and every root hypothesis, and pays for that with the
 constant <span class="math inline" data-term-auto="off">\(71/10\)</span> and the weaker
 containment level <span class="math inline" data-term-auto="off">\(\{|f|\le2\mu\}\)</span>;
 the containment <span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> with
-length at most <span class="math inline" data-term-auto="off">\(5.7\)</span> needs roots in
-the open unit disc and <span class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>,
-and both fall short of the target constant <span
-class="math inline" data-term-auto="off">\(2\)</span>. Theorem <a class="math-ref" href="#res:degree-three">13</a> settles degree
-three completely for roots in the open unit disc. Theorem <a class="math-ref" href="#res:critical-value-separation">14</a> holds
+length at most <span class="math inline" data-term-auto="off">\(5.7\)</span> needs only <span
+class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>, and both bounds fall short of
+the target constant <span class="math inline" data-term-auto="off">\(2\)</span>.
+Theorem <a class="math-ref" href="#res:degree-three">13</a>
+settles degree three completely for roots in the open unit disc.
+Theorem <a class="math-ref" href="#res:critical-value-separation">14</a> holds
 in every degree and is conditional on the critical-value separation
 <span class="math inline" data-term-auto="off">\(S\)</span>, with the uniform threshold <span
 class="math inline" data-term-auto="off">\(S=4/3\)</span> reaching every degree <span

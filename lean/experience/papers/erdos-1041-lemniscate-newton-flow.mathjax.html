@@ -252,10 +252,10 @@ class="math display" data-term-auto="off">\[\frac{71}{10}\,\rho\]</span></div>
 <p class="display-continue"><em> inside <span
 class="math inline" data-term-auto="off">\(K_{2\mu}\)</span>. If <span
 class="math inline" data-term-auto="off">\(f\)</span> is squarefree, their locations are
-distinct. If every root lies in the open unit disc and <span
-class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>, the construction may be chosen
-inside <span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> with length at
-most <span class="math inline" data-term-auto="off">\(5.7\)</span>.</em></p>
+distinct. If <span class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>, the
+construction may be chosen inside <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> with length at most <span
+class="math inline" data-term-auto="off">\(5.7\)</span>.</em></p>
 </div>
 <p>The constant is the rationally certified specialization of a
 two-parameter bound. If the selected working component contains <span
@@ -336,10 +336,46 @@ argument. Choose one argument realising that average, order the lift
 endpoints cyclically on <span class="math inline" data-term-auto="off">\(\partial
 C_t\)</span>, and hop along the shortest adjacent boundary arc.
 Averaging the two lifts and the <span class="math inline" data-term-auto="off">\(k\)</span>
-arcs over adjacent pairs gives (CF). When <span
-class="math inline" data-term-auto="off">\(\lambda\mu\le1\)</span> the same mean-value choice
-may be taken strictly below the top of the window, so the path lies in
-<span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span>. ◻</p>
+arcs over adjacent pairs gives (CF). Explicitly, the three contributions
+to that pair average satisfy</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+\frac2k\sum_i\ell_i^{\rm low}
+&amp;\le\frac{2r\rho}{\sqrt{k}(1-r)^2},\\
+\frac2k\sum_i\ell_i^{\rm high}
+&amp;\le\sqrt{\frac2k}\sqrt{\log(\lambda/r)}\,T^{1/n},\\
+\frac{\mathcal H^1(\partial C_t)}k
+&amp;\le\sqrt{\frac2k}\frac{\pi T^{1/n}}{\sqrt{\log\lambda}}.
+\end{aligned}\]</span></div>
+<p>The low estimate is pointwise in the ray; the
+high estimate holds for the single ray chosen from its mean. The
+boundary estimate uses the level already selected. Thus these estimates
+apply together, and <span
+class="math inline" data-term-auto="off">\(T^{1/n}=\lambda^{1/n}\rho\)</span> gives the three
+terms in (CF). For the final assertion, the repeated-zero case is
+already a constant path, and in degree two the root segment has length
+<span class="math inline" data-term-auto="off">\(2\rho=2\sqrt\mu\le\sqrt2\)</span>. For <span
+class="math inline" data-term-auto="off">\(n\ge3\)</span>, take <span
+class="math inline" data-term-auto="off">\(\lambda=2\)</span> and <span
+class="math inline" data-term-auto="off">\(r=3/20\)</span>. Since <span
+class="math inline" data-term-auto="off">\(k\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>, (CF) gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+\operatorname{length}
+&amp;\le \frac{60\sqrt2}{289}\mu^{1/n}
++(2\mu)^{1/n}\left(
+   \sqrt{\log(40/3)}+\frac{\pi}{\sqrt{\log2}}
+\right)\\
+&amp;\le \frac{60\sqrt2}{289}+\sqrt{\log(40/3)}
+      +\frac{\pi}{\sqrt{\log2}}\\
+&amp;=5.676476\ldots&lt;5.7.
+\end{aligned}\]</span></div>
+<p>Here <span
+class="math inline" data-term-auto="off">\(2\mu\le1\)</span>, and the mean-value choice may
+be taken at a regular level strictly below the top of its
+positive-measure window. Thus the entire path lies in <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span>. ◻</p>
 </div>
 <p>The component-arity, capacity and two-root persistence-window
 refinements are retained with their complete hypotheses in <a

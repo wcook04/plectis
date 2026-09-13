@@ -92,7 +92,7 @@
       "id": "claim:all_base_totient_kernel_conditional_rank",
       "kind": "public_claim",
       "label": "Conditional exact rank of the all-base totient kernel",
-      "statement": "For integers k and e with 2 ≤ k and 1 ≤ e, if the explicit canonical all-base family is linearly independent over ℚ, then the span of the actual all-base totient kernel through level e has dimension k^e + 1. The linear-independence hypothesis is an external affine-ordering boundary; this coefficient-space result does not prove irrationality of the binary totient series.",
+      "statement": "For integers k and e with 2 ≤ k and 1 ≤ e, if the explicit canonical all-base family is linearly independent over ℚ, then the span of the actual all-base totient kernel through level e has dimension k^e + 1. This reusable interface retains the independence input; AllBaseTotientKernel.lean separately discharges it at public checkpoint 25ef6245d15a. As before, this coefficient-space result does not prove irrationality of the binary totient series.",
       "status": "conditional reduction",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
@@ -14007,7 +14007,7 @@
       "kind": "comparator_review_family",
       "label": "For every base k at least 2, Lean checks the arithmetic reduction, exact nonmultiple-residue coordinates, unconditional canonical spanning, and exact rank k^e+1 conditional on canonical-family linear independence.",
       "disposition": "targeted",
-      "boundary": "Lean does not prove all-base affine-section independence or formalise Martin's theorem. The unconditional basis and rank conclusions in the paper use that external input.",
+      "boundary": "This Comparator target reviews the reusable conditional interface. AllBaseTotientKernel.lean separately proves canonical all-base independence and exact rank unconditionally at 25ef6245d15a; it does not formalise Martin's broader theorem or solve #249.",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {

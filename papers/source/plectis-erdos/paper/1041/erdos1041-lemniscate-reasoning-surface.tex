@@ -81,8 +81,8 @@ zeros lie; that proof is ordinary analysis closed by an exact rational
 certificate with certified quantity $X=635762889599/1000000000000$ and closing
 inequality $(13/25)e^{X}<1$.  With the threshold removed, two zero occurrences
 of any monic $f$ are joined inside $\{|f|\le2\mu\}$ by a path of length at most
-$(71/10)\rho$, and inside $\{|f|<1\}$ with length at most $5.7$ once the zeros
-lie in the open unit disc and $\mu\le1/2$.  The same construction settles the
+$(71/10)\rho$, and when $\mu\le1/2$ they are joined inside $\{|f|<1\}$ with
+length at most $5.7$.  The same construction settles the
 problem outright for $\mu\le1/2$ whenever the first-merge component carries at
 least $17$ zeros, and whenever its capacity defect satisfies
 $\operatorname{cap}(\overline C)\le(2\mu)^{1/n}/3$.
@@ -576,7 +576,7 @@ with the nonnegative merger jumps contradicts that.
 \paragraph{Certificate.}
 The threshold is the level at which the forced area passes the cap.  The
 companion program
-\texttt{experiments/erdos1041\_low\_critical\_path\_certificate.py} evaluates
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/scripts/check_erdos1041_angular_budget_closure.py}{\texttt{check\_erdos1041\_angular\_budget\_closure.py}} evaluates
 every accepted inequality in exact rational arithmetic, with directed rounding
 on every exponential, logarithm and square root, and with the rational
 brackets for $\pi$ and $\log2$ checked from Machin's identity.  The full
@@ -617,7 +617,7 @@ Lean-checked or independently reviewed.  Prior art for the assembled statement
 is unassessed; the hyperbolic slice inequality follows from disjointness of
 the balls and the law of cosines and should be assumed known.  The public
 source of record is
-\texttt{research\_corpus/Erdos1041/LowCriticalPathCertificate.md}, which
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AngularBudgetLowCriticalClosure.md}{\texttt{AngularBudgetLowCriticalClosure.md}}, which
 carries the full analytic chain, the certified dual table and the replay
 route.  The exact remaining obligation is that this threshold argument does
 not cover $13/25<\mu<1$; other results in this note intersect that range, so
@@ -645,8 +645,8 @@ joined by a possibly degenerate path of length at most
  \frac{71}{10}\,\rho
 \]
 inside $K_{2\mu}$.  If $f$ is squarefree, their locations are distinct.
-If every root lies in the open unit disc and $\mu\le1/2$, the construction
-may be chosen inside $\{|f|<1\}$ with length at most $5.7$.
+If $\mu\le1/2$, the construction may be chosen inside $\{|f|<1\}$ with
+length at most $5.7$.
 \end{theorem}
 
 The constant is the rationally certified specialization of a two-parameter
@@ -695,8 +695,40 @@ control the high pieces on average over the argument.  Choose one argument
 realising that average, order the lift endpoints cyclically on
 $\partial C_t$, and use the shortest adjacent boundary arc.  Averaging the
 two lifts and the boundary arcs over the $k$ adjacent pairs gives~(CF).
-The strict unit-sublevel statement chooses the regular level below the top of
-the window when $\lambda\mu\le1$.
+The three contributions are, explicitly,
+\[
+\begin{aligned}
+ \frac2k\sum_i\ell_i^{\rm low}
+ &\le\frac{2r\rho}{\sqrt{k}(1-r)^2},\\
+ \frac2k\sum_i\ell_i^{\rm high}
+ &\le\sqrt{\frac2k}\sqrt{\log(\lambda/r)}\,T^{1/n},\\
+ \frac{\mathcal H^1(\partial C_t)}k
+ &\le\sqrt{\frac2k}\frac{\pi T^{1/n}}{\sqrt{\log\lambda}}.
+\end{aligned}
+\]
+The low bound holds on every ray, the high bound on the ray chosen from
+its mean, and the boundary bound at the level selected before either choice.
+They therefore hold together. Adding and substituting
+$T^{1/n}=\lambda^{1/n}\rho$ recovers~(CF).
+For the final assertion, the repeated-zero case is already a constant path,
+and in degree two the root segment has length
+$2\rho=2\sqrt\mu\le\sqrt2$.  For $n\ge3$, take $\lambda=2$ and $r=3/20$.
+Since $k\ge2$ and $\mu\le1/2$, (CF) gives
+\[
+ \begin{aligned}
+ \operatorname{length}
+ &\le \frac{60\sqrt2}{289}\mu^{1/n}
+ +(2\mu)^{1/n}\left(
+   \sqrt{\log(40/3)}+\frac{\pi}{\sqrt{\log2}}
+ \right)\\
+ &\le \frac{60\sqrt2}{289}+\sqrt{\log(40/3)}
+      +\frac{\pi}{\sqrt{\log2}}\\
+ &=5.676476\ldots<5.7.
+ \end{aligned}
+\]
+Here $2\mu\le1$, and the mean-value choice may be taken at a regular level
+strictly below the top of its positive-measure window.  Thus the entire path
+lies in $\{|f|<1\}$.
 \end{proof}
 
 The bracket~(CF) retains two quantities that the constant $71/10$ discards,
@@ -963,16 +995,16 @@ Put $p=w_0(1-w_0)$.  The two local solutions of
 $P(Z(\xi))=1-\xi^2$, $Z(0)=0$, continue along the real segment to one
 injective root-to-root connector $\Gamma$.  Its endpoints are distinct roots,
 $\Gamma\subseteq\{|P|\le1\}$, and
-\begin{equation}\label{eq:disk-family-length}
+\begin{equation*}\label{eq:disk-family-length}
  \operatorname{length}(\Gamma)^2
  \le 2\Bigl(\frac{S}{n-1}\Bigr)^{2/n}
  \log\!\frac{S^2+S+p}{S^2-S+p}.                       \tag{5}
-\end{equation}
+\end{equation*}
 Consequently the connector is shorter than $2$ whenever
-\begin{equation}\label{eq:disk-family-coefficient}
+\begin{equation*}\label{eq:disk-family-coefficient}
  \Bigl(\frac{S}{n-1}\Bigr)^{2/n}
  \log\!\frac{S^2+S+p}{S^2-S+p}<2.                    \tag{6}
-\end{equation}
+\end{equation*}
 \end{theorem}
 
 \begin{proof}
@@ -2223,7 +2255,7 @@ multiplicity.  Suppose every critical point of $f$ in $U$ is simple, its
 critical value is nonzero, and these critical values have pairwise distinct
 arguments and pairwise distinct moduli.  Then:
 \begin{enumerate}
-\item $-\log|f|:U\setminus f^{-1}(0)\to(0,\infty)$ is a proper excellent
+\item $-\log|f|:U\mathbin{\backslash}f^{-1}(0)\to(0,\infty)$ is a proper excellent
 Morse function, with exactly $k-1$ nondegenerate saddles;
 \item cutting the value disc along the complete critical rays decomposes the
 preimage into conformal strips;
@@ -2407,11 +2439,11 @@ Assuming Problem~\ref{prob:reeb1041}, do one of the following, for every
 $\eta>0$.
 \begin{enumerate}
 \item Produce an embedded tree $G$ containing all $m$ roots whose length obeys
-\[
+  \begin{equation*}
  \operatorname{len}(G)
  \le C\int_{2\alpha}^{\infty}P_V(t)\,dt+\eta
 \tag{6.1}\label{eq:metric-fanin1041}
-\]
+ \end{equation*}
 for an explicit constant $C>1/(2\pi)$ that accounts for attachment cost and for
 a valid allocation of the strip fluxes $\Phi_S$.
 \item Connect only one pair of distinct roots, rather than spanning every root.
@@ -2509,8 +2541,8 @@ connector inside $\{|f|<1\}$ of length below $2$; the regime
 $13/25<\mu<1$ is untouched.  Theorem~\ref{res:constant-factor-path} drops
 every threshold and every root hypothesis, and pays for that with the
 constant $71/10$ and the weaker containment level $\{|f|\le2\mu\}$; the
-containment $\{|f|<1\}$ with length at most $5.7$ needs roots in the open
-unit disc and $\mu\le1/2$, and both fall short of the target constant $2$.
+containment $\{|f|<1\}$ with length at most $5.7$ needs only $\mu\le1/2$,
+and both bounds fall short of the target constant $2$.
 Theorem~\ref{res:degree-three} settles degree three completely for roots in
 the open unit disc.  Theorem~\ref{res:critical-value-separation} holds in
 every degree and is conditional on the critical-value separation $S$, with the

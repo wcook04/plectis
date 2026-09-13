@@ -732,8 +732,9 @@ class="math inline" data-term-auto="off">\(T_p/R_p=C_pH_{2p-1}\)</span> is not a
 <div class="theorem" id="long68:res:global-residue">
 <p><strong>Theorem 12</strong> (complementary-residue criterion). <em>
 Suppose that for every <span class="math inline" data-term-auto="off">\(B\)</span> there is a
-prime <span class="math inline" data-term-auto="off">\(p&gt;B\)</span> with <span
-class="math inline" data-term-auto="off">\(R_p&gt;1\)</span> and </em></p>
+natural parameter <span class="math inline" data-term-auto="off">\(p\ge3\)</span> with <span
+class="math inline" data-term-auto="off">\(p&gt;B\)</span>, <span
+class="math inline" data-term-auto="off">\(R_p&gt;1\)</span>, and </em></p>
 <div class="math-display" id="long68:eq:global-scale" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:global-scale}
@@ -742,13 +743,17 @@ class="math display" data-term-auto="off">\[\begin{equation}
 <p><em> Then <span class="math inline" data-term-auto="off">\(S\)</span> is
 irrational.</em></p>
 </div>
+<p>This natural-parameter form is also the <a
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L156-L168">checked
+global complementary criterion</a>.</p>
 <div class="proof">
 <p><em>Proof.</em> Suppose <span class="math inline" data-term-auto="off">\(S=a/q\)</span>
-with <span class="math inline" data-term-auto="off">\(q\ge1\)</span>, and take a block with
-<span class="math inline" data-term-auto="off">\(p&gt;\max(q,3)\)</span> satisfying the
-hypotheses. Then <span class="math inline" data-term-auto="off">\(q\mid F_p\)</span>, so
-<span class="math inline" data-term-auto="off">\(U=L^{\mathrm{blk}}_p(S-H_{2p-1})\)</span> is
-a positive integer, and <span
+with <span class="math inline" data-term-auto="off">\(q\ge1\)</span>, and take such a
+parameter with <span class="math inline" data-term-auto="off">\(p&gt;\max(q,3)\)</span>
+satisfying the hypotheses. Then <span class="math inline" data-term-auto="off">\(q\mid
+F_p\)</span>, so <span
+class="math inline" data-term-auto="off">\(U=L^{\mathrm{blk}}_p(S-H_{2p-1})\)</span> is a
+positive integer, and <span
 class="math inline" data-term-auto="off">\(L^{\mathrm{blk}}_pS=R_p(C_pS)\)</span> is a
 multiple of <span class="math inline" data-term-auto="off">\(R_p\)</span>; hence <span
 class="math inline" data-term-auto="off">\(U\equiv-T_p\pmod{R_p}\)</span> and <span
@@ -2044,12 +2049,20 @@ to the literal prefixes.</p>
 <h3>The collision-core interfaces</h3>
 <p>Beyond the definitions used in the short note, the record keeps the
 exact interfaces of the collision-core reduction.</p>
+<p>Write <span class="math inline" data-term-auto="off">\(D(S)=\lcm_{i&lt;j,\ i,j\in
+S}\gcd(d_i,d_j)\)</span>, with <span
+class="math inline" data-term-auto="off">\(D(S)=1\)</span> for an empty or singleton family.
+For each prime <span class="math inline" data-term-auto="off">\(r\)</span>, its valuation is
+the second-largest valuation among the <span
+class="math inline" data-term-auto="off">\(d_i\)</span>, counting missing values as zero; the
+denominator lcm has the largest valuation. This proves <span
+class="math inline" data-term-auto="off">\(D(S)\lcm_{i\in S}d_i\mid\prod_{i\in S}d_i\)</span>
+prime by prime.</p>
 <p>The collision core has an exact incremental law. For the positive
-factorial-gap denominators, adjoining <span
-class="math inline" data-term-auto="off">\(d_a\)</span> to a finite family <span
-class="math inline" data-term-auto="off">\(S\)</span> gives</p>
+factorial-gap denominators, adjoining a new index <span
+class="math inline" data-term-auto="off">\(a\notin S\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[C(S\cup\{a\})=\lcm\!\Bigl(C(S),\
+class="math display" data-term-auto="off">\[D(S\cup\{a\})=\lcm\!\Bigl(D(S),\
 \gcd\bigl(d_a,\lcm_{j\in S}d_j\bigr)\Bigr),\]</span></div>
 <p class="display-continue">since finite-family
 gcd and lcm distributivity collapses the lcm of all pairwise gcds
@@ -2072,18 +2085,27 @@ I_p}(n!-1)}{\lcm_{n\in I_p}(n!-1)},\]</span></div>
 estimates for the factorial-gap lcm to upper estimates for the
 normalised core. It does not close the local scale bound.</p>
 <p>The base cancellation is exact prime by prime. With <span
-class="math inline" data-term-auto="off">\(F_p=(p-1)!\)</span> and <span
-class="math inline" data-term-auto="off">\(C_p\)</span> the unnormalised core,</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\widetilde
-C_p=\frac{\lcm(F_p,C_p)}{F_p}=\frac{C_p}{\gcd(F_p,C_p)},\qquad
-v_r(\widetilde C_p)=v_r(C_p)-\min\{v_r(F_p),v_r(C_p)\} .\]</span></div>
-<p>So
-<span class="math inline" data-term-auto="off">\(r^e\mid\widetilde C_p\)</span> exactly when
-the pairwise core carries <span
+class="math inline" data-term-auto="off">\(F_p=(p-1)!\)</span>, <span
+class="math inline" data-term-auto="off">\(D_p=D(I_p)\)</span> and <span
+class="math inline" data-term-auto="off">\(C_p=\lcm(F_p,D_p)\)</span>, as in the main record,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\widetilde
+C_p=\frac{C_p}{F_p}=\frac{D_p}{\gcd(F_p,D_p)},\qquad
+v_r(\widetilde C_p)=\max\{0,v_r(D_p)-v_r(F_p)\} .\]</span></div>
+<p>For <span
+class="math inline" data-term-auto="off">\(e&gt;0\)</span>, <span
+class="math inline" data-term-auto="off">\(r^e\mid\widetilde C_p\)</span> exactly when the
+pairwise core carries <span
 class="math inline" data-term-auto="off">\(r^{e+v_r(F_p)}\)</span>, which in the block forces
-two distinct gaps to be divisible by that higher power. The sharp
-surviving valuation cap <span class="math inline" data-term-auto="off">\(v_r(\widetilde
+two distinct gaps to be divisible by that higher power, by the
+second-largest-valuation formula. If <span
+class="math inline" data-term-auto="off">\(i&lt;j\)</span> are two such hits and <span
+class="math inline" data-term-auto="off">\(f=v_r(F_p)\)</span>, then <span
+class="math inline" data-term-auto="off">\(r^{e+f}\mid j!/i!-1\)</span>. Since <span
+class="math inline" data-term-auto="off">\(r\mid j!-1\)</span> forces <span
+class="math inline" data-term-auto="off">\(j&lt;r\)</span>, <span
+class="math inline" data-term-auto="off">\(0&lt;j!/i!-1&lt;r^{j-i}\)</span>, hence <span
+class="math inline" data-term-auto="off">\(e+f&lt;j-i\)</span>. The sharp surviving valuation
+cap <span class="math inline" data-term-auto="off">\(v_r(\widetilde
 C_p)+v_r(F_p)&lt;r\)</span> then gives <span
 class="math inline" data-term-auto="off">\(p-1&lt;r(r-1)&lt;r^2\)</span> for every support
 prime, and <span class="math inline" data-term-auto="off">\(\widetilde C_p\)</span> is

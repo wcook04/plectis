@@ -1170,14 +1170,15 @@ may be logarithmically discounted.
 
 \paragraph{Evidence.}
 The result in this section is an ordinary mathematical proof.  Its finite
-arithmetic and charging step are kernel-checked at the pinned revision: the
-\lword{Erdos243/LcmRecordExcess.lean}{14}{rise_is_fresh}{freshness of a rise},
+arithmetic and charging steps are kernel-checked at an immutable source
+revision: the
+\href{https://github.com/wcook04/plectis-lean-erdos249-257/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L14-L27}{freshness of a rise},
 the
-\lword{Erdos243/LcmRecordExcess.lean}{31}{covered_wall_forces_excess}{covered-wall
+\href{https://github.com/wcook04/plectis-lean-erdos249-257/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L31-L43}{covered-wall
 excess bound}, the
-\lword{Erdos243/LcmRecordExcess.lean}{47}{wall_count_le_excess}{wall count}, and
+\href{https://github.com/wcook04/plectis-lean-erdos249-257/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L47-L60}{wall count}, and
 the
-\lword{Erdos243/LcmRecordExcess.lean}{64}{weighted_wall_charge}{weighted wall
+\href{https://github.com/wcook04/plectis-lean-erdos249-257/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L64-L72}{weighted wall
 charge}.  The global analytic argument, which is the passage from the per-step
 charge to divergence of the whole sum, is not formalised.  An exact finite
 replay covers $6{,}008$ seed-modulus cases over $6{,}000$ distinct rational
@@ -1225,8 +1226,11 @@ integers. With $\rho_n=\gcd(L_n,a_n)$, the exact updates are
  \rho_nU_{n+1}=U_n-V_n,\qquad V_n=L_n-(a_n-1)U_n.
 \]
 Write $R_n=\max_{j\le n}U_j$ and
-$\mathcal R=\{n:U_{n+1}>R_n\}$. Centring implies that every sufficiently
-late strict rise has $\rho_n=1$: otherwise $U_{n+1}\le3U_n/4$.
+$\mathcal R=\{n:U_{n+1}>R_n\}$.  Strict centring already gives
+$U_{n+1}<U_n$ when $\rho_n\ge2$, so every sufficiently late strict rise has
+$\rho_n=1$.  The stronger eventual bound $-U_n\le2V_n$, supplied by
+$V_n/U_n=E_n/C_n\to0$, gives the quantitative estimate
+$U_{n+1}\le3U_n/4$ when $\rho_n\ge2$.
 Its actual jump is therefore $d_n=U_{n+1}-U_n=-V_n$.
 
 \begin{theorem}[arithmetic weighted-record dichotomy]\label{long243:res:arithmeticrecord}
@@ -1596,6 +1600,29 @@ some $\delta>0$ and all large $n$ one has
 $Q_n\le(1-\delta)\lambda\,\ell(a_1\cdots a_{n-1}/a_n)$, where $\lambda>0$
 depends only on the sequence, the same conclusion holds.
 \end{theorem}
+
+For the bounded clause, choose $q>0$ clearing the reciprocal sum, put
+$P_n=\prod_{j<n}a_j$, $x_n=\sum_{k\ge n}1/a_k$, and use the canonical state
+$D_n=qP_n$, $C_n=D_nx_n$, $E_n=D_n-(a_n-1)C_n$.  With
+$\gamma_n=a_n^2/a_{n+1}-1$, the two-term tail estimate gives
+\[
+ \begin{aligned}
+ E_n&=\frac{qP_n}{a_n}-\frac{qP_n(a_n-1)}{a_{n+1}}
+ +O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right),\\
+ q\frac{P_n}{a_n}\gamma_n
+ &=\frac{qP_na_n}{a_{n+1}}-\frac{qP_n}{a_n}.
+ \end{aligned}
+\]
+The leading terms cancel when these identities are added.  Since
+$P_n/a_n=\exp(o(n))$ and quadratic growth makes $a_n$ doubly exponential,
+\[
+ E_n+qQ_n=\frac{qP_n}{a_{n+1}}
+ +O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right)=o(1).
+\]
+Thus the extra assumption $\limsup Q_n<\infty$ supplies the eventual lower
+bound on $E_n$ required by Theorem~\ref{long243:res:bounded}.  This canonical-tail
+transfer is ordinary analysis; the linked Lean theorem begins after its state
+hypotheses have been supplied.
 
 \paragraph{Attribution.}
 Erd\H{o}s and Straus require $\limsup_nQ_n\le0$ in the corresponding criterion,

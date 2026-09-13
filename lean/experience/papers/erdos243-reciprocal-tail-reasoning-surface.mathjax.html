@@ -1562,15 +1562,15 @@ logarithmically discounted.</p>
 <section id="evidence.-1" class="level5">
 <h5>Evidence.</h5>
 <p>The result in this section is an ordinary mathematical proof. Its
-finite arithmetic and charging step are kernel-checked at the pinned
-revision: the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L14">freshness
+finite arithmetic and charging steps are kernel-checked at an immutable
+source revision: the <a
+href="https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean#L14-L27">freshness
 of a rise</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L31">covered-wall
+href="https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean#L31-L43">covered-wall
 excess bound</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L47">wall
+href="https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean#L47-L60">wall
 count</a>, and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/LcmRecordExcess.lean#L64">weighted
+href="https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean#L64-L72">weighted
 wall charge</a>. The global analytic argument, which is the passage from
 the per-step charge to divergence of the whole sum, is not formalised.
 An exact finite replay covers <span
@@ -1629,11 +1629,18 @@ are</p>
 \rho_nU_{n+1}=U_n-V_n,\qquad V_n=L_n-(a_n-1)U_n.\]</span></div>
 <p>Write <span
 class="math inline" data-term-auto="off">\(R_n=\max_{j\le n}U_j\)</span> and <span
-class="math inline" data-term-auto="off">\(\mathcal R=\{n:U_{n+1}&gt;R_n\}\)</span>. Centring
-implies that every sufficiently late strict rise has <span
-class="math inline" data-term-auto="off">\(\rho_n=1\)</span>: otherwise <span
-class="math inline" data-term-auto="off">\(U_{n+1}\le3U_n/4\)</span>. Its actual jump is
-therefore <span class="math inline" data-term-auto="off">\(d_n=U_{n+1}-U_n=-V_n\)</span>.</p>
+class="math inline" data-term-auto="off">\(\mathcal R=\{n:U_{n+1}&gt;R_n\}\)</span>. Strict
+centring already gives <span
+class="math inline" data-term-auto="off">\(U_{n+1}&lt;U_n\)</span> when <span
+class="math inline" data-term-auto="off">\(\rho_n\ge2\)</span>, so every sufficiently late
+strict rise has <span class="math inline" data-term-auto="off">\(\rho_n=1\)</span>. The
+stronger eventual bound <span
+class="math inline" data-term-auto="off">\(-U_n\le2V_n\)</span>, supplied by <span
+class="math inline" data-term-auto="off">\(V_n/U_n=E_n/C_n\to0\)</span>, gives the
+quantitative estimate <span
+class="math inline" data-term-auto="off">\(U_{n+1}\le3U_n/4\)</span> when <span
+class="math inline" data-term-auto="off">\(\rho_n\ge2\)</span>. Its actual jump is therefore
+<span class="math inline" data-term-auto="off">\(d_n=U_{n+1}-U_n=-V_n\)</span>.</p>
 <div class="theorem" id="long243:res:arithmeticrecord">
 <p><strong>Theorem 23</strong> (arithmetic weighted-record dichotomy).
 <em> Let <span class="math inline" data-term-auto="off">\(a_n,L_n,U_n\)</span> be positive
@@ -2200,6 +2207,34 @@ a_{n-1}/a_n)\)</span>, where <span
 class="math inline" data-term-auto="off">\(\lambda&gt;0\)</span> depends only on the
 sequence, the same conclusion holds.</em></p>
 </div>
+<p>For the bounded clause, choose <span
+class="math inline" data-term-auto="off">\(q&gt;0\)</span> clearing the reciprocal sum, put
+<span class="math inline" data-term-auto="off">\(P_n=\prod_{j&lt;n}a_j\)</span>, <span
+class="math inline" data-term-auto="off">\(x_n=\sum_{k\ge n}1/a_k\)</span>, and use the
+canonical state <span class="math inline" data-term-auto="off">\(D_n=qP_n\)</span>, <span
+class="math inline" data-term-auto="off">\(C_n=D_nx_n\)</span>, <span
+class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span>. With <span
+class="math inline" data-term-auto="off">\(\gamma_n=a_n^2/a_{n+1}-1\)</span>, the two-term
+tail estimate gives</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{aligned}
+E_n&amp;=\frac{qP_n}{a_n}-\frac{qP_n(a_n-1)}{a_{n+1}}
++O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right),\\
+q\frac{P_n}{a_n}\gamma_n
+&amp;=\frac{qP_na_n}{a_{n+1}}-\frac{qP_n}{a_n}.
+\end{aligned}\]</span></div>
+<p>The leading terms cancel when these identities
+are added. Since <span class="math inline" data-term-auto="off">\(P_n/a_n=\exp(o(n))\)</span>
+and quadratic growth makes <span class="math inline" data-term-auto="off">\(a_n\)</span>
+doubly exponential,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[E_n+qQ_n=\frac{qP_n}{a_{n+1}}
++O\!\left(\frac{qP_na_n}{a_{n+1}^2}\right)=o(1).\]</span></div>
+<p>Thus the extra
+assumption <span class="math inline" data-term-auto="off">\(\limsup Q_n&lt;\infty\)</span>
+supplies the eventual lower bound on <span
+class="math inline" data-term-auto="off">\(E_n\)</span> required by Theorem <a class="math-ref" href="#long243:res:bounded">48</a>. This
+canonical-tail transfer is ordinary analysis; the linked Lean theorem
+begins after its state hypotheses have been supplied.</p>
 </section>
 <section id="attribution." class="level5">
 <h5>Attribution.</h5>
