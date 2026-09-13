@@ -6,8 +6,8 @@
 % This flat manuscript is generated from reviewable parts below.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-\renewcommand{\commit}{1da2a504f8d8aa3cdc2cf686ec48bc8a67457984}
-\renewcommand{\commitshort}{1da2a504f8d8}
+\renewcommand{\commit}{92b88dc1bbe099aa73bcc900c3c405e9ba5c2334}
+\renewcommand{\commitshort}{92b88dc1bbe0}
 \usepackage{longtable}
 \hypersetup{
   pdftitle={The Factorial-Denominator Series: complete reasoning record for Erdős Problem 68},
@@ -29,8 +29,9 @@
 \author{Will Cook}
 \date{1 September 2026}
 
-\setlength{\emergencystretch}{2em}
-\def\UrlBreaks{\do\.\do\_\do\/}
+\setlength{\emergencystretch}{3em}
+% Permit breaks inside long declaration names in the generated catalogue.
+\usepackage{xurl}
 \begin{document}
 % ---- part core ----
 \maketitle
@@ -47,14 +48,13 @@ $J=\{n:2\le n\le M,\ v_p(d_n)=e\}$ and write $d_n=p^eu_n$ on $J$.  Then
  \sum_{n\in J}u_n^{-1}\ne0\ \hbox{ in }\mathbb F_p,
 \]
 the inverses being taken modulo $p$.  The prefixes through $138$ and $2592$
-cancel the primes $139$ and $2593$ completely.  Second, the common
-denominator itself grows fast:
+cancel the primes $139$ and $2593$ completely.  The common denominator before reduction satisfies the quantitative bound
 \[
  \liminf_{N\to\infty}\frac{\log \Lc_N}{N^{3/2}\log N}\ \ge\ \frac{2\sqrt2}{3},
 \]
 by an elementary segment argument that uses
 $\gcd(i!-1,j!-1)\mid j!/i!-1$ and no external multiplicity theorem.  The two
-statements sit either side of reduction, and the cancellations at $139$ and
+statements concern opposite sides of reduction, and the cancellations at $139$ and
 $2593$ are why the second cannot be substituted for the first.
 
 Wilson's theorem gives arbitrarily late first occurrences of primes among the
@@ -69,8 +69,8 @@ bound gives $3t^3<2(R+1)$ under the exact cancellation and factorial-size
 hypotheses, and the growth statement above raises the asymptotic constant in
 that estimate from $3/2$ to $16/9$.  Two finite computations exclude
 denominators: $q\nmid299999!$ from an exact interval carry census through
-$300000$, and the kernel-checked bounds $q\ge2^{39990}$ and
-$q>10^{12040}$ from a certified continued-fraction enclosure. The
+$300000$, and $q\ge2^{39990}>10^{12038}$ from an exact continued-fraction
+enclosure computed outside Lean. The
 factorial-grid exclusion uses the external GMP computation and remains a
 separate outstanding Lean obligation.  The irrationality of $\Ser$ is open, and the remaining
 arithmetic inputs are stated in the last section.
@@ -248,11 +248,14 @@ Taking logarithms of the resulting divisibility gives \eqref{long68:eq:segment}.
  \liminf_{N\to\infty}\frac{\log \Lc_N}{N^{3/2}\log N}
  \ \ge\ \frac{2\sqrt2}{3}.
 \]
-  The historical manuscript cites \path{Erdos68/PaperCompleteLiminf.lean}, line 42. This module is absent from the retained source pin; this citation does not establish kernel verification at that pin.
 \end{theorem}
 
 \begin{proof}
-Fix $\alpha>0$ and take $k=\lfloor\alpha\sqrt N\rfloor$, which satisfies
+A terminal block keeps every factorial near $N!$, but increasing its
+length also increases the total pairwise-gcd loss.  The gain is of order
+$kN\log N$ and the loss of order $k^3\log N$, so the useful balance is
+$k$ of order $\sqrt N$.  Fix $\alpha>0$ and take
+$k=\lfloor\alpha\sqrt N\rfloor$, which satisfies
 $2\le k\le N-1$ for all large $N$.  Put $u=N-k+1$.
 
 For the left-hand side of \eqref{long68:eq:segment}, use $n!-1\ge n!/2$ and
@@ -276,8 +279,12 @@ The right-hand side is maximised at $\alpha=\sqrt2$, with value
 $\sqrt2-\tfrac{2\sqrt2}{6}=\tfrac{2\sqrt2}{3}$.
 \end{proof}
 
-The proof is an ordinary proof and is not kernel-checked.  Its two
-ingredients are Lemmas~\ref{long68:res:product-lcm} and~\ref{long68:res:gap-gcd}, and it
+The LCM asymptotic is proved here by an ordinary mathematical argument and
+is not kernel-checked.  The associated asymptotic Lean files are proof
+candidates and are not being cited as kernel verification.  The finite-block
+inequality has a separate Lean source,
+\href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{finite terminal-block inequality}.
+Its two ingredients are Lemmas~\ref{long68:res:product-lcm} and~\ref{long68:res:gap-gcd}, and it
 needs no factorial-congruence multiplicity theorem.  A weaker exponent
 $4/3$ follows instead from Theorem~12 of Garaev, Luca and Shparlinski
 \cite[arXiv v1, Thm.~12, p.~16]{garaev-luca-shparlinski}, which bounds by
@@ -299,11 +306,29 @@ $N^{3/2}$, so the finite ratio falls short of the limit by about
 $\sqrt2/\log N$.
 
 Theorem~\ref{long68:res:lcm-growth} is a statement about $\Lc_N$ and not about
-$\den(H_N)$.  Theorem~\ref{long68:res:prime-pole} and the cancellations at $139$ and
+$\den(H_N)$.  Consecutive denominators $(N-1)!-1$ and $N!-1$ are already
+coprime for $N\ge3$, so the qualitative failure of common-denominator
+clearing follows from two terms; the estimate is the quantitative growth
+statement.  Theorem~\ref{long68:res:prime-pole} and the cancellations at $139$ and
 $2593$ show why the substitution fails: a prime may occupy the common
-denominator and be absent from the reduced one.  Bounding the reduced
-denominator from below at every index is a stronger assertion, and it is
-exactly what an irrationality proof through the clearing-scale route needs.
+denominator and be absent from the reduced one.  One cancelled prime is not
+an asymptotic cancellation theorem.
+
+The direction of denominator control matters.  Write $H_N=A_N/Q_N$ in lowest
+terms.  Under the hypothetical identity $\Ser=a/q$, with $a\in\Z$ and
+$q\ge1$, positivity of the tail gives
+\[
+ qQ_N(\Ser-H_N)=aQ_N-qA_N\in\Z_{>0}.
+\]
+A direct clearing contradiction therefore requires an upper estimate that
+makes $qQ_N(\Ser-H_N)<1$ for some $N$; equivalently, it needs $Q_N$ to be
+small relative to the reciprocal tail.  A lower bound on $Q_N$ points in the
+opposite direction.  Indeed, the rational limit $1$ and the approximants
+$1-1/Q_N$ have arbitrarily large reduced denominators without any
+irrationality.  The inequality $d_N(\Ser-H_N)<1$ alone would not repair the
+argument, because $d_N$ generally does not clear the earlier summands of
+$H_N$.  The prime-pole analysis describes which factors survive reduction,
+but it does not yet supply the required upper control on $Q_N$.
 
 \section{Carries and the rationality boundary}\label{long68:sec:carry}
 
@@ -566,15 +591,20 @@ $T_p/R_p=C_pH_{2p-1}$ is not an integer and
 a gap to the next integer.
 
 \begin{theorem}[complementary-residue criterion]\label{long68:res:global-residue}
-Suppose that for every $B$ there is a prime $p>B$ with $R_p>1$ and
+Suppose that for every $B$ there is a natural parameter $p\ge3$ with
+$p>B$, $R_p>1$, and
 \begin{equation}\label{long68:eq:global-scale}
  (2p+1)\Lc^{\mathrm{blk}}_p<K_p\rho_p .
 \end{equation}
 Then $\Ser$ is irrational.
 \end{theorem}
 
+\noindent This natural-parameter form is also the
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L156-L168}{checked global complementary criterion}.
+
 \begin{proof}
-Suppose $\Ser=a/q$ with $q\ge1$, and take a block with $p>\max(q,3)$
+Suppose $\Ser=a/q$ with $q\ge1$, and take such a parameter with
+$p>\max(q,3)$
 satisfying the hypotheses.  Then $q\mid F_p$, so
 $U=\Lc^{\mathrm{blk}}_p(\Ser-H_{2p-1})$ is a positive integer, and
 $\Lc^{\mathrm{blk}}_p\Ser=R_p(C_p\Ser)$ is a multiple of $R_p$; hence
@@ -664,8 +694,8 @@ out of the sum.  The two consequences follow by taking $k=1$ and by
 contraposition.
 \end{proof}
 
-\noindent The hard step is the constant quotient; no valuation estimate
-enters.  A nonzero moment therefore cannot be hidden entirely below $2d$
+\noindent This is a direct consequence of the constant quotient; no valuation
+estimate enters.  A nonzero moment therefore cannot be hidden entirely below $2d$
 while the $d$-channel cancels.  This is a finite-family obstruction: it
 constructs no cancelling family and says nothing about simultaneous channels
 or residual size.
@@ -814,7 +844,6 @@ $M(t)<(R(t)+1)!-1$ for all sufficiently large $t$.  Then
 \[
  \liminf_{t\to\infty}\frac{R(t)+1}{t^3}\ \ge\ \frac{16}{9}.
 \]
-  The historical manuscript cites \path{Erdos68/PaperCompleteLiminf.lean}, line 54. This module is absent from the retained source pin; this citation does not establish kernel verification at that pin.
 \end{corollary}
 
 \begin{proof}
@@ -838,8 +867,9 @@ constraint of the channel argument is compatible with equality
 $9(R+1)=16t^3$ for $t\ge4$, so that constraint alone cannot force a strict
 finite endpoint at $16/9$.  The two statements are separate, and
 Corollary~\ref{long68:res:radius-constant} rests on the ordinary proof of
-Theorem~\ref{long68:res:lcm-growth}; the kernel-checked finite theorem does not
-carry it.
+Theorem~\ref{long68:res:lcm-growth}; the finite-block Lean source does not
+carry the asymptotic deduction, and the asymptotic Lean files are proof
+candidates rather than kernel verification.
 
 The congruence \eqref{long68:eq:channel-congruence} also explains the prime-channel
 corrector.
@@ -882,14 +912,16 @@ produced.
 Two finite computations constrain a hypothetical denominator $q$ in
 $\Ser=a/q$, and they constrain different features of it:
 \begin{equation}\label{long68:eq:finite-bounds}
- q\nmid299999!,\qquad q\ge2^{39990},\qquad q>10^{12040}.
+ q\nmid299999!,\qquad q\ge2^{39990}>10^{12038}.
 \end{equation}
-The size bounds hold for every integer $a$ and positive natural $q$ with
-$\Ser=a/q$; no reducedness assumption is needed. They are
-\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos68/PaperCompleteFiniteSizeCertificate.lean#L58}{kernel-checked in Lean}.
-The factorial-grid exclusion $q\nmid299999!$ is supported separately by the
-external GMP computation. It is not a conclusion of the linked Lean theorem;
-the full factorial-grid certificate remains an outstanding formal obligation.
+The size bound holds for every integer $a$ and positive natural $q$ with
+$\Ser=a/q$; no reducedness assumption is needed. Its evidence is the exact
+continued-fraction computation described below. The stronger candidate
+\href{https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos68/PaperCompleteFiniteSizeCertificate.lean#L58}{finite-size Lean certificate}
+is not cited as kernel verification: its source records that the computation
+has not yet been kernel checked. The factorial-grid exclusion
+$q\nmid299999!$ is supported separately by the external GMP computation;
+its full Lean certificate also remains an outstanding formal obligation.
 
 Neither implies the other.  A denominator with no prime factor above
 $299999$ can still fail to divide $299999!$ by carrying one prime to a high
@@ -1085,7 +1117,9 @@ The formal counterparts below are checked by the Lean~4 kernel against
 Mathlib at source snapshot \texttt{\commitshort}, with no \texttt{sorry},
 added axioms, or unchecked evaluation.  Theorem~\ref{long68:res:lcm-growth} and
 Corollary~\ref{long68:res:radius-constant} are ordinary proofs given in full above
-and are not kernel-checked.  The two prefix cancellations, the index-$52$
+and are not kernel-checked; the associated asymptotic Lean files are proof
+candidates.  The finite-block inequality is the separate Lean source
+\href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{finite terminal-block inequality}.  The two prefix cancellations, the index-$52$
 example and the continued-fraction enclosure are finite integer calculations
 with the procedures displayed above.  The carry census through $300000$ is a
 separate exact-interval computation with the receipt named in
@@ -1149,13 +1183,13 @@ Theorem~\ref{long68:res:normalform} and \eqref{long68:eq:channel-congruence} &
 \lword{Erdos68/FactorialChannelCertificate.lean}{25}{factorial_pow_floor_dvd_factorial}{integral channel weight},
 \lword{Erdos68/FactorialChannelCertificate.lean}{43}{channelWeight_mul_denominator}{exact cancellation}\\
 Theorem~\ref{long68:res:channel-radius} &
-\lword{Erdos68/ChannelIntegralCongruence.lean}{1222}{square_subsequence_radius_three_halves_lower}{finite radius bound};
+\lword{Erdos68/ChannelIntegralCongruence.lean}{1084}{square_subsequence_radius_three_halves_lower}{finite radius bound};
 sequence form at
-\lword{Erdos68/ChannelIntegralCongruence.lean}{1241}{no_eventual_square_subsequence_three_halves_upper}{line 1241},
+\lword{Erdos68/ChannelIntegralCongruence.lean}{1103}{no_eventual_square_subsequence_three_halves_upper}{line 1103},
 little-$o$ form at
-\lword{Erdos68/ChannelIntegralCongruence.lean}{1043}{not_isLittleO_square_subsequence_radius}{line 1043},
-method ceiling at
-\lword{Erdos68/ChannelIntegralCongruence.lean}{764}{sharp_radius_satisfies_square_log_constraint}{line 764}\\
+\lword{Erdos68/ChannelIntegralCongruence.lean}{905}{not_isLittleO_square_subsequence_radius}{line 905},
+method ceiling ordinary in this record
+(\nolinkurl{sharp_radius_satisfies_square_log_constraint} is not in this checkout)\\
 Prime channel corrector &
 \lword{Erdos68/PrimeUnitTranslator.lean}{1657}{exists_remote_factorialGrid_primeTranslator_reduction}{remote reduction},
 residual identity at
@@ -1165,9 +1199,9 @@ Equation~\eqref{long68:eq:doubled-prime} &
 Canonical factorial digits &
 \lword{Erdos68/CanonicalFactorialTermination.lean}{78}{exists_rat_eq_iff_eventually_zero_canonicalDigit}{termination equivalence}\\
 Amplification modulus &
-\lword{Erdos68/PrimeZeroBranch.lean}{5604}{factorialGapRepeatedBirthAmplificationModulus_dvd_succ_den}{divisibility},
+\lword{Erdos68/PrimeZeroBranch.lean}{5557}{factorialGapRepeatedBirthAmplificationModulus_dvd_succ_den}{divisibility},
 nonvanishing at
-\lword{Erdos68/PrimeZeroBranch.lean}{5619}{predecessorGapNumeratorNat_mod_repeatedBirthAmplificationModulus_ne_zero}{line 5619}\\
+\lword{Erdos68/PrimeZeroBranch.lean}{5572}{predecessorGapNumeratorNat_mod_repeatedBirthAmplificationModulus_ne_zero}{line 5572}\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1208,7 +1242,7 @@ note.
 \item \lref{Erdos68/FactorialGapPlateauCore.lean}{82}{factorialGrid_plateau}
 \item \lref{Erdos68/FactorialGapPlateauCore.lean}{945}{irrational_factorialGapSeries_of_cofinal_nonunit_carries}
 \item \lref{Erdos68/FactorialZeroPlateauCertificates.lean}{136}{sixty_seven_le_rational_denominator}
-\item \lref{Erdos68/PrimeZeroBranch.lean}{6146}{factorialGap_zero_branch_iff_lower_endpoint_cylinder}
+\item \lref{Erdos68/PrimeZeroBranch.lean}{6099}{factorialGap_zero_branch_iff_lower_endpoint_cylinder}
 \item \lref{Erdos68/PrimeZeroBranch.lean}{3047}{exists_late_prefixPrivate_factorialGap_hit_of_primeProduct_lt}
 \item \lref{Erdos68/PrimeZeroBranch.lean}{3231}{prime_dvd_factorialBlockNormalizedCollisionCore_of_odd_reflection}
 \item \lref{Erdos68/PrimeZeroBranch.lean}{3252}{one_lt_factorialBlockPrimeHitCount_of_odd_reflection}
@@ -1222,8 +1256,8 @@ note.
 \item \lref{Erdos68/ChannelBreakpointRigidity.lean}{91}{factorialMoment_eq_zero_of_channelNumerator_eq_zero_band}
 \item \lref{Erdos68/ChannelBreakpointRigidity.lean}{101}{factorialMoment_eq_factorial_mul_channelNumerator_firstBand}
 \item \lref{Erdos68/ChannelBreakpointRigidity.lean}{130}{exists_index_ge_two_mul_of_factorialMoment_ne_zero_of_channel_eq_zero}
-\item \lref{Erdos68/ChannelIntegralCongruence.lean}{1006}{square_subsequence_radius_cubic_lower}
-\item \lref{Erdos68/ChannelIntegralCongruence.lean}{1023}{no_eventual_square_subsequence_cubic_upper}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{868}{square_subsequence_radius_cubic_lower}
+\item \lref{Erdos68/ChannelIntegralCongruence.lean}{885}{no_eventual_square_subsequence_cubic_upper}
 \item \lref{Erdos68/FactorialChannelCertificate.lean}{65}{channelEvent_eq_zero_of_not_dvd}
 \item \lref{Erdos68/FactorialChannelCertificate.lean}{156}{lambda34_residual_bounds}
 \item \lref{Erdos68/FactorialAnalyticBoundary.lean}{52}{tendsto_factorialGap_succ_div_sq}
@@ -1444,10 +1478,16 @@ criterion specialised to the literal prefixes.
 Beyond the definitions used in the short note, the record keeps the exact
 interfaces of the collision-core reduction.
 
-The collision core has an exact incremental law.  For the positive
-factorial-gap denominators, adjoining $d_a$ to a finite family $S$ gives
+Write $D(S)=\lcm_{i<j,\ i,j\in S}\gcd(d_i,d_j)$, with $D(S)=1$
+for an empty or singleton family. For each prime $r$, its valuation is the
+second-largest valuation among the $d_i$, counting missing values as zero;
+the denominator lcm has the largest valuation. This proves
+$D(S)\lcm_{i\in S}d_i\mid\prod_{i\in S}d_i$ prime by prime.
+
+The collision core has an exact incremental law. For the positive
+factorial-gap denominators, adjoining a new index $a\notin S$ gives
 \[
- C(S\cup\{a\})=\lcm\!\Bigl(C(S),\ \gcd\bigl(d_a,\lcm_{j\in S}d_j\bigr)\Bigr),
+ D(S\cup\{a\})=\lcm\!\Bigl(D(S),\ \gcd\bigl(d_a,\lcm_{j\in S}d_j\bigr)\Bigr),
 \]
 since finite-family gcd and lcm distributivity collapses the lcm of all
 pairwise gcds against $d_a$ to a single gcd.  The same formula holds after
@@ -1464,15 +1504,19 @@ $\widetilde C(S)\le P(S)/L(S)$.  For the factorial block this specialises to
 an exact bridge from lower estimates for the factorial-gap lcm to upper
 estimates for the normalised core.  It does not close the local scale bound.
 
-The base cancellation is exact prime by prime.  With $F_p=(p-1)!$ and $C_p$
-the unnormalised core,
+The base cancellation is exact prime by prime. With $F_p=(p-1)!$,
+$D_p=D(I_p)$ and $C_p=\lcm(F_p,D_p)$, as in the main record,
 \[
- \widetilde C_p=\frac{\lcm(F_p,C_p)}{F_p}=\frac{C_p}{\gcd(F_p,C_p)},\qquad
- v_r(\widetilde C_p)=v_r(C_p)-\min\{v_r(F_p),v_r(C_p)\} .
+ \widetilde C_p=\frac{C_p}{F_p}=\frac{D_p}{\gcd(F_p,D_p)},\qquad
+ v_r(\widetilde C_p)=\max\{0,v_r(D_p)-v_r(F_p)\} .
 \]
-So $r^e\mid\widetilde C_p$ exactly when the pairwise core carries
+For $e>0$, $r^e\mid\widetilde C_p$ exactly when the pairwise core carries
 $r^{e+v_r(F_p)}$, which in the block forces two distinct gaps to be divisible
-by that higher power.  The sharp surviving valuation cap
+by that higher power, by the second-largest-valuation formula. If $i<j$
+are two such hits and $f=v_r(F_p)$, then
+$r^{e+f}\mid j!/i!-1$. Since $r\mid j!-1$ forces $j<r$,
+$0<j!/i!-1<r^{j-i}$, hence $e+f<j-i$.
+The sharp surviving valuation cap
 $v_r(\widetilde C_p)+v_r(F_p)<r$ then gives $p-1<r(r-1)<r^2$ for every
 support prime, and $\widetilde C_p$ is coprime to $k!$ whenever
 $k(k-1)\le p-1$.  This removes every factorial channel below the moving
@@ -1721,13 +1765,13 @@ Cofinal zero-branch or large private-factor hypotheses imply the required irrati
 \subsection{Factorial lcm growth}
 \textbf{Reader position.} 48 of 70; display band: frontier.  Formal editorial disposition: hold.  These are separate classifications.
 
-\textbf{Reader entry.} A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.
+\textbf{Reader entry.} An elementary terminal-block argument gives $\liminf\log L_N/(N^{3/2}\log N)\ge 2\sqrt2/3$ for the lcm of factorial-gap denominators. The displayed bound needs no external multiplicity theorem.
 
-A paper deduction gives a lower bound for the lcm of factorial-gap denominators using an external multiplicity theorem.
+An elementary terminal-block argument gives a lower bound of order $N^{3/2}\log N$ for the lcm of factorial-gap denominators. The displayed bound is ordinary mathematics. An older, weaker multiplicity-based route is historical context only. The linked asymptotic Lean files are proof candidates and are not cited as kernel verification. The finite-block inequality has a separate Lean source.
 
-\textbf{Authority and reach.} paper argument plus cited theorem; paper plus external theorem.
+\textbf{Authority and reach.} ordinary mathematical argument.
 
-\textbf{Exact boundary.} Comparator cannot certify the cited input or authored deduction.
+\textbf{Exact boundary.} The LCM asymptotic is an ordinary paper proof, not a Lean-checked theorem. Comparator cannot certify the authored deduction. The bound does not decide irrationality.
 
 \textbf{Result-atom population.} 3 of 681 public coordinates. The public atom catalog groups them under this family.
 

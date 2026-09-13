@@ -354,6 +354,15 @@ agent cannot type a verdict into the ledger. A claim must cite an accepted
 probe receipt; the notary rejects weaker citations. Replay reruns every stored
 probe and compares the current result with the recorded verdict.
 
+Workflow-provenance systems already record what ran, when and where it ran,
+how tasks and data were connected, and who initiated them; they also
+distinguish a planned workflow from the trace of an executed one
+\cite{workflowprovenance}. That is the closest established role for the
+notary's execution metadata. The notary adds a different contract: its ledger
+types an agent's conjectures, abandonments, probes, and claims, while the
+pinned Lean process alone supplies probe verdicts. The comparison does not show
+that the resulting record improves the agent's research choices.
+
 This design deliberately leaves search policy open. LeanDojo couples an open
 programmatic Lean environment with extracted proof data, premise annotations,
 retrieval, and a theorem-proving benchmark~\cite{leandojo}. Pantograph exposes
@@ -460,6 +469,16 @@ sketch--retrieve--reflect~\cite{leanexplore,leansearchv2}. The narrower claim
 here is that one cold-clone contract composes source addresses, selective
 semantics, dependency cones, incremental validation, and authority receipts
 without requiring a hosted service or an initial Lean build.
+
+Repository question answering provides a second comparison. Abedu,
+Khatoonabadi, and Shihab combine an LLM with a knowledge graph built from
+users, commits, issues, and files; their evaluation spans five open-source
+repositories and a 20-participant task study~\cite{repokg}. They explicitly
+leave code entities and program-analysis edges to future work. The tour here
+does not evaluate a conversational interface. It commits code-level Lean
+declarations, elaborated dependencies, authored mathematical interpretations,
+and claim-status boundaries so that a reader can inspect the route before an
+LLM explains it.
 
 Large-library maintenance supplies the relevant compilation lesson.
 \emph{Growing Mathlib} describes performance-aware library design,
@@ -661,6 +680,16 @@ Computer Mathematics}, 2025,
 Integrated Proof Environment for Scalable Human--AI Collaborative
 Formalization}, 2026,
 \href{https://doi.org/10.48550/arXiv.2604.16347}{arXiv:2604.16347}.
+\bibitem{workflowprovenance} R.~Souza, T.~Poteet, B.~Etz, D.~Rosendo,
+A.~Gueroudji, W.~Shin, P.~Balaprakash, and R.~Ferreira da Silva,
+\emph{LLM Agents for Interactive Workflow Provenance: Reference Architecture
+and Evaluation Methodology}, WORKS at the ACM/IEEE International Conference
+for High Performance Computing, Networking, Storage and Analysis, 2025,
+\href{https://doi.org/10.1145/3731599.3767582}{DOI}.
+\bibitem{repokg} S.~Abedu, S.~Khatoonabadi, and E.~Shihab,
+\emph{Synergizing LLMs and Knowledge Graphs: A Novel Approach to Software
+Repository-Related Question Answering}, 2024, revised 2025,
+\href{https://arxiv.org/abs/2412.03815}{arXiv:2412.03815}.
 \end{thebibliography}
 \end{multicols}
 }

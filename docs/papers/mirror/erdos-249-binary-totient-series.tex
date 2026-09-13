@@ -30,30 +30,27 @@ Problem~\#249}
 \maketitle
 \noteprovenance
 
-\begin{problem}[first-harmonic anti-concentration on supplier fibres]
-\label{prob:firstharmonic}
-For each $h\ge1$, do there exist $s\ge1$ and $0<\eta<1$ such that, for every
-$X_0$, there are $X,L$ with
-\[
- \max(X_0,1)\le X,\qquad h\le L-s,\qquad
- 16(2X+h+L+2)\le2^L,
-\]
-for which the four bounds below hold?
-\end{problem}
-
 \begin{abstract}
-For every $e\ge1$, the dyadic sections of Euler's totient through level $e$
-have rational rank $2^e+1$. The two zero-residue sections and the odd-residue
-sections form a basis, and two families of scalar reductions generate every relation.
-Divisibility makes an evaluation matrix diagonal modulo a prime, with nonzero
-diagonal entries. The construction gives rank $k^e+1$ in every base $k\ge2$
-and an integral normal form.
-Separately, $\sum_{n\ge1}(\ph(n)\bmod m)2^{-n}$ is irrational for every
-$m\ge3$, with a complete rationality classification at dyadic moduli.
+For every integer $k\ge2$ and every $e\ge1$, the sections of Euler's totient
+through level $e$ have rational rank $k^e+1$. The zero-residue sections and
+the residues not divisible by $k$ form a basis. Explicit scalar reductions
+give unique integral coordinates and a basis of all integral relations. The
+arithmetic step is independence: divisibility makes an evaluation matrix
+diagonal modulo a prime, with nonzero diagonal entries. This CRT--Dirichlet
+argument proves the all-base theorem ordinarily in the note. Lean also checks
+canonical-family independence and the complete all-base rank unconditionally.
+Martin's theorem supplies a broader external
+affine-independence result, while Coons proved non-$k$-regularity of $\ph$.
+A separate ordinary argument uses isolated blocks to prove that
+$\sum_{n\ge1}(\ph(n)\bmod m)2^{-n}$ is irrational for every $m\ge3$,
+with a complete rationality classification for dyadic residue observables.
 For $S=\sum_{n\ge1}\ph(n)2^{-n}$, one nonintegral tail shift forces
 full-depth certificates in every sufficiently late pair of multipliers.
-Irrationality is equivalent to an explicit central-residue gap for every
-prospective denominator; its arithmetic supply remains open.
+If $S$ were rational, one tempered integral carry would simultaneously have
+section rank at least $2^e-1$ at every depth and one common eventual period
+modulo a fixed multiplier. These necessary conditions do not decide $S$: its
+irrationality is equivalent to an explicit central-residue gap for every
+prospective denominator, whose arithmetic supply remains open.
 \end{abstract}
 
 
@@ -86,8 +83,18 @@ $t=\max\{s:k^s\mid r\}\ge1$ and $k\nmid u$, then
 \end{theorem}
 \begin{enumerate}
 \item\label{res:rank} \stag{unconditional progress}
-\textbf{Exact finite-level rank.}  Theorem~\ref{thm:kkernelrank} is the
-coordinate statement: every totient $k$-kernel truncation has rank $k^e+1$.
+\textbf{Exact finite-level rank.}  For integers $k\ge2$ and $e\ge1$,
+Theorem~\ref{thm:kkernelrank} proves ordinarily that the totient $k$-kernel
+truncation has rank $k^e+1$. The dyadic case is also the
+\mword{Erdos249257/TotientMahlerDefect.lean}{1084}{finrank_totientKernelThroughLevelFamily_eq}{exact finite-truncation rank};
+the reusable all-base Lean wrapper is
+\mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{the same count from an independent family},
+and retains linear independence as an explicit input. That input is discharged
+by the independent CRT--Dirichlet proof in
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1118}{\texttt{AllBaseTotientKernel.lean}};
+the \href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239}{complete truncation rank}
+therefore has no independence hypothesis. Martin supplies the broader external
+antecedent, rather than an axiom of this Lean proof.
 \end{enumerate}
 The retained condition is $k\nmid r$. At $k=6$, for example, the residue
 $r=2$ is retained. At base $2$ and level $3$, the fifteen sections have nine
@@ -100,6 +107,11 @@ coordinates; the omitted positive-residue sections satisfy
 
 \subsection{The evaluation matrix}\label{sec:rank}
 The two ingredients are scalar reduction and arithmetic independence.
+The reductions explain which sections must be dependent. The difficulty is
+to exclude every additional relation. We do this one coefficient at a time:
+an evaluation will annihilate all the other columns modulo a prime while
+leaving the chosen column nonzero. Thus no simultaneous primality assertion
+for several affine forms is needed.
 The local formula for $\ph$ gives the displayed reductions. For a prime
 $p\mid k$ that does not divide $u$, the argument $k^{j-t}n+u$ is a $p$-adic
 unit, so multiplication by $k^t$ contributes its power of $p$ and one factor
@@ -151,7 +163,7 @@ The reductions give spanning and the count is
 \]
 This proves Theorem~\ref{thm:kkernelrank}. The scalar reduction at level
 $j-t$, with the Euler product written out, is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean#L226}{Lean source}.
+\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean#L226}{maximal power reduction}.
 
 \begin{corollary}[Dyadic basis]\label{res:basis}
 The family
@@ -167,8 +179,8 @@ truncation has dimension one.
 \begin{proof}
 Every finite subfamily lies in a sufficiently high truncation. The theorem
 gives its independence; the reductions give equality of the full spans.
-The level-zero clause is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/ArithmeticAssemblies.lean#L112}{Lean source}.
+The level-zero clause is ordinary in this note;
+\texttt{PaperCompleteR7/ArithmeticAssemblies.lean} is not in this checkout.
 \end{proof}
 
 \begin{corollary}[Integral normal form]\label{cor:integral-normal-form}
@@ -234,8 +246,8 @@ are rational-valued periodic sequences, then
 Choose a common period $Q$. On each progression $n=a+Qt$, the coefficients
 are constant and the cross determinants become $Q(a_ib_j-a_jb_i)\ne0$.
 Shift beyond the threshold and apply the affine independence just proved.
-The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/PeriodicAndPulse.lean#L64}{Lean source},
-with a separate period for each coefficient.
+The statement is ordinary in this note;
+\texttt{PaperCompleteR7/PeriodicAndPulse.lean} is not in this checkout.
 \end{proof}
 The same argument preserves the basis after deletion of a finite prefix.
 For the two zero channels, large $n\equiv1\pmod k$ and large powers of $k$
@@ -268,7 +280,7 @@ The right zero block gives $|T_N|\le C2^{-L}<1/q$, hence $T_N=0$.
 The left zero block now gives
 $T_{N-L-1}=a_N2^{-L-1}$, a nonzero element of $q^{-1}\Z$ with absolute
 value less than $1/q$, a contradiction. The statement is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/PeriodicAndPulse.lean#L106}{Lean source}.
+ordinary in this note (that \texttt{PaperCompleteR7} file is absent).
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{res:residueseries}]
@@ -292,7 +304,7 @@ Conversely, $\ph(n)$ is even for every $n\ge3$. Constancy on the even
 classes therefore makes all terms after $n=2$ constant, giving the stated
 rational value. This converse requires no recurrent-support theorem.
 The three clauses together are
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/RationalObservableClassification.lean#L277}{Lean source}.
+ordinary in this note (that \texttt{PaperCompleteR7} file is absent).
 \end{proof}
 The bounded-pulse proof fixes its coefficient bound before choosing the block.
 For $S$, the termwise condition $2^L\mid\ph(N+L)$, with $N+L>1$, forces
@@ -314,6 +326,12 @@ $\Phi_N=\sum_{n=1}^N\ph(n)2^{N-n}\in\Z$, gives
 \end{equation}
 In particular a nonintegral tail difference is a precise arithmetic
 statement about $S$.
+The complementary rationality consequence uses the same carry for both kinds
+of rigidity: the
+\mword{Erdos249257/TotientTailCarryPeriod.lean}{224}{not_irrational_totientSeries_implies_mod_period_and_unbounded_rank}{same-carry rank and modular-period theorem}
+gives rank at least $2^e-1$ at every depth and one common eventual period for
+all dyadic sections modulo a fixed positive multiplier. It supplies necessary
+structure under rationality, not a contradiction between the two properties.
 
 \subsection{One seed removes the full-depth restriction}
 For $h,N,L\in\N$, let
@@ -344,6 +362,10 @@ Consequently
 \]
 Requiring this for every $d\ge1,N\ge0$ is equivalent to $S\notin\Q$.
 \end{theorem}
+The seed-to-ray step is
+\lword{Erdos249/FullDepthRayAmplifier.lean}{364}{eventually_twoSyndetic_fullDepthKillMultipliers_of_seed}{eventual two-syndetic amplification};
+it is equivalent to irrationality as
+\lword{Erdos249/FullDepthRayAmplifier.lean}{406}{apFullDepthEscape_iff_irrational}{global full-depth equivalence}.
 \begin{proof}
 Set $F_t=\Delta_{td}(N)$. Equation~\eqref{eq:tail-phase} yields
 $F_{t+1}\equiv2^dF_t+F_1\pmod\Z$. If $K(td,N,td)$ fails,
@@ -401,7 +423,7 @@ This proof identifies the equivalent missing quantifier. It does not supply
 $H$ arithmetically without assuming the desired irrationality. The
 equivalence, with the modulus written as the natural quotient $(2^H-1)/v$
 and $v$ odd, is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/ArithmeticAssemblies.lean#L156}{Lean source}.
+ordinary in this note (that \texttt{PaperCompleteR7} file is absent).
 The finite residues also satisfy
 \[
  \rho_{H,N+1,M}=
@@ -417,12 +439,12 @@ which is an exact recurrence for searches directed at \eqref{eq:canonical-gap}.
 $H_a=\lcm(1,\ldots,2^a)$ and
 $R_a=\operatorname{totientTail}(2H_a)-\operatorname{totientTail}(H_a)$.
 Then $\Stot$ is irrational if and only if, beyond every threshold $a_0$,
-some $a\ge a_0$ has $R_a\notin\Z$.  This is an exact cofinal
-nonintegrality criterion for the actual LCM diagonal, not a quantitative
-separation estimate and not a proof that such indices occur.
-{\footnotesize\emph{Checked:}
-\mword{Erdos249257/TotientActualLcmOrbitNonintegrality.lean}{37}{irrational_totientSeries_iff_actualLcmOrbitNonintegralitySupply}{exact frontier},
-\mword{Erdos249257/TotientActualLcmOrbitNonintegrality.lean}{53}{irrational_totientSeries_of_actualLcmOrbitNonintegralitySupply}{forward implication}.}
+some $a\ge a_0$ has $R_a\notin\Z$.  This is the
+\mword{Erdos249257/TotientActualLcmOrbitNonintegrality.lean}{37}{irrational_totientSeries_iff_actualLcmOrbitNonintegralitySupply}{exact cofinal nonintegrality criterion}
+for the actual LCM diagonal, not a quantitative
+separation estimate and not a proof that such indices occur; the
+\mword{Erdos249257/TotientActualLcmOrbitNonintegrality.lean}{53}{irrational_totientSeries_of_actualLcmOrbitNonintegralitySupply}{forward implication}
+is recorded separately.
 
 \item\label{res:actualsign} \stag{unconditional progress}
 \textbf{Positive LCM corridor and top-edge boundary.}  For $a\ge8$ and
@@ -493,6 +515,10 @@ nonempty finite positive weighted average of such quotients satisfies
 \]
 The uniform bound $Q-\Theta_2>1/15$ is false already at $(1,5)$.
 \end{theorem}
+The unique minimiser and the
+\lword{Erdos249/RankOneSharpFloor.lean}{624}{rankOneSubrankQuotient_sub_theta_two_gt_twentyOne_div_threeTwenty}{uniform $21/320$ floor}
+are in the linked source; the $1/15$ bound
+\lword{Erdos249/RankOneSharpFloor.lean}{645}{not_forall_rankOneSubrankQuotient_sub_theta_two_gt_one_div_fifteen}{already fails at $(1,5)$}.
 This theorem treats averages after the quotients are formed. Signed
 coefficients, coupling before the quotient, and higher-rank kernels require
 separate arguments. For any proposed rational approximants $p_j/q_j$ in
@@ -506,22 +532,35 @@ endpoint; the approximation estimate is one stronger sufficient route.
 
 \section{Antecedents and proof record}\label{sec:open}
 Allouche and Shallit introduced $k$-regular sequences~\cite{allouche-shallit}.
-Coons proved that $\ph$ is not $k$-regular~\cite{coons}; Martin's stronger
-affine ordering theorem implies the independence in
-Section~\ref{sec:rank}~\cite{martin-phi-inequalities}. The basis theorem
+Coons proved that $\ph$ is not $k$-regular~\cite[Thm.~3.2]{coons}.
+Martin's Theorem~1 makes the ratios of totients on any prescribed finite list
+of pairwise nonproportional affine forms with integer coefficients and positive
+slopes arbitrarily separated; this implies
+their linear independence~\cite[Thm.~1]{martin-phi-inequalities}.
+Section~\ref{sec:rank} gives a direct determinant proof tailored to the
+sections used here. The basis theorem
 gives the exact finite-level normal form. Wong~\cite{wong2015} proved
-least-residue irrationality when the denominator base equals the modulus;
+least-residue irrationality when the denominator base and modulus are the
+same integer $k>2$;
 Section~\ref{sec:family} fixes base two and classifies dyadic observables.
 The original question appears in Erd\H{o}s and Graham~\cite[p.~61]{erdosgraham1980}.
 
-The exact all-base basis and rank, residue-series irrationality, full-depth
-amplification, canonical equivalence and positive rank-one floor have
-proofs in the supplied Lean source snapshot:
-\lword{Erdos249/FullDepthRayAmplifier.lean}{364}{eventually_twoSyndetic_fullDepthKillMultipliers_of_seed}{amplification},
-\lword{Erdos249/CyclotomicAnchoredKill.lean}{3165}{fullMersenneCanonicalBasepointResidueGapSupply_iff_irrational}{canonical gap}, and
-\lword{Erdos249/RankOneSharpFloor.lean}{624}{rankOneSubrankQuotient_sub_theta_two_gt_twentyOne_div_threeTwenty}{rank-one floor}.
-The historical source links retain \texttt{\commitshort}; the all-base
-module requires a matching public source supplement.
+The
+\mword{Erdos249257/TotientMahlerDefect.lean}{1084}{finrank_totientKernelThroughLevelFamily_eq}{dyadic finite-level rank $2^e+1$},
+residue-series irrationality,
+\lword{Erdos249/FullDepthRayAmplifier.lean}{364}{eventually_twoSyndetic_fullDepthKillMultipliers_of_seed}{full-depth amplification},
+canonical equivalence and the
+\lword{Erdos249/RankOneSharpFloor.lean}{624}{rankOneSubrankQuotient_sub_theta_two_gt_twentyOne_div_threeTwenty}{positive rank-one floor}
+are in the public snapshot.  The
+unconditional all-base exact-rank theorem is also
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239}{kernel-checked}:
+its CRT--Dirichlet independence proof does not assume Martin's theorem.
+\mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{Rank from an independent all-base family}
+remains the reusable conditional factorisation.
+The
+\lword{Erdos249/CyclotomicAnchoredKill.lean}{3165}{fullMersenneCanonicalBasepointResidueGapSupply_iff_irrational}{canonical gap}
+is the remaining arithmetic endpoint.
+The historical source links retain \texttt{\commitshort}.
 The integral normal form has its ordinary proof above. The periodic transport
 lemma is checked in \texttt{PeriodicTotientIndependence.lean}; the eventual
 version follows by the displayed threshold shift. The rational control and
@@ -532,19 +571,45 @@ Finite evaluation ranks and the all-level carry lower bound remain distinct.
 The long record retains the separate continued-fraction bounds
 $q\ge2^{39989}$ and $q>10^{12038}$ under rationality, alongside the
 Lean-checked Farey exclusion. Neither implies the universal gap.
+
+The remaining first-harmonic obligation is a four-term pivot budget,
+not an opening statement of this note. Write
+\[
+ \begin{aligned}
+ \operatorname{Re}\,\mathrm{pivotCenteredCorrelation}&\le\tfrac{14}{25}X,\\
+ \lVert\mathrm{pivotFiberMean}\rVert&\le\tfrac1{100}X,\\
+ \lVert\mathrm{pivotBad}\rVert&\le\tfrac1{100}X,\\
+ \lVert\mathrm{pivotNonSupplier}\rVert&\le\tfrac8{25}X.
+ \end{aligned}
+\]
+\begin{problem}[first-harmonic anti-concentration on supplier fibres]
+\label{prob:firstharmonic}
+For each $h\ge1$, do there exist $s\ge1$ and $0<\eta<1$ such that, for every
+$X_0$, there are $X,L$ with
+\[
+ \max(X_0,1)\le X,\qquad h\le L-s,\qquad
+ 16(2X+h+L+2)\le2^L,
+\]
+for which those four bounds hold?
+\end{problem}
+The quantities are defined with the
+\mword{Erdos249257/FirstHarmonicPivot.lean}{543}{PivotBudgetAt}{budget condition}
+in the long record. This note does not prove them.
 \appendix
 \section{Guide to the formal sources}\label{app:sources}
 
 The public snapshot used by this note is recorded by the following source links.
 
-\mword{Erdos249257/TotientMahlerDefect.lean}{160}{totientKernel_zero_residue}{checked},
-\mword{Erdos249257/TotientMahlerDefect.lean}{169}{totientKernel_even_residue_reduce}{checked},
-\mword{Erdos249257/TotientTailPeriodKiller.lean}{150}{two_pow_mul_totient_series_eq}{checked},
+\mword{Erdos249257/TotientMahlerDefect.lean}{160}{totientKernel_zero_residue}{totient Kernel zero residue},
+\mword{Erdos249257/TotientMahlerDefect.lean}{169}{totientKernel_even_residue_reduce}{totient Kernel even residue reduce},
+\mword{Erdos249257/TotientTailPeriodKiller.lean}{150}{two_pow_mul_totient_series_eq}{two pow mul totient series eq},
 \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientTailPeriodKiller.lean#L72}{definition},
-\mword{Erdos249257/LcmConeFlatness.lean}{316}{exists_certifiedKill_iff_tail_diff_notMem_int}{checked},
-\mword{Erdos249257/TotientTailPeriodKiller.lean}{404}{certifiedKill_all_small}{checked},
-\mword{Erdos249257/TotientTailPeriodKiller.lean}{407}{tail_diff_not_int_small}{checked},
-\mword{Erdos249257/GenericTailOrbitRigidity.lean}{67}{IsTemperedBinaryOrbit}{definition},
+\mword{Erdos249257/LcmConeFlatness.lean}{316}{exists_certifiedKill_iff_tail_diff_notMem_int}{certificate completeness},
+\mword{Erdos249257/LcmConeFlatness.lean}{327}{tail_diff_mem_int_iff_scaled_series_mem_int}{tail-difference integrality},
+\mword{Erdos249257/LcmConeFlatness.lean}{386}{irrational_totient_series_iff_all_tail_diffs_nonintegral}{irrationality iff every tail difference is nonintegral},
+\mword{Erdos249257/TotientTailPeriodKiller.lean}{404}{certifiedKill_all_small}{certified Kill all small},
+\mword{Erdos249257/TotientTailPeriodKiller.lean}{407}{tail_diff_not_int_small}{tail diff not int small},
+\mword{Erdos249257/GenericTailOrbitRigidity.lean}{67}{IsTemperedBinaryOrbit}{is Tempered Binary Orbit},
 \lword{Erdos249/CyclotomicAnchoredKill.lean}{2322}{fullMersenneBlockResidue_succ}{residue recurrence},
 \lword{Erdos249/CyclotomicAnchoredKill.lean}{3132}{fullMersenneCenteredResidueGapSupply_of_canonicalBasepoint}{dominance over the remote condition},
 \lword{Erdos249/CyclotomicAnchoredKill.lean}{3165}{fullMersenneCanonicalBasepointResidueGapSupply_iff_irrational}{exact equivalence},
@@ -567,8 +632,11 @@ The public snapshot used by this note is recorded by the following source links.
 \lword{Erdos249/RankOneSharpFloor.lean}{655}{positive_direct_sum_sub_theta_two_gt_twentyOne_div_threeTwenty}{positive direct sums},
 \lword{Erdos249/RankOneSharpFloor.lean}{693}{primitive_form_abs_gt_twentyOne_div_threeTwenty}{rational linear-form obstruction},
 \mword{Erdos249257/TotientKernelIndex.lean}{124}{totientKernelSectionIndex_spec}{coordinate specification},
+\mword{Erdos249257/TotientKernelIndex.lean}{190}{totientKernelResidueAtLevel_injective}{injective residues},
 \mword{Erdos249257/TotientKernelIndex.lean}{213}{existsUnique_totientKernelResidueAtLevel}{unique representation},
 \mword{Erdos249257/TotientKernelIndex.lean}{241}{card_totientKernelSectionLevel}{level count},
+\mword{Erdos249257/TotientKernelIndex.lean}{249}{card_totientKernelSectionIndex}{section-index count},
+\mword{Erdos249257/TotientKernelIndex.lean}{264}{card_totientKernelIndex_eq_two_add_sum}{index as two plus the odd-residue count},
 \mword{Erdos249257/TotientKernelIndex.lean}{277}{card_totientKernelIndex}{full index count},
 \mword{Erdos249257/CertificateKernel.lean}{18371}{tsum_totient_div_pow_two_ne_int_div_of_den_le_79639646646701375323355774875831053}{exclusion},
 \mword{Erdos249257/CertificateKernel.lean}{18384}{tsum_totient_div_pow_two_ne_ratCast_of_den_le_79639646646701375323355774875831053}{reduced-denominator form},
@@ -617,21 +685,21 @@ The public snapshot used by this note is recorded by the following source links.
 \mword{Erdos249257/LcmConeFlatness.lean}{426}{irrational_totient_series_iff_lcm_diagonal_certificate_supply}{$\lcm$ diagonal},
 \mword{Erdos249257/PivotAntiReconstruction.lean}{1765}{dtwWindowSeparatedPairs_iff_irrational_totient_series}{window-separated pairs},
 \mword{Erdos249257/CertificateKernel.lean}{16025}{irrational_tsum_totient_div_pow_two_of_gap_certificate_supply}{the conditional implication},
-\mword{Erdos249257/CertificateKernel.lean}{8335}{irrational_erdosBorwein_series}{checked},
-\mword{Erdos249257/CertificateKernel.lean}{18434}{tsum_moebius_div_two_pow_sub_one_eq_half}{checked},
-\mword{Erdos249257/CertificateKernel.lean}{18429}{tsum_totient_div_two_pow_sub_one_eq_two}{checked},
-\mword{Erdos249257/CertificateKernel.lean}{18454}{totient_series_eq_half_add_moebius_mersenne_square}{checked},
-\mword{Erdos249257/CertificateKernel.lean}{18557}{totient_series_eq_half_add_visible_coprime_pairs}{checked},
-\mword{Erdos249257/GcdMomentCalculus.lean}{349}{tsum_pos_coprime_inv_mersenne_eq_one}{checked},
-\mword{Erdos249257/GcdMomentCalculus.lean}{474}{cylinderMass_split}{checked},
-\mword{Erdos249257/TotientMahlerDefect.lean}{823}{paritySeparatedMatrix_det_ne_zero}{checked},
-\mword{Erdos249257/TotientMahlerDefect.lean}{882}{exists_separatedMinorCertificate_totientAffineOddFamily}{checked},
-\mword{Erdos249257/GenericTailOrbitRigidity.lean}{426}{binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit}{checked},
-\mword{Erdos249257/GapFareyBound.lean}{51}{farey_gap}{checked},
-\mword{Erdos249257/GapFareyBound.lean}{176}{gap_check_window_1_240_le_79639646646701375323355774875831053}{checked},
-\mword{Erdos249257/CertificateKernel.lean}{15986}{tsum_totient_div_pow_two_ne_int_div_of_totient_gap_certificate}{checked},
-\mword{Erdos249257/GapFareyBound.lean}{88}{gap_check_window_1_120_le_248672326362367909}{checked},
-\mword{Erdos249257/CertificateKernel.lean}{18572}{tsum_visible_coprime_pairs_ne_int_div_of_den_le_39819823323350687661677887437915526}{checked},
+\mword{Erdos249257/CertificateKernel.lean}{8335}{irrational_erdosBorwein_series}{irrational erdos Borwein series},
+\mword{Erdos249257/CertificateKernel.lean}{18434}{tsum_moebius_div_two_pow_sub_one_eq_half}{tsum moebius div two pow sub one eq half},
+\mword{Erdos249257/CertificateKernel.lean}{18429}{tsum_totient_div_two_pow_sub_one_eq_two}{tsum totient div two pow sub one eq two},
+\mword{Erdos249257/CertificateKernel.lean}{18454}{totient_series_eq_half_add_moebius_mersenne_square}{totient series eq half add moebius mersenne square},
+\mword{Erdos249257/CertificateKernel.lean}{18557}{totient_series_eq_half_add_visible_coprime_pairs}{totient series eq half add visible coprime pairs},
+\mword{Erdos249257/GcdMomentCalculus.lean}{349}{tsum_pos_coprime_inv_mersenne_eq_one}{tsum pos coprime inv mersenne eq one},
+\mword{Erdos249257/GcdMomentCalculus.lean}{474}{cylinderMass_split}{cylinder Mass split},
+\mword{Erdos249257/TotientMahlerDefect.lean}{823}{paritySeparatedMatrix_det_ne_zero}{parity Separated Matrix det ne zero},
+\mword{Erdos249257/TotientMahlerDefect.lean}{882}{exists_separatedMinorCertificate_totientAffineOddFamily}{exists separated Minor Certificate totient Affine Odd Family},
+\mword{Erdos249257/GenericTailOrbitRigidity.lean}{426}{binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit}{binary Coeff Series rational iff exists tempered Binary Orbit},
+\mword{Erdos249257/GapFareyBound.lean}{51}{farey_gap}{farey gap},
+\mword{Erdos249257/GapFareyBound.lean}{176}{gap_check_window_1_240_le_79639646646701375323355774875831053}{gap check window 1 240 le 79639646646701375323355774875831053},
+\mword{Erdos249257/CertificateKernel.lean}{15986}{tsum_totient_div_pow_two_ne_int_div_of_totient_gap_certificate}{tsum totient div pow two ne int div of totient gap certificate},
+\mword{Erdos249257/GapFareyBound.lean}{88}{gap_check_window_1_120_le_248672326362367909}{gap check window 1 120 le 248672326362367909},
+\mword{Erdos249257/CertificateKernel.lean}{18572}{tsum_visible_coprime_pairs_ne_int_div_of_den_le_39819823323350687661677887437915526}{tsum visible coprime pairs ne int div of den le 39819823323350687661677887437915526},
 \mword{Erdos249257/FreshPrimeDeficitDecomposition.lean}{171}{diagonalHeightIncrement_eq_old_add_endpointFreshDeficits}{diagonal split},
 \mword{Erdos249257/TotientActualLcmShortKill.lean}{18}{lcmDiagonalArithmeticKill_two_pow_four}{the \(t=2^4\), length-\(23\) kill},
 \mword{Erdos249257/TotientActualLcmShortKill.lean}{27}{lcmDiagonalArithmeticKill_two_pow_six}{the \(t=2^6\), length-\(93\) kill},
@@ -644,7 +712,7 @@ The public snapshot used by this note is recorded by the following source links.
 \mword{Erdos249257/TotientActualLcmOrbitSeparation.lean}{305}{irrational_totientSeries_of_actualLcmOrbitSeparationSupply}{the conditional endpoint theorem},
 \mword{Erdos249257/TotientActualLcmTopEdgeStaircase.lean}{251}{not_actualLcmTerminalDyadicStaircase_of_room}{the staircase is impossible under the stated room hypothesis},
 \mword{Erdos249257/TotientActualLcmTopEdgeStaircase.lean}{297}{windowDiscrepancy_emod_two_pow_eq_terminal}{terminal-remainder identity},
-\mword{Erdos249257/TropicalCurvatureCarry.lean}{137}{fixedPrecisionTropicalNoGo}{checked},
+\mword{Erdos249257/TropicalCurvatureCarry.lean}{137}{fixedPrecisionTropicalNoGo}{fixed Precision Tropical No Go},
 \lword{Erdos249/TotientStrictPrimeEscape.lean}{157}{DTWNaturalPrimeTailOrbitStrictGap}{asks},
 \lword{Erdos249/TotientStrictPrimeEscape.lean}{485}{naturalPivotPointEscape_of_naturalPrimeTailOrbitStrictGap}{a positive adaptive truncation budget},
 \lword{Erdos249/TotientStrictPrimeEscape.lean}{524}{irrational_totient_series_of_naturalPrimeTailOrbitStrictGap}{$\Stot$ is irrational},
@@ -670,11 +738,11 @@ The public snapshot used by this note is recorded by the following source links.
 \lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{102}{BoundedDegreeOrderConsumer}{BoundedOrder},
 \lword{Erdos249/PrimeRayCyclotomicCurvature.lean}{151}{FinitePrimeSupportEscape}{FinitePrimeEscape},
 \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CarrySurvivorExtinction.lean#L515}{definition},
-\mword{Erdos249257/TotientTailPeriodKiller.lean}{57}{totientTail}{definition},
-\mword{Erdos249257/LcmConeFlatness.lean}{357}{not_irrational_of_tail_diff_mem_int}{checked},
+\mword{Erdos249257/TotientTailPeriodKiller.lean}{57}{totientTail}{totient Tail},
+\mword{Erdos249257/LcmConeFlatness.lean}{357}{not_irrational_of_tail_diff_mem_int}{not irrational of tail diff mem int},
 \mword{Erdos249257/DiagonalPincerCertificatesT64.lean}{1933}{diagonalPincerCertificateScalesThroughT64}{list},
 \mword{Erdos249257/DiagonalPincerCertificatesT64.lean}{1967}{certifiedKill_diagonal_all_imported_through_t64}{verification},
-\lword{Skip/LadderT67.lean}{71264}{exists_diagonalKill_le_82}{checked},
+\lword{Skip/LadderT67.lean}{71264}{exists_diagonalKill_le_82}{exists diagonal Kill le 82},
 \lword{Erdos249/CyclotomicAnchoredKill.lean}{3231}{CyclotomicAnchoredKillSupply}{CyclotomicAnchoredKillSupply},
 \lword{Erdos249/CyclotomicAnchoredKill.lean}{3327}{binaryCyclotomicAnchoredKillSupply_iff_irrational}{the checked equivalence},
 \lword{Erdos249/CyclotomicAnchoredKill.lean}{1706}{exists_unbounded_binaryCyclotomicSupport_with_periodLock_of_not_irrational}{checked conditional support/period no-go},
@@ -685,12 +753,23 @@ The public snapshot used by this note is recorded by the following source links.
 \mword{Erdos249257/FirstHarmonicPivot.lean}{367}{pivotBaseOfPrime_injective_on_supplierPrimes}{injectivity},
 \mword{Erdos249257/FirstHarmonicPivot.lean}{384}{image_pivotSupplierPrimes_eq_pivotFiber}{image equality},
 \mword{Erdos249257/FirstHarmonicPivot.lean}{394}{supplierPrime_not_globally_isolated_counterexample}{checked counterexample},
-\mword{Erdos249257/FirstHarmonicPivot.lean}{514}{windowFirstExp_sum_eq_pivot_decomposition}{checked},
+\mword{Erdos249257/FirstHarmonicPivot.lean}{514}{windowFirstExp_sum_eq_pivot_decomposition}{window First Exp sum eq pivot decomposition},
 \mword{Erdos249257/FirstHarmonicPivot.lean}{577}{irrational_totient_series_of_pivotResidualDecorrelation}{the conditional irrationality theorem},
 \mword{Erdos249257/FirstHarmonicPivot.lean}{543}{PivotBudgetAt}{the budget condition},
 \mword{Erdos249257/FirstHarmonicPivot.lean}{549}{first_harmonic_gap_of_pivotBudgetAt}{the first-harmonic gap},
-\mword{Erdos249257/TotientKernelReduction.lean}{60}{totient_pow_mul_eq}{checked},
-\mword{Erdos249257/TotientKernelReduction.lean}{117}{totient_pow_mul_affine_gcd_cross_eq}{checked}.
+\mword{Erdos249257/TotientKernelReduction.lean}{60}{totient_pow_mul_eq}{power-multiplication identity},
+\mword{Erdos249257/TotientKernelReduction.lean}{117}{totient_pow_mul_affine_gcd_cross_eq}{affine cross-gcd identity},
+\mword{Erdos249257/TotientKernelConditional.lean}{35}{totientKernelReductionScalar_ne_zero}{nonzero reduction scalar},
+\mword{Erdos249257/TotientKernelConditional.lean}{54}{allBaseTotientKernelSeq_mul_residue_step}{all-base residue step},
+\mword{Erdos249257/TotientKernelConditional.lean}{102}{allBaseTotientKernelSeq_mem_span_canonical_of_le}{canonical spanning},
+\mword{Erdos249257/TotientKernelConditional.lean}{185}{span_allBaseTotientKernelThroughLevelFamily_eq_canonical}{span equality},
+\mword{Erdos249257/TotientKernelConditional.lean}{203}{finrank_canonicalAllBaseTotientKernel_eq_of_linearIndependent}{canonical all-base rank from independence},
+\mword{Erdos249257/TotientKernelConditional.lean}{215}{finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent}{all-base truncation rank from independence}.
+At the later public checkpoint \texttt{25ef6245d15a},
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1118}{\texttt{linearIndependent\_allBaseCanonicalFamily}},
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1231}{\texttt{finrank\_allBaseTotientKernel\_eq}}, and
+\href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239}{\texttt{finrank\_allBaseThroughLevelFamily\_eq}}
+provide the unconditional all-base independence and both exact ranks.
 
 \begin{thebibliography}{9}\small
 \bibitem{allouche-shallit} J.-P.~Allouche and J.~Shallit,
@@ -701,9 +780,10 @@ functions}, J.\ Th\'eor.\ Nombres Bordeaux \textbf{22} (2010), 339--352,
 Theorem~3.2. doi:10.5802/jtnb.718.
 \bibitem{martin-phi-inequalities} G.~Martin, \emph{Simultaneous inequalities
 among values of the Euler phi-function}, 2006, arXiv:math/0603053,
-Theorem~1 and Corollary~4.
-\bibitem{wong2015} E.~Wong, answer to
-\href{https://math.stackexchange.com/questions/1210886}{question 1210886},
+Theorem~1. \url{https://arxiv.org/abs/math/0603053}.
+\bibitem{wong2015} Erick Wong,
+\href{https://math.stackexchange.com/a/1211557}{answer 1211557}
+to \emph{An infinite sum based on the mod-parity of Euler's totient function},
 Mathematics Stack Exchange, 29 March 2015.
 \bibitem{erdosgraham1980} P.~Erd\H{o}s and R.~L.~Graham,
 \emph{Old and New Problems and Results in Combinatorial Number Theory},
