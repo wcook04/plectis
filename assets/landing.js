@@ -582,11 +582,22 @@
     head.classList.add('band-head');
     head.setAttribute('role', 'button');
     head.setAttribute('tabindex', '0');
+    /* The closed band shows one line of its first sentence. When the sentence
+       is longer than the line, the stylesheet fades the line out at its edge
+       instead of cutting it with an ellipsis; a sentence that fits is left
+       whole, so the flag is measured rather than assumed. */
+    var gist = head.querySelector('h2 + p');
+    band.measure = function () {
+      if (!gist || band.open) return;
+      gist.removeAttribute('data-band-overflow');
+      if (gist.scrollWidth > gist.clientWidth + 1) gist.setAttribute('data-band-overflow', '');
+    };
     band.set = function (open) {
       band.open = open;
       section.classList.toggle('is-collapsed', !open);
       extra.forEach(function (el) { el.classList.toggle('is-collapsed', !open); });
       head.setAttribute('aria-expanded', open ? 'true' : 'false');
+      band.measure();
     };
     function onActivate(ev) {
       if (ev.target && ev.target.closest && ev.target.closest('a')) return;
@@ -638,5 +649,14 @@
   openForHash();
   syncToggle();
   doc.documentElement.setAttribute('data-landing-bands', 'on');
+  /* The band styles apply once the attribute is on, so measure after them. */
+  bands.forEach(function (b) { b.measure(); });
+  var measureTimer = 0;
+  window.addEventListener('resize', function () {
+    window.clearTimeout(measureTimer);
+    measureTimer = window.setTimeout(function () {
+      bands.forEach(function (b) { b.measure(); });
+    }, 120);
+  }, { passive: true });
 })();
 

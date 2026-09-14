@@ -51,6 +51,9 @@ function harness() {
       return [];
     },
     querySelector() { return null; },
+    /* The collapsed-bands module looks up #main and the expand control and
+       returns before touching anything else when either is absent. */
+    getElementById() { return null; },
     createElement: element,
     addEventListener() {},
     removeEventListener() {},

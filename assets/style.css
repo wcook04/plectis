@@ -4992,53 +4992,80 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
    without scripts stays complete and unnumbered. */
 html[data-landing-bands="on"] main { counter-reset: band; }
 html[data-landing-bands="on"] section.section:not(.hero) { counter-increment: band; }
+/* The head is the whole control and spans the section: the caret sits on the
+   page's right edge at the head's vertical centre, on every band alike, and
+   the hover ground is as wide as the rows the band opens. The words inside
+   keep their reading measure. (Before this the head was capped at the prose
+   measure, so the caret floated mid-page beside a wrapped heading and the wash
+   stopped short of the rows underneath it.) */
 .band-head {
   cursor: pointer; position: relative;
-  /* The wash box is the head's own box plus a margin of paper on each side,
-     so the hover ground never starts flush with the heading's first letter. */
-  padding: 0.85rem 1rem 0.9rem; margin: -0.85rem -1rem -0.9rem;
+  max-width: none;
+  padding: 1rem 3.6rem 1.05rem 1rem;
+  /* The bottom margin keeps the 2rem the head owes its section body once the
+     padding below the gist is taken back; a closed band zeroes it. */
+  margin: -1rem -1rem calc(2rem - 1.05rem);
   border-radius: var(--r-lg);
   transition: background var(--dur) var(--ease);
 }
-.band-head:hover,
-.band-head:focus-visible { background: color-mix(in srgb, var(--wash-warm) var(--wash-warm-a), transparent); }
+.section.is-collapsed > .band-head { margin-bottom: -1.05rem; }
+.band-head > * { max-inline-size: var(--prose); }
+.band-head h2 { max-inline-size: none; margin-top: 0; padding-right: 0; }
+.band-head::after {
+  content: ""; position: absolute; right: 1.35rem; top: 50%;
+  width: 0.62rem; height: 0.62rem; margin-top: -0.5rem;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  rotate: 45deg; color: var(--faint);
+  transition: rotate var(--motion-ui) var(--ease-out), margin var(--motion-ui) var(--ease-out), color var(--dur) var(--ease);
+}
+.band-head[aria-expanded="true"]::after { rotate: -135deg; margin-top: -0.1rem; }
+/* Only a closed band takes the wash: its box is then the same width as its
+   neighbours. An open band's head sits above rows narrower than itself, so it
+   answers hover with colour alone. */
+.section.is-collapsed > .band-head:hover,
+.section.is-collapsed > .band-head:focus-visible { background: color-mix(in srgb, var(--wash-warm) var(--wash-warm-a), transparent); }
 .band-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.band-head .eyebrow { display: flex; align-items: baseline; gap: 0.7rem; margin-bottom: 0.55rem; }
+/* The heading keeps its colour on hover: part of it is often a glossary link
+   with a colour of its own, and a two-tone heading reads as a mistake. The
+   number and the caret answer instead. */
+.band-head:hover::after { color: var(--accent); }
+.band-head:hover .eyebrow::before { color: var(--link-ext); }
+.band-head .eyebrow { display: flex; align-items: baseline; gap: 0.7rem; margin-bottom: 0.5rem; }
 .band-head .eyebrow::before {
   content: counter(band, decimal-leading-zero);
   font-family: var(--font-mono); font-weight: 500; letter-spacing: 0;
   font-variant-numeric: tabular-nums;
   color: color-mix(in srgb, var(--link-ext) 78%, var(--faint));
+  transition: color var(--dur) var(--ease);
 }
-.band-head h2 { position: relative; padding-right: 2.2rem; margin-top: 0; }
-.band-head h2::after,
-.band-head.eyebrow::after {
-  content: ""; position: absolute; right: 0.55rem; top: 0.5em;
-  width: 0.46em; height: 0.46em;
-  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
-  rotate: 45deg; transition: rotate var(--motion-ui) var(--ease-out), color var(--dur) var(--ease);
-  color: var(--faint);
-}
-.band-head.eyebrow::after { position: static; display: inline-block; margin-left: 0.55em; vertical-align: 0.15em; }
-.band-head[aria-expanded="true"] h2::after,
-.band-head[aria-expanded="true"].eyebrow::after { rotate: -135deg; top: 0.72em; }
-.band-head:hover h2, .band-head.eyebrow:hover { color: var(--accent-strong); }
-.band-head:hover h2::after { color: var(--accent); }
-.section.is-collapsed { padding-block: 1.45rem; }
+.section.is-collapsed { padding-block: 1.6rem; }
 .section.is-collapsed > :not(.band-head) { display: none; }
-/* Closed: eyebrow, heading, and the first sentence on one line. */
+/* Closed: eyebrow, heading, and the opening of the first sentence on one line.
+   The line fades out at the edge when there is more of it; a sentence that fits
+   is shown whole (landing.js stamps data-band-overflow when it measures more). */
 .section.is-collapsed > .section__head > h2 ~ :not(h2 + p) { display: none; }
 .section.is-collapsed > .section__head > h2 + p {
-  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
-  overflow: hidden; margin: 0.35rem 0 0;
+  display: block; white-space: nowrap; overflow: hidden; text-overflow: clip;
+  margin: 0.4rem 0 0;
   font-size: var(--fs-body); color: var(--muted); line-height: var(--lh-snug);
 }
-.section.is-collapsed > .section__head { margin-bottom: 0; }
+.section.is-collapsed > .section__head > h2 + p[data-band-overflow] {
+  -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent 99%);
+  mask-image: linear-gradient(90deg, #000 72%, transparent 99%);
+}
+.section.is-collapsed > .section__head { margin-bottom: -1.05rem; }
 .section.is-collapsed > .section__head h2 { margin-bottom: 0; }
 .section--tail.is-collapsed { display: none; }
 /* The shelf band takes the ladder's rhythm once it is a band like the rest. */
 html[data-landing-bands="on"] .section--quiet:not(.is-collapsed) { padding: var(--section-y) 0; }
 html[data-landing-bands="on"] .section--quiet .quiet-links { margin-top: 0.2rem; }
+/* Under the papers list the corpus route and its footnote read as one tail. */
+#papers .corpus-route { margin-top: 1.4rem; }
+#papers .corpus-facts__note { margin: 0.55rem 0 0; }
+@media (max-width: 640px) {
+  .band-head { padding: 0.85rem 2.6rem 0.9rem 0.7rem; margin: -0.85rem -0.7rem -0.9rem; }
+  .band-head::after { right: 0.9rem; }
+}
 .docs-pagetool[aria-pressed="true"] { color: var(--accent-strong); border-color: var(--accent); }
 
 .fold__gist strong { color: var(--ink-soft); font-weight: 600; }
