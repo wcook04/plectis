@@ -622,6 +622,57 @@
       return parts.join('');
     }
 
+    /* Where a click takes the reader: the result's own place in a rendered
+       paper when one carries its label; otherwise the object's page on this
+       site; otherwise the Lean declaration line on GitHub. */
+    function primaryTarget(n) {
+      if (n.paper) return { href: n.paper, external: false };
+      if (n.page) return { href: n.page, external: false };
+      if (n.lean && n.lean.length) return { href: n.lean[0].href, external: true };
+      if (n.source_github) return { href: n.source_github, external: true };
+      return null;
+    }
+    function openTarget(n) {
+      var target = primaryTarget(n);
+      if (!target) return;
+      if (target.external) window.open(target.href, '_blank', 'noopener');
+      else window.location.href = target.href;
+    }
+    function externalAttrs() {
+      return '" data-link-kind="exogenous" rel="external noopener" target="_blank"';
+    }
+    function openHtml(i, pinned) {
+      var n = nodes[i];
+      var rows = [];
+      if (n.paper) {
+        rows.push('<a class="universe-open universe-open--primary" href="' + escapeHtml(n.paper) + '">' +
+          '<span class="universe-open__verb">Read this result in the paper</span>' +
+          '<span class="universe-open__where">' + escapeHtml(n.paperTitle || 'paper') +
+          (n.paperLabel ? ' <code>' + escapeHtml(n.paperLabel) + '</code>' : '') + '</span></a>');
+      }
+      if (n.page) {
+        rows.push('<a class="universe-open' + (n.paper ? '' : ' universe-open--primary') + '" href="' + escapeHtml(n.page) + '">' +
+          '<span class="universe-open__verb">Open on this site</span></a>');
+      }
+      var lean = n.lean || [];
+      var cap = pinned ? 6 : 1;
+      for (var j = 0; j < lean.length && j < cap; j++) {
+        var primary = !n.paper && !n.page && j === 0;
+        rows.push('<a class="universe-open' + (primary ? ' universe-open--primary' : '') + '" href="' + escapeHtml(lean[j].href) + externalAttrs() + '>' +
+          '<span class="universe-open__verb">' + (j === 0 ? 'Lean source on GitHub' : 'Also proved at') + '</span>' +
+          '<span class="universe-open__where"><code>' + escapeHtml(lean[j].name) + '</code> · line ' + lean[j].line + '</span></a>');
+      }
+      if (lean.length > cap) {
+        rows.push('<span class="universe-open__more">… and ' + (lean.length - cap) + ' more declarations' + (pinned ? '' : ' when pinned') + '</span>');
+      }
+      if (n.source_github && !lean.length) {
+        rows.push('<a class="universe-open' + (n.paper || n.page ? '' : ' universe-open--primary') + '" href="' + escapeHtml(n.source_github) + externalAttrs() + '>' +
+          '<span class="universe-open__verb">View source on GitHub</span></a>');
+      }
+      if (!rows.length) return '';
+      return '<div class="universe-inspector__open">' + rows.join('') + '</div>';
+    }
+
     function placementHtml(i) {
       var n = nodes[i];
       if (n.kind === 'problem' || !n.placedBy) return '';
@@ -665,15 +716,7 @@
         parts.push('<p class="universe-inspector__note">' + counts + '</p>');
       }
       parts.push(placementHtml(i));
-      var links = [];
-      if (n.page) links.push('<a href="' + escapeHtml(n.page) + '">Open on this site</a>');
-      if (n.source_github) {
-        links.push('<a class="source-link" href="' + escapeHtml(n.source_github) +
-          '" data-link-kind="exogenous" rel="external noopener">View source on GitHub</a>');
-      }
-      if (links.length) {
-        parts.push('<div class="universe-inspector__links">' + links.join(' ') + '</div>');
-      }
+      parts.push(openHtml(i, pinned));
       if (pinned) {
         parts.push(sectorSummaryHtml(i));
         var rows = connectionRows(i);
@@ -685,7 +728,7 @@
           parts.push('<button type="button" class="universe-inspector__copy" data-universe-copy>Copy link to this object</button>');
         }
       } else {
-        parts.push('<p class="universe-inspector__hint">Click to pin this card and list its connections.</p>');
+        parts.push('<p class="universe-inspector__hint">Click to pin this card and list its connections; click the pinned object again to open it.</p>');
       }
       return parts.join('');
     }
@@ -773,6 +816,8 @@
           theorem_count: n.theorem_count != null ? n.theorem_count : null,
           page: n.page || null, source_github: n.source_github || null,
           sector: n.sector || null, placedBy: n.placed_by || null,
+          paper: n.paper || null, paperTitle: n.paper_title || null,
+          paperLabel: n.paper_label || null, lean: n.lean || [],
           x: n.x, y: n.y, r: KIND_RADIUS[n.kind] || 2
         };
         row.tier = tierOf(row);
@@ -858,12 +903,13 @@
       if (moved) return;
       var rect = canvas.getBoundingClientRect();
       var i = nodeAt(event.clientX - rect.left, event.clientY - rect.top);
-      if (pageMode) { pin(i, false); return; }
-      if (i >= 0) {
-        var n = nodes[i];
-        if (n.page) { window.location.href = n.page; return; }
-        if (n.source_github) { window.open(n.source_github, '_blank', 'noopener'); return; }
+      if (pageMode) {
+        // First click pins; a second click on the pinned object opens it.
+        if (i >= 0 && i === selected) { openTarget(nodes[i]); return; }
+        pin(i, false);
+        return;
       }
+      if (i >= 0) { openTarget(nodes[i]); return; }
       var target = canvas.getAttribute('data-universe-href');
       if (target) window.location.href = target;
     });
@@ -1034,6 +1080,7 @@
         var pos = layout.positions || {};
         var pages = layout.pages || {};
         var sectors = layout.sectors || {};
+        var links = layout.links || {};
         var index = {};
         var built = [];
         graph.nodes.forEach(function (n) {
@@ -1041,7 +1088,10 @@
           if (!at) return;
           index[n.id] = built.length;
           var sector = sectors[n.id] || null;
+          var link = links[n.id] || {};
           built.push({
+            paper: link.paper, paper_title: link.paper_title,
+            paper_label: link.paper_label, lean: link.lean,
             id: n.id, kind: n.kind, label: n.label,
             short: layout.short && layout.short[n.id] || n.label,
             status: n.status, statement: n.statement, boundary: n.boundary,

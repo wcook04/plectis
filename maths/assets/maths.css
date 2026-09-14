@@ -370,6 +370,29 @@ body:has(.maths-layout) .glossary-hint--inline-ready {
 .universe-chip .glyph { transform: translateY(0.5px); margin-right: 0.35em; }
 .universe-inspector__census--status .glyph { flex: none; }
 .universe-sector { color: var(--muted); }
+
+/* Where a click goes: the result in its paper, the page here, the Lean line. */
+.universe-inspector__open { display: flex; flex-direction: column; gap: 0.35rem; margin: 0 0 var(--space-3); }
+.universe-open {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--rule-control);
+  border-radius: var(--r-control);
+  background: var(--surface);
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+  transition: border-color var(--motion-fast) var(--ease), color var(--motion-fast) var(--ease);
+}
+.universe-open:hover { border-color: var(--accent); color: var(--ink); }
+.universe-open--primary { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.universe-open__verb { font-weight: 600; }
+.universe-open__where { color: var(--muted); font-size: var(--fs-micro); overflow-wrap: anywhere; }
+.universe-open__where code { font-size: 0.95em; }
+.universe-open__more { color: var(--faint); font-size: var(--fs-micro); padding: 0.1rem 0.2rem; }
 .universe-sector__go {
   font: inherit;
   font-weight: 600;
