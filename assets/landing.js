@@ -524,80 +524,88 @@
   window.addEventListener('scroll', onScroll, { passive: true });
 })();
 
-/* Compact landing (2026-09-14). Below the hero, every run of long prose is
-   clamped to two lines with one "Read more" cue per block, and "Expand all"
-   in the page tools switches the whole page to the full view (opening every
-   disclosure too). Without JS nothing is clamped: the page stays complete. */
-(function compactLanding() {
+/* Collapsed bands (2026-09-14). Below the hero the landing is a list of
+   section headings. Each band is closed until its heading is clicked;
+   "Expand all" in the page tools opens every band and every disclosure, and
+   turns into "Collapse all". A link into a band opens it. Without scripts
+   nothing is collapsed: the page stays complete. */
+(function collapsedBands() {
   'use strict';
   var doc = document;
   var main = doc.getElementById('main');
   var toggle = doc.querySelector('[data-landing-expand]');
-  if (!main || !toggle || !main.querySelectorAll) return;
+  if (!main || !toggle) return;
 
-  var MIN_CHARS = 140;
-  var SKIP = '#short-link-reader, details, .landing-pagetools, .link-row, .next-card, .demo-row, .specimen, .review-receipt, .ai-primary__row, .quiet-links, .lineage-note, pre, code';
-  var blocks = [];
-
-  function qualifies(p) {
-    if (p.closest && p.closest(SKIP)) return false;
-    var text = (p.textContent || '').replace(/\s+/g, ' ').trim();
-    return text.length >= MIN_CHARS;
-  }
-
-  var paragraphs = Array.prototype.slice.call(main.querySelectorAll('p'));
-  var byParent = [];
-  paragraphs.forEach(function (p) {
-    if (!qualifies(p)) return;
-    var parent = p.parentElement;
-    var entry = null;
-    for (var i = 0; i < byParent.length; i += 1) {
-      if (byParent[i].parent === parent) { entry = byParent[i]; break; }
+  var bands = [];
+  var sections = Array.prototype.slice.call(main.querySelectorAll('section.section'));
+  sections.forEach(function (section) {
+    if (section.id === 'short-link-reader' || section.classList.contains('hero')) return;
+    var head = section.querySelector('.section__head') || section.querySelector('.eyebrow');
+    if (!head) return;
+    var extra = [];
+    if (section.id === 'problems') {
+      var tail = doc.getElementById('boundaries');
+      if (tail) extra.push(tail);
     }
-    if (!entry) { entry = { parent: parent, items: [] }; byParent.push(entry); }
-    entry.items.push(p);
-  });
-
-  byParent.forEach(function (entry) {
-    var cue = doc.createElement('button');
-    cue.type = 'button';
-    cue.className = 'prose-clamp__cue';
-    cue.setAttribute('aria-expanded', 'false');
-    cue.textContent = 'Read more';
-    var last = entry.items[entry.items.length - 1];
-    last.insertAdjacentElement('afterend', cue);
-    entry.items.forEach(function (p) { p.classList.add('prose-clamp'); });
-    var block = { items: entry.items, cue: cue, open: false };
-    block.set = function (open) {
-      block.open = open;
-      block.items.forEach(function (p) { p.classList.toggle('prose-clamp', !open); });
-      cue.setAttribute('aria-expanded', open ? 'true' : 'false');
-      cue.textContent = open ? 'Show less' : 'Read more';
+    var band = { section: section, head: head, extra: extra, open: false };
+    head.classList.add('band-head');
+    head.setAttribute('role', 'button');
+    head.setAttribute('tabindex', '0');
+    band.set = function (open) {
+      band.open = open;
+      section.classList.toggle('is-collapsed', !open);
+      extra.forEach(function (el) { el.classList.toggle('is-collapsed', !open); });
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
     };
-    cue.addEventListener('click', function () { block.set(!block.open); syncToggle(); });
-    entry.items.forEach(function (p) {
-      p.addEventListener('click', function () { if (!block.open) { block.set(true); syncToggle(); } });
+    function onActivate(ev) {
+      if (ev.target && ev.target.closest && ev.target.closest('a')) return;
+      ev.preventDefault();
+      band.set(!band.open);
+      syncToggle();
+    }
+    head.addEventListener('click', onActivate);
+    head.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') onActivate(ev);
     });
-    blocks.push(block);
+    band.set(false);
+    bands.push(band);
   });
-
-  if (!blocks.length) { toggle.hidden = true; return; }
+  if (!bands.length) return;
 
   var expanded = false;
   function syncToggle() {
-    var allOpen = blocks.every(function (b) { return b.open; });
-    expanded = allOpen;
-    toggle.setAttribute('aria-pressed', allOpen ? 'true' : 'false');
+    expanded = bands.every(function (b) { return b.open; });
+    toggle.setAttribute('aria-pressed', expanded ? 'true' : 'false');
     var label = toggle.querySelector('.docs-pagetool__text') || toggle;
-    label.textContent = allOpen ? 'Collapse all' : 'Expand all';
+    label.textContent = expanded ? 'Collapse all' : 'Expand all';
   }
+  toggle.hidden = false;
   toggle.addEventListener('click', function () {
     var open = !expanded;
-    blocks.forEach(function (b) { b.set(open); });
+    bands.forEach(function (b) { b.set(open); });
     var details = main.querySelectorAll('details');
     for (var i = 0; i < details.length; i += 1) details[i].open = open;
     syncToggle();
   });
-  doc.documentElement.setAttribute('data-landing-compact', 'on');
+
+  /* A hash link into a band opens that band, so deep links keep working. */
+  function openForHash() {
+    var raw = window.location.hash;
+    if (!raw || raw.length < 2) return;
+    var id;
+    try { id = decodeURIComponent(raw.slice(1)); } catch (e) { id = raw.slice(1); }
+    var target = doc.getElementById(id);
+    if (!target) return;
+    bands.forEach(function (b) {
+      if (b.section.contains(target) || b.extra.some(function (el) { return el.contains(target); })) {
+        b.set(true);
+      }
+    });
+    syncToggle();
+  }
+  window.addEventListener('hashchange', openForHash);
+  openForHash();
   syncToggle();
+  doc.documentElement.setAttribute('data-landing-bands', 'on');
 })();
+

@@ -4959,36 +4959,31 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   text-wrap: pretty;
 }
 
-/* Compact landing (2026-09-14): long prose below the hero shows two lines and
-   a quiet cue until the reader asks for it. Applied only by landing.js, so a
-   page without scripts stays complete. */
-.prose-clamp {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  cursor: pointer;
-  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-          mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-}
-.prose-clamp + .prose-clamp { display: none; }
-.prose-clamp__cue {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  margin: 0.35rem 0 0.2rem; padding: 0.2rem 0;
-  border: 0; background: none; cursor: pointer;
-  font: inherit; font-size: var(--fs-meta); font-weight: 600;
-  color: var(--accent);
-}
-.prose-clamp__cue::before {
-  content: ""; width: 0.4em; height: 0.4em;
+/* Collapsed bands (2026-09-14): below the hero the landing is a list of
+   headings. A closed band shows its eyebrow and heading only; the heading is
+   the control. Applied only by landing.js, so a page without scripts stays
+   complete. */
+.band-head { cursor: pointer; position: relative; }
+.band-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: var(--r-xs); }
+.band-head h2::after,
+.band-head.eyebrow::after {
+  content: ""; display: inline-block; width: 0.42em; height: 0.42em;
+  margin-left: 0.55em; vertical-align: 0.15em;
   border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
-  rotate: 45deg; margin-top: -0.25em;
-  transition: rotate var(--motion-ui) var(--ease-out);
+  rotate: 45deg; transition: rotate var(--motion-ui) var(--ease-out);
+  color: var(--faint);
 }
-.prose-clamp__cue[aria-expanded="true"]::before { rotate: -135deg; margin-top: 0.15em; }
-.prose-clamp__cue:hover { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 0.18em; }
-.prose-clamp__cue:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--r-xs); }
+.band-head[aria-expanded="true"] h2::after,
+.band-head[aria-expanded="true"].eyebrow::after { rotate: -135deg; vertical-align: -0.1em; }
+.band-head:hover h2, .band-head.eyebrow:hover { color: var(--accent-strong); }
+.section.is-collapsed { padding-block: 1.6rem; }
+.section.is-collapsed > :not(.band-head) { display: none; }
+.section.is-collapsed > .section__head > :not(.eyebrow):not(h2) { display: none; }
+.section.is-collapsed > .section__head { margin-bottom: 0; }
+.section.is-collapsed > .section__head h2 { margin-bottom: 0; }
+.section--tail.is-collapsed { display: none; }
 .docs-pagetool[aria-pressed="true"] { color: var(--accent-strong); border-color: var(--accent); }
+
 .fold__gist strong { color: var(--ink-soft); font-weight: 600; }
 .fold__body {
   padding: 0.4rem 0 2.6rem;
