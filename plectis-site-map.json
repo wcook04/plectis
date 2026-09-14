@@ -6033,7 +6033,7 @@
     "artifact_path": "assets/site-packet.js",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.assets/site-packet.js",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:14b936fee57120b6e7932aae5403ac97adf9998eeaca7f2969bece233daf60b7",
+    "payload_sha256_excluding_identity": "sha256:98bd393018e8a0d2e107262284448ba545e6910f4af955caaae1d6f2c83a6b94",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_site_json_map_packet_v2",
     "source_fingerprint": "b3cd770524cbb9159e9e9ab24fe554b1"
@@ -15007,11 +15007,11 @@
       ],
       "title": "Contact",
       "visible_text": {
-        "byte_count": 9160,
+        "byte_count": 4189,
         "format": "markdown",
         "packaging": "full_public_main_content_markdown_without_repeated_global_nav",
         "schema": "microcosm_public_page_visible_text_v1",
-        "text": "Site\n\n### Contact\n\nThe person behind Plectis, and the routes for questions, corrections, and critique.\n\n#### Who built this\n\nMy name is Will Cook, 22, studying economics at the University of Bristol. I built this alone, self-funding.\n\nI am clearly not a mathematician. I'm not entirely sure what I am besides what some might call a \"vibe-coder\" or \"builder\", but these days those terms sound very cringe, almost self-aggrandising. I would say that I try my best to create things that I think of, because it's fun.\n\nFor the past year I have been building this with essentially no technical support.\n\nIt started as a private repo built for a trading system. UK financial regulation meant that seemed too hairy a path to go down without more guidance, but by then I had already built a large financial database, which I probably can't release. This was before I had even used Claude Code. I had built my own internal DAG orchestrator that self-improved the DAG of prompts in real time on frequent historic data. DAG 1 predicts, DAG 2 evaluates, DAG 3 modifies; slide window and there are second-order signals over how the DAG I/O behaves, etc.\n\nI then discovered coding agent apps, and it all changed. I spent months and months building whatever I could come up with. I developed a doctrine for my agents, and built a frontend that would evolve with the backend to be able to see what was happening in the system.\n\nI realised I couldn't release the entire thing, so I abandoned what I deemed risky and focused on building a new system, Plectis, that would let me showcase cross-sections of the system.\n\nI would call myself an early adopter of vibe-maths, so early in fact I was releasing AI-written papers on ArXiv before they even had moderation for new submissions. I was told by some mathematicians to give up and that AI would not surpass humans, and that AI being used by me certainly wouldn't.\n\nIf someone tells me to give up I make special note to try and prove them wrong, but I am also trying to become wise as a person. I stopped vibe-mathing and focused on trying to build AI systems, as I realised systems can do a much better job than I could at doing the most abstract repeatable tasks, and in organising work done, and ultimately in directing and planning the efforts of AI at any given moment.\n\nAs such, this is my progression I made over the last two years of full-sending AI, and the last year of building this project. My biggest problem has been that nobody with expertise can really judge the entire thing, because it spans so many domains.\n\nI see the mess of AI in mathematics in September 2026. The panic is palpable, and I hold most sympathy for people my age. I believe labs are setting the wrong example. Players will play the game, and I think it causes less friction to change behaviour by altering the payoffs rather than the choices. Labs obsess over benchmarks, and share their results when it makes them look better and doesn't harm their interests.\n\nWho can fail the best? That's what my open-source Lean repo is trying to answer. Showing just how epically I (and hopefully soon others) can fail, then turning to experts to say: please can we work together, I need your expertise and you might benefit from my system; together, maybe we can collaborate and mutually benefit. Your current function may change just like everyone's. That doesn't mean the utility you might generate can't actually increase, rather just that the function itself may need to change as we enter a new regime of civilisation (echoes of the cold depersonalisation of economics there).\n\nYou will get the credit. I just want my system used. This is in both our best interests and the payoff for you is high because my system can trace not just the direct effect, but how that effect propagated into later changes and compounded, which I know I can build -- worthwhile making if I got even a bit of traction.\n\nI hope I don't sound too grandiose in this. It's just the ethos behind it all, and I want to show there is a human buried somewhere deep inside this system.\n\nI have run out of money, I have run out of time. I chase perfection over attention; what you see is not the former, and doesn't seem to facilitate the latter, so I must try both harder and different things. Hopefully someday somebody gets deep enough into the website to read this, and I will know that perhaps what I'm doing is finally working in getting all of it seen and stimulating curiosity. If that is you, thank you for your time and interest.\n\nThe University of Bristol has no affiliation with this work and had no involvement in it.\n\nBuilder and operator credit is not mathematical authorship or independent verification: I am responsible for assembling the public projection and choosing what to release, while the cited Lean sources, papers, claim registry, and receipts carry mathematical authority.\n\nThe papers were made the same way, and it would be odd to describe the system honestly while leaving its own write-ups vague. I did not write their prose. Agents drafted and revised it from objectives and review criteria I set, and I selected the claims, reviewed the text, and authorised what was published. Each paper says so on its first page and declares it in full at the back. The byline stays mine because responsibility for the claims does, and that is not something a generative system can hold.\n\nThe public repository is not the whole system. The full version includes live tools, non-public data, and capabilities I did not think it appropriate to put online all at once. Plectis is the smaller standalone slice: source files, component records, evidence classes, stable source addresses, and scope limits. The [evidence page](docs/evidence.html) records which lane each component took, so the gap between what the public slice shows and what the private root contains is written down rather than implied.\n\nI am still working on the rough edges: making the code and docs easier to follow, checking more failure cases, and finding out whether this is useful in other people's research. Time and compute limit how much I can run. Wider use and independent review are work I need help with too. If you find mistakes, bad assumptions, or anything unclear, I would like to know.\n\nBecause I built this alone, the system grew its own private vocabulary along the way. For release I have tried to translate that language into plainer public terms. If an odd word has survived the cleanup, that is leftover translation work, not a term of art; please point it out.\n\n#### Choose a route\n\nDifferent readers need different next steps. These are direct routes into inspection, correction, use, and serious discussion; they are not endorsements, a funding solicitation, or a promise that every enquiry can be accepted.\n\n[**Inspect or verify a claim** Start with the public evidence classes, source links, and stated claim limits. Inspect](docs/evidence.html) [**Clone or reproduce the public slice** Use the source, license, quickstart, and replay routes for a cold local check. Reproduce](docs/source.html) [**Use or adapt the public source** Read the license and source boundary before reusing the released material in another project. Reuse](docs/source.html#license) **Suggest a correction or critique** Send a concrete page, file, claim, or assumption that needs checking. Correct **Collaborate or arrange a research review** Describe the relevant background, question, and bounded route you want to inspect together. Discuss **Discuss funding or hiring** Use this route for a serious fit conversation; it is not an investment or recruitment promise. Enquire **Discuss a partnership or license** Start with the source and license posture, then describe the use or partnership you have in mind. Enquire\n\n#### Get in touch\n\n**Email (personal, always works)** williamwkcook@gmail.com, for questions, feedback, or anything you think I have got wrong. Send **Email (University of Bristol)** gj23368@bristol.ac.uk. I may not keep access to this one. Copy the Gmail address if you use it. Send [**Software bugs and documentation** Report something broken or unclear in the public software or this site. Open](https://github.com/wcook04/plectis/issues) [**Mathematics and proof code** Report a problem with a mathematical claim, paper, or Lean proof. Open](https://github.com/wcook04/plectis-erdos/issues) [**Repository discussions** Public questions, critique, or collaboration. Open](https://github.com/wcook04/plectis/discussions) [**LinkedIn** Will Cook, who builds and maintains Plectis. Open](https://www.linkedin.com/in/will-cook-278127234/) [**Security issues** The private reporting route for anything security-shaped. Open](docs/vulnerability-disclosure.html)\n\n#### Follow updates\n\nThere is no mailing list, newsletter provider, or signup form for Plectis at the moment. Follow public changes through the generated feed or repository surfaces.\n\n[**Follow updates** Generated feed, GitHub Watch route, releases route, and discussions route. Open](docs/updates.html) [**Atom feed** A static machine-readable feed generated from the public narrative owner. Open](updates.xml)"
+        "text": "Site\n\n### Contact\n\nThe person behind Plectis, and the routes for questions, corrections, and critique.\n\n#### Who built this\n\nMy name is Will Cook, 22, studying economics at the University of Bristol. I built this alone, self-funding.\n\nI am clearly not a mathematician. I try my best to create things that I think of, because it's fun.\n\nIt started as a private repo built for a trading system. UK financial regulation meant that seemed too hairy a path to go down without more guidance, but by then I had already built a large financial database, which I probably can't release. This was before I had even used Claude Code.\n\nI then discovered coding agent apps, and it all changed. I spent months and months building whatever I could come up with. I developed a doctrine for my agents, and built a frontend that would evolve with the backend to be able to see what was happening in the system.\n\nI realised I couldn't release the entire thing, so I abandoned what I deemed risky and focused on building a new system, Plectis, that would let me showcase cross-sections of the system.\n\nI stopped vibe-mathing and focused on trying to build AI systems, as I realised systems can do a much better job than I could at doing the most abstract repeatable tasks, and in organising work done, and ultimately in directing and planning the efforts of AI at any given moment.\n\nMy biggest problem has been that nobody with expertise can really judge the entire thing, because it spans so many domains.\n\nYou will get the credit. I just want my system used.\n\nThank you for your time and interest.\n\n#### Choose a route\n\nDifferent readers need different next steps. These are direct routes into inspection, correction, use, and serious discussion; they are not endorsements, a funding solicitation, or a promise that every enquiry can be accepted.\n\n[**Inspect or verify a claim** Start with the public evidence classes, source links, and stated claim limits. Inspect](docs/evidence.html) [**Clone or reproduce the public slice** Use the source, license, quickstart, and replay routes for a cold local check. Reproduce](docs/source.html) [**Use or adapt the public source** Read the license and source boundary before reusing the released material in another project. Reuse](docs/source.html#license) **Suggest a correction or critique** Send a concrete page, file, claim, or assumption that needs checking. Correct **Collaborate or arrange a research review** Describe the relevant background, question, and bounded route you want to inspect together. Discuss **Discuss funding or hiring** Use this route for a serious fit conversation; it is not an investment or recruitment promise. Enquire **Discuss a partnership or license** Start with the source and license posture, then describe the use or partnership you have in mind. Enquire\n\n#### Get in touch\n\n**Email (personal, always works)** williamwkcook@gmail.com, for questions, feedback, or anything you think I have got wrong. Send **Email (University of Bristol)** gj23368@bristol.ac.uk. I may not keep access to this one. Copy the Gmail address if you use it. Send [**Software bugs and documentation** Report something broken or unclear in the public software or this site. Open](https://github.com/wcook04/plectis/issues) [**Mathematics and proof code** Report a problem with a mathematical claim, paper, or Lean proof. Open](https://github.com/wcook04/plectis-erdos/issues) [**Repository discussions** Public questions, critique, or collaboration. Open](https://github.com/wcook04/plectis/discussions) [**LinkedIn** Will Cook, who builds and maintains Plectis. Open](https://www.linkedin.com/in/will-cook-278127234/) [**Security issues** The private reporting route for anything security-shaped. Open](docs/vulnerability-disclosure.html)\n\n#### Follow updates\n\nThere is no mailing list, newsletter provider, or signup form for Plectis at the moment. Follow public changes through the generated feed or repository surfaces.\n\n[**Follow updates** Generated feed, GitHub Watch route, releases route, and discussions route. Open](docs/updates.html) [**Atom feed** A static machine-readable feed generated from the public narrative owner. Open](updates.xml)"
       }
     },
     {
@@ -15301,7 +15301,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 212,
+          "page_count": 211,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -15329,7 +15329,7 @@
               "page": "paper-module-verifier-lab-kernel.html"
             }
           ],
-          "total_occurrences": 2004
+          "total_occurrences": 2002
         },
         "visible_text_byte_count": 1230
       },
@@ -15405,7 +15405,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 207,
+          "page_count": 206,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -15433,7 +15433,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 1523
+          "total_occurrences": 1522
         },
         "visible_text_byte_count": 1308
       },
@@ -15615,7 +15615,7 @@
         "status": "active",
         "term_kind": "artifact",
         "used_in": {
-          "page_count": 212,
+          "page_count": 211,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -15643,7 +15643,7 @@
               "page": "paper-module-navigation-hologram-route-plane.html"
             }
           ],
-          "total_occurrences": 2017
+          "total_occurrences": 2015
         },
         "visible_text_byte_count": 1174
       },
@@ -16956,7 +16956,7 @@
               "page": "paper-module-agent-route-observability-runtime.html"
             }
           ],
-          "total_occurrences": 773
+          "total_occurrences": 772
         },
         "visible_text_byte_count": 770
       },
@@ -18866,7 +18866,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 155,
+          "page_count": 154,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -18894,7 +18894,7 @@
               "page": "components.html"
             }
           ],
-          "total_occurrences": 1279
+          "total_occurrences": 1278
         },
         "visible_text_byte_count": 866
       },
@@ -18949,7 +18949,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 70,
+          "page_count": 69,
           "top_page": "doctrine.html",
           "top_pages": [
             {
@@ -18977,7 +18977,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 206
+          "total_occurrences": 205
         },
         "visible_text_byte_count": 936
       },
@@ -19480,7 +19480,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 81,
+          "page_count": 80,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -19508,7 +19508,7 @@
               "page": "area-agent-reliability.html"
             }
           ],
-          "total_occurrences": 480
+          "total_occurrences": 479
         },
         "visible_text_byte_count": 900
       },
@@ -21090,7 +21090,7 @@
               "page": "paper-module-doctrine-fact-claim-audit.html"
             }
           ],
-          "total_occurrences": 2107
+          "total_occurrences": 2105
         },
         "visible_text_byte_count": 853
       },
@@ -21137,15 +21137,10 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 1,
-          "top_page": "contact.html",
-          "top_pages": [
-            {
-              "count": 1,
-              "page": "contact.html"
-            }
-          ],
-          "total_occurrences": 1
+          "page_count": 0,
+          "top_page": null,
+          "top_pages": [],
+          "total_occurrences": 0
         },
         "visible_text_byte_count": 988
       },
@@ -22158,7 +22153,7 @@
           "top_page": "contact.html",
           "top_pages": [
             {
-              "count": 3,
+              "count": 2,
               "page": "contact.html"
             },
             {
@@ -22166,7 +22161,7 @@
               "page": "open-questions.html"
             }
           ],
-          "total_occurrences": 4
+          "total_occurrences": 3
         },
         "visible_text_byte_count": 1033
       },
@@ -24279,14 +24274,14 @@
             },
             {
               "count": 2,
-              "page": "contact.html"
+              "page": "papers.html"
             },
             {
-              "count": 2,
-              "page": "papers.html"
+              "count": 1,
+              "page": "contact.html"
             }
           ],
-          "total_occurrences": 12
+          "total_occurrences": 11
         },
         "visible_text_byte_count": 909
       },
@@ -28842,7 +28837,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 2263
+          "total_occurrences": 2261
         },
         "visible_text_byte_count": 814
       },
@@ -31692,7 +31687,7 @@
         "status": "active",
         "term_kind": "mathematical_concept",
         "used_in": {
-          "page_count": 91,
+          "page_count": 90,
           "top_page": "paper-module-microcosm-axiom-substrate.html",
           "top_pages": [
             {
@@ -31720,7 +31715,7 @@
               "page": "paper-module-batch11-saturation-engines-capsule.html"
             }
           ],
-          "total_occurrences": 202
+          "total_occurrences": 200
         },
         "visible_text_byte_count": 1014
       },
@@ -33716,7 +33711,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 50
+          "total_occurrences": 49
         },
         "visible_text_byte_count": 816
       },
@@ -36373,7 +36368,7 @@
               "page": "paper-module-formal-math-lean-proof-witness.html"
             }
           ],
-          "total_occurrences": 912
+          "total_occurrences": 910
         },
         "visible_text_byte_count": 839
       },
@@ -36921,7 +36916,7 @@
               "page": "paper-module-mission-transaction-work-spine.html"
             }
           ],
-          "total_occurrences": 109
+          "total_occurrences": 108
         },
         "visible_text_byte_count": 858
       },
@@ -38191,11 +38186,11 @@
           "top_page": "contact.html",
           "top_pages": [
             {
-              "count": 2,
+              "count": 1,
               "page": "contact.html"
             }
           ],
-          "total_occurrences": 2
+          "total_occurrences": 1
         },
         "visible_text_byte_count": 739
       },
@@ -38248,10 +38243,6 @@
             },
             {
               "count": 3,
-              "page": "contact.html"
-            },
-            {
-              "count": 3,
               "page": "paper-module-proof-diagnostic-evidence-spine.html"
             },
             {
@@ -38265,9 +38256,13 @@
             {
               "count": 1,
               "page": "architecture.html"
+            },
+            {
+              "count": 1,
+              "page": "coding-agents.html"
             }
           ],
-          "total_occurrences": 18
+          "total_occurrences": 16
         },
         "visible_text_byte_count": 877
       },
@@ -42581,7 +42576,7 @@
               "page": "component-research-replication-rubric-artifact-replay.html"
             }
           ],
-          "total_occurrences": 269
+          "total_occurrences": 265
         },
         "visible_text_byte_count": 1057
       },
@@ -45244,7 +45239,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 149,
+          "page_count": 148,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -45272,7 +45267,7 @@
               "page": "area-agent-reliability.html"
             }
           ],
-          "total_occurrences": 770
+          "total_occurrences": 769
         },
         "visible_text_byte_count": 973
       },
@@ -47045,7 +47040,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 96,
+          "page_count": 95,
           "top_page": "paper-module-navigation-hologram-route-plane.html",
           "top_pages": [
             {
@@ -47073,7 +47068,7 @@
               "page": "paper-module-work-landing-control-spine.html"
             }
           ],
-          "total_occurrences": 163
+          "total_occurrences": 162
         },
         "visible_text_byte_count": 868
       },
@@ -47810,10 +47805,6 @@
             },
             {
               "count": 5,
-              "page": "contact.html"
-            },
-            {
-              "count": 5,
               "page": "updates.html"
             },
             {
@@ -47821,11 +47812,15 @@
               "page": "component-batch12-release-claim-language-gate.html"
             },
             {
+              "count": 3,
+              "page": "contact.html"
+            },
+            {
               "count": 2,
               "page": "architecture.html"
             }
           ],
-          "total_occurrences": 54
+          "total_occurrences": 52
         },
         "visible_text_byte_count": 789
       },
@@ -48124,7 +48119,7 @@
               "page": "paper-module-mission-transaction-work-spine.html"
             }
           ],
-          "total_occurrences": 172
+          "total_occurrences": 171
         },
         "visible_text_byte_count": 798
       },
@@ -51030,10 +51025,10 @@
             },
             {
               "count": 3,
-              "page": "contact.html"
+              "page": "open-questions.html"
             }
           ],
-          "total_occurrences": 69
+          "total_occurrences": 67
         },
         "visible_text_byte_count": 861
       },
@@ -51460,7 +51455,7 @@
               "page": "paper-module-world-model-projection-drift-control-room.html"
             }
           ],
-          "total_occurrences": 5353
+          "total_occurrences": 5350
         },
         "visible_text_byte_count": 1152
       },
@@ -51581,7 +51576,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 60,
+          "page_count": 59,
           "top_page": "components.html",
           "top_pages": [
             {
@@ -51609,7 +51604,7 @@
               "page": "area-formal-math.html"
             }
           ],
-          "total_occurrences": 108
+          "total_occurrences": 107
         },
         "visible_text_byte_count": 938
       },
@@ -52997,7 +52992,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 101,
+          "page_count": 100,
           "top_page": "doctrine.html",
           "top_pages": [
             {
@@ -53025,7 +53020,7 @@
               "page": "paper-module-durable-agent-work-landing-replay.html"
             }
           ],
-          "total_occurrences": 288
+          "total_occurrences": 287
         },
         "visible_text_byte_count": 909
       },
@@ -54545,12 +54540,8 @@
         "term_kind": "public_projection",
         "used_in": {
           "page_count": 22,
-          "top_page": "contact.html",
+          "top_page": "paper-module-certificate-kernel-execution-lab.html",
           "top_pages": [
-            {
-              "count": 5,
-              "page": "contact.html"
-            },
             {
               "count": 2,
               "page": "paper-module-certificate-kernel-execution-lab.html"
@@ -54570,9 +54561,13 @@
             {
               "count": 2,
               "page": "papers.html"
+            },
+            {
+              "count": 1,
+              "page": "component-agent-benchmark-integrity-anti-gaming-replay.html"
             }
           ],
-          "total_occurrences": 31
+          "total_occurrences": 27
         },
         "visible_text_byte_count": 747
       },
@@ -56177,7 +56172,7 @@
               "page": "paper-module-voice-to-doctrine-self-improvement-loop.html"
             }
           ],
-          "total_occurrences": 363
+          "total_occurrences": 362
         },
         "visible_text_byte_count": 1017
       },
@@ -62967,7 +62962,7 @@
       "evidence_profile_record_count": 359,
       "logical_text_byte_count": 3990005,
       "page_count": 218,
-      "page_text_byte_count": 435040,
+      "page_text_byte_count": 430069,
       "paper_module_record_count": 103,
       "public_glossary_record_count": 660,
       "roster_section_count": 3,
@@ -187637,7 +187632,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 212,
+            "page_count": 211,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -187665,7 +187660,7 @@
                 "page": "paper-module-verifier-lab-kernel.html"
               }
             ],
-            "total_occurrences": 2004
+            "total_occurrences": 2002
           },
           "visible_text_byte_count": 1230
         },
@@ -187741,7 +187736,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 207,
+            "page_count": 206,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -187769,7 +187764,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 1523
+            "total_occurrences": 1522
           },
           "visible_text_byte_count": 1308
         },
@@ -187951,7 +187946,7 @@
           "status": "active",
           "term_kind": "artifact",
           "used_in": {
-            "page_count": 212,
+            "page_count": 211,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -187979,7 +187974,7 @@
                 "page": "paper-module-navigation-hologram-route-plane.html"
               }
             ],
-            "total_occurrences": 2017
+            "total_occurrences": 2015
           },
           "visible_text_byte_count": 1174
         },
@@ -189292,7 +189287,7 @@
                 "page": "paper-module-agent-route-observability-runtime.html"
               }
             ],
-            "total_occurrences": 773
+            "total_occurrences": 772
           },
           "visible_text_byte_count": 770
         },
@@ -191202,7 +191197,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 155,
+            "page_count": 154,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -191230,7 +191225,7 @@
                 "page": "components.html"
               }
             ],
-            "total_occurrences": 1279
+            "total_occurrences": 1278
           },
           "visible_text_byte_count": 866
         },
@@ -191285,7 +191280,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 70,
+            "page_count": 69,
             "top_page": "doctrine.html",
             "top_pages": [
               {
@@ -191313,7 +191308,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 206
+            "total_occurrences": 205
           },
           "visible_text_byte_count": 936
         },
@@ -191816,7 +191811,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 81,
+            "page_count": 80,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -191844,7 +191839,7 @@
                 "page": "area-agent-reliability.html"
               }
             ],
-            "total_occurrences": 480
+            "total_occurrences": 479
           },
           "visible_text_byte_count": 900
         },
@@ -193426,7 +193421,7 @@
                 "page": "paper-module-doctrine-fact-claim-audit.html"
               }
             ],
-            "total_occurrences": 2107
+            "total_occurrences": 2105
           },
           "visible_text_byte_count": 853
         },
@@ -193473,15 +193468,10 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 1,
-            "top_page": "contact.html",
-            "top_pages": [
-              {
-                "count": 1,
-                "page": "contact.html"
-              }
-            ],
-            "total_occurrences": 1
+            "page_count": 0,
+            "top_page": null,
+            "top_pages": [],
+            "total_occurrences": 0
           },
           "visible_text_byte_count": 988
         },
@@ -194494,7 +194484,7 @@
             "top_page": "contact.html",
             "top_pages": [
               {
-                "count": 3,
+                "count": 2,
                 "page": "contact.html"
               },
               {
@@ -194502,7 +194492,7 @@
                 "page": "open-questions.html"
               }
             ],
-            "total_occurrences": 4
+            "total_occurrences": 3
           },
           "visible_text_byte_count": 1033
         },
@@ -196615,14 +196605,14 @@
               },
               {
                 "count": 2,
-                "page": "contact.html"
+                "page": "papers.html"
               },
               {
-                "count": 2,
-                "page": "papers.html"
+                "count": 1,
+                "page": "contact.html"
               }
             ],
-            "total_occurrences": 12
+            "total_occurrences": 11
           },
           "visible_text_byte_count": 909
         },
@@ -201178,7 +201168,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 2263
+            "total_occurrences": 2261
           },
           "visible_text_byte_count": 814
         },
@@ -204028,7 +204018,7 @@
           "status": "active",
           "term_kind": "mathematical_concept",
           "used_in": {
-            "page_count": 91,
+            "page_count": 90,
             "top_page": "paper-module-microcosm-axiom-substrate.html",
             "top_pages": [
               {
@@ -204056,7 +204046,7 @@
                 "page": "paper-module-batch11-saturation-engines-capsule.html"
               }
             ],
-            "total_occurrences": 202
+            "total_occurrences": 200
           },
           "visible_text_byte_count": 1014
         },
@@ -206052,7 +206042,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 50
+            "total_occurrences": 49
           },
           "visible_text_byte_count": 816
         },
@@ -208709,7 +208699,7 @@
                 "page": "paper-module-formal-math-lean-proof-witness.html"
               }
             ],
-            "total_occurrences": 912
+            "total_occurrences": 910
           },
           "visible_text_byte_count": 839
         },
@@ -209257,7 +209247,7 @@
                 "page": "paper-module-mission-transaction-work-spine.html"
               }
             ],
-            "total_occurrences": 109
+            "total_occurrences": 108
           },
           "visible_text_byte_count": 858
         },
@@ -210527,11 +210517,11 @@
             "top_page": "contact.html",
             "top_pages": [
               {
-                "count": 2,
+                "count": 1,
                 "page": "contact.html"
               }
             ],
-            "total_occurrences": 2
+            "total_occurrences": 1
           },
           "visible_text_byte_count": 739
         },
@@ -210584,10 +210574,6 @@
               },
               {
                 "count": 3,
-                "page": "contact.html"
-              },
-              {
-                "count": 3,
                 "page": "paper-module-proof-diagnostic-evidence-spine.html"
               },
               {
@@ -210601,9 +210587,13 @@
               {
                 "count": 1,
                 "page": "architecture.html"
+              },
+              {
+                "count": 1,
+                "page": "coding-agents.html"
               }
             ],
-            "total_occurrences": 18
+            "total_occurrences": 16
           },
           "visible_text_byte_count": 877
         },
@@ -214917,7 +214907,7 @@
                 "page": "component-research-replication-rubric-artifact-replay.html"
               }
             ],
-            "total_occurrences": 269
+            "total_occurrences": 265
           },
           "visible_text_byte_count": 1057
         },
@@ -217580,7 +217570,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 149,
+            "page_count": 148,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -217608,7 +217598,7 @@
                 "page": "area-agent-reliability.html"
               }
             ],
-            "total_occurrences": 770
+            "total_occurrences": 769
           },
           "visible_text_byte_count": 973
         },
@@ -219381,7 +219371,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 96,
+            "page_count": 95,
             "top_page": "paper-module-navigation-hologram-route-plane.html",
             "top_pages": [
               {
@@ -219409,7 +219399,7 @@
                 "page": "paper-module-work-landing-control-spine.html"
               }
             ],
-            "total_occurrences": 163
+            "total_occurrences": 162
           },
           "visible_text_byte_count": 868
         },
@@ -220146,10 +220136,6 @@
               },
               {
                 "count": 5,
-                "page": "contact.html"
-              },
-              {
-                "count": 5,
                 "page": "updates.html"
               },
               {
@@ -220157,11 +220143,15 @@
                 "page": "component-batch12-release-claim-language-gate.html"
               },
               {
+                "count": 3,
+                "page": "contact.html"
+              },
+              {
                 "count": 2,
                 "page": "architecture.html"
               }
             ],
-            "total_occurrences": 54
+            "total_occurrences": 52
           },
           "visible_text_byte_count": 789
         },
@@ -220460,7 +220450,7 @@
                 "page": "paper-module-mission-transaction-work-spine.html"
               }
             ],
-            "total_occurrences": 172
+            "total_occurrences": 171
           },
           "visible_text_byte_count": 798
         },
@@ -223366,10 +223356,10 @@
               },
               {
                 "count": 3,
-                "page": "contact.html"
+                "page": "open-questions.html"
               }
             ],
-            "total_occurrences": 69
+            "total_occurrences": 67
           },
           "visible_text_byte_count": 861
         },
@@ -223796,7 +223786,7 @@
                 "page": "paper-module-world-model-projection-drift-control-room.html"
               }
             ],
-            "total_occurrences": 5353
+            "total_occurrences": 5350
           },
           "visible_text_byte_count": 1152
         },
@@ -223917,7 +223907,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 60,
+            "page_count": 59,
             "top_page": "components.html",
             "top_pages": [
               {
@@ -223945,7 +223935,7 @@
                 "page": "area-formal-math.html"
               }
             ],
-            "total_occurrences": 108
+            "total_occurrences": 107
           },
           "visible_text_byte_count": 938
         },
@@ -225333,7 +225323,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 101,
+            "page_count": 100,
             "top_page": "doctrine.html",
             "top_pages": [
               {
@@ -225361,7 +225351,7 @@
                 "page": "paper-module-durable-agent-work-landing-replay.html"
               }
             ],
-            "total_occurrences": 288
+            "total_occurrences": 287
           },
           "visible_text_byte_count": 909
         },
@@ -226881,12 +226871,8 @@
           "term_kind": "public_projection",
           "used_in": {
             "page_count": 22,
-            "top_page": "contact.html",
+            "top_page": "paper-module-certificate-kernel-execution-lab.html",
             "top_pages": [
-              {
-                "count": 5,
-                "page": "contact.html"
-              },
               {
                 "count": 2,
                 "page": "paper-module-certificate-kernel-execution-lab.html"
@@ -226906,9 +226892,13 @@
               {
                 "count": 2,
                 "page": "papers.html"
+              },
+              {
+                "count": 1,
+                "page": "component-agent-benchmark-integrity-anti-gaming-replay.html"
               }
             ],
-            "total_occurrences": 31
+            "total_occurrences": 27
           },
           "visible_text_byte_count": 747
         },
@@ -228513,7 +228503,7 @@
                 "page": "paper-module-voice-to-doctrine-self-improvement-loop.html"
               }
             ],
-            "total_occurrences": 363
+            "total_occurrences": 362
           },
           "visible_text_byte_count": 1017
         },
@@ -270819,7 +270809,7 @@
         "title": "Source & license"
       },
       {
-        "byte_count": 9160,
+        "byte_count": 4189,
         "content_refs": {
           "component_refs": [],
           "family_id": null
