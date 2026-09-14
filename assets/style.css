@@ -6317,3 +6317,50 @@ html[data-plectis-docs-runtime="failed"] .docs-search-btn { display: none; }
 .intro-paper__sources li:target { color: var(--ink); }
 .intro-paper__sources li a { color: var(--link-ext); overflow-wrap: anywhere; font-family: var(--font-mono); font-size: 0.92em; }
 .intro-paper__sources code { font-size: 0.92em; }
+
+/* ── Papers catalogue shelves (2026-09-14) ───────────────────────────────────
+   Three shelves in reading order: short papers, system papers, reasoning
+   records. A kind chip on every entry says which shelf it belongs to even
+   when the entry is met out of context (search, a deep link). The short
+   papers are the priority shelf and sit tighter; the reasoning records are
+   the long route behind them and are quieter. */
+.docs-main .paper-shelf { margin: 0 0 3.2rem; }
+.docs-main .paper-shelf > h2 {
+  display: flex; align-items: baseline; gap: 0.6rem;
+  padding-top: 1.2rem; border-top: 2px solid var(--ink);
+}
+.docs-main .paper-shelf__count {
+  font-family: var(--font-mono); font-weight: 500; font-size: 0.72em;
+  color: var(--faint); font-variant-numeric: tabular-nums;
+}
+.docs-main .paper-entry__kind {
+  display: inline-block; white-space: nowrap; line-height: 1.3;
+  padding: 0.14rem 0.5rem; border-radius: 999px;
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--ink-soft); background: var(--surface-sunk);
+  border: 1px solid var(--rule-strong);
+}
+.docs-main .paper-entry__kind--note {
+  color: var(--link-ext);
+  background: color-mix(in srgb, var(--link-ext) 14%, var(--surface));
+  border-color: color-mix(in srgb, var(--link-ext) 42%, transparent);
+}
+.docs-main .paper-entry__kind--system {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 36%, transparent);
+}
+.docs-main .paper-entry__kind--record {
+  color: var(--muted); background: transparent; border-color: var(--rule-strong);
+}
+.docs-main .paper-entry__meta > .paper-entry__kind::before { content: none; margin: 0; }
+.docs-main .paper-entry__meta > .paper-entry__kind + *::before { content: "\00b7"; }
+/* Short papers: the priority shelf, one tighter block per problem. */
+.docs-main .paper-shelf--short-papers .paper-entry { padding: 1.9rem 0 1.7rem; }
+.docs-main .paper-shelf--short-papers .paper-entry h3 { font-size: clamp(1.25rem, 2.1vw, 1.45rem); }
+/* Reasoning records: the long route, set a step quieter. */
+.docs-main .paper-shelf--reasoning-records .paper-entry { padding: 1.7rem 0 1.5rem; }
+.docs-main .paper-shelf--reasoning-records .paper-entry h3 {
+  font-size: clamp(1.1rem, 1.8vw, 1.25rem); font-weight: 500; color: var(--ink-soft);
+}
+.docs-main .paper-shelf--reasoning-records .paper-entry__question { font-size: 0.98rem; }

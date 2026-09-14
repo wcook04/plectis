@@ -25,11 +25,12 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=0c9aa982d20c">
-  <link rel="stylesheet" href="assets/maths.css?v=301a6797d7f3">
+  <link rel="stylesheet" href="../assets/style.css?v=bd5211cde7fa">
+  <link rel="stylesheet" href="assets/maths.css?v=f605539e2dc2">
   <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=de2035a1bbab"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="assets/maths.js?v=45ae1497ddc0"></script>
+  <script defer src="assets/universe.js?v=754f8b413d76"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -78,6 +79,7 @@
         <p class="maths-hero__lede">Read the papers. Explore the <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>. Follow the work in the <a href="https://github.com/wcook04/plectis-erdos"><span data-term-preview-only data-term="mathematics" data-term-auto="1">maths</span> <span data-term-preview-only data-term="repository" data-term-auto="1">repository</span></a>.</p>
         <p class="note">All 8 original problems <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>.</p>
         <p>For a guided introduction, start with <a href="documents/reading-guide.html">A <span data-term-preview-only data-term="reader" data-term-auto="1">reader</span>'s way in</a>.</p>
+        <p class="note maths-hero__map"><a href="universe.html">See the universe <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a>: every <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> drawn with its problem, 1,637 objects on one field.</p>
       </header>
       <section id="problems" aria-label="Problems"><ul class="problem-directory"><li class="problem-entry">
           <a class="problem-entry__title" href="problems/erdos_68.html">
@@ -128,8 +130,22 @@
           <p>For which <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-base" data-term="base" data-term-auto="1">rational bases</a> is the corresponding <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-series" data-term="series" data-term-auto="1">series</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-irrational" data-term="irrational" data-term-auto="1">irrational</a>? The first resistant explicit base is three halves.</p>
           <div class="problem-entry__links"><a href="papers/erdos-1049-rational-base-lambert.html">Short paper</a> · <a href="papers/erdos1049-rational-base-lambert-reasoning-surface.html">Long paper</a> · <a href="problems/erdos_1049.html#source-map"><span data-term-preview-only data-term="lean" data-term-auto="1">Lean</span> <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a></div>
         </li></ul></section>
+      <section class="universe-teaser" aria-labelledby="universe-teaser-title">
+        <div class="universe-teaser__head">
+          <div>
+            <p class="eyebrow">The universe map</p>
+            <h2 id="universe-teaser-title"><a href="universe.html">Every <span data-term-preview-only data-term="claim" data-term-auto="1">claim</span>, drawn with its problem</a></h2>
+            <p class="universe-teaser__lede">1,637 objects and 4,011 connections from the public <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>: problems, <a class="narrative-ref narrative-ref--term is-term-first" href="../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> by status, papers, review families and documents on one field. Hover to read, click to open.</p>
+          </div>
+          <a class="btn btn--ghost universe-teaser__cta" href="universe.html">Open the full <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a>
+        </div>
+        <div class="universe-teaser__stage" data-universe-stage>
+          <canvas class="universe-canvas universe-canvas--teaser" data-universe-src="assets/universe-data.json?v=4ef48e84c1b0" data-universe-href="universe.html" aria-label="Preview of the universe map. Open the full map for the interactive version."></canvas>
+          <p class="universe-caption" aria-live="polite"></p>
+        </div>
+      </section>
       <nav class="reading-next" aria-label="More from the repository">
-        <a href="universe.html">Full source <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a>
+        <a href="universe.html">Universe <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a>
         <a href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md"><span data-term-preview-only data-term="contribute" data-term-auto="1">Contribute</span></a>
         <a href="https://github.com/wcook04/plectis-erdos/issues/105">Open research questions</a>
         <a href="../index.html#why">Why the work is public</a>

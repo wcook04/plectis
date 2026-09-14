@@ -185,7 +185,7 @@
                   edgeHot: cssColor(styles, '--u-edge-hot', 'rgba(60,90,160,0.5)'),
                   halo: cssColor(styles, '--u-halo', 'rgba(226,168,62,0.35)'),
                   rim: cssColor(styles, '--u-rim', 'rgba(0,0,0,0.3)'),
-                  paper: cssColor(styles, '--surface', '#fffdf7'),
+                  ground: cssColor(styles, '--surface', '#fffdf7'),
                   ink: cssColor(styles, '--ink', '#211318'),
                   faint: cssColor(styles, '--faint', '#786359') };
       for (var kind in KIND_COLOR) {
@@ -295,7 +295,7 @@
         return;
       }
       if (tier === 'progress') {
-        ctx.fillStyle = palette.paper;
+        ctx.fillStyle = palette.ground;
         ctx.fill();
         ctx.beginPath();
         ctx.arc(x, y, r, Math.PI / 2, Math.PI * 1.5);
@@ -309,7 +309,7 @@
         ctx.stroke();
         return;
       }
-      ctx.fillStyle = palette.paper;
+      ctx.fillStyle = palette.ground;
       ctx.fill();
       ctx.lineWidth = tier === 'conditional' ? 1.7 : 1;
       ctx.strokeStyle = color;
@@ -381,7 +381,7 @@
       /* Sector captions sit under the objects, as quiet field notes. They
          run away from the core so the core's own label keeps its room. */
       ctx.textBaseline = 'middle';
-      for (i = 0; i < captions.length && view.k >= 0.45; i++) {
+      for (i = 0; i < captions.length && view.k >= 1.1; i++) {
         var c = captions[i];
         var cx = c.x * view.k + view.tx, cy = c.y * view.k + view.ty;
         if (cx < -160 || cy < -40 || cx > w + 160 || cy > h + 40) continue;
@@ -445,8 +445,11 @@
         var big = n.kind === 'problem' || n.kind === 'universe' || n.kind === 'integration_surface';
         ctx.font = (big ? '700 13px ' : '600 12px ') + SERIF;
         var text = clip(n.shortLabel, isFocus ? 60 : 42);
+        // A label near the edge slides inward so it is never cut off.
+        var half = ctx.measureText(text).width / 2 + 6;
+        lx = Math.max(half, Math.min(w - half, lx));
         ctx.lineWidth = 3.5;
-        ctx.strokeStyle = palette.paper;
+        ctx.strokeStyle = palette.ground;
         ctx.strokeText(text, lx, ly + n.r * rs + 15);
         ctx.fillStyle = palette.ink;
         ctx.fillText(text, lx, ly + n.r * rs + 15);
@@ -539,6 +542,10 @@
       if (status.total) {
         parts.push('<h4 class="universe-inspector__sub">Claims by status (' + status.total + ')</h4>');
         parts.push(status.html);
+      }
+      for (var c = 0; c < captions.length; c++) {
+        parts.push('<p class="universe-inspector__note">The band on the field is ' +
+          escapeHtml(captions[c].sub || '') + ', ' + escapeHtml(captions[c].text) + '.</p>');
       }
       parts.push('<p class="universe-inspector__hint">Hover an object to preview it here. Click it to pin its card and light up everything it touches; press Esc to unpin. Every claim is drawn with the problem it belongs to; the card says why.</p>');
       return parts.join('');

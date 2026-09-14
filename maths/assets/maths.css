@@ -205,14 +205,47 @@ body:has(.maths-layout) .glossary-hint--inline-ready {
   background: var(--surface);
   overflow: hidden;
 }
-.universe-panel__stage { position: relative; }
+/* The field paints its own ground: the page body carries a gradient, and a
+   transparent canvas over it would leave every ring's paper fill a
+   different colour from what sits behind it. */
+.universe-panel__stage { position: relative; background: var(--surface); }
 .universe-canvas {
   display: block;
   width: 100%;
   height: 460px;
   cursor: crosshair;
   touch-action: pan-y;
+  background: var(--surface);
 }
+
+.maths-hero__map { margin-top: var(--space-2); }
+.maths-hero__map a { font-weight: 600; }
+
+/* Landing teaser: the same field, fixed portrait, one caption line. */
+.universe-teaser {
+  margin: var(--space-6) 0 var(--space-7);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+.universe-teaser__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  border-bottom: 1px solid var(--rule);
+}
+.universe-teaser__head h2 { margin: 0.2rem 0 0.4rem; font-size: 1.35rem; line-height: var(--lh-snug); }
+.universe-teaser__head h2 a { color: var(--ink); text-decoration: none; }
+.universe-teaser__head h2 a:hover { color: var(--accent); }
+.universe-teaser__lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: var(--fs-small); line-height: var(--lh-body); }
+.universe-teaser__cta { flex: none; }
+.universe-teaser__stage { position: relative; background: var(--surface); }
+.universe-canvas--teaser { height: 380px; cursor: pointer; }
+@media (max-width: 720px) { .universe-canvas--teaser { height: 300px; } }
 .universe-canvas--page {
   height: min(72vh, 760px);
   cursor: grab;
