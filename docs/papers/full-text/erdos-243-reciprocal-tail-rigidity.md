@@ -426,7 +426,7 @@ a_{n+1}=a_n^2-(\epsilon_{n+1}/\epsilon_n)a_n
 ```
 for all large $`n`$ \[duverney2001, Corollary 3.2, p. 287\]. Absolute convergence is a stronger sufficient specialisation, not the hypothesis printed in that corollary. The all-positive specialisation is the form relevant here.
 
-The divisor constraint also survives integral numerator coefficients: $`d=(a_n-1)U_n-b_nL_n`$ is divisible by every divisor of both $`U_n,L_n`$. The already-proved coefficient-uniform variant gives bounded LCM height from a bounded negative part; normalised vanishing is used afterwards for stationarity. Its proof and exact bounded-height counterexamples are in the [coefficient proof supplement](https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/CoefficientUniformBoundedHeight.md).
+The divisor constraint also survives integral numerator coefficients: $`d=(a_n-1)U_n-b_nL_n`$ is divisible by every divisor of both $`U_n,L_n`$. The already-proved coefficient-uniform variant gives bounded LCM height from a bounded negative part; normalised vanishing is used afterwards for stationarity. Its proof and exact bounded-height counterexamples are in the [coefficient proof supplement](https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/CoefficientUniformBoundedHeight.md).
 
 <a id="sec:secondaryrate"></a>
 
@@ -444,7 +444,7 @@ has irrational reciprocal sum.*
 
 <div class="proof">
 
-*Proof by the polynomial exclusion.* Under rationality, the canonical estimate gives $`C_{n+1}/C_n=1+3/n+o(n^{-3})`$. Integer finite differences force $`C_n=An(n+1)(n+2)+B`$ eventually. The fixed-cubic exclusion rules this out. The complete ordinary polynomial and number-field argument is retained in [the proof supplement, Section 8](https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/WeightedRecordOctupleCriteria.md#8-rising-factorial-cubic-profiles-and-the-cubic-rate-irrationality-r08); finite congruence checks alone are insufficient for that implication. ◻
+*Proof by the polynomial exclusion.* Under rationality, the canonical estimate gives $`C_{n+1}/C_n=1+3/n+o(n^{-3})`$. Integer finite differences force $`C_n=An(n+1)(n+2)+B`$ eventually. The fixed-cubic exclusion rules this out. The complete ordinary polynomial and number-field argument is retained in [the proof supplement, Section 8](https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/WeightedRecordOctupleCriteria.md#8-rising-factorial-cubic-profiles-and-the-cubic-rate-irrationality-r08); finite congruence checks alone are insufficient for that implication. ◻
 
 </div>
 
@@ -455,7 +455,7 @@ There is also an admitted quantitative extension. Under the hypotheses of Theore
 (-E_n)_+\le(1-\delta)\operatorname{LL}(C_n)
  \quad\text{eventually}\quad\Longrightarrow\quad E_n=0\text{ eventually}.
 ```
-The LCM version needs the corresponding bound only at late record steps. The proofs use a CRT block in $`[P,2P)`$ and the canonical multiplier scale; they are retained in [the slow-negative proof](https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/SlowNegativePartRigidity.md) and [the record-only extension](https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/LcmRecordExcess.md#5-record-only-subcritical-log-log-bound). These are ordinary results with stated rate hypotheses; neither establishes the general record budget.
+The LCM version needs the corresponding bound only at late record steps. The proofs use a CRT block in $`[P,2P)`$ and the canonical multiplier scale; they are retained in [the slow-negative proof](https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/SlowNegativePartRigidity.md) and [the record-only extension](https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/LcmRecordExcess.md#5-record-only-subcritical-log-log-bound). These are ordinary results with stated rate hypotheses; neither establishes the general record budget.
 
 <a id="sec:open"></a>
 
@@ -503,7 +503,7 @@ The remaining equivalent estimate is
  \exists B\in\mathbb{N}:\qquad\liminf_{X\to\infty}\frac{F_B(X)}X=0.
 \end{equation}
 ```
-On a nonterminal orbit first crossings instead give $`F_B(X)\ge X/P_B-O_B(1)`$, with an orbit-dependent CRT modulus $`P_B`$. The missing step is to derive <a href="#eq:remaining-record-budget" data-reference-type="eqref" data-reference="eq:remaining-record-budget">[eq:remaining-record-budget]</a> from the canonical dynamics. The equivalence with the existence of an admissible summable weight is proved in the [record-budget supplement](https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/LcmDefectCriterionReduction.md); it does not establish the estimate.
+On a nonterminal orbit first crossings instead give $`F_B(X)\ge X/P_B-O_B(1)`$, with an orbit-dependent CRT modulus $`P_B`$. The missing step is to derive <a href="#eq:remaining-record-budget" data-reference-type="eqref" data-reference="eq:remaining-record-budget">[eq:remaining-record-budget]</a> from the canonical dynamics. The equivalence with the existence of an admissible summable weight is proved in the [record-budget supplement](https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/LcmDefectCriterionReduction.md); it does not establish the estimate.
 
 The obstruction is the exact unit-numerator feedback at the record sources. The scalar sequence $`C_n=n^2+1`$, $`E_n=-(2n+1)`$ has normalised vanishing, subexponential height and finite square mass, but is not an exact reciprocal-tail orbit: its numerator word $`0,0,2\pmod5`$ violates the persistent-zero transport of the exact equations. Likewise, small rises and avoidance of an arbitrary sparse coprime family do not control the canonical timing and size of the available divisors. The supporting record keeps those falsifying examples with the exact hypotheses each preserves.
 
