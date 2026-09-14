@@ -311,6 +311,53 @@ body:has(.maths-layout) .glossary-hint--inline-ready {
 .dot--module { background: var(--u-module); }
 .dot--object { background: var(--u-object); }
 .dot--universe { background: var(--u-universe); }
+
+/* Claim glyphs: the record's status as a mark. The same four shapes are
+   drawn on the canvas, in the legend, on the status filters and on cards. */
+.glyph {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1.6px solid var(--u-claim);
+  margin-right: 0.4em;
+  vertical-align: baseline;
+  transform: translateY(1px);
+}
+.glyph--proved { background: var(--u-claim); }
+.glyph--progress { background: linear-gradient(90deg, var(--u-claim) 50%, transparent 50%); }
+.glyph--conditional { background: transparent; }
+.glyph--open { background: transparent; border-width: 1px; opacity: 0.7; }
+.universe-legend--glyphs { padding-left: var(--space-3); border-left: 1px solid var(--rule); }
+.lens-btn--glyph .glyph { margin-right: 0.45em; }
+.lens-btn[aria-pressed="true"] .glyph { border-color: var(--on-accent); }
+.lens-btn[aria-pressed="true"] .glyph--proved { background: var(--on-accent); }
+.lens-btn[aria-pressed="true"] .glyph--progress { background: linear-gradient(90deg, var(--on-accent) 50%, transparent 50%); }
+.universe-chip .glyph { transform: translateY(0.5px); margin-right: 0.35em; }
+.universe-inspector__census--status .glyph { flex: none; }
+.universe-sector { color: var(--muted); }
+.universe-sector__go {
+  font: inherit;
+  font-weight: 600;
+  color: var(--u-problem);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 0.15em;
+}
+.universe-sector__go:hover { color: var(--accent); text-decoration-color: currentColor; }
+.universe-hint kbd {
+  font: inherit;
+  font-size: var(--fs-micro);
+  padding: 0 0.35em;
+  border: 1px solid var(--rule-control);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+}
 .universe-panel__cta { margin-left: auto; }
 .universe-rule {
   margin: var(--space-3) 0 0;

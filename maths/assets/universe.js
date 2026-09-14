@@ -11,7 +11,16 @@
    dims everything the object does not touch; Esc or an empty click unpins.
    A pinned object is addressable as #o=<id>, so views can be shared. The
    landing teaser keeps a single caption line instead — no inspector, no
-   cursor-chasing tooltip anywhere. */
+   cursor-chasing tooltip anywhere.
+
+   Two things the picture encodes beyond position. A checked claim's glyph
+   is its status from the record: a filled disc is proved, formalised or a
+   verified finite instance; a half disc is unconditional progress; a ring
+   is a conditional reduction; a faint ring is open or cited only. And every
+   object placed with a problem carries the reason it sits there (the record
+   names it, its Lean namespace, its statement), which the inspector states
+   and which the map uses to keep a problem's whole sector lit when the
+   problem is focused. */
 (function () {
   'use strict';
 
@@ -27,9 +36,9 @@
     lean_module: '--u-module',
     mathematical_object: '--u-object'
   };
-  /* Base radii before the degree bonus. The first screen is 192 objects, so
-     it can afford to be generous; the two starfield kinds stay small because
-     the complete universe adds over a thousand of them. */
+  /* Base radii before the degree bonus. The first screen is a few hundred
+     objects, so it can afford to be generous; the two starfield kinds stay
+     small because the complete universe adds over a thousand of them. */
   var KIND_RADIUS = {
     universe: 13,
     problem: 11,
@@ -37,7 +46,7 @@
     paper: 7,
     registry_review_unit: 6.5,
     human_document: 6,
-    public_claim: 5.2,
+    public_claim: 5.4,
     comparator_review_family: 4.4,
     mathematical_object: 2.8,
     lean_module: 2
@@ -81,6 +90,18 @@
   var KIND_ORDER = ['universe', 'problem', 'integration_surface', 'paper',
     'registry_review_unit', 'human_document', 'public_claim',
     'comparator_review_family', 'mathematical_object', 'lean_module'];
+  /* Claim status, exactly as the record spells it, folded into four glyphs. */
+  var STATUS_TIER = {
+    'proved here': 'proved',
+    'formalised here': 'proved',
+    'verified finite instance': 'proved',
+    'unconditional progress': 'progress',
+    'conditional reduction': 'conditional',
+    'open': 'open',
+    'cited only': 'open'
+  };
+  var STATUS_ORDER = ['proved here', 'formalised here', 'verified finite instance',
+    'unconditional progress', 'conditional reduction', 'open', 'cited only'];
   var SERIF = '"Iowan Old Style", Palatino, Georgia, serif';
 
   function cssColor(styles, name, fallback) {
@@ -108,8 +129,18 @@
     return at < 0 ? KIND_ORDER.length : at;
   }
 
+  function statusOrder(status) {
+    var at = STATUS_ORDER.indexOf(status);
+    return at < 0 ? STATUS_ORDER.length : at;
+  }
+
   function relText(rel) {
     return String(rel || 'linked').replace(/_/g, ' ');
+  }
+
+  function tierOf(node) {
+    if (node.kind !== 'public_claim') return null;
+    return STATUS_TIER[node.status] || 'proved';
   }
 
   function mount(stage) {
@@ -126,8 +157,12 @@
 
     var nodes = [];
     var edges = [];
+    var edgeHub = [];
     var relations = [];
+    var captions = [];
     var adj = [];
+    var byId = {};
+    var problemIndex = {};
     var view = { k: 1, tx: 0, ty: 0 };
     var fittedScale = 1;
     var viewIsFitted = true;
@@ -135,8 +170,9 @@
     var hover = -1;
     var selected = -1;
     var query = '';
-    var matchCount = 0;
+    var matchList = [];
     var lensOff = {};
+    var tierOff = {};
     var palette = {};
     var fullLoaded = false;
     var fullLoading = false;
@@ -158,18 +194,25 @@
     }
 
     function visible(node) {
-      return !lensOff[node.kind];
+      if (lensOff[node.kind]) return false;
+      return !(node.tier && tierOff[node.tier]);
     }
     function matches(node) {
       if (query.length < 2) return true;
-      return node.label.toLowerCase().indexOf(query) !== -1;
+      return node.search.indexOf(query) !== -1;
     }
     function countMatches() {
-      matchCount = 0;
+      matchList = [];
       if (query.length < 2) return;
       for (var i = 0; i < nodes.length; i++) {
-        if (visible(nodes[i]) && matches(nodes[i])) matchCount++;
+        if (visible(nodes[i]) && matches(nodes[i])) matchList.push(i);
       }
+      matchList.sort(function (p, q) {
+        var a = nodes[p], b = nodes[q];
+        var byKind = kindOrder(a.kind) - kindOrder(b.kind);
+        if (byKind) return byKind;
+        return a.label < b.label ? -1 : a.label > b.label ? 1 : 0;
+      });
     }
 
     function fit() {
@@ -205,16 +248,90 @@
     }
 
     /* The focused object is the pinned one, or the hovered one while a
-       pointer is down on the field. Everything it does not touch recedes. */
+       pointer is down on the field. Everything it does not touch recedes:
+       graph neighbours stay lit, and so does the sector an object was
+       placed in — a problem keeps its claims, families and papers; a claim
+       keeps its problem. */
     function focusIndex() {
       return hover >= 0 ? hover : selected;
+    }
+    function sectorProblems(node) {
+      if (!node.sector) return [];
+      return node.sector.split('+');
     }
     function neighbourSet(i) {
       var set = {};
       if (i < 0) return set;
       var rows = adj[i] || [];
-      for (var j = 0; j < rows.length; j++) set[rows[j].to] = true;
+      var j;
+      for (j = 0; j < rows.length; j++) set[rows[j].to] = true;
+      var n = nodes[i];
+      if (n.kind === 'problem' && n.sector) {
+        for (j = 0; j < nodes.length; j++) {
+          if (j !== i && nodes[j].sector && sectorProblems(nodes[j]).indexOf(n.sector) !== -1) set[j] = true;
+        }
+      } else if (n.sector) {
+        var pids = sectorProblems(n);
+        for (j = 0; j < pids.length; j++) {
+          if (problemIndex[pids[j]] !== undefined) set[problemIndex[pids[j]]] = true;
+        }
+      }
       return set;
+    }
+
+    /* A claim's glyph is its status. Rings are filled with the paper colour
+       so the edges beneath do not read as marks inside them. */
+    function drawGlyph(x, y, r, color, tier) {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      if (!tier || tier === 'proved') {
+        ctx.fillStyle = color;
+        ctx.fill();
+        if (r >= 3.4) {
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = palette.rim;
+          ctx.stroke();
+        }
+        return;
+      }
+      if (tier === 'progress') {
+        ctx.fillStyle = palette.paper;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x, y, r, Math.PI / 2, Math.PI * 1.5);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = color;
+        ctx.stroke();
+        return;
+      }
+      ctx.fillStyle = palette.paper;
+      ctx.fill();
+      ctx.lineWidth = tier === 'conditional' ? 1.7 : 1;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+    }
+
+    function drawEdgeSet(hub, alpha, width, color) {
+      ctx.lineWidth = width;
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      var focus = focusIndex();
+      for (var i = 0; i < edges.length; i++) {
+        if (edgeHub[i] !== hub) continue;
+        var a = nodes[edges[i][0]], b = nodes[edges[i][1]];
+        if (!a || !b || !visible(a) || !visible(b)) continue;
+        if (focus >= 0 && (edges[i][0] === focus || edges[i][1] === focus)) continue;
+        ctx.moveTo(a.x * view.k + view.tx, a.y * view.k + view.ty);
+        ctx.lineTo(b.x * view.k + view.tx, b.y * view.k + view.ty);
+      }
+      ctx.stroke();
+      ctx.globalAlpha = 1;
     }
 
     function draw() {
@@ -231,23 +348,21 @@
       var focus = focusIndex();
       var near = neighbourSet(focus);
       var i, n, x, y;
+      /* A phone fits the whole field into a few hundred pixels; marks drawn
+         at desktop size would then cover each other, so they shrink with the
+         fitted scale and grow back as the reader zooms in. */
+      var rs = radiusScale();
 
-      /* Quiet edges first; when something is focused the rest recede. */
-      ctx.lineWidth = 0.7;
-      ctx.strokeStyle = palette.edge;
-      ctx.globalAlpha = focus >= 0 ? 0.35 : 1;
-      ctx.beginPath();
+      /* Quiet edges first. The spokes from the core to every claim are the
+         busiest lines on the field and say the least, so they stay faint;
+         when something is focused the rest recede further. */
       var shownEdges = 0;
       for (i = 0; i < edges.length; i++) {
-        var a = nodes[edges[i][0]], b = nodes[edges[i][1]];
-        if (!a || !b || !visible(a) || !visible(b)) continue;
-        shownEdges++;
-        if (focus >= 0 && (edges[i][0] === focus || edges[i][1] === focus)) continue;
-        ctx.moveTo(a.x * view.k + view.tx, a.y * view.k + view.ty);
-        ctx.lineTo(b.x * view.k + view.tx, b.y * view.k + view.ty);
+        var ea = nodes[edges[i][0]], eb = nodes[edges[i][1]];
+        if (ea && eb && visible(ea) && visible(eb)) shownEdges++;
       }
-      ctx.stroke();
-      ctx.globalAlpha = 1;
+      drawEdgeSet(true, focus >= 0 ? 0.12 : 0.3, 0.6, palette.edge);
+      drawEdgeSet(false, focus >= 0 ? 0.35 : 1, 0.7, palette.edge);
 
       if (focus >= 0) {
         ctx.lineWidth = 1.6;
@@ -263,6 +378,26 @@
         ctx.stroke();
       }
 
+      /* Sector captions sit under the objects, as quiet field notes. They
+         run away from the core so the core's own label keeps its room. */
+      ctx.textBaseline = 'middle';
+      for (i = 0; i < captions.length && view.k >= 0.45; i++) {
+        var c = captions[i];
+        var cx = c.x * view.k + view.tx, cy = c.y * view.k + view.ty;
+        if (cx < -160 || cy < -40 || cx > w + 160 || cy > h + 40) continue;
+        ctx.textAlign = c.x > 20 ? 'left' : c.x < -20 ? 'right' : 'center';
+        ctx.globalAlpha = focus >= 0 ? 0.45 : 0.85;
+        ctx.fillStyle = palette.faint;
+        ctx.font = 'italic 600 11.5px ' + SERIF;
+        ctx.fillText(c.text, cx, cy - (c.sub ? 7 : 0));
+        if (c.sub) {
+          ctx.font = 'italic 400 10.5px ' + SERIF;
+          ctx.fillText(c.sub, cx, cy + 8);
+        }
+        ctx.globalAlpha = 1;
+      }
+      ctx.textBaseline = 'alphabetic';
+
       var shown = 0;
       for (i = 0; i < nodes.length; i++) {
         n = nodes[i];
@@ -271,27 +406,20 @@
         x = n.x * view.k + view.tx;
         y = n.y * view.k + view.ty;
         if (x < -24 || y < -24 || x > w + 24 || y > h + 24) continue;
-        var r = n.r;
+        var r = n.r * rs;
         var alpha = 1;
+        if (n.tier === 'open') alpha = 0.7;
         if (searching && !matches(n)) alpha = 0.12;
         if (focus >= 0 && i !== focus && !near[i]) alpha = Math.min(alpha, 0.25);
         ctx.globalAlpha = alpha;
         if (i === hover || i === selected) {
-          r = n.r + 1.5;
+          r = n.r * rs + 1.5;
           ctx.fillStyle = palette.halo;
           ctx.beginPath();
           ctx.arc(x, y, r + 7, 0, Math.PI * 2);
           ctx.fill();
         }
-        ctx.fillStyle = palette[n.kind] || palette.faint;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fill();
-        if (r >= 3.4) {
-          ctx.lineWidth = 1;
-          ctx.strokeStyle = palette.rim;
-          ctx.stroke();
-        }
+        drawGlyph(x, y, r, palette[n.kind] || palette.faint, n.tier);
         ctx.globalAlpha = 1;
       }
 
@@ -319,14 +447,16 @@
         var text = clip(n.shortLabel, isFocus ? 60 : 42);
         ctx.lineWidth = 3.5;
         ctx.strokeStyle = palette.paper;
-        ctx.strokeText(text, lx, ly + n.r + 15);
+        ctx.strokeText(text, lx, ly + n.r * rs + 15);
         ctx.fillStyle = palette.ink;
-        ctx.fillText(text, lx, ly + n.r + 15);
+        ctx.fillText(text, lx, ly + n.r * rs + 15);
       }
 
       if (countOut) {
         var line = String(shown) + ' objects, ' + String(shownEdges) + ' connections shown';
-        if (searching) line += ' · ' + String(matchCount) + (matchCount === 1 ? ' match' : ' matches');
+        if (searching) {
+          line += ' · ' + String(matchList.length) + (matchList.length === 1 ? ' match' : ' matches');
+        }
         if (line !== countText) {
           countText = line;
           countOut.textContent = line;
@@ -334,14 +464,19 @@
       }
     }
 
+    function radiusScale() {
+      return Math.min(1, Math.max(0.5, view.k / 0.6));
+    }
+
     function nodeAt(px, py) {
       var best = -1, bestD = 14 * 14;
+      var rs = radiusScale();
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i];
         if (!visible(n)) continue;
         var x = n.x * view.k + view.tx, y = n.y * view.k + view.ty;
         var d = (x - px) * (x - px) + (y - py) * (y - py);
-        var reach = Math.max(11, n.r + 6);
+        var reach = Math.max(9, n.r * rs + 6);
         if (d < Math.min(bestD, reach * reach)) { best = i; bestD = d; }
       }
       return best;
@@ -352,23 +487,61 @@
     function dotHtml(kind) {
       return '<span class="dot ' + (KIND_DOT[kind] || '') + '" aria-hidden="true"></span>';
     }
+    function glyphHtml(tier) {
+      return '<span class="glyph glyph--' + (tier || 'proved') + '" aria-hidden="true"></span>';
+    }
+    function problemChipHtml(pid) {
+      var at = problemIndex[pid];
+      if (at === undefined) return escapeHtml(pid);
+      return '<button type="button" class="universe-sector__go" data-universe-go="' + at + '">' +
+        escapeHtml(nodes[at].shortLabel) + '</button>';
+    }
+
+    function statusCensusHtml(filter) {
+      var counts = {};
+      var total = 0;
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        if (n.kind !== 'public_claim' || !visible(n)) continue;
+        if (filter && !filter(n)) continue;
+        counts[n.status || 'unstated'] = (counts[n.status || 'unstated'] || 0) + 1;
+        total++;
+      }
+      if (!total) return { html: '', total: 0 };
+      var keys = Object.keys(counts).sort(function (a, b) { return statusOrder(a) - statusOrder(b); });
+      var rows = '';
+      for (var j = 0; j < keys.length; j++) {
+        rows += '<li>' + glyphHtml(STATUS_TIER[keys[j]]) + '<span>' + escapeHtml(keys[j]) +
+          '</span><b>' + counts[keys[j]] + '</b></li>';
+      }
+      return { html: '<ul class="universe-inspector__census universe-inspector__census--status">' + rows + '</ul>', total: total };
+    }
 
     function overviewHtml() {
       var counts = {};
       for (var i = 0; i < nodes.length; i++) {
+        if (!visible(nodes[i])) continue;
         counts[nodes[i].kind] = (counts[nodes[i].kind] || 0) + 1;
       }
       var rows = '';
+      var shown = 0;
       for (var j = 0; j < KIND_ORDER.length; j++) {
         var kind = KIND_ORDER[j];
         if (!counts[kind]) continue;
+        shown += counts[kind];
         rows += '<li>' + dotHtml(kind) + '<span>' + escapeHtml(KIND_PLURAL[kind] || kind) +
           '</span><b>' + counts[kind] + '</b></li>';
       }
-      return '<p class="universe-inspector__kind">The universe</p>' +
-        '<h3 class="universe-inspector__title">' + nodes.length + ' objects in view</h3>' +
-        '<ul class="universe-inspector__census">' + rows + '</ul>' +
-        '<p class="universe-inspector__hint">Hover an object to preview it here. Click it to pin its card and light up everything it touches; press Esc to unpin.</p>';
+      var status = statusCensusHtml(null);
+      var parts = ['<p class="universe-inspector__kind">The universe</p>',
+        '<h3 class="universe-inspector__title">' + shown + ' objects in view</h3>',
+        '<ul class="universe-inspector__census">' + rows + '</ul>'];
+      if (status.total) {
+        parts.push('<h4 class="universe-inspector__sub">Claims by status (' + status.total + ')</h4>');
+        parts.push(status.html);
+      }
+      parts.push('<p class="universe-inspector__hint">Hover an object to preview it here. Click it to pin its card and light up everything it touches; press Esc to unpin. Every claim is drawn with the problem it belongs to; the card says why.</p>');
+      return parts.join('');
     }
 
     function connectionRows(i) {
@@ -397,6 +570,64 @@
       return { html: html, total: rows.length };
     }
 
+    /* What sits with a problem, by status, with the shared fan named. */
+    function sectorSummaryHtml(i) {
+      var n = nodes[i];
+      if (n.kind !== 'problem' || !n.sector) return '';
+      var pid = n.sector;
+      var own = statusCensusHtml(function (m) { return m.sector === pid; });
+      var parts = [];
+      if (own.total) {
+        parts.push('<h4 class="universe-inspector__sub">Claims placed here (' + own.total + ')</h4>');
+        parts.push(own.html);
+      }
+      var shared = {};
+      for (var j = 0; j < nodes.length; j++) {
+        var m = nodes[j];
+        if (m.kind !== 'public_claim' || !visible(m) || !m.sector || m.sector.indexOf('+') === -1) continue;
+        var pids = sectorProblems(m);
+        if (pids.indexOf(pid) === -1) continue;
+        for (var k = 0; k < pids.length; k++) {
+          if (pids[k] !== pid) shared[pids[k]] = (shared[pids[k]] || 0) + 1;
+        }
+      }
+      for (var other in shared) {
+        parts.push('<p class="universe-inspector__note">' + shared[other] + ' more claims sit in the fan shared with ' +
+          problemChipHtml(other) + ': their Lean modules live in a namespace the two problems share.</p>');
+      }
+      var kinds = {};
+      for (var q = 0; q < nodes.length; q++) {
+        var s = nodes[q];
+        if (s.kind === 'public_claim' || s.kind === 'problem' || !visible(s) || !s.sector) continue;
+        if (sectorProblems(s).indexOf(pid) === -1) continue;
+        kinds[s.kind] = (kinds[s.kind] || 0) + 1;
+      }
+      var rows = '';
+      for (var t = 0; t < KIND_ORDER.length; t++) {
+        if (!kinds[KIND_ORDER[t]]) continue;
+        rows += '<li>' + dotHtml(KIND_ORDER[t]) + '<span>' + escapeHtml(KIND_PLURAL[KIND_ORDER[t]]) +
+          '</span><b>' + kinds[KIND_ORDER[t]] + '</b></li>';
+      }
+      if (rows) {
+        parts.push('<h4 class="universe-inspector__sub">Also placed here</h4>');
+        parts.push('<ul class="universe-inspector__census">' + rows + '</ul>');
+      }
+      return parts.join('');
+    }
+
+    function placementHtml(i) {
+      var n = nodes[i];
+      if (n.kind === 'problem' || !n.placedBy) return '';
+      var pids = sectorProblems(n);
+      if (!pids.length) {
+        return '<p class="universe-inspector__note universe-sector">Placed by the core: ' + escapeHtml(n.placedBy) + '.</p>';
+      }
+      var chips = [];
+      for (var j = 0; j < pids.length; j++) chips.push(problemChipHtml(pids[j]));
+      return '<p class="universe-inspector__note universe-sector">Placed with ' + chips.join(' and ') +
+        ' — ' + escapeHtml(n.placedBy) + '.</p>';
+    }
+
     function cardHtml(i, pinned) {
       var n = nodes[i];
       var head = '<p class="universe-inspector__kind">' + dotHtml(n.kind) +
@@ -408,7 +639,9 @@
       var parts = [head,
         '<h3 class="universe-inspector__title">' + escapeHtml(n.label) + '</h3>'];
       var chips = '';
-      if (n.status) chips += '<span class="universe-chip">' + escapeHtml(n.status) + '</span>';
+      if (n.status) {
+        chips += '<span class="universe-chip">' + (n.tier ? glyphHtml(n.tier) : '') + escapeHtml(n.status) + '</span>';
+      }
       if (n.disposition) chips += '<span class="universe-chip">' + escapeHtml(n.disposition) + '</span>';
       if (chips) parts.push('<p class="universe-inspector__meta">' + chips + '</p>');
       var body = n.statement || n.question || null;
@@ -424,6 +657,7 @@
         if (n.theorem_count != null) counts += ', ' + String(n.theorem_count) + ' theorems';
         parts.push('<p class="universe-inspector__note">' + counts + '</p>');
       }
+      parts.push(placementHtml(i));
       var links = [];
       if (n.page) links.push('<a href="' + escapeHtml(n.page) + '">Open on this site</a>');
       if (n.source_github) {
@@ -434,6 +668,7 @@
         parts.push('<div class="universe-inspector__links">' + links.join(' ') + '</div>');
       }
       if (pinned) {
+        parts.push(sectorSummaryHtml(i));
         var rows = connectionRows(i);
         if (rows.total) {
           parts.push('<h4 class="universe-inspector__sub">Connections (' + rows.total + ')</h4>');
@@ -490,11 +725,9 @@
 
     function resolvePending() {
       if (!pendingId) return;
-      for (var i = 0; i < nodes.length; i++) {
-        if (nodes[i].id === pendingId) {
-          pin(i, true);
-          return;
-        }
+      if (byId[pendingId] !== undefined) {
+        pin(byId[pendingId], true);
+        return;
       }
       // A shared link to a full-corpus object must open its card on first visit.
       if (!fullLoaded) loadFull();
@@ -523,7 +756,7 @@
     function ingest(data) {
       var keepId = selected >= 0 && nodes[selected] ? nodes[selected].id : null;
       nodes = data.nodes.map(function (n) {
-        return {
+        var row = {
           id: n.id, kind: n.kind, label: n.label,
           shortLabel: n.short || n.label,
           status: n.status || null, statement: n.statement || null,
@@ -532,19 +765,34 @@
           declaration_count: n.declaration_count != null ? n.declaration_count : null,
           theorem_count: n.theorem_count != null ? n.theorem_count : null,
           page: n.page || null, source_github: n.source_github || null,
+          sector: n.sector || null, placedBy: n.placed_by || null,
           x: n.x, y: n.y, r: KIND_RADIUS[n.kind] || 2
         };
+        row.tier = tierOf(row);
+        row.search = [row.label, row.id, row.status || '', row.disposition || '',
+          row.subject || '', row.statement || ''].join(' ').toLowerCase();
+        return row;
       });
       edges = data.edges;
       relations = data.relations || [];
+      captions = data.captions || [];
       adj = new Array(nodes.length);
+      byId = {};
+      problemIndex = {};
+      edgeHub = new Array(edges.length);
       var degree = new Array(nodes.length);
       var i;
-      for (i = 0; i < nodes.length; i++) { adj[i] = []; degree[i] = 0; }
+      for (i = 0; i < nodes.length; i++) {
+        adj[i] = [];
+        degree[i] = 0;
+        byId[nodes[i].id] = i;
+        if (nodes[i].kind === 'problem' && nodes[i].sector) problemIndex[nodes[i].sector] = i;
+      }
       for (i = 0; i < edges.length; i++) {
         var a = edges[i][0], b = edges[i][1];
         var rel = relations[edges[i][2]] || null;
         if (!nodes[a] || !nodes[b]) continue;
+        edgeHub[i] = nodes[a].kind === 'universe' || nodes[b].kind === 'universe';
         adj[a].push({ to: b, rel: rel, out: true });
         adj[b].push({ to: a, rel: rel, out: false });
         degree[a]++;
@@ -652,7 +900,14 @@
       }, { passive: false });
 
       document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && selected >= 0) pin(-1, false);
+        var tag = event.target && event.target.tagName;
+        var typing = tag === 'INPUT' || tag === 'TEXTAREA' || (event.target && event.target.isContentEditable);
+        if (event.key === 'Escape' && selected >= 0) { pin(-1, false); return; }
+        if (event.key === '/' && !typing && searchIn) {
+          event.preventDefault();
+          searchIn.focus();
+          searchIn.select();
+        }
       });
 
       stage.querySelectorAll('[data-universe-zoom]').forEach(function (btn) {
@@ -704,17 +959,30 @@
 
     /* ---- Controls ----------------------------------------------------- */
 
+    function afterFilterChange() {
+      if (hover >= 0 && !visible(nodes[hover])) hover = -1;
+      if (selected >= 0 && !visible(nodes[selected])) pin(-1, false);
+      else renderInspector();
+      countMatches();
+      draw();
+    }
+
     document.querySelectorAll('[data-universe-lens]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var kinds = btn.getAttribute('data-universe-lens').split(' ');
         var pressed = btn.getAttribute('aria-pressed') === 'true';
         btn.setAttribute('aria-pressed', pressed ? 'false' : 'true');
         kinds.forEach(function (kind) { lensOff[kind] = pressed; });
-        if (hover >= 0 && !visible(nodes[hover])) hover = -1;
-        if (selected >= 0 && !visible(nodes[selected])) pin(-1, false);
-        else renderInspector();
-        countMatches();
-        draw();
+        afterFilterChange();
+      });
+    });
+    document.querySelectorAll('[data-universe-tier]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var tier = btn.getAttribute('data-universe-tier');
+        var pressed = btn.getAttribute('aria-pressed') === 'true';
+        btn.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+        tierOff[tier] = pressed;
+        afterFilterChange();
       });
     });
 
@@ -724,14 +992,23 @@
         countMatches();
         draw();
       });
+      /* Enter steps through the matches in kind order, so a search for a
+         word can be walked object by object without leaving the keyboard. */
       searchIn.addEventListener('keydown', function (event) {
-        if (event.key !== 'Enter' || query.length < 2) return;
-        var best = -1;
-        for (var i = 0; i < nodes.length; i++) {
-          if (!visible(nodes[i]) || !matches(nodes[i])) continue;
-          if (best < 0 || kindOrder(nodes[i].kind) < kindOrder(nodes[best].kind)) best = i;
+        if (event.key === 'Escape' && searchIn.value) {
+          searchIn.value = '';
+          query = '';
+          countMatches();
+          draw();
+          event.stopPropagation();
+          return;
         }
-        if (best >= 0) pin(best, true);
+        if (event.key !== 'Enter' || !matchList.length) return;
+        event.preventDefault();
+        var at = matchList.indexOf(selected);
+        var next = at < 0 ? 0 : (at + (event.shiftKey ? matchList.length - 1 : 1)) % matchList.length;
+        pin(matchList[next], true);
+        searchIn.focus({ preventScroll: true });
       });
     }
 
@@ -749,12 +1026,14 @@
         var graph = results[0], layout = results[1];
         var pos = layout.positions || {};
         var pages = layout.pages || {};
+        var sectors = layout.sectors || {};
         var index = {};
         var built = [];
         graph.nodes.forEach(function (n) {
           var at = pos[n.id];
           if (!at) return;
           index[n.id] = built.length;
+          var sector = sectors[n.id] || null;
           built.push({
             id: n.id, kind: n.kind, label: n.label,
             short: layout.short && layout.short[n.id] || n.label,
@@ -762,6 +1041,7 @@
             disposition: n.disposition, question: n.question, subject: n.subject,
             declaration_count: n.declaration_count, theorem_count: n.theorem_count,
             page: pages[n.id] || null, source_github: n.source_github,
+            sector: sector ? sector[0] : null, placed_by: sector ? sector[1] : null,
             x: at[0], y: at[1]
           });
         });
@@ -780,7 +1060,8 @@
         });
         fullLoaded = true;
         fullLoading = false;
-        ingest({ nodes: built, edges: builtEdges, relations: builtRelations });
+        ingest({ nodes: built, edges: builtEdges, relations: builtRelations,
+                 captions: layout.captions || captions });
         loadFullBtn.textContent = 'Complete universe loaded';
         document.querySelectorAll('[data-universe-lens-full]').forEach(function (btn) {
           btn.hidden = false;
