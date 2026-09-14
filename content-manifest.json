@@ -1451,7 +1451,7 @@
     "manifest_path": "legacy-route-manifest.json",
     "mode_counts": {
       "byte_compatible_alias": 24,
-      "html_redirect": 219,
+      "html_redirect": 220,
       "legacy_404": 1,
       "legacy_projection_status": 1,
       "legacy_security_txt": 2
@@ -1517,14 +1517,14 @@
         "machine_readable": false,
         "mode": "html_redirect",
         "policy": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
-        "route_count": 219,
+        "route_count": 220,
         "sample_paths": [
           "index.html",
           "docs/index.html",
+          "docs/introduction.html",
           "docs/tour.html",
           "docs/open-questions.html",
-          "docs/quickstart.html",
-          "docs/coding-agents.html"
+          "docs/quickstart.html"
         ]
       },
       {
@@ -1542,18 +1542,18 @@
         ]
       }
     ],
-    "route_count": 247,
+    "route_count": 248,
     "schema": "plectis_legacy_compatibility_summary_v0"
   },
   "page_identity": {
-    "canonical_page_object_count": 218,
+    "canonical_page_object_count": 219,
     "compatibility_route_count": 1,
     "count_semantics": {
       "canonical_page_object_count": "Page objects with route_role=canonical_page.",
       "emitted_route_count": "All emitted HTML routes, including compatibility aliases.",
       "route_alias_count": "Compatibility routes that resolve to a canonical page object."
     },
-    "emitted_route_count": 219,
+    "emitted_route_count": 220,
     "route_alias_count": 1,
     "route_aliases": [
       {
@@ -1603,6 +1603,20 @@
         "microcosm-substrate/core/organ_families.json"
       ],
       "title": "Overview"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:introduction",
+      "generated": true,
+      "nav_group": "Getting started",
+      "output_path": "docs/introduction.html",
+      "public_label": "One-page introduction",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "assets/plectis-one-page.pdf"
+      ],
+      "title": "One-page introduction"
     },
     {
       "alternate_labels": [],
@@ -5758,7 +5772,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:fa56f127c0c12bfb8c42e1fce9fca3d9bb548d23095f5db944f240bd988f4ecb",
+    "sites/microcosm/index.html": "sha256:a3f80df3cb651e746861a2c3db189b4efb5eae5246f20dee58b57865855712d1",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:a4858a0ad7109cf6508f59dec0a7b0e58f33f78aaa0755270db718f58e1e55f8"
   },
   "source_of_truth_contract": {

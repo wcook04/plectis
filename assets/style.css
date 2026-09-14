@@ -3690,83 +3690,109 @@ body.nav-open .viewback, body.cmdk-open .viewback {
 body.has-viewback { padding-bottom: 64px; }
 @media print { .viewback { display: none !important; } }
 
-/* ── First-open glossary hint ───────────────────────────────────────────────
-   A small orientation chip, top-right, injected by landing.js / docs.js — not
-   landing HTML, so it does not spend the visible-word budget. It appears at
-   rest (no entrance motion: the constitution forbids viewport-triggered
-   flourish). It leaves because the reader scrolled, sliding off to the right;
-   once gone it is removed and never returns on this load. Gold kinship with
-   .btn--gold / term links; glass kinship with .site-header. z-index 28 sits
-   under the sticky bars (header 30, docs topbar 40) and the mobile drawer. */
+/* ── Glossary cue ────────────────────────────────────────────────────────────
+   A small fixed chip, bottom-right, injected by landing.js / docs.js — not
+   landing HTML, so it does not spend the visible-word budget. It is the
+   opposite corner to the bottom-left "back" pill and shares its grammar:
+   surface, hairline, lift. Gold kinship with .btn--gold and the term links
+   it points at. At rest it says one line; once the reader has scrolled it
+   folds to its mark and unfolds again on hover, focus, or a press of the
+   mark; the close control puts it away for the session. No entrance motion:
+   it is simply there. z-index 60 matches .viewback; the nav drawer and the
+   search palette hide both while they own the screen. */
 .glossary-hint {
   position: fixed;
-  top: calc(var(--topbar-h) + 12px);
-  right: 14px;
-  z-index: 28;
+  right: 16px;
+  bottom: 16px;
+  z-index: 60;
   display: flex;
-  align-items: flex-start;
-  gap: 0.62rem;
-  width: min(21.5rem, calc(100vw - 28px));
-  padding: 0.72rem 0.86rem 0.76rem 0.76rem;
+  align-items: center;
+  gap: 0;
+  max-width: min(23rem, calc(100vw - 32px));
+  padding: 0.3rem 0.3rem 0.3rem 0.3rem;
   font-family: var(--font-sans);
   font-size: 0.8rem;
-  line-height: 1.4;
-  text-wrap: pretty;
+  line-height: 1.35;
   color: var(--ink-soft);
-  background: color-mix(in srgb, var(--page) 88%, transparent);
-  backdrop-filter: saturate(1.1) blur(8px);
-  border: 1px solid color-mix(in srgb, var(--link-ext) 42%, transparent);
-  border-radius: var(--r-control);
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--link-ext) 48%, var(--rule-control));
+  border-radius: 999px;
   box-shadow: 0 10px 28px -8px rgba(0,0,0,0.45), 0 2px 8px -3px rgba(0,0,0,0.28);
-  transform: translateX(0);
-  opacity: 1;
-  transition: transform var(--motion-panel) var(--ease-out),
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
               opacity var(--motion-panel) var(--ease-out);
 }
-.glossary-hint.is-away {
-  transform: translateX(calc(100% + 1.5rem));
-  opacity: 0;
-  pointer-events: none;
+.glossary-hint:hover,
+.glossary-hint:focus-within { border-color: var(--link-ext); }
+.glossary-hint.is-away { opacity: 0; pointer-events: none; }
+body.nav-open .glossary-hint, body.cmdk-open .glossary-hint {
+  opacity: 0; visibility: hidden; pointer-events: none;
 }
 .glossary-hint__mark {
   flex: none;
-  width: 1.55rem;
-  height: 1.55rem;
+  width: 2rem;
+  height: 2rem;
   display: grid;
   place-items: center;
+  padding: 0;
   border-radius: 999px;
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 600;
   line-height: 1;
   color: var(--link-ext);
   background: color-mix(in srgb, var(--link-ext) 18%, var(--surface));
   border: 1px solid color-mix(in srgb, var(--link-ext) 42%, transparent);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-.glossary-hint__body { min-width: 0; }
-.glossary-hint p { margin: 0 0 0.38rem; }
-.glossary-hint p:last-child { margin-bottom: 0; }
+.glossary-hint__mark:hover { background: color-mix(in srgb, var(--link-ext) 30%, var(--surface)); }
+.glossary-hint__mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* The body folds along the inline axis: a 1fr → 0fr track, so the text slides
+   shut behind the mark instead of popping. Browsers without animated grid
+   tracks simply snap. */
+.glossary-hint__body {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-width: 0;
+  transition: grid-template-columns 0.28s var(--ease-out);
+}
+.glossary-hint__body > div { min-width: 0; overflow: hidden; }
+/* A fixed measure lets the two lines wrap inside the sliding track: without
+   it the text either runs on one line past the chip or reflows as the track
+   narrows. */
+.glossary-hint__text { width: 17.5rem; max-width: calc(100vw - 7.5rem); padding: 0 0.35rem 0 0.7rem; }
+.glossary-hint p { margin: 0; }
+.glossary-hint__more { color: var(--muted); font-size: 0.74rem; margin-top: 0.05rem; }
 .glossary-hint a { color: var(--link-ext); }
 .glossary-hint a:hover { color: var(--accent); text-decoration: none; }
 .glossary-hint a:focus-visible {
   outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
 }
+.glossary-hint__close {
+  flex: none; display: grid; place-items: center;
+  width: 1.8rem; height: 1.8rem; margin: 0 0.1rem 0 0;
+  padding: 0; border: 0; border-radius: 999px;
+  background: transparent; color: var(--muted); font: inherit; font-size: 1.15rem; line-height: 1;
+  cursor: pointer;
+}
+.glossary-hint__close:hover { color: var(--ink); background: var(--surface-sunk); }
+.glossary-hint__close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Folded: mark only, unless the reader is on it or has pinned it open. */
+.glossary-hint.is-compact:not(:hover):not(:focus-within):not(.is-open) .glossary-hint__body { grid-template-columns: 0fr; }
+.glossary-hint.is-compact:not(:hover):not(:focus-within):not(.is-open) .glossary-hint__close { display: none; }
+.glossary-hint.is-compact:not(:hover):not(:focus-within):not(.is-open) { border-color: color-mix(in srgb, var(--link-ext) 34%, var(--rule-control)); }
+/* The bottom-left back pill and this chip both sit on the last content row;
+   the same bottom clearance the pill asks for keeps the last line readable. */
 @media (max-width: 620px) {
-  /* The landing header wraps on this breakpoint, so a top-right overlay
-     covers the title. Park the chip on the bottom-right of the first screen
-     instead; the scroll-away still slides right. */
   .glossary-hint {
-    top: auto;
-    bottom: 14px;
     right: 10px;
-    width: min(18rem, calc(100vw - 20px));
+    max-width: calc(100vw - 20px);
     font-size: 0.76rem;
-    padding: 0.6rem 0.7rem;
   }
+  .glossary-hint__more { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .glossary-hint { transition: opacity var(--dur) var(--ease); }
-  .glossary-hint.is-away { transform: none; }
+  .glossary-hint, .glossary-hint__body, .glossary-hint__mark { transition: none; }
 }
 body.nav-open .glossary-hint, body.cmdk-open .glossary-hint {
   opacity: 0; visibility: hidden; pointer-events: none;
@@ -4959,29 +4985,60 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
   text-wrap: pretty;
 }
 
-/* Collapsed bands (2026-09-14): below the hero the landing is a list of
-   headings. A closed band shows its eyebrow and heading only; the heading is
-   the control. Applied only by landing.js, so a page without scripts stays
-   complete. */
-.band-head { cursor: pointer; position: relative; }
-.band-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: var(--r-xs); }
+/* Collapsed bands (2026-09-14): below the hero the landing is a numbered
+   ladder of headings. A closed band shows its number and eyebrow, its heading,
+   and one clamped line of its first sentence; the whole head is the control
+   and takes a warm wash on hover. Applied only by landing.js, so a page
+   without scripts stays complete and unnumbered. */
+html[data-landing-bands="on"] main { counter-reset: band; }
+html[data-landing-bands="on"] section.section:not(.hero) { counter-increment: band; }
+.band-head {
+  cursor: pointer; position: relative;
+  /* The wash box is the head's own box plus a margin of paper on each side,
+     so the hover ground never starts flush with the heading's first letter. */
+  padding: 0.85rem 1rem 0.9rem; margin: -0.85rem -1rem -0.9rem;
+  border-radius: var(--r-lg);
+  transition: background var(--dur) var(--ease);
+}
+.band-head:hover,
+.band-head:focus-visible { background: color-mix(in srgb, var(--wash-warm) var(--wash-warm-a), transparent); }
+.band-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.band-head .eyebrow { display: flex; align-items: baseline; gap: 0.7rem; margin-bottom: 0.55rem; }
+.band-head .eyebrow::before {
+  content: counter(band, decimal-leading-zero);
+  font-family: var(--font-mono); font-weight: 500; letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--link-ext) 78%, var(--faint));
+}
+.band-head h2 { position: relative; padding-right: 2.2rem; margin-top: 0; }
 .band-head h2::after,
 .band-head.eyebrow::after {
-  content: ""; display: inline-block; width: 0.42em; height: 0.42em;
-  margin-left: 0.55em; vertical-align: 0.15em;
+  content: ""; position: absolute; right: 0.55rem; top: 0.5em;
+  width: 0.46em; height: 0.46em;
   border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
-  rotate: 45deg; transition: rotate var(--motion-ui) var(--ease-out);
+  rotate: 45deg; transition: rotate var(--motion-ui) var(--ease-out), color var(--dur) var(--ease);
   color: var(--faint);
 }
+.band-head.eyebrow::after { position: static; display: inline-block; margin-left: 0.55em; vertical-align: 0.15em; }
 .band-head[aria-expanded="true"] h2::after,
-.band-head[aria-expanded="true"].eyebrow::after { rotate: -135deg; vertical-align: -0.1em; }
+.band-head[aria-expanded="true"].eyebrow::after { rotate: -135deg; top: 0.72em; }
 .band-head:hover h2, .band-head.eyebrow:hover { color: var(--accent-strong); }
-.section.is-collapsed { padding-block: 1.6rem; }
+.band-head:hover h2::after { color: var(--accent); }
+.section.is-collapsed { padding-block: 1.45rem; }
 .section.is-collapsed > :not(.band-head) { display: none; }
-.section.is-collapsed > .section__head > :not(.eyebrow):not(h2) { display: none; }
+/* Closed: eyebrow, heading, and the first sentence on one line. */
+.section.is-collapsed > .section__head > h2 ~ :not(h2 + p) { display: none; }
+.section.is-collapsed > .section__head > h2 + p {
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
+  overflow: hidden; margin: 0.35rem 0 0;
+  font-size: var(--fs-body); color: var(--muted); line-height: var(--lh-snug);
+}
 .section.is-collapsed > .section__head { margin-bottom: 0; }
 .section.is-collapsed > .section__head h2 { margin-bottom: 0; }
 .section--tail.is-collapsed { display: none; }
+/* The shelf band takes the ladder's rhythm once it is a band like the rest. */
+html[data-landing-bands="on"] .section--quiet:not(.is-collapsed) { padding: var(--section-y) 0; }
+html[data-landing-bands="on"] .section--quiet .quiet-links { margin-top: 0.2rem; }
 .docs-pagetool[aria-pressed="true"] { color: var(--accent-strong); border-color: var(--accent); }
 
 .fold__gist strong { color: var(--ink-soft); font-weight: 600; }
@@ -6082,24 +6139,6 @@ p.muted a:not(.narrative-ref):focus-visible {
 }
 
 
-/* Small-screen chrome keeps one alignment and leaves the reading area clear. */
-.glossary-hint { box-shadow: var(--shadow); }
-/* Guidance shares the reading column instead of covering page controls. */
-.glossary-hint--inline-ready {
-  position: static; width: 100%; max-width: var(--prose);
-  margin: 1rem 0 1.25rem; box-shadow: none; backdrop-filter: none;
-}
-.glossary-hint--inline-ready .glossary-hint__body { flex: 1; }
-.glossary-hint--inline-ready.is-away { transform: none; }
-.glossary-hint__close {
-  flex: none; display: grid; place-items: center;
-  width: 32px; height: 32px; margin: -.35rem -.4rem 0 0;
-  padding: 0; border: 0; border-radius: var(--r-sm);
-  background: transparent; color: var(--muted); font: inherit; font-size: 1.25rem;
-  cursor: pointer;
-}
-.glossary-hint__close:hover { color: var(--ink); background: var(--surface-sunk); }
-.glossary-hint__close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   /* Inherited visibility must settle at once throughout the drawer. The
      global 0.01ms duration otherwise animates it one ancestor at a time. */
@@ -6185,3 +6224,83 @@ html[data-plectis-docs-runtime="failed"] .docs-search-btn { display: none; }
     padding: 1rem 0; border: 0; box-shadow: none;
   }
 }
+
+
+/* ── Landing refresh (2026-09-14) ────────────────────────────────────────────
+   One door with two ways through it, repository chips with the GitHub mark,
+   a thread rule to close the hero, and the one-page introduction rendered in
+   the reading chrome. */
+
+/* Split control: main segment and a format tab share one outline, lift as
+   one, and are two real links (the tab is the PDF). */
+.btn-split { display: inline-flex; align-items: stretch; max-width: 100%; border-radius: var(--r-control); transition: transform var(--dur-fast) var(--ease); }
+.btn-split:hover { transform: translateY(-1px); }
+.btn-split .btn { margin: 0; }
+.btn-split .btn:hover { transform: none; }
+.btn-split__main { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.btn-split__alt {
+  border-top-left-radius: 0; border-bottom-left-radius: 0;
+  padding-inline: 0.72rem;
+  border-left-color: color-mix(in srgb, var(--link-ext) 42%, transparent);
+}
+.btn-split__alt .btn__format {
+  background: transparent; color: inherit; padding: 0;
+  font-size: 0.72rem; letter-spacing: 0.06em;
+}
+.btn-split__alt:hover { background: color-mix(in srgb, var(--link-ext) 36%, var(--surface)); }
+.btn-split:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn-split .btn:focus-visible { outline: none; }
+
+/* The two repositories, as chips carrying the GitHub mark. */
+.hero--simple .hero__modes .hero__repo {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.36rem 0.78rem 0.36rem 0.62rem;
+  font-size: var(--fs-small); font-weight: 500;
+  color: var(--link-ext);
+  border: 1px solid color-mix(in srgb, var(--link-ext) 32%, transparent);
+  border-radius: 999px;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.hero--simple .hero__modes .hero__repo:hover {
+  border-color: var(--link-ext);
+  background: color-mix(in srgb, var(--link-ext) 12%, transparent);
+  text-decoration: none;
+}
+.hero--simple .hero__modes .hero__repo[data-link-kind="exogenous"]::after { content: none; }
+.hero__repo-mark { flex: none; opacity: 0.85; }
+.hero--simple .hero__repos { gap: 0.5rem 0.6rem; margin-top: 0.55rem; }
+
+/* The hero closes on a short thread rule: the site's own gradient, at the
+   width of a word, so the first band starts on a mark rather than a gap. */
+.hero--simple::after {
+  content: ""; display: block; width: 6rem; height: 3px;
+  margin-top: 2.6rem; border-radius: 2px;
+  background: var(--thread); opacity: var(--thread-alpha);
+}
+.hero--simple { padding-bottom: 1.6rem; }
+.hero--simple .hero__who { margin-bottom: 1.5rem; }
+
+/* The one-page introduction, rendered like a paper: title block, byline,
+   the manuscript route, then the prose at a reading measure. */
+.intro-paper__head { margin: 0 0 1.7rem; padding-bottom: 1.35rem; border-bottom: 1px solid var(--rule); }
+.intro-paper__head h1 { margin-bottom: 0.25rem; }
+.intro-paper__subtitle {
+  font-family: var(--font-serif); font-size: clamp(1.2rem, 2vw, 1.45rem);
+  line-height: var(--lh-snug); color: var(--ink-soft);
+  margin: 0 0 0.75rem; text-wrap: balance;
+}
+.intro-paper__byline {
+  display: flex; flex-wrap: wrap; gap: 0.3rem 0;
+  margin: 0 0 1.1rem; font-size: var(--fs-meta); color: var(--muted);
+}
+.intro-paper__byline span + span::before { content: "\00b7"; margin: 0 0.6rem; color: var(--rule-strong); }
+.intro-paper__routes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin: 0; }
+.intro-paper__routes-note { font-size: var(--fs-small); color: var(--faint); }
+.intro-paper__body {
+  max-width: var(--prose);
+  font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.68;
+  color: var(--ink);
+}
+.intro-paper__body p { margin: 0 0 1.05em; text-wrap: pretty; }
+.intro-paper__body p:last-child { margin-bottom: 0; }
+.intro-paper__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem 1.4rem; }

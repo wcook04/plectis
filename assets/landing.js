@@ -413,81 +413,98 @@
   afterFirstPaint(queueDocs);
 })();
 
-/* First-open glossary hint. Mounted here so the homepage chip is present
-   before docs.js's idle slot. docs.js carries the same IIFE for maths/docs
-   pages and is a no-op if this already ran (data-glossary-hint). Keep the
-   two copies in sync. Not in landing HTML: the visible-word budget is full. */
+/* Glossary cue (2026-09-14). A small fixed chip, bottom-right, mounted here so
+   the homepage has it before docs.js's idle slot; docs.js carries the same
+   IIFE for maths/docs pages and is a no-op if this already ran
+   (data-glossary-hint). Keep the two copies in sync. It sits opposite the
+   bottom-left "back" pill. At rest it says one line; once the reader has
+   scrolled it folds to its mark and unfolds on hover, focus, or a press of
+   the mark; the close control puts it away for the session. The glossary
+   page itself does not need it. Not in landing HTML: the visible-word budget
+   is full. */
 (function () {
   var root = document.documentElement;
   if (!document.body || !document.createElement) return;
   if (root.getAttribute('data-glossary-hint')) return;
   try { if (sessionStorage.getItem('plectis-glossary-hint-dismissed')) return; } catch (e) {}
-  if (!document.querySelector('a.narrative-ref--term[data-term]')) {
+  if (/\/glossary\.html$/.test(window.location.pathname || '')) {
     root.setAttribute('data-glossary-hint', 'skip');
     return;
   }
-  var startY = window.pageYOffset || root.scrollTop || 0;
-  if (startY >= 48) {
-    root.setAttribute('data-glossary-hint', 'away');
+  var firstTerm = document.querySelector('a.narrative-ref--term[data-term]');
+  if (!firstTerm) {
+    root.setAttribute('data-glossary-hint', 'skip');
     return;
   }
+  var touch = false;
+  try { touch = !!(window.matchMedia && window.matchMedia('(hover: none)').matches); } catch (e) {}
+  var glossaryHref = (firstTerm.getAttribute('href') || '').split('#')[0] || 'docs/glossary.html';
 
   var hint = document.createElement('aside');
   hint.className = 'glossary-hint';
   hint.setAttribute('role', 'note');
+  hint.setAttribute('aria-label', 'Glossary');
 
-  var mark = document.createElement('span');
+  var mark = document.createElement('button');
+  mark.type = 'button';
   mark.className = 'glossary-hint__mark';
-  mark.setAttribute('aria-hidden', 'true');
+  mark.setAttribute('aria-label', 'Glossary tip');
+  mark.setAttribute('aria-expanded', 'true');
   mark.textContent = '?';
 
   var body = document.createElement('div');
   body.className = 'glossary-hint__body';
+  var inner = document.createElement('div');
+  var text = document.createElement('div');
+  text.className = 'glossary-hint__text';
 
   var p1 = document.createElement('p');
-  p1.textContent = window.matchMedia && window.matchMedia('(hover: none)').matches
-    ? 'Tap an underlined term for its meaning.'
-    : 'Hover over an underlined term for its meaning.';
+  p1.className = 'glossary-hint__lead';
+  p1.appendChild(document.createTextNode(touch
+    ? 'Tap an underlined term for its meaning. '
+    : 'Hover an underlined term for its meaning. '));
+  var all = document.createElement('a');
+  all.href = glossaryHref;
+  all.textContent = 'Glossary';
+  p1.appendChild(all);
 
   var p2 = document.createElement('p');
-  p2.appendChild(document.createTextNode('To contest or clarify a definition, '));
+  p2.className = 'glossary-hint__more';
+  p2.appendChild(document.createTextNode('Contest or clarify a definition: '));
   var mail = document.createElement('a');
   mail.href = 'mailto:williamwkcook@gmail.com';
   mail.textContent = 'email me';
   p2.appendChild(mail);
-  p2.appendChild(document.createTextNode(" and I'll credit the correction."));
+  p2.appendChild(document.createTextNode(' and the correction is credited.'));
 
-  body.appendChild(p1);
-  body.appendChild(p2);
-  hint.appendChild(mark);
-  hint.appendChild(body);
+  text.appendChild(p1);
+  text.appendChild(p2);
+  inner.appendChild(text);
+  body.appendChild(inner);
+
   var close = document.createElement('button');
   close.type = 'button';
   close.className = 'glossary-hint__close';
   close.setAttribute('aria-label', 'Dismiss glossary tip');
   close.textContent = '×';
-  close.addEventListener('click', function () {
-    dismiss();
-    var main = document.querySelector('main');
-    if (main && main.focus) {
-      main.setAttribute('tabindex', '-1');
-      main.focus({ preventScroll: true });
-    }
-  });
+
+  hint.appendChild(mark);
+  hint.appendChild(body);
   hint.appendChild(close);
-  var hintAnchor = document.querySelector('.hero__sub, .docs-lede');
-  if (hintAnchor && hintAnchor.parentNode) {
-    hintAnchor.parentNode.insertBefore(hint, hintAnchor.nextSibling);
-    hint.classList.add('glossary-hint--inline-ready');
-  } else document.body.appendChild(hint);
+  document.body.appendChild(hint);
   root.setAttribute('data-glossary-hint', 'shown');
 
   var gone = false;
-  var THRESHOLD = 48;
+  var THRESHOLD = 160;
+
+  function setCompact(on) {
+    hint.classList.toggle('is-compact', on);
+    hint.classList.remove('is-open');
+    mark.setAttribute('aria-expanded', on ? 'false' : 'true');
+  }
 
   function finish() {
-    if (!hint.parentNode) return;
-    hint.parentNode.removeChild(hint);
+    if (hint.parentNode) hint.parentNode.removeChild(hint);
   }
 
   function dismiss() {
@@ -502,26 +519,40 @@
   }
 
   function onScroll() {
-    if (window.getComputedStyle && window.getComputedStyle(hint).position === 'static') return;
     var sy = window.pageYOffset || root.scrollTop || 0;
     if (sy < THRESHOLD) return;
     try {
-      if (hint.matches && hint.matches(':focus-within')) return;
+      if (hint.matches && hint.matches(':hover, :focus-within')) return;
     } catch (e) {}
-    dismiss();
+    setCompact(true);
+    window.removeEventListener('scroll', onScroll);
   }
 
-  hint.addEventListener('focusout', function () {
-    window.setTimeout(function () {
-      if (gone) return;
-      if (hint.contains(document.activeElement)) return;
-      if (window.getComputedStyle && window.getComputedStyle(hint).position === 'static') return;
-      var sy = window.pageYOffset || root.scrollTop || 0;
-      if (sy >= THRESHOLD) dismiss();
-    }, 0);
+  /* The mark pins the chip open when it is folded, and folds it when it is
+     open; on a touch screen the chip starts folded so the reading area stays
+     clear, and the mark is the way in. */
+  mark.addEventListener('click', function () {
+    if (hint.classList.contains('is-compact')) {
+      var open = !hint.classList.contains('is-open');
+      hint.classList.toggle('is-open', open);
+      mark.setAttribute('aria-expanded', open ? 'true' : 'false');
+    } else {
+      setCompact(true);
+      window.removeEventListener('scroll', onScroll);
+    }
   });
 
-  window.addEventListener('scroll', onScroll, { passive: true });
+  close.addEventListener('click', function () {
+    dismiss();
+    var main = document.querySelector('main');
+    if (main && main.focus) {
+      main.setAttribute('tabindex', '-1');
+      main.focus({ preventScroll: true });
+    }
+  });
+
+  if (touch) setCompact(true);
+  else window.addEventListener('scroll', onScroll, { passive: true });
 })();
 
 /* Collapsed bands (2026-09-14). Below the hero the landing is a list of
