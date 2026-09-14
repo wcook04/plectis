@@ -5038,8 +5038,8 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
 #papers .link-rows { max-width: 780px; }
 #papers .link-row {
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 0.35rem 1.2rem;
-  padding-block: 1.5rem;
+  gap: 0.3rem 1.2rem;
+  padding-block: 1.1rem;
   align-items: start;
 }
 #papers .link-row .paper-row__meta { grid-column: 1; grid-row: 1; }
@@ -5078,8 +5078,8 @@ a.btn[data-link-kind="exogenous"]::after { color: inherit; opacity: 0.75; }
    dominate the précis under it. */
 #papers .link-row strong {
   font-family: var(--font-serif); font-weight: 600;
-  font-size: clamp(1.85rem, 4.2vw, 2.55rem); line-height: 1.12;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.3rem, 2.2vw, 1.55rem); line-height: 1.2;
+  letter-spacing: -0.012em;
   color: var(--ink); text-wrap: pretty;
 }
 /* The title is the anchor now that the row is a row rather than one link, so it
@@ -6003,11 +6003,50 @@ p.muted a:not(.narrative-ref):focus-visible {
 .ai-questions--open { margin-top: 1.2rem; }
 .fold[data-fold-tone="quiet"] { margin-top: 1.4rem; }
 
-/* Keep the front door short, and the routes between sections visible. */
-.hero--simple { max-width: 1060px; padding-bottom: 2rem; }
-.hero--simple .hero__lede { max-width: 760px; }
-.hero--simple .hero__sub { max-width: 680px; }
-.hero--simple .hero__modes { display: flex; flex-wrap: wrap; gap: .8rem; }
+/* Keep the front door short, and the routes between sections visible.
+   Front door (2026-09-14): one line that says what this is, one that says
+   what is here, one that says who, and one primary action. The repository
+   links stay as quiet text actions so the first choice a stranger makes is
+   on this site. */
+.hero--simple { max-width: 1060px; padding-top: 72px; padding-bottom: 2.4rem; }
+.hero--simple .hero__lede {
+  max-width: 24ch;
+  font-size: clamp(1.45rem, 2.6vw, 1.85rem);
+  margin-bottom: 1rem;
+}
+.hero--simple .hero__sub {
+  max-width: 62ch;
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+  line-height: var(--lh-body);
+}
+.hero__who {
+  margin: 0 0 1.8rem;
+  font-size: var(--fs-meta);
+  color: var(--muted);
+}
+.hero__who a { color: inherit; text-underline-offset: 0.18em; }
+.hero--simple .hero__modes { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1rem; }
+/* The two repository links take a row of their own beneath the site doors,
+   so they never split one-and-one across a wrap. */
+.hero--simple .hero__repos { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin-top: .2rem; }
+.hero--simple .hero__modes .btn--text { padding-inline: 0.15rem; }
+.hero--simple .hero__modes .btn--text[data-link-kind="exogenous"] { color: var(--link-ext); }
+.hero--simple .hero__modes .btn--text[data-link-kind="exogenous"]::after { content: " \2197"; }
+
+/* A band that is a shelf of destinations, not a section: an eyebrow and one
+   line of links, at a third of the section rhythm. */
+.section--quiet { padding: 2rem 0; }
+.section--quiet .eyebrow { margin-bottom: 0.7rem; }
+.quiet-links {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 0.4rem 0;
+  max-width: 900px; font-size: var(--fs-body);
+}
+.quiet-links li + li::before { content: "\00b7"; color: var(--rule-strong); margin: 0 0.7rem; }
+.quiet-links a { color: var(--ink-soft); }
+.quiet-links a:hover { color: var(--accent); }
+.fold__lede { color: var(--muted); max-width: var(--prose); margin: 0 0 1.2rem; text-wrap: pretty; }
 .landing-example { margin-top: 1.5rem; }
 .landing-example > summary { cursor: pointer; color: var(--ink-soft); padding: .75rem 0; }
 @media (max-width: 600px) {
