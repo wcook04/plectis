@@ -69,8 +69,8 @@ untested outside author-operated runs.
 
 The paper gives a production model, contribution protocol, trust and security
 boundary, attribution policy, comparison with volunteer computing,
-Polymath-style collaboration, formalisation projects, and multi-agent proof
-systems, and an evaluation agenda.  Mathematics is the initial domain because
+Polymath-style collaboration, formalisation projects, the Prove2Me platform,
+and multi-agent proof systems, and an evaluation agenda.  Mathematics is the initial domain because
 its objects are digital and formal claims can be checked incrementally.  Any
 later extension to experimental science would require domain scientists,
 physical laboratories, safety governance, and new evidential authorities.
@@ -729,7 +729,9 @@ which evidence and limitation.  It need not guess the contribution's eventual
 importance.  Later accepted work can add reviewed lineage edges such as
 \emph{uses}, \emph{enables}, \emph{repairs}, \emph{formalises}, \emph{refutes},
 or \emph{explains}.  A consequence view can then show which later results,
-tools, or expositions depend on an earlier contribution.
+tools, or expositions depend on an earlier contribution.  Prove2Me already
+implements the simplest such edge as a credit rule: a contributor earns
+credit when later proofs import a statement they proposed \cite{prove2me}.
 
 This later view begins with an immediate obligation. Before a result is
 returned, the clone-local \texttt{propagate-research-consequences} skill gives
@@ -769,8 +771,10 @@ therefore distributes \emph{search} while keeping authority local to each
 evidence type.  Mathematicians and formalisation contributors design or review
 the routes; volunteers may execute them with Claude Code, Codex, Cursor,
 Antigravity, another open or proprietary harness, or no agent at all.  The
-runner is replaceable.  The task packet, evidence boundary, and return record
-are the shared protocol.  Returned code is untrusted until reviewed.  Expensive or
+runner is replaceable.  Prove2Me takes the same position for a hosted
+platform: it accepts any shell-capable agent and reports missions closed on
+ordinary consumer subscriptions \cite{prove2me}.  The task packet, evidence
+boundary, and return record are the shared protocol.  Returned code is untrusted until reviewed.  Expensive or
 privileged continuous-integration jobs must not execute fork code with
 repository secrets.  In particular, a GitHub \texttt{pull\_request\_target}
 workflow must not check out and execute an untrusted fork; GitHub documents
@@ -800,9 +804,10 @@ have explicit owners.
 No part of this strategy is without precedent.  The project deliberately
 packages practices developed by the Erd\H{o}s Problems project, Lean and
 mathlib, Comparator and Palomar, DeepMind's \texttt{formal-conjectures},
-Polymath, BOINC, GIMPS, and recent multi-agent formalisation systems.  The
-intended contribution is an accessible composition: a person should be able
-to enter through one clone without first recreating those infrastructures.
+Polymath, BOINC, GIMPS, the Prove2Me platform, and recent multi-agent
+formalisation systems.  The intended contribution is an accessible
+composition: a person should be able to enter through one clone without
+first recreating those infrastructures.
 
 \paragraph{Distributed compute.}
 BOINC and GIMPS show that members of the public will donate hardware to a
@@ -836,6 +841,39 @@ semantic verification \cite{leanatlas}.  These mechanisms address search,
 coordination, and review focus.  They do not by themselves provide a public
 commons in which mathematics and improvements to the research architecture
 enter one provenance-preserving adoption path.
+
+\paragraph{Open agent platforms.}
+Prove2Me is an open collaborative platform for formalisation in which anyone
+with a coding agent is a first-class contributor \cite{prove2me}.  Its first
+arXiv version appeared on 28 August 2026, three days before the first public
+version of this paper, and it had first several of the ideas proposed here.
+It treats the collective token budget of the public as the compute source,
+reports missions closed on ordinary consumer subscriptions, and onboards any
+shell-capable agent from a single instruction file.  A mission fixes a small
+audited core: the goal statement, the definitions it rests on, and
+captain-curated milestone lemmas.  Agents introduce every other intermediate
+theorem freely.  A proof-sketch is a \texttt{sorry}-free proof that imports
+statements not yet proved, so the target is verified exactly when its
+imported children are, and proof search decomposes into atomised sub-problems
+that different agents can close.  Every accepted statement enters a
+searchable reusable library, and a contributor earns credit when later proofs
+import a statement they proposed, which is the platform's form of citation.
+Agents also post progress and lessons on a discussion channel, and one
+recorded exchange shows an agent disproving another's statement and the first
+agent repairing it.  Where the present strategy asks for spare compute, an
+agent-native onboarding route, task decomposition with the antecedent left
+visible, reuse credit, and shared negative findings, Prove2Me has a running
+implementation and is the prior published design.
+
+The two differ in what the shared object is.  Prove2Me is a hosted service
+with server-side verification, and its reported completed missions formalise
+results whose proofs already exist in a paper or textbook.  The commons here
+is a git repository with no service behind it, and its eight endpoints are
+open research problems whose proofs do not exist.  The unit of credit here is
+a role ledger over evidence classes, including failed routes, no-go theorems,
+and corrections.  This paper does not claim that the second design is better.
+Which contributor experience scales is an open question and one of the
+measures in Section~\ref{sec:evaluation}.
 
 \paragraph{Proof abundance.}
 Tao separates problem solving into generation, verification, exposition,
@@ -1418,6 +1456,11 @@ Collaborative Autoformalization With LLM Agents}, 2026,
 B. Yanahama and A. Sannai, \emph{Lean Atlas: An Integrated Proof Environment
 for Scalable Human--AI Collaborative Formalization}, 2026,
 \href{https://arxiv.org/abs/2604.16347}{arXiv:2604.16347}.
+
+\bibitem{prove2me}
+S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, \emph{Prove2Me: An Open
+Collaborative Platform for Scaling Math Formalization}, 2026,
+\href{https://arxiv.org/abs/2608.28433}{arXiv:2608.28433}.
 
 \bibitem{credit}
 NISO, \emph{CRediT: Contributor Roles Taxonomy},

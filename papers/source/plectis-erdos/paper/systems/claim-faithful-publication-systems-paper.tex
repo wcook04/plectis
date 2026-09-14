@@ -879,7 +879,9 @@ this separately stated Lean interface under this axiom budget?'' It does not
 answer whether the interface is the right translation of an informal problem,
 whether the theorem is new or important, or whether an independent human has
 reviewed the proof. ``Comparator-checked'' is accurate; ``independently
-verified'' is not.
+verified'' is not. Prove2Me applies the same exact-type requirement to every
+proof submitted to its platform \cite{prove2me}; here it is applied to a
+selected interface at release time.
 
 \subsection{Review selection, and what the Palomar registry is not}
 
@@ -1287,6 +1289,30 @@ interaction, parallel search, and learned proof memory. Here those mechanisms
 sit upstream of a different question: after a proof is found, what exactly may
 move into a reviewed public claim?
 
+\paragraph{Open formalisation platforms.}
+Prove2Me is a hosted platform on which anyone with a coding agent submits
+theorems and proofs, and it implements several of this paper's boundaries as
+platform primitives \cite{prove2me}. A statement is an immutable object that
+may carry many proofs; a proof submission must declare a term of exactly the
+target's type with no \texttt{sorry} and no new axiom; a disproof is a proof
+of the negation. That is the check Comparator performs here for a selected
+interface at each release (Section~\ref{sec:assurance}); Prove2Me applies it
+to every submission on the server. Its audited missions confine human review
+to a curated core of goal, definitions, and milestone lemmas while agents add
+intermediate lemmas without audit, and a sub-agent read-back renders each
+Lean statement back into ordinary mathematics without sight of the source so
+that a human compares two informal statements. A proof-sketch imports
+statements that are still open and is verified exactly when they are. The
+first public version of this paper (July 2026) predates Prove2Me (August
+2026) and the two designs were developed independently. Prove2Me is the
+published reference for statement--proof separation, audited cores, and
+read-back auditing as hosted platform mechanisms, and this paper claims no
+priority over it. The designs differ in scope. Prove2Me verifies submissions
+centrally and its reported completed missions formalise proofs that already
+exist. The corpus here is a clone with no service behind it, its endpoints are
+open problems, and its records carry failed routes, obstruction theorems, and
+claim ceilings alongside proved statements.
+
 \paragraph{Graphs and checked exposition.}
 Proof blueprints connect informal proof plans to named Lean declarations.
 \texttt{leanblueprint} checks that author-supplied declaration names exist,
@@ -1463,6 +1489,9 @@ Formalization}, 2026, \href{https://doi.org/10.48550/arXiv.2604.16347}{arXiv}.
 \bibitem{econcs} N.~Garg, \emph{EconCSLib: AI-Assisted Lean Formalization for
 Economics \& Computation Research}, 2026,
 \href{https://doi.org/10.48550/arXiv.2606.13306}{arXiv}.
+\bibitem{prove2me} S.~Chen, K.~Marwaha, X.~Lu, H.~Yuen, and T.~Peng,
+\emph{Prove2Me: An Open Collaborative Platform for Scaling Math
+Formalization}, 2026, \href{https://doi.org/10.48550/arXiv.2608.28433}{arXiv}.
 \bibitem{isadof} A.~D.~Brucker and B.~Wolff, \emph{Isabelle/DOF: Design and
 Implementation}, in \emph{Software Engineering and Formal Methods}, 2019,
 pp.~275--293.

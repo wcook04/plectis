@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 23,
     "renderer_fingerprint": "7b88de7e4aabfee7",
-    "source_sha256": "d56fb09515aee3e47e343bf91e78792b5f7a5334c480350565367eb7e003ba92",
+    "source_sha256": "695672fa251f0a6ee75fe1f5c74e63a577bd68a7ed5310dab9d7fcddd304f585",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 7,
@@ -55,8 +55,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "c6e6ceb78628fcd22ee1bccd8e03ae83ae671d3d1d067e76b5f12392af9293ef",
-    "html_exact_tex_sha256": "86f3d9bee473f78caee434198e3f4318e35061162bf4e0b02047ccb618ffeacf"
+    "html_mathml_sha256": "b5915c466ce72082a8344a2e2d0c9eaf28e33fcadd9e5f4242293f17171af04e",
+    "html_exact_tex_sha256": "2996284cc72b966e30e63640c6cf95e065a0cdad141d391b1b200f19ec2fe43b"
   },
   "sections": [
     {
@@ -138,6 +138,11 @@
       "level": 5,
       "anchor": "multi-agent-formal-research.",
       "label": "Multi-agent formal research."
+    },
+    {
+      "level": 5,
+      "anchor": "open-agent-platforms.",
+      "label": "Open agent platforms."
     },
     {
       "level": 5,
