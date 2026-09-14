@@ -454,7 +454,19 @@ The following elementary estimate quantifies this cost:
 \end{equation}
 The LCM asymptotic is proved here by an ordinary mathematical argument.
 The linked asymptotic Lean files are proof candidates and are not being
-cited as kernel verification.  The finite-block inequality has a separate
+cited as kernel verification.  The separate public Lean release
+\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E68/Challenge.lean#L249}{\texttt{wcook04/plectis-erdos-lean}}
+at commit \texttt{52f29ad1} states the bound~\eqref{res:lcm-growth}, with the
+least common multiple of $n!-1$ over $2\le n\le N$ as the common denominator,
+as \texttt{common\_denominator\_growth} and in extended real form as
+\texttt{common\_denominator\_growth\_liminf} in
+\texttt{PalomarCorpus/E68/Challenge.lean}, and proves both.  That repository's
+Linux replay of Palomar's Comparator stage accepted the entry with the Lean
+kernel and with NanoDa
+(\href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633}{run 34782407633}).
+The checked bound concerns a common denominator of the partial sums and bounds
+no reduced denominator of a rational representation of the series.
+The finite-block inequality has a separate
 Lean source,
 \href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{finite terminal-block inequality}.
 For a terminal block of $k$ terms, the product--lcm--gcd inequality and
@@ -721,6 +733,9 @@ terminal-block inequality cited above.  The associated
 and
 \href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean}{liminf}
 Lean files are proof candidates and are not being cited as kernel verification.
+The checked counterpart of the growth liminf in the public Lean release
+\texttt{wcook04/plectis-erdos-lean} at commit \texttt{52f29ad1} is cited
+at~\eqref{res:lcm-growth}.
 
 Formal proof checking does not assess external novelty or the significance
 of the remaining hypothesis.  The complete source register, receipts and
@@ -821,9 +836,18 @@ Theorem~\ref{res:companion-orbit-rationality-boundary} and
 Remark~\ref{bdry:companion-orbit-nonconcentration}.  The moving-factor
 Comparator endpoints are recorded in the long reasoning record as the
 moving-factor scale split, the split-factor normalised collision, and the
-fixed-owner absorption boundary.  These source-current modules, Comparator
+fixed-owner absorption boundary.  The separate public Lean release
+\texttt{wcook04/plectis-erdos-lean} at commit \texttt{52f29ad1} selects those
+three endpoints as
+\texttt{movingPrivateFactorScaleSplit\_implies\_irrational},
+\texttt{splitFactorNormalizedCollision\_implies\_irrational} and
+\texttt{fixedOwnerPair\_eventually\_absorbed} in
+\texttt{PalomarCorpus/E68/Challenge.lean}.  These source-current modules, Comparator
 packages, and this manuscript stage require one common immutable public
-checkpoint before terminal external replay or Palomar readiness is claimed.
+checkpoint before terminal external replay or Palomar readiness is claimed;
+for the eight-entry release that checkpoint is commit \texttt{52f29ad1},
+whose Linux replay of Palomar's Comparator stage accepted the \texttt{E68}
+entry (run 34782407633, cited at~\eqref{res:lcm-growth}).
 The unconditional correction \eqref{eq:companion-wrap} is checked in
 \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean}{companion constant carry law}, and the pole-residue identity and the two
 displayed reciprocal equalities are checked in

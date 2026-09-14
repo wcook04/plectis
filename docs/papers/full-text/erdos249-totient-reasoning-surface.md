@@ -1841,7 +1841,7 @@ This subsection catalogues material that entered the public record after the res
 
 ### The Möbius–Mersenne ladder: unconditional log-concavity
 
-`SignedQMomentObstruction` adds an infinite ladder $`\Theta_r := \sum_{n\ge 0} \mu(n+1)/(2^{n+1}-1)^r`$ built from the same Möbius–Mersenne atoms as the rest of the corpus, together with a full unconditional order-two Hankel (log-concavity) theorem for every rung.
+`SignedQMomentObstruction` adds an infinite ladder $`\Theta_r := \sum_{n\ge 0} \mu(n+1)/(2^{n+1}-1)^r`$ built from the same Möbius–Mersenne atoms as the rest of the corpus, together with a full unconditional order-two Hankel (log-concavity) theorem for every rung $`r\ge 1`$.
 
 <div class="defn">
 
@@ -1863,7 +1863,7 @@ This subsection catalogues material that entered the public record after the res
 
 <div class="thm">
 
-**Theorem 174** (Full ladder: unconditional strict log-concavity, every rung). *For every $`r\ge 1`$, $`\Theta_r\,\Theta_{r+2} < \Theta_{r+1}^2`$: the shifted $`2\times 2`$ Hankel determinant of the whole ladder is negative at every rung, not just asymptotically. The proof propagates the exact two-atom gap above against a geometric tail-error budget that contracts by a factor $`1/4`$ per rung against a gap that only contracts by $`1/3`$, giving an inductive floor from rung $`5`$ on (kernel-checked base cases below). `coord:mobius-mersenne`.*
+**Theorem 174** (Full ladder: unconditional strict log-concavity, every rung $`r\ge 1`$). *For every $`r\ge 1`$, $`\Theta_r\,\Theta_{r+2} < \Theta_{r+1}^2`$: the shifted $`2\times 2`$ Hankel determinant of the whole ladder is negative at every rung, not just asymptotically. The proof propagates the exact two-atom gap above against a geometric tail-error budget that contracts by a factor $`1/4`$ per rung against a gap that only contracts by $`1/3`$, giving an inductive floor from rung $`5`$ on (kernel-checked base cases below). `coord:mobius-mersenne`.*
 
 </div>
 

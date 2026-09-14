@@ -235,7 +235,12 @@ expectation likewise does not decide the fixed-denominator problem
 \cite{kovac2026}.  An adjacent dyadic theorem of Erd\H{o}s and Pomerance
 concerns bounded digits recording comparisons of the largest prime factors
 of consecutive integers~\cite[\S7]{erdospomerance1978}; our prime numerators
-and gaps are unbounded.  The detailed historical comparisons and their
+and gaps are unbounded.  Land posted in 2026 a proof of irrationality
+conditional on Kuperberg's uniform Hardy-Littlewood prime-tuples conjecture,
+together with a Lean formalisation of that conditional
+argument~\cite{land2026}.  Nothing in this note is conditional on a
+prime-tuples hypothesis, and Erd\H{o}s Problem~\#251 remains open
+unconditionally.  The detailed historical comparisons and their
 hypotheses belong to the companion reasoning record.  No priority claim
 is made for the elementary identities or constructions in this note.
 
@@ -1257,11 +1262,11 @@ consecutive-prime gaps.
 Maynard proves substantially more than an individual-gap statement:
 \cite[Theorem~1.1, p.~384]{maynard2015} bounds
 $\liminf_n(p_{n+m}-p_n)$ for every fixed $m$, and hence gives bounded clusters
-of every fixed size; \cite[Theorem~1.3, p.~385]{maynard2015} gives the explicit
+of every fixed size; \cite[p.~385]{maynard2015} gives the explicit
 unconditional bound $\liminf_n(p_{n+1}-p_n)\le 600$.  The large-gap theorem of
 Ford, Green, Konyagin, Maynard and Tao
-\cite[Theorem~1, p.~66]{fgkmt2018} bounds the largest single consecutive-prime
-gap below $X$.  None of these results supplies the joint dyadic distribution
+\cite[Theorem~1, p.~66]{fgkmt2018} gives an effective lower bound for the
+largest single consecutive-prime gap below $X$.  None of these results supplies the joint dyadic distribution
 of a logarithmic block of consecutive gap differences required by
 \eqref{eq:truncation}.  The same introduction notes a separate sequel on
 chains of large gaps; the cited theorem itself supplies no residue-sensitive
@@ -1439,6 +1444,14 @@ cofinal irrationality classifier & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{1572
   \href{https://doi.org/10.1007/s10474-025-01528-0}{\emph{On several
   irrationality problems for Ahmes series}}, Acta Math. Hungar. \textbf{175}
   (2025), 572--608.
+\bibitem{land2026} J.~Land,
+  \href{https://github.com/beetree/math_erdos_251}{\emph{A conditional proof of
+  the irrationality of $\sum_{n\ge1}p_n2^{-n}$ under a uniform
+  Hardy-Littlewood prime-tuples conjecture}}, research draft, 5 September 2026,
+  with an accompanying Lean formalisation of the conditional argument.  Its
+  Conjecture~1 is the large-$x$ form of Conjecture~1.3 of V.~Kuperberg,
+  \emph{Sums of singular series with large sets and the tail of the
+  distribution of primes}, arXiv:2210.09775v2, 15 June 2023.
 \bibitem{lean4} L.~de Moura and S.~Ullrich,
   \href{https://doi.org/10.1007/978-3-030-79876-5_37}
   {\emph{The Lean~4 theorem prover and programming language}},

@@ -1172,13 +1172,13 @@ may be logarithmically discounted.
 The result in this section is an ordinary mathematical proof.  Its finite
 arithmetic and charging steps are kernel-checked at an immutable source
 revision: the
-\href{https://github.com/wcook04/plectis-lean-erdos249-257/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L14-L27}{freshness of a rise},
+\href{https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L14-L27}{freshness of a rise},
 the
-\href{https://github.com/wcook04/plectis-lean-erdos249-257/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L31-L43}{covered-wall
+\href{https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L31-L43}{covered-wall
 excess bound}, the
-\href{https://github.com/wcook04/plectis-lean-erdos249-257/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L47-L60}{wall count}, and
+\href{https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L47-L60}{wall count}, and
 the
-\href{https://github.com/wcook04/plectis-lean-erdos249-257/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L64-L72}{weighted wall
+\href{https://github.com/wcook04/plectis-erdos/blob/0834464673e930c93010565aa1e08161adad87ee/ErdosProblems/Erdos243/LcmRecordExcess.lean\#L64-L72}{weighted wall
 charge}.  The global analytic argument, which is the passage from the per-step
 charge to divergence of the whole sum, is not formalised.  An exact finite
 replay covers $6{,}008$ seed-modulus cases over $6{,}000$ distinct rational
@@ -1625,8 +1625,10 @@ transfer is ordinary analysis; the linked Lean theorem begins after its state
 hypotheses have been supplied.
 
 \paragraph{Attribution.}
-Erd\H{o}s and Straus require $\limsup_nQ_n\le0$ in the corresponding criterion,
-with the least common multiple in place of the product~\cite[Theorem~3,
+Erd\H{o}s and Straus require $\limsup\le0$ in the corresponding criterion, with
+the least common multiple in place of the product and the growth factor one
+index later, so their quantity is
+$[a_1,\ldots,a_n]a_{n+1}^{-1}(a_{n+1}^{2}/a_{n+2}-1)$~\cite[Theorem~3,
 p.~132]{erdosstraus1964}; Koizumi's Corollary~4(1) uses the product
 form~\cite[Cor.~4(1), pp.~14--15]{koizumi2025}.  The statement above is the same
 Lean-checked endpoint as Theorem~\ref{long243:res:bounded}, transported into that
@@ -2386,9 +2388,10 @@ precise about what is left.
 Each exclusion holds only in its stated regime.  Theorems~\ref{long243:res:constant}
 and~\ref{long243:res:periodic} exclude the constant and the stated periodic magnitudes
 on an all-negative tail, and do not exclude those patterns merely along the
-negative indices of a mixed-sign tail; Theorems~\ref{long243:res:bounded}
-and~\ref{long243:res:mass} exclude a bounded negative part and finite normalised
-negative mass under normalised vanishing.  Together with absorption and descent
+negative indices of a mixed-sign tail; Theorem~\ref{long243:res:bounded} excludes
+a bounded negative part under normalised vanishing, and
+Theorem~\ref{long243:res:mass} excludes finite normalised negative mass with no
+normalised-vanishing hypothesis.  Together with absorption and descent
 they fix the profile of any counterexample.
 
 \begin{proposition}[frontier profile for a counterexample]\label{long243:res:frontier}
@@ -2514,7 +2517,7 @@ $c_n^2\mid h_n$ throughout the interval.  Then
 This is the
 \lword{Erdos243/RepairEntropy.lean}{48}
       {repairedFamily_recovery_energy_divisionFree}
-      {repair-entropy conservation law}.
+      {repair-entropy inequality}.
 
 The square in~\eqref{long243:eq:repair-entropy} is the key point.  Exact denominator
 reduction charges $c_n^2$ to the scale growth, so a repaired family whose LCM
@@ -2773,7 +2776,7 @@ absorption of a vanishing centred state & \lrefx{Erdos243/ReciprocalTailRigidity
 contrapositive along a tail & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2248}{eventually_nonzero_of_zero_absorbing}\\
 bounded-negative-part rigidity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2265}{boundedNegativePart_eventually_zero}\\
 eventual bounded-negative-part rigidity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2352}{eventuallyBoundedNegativePart_eventually_zero}\\
-repair-entropy conservation & \lrefx{Erdos243/RepairEntropy.lean}{48}{repairedFamily_recovery_energy_divisionFree}\\
+repair-entropy inequality & \lrefx{Erdos243/RepairEntropy.lean}{48}{repairedFamily_recovery_energy_divisionFree}\\
 independent-repair bound & \lrefx{Erdos243/RepairEntropy.lean}{78}{repaired_card_bound_of_independent}\\
 fixed-length reset disappearance & \lrefx{Erdos243/RepairEntropy.lean}{107}{eventually_recoveryPayment_eq_one_of_fixedLength}\\
 forced numerator & \lrefx{Erdos243/FiniteHorizonResidue.lean}{22}{forcedNumerator}\\
