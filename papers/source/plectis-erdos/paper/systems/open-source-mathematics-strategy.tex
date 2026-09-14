@@ -580,7 +580,12 @@ a relevant source neighbourhood, a permitted
 experiment or proof obligation, an expected evidence class, and a stopping
 condition.  Qualified mathematical review should precede large-scale
 distribution; it is not claimed for every present route.  The contributor and
-agent execute the packet and return evidence.
+agent execute the packet and return evidence.  Feng et al.\ report a case in
+which stating the admissibility rules of the target, after a first attempt
+had cited results that likely do not exist, cut the inference needed for a
+correct solution sixteenfold on their scale \cite{autonomousmath}.  A task
+packet is that rule statement written down once, before the compute is
+spent.
 Lean checks a formal proposition.  A qualified reviewer checks whether that
 proposition says what was intended and whether the return is relevant.  The
 return remains a candidate until the applicable gates have been crossed.
@@ -625,7 +630,11 @@ solutions to statements that had been misread or mistranscribed.  The
 lengthiest step of their study was deciding whether a correct solution was
 new and whether it addressed the intended problem.  Their pipeline placed an
 automated natural-language verifier before scarce human experts, and the
-funnel below has the same shape.
+funnel below has the same shape.  Their companion report states the premise
+of this section outright: many open questions lie within reach of existing
+techniques and stay open for want of time and attention from the right
+experts, and machine effort is bottlenecked by different factors
+\cite{autonomousmath}.
 
 The project uses a deliberately asymmetric attention funnel:
 
@@ -694,7 +703,20 @@ proposed revised statements as a deliverable \cite{aletheia}.
 
 These items should not be placed on one scalar leaderboard.  Compute volume,
 mathematical depth, software quality, correction work, exposition, and review
-are not commensurable.  A public recognition view can instead expose the
+are not commensurable.  Feng et al.\ propose a public two-axis classification
+for AI-assisted results, level of autonomy (primarily human, human--AI
+collaboration, essentially autonomous) against level of mathematical
+significance (negligible novelty to landmark breakthrough), and hold that
+only domain experts can place a result on the second axis
+\cite{autonomousmath}.  The role ledger here is compatible with that scheme
+and finer-grained on the first axis: it records which role each contributor
+played and which evidence class each artefact carries, from which an autonomy
+level can be read off.  The significance axis remains an expert judgement
+that the ledger does not attempt to fill.  The same report calls for
+transparent standards for how AI-generated mathematics is documented,
+evaluated, and communicated, and offers its taxonomy and cards as a starting
+point; the protocol, evidence classes, and receipts here are one such
+standard, offered in the same spirit.  A public recognition view can instead expose the
 contributor, accepted artefacts, evidence classes, problem or architecture
 area, and contribution roles.  The current receipt schema supports the
 fourteen CRediT roles as an optional vocabulary, including conceptualisation,
@@ -811,6 +833,11 @@ These inputs should not be forced into one exchange rate: a mathematician's
 hour, an API bill, and a donated graphics processor are different resources.
 They can still be disclosed well enough to make a capability comparison
 interpretable and to reveal when hidden scaffolding paid most of the cost.
+Feng et al.\ propose a human--AI interaction card, a short record of each
+human query and each model return with the raw prompts and outputs
+published, as a transparency baseline for results where AI input was
+essential \cite{autonomousmath}.  The return record here is that card with
+the evidence class and validation receipts attached.
 
 The first public mode may remain deliberately simple: contributors clone the
 repository and run their own agents locally.  A later volunteer-compute layer
@@ -910,7 +937,28 @@ prior published demonstration that the distinctions matter at scale.  Their
 run was a single-organisation sweep with a human grading team, released once
 with raw outputs; the commons here is a persistent per-problem record that
 anyone can extend.  None of this repository's eight problems appears in their
-results.
+results.  Their companion report on the same agent \cite{autonomousmath}
+adds the generate, verify, and revise loop with a separated verifier that
+declines to answer, four further papers, the finding that a search-equipped
+model still misquotes real references, and the two-axis disclosure taxonomy
+and interaction cards taken up in Sections~\ref{sec:credit}
+and~\ref{sec:security}.  It concludes that formal verification systems
+cannot yet formulate the questions of interest on most research frontiers
+and chooses informal natural-language verification for that reason.  This
+project accepts that bound and works the other side of it: each problem
+world exists because its endpoint can be stated exactly, and the Lean layer
+is empty wherever it cannot.  The report also concedes that benchmark
+results may be contaminated by training data and mitigates this by
+perturbing known problems; a genuinely open endpoint has no solution to
+memorise, which is one more reason to work on open problems.
+
+Tao's community wiki of AI contributions to the Erd\H{o}s problems is the
+existing public register in this exact domain \cite{taowiki}.  It records
+which problems AI systems have touched and with what outcome.  It carries no
+evidence classes, roles, or checkable claim boundaries, and it is edited by
+hand.  The protocol here is meant to feed that register with returns that
+already carry those fields, and to leave a trail from each wiki line back to
+the exact commit, receipt, and surviving boundary.
 
 \paragraph{Proof abundance.}
 Tao separates problem solving into generation, verification, exposition,
@@ -1503,6 +1551,16 @@ Collaborative Platform for Scaling Math Formalization}, 2026,
 T. Feng, T. Trinh, G. Bingham, et al., \emph{Semi-Autonomous Mathematics
 Discovery with Gemini: A Case Study on the Erd\H{o}s Problems}, 2026,
 \href{https://arxiv.org/abs/2601.22401}{arXiv:2601.22401}.
+
+\bibitem{autonomousmath}
+T. Feng, T. H. Trinh, G. Bingham, et al., \emph{Towards Autonomous
+Mathematics Research}, 2026,
+\href{https://arxiv.org/abs/2602.10177}{arXiv:2602.10177}.
+
+\bibitem{taowiki}
+T. Tao, \emph{AI contributions to Erd\H{o}s problems}, community wiki,
+\href{https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems}{GitHub wiki page},
+accessed September 2026.
 
 \bibitem{credit}
 NISO, \emph{CRediT: Contributor Roles Taxonomy},

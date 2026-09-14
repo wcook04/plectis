@@ -372,10 +372,16 @@ statement, a relevant source neighbourhood, a permitted experiment or
 proof obligation, an expected evidence class, and a stopping condition.
 Qualified mathematical review should precede large-scale distribution;
 it is not claimed for every present route. The contributor and agent
-execute the packet and return evidence. Lean checks a formal
-proposition. A qualified reviewer checks whether that proposition says
-what was intended and whether the return is relevant. The return remains
-a candidate until the applicable gates have been crossed.</p>
+execute the packet and return evidence. Feng et al. report a case in
+which stating the admissibility rules of the target, after a first
+attempt had cited results that likely do not exist, cut the inference
+needed for a correct solution sixteenfold on their scale <span
+class="citation" data-cites="autonomousmath"></span>. A task packet is
+that rule statement written down once, before the compute is spent. Lean
+checks a formal proposition. A qualified reviewer checks whether that
+proposition says what was intended and whether the return is relevant.
+The return remains a candidate until the applicable gates have been
+crossed.</p>
 <p>The mathematician who supplies an input and the mathematician who
 verifies a return are also distinct roles. The first may contribute a
 conjectural mechanism, a counterexample pattern, or simply a well-posed
@@ -416,7 +422,11 @@ statements that had been misread or mistranscribed. The lengthiest step
 of their study was deciding whether a correct solution was new and
 whether it addressed the intended problem. Their pipeline placed an
 automated natural-language verifier before scarce human experts, and the
-funnel below has the same shape.</p>
+funnel below has the same shape. Their companion report states the
+premise of this section outright: many open questions lie within reach
+of existing techniques and stay open for want of time and attention from
+the right experts, and machine effort is bottlenecked by different
+factors <span class="citation" data-cites="autonomousmath"><a href="#ref-15">[15]</a></span>.</p>
 <p>The project uses a deliberately asymmetric attention funnel:</p>
 <ol>
 <li><p><strong>Candidate.</strong> A person or agent returns a scoped
@@ -487,14 +497,28 @@ they proposed revised statements as a deliverable <span class="citation"
 data-cites="aletheia"><a href="#ref-14">[14]</a></span>.</p>
 <p>These items should not be placed on one scalar leaderboard. Compute
 volume, mathematical depth, software quality, correction work,
-exposition, and review are not commensurable. A public recognition view
-can instead expose the contributor, accepted artefacts, evidence
-classes, problem or architecture area, and contribution roles. The
-current receipt schema supports the fourteen CRediT roles as an optional
-vocabulary, including conceptualisation, methodology, software,
-validation, investigation, and writing <span class="citation"
-data-cites="credit"><a href="#ref-15">[15]</a></span>. CRediT describes work; it does not decide
-authorship.</p>
+exposition, and review are not commensurable. Feng et al. propose a
+public two-axis classification for AI-assisted results, level of
+autonomy (primarily human, human–AI collaboration, essentially
+autonomous) against level of mathematical significance (negligible
+novelty to landmark breakthrough), and hold that only domain experts can
+place a result on the second axis <span class="citation"
+data-cites="autonomousmath"><a href="#ref-15">[15]</a></span>. The role ledger here is compatible
+with that scheme and finer-grained on the first axis: it records which
+role each contributor played and which evidence class each artefact
+carries, from which an autonomy level can be read off. The significance
+axis remains an expert judgement that the ledger does not attempt to
+fill. The same report calls for transparent standards for how
+AI-generated mathematics is documented, evaluated, and communicated, and
+offers its taxonomy and cards as a starting point; the protocol,
+evidence classes, and receipts here are one such standard, offered in
+the same spirit. A public recognition view can instead expose the
+contributor, accepted artefacts, evidence classes, problem or
+architecture area, and contribution roles. The current receipt schema
+supports the fourteen CRediT roles as an optional vocabulary, including
+conceptualisation, methodology, software, validation, investigation, and
+writing <span class="citation" data-cites="credit"><a href="#ref-17">[17]</a></span>. CRediT
+describes work; it does not decide authorship.</p>
 <p>The default promise is simple: the project does not demand ownership
 of a contributor’s underlying idea in exchange for adoption. If a
 mathematical or architectural contribution is assimilated, the public
@@ -601,7 +625,7 @@ repository secrets. In particular, a GitHub
 <code>pull_request_target</code> workflow must not check out and execute
 an untrusted fork; GitHub documents that combination as a route to
 secret leakage and repository compromise <span class="citation"
-data-cites="githubsecurity"><a href="#ref-16">[16]</a></span>. Initial checks should run with
+data-cites="githubsecurity"><a href="#ref-18">[18]</a></span>. Initial checks should run with
 read-only permissions, no secrets, bounded resources, and explicit
 artefact retention. Promotion to trusted infrastructure is a later
 review decision.</p>
@@ -613,7 +637,13 @@ failures, and the stopping rule. These inputs should not be forced into
 one exchange rate: a mathematician’s hour, an API bill, and a donated
 graphics processor are different resources. They can still be disclosed
 well enough to make a capability comparison interpretable and to reveal
-when hidden scaffolding paid most of the cost.</p>
+when hidden scaffolding paid most of the cost. Feng et al. propose a
+human–AI interaction card, a short record of each human query and each
+model return with the raw prompts and outputs published, as a
+transparency baseline for results where AI input was essential <span
+class="citation" data-cites="autonomousmath"></span>. The return record
+here is that card with the evidence class and validation receipts
+attached.</p>
 <p>The first public mode may remain deliberately simple: contributors
 clone the repository and run their own agents locally. A later
 volunteer-compute layer could distribute signed, immutable task packets
@@ -728,7 +758,30 @@ their study is the prior published demonstration that the distinctions
 matter at scale. Their run was a single-organisation sweep with a human
 grading team, released once with raw outputs; the commons here is a
 persistent per-problem record that anyone can extend. None of this
-repository’s eight problems appears in their results.</p>
+repository’s eight problems appears in their results. Their companion
+report on the same agent <span class="citation"
+data-cites="autonomousmath"><a href="#ref-15">[15]</a></span> adds the generate, verify, and
+revise loop with a separated verifier that declines to answer, four
+further papers, the finding that a search-equipped model still misquotes
+real references, and the two-axis disclosure taxonomy and interaction
+cards taken up in Sections <a class="math-ref" href="#sec:credit">7</a> and <a class="math-ref" href="#sec:security">8</a>. It concludes that
+formal verification systems cannot yet formulate the questions of
+interest on most research frontiers and chooses informal
+natural-language verification for that reason. This project accepts that
+bound and works the other side of it: each problem world exists because
+its endpoint can be stated exactly, and the Lean layer is empty wherever
+it cannot. The report also concedes that benchmark results may be
+contaminated by training data and mitigates this by perturbing known
+problems; a genuinely open endpoint has no solution to memorise, which
+is one more reason to work on open problems.</p>
+<p>Tao’s community wiki of AI contributions to the Erdős problems is the
+existing public register in this exact domain <span class="citation"
+data-cites="taowiki"><a href="#ref-16">[16]</a></span>. It records which problems AI systems have
+touched and with what outcome. It carries no evidence classes, roles, or
+checkable claim boundaries, and it is edited by hand. The protocol here
+is meant to feed that register with returns that already carry those
+fields, and to leave a trail from each wiki line back to the exact
+commit, receipt, and surviving boundary.</p>
 </section>
 <section id="proof-abundance." class="level5">
 <h5>Proof abundance.</h5>
@@ -884,7 +937,7 @@ later study.</p>
 <p>Yuan et al. provide a useful precedent for the missing external test:
 two student teams attempted an end-to-end build from public
 documentation for scientific hardware designed more than a decade
-earlier <span class="citation" data-cites="documentationtest"><a href="#ref-17">[17]</a></span>.
+earlier <span class="citation" data-cites="documentationtest"><a href="#ref-19">[19]</a></span>.
 Their study concerns open-source hardware in large collaborations, not
 formal mathematics, and does not validate this repository’s route. It
 supplies a precedent for testing accessibility by asking outsiders to
@@ -1350,14 +1403,21 @@ href="https://arxiv.org/abs/2608.28433">arXiv:2608.28433</a>.</p></li>
 Mathematics Discovery with Gemini: A Case Study on the Erdős
 Problems</em>, 2026, <a
 href="https://arxiv.org/abs/2601.22401">arXiv:2601.22401</a>.</p></li>
-<li id="ref-15"><p>NISO, <em>CRediT: Contributor Roles Taxonomy</em>, <a
+<li id="ref-15"><p>T. Feng, T. H. Trinh, G. Bingham, et al., <em>Towards Autonomous
+Mathematics Research</em>, 2026, <a
+href="https://arxiv.org/abs/2602.10177">arXiv:2602.10177</a>.</p></li>
+<li id="ref-16"><p>T. Tao, <em>AI contributions to Erdős problems</em>, community
+wiki, <a
+href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems">GitHub
+wiki page</a>, accessed September 2026.</p></li>
+<li id="ref-17"><p>NISO, <em>CRediT: Contributor Roles Taxonomy</em>, <a
 href="https://credit.niso.org/contributor-roles-defined/">role
 definitions</a>, accessed August 2026.</p></li>
-<li id="ref-16"><p>GitHub, <em>Preventing pwn requests</em>, GitHub Actions security
+<li id="ref-18"><p>GitHub, <em>Preventing pwn requests</em>, GitHub Actions security
 guidance, <a
 href="https://docs.github.com/en/actions/reference/security/secure-use">documentation</a>,
 accessed August 2026.</p></li>
-<li id="ref-17"><p>M. Yuan et al., <em>End-to-End Testing of Open-Source Hardware
+<li id="ref-19"><p>M. Yuan et al., <em>End-to-End Testing of Open-Source Hardware
 Documentation Developed in Large Collaborations</em>, 2023, <a
 href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
 </ol>
