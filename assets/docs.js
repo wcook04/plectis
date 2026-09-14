@@ -4655,42 +4655,101 @@
       var viewportBottom = window.innerHeight - edge;
       var chrome = protectedRects(anchor);
 
-      /* Gutter placement (2026-09-14). On a wide screen the reading column
-         leaves an empty right margin. The card goes there, level with the
-         word, so it never covers the sentence being read. It only falls back
-         to above/below when the margin is too narrow (phones, split screens)
-         or the whole margin beside the word is taken by fixed chrome (the
-         "On this page" list, the glossary cue). */
-      var column = readingRect || rect;
-      var sideLeft = column.right + gap + 4;
-      if (window.innerWidth - edge - sideLeft >= width) {
-        var wantTop = Math.min(Math.max(edge, rect.top - 6), viewportBottom - height);
-        var sideTries = [wantTop];
-        for (var b = 0; b < chrome.length; b++) {
-          if (chrome[b].right <= sideLeft || chrome[b].left >= sideLeft + width) continue;
-          sideTries.push(chrome[b].bottom + gap);
-          sideTries.push(chrome[b].top - gap - height);
-        }
-        var sideTop = null;
-        var sideDist = Infinity;
-        for (var s = 0; s < sideTries.length; s++) {
-          var tryTop = sideTries[s];
-          if (tryTop < edge || tryTop + height > viewportBottom) continue;
-          var sideBox = { top: tryTop, left: sideLeft, right: sideLeft + width, bottom: tryTop + height };
-          var clear = true;
-          for (var k = 0; k < chrome.length; k++) {
-            if (overlapArea(sideBox, chrome[k])) { clear = false; break; }
+      /* Beside the line (2026-09-14). On a wide screen the card sits just past
+         the last glyph of the line that holds the word, level with it, and is
+         pushed right only as far as real text (or fixed chrome) in its way
+         demands. Empty space, rules, chevrons and backgrounds are fine to
+         cover; words are not. Falls back to above/below when the card would
+         run off the screen (phones, narrow split screens). */
+      function intersectsY(r, top, bottom) { return r.bottom > top && r.top < bottom; }
+      function textRectsIn(container, top, bottom, skip) {
+        var out = [];
+        if (!container || !document.createTreeWalker) return out;
+        var walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
+          acceptNode: function (e) {
+            if (e === node || node.contains(e) || (skip && (e === skip || skip.contains(e)))) return NodeFilter.FILTER_REJECT;
+            var r = e.getBoundingClientRect();
+            if (r.width === 0 && r.height === 0) return NodeFilter.FILTER_REJECT;
+            if (!intersectsY(r, top - 2, bottom + 2)) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
           }
-          if (!clear) continue;
-          var dist = Math.abs(tryTop - wantTop);
-          if (dist < sideDist) { sideDist = dist; sideTop = tryTop; }
+        });
+        var range = document.createRange();
+        var e;
+        while ((e = walker.nextNode())) {
+          for (var c = e.firstChild; c; c = c.nextSibling) {
+            if (c.nodeType !== 3 || !/\S/.test(c.nodeValue)) continue;
+            range.selectNodeContents(c);
+            var rs = range.getClientRects();
+            for (var i = 0; i < rs.length; i++) {
+              var r = rs[i];
+              if (r.width < 1 || r.height < 1 || !intersectsY(r, top, bottom)) continue;
+              out.push({ top: r.top, left: r.left, right: r.right, bottom: r.bottom });
+            }
+          }
         }
-        if (sideTop !== null) {
-          node.setAttribute('data-placement', 'side');
-          node.style.left = sideLeft + 'px';
-          node.style.top = sideTop + 'px';
-          return;
+        return out;
+      }
+      var lineRight = rect.right;
+      if (readingBlock) {
+        var lineRects = textRectsIn(readingBlock, rect.top, rect.bottom, null);
+        for (var lr = 0; lr < lineRects.length; lr++) {
+          if (lineRects[lr].right > lineRight) lineRight = lineRects[lr].right;
         }
+      }
+      var sideChrome = [];
+      var sideChromeNodes = document.querySelectorAll('.site-header, .docs-topbar, .docs-toc, .glossary-hint, .site-footer');
+      for (var sc = 0; sc < sideChromeNodes.length; sc++) {
+        if (sideChromeNodes[sc].contains(anchor)) continue;
+        pushRect(sideChrome, sideChromeNodes[sc], 'chrome');
+      }
+      var region = anchor.closest('main, article, section') || document.body;
+      var pushed = [];
+      function sideFor(top) {
+        if (top < edge || top + height > viewportBottom) return null;
+        var bottom = top + height;
+        var blockers = textRectsIn(region, top, bottom, null).concat(sideChrome);
+        var left = lineRight + gap;
+        var moved = true, guard = 0;
+        while (moved && guard++ < 40) {
+          moved = false;
+          for (var b = 0; b < blockers.length; b++) {
+            var r = blockers[b];
+            if (!intersectsY(r, top, bottom)) continue;
+            if (r.right > left && r.left < left + width) {
+              left = r.right + gap; moved = true;
+              if (left + width > window.innerWidth - edge) pushed.push(r);
+            }
+          }
+        }
+        if (left + width > window.innerWidth - edge) return null;
+        return left;
+      }
+      function trySide(top) {
+        var sideLeft = sideFor(top);
+        if (sideLeft === null) return false;
+        node.setAttribute('data-placement', 'side');
+        node.style.left = sideLeft + 'px';
+        node.style.top = top + 'px';
+        return true;
+      }
+      var wantTop = Math.min(Math.max(edge, rect.top - 6), viewportBottom - height);
+      if (trySide(wantTop)) return;
+      if (trySide(Math.min(Math.max(edge, rect.bottom + 6 - height), viewportBottom - height))) return;
+      /* The text that forced the card off-screen (often the faded line under
+         a heading) becomes the edge the card lines up against instead: end
+         just above it, or start just below it, while still level with the
+         hovered word. */
+      var derived = [];
+      for (var d = 0; d < pushed.length; d++) {
+        derived.push(pushed[d].top - 4 - height);
+        derived.push(pushed[d].bottom + 4);
+      }
+      derived.sort(function (a, b) { return Math.abs(a - wantTop) - Math.abs(b - wantTop); });
+      for (var dd = 0; dd < derived.length; dd++) {
+        var dt = derived[dd];
+        if (dt > rect.bottom || dt + height < rect.top) continue;
+        if (trySide(dt)) return;
       }
 
       function score(top) {
