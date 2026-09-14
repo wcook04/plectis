@@ -132,7 +132,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.kernel_235_minor_eq_neg_one_fifteen",
       "statement": "The smallest displayed 2,3,5 kernel minor is exactly -1/15.",
       "boundary": "Failure of rank one does not imply irrationality.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
     },
     {
       "id": "three_prime_running_lcm",
@@ -144,7 +144,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.smoothPrefixLcm_eq_threePrimeHeight",
       "statement": "The running lcm of the three-prime smooth prefix equals the exact coordinatewise height.",
       "boundary": "The identity does not supply the missing irrationality bridge.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean"
     },
     {
       "id": "conditional_carry_escape",
@@ -156,7 +156,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.no_positive_reducedCarry_of_cofinalLocalWindowEscape",
       "statement": "Under the denominator-dependent cofinal local-window residue-escape predicate, no positive reduced carry can satisfy the exact multiplier recurrence together with its short bound.",
       "boundary": "The representative assumes b,m : ℕ → ℕ, shortBound : ℕ → ℕ → ℕ, CofinalLocalWindowEscape b m shortBound, and for each positive B coprime to 30 a positive integer-valued d with d(n+1) = (b n : ℤ) d(n) − (B : ℤ) (m n : ℤ) and Int.natAbs (d n) ≤ shortBound B n; it then gives False. The representative remains a conditional consumer for arbitrary words. For the actual three-prime word, the rationality-to-reduced-carry bridge is established separately; the source-specific cofinal escape producer is not proved. This is not a #269 endpoint or irrationality proof, and no actual-series identification, novelty, priority, significance, or external-review claim is made. It is one conditional window-carry family, distinct from the finite residue, rank-two, and weighted-phase observer families.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean"
     }
   ],
   "comparator_review": {
@@ -255,7 +255,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6d29381e8c0705925902c70a2b16013267fec627e0ab0d41fe237dddf0a50d67",
+    "source_sha256": "27e7a0b21177828934a91b620742f0209438f412643094ac95f66178beca36ee",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -297,8 +297,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 22,
-      "renderer_fingerprint": "e85419265bf94334",
+      "renderer_contract_version": 23,
+      "renderer_fingerprint": "7b88de7e4aabfee7",
       "source_sha256": "5f7cf99dd746279f16604e181b545c67470e9cc1258a51527f4846910898615d",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -451,8 +451,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
         "source_sha256": "5f7cf99dd746279f16604e181b545c67470e9cc1258a51527f4846910898615d",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -605,8 +605,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
         "source_sha256": "cfee219bb8b91e46e2d50f505d703085e7b8e1a9cb16e96d94e055b0add4cc56",
         "source_manifest_match": true,
         "publication_manifest_match": true,

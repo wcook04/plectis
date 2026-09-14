@@ -1145,8 +1145,8 @@
       "id": "integration:palomar",
       "kind": "integration_surface",
       "label": "Palomar",
-      "href": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md",
-      "source_github": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md"
     },
     {
       "id": "paper:claim-faithful-publication-systems",
@@ -1397,8 +1397,8 @@
       "kind": "registry_review_unit",
       "label": "Finite totient-kernel rank review unit",
       "status": "prepared_without_public_outcome",
-      "href": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md",
-      "source_github": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md"
     },
     {
       "id": "review-family:erdos_1041:lemniscate_finite_search",

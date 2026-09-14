@@ -1314,8 +1314,8 @@
       "id": "integration:palomar",
       "kind": "integration_surface",
       "label": "Palomar",
-      "href": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md",
-      "source_github": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md"
     },
     {
       "id": "lean-module:Erdos249257.ActualForeignResidueProjection",
@@ -13743,8 +13743,8 @@
       "label": "Finite totient-kernel rank review unit",
       "status": "prepared_without_public_outcome",
       "boundary": "Preparation is not Comparator replay, Palomar review, registration, or acceptance.",
-      "href": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md",
-      "source_github": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md"
     },
     {
       "id": "review-family:erdos_1041:lemniscate_finite_search",
@@ -14322,7 +14322,7 @@
       "target": "lean-module:Erdos249257.ActualForeignResidueProjection",
       "declaration": "scaleFullTarget_miss_of_projected_separation",
       "line": 414,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/ActualForeignResidueProjection.lean#L414"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/ActualForeignResidueProjection.lean#L414"
     },
     {
       "source": "claim:actual_lcm_orbit_nonintegrality_frontier",
@@ -14330,7 +14330,7 @@
       "target": "lean-module:Erdos249257.TotientActualLcmOrbitNonintegrality",
       "declaration": "irrational_totientSeries_of_actualLcmOrbitNonintegralitySupply",
       "line": 53,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientActualLcmOrbitNonintegrality.lean#L53"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientActualLcmOrbitNonintegrality.lean#L53"
     },
     {
       "source": "claim:actual_lcm_orbit_nonintegrality_frontier",
@@ -14338,7 +14338,7 @@
       "target": "lean-module:Erdos249257.TotientActualLcmOrbitSeparation",
       "declaration": "irrational_totientSeries_of_actualLcmOrbitSeparationSupply",
       "line": 305,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientActualLcmOrbitSeparation.lean#L305"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientActualLcmOrbitSeparation.lean#L305"
     },
     {
       "source": "claim:actual_lcm_positive_corridor_top_edge",
@@ -14346,7 +14346,7 @@
       "target": "lean-module:Erdos249257.TotientActualLcmOrbitSign",
       "declaration": "actualLcm_integral_forces_topEdgeResidue",
       "line": 211,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientActualLcmOrbitSign.lean#L211"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientActualLcmOrbitSign.lean#L211"
     },
     {
       "source": "claim:adelic_height_obstruction",
@@ -14354,7 +14354,7 @@
       "target": "lean-module:Erdos249257.AdelicHeightObstruction",
       "declaration": "scalarLocalization_integer_eq_mul_num",
       "line": 56,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/AdelicHeightObstruction.lean#L56"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/AdelicHeightObstruction.lean#L56"
     },
     {
       "source": "claim:adjacent_phase_separation_reduction",
@@ -14362,7 +14362,7 @@
       "target": "lean-module:Erdos249257.AdjacentPhaseSeparation",
       "declaration": "irrational_totient_series_of_adjacentPhaseSeparation",
       "line": 295,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/AdjacentPhaseSeparation.lean#L295"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/AdjacentPhaseSeparation.lean#L295"
     },
     {
       "source": "claim:affine_transport_annihilation",
@@ -14370,7 +14370,7 @@
       "target": "lean-module:Erdos249257.ExponentOnlyTransport",
       "declaration": "transportResidueKernel_eq_affineState",
       "line": 141,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/ExponentOnlyTransport.lean#L141"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/ExponentOnlyTransport.lean#L141"
     },
     {
       "source": "claim:affine_transport_annihilation",
@@ -14378,7 +14378,7 @@
       "target": "lean-module:Erdos249257.JointExponentTransport",
       "declaration": "oldChannel_affine_moment_annihilation",
       "line": 36,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/JointExponentTransport.lean#L36"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/JointExponentTransport.lean#L36"
     },
     {
       "source": "claim:affine_transport_annihilation",
@@ -14386,7 +14386,7 @@
       "target": "lean-module:Erdos249257.PrimeJumpMigration",
       "declaration": "residueHeckeDefect_eq_postJump_add_migration",
       "line": 38,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/PrimeJumpMigration.lean#L38"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PrimeJumpMigration.lean#L38"
     },
     {
       "source": "claim:all_base_totient_kernel_conditional_rank",
@@ -14394,7 +14394,7 @@
       "target": "lean-module:Erdos249257.TotientKernelConditional",
       "declaration": "finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent",
       "line": 215,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientKernelConditional.lean#L215"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientKernelConditional.lean#L215"
     },
     {
       "source": "claim:all_base_totient_kernel_index_reduction",
@@ -14402,7 +14402,7 @@
       "target": "lean-module:Erdos249257.TotientKernelConditional",
       "declaration": "finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent",
       "line": 215,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientKernelConditional.lean#L215"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientKernelConditional.lean#L215"
     },
     {
       "source": "claim:all_base_totient_kernel_index_reduction",
@@ -14410,7 +14410,7 @@
       "target": "lean-module:Erdos249257.TotientKernelIndex",
       "declaration": "card_totientKernelIndex",
       "line": 277,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientKernelIndex.lean#L277"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientKernelIndex.lean#L277"
     },
     {
       "source": "claim:all_base_totient_kernel_index_reduction",
@@ -14418,7 +14418,7 @@
       "target": "lean-module:Erdos249257.TotientKernelReduction",
       "declaration": "totient_pow_mul_affine_gcd_cross_eq",
       "line": 117,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientKernelReduction.lean#L117"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientKernelReduction.lean#L117"
     },
     {
       "source": "claim:boolean_mobius_carry",
@@ -14426,7 +14426,7 @@
       "target": "lean-module:Erdos249257.BooleanMobiusCarry",
       "declaration": "exists_normalized_support_fraction_iff_exists_booleanMobiusCarry",
       "line": 949,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusCarry.lean#L949"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusCarry.lean#L949"
     },
     {
       "source": "claim:boundary_pulse_normalization",
@@ -14434,7 +14434,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderBoundaryPulse",
       "declaration": "rowPulse_boundary_of_late_firstCrossing",
       "line": 150,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderBoundaryPulse.lean#L150"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderBoundaryPulse.lean#L150"
     },
     {
       "source": "claim:bounded_negative_exclusion",
@@ -14442,7 +14442,7 @@
       "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity",
       "declaration": "no_cofinallyBoundedNegative_of_normalizedVanishes",
       "line": 1748,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1748"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1748"
     },
     {
       "source": "claim:bounded_rise_fresh_modulus_barrier",
@@ -14450,7 +14450,7 @@
       "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity",
       "declaration": "no_boundedRise_of_tailAvoidance",
       "line": 897,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897"
     },
     {
       "source": "claim:campbell_shift_synchronization_boundary",
@@ -14458,7 +14458,7 @@
       "target": "lean-module:Erdos249257.CampbellShiftSynchronization",
       "declaration": "shiftWindowZero_iff_half_mem_mersenneAchievementSet",
       "line": 488,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CampbellShiftSynchronization.lean#L488"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CampbellShiftSynchronization.lean#L488"
     },
     {
       "source": "claim:canonical_jump_slack_reduction",
@@ -14466,7 +14466,7 @@
       "target": "lean-module:Erdos249257.DiagonalFreshLossBridge",
       "declaration": "irrational_totientSeries_of_canonicalAdjacentSuffixJumpSlackSupply",
       "line": 2932,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DiagonalFreshLossBridge.lean#L2932"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DiagonalFreshLossBridge.lean#L2932"
     },
     {
       "source": "claim:certificate_completeness",
@@ -14474,7 +14474,7 @@
       "target": "lean-module:Erdos249257.LcmConeFlatness",
       "declaration": "irrational_totient_series_iff_pointwise_certificates",
       "line": 399,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/LcmConeFlatness.lean#L399"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/LcmConeFlatness.lean#L399"
     },
     {
       "source": "claim:certificate_reduction",
@@ -14482,7 +14482,7 @@
       "target": "lean-module:Erdos249257.LcmConeFlatness",
       "declaration": "irrational_totient_series_iff_lcm_diagonal_certificate_supply",
       "line": 426,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/LcmConeFlatness.lean#L426"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/LcmConeFlatness.lean#L426"
     },
     {
       "source": "claim:certificate_reduction",
@@ -14490,7 +14490,7 @@
       "target": "lean-module:Erdos249257.LcmDiagonalReduction",
       "declaration": "irrational_totient_series_of_lcm_diagonal_certificate_supply",
       "line": 112,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/LcmDiagonalReduction.lean#L112"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/LcmDiagonalReduction.lean#L112"
     },
     {
       "source": "claim:certificate_reduction",
@@ -14498,7 +14498,7 @@
       "target": "lean-module:Erdos249257.TotientTailPeriodKiller",
       "declaration": "irrational_totient_series_of_certificate_supply",
       "line": 394,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientTailPeriodKiller.lean#L394"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientTailPeriodKiller.lean#L394"
     },
     {
       "source": "claim:certified_kill_instances",
@@ -14506,7 +14506,7 @@
       "target": "lean-module:Erdos249257.DiagonalPincerCertificatesT64",
       "declaration": "certifiedKill_diagonal_all_imported_through_t64",
       "line": 1967,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967"
     },
     {
       "source": "claim:certified_kill_instances",
@@ -14514,7 +14514,7 @@
       "target": "lean-module:Erdos249257.LcmDiagonalReduction",
       "declaration": "certifiedKill_periodLcm_diagonal_at_eight",
       "line": 266,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/LcmDiagonalReduction.lean#L266"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/LcmDiagonalReduction.lean#L266"
     },
     {
       "source": "claim:certified_kill_instances",
@@ -14522,7 +14522,7 @@
       "target": "lean-module:Erdos249257.TotientTailPeriodKiller",
       "declaration": "certifiedKill_all_small",
       "line": 404,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientTailPeriodKiller.lean#L404"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientTailPeriodKiller.lean#L404"
     },
     {
       "source": "claim:certified_kill_instances",
@@ -14530,7 +14530,7 @@
       "target": "lean-module:ErdosProblems.Skip.LadderT67",
       "declaration": "exists_diagonalKill_le_82",
       "line": 71264,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Skip/LadderT67.lean#L71264"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Skip/LadderT67.lean#L71264"
     },
     {
       "source": "claim:channel_quotient_band_breakpoint",
@@ -14538,7 +14538,7 @@
       "target": "lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity",
       "declaration": "exists_index_ge_two_mul_of_factorialMoment_ne_zero_of_channel_eq_zero",
       "line": 130,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/ChannelBreakpointRigidity.lean#L130"
     },
     {
       "source": "claim:cofinal_cylinder_half_countermodel",
@@ -14546,7 +14546,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge",
       "declaration": "exists_infinite_positive_support_half_of_cofinalCylinderStages",
       "line": 287,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L287"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L287"
     },
     {
       "source": "claim:cofinal_strip_return_closure",
@@ -14554,7 +14554,7 @@
       "target": "lean-module:Erdos249257.CofinalStripReturn",
       "declaration": "half_mem_mersenneAchievementSet_of_cofinalStripReturn",
       "line": 157,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CofinalStripReturn.lean#L157"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CofinalStripReturn.lean#L157"
     },
     {
       "source": "claim:composite_dilation_defect_identity",
@@ -14562,7 +14562,7 @@
       "target": "lean-module:Erdos249257.CompositeDilationDefect",
       "declaration": "compositeDilationDefect_two_six_fixture",
       "line": 218,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CompositeDilationDefect.lean#L218"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CompositeDilationDefect.lean#L218"
     },
     {
       "source": "claim:concrete_producer_carry_coordinates",
@@ -14570,7 +14570,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderProducerLowerBound",
       "declaration": "producerCarry_insert_seamAboveSupport_eq_neg_upperCoordinate",
       "line": 183,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderProducerLowerBound.lean#L183"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderProducerLowerBound.lean#L183"
     },
     {
       "source": "claim:concrete_seam_adapter",
@@ -14578,7 +14578,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderConcreteSeamAdapter",
       "declaration": "seamCutNextWord_eq_greedyWord_succ",
       "line": 667,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderConcreteSeamAdapter.lean#L667"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderConcreteSeamAdapter.lean#L667"
     },
     {
       "source": "claim:cubic_survivor_phase_density",
@@ -14586,7 +14586,7 @@
       "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR11.WindowIncidence",
       "declaration": "lowerDensityAtLeast_of_linear_bound",
       "line": 131,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/PaperCompleteR11/WindowIncidence.lean#L131"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR11/WindowIncidence.lean#L131"
     },
     {
       "source": "claim:cubic_survivor_phase_density",
@@ -14594,7 +14594,7 @@
       "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR9.PolynomialCorrections",
       "declaration": "minus_profile_one_seventh",
       "line": 175,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/PaperCompleteR9/PolynomialCorrections.lean#L175"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR9/PolynomialCorrections.lean#L175"
     },
     {
       "source": "claim:denominator_exclusion",
@@ -14602,7 +14602,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "tsum_totient_div_pow_two_ne_ratCast_of_den_le_79639646646701375323355774875831053",
       "line": 18384,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L18384"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L18384"
     },
     {
       "source": "claim:diagonal_fresh_loss_reduction",
@@ -14610,7 +14610,7 @@
       "target": "lean-module:Erdos249257.DiagonalFreshLossBridge",
       "declaration": "irrational_totientSeries_of_diagonalFreshLossProjectionSupply",
       "line": 202,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DiagonalFreshLossBridge.lean#L202"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DiagonalFreshLossBridge.lean#L202"
     },
     {
       "source": "claim:diagonal_pincer_reduction",
@@ -14618,7 +14618,7 @@
       "target": "lean-module:Erdos249257.DiagonalPincerDecomposition",
       "declaration": "irrational_totientSeries_of_full_target_avoidance_supply",
       "line": 290,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DiagonalPincerDecomposition.lean#L290"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DiagonalPincerDecomposition.lean#L290"
     },
     {
       "source": "claim:diagonal_pincer_t64_endpoint_certificate",
@@ -14626,7 +14626,7 @@
       "target": "lean-module:Erdos249257.DiagonalPincerCertificatesT64",
       "declaration": "certifiedKill_diagonal_t64",
       "line": 1928,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DiagonalPincerCertificatesT64.lean#L1928"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DiagonalPincerCertificatesT64.lean#L1928"
     },
     {
       "source": "claim:diagonal_pincer_t64_primality_closure",
@@ -14634,7 +14634,7 @@
       "target": "lean-module:Erdos249257.DiagonalPincerPrimeCertificates.ClosureT64.Level1A",
       "declaration": "prime_lucas_2364533768205644535022723273",
       "line": 2398,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DiagonalPincerPrimeCertificates/ClosureT64/Level1A.lean#L2398"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DiagonalPincerPrimeCertificates/ClosureT64/Level1A.lean#L2398"
     },
     {
       "source": "claim:dyadic_prefix_block_safety_interfaces",
@@ -14642,7 +14642,7 @@
       "target": "lean-module:Erdos249257.DyadicPrefixCompression",
       "declaration": "half_mem_mersenneAchievementSet_of_unsafeSkipPrimitiveOvershootSupply",
       "line": 4562,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DyadicPrefixCompression.lean#L4562"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DyadicPrefixCompression.lean#L4562"
     },
     {
       "source": "claim:dyadic_totient_basis",
@@ -14650,7 +14650,7 @@
       "target": "lean-module:Erdos249257.TotientMahlerDefect",
       "declaration": "totientDyadicSectionBasis",
       "line": 1392,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientMahlerDefect.lean#L1392"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientMahlerDefect.lean#L1392"
     },
     {
       "source": "claim:dyadic_totient_certificate_interface",
@@ -14658,7 +14658,7 @@
       "target": "lean-module:Erdos249257.TotientMahlerDefect",
       "declaration": "false_of_compressedAdjointCertificate",
       "line": 1183,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientMahlerDefect.lean#L1183"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientMahlerDefect.lean#L1183"
     },
     {
       "source": "claim:eb_constant",
@@ -14666,7 +14666,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "irrational_erdosBorwein_series",
       "line": 8335,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L8335"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L8335"
     },
     {
       "source": "claim:eb_full_support",
@@ -14674,7 +14674,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "irrational_erdosSum_full_support",
       "line": 8328,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L8328"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L8328"
     },
     {
       "source": "claim:eventually_periodic_negative_no_go",
@@ -14682,7 +14682,7 @@
       "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity",
       "declaration": "no_eventuallyPeriodicNegative_orbit",
       "line": 796,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796"
     },
     {
       "source": "claim:fatal_gap_right_tail_classification",
@@ -14690,7 +14690,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderFatalGapRightTail",
       "declaration": "seamGreedyEventuallyRight_iff_exists_isLastHalfGreedySkip",
       "line": 802,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFatalGapRightTail.lean#L802"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderFatalGapRightTail.lean#L802"
     },
     {
       "source": "claim:final_middle_cell_escape",
@@ -14698,7 +14698,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderFinalMiddleCellEscape",
       "declaration": "finalMiddleCell_neg_three_not_last",
       "line": 587,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFinalMiddleCellEscape.lean#L587"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderFinalMiddleCellEscape.lean#L587"
     },
     {
       "source": "claim:final_middle_cell_escape",
@@ -14706,7 +14706,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderLastProducerContradiction",
       "declaration": "middleProducer_neg_three_not_last",
       "line": 364,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderLastProducerContradiction.lean#L364"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderLastProducerContradiction.lean#L364"
     },
     {
       "source": "claim:final_middle_neg_two_phase_sieve",
@@ -14714,7 +14714,7 @@
       "target": "lean-module:Erdos249257.HalfFinalMiddlePhaseSieve",
       "declaration": "finalMiddleTwentySixPhaseSurvivors_card",
       "line": 1759,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L1759"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L1759"
     },
     {
       "source": "claim:finite_period_noncollapse",
@@ -14722,7 +14722,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "finite_period_noncollapse_rat_den",
       "line": 5246,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L5246"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L5246"
     },
     {
       "source": "claim:first_harmonic_certificate_interface",
@@ -14730,7 +14730,7 @@
       "target": "lean-module:Erdos249257.FirstHarmonicGap",
       "declaration": "exists_certifiedKill_of_first_harmonic_gap",
       "line": 128,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/FirstHarmonicGap.lean#L128"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/FirstHarmonicGap.lean#L128"
     },
     {
       "source": "claim:first_harmonic_pivot_decomposition",
@@ -14738,7 +14738,7 @@
       "target": "lean-module:Erdos249257.FirstHarmonicPivot",
       "declaration": "irrational_totient_series_of_pivotResidualDecorrelation",
       "line": 577,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/FirstHarmonicPivot.lean#L577"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/FirstHarmonicPivot.lean#L577"
     },
     {
       "source": "claim:fixed_coefficient_rewind_contraction",
@@ -14746,7 +14746,7 @@
       "target": "lean-module:Erdos249257.HalfCarryCeilParentContraction",
       "declaration": "rewind_singleton_or_isSeamPair",
       "line": 180,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCarryCeilParentContraction.lean#L180"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarryCeilParentContraction.lean#L180"
     },
     {
       "source": "claim:fixed_precision_transport_no_go",
@@ -14754,7 +14754,7 @@
       "target": "lean-module:Erdos249257.TropicalCurvatureCarry",
       "declaration": "vu_word_has_prefix_locked_completion",
       "line": 115,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TropicalCurvatureCarry.lean#L115"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TropicalCurvatureCarry.lean#L115"
     },
     {
       "source": "claim:fixed_tail_survival_socket",
@@ -14762,7 +14762,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderFixedTailSocket",
       "declaration": "half_mem_iff_every_actual_skip_survives",
       "line": 73,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFixedTailSocket.lean#L73"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderFixedTailSocket.lean#L73"
     },
     {
       "source": "claim:flexible_odd_window_affine_frontier",
@@ -14770,7 +14770,7 @@
       "target": "lean-module:Erdos249257.DiagonalFlexibleOddWindowAffine",
       "declaration": "threeRankBandAt_iff_threeScaleAffineEscapeAt_of_shortCorrections",
       "line": 236,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DiagonalFlexibleOddWindowAffine.lean#L236"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DiagonalFlexibleOddWindowAffine.lean#L236"
     },
     {
       "source": "claim:flexible_odd_window_reduction",
@@ -14778,7 +14778,7 @@
       "target": "lean-module:Erdos249257.DiagonalFlexibleOddWindowSupply",
       "declaration": "irrational_totientSeries_of_powerTwoOddGuardThreeRankBandSupply",
       "line": 137,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/DiagonalFlexibleOddWindowSupply.lean#L137"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DiagonalFlexibleOddWindowSupply.lean#L137"
     },
     {
       "source": "claim:fresh_prime_deficit_decomposition",
@@ -14786,7 +14786,7 @@
       "target": "lean-module:Erdos249257.FreshPrimeDeficitDecomposition",
       "declaration": "oldFivePoint_sub_secondBranchAdverseDeficit_le_actual",
       "line": 269,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/FreshPrimeDeficitDecomposition.lean#L269"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/FreshPrimeDeficitDecomposition.lean#L269"
     },
     {
       "source": "claim:greedy_achievement_geometry",
@@ -14794,7 +14794,7 @@
       "target": "lean-module:Erdos249257.GreedyAchievementSet",
       "declaration": "half_mem_mersenneAchievementSet_iff_greedySkippedSupport_infinite",
       "line": 2583,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GreedyAchievementSet.lean#L2583"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GreedyAchievementSet.lean#L2583"
     },
     {
       "source": "claim:greedy_achievement_geometry",
@@ -14802,7 +14802,7 @@
       "target": "lean-module:Erdos249257.HalfCarryReachability",
       "declaration": "finite_boolSupport_ne_half",
       "line": 589,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCarryReachability.lean#L589"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarryReachability.lean#L589"
     },
     {
       "source": "claim:half_carry_reachability_compactness",
@@ -14810,7 +14810,7 @@
       "target": "lean-module:Erdos249257.HalfCarryReachability",
       "declaration": "exists_infinite_support_half_of_canonicalEvenSeamSupply",
       "line": 1056,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCarryReachability.lean#L1056"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarryReachability.lean#L1056"
     },
     {
       "source": "claim:half_cylinder_finite_shadow",
@@ -14818,7 +14818,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderFiniteShadow",
       "declaration": "half_mem_mersenneAchievementSet_of_governedFrozenMarginProducer",
       "line": 1275,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFiniteShadow.lean#L1275"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderFiniteShadow.lean#L1275"
     },
     {
       "source": "claim:half_divisor_unit_drop",
@@ -14826,7 +14826,7 @@
       "target": "lean-module:Erdos249257.HalfDivisorUnitDrop",
       "declaration": "supportCoeff_boundaryPair_unitDrop_at_double",
       "line": 35,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfDivisorUnitDrop.lean#L35"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfDivisorUnitDrop.lean#L35"
     },
     {
       "source": "claim:half_divisor_unit_drop",
@@ -14834,7 +14834,7 @@
       "target": "lean-module:Erdos249257.RewindHalfDivisorAdapter",
       "declaration": "protectedEvenSeamRealizedAt_succ_of_fullStrip_rewindHalfDivisorBoundaryPair",
       "line": 147,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/RewindHalfDivisorAdapter.lean#L147"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RewindHalfDivisorAdapter.lean#L147"
     },
     {
       "source": "claim:half_greedy_two_thirds_band",
@@ -14842,7 +14842,7 @@
       "target": "lean-module:Erdos249257.HalfGreedyTwoThirdsBand",
       "declaration": "seven_le_of_intBand_odd",
       "line": 231,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfGreedyTwoThirdsBand.lean#L231"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfGreedyTwoThirdsBand.lean#L231"
     },
     {
       "source": "claim:half_membership_seam_classification",
@@ -14850,7 +14850,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderHalfMembershipClassification",
       "declaration": "half_mem_mersenneAchievementSet_iff_no_lastHalfGreedySkip",
       "line": 235,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L235"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L235"
     },
     {
       "source": "claim:half_second_channel_reduction",
@@ -14858,7 +14858,7 @@
       "target": "lean-module:Erdos249257.GreedyAchievementSet",
       "declaration": "half_mem_mersenneAchievementSet_iff_greedySkippedSupport_infinite",
       "line": 2583,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GreedyAchievementSet.lean#L2583"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GreedyAchievementSet.lean#L2583"
     },
     {
       "source": "claim:half_trapping_return_carry_interface",
@@ -14866,7 +14866,7 @@
       "target": "lean-module:Erdos249257.HalfTrappingReturnCarry",
       "declaration": "overlappingReverseCarryWords_twoPow_le_realBound",
       "line": 191,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfTrappingReturnCarry.lean#L191"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfTrappingReturnCarry.lean#L191"
     },
     {
       "source": "claim:integer_greedy_first_wrap_reduction",
@@ -14874,7 +14874,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge",
       "declaration": "HalfGreedySkippedSeamEscape",
       "line": 687,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderFullShellSeamBridge.lean#L687"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderFullShellSeamBridge.lean#L687"
     },
     {
       "source": "claim:integer_greedy_first_wrap_reduction",
@@ -14882,7 +14882,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy",
       "declaration": "quarterBandEscape_iff_bound_lt_nextRemainder",
       "line": 1528,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderIntegerGreedy.lean#L1528"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderIntegerGreedy.lean#L1528"
     },
     {
       "source": "claim:largest_skip_gap_propagation",
@@ -14890,7 +14890,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderLargestSkipGap",
       "declaration": "IsLargestFalseRank.seamGreedyWord_succ_of_rightBranch",
       "line": 339,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderLargestSkipGap.lean#L339"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderLargestSkipGap.lean#L339"
     },
     {
       "source": "claim:largest_skip_induction_reduction",
@@ -14898,7 +14898,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderLargestSkipInduction",
       "declaration": "half_mem_mersenneAchievementSet_of_largestSkipLateStepSocket",
       "line": 167,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderLargestSkipInduction.lean#L167"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderLargestSkipInduction.lean#L167"
     },
     {
       "source": "claim:last_producer_tail_escape_reduction",
@@ -14906,7 +14906,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderLastProducerContradiction",
       "declaration": "half_mem_mersenneAchievementSet_of_middleProducerSqrtEscape",
       "line": 458,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderLastProducerContradiction.lean#L458"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderLastProducerContradiction.lean#L458"
     },
     {
       "source": "claim:lcm_factor_ideal_anchor_pulse_no_go",
@@ -14914,7 +14914,7 @@
       "target": "lean-module:Erdos249257.LcmFactorIdealPulseObstruction",
       "declaration": "lcmAnchorPulse_t3_letters",
       "line": 895,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/LcmFactorIdealPulseObstruction.lean#L895"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/LcmFactorIdealPulseObstruction.lean#L895"
     },
     {
       "source": "claim:localized_protected_seam_compactness",
@@ -14922,7 +14922,7 @@
       "target": "lean-module:Erdos249257.HalfCarryProtectedSeamConsumer",
       "declaration": "exists_infinite_support_half_of_cofinalProtectedEvenSeamRealization",
       "line": 53,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCarryProtectedSeamConsumer.lean#L53"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarryProtectedSeamConsumer.lean#L53"
     },
     {
       "source": "claim:mersenne_lambert_ladder",
@@ -14930,7 +14930,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "totient_series_eq_half_add_moebius_mersenne_square",
       "line": 18454,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L18454"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L18454"
     },
     {
       "source": "claim:mersenne_shadow_denominator",
@@ -14938,7 +14938,7 @@
       "target": "lean-module:Erdos249257.MersenneShadowDenominatorGrowth",
       "declaration": "lcmHeight_scaledMobiusShadow_den_exact",
       "line": 147,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/MersenneShadowDenominatorGrowth.lean#L147"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/MersenneShadowDenominatorGrowth.lean#L147"
     },
     {
       "source": "claim:mersenne_tail_atom_boundary",
@@ -14946,7 +14946,7 @@
       "target": "lean-module:Erdos249257.MersenneTailAtoms",
       "declaration": "one_le_abs_weightedMersenneAtom_cleared_det",
       "line": 181,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/MersenneTailAtoms.lean#L181"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/MersenneTailAtoms.lean#L181"
     },
     {
       "source": "claim:middle_producer_cardinality_reduction",
@@ -14954,7 +14954,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound",
       "declaration": "half_mem_mersenneAchievementSet_of_middleProducerRowEscape",
       "line": 2371,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L2371"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L2371"
     },
     {
       "source": "claim:mixed_cofinal_half_carry_fan_in",
@@ -14962,7 +14962,7 @@
       "target": "lean-module:Erdos249257.HalfCarryCofinalWindowOrSeamConsumer",
       "declaration": "exists_infinite_support_half_of_cofinalSelectedWindowOrProtectedSeam",
       "line": 58,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCarryCofinalWindowOrSeamConsumer.lean#L58"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarryCofinalWindowOrSeamConsumer.lean#L58"
     },
     {
       "source": "claim:mixed_prime_power_layer_identity",
@@ -14970,7 +14970,7 @@
       "target": "lean-module:Erdos249257.MaximalOmegaLayer",
       "declaration": "mixedPrimePowerLayerTwo_twelve_fixture",
       "line": 65,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/MaximalOmegaLayer.lean#L65"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/MaximalOmegaLayer.lean#L65"
     },
     {
       "source": "claim:mobius_sign_support_no_go",
@@ -14978,7 +14978,7 @@
       "target": "lean-module:Erdos249257.MobiusSignSupportNoGo",
       "declaration": "half_add_one_div_sixty_three_le_tsum_negativeMobius",
       "line": 150,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/MobiusSignSupportNoGo.lean#L150"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/MobiusSignSupportNoGo.lean#L150"
     },
     {
       "source": "claim:newton_ray_separation_consumer",
@@ -14986,7 +14986,7 @@
       "target": "lean-module:ErdosProblems.Erdos1041.NewtonFlowRaySeparation",
       "declaration": "no_newtonConnection_of_not_samePositiveRay",
       "line": 315,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315"
     },
     {
       "source": "claim:orthogonal_petal_sunflower_reduction",
@@ -14994,7 +14994,7 @@
       "target": "lean-module:Erdos249257.SupportSunflowerDichotomy",
       "declaration": "alternatingPrimeSquareSupport_cardFactors_eq_three",
       "line": 343,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SupportSunflowerDichotomy.lean#L343"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SupportSunflowerDichotomy.lean#L343"
     },
     {
       "source": "claim:parity_socket_obstruction",
@@ -15002,7 +15002,7 @@
       "target": "lean-module:Erdos249257.Totient827ParitySocketCeiling",
       "declaration": "powerTwo_reducedMarginSocket_not_decided_by_parity",
       "line": 110,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/Totient827ParitySocketCeiling.lean#L110"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/Totient827ParitySocketCeiling.lean#L110"
     },
     {
       "source": "claim:period_four_signed_residue_obstruction",
@@ -15010,7 +15010,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "intWeightedCoeff_periodFourSignWeight_eq_zero_of_mod_four_eq_three",
       "line": 14226,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L14226"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L14226"
     },
     {
       "source": "claim:periodic_nonnegative_weight_irrationality",
@@ -15018,7 +15018,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "irrational_ratWeightSeries_eventuallyPeriodic",
       "line": 12811,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L12811"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L12811"
     },
     {
       "source": "claim:periodic_signed_weight_dichotomy",
@@ -15026,7 +15026,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "irrational_intWeightedErdosSeries_periodic_of_bpow_mul_ne_intCast",
       "line": 14200,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L14200"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L14200"
     },
     {
       "source": "claim:pivot_anti_reconstruction_reduction",
@@ -15034,7 +15034,7 @@
       "target": "lean-module:Erdos249257.PivotAntiReconstruction",
       "declaration": "dtwWindowSeparatedPairs_iff_irrational_totient_series",
       "line": 1765,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/PivotAntiReconstruction.lean#L1765"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PivotAntiReconstruction.lean#L1765"
     },
     {
       "source": "claim:power_two_bit_lift",
@@ -15042,7 +15042,7 @@
       "target": "lean-module:Erdos249257.PowerTwoBitLift",
       "declaration": "not_modEq_thirtyTwo_iff_offset_sixteen",
       "line": 129,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/PowerTwoBitLift.lean#L129"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PowerTwoBitLift.lean#L129"
     },
     {
       "source": "claim:power_two_bit_lift",
@@ -15050,7 +15050,7 @@
       "target": "lean-module:Erdos249257.PowerTwoCenteredBitLift",
       "declaration": "actualPenultimateSignedMargin_centeredThirtyTwo_iff_not_thirtyTwo_dvd",
       "line": 159,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/PowerTwoCenteredBitLift.lean#L159"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PowerTwoCenteredBitLift.lean#L159"
     },
     {
       "source": "claim:prime_gap_irrationality_equivalence",
@@ -15058,7 +15058,7 @@
       "target": "lean-module:ErdosProblems.Erdos251.PrimeGapDyadicTail",
       "declaration": "irrational_tsum_primeDyadicTerm_iff_primeGap",
       "line": 435,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L435"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L435"
     },
     {
       "source": "claim:prime_gap_unboundedness_and_nonperiodicity",
@@ -15066,7 +15066,7 @@
       "target": "lean-module:ErdosProblems.Erdos251.PrimeGapDyadicTail",
       "declaration": "primeGap0_not_eventually_periodic",
       "line": 1023,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023"
     },
     {
       "source": "claim:primitive_coordinate_index_obstruction",
@@ -15074,7 +15074,7 @@
       "target": "lean-module:Erdos249257.PrimitiveDeterminantLift",
       "declaration": "no_fixed_integral_primitive_euler_index",
       "line": 169,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/PrimitiveDeterminantLift.lean#L169"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PrimitiveDeterminantLift.lean#L169"
     },
     {
       "source": "claim:primitive_unit_gap_ceiling",
@@ -15082,7 +15082,7 @@
       "target": "lean-module:Erdos249257.PrimitiveWeightCertificate",
       "declaration": "not_ordinary_gap_certificate_three_window_3_5",
       "line": 157,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/PrimitiveWeightCertificate.lean#L157"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PrimitiveWeightCertificate.lean#L157"
     },
     {
       "source": "claim:producer_carry_future_tail_socket",
@@ -15090,7 +15090,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderProducerCarrySocket",
       "declaration": "producerCarry_le_neg_eight_forces_gap_margin",
       "line": 190,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderProducerCarrySocket.lean#L190"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderProducerCarrySocket.lean#L190"
     },
     {
       "source": "claim:quarter_band_endpoint_cells",
@@ -15098,7 +15098,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderQuarterBandEndpoints",
       "declaration": "seamAdjacentCut_rightNextUpperFailure_iff_pulseCell",
       "line": 175,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderQuarterBandEndpoints.lean#L175"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderQuarterBandEndpoints.lean#L175"
     },
     {
       "source": "claim:rational_base_cleared_tail_recurrence",
@@ -15106,7 +15106,7 @@
       "target": "lean-module:ErdosProblems.Erdos1049.RationalBaseLambert",
       "declaration": "rationalBaseClearedTailQ_succ",
       "line": 187,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187"
     },
     {
       "source": "claim:rational_base_forcing_growth",
@@ -15114,7 +15114,7 @@
       "target": "lean-module:ErdosProblems.Erdos1049.RationalBaseLambert",
       "declaration": "rationalBaseForcingNat_one",
       "line": 218,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L218"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L218"
     },
     {
       "source": "claim:realized_rewind_phase_identity",
@@ -15122,7 +15122,7 @@
       "target": "lean-module:Erdos249257.HalfCarryRewindPhase",
       "declaration": "rewind_supportCoeffHistory_singleton_iff_prefixCarry_covers",
       "line": 352,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCarryRewindPhase.lean#L352"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarryRewindPhase.lean#L352"
     },
     {
       "source": "claim:reciprocal_mass_bound",
@@ -15130,7 +15130,7 @@
       "target": "lean-module:Erdos249257.RationalSupportCarrySkeleton",
       "declaration": "one_div_oddOrder_le_reciprocalMass_of_support_fraction",
       "line": 1480,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/RationalSupportCarrySkeleton.lean#L1480"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RationalSupportCarrySkeleton.lean#L1480"
     },
     {
       "source": "claim:reset_deficit_escape_geometry",
@@ -15138,7 +15138,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderResetDeficitEscape",
       "declaration": "upperOrMiddle_within_of_two_pow_deficit",
       "line": 261,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderResetDeficitEscape.lean#L261"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderResetDeficitEscape.lean#L261"
     },
     {
       "source": "claim:residual_gauge_obstruction",
@@ -15146,7 +15146,7 @@
       "target": "lean-module:Erdos249257.ResidualGaugeObstruction",
       "declaration": "rowReconstruction_zero_row_one",
       "line": 145,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/ResidualGaugeObstruction.lean#L145"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/ResidualGaugeObstruction.lean#L145"
     },
     {
       "source": "claim:rewind_boundary_pair_obstruction",
@@ -15154,7 +15154,7 @@
       "target": "lean-module:Erdos249257.RewindBoundaryPairCounterexample",
       "declaration": "depth27_actualRewindSeam_not_boundaryPair",
       "line": 169,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/RewindBoundaryPairCounterexample.lean#L169"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RewindBoundaryPairCounterexample.lean#L169"
     },
     {
       "source": "claim:rewind_seam_operational_bridge",
@@ -15162,7 +15162,7 @@
       "target": "lean-module:Erdos249257.RewindSeamOperationalBridge",
       "declaration": "protectedEvenSeamRealizedAt_succ_of_fullStrip_rewindSeam",
       "line": 358,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/RewindSeamOperationalBridge.lean#L358"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RewindSeamOperationalBridge.lean#L358"
     },
     {
       "source": "claim:seam_producer_carry_alignment",
@@ -15170,7 +15170,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderSeamProducerAlignment",
       "declaration": "producerCarry_insert_eq_four_mul_shiftedHole_sub_pulse",
       "line": 24,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderSeamProducerAlignment.lean#L24"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderSeamProducerAlignment.lean#L24"
     },
     {
       "source": "claim:selected_half_carry_window_compactness",
@@ -15178,7 +15178,7 @@
       "target": "lean-module:Erdos249257.HalfCarrySelectedWindow",
       "declaration": "exists_infinite_support_half_of_selectedHalfWindows",
       "line": 864,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCarrySelectedWindow.lean#L864"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarrySelectedWindow.lean#L864"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15186,7 +15186,7 @@
       "target": "lean-module:Erdos249257.SelectedSuffixCylinder",
       "declaration": "SelectedHalfWindow.hasSuffixCylinderAt_stepExplicit",
       "line": 136,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SelectedSuffixCylinder.lean#L136"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SelectedSuffixCylinder.lean#L136"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15194,7 +15194,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderBelow",
       "declaration": "SelectedHalfWindow.word_stepTailExplicit",
       "line": 117,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderBelow.lean#L117"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderBelow.lean#L117"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15202,7 +15202,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderFeedbackFanIn",
       "declaration": "CylinderStage.feedbackAdvance_or_protectedSeam_inStrip",
       "line": 62,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderFeedbackFanIn.lean#L62"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderFeedbackFanIn.lean#L62"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15210,7 +15210,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderFiniteGap",
       "declaration": "InStripGapStage.advanceOfCommonNextCoeff",
       "line": 256,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderFiniteGap.lean#L256"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderFiniteGap.lean#L256"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15218,7 +15218,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderGlobalProducer",
       "declaration": "CylinderStage.feedbackStep_or_protectedSeam",
       "line": 174,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderGlobalProducer.lean#L174"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderGlobalProducer.lean#L174"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15226,7 +15226,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderInStrip",
       "declaration": "CylinderStage.feedbackAdvance_or_inStripTwoSheet",
       "line": 665,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderInStrip.lean#L665"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderInStrip.lean#L665"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15234,7 +15234,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderProfiledAdjacency",
       "declaration": "ProfiledGapStage.lowerNextCoeff_le_upperNextCoeff_add_one",
       "line": 232,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderProfiledAdjacency.lean#L232"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderProfiledAdjacency.lean#L232"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15242,7 +15242,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderProfiledAutoStep",
       "declaration": "ProfiledGapStage.promoteThenAdvance_hasAdjacentPrefixes",
       "line": 110,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderProfiledAutoStep.lean#L110"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderProfiledAutoStep.lean#L110"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15250,7 +15250,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderProfiledGap",
       "declaration": "ProfiledGapStage.advanceOfNextCoeffProfile",
       "line": 124,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderProfiledGap.lean#L124"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderProfiledGap.lean#L124"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15258,7 +15258,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderProfiledPromotion",
       "declaration": "selectedHalfIntervalPromoteHigh",
       "line": 107,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderProfiledPromotion.lean#L107"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderProfiledPromotion.lean#L107"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15266,7 +15266,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderProfiledPromotionAdjacency",
       "declaration": "ProfiledGapStage.promoteCutoff_hasAdjacentPrefixes",
       "line": 65,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderProfiledPromotionAdjacency.lean#L65"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderProfiledPromotionAdjacency.lean#L65"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15274,7 +15274,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderProfiledSwallow",
       "declaration": "nextBound_le_four_gapWidth_add_two_of_macro_swallow",
       "line": 254,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderProfiledSwallow.lean#L254"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderProfiledSwallow.lean#L254"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15282,7 +15282,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderPromotion",
       "declaration": "promotedSuffixCylinder_or_protectedEvenSeamRealizedAt",
       "line": 322,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderPromotion.lean#L322"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderPromotion.lean#L322"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15290,7 +15290,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge",
       "declaration": "exists_infinite_positive_support_half_of_cofinalCylinderStages",
       "line": 287,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L287"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L287"
     },
     {
       "source": "claim:selected_suffix_cylinder_propagation",
@@ -15298,7 +15298,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderTwoSheet",
       "declaration": "hasSuffixCylinderAt_take",
       "line": 26,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderTwoSheet.lean#L26"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderTwoSheet.lean#L26"
     },
     {
       "source": "claim:selected_suffix_pre_feedback_run",
@@ -15306,7 +15306,7 @@
       "target": "lean-module:Erdos249257.SelectedSuffixCylinderPreFeedback",
       "declaration": "depth27SelectedHalfWindow_endpoint_covers_strip",
       "line": 147,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SelectedSuffixCylinderPreFeedback.lean#L147"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SelectedSuffixCylinderPreFeedback.lean#L147"
     },
     {
       "source": "claim:selected_suffix_pre_feedback_run",
@@ -15314,7 +15314,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderFirstFeedback",
       "declaration": "stage27_endpoint_eq",
       "line": 144,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderFirstFeedback.lean#L144"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderFirstFeedback.lean#L144"
     },
     {
       "source": "claim:selected_suffix_pre_feedback_run",
@@ -15322,7 +15322,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderStage51",
       "declaration": "fullCylinderStage51_feedback_headThreshold_margin",
       "line": 536,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderStage51.lean#L536"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderStage51.lean#L536"
     },
     {
       "source": "claim:selected_suffix_pre_feedback_run",
@@ -15330,7 +15330,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge",
       "declaration": "fullCylinderStage52_halfTerminalOnlyStripWitness",
       "line": 238,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L238"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L238"
     },
     {
       "source": "claim:selected_suffix_pre_feedback_run",
@@ -15338,7 +15338,7 @@
       "target": "lean-module:Erdos249257.SuffixCylinderThreshold",
       "declaration": "depth29SelectedHalfWindow_not_commonRestrictionAt_twentySix",
       "line": 806,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SuffixCylinderThreshold.lean#L806"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderThreshold.lean#L806"
     },
     {
       "source": "claim:selected_window_depth18_base",
@@ -15346,7 +15346,7 @@
       "target": "lean-module:Erdos249257.HalfCarrySelectedWindowBase",
       "declaration": "depth18SelectedHalfWindow_nextRowDivisorAgreement",
       "line": 172,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCarrySelectedWindowBase.lean#L172"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarrySelectedWindowBase.lean#L172"
     },
     {
       "source": "claim:signed_dyadic_moment_substrate",
@@ -15354,7 +15354,7 @@
       "target": "lean-module:Erdos249257.SignedQMomentObstruction",
       "declaration": "scaled_dyadic_sum_ne_zero",
       "line": 96,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SignedQMomentObstruction.lean#L96"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SignedQMomentObstruction.lean#L96"
     },
     {
       "source": "claim:square_crt_correction_suppression",
@@ -15362,7 +15362,7 @@
       "target": "lean-module:Erdos249257.SquareCRTCube",
       "declaration": "squareCRT_clean_block_can_be_nonzero",
       "line": 477,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SquareCRTCube.lean#L477"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SquareCRTCube.lean#L477"
     },
     {
       "source": "claim:squared_lambert_gcd_moments",
@@ -15370,7 +15370,7 @@
       "target": "lean-module:Erdos249257.GcdMomentCalculus",
       "declaration": "tsum_totient_div_mersenne_sq_eq_gcd_moment_series",
       "line": 235,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GcdMomentCalculus.lean#L235"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GcdMomentCalculus.lean#L235"
     },
     {
       "source": "claim:squared_mersenne_enclosure",
@@ -15378,7 +15378,7 @@
       "target": "lean-module:Erdos249257.SquaredMersenneDiagonalEnclosure",
       "declaration": "scaleFullTarget_miss_of_lambert_projected_separation",
       "line": 426,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SquaredMersenneDiagonalEnclosure.lean#L426"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SquaredMersenneDiagonalEnclosure.lean#L426"
     },
     {
       "source": "claim:stern_brocot_cylinder_law",
@@ -15386,7 +15386,7 @@
       "target": "lean-module:Erdos249257.GcdMomentCalculus",
       "declaration": "tendsto_sternBrocotDepthMass",
       "line": 560,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GcdMomentCalculus.lean#L560"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GcdMomentCalculus.lean#L560"
     },
     {
       "source": "claim:stern_brocot_run_fibonacci_stability",
@@ -15394,7 +15394,7 @@
       "target": "lean-module:Erdos249257.SternBrocotRunGeometry",
       "declaration": "naturalRunDenominatorExponent_add_two",
       "line": 491,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SternBrocotRunGeometry.lean#L491"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SternBrocotRunGeometry.lean#L491"
     },
     {
       "source": "claim:strict_prime_tail_orbit_gap",
@@ -15402,7 +15402,7 @@
       "target": "lean-module:ErdosProblems.Erdos249.TotientStrictPrimeEscape",
       "declaration": "naturalPrimeTailOrbitStrictGap_of_cofinal_nonpositive_prime_shift",
       "line": 465,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L465"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean#L465"
     },
     {
       "source": "claim:sublog_zero_windows",
@@ -15410,7 +15410,7 @@
       "target": "lean-module:Erdos249257.SublogDivisorCoverage",
       "declaration": "supportCoeffZeroWindow_length_le_eps_logb_add",
       "line": 392,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SublogDivisorCoverage.lean#L392"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SublogDivisorCoverage.lean#L392"
     },
     {
       "source": "claim:support_families",
@@ -15418,7 +15418,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "irrational_erdosSupportSeries_pairwise_coprime",
       "line": 10776,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L10776"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L10776"
     },
     {
       "source": "claim:tail_orbit_rigidity",
@@ -15426,7 +15426,7 @@
       "target": "lean-module:Erdos249257.GenericTailOrbitRigidity",
       "declaration": "binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit",
       "line": 426,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GenericTailOrbitRigidity.lean#L426"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GenericTailOrbitRigidity.lean#L426"
     },
     {
       "source": "claim:terminal_only_cofinal_closure",
@@ -15434,7 +15434,7 @@
       "target": "lean-module:Erdos249257.TerminalOnlyCofinal",
       "declaration": "exists_infinite_support_half_of_cofinalTerminalOnlyStrip",
       "line": 192,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TerminalOnlyCofinal.lean#L192"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TerminalOnlyCofinal.lean#L192"
     },
     {
       "source": "claim:terminal_scaled_vanishing_closure",
@@ -15442,7 +15442,7 @@
       "target": "lean-module:Erdos249257.TerminalOnlyScaledVanishing",
       "declaration": "exists_infinite_support_half_of_terminalScaledVanishing",
       "line": 221,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TerminalOnlyScaledVanishing.lean#L221"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TerminalOnlyScaledVanishing.lean#L221"
     },
     {
       "source": "claim:terminal_scaled_vanishing_half_countermodel",
@@ -15450,7 +15450,7 @@
       "target": "lean-module:Erdos249257.TerminalOnlyScaledVanishing",
       "declaration": "exists_infinite_support_half_of_terminalScaledVanishing",
       "line": 221,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TerminalOnlyScaledVanishing.lean#L221"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TerminalOnlyScaledVanishing.lean#L221"
     },
     {
       "source": "claim:terminal_scaled_vanishing_half_countermodel",
@@ -15458,7 +15458,7 @@
       "target": "lean-module:ErdosProblems.Erdos257.HalfCounterexampleFrontier",
       "declaration": "not_universal_of_terminalScaledVanishing",
       "line": 39,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean#L39"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean#L39"
     },
     {
       "source": "claim:three_halves_coordinatewise_corridor_no_go",
@@ -15466,7 +15466,7 @@
       "target": "lean-module:ErdosProblems.Erdos1049.RationalBaseLambert",
       "declaration": "threeHalves_no_coordinatewiseCorridor",
       "line": 155,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155"
     },
     {
       "source": "claim:three_prime_bounded_certificate_safety",
@@ -15474,7 +15474,7 @@
       "target": "lean-module:ErdosProblems.Erdos269.CertificateSafetyR12",
       "declaration": "finite_coverage_not_cofinal_R12",
       "line": 84,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/CertificateSafetyR12.lean#L84"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/CertificateSafetyR12.lean#L84"
     },
     {
       "source": "claim:three_prime_cofinal_window_carry_extinction",
@@ -15482,7 +15482,7 @@
       "target": "lean-module:ErdosProblems.Erdos269.RestrictedFloorSum",
       "declaration": "no_positive_absorbedCarry_of_cofinalLocalWindowEscape",
       "line": 689,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L689"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L689"
     },
     {
       "source": "claim:three_prime_exact_modulus_pinning",
@@ -15490,7 +15490,7 @@
       "target": "lean-module:ErdosProblems.Erdos269.R12.ExactModulus",
       "declaration": "actual_exact_modulus_pinning",
       "line": 88,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/R12/ExactModulus.lean#L88"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/R12/ExactModulus.lean#L88"
     },
     {
       "source": "claim:three_prime_finite_prefix_completion_boundary",
@@ -15498,7 +15498,7 @@
       "target": "lean-module:ErdosProblems.Erdos269.R12.PrefixExtension",
       "declaration": "actual_prefix_has_abstract_rational_completion",
       "line": 105,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/R12/PrefixExtension.lean#L105"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/R12/PrefixExtension.lean#L105"
     },
     {
       "source": "claim:three_prime_finite_residue_contradiction",
@@ -15506,7 +15506,7 @@
       "target": "lean-module:ErdosProblems.Erdos269.ResidueEscape",
       "declaration": "leastPositiveResidue_eq_natAbs_of_pos_le_modEq",
       "line": 138,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/ResidueEscape.lean#L138"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ResidueEscape.lean#L138"
     },
     {
       "source": "claim:three_prime_octic_window_equivalence",
@@ -15514,7 +15514,7 @@
       "target": "lean-module:ErdosProblems.Erdos269.R12.OcticWindowBand",
       "declaration": "octic_window_band",
       "line": 77,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/R12/OcticWindowBand.lean#L77"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/R12/OcticWindowBand.lean#L77"
     },
     {
       "source": "claim:totient_carry_kernel_anti_compression",
@@ -15522,7 +15522,7 @@
       "target": "lean-module:Erdos249257.TotientCarryKernelRigidity",
       "declaration": "not_irrational_totientSeries_implies_unbounded_carryRank_unconditional",
       "line": 300,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientCarryKernelRigidity.lean#L300"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientCarryKernelRigidity.lean#L300"
     },
     {
       "source": "claim:totient_carry_kernel_anti_compression",
@@ -15530,7 +15530,7 @@
       "target": "lean-module:Erdos249257.TotientTailCarryPeriod",
       "declaration": "totient_carry_modEq_geometric_of_dvd_multiplier",
       "line": 140,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientTailCarryPeriod.lean#L140"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientTailCarryPeriod.lean#L140"
     },
     {
       "source": "claim:totient_coprimality_probability",
@@ -15538,7 +15538,7 @@
       "target": "lean-module:Erdos249257.CertificateKernel",
       "declaration": "tsum_visible_coprime_pairs_ne_int_div_of_den_le_39819823323350687661677887437915526",
       "line": 18572,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean#L18572"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean#L18572"
     },
     {
       "source": "claim:totient_v8_conditional_peripheral_assembly",
@@ -15546,7 +15546,7 @@
       "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.PeripheralAssembly",
       "declaration": "irrational_of_eventual_peripheral_and_cofinal_centered",
       "line": 54,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/PeripheralAssembly.lean#L54"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TypeBReturnV8/PeripheralAssembly.lean#L54"
     },
     {
       "source": "claim:totient_v8_finite_arithmetic_threshold",
@@ -15554,7 +15554,7 @@
       "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.FiniteArithmetic",
       "declaration": "run_threshold_iff",
       "line": 39,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/FiniteArithmetic.lean#L39"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TypeBReturnV8/FiniteArithmetic.lean#L39"
     },
     {
       "source": "claim:totient_v8_generic_centering_countermodel",
@@ -15562,7 +15562,7 @@
       "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.CenteringCounterexample",
       "declaration": "three_peripheral_zero_do_not_force_centered_budget",
       "line": 22,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/CenteringCounterexample.lean#L22"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TypeBReturnV8/CenteringCounterexample.lean#L22"
     },
     {
       "source": "claim:totient_v8_one_finite_first_harmonic_instance",
@@ -15570,7 +15570,7 @@
       "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.FiniteFirstHarmonic",
       "declaration": "one_unconditional_norm_gap_instance",
       "line": 66,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/FiniteFirstHarmonic.lean#L66"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TypeBReturnV8/FiniteFirstHarmonic.lean#L66"
     },
     {
       "source": "claim:totient_v8_peripheral_finite_budget_bridge",
@@ -15578,7 +15578,7 @@
       "target": "lean-module:ErdosProblems.Erdos249.TypeBReturnV8.PeripheralFiniteBridge",
       "declaration": "pivotBudgetAt_of_peripheral_estimates",
       "line": 105,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TypeBReturnV8/PeripheralFiniteBridge.lean#L105"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TypeBReturnV8/PeripheralFiniteBridge.lean#L105"
     },
     {
       "source": "claim:transport_certificate_instances",
@@ -15586,7 +15586,7 @@
       "target": "lean-module:Erdos249257.PrimeJumpWindow",
       "declaration": "primeJumpSharpKill_twelve_five",
       "line": 186,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/PrimeJumpWindow.lean#L186"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PrimeJumpWindow.lean#L186"
     },
     {
       "source": "claim:transport_certificate_instances",
@@ -15594,7 +15594,7 @@
       "target": "lean-module:Erdos249257.ThreeTransportBoundary",
       "declaration": "sharpThreeTransportCert_60_12",
       "line": 203,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/ThreeTransportBoundary.lean#L203"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/ThreeTransportBoundary.lean#L203"
     },
     {
       "source": "claim:transport_curvature_reductions",
@@ -15602,7 +15602,7 @@
       "target": "lean-module:Erdos249257.CurvatureCarry",
       "declaration": "irrational_totientSeries_of_sharpCurvatureSupply",
       "line": 206,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CurvatureCarry.lean#L206"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CurvatureCarry.lean#L206"
     },
     {
       "source": "claim:transport_curvature_reductions",
@@ -15610,7 +15610,7 @@
       "target": "lean-module:Erdos249257.ExponentOnlyTransport",
       "declaration": "irrational_totient_series_of_exponentOnlyThreeTransportSupply",
       "line": 205,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/ExponentOnlyTransport.lean#L205"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/ExponentOnlyTransport.lean#L205"
     },
     {
       "source": "claim:transport_curvature_reductions",
@@ -15618,7 +15618,7 @@
       "target": "lean-module:Erdos249257.JointExponentTransport",
       "declaration": "irrational_totient_series_of_anchoredJoint35ConeSupply",
       "line": 217,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/JointExponentTransport.lean#L217"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/JointExponentTransport.lean#L217"
     },
     {
       "source": "claim:transport_curvature_reductions",
@@ -15626,7 +15626,7 @@
       "target": "lean-module:Erdos249257.PrimeJumpWindow",
       "declaration": "irrational_totient_series_of_primeJumpSharpKill_supply",
       "line": 193,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/PrimeJumpWindow.lean#L193"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PrimeJumpWindow.lean#L193"
     },
     {
       "source": "claim:transport_curvature_reductions",
@@ -15634,7 +15634,7 @@
       "target": "lean-module:Erdos249257.ThreeTransportBoundary",
       "declaration": "irrational_totientSeries_of_roughnessBoundaryLatticeSupply",
       "line": 177,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/ThreeTransportBoundary.lean#L177"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/ThreeTransportBoundary.lean#L177"
     },
     {
       "source": "claim:twenty_one_quotient_greedy_frontier",
@@ -15642,7 +15642,7 @@
       "target": "lean-module:Erdos249257.BooleanMobiusCarry",
       "declaration": "one_div_twenty_one_mem_mersenneAchievementSet_of_defect_le_one_cofinally",
       "line": 2843,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusCarry.lean#L2843"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusCarry.lean#L2843"
     },
     {
       "source": "claim:twenty_one_quotient_greedy_frontier",
@@ -15650,7 +15650,7 @@
       "target": "lean-module:Erdos249257.TwentyOneQuotientGreedy",
       "declaration": "twentyOneFatalAlignedBranch_eventually_affine_supercapacity",
       "line": 5658,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TwentyOneQuotientGreedy.lean#L5658"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TwentyOneQuotientGreedy.lean#L5658"
     },
     {
       "source": "claim:unbounded_carry_states",
@@ -15658,7 +15658,7 @@
       "target": "lean-module:Erdos249257.RationalSupportCarrySkeleton",
       "declaration": "exists_unbounded_shifted_odd_tail_nat_state_of_support_fraction",
       "line": 2383,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/RationalSupportCarrySkeleton.lean#L2383"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RationalSupportCarrySkeleton.lean#L2383"
     },
     {
       "source": "claim:upper_reset_band_certificates_through_thirty",
@@ -15666,7 +15666,7 @@
       "target": "lean-module:Erdos249257.HalfCylinderUpperResetBandCertificates",
       "declaration": "seamUpperResetDyadicBandEscape_through_thirty",
       "line": 78,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderUpperResetBandCertificates.lean#L78"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderUpperResetBandCertificates.lean#L78"
     },
     {
       "source": "claim:van_assche_qapery_diagonal_no_go",
@@ -15674,7 +15674,7 @@
       "target": "lean-module:ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
       "declaration": "vanAsscheQAperyResidualAtZero_ne_zero",
       "line": 94,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L94"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L94"
     },
     {
       "source": "claim:weighted_phase_carry_finite_observer",
@@ -15682,7 +15682,7 @@
       "target": "lean-module:ErdosProblems.Erdos269.WeightedPhaseCarry",
       "declaration": "finite_realisedSpan_of_factorisation",
       "line": 334,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L334"
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/WeightedPhaseCarry.lean#L334"
     },
     {
       "source": "integration:comparator",

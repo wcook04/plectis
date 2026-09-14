@@ -2421,11 +2421,11 @@ class="math inline" data-term-auto="off">\(r\uparrow1\)</span> first with an arb
 coefficient sum. Nonnegative finite deficits then give summability and
 the infinite inequality; no boundary holomorphic logarithm is required.
 Lean checks the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/WeightedCauchyTransportR10.lean#L66">exact
+href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/lean/ErdosProblems/Erdos1041/WeightedCauchyTransportR10.lean#L66">exact
 radial transport of each Cauchy coefficient</a>, the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/WeightedBoundaryDeficitR10.lean#L108">finite
+href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/lean/ErdosProblems/Erdos1041/WeightedBoundaryDeficitR10.lean#L108">finite
 boundary-deficit inequality</a>, and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/WeightedBoundaryDeficitR10.lean#L153">summable
+href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/lean/ErdosProblems/Erdos1041/WeightedBoundaryDeficitR10.lean#L153">summable
 full boundary deficit</a>.</p>
 <p>If equality holds, all positive-degree coefficients vanish, so <span
 class="math inline" data-term-auto="off">\(g=1\)</span> near zero and <span
@@ -2447,19 +2447,16 @@ class="math display" data-term-auto="off">\[M^2+\sum_jw_j(G(c_j)-M)^2=\sum_jw_jG
 observations are constant on positive support. Equal weights therefore
 give the quadratic finite inequality above for every <span
 class="math inline" data-term-auto="off">\(m\ge1\)</span>, with equality only at the zero
-configuration. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperWeightedCoverageR11.lean#L138">three-point
-theorem</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperWeightedCoverageR11.lean#L146">four-point
-theorem</a> state these conclusions with their equality cases.</p>
+configuration. The three-point theorem<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and
+four-point theorem state these conclusions with their equality
+cases.</p>
 <p>The previous three-point Hölder proof is withdrawn as an alternative
-proof from this record. Its <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/ThreePointDefectR11.lean#L16">scalar
-defect identity</a> survives independently, but that algebra alone is
-not credited with the omitted Hölder step or the whole alternative
-argument. The four-point matching and numerical split are likewise not
-used. The present argument replaces those passages; it does not claim to
-formalise their mechanisms.</p>
+proof from this record. Its scalar defect identity survives
+independently, but that algebra alone is not credited with the omitted
+Hölder step or the whole alternative argument. The four-point matching
+and numerical split are likewise not used. The present argument replaces
+those passages; it does not claim to formalise their mechanisms.</p>
 </section>
 <section id="poisson-majorization-and-termwise-integration."
 class="level5">
@@ -2483,17 +2480,10 @@ href="https://github.com/wcook04/plectis-erdos/blob/d4fed71423840f70f10edf27b9ad
 series transport</a> justifies termwise circle integration when the
 terms are circle integrable and admit a summable uniform norm bound; its
 Taylor double-product form assumes absolute summability of both
-coefficient sequences. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticR10.lean#L1">checked
-analytic assembly</a> is accompanied by an <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticR10Audit.lean#L1">80-declaration
-audit</a>. The repaired R10 dependency chain and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticR11.lean#L1">R11
-aggregate</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticSmokeR11.lean#L1">smoke
-target</a> pass. Across the R10, R11, and <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticClosureAuditR11.lean#L1">closure
-audits</a>, 320 named prints report only , , and .</p>
+coefficient sequences. The checked analytic assembly is accompanied by
+an 80-declaration audit. The repaired R10 dependency chain and the R11
+aggregate and smoke target pass. Across the R10, R11, and closure
+audits, 320 named prints report only , , and .</p>
 </section>
 <section id="a-uniform-central-region-in-every-degree." class="level5">
 <h5>A uniform central region in every degree.</h5>
@@ -2558,11 +2548,8 @@ class="math inline" data-term-auto="off">\(w_j=1/4\)</span> gives</p>
 class="math display" data-term-auto="off">\[\sum_{j=1}^4\left(\prod_{k=1}^4|1-\overline{c_k}c_j|\right)^{1/4}\le4,
 \qquad |c_j|\le1,\]</span></div>
 <p class="display-continue">with equality if and only if all four centres
-vanish. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperWeightedCoverageR11.lean#L146">checked
-four-point theorem</a> states both conclusions, and the <a
-href="https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperWeightedCoverageR11.lean#L128">strict
-form</a> retains strictness as soon as a centre is nonzero, including
+vanish. The checked four-point theorem states both conclusions, and the
+strict form retains strictness as soon as a centre is nonzero, including
 repeated centres and unit-circle centres.</p>
 <p>The former <span class="math inline" data-term-auto="off">\(21/25\)</span> central/outer
 split, its perfect-matching Hölder step, and its polynomial, Taylor,
@@ -3867,6 +3854,19 @@ href="https://arxiv.org/abs/2512.12455"
 class="uri">https://arxiv.org/abs/2512.12455</a>. Resolves the
 Erdős #114 level-curve conjecture for large <span
 class="math inline" data-term-auto="off">\(n\)</span>.</p></li>
+</ol>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The Lean modules PaperAnalyticClosureAuditR11,
+PaperAnalyticR10, PaperAnalyticR10Audit, PaperAnalyticR11,
+PaperAnalyticSmokeR11, PaperWeightedCoverageR11, ThreePointDefectR11
+cited in this section are in the author’s working tree and are not yet
+in the public repository; WeightedBoundaryDeficitR10 and
+WeightedCauchyTransportR10 are.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </div>

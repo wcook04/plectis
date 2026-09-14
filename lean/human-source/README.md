@@ -205,7 +205,10 @@ describes how researchers publish mathematical claims with their proofs,
 source references and validation records.
 
 For the wider project, see the [Plectis software repository](https://github.com/wcook04/plectis).
-The maths papers and proofs here are self-contained.
+The maths papers and proofs here are self-contained. A smaller repository,
+[plectis-erdos-lean](https://github.com/wcook04/plectis-erdos-lean), carries the
+Comparator entries prepared for external review; [Results and limits](docs/RESULTS.md)
+names it where a result is replayed there.
 
 ## Citation and licence
 

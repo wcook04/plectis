@@ -594,10 +594,12 @@ html:not(.scripting) .universe-nojs { display: block; }
 }
 .paper-head h1 {
   font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  line-height: 1.14;
+  font-size: clamp(1.9rem, 4.2vw, 2.7rem);
+  line-height: 1.12;
   margin: 0 0 var(--space-3);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+  max-width: 24ch;
 }
 .paper-head__meta {
   display: flex;
@@ -620,7 +622,13 @@ html:not(.scripting) .universe-nojs { display: block; }
   margin: 0 0 var(--space-5);
   max-width: 72ch;
 }
-.paper-precis p { margin: 0; color: var(--ink-soft); }
+.paper-precis p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
 .paper-precis .eyebrow { margin-bottom: var(--space-1); }
 
 .authority-card {
@@ -635,13 +643,39 @@ html:not(.scripting) .universe-nojs { display: block; }
 .authority-card p { margin: 0.3rem 0; }
 .authority-card b { font-weight: 600; }
 
-/* The rendered manuscript. Pandoc emits section.levelN wrappers. */
+/* The rendered manuscript. Pandoc emits section.levelN wrappers.
+   Set like a journal page: a serif measure of about 68 characters, an
+   18px face with generous leading, paragraphs separated by a little under
+   one line, and mathematics that sits in the same ink as the prose. The
+   base sheet zeroes every <p> margin for its card layouts; the manuscript
+   restores a reading rhythm here. */
 .paper-stage {
-  max-width: 74ch;
+  max-width: 68ch;
   font-family: var(--font-serif);
-  font-size: 1.075rem;
+  font-size: 1.125rem;
+  line-height: 1.66;
+  color: var(--ink);
   text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  hanging-punctuation: first;
 }
+.paper-stage p {
+  margin: 0 0 0.95em;
+  text-wrap: pretty;
+}
+.paper-stage p:last-child { margin-bottom: 0; }
+.paper-stage ul, .paper-stage ol {
+  margin: 0.2em 0 1em;
+  padding-left: 1.6em;
+}
+.paper-stage li { margin: 0.3em 0; }
+.paper-stage li > p { margin-bottom: 0.45em; }
+.paper-stage li::marker { color: var(--muted); font-variant-numeric: lining-nums; }
+.paper-stage em { font-style: italic; }
+.paper-stage strong { font-weight: 650; }
+.paper-stage sup, .paper-stage sub { line-height: 0; }
 .paper-stage :not(pre) > code {
   font-size: .82em;
   background: transparent;
@@ -709,14 +743,42 @@ html:not(.scripting) .universe-nojs { display: block; }
 /* The fragment repeats title and eyebrow we already set in the page head. */
 .paper-stage h2, .paper-stage h3, .paper-stage h4, .paper-stage h5, .paper-stage h6 {
   font-family: var(--font-serif);
-  line-height: 1.2;
-  margin: var(--space-6) 0 var(--space-3);
+  line-height: 1.22;
+  color: var(--ink);
+  text-wrap: balance;
+  font-variant-numeric: lining-nums;
   scroll-margin-top: calc(var(--topbar-h) + 16px);
 }
-.paper-stage h2 { font-size: 1.5rem; }
-.paper-stage h3 { font-size: 1.2rem; }
-.paper-stage h4, .paper-stage h5 { font-size: 1.05rem; }
-.paper-stage p { line-height: var(--lh-body); }
+/* A section opening reads as a new movement: a hairline, air above, a
+   little below; a subsection sits closer to the prose it introduces. */
+.paper-stage h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  margin: 2.6em 0 0.7em;
+  padding-top: 1.1em;
+  border-top: 1px solid var(--rule);
+}
+.paper-stage section.level2:first-child > h2:first-child,
+.paper-stage .lean-paper__body > section:first-of-type > h2:first-child,
+.paper-stage .lean-document__body > section:first-of-type > h2:first-child {
+  margin-top: 0.4em;
+  padding-top: 0;
+  border-top: 0;
+}
+.paper-stage h3 {
+  font-size: 1.22rem;
+  font-weight: 600;
+  margin: 1.9em 0 0.5em;
+}
+.paper-stage h4, .paper-stage h5, .paper-stage h6 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-style: italic;
+  margin: 1.5em 0 0.4em;
+}
+.paper-stage h2 + h3, .paper-stage h3 + h4 { margin-top: 0.6em; }
+.paper-stage h2 + p, .paper-stage h3 + p, .paper-stage h4 + p { text-indent: 0; }
 .paper-stage math { font-size: 1.05em; overflow-wrap: normal; word-break: normal; }
 /*
   Never override <math> `display` with CSS `block` / `inline-block`. Chromium
@@ -751,7 +813,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   white-space: normal;
   overflow-x: auto;
   overflow-y: hidden;
-  margin: 0.7em 0;
+  margin: 1.1em 0 1.15em;
   padding: 0;
   max-width: 100%;
 }
@@ -767,7 +829,9 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-stage .math-display { overflow: visible; }
 .paper-stage span.math.display { scrollbar-width: thin; padding-block: .35em; overscroll-behavior-x: contain; }
 .paper-stage .math.display mjx-container[display="true"] { margin: 0; }
-.paper-stage mjx-labels { color: var(--muted); }
+/* Equation numbers sit in the margin ink, lining figures, never bold. */
+.paper-stage mjx-labels { color: var(--muted); font-variant-numeric: lining-nums; }
+.paper-stage a.math-ref { font-variant-numeric: lining-nums; }
 .paper-stage p:has(+ .math-display) {
   margin-bottom: 0.15em;
 }
@@ -811,48 +875,148 @@ html:not(.scripting) .universe-nojs { display: block; }
   color: var(--accent);
   text-decoration-color: var(--accent);
 }
-.paper-stage .theorem,
-.paper-stage .lemma,
-.paper-stage .proposition,
-.paper-stage .corollary,
-.paper-stage .definition,
+/*
+  amsthm environments. Results (theorem, lemma, proposition, corollary) are
+  set as quiet panels with a gold rule so the eye can find the statements on
+  a long page; definitions, examples, remarks, and problem statements keep a
+  plain hairline. Both the long Pandoc class names and the short manuscript
+  aliases (thm, lem, prop, cor, defn, rem, obs) are covered so every paper
+  and reasoning surface reads the same way.
+*/
+.paper-stage .theorem, .paper-stage .thm,
+.paper-stage .lemma, .paper-stage .lem,
+.paper-stage .proposition, .paper-stage .prop,
+.paper-stage .corollary, .paper-stage .cor,
+.paper-stage .equivform,
+.paper-stage .definition, .paper-stage .defn,
 .paper-stage .example,
 .paper-stage .problem,
-.paper-stage .remark {
-  margin: 1.15em 0;
-  padding-left: 0.85rem;
-  border-left: 2px solid color-mix(in srgb, var(--rule-strong) 70%, transparent);
+.paper-stage .remark, .paper-stage .rem,
+.paper-stage .obs {
+  margin: 1.35em 0;
+  padding: 0.75em 1em 0.8em 1.05em;
+  border-left: 3px solid color-mix(in srgb, var(--rule-strong) 80%, transparent);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  scroll-margin-top: calc(var(--topbar-h) + 16px);
+}
+.paper-stage .theorem, .paper-stage .thm,
+.paper-stage .lemma, .paper-stage .lem,
+.paper-stage .proposition, .paper-stage .prop,
+.paper-stage .corollary, .paper-stage .cor,
+.paper-stage .equivform {
+  border-left-color: var(--maths-gold);
+  background: color-mix(in srgb, var(--maths-gold) 7%, transparent);
+}
+.paper-stage .problem {
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+.paper-stage .theorem p, .paper-stage .thm p,
+.paper-stage .lemma p, .paper-stage .lem p,
+.paper-stage .proposition p, .paper-stage .prop p,
+.paper-stage .corollary p, .paper-stage .cor p,
+.paper-stage .equivform p,
+.paper-stage .definition p, .paper-stage .defn p,
+.paper-stage .example p,
+.paper-stage .problem p,
+.paper-stage .remark p, .paper-stage .rem p,
+.paper-stage .obs p {
+  margin: 0;
+}
+.paper-stage .theorem p + p, .paper-stage .thm p + p,
+.paper-stage .lemma p + p, .paper-stage .lem p + p,
+.paper-stage .proposition p + p, .paper-stage .prop p + p,
+.paper-stage .corollary p + p, .paper-stage .cor p + p,
+.paper-stage .equivform p + p,
+.paper-stage .definition p + p, .paper-stage .defn p + p,
+.paper-stage .example p + p,
+.paper-stage .problem p + p,
+.paper-stage .remark p + p, .paper-stage .rem p + p,
+.paper-stage .obs p + p {
+  margin-top: 0.6em;
+}
+/* "Theorem 1 (name)." is the running head of the statement. */
+.paper-stage .theorem > p:first-child > strong:first-child,
+.paper-stage .thm > p:first-child > strong:first-child,
+.paper-stage .lemma > p:first-child > strong:first-child,
+.paper-stage .lem > p:first-child > strong:first-child,
+.paper-stage .proposition > p:first-child > strong:first-child,
+.paper-stage .prop > p:first-child > strong:first-child,
+.paper-stage .corollary > p:first-child > strong:first-child,
+.paper-stage .cor > p:first-child > strong:first-child,
+.paper-stage .equivform > p:first-child > strong:first-child,
+.paper-stage .definition > p:first-child > strong:first-child,
+.paper-stage .defn > p:first-child > strong:first-child,
+.paper-stage .example > p:first-child > strong:first-child,
+.paper-stage .problem > p:first-child > strong:first-child,
+.paper-stage .remark > p:first-child > strong:first-child,
+.paper-stage .rem > p:first-child > strong:first-child,
+.paper-stage .obs > p:first-child > strong:first-child {
+  font-weight: 700;
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0.005em;
 }
 /*
   Pandoc wraps amsthm bodies in <em>. On paper that italic is the statement
   cue; on this page it turns a long theorem into an italic wall around MathJax.
   Keep the cue on the "Theorem N" lead-in and read the body in roman.
 */
-.paper-stage .theorem em,
-.paper-stage .lemma em,
-.paper-stage .proposition em,
-.paper-stage .corollary em,
-.paper-stage .definition em,
+.paper-stage .theorem em, .paper-stage .thm em,
+.paper-stage .lemma em, .paper-stage .lem em,
+.paper-stage .proposition em, .paper-stage .prop em,
+.paper-stage .corollary em, .paper-stage .cor em,
+.paper-stage .equivform em,
+.paper-stage .definition em, .paper-stage .defn em,
 .paper-stage .example em,
 .paper-stage .problem em,
-.paper-stage .remark em {
+.paper-stage .remark em, .paper-stage .rem em,
+.paper-stage .obs em {
   font-style: normal;
 }
-.paper-stage .proof { margin: 0.85em 0 1.15em; }
+/* Proofs: an italic "Proof." lead, a little indent so the argument reads as
+   subordinate to its statement, and the closing box the source already
+   carries. */
+.paper-stage .proof {
+  margin: 0.4em 0 1.4em;
+  padding-left: 1.05em;
+}
+.paper-stage .proof > p:first-child > em:first-child { font-style: italic; }
+.paper-stage .proof p:last-child { margin-bottom: 0; }
+/* Tables in the booktabs manner: a heavy rule above and below, a light rule
+   under the header, and no vertical rules. The block wrapper scrolls a wide
+   table inside its own box; max-content keeps the rules the width of the
+   table rather than the column. */
 .paper-stage table {
   border-collapse: collapse;
-  margin: var(--space-4) 0;
+  margin: 1.2em 0 1.4em;
   display: block;
+  width: max-content;
   max-width: 100%;
   overflow-x: auto;
+  font-size: 0.94em;
+  line-height: 1.45;
+  border-top: 1.5px solid var(--rule-strong);
+  border-bottom: 1.5px solid var(--rule-strong);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 .paper-stage table th, .paper-stage table td {
-  border-bottom: 1px solid var(--rule);
-  padding: 0.3rem 0.7rem 0.3rem 0;
+  padding: 0.42em 1em 0.42em 0;
   text-align: left;
   vertical-align: baseline;
+  border: 0;
 }
-.paper-stage table th { font-weight: 600; }
+.paper-stage table th:last-child, .paper-stage table td:last-child { padding-right: 0.2em; }
+.paper-stage table thead th { border-bottom: 1px solid var(--rule-strong); font-weight: 600; }
+.paper-stage table tbody tr + tr td { border-top: 1px solid var(--rule); }
+.paper-stage table caption {
+  caption-side: bottom;
+  text-align: left;
+  padding: 0.5em 0 0;
+  color: var(--muted);
+  font-size: 0.92em;
+}
+.paper-stage .center { text-align: center; }
+.paper-stage .center table { margin-inline: auto; }
 .paper-stage pre {
   background: var(--code-bg);
   color: var(--code-ink);
@@ -868,7 +1032,14 @@ html:not(.scripting) .universe-nojs { display: block; }
   padding-left: var(--space-4);
   color: var(--muted);
 }
-.paper-stage .footnotes { color: var(--muted); font-size: var(--fs-body); }
+.paper-stage .footnotes {
+  color: var(--muted);
+  font-size: 0.9em;
+  margin-top: 2.5em;
+  padding-top: 1em;
+  border-top: 1px solid var(--rule);
+}
+.paper-stage .footnotes hr { display: none; }
 .paper-stage hr { border: 0; border-top: 1px solid var(--rule); margin: var(--space-6) 0; }
 /* Wide display equations should scroll inside their own box, never the page. */
 .paper-stage { overflow-wrap: break-word; }
@@ -881,13 +1052,32 @@ html:not(.scripting) .universe-nojs { display: block; }
   color: var(--accent);
 }
 .paper-stage .citation a:hover { text-decoration: underline; }
-.paper-stage #references ol { padding-left: 1.6rem; }
+/* Bibliography: bracketed numbers in a hanging indent, one size down. */
+.paper-stage #references ol {
+  list-style: none;
+  padding: 0;
+  margin: 0.4em 0 0;
+  counter-reset: plectis-ref;
+}
 .paper-stage #references li {
-  margin: 0 0 var(--space-2);
+  display: grid;
+  grid-template-columns: 2.6em minmax(0, 1fr);
+  column-gap: 0.4em;
+  margin: 0 0 0.7em;
   color: var(--ink-soft);
-  font-size: var(--fs-body);
+  font-size: 0.92em;
+  line-height: 1.55;
   scroll-margin-top: calc(var(--topbar-h) + 16px);
 }
+.paper-stage #references li::before {
+  counter-increment: plectis-ref;
+  content: "[" counter(plectis-ref) "]";
+  color: var(--muted);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.paper-stage #references li:target { background: color-mix(in srgb, var(--maths-gold) 10%, transparent); }
+.paper-stage #references li > p { margin: 0; }
+.paper-stage #references li > p + p { margin-top: 0.3em; }
 
 /* Inline MathJax must stay in the line; overflow:auto on it creates a box
    that sits on a false baseline and looks like a stray indent. */
@@ -895,8 +1085,9 @@ html:not(.scripting) .universe-nojs { display: block; }
 .paper-stage mjx-container[display="true"] {
   display: block;
   text-align: center;
-  margin: 0.85em 0;
+  margin: 1.1em 0;
   overflow: visible;
+  font-size: 1.04em;
 }
 .paper-stage mjx-container[display="true"] mjx-math {
   display: inline-block;
@@ -1445,7 +1636,9 @@ body.has-viewback:has(.maths-layout) .viewback {
   .maths-layout .docs-main > .wrap { width: 100%; margin-inline: 0; padding-inline: 0; }
   .maths-layout .docs-breadcrumb { margin-block: 1rem; }
   .maths-hero { padding-top: 1.8rem; }
-  .paper-stage { font-size: 1rem; }
+  .paper-stage { font-size: 1.0625rem; line-height: 1.6; }
+  .paper-stage h2 { font-size: 1.4rem; margin-top: 2em; }
+  .paper-stage .proof { padding-left: 0.6em; }
   .problem-jumps { gap: .5rem 1rem; padding-block: 1rem; font-size: .875rem; }
   .source-files.is-long { max-height: 55dvh; }
 }
@@ -1493,6 +1686,40 @@ body.has-viewback:has(.maths-layout) .viewback {
     min-height: 44px;
   }
 }
+
+/* ---- Problem dossier prose ------------------------------------------------
+   The results section quotes the corpus record, whose notation arrives in
+   backticks. The base sheet's code chips turned a mathematical sentence into
+   a run of boxes; here notation reads in a quiet monospace at the ink of the
+   sentence around it, and the paragraphs take a reading measure. */
+.dossier-section > p,
+#current-results p {
+  max-width: 72ch;
+  margin: 0 0 0.9em;
+  line-height: var(--lh-body);
+  color: var(--ink-soft);
+}
+#current-results p:last-child { margin-bottom: 0; }
+#current-results > p + a,
+#current-results > a { display: inline-block; margin-top: 0.35em; }
+.dossier-section :where(p, li) code,
+.result-card :where(p, li, dd) code,
+.fact-list li code,
+.family-list li code,
+.summary-line code,
+.boundary-line code {
+  background: transparent;
+  color: var(--ink);
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.86em;
+  letter-spacing: -0.005em;
+}
+.dossier-section > p strong a { color: inherit; text-decoration: none; }
+.dossier-section > p strong a:hover { color: var(--accent); }
+/* An inlined manuscript on a dossier shares the reading measure of the
+   sections around it and keeps its own leading. */
+.dossier-section .paper-stage { margin-top: var(--space-4); }
 
 /* Operator help leaves the typeset expression unchanged. */
 .paper-stage .math[data-term-help="notation"] { cursor: help; }

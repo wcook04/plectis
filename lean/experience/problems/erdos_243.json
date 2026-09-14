@@ -143,7 +143,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.no_cofinallyBoundedNegative_of_normalizedVanishes",
       "statement": "Normalised vanishing and bounded rise exclude a cofinally bounded negative part.",
       "boundary": "All dynamics, bounded-rise, positivity, and vanishing hypotheses remain explicit.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
     },
     {
       "id": "centered_state_dynamics",
@@ -155,7 +155,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.boundedNegativePart_eventually_zero",
       "statement": "Under exact natural C/D dynamics with a > 1, C > 0, E = D - (a - 1)C, strict |E| < C, a uniform lower bound on E, and division-free normalized vanishing, boundedNegativePart_eventually_zero forces E = 0 eventually; centered-zero plus an eventually nonzero next tail recovers eventual Sylvester recurrence.",
       "boundary": "The signed theorem has a C D : ℕ → ℕ, E : ℕ → ℤ, and B : ℕ with all exact hypotheses explicit: a > 1, C > 0, C(n + 1) + D(n) = a(n) · C(n), D(n + 1) = a(n) · D(n), E is the centered state D − (a − 1)C, |E| < C, a uniform lower bound on E, and division-free normalized vanishing. It excludes persistent bounded negative behaviour and forces eventual centered defect zero; centered-zero plus an eventually nonzero next tail recovers Sylvester, but no reciprocal-tail irrationality follows. The unbounded negative mixed-sign branch and the prime-specific producer remain open. This is distinct from the periodic negative-orbit and cofinally bounded-negative no-go families; no novelty, priority, significance, or external-review claim is made, and no unrestricted #243 solution follows.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
     },
     {
       "id": "negative_mass_recovery",
@@ -167,7 +167,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.sylvesterNext_eventually_of_summable_negativeRelativeMass",
       "statement": "Under exact next-denominator and next-tail C/D dynamics with a, D : ℕ → ℤ, C : ℕ → ℕ, C > 0, the strict centered step equation, division-free normalized vanishing, and Summable normalized negative centered mass, the centered state vanishes eventually and a follows the Sylvester recurrence eventually.",
       "boundary": "This is a conditional recovery criterion: the source theorem assumes every displayed dynamics, positivity, strict centered-step, normalized-vanishing, and summability hypothesis, and does not prove them for the original Erdős #243 orbit. Any surviving canonical orbit must have divergent normalized negative mass. It supplies no prime-specific producer, unconditional #243 endpoint, or reciprocal-tail irrationality, and makes no novelty, priority, significance, or external-review claim. It is distinct from centered_state_dynamics, which uses a uniform lower-bound hypothesis rather than summability of normalized negative mass.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/SparseResetRecovery.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean"
     },
     {
       "id": "eventually_periodic_negative_no_go",
@@ -179,7 +179,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.no_eventuallyPeriodicNegative_orbit",
       "statement": "An eventually periodic negative-error orbit with positive phase growth is impossible.",
       "boundary": "The theorem does not cover arbitrary unbounded negative behaviour.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean"
     }
   ],
   "comparator_review": {
@@ -247,7 +247,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6d29381e8c0705925902c70a2b16013267fec627e0ab0d41fe237dddf0a50d67",
+    "source_sha256": "27e7a0b21177828934a91b620742f0209438f412643094ac95f66178beca36ee",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -289,9 +289,9 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 22,
-      "renderer_fingerprint": "e85419265bf94334",
-      "source_sha256": "7dd30aa4144c5a17fcdd59c9b964fbf710eb131abee179a37cf3e7f13ba87194",
+      "renderer_contract_version": 23,
+      "renderer_fingerprint": "7b88de7e4aabfee7",
+      "source_sha256": "f7d7a8d1ad03c411bde081773a2c05228bd46d6433d741e92674253dc474d262",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 302,
@@ -300,8 +300,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "71fc2ceb4311b5d2cf19d64567dad55b39214fbc81638e8aa1c04642fb34aaea",
-      "html_exact_tex_sha256": "fddd29ec61dfa50eb8079229203a8f20d9c598d38cd0c3c8c3c8dec0545b59ba"
+      "html_mathml_sha256": "74de1fa9f33a2c371834240dceaee70b77350bc6375e91f9a94dca926518ec5a",
+      "html_exact_tex_sha256": "4ca1d1873d8f06507a19432e5be5e20fce441769c477812d562c4d0eab788ceb"
     },
     "sections": [
       {
@@ -453,9 +453,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "7dd30aa4144c5a17fcdd59c9b964fbf710eb131abee179a37cf3e7f13ba87194",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
+        "source_sha256": "f7d7a8d1ad03c411bde081773a2c05228bd46d6433d741e92674253dc474d262",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 302,
@@ -464,8 +464,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "71fc2ceb4311b5d2cf19d64567dad55b39214fbc81638e8aa1c04642fb34aaea",
-        "html_exact_tex_sha256": "fddd29ec61dfa50eb8079229203a8f20d9c598d38cd0c3c8c3c8dec0545b59ba"
+        "html_mathml_sha256": "74de1fa9f33a2c371834240dceaee70b77350bc6375e91f9a94dca926518ec5a",
+        "html_exact_tex_sha256": "4ca1d1873d8f06507a19432e5be5e20fce441769c477812d562c4d0eab788ceb"
       },
       "sections": [
         {
@@ -617,9 +617,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "4070d3c7d68a54475766a06266a3dd4aeef9c772fc8062202efe260d64e07a17",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
+        "source_sha256": "834135cd342e7288a7daa7a2be832b81f309e9ae0e5d31abb6502a392a6b71fc",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1640,

@@ -41,7 +41,7 @@
       "id": "palomar",
       "role": "editorial_registry_review",
       "status": "submitted_entries_awaiting_registry_review",
-      "source": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md",
+      "source": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md",
       "boundary": "A prepared review unit is not a submission, Comparator verdict, Palomar review, registration, acceptance, endorsement, novelty assessment, peer review, or solution of an open problem.",
       "release": {
         "release_repository": "https://github.com/wcook04/plectis-erdos-lean",

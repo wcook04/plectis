@@ -113,7 +113,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.threeHalves_no_coordinatewiseCorridor",
       "statement": "The coordinatewise divisibility corridor is impossible at base 3/2.",
       "boundary": "This excludes one proof architecture and proves no irrationality statement.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
     },
     {
       "id": "rational_base_tail_recurrence",
@@ -125,7 +125,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.rationalBaseClearedTailQ_succ",
       "statement": "The rational-base cleared tail obeys its exact first-order recurrence.",
       "boundary": "The recurrence is not derived from a rationality contradiction.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean"
     },
     {
       "id": "rectangular_hp_threshold",
@@ -137,7 +137,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.rectangular_hp_threshold_eq_classical_iff",
       "statement": "For the explicit rectangular two-function exponent model, with real rho and sigma satisfying 0 <= rho and 1 + rho <= sigma, the threshold equals 1/2 - 1/pi^2 exactly when rho = 0 and sigma = 1.",
       "boundary": "This is a sharp no-go only for the explicit rectangular two-function model under the stated real hypotheses; it constructs no approximating polynomials or remainders and is not a universal Pade or Hermite-Pade no-go. It proves no irrationality at 3/2 or any general rational-base endpoint, and the analytic remainder/nonvanishing input remains untreated. No novelty, priority, significance, external-review, or endpoint claim is made; Erdős #1049 remains open.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean"
     }
   ],
   "comparator_review": {
@@ -213,7 +213,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6d29381e8c0705925902c70a2b16013267fec627e0ab0d41fe237dddf0a50d67",
+    "source_sha256": "27e7a0b21177828934a91b620742f0209438f412643094ac95f66178beca36ee",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -255,8 +255,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 22,
-      "renderer_fingerprint": "e85419265bf94334",
+      "renderer_contract_version": 23,
+      "renderer_fingerprint": "7b88de7e4aabfee7",
       "source_sha256": "3270ee095c9c2b2baa38deeacf655a1c732b55615d274732f9a7b55cb69c583f",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -439,8 +439,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
         "source_sha256": "3270ee095c9c2b2baa38deeacf655a1c732b55615d274732f9a7b55cb69c583f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -623,8 +623,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
         "source_sha256": "49076070ebd76212198a71a71c4c6582b594544ac593bca44d1a4f577911dad8",
         "source_manifest_match": true,
         "publication_manifest_match": true,

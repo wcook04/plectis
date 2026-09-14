@@ -51,7 +51,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.volume_mersenneAchievementSet",
       "statement": "The base-2 Mersenne achievement set has Lebesgue measure exactly one.",
       "boundary": "This does not decide whether every infinite-support sum is irrational.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GreedyAchievementSet.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GreedyAchievementSet.lean"
     },
     {
       "id": "erdos_borwein_full_support",
@@ -64,7 +64,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_erdosSum_full_support",
       "statement": "For every integer base b >= 2, the full-support Erdos-Borwein series is irrational.",
       "boundary": "This is the classical full-support theorem, not universal Erdos #257.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean"
     },
     {
       "id": "erdos_support_pairwise_coprime",
@@ -77,7 +77,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_erdosSupportSeries_pairwise_coprime",
       "statement": "For every integer base b >= 2 and every infinite pairwise-coprime support A with summable reciprocal mass, the support-restricted Mersenne series is irrational.",
       "boundary": "This is the pairwise-coprime support theorem, not universal Erdos #257; the infinitude, pairwise-coprimality, and summable-reciprocal hypotheses remain explicit.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean"
     },
     {
       "id": "periodic_nonnegative_weight_irrationality",
@@ -90,7 +90,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_ratWeightSeries_eventuallyPeriodic",
       "statement": "For every integer base b >= 2 and every eventually-periodic nonnegative rational coefficient sequence γ with a positive value at a positive index in its periodic region, the series sum_a γ(a)/(b^a - 1) is irrational.",
       "boundary": "This is the nonnegative rational eventually-periodic coefficient theorem; its nonnegativity, eventual periodicity, and positive-tail hypotheses remain explicit, and the broader mixed-sign periodic theorem is not claimed.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean"
     },
     {
       "id": "orthogonal_petal_sunflower_reduction",
@@ -103,7 +103,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_erdosSupportSeries_of_orthogonalPetalBouquet",
       "statement": "For every support A carrying the finite-core OrthogonalPetalBouquet structure and satisfying the exact uniform SunflowerForcedSlotTailSelection predicate, the base-2 support-restricted Mersenne series erdosSupportSeries 2 A is irrational.",
       "boundary": "This is a conditional reduction: the bouquet structure and uniform tail-selection predicate remain hypotheses; neither is constructed for arbitrary supports, so this does not add an unconditional Erdos #257 support family or solve the universal problem.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SupportSunflowerDichotomy.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SupportSunflowerDichotomy.lean"
     },
     {
       "id": "finite_period_noncollapse",
@@ -115,7 +115,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.finite_period_noncollapse_rat_den_interface",
       "statement": "For a reduced finite Mersenne sum, the base order modulo the denominator equals the support lcm.",
       "boundary": "The finite-support theorem does not settle any infinite-support sum.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CertificateKernel.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CertificateKernel.lean"
     },
     {
       "id": "supported_achievement_measure_dichotomy",
@@ -127,7 +127,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.volume_supportedMersenneAchievementSet_dichotomy",
       "statement": "A support-restricted Mersenne achievement set has exact finite-complement measure or measure zero for infinite complement.",
       "boundary": "The measure dichotomy does not classify rational points.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean"
     },
     {
       "id": "shifted_odd_tail_nat_state",
@@ -139,7 +139,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.exists_shifted_odd_tail_nat_states_of_support_fraction",
       "statement": "A rational support value with a positive support seed and denominator 2^c*v produces a positive natural shifted tail state with an exact binary recurrence and a modular doubling orbit modulo v.",
       "boundary": "This state-extraction theorem does not exclude rational infinite supports or settle universal Erdős #257; the support and rational-value hypotheses remain explicit.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/RationalSupportCarrySkeleton.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RationalSupportCarrySkeleton.lean"
     },
     {
       "id": "boolean_mobius_carry",
@@ -152,7 +152,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.exists_normalized_support_fraction_iff_exists_booleanMobiusCarry",
       "statement": "For p : ℤ and q > 0, a nonempty positive-index support with erdosSupportSeries 2 A = p/q exists exactly when a quotient-only Boolean–Möbius carry certificate exists, with positive square-root-bounded integer orbit, divisible carry differences, and support reconstructed from its Boolean Möbius transform.",
       "boundary": "The equivalence is stated at the existence level with q > 0, 0 ∉ A, and a positive support witness; it gives no contradiction, no universal Erdős #257 irrationality result, and no producer of cofinally nonintegral shifts for the actual recurrence. The generic tempered-orbit theorem and the reciprocal-mass, unbounded-tail, and zero-window results are subordinate consequences, not separate families; the zero-window constant depends on the support and numerator and is not uniform. This does not settle every infinite support, and no novelty, priority, significance, external-review, or unrestricted #257 endpoint claim is made.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusCarry.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusCarry.lean"
     },
     {
       "id": "boolean_mobius_exact_row_dynamics",
@@ -164,7 +164,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.half_mem_mersenneAchievementSet_of_positiveHalfGreedySkips",
       "statement": "If positive rational-greedy skips occur cofinally in the declared sense, the skipped-core construction supplies cofinally many exact local Mersenne half rows and hence (1 / 2 : ℝ) belongs to the Mersenne achievement set.",
       "boundary": "This route is conditional on the unproved CofinalPositiveHalfGreedySkips premise: for every N there is c ≥ max N 4 with a positive greedy remainder below mersenneWeightRat c. A finite exact row or any finite collection of exact rows does not establish that cofinal supply. The result is a conditional 1/2-membership/counterexample route only, not an unconditional solution of Erdős #257; the exact-row, upper-half Boolean-word, rank-two, and endpoint-defect declarations are subordinate mechanism evidence, and no novelty, priority, significance, or external-review claim is made.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/BooleanMobiusSkipRowCofinal.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusSkipRowCofinal.lean"
     },
     {
       "id": "half_membership_seam_classification",
@@ -177,7 +177,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.half_mem_mersenneAchievementSet_iff_unboundedTerminalFalse",
       "statement": "Membership of 1/2 in the Mersenne achievement set is equivalent to unbounded false successor terminal bits, equivalently to an unbounded upper-or-middle successor branch, cofinal terminal-false positions, unbounded skipped ranks along the integer seam, infinite greedy skipped support, and no last half-greedy skip.",
       "boundary": "This exact endpoint-socket classification does not supply any unbounded terminal-false or upper-or-middle occurrences, cofinal supply, skipped-support producer, or half-membership witness; finite exact rows do not establish the required global supply. It is not an unconditional or universal Erdős #257 result, and no novelty, priority, significance, or external-review claim is made.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfCylinderHalfMembershipClassification.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderHalfMembershipClassification.lean"
     },
     {
       "id": "composite_dilation_defect_split",
@@ -190,7 +190,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.supportCoeff_mul_eq_add_defect",
       "statement": "For a positive support element a and positive x, the divisor-count coefficient at a*x splits into the coefficient at x, the distinguished new divisor when a does not divide x, and an exact finite composite-dilation defect.",
       "boundary": "The exact defect is not bounded for arbitrary supports and supplies no tail selector or irrationality theorem; the separate bouquet budget remains conditional on its structural hypotheses.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/CompositeDilationDefect.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CompositeDilationDefect.lean"
     },
     {
       "id": "half_two_adic_band_bound",
@@ -203,7 +203,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.seven_le_of_intBand_odd",
       "statement": "For positive odd integers p, D, and q, the integer form of the two-thirds band forces p ≥ 7; the small odd numerator classes 1, 3, and 5 are therefore excluded.",
       "boundary": "This is local 2-adic band arithmetic: p = 7 is sharp for the stated hypotheses, and the theorem does not prove that an actual half-greedy orbit reaches or avoids the band, nor does it prove half-membership.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/HalfGreedyTwoThirdsBand.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfGreedyTwoThirdsBand.lean"
     }
   ],
   "comparator_review": {
@@ -358,7 +358,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6d29381e8c0705925902c70a2b16013267fec627e0ab0d41fe237dddf0a50d67",
+    "source_sha256": "27e7a0b21177828934a91b620742f0209438f412643094ac95f66178beca36ee",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -400,8 +400,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 22,
-      "renderer_fingerprint": "e85419265bf94334",
+      "renderer_contract_version": 23,
+      "renderer_fingerprint": "7b88de7e4aabfee7",
       "source_sha256": "d3194d8f59eb6b7fd9f22cddb2177a8364f466fb73d29f41a174527fe4886da8",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -596,8 +596,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
         "source_sha256": "d3194d8f59eb6b7fd9f22cddb2177a8364f466fb73d29f41a174527fe4886da8",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -792,9 +792,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "130d650b90da02dd2c297116c5bcdfa1c2e9560fc70dec131597007d3dc1eb45",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
+        "source_sha256": "9f926b96a6154fec820c8d2474d0bb17568a07ed91d6f25c2cc302a6d18bcccb",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 3297,

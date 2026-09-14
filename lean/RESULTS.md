@@ -1777,8 +1777,8 @@ significance, or the still-open Erdős endpoints.
 
 </details>
 
-## Recovered from the front page
-The README is the human front door and is held to a short word budget. The sections below were moved here verbatim so that a cold reader who follows the front page still reaches every statement it used to carry.
+## Problem statements, verification and status
+The problem statements, the external-verification summary, and the status tables the front page points to follow.
 
 ### Problem statements
 
@@ -1797,8 +1797,8 @@ index of the papers.
 | **#1049** | For which rational bases is the corresponding Lambert-type series irrational, beginning with `3/2`? |
 
 The table is the complete problem inventory: no query is required to learn
-which problems exist or what they ask, and reading it does not require
-ai_workflow, a sibling repository, a cache, or network access. It is navigation, not proof
+which problems exist or what they ask, and reading it
+does not require a private repository, a sibling checkout, a cache, or network access. It is navigation, not proof
 authority or a novelty claim. Drilldown is optional and uses only tracked
 public files; it needs no private checkout, sibling repository, cache, or
 network access.
@@ -1883,6 +1883,9 @@ an unsafe band.
 
 ## What remains open
 
+Each problem's section in the [problem-by-problem guide](#problem-by-problem-guide)
+states its own open questions. For the two problems with working records:
+
 - Prove that `S = ∑ φ(n)/2ⁿ` is irrational without placing a bound on a possible
   rational denominator.
 - Produce the unbounded certificate supply required by the exact #249
@@ -1890,7 +1893,7 @@ an unsafe band.
 - Prove irrationality of `∑_{n∈A} 1/(2ⁿ - 1)` for every infinite
   `A ⊆ ℕ`, rather than only the named support families formalised here.
 
-The two working records each close with a section titled "The wall": every
+The #249 and #257 working records each close with a section titled "The wall": every
 attempted argument class is stopped by a stated bound, recorded with what it
 does not rule out.
 

@@ -92,7 +92,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.finrank_totientKernelThroughLevelFamily_eq",
       "statement": "For every e >= 1, the complete dyadic totient kernel through level e has rational span dimension 2^e + 1.",
       "boundary": "This does not prove irrationality of the totient series.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientMahlerDefect.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientMahlerDefect.lean"
     },
     {
       "id": "totient_kernel_infinite_rank",
@@ -105,7 +105,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.not_finiteDimensional_span_fullTotientKernel",
       "statement": "The rational span of the full dyadic totient kernel is not finite-dimensional.",
       "boundary": "The declaration is kernel-checked locally, but full-kernel infinite-dimensionality is not an independent contribution of this release; no rationality-to-finite-rank bridge is proved.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientMahlerDefect.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientMahlerDefect.lean"
     },
     {
       "id": "totient_kernel_basis",
@@ -118,7 +118,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.exists_totientDyadicSectionBasis",
       "statement": "The full dyadic totient kernel span admits the explicit odd-core-indexed basis.",
       "boundary": "The basis theorem does not connect rationality to finite kernel rank.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientMahlerDefect.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientMahlerDefect.lean"
     },
     {
       "id": "totient_kernel_all_base_rank",
@@ -130,7 +130,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.finrank_allBaseTotientKernelThroughLevelFamily_eq_of_linearIndependent",
       "statement": "Under 2 ≤ k, 1 ≤ e, and linear independence of the explicit canonical all-base family, the actual all-base totient kernel through level e has rational span dimension k^e + 1.",
       "boundary": "The linear-independence hypothesis is the external affine-ordering boundary and is not proved here; this does not prove irrationality of the binary totient series.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientKernelConditional.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientKernelConditional.lean"
     },
     {
       "id": "totient_visible_coprime_lattice_mass",
@@ -142,7 +142,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.tsum_pos_coprime_inv_mersenne_eq_one",
       "statement": "The positive coprime Mersenne weights over the visible lattice sum exactly to one, giving the reduced-direction mass behind the fair-coin coprimality form of the totient constant.",
       "boundary": "This is a rational normalization identity and does not prove irrationality of the binary totient series or settle Erdős #249.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GcdMomentCalculus.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GcdMomentCalculus.lean"
     },
     {
       "id": "totient_squared_lambert_gcd_moment",
@@ -154,7 +154,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.tsum_totient_div_mersenne_sq_eq_gcd_moment_series",
       "statement": "At base one half, the squared-Mersenne Lambert series weighted by Euler's totient equals the dyadic series of Pillai's gcd-sum function minus n, the exact first gcd-moment transfer.",
       "boundary": "This exact identity does not prove irrationality of the binary totient series; the constant-weight squared-Lambert irrationality is cited external mathematics, and no Erdős #249 endpoint follows.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GcdMomentCalculus.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GcdMomentCalculus.lean"
     },
     {
       "id": "stern_brocot_run_fibonacci_stability",
@@ -166,7 +166,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.runHeight_defect_fib_sum_lower",
       "statement": "For every finite defect list e, the height of the corresponding positive Stern-Brocot run word is at least F_(r+3) + F_(r+1) times the total defect, where r is the number of runs.",
       "boundary": "This exact combinatorial stability floor does not establish analytic denominator survival, irrationality of the binary totient series, or novelty; no Erdős #249 endpoint follows.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/SternBrocotRunGeometry.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SternBrocotRunGeometry.lean"
     },
     {
       "id": "stern_brocot_cylinder_mass_split",
@@ -178,7 +178,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.cylinderMass_split",
       "statement": "At every positive Stern-Brocot node (a,b), the closed cylinder mass splits exactly into the node's stop mass and the two child cylinder masses.",
       "boundary": "This exact telescoping recursion and its geometric interpretation do not prove irrationality of the binary totient series or novelty; the #249 endpoint remains open.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/GcdMomentCalculus.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/GcdMomentCalculus.lean"
     },
     {
       "id": "lcm_factor_ideal_shift_algebra_no_go",
@@ -191,7 +191,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.lcm_factorIdeal_finiteRank_shiftAlgebra_not_sufficient",
       "statement": "For every t >= 3, a nonzero synthetic dyadic coboundary survives every finite integer shift polynomial while retaining the period-LCM totient factor ideals, exact cleared-prefix cancellation, and uniform state and letter bounds.",
       "boundary": "The witness is synthetic: it does not assert that its forcing letters are actual totient differences, does not address nonlinear combinations, and leaves the unbounded certificate supply for Erdős #249 open.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/LcmFactorIdealPulseObstruction.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/LcmFactorIdealPulseObstruction.lean"
     },
     {
       "id": "fixed_precision_transport_no_go",
@@ -204,7 +204,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.fixedPrecisionTropicalNoGo",
       "statement": "For every positive fixed precision, every finite word of odd valuation-unit symbols and every incoming integer carry state admit a compatible orbit whose successive states stay within the corresponding valuation-unit radii; fixed-precision local signatures therefore do not by themselves exclude finite centred completions.",
       "boundary": "This is a synthetic finite-word construction with unrestricted incoming/high quotient states. It does not impose the actual totient-difference relation or provide growing-precision/global correlation, and it gives no Erdős #249 endpoint or irrationality result. No novelty or priority claim is made. The one-step and finite-word completion theorems are subordinate mechanisms, not separate families.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TropicalCurvatureCarry.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TropicalCurvatureCarry.lean"
     },
     {
       "id": "actual_lcm_orbit_separation",
@@ -217,7 +217,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_totientSeries_of_actualLcmOrbitSeparationSupply",
       "statement": "A cofinal quantitative separation supply for the actual power-two LCM tail orbit implies irrationality of the binary totient series.",
       "boundary": "The cofinal separation supply is an open premise, stronger than mere non-integrality; this sufficient route is not an equivalence and leaves the punctured/top-edge boundary and the Erdős #249 endpoint open.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientActualLcmOrbitSeparation.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientActualLcmOrbitSeparation.lean"
     },
     {
       "id": "actual_foreign_residue_projection",
@@ -230,7 +230,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.scaleFullTarget_miss_of_projected_separation",
       "statement": "The finite Möbius residue diagonal splits into projected foreign and divisor channels, every finite stable foreign-tail window obeys a closed geometric bound, and a controlled projection separated from every integer forces the full target to be missed.",
       "boundary": "This is a conditional finite partition/geometric-majorant reduction with a generic complement-noncancellation consumer. The ControlledForeignProjection analytic bridge and any unbounded separated-projection supply remain unproved; no Erdős #249 endpoint, novelty, significance, priority, or external-review claim is made.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/ActualForeignResidueProjection.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/ActualForeignResidueProjection.lean"
     },
     {
       "id": "first_harmonic_pivot_decomposition",
@@ -243,7 +243,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_totient_series_of_pivotResidualDecorrelation",
       "statement": "The exact first-harmonic pivot decomposition and its 9X/10 gap yield a finite certificate whenever the stated PivotBudgetAt bounds hold, and the cofinal pivot-residual-decorrelation socket implies irrationality of the binary totient series.",
       "boundary": "The four-term decomposition and 9X/10 gap remain conditional on the explicit dyadic-room and PivotBudgetAt hypotheses; the cofinal decorrelation producer is unproved. The fibre/image lemmas do not give global supplier-prime isolation or a prime-distribution estimate, and no Erdős #249 irrationality conclusion is claimed.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/FirstHarmonicPivot.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/FirstHarmonicPivot.lean"
     },
     {
       "id": "strict_prime_tail_orbit_gap",
@@ -256,7 +256,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap",
       "statement": "An 11/100 nonpositive-phase density on arbitrarily late dyadic blocks yields an 89/100 first-harmonic saving and a finite 9/10 gap; alternatively, a cofinal natural-prime tail-orbit strict gap below 9/10 yields adaptive pivot escape and conditional irrationality. The exact initial phase is the scaled-angle character of (2^h - 1) times the series, and the strict-gap route is an orbit of repeated squaring from that phase.",
       "boundary": "The phase-density, cofinal natural-prime strict-gap, associated uniform-margin, and cofinal nonpositive-prime-shift producers remain unproved for the actual totient orbit. Exact phase/integrality equivalence, finite dyadic-root exclusion for 1 ≤ h ≤ 16 and k ≤ 14, and non-dyadicity-to-cofinal-nonpositive-phase implications are classification or finite evidence only; they do not supply density or prime alignment, and the source does not prove actual root entry. This is a conditional reduction only: no unconditional Erdős #249 endpoint, novelty, priority, significance, or external-review claim is made. It is distinct from the finite first_harmonic_pivot_decomposition and actual_lcm_orbit_separation families.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean"
     },
     {
       "id": "totient_carry_anti_compression",
@@ -269,7 +269,7 @@
       "wrapper_declaration": "Erdos249257.ExternalVerification.not_irrational_totientSeries_implies_mod_period_and_unbounded_rank",
       "statement": "If the binary totient coefficient series were rational, one positive-multiplier tempered integral carry has dyadic sections uniformly eventually periodic modulo its multiplier and canonical carry-section span dimension at least 2^e − 1 for every e.",
       "boundary": "This is a necessary consequence of rationality only: it gives no contradiction, no finite-rank upper bound for a rationality-supplied carry, and no irrationality proof for Erdős #249. Modulo a divisor of the multiplier, the forcing disappears and the carry becomes geometric, so quotient periodicity alone supplies no finite-ℚ-rank upper bound. The coefficient-side kernel-rank and certificate-equivalence families are not duplicated, and #249 remains open.",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/Erdos249257/TotientTailCarryPeriod.lean"
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TotientTailCarryPeriod.lean"
     }
   ],
   "comparator_review": {
@@ -505,7 +505,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6d29381e8c0705925902c70a2b16013267fec627e0ab0d41fe237dddf0a50d67",
+    "source_sha256": "27e7a0b21177828934a91b620742f0209438f412643094ac95f66178beca36ee",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -520,7 +520,7 @@
   "palomar": {
     "review_unit": "cmp:249:finrank_totient_kernel",
     "status": "prepared_without_public_outcome",
-    "source": "https://github.com/wcook04/plectis/blob/main/COMPARATOR_PALOMAR.md"
+    "source": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md"
   },
   "paper": {
     "schema": "plectis_lean_paper_v1",
@@ -551,8 +551,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 22,
-      "renderer_fingerprint": "e85419265bf94334",
+      "renderer_contract_version": 23,
+      "renderer_fingerprint": "7b88de7e4aabfee7",
       "source_sha256": "8436611e9df1d0d6fc4c0d69b40f361f577c080489b5fea554111e1e81961c85",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -685,8 +685,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
         "source_sha256": "8436611e9df1d0d6fc4c0d69b40f361f577c080489b5fea554111e1e81961c85",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -819,9 +819,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 22,
-        "renderer_fingerprint": "e85419265bf94334",
-        "source_sha256": "d970375e1337b091621f8e766d855e63537ba04cf24c0f81717d11d86480b7d6",
+        "renderer_contract_version": 23,
+        "renderer_fingerprint": "7b88de7e4aabfee7",
+        "source_sha256": "e9494f2d6749914a4d730213174e0a6346a52232d1e8c647cabf15f6ee9cfb8e",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 3200,
