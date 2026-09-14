@@ -5,7 +5,7 @@
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Open-source research strategy",
-  "pages": 20,
+  "pages": 21,
   "question": "How can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?",
   "precis": "A public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erdős problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.",
   "owns": "the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons",
@@ -29,7 +29,7 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 23,
     "renderer_fingerprint": "7b88de7e4aabfee7",
-    "source_sha256": "695672fa251f0a6ee75fe1f5c74e63a577bd68a7ed5310dab9d7fcddd304f585",
+    "source_sha256": "68b4811f873f90220e373b6734d354113dc58c76be07d52752ee6056c420e16c",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 7,
@@ -55,8 +55,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "b5915c466ce72082a8344a2e2d0c9eaf28e33fcadd9e5f4242293f17171af04e",
-    "html_exact_tex_sha256": "2996284cc72b966e30e63640c6cf95e065a0cdad141d391b1b200f19ec2fe43b"
+    "html_mathml_sha256": "0dc54803d99bdccf1b8e44c02ae0c6418f0683980d651846d128fbdd1c1e2f42",
+    "html_exact_tex_sha256": "15ed9025c8349237313aebdbd4fd434408b04bdfe080e136b431a70d39c135d4"
   },
   "sections": [
     {
@@ -143,6 +143,11 @@
       "level": 5,
       "anchor": "open-agent-platforms.",
       "label": "Open agent platforms."
+    },
+    {
+      "level": 5,
+      "anchor": "semi-autonomous-discovery-on-the-erdős-problems.",
+      "label": "Semi-autonomous discovery on the Erdős problems."
     },
     {
       "level": 5,

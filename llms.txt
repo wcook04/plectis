@@ -99,7 +99,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 47 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
 - [claim-faithful-publication-systems (Research architecture, 20 pp.)](maths/papers/claim-faithful-publication-systems.html)
 - [cold-clone-to-proof-receipt (Agent navigation, 11 pp.)](maths/papers/cold-clone-to-proof-receipt.html)
-- [open-source-mathematics-strategy (Open-source research strategy, 20 pp.)](maths/papers/open-source-mathematics-strategy.html)
+- [open-source-mathematics-strategy (Open-source research strategy, 21 pp.)](maths/papers/open-source-mathematics-strategy.html)
 - [plectis-public-system (Evidence boundary, 22 pp.)](maths/papers/plectis-public-system.html)
 - [Repository overview](maths/documents/readme.html)
 - [A reader's way in](maths/documents/reading-guide.html)

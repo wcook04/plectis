@@ -70,7 +70,8 @@ untested outside author-operated runs.
 The paper gives a production model, contribution protocol, trust and security
 boundary, attribution policy, comparison with volunteer computing,
 Polymath-style collaboration, formalisation projects, the Prove2Me platform,
-and multi-agent proof systems, and an evaluation agenda.  Mathematics is the initial domain because
+the Aletheia case study, and multi-agent proof systems, and an evaluation
+agenda.  Mathematics is the initial domain because
 its objects are digital and formal claims can be checked incrementally.  Any
 later extension to experimental science would require domain scientists,
 physical laboratories, safety governance, and new evidential authorities.
@@ -616,6 +617,16 @@ problem.  Formal verification therefore strengthens one layer of evidence;
 it does not collapse correctness, intended meaning, novelty, significance,
 and community acceptance into a single status.
 
+Feng et al.\ measured this gap on the Erd\H{o}s problems themselves
+\cite{aletheia}.  Their agent worked the 700 problems then marked open in
+Bloom's database; human graders assessed 200 candidate solutions, found 63
+technically correct and 13 meaningfully correct, and traced the fifty vacuous
+solutions to statements that had been misread or mistranscribed.  The
+lengthiest step of their study was deciding whether a correct solution was
+new and whether it addressed the intended problem.  Their pipeline placed an
+automated natural-language verifier before scarce human experts, and the
+funnel below has the same shape.
+
 The project uses a deliberately asymmetric attention funnel:
 
 \begin{enumerate}
@@ -676,6 +687,11 @@ commits or theorems.  A return may contain:
       and check.
 \end{itemize}
 
+Two of these classes have measured value.  Feng et al.\ found that
+literature identification was the lengthiest step of their Erd\H{o}s study
+and that misread statements produced most of their vacuous solutions, so they
+proposed revised statements as a deliverable \cite{aletheia}.
+
 These items should not be placed on one scalar leaderboard.  Compute volume,
 mathematical depth, software quality, correction work, exposition, and review
 are not commensurable.  A public recognition view can instead expose the
@@ -689,7 +705,11 @@ The default promise is simple: the project does not demand ownership of a
 contributor's underlying idea in exchange for adoption.  If a mathematical or
 architectural contribution is assimilated, the public lineage should continue
 to name who originated it and what survived.  Substantial authorship and
-formal publication decisions remain separate judgements.  A role ledger is
+formal publication decisions remain separate judgements.  Feng et al.\ hold
+that mathematics papers should always be authored by humans because
+authorship carries accountability for validity and attribution
+\cite{aletheia}; this project applies the same rule, and its manuscripts name
+one human author with the agents disclosed as production tools.  A role ledger is
 more honest than either a winner-takes-all solver credit or a pseudonymous
 collective record when the project can preserve exact provenance.
 
@@ -874,6 +894,23 @@ a role ledger over evidence classes, including failed routes, no-go theorems,
 and corrections.  This paper does not claim that the second design is better.
 Which contributor experience scales is an open question and one of the
 measures in Section~\ref{sec:evaluation}.
+
+\paragraph{Semi-autonomous discovery on the Erd\H{o}s problems.}
+Feng et al.\ ran a research agent built on Gemini Deep Think over the 700
+problems then marked open in Bloom's database and published the full
+accounting \cite{aletheia}: from 200 graded candidates, two autonomous
+resolutions, two partial solutions, four independent rediscoveries, and five
+literature identifications.  They classify outcomes by novelty as well as
+correctness, cede priority wherever a prior human argument exists, name the
+risk that a model reproduces a training-set argument without attribution, and
+warn that a correct proof of a mistranscribed statement settles nothing;
+their Erd\H{o}s-75 appendix is the specimen.  Each of those distinctions is
+an evidence class or a review step in this paper, and their study is the
+prior published demonstration that the distinctions matter at scale.  Their
+run was a single-organisation sweep with a human grading team, released once
+with raw outputs; the commons here is a persistent per-problem record that
+anyone can extend.  None of this repository's eight problems appears in their
+results.
 
 \paragraph{Proof abundance.}
 Tao separates problem solving into generation, verification, exposition,
@@ -1461,6 +1498,11 @@ for Scalable Human--AI Collaborative Formalization}, 2026,
 S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, \emph{Prove2Me: An Open
 Collaborative Platform for Scaling Math Formalization}, 2026,
 \href{https://arxiv.org/abs/2608.28433}{arXiv:2608.28433}.
+
+\bibitem{aletheia}
+T. Feng, T. Trinh, G. Bingham, et al., \emph{Semi-Autonomous Mathematics
+Discovery with Gemini: A Case Study on the Erd\H{o}s Problems}, 2026,
+\href{https://arxiv.org/abs/2601.22401}{arXiv:2601.22401}.
 
 \bibitem{credit}
 NISO, \emph{CRediT: Contributor Roles Taxonomy},

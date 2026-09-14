@@ -117,6 +117,17 @@ reviewed sentence without making the review correct. External attention can
 signal interest without validating a proof. The architecture exists to keep
 these questions separate while allowing work to move between them.
 
+The gap between these questions has been measured on the same problem family.
+Feng et al.\ ran a research agent built on Gemini Deep Think over 700 open
+Erd\H{o}s problems and had humans grade 200 candidate solutions: 63 were
+technically correct and 13 were meaningfully correct, the rest having answered
+a misread or mistranscribed statement, and their Erd\H{o}s-75 appendix
+documents a correct proof of a formulation that was itself flawed
+\cite{aletheia}. They report that deciding novelty and intent took longer
+than checking correctness, and that formal verification helps with neither.
+Those findings predate this paper and are the empirical case for the
+separation it implements.
+
 The \href{\repobase}{public repository studied here} contains Lean source,
 papers, and release machinery around eight open Erd\H{o}s problems. At this
 revision all eight problems remain open. The repository contains substantial
@@ -960,7 +971,11 @@ The remaining design choices follow the same programme. Tool use is disclosed;
 models are not listed as authors; human contributors retain differentiated
 credit; references and source paths are inspectable; automatic checks filter
 work without impersonating peer review; and theorem counts do not determine
-value. The repository turns those recommendations into an implementation
+value. Feng et al.\ state the authorship rule directly: mathematics papers
+should be authored by humans even when the generated content is correct,
+because authorship carries accountability for validity and attribution
+\cite{aletheia}. The provenance note on the first page follows that rule. The
+repository turns those recommendations into an implementation
 experiment: it asks how a small project can
 prepare for proof abundance without confusing abundant output with collective
 mathematical progress.
@@ -1313,6 +1328,20 @@ exist. The corpus here is a clone with no service behind it, its endpoints are
 open problems, and its records carry failed routes, obstruction theorems, and
 claim ceilings alongside proved statements.
 
+\paragraph{Semi-autonomous discovery studies.}
+Feng et al.\ describe a hybrid pipeline in which an automated
+natural-language verifier narrows an agent's candidates before a small expert
+team grades them, a four-way outcome taxonomy (autonomous resolution, partial
+solution, independent rediscovery, literature identification), revised
+problem statements as a deliverable, and the risk that a model reproduces a
+training-set argument without attribution \cite{aletheia}. Those are the
+distinctions this architecture records as typed fields: evidence class, claim
+ceiling, source locator, and reviewed wording. Their study is a one-time
+sweep by one organisation, reported after human rewriting; the corpus here is
+a persistent public record over eight problems, none of which appears in
+their results. The paper claims no priority over their taxonomy and reports
+no comparison of the two review processes.
+
 \paragraph{Graphs and checked exposition.}
 Proof blueprints connect informal proof plans to named Lean declarations.
 \texttt{leanblueprint} checks that author-supplied declaration names exist,
@@ -1492,6 +1521,9 @@ Economics \& Computation Research}, 2026,
 \bibitem{prove2me} S.~Chen, K.~Marwaha, X.~Lu, H.~Yuen, and T.~Peng,
 \emph{Prove2Me: An Open Collaborative Platform for Scaling Math
 Formalization}, 2026, \href{https://doi.org/10.48550/arXiv.2608.28433}{arXiv}.
+\bibitem{aletheia} T.~Feng, T.~Trinh, G.~Bingham, et al., \emph{Semi-Autonomous
+Mathematics Discovery with Gemini: A Case Study on the Erd\H{o}s Problems},
+2026, \href{https://doi.org/10.48550/arXiv.2601.22401}{arXiv}.
 \bibitem{isadof} A.~D.~Brucker and B.~Wolff, \emph{Isabelle/DOF: Design and
 Implementation}, in \emph{Software Engineering and Formal Methods}, 2019,
 pp.~275--293.

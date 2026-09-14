@@ -402,6 +402,16 @@ weak to settle the problem. Formal verification therefore strengthens
 one layer of evidence; it does not collapse correctness, intended
 meaning, novelty, significance, and community acceptance into a single
 status.</p>
+<p>Feng et al. measured this gap on the Erdős problems themselves <span
+class="citation" data-cites="aletheia"></span>. Their agent worked the
+700 problems then marked open in Bloom’s database; human graders
+assessed 200 candidate solutions, found 63 technically correct and 13
+meaningfully correct, and traced the fifty vacuous solutions to
+statements that had been misread or mistranscribed. The lengthiest step
+of their study was deciding whether a correct solution was new and
+whether it addressed the intended problem. Their pipeline placed an
+automated natural-language verifier before scarce human experts, and the
+funnel below has the same shape.</p>
 <p>The project uses a deliberately asymmetric attention funnel:</p>
 <ol>
 <li><p><strong>Candidate.</strong> A person or agent returns a scoped
@@ -465,6 +475,11 @@ or</p></li>
 <li><p>exposition or review that changes what another person can
 understand and check.</p></li>
 </ul>
+<p>Two of these classes have measured value. Feng et al. found that
+literature identification was the lengthiest step of their Erdős study
+and that misread statements produced most of their vacuous solutions, so
+they proposed revised statements as a deliverable <span class="citation"
+data-cites="aletheia"><a href="#ref-14">[14]</a></span>.</p>
 <p>These items should not be placed on one scalar leaderboard. Compute
 volume, mathematical depth, software quality, correction work,
 exposition, and review are not commensurable. A public recognition view
@@ -473,16 +488,21 @@ classes, problem or architecture area, and contribution roles. The
 current receipt schema supports the fourteen CRediT roles as an optional
 vocabulary, including conceptualisation, methodology, software,
 validation, investigation, and writing <span class="citation"
-data-cites="credit"><a href="#ref-14">[14]</a></span>. CRediT describes work; it does not decide
+data-cites="credit"><a href="#ref-15">[15]</a></span>. CRediT describes work; it does not decide
 authorship.</p>
 <p>The default promise is simple: the project does not demand ownership
 of a contributor’s underlying idea in exchange for adoption. If a
 mathematical or architectural contribution is assimilated, the public
 lineage should continue to name who originated it and what survived.
 Substantial authorship and formal publication decisions remain separate
-judgements. A role ledger is more honest than either a winner-takes-all
-solver credit or a pseudonymous collective record when the project can
-preserve exact provenance.</p>
+judgements. Feng et al. hold that mathematics papers should always be
+authored by humans because authorship carries accountability for
+validity and attribution <span class="citation"
+data-cites="aletheia"><a href="#ref-14">[14]</a></span>; this project applies the same rule, and
+its manuscripts name one human author with the agents disclosed as
+production tools. A role ledger is more honest than either a
+winner-takes-all solver credit or a pseudonymous collective record when
+the project can preserve exact provenance.</p>
 <p>The same rule applies when a local result is carried into a broader
 library. The ledger should distinguish the person or run that produced
 the local observation from the expert who recognised its natural
@@ -574,7 +594,7 @@ continuous-integration jobs must not execute fork code with repository
 secrets. In particular, a GitHub <code>pull_request_target</code>
 workflow must not check out and execute an untrusted fork; GitHub
 documents that combination as a route to secret leakage and repository
-compromise <span class="citation" data-cites="githubsecurity"><a href="#ref-15">[15]</a></span>.
+compromise <span class="citation" data-cites="githubsecurity"><a href="#ref-16">[16]</a></span>.
 Initial checks should run with read-only permissions, no secrets,
 bounded resources, and explicit artefact retention. Promotion to trusted
 infrastructure is a later review decision.</p>
@@ -682,6 +702,26 @@ classes, including failed routes, no-go theorems, and corrections. This
 paper does not claim that the second design is better. Which contributor
 experience scales is an open question and one of the measures in
 Section .</p>
+</section>
+<section id="semi-autonomous-discovery-on-the-erdős-problems."
+class="level5">
+<h5>Semi-autonomous discovery on the Erdős problems.</h5>
+<p>Feng et al. ran a research agent built on Gemini Deep Think over the
+700 problems then marked open in Bloom’s database and published the full
+accounting <span class="citation" data-cites="aletheia"><a href="#ref-14">[14]</a></span>: from
+200 graded candidates, two autonomous resolutions, two partial
+solutions, four independent rediscoveries, and five literature
+identifications. They classify outcomes by novelty as well as
+correctness, cede priority wherever a prior human argument exists, name
+the risk that a model reproduces a training-set argument without
+attribution, and warn that a correct proof of a mistranscribed statement
+settles nothing; their Erdős-75 appendix is the specimen. Each of those
+distinctions is an evidence class or a review step in this paper, and
+their study is the prior published demonstration that the distinctions
+matter at scale. Their run was a single-organisation sweep with a human
+grading team, released once with raw outputs; the commons here is a
+persistent per-problem record that anyone can extend. None of this
+repository’s eight problems appears in their results.</p>
 </section>
 <section id="proof-abundance." class="level5">
 <h5>Proof abundance.</h5>
@@ -837,7 +877,7 @@ later study.</p>
 <p>Yuan et al. provide a useful precedent for the missing external test:
 two student teams attempted an end-to-end build from public
 documentation for scientific hardware designed more than a decade
-earlier <span class="citation" data-cites="documentationtest"><a href="#ref-16">[16]</a></span>.
+earlier <span class="citation" data-cites="documentationtest"><a href="#ref-17">[17]</a></span>.
 Their study concerns open-source hardware in large collaborations, not
 formal mathematics, and does not validate this repository’s route. It
 supplies a precedent for testing accessibility by asking outsiders to
@@ -1291,13 +1331,17 @@ href="https://arxiv.org/abs/2603.06737">arXiv:2603.06737</a>.</p></li>
 href="https://arxiv.org/abs/2604.16347">arXiv:2604.16347</a>.</p></li>
 <li id="ref-13"><p>S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, , 2026, <a
 href="https://arxiv.org/abs/2608.28433">arXiv:2608.28433</a>.</p></li>
-<li id="ref-14"><p>NISO, , <a
+<li id="ref-14"><p>T. Feng, T. Trinh, G. Bingham, et al., <em>Semi-Autonomous
+Mathematics Discovery with Gemini: A Case Study on the Erdős
+Problems</em>, 2026, <a
+href="https://arxiv.org/abs/2601.22401">arXiv:2601.22401</a>.</p></li>
+<li id="ref-15"><p>NISO, , <a
 href="https://credit.niso.org/contributor-roles-defined/">role
 definitions</a>, accessed August 2026.</p></li>
-<li id="ref-15"><p>GitHub, , GitHub Actions security guidance, <a
+<li id="ref-16"><p>GitHub, , GitHub Actions security guidance, <a
 href="https://docs.github.com/en/actions/reference/security/secure-use">documentation</a>,
 accessed August 2026.</p></li>
-<li id="ref-16"><p>M. Yuan et al., , 2023, <a
+<li id="ref-17"><p>M. Yuan et al., , 2023, <a
 href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
 </ol>
 </section>
