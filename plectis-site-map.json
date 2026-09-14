@@ -6033,7 +6033,7 @@
     "artifact_path": "assets/site-packet.js",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.assets/site-packet.js",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:b3e8616e7554aac8394ad890c0a6afb67c7ff087ff9ac7fbd6993babe60f8d66",
+    "payload_sha256_excluding_identity": "sha256:db86ae9316c5ce3ed4e5b07f3cee90e63c99fbad8405a5d17af3939d0d6d8991",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_site_json_map_packet_v2",
     "source_fingerprint": "b3cd770524cbb9159e9e9ab24fe554b1"
@@ -7142,11 +7142,11 @@
       ],
       "title": "One-page introduction",
       "visible_text": {
-        "byte_count": 5212,
+        "byte_count": 7113,
         "format": "markdown",
         "packaging": "full_public_main_content_markdown_without_repeated_global_nav",
         "schema": "microcosm_public_page_visible_text_v1",
-        "text": "Getting started\n\n### Plectis\n\nResearch with AI, mathematics and software\n\nWill Cook September 2026 One page\n\n[PDF Open the PDF](assets/plectis-one-page.pdf) The same page as a manuscript.\n\nI built Plectis to pursue research I found interesting with AI, and to make a back-and-forth with human experts possible. I choose a direction, work at it and prepare the results for someone who can interpret them. Their feedback changes the next direction; I work on that and return, [recording their contribution and where later work builds on it](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md). An expert should be able to shape the research without having to operate the AI.\n\nI have time and prompting experience, but limited mathematical knowledge. I chose mathematics because formal proofs can be checked, while interpretation and significance still require judgement. That lets me explore how far I can get, where I need help, and how those boundaries change as models improve. The name draws on [_plectere_](https://cld.bbaw.de/lemma/lat/plecto), to weave or twist: bringing different capabilities into the same work.\n\nThe [Navier\u2013Stokes announcement](https://openai.com/index/navier-stokes-solution/) makes the question more immediate. If comparable capabilities reach inexpensive open models, output could exceed what experts can examine. [Tao and his co-signatories](https://terrytao.wordpress.com/2026/09/11/a-severe-misalignment-of-ai-in-mathematics/) distinguish solving problems from developing understanding. I think mathematics needs a floor for AI-assisted submissions: intelligible arguments, appropriate checks, clear limitations and attribution. Meeting it should make engagement easier, not create an entitlement to review. Experts can favour well-prepared work, giving producers an incentive to reduce the burden they impose.\n\nThe [mathematics repository](https://github.com/wcook04/plectis-erdos) prototypes that floor around eight deliberately difficult Erd\u0151s problems. All remain open. Its [problem pages](maths/index.html) join partial results, computations, Lean proofs and Comparator checks of selected statements. Short papers introduce the mathematics; longer records retain the reasoning for researchers and agents. For [#251](maths/problems/erdos_251.html), constructed sequences imitate features of prime gaps but give rational sums, exposing what a proof would need beyond those features. Preparing Palomar submissions also produced a [merged renderer fix](https://github.com/PalomarRegistry/PalomarSubmission/pull/137). I have concentrated on exposition and interesting intermediate results rather than formalising everything.\n\nNineteenth-century mariners [contributed observations and received improved sailing charts](https://www.usni.org/magazines/proceedings/1893/july/origin-and-work-division-marine-meteorology-hydrographic-office). Each voyage benefited from what other crews had learnt. Plectis is designed around that cumulative approach. Failed routes remain alongside successful lemmas, with their conditions and limitations. Someone else, or a future model, may connect those observations differently, find another route or formulate a better question.\n\nThe [website](index.html) is the human wrapper. Its [mathematics map](maths/universe.html) connects questions, claims, papers and formal source; the [glossary](docs/glossary.html) explains terminology. A downloadable [source brief](plectis-reviewer-brief.json) lets readers explore with their own assistant. Agents help prepare these views from the underlying work. I want increasing intelligence applied to making complexity manageable, not just producing more of it. A reader should encounter the depth they need, without losing the route to what an explanation leaves out.\n\nThe [software repository](https://github.com/wcook04/plectis) applies this beyond mathematics. Its [component pages](docs/components.html) expose code, examples and checks; one [audit example](docs/component-agent-closeout-faithfulness-audit.html) checks completion reports against actual commits and test runs in a sample repository. The [front-end recordings](index.html#demo-videos) show navigation from system maps into files and agent activity. This is the direction I want for auditing agent-run organisations, not evidence that the whole private system is reliable. Uncertainty about releasing it led me to [publish testable parts instead](maths/papers/plectis-public-system.html).\n\nThe [safety doctrine](docs/doctrine.html) sets out axioms, principles and anti-principles; checks and permissions enforce particular rules. My [June questions](docs/open-questions.html) ask how model capability, operating environments and independent scrutiny interact. The [systems](maths/papers/claim-faithful-publication-systems.html) and [open-source](maths/papers/open-source-mathematics-strategy.html) papers explain how people can contribute direction, review, exposition, software or compute. The back-and-forth still needs testing with independent collaborators. My aim is for improving AI to multiply what an expert can direct and understand, rather than multiply the output waiting on their desk."
+        "text": "Getting started\n\n### Plectis\n\nResearch with AI, mathematics and software\n\nWill Cook September 2026 One page\n\n[PDF Open the PDF](assets/plectis-one-page.pdf) The same page as a manuscript.\n\nI built Plectis to pursue research I found interesting with AI, and to make a back-and-forth with human experts possible. I choose a direction, work at it and prepare the results for someone who can interpret them. Their feedback changes the next direction; I work on that and return, [recording their contribution and where later work builds on it](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md) [1](docs/introduction.html#intro-source-1). An expert should be able to shape the research without having to operate the AI.\n\nI have time and prompting experience, but limited mathematical knowledge. I chose mathematics because formal proofs can be checked, while interpretation and significance still require judgement. That lets me explore how far I can get, where I need help, and how those boundaries change as models improve. The name draws on [_plectere_](https://cld.bbaw.de/lemma/lat/plecto) [2](docs/introduction.html#intro-source-2), to weave or twist: bringing different capabilities into the same work.\n\nThe [Navier\u2013Stokes announcement](https://openai.com/index/navier-stokes-solution/) [3](docs/introduction.html#intro-source-3) makes the question more immediate. If comparable capabilities reach inexpensive open models, output could exceed what experts can examine. [Tao and his co-signatories](https://terrytao.wordpress.com/2026/09/11/a-severe-misalignment-of-ai-in-mathematics/) [4](docs/introduction.html#intro-source-4) distinguish solving problems from developing understanding. I think mathematics needs a floor for AI-assisted submissions: intelligible arguments, appropriate checks, clear limitations and attribution. Meeting it should make engagement easier, not create an entitlement to review. Experts can favour well-prepared work, giving producers an incentive to reduce the burden they impose.\n\nThe [mathematics repository](https://github.com/wcook04/plectis-erdos) [5](docs/introduction.html#intro-source-5) prototypes that floor around eight deliberately difficult Erd\u0151s problems. All remain open. Its [problem pages](maths/index.html) join partial results, computations, Lean proofs and Comparator checks of selected statements. Short papers introduce the mathematics; longer records retain the reasoning for researchers and agents. For [#251](maths/problems/erdos_251.html), constructed sequences imitate features of prime gaps but give rational sums, exposing what a proof would need beyond those features. Preparing Palomar submissions also produced a [merged renderer fix](https://github.com/PalomarRegistry/PalomarSubmission/pull/137) [6](docs/introduction.html#intro-source-6). I have concentrated on exposition and interesting intermediate results rather than formalising everything.\n\nNineteenth-century mariners [contributed observations and received improved sailing charts](https://www.usni.org/magazines/proceedings/1893/july/origin-and-work-division-marine-meteorology-hydrographic-office) [7](docs/introduction.html#intro-source-7). Each voyage benefited from what other crews had learnt. Plectis is designed around that cumulative approach. Failed routes remain alongside successful lemmas, with their conditions and limitations. Someone else, or a future model, may connect those observations differently, find another route or formulate a better question.\n\nThe [website](index.html) is the human wrapper. Its [mathematics map](maths/universe.html) connects questions, claims, papers and formal source; the [glossary](docs/glossary.html) explains terminology. A downloadable [source brief](plectis-reviewer-brief.json) lets readers explore with their own assistant. Agents help prepare these views from the underlying work. I want increasing intelligence applied to making complexity manageable, not just producing more of it. A reader should encounter the depth they need, without losing the route to what an explanation leaves out.\n\nThe [software repository](https://github.com/wcook04/plectis) [8](docs/introduction.html#intro-source-8) applies this beyond mathematics. Its [component pages](docs/components.html) expose code, examples and checks; one [audit example](docs/component-agent-closeout-faithfulness-audit.html) checks completion reports against actual commits and test runs in a sample repository. The [front-end recordings](index.html#demo-videos) show navigation from system maps into files and agent activity. This is the direction I want for auditing agent-run organisations, not evidence that the whole private system is reliable. Uncertainty about releasing it led me to [publish testable parts instead](maths/papers/plectis-public-system.html).\n\nThe [safety doctrine](docs/doctrine.html) sets out axioms, principles and anti-principles; checks and permissions enforce particular rules. My [June questions](docs/open-questions.html) ask how model capability, operating environments and independent scrutiny interact. The [systems](maths/papers/claim-faithful-publication-systems.html) and [open-source](maths/papers/open-source-mathematics-strategy.html) papers explain how people can contribute direction, review, exposition, software or compute. The back-and-forth still needs testing with independent collaborators. My aim is for improving AI to multiply what an expert can direct and understand, rather than multiply the output waiting on their desk.\n\nSources\n1. Plectis, credit policy, `docs/research-commons/CREDIT_POLICY.md` in the mathematics repository. [github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md](https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md)\n2. Corpus of Latin Dictionaries (BBAW), lemma _plecto_. [cld.bbaw.de/lemma/lat/plecto](https://cld.bbaw.de/lemma/lat/plecto)\n3. OpenAI, _On the Navier\u2013Stokes Millennium Prize Problem_. [openai.com/index/navier-stokes-solution/](https://openai.com/index/navier-stokes-solution/)\n4. T. Tao and co-signatories, _A severe misalignment of AI in mathematics_, 11 September 2026. [terrytao.wordpress.com/2026/09/11/a-severe-misalignment-of-ai-in-mathematics/](https://terrytao.wordpress.com/2026/09/11/a-severe-misalignment-of-ai-in-mathematics/)\n5. Plectis mathematics repository. [github.com/wcook04/plectis-erdos](https://github.com/wcook04/plectis-erdos)\n6. PalomarSubmission, pull request 137. [github.com/PalomarRegistry/PalomarSubmission/pull/137](https://github.com/PalomarRegistry/PalomarSubmission/pull/137)\n7. _The Origin and Work of the Division of Marine Meteorology, Hydrographic Office_, U.S. Naval Institute Proceedings 19/3, July 1893. [www.usni.org/magazines/proceedings/1893/july/origin-and-work-division-marine-meteorology-hydrographic-office](https://www.usni.org/magazines/proceedings/1893/july/origin-and-work-division-marine-meteorology-hydrographic-office)\n8. Plectis software repository. [github.com/wcook04/plectis](https://github.com/wcook04/plectis)"
       }
     },
     {
@@ -24301,7 +24301,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 4,
+          "page_count": 5,
           "top_page": "paper-module-agent-memory-temporal-conflict-replay.html",
           "top_pages": [
             {
@@ -24319,9 +24319,13 @@
             {
               "count": 1,
               "page": "contact.html"
+            },
+            {
+              "count": 1,
+              "page": "introduction.html"
             }
           ],
-          "total_occurrences": 11
+          "total_occurrences": 12
         },
         "visible_text_byte_count": 909
       },
@@ -24682,7 +24686,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 77,
+          "page_count": 78,
           "top_page": "paper-module-corpus-readiness-mathlib-absence-gate.html",
           "top_pages": [
             {
@@ -24710,7 +24714,7 @@
               "page": "component-corpus-readiness-mathlib-absence-gate.html"
             }
           ],
-          "total_occurrences": 298
+          "total_occurrences": 299
         },
         "visible_text_byte_count": 753
       },
@@ -28424,7 +28428,7 @@
         "status": "active",
         "term_kind": "person",
         "used_in": {
-          "page_count": 12,
+          "page_count": 13,
           "top_page": "papers.html",
           "top_pages": [
             {
@@ -28452,7 +28456,7 @@
               "page": "architecture.html"
             }
           ],
-          "total_occurrences": 63
+          "total_occurrences": 65
         },
         "visible_text_byte_count": 829
       },
@@ -32414,7 +32418,7 @@
         "status": "active",
         "term_kind": "external_service",
         "used_in": {
-          "page_count": 17,
+          "page_count": 18,
           "top_page": "updates.html",
           "top_pages": [
             {
@@ -32430,19 +32434,19 @@
               "page": "coding-agents.html"
             },
             {
+              "count": 4,
+              "page": "introduction.html"
+            },
+            {
               "count": 2,
               "page": "contact.html"
             },
             {
               "count": 2,
               "page": "index.html"
-            },
-            {
-              "count": 2,
-              "page": "paper-module-bounded-autonomy-campaign-packet.html"
             }
           ],
-          "total_occurrences": 34
+          "total_occurrences": 38
         },
         "visible_text_byte_count": 797
       },
@@ -34235,7 +34239,7 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 207,
+          "page_count": 208,
           "top_page": "rules-and-ideas.html",
           "top_pages": [
             {
@@ -34263,7 +34267,7 @@
               "page": "paper-module-formal-math-premise-retrieval.html"
             }
           ],
-          "total_occurrences": 839
+          "total_occurrences": 840
         },
         "visible_text_byte_count": 894
       },
@@ -36683,6 +36687,10 @@
             },
             {
               "count": 3,
+              "page": "introduction.html"
+            },
+            {
+              "count": 3,
               "page": "paper-module-undeclared-library-prior-classifier.html"
             },
             {
@@ -36692,13 +36700,9 @@
             {
               "count": 2,
               "page": "component-formal-math-readiness-gate.html"
-            },
-            {
-              "count": 2,
-              "page": "components.html"
             }
           ],
-          "total_occurrences": 23
+          "total_occurrences": 25
         },
         "visible_text_byte_count": 741
       },
@@ -38290,7 +38294,7 @@
           "top_page": "introduction.html",
           "top_pages": [
             {
-              "count": 8,
+              "count": 12,
               "page": "introduction.html"
             },
             {
@@ -38314,7 +38318,7 @@
               "page": "architecture.html"
             }
           ],
-          "total_occurrences": 24
+          "total_occurrences": 28
         },
         "visible_text_byte_count": 877
       },
@@ -45988,10 +45992,15 @@
         "status": "active",
         "term_kind": "public_projection",
         "used_in": {
-          "page_count": 0,
-          "top_page": null,
-          "top_pages": [],
-          "total_occurrences": 0
+          "page_count": 1,
+          "top_page": "introduction.html",
+          "top_pages": [
+            {
+              "count": 1,
+              "page": "introduction.html"
+            }
+          ],
+          "total_occurrences": 1
         },
         "visible_text_byte_count": 863
       },
@@ -48188,7 +48197,7 @@
               "page": "paper-module-mission-transaction-work-spine.html"
             }
           ],
-          "total_occurrences": 174
+          "total_occurrences": 177
         },
         "visible_text_byte_count": 798
       },
@@ -51373,7 +51382,7 @@
           "top_page": "introduction.html",
           "top_pages": [
             {
-              "count": 4,
+              "count": 5,
               "page": "introduction.html"
             },
             {
@@ -51397,7 +51406,7 @@
               "page": "paper-module-pattern-assimilation.html"
             }
           ],
-          "total_occurrences": 34
+          "total_occurrences": 35
         },
         "visible_text_byte_count": 789
       },
@@ -51524,7 +51533,7 @@
               "page": "paper-module-world-model-projection-drift-control-room.html"
             }
           ],
-          "total_occurrences": 5352
+          "total_occurrences": 5353
         },
         "visible_text_byte_count": 1152
       },
@@ -63023,7 +63032,7 @@
     "curated_source_hashes": {
       "microcosm-substrate/README.md": "sha256:7c5117c73518612e4b88bf11b39870b49fd8f6513d865acabc089ae2a5a8230c",
       "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
-      "sites/microcosm/index.html": "sha256:a3f80df3cb651e746861a2c3db189b4efb5eae5246f20dee58b57865855712d1"
+      "sites/microcosm/index.html": "sha256:a4b985fa33aacc8258f6b2d093eed5f9ff92fd2e6fd1a1132eb9da11b57efe16"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",
@@ -63042,7 +63051,7 @@
       "evidence_profile_record_count": 359,
       "logical_text_byte_count": 3990005,
       "page_count": 219,
-      "page_text_byte_count": 430460,
+      "page_text_byte_count": 432361,
       "paper_module_record_count": 103,
       "public_glossary_record_count": 660,
       "roster_section_count": 3,
@@ -196689,7 +196698,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 4,
+            "page_count": 5,
             "top_page": "paper-module-agent-memory-temporal-conflict-replay.html",
             "top_pages": [
               {
@@ -196707,9 +196716,13 @@
               {
                 "count": 1,
                 "page": "contact.html"
+              },
+              {
+                "count": 1,
+                "page": "introduction.html"
               }
             ],
-            "total_occurrences": 11
+            "total_occurrences": 12
           },
           "visible_text_byte_count": 909
         },
@@ -197070,7 +197083,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 77,
+            "page_count": 78,
             "top_page": "paper-module-corpus-readiness-mathlib-absence-gate.html",
             "top_pages": [
               {
@@ -197098,7 +197111,7 @@
                 "page": "component-corpus-readiness-mathlib-absence-gate.html"
               }
             ],
-            "total_occurrences": 298
+            "total_occurrences": 299
           },
           "visible_text_byte_count": 753
         },
@@ -200812,7 +200825,7 @@
           "status": "active",
           "term_kind": "person",
           "used_in": {
-            "page_count": 12,
+            "page_count": 13,
             "top_page": "papers.html",
             "top_pages": [
               {
@@ -200840,7 +200853,7 @@
                 "page": "architecture.html"
               }
             ],
-            "total_occurrences": 63
+            "total_occurrences": 65
           },
           "visible_text_byte_count": 829
         },
@@ -204802,7 +204815,7 @@
           "status": "active",
           "term_kind": "external_service",
           "used_in": {
-            "page_count": 17,
+            "page_count": 18,
             "top_page": "updates.html",
             "top_pages": [
               {
@@ -204818,19 +204831,19 @@
                 "page": "coding-agents.html"
               },
               {
+                "count": 4,
+                "page": "introduction.html"
+              },
+              {
                 "count": 2,
                 "page": "contact.html"
               },
               {
                 "count": 2,
                 "page": "index.html"
-              },
-              {
-                "count": 2,
-                "page": "paper-module-bounded-autonomy-campaign-packet.html"
               }
             ],
-            "total_occurrences": 34
+            "total_occurrences": 38
           },
           "visible_text_byte_count": 797
         },
@@ -206623,7 +206636,7 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 207,
+            "page_count": 208,
             "top_page": "rules-and-ideas.html",
             "top_pages": [
               {
@@ -206651,7 +206664,7 @@
                 "page": "paper-module-formal-math-premise-retrieval.html"
               }
             ],
-            "total_occurrences": 839
+            "total_occurrences": 840
           },
           "visible_text_byte_count": 894
         },
@@ -209071,6 +209084,10 @@
               },
               {
                 "count": 3,
+                "page": "introduction.html"
+              },
+              {
+                "count": 3,
                 "page": "paper-module-undeclared-library-prior-classifier.html"
               },
               {
@@ -209080,13 +209097,9 @@
               {
                 "count": 2,
                 "page": "component-formal-math-readiness-gate.html"
-              },
-              {
-                "count": 2,
-                "page": "components.html"
               }
             ],
-            "total_occurrences": 23
+            "total_occurrences": 25
           },
           "visible_text_byte_count": 741
         },
@@ -210678,7 +210691,7 @@
             "top_page": "introduction.html",
             "top_pages": [
               {
-                "count": 8,
+                "count": 12,
                 "page": "introduction.html"
               },
               {
@@ -210702,7 +210715,7 @@
                 "page": "architecture.html"
               }
             ],
-            "total_occurrences": 24
+            "total_occurrences": 28
           },
           "visible_text_byte_count": 877
         },
@@ -218376,10 +218389,15 @@
           "status": "active",
           "term_kind": "public_projection",
           "used_in": {
-            "page_count": 0,
-            "top_page": null,
-            "top_pages": [],
-            "total_occurrences": 0
+            "page_count": 1,
+            "top_page": "introduction.html",
+            "top_pages": [
+              {
+                "count": 1,
+                "page": "introduction.html"
+              }
+            ],
+            "total_occurrences": 1
           },
           "visible_text_byte_count": 863
         },
@@ -220576,7 +220594,7 @@
                 "page": "paper-module-mission-transaction-work-spine.html"
               }
             ],
-            "total_occurrences": 174
+            "total_occurrences": 177
           },
           "visible_text_byte_count": 798
         },
@@ -223761,7 +223779,7 @@
             "top_page": "introduction.html",
             "top_pages": [
               {
-                "count": 4,
+                "count": 5,
                 "page": "introduction.html"
               },
               {
@@ -223785,7 +223803,7 @@
                 "page": "paper-module-pattern-assimilation.html"
               }
             ],
-            "total_occurrences": 34
+            "total_occurrences": 35
           },
           "visible_text_byte_count": 789
         },
@@ -223912,7 +223930,7 @@
                 "page": "paper-module-world-model-projection-drift-control-room.html"
               }
             ],
-            "total_occurrences": 5352
+            "total_occurrences": 5353
           },
           "visible_text_byte_count": 1152
         },
@@ -266368,7 +266386,7 @@
         "title": "Overview"
       },
       {
-        "byte_count": 5212,
+        "byte_count": 7113,
         "content_refs": {
           "component_refs": [],
           "family_id": null
