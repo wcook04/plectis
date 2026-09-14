@@ -1847,11 +1847,11 @@ fixed coefficients are defined from the analytic function near zero.
 Pass to $r\uparrow1$ first with an arbitrary finite coefficient sum.
 Nonnegative finite deficits then give summability and the infinite inequality;
 no boundary holomorphic logarithm is required. Lean checks the
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/WeightedCauchyTransportR10.lean\#L66}{exact radial transport of each Cauchy coefficient},
+\href{https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/lean/ErdosProblems/Erdos1041/WeightedCauchyTransportR10.lean\#L66}{exact radial transport of each Cauchy coefficient},
 the
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/WeightedBoundaryDeficitR10.lean\#L108}{finite boundary-deficit inequality},
+\href{https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/lean/ErdosProblems/Erdos1041/WeightedBoundaryDeficitR10.lean\#L108}{finite boundary-deficit inequality},
 and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/WeightedBoundaryDeficitR10.lean\#L153}{summable full boundary deficit}.
+\href{https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/lean/ErdosProblems/Erdos1041/WeightedBoundaryDeficitR10.lean\#L153}{summable full boundary deficit}.
 
 If equality holds, all positive-degree coefficients vanish, so $g=1$ near
 zero and $\sum_jw_j\overline{c_j}/(1-\overline{c_j}z)=0$ there.
@@ -1871,14 +1871,14 @@ gives weighted Cauchy--Schwarz, with equality precisely when the observations
 are constant on positive support. Equal weights therefore give the quadratic
 finite inequality above for every $m\ge1$, with equality only at the zero
 configuration. The
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperWeightedCoverageR11.lean\#L138}{three-point theorem}
+three-point theorem\footnote{The Lean modules PaperAnalyticClosureAuditR11, PaperAnalyticR10, PaperAnalyticR10Audit, PaperAnalyticR11, PaperAnalyticSmokeR11, PaperWeightedCoverageR11, ThreePointDefectR11 cited in this section are in the author's working tree and are not yet in the public repository; WeightedBoundaryDeficitR10 and WeightedCauchyTransportR10 are.}
 and
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperWeightedCoverageR11.lean\#L146}{four-point theorem}
+four-point theorem
 state these conclusions with their equality cases.
 
 The previous three-point H\"older proof is withdrawn as an alternative proof
 from this record. Its
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/ThreePointDefectR11.lean\#L16}{scalar defect identity}
+scalar defect identity
 survives independently, but that algebra alone is not credited with
 the omitted H\"older step or the whole alternative argument. The four-point
 matching and numerical split are likewise not used. The present argument
@@ -1900,15 +1900,15 @@ justifies termwise circle integration when the terms are circle integrable
 and admit a summable uniform norm bound; its Taylor double-product form
 assumes absolute summability of both coefficient sequences.
 The
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticR10.lean\#L1}{checked analytic assembly}
+checked analytic assembly
 is accompanied by an
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticR10Audit.lean\#L1}{80-declaration audit}.
+80-declaration audit.
 The repaired R10 dependency chain and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticR11.lean\#L1}{R11 aggregate}
+R11 aggregate
 and
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticSmokeR11.lean\#L1}{smoke target}
+smoke target
 pass. Across the R10, R11, and
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperAnalyticClosureAuditR11.lean\#L1}{closure audits},
+closure audits,
 320 named prints report only \path{propext}, \path{Classical.choice}, and
 \path{Quot.sound}.
 
@@ -1960,9 +1960,9 @@ The preceding weighted proof with $m=4$ and $w_j=1/4$ gives
  \qquad |c_j|\le1,
 \]
 with equality if and only if all four centres vanish. The
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperWeightedCoverageR11.lean\#L146}{checked four-point theorem}
+checked four-point theorem
 states both conclusions, and the
-\href{https://github.com/wcook04/plectis-erdos/blob/3f1a5e9b284b9c3348eebd549e24c2f3972606ae/ErdosProblems/Erdos1041/PaperWeightedCoverageR11.lean\#L128}{strict form}
+strict form
 retains strictness as soon as a centre
 is nonzero, including repeated centres and unit-circle centres.
 
@@ -2866,7 +2866,7 @@ Collision translations are parameterised by real affine lines and an arbitrarily
   doi:\href{https://doi.org/10.48550/arXiv.2606.24875}
   {10.48550/arXiv.2606.24875}.
 \bibitem{dubinin} V.~N. Dubinin, \emph{Some inequalities for polynomials and
-  rational functions associated with a lemniscate}, Zap. Nauchn. Sem. POMI
+  rational functions associated with lemniscates}, Zap. Nauchn. Sem. POMI
   \textbf{404} (2012), 83--99; English translation, J. Math. Sci. \textbf{193}
   (2013), no.~1, 45--54,
   doi:\href{https://doi.org/10.1007/s10958-013-1432-4}{10.1007/s10958-013-1432-4}.

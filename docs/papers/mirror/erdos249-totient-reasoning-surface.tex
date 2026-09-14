@@ -55,7 +55,7 @@
 % ---------------------------------------------------------------------------
 \newcommand{\PK}{Erdos249257}
 \newcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
-\newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257/blob/\commit}
+\newcommand{\repobase}{https://github.com/wcook04/plectis-erdos/blob/\commit}
 % \lean declaration file:line forms a hyperlink to the pinned public
 % formal-source checkpoint. The second argument is a machine coordinate,
 % never typeset: \allowbreak and spaces are stripped, an ErdosProblems/
@@ -2942,7 +2942,7 @@ it beyond the existing public file is cited here.
 \texttt{SignedQMomentObstruction} adds an infinite ladder
 $\Theta_r := \sum_{n\ge 0} \mu(n+1)/(2^{n+1}-1)^r$ built from the same
 Möbius--Mersenne atoms as the rest of the corpus, together with a full
-unconditional order-two Hankel (log-concavity) theorem for every rung.
+unconditional order-two Hankel (log-concavity) theorem for every rung $r\ge 1$.
 
 \begin{defn}
 $\Theta_r := \sum_{n\ge 0}\mu(n+1)/(2^{n+1}-1)^r$, split exactly into the
@@ -2969,7 +2969,7 @@ hence the two-atom truncation alone is strictly log-concave at every $r$.
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{mobius-mersenne}.
 \end{thm}
 
-\begin{thm}[Full ladder: unconditional strict log-concavity, every rung]
+\begin{thm}[Full ladder: unconditional strict log-concavity, every rung $r\ge 1$]
 For every $r\ge 1$, $\Theta_r\,\Theta_{r+2} < \Theta_{r+1}^2$: the shifted
 $2\times 2$ Hankel determinant of the whole ladder is negative at every
 rung, not just asymptotically. The proof propagates the exact two-atom gap

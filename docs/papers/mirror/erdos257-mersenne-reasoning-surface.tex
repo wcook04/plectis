@@ -55,7 +55,7 @@
 % ---------------------------------------------------------------------------
 \newcommand{\PK}{Erdos249257}
 \newcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
-\newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257/blob/\commit}
+\newcommand{\repobase}{https://github.com/wcook04/plectis-erdos/blob/\commit}
 % This macro family is pinned to \commit. Paper-local links at a different immutable
 % revision are inventoried separately; aggregate historical link counts are not PDF audits.
 % \lean declaration file:line forms a hyperlink to the pinned public
@@ -267,8 +267,10 @@ mathematics and is the proof of the short paper's
 Theorem~\texttt{res:reciprocal-support}. Erd\H{o}s's
 \href{https://users.renyi.hu/~p_erdos/1969-09.pdf}{1968 paper, p.~222}
 proves the pairwise-coprime case at every integer base and states the removal
-of coprimality without printing the details. The checked pairwise-coprime
-theorem listed below retains that extra hypothesis.
+of coprimality without printing the details. The proof below of that stated
+extension is independent; no priority over Erd\H{o}s is claimed and no
+identification with his omitted argument is asserted. The checked
+pairwise-coprime theorem listed below retains that extra hypothesis.
 
 The mechanism is to make positive displacements arbitrarily small. For $N>0$,
 write $N=q_a a+r_a$, $0\le r_a<a$. The identity
@@ -856,7 +858,14 @@ formalisation boundary, not a mathematical open case: Tao and
 Ter\"av\"ainen prove the base-$2$ prime-support value irrational by first
 identifying it with $\sum_{n\ge1}\omega(n)2^{-n}$.  Duverney and Tachiya
 likewise settle squarefree support at every power-of-two base.  Neither
-result is formalised here.  The corpus still has no general theorem for an
+result is formalised here.  The statement of Problem~\#257 has been formalised
+before, as a conjecture with an unfilled proof, in the \emph{Formal
+Conjectures}
+\href{https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/257.lean}{collection};
+that file also proves the Lambert identity for the full-support value and
+states its irrationality, the 1948 theorem of Erd\H{o}s, with proof
+\texttt{sorry}.  It is statement-level prior art, and no theorem recorded here
+is derived from it.  The corpus still has no general theorem for an
 arbitrary positive-density nonperiodic or divisor-dense support, and the
 universal statement remains open.
 \end{rem}
