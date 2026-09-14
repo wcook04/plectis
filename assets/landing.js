@@ -523,3 +523,81 @@
 
   window.addEventListener('scroll', onScroll, { passive: true });
 })();
+
+/* Compact landing (2026-09-14). Below the hero, every run of long prose is
+   clamped to two lines with one "Read more" cue per block, and "Expand all"
+   in the page tools switches the whole page to the full view (opening every
+   disclosure too). Without JS nothing is clamped: the page stays complete. */
+(function compactLanding() {
+  'use strict';
+  var doc = document;
+  var main = doc.getElementById('main');
+  var toggle = doc.querySelector('[data-landing-expand]');
+  if (!main || !toggle || !main.querySelectorAll) return;
+
+  var MIN_CHARS = 140;
+  var SKIP = '#short-link-reader, details, .landing-pagetools, .link-row, .next-card, .demo-row, .specimen, .review-receipt, .ai-primary__row, .quiet-links, .lineage-note, pre, code';
+  var blocks = [];
+
+  function qualifies(p) {
+    if (p.closest && p.closest(SKIP)) return false;
+    var text = (p.textContent || '').replace(/\s+/g, ' ').trim();
+    return text.length >= MIN_CHARS;
+  }
+
+  var paragraphs = Array.prototype.slice.call(main.querySelectorAll('p'));
+  var byParent = [];
+  paragraphs.forEach(function (p) {
+    if (!qualifies(p)) return;
+    var parent = p.parentElement;
+    var entry = null;
+    for (var i = 0; i < byParent.length; i += 1) {
+      if (byParent[i].parent === parent) { entry = byParent[i]; break; }
+    }
+    if (!entry) { entry = { parent: parent, items: [] }; byParent.push(entry); }
+    entry.items.push(p);
+  });
+
+  byParent.forEach(function (entry) {
+    var cue = doc.createElement('button');
+    cue.type = 'button';
+    cue.className = 'prose-clamp__cue';
+    cue.setAttribute('aria-expanded', 'false');
+    cue.textContent = 'Read more';
+    var last = entry.items[entry.items.length - 1];
+    last.insertAdjacentElement('afterend', cue);
+    entry.items.forEach(function (p) { p.classList.add('prose-clamp'); });
+    var block = { items: entry.items, cue: cue, open: false };
+    block.set = function (open) {
+      block.open = open;
+      block.items.forEach(function (p) { p.classList.toggle('prose-clamp', !open); });
+      cue.setAttribute('aria-expanded', open ? 'true' : 'false');
+      cue.textContent = open ? 'Show less' : 'Read more';
+    };
+    cue.addEventListener('click', function () { block.set(!block.open); syncToggle(); });
+    entry.items.forEach(function (p) {
+      p.addEventListener('click', function () { if (!block.open) { block.set(true); syncToggle(); } });
+    });
+    blocks.push(block);
+  });
+
+  if (!blocks.length) { toggle.hidden = true; return; }
+
+  var expanded = false;
+  function syncToggle() {
+    var allOpen = blocks.every(function (b) { return b.open; });
+    expanded = allOpen;
+    toggle.setAttribute('aria-pressed', allOpen ? 'true' : 'false');
+    var label = toggle.querySelector('.docs-pagetool__text') || toggle;
+    label.textContent = allOpen ? 'Collapse all' : 'Expand all';
+  }
+  toggle.addEventListener('click', function () {
+    var open = !expanded;
+    blocks.forEach(function (b) { b.set(open); });
+    var details = main.querySelectorAll('details');
+    for (var i = 0; i < details.length; i += 1) details[i].open = open;
+    syncToggle();
+  });
+  doc.documentElement.setAttribute('data-landing-compact', 'on');
+  syncToggle();
+})();

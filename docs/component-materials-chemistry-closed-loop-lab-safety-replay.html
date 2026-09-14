@@ -25,7 +25,7 @@
   <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <script src="../assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="../assets/style.css?v=91a4a0df4ca3">
+  <link rel="stylesheet" href="../assets/style.css?v=dc3f068d0e96">
   <script src="../assets/fragment-open.js?v=mrc2"></script>
   <template data-plectis-runtime="docs"><script src="../assets/docs.js?v=b735a0659399"></script></template>
   <script defer src="../assets/docs-loader.js?v=31d50cbd956f"></script>
@@ -141,27 +141,27 @@
           <a class="btn btn--primary reader-handoff__cta" href="paper-module-materials-chemistry-closed-loop-lab-safety-replay.html">Read the <span data-term-preview-only data-term="paper_module" data-term-auto="1">paper module</span></a>
         </aside>
 
-        <h2 id="contract" data-term-auto="off">Contract</h2>
+        <h2 id="contract"><a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-standard" data-term="standard" data-term-auto="1">Contract</a></h2>
           <p class="comp-card__what"><span class="comp-card__klabel">Does</span> Takes the pattern of a &quot;self-driving materials lab&quot; (propose a candidate material, run safety screens, <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-simulation" data-term="simulation">simulate</a> an assay, then decide what <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-trying" data-term="trying">to try</a> next) and <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-replay" data-term="replay">replays</a> it locally as inspectable <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-record" data-term="record">records</a>: every step, its safety gate, its simulated result, and the decision that followed, plus the pre-recorded points where such a loop would fail and where it would restart. It makes the workflow&#x27;s structure visible, all on a simulator-only <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-fixture" data-term="fixture">fixture</a>, so how the loop is wired is traceable without any real lab, real chemicals, or real robot ever being involved.</p>
           <p class="comp-card__scope"><span class="comp-card__klabel">Scope limit</span> It documents <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-projection" data-term="projection">projection</a> and <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-replay" data-term="replay">replay</a> mechanics only and excludes wetlab <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-protocol" data-term="protocol">protocols</a>, hazardous synthesis steps, reagent amounts, controlled/bioactive targets, robot commands, live assay data, discovery <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-claim" data-term="claim">claims</a>, <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-benchmark" data-term="benchmark">benchmark</a> <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-claim" data-term="claim">claims</a>, external <a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-model" data-term="model">model</a> access, or any judgment of domain/chemical correctness.</p>
 
-        <h2 id="run" data-term-auto="off">Run</h2>
+        <h2 id="run">Run</h2>
         <div class="comp-card__run">
 <span class="comp-card__klabel comp-card__klabel--run">Command</span>
           <pre class="comp-card__cmd"><code>plectis materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay</code></pre>
         </div>
 
-        <h2 id="evidence" data-term-auto="off">Evidence</h2>
+        <h2 id="evidence"><a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">Evidence</a></h2>
         <p class="comp-card__evidence"><span class="comp-card__klabel">Class</span><span class="comp-chip">Computed projection</span><span class="comp-chip">evidence 3/5</span><span class="comp-chip">Source-faithful refactor</span></p>
           <p class="comp-card__links"><span class="comp-card__klabel">Links to</span> <a href="component-spatial-world-model-counterfactual-simulation-replay.html">Gridworld Counterfactual State <span data-term-preview-only data-term="replay" data-term-auto="1">Replay</span></a></p>
           <p class="comp-card__tags-row"><span class="tag">research-workflows</span><span class="tag">forecasting</span></p>
 
-        <h2 id="source" data-term-auto="off">Source</h2>
+        <h2 id="source"><a class="narrative-ref narrative-ref--term is-term-first" href="glossary.html#glossary-source" data-term="source" data-term-auto="1">Source</a></h2>
           <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/paper_modules/materials_chemistry_closed_loop_lab_safety_replay.md" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/materials_chemistry_closed_loop_lab_safety_replay.py" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="source" data-term-auto="1">Source</span></a></p>
         <p class="comp-card__map"><span class="comp-card__klabel">Map</span> <a href="architecture.html#map=component:materials_chemistry_closed_loop_lab_safety_replay">Show on the <span data-term-preview-only data-term="map" data-term-auto="1">map</span></a></p>
         <p class="comp-card__links"><span class="comp-card__klabel">Index</span> <a href="components.html#component-materials_chemistry_closed_loop_lab_safety_replay">Open <span data-term-preview-only data-term="compact" data-term-auto="1">compact</span> <span data-term-preview-only data-term="index" data-term-auto="1">index</span> card</a></p>
 
-        <h2 id="paper-module" data-term-auto="off">Paper module</h2>
+        <h2 id="paper-module"><a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-paper-module" data-term="paper_module" data-term-auto="1">Paper module</a></h2>
                 <section class="comp-card__pm" aria-label="Paper module">
                   <p class="comp-card__pm-head"><span class="comp-card__klabel">Paper module</span> <span class="comp-card__pm-title">Materials Chemistry Closed-Loop Lab-Safety <a class="narrative-ref narrative-ref--term is-term-again" href="glossary.html#glossary-replay" data-term="replay" data-term-auto="1">Replay</a></span></p>
                   <div class="comp-card__pm-body">
