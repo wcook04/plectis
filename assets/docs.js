@@ -4622,7 +4622,7 @@
          buttons. */
       var rects = [];
       var nodes = document.querySelectorAll(
-        '.site-header, .docs-topbar, .glossary-hint, .link-rows, a.link-row, .site-footer, .hero__actions'
+        '.site-header, .docs-topbar, .docs-toc, .glossary-hint, .link-rows, a.link-row, .site-footer, .hero__actions'
       );
       for (var i = 0; i < nodes.length; i++) {
         var el = nodes[i];
@@ -4654,6 +4654,45 @@
       var belowTop = rect.bottom + gap;
       var viewportBottom = window.innerHeight - edge;
       var chrome = protectedRects(anchor);
+
+      /* Gutter placement (2026-09-14). On a wide screen the reading column
+         leaves an empty right margin. The card goes there, level with the
+         word, so it never covers the sentence being read. It only falls back
+         to above/below when the margin is too narrow (phones, split screens)
+         or the whole margin beside the word is taken by fixed chrome (the
+         "On this page" list, the glossary cue). */
+      var column = readingRect || rect;
+      var sideLeft = column.right + gap + 4;
+      if (window.innerWidth - edge - sideLeft >= width) {
+        var wantTop = Math.min(Math.max(edge, rect.top - 6), viewportBottom - height);
+        var sideTries = [wantTop];
+        for (var b = 0; b < chrome.length; b++) {
+          if (chrome[b].right <= sideLeft || chrome[b].left >= sideLeft + width) continue;
+          sideTries.push(chrome[b].bottom + gap);
+          sideTries.push(chrome[b].top - gap - height);
+        }
+        var sideTop = null;
+        var sideDist = Infinity;
+        for (var s = 0; s < sideTries.length; s++) {
+          var tryTop = sideTries[s];
+          if (tryTop < edge || tryTop + height > viewportBottom) continue;
+          var sideBox = { top: tryTop, left: sideLeft, right: sideLeft + width, bottom: tryTop + height };
+          var clear = true;
+          for (var k = 0; k < chrome.length; k++) {
+            if (overlapArea(sideBox, chrome[k])) { clear = false; break; }
+          }
+          if (!clear) continue;
+          var dist = Math.abs(tryTop - wantTop);
+          if (dist < sideDist) { sideDist = dist; sideTop = tryTop; }
+        }
+        if (sideTop !== null) {
+          node.setAttribute('data-placement', 'side');
+          node.style.left = sideLeft + 'px';
+          node.style.top = sideTop + 'px';
+          return;
+        }
+      }
+
       function score(top) {
         var box = { top: top, left: left, right: left + width, bottom: top + height };
         var out = 0;
@@ -5115,16 +5154,16 @@
      the homepage has it before docs.js's idle slot; docs.js carries the same
      IIFE for maths/docs pages and is a no-op if this already ran
      (data-glossary-hint). Keep the two copies in sync. It sits opposite the
-     bottom-left "back" pill. At rest it says one line; once the reader has
-     scrolled it folds to its mark and unfolds on hover, focus, or a press of
-     the mark; the close control puts it away for the session. The glossary
+     bottom-left "back" pill. It stays open, saying one line, until the
+     reader closes it; the close control puts it away for good (localStorage).
+     On touch screens it starts folded to its mark and unfolds on a press. The glossary
      page itself does not need it. Not in landing HTML: the visible-word budget
      is full. */
   (function () {
     var root = document.documentElement;
     if (!document.body || !document.createElement) return;
     if (root.getAttribute('data-glossary-hint')) return;
-    try { if (sessionStorage.getItem('plectis-glossary-hint-dismissed')) return; } catch (e) {}
+    try { if (localStorage.getItem('plectis-glossary-hint-dismissed')) return; } catch (e) {}
     if (/\/glossary\.html$/.test(window.location.pathname || '')) {
       root.setAttribute('data-glossary-hint', 'skip');
       return;
@@ -5193,7 +5232,6 @@
     root.setAttribute('data-glossary-hint', 'shown');
 
     var gone = false;
-    var THRESHOLD = 160;
 
     function setCompact(on) {
       hint.classList.toggle('is-compact', on);
@@ -5208,23 +5246,13 @@
     function dismiss() {
       if (gone) return;
       gone = true;
-      try { sessionStorage.setItem('plectis-glossary-hint-dismissed', '1'); } catch (e) {}
+      try { localStorage.setItem('plectis-glossary-hint-dismissed', '1'); } catch (e) {}
       root.setAttribute('data-glossary-hint', 'away');
-      window.removeEventListener('scroll', onScroll);
       hint.classList.add('is-away');
       hint.addEventListener('transitionend', finish);
       window.setTimeout(finish, 400);
     }
 
-    function onScroll() {
-      var sy = window.pageYOffset || root.scrollTop || 0;
-      if (sy < THRESHOLD) return;
-      try {
-        if (hint.matches && hint.matches(':hover, :focus-within')) return;
-      } catch (e) {}
-      setCompact(true);
-      window.removeEventListener('scroll', onScroll);
-    }
 
     /* The mark pins the chip open when it is folded, and folds it when it is
        open; on a touch screen the chip starts folded so the reading area stays
@@ -5236,7 +5264,6 @@
         mark.setAttribute('aria-expanded', open ? 'true' : 'false');
       } else {
         setCompact(true);
-        window.removeEventListener('scroll', onScroll);
       }
     });
 
@@ -5249,8 +5276,9 @@
       }
     });
 
+    /* Desktop: the cue stays open until the reader closes it. Touch: it
+       starts folded so the small screen stays clear. */
     if (touch) setCompact(true);
-    else window.addEventListener('scroll', onScroll, { passive: true });
   })();
 
 })();

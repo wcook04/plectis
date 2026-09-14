@@ -627,6 +627,7 @@ html:not(.scripting) a.narrative-ref--term:hover {
 .term-tip[hidden] { display: none; }
 .term-tip[data-placement="above"] { transform-origin: left bottom; }
 .term-tip[data-placement="below"] { transform-origin: left top; }
+.term-tip[data-placement="side"] { transform-origin: left top; }
 .term-tip__label { font-weight: 600; }
 .term-tip__text { margin-top: 0.1rem; color: var(--ink-soft); }
 .term-tip__cue { margin-top: 0.3rem; color: var(--muted); font-size: 0.76rem; }
