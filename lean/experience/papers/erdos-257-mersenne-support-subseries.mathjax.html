@@ -836,6 +836,52 @@ obstruction for one normalised certificate scheme concerns that scheme’s
 hypotheses. It gives no obstruction to irrationality of the value. The
 precise normalisation counterexamples are retained in the long record,
 together with the complete catalogue of known support families.</p>
+<p>A separate sufficient condition family is stated in terms of growth
+alone. Erdős proved irrationality of <span
+class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> for increasing integers with
+<span class="math inline" data-term-auto="off">\(a_n\ge n^{1+\tau}\)</span> for some <span
+class="math inline" data-term-auto="off">\(\tau&gt;0\)</span> and every <span
+class="math inline" data-term-auto="off">\(n\)</span>, together with <span
+class="math inline" data-term-auto="off">\(\limsup_na_n^{1/2^n}=\infty\)</span> <span
+class="citation" data-cites="erdos1975"></span>. At <span
+class="math inline" data-term-auto="off">\(a_n=2^{c_n}-1\)</span> the polynomial hypothesis
+is automatic, since <span class="math inline" data-term-auto="off">\(c_n\ge n\)</span> gives
+<span class="math inline" data-term-auto="off">\(a_n\ge2^n-1\ge n^{3/2}\)</span> for every
+<span class="math inline" data-term-auto="off">\(n\ge1\)</span>, and <span
+class="math inline" data-term-auto="off">\(\log_2(2^{c_n}-1)\)</span> differs from <span
+class="math inline" data-term-auto="off">\(c_n\)</span> by less than <span
+class="math inline" data-term-auto="off">\(1\)</span>, so the growth hypothesis reduces to
+<span class="math inline" data-term-auto="off">\(\limsup_nc_n/2^n=\infty\)</span>. The
+criterion therefore settles exactly the supports with <span
+class="math inline" data-term-auto="off">\(\limsup_nc_n/2^n=\infty\)</span>, at every integer
+base. That class and the reciprocal-summable class of Theorem <a class="math-ref" href="#res:reciprocal-support">1</a> are
+incomparable. The powerful integers are reciprocal summable and their
+increasing enumeration satisfies <span class="math inline" data-term-auto="off">\(c_n\asymp
+n^2\)</span>, so <span class="math inline" data-term-auto="off">\(c_n/2^n\to0\)</span>. In
+the other direction, take blocks of consecutive integers, the <span
+class="math inline" data-term-auto="off">\(k\)</span>th block being the <span
+class="math inline" data-term-auto="off">\(4^{n_k}\)</span> integers from <span
+class="math inline" data-term-auto="off">\(4^{n_k}\)</span> to <span
+class="math inline" data-term-auto="off">\(2\cdot4^{n_k}-1\)</span> starting at index <span
+class="math inline" data-term-auto="off">\(n_k\)</span>, with <span
+class="math inline" data-term-auto="off">\(n_{k+1}=n_k+4^{n_k}\)</span>; then <span
+class="math inline" data-term-auto="off">\(c_{n_k}/2^{n_k}=2^{n_k}\to\infty\)</span> while
+each block contributes reciprocal mass tending to <span
+class="math inline" data-term-auto="off">\(\log2\)</span>, so <span
+class="math inline" data-term-auto="off">\(\sum_{a\in A}1/a\)</span> diverges. The extension
+of this lane to products of consecutive terms <span class="citation"
+data-cites="bkkkz2026"><a href="#ref-8">[8]</a></span> settles Erdős Problem 1051 at the
+golden-ratio exponent and adds nothing beyond the <span
+class="math inline" data-term-auto="off">\(d=1\)</span> case used above. Its rational-valued
+counterexamples are built by interval filling, which selects each term
+from a full discrete interval <span
+class="math inline" data-term-auto="off">\([\beta_n,\gamma_n]\cap\N\)</span> with <span
+class="math inline" data-term-auto="off">\(\beta_n/\gamma_n\to0\)</span>, so that consecutive
+choices differ by one and the attainable sums cover an interval. The
+strict tail inequality of Section <a class="math-ref" href="#sec:geometry">7</a> makes the Mersenne
+achievement set totally disconnected, so no interval is ever attained
+and interval filling is unavailable here, on terms and on exponents
+alike. This retires a method; it does not decide the problem.</p>
 <p>A related independence boundary concerns prime-incidence arguments.
 Writing <span class="math inline" data-term-auto="off">\(f_A(n)=\sum_{a\in A}{\bf1}_{a\mid
 n}\)</span>, the local identity</p>
@@ -1521,6 +1567,26 @@ irrationality of certain series</em></a>, Math. Student 36 (1968),
 support with convergent reciprocal sum at every integer base <span
 class="math inline" data-term-auto="off">\(b\ge2\)</span>; the claimed removal of pairwise
 coprimality is stated without proof.</p></li>
+<li id="ref-7"><p>P. Erdős, <em>Some problems and results on the irrationality of
+the sum of infinite series</em>, J. Math. Sci. 10 (1975), 1–7. Theorem 1
+proves irrationality of <span class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span>
+for increasing integers with <span class="math inline" data-term-auto="off">\(a_n\ge
+n^{1+\tau}\)</span> for some <span
+class="math inline" data-term-auto="off">\(\tau&gt;0\)</span> and every <span
+class="math inline" data-term-auto="off">\(n\)</span> and <span
+class="math inline" data-term-auto="off">\(\limsup_na_n^{1/2^n}=\infty\)</span>, as restated
+in Remark 4(4) of <span class="citation" data-cites="bkkkz2026"><a href="#ref-8">[8]</a></span>;
+the original was not consulted for this note.</p></li>
+<li id="ref-8"><p>K. Barreto, J. Kang, S. Kim, V. Kovač, and S. Zhang, <a
+href="https://arxiv.org/abs/2601.21442"><em>Irrationality of rapidly
+converging series: a problem of Erdős and Graham</em></a>,
+arXiv:2601.21442v3 (2026). Theorem 2 (p. 3) settles Erdős Problem 1051
+at the golden-ratio exponent and Theorem 5 (p. 5) shows the threshold is
+sharp; Remark 4(4) (p. 5) identifies the case <span
+class="math inline" data-term-auto="off">\(d=1\)</span> of its Theorem 3 with <span
+class="citation" data-cites="erdos1975"></span>; Lemma 14 (p. 13) is the
+interval-filling lemma. An unrefereed preprint with no formalisation; it
+states nothing about #257.</p></li>
 </ol>
 </section>
   </div>

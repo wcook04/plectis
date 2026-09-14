@@ -86,7 +86,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos-251-prime-gap-dyadic-series (Problem note, 20 pp.)](maths/papers/erdos-251-prime-gap-dyadic-series.html)
 - [erdos251-prime-gap-reasoning-surface (Reasoning surface, 38 pp.)](maths/papers/erdos251-prime-gap-reasoning-surface.html)
 - [Erdős #257](maths/problems/erdos_257.html)
-- [erdos-257-mersenne-support-subseries (Problem note, 18 pp.)](maths/papers/erdos-257-mersenne-support-subseries.html)
+- [erdos-257-mersenne-support-subseries (Problem note, 19 pp.)](maths/papers/erdos-257-mersenne-support-subseries.html)
 - [erdos257-mersenne-reasoning-surface (Reasoning surface, 120 pp.)](maths/papers/erdos257-mersenne-reasoning-surface.html)
 - [Erdős #269](maths/problems/erdos_269.html)
 - [erdos269-running-lcm-reasoning-surface (Reasoning surface, 36 pp.)](maths/papers/erdos269-running-lcm-reasoning-surface.html)

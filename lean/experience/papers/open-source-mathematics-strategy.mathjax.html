@@ -449,6 +449,10 @@ criticise, reuse, publish, or reject the work over time. Broad
 mathematical acceptance is exogenous to this repository and cannot be
 granted by its maintainer.</p></li>
 </ol>
+<p>Step three follows Henkel, who proposed a different model for
+verification than for generation on the evidence that each model is
+worst at grading its own proofs <span class="citation"
+data-cites="henkel openproofcorpus"><a href="#ref-16">[16]</a><a href="#ref-17">[17]</a></span>.</p>
 <p>Palomar is valuable precisely because its claim is narrower than peer
 review. It mechanically verifies a pinned challenge–solution interface
 using Comparator and kernel checking, records structured disclosure, and
@@ -517,7 +521,7 @@ contributor, accepted artefacts, evidence classes, problem or
 architecture area, and contribution roles. The current receipt schema
 supports the fourteen CRediT roles as an optional vocabulary, including
 conceptualisation, methodology, software, validation, investigation, and
-writing <span class="citation" data-cites="credit"><a href="#ref-17">[17]</a></span>. CRediT
+writing <span class="citation" data-cites="credit"><a href="#ref-19">[19]</a></span>. CRediT
 describes work; it does not decide authorship.</p>
 <p>The default promise is simple: the project does not demand ownership
 of a contributor’s underlying idea in exchange for adoption. If a
@@ -625,7 +629,7 @@ repository secrets. In particular, a GitHub
 <code>pull_request_target</code> workflow must not check out and execute
 an untrusted fork; GitHub documents that combination as a route to
 secret leakage and repository compromise <span class="citation"
-data-cites="githubsecurity"><a href="#ref-18">[18]</a></span>. Initial checks should run with
+data-cites="githubsecurity"><a href="#ref-20">[20]</a></span>. Initial checks should run with
 read-only permissions, no secrets, bounded resources, and explicit
 artefact retention. Promotion to trusted infrastructure is a later
 review decision.</p>
@@ -704,6 +708,21 @@ coordination, and review focus. They do not by themselves provide a
 public commons in which mathematics and improvements to the research
 architecture enter one provenance-preserving adoption path.</p>
 </section>
+<section id="individual-research-practice." class="level5">
+<h5>Individual research practice.</h5>
+<p>Henkel gives a framework for one mathematician working with publicly
+affordable models: five guiding principles, of which critical
+verification of every output is the second, and seven applications
+across the research lifecycle from ideation to writing <span
+class="citation" data-cites="henkel"></span>. He proposes cross-model
+checking on the evidence that each model grades its own proofs worst
+<span class="citation" data-cites="openproofcorpus"><a href="#ref-17">[17]</a></span>, and he
+treats acknowledgement of tool use as an emerging norm while recording
+that community standards for it remain to be established. His unit is
+one researcher at a chat window. The commons here supplies the shared
+record, evidence classes, and credit machinery that such a norm needs in
+order to hold across contributors.</p>
+</section>
 <section id="open-agent-platforms." class="level5">
 <h5>Open agent platforms.</h5>
 <p>Prove2Me is an open collaborative platform for formalisation in which
@@ -776,7 +795,7 @@ problems; a genuinely open endpoint has no solution to memorise, which
 is one more reason to work on open problems.</p>
 <p>Tao’s community wiki of AI contributions to the Erdős problems is the
 existing public register in this exact domain <span class="citation"
-data-cites="taowiki"><a href="#ref-16">[16]</a></span>. It records which problems AI systems have
+data-cites="taowiki"><a href="#ref-18">[18]</a></span>. It records which problems AI systems have
 touched and with what outcome. It carries no evidence classes, roles, or
 checkable claim boundaries, and it is edited by hand. The protocol here
 is meant to feed that register with returns that already carry those
@@ -937,7 +956,7 @@ later study.</p>
 <p>Yuan et al. provide a useful precedent for the missing external test:
 two student teams attempted an end-to-end build from public
 documentation for scientific hardware designed more than a decade
-earlier <span class="citation" data-cites="documentationtest"><a href="#ref-19">[19]</a></span>.
+earlier <span class="citation" data-cites="documentationtest"><a href="#ref-21">[21]</a></span>.
 Their study concerns open-source hardware in large collaborations, not
 formal mathematics, and does not validate this repository’s route. It
 supplies a precedent for testing accessibility by asking outsiders to
@@ -1406,18 +1425,24 @@ href="https://arxiv.org/abs/2601.22401">arXiv:2601.22401</a>.</p></li>
 <li id="ref-15"><p>T. Feng, T. H. Trinh, G. Bingham, et al., <em>Towards Autonomous
 Mathematics Research</em>, 2026, <a
 href="https://arxiv.org/abs/2602.10177">arXiv:2602.10177</a>.</p></li>
-<li id="ref-16"><p>T. Tao, <em>AI contributions to Erdős problems</em>, community
+<li id="ref-16"><p>J. Henkel, <em>The Mathematician’s Assistant: Integrating AI into
+Research Practice</em>, 2025, <a
+href="https://arxiv.org/abs/2508.20236">arXiv:2508.20236</a>.</p></li>
+<li id="ref-17"><p>J. Dekoninck et al., <em>The Open Proof Corpus: A Large-Scale
+Study of LLM-Generated Mathematical Proofs</em>, 2025, <a
+href="https://arxiv.org/abs/2506.21621">arXiv:2506.21621</a>.</p></li>
+<li id="ref-18"><p>T. Tao, <em>AI contributions to Erdős problems</em>, community
 wiki, <a
 href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems">GitHub
 wiki page</a>, accessed September 2026.</p></li>
-<li id="ref-17"><p>NISO, <em>CRediT: Contributor Roles Taxonomy</em>, <a
+<li id="ref-19"><p>NISO, <em>CRediT: Contributor Roles Taxonomy</em>, <a
 href="https://credit.niso.org/contributor-roles-defined/">role
 definitions</a>, accessed August 2026.</p></li>
-<li id="ref-18"><p>GitHub, <em>Preventing pwn requests</em>, GitHub Actions security
+<li id="ref-20"><p>GitHub, <em>Preventing pwn requests</em>, GitHub Actions security
 guidance, <a
 href="https://docs.github.com/en/actions/reference/security/secure-use">documentation</a>,
 accessed August 2026.</p></li>
-<li id="ref-19"><p>M. Yuan et al., <em>End-to-End Testing of Open-Source Hardware
+<li id="ref-21"><p>M. Yuan et al., <em>End-to-End Testing of Open-Source Hardware
 Documentation Developed in Large Collaborations</em>, 2023, <a
 href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
 </ol>

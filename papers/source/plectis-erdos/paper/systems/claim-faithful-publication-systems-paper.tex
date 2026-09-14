@@ -974,7 +974,10 @@ work without impersonating peer review; and theorem counts do not determine
 value. Feng et al.\ state the rule in both of their reports: humans author
 mathematics papers even when generated content is correct, because
 authorship carries accountability for validity and attribution
-\cite{aletheia,autonomousmath}. The provenance note on the first page follows that rule. The
+\cite{aletheia,autonomousmath}. Henkel stated it earlier, treating the model
+as an interactive instrument and leaving ownership and responsibility for
+verification with the human author \cite{henkel}. The provenance note on the
+first page follows that rule. The
 repository turns those recommendations into an implementation
 experiment: it asks how a small project can
 prepare for proof abundance without confusing abundant output with collective
@@ -1302,7 +1305,11 @@ agents \cite{agenthunt}. DreamProver learns a compact reusable lemma library
 through wake--sleep cycles \cite{dreamprover}. Aletheia separates a
 generator, verifier, and reviser in natural language and credits the
 separated verifier, which may decline, for its accuracy
-\cite{autonomousmath}. These are baselines for proof interaction,
+\cite{autonomousmath}. Henkel grounds the same separation in measurement:
+in the Open Proof Corpus judgement matrix each model scores lowest when
+grading proofs it generated itself, which he reads as a reason to use
+different models for generation and verification
+\cite{henkel,openproofcorpus}. These are baselines for proof interaction,
 parallel search, verification structure, and learned proof memory. Here those mechanisms
 sit upstream of a different question: after a proof is found, what exactly may
 move into a reviewed public claim?
@@ -1362,7 +1369,20 @@ verification. This architecture accepts the bound and builds for the
 minority: a problem-sized world exists because its endpoint can be stated in
 Lean, and Comparator certifies that the stated interface is what was
 checked; where no such statement exists the world still records
-experiments, sources, and failed routes, and its Lean layer is empty. Tao's
+experiments, sources, and failed routes, and its Lean layer is empty.
+Li et al.\ published a human-in-the-loop protocol for research mathematics
+a year before this paper, with a released prompt library \cite{lihai}. The
+human fixes the statement, the assumptions, and the acceptance criteria;
+the model supplies candidate lemmas, constants, and counterexamples; and
+generation and validation are held apart by a local check of each claim
+under the stated assumptions and a global check of its fit in the argument.
+Their prove-or-disprove prompt runs a proof branch and a disproof branch
+together and keeps both records, and their discovery loop abstracts
+surviving results into a portable schema for transfer to adjacent settings.
+Their workflow uses no proof assistant; its checks are numerical scripts on
+a seed set and line-by-line reading, so the distinction between a
+computation receipt and a kernel receipt does not arise there. This paper
+claims no priority over that protocol. Tao's
 community wiki of AI contributions to the Erd\H{o}s problems is the public
 register such a result would reach \cite{taowiki}; the reviewed claim record
 here is what a wiki line would point back to. The paper claims no priority
@@ -1553,6 +1573,15 @@ Mathematics Discovery with Gemini: A Case Study on the Erd\H{o}s Problems},
 \bibitem{autonomousmath} T.~Feng, T.~H.~Trinh, G.~Bingham, et al.,
 \emph{Towards Autonomous Mathematics Research}, 2026,
 \href{https://doi.org/10.48550/arXiv.2602.10177}{arXiv}.
+\bibitem{henkel} J.~Henkel, \emph{The Mathematician's Assistant:
+Integrating AI into Research Practice}, 2025,
+\href{https://doi.org/10.48550/arXiv.2508.20236}{arXiv}.
+\bibitem{openproofcorpus} J.~Dekoninck et al., \emph{The Open Proof
+Corpus: A Large-Scale Study of LLM-Generated Mathematical Proofs}, 2025,
+\href{https://doi.org/10.48550/arXiv.2506.21621}{arXiv}.
+\bibitem{lihai} C.~Li, Z.~Lai, D.~An, J.~Hu, and Z.~Wen, \emph{Advancing
+Mathematical Research via Human-AI Interactive Theorem Proving}, 2025,
+\href{https://doi.org/10.48550/arXiv.2512.09443}{arXiv}.
 \bibitem{taowiki} T.~Tao, \emph{AI contributions to Erd\H{o}s problems},
 \href{https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems}{GitHub},
 accessed September 2026.

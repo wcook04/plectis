@@ -698,6 +698,34 @@ that scheme's hypotheses.  It gives no obstruction to irrationality of the
 value.  The precise normalisation counterexamples are retained in the
 long record, together with the complete catalogue of known support families.
 
+A separate sufficient condition family is stated in terms of growth alone.
+Erd\H{o}s proved irrationality of $\sum_n1/a_n$ for increasing integers with
+$a_n\ge n^{1+\tau}$ for some $\tau>0$ and every $n$, together with
+$\limsup_na_n^{1/2^n}=\infty$~\cite[Theorem~1]{erdos1975}.  At
+$a_n=2^{c_n}-1$ the polynomial hypothesis is automatic, since $c_n\ge n$
+gives $a_n\ge2^n-1\ge n^{3/2}$ for every $n\ge1$, and $\log_2(2^{c_n}-1)$
+differs from $c_n$ by less than $1$, so the growth hypothesis reduces to
+$\limsup_nc_n/2^n=\infty$.  The criterion therefore settles exactly the
+supports with $\limsup_nc_n/2^n=\infty$, at every integer base.  That class
+and the reciprocal-summable class of Theorem~\ref{res:reciprocal-support} are
+incomparable.  The powerful integers are reciprocal summable and their
+increasing enumeration satisfies $c_n\asymp n^2$, so $c_n/2^n\to0$.  In the
+other direction, take blocks of consecutive integers, the $k$th block being
+the $4^{n_k}$ integers from $4^{n_k}$ to $2\cdot4^{n_k}-1$ starting at index
+$n_k$, with $n_{k+1}=n_k+4^{n_k}$; then $c_{n_k}/2^{n_k}=2^{n_k}\to\infty$
+while each block contributes reciprocal mass tending to $\log2$, so
+$\sum_{a\in A}1/a$ diverges.  The extension of this lane to products of
+consecutive terms~\cite{bkkkz2026} settles Erd\H{o}s Problem~1051 at the
+golden-ratio exponent and adds nothing beyond the $d=1$ case used above.
+Its rational-valued counterexamples are built by interval filling, which
+selects each term from a full discrete interval $[\beta_n,\gamma_n]\cap\N$
+with $\beta_n/\gamma_n\to0$, so that consecutive choices differ by one and
+the attainable sums cover an interval.  The strict tail inequality of
+Section~\ref{sec:geometry} makes the Mersenne achievement set totally
+disconnected, so no interval is ever attained and interval filling is
+unavailable here, on terms and on exponents alike.  This retires a method;
+it does not decide the problem.
+
 A related independence boundary concerns prime-incidence arguments.
 Writing $f_A(n)=\sum_{a\in A}{\bf1}_{a\mid n}$, the local identity
 \[
@@ -1181,6 +1209,21 @@ The following source links are the public snapshot used by this note.
   (issued 1969).  The theorem on p.~222 treats pairwise-coprime support with
   convergent reciprocal sum at every integer base $b\ge2$; the claimed
   removal of pairwise coprimality is stated without proof.
+\bibitem{erdos1975} P.~Erd\H{o}s, \emph{Some problems and results on the
+  irrationality of the sum of infinite series}, J.~Math.\ Sci.\ 10 (1975),
+  1--7.  Theorem 1 proves irrationality of $\sum_n1/a_n$ for increasing
+  integers with $a_n\ge n^{1+\tau}$ for some $\tau>0$ and every $n$ and
+  $\limsup_na_n^{1/2^n}=\infty$, as restated in Remark~4(4) of
+  \cite{bkkkz2026}; the original was not consulted for this note.
+\bibitem{bkkkz2026} K.~Barreto, J.~Kang, S.~Kim, V.~Kova\v{c}, and
+  S.~Zhang, \href{https://arxiv.org/abs/2601.21442}{\emph{Irrationality of
+  rapidly converging series: a problem of Erd\H{o}s and Graham}},
+  arXiv:2601.21442v3 (2026).  Theorem~2 (p.~3) settles Erd\H{o}s
+  Problem~1051 at the golden-ratio exponent and Theorem~5 (p.~5) shows the
+  threshold is sharp; Remark~4(4) (p.~5) identifies the case $d=1$ of its
+  Theorem~3 with \cite[Theorem~1]{erdos1975}; Lemma~14 (p.~13) is the
+  interval-filling lemma.  An unrefereed preprint with no formalisation; it
+  states nothing about \#257.
 \end{thebibliography}
 
 \companionpapercontext

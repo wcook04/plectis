@@ -580,7 +580,7 @@ construct and test the second, and prepare evidence for the third. It
 cannot grant the third status to itself. Mathlib is open to new
 contributors, but its current guide sets high standards for generality,
 integration, maintainability, style, documentation, and responsible
-disclosed use of AI <span class="citation" data-cites="mathlib"><a href="#ref-17">[17]</a></span>.
+disclosed use of AI <span class="citation" data-cites="mathlib"><a href="#ref-20">[20]</a></span>.
 A subject and Lean expert must decide whether a candidate belongs there,
 reshape and review it as needed, and take responsibility for any
 upstream discussion or pull request. The originating route should remain
@@ -860,7 +860,7 @@ generated views, or mathematical status by implication.</p>
 <p>Tao argues that AI mathematics should be judged along a chain: proof
 generation, verification, exposition, publication and community
 digestion, then eventual canonicalisation <span class="citation"
-data-cites="taoai"><a href="#ref-16">[16]</a></span>. This architecture is a concrete attempt to
+data-cites="taoai"><a href="#ref-19">[19]</a></span>. This architecture is a concrete attempt to
 build for that whole chain. The private reasoning and experiment loops
 support generation. Lean checks formal proofs, while Comparator protects
 selected exact interfaces. The problem papers, reasoning surfaces,
@@ -899,7 +899,10 @@ theorem counts do not determine value. Feng et al. state the rule in
 both of their reports: humans author mathematics papers even when
 generated content is correct, because authorship carries accountability
 for validity and attribution <span class="citation"
-data-cites="aletheia autonomousmath"><a href="#ref-8">[8]</a><a href="#ref-9">[9]</a></span>. The provenance note on the
+data-cites="aletheia autonomousmath"><a href="#ref-8">[8]</a><a href="#ref-9">[9]</a></span>. Henkel stated it earlier,
+treating the model as an interactive instrument and leaving ownership
+and responsibility for verification with the human author <span
+class="citation" data-cites="henkel"></span>. The provenance note on the
 first page follows that rule. The repository turns those recommendations
 into an implementation experiment: it asks how a small project can
 prepare for proof abundance without confusing abundant output with
@@ -1090,7 +1093,7 @@ second independent mathematician to review the result. This is the same
 limit encountered in assurance cases: a formal notation can record an
 asserted support relationship without proving that the evidence is true
 or sufficient for the top claim <span class="citation"
-data-cites="gsn"><a href="#ref-15">[15]</a></span>.</p>
+data-cites="gsn"><a href="#ref-18">[18]</a></span>.</p>
 <p>A reader can keep those limits straight by asking, for any capability
 named in this paper, which of four kinds of support stands behind
 it.</p>
@@ -1291,21 +1294,26 @@ more confident about the territory it already knows.</p>
 <p>This architecture is not a new proof-search algorithm. LeanDojo and
 Pantograph provide programmatic Lean environments and proof-state
 interaction <span class="citation"
-data-cites="leandojo pantograph"><a href="#ref-18">[18]</a><a href="#ref-19">[19]</a></span>. OpenProver already combines a
+data-cites="leandojo pantograph"><a href="#ref-21">[21]</a><a href="#ref-22">[22]</a></span>. OpenProver already combines a
 planner, parallel workers, independent verifiers, compact working
 memory, a larger repository, and Lean feedback <span class="citation"
-data-cites="openprover"><a href="#ref-20">[20]</a></span>. Agent Hunt already studies concurrent
+data-cites="openprover"><a href="#ref-23">[23]</a></span>. Agent Hunt already studies concurrent
 formalisation with locks, bounties, guarded ownership, and collaborative
-agents <span class="citation" data-cites="agenthunt"><a href="#ref-21">[21]</a></span>.
+agents <span class="citation" data-cites="agenthunt"><a href="#ref-24">[24]</a></span>.
 DreamProver learns a compact reusable lemma library through wake–sleep
-cycles <span class="citation" data-cites="dreamprover"><a href="#ref-22">[22]</a></span>. Aletheia
+cycles <span class="citation" data-cites="dreamprover"><a href="#ref-25">[25]</a></span>. Aletheia
 separates a generator, verifier, and reviser in natural language and
 credits the separated verifier, which may decline, for its accuracy
-<span class="citation" data-cites="autonomousmath"><a href="#ref-9">[9]</a></span>. These are
-baselines for proof interaction, parallel search, verification
-structure, and learned proof memory. Here those mechanisms sit upstream
-of a different question: after a proof is found, what exactly may move
-into a reviewed public claim?</p>
+<span class="citation" data-cites="autonomousmath"><a href="#ref-9">[9]</a></span>. Henkel
+grounds the same separation in measurement: in the Open Proof Corpus
+judgement matrix each model scores lowest when grading proofs it
+generated itself, which he reads as a reason to use different models for
+generation and verification <span class="citation"
+data-cites="henkel openproofcorpus"><a href="#ref-10">[10]</a><a href="#ref-11">[11]</a></span>. These are baselines for
+proof interaction, parallel search, verification structure, and learned
+proof memory. Here those mechanisms sit upstream of a different
+question: after a proof is found, what exactly may move into a reviewed
+public claim?</p>
 </section>
 <section id="open-formalisation-platforms." class="level5">
 <h5>Open formalisation platforms.</h5>
@@ -1369,10 +1377,24 @@ architecture accepts the bound and builds for the minority: a
 problem-sized world exists because its endpoint can be stated in Lean,
 and Comparator certifies that the stated interface is what was checked;
 where no such statement exists the world still records experiments,
-sources, and failed routes, and its Lean layer is empty. Tao’s community
-wiki of AI contributions to the Erdős problems is the public register
-such a result would reach <span class="citation"
-data-cites="taowiki"><a href="#ref-10">[10]</a></span>; the reviewed claim record here is what a
+sources, and failed routes, and its Lean layer is empty. Li et
+al. published a human-in-the-loop protocol for research mathematics a
+year before this paper, with a released prompt library <span
+class="citation" data-cites="lihai"></span>. The human fixes the
+statement, the assumptions, and the acceptance criteria; the model
+supplies candidate lemmas, constants, and counterexamples; and
+generation and validation are held apart by a local check of each claim
+under the stated assumptions and a global check of its fit in the
+argument. Their prove-or-disprove prompt runs a proof branch and a
+disproof branch together and keeps both records, and their discovery
+loop abstracts surviving results into a portable schema for transfer to
+adjacent settings. Their workflow uses no proof assistant; its checks
+are numerical scripts on a seed set and line-by-line reading, so the
+distinction between a computation receipt and a kernel receipt does not
+arise there. This paper claims no priority over that protocol. Tao’s
+community wiki of AI contributions to the Erdős problems is the public
+register such a result would reach <span class="citation"
+data-cites="taowiki"><a href="#ref-13">[13]</a></span>; the reviewed claim record here is what a
 wiki line would point back to. The paper claims no priority over their
 taxonomy and makes no comparison of the review processes.</p>
 </section>
@@ -1399,9 +1421,9 @@ source-specific gate accepts it.</p>
 <p>Checked-document and traceability systems make heterogeneous
 relationships explicit. Isabelle/DOF places formal and informal material
 in a typed checked document <span class="citation"
-data-cites="isadof"><a href="#ref-11">[11]</a></span>; requirements traceability follows
+data-cites="isadof"><a href="#ref-14">[14]</a></span>; requirements traceability follows
 commitments across development and revision <span class="citation"
-data-cites="gotel"><a href="#ref-12">[12]</a></span>. This repository keeps prose unrestricted and
+data-cites="gotel"><a href="#ref-15">[15]</a></span>. This repository keeps prose unrestricted and
 records selected public boundaries separately. That choice makes
 adoption simple, but leaves unregistered prose outside the checker.</p>
 </section>
@@ -1415,14 +1437,14 @@ evidence, assumptions, and purpose-sensitive arguments <span
 class="citation" data-cites="symposium"></span>. EurekAgent treats
 permissions, artefacts, budgets, and human supervision as first-class
 parts of an agent environment <span class="citation"
-data-cites="eurekagent"><a href="#ref-25">[25]</a></span>. Persistent records and environment
+data-cites="eurekagent"><a href="#ref-28">[28]</a></span>. Persistent records and environment
 design are therefore not unique to this system. The narrower distinction
 here is between authorities that must not be collapsed: experimental
 evidence, kernel acceptance, reviewed interpretation, exact-statement
 assurance, editorial selection, and public release.</p>
 <p>Mutation testing asks whether a test distinguishes a seeded fault
 from the original program <span class="citation"
-data-cites="demillo jiaharman"><a href="#ref-13">[13]</a><a href="#ref-14">[14]</a></span>. The deliberately false boundary
+data-cites="demillo jiaharman"><a href="#ref-16">[16]</a><a href="#ref-17">[17]</a></span>. The deliberately false boundary
 in the worked example follows that idea. Because the examples were
 selected by the system’s author and were not run as a controlled
 external evaluation, they show that particular checks can fail; they do
@@ -1573,50 +1595,60 @@ href="https://doi.org/10.48550/arXiv.2601.22401">arXiv</a>.</p></li>
 <li id="ref-9"><p>T. Feng, T. H. Trinh, G. Bingham, et al., <em>Towards Autonomous
 Mathematics Research</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2602.10177">arXiv</a>.</p></li>
-<li id="ref-10"><p>T. Tao, <em>AI contributions to Erdős problems</em>, <a
+<li id="ref-10"><p>J. Henkel, <em>The Mathematician’s Assistant: Integrating AI into
+Research Practice</em>, 2025, <a
+href="https://doi.org/10.48550/arXiv.2508.20236">arXiv</a>.</p></li>
+<li id="ref-11"><p>J. Dekoninck et al., <em>The Open Proof Corpus: A Large-Scale
+Study of LLM-Generated Mathematical Proofs</em>, 2025, <a
+href="https://doi.org/10.48550/arXiv.2506.21621">arXiv</a>.</p></li>
+<li id="ref-12"><p>C. Li, Z. Lai, D. An, J. Hu, and Z. Wen, <em>Advancing
+Mathematical Research via Human-AI Interactive Theorem Proving</em>,
+2025, <a
+href="https://doi.org/10.48550/arXiv.2512.09443">arXiv</a>.</p></li>
+<li id="ref-13"><p>T. Tao, <em>AI contributions to Erdős problems</em>, <a
 href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems">GitHub</a>,
 accessed September 2026.</p></li>
-<li id="ref-11"><p>A. D. Brucker and B. Wolff, <em>Isabelle/DOF: Design and
+<li id="ref-14"><p>A. D. Brucker and B. Wolff, <em>Isabelle/DOF: Design and
 Implementation</em>, in <em>Software Engineering and Formal
 Methods</em>, 2019, pp. 275–293.</p></li>
-<li id="ref-12"><p>O. C. Z. Gotel and A. C. W. Finkelstein, <em>An analysis of the
+<li id="ref-15"><p>O. C. Z. Gotel and A. C. W. Finkelstein, <em>An analysis of the
 requirements traceability problem</em>, Proc. First IEEE International
 Conference on Requirements Engineering, 1994, pp. 94–101.</p></li>
-<li id="ref-13"><p>R. A. DeMillo, R. J. Lipton, and F. G. Sayward, <em>Hints on test
+<li id="ref-16"><p>R. A. DeMillo, R. J. Lipton, and F. G. Sayward, <em>Hints on test
 data selection</em>, IEEE Computer 11(4), 1978, pp. 34–41.</p></li>
-<li id="ref-14"><p>Y. Jia and M. Harman, <em>An analysis and survey of the
+<li id="ref-17"><p>Y. Jia and M. Harman, <em>An analysis and survey of the
 development of mutation testing</em>, IEEE Transactions on Software
 Engineering 37(5), 2011, pp. 649–678.</p></li>
-<li id="ref-15"><p>SCSC Assurance Case Working Group, <em>Goal Structuring Notation
+<li id="ref-18"><p>SCSC Assurance Case Working Group, <em>Goal Structuring Notation
 Community Standard, Version 3</em>, SCSC-141C, May 2021.</p></li>
-<li id="ref-16"><p>T. Tao, <em>Mathematics in the age of AI</em>, preprint, 2026, <a
+<li id="ref-19"><p>T. Tao, <em>Mathematics in the age of AI</em>, preprint, 2026, <a
 href="https://doi.org/10.48550/arXiv.2608.16753">arXiv</a>.</p></li>
-<li id="ref-17"><p>Lean community, <em>Contributing to mathlib</em>, <a
+<li id="ref-20"><p>Lean community, <em>Contributing to mathlib</em>, <a
 href="https://leanprover-community.github.io/contribute/index.html">contributor
 guide</a>, accessed August 2026.</p></li>
-<li id="ref-18"><p>K. Yang et al., <em>LeanDojo: Theorem Proving with
+<li id="ref-21"><p>K. Yang et al., <em>LeanDojo: Theorem Proving with
 Retrieval-Augmented Language Models</em>, NeurIPS 2023.</p></li>
-<li id="ref-19"><p>L. Aniva, C. Sun, B. Miranda, C. Barrett, and S. Koyejo,
+<li id="ref-22"><p>L. Aniva, C. Sun, B. Miranda, C. Barrett, and S. Koyejo,
 <em>Pantograph: A Machine-to-Machine Interaction Interface for Advanced
 Theorem Proving, High Level Reasoning, and Data Extraction in Lean
 4</em>, 2024, <a
 href="https://doi.org/10.48550/arXiv.2410.16429">arXiv</a>.</p></li>
-<li id="ref-20"><p>M. Kripner and M. Straka, <em>OpenProver: Agentic and Interactive
+<li id="ref-23"><p>M. Kripner and M. Straka, <em>OpenProver: Agentic and Interactive
 Theorem Proving with Lean 4</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2607.09217">arXiv</a>.</p></li>
-<li id="ref-21"><p>C. E. Brown, C. Kaliszyk, and J. Urban, <em>Agent Hunt: Bounty
+<li id="ref-24"><p>C. E. Brown, C. Kaliszyk, and J. Urban, <em>Agent Hunt: Bounty
 Based Collaborative Autoformalization With LLM Agents</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2603.06737">arXiv</a>.</p></li>
-<li id="ref-22"><p>Y. Zhang et al., <em>DreamProver: Evolving Transferable Lemma
+<li id="ref-25"><p>Y. Zhang et al., <em>DreamProver: Evolving Transferable Lemma
 Libraries via a Wake–Sleep Theorem-Proving Agent</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2604.26311">arXiv</a>.</p></li>
-<li id="ref-23"><p>I. Takahara and T. Mizoguchi, <em>Toward Auditable AI Scientists:
+<li id="ref-26"><p>I. Takahara and T. Mizoguchi, <em>Toward Auditable AI Scientists:
 A Hypothesis Evolution Protocol for LLM Agents</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2607.09195">arXiv</a>.</p></li>
-<li id="ref-24"><p>D. Pratt, <em>Symposium: Trust via Auditable Records for
+<li id="ref-27"><p>D. Pratt, <em>Symposium: Trust via Auditable Records for
 Communities of AI Scientist Agents</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2608.19511">arXiv</a>.</p></li>
-<li id="ref-25"><p>A. Xin et al., <em>EurekAgent: Agent Environment Engineering is
+<li id="ref-28"><p>A. Xin et al., <em>EurekAgent: Agent Environment Engineering is
 All You Need for Autonomous Scientific Discovery</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2606.13662">arXiv</a>.</p></li>
 </ol>
