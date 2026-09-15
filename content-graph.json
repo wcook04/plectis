@@ -133053,7 +133053,7 @@
             "page": "paper-module-agent-route-observability-runtime.html"
           }
         ],
-        "total_occurrences": 776
+        "total_occurrences": 775
       },
       "visible_text_byte_count": 770
     },
@@ -135231,7 +135231,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 14,
+        "page_count": 15,
         "top_page": "component-batch9-macro-engines-capsule.html",
         "top_pages": [
           {
@@ -135259,7 +135259,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 32
+        "total_occurrences": 33
       },
       "visible_text_byte_count": 975
     },
@@ -144922,7 +144922,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 213,
+        "page_count": 212,
         "top_page": "components.html",
         "top_pages": [
           {
@@ -144950,7 +144950,7 @@
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 2260
+        "total_occurrences": 2259
       },
       "visible_text_byte_count": 814
     },
@@ -147665,9 +147665,13 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 7,
-        "top_page": "paper-modules.html",
+        "page_count": 8,
+        "top_page": "introduction.html",
         "top_pages": [
+          {
+            "count": 2,
+            "page": "introduction.html"
+          },
           {
             "count": 2,
             "page": "paper-modules.html"
@@ -147687,13 +147691,9 @@
           {
             "count": 1,
             "page": "paper-module-batch10-governance-compilers-capsule.html"
-          },
-          {
-            "count": 1,
-            "page": "paper-module-batch11-saturation-engines-capsule.html"
           }
         ],
-        "total_occurrences": 9
+        "total_occurrences": 11
       },
       "visible_text_byte_count": 874
     },
@@ -160737,7 +160737,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 220
+        "total_occurrences": 221
       },
       "visible_text_byte_count": 1240
     },
@@ -162928,7 +162928,7 @@
             "page": "paper-module-public-reveal-walkthrough.html"
           }
         ],
-        "total_occurrences": 360
+        "total_occurrences": 359
       },
       "visible_text_byte_count": 712
     },
@@ -164005,7 +164005,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 7,
+        "page_count": 6,
         "top_page": "open-questions.html",
         "top_pages": [
           {
@@ -164018,10 +164018,6 @@
           },
           {
             "count": 1,
-            "page": "introduction.html"
-          },
-          {
-            "count": 1,
             "page": "paper-module-batch5-authority-systems-capsule.html"
           },
           {
@@ -164031,9 +164027,13 @@
           {
             "count": 1,
             "page": "papers.html"
+          },
+          {
+            "count": 1,
+            "page": "rules-and-ideas.html"
           }
         ],
-        "total_occurrences": 14
+        "total_occurrences": 13
       },
       "visible_text_byte_count": 1034
     },
@@ -273230,7 +273230,7 @@
         "contact.html": 1,
         "doctrine.html": 41,
         "evidence.html": 5,
-        "introduction.html": 4,
+        "introduction.html": 3,
         "open-questions.html": 16,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 8,
         "paper-module-agent-closeout-faithfulness-audit.html": 11,
@@ -273293,7 +273293,7 @@
       },
       "page_count": 104,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 776
+      "total_occurrences": 775
     },
     "agent_reliability": {
       "by_page": {
@@ -274001,6 +274001,7 @@
         "components.html": 3,
         "contact.html": 1,
         "evidence.html": 1,
+        "introduction.html": 1,
         "paper-module-batch9-macro-engines-capsule.html": 5,
         "paper-modules.html": 3,
         "reference.html": 1,
@@ -274008,9 +274009,9 @@
         "source.html": 2,
         "vulnerability-disclosure.html": 1
       },
-      "page_count": 14,
+      "page_count": 15,
       "top_page": "component-batch9-macro-engines-capsule.html",
-      "total_occurrences": 32
+      "total_occurrences": 33
     },
     "barrier": {
       "by_page": {
@@ -277572,7 +277573,6 @@
         "contact.html": 1,
         "doctrine.html": 176,
         "evidence.html": 7,
-        "introduction.html": 1,
         "open-questions.html": 27,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 12,
         "paper-module-agent-closeout-faithfulness-audit.html": 22,
@@ -277685,9 +277685,9 @@
         "tour.html": 3,
         "vulnerability-disclosure.html": 3
       },
-      "page_count": 213,
+      "page_count": 212,
       "top_page": "components.html",
-      "total_occurrences": 2260
+      "total_occurrences": 2259
     },
     "evidence_band": {
       "by_page": {
@@ -278678,15 +278678,16 @@
       "by_page": {
         "component-batch9-macro-engines-capsule.html": 1,
         "contact.html": 1,
+        "introduction.html": 2,
         "paper-module-batch10-governance-compilers-capsule.html": 1,
         "paper-module-batch11-saturation-engines-capsule.html": 1,
         "paper-module-verifier-lab-kernel.html": 1,
         "paper-modules.html": 2,
         "rules-and-ideas.html": 2
       },
-      "page_count": 7,
-      "top_page": "paper-modules.html",
-      "total_occurrences": 9
+      "page_count": 8,
+      "top_page": "introduction.html",
+      "total_occurrences": 11
     },
     "frontier": {
       "by_page": {
@@ -283061,7 +283062,7 @@
     "principle": {
       "by_page": {
         "doctrine.html": 45,
-        "introduction.html": 1,
+        "introduction.html": 2,
         "open-questions.html": 3,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 1,
         "paper-module-agent-closeout-faithfulness-audit.html": 1,
@@ -283172,7 +283173,7 @@
       },
       "page_count": 109,
       "top_page": "doctrine.html",
-      "total_occurrences": 220
+      "total_occurrences": 221
     },
     "prior_art": {
       "by_page": {
@@ -284263,7 +284264,7 @@
         "contact.html": 1,
         "doctrine.html": 34,
         "evidence.html": 1,
-        "introduction.html": 2,
+        "introduction.html": 1,
         "lineage.html": 2,
         "paper-module-agent-monitor-redteam-falsification-replay.html": 1,
         "paper-module-agent-route-observability-runtime.html": 5,
@@ -284351,7 +284352,7 @@
       },
       "page_count": 100,
       "top_page": "paper-module-first-screen-composition-root.html",
-      "total_occurrences": 360
+      "total_occurrences": 359
     },
     "readiness": {
       "by_page": {
@@ -285228,16 +285229,15 @@
     "reliability": {
       "by_page": {
         "doctrine.html": 3,
-        "introduction.html": 1,
         "open-questions.html": 6,
         "paper-module-batch5-authority-systems-capsule.html": 1,
         "paper-module-egress-self-compliance-audit.html": 1,
         "papers.html": 1,
         "rules-and-ideas.html": 1
       },
-      "page_count": 7,
+      "page_count": 6,
       "top_page": "open-questions.html",
-      "total_occurrences": 14
+      "total_occurrences": 13
     },
     "replay": {
       "by_page": {

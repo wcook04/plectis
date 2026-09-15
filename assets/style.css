@@ -6308,43 +6308,103 @@ html[data-plectis-docs-runtime="failed"] .docs-search-btn { display: none; }
 .hero--simple { padding-bottom: 1.6rem; }
 .hero--simple .hero__who { margin-bottom: 1.5rem; }
 
-/* The one-page introduction, rendered like a paper: title block, byline,
-   the manuscript route, then the prose at a reading measure. */
-.intro-paper__head { margin: 0 0 1.7rem; padding-bottom: 1.35rem; border-bottom: 1px solid var(--rule); }
-.intro-paper__head h1 { margin-bottom: 0.25rem; }
+/* The one-page introduction, rendered like the manuscript it mirrors: a
+   title block that closes on the site's thread rule, the prose at a reading
+   measure with a slightly larger opening paragraph, citation marks in the
+   text, and a hanging-number Sources block at the foot. */
+.intro-paper__head { margin: 0 0 2.1rem; padding: 0; border: 0; }
+.intro-paper__head h1 {
+  font-size: clamp(2.6rem, 5.2vw, 3.6rem); letter-spacing: -0.015em;
+  margin: 0 0 0.3rem;
+}
 .intro-paper__subtitle {
-  font-family: var(--font-serif); font-size: clamp(1.2rem, 2vw, 1.45rem);
-  line-height: var(--lh-snug); color: var(--ink-soft);
-  margin: 0 0 0.75rem; text-wrap: balance;
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  line-height: var(--lh-snug); color: var(--link-ext);
+  margin: 0 0 0.9rem; text-wrap: balance;
 }
 .intro-paper__byline {
   display: flex; flex-wrap: wrap; gap: 0.3rem 0;
-  margin: 0 0 1.1rem; font-size: var(--fs-meta); color: var(--muted);
+  margin: 0 0 1.35rem;
+  font-family: var(--font-serif); font-variant-caps: small-caps;
+  font-size: 1rem; letter-spacing: 0.05em; color: var(--muted);
 }
-.intro-paper__byline span + span::before { content: "\00b7"; margin: 0 0.6rem; color: var(--rule-strong); }
+.intro-paper__byline span + span::before {
+  content: "\00b7"; margin: 0 0.65rem; color: var(--rule-strong); letter-spacing: 0;
+}
 .intro-paper__routes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin: 0; }
-.intro-paper__routes-note { font-size: var(--fs-small); color: var(--faint); }
+.intro-paper__routes-note {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: var(--fs-meta); color: var(--faint);
+}
+/* The head closes on the thread rule at the width of a word, the same mark
+   the landing hero uses, so the page reads as one of the site's own. */
+.intro-paper__head::after {
+  content: ""; display: block; width: 6rem; height: 3px;
+  margin-top: 1.6rem; border-radius: 2px;
+  background: var(--thread); opacity: var(--thread-alpha);
+}
 .intro-paper__body {
   max-width: var(--prose);
-  font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.68;
+  font-family: var(--font-serif); font-size: 1.09rem; line-height: 1.72;
   color: var(--ink);
 }
-.intro-paper__body p { margin: 0 0 1.05em; text-wrap: pretty; }
+.intro-paper__body p { margin: 0 0 1.15em; text-wrap: pretty; }
+.intro-paper__body p:first-child { font-size: 1.07em; line-height: 1.68; }
 .intro-paper__body p:last-child { margin-bottom: 0; }
-.intro-paper__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem 1.4rem; }
+/* A cited link already carries its number; the leaving-the-site arrow on top
+   of it is clutter. Browsers without :has keep the arrow. */
+.intro-paper__body a[data-link-kind="exogenous"]:has(+ .intro-paper__cite)::after { content: none; }
 /* Citation marks in the text and the numbered Sources block at the foot,
    matching the PDF: a short rule, small type, the URL after each entry. */
-.intro-paper__cite { font-size: 0.68em; line-height: 0; vertical-align: super; margin-left: 0.08em; }
-.intro-paper__cite a { color: var(--accent); text-decoration: none; font-variant-numeric: tabular-nums; }
-.intro-paper__cite a:hover { text-decoration: underline; }
-.intro-paper__sources { max-width: var(--prose); margin: 1.6rem 0 0; padding-top: 0.9rem; }
-.intro-paper__sources::before { content: ""; display: block; width: 6rem; height: 1px; background: var(--rule-strong); margin-bottom: 0.9rem; }
-.intro-paper__sources-title { margin: 0 0 0.5rem; font-size: var(--fs-micro); font-weight: 600; letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--faint); }
-.intro-paper__sources ol { margin: 0; padding-left: 1.4rem; font-size: var(--fs-small); line-height: var(--lh-snug); color: var(--muted); }
-.intro-paper__sources li { margin: 0 0 0.4rem; scroll-margin-top: calc(var(--topbar-h) + 1rem); }
+.intro-paper__cite { font-size: 0.7em; line-height: 0; vertical-align: super; margin-left: 0.1em; }
+.intro-paper__body .intro-paper__cite a { color: var(--accent); text-decoration: none; font-variant-numeric: tabular-nums; }
+.intro-paper__body .intro-paper__cite a:hover { text-decoration: underline; }
+.intro-paper__sources { max-width: var(--prose); margin: 2.2rem 0 0; padding-top: 1rem; }
+.intro-paper__sources::before {
+  content: ""; display: block; width: 6rem; height: 1px;
+  background: var(--rule-strong); margin-bottom: 1rem;
+}
+.intro-paper__sources-title {
+  margin: 0 0 0.7rem; font-size: var(--fs-micro); font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--faint);
+}
+.intro-paper__sources ol {
+  list-style: none; margin: 0; padding: 0; counter-reset: intro-source;
+  font-size: var(--fs-small); line-height: var(--lh-snug); color: var(--muted);
+}
+.intro-paper__sources li {
+  position: relative; padding-left: 1.7rem;
+  margin: 0 0 0.55rem; scroll-margin-top: calc(var(--topbar-h) + 1rem);
+}
+.intro-paper__sources li::before {
+  counter-increment: intro-source; content: counter(intro-source);
+  position: absolute; left: 0; top: 0;
+  color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 600;
+}
 .intro-paper__sources li:target { color: var(--ink); }
-.intro-paper__sources li a { color: var(--link-ext); overflow-wrap: anywhere; font-family: var(--font-mono); font-size: 0.92em; }
+.intro-paper__sources li:target::before { color: var(--link-ext); }
+/* Only the URL link is set as a block in mono; glossary term links inside
+   an entry keep the page's normal inline treatment. */
+.intro-paper__sources li a[data-link-kind="exogenous"] {
+  display: block; margin-top: 0.12rem;
+  color: var(--link-ext); overflow-wrap: anywhere;
+  font-family: var(--font-mono); font-size: 0.88em; text-decoration: none;
+}
+.intro-paper__sources li a[data-link-kind="exogenous"]:hover { text-decoration: underline; }
+.intro-paper__sources li a[data-link-kind="exogenous"]::after { content: none; }
 .intro-paper__sources code { font-size: 0.92em; }
+/* The foot: the manuscript on the left, the two onward routes together on
+   the right, held to the prose measure so nothing wraps into a ragged third line. */
+.intro-paper__foot {
+  max-width: var(--prose);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.5rem;
+}
+.intro-paper__foot-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; margin-left: auto; }
+.intro-paper__foot-links a { white-space: nowrap; }
+@media (max-width: 560px) {
+  .intro-paper__foot-links { margin-left: 0; }
+}
 
 /* ── Papers catalogue shelves (2026-09-14) ───────────────────────────────────
    Three shelves in reading order: short papers, system papers, reasoning
