@@ -55,8 +55,9 @@ exactly: \(\operatorname{ord}_qV_N^{*}=N(N-1)(2N-1)/6\) at every rank, with
 leading coefficient \((N!)^{2}(N+1)!/2^{N}\), where the source proves the
 inequality alone. After a row transformation, one determinant term has
 uniquely least order, so its coefficient cannot cancel. This complete identification
-is ordinary mathematics; the corresponding Lean assembly retains a row
-hypothesis. The record also gives a separate positive-measure proof of
+is ordinary mathematics. Lean source for the all-row statement is published
+outside the checked library build and has never been compiled by public CI.
+The record also gives a separate positive-measure proof of
 fixed-real-base size estimates.
 
 At \(3/2\), local residue collisions yield divisible row combinations. To
@@ -250,12 +251,14 @@ treated by Kova\v{c} and Tao~\cite{kovactao2024}.
 
 The rational non-integer
 progress relevant here is instead the height criterion of Bundschuh and
-V\"a\"an\"anen~\cite{bv1994}, which remains the strongest explicit numerical
-threshold among the sources compared here for this value.  Zudilin's later
-Pad\'e-and-Hankel treatment also admits non-integral rational bases: its
-generalized $q$-logarithm remarks that its results also hold for non-integer
-$p=r/s$ with $|p|>1$, under an assumption $\log|r|>c\log|s|$ for some computable
-$c>0$~\cite{zudilin2016}.  No value of $c$ is computed there.  That remark
+V\"a\"an\"anen~\cite[Thm.~2, p.~177]{bv1994}, which gives the strongest explicit
+numerical threshold for this value among the previously published sources
+compared here; Theorem~\ref{long1049:res:region} below enlarges the region that
+criterion covers.  Zudilin's later Pad\'e-and-Hankel treatment of the generalized
+$q$-logarithm also comments on non-integral rational bases: it remarks that its results can be
+given for non-integer $p=r/s$ with $|p|>1$, under an assumption
+$\log|r|>c\log|s|$ for some computable
+$c>0$~\cite[Sec.~2, p.~4]{zudilin2016}.  No value of $c$ is computed there.  That remark
 announces the shape of a rational-base extension for the generalized
 $q$-logarithm of that paper.  Section~\ref{long1049:sec:region} identifies an admissible
 constant for $F$ itself, $c=\mu=2.464978683574975\ldots$, which is the 2004
@@ -442,7 +445,7 @@ Pad\'e approximation; Lean~4.
 
 This section states the note's leading results.  Fix Zudilin's direction
 $(\alpha_0,\alpha_1,\alpha_2;\beta)=(14,12,14;27)$ of
-\cite[Sec.~5]{zudilin2004} and put
+\cite[Sec.~5, pp.~161--162]{zudilin2004} and put
 \[
  C_1=(\alpha_0+\alpha_1+\alpha_2)\beta-\tfrac12(\alpha_1^{2}+\alpha_2^{2}+\beta^{2})
  =\frac{1091}{2},
@@ -477,8 +480,9 @@ The proof below needs $J$ in its combinatorial form as well.  Put
  \lfloor14\xi\rfloor+\lfloor13\xi\rfloor-\lfloor12\xi\rfloor-\lfloor15\xi\rfloor,\;
  2\lfloor14\xi\rfloor-\lfloor13\xi\rfloor-\lfloor15\xi\rfloor\bigr\},
 \]
-the weight attached by \cite[(26)]{zudilin2004} to the six-tuple
-$c=(13,14,12,14,15,13)$ of the fixed direction.
+the weight that \cite[p.~162]{zudilin2004} attaches to the six-tuple
+$c=(13,14,12,14,15,13)$ of the fixed direction; it gives the exponents
+$\nu_l=\omega(n/l)$ of the source's~(22) and enters its limit~(26).
 
 \begin{lemma}[the weight is an indicator]\label{long1049:res:omega-indicator}
 On $[0,1)$ the function $\omega$ takes only the values $0$ and $1$, and
@@ -504,7 +508,8 @@ $-\psi_1'(\xi)=\sum_{k\ge0}2(k+\xi)^{-3}$ give the two forms of $J$ used below,
   =\sum_{i=1}^{13}\bigl(\psi_1(u_i)-\psi_1(v_i)\bigr),
 \]
 the first being the integral $\int_0^1\omega\,d(-\psi_1)$ of
-\cite[Lemma~2]{zudilin2004}.  Since $\omega$ vanishes near $0$, both are finite.
+\cite[Lemma~2, p.~155, and (26), p.~162]{zudilin2004}.  Since $\omega$ vanishes
+near $0$, both are finite.
 
 \begin{theorem}[rational-base region]\label{long1049:res:region}
 Let $a>b\ge1$ be coprime integers with
@@ -532,16 +537,18 @@ according to context, and put $q=x^{-1}$.  Set
  \beta_n=27n+2,\quad N=15n,\quad M_n=266n^{2}+34n+1 .
 \end{gathered}
 \]
-The symbol $\beta_n$ is the upper hypergeometric parameter of
-\cite[Sec.~2]{zudilin2004}; the letter $b$ continues to denote the denominator
-of the base, and $M_n$ is the integer of that paper's~(16).  With
+The symbol $\beta_n$ is the parameter $b$ of \cite[Sec.~3, p.~155]{zudilin2004},
+the exponent in the lower parameter $q^{b}$ of the Heine series~(13) on p.~157;
+the letter $b$ continues to
+denote the denominator of the base, and $M_n$ is the integer of that
+paper's~(16) on p.~157.  With
 $(z;q)_m=\prod_{j=0}^{m-1}(1-zq^{j})$, the source's summand is
 \begin{equation}\label{long1049:eq:positive-source-form}
  H_n(x)=\sum_{t\ge0}
  \frac{(q^{t+1};q)_{a_1-1}}{(q;q)_{a_1-1}}\,
  \frac{(q;q)_{\beta_n-a_2-1}}{(q^{a_2+t};q)_{\beta_n-a_2}}\,q^{a_0t},
 \end{equation}
-and \cite[(8)--(11)]{zudilin2004} gives $H_n=A_nF-B_n$ with
+and \cite[(8)--(11), pp.~156--157]{zudilin2004} gives $H_n=A_nF-B_n$ with
 $A_n,B_n\in\Q(x)$.  The two coefficients can be written down.  Let
 $\genfrac{[}{]}{0pt}{}{m}{r}_X$ be the Gaussian binomial polynomial, of degree
 $r(m-r)$ and with nonnegative coefficients summing to $\binom{m}{r}$, and for
@@ -574,7 +581,7 @@ $\nu_{n,l}=0$ for $l>15n$ because the intervals all begin at or above $1/14$.
 
 Zudilin's Lemma~7 \cite[p.~161, (23)]{zudilin2004} applies at the parameters above: the tuple is
 $c=n\cdot(13,14,12,14,15,13)$ with maximum $m(c)=15n$ and difference $s(c)=n>0$,
-and the source's~(14) holds because $12n+1\le14n+1$ and
+and the source's~(14) on p.~157 holds because $12n+1\le14n+1$ and
 $26n+2\le27n+2\le28n+2$.  Its conclusion is the inclusion
 \begin{equation}\label{long1049:eq:integer-polynomial-pair}
  U_n:=X^{-M_n}\frac{D_N}{\Omega_n}A_n\in\Z[X],\qquad
@@ -583,11 +590,14 @@ $26n+2\le27n+2\le28n+2$.  Its conclusion is the inclusion
 Two points about that citation matter.  First, the conclusion used is the one
 in $\Z[X]$, not integrality at integer arguments: an integer-valued polynomial
 such as $X(X-1)/2$ shows that the two statements differ.  The source's proof
-supplies the polynomial form.  Its Lemma~4 clears the two rational coefficients
-separately by Gaussian-binomial identities in $\Z[X]$, its Lemma~5 is Heine's
-transform in the parameter $q$, and Lemma~7 removes the cyclotomic factors by
-polynomial divisibility, $\Omega_n$ being monic.  All three precede the source's
-evaluation at an integer $p$ in its~(24), and all three remain valid with an
+supplies the polynomial form.  Its Lemma~4 (pp.~157--159) clears the two
+rational coefficients separately by Gaussian-binomial identities in $\Z[X]$,
+its Lemma~5 (p.~160) is the stability of the normalised series under the
+order-twelve group generated by the parameter map that Heine's transform~(1)
+induces and the exchange of $a_1$ and $a_2$, and Lemma~7 (p.~161) removes
+the cyclotomic factors by polynomial divisibility, $\Omega_n$ being monic.  All
+three precede the source's evaluation at an integer $p$ in its~(24) on p.~162,
+and all three remain valid with an
 indeterminate.  Second, the pair extracted from the source's module inclusion is
 unique, because $F$ is not a rational function of $X$: as $h\downarrow0$,
 splitting the original Lambert sum $F(e^h)=\sum_{m\ge1}(e^{hm}-1)^{-1}$
@@ -895,8 +905,9 @@ receipt and is not kernel-checked.
 Theorems~\ref{long1049:res:region} and~\ref{long1049:res:31over4} are ordinary proofs.  Their
 citation set is Zudilin's Lemma~7 in its polynomial reading, together with the
 inputs of that lemma's own proof, namely his Lemma~3, the exponent $M(a;b)$
-of~(16) proved by his Lemma~4, Heine's transform as his Lemma~5, and the
-identity~(9)--(11) \cite{zudilin2004}.  Everything else above is proved here:
+of~(16) proved by his Lemma~4, the group stability of his Lemma~5, and the
+identity~(9)--(11), all in \cite[pp.~156--161]{zudilin2004}.  Everything else above is
+proved here:
 the nonrationality of $F$ as a function, the transfer of Lemma~7 to explicit
 integer polynomials, the exact degree computation, the degree bound on $V_n$,
 positivity, the Archimedean size estimate, and the limit
@@ -921,10 +932,10 @@ hypothesis for $\alpha=-1$ is $\lambda<(1/2+1/\pi^{2})^{-1}$ with
 $\lambda=\log h(q)/\log|q|$; at $q=a/b$ this reads
 $\log a/\log(a/b)<(1/2+1/\pi^{2})^{-1}$, which is the displayed inequality.  Duverney proved an
 independent and strictly smaller region for the same series
-\cite[Th\'eor\`eme~2, p.~174]{duverney1996}.  Zudilin announced a rational-base
-extension of his generalized $q$-logarithm results under an assumption
-$\log|r|>c\log|s|$ for a computable $c>0$, without computing a value
-\cite{zudilin2016}.  Zudilin's 2004 paper supplies the forms and the exponent
+\cite[Th\'eor\`eme~2, p.~174]{duverney1996}.  Zudilin remarked that his
+generalized $q$-logarithm results can be given at non-integer rational bases
+under an assumption $\log|r|>c\log|s|$ for a computable $c>0$, without computing
+a value \cite[Sec.~2, p.~4]{zudilin2016}.  Zudilin's 2004 paper supplies the forms and the exponent
 $\mu$ under the standing hypothesis $p=1/q\in\Z\mathbin{\backslash}\{0,\pm1\}$, and it
 states no rational-base result \cite[Sec.~2, p.~154; Thm.~1]{zudilin2004}.  The
 contribution here is the rational specialisation of the 2004 forms, with the
@@ -1173,7 +1184,7 @@ and the floating-point comparisons were not interval-certified, so this is
 numerical evidence over that box rather than an exact optimality theorem.
 The enumeration ranges over integer tuples
 $(\alpha_0,\alpha_1,\alpha_2;\beta)$ with $1\le\alpha_j\le30$,
-$1\le\beta\le30$, satisfying the cone conditions of \cite[Sec.~5]{zudilin2004}
+$1\le\beta\le30$, satisfying the cone conditions of \cite[Sec.~5, p.~161]{zudilin2004}
 and taken up to the common factor of the four entries; the objective is the
 ratio $C_0/C_1$ of the source's (25) and (26), evaluated from the exact rational
 breakpoints of the step-function weight and trigamma values at thirty decimal
@@ -1365,7 +1376,7 @@ is settled by the following exact order.
 \begin{theorem}[sharp all-rank $q$-order and leading
 coefficient]\label{long1049:res:zudilin-sharp-qorder}
 For every rank $N$, the normalised Hankel determinant $V_N^{*}$ of
-\cite[Sec.~4]{zudilin2016}, evaluated at $x=z=1$, has
+\cite[Sec.~4, (6), p.~6]{zudilin2016}, evaluated at $x=z=1$, has
 \[
  \operatorname{ord}_q V_N^{*}=\frac{N(N-1)(2N-1)}{6},
  \qquad
@@ -1375,7 +1386,7 @@ For every rank $N$, the normalised Hankel determinant $V_N^{*}$ of
 
 \noindent The source proves the inequality
 $\operatorname{ord}_q V_N^{*}\ge N(N-1)(2N-1)/6$ and uses it as an upper bound
-on $|V_N^{*}|$ \cite[Sec.~4]{zudilin2016}.  Equality is the statement that no
+on $|V_N^{*}|$ \cite[Sec.~4, p.~7]{zudilin2016}.  Equality is the statement that no
 further cancellation is available inside the determinant, so the hope of a
 hidden cubic decay there is closed.
 
@@ -1390,7 +1401,7 @@ Work over $A=\Z[[q]]$.  Let $H(X)=1+\sum_{s\ge1}a_s(q)X^{s}$ and put
 \]
 where $\mathcal N$ is the backward shift $(\mathcal Nf)_m=f_{m-1}$ in the index
 $m$, so $D_j$ is the source's backward-difference operator of
-\cite[Sec.~4]{zudilin2016}.  Write $\bar H=H\bmod q$ and
+\cite[Sec.~4, (7), p.~6]{zudilin2016}.  Write $\bar H=H\bmod q$ and
 $h_r=[X^{r}]\bar H(X)^{-1}$, with $h_r=0$ for $r<0$ and $h_0=1$.
 
 \begin{lemma}[all-depth initial monomial]\label{long1049:res:allrowinitial}
@@ -1568,22 +1579,26 @@ in this library: the all-depth associated-graded recurrence
 The initial monomial of transformed row $1$ in every column, of order exactly
 $l+1$ and coefficient exactly $-6$, and the two closed forms
 $6\operatorname{ord}=N(N-1)(2N-1)$ and
-$2^{N}\mathrm{lc}=(N!)^{2}(N+1)!$, are ordinary in this record;
-those Lean names are not in this checkout.  The initial-monomial theorem for rows $j\ge2$ is outside this
-library; row $j=2$, with initial monomial $18q^{2l+3}$, is checked in a module
-of the external-verification cut, and rows $j\ge3$ are open, so the Lean
-identification of $V_N^{*}$ itself with the assembled leading matrix stays
-conditional on a row hypothesis.  Independently of the proof, the order and the
+$2^{N}\mathrm{lc}=(N!)^{2}(N+1)!$, are ordinary in this record.  Lean source
+in \texttt{Erdos1049/AllRow} contains statements and proof scripts for the
+initial monomial of every transformed row and for the order and leading
+coefficient of $V_N^{*}$ at every rank, with no row hypothesis.  That source and
+\texttt{ZudilinSharpHankelCoefficient.lean}, which it imports, lie outside the
+checked library build, because the normalised moment definitions they use are
+absent from the published \texttt{AdelicHeightBridge.lean}.  Public CI has never
+compiled either file, so this record treats them as unchecked.  Independently of the proof, the order and the
 leading coefficient were computed exactly for $1\le N\le7$, giving orders
 $0,1,5,14,30,55,91$ and leading coefficients
 $1,6,108,4320,324000,40824000,8001504000$, each matching the closed forms.
 
 \paragraph{Attribution and remaining obligation.}
-The antecedent is the inequality of \cite[Sec.~4]{zudilin2016}; the equality and
+The antecedent is the inequality of \cite[Sec.~4, p.~7]{zudilin2016}; the equality and
 the leading coefficient are proved here.  The remaining obligation is a formal
 one.  Lemma~\ref{long1049:res:allrowinitial} and~\eqref{long1049:eq:row-initial} give the initial monomial of every row, and the Lean
-formalisation of that identity stops at $j=2$, so the Lean statement about
-$V_N^{*}$ retains a row hypothesis that the proof above discharges.  Nothing in
+source in \texttt{Erdos1049/AllRow} states that identity for every row.  The
+formal check still requires a bridge module carrying the moment definitions, a
+successful compilation of that source against it, and an import into the
+supported library root.  Nothing in
 this subsection decides the arithmetic nature of $F(3/2)$.
 
 \section{Integer scalar content is neutral}\label{long1049:sec:primitive}
@@ -1693,7 +1708,7 @@ specialised-row stage.
 \section{Endpoint residues at $(3,2)$ and the four-jet
 kernel}\label{long1049:sec:endpoints}
 
-Zudilin's treatment of \(q\)-harmonic series~\cite{zudilin2004} builds linear
+Zudilin's treatment of \(q\)-harmonic series~\cite[Secs.~3--5]{zudilin2004} builds linear
 forms of the shape used in Section~\ref{long1049:sec:primitive} out of Heine's basic
 transform.  The generic endpoint and jet lemmas below concern arbitrary
 integral coefficient pairs of this shape; they do not construct or instantiate
@@ -1853,7 +1868,7 @@ Proposition~8.6.
 
 The methods that reduce denominators at integer bases, the factorial-coset
 quotients of Rhin and Viola~\cite{rhinviola1996} and the order-twelve group and
-cyclotomic divisor of Zudilin~\cite{zudilin2004}, produce their gain as
+cyclotomic divisor of Zudilin~\cite[Sec.~4, pp.~159--161]{zudilin2004}, produce their gain as
 cyclotomic or factorial factors of the coefficient polynomials.
 Proposition~\ref{long1049:res:cyclounit} says that transporting such a factor through the
 homogenisation at $(3,2)$ contributes no power of $2$ and no power of $3$,
@@ -3095,16 +3110,19 @@ Binary selectors collide in the four-jet signature at the stated rank and depth.
   \href{https://geodesic.mathdoc.fr/articles/10.4064/aa111-2-4/}{\emph{Heine's
   basic transform and a permutation group for \(q\)-harmonic series}},
   Acta Arith. \textbf{111} (2004), no.~2, 153--164,
-  doi:10.4064/aa111-2-4.
+  doi:\href{https://doi.org/10.4064/aa111-2-4}{10.4064/aa111-2-4}.
+  Page references are to the printed journal pages.
 \bibitem{zudilin2016} W.~Zudilin,
   \href{https://arxiv.org/abs/1601.02688}{\emph{On the irrationality of
   generalized \(q\)-logarithm}}, arXiv:1601.02688; Res. Number Theory
-  \textbf{2} (2016),
+  \textbf{2} (2016), Art.~15,
   doi:\href{https://doi.org/10.1007/s40993-016-0042-x}{10.1007/s40993-016-0042-x}.
+  Page references are to arXiv:1601.02688v2.
   The remark that the results extend to non-integer \(p=r/s\), \(|p|>1\), under
-  an assumption \(\log|r|>c\log|s|\) for a computable \(c>0\), is at the end of
-  Section~2; no value of \(c\) is computed there, and the remark is made for the
-  generalized \(q\)-logarithm of that paper.
+  an assumption \(\log|r|>c\log|s|\) for a computable \(c>0\), is in Section~2,
+  p.~4, in the paragraph beginning ``Finally, we remark''; no value of \(c\) is
+  computed there, and the remark is made for the generalized \(q\)-logarithm of
+  that paper.
 \bibitem{duverney1996} D.~Duverney,
   \href{https://numdam.org/item/JTNB_1996__8_1_173_0.pdf}{\emph{\`A propos de la
   s\'erie $\sum_{n\ge1}x^{n}/(q^{n}-1)$}},

@@ -71,7 +71,14 @@ states the removal of coprimality without printing the details. The
 proof below of that stated extension is independent; no priority over
 Erdős is claimed and no identification with his omitted argument is
 asserted. The checked pairwise-coprime theorem listed below retains that
-extra hypothesis.</p>
+extra hypothesis. The same paper says that <span
+class="math inline" data-term-auto="off">\(\sum1/n_i&lt;\infty\)</span> could be replaced by
+a weaker but more complicated condition (p. 222), and suggests that for
+pairwise coprime supports Brun’s method could probably replace it by
+<span class="math inline" data-term-auto="off">\(\sum_{n_i&lt;x}1/n_i=o(\log\log x)\)</span>
+(p. 226). Theorem <a class="math-ref" href="#thm:257-weighted">1</a> below proves
+irrationality under one explicit weaker condition without coprimality;
+no identification with his suggestions is asserted.</p>
 <p>The mechanism is to make positive displacements arbitrarily small.
 For <span class="math inline" data-term-auto="off">\(N&gt;0\)</span>, write <span
 class="math inline" data-term-auto="off">\(N=q_a a+r_a\)</span>, <span
@@ -408,6 +415,37 @@ class="math inline" data-term-auto="off">\(W_{b,\mathcal P}(A)\le W_{2,\mathcal
 P}(A)\)</span>. Thus the base-two weighted hypothesis gives the
 conclusion simultaneously at every integer base. The hypothesis is also
 hereditary under passage to infinite subsets.</p>
+<section id="averaging-antecedents." class="level5">
+<h5>Averaging antecedents.</h5>
+<p>Both averaging proofs in this section end by choosing a term no
+larger than a finite mean. <a
+href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf">Duverney
+and Tachiya</a> choose their index in the same way in their refinement
+of the Chowla–Erdős method: they average a local coefficient mass over
+an arithmetic progression built by the Chinese remainder theorem, and a
+term attaining the minimum supplies the bounds that control the tail
+beyond it (Section 2, (2.3)–(2.9), pp. 5–6 of the author preprint). <a
+href="https://arxiv.org/abs/2601.20743">Kaneko, Suzuki and Tachiya</a>
+measure the average decay of scaled tails by <span
+class="math inline" data-term-auto="off">\(R_c(q,x,z)\)</span>, their (1.7) on p. 3 of arXiv
+v1. Under a counting condition on the support and a bound on <span
+class="math inline" data-term-auto="off">\(R_c\)</span>, most scaled tails in a range are
+small, and arbitrarily small nonzero scaled tails give irrationality
+(Lemmas 1 and 2, pp. 6–8). The divisor-incidence coefficients <span
+class="math inline" data-term-auto="off">\(\#\{a\in A:a\mid n\}\)</span> are positive on
+every multiple of <span class="math inline" data-term-auto="off">\(\min A\)</span>, so
+conditions (iii) and (iv) of their Theorems 1 and 3 fail for every
+splitting into two sequences, and the scaled tail</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{r\ge1}\frac{\#\{a\in A:a\mid m+r\}}{b^r}
+=\sum_{a\in A}\phi_a(m)=S_b(A)+\Delta_{b,A}(m)\]</span></div>
+<p class="display-continue">is at least
+<span class="math inline" data-term-auto="off">\(S_b(A)\)</span>. The proofs above average
+the displacement instead, along multiples of a modulus that freezes a
+finite part of <span class="math inline" data-term-auto="off">\(A\)</span>; the weighted
+proof adds the dyadic average <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-dyadic-average">eq:257-weighted-dyadic-average</a>.
+<span><span class="sans-serif">[Cited]</span></span></p>
+</section>
 <section id="evidence-boundary." class="level5">
 <h5>Evidence boundary.</h5>
 <p>This is a complete ordinary proof, not an end-to-end Lean theorem.
@@ -902,10 +940,12 @@ formalisation boundary, not a mathematical open case: Tao and Teräväinen
 prove the base-<span class="math inline" data-term-auto="off">\(2\)</span> prime-support
 value irrational by first identifying it with <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge1}\omega(n)2^{-n}\)</span>. Duverney and
-Tachiya likewise settle squarefree support at every power-of-two base.
-Neither result is formalised here. The statement of Problem #257 has
-been formalised before, as a conjecture with an unfilled proof, in the
-<em>Formal Conjectures</em> <a
+Tachiya likewise settle squarefree support at every power-of-two base,
+and the perfect <span class="math inline" data-term-auto="off">\(i\)</span>th powers at every
+integer base (Corollary 1.2 and Example 1.1, p. 4 of the author
+preprint). Neither result is formalised here. The statement of
+Problem #257 has been formalised before, as a conjecture with an
+unfilled proof, in the <em>Formal Conjectures</em> <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/257.lean">collection</a>;
 that file also proves the Lambert identity for the full-support value
 and states its irrationality, the 1948 theorem of Erdős, with proof
@@ -962,8 +1002,9 @@ Those sources are the classical topological antecedent. The local volume
 dichotomy, injectivity, and greedy-membership statements above and below
 are Lean-checked claims of this corpus. The sparse power-series criteria
 of <a href="https://arxiv.org/abs/2601.20743">Kaneko–Suzuki–Tachiya</a>
-give neighboring sparse-support context, not a theorem about arbitrary
-reciprocal Mersenne subseries. <span><span
+(Theorems 1–3, pp. 3–5 of arXiv v1) assume sparse coefficient supports;
+their relation to the divisor-incidence coefficients of these subseries
+is recorded after Theorem <a class="math-ref" href="#thm:257-weighted">1</a>. <span><span
 class="sans-serif">[Cited]</span></span></p>
 </div>
 <div class="thm" id="thm:greedy-survival">

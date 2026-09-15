@@ -19,7 +19,9 @@ asks for irrationality at every rational <span
 class="math inline" data-term-auto="off">\(t&gt;1\)</span> <span class="citation"
 data-cites="erdos1988"><a href="#ref-1">[1]</a></span>. The theorem below proves an explicit
 sufficient region and settles the power family in the title.</p>
-<p>Cyclotomic cancellation produces positive forms <span
+<p>Cyclotomic cancellation in the linear forms of Zudilin’s 2004
+construction <span class="citation" data-cites="zudilin2004"><a href="#ref-3">[3]</a></span>
+produces positive forms <span
 class="math inline" data-term-auto="off">\(\Lambda_n=U_nF-V_n\)</span> with integral
 coefficient polynomials of degree at most <span
 class="math inline" data-term-auto="off">\(W_n\)</span>, and</p>
@@ -109,35 +111,45 @@ class="math display" data-term-auto="off">\[\begin{gathered}
 \end{gathered}\]</span></div>
 <p>These are the intervals <span
 class="math inline" data-term-auto="off">\(\mathcal I\)</span> used to define <span
-class="math inline" data-term-auto="off">\(J\)</span>. The zero-one values and this
+class="math inline" data-term-auto="off">\(J\)</span>. The function <span
+class="math inline" data-term-auto="off">\(\omega\)</span>, these thirteen intervals and the
+exponents <span class="math inline" data-term-auto="off">\(\nu_\ell=\omega(n/\ell)\)</span>
+of the source’s (22) are printed at <span class="citation"
+data-cites="zudilin2004"><a href="#ref-3">[3]</a></span>. The zero-one values and this
 thirteen-interval support are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean#L1297">omega
 indicator</a>.</p>
 <section id="integral-polynomials-and-their-degrees." class="level5">
 <h5>Integral polynomials and their degrees.</h5>
-<p>The source’s polynomial inclusion is Lemma 7, display (23). Its
-parameter vector is <span
-class="math inline" data-term-auto="off">\(n(13,14,12,14,15,13)\)</span>, its maximum is
-<span class="math inline" data-term-auto="off">\(15n\)</span>, and <span
-class="math inline" data-term-auto="off">\(\beta-a_1-a_2=n&gt;0\)</span>. Its hypotheses
-therefore hold for every <span class="math inline" data-term-auto="off">\(n\ge1\)</span>. It
-gives</p>
+<p>The source’s polynomial inclusion is Lemma 7, display (23) <span
+class="citation" data-cites="zudilin2004"></span>. Its parameter vector
+is <span class="math inline" data-term-auto="off">\(n(13,14,12,14,15,13)\)</span>, its
+maximum is <span class="math inline" data-term-auto="off">\(15n\)</span>, and <span
+class="math inline" data-term-auto="off">\(\beta-a_1-a_2=n&gt;0\)</span>, which is the
+positivity condition <span class="math inline" data-term-auto="off">\(s&gt;0\)</span> of the
+lemma. The conditions (14) of <span class="citation"
+data-cites="zudilin2004"><a href="#ref-3">[3]</a></span>, <span class="math inline" data-term-auto="off">\(a_1\le
+a_2\)</span> and <span class="math inline" data-term-auto="off">\(a_1+a_2\le\beta\le
+a_0+a_2\)</span>, hold as well, so the exponent in (23) is the
+integer (16), which equals <span class="math inline" data-term-auto="off">\(M_n\)</span>. The
+lemma’s hypotheses therefore hold for every <span
+class="math inline" data-term-auto="off">\(n\ge1\)</span>. It gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Lambda_n(X)=X^{-M_n}\frac{D_N(X)}{\Omega_n(X)}H_n(X)
             =U_n(X)F(X)-V_n(X),\qquad U_n,V_n\in\mathbb Z[X].\]</span></div>
 <p>This is the polynomial conclusion before the source’s subsequent
-integer-specialisation step in display (24). The coefficientwise
-interpretation also follows by comparing the source rational
-coefficients: <span class="math inline" data-term-auto="off">\(F\)</span> is not a rational
-function, since <span
+integer-specialisation step in display (24) on p. 162. The
+coefficientwise interpretation also follows by comparing the source
+rational coefficients: <span class="math inline" data-term-auto="off">\(F\)</span> is not a
+rational function, since <span
 class="math inline" data-term-auto="off">\(F(e^h)=h^{-1}\log(1/h)+O(h^{-1})\)</span> as <span
 class="math inline" data-term-auto="off">\(h\downarrow0\)</span>. For this estimate split the
 original sum at <span class="math inline" data-term-auto="off">\(n=1/h\)</span>; the
 remaining geometric tail is <span
 class="math inline" data-term-auto="off">\(O(h^{-1})\)</span>.</p>
-<p>In the source expression for <span
-class="math inline" data-term-auto="off">\(A_n\)</span>, the degree of the <span
-class="math inline" data-term-auto="off">\(k\)</span>th summand is</p>
+<p>In the source expression (10) for <span
+class="math inline" data-term-auto="off">\(A_n\)</span>, with coefficients (8) on p. 156, the
+degree of the <span class="math inline" data-term-auto="off">\(k\)</span>th summand is</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[d_k=a_0k+E_k+(a_1-1)(k-a_1)+(\beta-k-1)(k-a_2),\]</span></div>
 <p class="display-continue">where</p>
@@ -199,8 +211,8 @@ class="math display" data-term-auto="off">\[K_n/n^2\longrightarrow C_1,\qquad
 class="level5">
 <h5>A positive remainder at every fixed real base.</h5>
 <p>For <span class="math inline" data-term-auto="off">\(x&gt;1\)</span> and <span
-class="math inline" data-term-auto="off">\(q=1/x\)</span>, the source identity has the
-positive representation</p>
+class="math inline" data-term-auto="off">\(q=1/x\)</span>, the source identity (9) on p. 156
+has the positive representation</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[H_n(x)=\sum_{t\ge0}q^{a_0t}
 \frac{(q^{t+1};q)_{a_1-1}}{(q;q)_{a_1-1}}
@@ -373,12 +385,12 @@ intervals and the constant <span
 class="math inline" data-term-auto="off">\(\mu\approx2.46497868\)</span> are inherited from
 <span class="citation" data-cites="zudilin2004"><a href="#ref-3">[3]</a></span>, where <span
 class="math inline" data-term-auto="off">\(\mu\)</span> bounds an integer-base irrationality
-exponent. The rational-base extension announced in <span
-class="citation" data-cites="zudilin2016"></span> has the same shape
-with an unspecified computable constant. Here the polynomial
-specialisation identifies <span class="math inline" data-term-auto="off">\(\mu\)</span> as
-admissible for <span class="math inline" data-term-auto="off">\(F\)</span>; no priority claim
-is attached.</p>
+exponent <span class="citation" data-cites="zudilin2004"><a href="#ref-3">[3]</a></span>. The
+extension to non-integer rational bases noted in <span class="citation"
+data-cites="zudilin2016"><a href="#ref-4">[4]</a></span> has the same shape, with the computable
+constant left unspecified. Here the polynomial specialisation identifies
+<span class="math inline" data-term-auto="off">\(\mu\)</span> as admissible for <span
+class="math inline" data-term-auto="off">\(F\)</span>; no priority claim is attached.</p>
 <div class="theorem" id="res:sevenhalves">
 <p><strong>Theorem 2.4</strong> (the <span
 class="math inline" data-term-auto="off">\(7/2\)</span> height condition). <em> The <a
@@ -484,7 +496,7 @@ least-order index tuple, whose coefficient is nonzero. This is a
 formal-power-series argument; fixed-base estimates are a separate
 question addressed after the proof.</p>
 <p>At <span class="math inline" data-term-auto="off">\(x=z=1\)</span>, Zudilin’s normalized
-moments are</p>
+moments <span class="citation" data-cites="zudilin2016"><a href="#ref-4">[4]</a></span> are</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[v_m^*=\sum_{t\ge0}q^{(m+1)t}
 \frac{(q;q)_m^3(q^{t+1};q)_m}{(q^{m+1+t};q)_{m+1}},
 \qquad
@@ -1026,20 +1038,22 @@ investigations of a certain infinite product</em></a>, Compositio Math.
 href="https://geodesic.mathdoc.fr/articles/10.4064/aa111-2-4/"><em>Heine’s
 basic transform and a permutation group for <span
 class="math inline" data-term-auto="off">\(q\)</span>-harmonic series</em></a>, Acta Arith.
-<strong>111</strong> (2004), no. 2, 153–164,
-doi:10.4064/aa111-2-4.</p></li>
+<strong>111</strong> (2004), no. 2, 153–164, doi:<a
+href="https://doi.org/10.4064/aa111-2-4">10.4064/aa111-2-4</a>. Page
+references are to the printed journal pages.</p></li>
 <li id="ref-4"><p>W. Zudilin, <a href="https://arxiv.org/abs/1601.02688"><em>On the
 irrationality of generalized <span
 class="math inline" data-term-auto="off">\(q\)</span>-logarithm</em></a>, arXiv:1601.02688;
-Res. Number Theory <strong>2</strong> (2016), doi:<a
+Res. Number Theory <strong>2</strong> (2016), Art. 15, doi:<a
 href="https://doi.org/10.1007/s40993-016-0042-x">10.1007/s40993-016-0042-x</a>.
-The remark that the results extend to non-integer <span
-class="math inline" data-term-auto="off">\(p=r/s\)</span>, <span
+Page references are to arXiv:1601.02688v2. The remark that the results
+extend to non-integer <span class="math inline" data-term-auto="off">\(p=r/s\)</span>, <span
 class="math inline" data-term-auto="off">\(|p|&gt;1\)</span>, under an assumption <span
 class="math inline" data-term-auto="off">\(\log|r|&gt;c\log|s|\)</span> for a computable
-<span class="math inline" data-term-auto="off">\(c&gt;0\)</span>, is at the end of Section 2;
-no value of <span class="math inline" data-term-auto="off">\(c\)</span> is computed there,
-and the remark is made for the generalized <span
+<span class="math inline" data-term-auto="off">\(c&gt;0\)</span>, is in Section 2, p. 4, in
+the paragraph beginning “Finally, we remark”; no value of <span
+class="math inline" data-term-auto="off">\(c\)</span> is computed there, and the remark is
+made for the generalized <span
 class="math inline" data-term-auto="off">\(q\)</span>-logarithm of that paper.</p></li>
 <li id="ref-5"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/1049"><em>Erdős Problem

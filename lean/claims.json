@@ -15450,7 +15450,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 920
+        "line": 958
       }
     },
     {
@@ -15522,7 +15522,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "exact nonintegrality of every reduced tail",
-        "line": 564
+        "line": 569
       }
     },
     {
@@ -15534,7 +15534,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "actual cofinal local-window escape",
-        "line": 570
+        "line": 575
       }
     },
     {
@@ -15546,7 +15546,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "function-faithful two-dimensional representation",
-        "line": 579
+        "line": 584
       }
     },
     {
@@ -15582,7 +15582,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "weakest native recurrence criterion",
-        "line": 934
+        "line": 972
       }
     },
     {
@@ -15594,7 +15594,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "actual-orbit invariant",
-        "line": 943
+        "line": 981
       }
     },
     {
@@ -15606,7 +15606,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 953
+        "line": 991
       }
     }
   ],
@@ -18610,7 +18610,7 @@
       "id": "squarefree_support_irrationality",
       "label": "Irrationality of the base-2 squarefree-support series",
       "status": "cited only",
-      "statement": "Duverney–Tachiya Corollary 1.2 and Example 1.1 prove linear independence of 1 and the squarefree Lambert sum including n=1; subtracting that rational term settles the support {n≥2:n squarefree} at base 2. Their condition |q|^L≤s does not cover the same support at integer bases b≥3. This result is not formalised here.",
+      "statement": "Duverney–Tachiya Corollary 1.2 and Example 1.1 prove linear independence of 1 and the squarefree Lambert sum including n=1; subtracting that rational term settles the support {n≥2:n squarefree} at base 2. Their condition |q|L≤s, with L=lcm(1,…,ℓ), here reads |q|≤2 and does not cover the same support at integer bases b≥3. This result is not formalised here.",
       "declarations": []
     },
     {

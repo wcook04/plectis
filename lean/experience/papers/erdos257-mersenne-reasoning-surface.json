@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 24,
     "renderer_fingerprint": "2fb901bb07309297",
-    "source_sha256": "9f926b96a6154fec820c8d2474d0bb17568a07ed91d6f25c2cc302a6d18bcccb",
+    "source_sha256": "e3280a1becbfe04c30761a8b1ed3c4305d3de9cb56ddbfda59ab8d29318be4ea",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 3297,
+    "mathml_node_count": 3307,
     "raw_math_fallback_count": 3,
     "warnings": {
       "mathml": [
@@ -54,8 +54,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "a51a5d8ca139072ddb9020556fc3f5c25a46fa131035269c20fd638286446764",
-    "html_exact_tex_sha256": "66759c82eb8de0b8c6474ed3e639b83dc90eee916da960925c69802343b446ee"
+    "html_mathml_sha256": "aadbf6c05809d1a5809d021cc6614bcf60e83a42c216b81e67f53a5164ae7226",
+    "html_exact_tex_sha256": "bbdf2968edf1ecfb6d5e76596d7ca8dcec5cb9f0478a747e3518707651c973f6"
   },
   "sections": [
     {
@@ -77,6 +77,11 @@
       "level": 3,
       "anchor": "finite-prime-part-weighted-mass",
       "label": "Finite prime-part weighted mass"
+    },
+    {
+      "level": 5,
+      "anchor": "averaging-antecedents.",
+      "label": "Averaging antecedents."
     },
     {
       "level": 5,

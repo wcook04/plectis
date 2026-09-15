@@ -85,7 +85,17 @@ can be written as
 so
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>a</mi><mo>≥</mo><mn>1</mn></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>a</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> powerful</mtext></mrow></mrow></mtd></mtr></mtable></munder><mfrac><mn>1</mn><mi>a</mi></mfrac><mo>≤</mo><mi>ζ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>ζ</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>∞</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_{\substack{a\ge1\\a\text{ powerful}}}\frac1a
  \le\zeta(2)\zeta(3)&lt;\infty.</annotation></semantics></math> Thus
-arbitrary infinite thinnings of the powerful integers are included.</p>
+arbitrary infinite thinnings of the powerful integers are included. For
+the full set of perfect
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>th
+powers,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">i\ge2</annotation></semantics></math>,
+irrationality at every integer base is also a case of Corollary 1.2 of
+Duverney and Tachiya, taken with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+the primes and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">s=\infty</annotation></semantics></math> <span
+class="citation" data-cites="duverneytachiya"></span>.</p>
 <div class="problem">
 <p><strong>Problem 1.2</strong> (Erdős #257). <em> Is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(2)</annotation></semantics></math>
@@ -102,11 +112,18 @@ final section retains the actual arithmetic constraint for a proposed
 rational value.</p>
 <p>Erdős proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the
-details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-6">[6]</a></span>.
+details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-7">[7]</a></span>.
 Theorem  gives a complete proof of that stated extension, obtained
 independently. The all-base quantifier is already in Erdős’s statement.
 No priority over Erdős is claimed and no identification with his omitted
-argument is asserted.</p>
+argument is asserted. Erdős also wrote that the condition
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mn>1</mn><mi>/</mi><msub><mi>n</mi><mi>i</mi></msub><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum1/n_i&lt;\infty</annotation></semantics></math>
+could be replaced by a weaker but more complicated condition, and that
+for pairwise coprime supports Brun’s method could probably replace it by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><msub><mi>n</mi><mi>i</mi></msub><mo>&lt;</mo><mi>x</mi></mrow></msub><mn>1</mn><mi>/</mi><msub><mi>n</mi><mi>i</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n_i&lt;x}1/n_i=o(\log\log x)</annotation></semantics></math> <span
+class="citation" data-cites="erdos1968"></span>. Theorem  proves
+irrationality under one explicit weaker condition, without coprimality;
+no identification with the conditions he suggested is asserted.</p>
 <p>The coefficient sequence throughout is the divisor transform of one
 Boolean selector:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>∈</mo><mi>A</mi><mo>:</mo><mi>a</mi><mo>∣</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><msub><mi>c</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mi>b</mi><mi>n</mi></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
@@ -405,6 +422,38 @@ gaps is not asserted here.</p>
 Lean declaration is cited as their proof, and no priority claim is made.
 The arbitrary-chain, quantitative and prime-power extensions remain
 separate from Theorem .</p>
+<p>The proofs of Theorems  and  select a term no larger than a finite
+average. Duverney and Tachiya select their index in the same way in
+their refinement of the Chowla–Erdős method. They average a local
+coefficient mass over an arithmetic progression built by the Chinese
+remainder theorem, and a term attaining the minimum supplies the bounds
+that control the tail beyond it <span class="citation"
+data-cites="duverneytachiya"><a href="#ref-1">[1]</a></span>. Kaneko, Suzuki and Tachiya measure
+the average decay of scaled tails by the quantity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mi>x</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_c(q,x,z)</annotation></semantics></math>
+of their (1.7). Under a counting condition on the support and a bound on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>c</mi></msub><annotation encoding="application/x-tex">R_c</annotation></semantics></math>
+they show that most scaled tails in a range are small, and arbitrarily
+small nonzero scaled tails give irrationality <span class="citation"
+data-cites="kanekosuzukitachiya"><a href="#ref-2">[2]</a></span>. The incidence coefficients 
+are positive on every multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">\min A</annotation></semantics></math>.
+Hence conditions (iii) and (iv) of their Theorems 1 and 3 fail for every
+splitting of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>A</mi></msub><annotation encoding="application/x-tex">c_A</annotation></semantics></math>
+into two sequences, and the scaled tail
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><msub><mi>c</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mi>b</mi><mi>r</mi></msup></mfrac><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><msup><mi>b</mi><mrow><mi>N</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow></msup><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{r\ge1}\frac{c_A(N+r)}{b^r}
+ =\sum_{a\in A}\frac{b^{N\operatorname{mod} a}}{b^a-1}
+ =X_A(b)+\Delta_{b,A}(N)</annotation></semantics></math> is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(b)</annotation></semantics></math>
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>.
+The proofs above average the displacement
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)</annotation></semantics></math>
+instead, along multiples of a modulus that freezes a finite part of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>;
+the weighted proof adds a second average over dyadic observation
+lengths.</p>
 </section>
 <section id="claimed-quantitative-criterion-unassessed-here"
 class="level3">
@@ -826,7 +875,7 @@ Theorem  supplies the direct proof of that baseline case.</p>
 infinite subset of the prime powers, at every integer base, including
 fixed dilations and finite modifications. Its intended analytic input is
 Tao–Teräväinen <span class="citation"
-data-cites="taoteravainen2025"><a href="#ref-2">[2]</a></span>. The argument would use the
+data-cites="taoteravainen2025"><a href="#ref-3">[3]</a></span>. The argument would use the
 reciprocal mass of the selected primes as its scale, so arbitrarily slow
 divergence is retained; higher prime powers produce errors only on
 prime-square events. The equidistribution, small-prime, progression and
@@ -1001,12 +1050,20 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 class="citation" data-cites="erdos1948"></span>. A universal proof must
 therefore control arithmetic behaviour beyond small returns.</p>
 <p>The distinction also appears in the squarefree support. Its series is
-known to be irrational at powers-of-two bases by Duverney–Tachiya <span
-class="citation" data-cites="duverneytachiya"></span>. The zero-window
-obstruction for one normalised certificate scheme concerns that scheme’s
-hypotheses. It gives no obstruction to irrationality of the value. The
-precise normalisation counterexamples are retained in the long record,
-together with the complete catalogue of known support families.</p>
+irrational at every base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>j</mi></msup><annotation encoding="application/x-tex">2^j</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>,
+by Corollary 1.2 and Example 1.1 of Duverney and Tachiya <span
+class="citation" data-cites="duverneytachiya"></span>. Their corollary
+covers the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>-free
+products of any pairwise coprime sequence of polynomial growth, and they
+present it as support for the conjecture of Erdős and Graham stated here
+as Problem . The zero-window obstruction for one normalised certificate
+scheme concerns that scheme’s hypotheses. It gives no obstruction to
+irrationality of the value. The precise normalisation counterexamples
+are retained in the long record, together with the complete catalogue of
+known support families.</p>
 <p>A separate sufficient condition family is stated in terms of growth
 alone. Erdős proved irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n1/a_n</annotation></semantics></math>
@@ -1061,7 +1118,7 @@ while each block contributes reciprocal mass tending to
 so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></msub><mn>1</mn><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">\sum_{a\in A}1/a</annotation></semantics></math>
 diverges. The extension of this lane to products of consecutive
-terms <span class="citation" data-cites="bkkkz2026"><a href="#ref-8">[8]</a></span> settles
+terms <span class="citation" data-cites="bkkkz2026"><a href="#ref-9">[9]</a></span> settles
 Erdős Problem 1051 at the golden-ratio exponent and adds nothing beyond
 the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d=1</annotation></semantics></math>
@@ -1133,7 +1190,7 @@ so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="script">𝒜</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lambda(\mathcal A)=1</annotation></semantics></math>.
 Kovač–Tao record this strict-tail inequality and the Cantor conclusion
 in the fixed-base setting <span class="citation"
-data-cites="kovactao"><a href="#ref-3">[3]</a></span>. The long record proves the
+data-cites="kovactao"><a href="#ref-4">[4]</a></span>. The long record proves the
 restricted-volume dichotomy and records the formula
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">dim</mi><mo>&#8289;</mo></mrow><mi>H</mi></msub><msub><mi mathvariant="script">𝒜</mi><mi>J</mi></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">liminf</mi><mo>&#8289;</mo></mrow><mi>N</mi></msub><mi>#</mi><mo stretchy="false" form="prefix">(</mo><mi>J</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">\dim_H\mathcal A_J=\liminf_N\#(J\cap[1,N])/N</annotation></semantics></math>,
 together with the periodic-stride measure refinements. For a specified
@@ -1431,7 +1488,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 pairwise-coprime theorem</a>. The statement of Problem  has been
 formalised before, as a conjecture with an unfilled proof, in the
 collection <span class="citation"
-data-cites="formalconjectures257"><a href="#ref-5">[5]</a></span>. That collection proves the
+data-cites="formalconjectures257"><a href="#ref-6">[6]</a></span>. That collection proves the
 Lambert identity for the full-support value and states its
 irrationality, the 1948 theorem of Erdős, with proof <code>sorry</code>.
 Its role here is statement-level prior art; no theorem in this note is
@@ -1769,17 +1826,32 @@ bound</a>).</p>
 href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf"><em>Refinement
 of the Chowla–Erdős method and linear independence of certain Lambert
 series</em></a>, Forum Math. 31 (2019), no. 6, 1557–1566, <a
-href="https://doi.org/10.1515/forum-2018-0299">DOI</a>. Corollary 1.2
-gives the general
+href="https://doi.org/10.1515/forum-2018-0299">DOI</a>. Page numbers
+refer to the linked author preprint. Theorem 1.1 (pp. 2–3) is the
+refined Chowla–Erdős criterion; its proof in Section 2 (pp. 5–7) selects
+an index by minimising a local coefficient mass along an arithmetic
+progression, (2.3)–(2.9). Corollary 1.2 gives the general
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>s</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F_s(E)</annotation></semantics></math>
 theorem and its monomial images under
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>q</mi><msup><mo stretchy="false" form="prefix">|</mo><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>≤</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">|q|^{\operatorname{lcm}(1,\dots,\ell)}\le s</annotation></semantics></math>;
-Example 1.1 gives the joint squarefree family at all bases
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>q</mi><mo stretchy="false" form="prefix">|</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>ℓ</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">|q|\operatorname{lcm}(1,\dots,\ell)\le s</annotation></semantics></math>,
+and at every integer base when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">s=\infty</annotation></semantics></math>;
+Example 1.1 gives the joint squarefree family at all bases
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>j</mi></msup><annotation encoding="application/x-tex">2^j</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j\ge1</annotation></semantics></math>.
-Both are on p. 4 of the linked author preprint; the proof is on
-pp. 9–11.</p></li>
-<li id="ref-2"><p>T. Tao and J. Teräväinen, , arXiv:2512.01739 (submitted December
+Both are on p. 4, which also relates Corollary 1.2 to the conjecture of
+Erdős and Graham; the proof of Corollary 1.2 is on pp. 10–11.</p></li>
+<li id="ref-2"><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
+href="https://arxiv.org/abs/2601.20743"><em>Refinements of Erdős’s
+irrationality criterion for certain sparse infinite series</em></a>,
+arXiv:2601.20743v1 (2026). The averaged tail
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mi>x</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_c(q,x,z)</annotation></semantics></math>
+is (1.7) and Theorem 1 is on p. 3; its rational-integer form, Theorem 3,
+is on p. 5. Lemma 1 (pp. 6–7) derives irrationality from arbitrarily
+small nonzero scaled tails, and Lemma 2 (pp. 7–8) shows that most scaled
+tails in a range are small under a counting condition on the support.
+Their criteria assume sparse coefficient supports.</p></li>
+<li id="ref-3"><p>T. Tao and J. Teräväinen, , arXiv:2512.01739 (submitted December
 2025, revised April 2026). Theorem 1.3 proves
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup><mo>=</mo><msub><mo>∑</mo><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>p</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}\omega(n)/2^n=\sum_p(2^p-1)^{-1}</annotation></semantics></math>
 irrational, settling the prime-support case of #257 at
@@ -1787,29 +1859,32 @@ base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semanti
 the extension to every integer base and the prime-power support are
 stated as remarks with the modifications left to the reader. The theorem
 is on p. 4 and its proof is Section 5, pp. 44–56, in arXiv v2.</p></li>
-<li id="ref-3"><p>V. Kovač and T. Tao, , Acta Math. Hungar. 175 (2025), 572–608, <a
+<li id="ref-4"><p>V. Kovač and T. Tao, , Acta Math. Hungar. 175 (2025), 572–608, <a
 href="https://doi.org/10.1007/s10474-025-01528-0">DOI</a>. Remark 4.1
 (p. 13) records the strict tail inequality and the Cantor structure.
 Theorem 2.3 (p. 5; proof pp. 13–14) constructs rational merged sums from
 several bases under its mass hypothesis; it is not a fixed-base
 counterexample.</p></li>
-<li id="ref-4"><p>P. Erdős, , J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
-<li id="ref-5"><p>The Formal Conjectures Authors, <a
+<li id="ref-5"><p>P. Erdős, , J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
+<li id="ref-6"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/257.lean"><em>FormalConjectures.ErdosProblems.<code>257</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 13 September
 2026. Its statement of the problem ends in <code>sorry</code>; the
 Lambert identity <code>tsum_top_eq</code> is proved there and the
 full-support irrationality variant <code>tsum_top</code> ends in
 <code>sorry</code>.</p></li>
-<li id="ref-6"><p>P. Erdős, <a
+<li id="ref-7"><p>P. Erdős, <a
 href="https://users.renyi.hu/~p_erdos/1969-09.pdf"></a>, Math. Student
 36 (1968), 222–226 (issued 1969). The theorem on p. 222 treats
 pairwise-coprime support with convergent reciprocal sum at every integer
 base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>;
-the claimed removal of pairwise coprimality is stated without
-proof.</p></li>
-<li id="ref-7"><p>P. Erdős, , J. Math. Sci. 10 (1975), 1–7. Theorem 1 proves
+the claimed removal of pairwise coprimality is stated without proof. The
+same page says the reciprocal-sum condition could be replaced by a
+weaker but more complicated condition, and p. 226 suggests
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><msub><mi>n</mi><mi>i</mi></msub><mo>&lt;</mo><mi>x</mi></mrow></msub><mn>1</mn><mi>/</mi><msub><mi>n</mi><mi>i</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n_i&lt;x}1/n_i=o(\log\log x)</annotation></semantics></math>
+for pairwise coprime supports.</p></li>
+<li id="ref-8"><p>P. Erdős, , J. Math. Sci. 10 (1975), 1–7. Theorem 1 proves
 irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n1/a_n</annotation></semantics></math>
 for increasing integers with
@@ -1821,9 +1896,9 @@ and every
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msubsup><mi>a</mi><mi>n</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msubsup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup_na_n^{1/2^n}=\infty</annotation></semantics></math>,
 as restated in Remark 4(4) of <span class="citation"
-data-cites="bkkkz2026"><a href="#ref-8">[8]</a></span>; the original was not consulted for this
+data-cites="bkkkz2026"><a href="#ref-9">[9]</a></span>; the original was not consulted for this
 note.</p></li>
-<li id="ref-8"><p>K. Barreto, J. Kang, S. Kim, V. Kovač, and S. Zhang, <a
+<li id="ref-9"><p>K. Barreto, J. Kang, S. Kim, V. Kovač, and S. Zhang, <a
 href="https://arxiv.org/abs/2601.21442"><em>Irrationality of rapidly
 converging series: a problem of Erdős and Graham</em></a>,
 arXiv:2601.21442v3 (2026). Theorem 2 (p. 3) settles Erdős Problem 1051
@@ -1831,7 +1906,7 @@ at the golden-ratio exponent and Theorem 5 (p. 5) shows the threshold is
 sharp; Remark 4(4) (p. 5) identifies the case
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d=1</annotation></semantics></math>
 of its Theorem 3 with <span class="citation"
-data-cites="erdos1975"><a href="#ref-7">[7]</a></span>; Lemma 14 (p. 13) is the interval-filling
+data-cites="erdos1975"><a href="#ref-8">[8]</a></span>; Lemma 14 (p. 13) is the interval-filling
 lemma. An unrefereed preprint with no formalisation; it states nothing
 about #257.</p></li>
 </ol>

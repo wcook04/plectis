@@ -112,6 +112,9 @@ can be written as $u^2v^3$, so
  \le\zeta(2)\zeta(3)<\infty.
 \]
 Thus arbitrary infinite thinnings of the powerful integers are included.
+For the full set of perfect $i$th powers, $i\ge2$, irrationality at every
+integer base is also a case of Corollary~1.2 of Duverney and Tachiya, taken
+with $E$ the primes and $s=\infty$~\cite[p.~4]{duverneytachiya}.
 
 \begin{problem}[Erd\H{o}s \#257]\label{res:problem}
 Is $X_A(2)$ irrational for every infinite $A\subseteq\Npos$?
@@ -132,7 +135,13 @@ unprinted~\cite[p.~222]{erdos1968}.  Theorem~\ref{res:reciprocal-support}
 gives a complete proof of that stated extension, obtained independently.  The
 all-base quantifier is already in Erd\H{o}s's statement.  No priority over
 Erd\H{o}s is claimed and no identification with his omitted argument is
-asserted.
+asserted.  Erd\H{o}s also wrote that the condition $\sum1/n_i<\infty$ could
+be replaced by a weaker but more complicated condition, and that for pairwise
+coprime supports Brun's method could probably replace it by
+$\sum_{n_i<x}1/n_i=o(\log\log x)$~\cite[pp.~222 and~226]{erdos1968}.
+Theorem~\ref{res:weighted-support} proves irrationality under one explicit
+weaker condition, without coprimality; no identification with the conditions
+he suggested is asserted.
 
 The coefficient sequence throughout is the divisor transform of one
 Boolean selector:
@@ -322,6 +331,32 @@ The theorem and this example are complete ordinary proofs.  No single Lean
 declaration is cited as their proof, and no priority claim is made.  The
 arbitrary-chain, quantitative and prime-power extensions remain
 separate from Theorem~\ref{res:weighted-support}.
+
+The proofs of Theorems~\ref{res:reciprocal-support}
+and~\ref{res:weighted-support} select a term no larger than a finite average.
+Duverney and Tachiya select their index in the same way in their refinement
+of the Chowla--Erd\H{o}s method.  They average a local coefficient mass over
+an arithmetic progression built by the Chinese remainder theorem, and a term
+attaining the minimum supplies the bounds that control the tail beyond
+it~\cite[Section~2, (2.3)--(2.9), pp.~5--6]{duverneytachiya}.  Kaneko, Suzuki
+and Tachiya measure the average decay of scaled tails by the quantity
+$R_c(q,x,z)$ of their~(1.7).  Under a counting condition on the support and a
+bound on $R_c$ they show that most scaled tails in a range are small, and
+arbitrarily small nonzero scaled tails give
+irrationality~\cite[p.~3; Lemmas~1 and~2, pp.~6--8]{kanekosuzukitachiya}.
+The incidence coefficients~\eqref{eq:incidence} are positive on every
+multiple of $\min A$.  Hence conditions~(iii) and~(iv) of their Theorems~1
+and~3 fail for every splitting of $c_A$ into two sequences, and the scaled
+tail
+\[
+ \sum_{r\ge1}\frac{c_A(N+r)}{b^r}
+ =\sum_{a\in A}\frac{b^{N\bmod a}}{b^a-1}
+ =X_A(b)+\Delta_{b,A}(N)
+\]
+is at least $X_A(b)$ for every $N\ge1$.  The proofs above average the
+displacement $\Delta_{b,A}(N)$ instead, along multiples of a modulus that
+freezes a finite part of $A$; the weighted proof adds a second average over
+dyadic observation lengths.
 
 \subsection{Claimed quantitative criterion (unassessed here)}
 The absent analytic supplement claims a second criterion admitting
@@ -691,8 +726,11 @@ A universal proof must therefore control arithmetic behaviour beyond
 small returns.
 
 The distinction also appears in the squarefree support.  Its series is
-known to be irrational at powers-of-two bases by
-Duverney--Tachiya~\cite[Corollary~1.2 and Example~1.1]{duverneytachiya}.
+irrational at every base $2^j$, $j\ge1$, by Corollary~1.2 and Example~1.1
+of Duverney and Tachiya~\cite[p.~4]{duverneytachiya}.  Their corollary
+covers the $s$-free products of any pairwise coprime sequence of polynomial
+growth, and they present it as support for the conjecture of Erd\H{o}s and
+Graham stated here as Problem~\ref{res:problem}.
 The zero-window obstruction for one normalised certificate scheme concerns
 that scheme's hypotheses.  It gives no obstruction to irrationality of the
 value.  The precise normalisation counterexamples are retained in the
@@ -1174,11 +1212,25 @@ The following source links are the public snapshot used by this note.
   {\emph{Refinement of the Chowla--Erd\H{o}s method and linear independence
   of certain Lambert series}},
   Forum Math.\ 31 (2019), no.~6, 1557--1566,
-  \href{https://doi.org/10.1515/forum-2018-0299}{DOI}.  Corollary 1.2 gives
-  the general $F_s(E)$ theorem and its monomial images under
-  $|q|^{\lcm(1,\dots,\ell)}\le s$; Example 1.1 gives the joint squarefree
-  family at all bases \(2^j\), \(j\ge1\).  Both are on p.~4 of the linked
-  author preprint; the proof is on pp.~9--11.
+  \href{https://doi.org/10.1515/forum-2018-0299}{DOI}.  Page numbers refer to
+  the linked author preprint.  Theorem~1.1 (pp.~2--3) is the refined
+  Chowla--Erd\H{o}s criterion; its proof in Section~2 (pp.~5--7) selects an
+  index by minimising a local coefficient mass along an arithmetic
+  progression, (2.3)--(2.9).  Corollary~1.2 gives the general $F_s(E)$
+  theorem and its monomial images under $|q|\lcm(1,\dots,\ell)\le s$, and at
+  every integer base when $s=\infty$; Example~1.1 gives the joint squarefree
+  family at all bases \(2^j\), \(j\ge1\).  Both are on p.~4, which also
+  relates Corollary~1.2 to the conjecture of Erd\H{o}s and Graham; the proof
+  of Corollary~1.2 is on pp.~10--11.
+\bibitem{kanekosuzukitachiya} H.~Kaneko, Y.~Suzuki, and Y.~Tachiya,
+  \href{https://arxiv.org/abs/2601.20743}{\emph{Refinements of Erd\H{o}s's
+  irrationality criterion for certain sparse infinite series}},
+  arXiv:2601.20743v1 (2026).  The averaged tail $R_c(q,x,z)$ is~(1.7) and
+  Theorem~1 is on p.~3; its rational-integer form, Theorem~3, is on p.~5.
+  Lemma~1 (pp.~6--7) derives irrationality from arbitrarily small nonzero
+  scaled tails, and Lemma~2 (pp.~7--8) shows that most scaled tails in a range
+  are small under a counting condition on the support.  Their criteria assume
+  sparse coefficient supports.
 \bibitem{taoteravainen2025} T.~Tao and J.~Ter\"av\"ainen,
   \emph{Quantitative correlations and some problems on prime factors of
   consecutive integers}, arXiv:2512.01739 (submitted December 2025, revised
@@ -1208,7 +1260,10 @@ The following source links are the public snapshot used by this note.
   irrationality of certain series}}, Math.\ Student 36 (1968), 222--226
   (issued 1969).  The theorem on p.~222 treats pairwise-coprime support with
   convergent reciprocal sum at every integer base $b\ge2$; the claimed
-  removal of pairwise coprimality is stated without proof.
+  removal of pairwise coprimality is stated without proof.  The same page
+  says the reciprocal-sum condition could be replaced by a weaker but more
+  complicated condition, and p.~226 suggests
+  $\sum_{n_i<x}1/n_i=o(\log\log x)$ for pairwise coprime supports.
 \bibitem{erdos1975} P.~Erd\H{o}s, \emph{Some problems and results on the
   irrationality of the sum of infinite series}, J.~Math.\ Sci.\ 10 (1975),
   1--7.  Theorem 1 proves irrationality of $\sum_n1/a_n$ for increasing

@@ -82,14 +82,16 @@ declaration formalises it.</p>
 class="math inline" data-term-auto="off">\(|P|\)</span>, the two-channel factorisation, the
 Hecke–Mahler reduction and the transcendence conclusion in the
 discussion thread of the problem’s page on 26 June 2026 <span
-class="citation" data-cites="fan2026comment"></span>, with follow-up
-remarks extending the argument to arbitrary coprime pairs. The priority
-for the two-prime case is his. The proof below is independent and is
-given in full because it fixes the <span
-class="math inline" data-term-auto="off">\(|P|=2\)</span> boundary of the problem and because
-the same boundary sum drives the three-prime discussion. The identity of
-Theorem <a class="math-ref" href="#long269:res:lcm">2.1</a> is
-cited to him.</p>
+class="citation" data-cites="fan2026comment"></span>. A reply in that
+thread observed that the argument applies to arbitrary coprime pairs,
+and Fan’s response proposed the wider setting of nonzero algebraic
+numbers whose logarithms are linearly independent over <span
+class="math inline" data-term-auto="off">\(\Q\)</span>. The priority for the two-prime case
+is his. The proof below is independent and is given in full because it
+fixes the <span class="math inline" data-term-auto="off">\(|P|=2\)</span> boundary of the
+problem and because the same boundary sum drives the three-prime
+discussion. The identity of Theorem <a class="math-ref" href="#long269:res:lcm">2.1</a> is cited to
+him.</p>
 </section>
 <section id="what-the-third-prime-does." class="level5">
 <h5>What the third prime does.</h5>
@@ -374,8 +376,16 @@ coefficients equal <span class="math inline" data-term-auto="off">\(2\)</span> a
 identity reads <span class="math inline" data-term-auto="off">\(18421/10800\)</span> on both
 sides. The identity is between two finite sums over a box, so it is not
 a statement about <span class="math inline" data-term-auto="off">\(\operatorname{L}\)</span>
-at a cutoff. The same module records the one-step map <span
-class="math inline" data-term-auto="off">\(\tau(b,d,s)=b(s-d)\)</span>, the <a
+at a cutoff. Fan and Lott build their van der Corput coefficients on
+sums of two squares by the same kind of regrouping: up to normalisation,
+the coefficient at <span class="math inline" data-term-auto="off">\(d\)</span> sums a smooth
+weight over the representations <span
+class="math inline" data-term-auto="off">\(d=v^2(x^2+y^2)\)</span>, and the average over
+<span class="math inline" data-term-auto="off">\(v\)</span> keeps the associated complete
+sums in a fixed sector <span class="citation"
+data-cites="fanlott2026"><a href="#ref-13">[13]</a></span>. The same Lean module records the
+one-step map <span class="math inline" data-term-auto="off">\(\tau(b,d,s)=b(s-d)\)</span>,
+the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L488">variable-base
 tail step</a>, with the rewriting <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L491">that
@@ -1222,7 +1232,26 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 or cofinal-distance alternative</a>. It excludes neither branch, and it
 says nothing about a rational value whose reduced denominator has a
 factor coprime to <span class="math inline" data-term-auto="off">\(30\)</span>: that case is
-the subject of Section <a class="math-ref" href="#long269:sec:actual-orbit">6</a>.</p>
+the subject of Section <a class="math-ref" href="#long269:sec:actual-orbit">6</a>. If <span
+class="math inline" data-term-auto="off">\((g_a)\)</span> is an unbounded sequence of
+positive integers with bounded successive ratios, the real <span
+class="math inline" data-term-auto="off">\(\xi\)</span> with <span
+class="math inline" data-term-auto="off">\(\operatorname{dist}(g_a\xi,\Z)\to0\)</span> form a
+countable set, a phenomenon going back to Eggleston <span
+class="citation" data-cites="fan2026strongly"></span>. For an integer
+<span class="math inline" data-term-auto="off">\(B\ge1\)</span> and <span
+class="math inline" data-term-auto="off">\(g_a=Bh_a\)</span> <span
+class="math inline" data-term-auto="off">\((a\ge1)\)</span> the ratios are the integers <span
+class="math inline" data-term-auto="off">\(b_a\)</span> of <a class="math-ref" data-equation-ref="true" href="#long269:eq:dyadic-alphabet">long269:eq:dyadic-alphabet</a>, and
+the argument above identifies the set: it consists of the <span
+class="math inline" data-term-auto="off">\(\xi\)</span> for which <span
+class="math inline" data-term-auto="off">\(Bh_a\xi\)</span> is eventually an integer. Since
+<span class="math inline" data-term-auto="off">\(X_a-h_aS\)</span> is an integer for <span
+class="math inline" data-term-auto="off">\(a\ge1\)</span> (Lemma <a class="math-ref" href="#long269:res:all-scale-lattice">6.2</a>),
+Theorem <a class="math-ref" href="#long269:res:actual-cancellation">6.3</a>
+shows that the set contains <span class="math inline" data-term-auto="off">\(S\)</span> for
+some <span class="math inline" data-term-auto="off">\(B\)</span> exactly when <span
+class="math inline" data-term-auto="off">\(S\)</span> is rational.</p>
 </section>
 <section id="long269:sec:actual-orbit" class="level2">
 <h2>A quadratic tail bound and denominator cancellation</h2>
@@ -2202,13 +2231,12 @@ a different question and needs its own formulation.</p>
 argument in the letter, and it is not the first public proof. Steve Fan
 posted the same factorisation, the same Hecke–Mahler reduction and the
 same conclusion in the discussion thread of the problem’s page on 26
-June 2026 <span class="citation" data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>,
-with follow-up remarks extending the argument to arbitrary coprime
-pairs; a further comment there observes that the argument does not seem
-to generalise immediately to <span
-class="math inline" data-term-auto="off">\(|P|\ge3\)</span>. The manuscript of the note was
-first released publicly on 22 July 2026, at commit
-<code>a9d3ab8</code>.</p>
+June 2026 <span class="citation" data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>;
+the comment itself notes that the argument does not seem to generalise
+immediately to <span class="math inline" data-term-auto="off">\(|P|\ge3\)</span>, and a reply
+there observes that it applies to arbitrary coprime pairs. The
+manuscript of the note was first released publicly on 22 July 2026, at
+commit <code>a9d3ab8</code>.</p>
 <p>The statement of the problem has been formalised as a conjecture with
 an unfilled proof in the <em>Formal Conjectures</em> collection <span
 class="citation" data-cites="formalconjectures269"></span>. Its
@@ -3477,6 +3505,27 @@ two-channel factorisation, the Hecke–Mahler reduction, and the
 transcendence conclusion for <span class="math inline" data-term-auto="off">\(|P|=2\)</span>;
 follow-up comments there note the extension to arbitrary coprime
 pairs.</p></li>
+<li id="ref-13"><p>S. Fan and A. Lott, <a
+href="https://arxiv.org/abs/2606.29185"><em>The van der Corput property
+for sums of two squares</em></a>, arXiv:2606.29185v1, 28 June 2026.
+Section 3, pp. 4–8, defines the coefficients by summing smooth weights
+over the representations <span
+class="math inline" data-term-auto="off">\(d=v^2(x^2+y^2)\)</span>; pp. 5–6 explain that
+averaging over <span class="math inline" data-term-auto="off">\(v\)</span> places the
+complete sums in a fixed sector, and Corollary 4.4, p. 12, proves the
+sector bound.</p></li>
+<li id="ref-14"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071"><em>Strongly
+complete sets and a conjecture of Erdős</em></a>, arXiv:2607.14071v1,
+15 July 2026. The paper proves the conjecture listed as Erdős
+Problem #254. Lemma 3.1, p. 7, proves that the <span
+class="math inline" data-term-auto="off">\(\theta\in\mathbb R/\mathbb Z\)</span> with <span
+class="math inline" data-term-auto="off">\(\operatorname{dist}(a_n\theta,\mathbb
+Z)\to0\)</span> form a countable set for every unbounded sequence of
+positive integers with <span class="math inline" data-term-auto="off">\(a_{n+1}\le\lambda
+a_n\)</span> for a fixed <span
+class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span>; the preceding paragraph
+credits the phenomenon to Eggleston (1952) and more general results to
+Erdős and Taylor (1957).</p></li>
 </ol>
 </section>
   </div>

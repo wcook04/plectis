@@ -76,7 +76,13 @@ class="math inline" data-term-auto="off">\(u^2v^3\)</span>, so</p>
 class="math display" data-term-auto="off">\[\sum_{\substack{a\ge1\\a\text{ powerful}}}\frac1a
 \le\zeta(2)\zeta(3)&lt;\infty.\]</span></div>
 <p>Thus arbitrary infinite
-thinnings of the powerful integers are included.</p>
+thinnings of the powerful integers are included. For the full set of
+perfect <span class="math inline" data-term-auto="off">\(i\)</span>th powers, <span
+class="math inline" data-term-auto="off">\(i\ge2\)</span>, irrationality at every integer
+base is also a case of Corollary 1.2 of Duverney and Tachiya, taken with
+<span class="math inline" data-term-auto="off">\(E\)</span> the primes and <span
+class="math inline" data-term-auto="off">\(s=\infty\)</span> <span class="citation"
+data-cites="duverneytachiya"><a href="#ref-1">[1]</a></span>.</p>
 <div class="problem" id="res:problem">
 <p><strong>Problem 1.2</strong> (Erdős #257). <em> Is <span
 class="math inline" data-term-auto="off">\(X_A(2)\)</span> irrational for every infinite
@@ -93,12 +99,19 @@ independently assessable from this checkout. The final section retains
 the actual arithmetic constraint for a proposed rational value.</p>
 <p>Erdős proved the pairwise-coprime case at every integer base and
 stated that the coprimality condition could be removed, leaving the
-details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-6">[6]</a></span>.
+details unprinted <span class="citation" data-cites="erdos1968"><a href="#ref-7">[7]</a></span>.
 Theorem <a class="math-ref" href="#res:reciprocal-support">1.1</a> gives a
 complete proof of that stated extension, obtained independently. The
 all-base quantifier is already in Erdős’s statement. No priority over
 Erdős is claimed and no identification with his omitted argument is
-asserted.</p>
+asserted. Erdős also wrote that the condition <span
+class="math inline" data-term-auto="off">\(\sum1/n_i&lt;\infty\)</span> could be replaced by
+a weaker but more complicated condition, and that for pairwise coprime
+supports Brun’s method could probably replace it by <span
+class="math inline" data-term-auto="off">\(\sum_{n_i&lt;x}1/n_i=o(\log\log x)\)</span> <span
+class="citation" data-cites="erdos1968"></span>. Theorem <a class="math-ref" href="#res:weighted-support">3.1</a> proves
+irrationality under one explicit weaker condition, without coprimality;
+no identification with the conditions he suggested is asserted.</p>
 <p>The coefficient sequence throughout is the divisor transform of one
 Boolean selector:</p>
 <div class="math-display" id="eq:incidence" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
@@ -350,6 +363,36 @@ asserted here.</p>
 Lean declaration is cited as their proof, and no priority claim is made.
 The arbitrary-chain, quantitative and prime-power extensions remain
 separate from Theorem <a class="math-ref" href="#res:weighted-support">3.1</a>.</p>
+<p>The proofs of Theorems <a class="math-ref" href="#res:reciprocal-support">1.1</a> and <a class="math-ref" href="#res:weighted-support">3.1</a> select a term
+no larger than a finite average. Duverney and Tachiya select their index
+in the same way in their refinement of the Chowla–Erdős method. They
+average a local coefficient mass over an arithmetic progression built by
+the Chinese remainder theorem, and a term attaining the minimum supplies
+the bounds that control the tail beyond it <span class="citation"
+data-cites="duverneytachiya"><a href="#ref-1">[1]</a></span>. Kaneko, Suzuki and Tachiya measure
+the average decay of scaled tails by the quantity <span
+class="math inline" data-term-auto="off">\(R_c(q,x,z)\)</span> of their (1.7). Under a
+counting condition on the support and a bound on <span
+class="math inline" data-term-auto="off">\(R_c\)</span> they show that most scaled tails in a
+range are small, and arbitrarily small nonzero scaled tails give
+irrationality <span class="citation"
+data-cites="kanekosuzukitachiya"><a href="#ref-2">[2]</a></span>. The incidence
+coefficients <a class="math-ref" data-equation-ref="true" href="#eq:incidence">eq:incidence</a>
+are positive on every multiple of <span class="math inline" data-term-auto="off">\(\min
+A\)</span>. Hence conditions (iii) and (iv) of their Theorems 1 and 3
+fail for every splitting of <span class="math inline" data-term-auto="off">\(c_A\)</span>
+into two sequences, and the scaled tail</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{r\ge1}\frac{c_A(N+r)}{b^r}
+=\sum_{a\in A}\frac{b^{N\bmod a}}{b^a-1}
+=X_A(b)+\Delta_{b,A}(N)\]</span></div>
+<p class="display-continue">is at least <span
+class="math inline" data-term-auto="off">\(X_A(b)\)</span> for every <span
+class="math inline" data-term-auto="off">\(N\ge1\)</span>. The proofs above average the
+displacement <span class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\)</span>
+instead, along multiples of a modulus that freezes a finite part of
+<span class="math inline" data-term-auto="off">\(A\)</span>; the weighted proof adds a second
+average over dyadic observation lengths.</p>
 </section>
 <section id="claimed-quantitative-criterion-unassessed-here"
 class="level3">
@@ -693,7 +736,7 @@ direct proof of that baseline case.</p>
 infinite subset of the prime powers, at every integer base, including
 fixed dilations and finite modifications. Its intended analytic input is
 Tao–Teräväinen <span class="citation"
-data-cites="taoteravainen2025"><a href="#ref-2">[2]</a></span>. The argument would use the
+data-cites="taoteravainen2025"><a href="#ref-3">[3]</a></span>. The argument would use the
 reciprocal mass of the selected primes as its scale, so arbitrarily slow
 divergence is retained; higher prime powers produce errors only on
 prime-square events. The equidistribution, small-prime, progression and
@@ -830,8 +873,13 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 class="citation" data-cites="erdos1948"></span>. A universal proof must
 therefore control arithmetic behaviour beyond small returns.</p>
 <p>The distinction also appears in the squarefree support. Its series is
-known to be irrational at powers-of-two bases by Duverney–Tachiya <span
-class="citation" data-cites="duverneytachiya"></span>. The zero-window
+irrational at every base <span class="math inline" data-term-auto="off">\(2^j\)</span>, <span
+class="math inline" data-term-auto="off">\(j\ge1\)</span>, by Corollary 1.2 and Example 1.1
+of Duverney and Tachiya <span class="citation"
+data-cites="duverneytachiya"><a href="#ref-1">[1]</a></span>. Their corollary covers the <span
+class="math inline" data-term-auto="off">\(s\)</span>-free products of any pairwise coprime
+sequence of polynomial growth, and they present it as support for the
+conjecture of Erdős and Graham stated here as Problem <a class="math-ref" href="#res:problem">1.2</a>. The zero-window
 obstruction for one normalised certificate scheme concerns that scheme’s
 hypotheses. It gives no obstruction to irrationality of the value. The
 precise normalisation counterexamples are retained in the long record,
@@ -870,7 +918,7 @@ each block contributes reciprocal mass tending to <span
 class="math inline" data-term-auto="off">\(\log2\)</span>, so <span
 class="math inline" data-term-auto="off">\(\sum_{a\in A}1/a\)</span> diverges. The extension
 of this lane to products of consecutive terms <span class="citation"
-data-cites="bkkkz2026"><a href="#ref-8">[8]</a></span> settles Erdős Problem 1051 at the
+data-cites="bkkkz2026"><a href="#ref-9">[9]</a></span> settles Erdős Problem 1051 at the
 golden-ratio exponent and adds nothing beyond the <span
 class="math inline" data-term-auto="off">\(d=1\)</span> case used above. Its rational-valued
 counterexamples are built by interval filling, which selects each term
@@ -930,7 +978,7 @@ class="math inline" data-term-auto="off">\(N\)</span> cylinder covers have total
 class="math inline" data-term-auto="off">\(2^NR_N\to1\)</span>, so <span
 class="math inline" data-term-auto="off">\(\lambda(\mathcal A)=1\)</span>. Kovač–Tao record
 this strict-tail inequality and the Cantor conclusion in the fixed-base
-setting <span class="citation" data-cites="kovactao"><a href="#ref-3">[3]</a></span>. The long
+setting <span class="citation" data-cites="kovactao"><a href="#ref-4">[4]</a></span>. The long
 record proves the restricted-volume dichotomy and records the formula
 <span class="math inline" data-term-auto="off">\(\dim_H\mathcal
 A_J=\liminf_N\#(J\cap[1,N])/N\)</span>, together with the
@@ -1191,7 +1239,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 pairwise-coprime theorem</a>. The statement of Problem <a class="math-ref" href="#res:problem">1.2</a> has been formalised
 before, as a conjecture with an unfilled proof, in the <em>Formal
 Conjectures</em> collection <span class="citation"
-data-cites="formalconjectures257"><a href="#ref-5">[5]</a></span>. That collection proves the
+data-cites="formalconjectures257"><a href="#ref-6">[6]</a></span>. That collection proves the
 Lambert identity for the full-support value and states its
 irrationality, the 1948 theorem of Erdős, with proof <code>sorry</code>.
 Its role here is statement-level prior art; no theorem in this note is
@@ -1527,15 +1575,30 @@ bound</a>).</p>
 href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf"><em>Refinement
 of the Chowla–Erdős method and linear independence of certain Lambert
 series</em></a>, Forum Math. 31 (2019), no. 6, 1557–1566, <a
-href="https://doi.org/10.1515/forum-2018-0299">DOI</a>. Corollary 1.2
-gives the general <span class="math inline" data-term-auto="off">\(F_s(E)\)</span> theorem
-and its monomial images under <span
-class="math inline" data-term-auto="off">\(|q|^{\lcm(1,\dots,\ell)}\le s\)</span>; Example
-1.1 gives the joint squarefree family at all bases <span
-class="math inline" data-term-auto="off">\(2^j\)</span>, <span
-class="math inline" data-term-auto="off">\(j\ge1\)</span>. Both are on p. 4 of the linked
-author preprint; the proof is on pp. 9–11.</p></li>
-<li id="ref-2"><p>T. Tao and J. Teräväinen, <em>Quantitative correlations and some
+href="https://doi.org/10.1515/forum-2018-0299">DOI</a>. Page numbers
+refer to the linked author preprint. Theorem 1.1 (pp. 2–3) is the
+refined Chowla–Erdős criterion; its proof in Section 2 (pp. 5–7) selects
+an index by minimising a local coefficient mass along an arithmetic
+progression, (2.3)–(2.9). Corollary 1.2 gives the general <span
+class="math inline" data-term-auto="off">\(F_s(E)\)</span> theorem and its monomial images
+under <span class="math inline" data-term-auto="off">\(|q|\lcm(1,\dots,\ell)\le s\)</span>,
+and at every integer base when <span
+class="math inline" data-term-auto="off">\(s=\infty\)</span>; Example 1.1 gives the joint
+squarefree family at all bases <span class="math inline" data-term-auto="off">\(2^j\)</span>,
+<span class="math inline" data-term-auto="off">\(j\ge1\)</span>. Both are on p. 4, which also
+relates Corollary 1.2 to the conjecture of Erdős and Graham; the proof
+of Corollary 1.2 is on pp. 10–11.</p></li>
+<li id="ref-2"><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
+href="https://arxiv.org/abs/2601.20743"><em>Refinements of Erdős’s
+irrationality criterion for certain sparse infinite series</em></a>,
+arXiv:2601.20743v1 (2026). The averaged tail <span
+class="math inline" data-term-auto="off">\(R_c(q,x,z)\)</span> is (1.7) and Theorem 1 is on
+p. 3; its rational-integer form, Theorem 3, is on p. 5. Lemma 1
+(pp. 6–7) derives irrationality from arbitrarily small nonzero scaled
+tails, and Lemma 2 (pp. 7–8) shows that most scaled tails in a range are
+small under a counting condition on the support. Their criteria assume
+sparse coefficient supports.</p></li>
+<li id="ref-3"><p>T. Tao and J. Teräväinen, <em>Quantitative correlations and some
 problems on prime factors of consecutive integers</em>, arXiv:2512.01739
 (submitted December 2025, revised April 2026). Theorem 1.3 proves <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge1}\omega(n)/2^n=\sum_p(2^p-1)^{-1}\)</span>
@@ -1544,30 +1607,34 @@ class="math inline" data-term-auto="off">\(2\)</span>; the extension to every in
 and the prime-power support are stated as remarks with the modifications
 left to the reader. The theorem is on p. 4 and its proof is Section 5,
 pp. 44–56, in arXiv v2.</p></li>
-<li id="ref-3"><p>V. Kovač and T. Tao, <em>On several irrationality problems for
+<li id="ref-4"><p>V. Kovač and T. Tao, <em>On several irrationality problems for
 Ahmes series</em>, Acta Math. Hungar. 175 (2025), 572–608, <a
 href="https://doi.org/10.1007/s10474-025-01528-0">DOI</a>. Remark 4.1
 (p. 13) records the strict tail inequality and the Cantor structure.
 Theorem 2.3 (p. 5; proof pp. 13–14) constructs rational merged sums from
 several bases under its mass hypothesis; it is not a fixed-base
 counterexample.</p></li>
-<li id="ref-4"><p>P. Erdős, <em>On arithmetical properties of Lambert series</em>,
+<li id="ref-5"><p>P. Erdős, <em>On arithmetical properties of Lambert series</em>,
 J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
-<li id="ref-5"><p>The Formal Conjectures Authors, <a
+<li id="ref-6"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/257.lean"><em>FormalConjectures.ErdosProblems.<code>257</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 13 September
 2026. Its statement of the problem ends in <code>sorry</code>; the
 Lambert identity <code>tsum_top_eq</code> is proved there and the
 full-support irrationality variant <code>tsum_top</code> ends in
 <code>sorry</code>.</p></li>
-<li id="ref-6"><p>P. Erdős, <a
+<li id="ref-7"><p>P. Erdős, <a
 href="https://users.renyi.hu/~p_erdos/1969-09.pdf"><em>On the
 irrationality of certain series</em></a>, Math. Student 36 (1968),
 222–226 (issued 1969). The theorem on p. 222 treats pairwise-coprime
 support with convergent reciprocal sum at every integer base <span
 class="math inline" data-term-auto="off">\(b\ge2\)</span>; the claimed removal of pairwise
-coprimality is stated without proof.</p></li>
-<li id="ref-7"><p>P. Erdős, <em>Some problems and results on the irrationality of
+coprimality is stated without proof. The same page says the
+reciprocal-sum condition could be replaced by a weaker but more
+complicated condition, and p. 226 suggests <span
+class="math inline" data-term-auto="off">\(\sum_{n_i&lt;x}1/n_i=o(\log\log x)\)</span> for
+pairwise coprime supports.</p></li>
+<li id="ref-8"><p>P. Erdős, <em>Some problems and results on the irrationality of
 the sum of infinite series</em>, J. Math. Sci. 10 (1975), 1–7. Theorem 1
 proves irrationality of <span class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span>
 for increasing integers with <span class="math inline" data-term-auto="off">\(a_n\ge
@@ -1575,9 +1642,9 @@ n^{1+\tau}\)</span> for some <span
 class="math inline" data-term-auto="off">\(\tau&gt;0\)</span> and every <span
 class="math inline" data-term-auto="off">\(n\)</span> and <span
 class="math inline" data-term-auto="off">\(\limsup_na_n^{1/2^n}=\infty\)</span>, as restated
-in Remark 4(4) of <span class="citation" data-cites="bkkkz2026"><a href="#ref-8">[8]</a></span>;
+in Remark 4(4) of <span class="citation" data-cites="bkkkz2026"><a href="#ref-9">[9]</a></span>;
 the original was not consulted for this note.</p></li>
-<li id="ref-8"><p>K. Barreto, J. Kang, S. Kim, V. Kovač, and S. Zhang, <a
+<li id="ref-9"><p>K. Barreto, J. Kang, S. Kim, V. Kovač, and S. Zhang, <a
 href="https://arxiv.org/abs/2601.21442"><em>Irrationality of rapidly
 converging series: a problem of Erdős and Graham</em></a>,
 arXiv:2601.21442v3 (2026). Theorem 2 (p. 3) settles Erdős Problem 1051

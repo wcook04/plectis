@@ -69,7 +69,15 @@ states the removal of coprimality without printing the details. The
 proof below of that stated extension is independent; no priority over
 Erdős is claimed and no identification with his omitted argument is
 asserted. The checked pairwise-coprime theorem listed below retains that
-extra hypothesis.</p>
+extra hypothesis. The same paper says that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mn>1</mn><mi>/</mi><msub><mi>n</mi><mi>i</mi></msub><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum1/n_i&lt;\infty</annotation></semantics></math>
+could be replaced by a weaker but more complicated condition (p. 222),
+and suggests that for pairwise coprime supports Brun’s method could
+probably replace it by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><msub><mi>n</mi><mi>i</mi></msub><mo>&lt;</mo><mi>x</mi></mrow></msub><mn>1</mn><mi>/</mi><msub><mi>n</mi><mi>i</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n_i&lt;x}1/n_i=o(\log\log x)</annotation></semantics></math>
+(p. 226). Theorem  below proves irrationality under one explicit weaker
+condition without coprimality; no identification with his suggestions is
+asserted.</p>
 <p>The mechanism is to make positive displacements arbitrarily small.
 For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N&gt;0</annotation></semantics></math>,
@@ -462,6 +470,40 @@ one has
 Thus the base-two weighted hypothesis gives the conclusion
 simultaneously at every integer base. The hypothesis is also hereditary
 under passage to infinite subsets.</p>
+<section id="averaging-antecedents." class="level5">
+<h5>Averaging antecedents.</h5>
+<p>Both averaging proofs in this section end by choosing a term no
+larger than a finite mean. <a
+href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf">Duverney
+and Tachiya</a> choose their index in the same way in their refinement
+of the Chowla–Erdős method: they average a local coefficient mass over
+an arithmetic progression built by the Chinese remainder theorem, and a
+term attaining the minimum supplies the bounds that control the tail
+beyond it (Section 2, (2.3)–(2.9), pp. 5–6 of the author preprint). <a
+href="https://arxiv.org/abs/2601.20743">Kaneko, Suzuki and Tachiya</a>
+measure the average decay of scaled tails by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mi>x</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_c(q,x,z)</annotation></semantics></math>,
+their (1.7) on p. 3 of arXiv v1. Under a counting condition on the
+support and a bound on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>c</mi></msub><annotation encoding="application/x-tex">R_c</annotation></semantics></math>,
+most scaled tails in a range are small, and arbitrarily small nonzero
+scaled tails give irrationality (Lemmas 1 and 2, pp. 6–8). The
+divisor-incidence coefficients
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>∈</mo><mi>A</mi><mo>:</mo><mi>a</mi><mo>∣</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\#\{a\in A:a\mid n\}</annotation></semantics></math>
+are positive on every multiple of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">\min A</annotation></semantics></math>,
+so conditions (iii) and (iv) of their Theorems 1 and 3 fail for every
+splitting into two sequences, and the scaled tail
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><mi>#</mi><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo>∈</mo><mi>A</mi><mo>:</mo><mi>a</mi><mo>∣</mo><mi>m</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">}</mo></mrow><msup><mi>b</mi><mi>r</mi></msup></mfrac><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><msub><mi>ϕ</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>S</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{r\ge1}\frac{\#\{a\in A:a\mid m+r\}}{b^r}
+ =\sum_{a\in A}\phi_a(m)=S_b(A)+\Delta_{b,A}(m)</annotation></semantics></math>
+is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S_b(A)</annotation></semantics></math>.
+The proofs above average the displacement instead, along multiples of a
+modulus that freezes a finite part of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>;
+the weighted proof adds the dyadic average . <span><span
+class="sans-serif">[Cited]</span></span></p>
+</section>
 <section id="evidence-boundary." class="level5">
 <h5>Evidence boundary.</h5>
 <p>This is a complete ordinary proof, not an end-to-end Lean theorem.
@@ -1045,7 +1087,10 @@ base-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantic
 prime-support value irrational by first identifying it with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}\omega(n)2^{-n}</annotation></semantics></math>.
 Duverney and Tachiya likewise settle squarefree support at every
-power-of-two base. Neither result is formalised here. The statement of
+power-of-two base, and the perfect
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>th
+powers at every integer base (Corollary 1.2 and Example 1.1, p. 4 of the
+author preprint). Neither result is formalised here. The statement of
 Problem #257 has been formalised before, as a conjecture with an
 unfilled proof, in the <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/257.lean">collection</a>;
@@ -1107,8 +1152,9 @@ Those sources are the classical topological antecedent. The local volume
 dichotomy, injectivity, and greedy-membership statements above and below
 are Lean-checked claims of this corpus. The sparse power-series criteria
 of <a href="https://arxiv.org/abs/2601.20743">Kaneko–Suzuki–Tachiya</a>
-give neighboring sparse-support context, not a theorem about arbitrary
-reciprocal Mersenne subseries. <span><span
+(Theorems 1–3, pp. 3–5 of arXiv v1) assume sparse coefficient supports;
+their relation to the divisor-incidence coefficients of these subseries
+is recorded after Theorem . <span><span
 class="sans-serif">[Cited]</span></span></p>
 </div>
 <div class="thm">

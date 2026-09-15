@@ -138,8 +138,10 @@ declaration formalises it.
 Steve Fan posted the running-LCM identity for every $|P|$, the two-channel
 factorisation, the Hecke--Mahler reduction and the transcendence conclusion in
 the discussion thread of the problem's page on 26 June
-2026~\cite{fan2026comment}, with follow-up remarks extending the argument to
-arbitrary coprime pairs.  The priority for the two-prime case is his.  The
+2026~\cite{fan2026comment}.  A reply in that thread observed that the argument
+applies to arbitrary coprime pairs, and Fan's response proposed the wider
+setting of nonzero algebraic numbers whose logarithms are linearly independent
+over $\Q$.  The priority for the two-prime case is his.  The
 proof below is independent and is given in full because it fixes the $|P|=2$
 boundary of the problem and because the same boundary sum drives the
 three-prime discussion.  The identity of Theorem~\ref{long269:res:lcm} is cited to him.
@@ -371,7 +373,12 @@ height}.  At $(2,3,5)$ on $\mathcal B(1,1,1)$ the eight smooth values
 $1,2,3,5,6,10,15,30$ carry heights $1,2,6,60,60,360,360,10800$, so two
 coefficients equal $2$ and the identity reads $18421/10800$ on both sides.  The
 identity is between two finite sums over a box, so it is not a statement about
-$\Lprefix$ at a cutoff.  The same module records the one-step map
+$\Lprefix$ at a cutoff.  Fan and Lott build their van der Corput coefficients
+on sums of two squares by the same kind of regrouping: up to normalisation, the
+coefficient at $d$ sums a smooth weight over the representations
+$d=v^2(x^2+y^2)$, and the average over $v$ keeps the associated complete sums in
+a fixed sector \cite[\S3 and Corollary~4.4]{fanlott2026}.  The same Lean
+module records the one-step map
 $\tau(b,d,s)=b(s-d)$, the
 \lword{Erdos269/ThreePrimeRunningLcm.lean}{488}{tailStateStep}{variable-base
 tail step}, with the rewriting
@@ -979,6 +986,16 @@ for the genuine infinite tail, over the abstract
 or cofinal-distance alternative}.  It excludes neither branch, and it says
 nothing about a rational value whose reduced denominator has a factor coprime
 to $30$: that case is the subject of Section~\ref{long269:sec:actual-orbit}.
+If $(g_a)$ is an unbounded sequence of positive integers with bounded
+successive ratios, the real $\xi$ with $\operatorname{dist}(g_a\xi,\Z)\to0$ form
+a countable set, a phenomenon going back to Eggleston
+\cite[\S3 and Lemma~3.1]{fan2026strongly}.  For an integer $B\ge1$ and $g_a=Bh_a$ $(a\ge1)$ the ratios
+are the integers $b_a$ of~\eqref{long269:eq:dyadic-alphabet}, and the argument
+above identifies the set: it consists of the $\xi$ for which $Bh_a\xi$ is
+eventually an integer.  Since $X_a-h_aS$ is an integer for $a\ge1$
+(Lemma~\ref{long269:res:all-scale-lattice}),
+Theorem~\ref{long269:res:actual-cancellation} shows that the set contains $S$
+for some $B$ exactly when $S$ is rational.
 
 \section{A quadratic tail bound and denominator cancellation}
 \label{long269:sec:actual-orbit}
@@ -1697,9 +1714,9 @@ The two-prime argument of the note is independent of the unprinted argument in
 the letter, and it is not the first public proof.  Steve Fan posted the same
 factorisation, the same Hecke--Mahler reduction and the same conclusion in the
 discussion thread of the problem's page on 26 June 2026
-\cite{fan2026comment}, with follow-up remarks extending the argument to
-arbitrary coprime pairs; a further comment there observes that the argument
-does not seem to generalise immediately to $|P|\ge3$.  The manuscript of the
+\cite{fan2026comment}; the comment itself notes that the argument does not seem
+to generalise immediately to $|P|\ge3$, and a reply there observes that it
+applies to arbitrary coprime pairs.  The manuscript of the
 note was first released publicly on 22 July 2026, at commit \texttt{a9d3ab8}.
 
 The statement of the problem has been formalised as a conjecture with an
@@ -2197,6 +2214,23 @@ A local-window checker searches 106666 denominator and start pairs and records s
   running-LCM identity for every $|P|$, the two-channel factorisation, the
   Hecke--Mahler reduction, and the transcendence conclusion for $|P|=2$;
   follow-up comments there note the extension to arbitrary coprime pairs.
+\bibitem{fanlott2026} S.~Fan and A.~Lott,
+  \href{https://arxiv.org/abs/2606.29185}{\emph{The van der Corput property
+  for sums of two squares}}, arXiv:2606.29185v1, 28~June 2026.  Section~3,
+  pp.~4--8, defines the coefficients by summing smooth weights over the
+  representations $d=v^2(x^2+y^2)$; pp.~5--6 explain that averaging over $v$
+  places the complete sums in a fixed sector, and Corollary~4.4, p.~12,
+  proves the sector bound.
+\bibitem{fan2026strongly} S.~Fan,
+  \href{https://arxiv.org/abs/2607.14071}{\emph{Strongly complete sets and a
+  conjecture of Erd\H{o}s}}, arXiv:2607.14071v1, 15~July 2026.  The paper
+  proves the conjecture listed as Erd\H{o}s Problem~\#254.  Lemma~3.1, p.~7,
+  proves that the $\theta\in\mathbb R/\mathbb Z$ with
+  $\operatorname{dist}(a_n\theta,\mathbb Z)\to0$ form a countable set for
+  every unbounded sequence of positive integers with $a_{n+1}\le\lambda a_n$
+  for a fixed $\lambda>1$;
+  the preceding paragraph credits the phenomenon to Eggleston (1952) and more
+  general results to Erd\H{o}s and Taylor (1957).
 \end{thebibliography}
 
 \end{document}

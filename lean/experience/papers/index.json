@@ -434,7 +434,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 12,
+      "pages": 13,
       "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
       "precis": "Clearing denominators turns Erdős #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.",
       "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -2591,7 +2591,7 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 19,
+      "pages": 20,
       "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
       "precis": "Fix a finite nonempty prime set P and put h(a)=∏_{p∈P}p^{v_p(a)}. If an infinite support A has ∑_{a∈A}h(a)/(a(2^{h(a)}−1)) finite, its reciprocal Mersenne subseries is irrational at every integer base b≥2, as is the subseries on every infinite subset of A. The paper prints a complete ordinary proof and a host with divergent reciprocal sum, so the criterion is strictly weaker than reciprocal summability. A common observation window also proves hereditary irrationality for unions of weighted supports and strengthened positive-cover supports. These are ordinary results, not Lean theorems, and no priority claim is made. Universal Erdős #257 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge",
@@ -2615,10 +2615,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 24,
         "renderer_fingerprint": "2fb901bb07309297",
-        "source_sha256": "812b5b8ad7a0230c0d66dfedf0ba04f92363f6279a2b1361a04694d2dfd56608",
+        "source_sha256": "76dc529485b13aaa6eb6b5d24eb0109aa5c01d3aa7bd60ae1f7b87ba22d94445",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 494,
+        "mathml_node_count": 515,
         "raw_math_fallback_count": 4,
         "warnings": {
           "mathml": [
@@ -2646,8 +2646,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "54729f4cc66fe4bc361f451d700a9615c6e5081e1bdf8653a76e7e8b3545a466",
-        "html_exact_tex_sha256": "b0285f2f622c308192275ca2d08d4b6178ce39183f304f390af09aa9031f40cc"
+        "html_mathml_sha256": "96c7dce076f730aeee634be5e3e0f74d1b440956adc1ee1bfc4ed9fd7be7c714",
+        "html_exact_tex_sha256": "cd0ab3f3f8218ae0a158cd2ca087f0e2099c11315efa10fea07f242547e45c2c"
       },
       "sections": [
         {
@@ -2804,10 +2804,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 24,
         "renderer_fingerprint": "2fb901bb07309297",
-        "source_sha256": "9f926b96a6154fec820c8d2474d0bb17568a07ed91d6f25c2cc302a6d18bcccb",
+        "source_sha256": "e3280a1becbfe04c30761a8b1ed3c4305d3de9cb56ddbfda59ab8d29318be4ea",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 3297,
+        "mathml_node_count": 3307,
         "raw_math_fallback_count": 3,
         "warnings": {
           "mathml": [
@@ -2829,8 +2829,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "a51a5d8ca139072ddb9020556fc3f5c25a46fa131035269c20fd638286446764",
-        "html_exact_tex_sha256": "66759c82eb8de0b8c6474ed3e639b83dc90eee916da960925c69802343b446ee"
+        "html_mathml_sha256": "aadbf6c05809d1a5809d021cc6614bcf60e83a42c216b81e67f53a5164ae7226",
+        "html_exact_tex_sha256": "bbdf2968edf1ecfb6d5e76596d7ca8dcec5cb9f0478a747e3518707651c973f6"
       },
       "sections": [
         {
@@ -2852,6 +2852,11 @@
           "level": 3,
           "anchor": "finite-prime-part-weighted-mass",
           "label": "Finite prime-part weighted mass"
+        },
+        {
+          "level": 5,
+          "anchor": "averaging-antecedents.",
+          "label": "Averaging antecedents."
         },
         {
           "level": 5,
@@ -3617,10 +3622,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 24,
         "renderer_fingerprint": "2fb901bb07309297",
-        "source_sha256": "cfee219bb8b91e46e2d50f505d703085e7b8e1a9cb16e96d94e055b0add4cc56",
+        "source_sha256": "aaf13efa2ce0efe4252dab9e0c5a50489c91559d29d6b87e34c36a96d993271d",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1015,
+        "mathml_node_count": 1039,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -3635,8 +3640,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "11cbda2327f9e45b19eb7f825316815000d7a2417fdf70a112b3ce7fe83ec7ee",
-        "html_exact_tex_sha256": "e83d4d3775b9e244020593debcb67b7282938932c185c3618d3886a89d06f3bf"
+        "html_mathml_sha256": "717475f2144cb41c274837dbc82bfe2d5101c2bb8a4d35a22dee5b7356fa8204",
+        "html_exact_tex_sha256": "86baae0d636260f635f0ea3245548774d5b5ce065f7025dd1e8a6bd8675b4019"
       },
       "sections": [
         {
@@ -3879,7 +3884,7 @@
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 11,
+      "pages": 12,
       "question": "For Erdős #269, which two-prime running-LCM sums are transcendental, what infinite-rank structure is proved at three primes, and which escape condition remains open?",
       "precis": "For every pair of distinct primes, both the repeated running-LCM reciprocal sum and the version retaining one term per distinct LCM value are transcendental, by an ordinary deduction from a cited Hecke–Mahler theorem. Steve Fan posted the repeated-sum factorisation, reduction and transcendence conclusion first; the paper claims no priority or Lean formalisation for that case. For three distinct primes, the paper proves that the reciprocal running-LCM kernel has nonsingular minors of every order, with one index choice valid in every third-coordinate layer. After row and column powers are removed, a binary carry gives disjoint threshold intervals; this proves arbitrary-order non-separability and the exact rank of every finite sample. The residue-escape condition and repeated three-prime irrationality question remain open.",
       "owns": "the problem-specific exposition for Erdős #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -3903,17 +3908,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 24,
         "renderer_fingerprint": "2fb901bb07309297",
-        "source_sha256": "5f7cf99dd746279f16604e181b545c67470e9cc1258a51527f4846910898615d",
+        "source_sha256": "e11a9dc4c27ec8d16434c561b7649f432658a6aa4871345dc58a7bd141e5ebf7",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 290,
+        "mathml_node_count": 310,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "0462f085ead3d75cdec8ca3645a4405f6a9d0479da61b2d409ff5261061e6d21",
-        "html_exact_tex_sha256": "a774ea5bda9408455ee299ebd22dcffc66d71ba7137a5c3f8305aaeedfb8ae00"
+        "html_mathml_sha256": "c29ffafc3f7400d9cf998d721f26d3251fee939333e6bf8a363cd430aa2c09b5",
+        "html_exact_tex_sha256": "3fa96c0a2e9e016b587a5b5df643b5c7ed0d93e34a511a0ab45f725e0fb6bc15"
       },
       "sections": [
         {
@@ -4687,17 +4692,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 24,
         "renderer_fingerprint": "2fb901bb07309297",
-        "source_sha256": "3270ee095c9c2b2baa38deeacf655a1c732b55615d274732f9a7b55cb69c583f",
+        "source_sha256": "0a3b79d1873053b707565dcd0142a897b510502973cafd5d2aaa172014731240",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 410,
+        "mathml_node_count": 416,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "69d0859691ce4a0ed2740c1e74fd2e9842dfd757e6444c6d7ed5f161cd64854f",
-        "html_exact_tex_sha256": "b2a8b9ee86fd90806dc4f741d352566aac51bd3e038451b8ee19a03b7b7c36f6"
+        "html_mathml_sha256": "5b4b05ac16fde0676f06388684baba2bbd20699e9438396370e88aa428e02881",
+        "html_exact_tex_sha256": "98eaad7b221fed4e28fb8f0c9a815845c886c928909ad216c306721be5720268"
       },
       "sections": [
         {
@@ -4864,17 +4869,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 24,
         "renderer_fingerprint": "2fb901bb07309297",
-        "source_sha256": "49076070ebd76212198a71a71c4c6582b594544ac593bca44d1a4f577911dad8",
+        "source_sha256": "54581b5a98b367977cb68ca26be30daeaf1365bdd2d3b0639b4ca7aac9625a00",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1593,
+        "mathml_node_count": 1591,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "b2d135faac616f9bb530fffbe8fbc8c8db979c2ddb9427a7c2bb637afc83664a",
-        "html_exact_tex_sha256": "cebbf2d815fbbd3f363eff1a2c9dabbffd5525c0be904fa265954f23ea809fa1"
+        "html_mathml_sha256": "b7a030f6d2e7531bf2c7c5d91b58aec97cf57017edca46e11c7c7049b4edc36b",
+        "html_exact_tex_sha256": "c58a9333fdca830102404448a7a36831c7e723d8856c3de6c20b78d5130531d1"
       },
       "sections": [
         {

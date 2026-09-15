@@ -443,7 +443,14 @@ every subsequent infinite sum. ◻</p>
 </div>
 <p>The regrouping is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">finite
-smooth kernel sum grouped by height</a>.</p>
+smooth kernel sum grouped by height</a>. Fan and Lott build their van
+der Corput coefficients on sums of two squares by the same kind of
+regrouping: up to normalisation, the coefficient at <span
+class="math inline" data-term-auto="off">\(d\)</span> sums a smooth weight over the
+representations <span class="math inline" data-term-auto="off">\(d=v^2(x^2+y^2)\)</span>, and
+the average over <span class="math inline" data-term-auto="off">\(v\)</span> keeps the
+associated complete sums in a fixed sector <span class="citation"
+data-cites="fanlott2026"><a href="#ref-8">[8]</a></span>.</p>
 <p>From now on let <span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> and
 <span class="math inline" data-term-auto="off">\(S=\mathcal R_P\)</span>. For <span
 class="math inline" data-term-auto="off">\(a\ge0\)</span> define</p>
@@ -706,8 +713,26 @@ irrationality question.</p>
 <section id="the-information-the-remaining-argument-must-use."
 class="level5">
 <h5>The information the remaining argument must use.</h5>
-<p>The bounded-radix alternative permits the integral branch. Infinite
-rank and the modular minors of Corollary <a class="math-ref" href="#res:admissible-modular-minors">2.2</a>
+<p>The bounded-radix alternative permits the integral branch. If <span
+class="math inline" data-term-auto="off">\((g_a)\)</span> is an unbounded sequence of
+positive integers with bounded successive ratios, the real <span
+class="math inline" data-term-auto="off">\(\xi\)</span> with <span
+class="math inline" data-term-auto="off">\(\operatorname{dist}(g_a\xi,\mathbb Z)\to0\)</span>
+form a countable set, a phenomenon going back to Eggleston <span
+class="citation" data-cites="fan2026strongly"></span>. For <span
+class="math inline" data-term-auto="off">\(g_a=Bh_a\)</span> <span
+class="math inline" data-term-auto="off">\((a\ge1)\)</span> the ratios are the integers <span
+class="math inline" data-term-auto="off">\(b_a\in\{2,6,10,30\}\)</span>, and the argument of
+Proposition <a class="math-ref" href="#res:actual-orbit">4.5</a>
+identifies the set: it consists of the <span
+class="math inline" data-term-auto="off">\(\xi\)</span> for which <span
+class="math inline" data-term-auto="off">\(Bh_a\xi\)</span> is eventually an integer.
+By <a class="math-ref" data-equation-ref="true" href="#eq:prefix-lattice">eq:prefix-lattice</a> and
+Theorem <a class="math-ref" href="#res:denominator-reduction">4.6</a> it
+contains <span class="math inline" data-term-auto="off">\(S\)</span> for some <span
+class="math inline" data-term-auto="off">\(B\)</span> exactly when <span
+class="math inline" data-term-auto="off">\(S\)</span> is rational. Infinite rank and the
+modular minors of Corollary <a class="math-ref" href="#res:admissible-modular-minors">2.2</a>
 constrain the kernel, while a scalar argument must also use its exact
 multiplicities. In the existing three-channel rigidity result,
 preservation of every complete same-channel block makes a perturbation a
@@ -1141,6 +1166,27 @@ forum, thread 269</a>, 26 June 2026. The comment gives the two-channel
 factorisation, the Hecke–Mahler reduction, and the transcendence
 conclusion for <span class="math inline" data-term-auto="off">\(|P|=2\)</span>; follow-up
 comments there note the extension to arbitrary coprime pairs.</p></li>
+<li id="ref-8"><p>S. Fan and A. Lott, <a
+href="https://arxiv.org/abs/2606.29185"><em>The van der Corput property
+for sums of two squares</em></a>, arXiv:2606.29185v1, 28 June 2026.
+Section 3, pp. 4–8, defines the coefficients by summing smooth weights
+over the representations <span
+class="math inline" data-term-auto="off">\(d=v^2(x^2+y^2)\)</span>; pp. 5–6 explain that
+averaging over <span class="math inline" data-term-auto="off">\(v\)</span> places the
+complete sums in a fixed sector, and Corollary 4.4, p. 12, proves the
+sector bound.</p></li>
+<li id="ref-9"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071"><em>Strongly
+complete sets and a conjecture of Erdős</em></a>, arXiv:2607.14071v1,
+15 July 2026. The paper proves the conjecture listed as Erdős
+Problem #254. Lemma 3.1, p. 7, proves that the <span
+class="math inline" data-term-auto="off">\(\theta\in\mathbb R/\mathbb Z\)</span> with <span
+class="math inline" data-term-auto="off">\(\operatorname{dist}(a_n\theta,\mathbb
+Z)\to0\)</span> form a countable set for every unbounded sequence of
+positive integers with <span class="math inline" data-term-auto="off">\(a_{n+1}\le\lambda
+a_n\)</span> for a fixed <span
+class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span>; the preceding paragraph
+credits the phenomenon to Eggleston (1952) and more general results to
+Erdős and Taylor (1957).</p></li>
 </ol>
 </section>
   </div>

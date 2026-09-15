@@ -392,6 +392,11 @@ every subsequent infinite sum.
 \end{proof}
 
 \noindent The regrouping is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407}{finite smooth kernel sum grouped by height}.
+Fan and Lott build their van der Corput coefficients on sums of two squares
+by the same kind of regrouping: up to normalisation, the coefficient at $d$
+sums a smooth weight over the representations $d=v^2(x^2+y^2)$, and the
+average over $v$ keeps the associated complete sums in a fixed sector
+\cite[\S3 and Corollary~4.4]{fanlott2026}.
 
 From now on let $P=\{2,3,5\}$ and $S=\mathcal R_P$.  For $a\ge0$ define
 \[
@@ -589,7 +594,16 @@ the bridge proves the reverse implication after clearing its denominator.
 Thus the pointwise formulation is equivalent to the irrationality question.
 
 \paragraph{The information the remaining argument must use.}
-The bounded-radix alternative permits the integral branch.  Infinite rank
+The bounded-radix alternative permits the integral branch.  If $(g_a)$ is an
+unbounded sequence of positive integers with bounded successive ratios, the
+real $\xi$ with $\operatorname{dist}(g_a\xi,\mathbb Z)\to0$ form a countable
+set, a phenomenon going back to Eggleston
+\cite[\S3 and Lemma~3.1]{fan2026strongly}.  For $g_a=Bh_a$ $(a\ge1)$ the
+ratios are the integers $b_a\in\{2,6,10,30\}$, and the argument of
+Proposition~\ref{res:actual-orbit} identifies the set: it consists of the
+$\xi$ for which $Bh_a\xi$ is eventually an integer.
+By~\eqref{eq:prefix-lattice} and Theorem~\ref{res:denominator-reduction} it
+contains $S$ for some $B$ exactly when $S$ is rational.  Infinite rank
 and the modular minors of Corollary~\ref{res:admissible-modular-minors}
 constrain the kernel, while a scalar argument must also use its exact
 multiplicities.  In the existing three-channel rigidity result, preservation
@@ -912,6 +926,23 @@ obstruction}.
   two-channel factorisation, the Hecke--Mahler reduction, and the
   transcendence conclusion for $|P|=2$; follow-up comments there note the
   extension to arbitrary coprime pairs.
+\bibitem{fanlott2026} S.~Fan and A.~Lott,
+  \href{https://arxiv.org/abs/2606.29185}{\emph{The van der Corput property
+  for sums of two squares}}, arXiv:2606.29185v1, 28~June 2026.  Section~3,
+  pp.~4--8, defines the coefficients by summing smooth weights over the
+  representations $d=v^2(x^2+y^2)$; pp.~5--6 explain that averaging over $v$
+  places the complete sums in a fixed sector, and Corollary~4.4, p.~12,
+  proves the sector bound.
+\bibitem{fan2026strongly} S.~Fan,
+  \href{https://arxiv.org/abs/2607.14071}{\emph{Strongly complete sets and a
+  conjecture of Erd\H{o}s}}, arXiv:2607.14071v1, 15~July 2026.  The paper
+  proves the conjecture listed as Erd\H{o}s Problem~\#254.  Lemma~3.1, p.~7,
+  proves that the $\theta\in\mathbb R/\mathbb Z$ with
+  $\operatorname{dist}(a_n\theta,\mathbb Z)\to0$ form a countable set for
+  every unbounded sequence of positive integers with $a_{n+1}\le\lambda a_n$
+  for a fixed $\lambda>1$;
+  the preceding paragraph credits the phenomenon to Eggleston (1952) and more
+  general results to Erd\H{o}s and Taylor (1957).
 \end{thebibliography}
 
 \companionpapercontext

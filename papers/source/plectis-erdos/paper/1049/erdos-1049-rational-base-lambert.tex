@@ -61,7 +61,8 @@ Erd\H{o}s Problem~\#1049 asks for irrationality at every rational $t>1$
 \cite[p.~102]{erdos1988}.  The theorem below proves an explicit sufficient
 region and settles the power family in the title.
 
-Cyclotomic cancellation produces positive forms $\Lambda_n=U_nF-V_n$
+Cyclotomic cancellation in the linear forms of Zudilin's 2004
+construction~\cite{zudilin2004} produces positive forms $\Lambda_n=U_nF-V_n$
 with integral coefficient polynomials of degree at most $W_n$, and
 \[
  \log\!\bigl(b^{W_n}\Lambda_n(a/b)\bigr)
@@ -122,7 +123,7 @@ Set
  \qquad N=15n.
 \]
 Use the coefficient pair $A_n,B_n$ of the source identities
-\cite[(8)--(11)]{zudilin2004}, with $H_n=A_nF-B_n$.
+\cite[(8)--(11), pp.~156--157]{zudilin2004}, with $H_n=A_nF-B_n$.
 Put $D_N(X)=\prod_{\ell=1}^{N}\Phi_\ell(X)$,
 $M_n=266n^2+34n+1$, and
 \[
@@ -148,27 +149,36 @@ is zero or one.  Its support in $[0,1)$ consists of
 \end{gathered}
 \]
 These are the intervals $\mathcal I$ used to define $J$.
+The function $\omega$, these thirteen intervals and the exponents
+$\nu_\ell=\omega(n/\ell)$ of the source's~(22) are printed at
+\cite[pp.~161--162]{zudilin2004}.
 The zero-one values and this thirteen-interval support are
 \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean#L1297}{omega indicator}.
 
 \paragraph{Integral polynomials and their degrees.}
-The source's polynomial inclusion is Lemma~7, display~(23).
+The source's polynomial inclusion is Lemma~7, display~(23)
+\cite[p.~161]{zudilin2004}.
 Its parameter vector is $n(13,14,12,14,15,13)$, its maximum is $15n$, and
-$\beta-a_1-a_2=n>0$.  Its hypotheses therefore hold for every $n\ge1$.
+$\beta-a_1-a_2=n>0$, which is the positivity condition $s>0$ of the lemma.
+The conditions~(14) of \cite[p.~157]{zudilin2004}, $a_1\le a_2$ and
+$a_1+a_2\le\beta\le a_0+a_2$, hold as well, so the exponent in~(23) is the
+integer~(16), which equals $M_n$.  The lemma's hypotheses therefore hold for
+every $n\ge1$.
 It gives
 \[
  \Lambda_n(X)=X^{-M_n}\frac{D_N(X)}{\Omega_n(X)}H_n(X)
             =U_n(X)F(X)-V_n(X),\qquad U_n,V_n\in\mathbb Z[X].
 \]
 This is the polynomial conclusion before the source's subsequent
-integer-specialisation step in display~(24).
+integer-specialisation step in display~(24) on p.~162.
 The coefficientwise interpretation also follows by comparing the source
 rational coefficients: $F$ is not a rational function, since
 $F(e^h)=h^{-1}\log(1/h)+O(h^{-1})$ as $h\downarrow0$.
 For this estimate split the original sum at $n=1/h$; the remaining geometric
 tail is $O(h^{-1})$.
 
-In the source expression for $A_n$, the degree of the $k$th summand is
+In the source expression~(10) for $A_n$, with coefficients~(8) on p.~156,
+the degree of the $k$th summand is
 \[
  d_k=a_0k+E_k+(a_1-1)(k-a_1)+(\beta-k-1)(k-a_2),
 \]
@@ -216,7 +226,8 @@ Consequently
 \]
 
 \paragraph{A positive remainder at every fixed real base.}
-For $x>1$ and $q=1/x$, the source identity has the positive representation
+For $x>1$ and $q=1/x$, the source identity~(9) on p.~156 has the positive
+representation
 \[
  H_n(x)=\sum_{t\ge0}q^{a_0t}
  \frac{(q^{t+1};q)_{a_1-1}}{(q;q)_{a_1-1}}
@@ -347,9 +358,11 @@ The displayed sufficient regions therefore differ on
 $[\theta_{\rm BV},\theta^*)$.
 The direction $(14,12,14;27)$, its thirteen intervals and the constant
 $\mu\approx2.46497868$ are inherited from \cite[p.~162]{zudilin2004},
-where $\mu$ bounds an integer-base irrationality exponent.
-The rational-base extension announced in \cite[Section~2]{zudilin2016}
-has the same shape with an unspecified computable constant.
+where $\mu$ bounds an integer-base irrationality exponent
+\cite[Thm.~1, p.~154]{zudilin2004}.
+The extension to non-integer rational bases noted in
+\cite[Sec.~2, p.~4]{zudilin2016} has the same shape, with the computable
+constant left unspecified.
 Here the polynomial specialisation identifies $\mu$ as admissible for $F$;
 no priority claim is attached.
 
@@ -428,7 +441,7 @@ expansion below resolves this by finding one uniquely least-order index
 tuple, whose coefficient is nonzero. This is a formal-power-series argument;
 fixed-base estimates are a separate question addressed after the proof.
 
-At $x=z=1$, Zudilin's normalized moments are
+At $x=z=1$, Zudilin's normalized moments~\cite[(6), pp.~6--7]{zudilin2016} are
 \[
  v_m^*=\sum_{t\ge0}q^{(m+1)t}
  \frac{(q;q)_m^3(q^{t+1};q)_m}{(q^{m+1+t};q)_{m+1}},
@@ -440,7 +453,7 @@ His row transformation proves
  \operatorname{ord}_q V_N^*\ge
  \frac{N(N-1)(2N-1)}6
 \]
-for every $N\ge1$~\cite[Section~4]{zudilin2016}.  A formal moment expansion identifies the unique least-order term and
+for every $N\ge1$~\cite[Sec.~4, Lemma~1, pp.~6--7]{zudilin2016}.  A formal moment expansion identifies the unique least-order term and
 shows that this estimate is always sharp.
 
 \begin{theorem}[sharp normalized Hankel order]
@@ -940,16 +953,19 @@ equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{12
   \href{https://geodesic.mathdoc.fr/articles/10.4064/aa111-2-4/}{\emph{Heine's
   basic transform and a permutation group for \(q\)-harmonic series}},
   Acta Arith. \textbf{111} (2004), no.~2, 153--164,
-  doi:10.4064/aa111-2-4.
+  doi:\href{https://doi.org/10.4064/aa111-2-4}{10.4064/aa111-2-4}.
+  Page references are to the printed journal pages.
 \bibitem{zudilin2016} W.~Zudilin,
   \href{https://arxiv.org/abs/1601.02688}{\emph{On the irrationality of
   generalized \(q\)-logarithm}}, arXiv:1601.02688; Res. Number Theory
-  \textbf{2} (2016),
+  \textbf{2} (2016), Art.~15,
   doi:\href{https://doi.org/10.1007/s40993-016-0042-x}{10.1007/s40993-016-0042-x}.
+  Page references are to arXiv:1601.02688v2.
   The remark that the results extend to non-integer \(p=r/s\), \(|p|>1\), under
-  an assumption \(\log|r|>c\log|s|\) for a computable \(c>0\), is at the end of
-  Section~2; no value of \(c\) is computed there, and the remark is made for the
-  generalized \(q\)-logarithm of that paper.
+  an assumption \(\log|r|>c\log|s|\) for a computable \(c>0\), is in Section~2,
+  p.~4, in the paragraph beginning ``Finally, we remark''; no value of \(c\) is
+  computed there, and the remark is made for the generalized \(q\)-logarithm of
+  that paper.
 \bibitem{erdosproblems} T.~F. Bloom,
   \href{https://www.erdosproblems.com/1049}{\emph{Erd\H{o}s Problem \#1049}},
   \texttt{erdosproblems.com/1049}, accessed 28 July 2026
