@@ -25,11 +25,11 @@ q^{\lfloor\log_q x\rfloor}r^{\lfloor\log_r x\rfloor},\qquad
 \operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.\]</span></div>
 <p>Prime-power divisibility gives <span
 class="math inline" data-term-auto="off">\(\operatorname{L}=\operatorname{H}\)</span>
-(Proposition <a class="math-ref" href="#res:lcm">6</a>).</p>
+(Proposition <a class="math-ref" href="#res:lcm">4.1</a>).</p>
 <p>With two primes, the corresponding kernel factors into a function of
 each exponent separately, reducing the double sum to a product. The
 first question at three primes is whether finitely many such products
-still suffice. Theorem <a class="math-ref" href="#res:infinite-rank">1</a> rules this out:
+still suffice. Theorem <a class="math-ref" href="#res:infinite-rank">2.1</a> rules this out:
 one floor carry survives after all row and column factors have been
 removed. We first explain that obstruction, then recover the two-prime
 comparison, and finally identify the arithmetic of the actual
@@ -39,7 +39,7 @@ kernel does not determine the irrationality of its sum.</p>
 <section id="sec:rank" class="level2">
 <h2>The binary carry and arbitrary-order rank</h2>
 <div class="theorem" id="res:infinite-rank">
-<p><strong>Theorem 1</strong> (arbitrary-order non-separability). <em>
+<p><strong>Theorem 2.1</strong> (arbitrary-order non-separability). <em>
 Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be primes with <span
 class="math inline" data-term-auto="off">\(p\ne q\)</span>, <span class="math inline" data-term-auto="off">\(p\ne
 r\)</span> and <span class="math inline" data-term-auto="off">\(q\ne r\)</span>. For every
@@ -140,7 +140,7 @@ class="math inline" data-term-auto="off">\(p=q\)</span> gives an extension of th
 indexed kernel, not a new three-prime case of the running-LCM
 problem.</p>
 <div class="corollary" id="res:admissible-modular-minors">
-<p><strong>Corollary 2</strong> (the same minors modulo every admissible
+<p><strong>Corollary 2.2</strong> (the same minors modulo every admissible
 denominator). <em> For <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span> and every <span
 class="math inline" data-term-auto="off">\(n\ge1\)</span>, there are injective maps <span
@@ -156,7 +156,7 @@ Z\)</span>, with each reciprocal prime power interpreted by its modular
 inverse.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Choose the maps from Theorem <a class="math-ref" href="#res:infinite-rank">1</a>. Every row and
+<p><em>Proof.</em> Choose the maps from Theorem <a class="math-ref" href="#res:infinite-rank">2.1</a>. Every row and
 column factor is a unit modulo <span class="math inline" data-term-auto="off">\(B\)</span>.
 The normalised determinant is <span
 class="math inline" data-term-auto="off">\(5^{-1}(-4/5)^{n-1}\)</span>, also a unit. ◻</p>
@@ -165,7 +165,7 @@ class="math inline" data-term-auto="off">\(5^{-1}(-4/5)^{n-1}\)</span>, also a u
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">admissible
 modular minors</a>.</p>
 <div class="example" id="res:rank">
-<p><strong>Example 3</strong>. <em> For <span
+<p><strong>Example 2.3</strong>. <em> For <span
 class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span>, the leading two-by-two
 determinant is <span class="math inline" data-term-auto="off">\(-1/15\)</span>: its four
 entries are <span class="math inline" data-term-auto="off">\(1,1/6,1/2,1/60\)</span>, so it
@@ -188,7 +188,7 @@ class="math inline" data-term-auto="off">\(j=4\)</span> the difference is <span
 class="math inline" data-term-auto="off">\(-1/19440000\)</span>. Thus the leading minors do
 not supply the arbitrary-order theorem.</p>
 <div class="proposition" id="res:finite-cut-rank">
-<p><strong>Proposition 4</strong> (finite sampled cut rank). <em> Let
+<p><strong>Proposition 2.4</strong> (finite sampled cut rank). <em> Let
 <span class="math inline" data-term-auto="off">\(m\ge1\)</span> and let <span
 class="math inline" data-term-auto="off">\(c\)</span> lie in a field with <span
 class="math inline" data-term-auto="off">\(c\ne 0,1\)</span>. For <span
@@ -226,7 +226,7 @@ class="math inline" data-term-auto="off">\(t-1\)</span>. ◻</p>
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">rank
 cut matrix</a>.</p>
 <p>The formula classifies every finite sampled kernel rank after the row
-and column factors of Theorem <a class="math-ref" href="#res:infinite-rank">1</a>, independently of
+and column factors of Theorem <a class="math-ref" href="#res:infinite-rank">2.1</a>, independently of
 the third coordinate. An exact logarithm-free algorithm orders the
 rationals <span class="math inline" data-term-auto="off">\(p^i/r^{\lfloor\log_r
 p^i\rfloor}\)</span>, counts those strictly below each <span
@@ -285,7 +285,7 @@ value. The same boundary-channel calculation also yields the
 de-duplicated affine formula displayed below <span class="citation"
 data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
 <div class="theorem" id="res:two-prime-transcendence"><span class="tex-label" id="res:two-prime-repeated-transcendence" hidden></span>
-<p><strong>Theorem 5</strong> (both two-prime sums). <em> Let <span
+<p><strong>Theorem 3.1</strong> (both two-prime sums). <em> Let <span
 class="math inline" data-term-auto="off">\(p&lt;q\)</span> be distinct primes. Put <span
 class="math inline" data-term-auto="off">\(\theta=\log p/\log q\)</span> and <span
 class="math inline" data-term-auto="off">\(A=\sum_{n\ge0}p^{-n}q^{-\lfloor
@@ -368,7 +368,7 @@ introduced next. The de-duplicated irrationality assertion is historical
 <h2>Exact multiplicities and normalised tails</h2>
 <p> </p>
 <div class="proposition" id="res:lcm">
-<p><strong>Proposition 6</strong> (the running least common multiple).
+<p><strong>Proposition 4.1</strong> (the running least common multiple).
 <em> Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be pairwise distinct
 primes and <span class="math inline" data-term-auto="off">\(x\ge1\)</span>. Then the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L123">smooth-prefix
@@ -394,7 +394,7 @@ x^3/(pqr)&lt;\operatorname{H}(x)\le x^3.
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112">cubic
 height bounds</a>.</p>
 <div class="proposition" id="res:cell">
-<p><strong>Proposition 7</strong> (smooth-prefix LCM cells). <em> If
+<p><strong>Proposition 4.2</strong> (smooth-prefix LCM cells). <em> If
 <span class="math inline" data-term-auto="off">\(x,y\ge1\)</span> lie in the same logarithmic
 cell, then <span
 class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{L}(y)\)</span>:
@@ -416,7 +416,7 @@ together with <span class="math inline" data-term-auto="off">\(1\)</span>, has c
 </div>
 <div class="proof">
 <p><em>Proof.</em> Cell constancy and the three jump ratios follow from
-Proposition <a class="math-ref" href="#res:lcm">6</a>, since
+Proposition <a class="math-ref" href="#res:lcm">4.1</a>, since
 the height depends on <span class="math inline" data-term-auto="off">\(x\)</span> only
 through the three integer logarithms. Within one channel the first <span
 class="math inline" data-term-auto="off">\(n\)</span> positive powers are distinct; across
@@ -425,7 +425,7 @@ primes; and <span class="math inline" data-term-auto="off">\(1\)</span> is not a
 prime power. ◻</p>
 </div>
 <div class="proposition" id="res:fibre-prop">
-<p><strong>Proposition 8</strong> (height-fibre regrouping). <em> If
+<p><strong>Proposition 4.3</strong> (height-fibre regrouping). <em> If
 <span class="math inline" data-term-auto="off">\(F(H)\)</span> is a height fibre in a finite
 exponent box <span class="math inline" data-term-auto="off">\(\mathcal B\)</span>, the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L406">height-fibre
@@ -464,7 +464,7 @@ m_a=\sum_{\substack{x\text{ smooth}\\2^a\le x&lt;2^{a+1}}}
        \frac{\operatorname{H}(2^{a+1})}{2\operatorname{H}(x)}.
 \end{equation}\]</span></div>
 <div class="lemma" id="res:dyadic-alphabet">
-<p><strong>Lemma 9</strong> (integer forcing and the four radices). <em>
+<p><strong>Lemma 4.4</strong> (integer forcing and the four radices). <em>
 For every <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
 class="math inline" data-term-auto="off">\(m_a\)</span> is a positive integer and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L699">four-letter
@@ -490,7 +490,7 @@ two, give the four radices. ◻</p>
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48">literal
 integer forcing and four radices</a>.</p>
 <div class="proposition" id="res:actual-orbit">
-<p><strong>Proposition 10</strong> (the actual recurrence and a
+<p><strong>Proposition 4.5</strong> (the actual recurrence and a
 polynomial bound). <em> The series defining <span
 class="math inline" data-term-auto="off">\(S,T_a\)</span> converge. For every <span
 class="math inline" data-term-auto="off">\(a\ge0\)</span>, </em></p>
@@ -541,7 +541,7 @@ successive two-jumps and has a separate ordinary proof. The present cap
 suffices for the criterion; the sharper argument belongs in the extended
 record rather than in this proof.</p>
 <div class="theorem" id="res:denominator-reduction">
-<p><strong>Theorem 11</strong> (actual rationality-to-reduced-carry
+<p><strong>Theorem 4.6</strong> (actual rationality-to-reduced-carry
 bridge). <em> If <span class="math inline" data-term-auto="off">\(S=A/D\)</span> in lowest
 terms, where <span class="math inline" data-term-auto="off">\(D=2^u3^v5^wB\)</span> and <span
 class="math inline" data-term-auto="off">\(\gcd(B,30)=1\)</span>, then for every <span
@@ -570,7 +570,7 @@ class="math inline" data-term-auto="off">\(2^a\ge5^w\)</span>. Thus <span
 class="math inline" data-term-auto="off">\(2^u3^v5^w\mid h_a\)</span> after the stated onset,
 and <span class="math inline" data-term-auto="off">\(BX_a=h_aA/(2^u3^v5^w)-BZ_a\)</span> is
 integral. Positivity, the recurrence and the bound follow from
-Proposition <a class="math-ref" href="#res:actual-orbit">10</a>. ◻</p>
+Proposition <a class="math-ref" href="#res:actual-orbit">4.5</a>. ◻</p>
 </div>
 <p>The statement is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80">short
@@ -601,7 +601,7 @@ section use the valid cap</p>
 K(B,a)=90B(a+1)^2.
 \end{equation}\]</span></div>
 <div class="lemma" id="res:consumer">
-<p><strong>Lemma 12</strong> (finite endpoint obstruction). <em> If
+<p><strong>Lemma 5.1</strong> (finite endpoint obstruction). <em> If
 <span class="math inline" data-term-auto="off">\(d\)</span> is a positive integer with <span
 class="math inline" data-term-auto="off">\(d\le K\)</span> and <span
 class="math inline" data-term-auto="off">\(d\equiv -BF\pmod W\)</span>, where <span
@@ -618,7 +618,7 @@ K\)</span>. ◻</p>
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138">finite
 endpoint obstruction</a>.</p>
 <div class="theorem" id="res:windowconsumer">
-<p><strong>Theorem 13</strong> (the actual window criterion). <em> The
+<p><strong>Theorem 5.2</strong> (the actual window criterion). <em> The
 number <span class="math inline" data-term-auto="off">\(S\)</span> is irrational if and only
 if </em></p>
 <div class="math-display" id="eq:escape" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
@@ -633,13 +633,13 @@ if </em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(S\)</span> is
-rational, Theorem <a class="math-ref" href="#res:denominator-reduction">11</a> supplies
+rational, Theorem <a class="math-ref" href="#res:denominator-reduction">4.6</a> supplies
 a positive integral carry <span class="math inline" data-term-auto="off">\(d_a=BX_a\)</span>
 after its onset. Choose a window in <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a> beyond that onset.
 Equation <a class="math-ref" data-equation-ref="true" href="#eq:actual-tail">eq:actual-tail</a>
 gives <span
 class="math inline" data-term-auto="off">\(d_{\ell+h}\equiv-BF_{\ell,h}\pmod{W_{\ell,h}}\)</span>,
-contradicting Lemma <a class="math-ref" href="#res:consumer">12</a> and the valid cap.</p>
+contradicting Lemma <a class="math-ref" href="#res:consumer">5.1</a> and the valid cap.</p>
 <p>Conversely, let <span class="math inline" data-term-auto="off">\(S\)</span> be irrational
 and fix <span class="math inline" data-term-auto="off">\(B,\ell\ge1\)</span>. Equation <a class="math-ref" data-equation-ref="true" href="#eq:prefix-lattice">eq:prefix-lattice</a> makes <span
 class="math inline" data-term-auto="off">\(BX_\ell\)</span> nonintegral. Put <span
@@ -668,7 +668,7 @@ for example, makes positive-residue escape automatic. The criterion
 identifies the target in window coordinates. The unresolved point is the
 source-specific exclusion below.</p>
 <div class="problem" id="prob:tails269">
-<p><strong>Problem 14</strong> (exact nonintegrality of every reduced
+<p><strong>Problem 5.3</strong> (exact nonintegrality of every reduced
 tail). <em> Prove that for every <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span> and every integer <span
 class="math inline" data-term-auto="off">\(B\ge1\)</span> coprime to <span
@@ -680,7 +680,7 @@ BX_a\notin\mathbb Z.
 \end{equation}\]</span></div>
 </div>
 <div class="problem" id="prob:producer">
-<p><strong>Problem 15</strong> (actual cofinal local-window escape).
+<p><strong>Problem 5.4</strong> (actual cofinal local-window escape).
 <em> Prove the displayed quantifier order </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\forall B\ge1\ (\gcd(B,30)=1),\ \forall a_0\ge1,\
@@ -689,7 +689,7 @@ class="math display" data-term-auto="off">\[\forall B\ge1\ (\gcd(B,30)=1),\ \for
    &gt;K(B,\ell+h).\]</span></div>
 </div>
 <div class="problem">
-<p><strong>Problem 16</strong> (function-faithful two-dimensional
+<p><strong>Problem 5.5</strong> (function-faithful two-dimensional
 representation). <em>Express <span class="math inline" data-term-auto="off">\(\mathcal
 D_{2,3,5}\)</span> as a nonconstant algebraic combination of values of a
 specified two-dimensional Hecke–Mahler, cone-generating or multivariate
@@ -707,7 +707,7 @@ irrationality question.</p>
 class="level5">
 <h5>The information the remaining argument must use.</h5>
 <p>The bounded-radix alternative permits the integral branch. Infinite
-rank and the modular minors of Corollary <a class="math-ref" href="#res:admissible-modular-minors">2</a>
+rank and the modular minors of Corollary <a class="math-ref" href="#res:admissible-modular-minors">2.2</a>
 constrain the kernel, while a scalar argument must also use its exact
 multiplicities. In the existing three-channel rigidity result,
 preservation of every complete same-channel block makes a perturbation a

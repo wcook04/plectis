@@ -218,6 +218,14 @@ path questions. Ghosh and Ramachandran characterize the number of components
 through critical points and critical values \cite[Lemma~7]{ghosh2023}; for the
 binomial family $z^n-a$, the condition $|a|<1$ puts the filled unit lemniscate
 in the connected regime. Connectedness alone gives no path-length bound.
+Bishop, Eremenko and Lazebnik describe the possible shapes: every rational
+lemniscate is a lemniscate graph whose vertices are the critical points on the
+level set, each of even degree at least four
+\cite[Definition~1.2 and Proposition~2.4]{bishoperemenkolazebnik2025}, and a
+lemniscate graph is realised by a polynomial lemniscate up to a homeomorphism
+of the plane exactly when it is the boundary of its unbounded face
+\cite[Corollary~1.6]{bishoperemenkolazebnik2025}.  This topological
+description also gives no path-length bound.
 Our dynamical terminology is also standard: Sutherland calls
 $\dot z=-f(z)/f'(z)$ the continuous Newton flow and observes that $f(z(t))$
 moves on a straight radial line \cite[p.~42]{sutherland1992}. We use this
@@ -1258,6 +1266,31 @@ only at $n=2$, so \emph{(9)} is strictly below one.  The selected segment has
 length at most $D<2$.
 \end{proof}
 
+\paragraph{Critical sequences and the extremal configuration.}
+For distinct real zeros, each gap between consecutive zeros contains exactly
+one zero of $q'$, and $|q|$ attains its maximum over the gap only there.  The
+points $c_i$ chosen in the proof of Theorem~\ref{thm:sharp-collinear-diameter}
+are therefore the critical points of $q$, and the gap maxima are the moduli of
+its critical sequence $(q(c_1),\ldots,q(c_{n-1}))$.  A real polynomial with
+real zeros is determined by its critical sequence up to an increasing real
+affine change of variable \cite[Theorem~1]{eremenkoyuditskii2012}; the proof
+uses only the alternation count.  In this language, \emph{(9)} says that a
+real polynomial of degree $n$ with $n$ distinct real zeros, leading
+coefficient $a$ and zero diameter $D$ has a critical value of modulus at most
+$C_n|a|(D/2)^n$.
+
+The comparison polynomial $q_*$ is the monic polynomial of least deviation
+from zero on $[-1/r_n,1/r_n]$, characterised by the equioscillation conditions
+recalled in \cite[\S1]{eremenkoyuditskii2012}.  All $n-1$ of its critical
+values have modulus $C_n$, so every critical point of $q_*$ lies on the level
+curve $\{|q_*|=C_n\}$.  Extremals with this property also occur in the
+level-curve length problem, where some extremal polynomial has all its
+critical points on $\{|p|=1\}$ \cite[Lemma~5]{eremenkohayman1999}, and in the
+sharp bound for $|f'|$ on a connected sublevel set $\{|f|\le1\}$ of a monic
+polynomial, proved by Eremenko and Lempert \cite{eremenkolempert1994}, whose
+equality cases are $e^{-in\theta}T_n(2^{1/n-1}e^{i\theta}z+b)$ with $\theta$
+real \cite[Theorem~A]{eremenko2007}.
+
 \paragraph{Formal boundary.}
 \label{rem:sharp-collinear-formal-boundary}
 Lean checks sign preservation, the alternating root-count mechanism, the
@@ -2230,6 +2263,8 @@ lower cross-section and two connected upper cross-sections.  That local model
 is false as written.  Because $p\in V$ and $V$ is open, a sufficiently small
 closed disc around $p$ lies entirely in $V$.  In that disc the full Morse chart
 has four sectors: two components of $u>\mu$ and two components of $u<\mu$.
+The level set $\{u=\mu\}$ is a lemniscate graph with a vertex of degree four
+at $p$ \cite[Definition~1.2 and Proposition~2.4]{bishoperemenkolazebnik2025}.
 A global component argument cannot delete one local sector from a disc already
 contained in $V$.
 
@@ -2901,6 +2936,33 @@ Collision translations are parameterised by real affine lines and an arbitrarily
   high degree}, arXiv:2512.12455 (December 2025).
   \url{https://arxiv.org/abs/2512.12455}.
   Resolves the Erd\H{o}s~\#114 level-curve conjecture for large $n$.
+\bibitem{eremenkoyuditskii2012} A.~Eremenko and P.~Yuditskii,
+  \emph{Comb functions}, Contemp. Math. \textbf{578} (2012), 99--118;
+  preprint arXiv:1109.1464. \url{https://arxiv.org/abs/1109.1464}.
+  Theorem~1 describes a real polynomial with real zeros by its critical
+  sequence, up to an increasing real affine change of variable.
+\bibitem{eremenkolempert1994} A.~Eremenko and L.~Lempert,
+  \emph{An extremal problem for polynomials}, Proc. Amer. Math. Soc.
+  \textbf{122} (1994), 191--193.
+  Proves the sharp bound for $|f'|$ on a connected sublevel set $\{|f|\le1\}$
+  of a monic polynomial, conjectured by Erd\H{o}s; cited here through its
+  restatement as Theorem~A of \cite{eremenko2007}.
+\bibitem{eremenko2007} A.~Eremenko,
+  \emph{A Markov-type inequality for arbitrary plane continua},
+  Proc. Amer. Math. Soc. \textbf{135} (2007), 1505--1510,
+  doi:\href{https://doi.org/10.1090/S0002-9939-06-08640-0}
+  {10.1090/S0002-9939-06-08640-0}; preprint arXiv:math/0606745.
+  \url{https://arxiv.org/abs/math/0606745}.
+  Theorem~A records the sharp bound for $|f'|$ on a connected sublevel set
+  $\{|f|\le1\}$ of a monic polynomial, with its Chebyshev equality cases.
+\bibitem{bishoperemenkolazebnik2025} C.~J. Bishop, A.~Eremenko, and
+  K.~Lazebnik, \emph{On the shapes of rational lemniscates}, Geom. Funct.
+  Anal. \textbf{35} (2025), 359--407,
+  doi:\href{https://doi.org/10.1007/s00039-025-00704-2}
+  {10.1007/s00039-025-00704-2}; preprint arXiv:2407.14610.
+  \url{https://arxiv.org/abs/2407.14610}.
+  Proposition~2.4 shows that every rational lemniscate is a lemniscate graph
+  whose vertices are the critical points on the level set.
 \end{thebibliography}
 
 \end{document}

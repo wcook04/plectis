@@ -128,7 +128,7 @@
        saved/system theme on <html> before the stylesheet applies, so a
        returning visitor never flashes the other theme. Toggle logic is in docs.js. -->
   <script src="assets/theme-init.js?v=283f6fa43e96"></script>
-  <link rel="stylesheet" href="assets/style.css?v=5157e82113ab">
+  <link rel="stylesheet" href="assets/style.css?v=9e2478ad8c09">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -280,9 +280,8 @@
       </ul>
     </section>
 
-    <!-- Why: the author's reasons, in his own sentences, then the recordings.
-         The recordings were two folds deep; they are the most direct
-         explanation on the site, so they sit with the explanation. -->
+    <!-- Why: the author's reasons, in his own sentences. The recordings
+         follow in their own band. -->
     <section class="wrap section" id="why" aria-labelledby="why-title">
       <div class="section__head">
         <p class="eyebrow">Why</p>
@@ -291,21 +290,30 @@
         <p>I realised I was a good <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-guinea-pig" data-term="guinea_pig" data-term-auto="1">guinea pig</a>, because my <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> background is so weak that I was <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-microcosm-instance" data-term="microcosm_instance" data-term-auto="1">a microcosm of</a> what may happen in the next ten years for even experts. I built a larger system with a whole <a href="docs/glossary.html#glossary-front-end" class="narrative-ref narrative-ref--term is-term-first" data-term="front_end">frontend</a>, but I don't want to overload anyone. My hope is the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">maths</a> will speak for itself, and people can enter that whole rabbit hole after I've passed the credibility bar. There is a lot more than I have covered here.</p>
         <p><a href="docs/contact.html#who-built-this">The longer account: how this started and what I am <span data-term-preview-only data-term="trying" data-term-auto="1">trying</span> to do.</a></p>
       </div>
-      <div class="demo-block" id="demo-videos">
-        <h3 class="demo-block__title">Inside the research system</h3>
-        <p class="demo-block__lede">The same walkthrough at three lengths. They show the private <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interface</a>; they do not install it or <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validate</a> it.</p>
-<ol class="demo-rows">
+    </section>
+    <!-- Recordings: the three walkthroughs of the private research system,
+         all three in view at once. The still opens YouTube; the argument and
+         the transcript sit under each card so the recording can be read
+         without being watched. The one-page introduction links here. -->
+    <section class="wrap section" id="demo-videos" aria-labelledby="demo-videos-title">
+      <div class="section__head">
+        <p class="eyebrow">Recordings</p>
+        <h2 id="demo-videos-title">Inside the research system.</h2>
+        <p>The same walkthrough at three lengths: one minute, five minutes and half an hour. They show the private <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interface</a>; they do not install it or <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-validation" data-term="validation" data-term-auto="1">validate</a> it.</p>
+      </div>
+      <ol class="demo-grid">
         <li class="demo-row" data-video-id="ai-lab-1m">
-          <span class="demo-row__thumb" aria-hidden="true">
+          <a class="demo-row__thumb" href="https://youtu.be/R_--vExxWyk" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
             <img class="demo-row__still" src="assets/video/plectis-1m.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
             <span class="demo-row__play"></span>
             <span class="demo-row__duration">1:25</span>
-          </span>
+          </a>
           <div class="demo-row__body">
+            <p class="demo-row__kicker"><span class="demo-row__num">01</span><span class="demo-row__len">One minute · 1:25</span></p>
             <h3 class="demo-row__title">The one-minute version</h3>
             <p class="demo-row__actions"><a class="demo-row__watch" href="https://youtu.be/R_--vExxWyk" target="_blank" rel="noopener noreferrer" data-video-watch aria-label="Watch the one-minute version on YouTube in a new tab. The primer and transcript are below.">Watch on YouTube</a></p>
             <details class="demo-row__note">
-              <summary>TL;DW: the whole argument in four steps</summary>
+              <summary>The argument in four steps</summary>
               <div class="demo-row__note-body">
                 <ol>
                   <li>I built a large Python system, with <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a> helping me build and <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-inspection" data-term="inspection" data-term-auto="1">inspect</a> it. It has more moving parts than I can hold in my head, and more than any <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can hold in its <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-context-window" data-term="context_window" data-term-auto="1">context window</a>.</li>
@@ -327,21 +335,18 @@
             </details>
           </div>
         </li>
-        <li class="demo-rows__more">
-          <details class="demo-more">
-            <summary>The longer walkthroughs: 4:57 and 28:58, each with a summary and a <span data-term-preview-only data-term="transcript" data-term-auto="1">transcript</span></summary>
-            <ol class="demo-rows demo-rows--more">
         <li class="demo-row" data-video-id="ai-lab-5m">
-          <span class="demo-row__thumb" aria-hidden="true">
+          <a class="demo-row__thumb" href="https://youtu.be/VoWByIOIuBE" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
             <img class="demo-row__still" src="assets/video/plectis-5m.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
             <span class="demo-row__play"></span>
             <span class="demo-row__duration">4:57</span>
-          </span>
+          </a>
           <div class="demo-row__body">
+            <p class="demo-row__kicker"><span class="demo-row__num">02</span><span class="demo-row__len">Five minutes · 4:57</span></p>
             <h3 class="demo-row__title">The five-minute walk-through</h3>
             <p class="demo-row__actions"><a class="demo-row__watch" href="https://youtu.be/VoWByIOIuBE" target="_blank" rel="noopener noreferrer" data-video-watch aria-label="Watch the five-minute walk-through on YouTube in a new tab. The primer and transcript are below.">Watch on YouTube</a></p>
             <details class="demo-row__note">
-              <summary>TL;DW: the whole argument in eight steps</summary>
+              <summary>The argument in eight steps</summary>
               <div class="demo-row__note-body">
                 <ol>
                   <li>The system has more moving parts than I can hold in my head, or an <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can hold in context. Building got easier faster than understanding did.</li>
@@ -377,16 +382,17 @@
           </div>
         </li>
         <li class="demo-row" data-video-id="ai-lab-30m">
-          <span class="demo-row__thumb" aria-hidden="true">
+          <a class="demo-row__thumb" href="https://youtu.be/jA_xC8gmdSs" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
             <img class="demo-row__still" src="assets/video/plectis-30m.jpg" alt="" width="960" height="540" loading="lazy" decoding="async">
             <span class="demo-row__play"></span>
             <span class="demo-row__duration">28:58</span>
-          </span>
+          </a>
           <div class="demo-row__body">
+            <p class="demo-row__kicker"><span class="demo-row__num">03</span><span class="demo-row__len">Half an hour · 28:58</span></p>
             <h3 class="demo-row__title">The long version</h3>
             <p class="demo-row__actions"><a class="demo-row__watch" href="https://youtu.be/jA_xC8gmdSs" target="_blank" rel="noopener noreferrer" data-video-watch aria-label="Watch the long version on YouTube in a new tab. The primer and transcript are below.">Watch on YouTube</a></p>
             <details class="demo-row__note">
-              <summary>TL;DW: the whole argument in ten steps</summary>
+              <summary>The argument in ten steps</summary>
               <div class="demo-row__note-body">
                 <ol>
                   <li>A large Python system, built with <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agents</a>, now with more moving parts than I can hold in my head or an <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-agent" data-term="agent" data-term-auto="1">agent</a> can hold in context.</li>
@@ -399,9 +405,6 @@
                   <li>It also covers <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-forecasting" data-term="forecasting" data-term-auto="1">forecasting</a> and finance work, and <a class="narrative-ref narrative-ref--term is-term-first" href="docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">machine-checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>. Built solo, over about a year.</li>
                   <li>Don't trust the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-front-end" data-term="front_end" data-term-auto="1">front end</a>. Appearances are easy to fake. Where I could get it to run real tools I did, and where I couldn't, I say so.</li>
                   <li>It ends on one question: can any <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> survive the path from the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-map" data-term="map" data-term-auto="1">map</a> to the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-source" data-term="source" data-term-auto="1">source</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>? That's the thing to go and test.</li>
-            </ol>
-          </details>
-        </li>
                 </ol>
               </div>
             </details>
@@ -422,7 +425,6 @@
           </div>
         </li>
       </ol>
-      </div>
     </section>
 
     <!-- Taking part: what counts, how it is credited, where the policy lives.

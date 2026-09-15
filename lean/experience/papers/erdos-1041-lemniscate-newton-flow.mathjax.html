@@ -8,7 +8,7 @@
 <section id="sec:trinomial" class="level2">
 <h2>Monic trinomials, in every degree</h2>
 <div class="theorem" id="res:trinomial-all-degree">
-<p><strong>Theorem 1</strong> (all-degree monic trinomials). <em> Let
+<p><strong>Theorem 1.1</strong> (all-degree monic trinomials). <em> Let
 <span class="math inline" data-term-auto="off">\(1\le m&lt;n\)</span> and </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[f(z)=z^n+az^m+b,\]</span></div>
@@ -61,7 +61,7 @@ class="math inline" data-term-auto="off">\(-\zeta^n\)</span>, both strictly insi
 disc. With more terms, the additional partial sums need their own
 bounds.</p>
 <div class="proposition" id="res:sextic-spoke">
-<p><strong>Proposition 2</strong> (prescribed-spoke guardrail). <em>
+<p><strong>Proposition 1.2</strong> (prescribed-spoke guardrail). <em>
 There exist <span class="math inline" data-term-auto="off">\(r\in(0,1)\)</span> for which
 every zero of </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[f_r(z)=z^6+\tfrac15 r^2
@@ -88,7 +88,7 @@ locations.</p>
 <section id="sec:problem" class="level2">
 <h2>The problem and the general regimes</h2>
 <div class="problem" id="res:problem">
-<p><strong>Problem 3</strong> (Erdős #1041). <em> Let <span
+<p><strong>Problem 2.1</strong> (Erdős #1041). <em> Let <span
 class="math inline" data-term-auto="off">\(f(z)=\prod_{i=1}^{n}(z-z_i)\)</span> be monic with
 <span class="math inline" data-term-auto="off">\(n\ge2\)</span> and all <span
 class="math inline" data-term-auto="off">\(z_i\)</span> in the open unit disc. Must two root
@@ -105,7 +105,7 @@ separate degree-seven counterexample has been announced on the <a
 href="https://www.erdosproblems.com/1041">problem’s discussion page</a>.
 That external claim is not assessed in this note; the results below
 concern the stated polynomial families and sufficient conditions.</p>
-<p>Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">4</a>
+<p>Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
 treats arbitrary geometry when <span
 class="math inline" data-term-auto="off">\(\mu\le13/25\)</span>, without a root-location
 assumption. Its scaling corollary gives length less than <span
@@ -136,7 +136,7 @@ a monic degree-<span class="math inline" data-term-auto="off">\(n\)</span> polyn
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[K_t=\{z:|f(z)|\le t\},\qquad
 \mu=\min_{f&#39;(c)=0}|f(c)|,\qquad \rho=\mu^{1/n}.\]</span></div>
 <div class="theorem" id="res:low-critical-thirteen-twentyfifths">
-<p><strong>Theorem 4</strong> (low-critical parent regime). <em> Let
+<p><strong>Theorem 3.1</strong> (low-critical parent regime). <em> Let
 <span class="math inline" data-term-auto="off">\(f\)</span> be squarefree and monic of degree
 <span class="math inline" data-term-auto="off">\(n\ge2\)</span>, and let <span
 class="math inline" data-term-auto="off">\(\mu\)</span> be its least critical-value modulus.
@@ -147,7 +147,7 @@ length strictly less than <span
 class="math inline" data-term-auto="off">\(2\)</span>.</em></p>
 </div>
 <div class="corollary" id="res:scaled-low-critical">
-<p><strong>Corollary 5</strong> (scale-free connection). <em> Every
+<p><strong>Corollary 3.2</strong> (scale-free connection). <em> Every
 squarefree monic polynomial of degree <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span> has two distinct roots joined in
 <span class="math inline" data-term-auto="off">\(\{|f|&lt;(25/13)\mu\}\)</span> by a curve of
@@ -243,7 +243,7 @@ class="math inline" data-term-auto="off">\((13/25)\exp(635762889599/10^{12})&lt;
 that needs no circle-slice certificate. It makes the area allocation
 explicit.</p>
 <div class="theorem" id="res:constant-factor-path">
-<p><strong>Theorem 6</strong> (unconditional constant-factor path). <em>
+<p><strong>Theorem 3.3</strong> (unconditional constant-factor path). <em>
 For every monic polynomial <span class="math inline" data-term-auto="off">\(f\)</span> of
 degree <span class="math inline" data-term-auto="off">\(n\ge2\)</span>, two zero occurrences
 are joined by a possibly degenerate path of length at most </em></p>
@@ -384,7 +384,7 @@ constant factor bound</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/MinimalHubWindowJoin.md">minimal
 hub window join</a>. Their parent conclusions under <span
 class="math inline" data-term-auto="off">\(\mu\le1/2\)</span> are already covered by
-Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">4</a>;
+Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>;
 their additional content is control of a specified component or a
 specified descent arc. The exact distinction between a simple minimum
 and a unique minimum is preserved with the persistence-window
@@ -401,7 +401,7 @@ the sum of two distances. To turn that bound into a path theorem, both
 connecting segments would also have to stay inside the lemniscate; the
 examples below show why that extra step cannot be assumed.</p>
 <div class="theorem" id="res:critical-proximity">
-<p><strong>Theorem 7</strong> (critical geometric-mean proximity). <em>
+<p><strong>Theorem 4.1</strong> (critical geometric-mean proximity). <em>
 Let <span class="math inline" data-term-auto="off">\(n\ge2\)</span>, let <span
 class="math inline" data-term-auto="off">\(z_1,\ldots,z_n,c\in\mathbb C\)</span> with <span
 class="math inline" data-term-auto="off">\(c\ne z_k\)</span> for every <span
@@ -439,7 +439,7 @@ inequalities, is checked as <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean#L289">the
 critical geometric-mean proximity</a>.</p>
 <div class="corollary">
-<p><strong>Corollary 8</strong> (two nearest roots). <em>If the roots
+<p><strong>Corollary 4.2</strong> (two nearest roots). <em>If the roots
 lie in the open unit disc and <span class="math inline" data-term-auto="off">\(c\)</span> is
 a non-root critical point, the two nearest roots to <span
 class="math inline" data-term-auto="off">\(c\)</span> have total distance strictly below
@@ -456,7 +456,7 @@ two-nearest-root budget</a>; Lean checks its algebraic core as
 <p>This is not silently promoted to a path theorem. The same source
 module checks two exact barriers to the most tempting completions.</p>
 <div class="proposition" id="res:straight-no-go">
-<p><strong>Proposition 9</strong> (two straight-path no-go families).
+<p><strong>Proposition 4.3</strong> (two straight-path no-go families).
 <em> There is a monic quintic with all roots in the open unit disc and a
 non-root critical point <span class="math inline" data-term-auto="off">\(c\)</span> whose
 unique nearest root has a point on the straight spoke to <span
@@ -476,7 +476,7 @@ itself, with both quintic and cubic exhibited as polynomials and the
 nearest-root condition quantified over every zero, records those same
 two evaluations. <code>PaperStraightObstructions.lean</code> is not in
 this checkout. The first defeats a tie-breaking escape hatch; the second
-defeats every straight root-pair segment. Together with Theorem <a class="math-ref" href="#res:critical-proximity">7</a>, they
+defeats every straight root-pair segment. Together with Theorem <a class="math-ref" href="#res:critical-proximity">4.1</a>, they
 isolate the real gap: critical-point proximity selects a short metric
 pair, but universal containment requires curved or topological
 geometry.</p>
@@ -491,7 +491,7 @@ steps.</p>
 <section id="translated-cubic-quotient-fibres" class="level3">
 <h3>Translated cubic quotient fibres</h3>
 <div class="theorem" id="res:cubic-fibres">
-<p><strong>Theorem 10</strong> (translated cubic quotient fibres). <em>
+<p><strong>Theorem 5.1</strong> (translated cubic quotient fibres). <em>
 Let <span class="math inline" data-term-auto="off">\(q\ge2\)</span>, <span
 class="math inline" data-term-auto="off">\(h\in\mathbb C\)</span>, and let <span
 class="math inline" data-term-auto="off">\(P\)</span> be a monic cubic. Put </em></p>
@@ -532,7 +532,7 @@ source-bound Lean build and axiom-audit record</a>.</p>
 <section id="primitive-sparse-quintics" class="level3">
 <h3>Primitive sparse quintics</h3>
 <div class="theorem" id="res:primitive-quintic">
-<p><strong>Theorem 11</strong> (primitive sparse quintics). <em> Let
+<p><strong>Theorem 5.2</strong> (primitive sparse quintics). <em> Let
 </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[p(z)=z^5+az^4+bz+c\]</span></div>
 <p class="display-continue"><em> be monic with
@@ -586,7 +586,7 @@ above an exact cutoff, and where it holds it gives the target
 constant <span class="math inline" data-term-auto="off">\(2\)</span> rather than a constant
 multiple of it.</p>
 <div class="theorem" id="res:critical-value-separation">
-<p><strong>Theorem 12</strong> (disk-family critical-value separation).
+<p><strong>Theorem 6.1</strong> (disk-family critical-value separation).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
 class="math inline" data-term-auto="off">\(n\ge3\)</span>, let <span
 class="math inline" data-term-auto="off">\(c\)</span> be a simple critical point, and put
@@ -610,7 +610,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \end{equation}\]</span></div>
 </div>
 <div class="corollary" id="res:critical-value-thresholds">
-<p><strong>Corollary 13</strong> (uniform radius <span
+<p><strong>Corollary 6.2</strong> (uniform radius <span
 class="math inline" data-term-auto="off">\(4/3\)</span>). <em> Let <span
 class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
 class="math inline" data-term-auto="off">\(n\ge3\)</span> with all roots in the open unit
@@ -629,7 +629,7 @@ already works with <span class="math inline" data-term-auto="off">\(4/3\)</span>
 <span class="math inline" data-term-auto="off">\(6/5\)</span>.</em></p>
 </div>
 <div class="corollary" id="res:separation-parent">
-<p><strong>Corollary 14</strong> (a parent-problem regime). <em> Let
+<p><strong>Corollary 6.3</strong> (a parent-problem regime). <em> Let
 <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
 class="math inline" data-term-auto="off">\(n\ge3\)</span> with all roots in the open unit
 disc, and let <span class="math inline" data-term-auto="off">\(c\)</span> be a simple
@@ -653,7 +653,7 @@ assert that some critical value always admits such a disk. The cubic
 particular that the older separation-two condition does not cover all
 polynomials.</p>
 <div class="proof">
-<p><em>Proof of Theorem <a class="math-ref" href="#res:critical-value-separation">12</a>.</em>
+<p><em>Proof of Theorem <a class="math-ref" href="#res:critical-value-separation">6.1</a>.</em>
 Set <span class="math inline" data-term-auto="off">\(\rho=|v|^{1/n}\)</span> and</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P(w)=\frac{f(c+\rho w)}v.\]</span></div>
@@ -717,7 +717,7 @@ exterior-fibre capacity gap gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{\operatorname{cap}(\overline{U&#39;})^n}{S&#39;}&lt;\frac1{n-1}.\]</span></div>
 <p>Pólya’s area–capacity inequality <span class="citation"
-data-cites="polya1928"><a href="#ref-8">[8]</a></span> then gives <span
+data-cites="polya1928"><a href="#ref-12">[12]</a></span> then gives <span
 class="math inline" data-term-auto="off">\(\operatorname{Area}(U&#39;)&lt;\pi(S&#39;/(n-1))^{2/n}\)</span>.
 The components <span class="math inline" data-term-auto="off">\(U&#39;\)</span> exhaust <span
 class="math inline" data-term-auto="off">\(U\)</span> as <span
@@ -727,7 +727,7 @@ Substitute this in (*) and scale lengths by <span
 class="math inline" data-term-auto="off">\(\rho\)</span> to obtain <a class="math-ref" data-equation-ref="true" href="#eq:disk-family-length">eq:disk-family-length</a>. No
 relative area inequality is used here; the disposition of Dubinin’s
 Theorem 1 is recorded in the bibliography entry <span class="citation"
-data-cites="dubinin"><a href="#ref-7">[7]</a></span>. That theorem has a full covering
+data-cites="dubinin"><a href="#ref-11">[11]</a></span>. That theorem has a full covering
 hypothesis; neither that hypothesis nor its relative-area conclusion is
 used in this proof. ◻</p>
 </div>
@@ -762,7 +762,7 @@ separated disk always exists, covers the near-tie or multiple-saddle
 strata, or proves the unrestricted problem. The argument uses Pólya’s
 absolute area–capacity inequality, not the relative covering inequality
 in Dubinin’s Theorem 1 <span class="citation"
-data-cites="dubinin"><a href="#ref-7">[7]</a></span>.</p>
+data-cites="dubinin"><a href="#ref-11">[11]</a></span>.</p>
 <p>Pendyala’s degree-four theorem <span class="citation"
 data-cites="june2026"><a href="#ref-4">[4]</a></span> has no critical-spectrum hypothesis. The
 present separation criterion applies in every degree <span
@@ -780,7 +780,7 @@ r2 exact cores</a>; the ordinary arguments are in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/ExactObstructionsR2.md">exact
 obstructions r2</a>.</p>
 <div class="proposition" id="res:sep-or-false">
-<p><strong>Proposition 15</strong> (no separation-or covering). <em> Let
+<p><strong>Proposition 7.1</strong> (no separation-or covering). <em> Let
 <span class="math inline" data-term-auto="off">\(f(z)=z^3+(3/100)z-3/4\)</span>. Every root
 lies in the open unit disc, both critical points are simple, the
 critical values lie on distinct positive rays, <span
@@ -794,7 +794,7 @@ than a supplied minimum, is ordinary in this note.
 the distinct quartic file <code>SeparationCounterexampleR13.lean</code>
 is not this cubic example.</p>
 <div class="proposition" id="res:one-root-gamma-false">
-<p><strong>Proposition 16</strong> (one-root gamma bound is false). <em>
+<p><strong>Proposition 7.2</strong> (one-root gamma bound is false). <em>
 Let <span class="math inline" data-term-auto="off">\(p(z)=z^8-(3/2)z\)</span> and let <span
 class="math inline" data-term-auto="off">\(C\)</span> be the component of <span
 class="math inline" data-term-auto="off">\(\{|p|\le1\}\)</span> containing the origin. Then
@@ -822,7 +822,7 @@ class="math inline" data-term-auto="off">\(z^N-z\)</span> at level <span
 class="math inline" data-term-auto="off">\(1\)</span> does not supply a one-root component.
 Neither general path theorem uses the rejected perimeter bound.</p>
 <div class="proposition" id="res:arity-not-capacity">
-<p><strong>Proposition 17</strong> (arity does not force a capacity
+<p><strong>Proposition 7.3</strong> (arity does not force a capacity
 gap). <em> Let <span
 class="math inline" data-term-auto="off">\(g(z)=z^3-(3/400)z-3/32\)</span>. All roots lie in
 the open unit disc, <span
@@ -844,7 +844,7 @@ satisfies <span class="math inline" data-term-auto="off">\(f&#39;(z(t))\ne0\)</s
 <span class="math inline" data-term-auto="off">\(z&#39;(t)=N(z(t))\)</span>. Put <span
 class="math inline" data-term-auto="off">\(w(t)=f(z(t))\)</span>.</p>
 <div class="theorem" id="res:value">
-<p><strong>Theorem 18</strong> (value equation). <em> For a polynomial
+<p><strong>Theorem 8.1</strong> (value equation). <em> For a polynomial
 <span class="math inline" data-term-auto="off">\(f\)</span> and a differentiable curve <span
 class="math inline" data-term-auto="off">\(z:I\to\mathbb C\)</span> on an interval <span
 class="math inline" data-term-auto="off">\(I\)</span>, assume <span
@@ -874,7 +874,7 @@ class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> stays there at 
 in its interval of existence. The equation neither constructs a global
 trajectory nor identifies a whole ray preimage with one flow line.</p>
 <div class="corollary" id="res:ray">
-<p><strong>Corollary 19</strong> (ray separation). <em> Let <span
+<p><strong>Corollary 8.2</strong> (ray separation). <em> Let <span
 class="math inline" data-term-auto="off">\(a&lt;b\)</span>, let <span
 class="math inline" data-term-auto="off">\(z:[a,b]\to\mathbb C\)</span> be continuous, and
 suppose <span class="math inline" data-term-auto="off">\(z\)</span> is differentiable on
@@ -907,7 +907,7 @@ is enough.</p>
 <p>Two distinct critical values can lie on one ray, and two critical
 values with distinct moduli certainly can: the ray records the argument,
 and the modulus is exactly the coordinate the flow contracts. By
-Corollary <a class="math-ref" href="#res:ray">19</a> the
+Corollary <a class="math-ref" href="#res:ray">8.2</a> the
 invariant that excludes connections is the argument. What a perturbation
 must therefore achieve is pairwise distinct critical-value
 <em>arguments</em>, which is a condition on <span
@@ -915,7 +915,7 @@ class="math inline" data-term-auto="off">\(n-1\)</span> points modulo the circle
 on their positions in the plane.</p>
 <p>The cost of that condition is also checked, and it is small.</p>
 <div class="theorem" id="res:locus">
-<p><strong>Theorem 20</strong> (ray-collision locus). <em> Let <span
+<p><strong>Theorem 9.1</strong> (ray-collision locus). <em> Let <span
 class="math inline" data-term-auto="off">\(a\ne b\)</span> be complex. Every common
 translation <span class="math inline" data-term-auto="off">\(\beta\)</span> for which <span
 class="math inline" data-term-auto="off">\(a+\beta\)</span> and <span
@@ -1012,9 +1012,12 @@ disc around <span class="math inline" data-term-auto="off">\(p\)</span> lies ent
 <span class="math inline" data-term-auto="off">\(V\)</span>. In that disc the full Morse
 chart has four sectors: two components of <span
 class="math inline" data-term-auto="off">\(u&gt;\mu\)</span> and two components of <span
-class="math inline" data-term-auto="off">\(u&lt;\mu\)</span>. A global component argument
-cannot delete one local sector from a disc already contained in <span
-class="math inline" data-term-auto="off">\(V\)</span>.</p>
+class="math inline" data-term-auto="off">\(u&lt;\mu\)</span>. The level set <span
+class="math inline" data-term-auto="off">\(\{u=\mu\}\)</span> is a lemniscate graph with a
+vertex of degree four at <span class="math inline" data-term-auto="off">\(p\)</span> <span
+class="citation" data-cites="bishop-eremenko-lazebnik"></span>. A global
+component argument cannot delete one local sector from a disc already
+contained in <span class="math inline" data-term-auto="off">\(V\)</span>.</p>
 <p>This independently diagnoses a proof step, but the Cassini witness
 above also refutes the proposition’s statement. A different route might
 cut an adjoining regular annulus along a separatrix or regular flow arc
@@ -1025,7 +1028,7 @@ positive attachment cost, select only one short pair instead of spanning
 every root, or use a different global metric inequality. The shorter
 descriptions of the same three-ended block do not repair the four-sector
 topology.</p>
-<p>Corollary <a class="math-ref" href="#res:ray">19</a> supplies
+<p>Corollary <a class="math-ref" href="#res:ray">8.2</a> supplies
 one independent input for a different route: distinct critical-value
 arguments exclude saddle-to-saddle Newton connections. It does not
 itself prove the compact planar decomposition, classify all orbit
@@ -1057,7 +1060,7 @@ class="math inline" data-term-auto="off">\(c=\cos(\pi/n)\)</span>, and set</p>
 class="math display" data-term-auto="off">\[r_*=(1+c^n)^{-1/n},\qquad
 \varepsilon=(1-r^n)^{1/n}.\]</span></div>
 <div class="theorem">
-<p><strong>Theorem 21</strong> (complementary binomial chords). <em>Two
+<p><strong>Theorem 13.1</strong> (complementary binomial chords). <em>Two
 adjacent zeros of <span class="math inline" data-term-auto="off">\(z^n-a\)</span> can be
 joined by an explicit polygonal path inside <span
 class="math inline" data-term-auto="off">\(\{|z^n-a|&lt;1\}\)</span> of length strictly below
@@ -1104,7 +1107,7 @@ a Lean theorem or a priority claim. Its role is a symmetric benchmark:
 the exact transition says why a direct outer chord fails and why the
 complementary inner chord repairs it. It gives no path optimality, no
 theorem for arbitrary monic polynomials, and no solution of Erdős
-Problem <a class="math-ref" href="#res:problem">3</a>.</p>
+Problem <a class="math-ref" href="#res:problem">2.1</a>.</p>
 </section>
 <section id="sec:collinear" class="level2">
 <h2>The sharp collinear theorem: order buys an exact Chebyshev
@@ -1114,7 +1117,7 @@ sets lack, and it yields a sharp all-degree solved subcase. Put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C_n=\frac{1}{2^{n-1}\cos^n(\pi/(2n))}.\]</span></div>
 <div class="theorem" id="res:sharp-collinear-root-diameter">
-<p><strong>Theorem 22</strong> (sharp collinear root-diameter bound).
+<p><strong>Theorem 14.1</strong> (sharp collinear root-diameter bound).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span>, with collinear zero occurrences of
 diameter <span class="math inline" data-term-auto="off">\(D\)</span>. Then some two zero
@@ -1166,6 +1169,47 @@ n.\]</span></div>
 class="math inline" data-term-auto="off">\(\pm1\)</span>, and every adjacent gap reaches
 <span class="math inline" data-term-auto="off">\(C_n\)</span> at a Chebyshev extremum. ◻</p>
 </div>
+<section id="critical-sequences-and-the-extremal-configuration."
+class="level5">
+<h5>Critical sequences and the extremal configuration.</h5>
+<p>For distinct real zeros, each gap between consecutive zeros contains
+exactly one zero of <span class="math inline" data-term-auto="off">\(q&#39;\)</span>, and
+<span class="math inline" data-term-auto="off">\(|q|\)</span> attains its maximum over the
+gap only there. The points <span class="math inline" data-term-auto="off">\(c_i\)</span>
+chosen in the proof are therefore the critical points of <span
+class="math inline" data-term-auto="off">\(q\)</span>, and the gap maxima are the moduli of
+its critical sequence <span
+class="math inline" data-term-auto="off">\((q(c_1),\ldots,q(c_{n-1}))\)</span>. A real
+polynomial with real zeros is determined by its critical sequence up to
+an increasing real affine change of variable <span class="citation"
+data-cites="eremenko-yuditskii"><a href="#ref-7">[7]</a></span>; the proof above uses only the
+alternation count. In this language, the bound of Theorem <a class="math-ref" href="#res:sharp-collinear-root-diameter">14.1</a>
+says that a real polynomial of degree <span
+class="math inline" data-term-auto="off">\(n\)</span> with <span
+class="math inline" data-term-auto="off">\(n\)</span> distinct real zeros, leading
+coefficient <span class="math inline" data-term-auto="off">\(a\)</span> and zero diameter
+<span class="math inline" data-term-auto="off">\(D\)</span> has a critical value of modulus
+at most <span class="math inline" data-term-auto="off">\(C_n|a|(D/2)^n\)</span>.</p>
+<p>The comparison polynomial <span class="math inline" data-term-auto="off">\(q_*\)</span> is
+the monic polynomial of least deviation from zero on <span
+class="math inline" data-term-auto="off">\([-1/r_n,1/r_n]\)</span>, characterised by the
+equioscillation conditions recalled in <span class="citation"
+data-cites="eremenko-yuditskii"><a href="#ref-7">[7]</a></span>. All <span
+class="math inline" data-term-auto="off">\(n-1\)</span> of its critical values have modulus
+<span class="math inline" data-term-auto="off">\(C_n\)</span>, so every critical point of
+<span class="math inline" data-term-auto="off">\(q_*\)</span> lies on the level curve <span
+class="math inline" data-term-auto="off">\(\{|q_*|=C_n\}\)</span>. Extremals with this
+property also occur in the level-curve length problem, where some
+extremal polynomial has all its critical points on <span
+class="math inline" data-term-auto="off">\(\{|p|=1\}\)</span> <span class="citation"
+data-cites="eremenko-hayman"><a href="#ref-6">[6]</a></span>, and in the sharp bound for <span
+class="math inline" data-term-auto="off">\(|f&#39;|\)</span> on a connected sublevel set
+<span class="math inline" data-term-auto="off">\(\{|f|\le1\}\)</span> of a monic polynomial,
+proved by Eremenko and Lempert <span class="citation"
+data-cites="eremenko-lempert"><a href="#ref-8">[8]</a></span>, whose equality cases are <span
+class="math inline" data-term-auto="off">\(e^{-in\theta}T_n(2^{1/n-1}e^{i\theta}z+b)\)</span>
+with <span class="math inline" data-term-auto="off">\(\theta\)</span> real <span
+class="citation" data-cites="eremenko-markov"></span>.</p>
 <p>If <span class="math inline" data-term-auto="off">\(D&lt;2\)</span>, the displayed level
 is below one and this segment lies in the open lemniscate. For <span
 class="math inline" data-term-auto="off">\(n\ge3\)</span>, the same strict level holds
@@ -1178,6 +1222,7 @@ every adjacent gap is safe nor any non-collinear analogue: the real
 order used in the alternation count is precisely what the general
 problem lacks.</p>
 </section>
+</section>
 <section id="sec:freepoint" class="level2">
 <h2>A Poisson identity for critical-value means</h2>
 <p>Write <span class="math inline" data-term-auto="off">\(\mathrm{FP}_m\)</span> for the
@@ -1189,7 +1234,7 @@ positive Poisson mixture. Their logarithmic-derivative relation converts
 the desired nonlinear estimate into a diagonal Taylor-coefficient
 inequality.</p>
 <div class="theorem" id="res:fp-weighted-all-degree">
-<p><strong>Theorem 23</strong> (weighted free-point inequality in every
+<p><strong>Theorem 15.1</strong> (weighted free-point inequality in every
 degree). <em> Let <span
 class="math inline" data-term-auto="off">\(c_1,\ldots,c_m\in\overline{\mathbb D}\)</span> and
 let <span class="math inline" data-term-auto="off">\(w_j&gt;0\)</span> satisfy <span
@@ -1250,7 +1295,7 @@ nonzero. The specialised four-point and central-radius proofs are
 retained in the long record; the all-degree inequality above removes
 their cardinality restriction.</p>
 <div class="theorem" id="res:fp-to-s">
-<p><strong>Theorem 24</strong> (critical-value mean in every degree).
+<p><strong>Theorem 15.2</strong> (critical-value mean in every degree).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span>, with roots in a closed disc of
 radius <span class="math inline" data-term-auto="off">\(R\)</span>, and let <span
@@ -1325,7 +1370,7 @@ class="math display" data-term-auto="off">\[\lambda_k(q)=\log\frac{1+q^{2/k}}{1-
 \qquad
 I_k(r)=\int_r^1\frac{dq}{q\lambda_k(q)}.\]</span></div>
 <div class="theorem" id="res:orlicz-currency">
-<p><strong>Theorem 25</strong> (exact attachment-age/lifetime currency).
+<p><strong>Theorem 16.1</strong> (exact attachment-age/lifetime currency).
 <em> Define </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Phi(x)=\int_0^x\frac{dt}{\log(\coth
@@ -1463,7 +1508,7 @@ segments.</p>
 </section>
 <section id="which-information-is-insufficient." class="level5">
 <h5>Which information is insufficient.</h5>
-<p>The sextic of Proposition <a class="math-ref" href="#res:sextic-spoke">2</a> excludes automatic
+<p>The sextic of Proposition <a class="math-ref" href="#res:sextic-spoke">1.2</a> excludes automatic
 control of every prescribed root spoke once further partial sums occur.
 The exact Cassini example in Section <a class="math-ref" href="#sec:gap">11</a> excludes the historical
 global strip-tree budget even after a local saddle model is corrected.
@@ -1639,7 +1684,22 @@ href="https://doi.org/10.48550/arXiv.2606.19178">10.48550/arXiv.2606.19178</a>.<
 Michigan Math. J. <strong>46</strong> (1999), 409–415. <a
 href="https://arxiv.org/abs/0805.2295"
 class="uri">https://arxiv.org/abs/0805.2295</a>.</p></li>
-<li id="ref-7"><p>V. N. Dubinin, <em>Some inequalities for polynomials and rational
+<li id="ref-7"><p>A. Eremenko and P. Yuditskii, <em>Comb functions</em>, Contemp.
+Math. <strong>578</strong> (2012), 99–118. <a
+href="https://arxiv.org/abs/1109.1464"
+class="uri">https://arxiv.org/abs/1109.1464</a>.</p></li>
+<li id="ref-8"><p>A. Eremenko and L. Lempert, <em>An extremal problem for
+polynomials</em>, Proc. Amer. Math. Soc. <strong>122</strong> (1994),
+191–193.</p></li>
+<li id="ref-9"><p>A. Eremenko, <em>A Markov-type inequality for arbitrary plane
+continua</em>, Proc. Amer. Math. Soc. <strong>135</strong> (2007),
+1505–1510. <a href="https://arxiv.org/abs/math/0606745"
+class="uri">https://arxiv.org/abs/math/0606745</a>.</p></li>
+<li id="ref-10"><p>C. J. Bishop, A. Eremenko, and K. Lazebnik, <em>On the shapes of
+rational lemniscates</em>, Geom. Funct. Anal. <strong>35</strong>
+(2025), 359–407. <a href="https://arxiv.org/abs/2407.14610"
+class="uri">https://arxiv.org/abs/2407.14610</a>.</p></li>
+<li id="ref-11"><p>V. N. Dubinin, <em>Some inequalities for polynomials and rational
 functions associated with lemniscates</em>, Zap. Nauchn. Sem. POMI
 <strong>404</strong> (2012), 83–99; English translation, J. Math. Sci.
 <strong>193</strong> (2013), no. 1, 45–54, doi:<a
@@ -1647,7 +1707,7 @@ href="https://doi.org/10.1007/s10958-013-1432-4">10.1007/s10958-013-1432-4</a>.
 This neighbouring covering theorem is discussed in the long record; the
 area input used here is the absolute Pólya inequality <span
 class="citation" data-cites="polya1928"></span>.</p></li>
-<li id="ref-8"><p>G. Pólya, <em>Beitrag zur Verallgemeinerung des Verzerrungssatzes
+<li id="ref-12"><p>G. Pólya, <em>Beitrag zur Verallgemeinerung des Verzerrungssatzes
 auf mehrfach zusammenhängende Gebiete</em>, Sitzungsberichte der
 Preussischen Akademie der Wissenschaften, Physikalisch-Mathematische
 Klasse (1928), printed pp. 228–232 and 280–282. <a

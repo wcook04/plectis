@@ -175,7 +175,8 @@ The unconditional headline results are an explicit rational basis for the
 full dyadic totient kernel, exact rank $2^e+1$ through every level $e\ge1$, a denominator
 exclusion through approximately $7.96\times10^{34}$, and finite
 lcm-diagonal certificates for every $t\le82$.  The full kernel is therefore
-infinite-dimensional.  The paper also records exact equivalences between
+infinite-dimensional, which recovers the case $k=2$ of Coons's theorem that
+$\ph$ is not $k$-regular.  The paper also records exact equivalences between
 irrationality and several cofinal certificate or tail-nonintegrality supplies.
 Those equivalences re-express rather than solve the problem: no certificate at
 $t=83$, unbounded certificate family, or irrationality proof is obtained.  The
@@ -395,7 +396,8 @@ $2^{e}+1$ dyadic totient-kernel channels is linearly independent over $\Q$ at
 every depth, via CRT plus Dirichlet
 (\lean{Erdos249257.linearIndependent\_canonicalTotientKernelFamily}{TotientMahlerDefect.lean:935}),
 so the full family spans an infinite-dimensional space
-(\lean{Erdos249257.not\_finiteDimensional\_span\_fullTotientKernel}{TotientMahlerDefect.lean:1145}).
+(\lean{Erdos249257.not\_finiteDimensional\_span\_fullTotientKernel}{TotientMahlerDefect.lean:1145}),
+the case $k=2$ of Coons's non-regularity theorem (\S\ref{sec:mahler-defect}).
 \coord{carry-rank} \scale{uniform} \ev{Lean}
 \end{prop}
 
@@ -5178,7 +5180,10 @@ infinite rank overall}
 find a bounded-depth linear relation among the dyadic totient-kernel
 channels \(n\mapsto\varphi(2^jn+r)\) that would compress the infinite
 family to a finite-dimensional space, from which a rationality-forcing
-contradiction (or a genuine rank obstruction) might be extracted.
+contradiction (or a genuine rank obstruction) might be extracted.  Such a
+compression would make the totient $2$-regular, which
+\href{https://doi.org/10.5802/jtnb.718}{Coons, Theorem~3.2} had already
+excluded for every base $k\ge2$ \ev{Cited}.
 
 \textbf{(b) Exact mechanism.}
 \begin{thm}[Infinite dyadic totient-kernel rank]
@@ -5241,7 +5246,14 @@ The decisive feature is the unit pivot $1$ in each omitted coordinate
 (or $-1$ if a relation is oriented oppositely).  Elimination uses no division;
 it therefore identifies the integral relation lattice, not merely its
 rational span.  The depth-two example in the short note illustrates these
-two-term rows.
+two-term rows.  The distinction between the retained basis and the redundant
+spanning family of all channels already matters for regular sequences, where
+matrices associated to a basis compute the growth exponent through their joint
+spectral radius and a spanning family gives only an upper bound
+(\href{https://arxiv.org/abs/1511.07535}{Coons, Theorem~1, Proposition~4 and
+Corollary~7}) \ev{Cited}.  The totient is not regular, so that theorem does not
+apply; the short note records how the section maps act on the retained bases
+from one level to the next.
 
 The \href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos249/PaperCompleteR8/KernelRelationBasis.lean#L398}{integral normal form} and the \href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos249/PaperCompleteR8/FullKernelAssemblies.lean#L156}{full dyadic rational basis} are kernel-checked in Lean.
 The formal statement gives the same construction for every integer base
@@ -5255,7 +5267,15 @@ relations.
 source module.} This does \emph{not} show irrationality of \(S\). It proves
 the dyadic-kernel \emph{side} is infinite-rank; the module's own docstring
 names the missing input as ``a rationality-side finite-rank compression, or
-equivalent contradiction.''
+equivalent contradiction.''  The infinite-rank conclusion is the case $k=2$
+of Coons's theorem cited in~(a); the formal record adds the exact rank
+$2^e+1$ at every level $e\ge1$, the explicit basis, and the integral relation
+module.  Martin's Theorem~1 gives linear independence for any family of
+totient channels along pairwise nonproportional affine forms with positive
+slopes (\href{https://arxiv.org/abs/math/0603053}{Martin, Theorem~1})
+\ev{Cited}; in the canonical family only $\varphi(n)$ and $\varphi(2n)$ have
+proportional forms, and one further evaluation separates them, as in the short
+note.  The Lean proof does not use Martin's theorem.
 
 The companion necessary-consequence-of-rationality
 theorem, \(\neg\mathrm{Irrational}(S) \implies \exists v>0,\exists U:\mathbb
@@ -6437,10 +6457,16 @@ $\varphi$-specific floor
 
 \paragraph{The right vocabulary, and the audited gap.}
 Finite-dimensional span of all dyadic sections is the definition of a
-$2$-regular sequence in the sense of Allouche and Shallit \ev{Cited}.  The
+$2$-regular sequence in the sense of Allouche and Shallit \ev{Cited}.  For
+integer-valued sequences this is equivalent to finite generation of the
+$\mathbb Z$-module generated by the sections: if their span has dimension $d$,
+some $d$ evaluations embed it in $\mathbb Q^d$ and that module in
+$\mathbb Z^d$ \ev{Math}.
+\href{https://doi.org/10.5802/jtnb.718}{Coons, Theorem~3.2} proved that
+$\varphi$ is not $k$-regular for any $k\ge2$ \ev{Cited}.  The
 unconditional theorem
 \lean{Erdos249257.\allowbreak not_finiteDimensional_\allowbreak span_fullTotientKernel}{TotientMahlerDefect.lean:1145}
-says that $\varphi$ is not $2$-regular.  An attempted generic counterexample
+proves the case $k=2$ independently.  An attempted generic counterexample
 chose a coefficient sequence $c(n)\le n$ with rational binary series and
 non-$2$-regular dyadic kernel.  Those facts do not refute the desired bound
 for its carry orbit.
@@ -7172,7 +7198,8 @@ The most direct generic construction is also impossible: no
 exist —
 \lean{Erdos249257.false_of_compressedAdjointCertificate}{TotientMahlerDefect.lean:1183}
 \quad \ev{Lean} — and the full family is proved infinite-dimensional in
-span:
+span, the case $k=2$ of Coons's non-regularity theorem
+(\S\ref{sec:mahler-defect}):
 \lean{Erdos249257.not_finiteDimensional_span_fullTotientKernel}{TotientMahlerDefect.lean:1145}
 \quad \ev{Lean}.
 

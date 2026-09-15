@@ -274,8 +274,10 @@ the canonical family of
 dyadic totient-kernel channels is linearly independent over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>
 at every depth, via CRT plus Dirichlet (), so the full family spans an
-infinite-dimensional space (). <code>coord:carry-rank</code> <span><span
-class="sans-serif">scale:uniform</span></span> <span><span
+infinite-dimensional space (), the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>
+of Coons’s non-regularity theorem (§). <code>coord:carry-rank</code>
+<span><span class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span></em></p>
 </div>
 <div class="prop">
@@ -9036,7 +9038,13 @@ totient-kernel channels
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>↦</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n\mapsto\varphi(2^jn+r)</annotation></semantics></math>
 that would compress the infinite family to a finite-dimensional space,
 from which a rationality-forcing contradiction (or a genuine rank
-obstruction) might be extracted.</p>
+obstruction) might be extracted. Such a compression would make the
+totient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-regular,
+which <a href="https://doi.org/10.5802/jtnb.718">Coons, Theorem 3.2</a>
+had already excluded for every base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
+<span><span class="sans-serif">[Cited]</span></span>.</p>
 <p><strong>(b) Exact mechanism.</strong></p>
 <div class="thm">
 <p><strong>Theorem 269</strong> (Infinite dyadic totient-kernel rank).
@@ -9147,7 +9155,15 @@ in each omitted coordinate (or
 if a relation is oriented oppositely). Elimination uses no division; it
 therefore identifies the integral relation lattice, not merely its
 rational span. The depth-two example in the short note illustrates these
-two-term rows.</p>
+two-term rows. The distinction between the retained basis and the
+redundant spanning family of all channels already matters for regular
+sequences, where matrices associated to a basis compute the growth
+exponent through their joint spectral radius and a spanning family gives
+only an upper bound (<a href="https://arxiv.org/abs/1511.07535">Coons,
+Theorem 1, Proposition 4 and Corollary 7</a>) <span><span
+class="sans-serif">[Cited]</span></span>. The totient is not regular, so
+that theorem does not apply; the short note records how the section maps
+act on the retained bases from one level to the next.</p>
 <p>The <a
 href="https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/ErdosProblems/Erdos249/PaperCompleteR8/KernelRelationBasis.lean#L398">integral
 normal form</a> and the <a
@@ -9166,7 +9182,23 @@ the source module.</strong> This does show irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
 It proves the dyadic-kernel is infinite-rank; the module’s own docstring
 names the missing input as “a rationality-side finite-rank compression,
-or equivalent contradiction.”</p>
+or equivalent contradiction.” The infinite-rank conclusion is the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>
+of Coons’s theorem cited in (a); the formal record adds the exact rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e+1</annotation></semantics></math>
+at every level
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>,
+the explicit basis, and the integral relation module. Martin’s Theorem 1
+gives linear independence for any family of totient channels along
+pairwise nonproportional affine forms with positive slopes (<a
+href="https://arxiv.org/abs/math/0603053">Martin, Theorem 1</a>)
+<span><span class="sans-serif">[Cited]</span></span>; in the canonical
+family only
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(n)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varphi(2n)</annotation></semantics></math>
+have proportional forms, and one further evaluation separates them, as
+in the short note. The Lean proof does not use Martin’s theorem.</p>
 <p>The companion necessary-consequence-of-rationality theorem,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>¬</mo><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>⟹</mo><mo>∃</mo><mi>v</mi><mo>&gt;</mo><mn>0</mn><mo>,</mo><mo>∃</mo><mi>U</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℤ</mi><mo>,</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">T</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>φ</mi><mo>,</mo><mi>v</mi><mo>,</mo><mi>U</mi><mo stretchy="false" form="postfix">)</mo><mo>∧</mo><mo>∀</mo><mi>e</mi><mo>,</mo><mspace width="0.222em"></mspace><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn><mo>≤</mo><msub><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">k</mi></mrow><mi mathvariant="double-struck">ℚ</mi></msub><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">e</mi></mrow><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">K</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo>,</mo><mi>e</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\neg\mathrm{Irrational}(S) \implies \exists v&gt;0,\exists U:\mathbb
 N\to\mathbb Z,\ \mathrm{IsTemperedBinaryOrbit}(\varphi,v,U)\wedge\forall
@@ -11126,12 +11158,30 @@ floor . No such rationality-side upper bound is proved.</p>
 <p>Finite-dimensional span of all dyadic sections is the definition of a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-regular
 sequence in the sense of Allouche and Shallit <span><span
-class="sans-serif">[Cited]</span></span>. The unconditional theorem says
+class="sans-serif">[Cited]</span></span>. For integer-valued sequences
+this is equivalent to finite generation of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb Z</annotation></semantics></math>-module
+generated by the sections: if their span has dimension
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+evaluations embed it in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℚ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb Q^d</annotation></semantics></math>
+and that module in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℤ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb Z^d</annotation></semantics></math>
+<span><span class="sans-serif">[Math]</span></span>. <a
+href="https://doi.org/10.5802/jtnb.718">Coons, Theorem 3.2</a> proved
 that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
 is not
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-regular.
-An attempted generic counterexample chose a coefficient sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular
+for any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
+<span><span class="sans-serif">[Cited]</span></span>. The unconditional
+theorem proves the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>
+independently. An attempted generic counterexample chose a coefficient
+sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">c(n)\le n</annotation></semantics></math>
 with rational binary series and
 non-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>-regular
@@ -12046,7 +12096,9 @@ do not.</p>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">A\ne0</annotation></semantics></math>)
 can exist — — and the full family is proved infinite-dimensional in
-span: .</p>
+span, the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>
+of Coons’s non-regularity theorem (§): .</p>
 <p>What rationality buy — uniform eventual periodicity of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>’s
 dyadic sections modulo some

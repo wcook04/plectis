@@ -27,8 +27,8 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 23,
-    "renderer_fingerprint": "7b88de7e4aabfee7",
+    "renderer_contract_version": 24,
+    "renderer_fingerprint": "2fb901bb07309297",
     "source_sha256": "d6ccd5438f69adb27baeff9daf13758e00e80a4575bedd1078452b17b67df14d",
     "source_manifest_match": true,
     "publication_manifest_match": true,
@@ -46,8 +46,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "d7ee947ddb06b60b63d1de74d95b6305856d0a2157485e54cb628f9423eb9c48",
-    "html_exact_tex_sha256": "41a7217e051da7daeceb557113d4d5effbf74f4002aea60a4ecf52c2c5c1ed53"
+    "html_mathml_sha256": "16ca03c769f4815aba5d1280ef5f029b683f616429382b637b766e84cd43af7f",
+    "html_exact_tex_sha256": "7728e4ea630d36dbe633a124c38edeb0e66db51e3203871dda495300eeed057c"
   },
   "sections": [
     {

@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 11,
+  "pages": 12,
   "question": "What is the exact rank of the totient kernel at every integer base, which parts are formalised, and why does Erdős #249 remain open?",
   "precis": "For every integer base k≥2, including composite bases, the totient kernel through level e≥1 has an explicit rational basis of size k^e + 1; level 0 has dimension 1. The paper gives an ordinary proof using arithmetic independence. Lean also proves all-base canonical-family independence and the complete rank unconditionally by CRT and Dirichlet. These coefficient-space results do not decide irrationality. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate or cofinal certificate supply is proved; Erdős #249 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -27,19 +27,19 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 23,
-    "renderer_fingerprint": "7b88de7e4aabfee7",
-    "source_sha256": "8436611e9df1d0d6fc4c0d69b40f361f577c080489b5fea554111e1e81961c85",
+    "renderer_contract_version": 24,
+    "renderer_fingerprint": "2fb901bb07309297",
+    "source_sha256": "a20aa973355e9a96fa37d15c8a24f5111568d9b6d3e430af84554e46fbdeaff5",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 325,
+    "mathml_node_count": 350,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "f97195cb5e0be311775c83a5e0bdc8b1186f49e6dd337028d537227b8225d73d",
-    "html_exact_tex_sha256": "e6fd9e6f4fce89724d45b4c38d73b15c234c35b981475035b2f32829209e58f4"
+    "html_mathml_sha256": "14f5c205e9cfa3b0989bb2fcd400ca20c721e12743958c96ed3b7d3361f23b6c",
+    "html_exact_tex_sha256": "ccc2b112d5f547f110333ee4156bd3a03833b41731f9d56bb258e1b589f658a1"
   },
   "sections": [
     {

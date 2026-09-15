@@ -8,7 +8,7 @@
 <section id="long68:sec:prime-powers" class="level2">
 <h2>Which prime powers survive reduction</h2>
 <div class="problem" id="long68:res:problem">
-<p><strong>Problem 1</strong> (Erdős #68). <em> Is <span
+<p><strong>Problem 1.1</strong> (Erdős #68). <em> Is <span
 class="math inline" data-term-auto="off">\(S=\sum_{n\ge2}(n!-1)^{-1}\)</span>
 irrational?</em></p>
 </div>
@@ -35,7 +35,7 @@ remains in <span
 class="math inline" data-term-auto="off">\(\operatorname{den}(H_M)\)</span>.</p>
 <p></p>
 <div class="theorem" id="long68:res:prime-pole">
-<p><strong>Theorem 2</strong> (maximal prime-power survival). <em> Let
+<p><strong>Theorem 1.2</strong> (maximal prime-power survival). <em> Let
 <span class="math inline" data-term-auto="off">\(M\ge2\)</span>, let <span
 class="math inline" data-term-auto="off">\(p\)</span> be a prime dividing <span
 class="math inline" data-term-auto="off">\(L_M\)</span>, and put <span
@@ -134,7 +134,7 @@ class="math inline" data-term-auto="off">\(2593\)</span></td>
 </div>
 <p>The inverse sums are <span
 class="math inline" data-term-auto="off">\(278=2\cdot139\)</span> and <span
-class="math inline" data-term-auto="off">\(2593\)</span>. By Theorem <a class="math-ref" href="#long68:res:prime-pole">2</a>, <span
+class="math inline" data-term-auto="off">\(2593\)</span>. By Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a>, <span
 class="math inline" data-term-auto="off">\(139\nmid\operatorname{den}(H_{138})\)</span> and
 <span
 class="math inline" data-term-auto="off">\(2593\nmid\operatorname{den}(H_{2592})\)</span>:
@@ -155,7 +155,7 @@ class="math inline" data-term-auto="off">\(m\)</span></em> when it divides <span
 class="math inline" data-term-auto="off">\(d_m\)</span> and divides none of <span
 class="math inline" data-term-auto="off">\(d_2,\ldots,d_{m-1}\)</span>.</p>
 <div class="proposition" id="long68:res:wilson-cofinality">
-<p><strong>Proposition 3</strong> (cofinal first prime occurrences).
+<p><strong>Proposition 1.3</strong> (cofinal first prime occurrences).
 <em> For every integer <span class="math inline" data-term-auto="off">\(B\ge0\)</span> there
 are a prime <span class="math inline" data-term-auto="off">\(q\)</span> and an integer <span
 class="math inline" data-term-auto="off">\(m&gt;B\)</span> with <span
@@ -192,12 +192,12 @@ data-cites="stewart2004"><a href="#ref-7">[7]</a></span>.</p>
 </section>
 <section id="long68:sec:lcm" class="level2">
 <h2>The growth of the common denominator</h2>
-<p>Theorem <a class="math-ref" href="#long68:res:prime-pole">2</a> concerns the
+<p>Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a> concerns the
 denominator after reduction. The common denominator before reduction
 admits an unconditional lower bound of its own, by an elementary
 argument.</p>
 <div class="lemma" id="long68:res:product-lcm">
-<p><strong>Lemma 4</strong> (product, least common multiple, pairwise
+<p><strong>Lemma 2.1</strong> (product, least common multiple, pairwise
 gcd). <em> For positive integers <span
 class="math inline" data-term-auto="off">\(x_1,\ldots,x_k\)</span>, </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -217,7 +217,7 @@ class="math inline" data-term-auto="off">\(\sum_{i=1}^{k}a_i\)</span>. The diffe
 is nonnegative. ◻</p>
 </div>
 <div class="lemma" id="long68:res:gap-gcd">
-<p><strong>Lemma 5</strong> (factorial-gap gcd). <em> For <span
+<p><strong>Lemma 2.2</strong> (factorial-gap gcd). <em> For <span
 class="math inline" data-term-auto="off">\(2\le i&lt;j\)</span>, the integer <span
 class="math inline" data-term-auto="off">\(g=\gcd(i!-1,j!-1)\)</span> divides <span
 class="math inline" data-term-auto="off">\(j!/i!-1\)</span>, and <span
@@ -254,7 +254,7 @@ of <span class="citation" data-cites="luca-shparlinski"><a href="#ref-12">[12]<
 uses it for a common prime-power divisor at display (2.5) of <span
 class="citation" data-cites="lai"></span>.</p>
 <div class="lemma" id="long68:res:segment">
-<p><strong>Lemma 6</strong> (segment inequality). <em> For <span
+<p><strong>Lemma 2.3</strong> (segment inequality). <em> For <span
 class="math inline" data-term-auto="off">\(2\le k\le N-1\)</span>, </em></p>
 <div class="math-display" id="long68:eq:segment" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
@@ -267,11 +267,11 @@ module is absent from the retained source pin; this citation does not
 establish kernel verification at that pin.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> Apply Lemma <a class="math-ref" href="#long68:res:product-lcm">4</a> to <span
+<p><em>Proof.</em> Apply Lemma <a class="math-ref" href="#long68:res:product-lcm">2.1</a> to <span
 class="math inline" data-term-auto="off">\(x_n=d_n\)</span> for <span
 class="math inline" data-term-auto="off">\(N-k+1\le n\le N\)</span>. Their least common
 multiple divides <span class="math inline" data-term-auto="off">\(L_N\)</span>. By
-Lemma <a class="math-ref" href="#long68:res:gap-gcd">5</a> each
+Lemma <a class="math-ref" href="#long68:res:gap-gcd">2.2</a> each
 pairwise gcd is smaller than <span
 class="math inline" data-term-auto="off">\(N^{\,j-i}\)</span>, and over a block of <span
 class="math inline" data-term-auto="off">\(k\)</span> consecutive indices</p>
@@ -280,7 +280,7 @@ class="math display" data-term-auto="off">\[\sum_{i&lt;j}(j-i)=\sum_{d=1}^{k-1}d
 <p>Taking logarithms of the resulting divisibility gives <a class="math-ref" data-equation-ref="true" href="#long68:eq:segment">long68:eq:segment</a>. ◻</p>
 </div>
 <div class="theorem" id="long68:res:lcm-growth">
-<p><strong>Theorem 7</strong> (common-denominator growth). <em> </em></p>
+<p><strong>Theorem 2.4</strong> (common-denominator growth). <em> </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\liminf_{N\to\infty}\frac{\log L_N}{N^{3/2}\log
 N}
@@ -331,7 +331,7 @@ argument and is not kernel-checked. The associated asymptotic Lean files
 are proof candidates and are not being cited as kernel verification. The
 finite-block inequality has a separate Lean source, <a
 href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529">finite
-terminal-block inequality</a>. Its two ingredients are Lemmas <a class="math-ref" href="#long68:res:product-lcm">4</a> and <a class="math-ref" href="#long68:res:gap-gcd">5</a>, and it needs no
+terminal-block inequality</a>. Its two ingredients are Lemmas <a class="math-ref" href="#long68:res:product-lcm">2.1</a> and <a class="math-ref" href="#long68:res:gap-gcd">2.2</a>, and it needs no
 factorial-congruence multiplicity theorem. A weaker exponent <span
 class="math inline" data-term-auto="off">\(4/3\)</span> follows instead from Theorem 12 of
 Garaev, Luca and Shparlinski <span class="citation"
@@ -350,7 +350,7 @@ consecutive integers and of linear recurrences are a different family.
 The finding is that the statement is possibly known and was not
 located.</p>
 <div class="remark">
-<p><strong>Remark 1</strong> (polynomial shifts). <em>Fix <span
+<p><strong>Remark</strong> (polynomial shifts). <em>Fix <span
 class="math inline" data-term-auto="off">\(P\in\Z[X]\setminus\{0\}\)</span>. By Lemma 3 of
 Luca and Shparlinski <span class="citation"
 data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, in the form given by Lai <span
@@ -361,7 +361,7 @@ class="math inline" data-term-auto="off">\(n!+P(n)&gt;1\)</span> for all <span
 class="math inline" data-term-auto="off">\(n\ge n_0\)</span> and <span
 class="math inline" data-term-auto="off">\(P(n)(n+1)\cdots(n+h)\ne P(n+h)\)</span> for all
 <span class="math inline" data-term-auto="off">\(n\ge n_0\)</span> and <span
-class="math inline" data-term-auto="off">\(h\ge1\)</span>. The proof of Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a> then gives
+class="math inline" data-term-auto="off">\(h\ge1\)</span>. The proof of Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> then gives
 </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\liminf_{N\to\infty}
 \frac{\log\lcm\{n!+P(n):n_0\le n\le N\}}{N^{3/2}\log N}
@@ -374,7 +374,7 @@ class="math inline" data-term-auto="off">\(j!+P(j)\)</span> gives </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\gcd\bigl(i!+P(i),\,j!+P(j)\bigr)\ \Big|\
 \frac{j!}{i!}P(i)-P(j),\]</span></div>
-<p class="display-continue"><em> which replaces Lemma <a class="math-ref" href="#long68:res:gap-gcd">5</a>. The right-hand
+<p class="display-continue"><em> which replaces Lemma <a class="math-ref" href="#long68:res:gap-gcd">2.2</a>. The right-hand
 side is nonzero by the choice of <span
 class="math inline" data-term-auto="off">\(n_0\)</span>, and its absolute value is at most
 <span class="math inline" data-term-auto="off">\(C_PN^{\,j-i+\deg P}\)</span> for a constant
@@ -403,14 +403,14 @@ class="math inline" data-term-auto="off">\(-ku\)</span> is of order <span
 class="math inline" data-term-auto="off">\(N^{3/2}\)</span>, so the finite ratio falls short
 of the limit by about <span class="math inline" data-term-auto="off">\(\sqrt2/\log
 N\)</span>.</p>
-<p>Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a> is a
+<p>Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> is a
 statement about <span class="math inline" data-term-auto="off">\(L_N\)</span> and not about
 <span class="math inline" data-term-auto="off">\(\operatorname{den}(H_N)\)</span>.
 Consecutive denominators <span class="math inline" data-term-auto="off">\((N-1)!-1\)</span>
 and <span class="math inline" data-term-auto="off">\(N!-1\)</span> are already coprime for
 <span class="math inline" data-term-auto="off">\(N\ge3\)</span>, so the qualitative failure
 of common-denominator clearing follows from two terms; the estimate is
-the quantitative growth statement. Theorem <a class="math-ref" href="#long68:res:prime-pole">2</a> and the
+the quantitative growth statement. Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a> and the
 cancellations at <span class="math inline" data-term-auto="off">\(139\)</span> and <span
 class="math inline" data-term-auto="off">\(2593\)</span> show why the substitution fails: a
 prime may occupy the common denominator and be absent from the reduced
@@ -456,7 +456,7 @@ data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span>: nonzero values w
 class="math inline" data-term-auto="off">\(p\)</span>-adic size, multiplied by the largest
 absolute value of a coefficient, tends to zero. The corresponding saving
 for <span class="math inline" data-term-auto="off">\(H_N\)</span> is the ratio <span
-class="math inline" data-term-auto="off">\(L_N/Q_N\)</span>. Theorem <a class="math-ref" href="#long68:res:prime-pole">2</a> decides, for
+class="math inline" data-term-auto="off">\(L_N/Q_N\)</span>. Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a> decides, for
 each prime <span class="math inline" data-term-auto="off">\(p\mid L_N\)</span>, whether <span
 class="math inline" data-term-auto="off">\(p\)</span> divides this ratio; no asymptotic lower
 bound for the ratio is established here.</p>
@@ -489,7 +489,7 @@ gives the tail estimate</p>
 \end{equation}\]</span></div>
 <p> </p>
 <div class="theorem" id="long68:res:carry-equivalence">
-<p><strong>Theorem 8</strong> (strict-successor characterisation). <em>
+<p><strong>Theorem 3.1</strong> (strict-successor characterisation). <em>
 For <span class="math inline" data-term-auto="off">\(m\ge3\)</span>, </em></p>
 <div class="math-display" id="long68:eq:unit-window" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
@@ -604,7 +604,7 @@ class="citation" data-cites="cantor1869"></span> and is recorded in
 Galambos <span class="citation" data-cites="galambos1976"><a href="#ref-5">[5]</a></span>.</p>
 <p></p>
 <div class="proposition" id="long68:res:companion-orbit">
-<p><strong>Proposition 9</strong> (companion-orbit criterion). <em>
+<p><strong>Proposition 3.2</strong> (companion-orbit criterion). <em>
 </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[S\in\Q
 \quad\Longleftrightarrow\quad
@@ -654,7 +654,7 @@ exact lower interval has width <span
 class="math inline" data-term-auto="off">\(E_m/m\in(0,2/m^2)\)</span>, so the target shrinks
 quadratically.</p>
 <div class="proposition" id="long68:res:lower-escape">
-<p><strong>Proposition 10</strong> (lower-interval criterion). <em>
+<p><strong>Proposition 3.3</strong> (lower-interval criterion). <em>
 </em></p>
 <div class="math-display" id="long68:eq:lower-escape" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:lower-escape}
@@ -720,7 +720,7 @@ class="math inline" data-term-auto="off">\(52\,\Delta_{52}&gt;1+\varepsilon_{52}
 the margin being about <span
 class="math inline" data-term-auto="off">\(0.5689674908\)</span>. Since <span
 class="math inline" data-term-auto="off">\(52\)</span> is composite, this settles nothing
-about prime indices, and the cofinal statement in Proposition <a class="math-ref" href="#long68:res:lower-escape">10</a> does not
+about prime indices, and the cofinal statement in Proposition <a class="math-ref" href="#long68:res:lower-escape">3.3</a> does not
 identify escape with a non-unit carry.</p>
 </section>
 <section id="the-whole-shifted-family" class="level3">
@@ -732,7 +732,7 @@ class="math inline" data-term-auto="off">\(S_t=\sum_{n\ge2}1/(n!+t)\)</span> and
 class="math inline" data-term-auto="off">\(C_t=\sum_{n\ge2}1/\bigl(n!(n!+t)\bigr)\)</span>,
 so that <span class="math inline" data-term-auto="off">\(S_t=-tC_t+(e-2)\)</span>.</p>
 <div class="theorem" id="long68:res:shift-family">
-<p><strong>Theorem 11</strong> (uniform family boundary). <em> For every
+<p><strong>Theorem 3.4</strong> (uniform family boundary). <em> For every
 integer <span class="math inline" data-term-auto="off">\(t\ge-1\)</span>, the series <span
 class="math inline" data-term-auto="off">\(S_t\)</span> is rational exactly when </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -795,7 +795,7 @@ representative. All of these depend only on a finite prefix.</p>
 gaps, together with the base. A prime dividing <span
 class="math inline" data-term-auto="off">\(R_p\)</span> therefore has a unique
 maximal-valuation gap above the base valuation, so the argument of
-Theorem <a class="math-ref" href="#long68:res:prime-pole">2</a>
+Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a>
 applies to it and gives <span
 class="math inline" data-term-auto="off">\(\gcd(T_p,R_p)=1\)</span>. This is where the first
 theorem returns. Consequently, when <span
@@ -808,7 +808,7 @@ class="math inline" data-term-auto="off">\(T_p/R_p=C_pH_{2p-1}\)</span> is not a
 \end{equation}\]</span></div>
 <p class="display-continue">a gap to the next integer.</p>
 <div class="theorem" id="long68:res:global-residue">
-<p><strong>Theorem 12</strong> (complementary-residue criterion). <em>
+<p><strong>Theorem 4.1</strong> (complementary-residue criterion). <em>
 Suppose that for every <span class="math inline" data-term-auto="off">\(B\)</span> there is a
 natural parameter <span class="math inline" data-term-auto="off">\(p\ge3\)</span> with <span
 class="math inline" data-term-auto="off">\(p&gt;B\)</span>, <span
@@ -855,7 +855,7 @@ class="math display" data-term-auto="off">\[\begin{equation}
 private factors therefore supplies neither a small collision core nor a
 lower bound for the normalised gap <span
 class="math inline" data-term-auto="off">\(\rho_p/R_p\)</span>, which is at most one. That is
-the exact reason Proposition <a class="math-ref" href="#long68:res:wilson-cofinality">3</a> does
+the exact reason Proposition <a class="math-ref" href="#long68:res:wilson-cofinality">1.3</a> does
 not close the argument.</p>
 <p>The moving-factor criterion is a more specialised sufficient
 condition. For a prefix-private prime <span
@@ -883,7 +883,7 @@ establish kernel verification at that pin.</p>
 <p>Testing both entries of the minimum and using <a class="math-ref" data-equation-ref="true" href="#long68:eq:core-normalisation">long68:eq:core-normalisation</a>
 gives the equivalence, so the reduction has no opaque floor premise
 left. Cofinal instances of both inequalities imply irrationality. The
-single global condition of Theorem <a class="math-ref" href="#long68:res:global-residue">12</a> is
+single global condition of Theorem <a class="math-ref" href="#long68:res:global-residue">4.1</a> is
 separately sufficient, so the pair is one sufficient route among
 several.</p>
 <p> One structural limitation is worth recording beside these criteria.
@@ -921,14 +921,14 @@ class="math display" data-term-auto="off">\[\begin{equation}
 V_{d}(c)\equiv M(c)\pmod{d!-1}.
 \end{equation}\]</span></div>
 <div class="theorem" id="long68:res:normalform">
-<p><strong>Theorem 13</strong> (integral normal form). <em> For every
+<p><strong>Theorem 5.1</strong> (integral normal form). <em> For every
 finite integer support and every <span
 class="math inline" data-term-auto="off">\(d\ge2\)</span> there is an integer <span
 class="math inline" data-term-auto="off">\(k\)</span> with <span
 class="math inline" data-term-auto="off">\(V_{d}(c)=M(c)+(d!-1)k\)</span>.</em></p>
 </div>
 <div class="theorem" id="long68:res:bandbreakpoint">
-<p><strong>Theorem 14</strong> (quotient-band breakpoint). <em> Let
+<p><strong>Theorem 5.2</strong> (quotient-band breakpoint). <em> Let
 <span class="math inline" data-term-auto="off">\(d\ge2\)</span> and <span
 class="math inline" data-term-auto="off">\(k\ge0\)</span>, and suppose every supported index
 <span class="math inline" data-term-auto="off">\(i\)</span> satisfies <span
@@ -993,7 +993,7 @@ class="math inline" data-term-auto="off">\(n\ge2\)</span> adds precisely the sca
 ta_D+\sum_{n&gt;D}z_nu_n=0.
 \end{equation}\]</span></div>
 <div class="theorem" id="long68:res:moment-ideal">
-<p><strong>Theorem 15</strong> (exact attainable moment ideal). <em> Fix
+<p><strong>Theorem 5.3</strong> (exact attainable moment ideal). <em> Fix
 <span class="math inline" data-term-auto="off">\(D\ge2\)</span> and a prime <span
 class="math inline" data-term-auto="off">\(p\)</span> with <span
 class="math inline" data-term-auto="off">\(D/2&lt;p\le D\)</span>. Put </em></p>
@@ -1036,7 +1036,7 @@ H_D=\sum_{2\le d\le D}\frac1{d!-1},\]</span></div>
 <p class="display-continue">the same coordinates retain
 the real information that the moment ideal alone does not see.</p>
 <div class="theorem" id="long68:res:residual-transparency">
-<p><strong>Theorem 16</strong> (full residual transparency). <em> For
+<p><strong>Theorem 5.4</strong> (full residual transparency). <em> For
 the vector in <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-basis">long68:eq:low-channel-basis</a>,
 </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal
@@ -1072,7 +1072,7 @@ class="math inline" data-term-auto="off">\(\Z\)</span>; they do not prove that t
 real residual is nonzero along a cofinal family.</p>
 <p></p>
 <div class="theorem" id="long68:res:channel-radius">
-<p><strong>Theorem 17</strong> (square-subsequence radius bound). <em>
+<p><strong>Theorem 5.5</strong> (square-subsequence radius bound). <em>
 Let <span class="math inline" data-term-auto="off">\(t,M,R\in\N\)</span> satisfy </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[t\ge2^{32},\qquad M&gt;0,\qquad L_{2t^2}\mid
@@ -1090,7 +1090,7 @@ pin.</em></p>
 <div class="proof">
 <p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(D=2t^2\)</span>,
 <span class="math inline" data-term-auto="off">\(k=2t\)</span> and <span
-class="math inline" data-term-auto="off">\(u=D-k+1=2t^2-2t+1\)</span>. Lemma <a class="math-ref" href="#long68:res:segment">6</a> at <span
+class="math inline" data-term-auto="off">\(u=D-k+1=2t^2-2t+1\)</span>. Lemma <a class="math-ref" href="#long68:res:segment">2.3</a> at <span
 class="math inline" data-term-auto="off">\(N=D\)</span>, with <span
 class="math inline" data-term-auto="off">\(n!-1\ge n!/2\)</span> and <span
 class="math inline" data-term-auto="off">\(\log n!\ge n\log n-n\)</span>, and with <span
@@ -1137,10 +1137,10 @@ must show that the channels through <span
 class="math inline" data-term-auto="off">\(2t^2\)</span> vanish for the resulting family. The
 theorem restricts that construction and supplies no irrationality
 argument.</p>
-<p>Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a> raises the
+<p>Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> raises the
 asymptotic constant in the same estimate.</p>
 <div class="corollary" id="long68:res:radius-constant">
-<p><strong>Corollary 18</strong> (asymptotic radius constant). <em> Let
+<p><strong>Corollary 5.6</strong> (asymptotic radius constant). <em> Let
 <span class="math inline" data-term-auto="off">\(M(t),R(t)\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(M(t)&gt;0\)</span>, <span
 class="math inline" data-term-auto="off">\(L_{2t^2}\mid M(t)\)</span> and <span
@@ -1153,7 +1153,7 @@ class="math display" data-term-auto="off">\[\liminf_{t\to\infty}\frac{R(t)+1}{t^
 <div class="proof">
 <p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(r=R(t)+1\)</span>, so
 <span class="math inline" data-term-auto="off">\(L_{2t^2}\le M(t)&lt;r!\)</span> and <span
-class="math inline" data-term-auto="off">\(\log L_{2t^2}&lt;r\log r\)</span>. Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a> at <span
+class="math inline" data-term-auto="off">\(\log L_{2t^2}&lt;r\log r\)</span>. Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> at <span
 class="math inline" data-term-auto="off">\(N=2t^2\)</span> gives, for every <span
 class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> and all large <span
 class="math inline" data-term-auto="off">\(t\)</span>,</p>
@@ -1178,15 +1178,15 @@ equality <span class="math inline" data-term-auto="off">\(9(R+1)=16t^3\)</span> 
 class="math inline" data-term-auto="off">\(t\ge4\)</span>, so that constraint alone cannot
 force a strict finite endpoint at <span
 class="math inline" data-term-auto="off">\(16/9\)</span>. The two statements are separate,
-and Corollary <a class="math-ref" href="#long68:res:radius-constant">18</a> rests on
-the ordinary proof of Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a>; the
+and Corollary <a class="math-ref" href="#long68:res:radius-constant">5.6</a> rests on
+the ordinary proof of Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a>; the
 finite-block Lean source does not carry the asymptotic deduction, and
 the asymptotic Lean files are proof candidates rather than kernel
 verification.</p>
 <p>The congruence <a class="math-ref" data-equation-ref="true" href="#long68:eq:channel-congruence">long68:eq:channel-congruence</a> also
 explains the prime-channel corrector.</p>
 <div class="theorem" id="long68:res:translator">
-<p><strong>Theorem 19</strong> (two-term prime channel corrector). <em>
+<p><strong>Theorem 5.7</strong> (two-term prime channel corrector). <em>
 Let <span class="math inline" data-term-auto="off">\(p\ge3\)</span> be prime and let <span
 class="math inline" data-term-auto="off">\(c_{p-1}=p\)</span>, <span
 class="math inline" data-term-auto="off">\(c_p=-1\)</span>, with every other coefficient
@@ -1281,7 +1281,7 @@ occur exactly at</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[52,\ 591,\ 1030,\ 1407,\
 1438,\ 2164,\ 4258,\ 10991,\ 21236,\]</span></div>
 <p class="display-continue">so <span
-class="math inline" data-term-auto="off">\(b_{300000}\ne1\)</span>. Theorem <a class="math-ref" href="#long68:res:carry-equivalence">8</a> then
+class="math inline" data-term-auto="off">\(b_{300000}\ne1\)</span>. Theorem <a class="math-ref" href="#long68:res:carry-equivalence">3.1</a> then
 gives <span class="math inline" data-term-auto="off">\(q\nmid299999!\)</span> and in
 particular <span class="math inline" data-term-auto="off">\(q\ge300000\)</span>. The receipt
 is , schema , payload digest , recording the parameters above, the
@@ -1518,8 +1518,8 @@ class="citation" data-cites="barreto-et-al"></span>. Failure of a
 sufficient criterion is not a theorem about <span
 class="math inline" data-term-auto="off">\(S\)</span>, and the useful content is the target
 these papers identify: a low-height clearing subsequence, or enough
-exact cancellation in the least common multiple. Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a> bounds that
-cancellation from one side and Theorem <a class="math-ref" href="#long68:res:prime-pole">2</a> describes it
+exact cancellation in the least common multiple. Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> bounds that
+cancellation from one side and Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a> describes it
 from the other.</p>
 <p>Erdős #68 is open. Every rational representation with positive
 denominator has <span class="math inline" data-term-auto="off">\(q\ge300000\)</span>.</p>
@@ -1529,8 +1529,8 @@ denominator has <span class="math inline" data-term-auto="off">\(q\ge300000\)</s
 <h2 class="unnumbered">Sources and evidence</h2>
 <p>The formal counterparts below are checked by the Lean 4 kernel
 against Mathlib at source snapshot <code>92b88dc1bbe0</code>, with no
-<code>sorry</code>, added axioms, or unchecked evaluation. Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a> and
-Corollary <a class="math-ref" href="#long68:res:radius-constant">18</a> are
+<code>sorry</code>, added axioms, or unchecked evaluation. Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> and
+Corollary <a class="math-ref" href="#long68:res:radius-constant">5.6</a> are
 ordinary proofs given in full above and are not kernel-checked; the
 associated asymptotic Lean files are proof candidates. The finite-block
 inequality is the separate Lean source <a
@@ -1551,7 +1551,7 @@ computation with the receipt named in §<a class="math-ref" href="#long68:sec:fi
 </thead>
 <tbody>
 <tr>
-<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:prime-pole">2</a></td>
+<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimePoleCriterion.lean#L223">maximal-power
 survival</a>, with the residue formula at <a
@@ -1561,7 +1561,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 41</a></td>
 </tr>
 <tr>
-<td class="ta-l">Proposition <a class="math-ref" href="#long68:res:wilson-cofinality">3</a></td>
+<td class="ta-l">Proposition <a class="math-ref" href="#long68:res:wilson-cofinality">1.3</a></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/PrimeZeroBranch.lean#L3097">cofinal
 private hits</a>; reflection at <a
@@ -1569,7 +1569,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 3139</a></td>
 </tr>
 <tr>
-<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:carry-equivalence">8</a></td>
+<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:carry-equivalence">3.1</a></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean#L986">strict-successor
 misses</a>; denominator exclusions at <a
@@ -1579,13 +1579,13 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 836</a></td>
 </tr>
 <tr>
-<td class="ta-l">Proposition <a class="math-ref" href="#long68:res:companion-orbit">9</a></td>
+<td class="ta-l">Proposition <a class="math-ref" href="#long68:res:companion-orbit">3.2</a></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/CompanionOrbitRationality.lean#L438">companion
 orbit</a></td>
 </tr>
 <tr>
-<td class="ta-l">Proposition <a class="math-ref" href="#long68:res:lower-escape">10</a></td>
+<td class="ta-l">Proposition <a class="math-ref" href="#long68:res:lower-escape">3.3</a></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ShrinkingTargetNormalForm.lean#L82">lower-interval
 normal form</a>; finite window at <a
@@ -1600,7 +1600,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 158</a></td>
 </tr>
 <tr>
-<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:shift-family">11</a></td>
+<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:shift-family">3.4</a></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialShiftFamilyOrbit.lean#L139">family
 boundary</a>; escape form at <a
@@ -1613,7 +1613,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 211</a></td>
 </tr>
 <tr>
-<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:global-residue">12</a></td>
+<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:global-residue">4.1</a></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean#L6164">global
 complementary residue</a>; coprimality <a class="math-ref" data-equation-ref="true" href="#long68:eq:gap-normalisation">long68:eq:gap-normalisation</a> at <a
@@ -1637,7 +1637,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 owner</a></td>
 </tr>
 <tr>
-<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:normalform">13</a> and <a class="math-ref" data-equation-ref="true" href="#long68:eq:channel-congruence">long68:eq:channel-congruence</a></td>
+<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:normalform">5.1</a> and <a class="math-ref" data-equation-ref="true" href="#long68:eq:channel-congruence">long68:eq:channel-congruence</a></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L25">integral
 channel weight</a>, <a
@@ -1645,7 +1645,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 cancellation</a></td>
 </tr>
 <tr>
-<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:channel-radius">17</a></td>
+<td class="ta-l">Theorem <a class="math-ref" href="#long68:res:channel-radius">5.5</a></td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L1084">finite
 radius bound</a>; sequence form at <a
@@ -1698,7 +1698,7 @@ identification of the digit value <span
 class="math inline" data-term-auto="off">\(m-2\)</span>, and the transport to the shifted
 family. The multiplicity bound is Garaev, Luca and Shparlinski’s <span
 class="citation" data-cites="garaev-luca-shparlinski"></span>, and the
-lcm deduction from it is not theirs. The divisibility in Lemma <a class="math-ref" href="#long68:res:gap-gcd">5</a> is the case
+lcm deduction from it is not theirs. The divisibility in Lemma <a class="math-ref" href="#long68:res:gap-gcd">2.2</a> is the case
 <span class="math inline" data-term-auto="off">\(P=-1\)</span> of the relation used in the
 proof of Lemma 5 of Luca and Shparlinski <span class="citation"
 data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span> and at display (2.5) of Lai <span
@@ -1709,7 +1709,7 @@ class="math inline" data-term-auto="off">\(n!+P(n)&gt;1\)</span> in <span class=
 data-cites="lai"><a href="#ref-13">[13]</a></span>. The survival criterion is a specialisation of
 Louwsma and Martino’s valuation formula <span class="citation"
 data-cites="louwsma-martino"><a href="#ref-3">[3]</a></span>. For the Wilson cofinality
-packaging, the finite radius bound and Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a>, no
+packaging, the finite radius bound and Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a>, no
 antecedent was located, which is a negative search result, and no
 priority is claimed.</p>
 </section>
@@ -2037,7 +2037,7 @@ r
 \ll N^{2/3}\log L_N ,\]</span></div>
 <p class="display-continue">and Stirling summation gives <span
 class="math inline" data-term-auto="off">\(\log Q_N\asymp N^2\log N\)</span>, whence <span
-class="math inline" data-term-auto="off">\(\log L_N\gg N^{4/3}\log N\)</span>. Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a> supersedes
+class="math inline" data-term-auto="off">\(\log L_N\gg N^{4/3}\log N\)</span>. Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> supersedes
 this: its exponent is <span class="math inline" data-term-auto="off">\(3/2\)</span>, its
 constant is explicit, and it uses no external theorem. The deduction is
 retained because it is the shape the returned analyses describe, and

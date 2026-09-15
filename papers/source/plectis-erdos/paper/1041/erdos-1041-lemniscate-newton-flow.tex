@@ -860,6 +860,8 @@ lower cross-section and two connected upper cross-sections.  That local model
 is false as written.  Because $p\in V$ and $V$ is open, a sufficiently small
 closed disc around $p$ lies entirely in $V$.  In that disc the full Morse chart
 has four sectors: two components of $u>\mu$ and two components of $u<\mu$.
+The level set $\{u=\mu\}$ is a lemniscate graph with a vertex of degree four
+at $p$ \cite[Definition~1.2 and Proposition~2.4]{bishop-eremenko-lazebnik}.
 A global component argument cannot delete one local sector from a disc already
 contained in $V$.
 
@@ -994,6 +996,31 @@ For sharpness take the roots of $q_*$, namely
 Their extreme roots are $\pm1$, and every adjacent gap reaches $C_n$ at a
 Chebyshev extremum.
 \end{proof}
+
+\paragraph{Critical sequences and the extremal configuration.}
+For distinct real zeros, each gap between consecutive zeros contains exactly
+one zero of $q'$, and $|q|$ attains its maximum over the gap only there.  The
+points $c_i$ chosen in the proof are therefore the critical points of $q$, and
+the gap maxima are the moduli of its critical sequence
+$(q(c_1),\ldots,q(c_{n-1}))$.  A real polynomial with real zeros is determined
+by its critical sequence up to an increasing real affine change of variable
+\cite[Theorem~1]{eremenko-yuditskii}; the proof above uses only the
+alternation count.  In this language, the bound of
+Theorem~\ref{res:sharp-collinear-root-diameter} says that a real polynomial of
+degree $n$ with $n$ distinct real zeros, leading coefficient $a$ and zero
+diameter $D$ has a critical value of modulus at most $C_n|a|(D/2)^n$.
+
+The comparison polynomial $q_*$ is the monic polynomial of least deviation
+from zero on $[-1/r_n,1/r_n]$, characterised by the equioscillation conditions
+recalled in \cite[\S1]{eremenko-yuditskii}.  All $n-1$ of its critical values
+have modulus $C_n$, so every critical point of $q_*$ lies on the level curve
+$\{|q_*|=C_n\}$.  Extremals with this property also occur in the level-curve
+length problem, where some extremal polynomial has all its critical points on
+$\{|p|=1\}$ \cite[Lemma~5]{eremenko-hayman}, and in the sharp bound for $|f'|$
+on a connected sublevel set $\{|f|\le1\}$ of a monic polynomial, proved by
+Eremenko and Lempert \cite{eremenko-lempert}, whose equality cases are
+$e^{-in\theta}T_n(2^{1/n-1}e^{i\theta}z+b)$ with $\theta$ real
+\cite[Theorem~A]{eremenko-markov}.
 
 If $D<2$, the displayed level is below one and this segment lies in the open
 lemniscate.  For $n\ge3$, the same strict level holds already at $D=2$;
@@ -1364,6 +1391,20 @@ throughout this problem-note series.
   \emph{On the length of lemniscates}, Michigan Math. J. \textbf{46}
   (1999), 409--415.
   \url{https://arxiv.org/abs/0805.2295}.
+\bibitem{eremenko-yuditskii} A.~Eremenko and P.~Yuditskii,
+  \emph{Comb functions}, Contemp. Math. \textbf{578} (2012), 99--118.
+  \url{https://arxiv.org/abs/1109.1464}.
+\bibitem{eremenko-lempert} A.~Eremenko and L.~Lempert,
+  \emph{An extremal problem for polynomials}, Proc. Amer. Math. Soc.
+  \textbf{122} (1994), 191--193.
+\bibitem{eremenko-markov} A.~Eremenko,
+  \emph{A Markov-type inequality for arbitrary plane continua},
+  Proc. Amer. Math. Soc. \textbf{135} (2007), 1505--1510.
+  \url{https://arxiv.org/abs/math/0606745}.
+\bibitem{bishop-eremenko-lazebnik} C.~J. Bishop, A.~Eremenko, and
+  K.~Lazebnik, \emph{On the shapes of rational lemniscates}, Geom. Funct.
+  Anal. \textbf{35} (2025), 359--407.
+  \url{https://arxiv.org/abs/2407.14610}.
 \bibitem{dubinin} V.~N. Dubinin, \emph{Some inequalities for polynomials and
   rational functions associated with lemniscates}, Zap. Nauchn. Sem. POMI
   \textbf{404} (2012), 83--99; English translation, J. Math. Sci. \textbf{193}

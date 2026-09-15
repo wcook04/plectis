@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 129,
+  "pages": 130,
   "question": "What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?",
   "precis": "A claim-bounded map of the formal attack on Erdős #249. It front-loads the exact totient-kernel basis and level rank, the approximately 7.96 x 10^34 denominator exclusion, and diagonal certificates for every t through 82, then records the hypotheses, source sites, coordinate-specific obstructions, and open interfaces. The cofinal certificate and tail-nonintegrality statements are exact reformulations, not a solution: no t = 83 or unbounded producer is obtained, and Erdős #249 remains open.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -27,12 +27,12 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 23,
-    "renderer_fingerprint": "7b88de7e4aabfee7",
-    "source_sha256": "e9494f2d6749914a4d730213174e0a6346a52232d1e8c647cabf15f6ee9cfb8e",
+    "renderer_contract_version": 24,
+    "renderer_fingerprint": "2fb901bb07309297",
+    "source_sha256": "e2eeb0c6f4b247e0759949be2aa34518e2a4187821e8e116120da62e48c39837",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 3200,
+    "mathml_node_count": 3216,
     "raw_math_fallback_count": 7,
     "warnings": {
       "mathml": [
@@ -97,8 +97,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "e50332499d531591ca7b3bfddbc4d7086b7e2acb6746da00143331a046f6101c",
-    "html_exact_tex_sha256": "9eade2be09b4300b9c73b1c963d06a5f0a300205c2db6100a9b5c59752274915"
+    "html_mathml_sha256": "ab2d1f8f3daae4a4a11fb6485e2161b978982b3dd6daabfbb5e5d429c5a17cd6",
+    "html_exact_tex_sha256": "dedf45c9f9cc7c7c6143858bc11b4db87613c89e80ec194089053cf9d9e404c0"
   },
   "sections": [
     {

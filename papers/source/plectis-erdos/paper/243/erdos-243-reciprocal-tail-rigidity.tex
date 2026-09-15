@@ -134,8 +134,8 @@ Then $a_n=a_{n-1}^{2}-a_{n-1}+1$ for all sufficiently large $n$.
 
 The additional hypothesis in Theorem~\ref{res:bounded} is the lower bound
 on $E_n$. The growth and rationality assumptions already supply the other
-state hypotheses after a finite shift. Koizumi's nonnegative-error case is
-integer descent \cite[Proposition~1(2)]{koizumi2025}; the theorem allows
+state hypotheses after a finite shift. The nonnegative-error case, Badea's criterion~\cite{badea1993} in Koizumi's coordinates, is
+integer descent \cite[Proposition~1(2), p.~14]{koizumi2025}; the theorem allows
 arbitrary sign changes with bounded negative depth. Bado's author-posted
 preprint assumes two-sided bounded errors \cite[Theorem~5.1]{bado2026}.
 The comparisons concern these stated hypotheses and make no priority claim.
@@ -235,6 +235,18 @@ Solve $t\equiv-i\pmod{m_i}$ by the Chinese remainder theorem, then add
 multiples of $\prod_i m_i$.
 \end{proof}
 
+\noindent Lemma~\ref{res:crt} matches each modulus $m_i$ to its own multiple
+$t+i$ inside a window of $B$ consecutive integers. Matchings of a set of
+integers to distinct multiples in an interval are the subject of
+Erd\H{o}s Problem~\#650, solved by van Doorn, Li and Tang: for every set $S$
+of $k$ positive integers, every open interval of length $2\max S$ contains
+distinct multiples of at least $\min(k,\lceil 2\sqrt{k}\,\rceil)$ elements of
+$S$, and this count is optimal \cite[Theorem~2.1]{vandoornlitang2026}. Their
+extremal construction uses the same Chinese remaindering for moduli that need
+not be pairwise coprime, with their Claim~3.2 supplying the divisibility of
+residue differences by greatest common divisors that the generalised theorem
+requires \cite[pp.~4--5]{vandoornlitang2026}.
+
 \begin{theorem}[bounded-rise obstruction]\label{res:barrier}
 Let $u_n\in\N$ tend to infinity with $u_{n+1}\le u_n+B$, for a fixed
 integer $B>0$. There is no infinite pairwise coprime family $m_i\ge2$
@@ -324,8 +336,12 @@ Consequently
  \qquad \frac{E_n}{C_n}\longrightarrow0.
 \]
 Thus strict centring also holds eventually. These are the ordinary
-canonical-tail implications of Koizumi's Corollary~3 and Lemma~4
-\cite{koizumi2025}.
+canonical-tail implications of Koizumi's work. After a finite shift the
+sequence is the pseudo-greedy expansion of its own tail sum, with gap
+sequence tending to zero \cite[Corollary~3, p.~9]{koizumi2025}. On that
+tail the integers $c_n$, $d_n$ and $e_n$ of his Lemma~4
+\cite[pp.~11--12]{koizumi2025} are $C_n$, $D_n$ and $E_n$ up to one common
+positive factor, and his range $-c_n/2\le e_n<c_n/2$ gives $|E_n|<C_n$.
 
 \begin{proof}[Proof of Corollary~\ref{res:originalbounded}]
 Put $\gamma_n=a_n^2/a_{n+1}-1$. Since
@@ -566,9 +582,21 @@ insufficient for that implication.
 The same finite-difference extraction excludes every nonintegral
 $\lambda>1$ under the rate
 $a_n^2/a_{n+1}=1+\lambda/n+o(n^{-\lambda})$: eventual polynomial growth
-would force its degree to equal $\lambda$. These rates lie outside
-Koizumi's $1+o(1/n)$ hypothesis \cite[Remark~3]{koizumi2025}, and they make
+would force its degree to equal $\lambda$. These rates fall outside $1+o(1/n)$, the rate at which
+Koizumi notes that the Erd\H{o}s--Straus criterion settles the problem \cite[Remark~3, p.~16]{koizumi2025}, and they make
 Duverney's signed series $\sum_n(a_{n+1}/a_n^{2}-1)$ diverge.
+
+For $x_1=p/q$ the integer $C_n$ of Section~\ref{sec:transfer} is $q$ times
+the linear form $P_nx_1-P_n\sum_{k<n}1/a_k$, whose coefficients are
+integers. Approximation criteria for irrationality use nonzero forms of this
+kind that tend to zero, as in the quantitative form stated as Lemma~3.4 of
+Koizumi and Yokoi~\cite[p.~13]{koizumiyokoi2026}, applied there to values of
+$q$-series. At the cubic rate these forms grow: since $a_nx_n\to1$, the identity
+$(P_{n+1}/a_{n+1})/(P_n/a_n)=1+\gamma_n$ of Section~\ref{sec:transfer} makes
+$C_n/q=P_nx_n$ a positive multiple of $n(n+1)(n+2)$ up to a factor tending to one.
+The proof of Theorem~\ref{res:cubicrate} uses the rate at precision
+$o(n^{-3})$: for a rational sum it forces the exact profile
+$C_n=An(n+1)(n+2)+B$, which is then excluded.
 
 There is also an admitted quantitative extension. Under the hypotheses of
 Theorem~\ref{res:bounded} other than (5), put
@@ -821,7 +849,7 @@ scale.  The reduction is retained because it is exact, and because the
 shrinking-modulus technique transfers to any forced orbit whose step is a
 polynomial division.
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{10}
 \small
 \raggedright
 \setlength{\itemsep}{0pt}
@@ -849,6 +877,10 @@ polynomial division.
   \href{https://arxiv.org/abs/2406.17593}{\emph{On several irrationality
   problems for Ahmes series}}, Acta Math. Hungar. \textbf{175} (2025),
   572--608; preprint arXiv:2406.17593v4.
+\bibitem{vandoornlitang2026} W.~van Doorn, Y.~Li and Q.~Tang,
+  \href{https://arxiv.org/abs/2603.28636}{\emph{Optimal bounds for an
+  Erd\H{o}s problem on matching integers to distinct multiples}},
+  preprint arXiv:2603.28636v1, 2026.
 \bibitem{bado2026} I.~O. Bado,
   \emph{Prime-Support Rigidity and Primitive Pseudo-Greedy Dynamics:
   Partial Progress on Erd\H{o}s Problem~\#243}, author-posted preprint,
@@ -860,6 +892,10 @@ polynomial division.
   Integers \textbf{26} (2026), Paper No.~A28, 17 pp.,
   doi:\href{https://doi.org/10.5281/zenodo.18714404}{10.5281/zenodo.18714404};
   preprint arXiv:2504.05933v1.
+\bibitem{koizumiyokoi2026} J.~Koizumi and A.~Yokoi,
+  \href{https://arxiv.org/abs/2608.26918}
+  {\emph{Ap\'ery-type approximations and irrationality measures for certain
+  $q$-series}}, preprint arXiv:2608.26918v1, 2026.
 \bibitem{erdosproblems} T.~F. Bloom,
   \href{https://www.erdosproblems.com/243}{\emph{Erd\H{o}s Problem \#243}},
   \texttt{erdosproblems.com/243}.

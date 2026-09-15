@@ -5422,13 +5422,77 @@ html[data-landing-bands="on"] .section--quiet .quiet-links { margin-top: 0.2rem;
 .demo-row__note { max-width: var(--prose); }
 .demo-row__note summary { cursor: pointer; color: var(--accent); font-size: var(--fs-meta); padding: 0.28rem 0; }
 .demo-row__note summary:hover { color: var(--accent-strong); }
-.demo-rows__more { padding: 0.9rem 0 0; }
-.demo-more summary { cursor: pointer; color: var(--accent); font-size: var(--fs-meta); padding: 0.28rem 0; }
-.demo-more summary:hover { color: var(--accent-strong); }
-.demo-rows--more { margin-top: 0.4rem; }
 .demo-row__note-body { padding: 0.45rem 0 0.6rem; color: var(--muted); font-size: var(--fs-body); }
 .demo-row__note-body p + p { margin-top: 0.6rem; }
 .demo-row__note-body ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.4rem; }
+
+/* ---- Recordings band (#demo-videos): three cards in one row --------------- */
+/* All three cuts sit side by side, each a still with its play mark and length,
+   then a mono kicker, the title, the watch link, and two folds. Before this
+   the one-minute cut stood alone under the Why prose with the other two
+   behind a "longer walkthroughs" fold, so a reader saw one recording and a
+   caption. The band is the ladder's, so it collapses with the rest. */
+.demo-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem;
+  align-items: start;
+}
+.demo-grid .demo-row {
+  display: flex; flex-direction: column;
+  padding: 0; border: 1px solid var(--rule); border-radius: var(--r-xl);
+  background: var(--surface); overflow: hidden;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.demo-grid .demo-row:hover { border-color: var(--rule-strong); box-shadow: var(--shadow); transform: translateY(-2px); }
+.demo-grid .demo-row__thumb {
+  border: 0; border-radius: 0; border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+}
+.demo-grid .demo-row__thumb:hover,
+.demo-grid .demo-row:has(.demo-row__watch:hover) .demo-row__thumb,
+.demo-grid .demo-row:has(.demo-row__watch:focus-visible) .demo-row__thumb { box-shadow: none; border-color: var(--rule); }
+.demo-grid .demo-row__body { padding: 1rem 1.15rem 1.15rem; display: flex; flex-direction: column; }
+.demo-row__kicker {
+  display: flex; align-items: baseline; gap: 0.75rem; margin: 0 0 0.4rem;
+  font-family: var(--font-mono); font-size: var(--fs-micro); font-weight: 500;
+  letter-spacing: var(--tracking-kicker); text-transform: uppercase; color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.demo-row__num { color: color-mix(in srgb, var(--link-ext) 78%, var(--faint)); }
+.demo-grid .demo-row__title { font-size: 1.12rem; margin-bottom: 0.5rem; text-wrap: balance; }
+.demo-grid .demo-row__actions { margin: 0 0 0.75rem; }
+.demo-grid .demo-row__note { max-width: none; border-top: 1px solid var(--rule); }
+.demo-grid .demo-row__note summary { padding: 0.5rem 0; }
+.demo-grid .demo-row__note:last-child[open] { padding-bottom: 0.2rem; }
+/* An opened fold widens its card across the row: the still keeps to the left
+   and the argument or transcript takes the reading measure on the right,
+   instead of a half-hour transcript running down a third of the page. The
+   still follows the scroll so the card it belongs to stays identifiable. */
+.demo-grid .demo-row:has(> .demo-row__body > .demo-row__note[open]) {
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  transform: none;
+}
+.demo-grid .demo-row:has(> .demo-row__body > .demo-row__note[open]) .demo-row__thumb {
+  position: sticky; top: 4.5rem; align-self: start;
+  margin: 1.15rem 0 1.15rem 1.15rem;
+  border: 1px solid var(--rule-strong); border-radius: var(--r-lg);
+}
+.demo-grid .demo-row:has(> .demo-row__body > .demo-row__note[open]) .demo-row__body { padding: 1.15rem 1.4rem 1.15rem 1.5rem; }
+.demo-grid .demo-row:has(> .demo-row__body > .demo-row__note[open]) .demo-row__note { max-width: var(--reading-measure); }
+@media (max-width: 900px) {
+  .demo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
+}
+@media (max-width: 640px) {
+  .demo-grid { grid-template-columns: minmax(0, 1fr); }
+  .demo-grid .demo-row:has(> .demo-row__body > .demo-row__note[open]) { grid-template-columns: minmax(0, 1fr); }
+  .demo-grid .demo-row:has(> .demo-row__body > .demo-row__note[open]) .demo-row__thumb { position: static; margin: 0; border: 0; border-bottom: 1px solid var(--rule); border-radius: 0; }
+  .demo-grid .demo-row:has(> .demo-row__body > .demo-row__note[open]) .demo-row__body { padding: 1rem 1.15rem 1.15rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-grid .demo-row { transition: none; }
+  .demo-grid .demo-row:hover { transform: none; }
+}
 /* Below the two-column threshold the still goes full width above its text, so
    the frame keeps its size instead of shrinking into a stamp. */
 @media (max-width: 660px) {
