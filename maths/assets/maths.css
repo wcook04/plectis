@@ -1830,3 +1830,47 @@ body.has-viewback:has(.maths-layout) .viewback {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+
+/* ---- Long manuscripts: lay out only what is on screen ---------------------
+   The long records arrive as two and a half megabytes of prerendered
+   equations. Every block below a section heading is laid out lazily: the
+   browser keeps a placeholder height until the block nears the viewport,
+   then renders it. Headings stay live so the margin contents and deep links
+   keep their targets, and the placeholder remembers a block's real height
+   once it has been shown, so scrolling back is stable. Print sets everything. */
+.paper-stage section > :not(h1, h2, h3, h4, h5, h6, section) {
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 6em;
+}
+@media print {
+  .paper-stage section > * { content-visibility: visible; }
+}
+
+/* ---- Typeset expressions outside the manuscript stage --------------------
+   Record fields and repository documents now carry exact-TeX spans too. The
+   record face and no-break rule above are for the HTML fallback; a typeset
+   expression brings its own face and its own line breaking. */
+.math[data-math-rendered] {
+  font-family: inherit;
+  font-feature-settings: normal;
+  white-space: normal;
+}
+.math.inline[data-math-compact],
+.math.inline[data-math-compact] mjx-math,
+.math.inline[data-math-compact] mjx-break { white-space: nowrap; }
+.math[data-math-rendered] mjx-container { overflow-wrap: normal; }
+.dossier-section :not(.paper-stage) .math.display,
+.docs-toc .math.display { display: block; text-align: center; overflow-x: auto; margin: .8em 0; }
+
+/* ---- Contents panels with mathematics -----------------------------------
+   Heading maths in the margin sets at the panel's own size; nothing in a
+   label may push the panel wider than its column. */
+.docs-toc a { hyphens: auto; }
+.docs-toc mjx-container, .reader-contents mjx-container { font-size: 1em; }
+.docs-toc a.toc-l4 { padding-left: 2.4rem; font-size: var(--fs-small); color: var(--faint); }
+.reader-contents .toc-l4 { padding-left: 2rem; color: var(--faint); }
+/* The dossier's inline contents is the narrow-screen fallback; on a wide
+   screen the margin panel carries the same rows. */
+@media (min-width: 1281px) {
+  .maths-layout:has(.docs-toc) .reader-contents--inline { display: none; }
+}

@@ -377,18 +377,37 @@
       }
       return {math: math, flow: flow};
     });
+  // Blocks below a heading lay out lazily (content-visibility in maths.css).
+  // Measuring a skipped block would force it to render, so only expressions
+  // already on screen are measured; the rest are measured as they arrive.
+  function onScreen(node) {
+    return typeof node.checkVisibility !== 'function' ||
+      node.checkVisibility({contentVisibilityAuto: true});
+  }
   function measure() {
+    measureItems(inline.filter(function (item) { return onScreen(item.math); }),
+      equations.filter(onScreen));
+  }
+  var lazyBlocks = document.querySelectorAll('.paper-stage section > :not(h1, h2, h3, h4, h5, h6, section)');
+  lazyBlocks.forEach(function (block) {
+    block.addEventListener('contentvisibilityautostatechange', function (event) {
+      if (event.skipped) return;
+      measureItems(inline.filter(function (item) { return block.contains(item.math); }),
+        equations.filter(function (equation) { return block.contains(equation); }));
+    });
+  });
+  function measureItems(inlineItems, displayItems) {
     // Read the natural inline layout once, then promote only expressions
     // whose indivisible content is wider than their paragraph. Tables already
     // own their scrolling. This also restores inline flow on wider screens.
-    inline.forEach(function (item) { item.flow.removeAttribute('data-math-overflow'); });
-    var wide = inline.filter(function (item) {
+    inlineItems.forEach(function (item) { item.flow.removeAttribute('data-math-overflow'); });
+    var wide = inlineItems.filter(function (item) {
       var math = item.math;
       var paragraph = math.closest('p, li, td, th, .paper-stage');
       return paragraph && math.getBoundingClientRect().width > paragraph.clientWidth + 2;
     });
     wide.forEach(function (item) { item.flow.setAttribute('data-math-overflow', 'true'); });
-    equations.concat(inline.map(function (item) { return item.flow; })).forEach(function (equation) {
+    displayItems.concat(inlineItems.map(function (item) { return item.flow; })).forEach(function (equation) {
       var overflow = equation.scrollWidth > equation.clientWidth + 2;
       if (overflow) {
         if (!overflowTabStops.has(equation)) overflowTabStops.set(equation, equation.getAttribute('tabindex'));
