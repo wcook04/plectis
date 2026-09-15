@@ -3709,44 +3709,54 @@ body.has-viewback { padding-bottom: 64px; }
   display: flex;
   align-items: center;
   gap: 0;
-  max-width: min(23rem, calc(100vw - 32px));
-  padding: 0.3rem 0.3rem 0.3rem 0.3rem;
+  max-width: min(24rem, calc(100vw - 32px));
+  padding: 0.38rem 0.38rem 0.38rem 0.38rem;
   font-family: var(--font-sans);
   font-size: 0.8rem;
-  line-height: 1.35;
-  color: var(--ink-soft);
-  background: var(--surface);
-  border: 1px solid color-mix(in srgb, var(--link-ext) 48%, var(--rule-control));
-  border-radius: 999px;
-  box-shadow: 0 10px 28px -8px rgba(0,0,0,0.45), 0 2px 8px -3px rgba(0,0,0,0.28);
+  line-height: 1.38;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid color-mix(in srgb, var(--link-ext) 40%, var(--rule-control));
+  border-radius: 1.25rem;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--link-ext) 14%, transparent),
+    0 14px 32px -12px rgba(0,0,0,0.5), 0 2px 8px -3px rgba(0,0,0,0.28);
   transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
               opacity var(--motion-panel) var(--ease-out);
 }
 .glossary-hint:hover,
-.glossary-hint:focus-within { border-color: var(--link-ext); }
+.glossary-hint:focus-within { border-color: color-mix(in srgb, var(--link-ext) 75%, var(--rule-control)); }
 .glossary-hint.is-away { opacity: 0; pointer-events: none; }
 body.nav-open .glossary-hint, body.cmdk-open .glossary-hint {
   opacity: 0; visibility: hidden; pointer-events: none;
 }
+/* The mark: a serif italic question mark on a gold disc, the same gold as the
+   external links and the Docs accent, so it reads as the site's own tip. */
 .glossary-hint__mark {
   flex: none;
-  width: 2rem;
-  height: 2rem;
+  width: 2.15rem;
+  height: 2.15rem;
   display: grid;
   place-items: center;
   padding: 0;
   border-radius: 999px;
   font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-style: italic;
+  font-size: 1.15rem;
   font-weight: 600;
   line-height: 1;
   color: var(--link-ext);
-  background: color-mix(in srgb, var(--link-ext) 18%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--link-ext) 42%, transparent);
+  background:
+    radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--link-ext) 34%, var(--surface)),
+                    color-mix(in srgb, var(--link-ext) 14%, var(--surface)) 72%);
+  border: 1px solid color-mix(in srgb, var(--link-ext) 48%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--link-ext) 9%, transparent);
   cursor: pointer;
-  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-.glossary-hint__mark:hover { background: color-mix(in srgb, var(--link-ext) 30%, var(--surface)); }
+.glossary-hint__mark:hover { box-shadow: 0 0 0 4px color-mix(in srgb, var(--link-ext) 16%, transparent); }
 .glossary-hint__mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* The body folds along the inline axis: a 1fr → 0fr track, so the text slides
    shut behind the mark instead of popping. Browsers without animated grid
@@ -3761,20 +3771,30 @@ body.nav-open .glossary-hint, body.cmdk-open .glossary-hint {
 /* A fixed measure lets the two lines wrap inside the sliding track: without
    it the text either runs on one line past the chip or reflows as the track
    narrows. */
-.glossary-hint__text { width: 17.5rem; max-width: calc(100vw - 7.5rem); padding: 0 0.35rem 0 0.7rem; }
+.glossary-hint__text { width: 18.5rem; max-width: calc(100vw - 7.5rem); padding: 0.05rem 0.4rem 0.05rem 0.8rem; }
 .glossary-hint p { margin: 0; }
-.glossary-hint__more { color: var(--muted); font-size: 0.74rem; margin-top: 0.05rem; }
-.glossary-hint a { color: var(--link-ext); }
-.glossary-hint a:hover { color: var(--accent); text-decoration: none; }
+.glossary-hint__lead { font-weight: 500; letter-spacing: 0.005em; }
+.glossary-hint__more { color: var(--muted); font-size: 0.73rem; margin-top: 0.12rem; }
+.glossary-hint a {
+  color: var(--link-ext);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--link-ext) 45%, transparent);
+  text-underline-offset: 0.16em;
+  transition: text-decoration-color var(--dur-fast) var(--ease);
+}
+.glossary-hint a:hover { color: var(--link-ext); text-decoration-color: var(--link-ext); }
+.glossary-hint__lead a { margin-left: 0.15em; white-space: nowrap; }
+.glossary-hint__lead a::after { content: " \2192"; }
 .glossary-hint a:focus-visible {
   outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
 }
 .glossary-hint__close {
   flex: none; display: grid; place-items: center;
-  width: 1.8rem; height: 1.8rem; margin: 0 0.1rem 0 0;
+  width: 1.85rem; height: 1.85rem; margin: 0 0.15rem 0 0.1rem;
   padding: 0; border: 0; border-radius: 999px;
-  background: transparent; color: var(--muted); font: inherit; font-size: 1.15rem; line-height: 1;
+  background: transparent; color: var(--faint); font: inherit; font-size: 1.1rem; line-height: 1;
   cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
 .glossary-hint__close:hover { color: var(--ink); background: var(--surface-sunk); }
 .glossary-hint__close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

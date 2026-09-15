@@ -5257,8 +5257,8 @@
     var p1 = document.createElement('p');
     p1.className = 'glossary-hint__lead';
     p1.appendChild(document.createTextNode(touch
-      ? 'Tap an underlined term for its meaning. '
-      : 'Hover an underlined term for its meaning. '));
+      ? 'Tap any technical term for its definition. '
+      : 'Hover any technical term for its definition. '));
     var all = document.createElement('a');
     all.href = glossaryHref;
     all.textContent = 'Glossary';
