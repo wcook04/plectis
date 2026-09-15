@@ -453,14 +453,23 @@ The following elementary estimate quantifies this cost:
 \ge\frac{2\sqrt2}{3}.\label{res:lcm-growth}
 \end{equation}
 The LCM asymptotic is proved here by an ordinary mathematical argument.
-The linked asymptotic Lean files are proof candidates and are not being
-cited as kernel verification.  The separate public Lean release
-\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E68/Challenge.lean#L249}{\texttt{wcook04/plectis-erdos-lean}}
+The asymptotic and liminf Lean files of \texttt{wcook04/plectis-erdos} linked
+later in this note are proof candidates and are not being cited as kernel
+verification.  The separate public Lean release
+\texttt{wcook04/plectis-erdos-lean}
 at commit \texttt{52f29ad1} states the bound~\eqref{res:lcm-growth}, with the
 least common multiple of $n!-1$ over $2\le n\le N$ as the common denominator,
 as \texttt{common\_denominator\_growth} and in extended real form as
+\texttt{common\_denominator\_growth\_liminf}.  The statements are in the
+Comparator challenge file
+\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E68/Challenge.lean#L249}{\nolinkurl{PalomarCorpus/E68/Challenge.lean}},
+where the proofs are left as \texttt{sorry}.  The solution file
+\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/Solutions/PalomarCorpus/E68/CommonDenominatorGrowth.lean#L17}{\nolinkurl{Solutions/PalomarCorpus/E68/CommonDenominatorGrowth.lean}}
+closes both by transfer from \texttt{common\_denominator\_growth} in
+\nolinkurl{ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean} and
 \texttt{common\_denominator\_growth\_liminf} in
-\texttt{PalomarCorpus/E68/Challenge.lean}, and proves both.  That repository's
+\nolinkurl{ErdosProblems/Erdos68/PaperCompleteLiminf.lean} of the same release.
+That repository's
 Linux replay of Palomar's Comparator stage accepted the entry with the Lean
 kernel and with NanoDa
 (\href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633}{run 34782407633}).
@@ -478,16 +487,22 @@ $\gcd(i!-1,j!-1)\mid j!/i!-1$ give
 Taking $k=\lfloor\alpha\sqrt N\rfloor$ gives leading coefficient
 $\alpha-\alpha^3/6$, maximised by $\alpha=\sqrt2$.  For a fixed
 $P\in\mathbb Z[X]\setminus\{0\}$, the same ordinary argument gives this
-bound for $\operatorname{lcm}_{n_0\le n\le N}(n!+P(n))$, where $n_0$ is
-sufficiently large that all factors are positive and the collision
-differences below are nonzero, as in Lai's Lemma~2.1 \cite{lai}.  The
-lower cutoff matters: $P=-2$ makes the factor at $n=2$ vanish.
-The argument uses
+bound for $\operatorname{lcm}_{n_0\le n\le N}(n!+P(n))$.  Here $n_0$ is
+chosen so that every factor exceeds $1$ and every collision difference
+below is nonzero.  Such a cutoff exists by~\cite[Lemma~2.1]{lai}, where Lai
+adds the bound $n!+P(n)>1$ to the nonvanishing statement of Lemma~3 of
+Luca and Shparlinski~\cite{luca-shparlinski}.  The lower cutoff matters:
+$P=-2$ makes the factor at $n=2$ vanish.  Multiplying the factor at $i$ by
+$j!/i!$ and subtracting the factor at $j$ gives
 \[
-\gcd(i!+P(i),j!+P(j))\mid P(j)-(j!/i!)P(i);
+\gcd(i!+P(i),j!+P(j))\mid P(j)-(j!/i!)P(i).
 \]
-the additional $O_P(k^2\log N)$ loss is lower order.  The subtraction identity
-is recorded by Lai~\cite[(2.5)]{lai}.  For $P=0$, the lcm is only $N!$.
+The same subtraction bounds a common divisor in the proof of Lemma~5 of
+Luca and Shparlinski~\cite{luca-shparlinski}, and a common prime-power
+divisor at display~(2.5) of Lai~\cite{lai}.  For $n_0\le i<j\le N$ the
+right side is a nonzero integer of absolute value $O_P(N^{\,j-i+\deg P})$,
+so the block loses an additional $O_P(k^2\log N)$, which is lower order.  For
+$P=0$, the lcm is only $N!$.
 These are common-denominator estimates.  Consecutive denominators
 $(N-1)!-1$ and $N!-1$ are already coprime for $N\ge3$, so the qualitative
 failure of common-denominator clearing follows from two terms; the estimate
@@ -534,6 +549,19 @@ the construction does not establish that nonintegrality.
 \section{Cancellation in a reduced prefix}\label{sec:prime-pole}
 
 A common-denominator bound does not determine the denominator after addition.
+For linear forms in $p$-adic zeta values, with $p\ge5$ a fixed prime and $n$
+the index of the form, Lai, Lupu and Sprang quantify a gap of this kind.
+They bound the denominators of the coefficients by powers of
+$\operatorname{lcm}(1,\ldots,n)$ and show that the bound may be divided by a
+product $\Phi_n$ of prime powers~\cite[\S5]{lai-lupu-sprang}.  The growth
+rate of $\Phi_n$~\cite[Lemma~7.3]{lai-lupu-sprang} enters the
+inequality~\cite[(8.1)]{lai-lupu-sprang} under which the rescaled forms,
+which have integer coefficients, meet the irrationality criterion quoted
+in~\cite[Lemma~2.1]{lai-lupu-sprang}: nonzero values whose $p$-adic size,
+multiplied by the largest absolute value of a coefficient, tends to zero.
+For the prefix sums no asymptotic saving of this kind is established here;
+the first-layer test below decides, one prime at a time, whether the largest
+power of that prime survives reduction.
 Put $L_M=\operatorname{lcm}_{2\le n\le M}(n!-1)$ and
 $A_M=\sum_{n=2}^M L_M/(n!-1)$.  For a prime $q$ with attained maximum
 $e=\max_{2\le n\le M}v_q(n!-1)>0$, set
@@ -888,8 +916,23 @@ immutable release before the links represent a replay of the whole note.
   Lemma~4.1, p.~10.
 \bibitem{lai}
   L.~Lai, \emph{On the largest prime divisor of $n!+1$},
-  arXiv:\href{https://arxiv.org/abs/2103.14894}{2103.14894v1}, 2021,
-  proof of Lemma~2.4, (2.5).
+  Bull.\ Aust.\ Math.\ Soc.\ \textbf{113} (2026), no.~3, 390--403,
+  doi:\href{https://doi.org/10.1017/S0004972725100543}{10.1017/S0004972725100543};
+  arXiv:\href{https://arxiv.org/abs/2103.14894}{2103.14894}.
+  Lemma~2.1, p.~392; display~(2.5) in the proof of Lemma~2.4, p.~394.
+\bibitem{luca-shparlinski}
+  F.~Luca and I.~E. Shparlinski, \emph{Prime divisors of shifted factorials},
+  Bull.\ London Math.\ Soc.\ \textbf{37} (2005), no.~6, 809--817,
+  doi:\href{https://doi.org/10.1112/S0024609305004923}{10.1112/S0024609305004923}.
+  Lemma~3, p.~810; proof of Lemma~5, p.~811.
+\bibitem{lai-lupu-sprang}
+  L.~Lai, C.~Lupu, and J.~Sprang,
+  \emph{On the irrationality of certain $p$-adic zeta values},
+  Res.\ Math.\ Sci.\ \textbf{12} (2025), no.~4, Paper No.~77,
+  doi:\href{https://doi.org/10.1007/s40687-025-00559-x}{10.1007/s40687-025-00559-x};
+  arXiv:\href{https://arxiv.org/abs/2505.23088v1}{2505.23088v1}.
+  Numbered as in arXiv v1: Lemma~2.1, p.~3; \S5, pp.~10--14; Lemma~7.3, p.~20;
+  (8.1), p.~22.
 \end{thebibliography}
 
 \companionpapercontext

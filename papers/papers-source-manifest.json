@@ -11,26 +11,26 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos-68-factorial-denominator-irrationality.pdf",
-      "source_sha256": "c938913743c1a382f75bb3e64cfe8dcac3633e69174db4480c53dcea0a374646",
-      "bytes": 111143,
+      "source_sha256": "934c8f52833d22305ed36a824cef3123345081375c51a852c2e505d2628ffcce",
+      "bytes": 114663,
       "source_tex_path": "paper/68/erdos-68-factorial-denominator-irrationality.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/68/erdos-68-factorial-denominator-irrationality.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/68/erdos-68-factorial-denominator-irrationality.tex",
-      "hosted_tex_sha256": "da02c2c3a00d6120a6a894851d0678814db462cc9b6d368952ac53af465e3106",
-      "tex_bytes": 44664
+      "hosted_tex_sha256": "a2ee940d1a6c498865938f2d991adf18e8fa0d789bab792da0739c3d086661e2",
+      "tex_bytes": 47586
     },
     {
       "hosted_path": "papers/erdos68-factorial-reasoning-surface.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/68/erdos68-factorial-reasoning-surface.pdf",
-      "source_sha256": "b1f5caacef474e61ced7ef82d2ee1ce75c9697bddf57fa2d24b44a7f7eabf9a6",
-      "bytes": 200584,
+      "source_sha256": "c1e65d16cee04b61fa8fce28a71c0f4708f6c3df5bdbf08478b7d42247382374",
+      "bytes": 207459,
       "source_tex_path": "paper/68/erdos68-factorial-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/68/erdos68-factorial-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/68/erdos68-factorial-reasoning-surface.tex",
-      "hosted_tex_sha256": "69e294f068212a49f1ac06b29936faedfa3d0303fecbcad7f60c18cfd557732f",
-      "tex_bytes": 98066
+      "hosted_tex_sha256": "872244f9cca9ed57e1d870d16dc24aeadeca1197f3ef5b4e163ffdf8538b28db",
+      "tex_bytes": 102189
     },
     {
       "hosted_path": "papers/erdos-243-reciprocal-tail-rigidity.pdf",
@@ -89,26 +89,26 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos-251-prime-gap-dyadic-series.pdf",
-      "source_sha256": "bb4004e3767f425d3d4c8289a9f87e50ddf04669e244bdee60f92576f904f7e8",
-      "bytes": 149338,
+      "source_sha256": "13a418bcffb0c4bc3079bf3efcba81db478a1c5643e20bc1cdbbfee80213ffb1",
+      "bytes": 151544,
       "source_tex_path": "paper/251/erdos-251-prime-gap-dyadic-series.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/251/erdos-251-prime-gap-dyadic-series.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/251/erdos-251-prime-gap-dyadic-series.tex",
-      "hosted_tex_sha256": "00e5736d3b55ab197256c0a12ef1e88dc1211057818ddd42408b16e7cb16af63",
-      "tex_bytes": 76559
+      "hosted_tex_sha256": "873f53c6f6f07df3f93db8acc66b8b7768f5b8f902071b57053cd8c0ee3117a6",
+      "tex_bytes": 78145
     },
     {
       "hosted_path": "papers/erdos251-prime-gap-reasoning-surface.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/251/erdos251-prime-gap-reasoning-surface.pdf",
-      "source_sha256": "f4ec443d6faf0a73ac5ea4d16cb08b7ce0e2d14fcf196452ee184d259b6a9511",
-      "bytes": 242947,
+      "source_sha256": "241dcc1898b292bf245954ca01e1329f5acb99dfcb27d9e1314e3bbb45ae4d36",
+      "bytes": 246113,
       "source_tex_path": "paper/251/erdos251-prime-gap-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/251/erdos251-prime-gap-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/251/erdos251-prime-gap-reasoning-surface.tex",
-      "hosted_tex_sha256": "b97193aecad73353d4b0e7aa9f90b5a9d3ba42a35ad578ee10498daaa62f438a",
-      "tex_bytes": 136288
+      "hosted_tex_sha256": "d6ccd5438f69adb27baeff9daf13758e00e80a4575bedd1078452b17b67df14d",
+      "tex_bytes": 138522
     },
     {
       "hosted_path": "papers/erdos-257-mersenne-support-subseries.pdf",

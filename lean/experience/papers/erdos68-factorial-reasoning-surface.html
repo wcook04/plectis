@@ -297,6 +297,28 @@ is a product of
 integers each at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>. ◻</p>
 </div>
+<p>The divisibility
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>∣</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">g\mid j!/i!-1</annotation></semantics></math>
+is the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">P=-1</annotation></semantics></math>
+of the relation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\gcd(i!+P(i),j!+P(j))\mid (j!/i!)P(i)-P(j)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">P\in\mathbb{Z}[X]</annotation></semantics></math>,
+obtained by multiplying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">i!+P(i)</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">j!/i!</annotation></semantics></math>
+and subtracting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">j!+P(j)</annotation></semantics></math>.
+Luca and Shparlinski use this relation to bound a common divisor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n!+P(n)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n+h)!+P(n+h)</annotation></semantics></math>
+in the proof of Lemma 5 of <span class="citation"
+data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, and Lai uses it for a common
+prime-power divisor at display (2.5) of <span class="citation"
+data-cites="lai"><a href="#ref-13">[13]</a></span>.</p>
 <div class="lemma">
 <p><strong>Lemma 6</strong> (segment inequality). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2\le k\le N-1</annotation></semantics></math>,
@@ -413,6 +435,69 @@ was located, and the searches were for factorial values shifted by one;
 least common multiples of consecutive integers and of linear recurrences
 are a different family. The finding is that the statement is possibly
 known and was not located.</p>
+<div class="remark">
+<p><strong>Remark 1</strong> (polynomial shifts). <em>Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P\in\mathbb{Z}[X]\setminus\{0\}</annotation></semantics></math>.
+By Lemma 3 of Luca and Shparlinski <span class="citation"
+data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, in the form given by Lai <span
+class="citation" data-cites="lai"></span>, there is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n_0\ge2</annotation></semantics></math>,
+depending only on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+P(n)&gt;1</annotation></semantics></math>
+for all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><msub><mi>n</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">n\ge n_0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>⋯</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(n)(n+1)\cdots(n+h)\ne P(n+h)</annotation></semantics></math>
+for all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><msub><mi>n</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">n\ge n_0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>.
+The proof of Theorem  then gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">liminf</mi><mrow><mi>N</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><msub><mi>n</mi><mn>0</mn></msub><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi><mo stretchy="false" form="postfix">}</mo></mrow><mrow><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow></mfrac><mspace width="0.222em"></mspace><mo>≥</mo><mspace width="0.222em"></mspace><mfrac><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow><mn>3</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\liminf_{N\to\infty}
+ \frac{\log\operatorname{lcm}\{n!+P(n):n_0\le n\le N\}}{N^{3/2}\log N}
+ \ \ge\ \frac{2\sqrt2}{3}.</annotation></semantics></math> For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>j</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">n_0\le i&lt;j\le N</annotation></semantics></math>,
+multiplying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">i!+P(i)</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">j!/i!</annotation></semantics></math>
+and subtracting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">j!+P(j)</annotation></semantics></math>
+gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.167em"></mspace><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mspace width="0.222em"></mspace><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">|</mo><mspace width="0.222em"></mspace><mfrac><mrow><mi>j</mi><mi>!</mi></mrow><mrow><mi>i</mi><mi>!</mi></mrow></mfrac><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\gcd\bigl(i!+P(i),\,j!+P(j)\bigr)\ \Big|\ \frac{j!}{i!}P(i)-P(j),</annotation></semantics></math>
+which replaces Lemma . The right-hand side is nonzero by the choice of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mn>0</mn></msub><annotation encoding="application/x-tex">n_0</annotation></semantics></math>,
+and its absolute value is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>P</mi></msub><msup><mi>N</mi><mrow><mspace width="0.167em"></mspace><mi>j</mi><mo>−</mo><mi>i</mi><mo>+</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><mi>P</mi></mrow></msup></mrow><annotation encoding="application/x-tex">C_PN^{\,j-i+\deg P}</annotation></semantics></math>
+for a constant
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>P</mi></msub><annotation encoding="application/x-tex">C_P</annotation></semantics></math>.
+Over a block of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+indices the pairwise loss therefore grows by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mn>2</mn></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_P(k^2\log N)</annotation></semantics></math>,
+which is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_P(N\log N)</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>α</mi><msqrt><mi>N</mi></msqrt><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">k=\lfloor\alpha\sqrt N\rfloor</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>n</mi><mi>!</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">n!+P(n)\ge n!/2</annotation></semantics></math>
+for large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+the lower estimate for the sum of logarithms is unchanged. The cutoff is
+needed, since for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P=-2</annotation></semantics></math>
+the factor at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n=2</annotation></semantics></math>
+vanishes. The hypothesis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P\ne0</annotation></semantics></math>
+is needed as well, since for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P=0</annotation></semantics></math>
+the least common multiple is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">N!</annotation></semantics></math>
+whatever the cutoff.</em></p>
+</div>
 <p>The constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2\sqrt2/3</annotation></semantics></math>
 is the best this argument gives. The gain from a block of
@@ -479,6 +564,37 @@ generally does not clear the earlier summands of
 The prime-pole analysis describes which factors survive reduction, but
 it does not yet supply the required upper control on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>N</mi></msub><annotation encoding="application/x-tex">Q_N</annotation></semantics></math>.</p>
+<p>For linear forms in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-adic
+zeta values, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">p\ge5</annotation></semantics></math>
+a fixed prime and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+the index of the form, Lai, Lupu and Sprang quantify a saving of this
+kind. They bound the denominators of the coefficients by powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(1,\ldots,n)</annotation></semantics></math>,
+show that the bound may be divided by a product
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\Phi_n</annotation></semantics></math>
+of prime powers, and compute the growth rate of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\Phi_n</annotation></semantics></math> <span
+class="citation" data-cites="lai-lupu-sprang"></span>. That saving
+enters the inequality <span class="citation"
+data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span> under which the rescaled forms,
+which have integer coefficients, meet the irrationality criterion quoted
+in <span class="citation" data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span>: nonzero
+values whose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-adic
+size, multiplied by the largest absolute value of a coefficient, tends
+to zero. The corresponding saving for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>N</mi></msub><annotation encoding="application/x-tex">H_N</annotation></semantics></math>
+is the ratio
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>N</mi></msub><mi>/</mi><msub><mi>Q</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">L_N/Q_N</annotation></semantics></math>.
+Theorem  decides, for each prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><msub><mi>L</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">p\mid L_N</annotation></semantics></math>,
+whether
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+divides this ratio; no asymptotic lower bound for the ratio is
+established here.</p>
 </section>
 <section id="long68:sec:carry" class="level2">
 <h2>Carries and the rationality boundary</h2>
@@ -1975,12 +2091,21 @@ the identification of the digit value
 and the transport to the shifted family. The multiplicity bound is
 Garaev, Luca and Shparlinski’s <span class="citation"
 data-cites="garaev-luca-shparlinski"><a href="#ref-6">[6]</a></span>, and the lcm deduction from
-it is not theirs. The survival criterion is a specialisation of Louwsma
-and Martino’s valuation formula <span class="citation"
-data-cites="louwsma-martino"><a href="#ref-3">[3]</a></span>. For the Wilson cofinality
-packaging, the finite radius bound and Theorem , no antecedent was
-located, which is a negative search result, and no priority is
-claimed.</p>
+it is not theirs. The divisibility in Lemma  is the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">P=-1</annotation></semantics></math>
+of the relation used in the proof of Lemma 5 of Luca and Shparlinski
+<span class="citation" data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span> and at
+display (2.5) of Lai <span class="citation" data-cites="lai"><a href="#ref-13">[13]</a></span>.
+The nonvanishing cutoff for polynomial shifts is Lemma 3 of <span
+class="citation" data-cites="luca-shparlinski"></span>, restated with
+the bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+P(n)&gt;1</annotation></semantics></math>
+in <span class="citation" data-cites="lai"><a href="#ref-13">[13]</a></span>. The survival
+criterion is a specialisation of Louwsma and Martino’s valuation formula
+<span class="citation" data-cites="louwsma-martino"><a href="#ref-3">[3]</a></span>. For the
+Wilson cofinality packaging, the finite radius bound and Theorem , no
+antecedent was located, which is a negative search result, and no
+priority is claimed.</p>
 </section>
 <section id="long68:app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
@@ -3069,6 +3194,22 @@ doi:10.4064/aa118-4-5.</p></li>
 Graham</em>, arXiv:<a
 href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,
 Theorems 2–3 and Remark 4.</p></li>
+<li id="ref-12"><p>F. Luca and I. E. Shparlinski, , Bull. London
+Math. Soc. <strong>37</strong> (2005), no. 6, 809–817. doi:<a
+href="https://doi.org/10.1112/S0024609305004923">10.1112/S0024609305004923</a>.
+Lemma 3, p. 810; proof of Lemma 5, p. 811.</p></li>
+<li id="ref-13"><p>L. Lai, , Bull. Aust. Math. Soc. <strong>113</strong> (2026),
+no. 3, 390–403. doi:<a
+href="https://doi.org/10.1017/S0004972725100543">10.1017/S0004972725100543</a>;
+arXiv:<a href="https://arxiv.org/abs/2103.14894">2103.14894</a>.
+Lemma 2.1, p. 392; display (2.5) in the proof of Lemma 2.4,
+p. 394.</p></li>
+<li id="ref-14"><p>L. Lai, C. Lupu, and J. Sprang, ,
+Res. Math. Sci. <strong>12</strong> (2025), no. 4, Paper No. 77. doi:<a
+href="https://doi.org/10.1007/s40687-025-00559-x">10.1007/s40687-025-00559-x</a>;
+arXiv:<a href="https://arxiv.org/abs/2505.23088v1">2505.23088v1</a>.
+Numbered as in arXiv v1: Lemma 2.1, p. 3; Lemmas 5.3–5.7, pp. 10–14;
+Lemma 7.3, p. 20; (8.1), p. 22.</p></li>
 </ol>
 </section>
   </div>

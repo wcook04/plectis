@@ -235,6 +235,28 @@ gaps~\cite[Lemma~4, pp.~5--6]{schlagepuchta2011}.  Its proof runs through
 Selberg's sieve.  Sections~\ref{long251:sec:obstructions} draws two consequences from
 it.
 
+Theorems~\ref{long251:res:boundedperturbation}
+and~\ref{long251:res:sparse-rationalisation} below produce rational perturbed
+series by filling an interval of attainable values.  For a nonincreasing
+summable sequence of positive terms, the sums of subseries form a finite union
+of closed intervals exactly when every late term is at most the sum of all
+later terms, a criterion going back to Kakeya~\cite[Remark~3.1]{kovactao2024}.
+Kova\v{c} and Tao show by nested covering that if $\sum_n1/\min J_n<\infty$
+and, from some stage on, consecutive reciprocals of the integers in $J_n$ are
+no further apart than the combined spread of the reciprocals over all later
+intervals, then the sums $\sum_n1/x_n$ with $x_n\in J_n$ contain an interval.
+They deduce that bounded perturbations of the denominators $2^n$ can give a
+rational sum, for instance $\sum_{n\ge1}1/(2^n+b_n)=3/4$ with every
+$b_n\in\{1,\ldots,5\}$, answering a question of Erd\H{o}s and Graham on
+irrationality sequences~\cite[Lemma~5.1, Theorem~2.5 and \S5]{kovactao2024}.
+Van Doorn and Kova\v{c} combine dense filling with a divisibility chain among
+distinguished terms that eventually absorbs every positive integer, so that
+finite reciprocal sums take every rational value in an
+interval~\cite[Lemma~7 and Proposition~8]{vandoornkovac2025}.
+Theorem~\ref{long251:res:sparse-rationalisation} uses both devices: equally
+spaced digit choices in the nested covering, and a chain of factorial moduli
+that preserves every fixed eventual congruence of the corrections.
+
 Problem~\#251 also appears as the unproved declaration \texttt{erdos\_251} in
 the \emph{Formal Conjectures} repository~\cite{formalconjectures251}.  Its
 zero-based Lean sum starts with the zeroth prime over $2^0$, so it is twice the
@@ -1075,7 +1097,8 @@ recursively set
 The maximum exists: $k=2$ is eligible and $k!2^{k+2}$ tends to infinity.
 Since $h$ is nondecreasing, the integers $k_j$ are nondecreasing; since
 $n_j\to\infty$, they tend to infinity.  The factorials form a divisibility
-chain and eventually contain every fixed divisor.  At each of the three
+chain and eventually contain every fixed divisor, as do the distinguished
+terms in~\cite[Proposition~8]{vandoornkovac2025}.  At each of the three
 coordinates $n$ in stage $j$,
 \[
  0\le e_n\le M_j2^{s_j}\le h(n_{j-1})\le f(n),
@@ -1115,7 +1138,9 @@ $F_{j+1}\ge w_j$.  This is the needed overlap condition.  The intervals
 $[dw_j,dw_j+F_{j+1}]$, for $0\le d\le D_j$, cover $[0,F_j]$.
 For any $y\in[0,F_0]$, choose successive digits leaving each remainder in
 $[0,F_{j+1}]$.  Since these capacities tend to zero, the resulting series
-has sum $y$.  Equation~\eqref{long251:eq:sparse-baseline} therefore realises
+has sum $y$.  The same nested covering proves~\cite[Lemma~5.1]{kovactao2024},
+where the choices at each stage are reciprocals of the integers in an
+interval.  Equation~\eqref{long251:eq:sparse-baseline} therefore realises
 every $r$ in the fixed interval $I=(A+\beta,A+\beta+F_0)\subset(A,\infty)$.
 
 \emph{Choose a polylogarithmic schedule.}
@@ -2368,7 +2393,8 @@ Odd rational denominators give totient-length integral shifts, and integrality p
 \bibitem{kovactao2024} V.~Kova\v{c} and T.~Tao,
   \href{https://doi.org/10.1007/s10474-025-01528-0}{\emph{On several
   irrationality problems for Ahmes series}}, Acta Math. Hungar. \textbf{175}
-  (2025), 572--608.
+  (2025), 572--608, arXiv:\href{https://arxiv.org/abs/2406.17593}{2406.17593}.
+  Statement and section numbers cited here follow arXiv version~4.
 \bibitem{land2026} J.~Land,
   \href{https://github.com/beetree/math_erdos_251}{\emph{A conditional proof of
   the irrationality of $\sum_{n\ge1}p_n2^{-n}$ under a uniform
@@ -2413,6 +2439,12 @@ Odd rational denominators give totient-length integral shifts, and integrality p
   states that for every nonzero $F\in\Z[x_0,\ldots,x_k]$ the equation
   $F(\delta_n,\ldots,\delta_{n+k})=0$ holds for a set of $n$ of density zero,
   where $\delta_n=p_{n+1}-p_n$, and its proof uses Selberg's sieve.
+\bibitem{vandoornkovac2025} W.~van Doorn and V.~Kova\v{c},
+  \href{https://doi.org/10.4064/aa251001-13-1}{\emph{Lacunary sequences whose
+  reciprocal sums represent all rational numbers in an interval}},
+  Acta Arith. \textbf{223} (2026), 275--295,
+  arXiv:\href{https://arxiv.org/abs/2509.24971}{2509.24971}.
+  Statement numbers cited here follow arXiv version~3.
 \bibitem{zhang2014} Y.~Zhang,
   \href{https://doi.org/10.4007/annals.2014.179.3.7}
   {\emph{Bounded gaps between primes}},

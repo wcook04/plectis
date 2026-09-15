@@ -222,6 +222,13 @@ $j!/i!-1$ is a multiple of $g$, whence $g\le j!/i!-1$.  Finally
 $j!/i!$ is a product of $j-i$ integers each at most $j$.
 \end{proof}
 
+\noindent The divisibility $g\mid j!/i!-1$ is the case $P=-1$ of the relation
+$\gcd(i!+P(i),j!+P(j))\mid (j!/i!)P(i)-P(j)$ for $P\in\Z[X]$, obtained by
+multiplying $i!+P(i)$ by $j!/i!$ and subtracting $j!+P(j)$.  Luca and
+Shparlinski use this relation to bound a common divisor of $n!+P(n)$ and
+$(n+h)!+P(n+h)$ in the proof of Lemma~5 of~\cite{luca-shparlinski}, and Lai
+uses it for a common prime-power divisor at display~(2.5) of~\cite{lai}.
+
 \begin{lemma}[segment inequality]\label{long68:res:segment}
 For $2\le k\le N-1$,
 \begin{equation}\label{long68:eq:segment}
@@ -297,6 +304,34 @@ factorial values shifted by one; least common multiples of consecutive
 integers and of linear recurrences are a different family.  The finding is
 that the statement is possibly known and was not located.
 
+\begin{remark}[polynomial shifts]
+Fix $P\in\Z[X]\setminus\{0\}$.  By Lemma~3 of Luca and
+Shparlinski~\cite{luca-shparlinski}, in the form given by
+Lai~\cite[Lemma~2.1]{lai}, there is $n_0\ge2$, depending only on $P$, such
+that $n!+P(n)>1$ for all $n\ge n_0$ and $P(n)(n+1)\cdots(n+h)\ne P(n+h)$ for
+all $n\ge n_0$ and $h\ge1$.  The proof of Theorem~\ref{long68:res:lcm-growth}
+then gives
+\[
+ \liminf_{N\to\infty}
+ \frac{\log\lcm\{n!+P(n):n_0\le n\le N\}}{N^{3/2}\log N}
+ \ \ge\ \frac{2\sqrt2}{3}.
+\]
+For $n_0\le i<j\le N$, multiplying $i!+P(i)$ by $j!/i!$ and subtracting
+$j!+P(j)$ gives
+\[
+ \gcd\bigl(i!+P(i),\,j!+P(j)\bigr)\ \Big|\ \frac{j!}{i!}P(i)-P(j),
+\]
+which replaces Lemma~\ref{long68:res:gap-gcd}.  The right-hand side is
+nonzero by the choice of $n_0$, and its absolute value is at most
+$C_PN^{\,j-i+\deg P}$ for a constant $C_P$.  Over a block of $k$ indices the
+pairwise loss therefore grows by $O_P(k^2\log N)$, which is $O_P(N\log N)$
+when $k=\lfloor\alpha\sqrt N\rfloor$.  Since $n!+P(n)\ge n!/2$ for large $n$,
+the lower estimate for the sum of logarithms is unchanged.  The cutoff is
+needed, since for $P=-2$ the factor at $n=2$ vanishes.  The hypothesis
+$P\ne0$ is needed as well, since for $P=0$ the least common multiple is $N!$
+whatever the cutoff.
+\end{remark}
+
 The constant $2\sqrt2/3$ is the best this argument gives.  The gain from a
 block of $k$ indices is largest at the top of the range and the pairwise-gcd
 loss grows with the spread, so consecutive top indices are simultaneously
@@ -329,6 +364,21 @@ irrationality.  The inequality $d_N(\Ser-H_N)<1$ alone would not repair the
 argument, because $d_N$ generally does not clear the earlier summands of
 $H_N$.  The prime-pole analysis describes which factors survive reduction,
 but it does not yet supply the required upper control on $Q_N$.
+
+For linear forms in $p$-adic zeta values, with $p\ge5$ a fixed prime and $n$
+the index of the form, Lai, Lupu and Sprang quantify a saving of this kind.
+They bound the denominators of the coefficients by powers of
+$\lcm(1,\ldots,n)$, show that the bound may be divided by a product $\Phi_n$
+of prime powers, and compute the growth rate of
+$\Phi_n$~\cite[Lemmas~5.3--5.7 and~7.3]{lai-lupu-sprang}.  That saving enters
+the inequality~\cite[(8.1)]{lai-lupu-sprang} under which the rescaled forms,
+which have integer coefficients, meet the irrationality criterion quoted
+in~\cite[Lemma~2.1]{lai-lupu-sprang}: nonzero values whose $p$-adic size,
+multiplied by the largest absolute value of a coefficient, tends to zero.
+The corresponding saving for $H_N$ is the ratio $\Lc_N/Q_N$.
+Theorem~\ref{long68:res:prime-pole} decides, for each prime $p\mid\Lc_N$,
+whether $p$ divides this ratio; no asymptotic lower bound for the ratio is
+established here.
 
 \section{Carries and the rationality boundary}\label{long68:sec:carry}
 
@@ -1213,7 +1263,12 @@ the form recorded by Galambos \cite[Ch.~1]{galambos1976}; the additions here
 are the telescope $C=\Ser-e+2$, the identification of the digit value $m-2$,
 and the transport to the shifted family.  The multiplicity bound is Garaev,
 Luca and Shparlinski's \cite{garaev-luca-shparlinski}, and the lcm deduction
-from it is not theirs.  The survival criterion is a specialisation of
+from it is not theirs.  The divisibility in Lemma~\ref{long68:res:gap-gcd} is
+the case $P=-1$ of the relation used in the proof of Lemma~5 of Luca and
+Shparlinski \cite{luca-shparlinski} and at display~(2.5) of Lai \cite{lai}.  The
+nonvanishing cutoff for polynomial shifts is Lemma~3 of
+\cite{luca-shparlinski}, restated with the bound $n!+P(n)>1$ in
+\cite[Lemma~2.1]{lai}.  The survival criterion is a specialisation of
 Louwsma and Martino's valuation formula \cite[Lemma~4.1]{louwsma-martino}.
 For the Wilson cofinality packaging, the finite radius bound and
 Theorem~\ref{long68:res:lcm-growth}, no antecedent was located, which is a negative search result, and no priority
@@ -1854,6 +1909,27 @@ Lean checks small exact misses; a hash-bound GMP scan reaches index 300000 and y
   and Graham},
   arXiv:\href{https://arxiv.org/abs/2601.21442v3}{2601.21442v3}, 2026,
   Theorems~2--3 and Remark~4.
+\bibitem{luca-shparlinski}
+  F.~Luca and I.~E. Shparlinski,
+  \emph{Prime divisors of shifted factorials},
+  Bull.\ London Math.\ Soc.\ \textbf{37} (2005), no.~6, 809--817.
+  doi:\href{https://doi.org/10.1112/S0024609305004923}{10.1112/S0024609305004923}.
+  Lemma~3, p.~810; proof of Lemma~5, p.~811.
+\bibitem{lai}
+  L.~Lai,
+  \emph{On the largest prime divisor of $n!+1$},
+  Bull.\ Aust.\ Math.\ Soc.\ \textbf{113} (2026), no.~3, 390--403.
+  doi:\href{https://doi.org/10.1017/S0004972725100543}{10.1017/S0004972725100543};
+  arXiv:\href{https://arxiv.org/abs/2103.14894}{2103.14894}.
+  Lemma~2.1, p.~392; display~(2.5) in the proof of Lemma~2.4, p.~394.
+\bibitem{lai-lupu-sprang}
+  L.~Lai, C.~Lupu, and J.~Sprang,
+  \emph{On the irrationality of certain $p$-adic zeta values},
+  Res.\ Math.\ Sci.\ \textbf{12} (2025), no.~4, Paper No.~77.
+  doi:\href{https://doi.org/10.1007/s40687-025-00559-x}{10.1007/s40687-025-00559-x};
+  arXiv:\href{https://arxiv.org/abs/2505.23088v1}{2505.23088v1}.
+  Numbered as in arXiv v1: Lemma~2.1, p.~3; Lemmas~5.3--5.7, pp.~10--14;
+  Lemma~7.3, p.~20; (8.1), p.~22.
 \end{thebibliography}
 
 \end{document}

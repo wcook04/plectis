@@ -153,7 +153,10 @@ For $i>j$, monotonicity of the moduli gives
 \]
 The digit intervals therefore overlap.  Greedy selection fills the complete
 interval $[0,F]$, where $F=\sum_jD_jw_j>0$: at each step the remainder is
-between zero and the remaining capacity, which tends to zero.  Take
+between zero and the remaining capacity, which tends to zero.  The same
+nested covering proves~\cite[Lemma~5.1]{kovactao2024}, where the choices at
+each stage are reciprocals of the integers in an interval; here they are the
+$D_j+1$ equally spaced values $dw_j$.  Take
 $I=(A+\beta,A+\beta+F)$.
 
 For the polylogarithmic bound, instead set, after a sufficiently large
@@ -240,7 +243,20 @@ conditional on Kuperberg's uniform Hardy-Littlewood prime-tuples conjecture,
 together with a Lean formalisation of that conditional
 argument~\cite{land2026}.  Nothing in this note is conditional on a
 prime-tuples hypothesis, and Erd\H{o}s Problem~\#251 remains open
-unconditionally.  The detailed historical comparisons and their
+unconditionally.  Interval filling of the kind used in
+Proposition~\ref{res:sparserationalisation} has recent precedents for sums of
+unit fractions.  Kova\v{c} and Tao use it to show that bounded perturbations
+of the denominators $2^n$ can give a rational sum, for instance
+$\sum_{n\ge1}1/(2^n+b_n)=3/4$ with every $b_n\in\{1,\ldots,5\}$, answering a
+question of Erd\H{o}s and Graham on irrationality
+sequences~\cite[Lemma~5.1, Theorem~2.5 and \S5]{kovactao2024}.  Van Doorn and
+Kova\v{c} combine dense filling with a divisibility chain among distinguished
+terms that eventually absorbs every positive integer, so that finite
+reciprocal sums take every rational value in an
+interval~\cite[Lemma~7 and Proposition~8]{vandoornkovac2025}.  The
+corrections in Proposition~\ref{res:sparserationalisation} use a chain of
+factorial moduli with the same absorption property to preserve every fixed
+eventual congruence.  The detailed historical comparisons and their
 hypotheses belong to the companion reasoning record.  No priority claim
 is made for the elementary identities or constructions in this note.
 
@@ -1443,7 +1459,8 @@ cofinal irrationality classifier & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{1572
 \bibitem{kovactao2024} V.~Kova\v{c} and T.~Tao,
   \href{https://doi.org/10.1007/s10474-025-01528-0}{\emph{On several
   irrationality problems for Ahmes series}}, Acta Math. Hungar. \textbf{175}
-  (2025), 572--608.
+  (2025), 572--608, arXiv:\href{https://arxiv.org/abs/2406.17593}{2406.17593}.
+  Statement and section numbers cited here follow arXiv version~4.
 \bibitem{land2026} J.~Land,
   \href{https://github.com/beetree/math_erdos_251}{\emph{A conditional proof of
   the irrationality of $\sum_{n\ge1}p_n2^{-n}$ under a uniform
@@ -1478,6 +1495,12 @@ cofinal irrationality classifier & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{1572
   Exercise~6.2.5, p.~183,
   doi:\href{https://doi.org/10.1017/CBO9780511618314}
   {10.1017/CBO9780511618314}.
+\bibitem{vandoornkovac2025} W.~van Doorn and V.~Kova\v{c},
+  \href{https://doi.org/10.4064/aa251001-13-1}{\emph{Lacunary sequences whose
+  reciprocal sums represent all rational numbers in an interval}},
+  Acta Arith. \textbf{223} (2026), 275--295,
+  arXiv:\href{https://arxiv.org/abs/2509.24971}{2509.24971}.
+  Statement numbers cited here follow arXiv version~3.
 \bibitem{zhang2014} Y.~Zhang,
   \href{https://doi.org/10.4007/annals.2014.179.3.7}
   {\emph{Bounded gaps between primes}},

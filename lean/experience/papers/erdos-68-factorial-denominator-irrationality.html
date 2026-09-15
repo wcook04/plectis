@@ -604,20 +604,27 @@ and
 \liminf_{N\to\infty}\frac{\log L_N}{N^{3/2}\log N}
 \ge\frac{2\sqrt2}{3}.\label{res:lcm-growth}
 \end{equation}</annotation></semantics></math> The LCM asymptotic is
-proved here by an ordinary mathematical argument. The linked asymptotic
-Lean files are proof candidates and are not being cited as kernel
-verification. The separate public Lean release <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E68/Challenge.lean#L249"><code>wcook04/plectis-erdos-lean</code></a>
-at commit <code>52f29ad1</code> states the bound , with the least common
-multiple of
+proved here by an ordinary mathematical argument. The asymptotic and
+liminf Lean files of <code>wcook04/plectis-erdos</code> linked later in
+this note are proof candidates and are not being cited as kernel
+verification. The separate public Lean release
+<code>wcook04/plectis-erdos-lean</code> at commit <code>52f29ad1</code>
+states the bound , with the least common multiple of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
 over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">2\le n\le N</annotation></semantics></math>
 as the common denominator, as <code>common_denominator_growth</code> and
-in extended real form as <code>common_denominator_growth_liminf</code>
-in <code>PalomarCorpus/E68/Challenge.lean</code>, and proves both. That
-repository’s Linux replay of Palomar’s Comparator stage accepted the
-entry with the Lean kernel and with NanoDa (<a
+in extended real form as <code>common_denominator_growth_liminf</code>.
+The statements are in the Comparator challenge file <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E68/Challenge.lean#L249"><code>PalomarCorpus/E68/Challenge.lean</code></a>,
+where the proofs are left as <code>sorry</code>. The solution file <a
+href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/Solutions/PalomarCorpus/E68/CommonDenominatorGrowth.lean#L17"><code>Solutions/PalomarCorpus/E68/CommonDenominatorGrowth.lean</code></a>
+closes both by transfer from <code>common_denominator_growth</code> in
+<code>ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean</code> and
+<code>common_denominator_growth_liminf</code> in
+<code>ErdosProblems/Erdos68/PaperCompleteLiminf.lean</code> of the same
+release. That repository’s Linux replay of Palomar’s Comparator stage
+accepted the entry with the Lean kernel and with NanoDa (<a
 href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633">run
 34782407633</a>). The checked bound concerns a common denominator of the
 partial sums and bounds no reduced denominator of a rational
@@ -639,21 +646,40 @@ maximised by
 For a fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P\in\mathbb Z[X]\setminus\{0\}</annotation></semantics></math>,
 the same ordinary argument gives this bound for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{lcm}_{n_0\le n\le N}(n!+P(n))</annotation></semantics></math>,
-where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{lcm}_{n_0\le n\le N}(n!+P(n))</annotation></semantics></math>.
+Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mn>0</mn></msub><annotation encoding="application/x-tex">n_0</annotation></semantics></math>
-is sufficiently large that all factors are positive and the collision
-differences below are nonzero, as in Lai’s Lemma 2.1 <span
-class="citation" data-cites="lai"></span>. The lower cutoff matters:
+is chosen so that every factor exceeds
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+and every collision difference below is nonzero. Such a cutoff exists
+by <span class="citation" data-cites="lai"><a href="#ref-7">[7]</a></span>, where Lai adds the
+bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+P(n)&gt;1</annotation></semantics></math>
+to the nonvanishing statement of Lemma 3 of Luca and Shparlinski <span
+class="citation" data-cites="luca-shparlinski"></span>. The lower cutoff
+matters:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">P=-2</annotation></semantics></math>
 makes the factor at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n=2</annotation></semantics></math>
-vanish. The argument uses
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>;</mo></mrow><annotation encoding="application/x-tex">\gcd(i!+P(i),j!+P(j))\mid P(j)-(j!/i!)P(i);</annotation></semantics></math>
-the additional
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mn>2</mn></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_P(k^2\log N)</annotation></semantics></math>
-loss is lower order. The subtraction identity is recorded by Lai <span
-class="citation" data-cites="lai"></span>. For
+vanish. Multiplying the factor at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">j!/i!</annotation></semantics></math>
+and subtracting the factor at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\gcd(i!+P(i),j!+P(j))\mid P(j)-(j!/i!)P(i).</annotation></semantics></math>
+The same subtraction bounds a common divisor in the proof of Lemma 5 of
+Luca and Shparlinski <span class="citation"
+data-cites="luca-shparlinski"><a href="#ref-8">[8]</a></span>, and a common prime-power divisor
+at display (2.5) of Lai <span class="citation" data-cites="lai"><a href="#ref-7">[7]</a></span>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>j</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">n_0\le i&lt;j\le N</annotation></semantics></math>
+the right side is a nonzero integer of absolute value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mrow><mspace width="0.167em"></mspace><mi>j</mi><mo>−</mo><mi>i</mi><mo>+</mo><mrow><mi mathvariant="normal">deg</mi><mo>&#8289;</mo></mrow><mi>P</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_P(N^{\,j-i+\deg P})</annotation></semantics></math>,
+so the block loses an additional
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>P</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mn>2</mn></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_P(k^2\log N)</annotation></semantics></math>,
+which is lower order. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P=0</annotation></semantics></math>,
 the lcm is only
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">N!</annotation></semantics></math>.
@@ -723,7 +749,30 @@ nonintegrality.</p>
 <section id="sec:prime-pole" class="level2">
 <h2>Cancellation in a reduced prefix</h2>
 <p>A common-denominator bound does not determine the denominator after
-addition. Put
+addition. For linear forms in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-adic
+zeta values, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">p\ge5</annotation></semantics></math>
+a fixed prime and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+the index of the form, Lai, Lupu and Sprang quantify a gap of this kind.
+They bound the denominators of the coefficients by powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(1,\ldots,n)</annotation></semantics></math>
+and show that the bound may be divided by a product
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\Phi_n</annotation></semantics></math>
+of prime powers <span class="citation"
+data-cites="lai-lupu-sprang"><a href="#ref-9">[9]</a></span>. The growth rate of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\Phi_n</annotation></semantics></math> <span
+class="citation" data-cites="lai-lupu-sprang"></span> enters the
+inequality <span class="citation" data-cites="lai-lupu-sprang"><a href="#ref-9">[9]</a></span>
+under which the rescaled forms, which have integer coefficients, meet
+the irrationality criterion quoted in <span class="citation"
+data-cites="lai-lupu-sprang"><a href="#ref-9">[9]</a></span>: nonzero values whose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-adic
+size, multiplied by the largest absolute value of a coefficient, tends
+to zero. For the prefix sums no asymptotic saving of this kind is
+established here; the first-layer test below decides, one prime at a
+time, whether the largest power of that prime survives reduction. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>M</mi></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>M</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_M=\operatorname{lcm}_{2\le n\le M}(n!-1)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>M</mi></msub><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><mi>M</mi></msubsup><msub><mi>L</mi><mi>M</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_M=\sum_{n=2}^M L_M/(n!-1)</annotation></semantics></math>.
@@ -1229,9 +1278,22 @@ href="https://doi.org/10.4064/aa118-4-5">10.4064/aa118-4-5</a>.</p></li>
 <li id="ref-6"><p>J. Louwsma and J. Martino, , arXiv:<a
 href="https://arxiv.org/abs/2309.07280">2309.07280v1</a>, 2023,
 Lemma 4.1, p. 10.</p></li>
-<li id="ref-7"><p>L. Lai, , arXiv:<a
-href="https://arxiv.org/abs/2103.14894">2103.14894v1</a>, 2021, proof of
-Lemma 2.4, (2.5).</p></li>
+<li id="ref-7"><p>L. Lai, , Bull. Aust. Math. Soc. <strong>113</strong> (2026),
+no. 3, 390–403, doi:<a
+href="https://doi.org/10.1017/S0004972725100543">10.1017/S0004972725100543</a>;
+arXiv:<a href="https://arxiv.org/abs/2103.14894">2103.14894</a>.
+Lemma 2.1, p. 392; display (2.5) in the proof of Lemma 2.4,
+p. 394.</p></li>
+<li id="ref-8"><p>F. Luca and I. E. Shparlinski, , Bull. London
+Math. Soc. <strong>37</strong> (2005), no. 6, 809–817, doi:<a
+href="https://doi.org/10.1112/S0024609305004923">10.1112/S0024609305004923</a>.
+Lemma 3, p. 810; proof of Lemma 5, p. 811.</p></li>
+<li id="ref-9"><p>L. Lai, C. Lupu, and J. Sprang, ,
+Res. Math. Sci. <strong>12</strong> (2025), no. 4, Paper No. 77, doi:<a
+href="https://doi.org/10.1007/s40687-025-00559-x">10.1007/s40687-025-00559-x</a>;
+arXiv:<a href="https://arxiv.org/abs/2505.23088v1">2505.23088v1</a>.
+Numbered as in arXiv v1: Lemma 2.1, p. 3; §5, pp. 10–14; Lemma 7.3,
+p. 20; (8.1), p. 22.</p></li>
 </ol>
 </section>
   </div>

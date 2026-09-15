@@ -239,6 +239,20 @@ class="math inline" data-term-auto="off">\(j!/i!\)</span> is a product of <span
 class="math inline" data-term-auto="off">\(j-i\)</span> integers each at most <span
 class="math inline" data-term-auto="off">\(j\)</span>. ◻</p>
 </div>
+<p>The divisibility <span class="math inline" data-term-auto="off">\(g\mid j!/i!-1\)</span>
+is the case <span class="math inline" data-term-auto="off">\(P=-1\)</span> of the relation
+<span class="math inline" data-term-auto="off">\(\gcd(i!+P(i),j!+P(j))\mid
+(j!/i!)P(i)-P(j)\)</span> for <span
+class="math inline" data-term-auto="off">\(P\in\Z[X]\)</span>, obtained by multiplying <span
+class="math inline" data-term-auto="off">\(i!+P(i)\)</span> by <span
+class="math inline" data-term-auto="off">\(j!/i!\)</span> and subtracting <span
+class="math inline" data-term-auto="off">\(j!+P(j)\)</span>. Luca and Shparlinski use this
+relation to bound a common divisor of <span
+class="math inline" data-term-auto="off">\(n!+P(n)\)</span> and <span
+class="math inline" data-term-auto="off">\((n+h)!+P(n+h)\)</span> in the proof of Lemma 5
+of <span class="citation" data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, and Lai
+uses it for a common prime-power divisor at display (2.5) of <span
+class="citation" data-cites="lai"></span>.</p>
 <div class="lemma" id="long68:res:segment">
 <p><strong>Lemma 6</strong> (segment inequality). <em> For <span
 class="math inline" data-term-auto="off">\(2\le k\le N-1\)</span>, </em></p>
@@ -335,6 +349,49 @@ were for factorial values shifted by one; least common multiples of
 consecutive integers and of linear recurrences are a different family.
 The finding is that the statement is possibly known and was not
 located.</p>
+<div class="remark">
+<p><strong>Remark 1</strong> (polynomial shifts). <em>Fix <span
+class="math inline" data-term-auto="off">\(P\in\Z[X]\setminus\{0\}\)</span>. By Lemma 3 of
+Luca and Shparlinski <span class="citation"
+data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, in the form given by Lai <span
+class="citation" data-cites="lai"></span>, there is <span
+class="math inline" data-term-auto="off">\(n_0\ge2\)</span>, depending only on <span
+class="math inline" data-term-auto="off">\(P\)</span>, such that <span
+class="math inline" data-term-auto="off">\(n!+P(n)&gt;1\)</span> for all <span
+class="math inline" data-term-auto="off">\(n\ge n_0\)</span> and <span
+class="math inline" data-term-auto="off">\(P(n)(n+1)\cdots(n+h)\ne P(n+h)\)</span> for all
+<span class="math inline" data-term-auto="off">\(n\ge n_0\)</span> and <span
+class="math inline" data-term-auto="off">\(h\ge1\)</span>. The proof of Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a> then gives
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\liminf_{N\to\infty}
+\frac{\log\lcm\{n!+P(n):n_0\le n\le N\}}{N^{3/2}\log N}
+\ \ge\ \frac{2\sqrt2}{3}.\]</span></div>
+<p><em> For <span
+class="math inline" data-term-auto="off">\(n_0\le i&lt;j\le N\)</span>, multiplying <span
+class="math inline" data-term-auto="off">\(i!+P(i)\)</span> by <span
+class="math inline" data-term-auto="off">\(j!/i!\)</span> and subtracting <span
+class="math inline" data-term-auto="off">\(j!+P(j)\)</span> gives </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\gcd\bigl(i!+P(i),\,j!+P(j)\bigr)\ \Big|\
+\frac{j!}{i!}P(i)-P(j),\]</span></div>
+<p class="display-continue"><em> which replaces Lemma <a class="math-ref" href="#long68:res:gap-gcd">5</a>. The right-hand
+side is nonzero by the choice of <span
+class="math inline" data-term-auto="off">\(n_0\)</span>, and its absolute value is at most
+<span class="math inline" data-term-auto="off">\(C_PN^{\,j-i+\deg P}\)</span> for a constant
+<span class="math inline" data-term-auto="off">\(C_P\)</span>. Over a block of <span
+class="math inline" data-term-auto="off">\(k\)</span> indices the pairwise loss therefore
+grows by <span class="math inline" data-term-auto="off">\(O_P(k^2\log N)\)</span>, which is
+<span class="math inline" data-term-auto="off">\(O_P(N\log N)\)</span> when <span
+class="math inline" data-term-auto="off">\(k=\lfloor\alpha\sqrt N\rfloor\)</span>. Since
+<span class="math inline" data-term-auto="off">\(n!+P(n)\ge n!/2\)</span> for large <span
+class="math inline" data-term-auto="off">\(n\)</span>, the lower estimate for the sum of
+logarithms is unchanged. The cutoff is needed, since for <span
+class="math inline" data-term-auto="off">\(P=-2\)</span> the factor at <span
+class="math inline" data-term-auto="off">\(n=2\)</span> vanishes. The hypothesis <span
+class="math inline" data-term-auto="off">\(P\ne0\)</span> is needed as well, since for <span
+class="math inline" data-term-auto="off">\(P=0\)</span> the least common multiple is <span
+class="math inline" data-term-auto="off">\(N!\)</span> whatever the cutoff.</em></p>
+</div>
 <p>The constant <span class="math inline" data-term-auto="off">\(2\sqrt2/3\)</span> is the
 best this argument gives. The gain from a block of <span
 class="math inline" data-term-auto="off">\(k\)</span> indices is largest at the top of the
@@ -382,6 +439,27 @@ summands of <span class="math inline" data-term-auto="off">\(H_N\)</span>. The p
 analysis describes which factors survive reduction, but it does not yet
 supply the required upper control on <span
 class="math inline" data-term-auto="off">\(Q_N\)</span>.</p>
+<p>For linear forms in <span class="math inline" data-term-auto="off">\(p\)</span>-adic zeta
+values, with <span class="math inline" data-term-auto="off">\(p\ge5\)</span> a fixed prime
+and <span class="math inline" data-term-auto="off">\(n\)</span> the index of the form, Lai,
+Lupu and Sprang quantify a saving of this kind. They bound the
+denominators of the coefficients by powers of <span
+class="math inline" data-term-auto="off">\(\lcm(1,\ldots,n)\)</span>, show that the bound may
+be divided by a product <span class="math inline" data-term-auto="off">\(\Phi_n\)</span> of
+prime powers, and compute the growth rate of <span
+class="math inline" data-term-auto="off">\(\Phi_n\)</span> <span class="citation"
+data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span>. That saving enters the
+inequality <span class="citation" data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span>
+under which the rescaled forms, which have integer coefficients, meet
+the irrationality criterion quoted in <span class="citation"
+data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span>: nonzero values whose <span
+class="math inline" data-term-auto="off">\(p\)</span>-adic size, multiplied by the largest
+absolute value of a coefficient, tends to zero. The corresponding saving
+for <span class="math inline" data-term-auto="off">\(H_N\)</span> is the ratio <span
+class="math inline" data-term-auto="off">\(L_N/Q_N\)</span>. Theorem <a class="math-ref" href="#long68:res:prime-pole">2</a> decides, for
+each prime <span class="math inline" data-term-auto="off">\(p\mid L_N\)</span>, whether <span
+class="math inline" data-term-auto="off">\(p\)</span> divides this ratio; no asymptotic lower
+bound for the ratio is established here.</p>
 </section>
 <section id="long68:sec:carry" class="level2">
 <h2>Carries and the rationality boundary</h2>
@@ -1620,10 +1698,18 @@ identification of the digit value <span
 class="math inline" data-term-auto="off">\(m-2\)</span>, and the transport to the shifted
 family. The multiplicity bound is Garaev, Luca and Shparlinski’s <span
 class="citation" data-cites="garaev-luca-shparlinski"></span>, and the
-lcm deduction from it is not theirs. The survival criterion is a
-specialisation of Louwsma and Martino’s valuation formula <span
-class="citation" data-cites="louwsma-martino"></span>. For the Wilson
-cofinality packaging, the finite radius bound and Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a>, no
+lcm deduction from it is not theirs. The divisibility in Lemma <a class="math-ref" href="#long68:res:gap-gcd">5</a> is the case
+<span class="math inline" data-term-auto="off">\(P=-1\)</span> of the relation used in the
+proof of Lemma 5 of Luca and Shparlinski <span class="citation"
+data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span> and at display (2.5) of Lai <span
+class="citation" data-cites="lai"></span>. The nonvanishing cutoff for
+polynomial shifts is Lemma 3 of <span class="citation"
+data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, restated with the bound <span
+class="math inline" data-term-auto="off">\(n!+P(n)&gt;1\)</span> in <span class="citation"
+data-cites="lai"><a href="#ref-13">[13]</a></span>. The survival criterion is a specialisation of
+Louwsma and Martino’s valuation formula <span class="citation"
+data-cites="louwsma-martino"><a href="#ref-3">[3]</a></span>. For the Wilson cofinality
+packaging, the finite radius bound and Theorem <a class="math-ref" href="#long68:res:lcm-growth">7</a>, no
 antecedent was located, which is a negative search result, and no
 priority is claimed.</p>
 </section>
@@ -2557,6 +2643,26 @@ doi:10.4064/aa118-4-5.</p></li>
 Graham</em>, arXiv:<a
 href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,
 Theorems 2–3 and Remark 4.</p></li>
+<li id="ref-12"><p>F. Luca and I. E. Shparlinski, <em>Prime divisors of shifted
+factorials</em>, Bull. London Math. Soc. <strong>37</strong> (2005),
+no. 6, 809–817. doi:<a
+href="https://doi.org/10.1112/S0024609305004923">10.1112/S0024609305004923</a>.
+Lemma 3, p. 810; proof of Lemma 5, p. 811.</p></li>
+<li id="ref-13"><p>L. Lai, <em>On the largest prime divisor of <span
+class="math inline" data-term-auto="off">\(n!+1\)</span></em>,
+Bull. Aust. Math. Soc. <strong>113</strong> (2026), no. 3, 390–403.
+doi:<a
+href="https://doi.org/10.1017/S0004972725100543">10.1017/S0004972725100543</a>;
+arXiv:<a href="https://arxiv.org/abs/2103.14894">2103.14894</a>.
+Lemma 2.1, p. 392; display (2.5) in the proof of Lemma 2.4,
+p. 394.</p></li>
+<li id="ref-14"><p>L. Lai, C. Lupu, and J. Sprang, <em>On the irrationality of
+certain <span class="math inline" data-term-auto="off">\(p\)</span>-adic zeta values</em>,
+Res. Math. Sci. <strong>12</strong> (2025), no. 4, Paper No. 77. doi:<a
+href="https://doi.org/10.1007/s40687-025-00559-x">10.1007/s40687-025-00559-x</a>;
+arXiv:<a href="https://arxiv.org/abs/2505.23088v1">2505.23088v1</a>.
+Numbered as in arXiv v1: Lemma 2.1, p. 3; Lemmas 5.3–5.7, pp. 10–14;
+Lemma 7.3, p. 20; (8.1), p. 22.</p></li>
 </ol>
 </section>
   </div>
