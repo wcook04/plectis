@@ -22,7 +22,7 @@ and
 The following theorem gives a unique coordinate system at every finite
 level.</p>
 <div class="theorem">
-<p><strong>Theorem 1</strong> (exact rank of every totient
+<p><strong>Theorem 1.1</strong> (exact rank of every totient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-kernel
 truncation). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
@@ -203,7 +203,7 @@ with the Euler product written out, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos249/PaperCompleteR7/KernelIntegral.lean#L226">maximal
 power reduction</a>.</p>
 <div class="corollary">
-<p><strong>Corollary 2</strong> (Dyadic basis). <em> The family
+<p><strong>Corollary 1.2</strong> (Dyadic basis). <em> The family
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mn>0</mn><mo>,</mo><mn>0</mn></mrow></msub><mo>,</mo><msub><mi>φ</mi><mrow><mn>1</mn><mo>,</mo><mn>0</mn></mrow></msub><mo stretchy="false" form="postfix">}</mo><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo>:</mo><mi>j</mi><mo>≥</mo><mn>1</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>0</mn><mo>&lt;</mo><mi>r</mi><mo>&lt;</mo><msup><mn>2</mn><mi>j</mi></msup><mo>,</mo><mspace width="0.222em"></mspace><mi>r</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> odd</mtext></mrow><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>φ</mi><mrow><mi>j</mi><mo>,</mo><mi>r</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mi>n</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\{\varphi_{0,0},\varphi_{1,0}\}
  \cup\{\varphi_{j,r}:j\ge1,\ 0&lt;r&lt;2^j,\ r\text{ odd}\},
  \qquad \varphi_{j,r}(n)=\varphi(2^jn+r),</annotation></semantics></math>
@@ -219,7 +219,7 @@ note; <code>PaperCompleteR7/ArithmeticAssemblies.lean</code> is not in
 this checkout. ◻</p>
 </div>
 <div class="corollary">
-<p><strong>Corollary 3</strong> (Integral normal form). <em> Let
+<p><strong>Corollary 1.3</strong> (Integral normal form). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>.
@@ -372,7 +372,7 @@ is therefore sent to a positive integer multiple of an element of
 <section id="a-reusable-consequence" class="level3">
 <h3>A reusable consequence</h3>
 <div class="corollary">
-<p><strong>Corollary 4</strong> (Freezing periodic coefficients). <em>
+<p><strong>Corollary 1.4</strong> (Freezing periodic coefficients). <em>
 If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>i</mi></msub><annotation encoding="application/x-tex">L_i</annotation></semantics></math>
 are pairwise nonproportional positive-slope affine forms and
@@ -407,7 +407,7 @@ replace the two evaluations used above.</p>
 neighbouring coefficients to vanish while retaining one central
 value.</p>
 <div class="theorem">
-<p><strong>Theorem 5</strong>. <em> For every
+<p><strong>Theorem 2.1</strong>. <em> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>m</mi></mrow><msup><mn>2</mn><mi>n</mi></msup></mfrac><mo>∉</mo><mi mathvariant="double-struck">ℚ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">A_m=\sum_{n\ge1}\frac{\varphi(n)\operatorname{mod} m}{2^n}\notin\mathbb{Q}.</annotation></semantics></math>
 For
@@ -424,7 +424,7 @@ its value is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>4</mn><mo>+</mo><mi>c</mi><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3f(1)/4+c/4</annotation></semantics></math>.</em></p>
 </div>
 <div class="lemma">
-<p><strong>Lemma 6</strong> (A bounded isolated pulse). <em> Let
+<p><strong>Lemma 2.2</strong> (A bounded isolated pulse). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a_n\in\mathbb{Z}</annotation></semantics></math>
 satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">|a_n|\le C</annotation></semantics></math>.
@@ -597,7 +597,7 @@ choosing
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>L</mi></msup><mo stretchy="false" form="postfix">∥</mo><msub><mi mathvariant="normal">Δ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><msub><mo stretchy="false" form="postfix">∥</mo><mrow><mi mathvariant="double-struck">ℝ</mi><mi>/</mi><mi mathvariant="double-struck">ℤ</mi></mrow></msub><mo>&gt;</mo><mn>2</mn><mi>B</mi></mrow><annotation encoding="application/x-tex">2^L\|\Delta_h(N)\|_{\mathbb{R}/\mathbb{Z}}&gt;2B</annotation></semantics></math>.</p>
 <div class="theorem">
-<p><strong>Theorem 7</strong> (Full-depth amplification). <em> Fix
+<p><strong>Theorem 3.1</strong> (Full-depth amplification). <em> Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d\ge1</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N\ge0</annotation></semantics></math>.
@@ -685,7 +685,7 @@ Euler’s theorem makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 integral.</p>
 <div class="equivform">
-<p><strong>Equivalent formulation 8</strong> (Canonical Mersenne gap).
+<p><strong>Equivalent formulation 3.2</strong> (Canonical Mersenne gap).
 <em> The series
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 is irrational if and only if, for every
@@ -887,7 +887,7 @@ proof is <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L534">the
 sharp-floor argument</a> in the linked source.</p>
 <div class="theorem">
-<p><strong>Theorem 9</strong> (Positive rank-one floor). <em> For
+<p><strong>Theorem 4.1</strong> (Positive rank-one floor). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e\ge1</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">Y\ge4</annotation></semantics></math>,
@@ -986,7 +986,7 @@ not an opening statement of this note. Write
  \lVert\mathrm{pivotNonSupplier}\rVert&amp;\le\tfrac8{25}X.
  \end{aligned}</annotation></semantics></math></p>
 <div class="problem">
-<p><strong>Problem 10</strong> (first-harmonic anti-concentration on
+<p><strong>Problem 5.1</strong> (first-harmonic anti-concentration on
 supplier fibres). <em> For each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math>,
 do there exist

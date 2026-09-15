@@ -1,0 +1,16 @@
+{
+  "note": "Public source commits this deploy was generated from. The next deploy reads this file and refuses to publish a build whose sources do not contain these commits, unless it is run with --allow-older-than-live.",
+  "schema": "plectis_site_deploy_provenance_v1",
+  "sources": {
+    "plectis": {
+      "commit": "70b1dedbc294a22cb1924727b06e406fd32c8bc5",
+      "ref": "main",
+      "repository": "wcook04/plectis"
+    },
+    "plectis-erdos": {
+      "commit": "ecac473a5b61d28c3609f79461c9c9f70d03df66",
+      "ref": "main",
+      "repository": "wcook04/plectis-erdos"
+    }
+  }
+}

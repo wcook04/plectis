@@ -56,9 +56,9 @@ class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span> turns a boun
 error into a bound on upward increments. Small increments alone are
 insufficient. The arithmetic input is that, after the common divisor
 stabilises, every old multiplier must remain coprime to every later
-numerator. The Chinese remainder theorem then produces a block of
-forbidden heights that no permitted jump can cross. A numerator tending
-to infinity would have to cross it. Section <a class="math-ref" href="#sec:lcmrecords">6</a> adapts this crossing
+reduced numerator. The Chinese remainder theorem then produces a block
+of forbidden heights that no permitted jump can cross. A numerator
+tending to infinity would have to cross it. Section <a class="math-ref" href="#sec:lcmrecords">6</a> adapts this crossing
 argument when only jumps setting new records are charged.</p>
 <p>Write <span
 class="math inline" data-term-auto="off">\(\operatorname{ctr}(a,D,C)=D-(a-1)C\)</span>. The
@@ -96,12 +96,13 @@ class="math inline" data-term-auto="off">\(n\ge N\)</span>.</em></p></li>
 <p><em>Then <span class="math inline" data-term-auto="off">\(E_n=0\)</span> for all
 sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>: this is the
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
-rigidity</a>.</em></p>
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2352">eventual
+bounded-negative rigidity</a>.</em></p>
 </div>
-<p>The eventual form follows by shifting past the centring and
-lower-bound thresholds; its exact source is linked in the formal-scope
-paragraph below.</p>
+<p>The Lean proof shifts the orbit past the centring and lower-bound
+thresholds and applies the <a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
+rigidity</a>, with centring and bound at every index.</p>
 <div class="problem" id="res:problem">
 <p><strong>Problem 1.3</strong> (Erdős #243). <em> Let <span
 class="math inline" data-term-auto="off">\(1\le a_1&lt;a_2&lt;\cdots\)</span> be a sequence
@@ -837,7 +838,7 @@ and the bounded-negative-part theorem are in
 <code>ReciprocalTailRigidity.lean</code>; the finite-negative-mass
 theorem is in <code>SparseResetRecovery.lean</code>; and the
 repair-entropy inequalities are in <code>RepairEntropy.lean</code>. The
-residue reduction of Appendix <a class="math-ref" href="#app:residue">10</a> is in
+residue reduction of Appendix <a class="math-ref" href="#app:residue">B</a> is in
 <code>FiniteHorizonResidue.lean</code>. Three distinctions are worth
 carrying into the source. The identification of any of these modules
 with reciprocal tails is the exposition of Section <a class="math-ref" href="#sec:transfer">4</a> and is not a checked

@@ -379,8 +379,16 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/publication_contra
 and copies the PDFs into their problem or systems directory under
 <code>paper/</code>. The temporary build PDFs in <code>paper/</code> are
 not the published copies.</p>
+<p>To rebuild one paper, run <code>make -C paper &lt;stem&gt;.pdf</code>
+and then <code>python3 scripts/sync_publication_pdfs.py</code>, which
+copies the fresh PDF into place. Each copy is recorded in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/build-manifest.json"><code>build-manifest.json</code></a> with the
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-digest" data-term="digest" data-term-auto="1">digest</a> of the PDF and of every TeX input it was <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-compiler" data-term="compiler" data-term-auto="1">compiled</a> from, and a
+build output older than one of its inputs is refused. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>
+fail when a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a> PDF is not the recorded build of its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-commit" data-term="commit" data-term-auto="1">committed</a>
+inputs.</p>
 <p>After editing a manuscript, rebuild its PDF before updating its
-recorded <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-digest" data-term="digest" data-term-auto="1">digests</a>. The following command previews <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-digest" data-term="digest" data-term-auto="1">digest</a> changes; add
+recorded <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-digest" data-term="digest" data-term-auto="1">digests</a>. The following command previews <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-digest" data-term="digest" data-term-auto="1">digest</a> changes; add
 <code>--apply</code> only after reviewing the source and rebuilt
 PDF:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/check_publication_contract.py <span class="at">--restamp</span></span></code></pre></div>

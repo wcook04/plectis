@@ -238,11 +238,11 @@ expectation likewise does not decide the fixed-denominator problem
 \cite{kovac2026}.  An adjacent dyadic theorem of Erd\H{o}s and Pomerance
 concerns bounded digits recording comparisons of the largest prime factors
 of consecutive integers~\cite[\S7]{erdospomerance1978}; our prime numerators
-and gaps are unbounded.  Land posted in 2026 a proof of irrationality
-conditional on Kuperberg's uniform Hardy-Littlewood prime-tuples conjecture,
-together with a Lean formalisation of that conditional
-argument~\cite{land2026}.  Nothing in this note is conditional on a
-prime-tuples hypothesis, and Erd\H{o}s Problem~\#251 remains open
+and gaps are unbounded.  Land posted a proof of irrationality~\cite{land2026},
+and Ringer a proof that $\sum_n p_nB^{-n}$ is normal to base~$B$ for each
+integer $B\ge2$~\cite{ringer2026}, both assuming Kuperberg's uniform
+Hardy-Littlewood prime-tuples conjecture and formalised in Lean.  Nothing in this note
+assumes a prime-tuples hypothesis, and Erd\H{o}s Problem~\#251 remains open
 unconditionally.  Interval filling of the kind used in
 Proposition~\ref{res:sparserationalisation} has recent precedents for sums of
 unit fractions.  Kova\v{c} and Tao use it to show that bounded perturbations
@@ -1523,6 +1523,11 @@ cofinal irrationality classifier & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{1572
   \href{https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/251.lean}
   {\emph{FormalConjectures.ErdosProblems.\texttt{251}}},
   Lean source at commit \texttt{f776d2f}, 2025, accessed 28 July 2026.
+\bibitem{ringer2026} S.~Ringer,
+  \href{https://github.com/StefanRinger/erdos-251}{\emph{Local gap statistics,
+  telescoping, and normality}}, preprint with a Lean formalisation,
+  11~September~2026, Corollary~1.2; submitted as a partial proof claim at
+  \texttt{erdosproblems.com/251} on 13~September~2026.
 \end{thebibliography}
 
 \companionpapercontext

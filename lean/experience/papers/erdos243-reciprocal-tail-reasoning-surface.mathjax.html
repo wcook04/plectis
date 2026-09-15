@@ -1100,8 +1100,8 @@ These sections contain the new content; a reader who wants only the
 strongest statements should read Section <a class="math-ref" href="#long243:sec:cubicrate">2</a>, then
 Sections <a class="math-ref" href="#long243:sec:lcmrecords">6</a> and <a class="math-ref" href="#long243:sec:records">7</a>, and then
 Section <a class="math-ref" href="#long243:sec:open">14</a>.
-Appendix <a class="math-ref" href="#long243:app:index">15</a> is
-a guide to the formal sources, and Appendix <a class="math-ref" href="#long243:app:residue">16</a> records an
+Appendix <a class="math-ref" href="#long243:app:index">A</a> is
+a guide to the formal sources, and Appendix <a class="math-ref" href="#long243:app:residue">B</a> records an
 exact residue reduction that an earlier finite search used. Linked
 phrases open the corresponding Lean declaration at the pinned source
 revision 92b88dc1bbe0. Where a section names a Lean module that is
@@ -1330,7 +1330,7 @@ equivariance</a>, and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L75">centred
 equivariance</a>. The system depends only on the ray through <span
 class="math inline" data-term-auto="off">\((D,C)\)</span>. This is used twice below: once to
-normalise the finite search of Appendix <a class="math-ref" href="#long243:app:residue">16</a>, and once, in
+normalise the finite search of Appendix <a class="math-ref" href="#long243:app:residue">B</a>, and once, in
 Theorem <a class="math-ref" href="#long243:res:periodic">10.1</a>,
 as the induction step that removes common scale.</p>
 </section>
@@ -2573,7 +2573,7 @@ class="math inline" data-term-auto="off">\(D_2=a_1D_1=9\)</span>; at <span
 class="math inline" data-term-auto="off">\(n=2\)</span> it reads <span
 class="math inline" data-term-auto="off">\(10=(a_2-1)\cdot3\)</span>, which has no integer
 solution, and the orbit stops. Longer prefixes occur for other starting
-values: the finite search recorded in Appendix <a class="math-ref" href="#long243:app:residue">16</a> found none
+values: the finite search recorded in Appendix <a class="math-ref" href="#long243:app:residue">B</a> found none
 longer than <span class="math inline" data-term-auto="off">\(17\)</span> among the initial
 states below <span class="math inline" data-term-auto="off">\(5000\)</span>.</em></p>
 </div>
@@ -3183,13 +3183,14 @@ is eventually positive, and there the descent of Theorem <a class="math-ref" hr
 forces <span class="math inline" data-term-auto="off">\(E\)</span> to vanish, contradicting
 nowhere-vanishing. ◻</p>
 </div>
-<p>Formalised as the <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
-rigidity</a>, with the eventual form, in which the centring and the
-bound need only hold from some index, as the <a
+<p>Formalised, with hypotheses (4) and (5) holding from some index as
+stated, as the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2352">eventual
-bounded-negative-part rigidity</a>. The two auxiliary results it uses
-are the <a
+bounded-negative-part rigidity</a>. The Lean proof applies the <a
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2265">bounded-negative-part
+rigidity</a>, in which the centring and the bound hold at every index,
+to the orbit shifted past both thresholds. The two auxiliary results it
+uses are the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1733">divergence
 from normalised vanishing</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1748">exclusion
@@ -3728,7 +3729,7 @@ and the bounded-negative-part theorem are in
 <code>ReciprocalTailRigidity.lean</code>; the finite-negative-mass
 theorem is in <code>SparseResetRecovery.lean</code>; and the
 repair-entropy inequalities are in <code>RepairEntropy.lean</code>. The
-residue reduction of Appendix <a class="math-ref" href="#long243:app:residue">16</a> is in
+residue reduction of Appendix <a class="math-ref" href="#long243:app:residue">B</a> is in
 <code>FiniteHorizonResidue.lean</code>. Three distinctions are worth
 carrying into the source. The identification of any of these modules
 with reciprocal tails is the exposition of Section <a class="math-ref" href="#long243:sec:state">4</a> and is not a

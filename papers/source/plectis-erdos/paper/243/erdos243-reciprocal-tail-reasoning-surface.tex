@@ -2282,12 +2282,13 @@ of Theorem~\ref{long243:res:descent} applies and forces $E$ to vanish, contradic
 nowhere-vanishing.
 \end{proof}
 
-\noindent Formalised as the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{2265}{boundedNegativePart_eventually_zero}{bounded-negative-part
-rigidity}, with the eventual form, in which the centring and the bound need
-only hold from some index, as the
+\noindent Formalised, with hypotheses~(4) and~(5) holding from some index as
+stated, as the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{2352}{eventuallyBoundedNegativePart_eventually_zero}{eventual
-bounded-negative-part rigidity}.  The two auxiliary results it uses are the
+bounded-negative-part rigidity}.  The Lean proof applies the
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2265}{boundedNegativePart_eventually_zero}{bounded-negative-part
+rigidity}, in which the centring and the bound hold at every index, to the
+orbit shifted past both thresholds.  The two auxiliary results it uses are the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{1733}{tailState_tendsto_atTop_of_nonzero_normalizedVanishes}{divergence
 from normalised vanishing} and the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{1748}{no_cofinallyBoundedNegative_of_normalizedVanishes}{exclusion

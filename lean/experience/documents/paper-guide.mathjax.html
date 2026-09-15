@@ -295,6 +295,14 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/publication_contra
 and copies the PDFs into their problem or systems directory under
 <code>paper/</code>. The temporary build PDFs in <code>paper/</code> are
 not the published copies.</p>
+<p>To rebuild one paper, run <code>make -C paper &lt;stem&gt;.pdf</code>
+and then <code>python3 scripts/sync_publication_pdfs.py</code>, which
+copies the fresh PDF into place. Each copy is recorded in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/build-manifest.json"><code>build-manifest.json</code></a> with the
+digest of the PDF and of every TeX input it was compiled from, and a
+build output older than one of its inputs is refused. The release checks
+fail when a committed PDF is not the recorded build of its committed
+inputs.</p>
 <p>After editing a manuscript, rebuild its PDF before updating its
 recorded digests. The following command previews digest changes; add
 <code>--apply</code> only after reviewing the source and rebuilt

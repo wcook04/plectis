@@ -260,6 +260,18 @@ grouped by the problem whose note they serve.
 
   **Boundary.** Every #251 declaration in this release is unconditional and was proved independently of it. A proof conditional on a prime-tuples conjecture leaves Erdős #251 open unconditionally.
 
+- S. Ringer, *Local gap statistics, telescoping, and normality* (preprint, 11 September 2026, [github.com/StefanRinger/erdos-251](https://github.com/StefanRinger/erdos-251)), with a Lean formalisation whose conditional endpoint theorems take Kuperberg's Conjecture 1.3 as an explicit hypothesis
+
+  Corollary 1.2 deduces from Kuperberg's uniform Hardy-Littlewood prime-tuples conjecture that `∑_(n≥1) p_n B^(-n)` is normal to base `B` for each integer `B ≥ 2`, which gives irrationality at `B = 2`. Appendix C proves unconditionally that `∑_(n≥1) p_n B^(-S_n)` with `S_n = ∑_(j≤n) ⌈log_B log(j+3)⌉` is normal to base `B`. The preprint was submitted as a partial proof claim on the problem page on 13 September 2026. The #251 note and reasoning record both cite it.
+
+  **Boundary.** Every #251 declaration in this release is unconditional and was proved independently of it. A normality proof conditional on a prime-tuples conjecture leaves Erdős #251 open unconditionally.
+
+- W. van Doorn and V. Kovač, [*Lacunary sequences whose reciprocal sums represent all rational numbers in an interval* (Acta Arith. 223 (2026), 275–295)](https://doi.org/10.4064/aa251001-13-1) ([arXiv:2509.24971v3](https://arxiv.org/abs/2509.24971v3); [read source closure](primary-sources/reciprocal-tail/van-doorn-kovac-2026-source-closure.md))
+
+  Proposition 8 proves that the finite reciprocal sums take every rational value in an interval, combining the dense filling of Lemma 7 with a divisibility chain among distinguished terms that eventually absorbs every positive integer. The #251 note and reasoning record cite both statements beside the interval-filling and divisibility-chain steps of the sparse rationalisation construction.
+
+  **Boundary.** The source concerns finite sums of unit fractions and has no prime numerators. The #251 construction uses its own factorial moduli and does not invoke Proposition 8.
+
 ### #269
 
 - Y. Bugeaud and M. Laurent, Hecke–Mahler transcendence (Theorem 1.1 as cited in the #269 note), doi:10.4064/aa220323-18-1

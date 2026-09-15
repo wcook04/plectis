@@ -92,7 +92,7 @@ failure of this identity.  Its update $C_{n+1}=C_n-E_n$ turns a bound on
 negative error into a bound on upward increments.  Small increments alone
 are insufficient.  The arithmetic input is that, after the common divisor
 stabilises, every old multiplier must remain coprime to every later
-numerator.  The Chinese remainder theorem then produces a block of
+reduced numerator.  The Chinese remainder theorem then produces a block of
 forbidden heights that no permitted jump can cross.  A numerator tending
 to infinity would have to cross it.  Section~\ref{sec:lcmrecords} adapts this crossing
 argument when only jumps setting new records are charged.
@@ -116,10 +116,12 @@ for some $B$;
 $K\,|E_n|<C_n$ for all $n\ge N$.
 \end{enumerate}
 Then $E_n=0$ for all sufficiently large $n$: this is the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{2265}{boundedNegativePart_eventually_zero}{bounded-negative-part rigidity}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2352}{eventuallyBoundedNegativePart_eventually_zero}{eventual bounded-negative rigidity}.
 \end{theorem}
-The eventual form follows by shifting past the centring and lower-bound
-thresholds; its exact source is linked in the formal-scope paragraph below.
+The Lean proof shifts the orbit past the centring and lower-bound thresholds
+and applies the
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2265}{boundedNegativePart_eventually_zero}{bounded-negative-part rigidity},
+with centring and bound at every index.
 \end{samepage}
 
 \begin{problem}[Erd\H{o}s \#243]\label{res:problem}

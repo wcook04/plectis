@@ -163,15 +163,16 @@ endpoint retained, with convergence supplied by an elementary bound, and with
 the statement checked by the Lean kernel.  The elementary bound replaces the
 prime number theorem.  No priority is claimed for the reduction.
 
-Land has since posted a conditional proof of irrationality assuming
-Kuperberg's uniform Hardy-Littlewood prime-tuples conjecture, together with a
-Lean formalisation of that conditional
-argument~\cite[Conjecture~1 and \S1]{land2026}.  His route constructs weighted
+Land has since posted a proof of irrationality, and Ringer a proof that
+$\sum_n p_nB^{-n}$ is normal to base~$B$ for each integer $B\ge2$, both assuming
+Kuperberg's uniform Hardy-Littlewood prime-tuples conjecture and both
+formalised in Lean~\cite[Conjecture~1 and \S1]{land2026}%
+\cite[Corollary~1.2]{ringer2026}.  Land's route constructs weighted
 prime-gap tails converging to $6$ from above, imposes a consecutive quadratic
 prime pattern by a mixed prime-counting moment, and averages over later prime
 indices to control the unprescribed tail.  Nothing in this note is
 conditional on a prime-tuples hypothesis, and nothing in this note proves the
-unconditional statement his argument would need.
+unconditional statement either argument would need.
 
 Erd\H{o}s stated on p.~93 of the 1958 article that $\sum_n p_n^{k}/n!$ is
 irrational for every $k\ge1$, and wrote there that the proof for $k>1$ is
@@ -2477,6 +2478,20 @@ Odd rational denominators give totient-length integral shifts, and integrality p
   \href{https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/251.lean}
   {\emph{FormalConjectures.ErdosProblems.\texttt{251}}},
   Lean source at commit \texttt{f776d2f}, 2025, accessed 28 July 2026.
+\bibitem{ringer2026} S.~Ringer,
+  \href{https://github.com/StefanRinger/erdos-251}{\emph{Local gap statistics,
+  telescoping, and normality}}, preprint dated 11~September~2026, with a Lean
+  formalisation whose conditional endpoint theorems take Kuperberg's
+  Conjecture~1.3 as an explicit hypothesis; submitted as a partial proof claim
+  at \texttt{erdosproblems.com/251} on 13~September~2026.  Theorem~1.1
+  classifies periodic local polynomial series in the prime gaps, each rational
+  or normal, under a positive-comparison condition on prime-tuple counts that
+  Conjecture~1.3 implies through a one-sided averaged hypothesis, and
+  Corollary~1.2 deduces from Conjecture~1.3 the normality of
+  $\sum_n p_nB^{-n}$ to base~$B$ for each integer $B\ge2$, hence for $B=2$ its
+  irrationality.  Appendix~C
+  proves unconditionally that $\sum_n p_nB^{-S_n}$ with
+  $S_n=\sum_{j\le n}\lceil\log_B\log(j+3)\rceil$ is normal to base~$B$.
 \end{thebibliography}
 
 \end{document}

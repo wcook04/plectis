@@ -89,16 +89,19 @@ reduction in exact form, with the endpoint retained, with convergence
 supplied by an elementary bound, and with the statement checked by the
 Lean kernel. The elementary bound replaces the prime number theorem. No
 priority is claimed for the reduction.</p>
-<p>Land has since posted a conditional proof of irrationality assuming
-Kuperberg’s uniform Hardy-Littlewood prime-tuples conjecture, together
-with a Lean formalisation of that conditional argument <span
-class="citation" data-cites="land2026"></span>. His route constructs
-weighted prime-gap tails converging to <span
+<p>Land has since posted a proof of irrationality, and Ringer a proof
+that <span class="math inline" data-term-auto="off">\(\sum_n p_nB^{-n}\)</span> is normal to
+base <span class="math inline" data-term-auto="off">\(B\)</span> for each integer <span
+class="math inline" data-term-auto="off">\(B\ge2\)</span>, both assuming Kuperberg’s uniform
+Hardy-Littlewood prime-tuples conjecture and both formalised in
+Lean <span class="citation" data-cites="land2026"><a href="#ref-9">[9]</a></span> <span
+class="citation" data-cites="ringer2026"></span>. Land’s route
+constructs weighted prime-gap tails converging to <span
 class="math inline" data-term-auto="off">\(6\)</span> from above, imposes a consecutive
 quadratic prime pattern by a mixed prime-counting moment, and averages
 over later prime indices to control the unprescribed tail. Nothing in
 this note is conditional on a prime-tuples hypothesis, and nothing in
-this note proves the unconditional statement his argument would
+this note proves the unconditional statement either argument would
 need.</p>
 <p>Erdős stated on p. 93 of the 1958 article that <span
 class="math inline" data-term-auto="off">\(\sum_n p_n^{k}/n!\)</span> is irrational for every
@@ -318,7 +321,7 @@ equivalence</td>
 <td class="ta-l">Elementary polynomial prime bound <span
 class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span></td>
 <td class="ta-l"> Lean-checked; proof reprinted here</td>
-<td class="ta-l"> Appendix <a class="math-ref" href="#long251:app:prime-bound">9</a>.</td>
+<td class="ta-l"> Appendix <a class="math-ref" href="#long251:app:prime-bound">A</a>.</td>
 </tr>
 <tr>
 <td class="ta-l">Actual real prime-gap tail and its
@@ -359,7 +362,7 @@ Corollary <a class="math-ref" href="#long251:res:smallpair-real">4.2</a>.</td>
 pair at <span class="math inline" data-term-auto="off">\(h=1\)</span>, <span
 class="math inline" data-term-auto="off">\(N=2\)</span></td>
 <td class="ta-l"> Ordinary proof; exact integer replay in
-Appendix <a class="math-ref" href="#long251:app:certificates">10</a></td>
+Appendix <a class="math-ref" href="#long251:app:certificates">B</a></td>
 <td class="ta-l"> Propositions <a class="math-ref" href="#long251:res:explicit-remainder">4.5</a>
 and <a class="math-ref" href="#long251:res:finite-smallpair">4.6</a>.</td>
 </tr>
@@ -559,7 +562,7 @@ class="math display" data-term-auto="off">\[\sum_{n\ge0}\frac{p_n}{2^{\,n+1}}
 </div>
 <div class="proof">
 <p><em>Proof.</em> The bound <span
-class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span> of Appendix <a class="math-ref" href="#long251:app:prime-bound">9</a> makes <span
+class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span> of Appendix <a class="math-ref" href="#long251:app:prime-bound">A</a> makes <span
 class="math inline" data-term-auto="off">\((u_n)\)</span> summable, and <span
 class="math inline" data-term-auto="off">\(0&lt;g_n\le p_{n+1}\)</span> then makes <span
 class="math inline" data-term-auto="off">\((v_n)\)</span> summable. The shifted sequence
@@ -876,7 +879,7 @@ rationality hypothesis, and is a different object, and the sweep of the
 dyadic tail-recurrence and Bézivin-style functional-equation literature
 has not been run.</p>
 <p>The criterion rules out two shortcuts. For the actual prime-gap tail,
-Section <a class="math-ref" href="#long251:sec:xr-compression">12.4</a> combines
+Section <a class="math-ref" href="#long251:sec:xr-compression">D.4</a> combines
 the prime number theorem with a first-moment bound to show that, under
 rationality, some tail value occurs <span
 class="math inline" data-term-auto="off">\(\gg_{C,d}X/\log X\)</span> times in <span
@@ -1117,7 +1120,7 @@ from <span class="math inline" data-term-auto="off">\(QF\)</span> to the nearest
 The margins are <span class="math inline" data-term-auto="off">\(424908761776\)</span> and
 <span class="math inline" data-term-auto="off">\(213359980476\)</span> respectively. These
 are strict integer comparisons rather than inferences from rounded
-numerical tails. Appendix <a class="math-ref" href="#long251:app:certificates">10</a> replays
+numerical tails. Appendix <a class="math-ref" href="#long251:app:certificates">B</a> replays
 them. ◻</p>
 </div>
 <p>This witness proves the local condition at one pair of indices. The
@@ -1157,7 +1160,7 @@ class="math display" data-term-auto="off">\[\frac{A}{2^{c}}\;\le\;\Pi\;\le\;\fra
 .\]</span></div>
 <p>The four positive integers <span
 class="math inline" data-term-auto="off">\(u,v,u&#39;,v&#39;\)</span> printed in
-Appendix <a class="math-ref" href="#long251:app:certificates">10</a> satisfy</p>
+Appendix <a class="math-ref" href="#long251:app:certificates">B</a> satisfy</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[u&#39;v-uv&#39;=1,\qquad
 \frac uv&lt;\frac{A}{2^{c}},\qquad
 \frac{2A+5000(c+1)^4}{2^{\,c+1}}&lt;\frac{u&#39;}{v&#39;},\qquad
@@ -3173,6 +3176,25 @@ data-cites="erdosproblems251thread"><a href="#ref-18">[18]</a></span>.</p></li>
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/251.lean"><em>FormalConjectures.ErdosProblems.<code>251</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July
 2026.</p></li>
+<li id="ref-21"><p>S. Ringer, <a
+href="https://github.com/StefanRinger/erdos-251"><em>Local gap
+statistics, telescoping, and normality</em></a>, preprint dated
+11 September 2026, with a Lean formalisation whose conditional endpoint
+theorems take Kuperberg’s Conjecture 1.3 as an explicit hypothesis;
+submitted as a partial proof claim at <code>erdosproblems.com/251</code>
+on 13 September 2026. Theorem 1.1 classifies periodic local polynomial
+series in the prime gaps, each rational or normal, under a
+positive-comparison condition on prime-tuple counts that Conjecture 1.3
+implies through a one-sided averaged hypothesis, and Corollary 1.2
+deduces from Conjecture 1.3 the normality of <span
+class="math inline" data-term-auto="off">\(\sum_n p_nB^{-n}\)</span> to base <span
+class="math inline" data-term-auto="off">\(B\)</span> for each integer <span
+class="math inline" data-term-auto="off">\(B\ge2\)</span>, hence for <span
+class="math inline" data-term-auto="off">\(B=2\)</span> its irrationality. Appendix C proves
+unconditionally that <span class="math inline" data-term-auto="off">\(\sum_n
+p_nB^{-S_n}\)</span> with <span class="math inline" data-term-auto="off">\(S_n=\sum_{j\le
+n}\lceil\log_B\log(j+3)\rceil\)</span> is normal to base <span
+class="math inline" data-term-auto="off">\(B\)</span>.</p></li>
 </ol>
 </section>
   </div>

@@ -132,6 +132,13 @@ The Makefile builds the manuscripts registered in
 copies the PDFs into their problem or systems directory under `paper/`.
 The temporary build PDFs in `paper/` are not the published copies.
 
+To rebuild one paper, run `make -C paper <stem>.pdf` and then
+`python3 scripts/sync_publication_pdfs.py`, which copies the fresh PDF into
+place. Each copy is recorded in [`build-manifest.json`](build-manifest.json)
+with the digest of the PDF and of every TeX input it was compiled from, and a
+build output older than one of its inputs is refused. The release checks fail
+when a committed PDF is not the recorded build of its committed inputs.
+
 After editing a manuscript, rebuild its PDF before updating its recorded
 digests. The following command previews digest changes; add `--apply` only
 after reviewing the source and rebuilt PDF:

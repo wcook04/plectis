@@ -97,17 +97,24 @@ reduction in exact form, with the endpoint retained, with convergence
 supplied by an elementary bound, and with the statement checked by the
 Lean kernel. The elementary bound replaces the prime number theorem. No
 priority is claimed for the reduction.</p>
-<p>Land has since posted a conditional proof of irrationality assuming
-Kuperberg’s uniform Hardy-Littlewood prime-tuples conjecture, together
-with a Lean formalisation of that conditional argument <span
-class="citation" data-cites="land2026"></span>. His route constructs
-weighted prime-gap tails converging to
+<p>Land has since posted a proof of irrationality, and Ringer a proof
+that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><msub><mi>p</mi><mi>n</mi></msub><msup><mi>B</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_n p_nB^{-n}</annotation></semantics></math>
+is normal to
+base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+for each integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">B\ge2</annotation></semantics></math>,
+both assuming Kuperberg’s uniform Hardy-Littlewood prime-tuples
+conjecture and both formalised in Lean <span class="citation"
+data-cites="land2026"><a href="#ref-9">[9]</a></span> <span class="citation"
+data-cites="ringer2026"><a href="#ref-21">[21]</a></span>. Land’s route constructs weighted
+prime-gap tails converging to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>
 from above, imposes a consecutive quadratic prime pattern by a mixed
 prime-counting moment, and averages over later prime indices to control
 the unprescribed tail. Nothing in this note is conditional on a
 prime-tuples hypothesis, and nothing in this note proves the
-unconditional statement his argument would need.</p>
+unconditional statement either argument would need.</p>
 <p>Erdős stated on p. 93 of the 1958 article that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><msubsup><mi>p</mi><mi>n</mi><mi>k</mi></msubsup><mi>/</mi><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">\sum_n p_n^{k}/n!</annotation></semantics></math>
 is irrational for every
@@ -3818,6 +3825,29 @@ data-cites="erdosproblems251thread"><a href="#ref-18">[18]</a></span>.</p></li>
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/251.lean"><em>FormalConjectures.ErdosProblems.<code>251</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July
 2026.</p></li>
+<li id="ref-21"><p>S. Ringer, <a
+href="https://github.com/StefanRinger/erdos-251"></a>, preprint dated
+11 September 2026, with a Lean formalisation whose conditional endpoint
+theorems take Kuperberg’s Conjecture 1.3 as an explicit hypothesis;
+submitted as a partial proof claim at <code>erdosproblems.com/251</code>
+on 13 September 2026. Theorem 1.1 classifies periodic local polynomial
+series in the prime gaps, each rational or normal, under a
+positive-comparison condition on prime-tuple counts that Conjecture 1.3
+implies through a one-sided averaged hypothesis, and Corollary 1.2
+deduces from Conjecture 1.3 the normality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><msub><mi>p</mi><mi>n</mi></msub><msup><mi>B</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_n p_nB^{-n}</annotation></semantics></math>
+to
+base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+for each integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">B\ge2</annotation></semantics></math>,
+hence for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">B=2</annotation></semantics></math>
+its irrationality. Appendix C proves unconditionally that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><msub><mi>p</mi><mi>n</mi></msub><msup><mi>B</mi><mrow><mi>−</mi><msub><mi>S</mi><mi>n</mi></msub></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_n p_nB^{-S_n}</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>j</mi><mo>≤</mo><mi>n</mi></mrow></msub><mo stretchy="false" form="prefix">⌈</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>B</mi></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">⌉</mo></mrow><annotation encoding="application/x-tex">S_n=\sum_{j\le n}\lceil\log_B\log(j+3)\rceil</annotation></semantics></math>
+is normal to
+base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.</p></li>
 </ol>
 </section>
   </div>
