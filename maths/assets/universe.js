@@ -17,10 +17,13 @@
    is its status from the record: a filled disc is proved, formalised or a
    verified finite instance; a half disc is unconditional progress; a ring
    is a conditional reduction; a faint ring is open or cited only. And every
-   object placed with a problem carries the reason it sits there (the record
-   names it, its Lean namespace, its statement), which the inspector states
-   and which the map uses to keep a problem's whole sector lit when the
-   problem is focused. */
+   object placed with a problem — claim, review family, paper, argument step
+   or Lean module — carries the reason it sits there (the record names it,
+   its Lean namespace or folder, its statement, the step it builds on), which
+   the inspector states and which the map uses to keep a problem's whole
+   sector lit when the problem is focused. The core's containment spokes to
+   its 1,200-odd modules are implied by that placement and are drawn only
+   when the core or a module is focused. */
 (function () {
   'use strict';
 
@@ -316,14 +319,20 @@
       ctx.stroke();
     }
 
-    function drawEdgeSet(hub, alpha, width, color) {
+    /* Edge classes: 0 is an ordinary edge; 1 is a spoke from the core to a
+       first-screen object; 2 is the core's containment of a Lean module,
+       which the module's placement already shows, so it is drawn only when
+       the core or that module is focused. */
+    var EDGE_PLAIN = 0, EDGE_SPOKE = 1, EDGE_CONTAINS = 2;
+
+    function drawEdgeSet(cls, alpha, width, color) {
       ctx.lineWidth = width;
       ctx.strokeStyle = color;
       ctx.globalAlpha = alpha;
       ctx.beginPath();
       var focus = focusIndex();
       for (var i = 0; i < edges.length; i++) {
-        if (edgeHub[i] !== hub) continue;
+        if (edgeHub[i] !== cls) continue;
         var a = nodes[edges[i][0]], b = nodes[edges[i][1]];
         if (!a || !b || !visible(a) || !visible(b)) continue;
         if (focus >= 0 && (edges[i][0] === focus || edges[i][1] === focus)) continue;
@@ -359,10 +368,12 @@
       var shownEdges = 0;
       for (i = 0; i < edges.length; i++) {
         var ea = nodes[edges[i][0]], eb = nodes[edges[i][1]];
-        if (ea && eb && visible(ea) && visible(eb)) shownEdges++;
+        if (!ea || !eb || !visible(ea) || !visible(eb)) continue;
+        if (edgeHub[i] === EDGE_CONTAINS && edges[i][0] !== focus && edges[i][1] !== focus) continue;
+        shownEdges++;
       }
-      drawEdgeSet(true, focus >= 0 ? 0.12 : 0.3, 0.6, palette.edge);
-      drawEdgeSet(false, focus >= 0 ? 0.35 : 1, 0.7, palette.edge);
+      drawEdgeSet(EDGE_SPOKE, focus >= 0 ? 0.12 : 0.3, 0.6, palette.edge);
+      drawEdgeSet(EDGE_PLAIN, focus >= 0 ? 0.35 : 1, 0.7, palette.edge);
 
       if (focus >= 0) {
         ctx.lineWidth = 1.6;
@@ -547,7 +558,7 @@
         parts.push('<p class="universe-inspector__note">The band on the field is ' +
           escapeHtml(captions[c].sub || '') + ', ' + escapeHtml(captions[c].text) + '.</p>');
       }
-      parts.push('<p class="universe-inspector__hint">Hover an object to preview it here. Click it to pin its card and light up everything it touches; press Esc to unpin. Every claim is drawn with the problem it belongs to; the card says why.</p>');
+      parts.push('<p class="universe-inspector__hint">Hover an object to preview it here. Click it to pin its card and light up everything it touches; press Esc to unpin. Every claim, argument step and Lean module is drawn with the problem it belongs to; the card says why.</p>');
       return parts.join('');
     }
 
@@ -844,7 +855,12 @@
         var a = edges[i][0], b = edges[i][1];
         var rel = relations[edges[i][2]] || null;
         if (!nodes[a] || !nodes[b]) continue;
-        edgeHub[i] = nodes[a].kind === 'universe' || nodes[b].kind === 'universe';
+        if (nodes[a].kind === 'universe' || nodes[b].kind === 'universe') {
+          edgeHub[i] = (nodes[a].kind === 'lean_module' || nodes[b].kind === 'lean_module') ?
+            EDGE_CONTAINS : EDGE_SPOKE;
+        } else {
+          edgeHub[i] = EDGE_PLAIN;
+        }
         adj[a].push({ to: b, rel: rel, out: true });
         adj[b].push({ to: a, rel: rel, out: false });
         degree[a]++;
