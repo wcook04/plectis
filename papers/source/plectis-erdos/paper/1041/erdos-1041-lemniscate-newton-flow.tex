@@ -131,8 +131,9 @@ of length less than $2$ inside $\{|f|<1\}$?
 
 Repeated roots give a constant path between two listed occurrences, so the
 geometric question concerns squarefree polynomials.  The original question
-is Problem~5 of Erd\H{o}s--Herzog--Piranian \cite[p.~139]{ehp1958}.
-Pendyala \cite[Thm.~1]{june2026} proves the complete degree-four case.
+is Problem~5 of Erd\H{o}s--Herzog--Piranian \cite[Problem~5, p.~139]{ehp1958},
+listed as Problem~1041 in Bloom's catalogue \cite{bloom}.
+Pendyala \cite[Theorem~1]{june2026} proves the complete degree-four case.
 A separate degree-seven counterexample has been announced on the
 \href{https://www.erdosproblems.com/1041}{problem's discussion page}.
 That external claim is not assessed in this note; the results below
@@ -289,7 +290,7 @@ Cauchy--Schwarz and coarea give
  \mathcal H^1(\partial C')^2
  \le2\pi k'\,\sigma A'(\sigma).                     \tag{CF1}
 \]
-P\'olya's inequality $A(T)\le\pi T^{2/n}$ and the change of measure
+P\'olya's inequality $A(T)\le\pi T^{2/n}$ \cite[Theorem~1]{crane} and the change of measure
 $d\sigma/\sigma$ on $[\mu,T]$, $T=\lambda\mu$, produce a non-critical level
 $t\in[\mu,T]$ with $t A'(t)\le\pi T^{2/n}/\log\lambda$.  The component
 $C_t\subseteq C_T$ still holds $k\ge2$ roots, and
@@ -583,8 +584,10 @@ scale back by $\rho$.
 Let $Q=D(w_0,S)$ and let $U$ be the component of $P^{-1}(Q)$ containing
 $0$.  The hypotheses put both $0,1$ and the segment $[0,1]$ in $Q$, while
 $0$ is the only critical point in $U$.  The restriction $P:U\to Q$ is
-proper.  Riemann--Hurwitz, with one simple ramification point, makes it a
-degree-two map and makes $U$ simply connected.  Thus $1-P$ has only its
+proper, and $U$ is simply connected by the maximum principle.  The
+component-wise Riemann--Hurwitz count in the proof of
+\cite[Proposition~2.1]{eks2010}, applied to $(P-w_0)/S$, gives
+$\deg(P|_U)=2$ from the one simple ramification point.  Thus $1-P$ has only its
 double zero at $0$ on $U$ and admits a single-valued square root
 $\xi^2=1-P$.  This map is proper and locally injective onto
 \[
@@ -601,8 +604,24 @@ Put $a=1-w_0$.  The conformal map
  \zeta(\xi)=\xi\sqrt{\frac{S}{S^2+a\xi^2-a^2}}
        :\widetilde Q\longrightarrow\mathbb D
 \]
-sends $[-1,1]$ to $[-q,q]$, where $q^2=S/(S^2+p)$.  Applying the Bergman
-segment inequality to $Z\circ\zeta^{-1}$ gives
+sends $[-1,1]$ to $[-q,q]$, where $q^2=S/(S^2+p)$.
+
+The Bergman segment inequality is the following estimate.  Let
+$\Phi:\mathbb D\to U$ be conformal with $\operatorname{Area}(U)<\infty$, and
+let $0<q<1$.  The monomials $\sqrt{(m+1)/\pi}\,z^m$ are orthonormal for area
+measure on $\mathbb D$, so the Bergman space $A^2(\mathbb D)$ has reproducing
+kernel $K(z,w)=\pi^{-1}(1-z\overline w)^{-2}$, and
+$\|\Phi'\|_{A^2}^2=\operatorname{Area}(U)$.  Choose a measurable unimodular
+$\theta$ with $\theta\Phi'=|\Phi'|$ on $[-q,q]$.  The reproducing property,
+Cauchy--Schwarz and the positivity of $K$ on $[-q,q]^2$ give
+\[
+ \Bigl(\int_{-q}^{q}|\Phi'(x)|\,dx\Bigr)^2
+ \le\operatorname{Area}(U)\int_{-q}^{q}\!\!\int_{-q}^{q}
+   \frac{dx\,dy}{\pi(1-xy)^2}
+ =\frac2\pi\log\frac{1+q^2}{1-q^2}\,\operatorname{Area}(U).
+\]
+Here $(1+q^2)/(1-q^2)=(S^2+S+p)/(S^2-S+p)$.  Applying this estimate to
+$\Phi=Z\circ\zeta^{-1}$ gives
 \[
  \operatorname{length}(Z([-1,1]))^2
  \le\frac2\pi\log\!\frac{S^2+S+p}{S^2-S+p}
@@ -617,16 +636,17 @@ exterior-fibre capacity gap gives
 \[
  \frac{\operatorname{cap}(\overline{U'})^n}{S'}<\frac1{n-1}.
 \]
-P\'olya's area--capacity inequality \cite[printed pp.~280--282]{polya1928}
-then gives
+P\'olya's area--capacity inequality
+$\operatorname{Area}(K)\le\pi\operatorname{cap}(K)^2$
+\cite[printed pp.~280--282]{polya1928}, in the form
+\cite[Theorem~6]{crane}, then gives
 $\operatorname{Area}(U')<\pi(S'/(n-1))^{2/n}$.  The components $U'$ exhaust
 $U$ as $S'\nearrow S$, so
 $\operatorname{Area}(U)\le\pi(S/(n-1))^{2/n}$.  Substitute this in (*) and
 scale lengths by $\rho$ to obtain~\eqref{eq:disk-family-length}.
-No relative area inequality is used here; the disposition of Dubinin's
-Theorem~1 is recorded in the bibliography entry \cite{dubinin}.  That
-theorem has a full covering hypothesis; neither that hypothesis nor its
-relative-area conclusion is used in this proof.
+Dubinin's relative area inequality \cite[Theorem~1]{dubinin} assumes a full
+$n$-fold covering of an annulus; the proof above uses the absolute
+inequality only.
 \end{proof}
 
 For $4/3\le S\le2$ and $p\ge0$,
@@ -651,9 +671,7 @@ $2$.  It does not formalise the analytic hypotheses producing
 \eqref{eq:disk-family-length}; the adjacent axiom-audit source audits those
 numerical declarations rather than the ordinary analytic theorem.  Nothing in
 this section asserts a separated disk always exists, covers the near-tie or
-multiple-saddle strata, or proves the unrestricted problem.  The argument
-uses P\'olya's absolute area--capacity inequality, not the relative covering
-inequality in Dubinin's Theorem~1 \cite{dubinin}.
+multiple-saddle strata, or proves the unrestricted problem.
 
 Pendyala's degree-four theorem \cite[Thm.~1]{june2026} has no
 critical-spectrum hypothesis.  The present separation criterion applies in
@@ -718,6 +736,8 @@ Away from the critical set, define the complex Newton field
 \]
 Let $I\subseteq\mathbb R$ be an interval on which a differentiable curve
 $z$ satisfies $f'(z(t))\ne0$ and $z'(t)=N(z(t))$.  Put $w(t)=f(z(t))$.
+Kozen and Stef\'ansson record the following identity as a lemma of Shub,
+Tischler and Williams \cite[Lemma~2.1]{kozen-stefansson1997}.
 
 \begin{theorem}[value equation]\label{res:value}
 For a polynomial $f$ and a differentiable curve $z:I\to\mathbb C$ on an
@@ -760,9 +780,12 @@ cannot be the endpoints of such a finite connection.
 endpoints by continuity.  This does not evaluate $-f/f'$ at a critical
 endpoint.  Lean checks the algebraic contradiction from an assumed
 exponential endpoint relation in
-\lword{Erdos1041/NewtonFlowRaySeparation.lean}{315}{no_newtonConnection_of_not_samePositiveRay}{the distinct-ray endpoint implication};
-the existence and endpoint behaviour of trajectories are additional
-geometric questions.
+\lword{Erdos1041/NewtonFlowRaySeparation.lean}{315}{no_newtonConnection_of_not_samePositiveRay}{the distinct-ray endpoint implication}.
+Kozen and Stef\'ansson draw the same consequence for the Newtonian graph:
+under $f$, every edge maps onto a segment of a ray through the origin whose
+endpoints are $0$ or critical values \cite[\S2]{kozen-stefansson1997}.  The
+endpoint behaviour of maximal trajectories is classified there as well
+\cite[Lemma~2.2]{kozen-stefansson1997}.
 
 \section{Arguments, not moduli}\label{sec:arguments}
 
@@ -908,12 +931,12 @@ put $c=\cos(\pi/n)$, and set
 
 \begin{theorem}[complementary binomial chords]
 Two adjacent zeros of $z^n-a$ can be joined by an explicit polygonal path
-inside $\{|z^n-a|<1\}$ of length strictly below $2$.  For $r\le r_*$ the
+inside $\{|z^n-a|<1\}$ of length strictly below $2$.  For $r<r_*$ the
 adjacent-root chord itself works.  For $r\ge r_*$, two radial legs and an
 inner adjacent crossing chord work after an arbitrarily small radial
 contraction.  These two constructions meet at $r=r_*$, where the outer chord attains
-$|f|=1$ at its midpoint: equality is closed containment, not the open
-lemniscate.  Open containment at and above the switch uses the inner chord
+$|f|=1$ at its midpoint and therefore lies only in the closed lemniscate.
+Open containment at and above the switch uses the inner chord
 after a radial contraction.
 \end{theorem}
 
@@ -922,7 +945,8 @@ The central chord calculation is exact.  On the chord between adjacent roots,
  \max |z^n-r^n|=r^n(1+c^n),
 \]
 with the maximum at the midpoint; hence the first construction has precisely
-the threshold $r_*$.  Above it, put $t=\varepsilon/c$.  The path from $r$ to
+the threshold $r_*$.  For $r\ge r_*$, which forces $n\ge3$ because $r_*=1$
+when $n=2$, put $t=\varepsilon/c$.  The path from $r$ to
 $t$ to $t\omega$ to $r\omega$ has its crossing chord in the closed
 lemniscate, and its length is
 \[
@@ -997,6 +1021,16 @@ Their extreme roots are $\pm1$, and every adjacent gap reaches $C_n$ at a
 Chebyshev extremum.
 \end{proof}
 
+Erd\H{o}s, Herzog and Piranian already give a contained root segment in the
+collinear case \cite[Theorem~1, p.~126]{ehp1958}: if the zeros of a monic
+polynomial of degree $n$ are real, lie in $[-1,1]$ and have centroid in
+$[0,1]$, then $\{|f|<1\}\cap\mathbb R$ contains an interval holding at least
+$n/2$ of the zeros.  Applied to $q$, after the reflection $w\mapsto-w$ if the
+centroid is negative, this gives for $n\ge3$ two consecutive zeros joined by
+a segment of length at most $D$ inside $\{|f|<(D/2)^n\}$.
+Theorem~\ref{res:sharp-collinear-root-diameter} adds the sharp level
+$C_n(D/2)^n$ and its equality configurations.
+
 \paragraph{Critical sequences and the extremal configuration.}
 For distinct real zeros, each gap between consecutive zeros contains exactly
 one zero of $q'$, and $|q|$ attains its maximum over the gap only there.  The
@@ -1018,7 +1052,7 @@ $\{|q_*|=C_n\}$.  Extremals with this property also occur in the level-curve
 length problem, where some extremal polynomial has all its critical points on
 $\{|p|=1\}$ \cite[Lemma~5]{eremenko-hayman}, and in the sharp bound for $|f'|$
 on a connected sublevel set $\{|f|\le1\}$ of a monic polynomial, proved by
-Eremenko and Lempert \cite{eremenko-lempert}, whose equality cases are
+Eremenko and Lempert \cite[Theorem~1]{eremenko-lempert}, whose equality cases are
 $e^{-in\theta}T_n(2^{1/n-1}e^{i\theta}z+b)$ with $\theta$ real
 \cite[Theorem~A]{eremenko-markov}.
 
@@ -1241,7 +1275,10 @@ On the generic simple-critical, ray-separated class, cutting the value plane
 along critical rays gives the finite inverse-sheet construction recorded in
 \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AttachmentAwareReeb.md}{attachment aware reeb}.
 Let $L_f(c)$ be the length of the canonical two-root descent arc through a
-critical point $c$.  Only critical points with $|f(c)|\le1$ give admissible
+critical point $c$; its two halves are Newton-flow trajectories from $c$ to
+roots, that is, edges of the Newtonian graph
+\cite[Definition~2.1]{kozen-stefansson1997}.  Only critical points with
+$|f(c)|\le1$ give admissible
 unit-level candidates.  The sufficient metric target is
 \[
  \min_{\substack{f'(c)=0\\|f(c)|\le1}}L_f(c)\le2.
@@ -1315,9 +1352,10 @@ No independent human review or resolution of the general problem is claimed.
 
 \subsection*{Sources and adjacent results}\label{sec:1041-sources}
 
-The original root-to-root problem is \cite[p.~139, Problem~5]{ehp1958}.
-Pendyala's degree-four theorem \cite[Thm.~1]{june2026} is directly comparable.
-His separate Erd\H{o}s Problem~\#1120 \cite{pendyala2026shortest} asks for a path
+The original root-to-root problem is \cite[Problem~5, p.~139]{ehp1958}.
+Pendyala's degree-four theorem \cite[Theorem~1]{june2026} is directly comparable.
+Erd\H{o}s Problem~\#1120, treated by Pendyala
+\cite[Definition~1.1 and Theorem~1.2]{pendyala2026shortest}, asks for a path
 from the origin to the unit circle inside a filled sublevel set; its endpoints differ,
 and it does not imply the root-pair conclusion.  The exact Cassini
 obstruction in Section~\ref{sec:gap} concerns the metric assertion of
@@ -1327,6 +1365,17 @@ $\operatorname{length}\{z:|p(z)|=1\}<9.173\deg p$ and show that an extremal
 level set is connected \cite[Thm.~1 and the lemma on connectedness]
 {eremenko-hayman}.  Their metric is the total length of a level curve, so this
 does not supply the short internal root-to-root connector asked for here.
+
+The Newton value identity of Section~\ref{sec:newton} is a lemma of Shub,
+Tischler and Williams, and the ray-segment description of Newton-flow edges
+belongs to their Newtonian graph; we use both in the form recorded by Kozen and
+Stef\'ansson \cite[Lemmas~2.1--2.2 and \S2]{kozen-stefansson1997}.  The area
+arguments use P\'olya's inequality and the area--capacity inequality in the
+formulations \cite[Theorems~1 and~6]{crane}; the square-root uniformisation
+uses the component-wise Riemann--Hurwitz count in the proof of
+\cite[Proposition~2.1]{eks2010}.  Existence of a contained root segment for
+collinear zeros already follows from \cite[Theorem~1]{ehp1958};
+Section~\ref{sec:collinear} adds the sharp constant.
 Downloaded-source digests, precise locators,
 and withdrawal history are retained in the long record.  No uniqueness or
 priority claim is inferred from this comparison.
@@ -1364,54 +1413,78 @@ throughout this problem-note series.
 \item \lref{Erdos1041/NewtonFlowRaySeparation.lean}{315}{no_newtonConnection_of_not_samePositiveRay}
 \end{itemize}
 
-\begin{thebibliography}{10}
+\begin{thebibliography}{99}
 \bibitem{bloom} T.~F. Bloom, \emph{Erd\H{o}s Problems}, problem~1041.
   \url{https://www.erdosproblems.com/1041}
 \bibitem{ehp1958} P.~Erd\H{o}s, F.~Herzog, and G.~Piranian,
   \emph{Metric properties of polynomials}, J. Analyse Math. \textbf{6}
-  (1958), 125--148. \url{https://doi.org/10.1007/BF02790232}
+  (1958), 125--148,
+  doi:\href{https://doi.org/10.1007/BF02790232}{10.1007/BF02790232}.
 \bibitem{march2026} \texttt{shtuka},
   \emph{A Short Path Joining Two Zeros Inside a Polynomial Lemniscate},
   manuscript posted 24 March 2026, 48~pp.
   \url{https://shtuka123.github.io/1041/main.pdf}
 \bibitem{june2026} V.~S. Pendyala,
   \emph{A Degree-Four Lemniscate Path Theorem},
-  arXiv:2606.24875v1 (2026).
-  \url{https://arxiv.org/abs/2606.24875},
+  arXiv:\href{https://arxiv.org/abs/2606.24875v1}{2606.24875v1} (2026),
   doi:\href{https://doi.org/10.48550/arXiv.2606.24875}
   {10.48550/arXiv.2606.24875}.
 \bibitem{pendyala2026shortest} V.~S. Pendyala,
   \emph{Shortest paths in polynomial lemniscate sublevel sets and a problem
-  of Erd\H{o}s}, arXiv:2606.19178v1 (2026), Erd\H{o}s Problem~\#1120,
-  Theorem~1.2 and introductory discussion, pp.~2--3.
-  \url{https://arxiv.org/abs/2606.19178},
+  of Erd\H{o}s}, arXiv:\href{https://arxiv.org/abs/2606.19178v1}{2606.19178v1}
+  (2026),
   doi:\href{https://doi.org/10.48550/arXiv.2606.19178}
   {10.48550/arXiv.2606.19178}.
+\bibitem{kozen-stefansson1997} D.~Kozen and K.~Stef\'ansson,
+  \emph{Computing the Newtonian graph}, J. Symbolic Comput. \textbf{24}
+  (1997), no.~2, 125--136,
+  doi:\href{https://doi.org/10.1006/jsco.1997.0118}{10.1006/jsco.1997.0118};
+  authors' copy \url{https://www.cs.cornell.edu/kozen/Papers/newton.pdf}.
+\bibitem{crane} E.~Crane,
+  \emph{The areas of polynomial images and pre-images}, Bull. London Math.
+  Soc. \textbf{36} (2004), no.~6, 786--792,
+  doi:\href{https://doi.org/10.1112/S0024609304003509}{10.1112/S0024609304003509};
+  preprint arXiv:\href{https://arxiv.org/abs/math/0302189v1}{math/0302189v1},
+  whose statement numbers are cited.
+\bibitem{eks2010} P.~Ebenfelt, D.~Khavinson, and H.~S. Shapiro,
+  \emph{Two-dimensional shapes and lemniscates}, in \emph{Complex Analysis and
+  Dynamical Systems IV, Part~1}, Contemp. Math. \textbf{553}, Amer. Math. Soc.,
+  Providence, RI, 2011, 45--59,
+  doi:\href{https://doi.org/10.1090/conm/553/10931}{10.1090/conm/553/10931};
+  preprint arXiv:\href{https://arxiv.org/abs/1003.4567v1}{1003.4567v1},
+  whose statement numbers are cited.
 \bibitem{eremenko-hayman} A.~Eremenko and W.~Hayman,
   \emph{On the length of lemniscates}, Michigan Math. J. \textbf{46}
-  (1999), 409--415.
-  \url{https://arxiv.org/abs/0805.2295}.
+  (1999), no.~2, 409--415,
+  doi:\href{https://doi.org/10.1307/mmj/1030132418}{10.1307/mmj/1030132418};
+  preprint arXiv:\href{https://arxiv.org/abs/0805.2295}{0805.2295}.
 \bibitem{eremenko-yuditskii} A.~Eremenko and P.~Yuditskii,
-  \emph{Comb functions}, Contemp. Math. \textbf{578} (2012), 99--118.
-  \url{https://arxiv.org/abs/1109.1464}.
+  \emph{Comb functions}, Contemp. Math. \textbf{578} (2012), 99--118,
+  doi:\href{https://doi.org/10.1090/conm/578/11472}{10.1090/conm/578/11472};
+  preprint arXiv:\href{https://arxiv.org/abs/1109.1464v1}{1109.1464v1}.
 \bibitem{eremenko-lempert} A.~Eremenko and L.~Lempert,
   \emph{An extremal problem for polynomials}, Proc. Amer. Math. Soc.
-  \textbf{122} (1994), 191--193.
+  \textbf{122} (1994), no.~1, 191--193,
+  doi:\href{https://doi.org/10.1090/S0002-9939-1994-1207536-1}
+  {10.1090/S0002-9939-1994-1207536-1}.
 \bibitem{eremenko-markov} A.~Eremenko,
   \emph{A Markov-type inequality for arbitrary plane continua},
-  Proc. Amer. Math. Soc. \textbf{135} (2007), 1505--1510.
-  \url{https://arxiv.org/abs/math/0606745}.
+  Proc. Amer. Math. Soc. \textbf{135} (2007), no.~5, 1505--1510,
+  doi:\href{https://doi.org/10.1090/S0002-9939-06-08640-0}
+  {10.1090/S0002-9939-06-08640-0};
+  preprint arXiv:\href{https://arxiv.org/abs/math/0606745v1}{math/0606745v1}.
 \bibitem{bishop-eremenko-lazebnik} C.~J. Bishop, A.~Eremenko, and
   K.~Lazebnik, \emph{On the shapes of rational lemniscates}, Geom. Funct.
-  Anal. \textbf{35} (2025), 359--407.
-  \url{https://arxiv.org/abs/2407.14610}.
+  Anal. \textbf{35} (2025), no.~2, 359--407,
+  doi:\href{https://doi.org/10.1007/s00039-025-00704-2}
+  {10.1007/s00039-025-00704-2};
+  preprint arXiv:\href{https://arxiv.org/abs/2407.14610v1}{2407.14610v1}.
 \bibitem{dubinin} V.~N. Dubinin, \emph{Some inequalities for polynomials and
   rational functions associated with lemniscates}, Zap. Nauchn. Sem. POMI
   \textbf{404} (2012), 83--99; English translation, J. Math. Sci. \textbf{193}
   (2013), no.~1, 45--54,
   doi:\href{https://doi.org/10.1007/s10958-013-1432-4}{10.1007/s10958-013-1432-4}.
-  This neighbouring covering theorem is discussed in the long record; the area input used here is the absolute P\'olya inequality \cite{polya1928}.
-\bibitem{polya1928} G. P\'olya,
+\bibitem{polya1928} G.~P\'olya,
   \emph{Beitrag zur Verallgemeinerung des Verzerrungssatzes auf mehrfach
   zusammenh\"angende Gebiete}, Sitzungsberichte der Preussischen Akademie der
   Wissenschaften, Physikalisch-Mathematische Klasse (1928), printed

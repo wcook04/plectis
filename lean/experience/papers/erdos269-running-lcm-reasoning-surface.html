@@ -33,10 +33,12 @@ is irrational, where
 is the least common multiple <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span><span class="citation"
 data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. Bloom’s catalogue records the problem as
-open <span class="citation" data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>. This
-note settles every instance with
+open <span class="citation" data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>. Theorem 
+settles every instance with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|P|=2</annotation></semantics></math>,
-at the level of transcendence, and the unresolved finite cases begin at
+at the level of transcendence, and Fan posted that argument first <span
+class="citation" data-cites="fan2026comment"></span>; the unresolved
+finite cases begin at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">|P|=3</annotation></semantics></math>.</p>
 <p>The restriction
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|P|\ge2</annotation></semantics></math>
@@ -62,13 +64,14 @@ because the running value is constant along stretches of the
 enumeration. In a letter written on 1 January 1973 Erdős recorded that
 he could prove irrationality of the de-duplicated sum <span
 class="citation" data-cites="erdos1974letter"></span>. He states that
-assertion for a general finite list of primes and supplies no proof, so
-the historical record already covers
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒟</mi><mi>P</mi></msub><annotation encoding="application/x-tex">\mathcal D_P</annotation></semantics></math>
-for every finite
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>;
-the open question addressed by the catalogue is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℛ</mi><mi>P</mi></msub><annotation encoding="application/x-tex">\mathcal R_P</annotation></semantics></math>.</p>
+assertion for given primes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>p</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">p_1,\ldots,p_r</annotation></semantics></math>
+and supplies no proof; for a single prime the de-duplicated sum is again
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p/(p-1)</annotation></semantics></math>,
+so the assertion concerns sets of at least two primes. The open question
+addressed by the catalogue is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℛ</mi><mi>P</mi></msub><annotation encoding="application/x-tex">\mathcal R_P</annotation></semantics></math>;
+its two-prime case is Theorem .</p>
 <div class="theorem">
 <p><strong>Theorem 1.1</strong> (two-prime transcendence). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
@@ -87,10 +90,9 @@ the coefficients are nonzero rationals, and transcendence of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
 is the theorem of Loxton and van der Poorten <span class="citation"
 data-cites="loxtonvdp1977"><a href="#ref-11">[11]</a></span> in the modern form of Bugeaud and
-Laurent’s Theorem 1.1 <span class="citation"
-data-cites="bugeaudlaurent2023"><a href="#ref-10">[10]</a></span>. The evidence class is an
-ordinary proof in this paper over a cited external theorem, and no Lean
-declaration formalises it.</p>
+Laurent <span class="citation" data-cites="bugeaudlaurent2023"><a href="#ref-10">[10]</a></span>.
+The evidence class is an ordinary proof in this paper over a cited
+external theorem, and no Lean declaration formalises it.</p>
 <section id="attribution." class="level5">
 <h5>Attribution.</h5>
 <p>Steve Fan posted the running-LCM identity for every
@@ -103,8 +105,8 @@ that the argument applies to arbitrary coprime pairs, and Fan’s response
 proposed the wider setting of nonzero algebraic numbers whose logarithms
 are linearly independent over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>.
-The priority for the two-prime case is his. The proof below is
-independent and is given in full because it fixes the
+The priority for the two-prime case is his. The proof below was found
+independently and is given in full because it fixes the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|P|=2</annotation></semantics></math>
 boundary of the problem and because the same boundary sum drives the
 three-prime discussion. The identity of Theorem  is cited to him.</p>
@@ -116,8 +118,14 @@ column factors, the two-prime kernel is an outer product and the
 three-prime kernel retains one binary floor carry. That carry is enough
 to produce nonsingular minors of every order, uniformly in the third
 coordinate, and to make the normalised carry matrix inapproximable by
-finite separated sums below half its own jump. Sections  to  take a
-second route on the literal
+finite separated sums below half its own jump. The minors use only row
+and column rescaling, the density of the rotations by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">\log_rp</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi></mrow><annotation encoding="application/x-tex">\log_rq</annotation></semantics></math>
+taken separately, and a staircase determinant, and one choice of indices
+serves every layer of the literal kernel. Sections  to  take a second
+route on the literal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>
 series: dyadic shells give an integer-coefficient tail recurrence, a
 strict endpoint clears the smooth part of a hypothetical denominator,
@@ -248,13 +256,12 @@ The unrestricted analogue is classical: iterating the prime-exponent
 maximum rule gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>t</mi><mo>≤</mo><mi>N</mi></mrow></msub><msup><mi>t</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>t</mi></msub><mi>N</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\operatorname{lcm}(1,\ldots,N)=\prod_{t\le N}t^{\lfloor\log_t N\rfloor}</annotation></semantics></math>
 over the primes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">t\le N</annotation></semantics></math> <span
-class="citation" data-cites="apostol1976"></span>, equivalently
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log\operatorname{lcm}(1,\ldots,N)=\psi(N)</annotation></semantics></math> <span
-class="citation" data-cites="apostol1976"></span>, and Montgomery and
-Vaughan state the identity directly in Exercise 6.2.7 <span
-class="citation" data-cites="montgomeryvaughan2007"></span>. Fan states
-the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≤</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">t\le N</annotation></semantics></math>,
+equivalently
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log\operatorname{lcm}(1,\ldots,N)=\psi(N)</annotation></semantics></math>;
+see Apostol <span class="citation" data-cites="apostol1976"><a href="#ref-6">[6]</a></span> and
+Montgomery and Vaughan <span class="citation"
+data-cites="montgomeryvaughan2007"><a href="#ref-8">[8]</a></span>. Fan’s forum post states the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>-restricted
 form for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|P|</annotation></semantics></math> <span
@@ -448,17 +455,7 @@ and the identity reads
 on both sides. The identity is between two finite sums over a box, so it
 is not a statement about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">L</mi><annotation encoding="application/x-tex">\operatorname{L}</annotation></semantics></math>
-at a cutoff. Fan and Lott build their van der Corput coefficients on
-sums of two squares by the same kind of regrouping: up to normalisation,
-the coefficient at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
-sums a smooth weight over the representations
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><msup><mi>v</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d=v^2(x^2+y^2)</annotation></semantics></math>,
-and the average over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
-keeps the associated complete sums in a fixed sector <span
-class="citation" data-cites="fanlott2026"></span>. The same Lean module
-records the one-step map
+at a cutoff. The same Lean module records the one-step map
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>,</mo><mi>d</mi><mo>,</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>b</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>−</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\tau(b,d,s)=b(s-d)</annotation></semantics></math>,
 the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L488">variable-base
@@ -754,9 +751,12 @@ that hope is exactly correct, and at three it fails at every finite
 order.</p>
 <div class="proposition">
 <p><strong>Proposition 4.1</strong> (two generators separate). <em> For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p,q&gt;1</annotation></semantics></math>
-and all
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i,j</annotation></semantics></math>,
+real
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p,q&gt;1</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mi>t</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><mi>t</mi><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow><annotation encoding="application/x-tex">L_{p,q}(t)=p^{\lfloor\log_p t\rfloor}q^{\lfloor\log_q t\rfloor}</annotation></semantics></math>
+as above, and all integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>,</mo><mi>j</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">i,j\ge0</annotation></semantics></math>,
 the two-prime kernel
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">K</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mi>/</mi><msub><mi>L</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{K}_2(i,j)=1/L_{p,q}(p^iq^j)</annotation></semantics></math>
 is the outer product
@@ -768,21 +768,34 @@ so every two-by-two minor of
 vanishes.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> By the two-variable form of Theorem  the exponents of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
-and of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
-in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_{p,q}(p^iq^j)</annotation></semantics></math>
-are
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>+</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">i+\lfloor\log_p q^{j}\rfloor</annotation></semantics></math>
+<p><em>Proof.</em> Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>+</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><msup><mi>p</mi><mi>i</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">j+\lfloor\log_q p^{i}\rfloor</annotation></semantics></math>,
-each depending on one index only. A matrix whose entries are a product
-of a row function and a column function has vanishing two-by-two
-minors. ◻</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+are integers,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">⌋</mo><mo>=</mo><mi>i</mi><mo>+</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor\log_p(p^iq^j)\rfloor=i+\lfloor\log_p q^{j}\rfloor</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">⌋</mo><mo>=</mo><mi>j</mi><mo>+</mo><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><msup><mi>p</mi><mi>i</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor\log_q(p^iq^j)\rfloor=j+\lfloor\log_q p^{i}\rfloor</annotation></semantics></math>.
+Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">L_{p,q}(p^iq^j)</annotation></semantics></math>
+is the product of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mi>i</mi></msup><msup><mi>q</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi></msub><msup><mi>p</mi><mi>i</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow></msup></mrow><annotation encoding="application/x-tex">p^{i}q^{\lfloor\log_q p^{i}\rfloor}</annotation></semantics></math>,
+which depends on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+alone, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi></msub><msup><mi>q</mi><mi>j</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow></msup><msup><mi>q</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">p^{\lfloor\log_p q^{j}\rfloor}q^{j}</annotation></semantics></math>,
+which depends on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+alone. A matrix whose entries are a product of a row function and a
+column function has vanishing two-by-two minors. For distinct primes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p,q</annotation></semantics></math>
+the product
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><annotation encoding="application/x-tex">L_{p,q}</annotation></semantics></math>
+is the running least common multiple by the argument of Theorem . ◻</p>
 </div>
-<p>Checked as the <a
+<p>For integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>,</mo><mi>q</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p,q&gt;1</annotation></semantics></math>
+this is checked as the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L278">outer-product
 identity</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L298">vanishing
@@ -1500,6 +1513,45 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 for the genuine infinite tail</a>, over the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean#L110">normalised
 state step</a>.</p>
+<p>Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">h_0=1/2</annotation></semantics></math>,
+the last identity at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a=0</annotation></semantics></math>
+writes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>/</mi><mn>2</mn><mo>=</mo><msub><mi>X</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">S/2=X_0</annotation></semantics></math>
+as the Cantor series
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>m</mi><mi>j</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mn>0</mn></msub><mi>⋯</mi><msub><mi>b</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{j\ge0}m_j/(b_0\cdots b_j)</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>a</mi></msub><annotation encoding="application/x-tex">X_a</annotation></semantics></math>
+is its normalised tail. Such tails, with their integer carry recurrence,
+are the classical tool for the rationality of Cantor series. Erdős and
+Straus characterise rationality by integer carries <span
+class="citation" data-cites="erdosstraus1974"></span>, and Hančl and
+Tijdeman give a practical form of that criterion through tails
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>n</mi></msub><annotation encoding="application/x-tex">R_n</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><msub><mi>R</mi><mi>n</mi></msub><mo>=</mo><msub><mi>b</mi><mi>n</mi></msub><mo>+</mo><msub><mi>R</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">a_nR_n=b_n+R_{n+1}</annotation></semantics></math>,
+which is the recurrence above in their notation <span class="citation"
+data-cites="hancltijdeman2004"><a href="#ref-14">[14]</a></span>. Koutsoukou-Argyraki and Li
+formalised the Erdős–Straus criteria in Isabelle/HOL <span
+class="citation" data-cites="afperdosstraus2020"></span>. Both criteria
+assume that the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>th
+numerator is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(a_{n-1}a_n)</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math>
+is the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>th
+base. Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>a</mi></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m_a\ge1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mrow><mi>a</mi><mo>−</mo><mn>1</mn></mrow></msub><msub><mi>b</mi><mi>a</mi></msub><mo>≤</mo><mn>900</mn></mrow><annotation encoding="application/x-tex">b_{a-1}b_a\le900</annotation></semantics></math>,
+so neither criterion applies. The passage from rationality to integral
+tails is the standard denominator clearing, proved for this series in
+Section ; the work specific to this series is the literal forcing with
+its multiplicities, the strict endpoint normalisation and the explicit
+bounds.</p>
 <div class="proposition">
 <p><strong>Proposition 5.3</strong> (integral state or cofinal
 separation). <em> Either
@@ -1556,8 +1608,11 @@ ratios, the real
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ξ</mi><annotation encoding="application/x-tex">\xi</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">dist</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>g</mi><mi>a</mi></msub><mi>ξ</mi><mo>,</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\operatorname{dist}(g_a\xi,\mathbb{Z})\to0</annotation></semantics></math>
-form a countable set, a phenomenon going back to Eggleston <span
-class="citation" data-cites="fan2026strongly"></span>. For an integer
+form a countable set. For increasing sequences this is due to Erdős and
+Taylor <span class="citation" data-cites="erdostaylor1957"><a href="#ref-16">[16]</a></span>, who
+obtain it by modifying Eggleston’s proof of his Theorem 16, and Fan
+proves the form stated here <span class="citation"
+data-cites="fan2026strongly"><a href="#ref-17">[17]</a></span>. For an integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B\ge1</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>a</mi></msub><mo>=</mo><mi>B</mi><msub><mi>h</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">g_a=Bh_a</annotation></semantics></math>
@@ -1665,10 +1720,11 @@ above.</p>
 <p>The bound is used at the endpoint of a window, where the natural
 index is the positive prime-power jump count strictly below the cutoff.
 Put
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>j</mi><mi>a</mi></msub><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><msup><mi>p</mi><mi>e</mi></msup><mo>&lt;</mo><msup><mn>2</mn><mi>a</mi></msup><mo>:</mo><mi>p</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="0.222em"></mspace><mi>e</mi><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo>=</mo><msub><mi>n</mi><mi>a</mi></msub><mo>−</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>j</mi><mi>a</mi></msub><mo>=</mo><mi>#</mi><mo stretchy="false" form="prefix">{</mo><msup><mi>p</mi><mi>e</mi></msup><mo>&lt;</mo><msup><mn>2</mn><mi>a</mi></msup><mo>:</mo><mi>p</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="0.222em"></mspace><mi>e</mi><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo>=</mo><msub><mi>n</mi><mi>a</mi></msub><mo>−</mo><mn>1</mn><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long269:eq:endpoint-index}
- j_a=\#\{p^{e}&lt;2^{a}:p\in\{2,3,5\},\ e\ge1\}=n_a-1 ,
-\end{equation}</annotation></semantics></math> the equality holding
+ j_a=\#\{p^{e}&lt;2^{a}:p\in\{2,3,5\},\ e\ge1\}=n_a-1\qquad(a\ge1),
+\end{equation}</annotation></semantics></math> the equality holding for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a\ge1</annotation></semantics></math>
 because the powers of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 below
@@ -1684,16 +1740,23 @@ below
 number
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>3</mn></msub><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor\log_3 2^{a}\rfloor</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>5</mn></msub><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor\log_5 2^{a}\rfloor</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>5</mn></msub><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor\log_5 2^{a}\rfloor</annotation></semantics></math>;
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a=0</annotation></semantics></math>
+the count is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>j</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">j_0=0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>−</mo><mn>1</mn><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">n_0-1=-1</annotation></semantics></math>.
 Substituting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>a</mi></msub><mo>=</mo><msub><mi>j</mi><mi>a</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_a=j_a+1</annotation></semantics></math>
 into
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
 gives the integer bound used throughout the rest of the note:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">⌊</mo><mi>B</mi><mspace width="0.167em"></mspace><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">⌋</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><msubsup><mi>j</mi><mi>a</mi><mn>2</mn></msubsup><mo>+</mo><mn>10</mn><msub><mi>j</mi><mi>a</mi></msub><mo>+</mo><mn>27</mn><mo stretchy="false" form="postfix">)</mo></mrow><mn>9</mn></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">⌊</mo><mi>B</mi><mspace width="0.167em"></mspace><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">⌋</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><msubsup><mi>j</mi><mi>a</mi><mn>2</mn></msubsup><mo>+</mo><mn>10</mn><msub><mi>j</mi><mi>a</mi></msub><mo>+</mo><mn>27</mn><mo stretchy="false" form="postfix">)</mo></mrow><mn>9</mn></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long269:eq:actual-bound}
- K(B,a)=\bigl\lfloor B\,Q(n_a)\bigr\rfloor
- =\left\lfloor\frac{B(j_a^{2}+10j_a+27)}9\right\rfloor .
+ K(B,a)=\bigl\lfloor B\,Q(n_a)\bigr\rfloor,
+ \qquad
+ K(B,a)=\left\lfloor\frac{B(j_a^{2}+10j_a+27)}9\right\rfloor\quad(a\ge1).
 \end{equation}</annotation></semantics></math> The cutoff in is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>a</mi></msup><annotation encoding="application/x-tex">2^{a}</annotation></semantics></math>
 and it is strict.</p>
@@ -2189,19 +2252,23 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 for the series value itself. The Lean equivalence is stated at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mn>0</mn></msub><annotation encoding="application/x-tex">K_0</annotation></semantics></math>;
 the band of Theorem  is the paper statement.</p>
-<p>Theorem  settles a question that a reader is entitled to ask about
-the criterion. Sharpening the bound below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
-does not weaken the producer, since escape against a bound that fails to
-dominate the actual carries proves nothing; the zero bound is the
-extreme case. Enlarging the bound up to any subexponential function does
-not weaken it either. The producer is therefore a restatement of
-Erdős #269 for
+<p>Theorem  makes the producer a restatement of Erdős #269 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{2,3,5\}</annotation></semantics></math>
-throughout the band, and work on it is work on the target. Equivalence
-preserves truth and settles nothing about difficulty, so the
-reformulation may still be the easier representation to attack; what it
-does not admit is a cheaper bound.</p>
+throughout the band, so work on it is work on the target. The rational
+direction needs a bound valid for every actual positive carry. The bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+is one such bound, and a smaller bound proved valid for the actual
+carries could replace it; the zero bound is invalid, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="sans-serif">𝖤</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathsf E(0)</annotation></semantics></math>
+holds vacuously. Enlarging the bound to any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>≥</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">G\ge K</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>a</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G(B,a)=o(2^{a})</annotation></semantics></math>,
+in particular to any subexponential bound above
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
+preserves the equivalence. Equivalence preserves truth and settles
+nothing about difficulty, so the reformulation may still be the easier
+representation to attack.</p>
 <p>Two exact countermodels rule out further shortcuts. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>W</mi><mo>,</mo><mi>F</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(W,F,B)=(6,4,1)</annotation></semantics></math>
 we have
@@ -2334,11 +2401,11 @@ the window base, the forcing, the residue
 and the bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
 of .
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="center" class="ta-c"><mi>B</mi></mtd><mtd columnalign="center" class="ta-c"><mi>ℓ</mi></mtd><mtd columnalign="center" class="ta-c"><mi>h</mi></mtd><mtd columnalign="center" class="ta-c"><msub><mi>j</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub></mtd><mtd columnalign="right" class="ta-r"><mi>W</mi></mtd><mtd columnalign="right" class="ta-r"><mi>F</mi></mtd><mtd columnalign="right" class="ta-r"><mi>R</mi></mtd><mtd columnalign="right" class="ta-r"><mi>K</mi></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>2</mn></mtd><mtd columnalign="center" class="ta-c"><mn>4</mn></mtd><mtd columnalign="right" class="ta-r"><mn>60</mn></mtd><mtd columnalign="right" class="ta-r"><mn>47</mn></mtd><mtd columnalign="right" class="ta-r"><mn>13</mn></mtd><mtd columnalign="right" class="ta-r"><mn>9</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>7</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>3</mn></mtd><mtd columnalign="center" class="ta-c"><mn>5</mn></mtd><mtd columnalign="right" class="ta-r"><mn>360</mn></mtd><mtd columnalign="right" class="ta-r"><mn>289</mn></mtd><mtd columnalign="right" class="ta-r"><mn>137</mn></mtd><mtd columnalign="right" class="ta-r"><mn>95</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>16</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>4</mn></mtd><mtd columnalign="center" class="ta-c"><mn>7</mn></mtd><mtd columnalign="right" class="ta-r"><mn>10800</mn></mtd><mtd columnalign="right" class="ta-r"><mn>8735</mn></mtd><mtd columnalign="right" class="ta-r"><mn>640</mn></mtd><mtd columnalign="right" class="ta-r"><mn>352</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{c|c|c|c|r|r|r|r}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="center" class="ta-c"><mi>B</mi></mtd><mtd columnalign="center" class="ta-c"><mi>ℓ</mi></mtd><mtd columnalign="center" class="ta-c"><mi>h</mi></mtd><mtd columnalign="center" class="ta-c"><msub><mi>j</mi><mrow><mi>ℓ</mi><mo>+</mo><mi>h</mi></mrow></msub></mtd><mtd columnalign="right" class="ta-r"><mi>W</mi></mtd><mtd columnalign="right" class="ta-r"><mi>F</mi></mtd><mtd columnalign="right" class="ta-r"><mi>R</mi></mtd><mtd columnalign="right" class="ta-r"><mi>K</mi></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>2</mn></mtd><mtd columnalign="center" class="ta-c"><mn>4</mn></mtd><mtd columnalign="right" class="ta-r"><mn>60</mn></mtd><mtd columnalign="right" class="ta-r"><mn>47</mn></mtd><mtd columnalign="right" class="ta-r"><mn>13</mn></mtd><mtd columnalign="right" class="ta-r"><mn>9</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>7</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>3</mn></mtd><mtd columnalign="center" class="ta-c"><mn>6</mn></mtd><mtd columnalign="right" class="ta-r"><mn>360</mn></mtd><mtd columnalign="right" class="ta-r"><mn>289</mn></mtd><mtd columnalign="right" class="ta-r"><mn>137</mn></mtd><mtd columnalign="right" class="ta-r"><mn>95</mn></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mn>16</mn></mtd><mtd columnalign="center" class="ta-c"><mn>1</mn></mtd><mtd columnalign="center" class="ta-c"><mn>4</mn></mtd><mtd columnalign="center" class="ta-c"><mn>9</mn></mtd><mtd columnalign="right" class="ta-r"><mn>10800</mn></mtd><mtd columnalign="right" class="ta-r"><mn>8735</mn></mtd><mtd columnalign="right" class="ta-r"><mn>640</mn></mtd><mtd columnalign="right" class="ta-r"><mn>352</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{c|c|c|c|r|r|r|r}
 B&amp;\ell&amp;h&amp;j_{\ell+h}&amp;W&amp;F&amp;R&amp;K\\ \hline
 1&amp;1&amp;2&amp;4&amp;60&amp;47&amp;13&amp;9\\
-7&amp;1&amp;3&amp;5&amp;360&amp;289&amp;137&amp;95\\
-16&amp;1&amp;4&amp;7&amp;10800&amp;8735&amp;640&amp;352
+7&amp;1&amp;3&amp;6&amp;360&amp;289&amp;137&amp;95\\
+16&amp;1&amp;4&amp;9&amp;10800&amp;8735&amp;640&amp;352
 \end{array}</annotation></semantics></math> The first row reads as
 follows. The window starts at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\ell=1</annotation></semantics></math>
@@ -2439,8 +2506,7 @@ and a maximum ratio
 This is a computational certificate and nothing else: no Lean
 declaration carries any part of it, so it rests on the correctness of
 the exact integer engine that produced it, and the certificate record is
-held in the author’s formal-mathematics archive, outside the public
-source of this release.</p>
+not part of the public source of this release.</p>
 <div class="theorem">
 <p><strong>Theorem 8.2</strong> (continued-fraction exclusion,
 computational certificate). <em> The normalised tail
@@ -2455,14 +2521,15 @@ about
 </div>
 <p>The certification is by common prefix of the continued fractions of
 the two endpoints of an interval provably containing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>,
-so no approximation heuristic enters, and the truncation was
-independently checked to agree with the direct smooth-number sum as an
-exact rational. The machine-readable witness and replay receipt for this
-large computation are not included in the public release, so the
-statement remains an archived ordinary computational certificate rather
-than a publicly replayed or Lean-checked result. The recorded statistics
-are a largest denominator of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>;
+the numbers with a given prefix of partial quotients form an interval
+<span class="citation" data-cites="bosmaCF"><a href="#ref-19">[19]</a></span>, so no approximation
+heuristic enters, and the truncation was independently checked to agree
+with the direct smooth-number sum as an exact rational. The
+machine-readable witness and replay receipt for this large computation
+are not included in the public release, so the statement is an ordinary
+computational certificate that has been neither publicly replayed nor
+checked in Lean. The recorded statistics are a largest denominator of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>22</mn><mo>,</mo><mn>483</mn></mrow><annotation encoding="application/x-tex">22{,}483</annotation></semantics></math>
 bits, a largest partial quotient of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>129</mn><mo>,</mo><mn>114</mn></mrow><annotation encoding="application/x-tex">129{,}114</annotation></semantics></math>,
@@ -2484,8 +2551,13 @@ and a Lévy constant of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.18869</mn><annotation encoding="application/x-tex">1.18869</annotation></semantics></math>
 against
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>π</mi><mn>2</mn></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>12</mn><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.18657</mn></mrow><annotation encoding="application/x-tex">\pi^{2}/(12\log2)=1.18657</annotation></semantics></math>.
-No Liouville behaviour and no algebraic or self-similar
-continued-fraction structure appears below that height.</p>
+The predicted values are the almost-everywhere frequencies of Gauss’s
+law and Lévy’s almost-everywhere constant <span class="citation"
+data-cites="levy1936"><a href="#ref-18">[18]</a></span>. These statistics describe a finite prefix
+and do not bear on whether
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mn>1</mn></msub><annotation encoding="application/x-tex">X_1</annotation></semantics></math>
+is a Liouville number, algebraic, or rational with a larger
+denominator.</p>
 <p>Each exclusion is finite and neither contains the other: one is
 indexed by a lattice at a fixed launch and fixed smooth part, the other
 by continued-fraction depth at
@@ -2711,29 +2783,33 @@ For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{2,3,5\}</annotation></semantics></math>
 the reduction is complete on the arithmetic side: the literal digit, the
 tail, the integral recurrence, the smooth-factor cancellation, the
-explicit onset and the sharp carry bound all refer to the same series,
-and Theorem  shows that the one remaining condition is the problem
-itself throughout an entire band of bounds. Three obstructions mark the
-limits. Arbitrary-order minors exclude every finite exact separation of
-the kernel into rational factors, and Theorem  excludes even approximate
-separation of its normalised carry below half a jump. The bounded-radix
-alternative leaves integral tails untouched. The residue countermodels
-show that coprimality alone gives no denominator-independent residue
-bound, and Corollary  shows that no bounded-length search can reach the
-cofinal quantifier. What remains is to force the literal word’s residue
-outside the finite carry interval, with the window allowed to depend on
-the denominator and to begin beyond the onset.</p>
+explicit onset and the explicit quadratic carry bound all refer to the
+same series, and Theorem  shows that the one remaining condition is the
+problem itself throughout an entire band of bounds. Three obstructions
+mark the limits. Arbitrary-order minors exclude every finite exact
+separation of the kernel into rational factors, and Theorem  excludes
+even approximate separation of its normalised carry below half a jump.
+The bounded-radix alternative leaves integral tails untouched. The
+residue countermodels show that coprimality alone gives no
+denominator-independent residue bound, and Corollary  shows that no
+bounded-length search can reach the cofinal quantifier. What remains is
+to force the literal word’s residue outside the finite carry interval,
+with the window allowed to depend on the denominator and to begin beyond
+the onset.</p>
 </section>
 <section id="statements-and-declarations" class="level3 unnumbered">
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="evidence." class="level5">
 <h5>Evidence.</h5>
-<p>Steve Fan’s two-prime argument is an ordinary proof over the cited
-Bugeaud–Laurent theorem and carries no Lean declaration. The
-arbitrary-order kernel minors and the exclusion of finite separation are
-Lean theorems in <code>KernelCarryRank</code>. The named source
-statements for the literal recurrence and fixed-split rationality bridge
-are Lean theorems as well. The <a
+<p>The two-prime theorem has an ordinary proof in this record over the
+Hecke–Mahler value theorem of Loxton and van der Poorten, in the form of
+Bugeaud and Laurent, and carries no Lean declaration; Steve Fan posted
+the same argument first <span class="citation"
+data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>. The arbitrary-order kernel minors
+and the exclusion of finite separation are Lean theorems in
+<code>KernelCarryRank</code>. The named source statements for the
+literal recurrence and fixed-split rationality bridge are Lean theorems
+as well. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/06f57893e0f9c6d80668048f26f096367ae4cfe7/verification/erdos269-wavea-validation.json">source-current
 validation receipt</a> byte-matches these modules and records their
 compilation inside the public recursive import closure; its named
@@ -2748,7 +2824,7 @@ actual-series reduction is given; the source-specific cofinal escape
 remains unproved. Named Lean sources below are locators, not a blanket
 end-to-end coverage claim. The quadratic tail bound, the explicit onset
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>D</mi></msub><annotation encoding="application/x-tex">a_D</annotation></semantics></math>,
-the sharp bound
+the explicit bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
 and Theorem  are ordinary proofs in this paper; the three finite
 computations of Section  are computational certificates.</p>
@@ -2768,14 +2844,15 @@ competing interests.</p>
 </section>
 <section id="acknowledgements." class="level5">
 <h5>Acknowledgements.</h5>
-<p>The two-prime factorisation, its Hecke–Mahler reduction and the
-running-LCM identity for every
+<p>Priority for the two-prime factorisation, its Hecke–Mahler reduction
+and the running-LCM identity for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|P|</annotation></semantics></math>
-are credited to Steve Fan. The transcendence input is credited to Yann
-Bugeaud and Michel Laurent and to the earlier work of Loxton and van der
-Poorten cited by them. The problem numbering and status follow the Erdős
-Problems catalogue maintained by Thomas Bloom <span class="citation"
-data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>.</p>
+belongs to Steve Fan’s forum post of 26 June 2026 <span class="citation"
+data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>. The transcendence input is due to
+Yann Bugeaud and Michel Laurent and to the earlier work of Loxton and
+van der Poorten cited by them. The problem numbering and status follow
+the Erdős Problems catalogue maintained by Thomas Bloom <span
+class="citation" data-cites="erdosproblems"></span>.</p>
 </section>
 </section>
 </section>
@@ -2815,17 +2892,17 @@ statement for
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">|P|\ge3</annotation></semantics></math>,
 would be a different question and needs its own formulation.</p>
-<p>The two-prime argument of the note is independent of the unprinted
-argument in the letter, and it is not the first public proof. Steve Fan
-posted the same factorisation, the same Hecke–Mahler reduction and the
-same conclusion in the discussion thread of the problem’s page on 26
-June 2026 <span class="citation" data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>;
-the comment itself notes that the argument does not seem to generalise
-immediately to
+<p>The letter prints no argument. On 26 June 2026 Steve Fan posted the
+two-prime factorisation, the Hecke–Mahler reduction and the
+transcendence conclusion in the discussion thread of the problem’s page
+<span class="citation" data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>; the comment
+itself notes that the argument does not seem to generalise immediately
+to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">|P|\ge3</annotation></semantics></math>,
 and a reply there observes that it applies to arbitrary coprime pairs.
-The manuscript of the note was first released publicly on 22 July 2026,
-at commit <code>a9d3ab8</code>.</p>
+The note’s two-prime argument was found independently, and its
+manuscript was first released publicly on 22 July 2026, at commit
+<code>a9d3ab8</code>.</p>
 <p>The statement of the problem has been formalised as a conjecture with
 an unfilled proof in the collection <span class="citation"
 data-cites="formalconjectures269"><a href="#ref-5">[5]</a></span>. Its Nat-indexed series
@@ -2840,7 +2917,9 @@ lemma, which is not supplied here.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{2,3,5\}</annotation></semantics></math>
 orbit. The underlying statements are about integer sequences alone, they
 are reusable, and they are recorded here in the generality in which they
-are checked.</p>
+are checked. They are conditional carry lemmas in the Cantor-series
+tradition described after Theorem , and each assumes its divisibility or
+escape hypothesis.</p>
 <p>Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><msub><mi>D</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">m</mi></mrow></msub><mi>B</mi></mrow><annotation encoding="application/x-tex">D=D_{\mathrm{sm}}B</annotation></semantics></math>
 with
@@ -3869,10 +3948,14 @@ to the short note.</p>
 result. Formal editorial disposition: hold. These are separate
 classifications.</p>
 <p><strong>Reader entry.</strong> Both two-prime running-lcm series are
-proved transcendental by an authored deduction from an external
-theorem.</p>
-<p>Both two-prime running-lcm series are proved transcendental by an
-authored deduction from an external theorem.</p>
+transcendental, by an independent deduction from the Hecke–Mahler value
+theorem of Loxton and van der Poorten in the form of Bugeaud and
+Laurent; Steve Fan posted the same argument first on the problem’s forum
+thread.</p>
+<p>Both two-prime running-lcm series are transcendental, by an
+independent deduction from the Hecke–Mahler value theorem of Loxton and
+van der Poorten in the form of Bugeaud and Laurent; Steve Fan posted the
+same argument first on the problem’s forum thread.</p>
 <p><strong>Authority and reach.</strong> paper argument plus cited
 theorem; paper plus external theorem.</p>
 <p><strong>Exact boundary.</strong> Comparator cannot certify the
@@ -4073,9 +4156,15 @@ complete long record and is not a short-note headline.</p>
 <p><strong>Reader position.</strong> 64 of 70; display band: technical
 support. Formal editorial disposition: hold. These are separate
 classifications.</p>
-<p><strong>Reader entry.</strong> A local-window checker searches 106666
-denominator and start pairs and records small certificates.</p>
-<p>A local-window checker searches 106666 denominator and start pairs
+<p><strong>Reader entry.</strong> A local-window checker searches
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>,</mo><mn>869</mn><mo>,</mo><mn>934</mn></mrow><annotation encoding="application/x-tex">3{,}869{,}934</annotation></semantics></math>
+denominator and start pairs, after an earlier run over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>106</mn><mo>,</mo><mn>666</mn></mrow><annotation encoding="application/x-tex">106{,}666</annotation></semantics></math>,
+and records small certificates.</p>
+<p>A local-window checker searches
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>,</mo><mn>869</mn><mo>,</mo><mn>934</mn></mrow><annotation encoding="application/x-tex">3{,}869{,}934</annotation></semantics></math>
+denominator and start pairs, after an earlier run over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>106</mn><mo>,</mo><mn>666</mn></mrow><annotation encoding="application/x-tex">106{,}666</annotation></semantics></math>,
 and records small certificates.</p>
 <p><strong>Authority and reach.</strong> external exact computation;
 finite computation.</p>
@@ -4109,19 +4198,18 @@ href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009
 <li id="ref-3"><p>P. Erdős, <a
 href="https://www.fq.math.ca/Scanned/12-4/letter.pdf"></a> (written
 1 January 1973), Fibonacci Quart. <strong>12</strong> (1974), no. 4,
-p. 335. The letter poses the full series as a conjecture and asserts
-irrationality after retaining only the distinct running-LCM values, for
-a general finite list of primes, without proof.</p></li>
+p. 335. The letter poses the full series as a conjecture and states,
+without proof, that the sum over the distinct running-LCM values is
+irrational.</p></li>
 <li id="ref-4"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/269"><em>Erdős Problem
 #269</em></a>, <code>erdosproblems.com/269</code>, accessed 28 July 2026
-(page displays “last edited 28 December 2025”). The current record
+(page displays “last edited 28 December 2025”). As accessed, the record
 labels the finite-support problem open, cites
 <code>[ErGr80, p. 65]</code> and <code>[Er88c, p. 106]</code>, routes to
 the 1974 letter on p. 335, records the infinite-prime and de-duplicated
-variants, and explicitly describes its status as the website owner’s
-present assessment, with no guarantee of literature
-completeness.</p></li>
+variants, and describes its status as the website owner’s present
+assessment, with no guarantee of literature completeness.</p></li>
 <li id="ref-5"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/269.lean"><em>FormalConjectures.ErdosProblems.<code>269</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July
@@ -4130,8 +4218,8 @@ Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July
 href="https://doi.org/10.1007/978-1-4757-5579-4"></a>, Springer, New
 York, 1976.</p></li>
 <li id="ref-7"><p>A. Hildebrand, , J. Number Theory <strong>22</strong> (1986),
-289–307, <a
-href="https://doi.org/10.1016/0022-314X(86)90013-2">DOI</a>.</p></li>
+289–307, doi:<a
+href="https://doi.org/10.1016/0022-314X(86)90013-2">10.1016/0022-314X(86)90013-2</a>.</p></li>
 <li id="ref-8"><p>H. L. Montgomery and R. C. Vaughan, , in , Cambridge Studies in
 Advanced Mathematics 97, Cambridge University Press, 2007, pp. 168–198,
 doi:<a
@@ -4142,39 +4230,42 @@ Hungar. <strong>175</strong> (2025), 572–608, doi:<a
 href="https://doi.org/10.1007/s10474-025-01528-0">10.1007/s10474-025-01528-0</a>;
 <a href="https://arxiv.org/abs/2406.17593">arXiv:2406.17593</a>,
 2024.</p></li>
-<li id="ref-10"><p>Y. Bugeaud and M. Laurent, , Acta Arith. <strong>209</strong>
-(2023), 59–90, doi:10.4064/aa220323-18-1; <a
-href="https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf">authors’
-Online First PDF</a>, <a
-href="https://arxiv.org/abs/2203.12901">arXiv:2203.12901v1</a>.
-Theorem 1.1 appears on p. 3 of the linked Online First PDF; its
-introduction, p. 2, attributes the zero-shift case to Loxton and van der
-Poorten. The original result is Theorem 8, p. 40, of <span
-class="citation" data-cites="loxtonvdp1977"></span>.</p></li>
+<li id="ref-10"><p>Y. Bugeaud and M. Laurent, <a
+href="https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf"></a>,
+Acta Arith. <strong>209</strong> (2023), 59–90, doi:<a
+href="https://doi.org/10.4064/aa220323-18-1">10.4064/aa220323-18-1</a>;
+arXiv:<a href="https://arxiv.org/abs/2203.12901v1">2203.12901v1</a>.
+Theorem 1.1 is on p. 3 of the linked Online First version, whose
+introduction, pp. 1–2, credits the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\rho=0</annotation></semantics></math>
+to Mahler and to Loxton and van der Poorten.</p></li>
 <li id="ref-11"><p>J. H. Loxton and A. J. van der Poorten, , Bull. Austral. Math.
-Soc. <strong>16</strong> (1977), 15–47, <a
-href="https://doi.org/10.1017/S0004972700022978">doi:10.1017/S0004972700022978</a>;
-Theorem 8, p. 40.</p></li>
+Soc. <strong>16</strong> (1977), 15–47, doi:<a
+href="https://doi.org/10.1017/S0004972700022978">10.1017/S0004972700022978</a>.</p></li>
 <li id="ref-12"><p>S. Fan, comment on Erdős Problem #269, <a
-href="https://www.erdosproblems.com/forum/thread/269">erdosproblems.com
-forum, thread 269</a>, 26 June 2026. The comment gives the running-LCM
-identity for every
+href="https://www.erdosproblems.com/forum/thread/269#post-7218">erdosproblems.com
+forum, thread 269, post 7218</a>, 26 June 2026. The comment gives the
+running-LCM identity for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|P|</annotation></semantics></math>,
 the two-channel factorisation, the Hecke–Mahler reduction, and the
 transcendence conclusion for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|P|=2</annotation></semantics></math>;
 follow-up comments there note the extension to arbitrary coprime
 pairs.</p></li>
-<li id="ref-13"><p>S. Fan and A. Lott, <a
-href="https://arxiv.org/abs/2606.29185"></a>, arXiv:2606.29185v1,
-28 June 2026. Section 3, pp. 4–8, defines the coefficients by summing
-smooth weights over the representations
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><msup><mi>v</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d=v^2(x^2+y^2)</annotation></semantics></math>;
-pp. 5–6 explain that averaging over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
-places the complete sums in a fixed sector, and Corollary 4.4, p. 12,
-proves the sector bound.</p></li>
-<li id="ref-14"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071"><em>Strongly
+<li id="ref-13"><p>P. Erdős and E. G. Straus, , Pacific J. Math. <strong>55</strong>
+(1974), no. 1, 85–92, doi:<a
+href="https://doi.org/10.2140/pjm.1974.55.85">10.2140/pjm.1974.55.85</a>.</p></li>
+<li id="ref-14"><p>J. Hančl and R. Tijdeman, , Publ. Math. Debrecen
+<strong>65</strong> (2004), no. 3–4, 371–380, doi:<a
+href="https://doi.org/10.5486/PMD.2004.3254">10.5486/PMD.2004.3254</a>.</p></li>
+<li id="ref-15"><p>A. Koutsoukou-Argyraki and W. Li, <a
+href="https://www.isa-afp.org/entries/Irrational_Series_Erdos_Straus.html"><em>Irrationality
+Criteria for Series by Erdős and Straus</em></a>, Archive of Formal
+Proofs, 12 May 2020.</p></li>
+<li id="ref-16"><p>P. Erdős and S. J. Taylor, , Proc. London Math. Soc. (3)
+<strong>7</strong> (1957), no. 1, 598–615, doi:<a
+href="https://doi.org/10.1112/plms/s3-7.1.598">10.1112/plms/s3-7.1.598</a>.</p></li>
+<li id="ref-17"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071v1"><em>Strongly
 complete sets and a conjecture of Erdős</em></a>, arXiv:2607.14071v1,
 15 July 2026. The paper proves the conjecture listed as Erdős
 Problem #254. Lemma 3.1, p. 7, proves that the
@@ -4188,6 +4279,13 @@ for a fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lambda&gt;1</annotation></semantics></math>;
 the preceding paragraph credits the phenomenon to Eggleston (1952) and
 more general results to Erdős and Taylor (1957).</p></li>
+<li id="ref-18"><p>P. Lévy, <a
+href="http://www.numdam.org/item?id=CM_1936__3__286_0"></a>, Compositio
+Math. <strong>3</strong> (1936), 286–303.</p></li>
+<li id="ref-19"><p>W. Bosma, C. Kraaikamp, S. Hommersom, M. Keune, C. Kooloos,
+W. van Loon, R. Loos, E. Omiljan, G. Popma, D. Venhoek and M. Zwart, <a
+href="https://www.math.ru.nl/~bosma/Students/CF.pdf"></a>, lecture
+notes, 2012–2013.</p></li>
 </ol>
 </section>
   </div>

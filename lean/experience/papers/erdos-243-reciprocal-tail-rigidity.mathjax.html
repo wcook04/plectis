@@ -48,8 +48,11 @@ href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633">ru
 <section id="the-obstruction." class="level5">
 <h5>The obstruction.</h5>
 <p>Clear the rational reciprocal tail as <span
-class="math inline" data-term-auto="off">\(C_n/D_n\)</span>. On a Sylvester tail, <span
-class="math inline" data-term-auto="off">\(D_n=(a_n-1)C_n\)</span>; the integer error <span
+class="math inline" data-term-auto="off">\(C_n/D_n\)</span>; these are the
+denominator-cleared tail variables of Koizumi’s pseudo-greedy
+formulation <span class="citation" data-cites="koizumi2025"><a href="#ref-9">[9]</a></span>. On
+a Sylvester tail, <span class="math inline" data-term-auto="off">\(D_n=(a_n-1)C_n\)</span>;
+the integer error <span
 class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span> measures the failure
 of this identity. Its update <span
 class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span> turns a bound on negative
@@ -115,6 +118,11 @@ class="math display" data-term-auto="off">\[\lim_{n\to\infty}\frac{a_n}{a_{n-1}^
 class="math inline" data-term-auto="off">\(a_n=a_{n-1}^{2}-a_{n-1}+1\)</span> for all
 sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
+<p>The question is recorded by Erdős and Graham <span class="citation"
+data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span> and by Erdős <span class="citation"
+data-cites="erdos1988"><a href="#ref-6">[6]</a></span>, and Bloom’s catalogue lists it as
+Problem #243 <span class="citation"
+data-cites="erdosproblems"><a href="#ref-10">[10]</a></span>.</p>
 <p>The additional hypothesis in Theorem <a class="math-ref" href="#res:bounded">1.2</a> is the lower bound on
 <span class="math inline" data-term-auto="off">\(E_n\)</span>. The growth and rationality
 assumptions already supply the other state hypotheses after a finite
@@ -122,10 +130,14 @@ shift. The nonnegative-error case, Badea’s criterion <span
 class="citation" data-cites="badea1993"></span> in Koizumi’s
 coordinates, is integer descent <span class="citation"
 data-cites="koizumi2025"><a href="#ref-9">[9]</a></span>; the theorem allows arbitrary sign
-changes with bounded negative depth. Bado’s author-posted preprint
-assumes two-sided bounded errors <span class="citation"
-data-cites="bado2026"><a href="#ref-8">[8]</a></span>. The comparisons concern these stated
-hypotheses and make no priority claim.</p>
+changes with bounded negative depth. The published product-weighted
+criterion, stated as Koizumi’s Corollary 4(1), assumes a nonpositive
+upper limit <span class="citation" data-cites="koizumi2025"><a href="#ref-9">[9]</a></span>, and
+Corollary <a class="math-ref" href="#res:originalbounded">1.1</a>
+allows any finite upper limit. Bado’s preprint, posted in September
+2026, assumes two-sided bounded errors <span class="citation"
+data-cites="bado2026"><a href="#ref-7">[7]</a></span>; Theorem <a class="math-ref" href="#res:bounded">1.2</a> needs only an eventual
+lower bound.</p>
 </section>
 </section>
 <section id="sec:bounded" class="level2">
@@ -167,7 +179,15 @@ eventually.</em></p>
 <h2>The arithmetic ingredients</h2>
 <section id="sec:defect" class="level3">
 <h3>Error, absorption and descent</h3>
-<p> Write <span
+<p> The identities below are algebraic consequences of Koizumi’s state
+recurrence <span class="citation" data-cites="koizumi2025"><a href="#ref-9">[9]</a></span>. In
+his coordinates the absorption of Theorem <a class="math-ref" href="#res:absorb">3.2</a> is his Lemma 3 <span
+class="citation" data-cites="koizumi2025"></span>, and the
+nonnegative-error descent is his Proposition 1(2) <span class="citation"
+data-cites="koizumi2025"><a href="#ref-9">[9]</a></span>, which he attributes to Badea <span
+class="citation" data-cites="badea1993"></span>. The conventions here
+are those of the formalisation.</p>
+<p>Write <span
 class="math inline" data-term-auto="off">\(\Delta_n=a_{n+1}-(a_n^2-a_n+1)\)</span>.</p>
 <div class="proposition" id="res:update"><span class="tex-label" id="res:defect" hidden></span>
 <p><strong>Proposition 3.1</strong> (error identities). <em> For an exact
@@ -249,21 +269,12 @@ class="math inline" data-term-auto="off">\(\prod_i m_i\)</span>. ◻</p>
 <p>Lemma <a class="math-ref" href="#res:crt">3.4</a> matches each
 modulus <span class="math inline" data-term-auto="off">\(m_i\)</span> to its own multiple
 <span class="math inline" data-term-auto="off">\(t+i\)</span> inside a window of <span
-class="math inline" data-term-auto="off">\(B\)</span> consecutive integers. Matchings of a
-set of integers to distinct multiples in an interval are the subject of
-Erdős Problem #650, solved by van Doorn, Li and Tang: for every set
-<span class="math inline" data-term-auto="off">\(S\)</span> of <span
-class="math inline" data-term-auto="off">\(k\)</span> positive integers, every open interval
-of length <span class="math inline" data-term-auto="off">\(2\max S\)</span> contains distinct
-multiples of at least <span class="math inline" data-term-auto="off">\(\min(k,\lceil
-2\sqrt{k}\,\rceil)\)</span> elements of <span
-class="math inline" data-term-auto="off">\(S\)</span>, and this count is optimal <span
-class="citation" data-cites="vandoornlitang2026"></span>. Their extremal
-construction uses the same Chinese remaindering for moduli that need not
-be pairwise coprime, with their Claim 3.2 supplying the divisibility of
-residue differences by greatest common divisors that the generalised
-theorem requires <span class="citation"
-data-cites="vandoornlitang2026"><a href="#ref-7">[7]</a></span>.</p>
+class="math inline" data-term-auto="off">\(B\)</span> consecutive integers. The same
+forbidden block and first-crossing contradiction, under a two-sided
+bound on the error, appear in the proof of Bado’s Theorem 5.1 <span
+class="citation" data-cites="bado2026"></span>. The lemma here isolates
+bounded upward movement, and the gcd stabilisation below makes it
+applicable with only a lower bound on the error.</p>
 <div class="theorem" id="res:barrier">
 <p><strong>Theorem 3.5</strong> (bounded-rise obstruction). <em> Let <span
 class="math inline" data-term-auto="off">\(u_n\in\N\)</span> tend to infinity with <span
@@ -358,8 +369,11 @@ retains that distinction and its finite-block consequences.</p>
 </section>
 <section id="sec:transfer" class="level2">
 <h2>Transfer to a reciprocal series</h2>
-<p>Let <span class="math inline" data-term-auto="off">\(x_n=\sum_{k\ge n}1/a_k\)</span>,
-suppose <span class="math inline" data-term-auto="off">\(x_1=p/q\)</span> with <span
+<p>The variables below are Koizumi’s denominator-cleared rational tail
+<span class="citation" data-cites="koizumi2025"><a href="#ref-9">[9]</a></span>, with the
+indexing and the common clearing factor used here. Let <span
+class="math inline" data-term-auto="off">\(x_n=\sum_{k\ge n}1/a_k\)</span>, suppose <span
+class="math inline" data-term-auto="off">\(x_1=p/q\)</span> with <span
 class="math inline" data-term-auto="off">\(q&gt;0\)</span>, and put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[P_n=\prod_{j&lt;n}a_j,\qquad D_n=qP_n,\qquad
@@ -425,6 +439,10 @@ integer <span class="math inline" data-term-auto="off">\(E_n\)</span>. After del
 finite prefix, all hypotheses of Theorem <a class="math-ref" href="#res:bounded">1.2</a> hold. Apply
 Corollary <a class="math-ref" href="#res:cor">2.1</a>. ◻</p>
 </div>
+<p>Identity <a class="math-ref" data-equation-ref="true" href="#eq:canonical-dictionary">eq:canonical-dictionary</a> is the
+product-weighted comparison used in Koizumi’s proof of his
+Corollary 4(1) <span class="citation" data-cites="koizumi2025"><a href="#ref-9">[9]</a></span>,
+written in the canonical variables.</p>
 <p>The same calculation is valid with <span
 class="math inline" data-term-auto="off">\(qP_n\)</span> replaced by any positive clearance
 <span class="math inline" data-term-auto="off">\(H_n\le qP_n\)</span>: if <span
@@ -477,16 +495,39 @@ comparison is <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/SparseResetRecovery.lean#L378">tail
 growth</a>.</p>
 <p>On an exact reciprocal-tail orbit the conclusion gives the Sylvester
-recurrence. The scalar criterion and bounded negative error are distinct
-quantities to estimate; on the common exact-orbit class with normalised
-vanishing they are each equivalent to the same endpoint.</p>
+recurrence. For the gap sequence of the pseudo-greedy expansion, the
+same criterion, with the same product bound and integer descent, appears
+in the Erdős Problem a Day working report on Problem #243, dated 12
+August 2026 <span class="citation"
+data-cites="erdosproblemaday243"><a href="#ref-8">[8]</a></span>; the statement above is for any
+positive integer sequence with <span
+class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>. The scalar criterion and
+bounded negative error are distinct quantities to estimate; on the
+common exact-orbit class with normalised vanishing they are each
+equivalent to the same endpoint.</p>
 </section>
 <section id="sec:lcmrecords" class="level2">
 <h2>Weighted first crossings of LCM records</h2>
 <p>Only steps setting an LCM numerator record need contribute. The
 first-crossing argument permits subtraction of a fixed baseline and any
 decreasing weight with divergent integral. The theorem in this section
-has an ordinary proof.</p>
+has an ordinary proof. The LCM coordinates below also appear in Bado’s
+preprint of September 2026: with his denominator parameter equal to
+<span class="math inline" data-term-auto="off">\(q\)</span>, his <span
+class="math inline" data-term-auto="off">\(M_{n-1}\)</span>, <span
+class="math inline" data-term-auto="off">\(\Delta_{n-1}\)</span>, <span
+class="math inline" data-term-auto="off">\(K_{n-1}\)</span>, <span
+class="math inline" data-term-auto="off">\(u_n\)</span> and <span
+class="math inline" data-term-auto="off">\(g_n\)</span> are the <span
+class="math inline" data-term-auto="off">\(L_n\)</span>, <span
+class="math inline" data-term-auto="off">\(M_n\)</span>, <span
+class="math inline" data-term-auto="off">\(U_n\)</span>, <span
+class="math inline" data-term-auto="off">\(V_n\)</span> and <span
+class="math inline" data-term-auto="off">\(\rho_n\)</span> defined here, and his (19) is the
+update <span class="math inline" data-term-auto="off">\(\rho_nU_{n+1}=U_n-V_n\)</span> <span
+class="citation" data-cites="bado2026"></span>; the contraction at a
+reuse step is his (34) <span class="citation"
+data-cites="bado2026"><a href="#ref-7">[7]</a></span>.</p>
 <p>Set</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L_n=\operatorname{lcm}(q,a_1,\ldots,a_{n-1}),\quad
@@ -644,10 +685,12 @@ vanishes after a finite prefix for a sufficiently large baseline, so
 Theorem <a class="math-ref" href="#res:weightedrecord">6.1</a>
 applies. ◻</p>
 </div>
-<p>Erdős–Straus Theorem 3 uses a nonpositive limsup in the corresponding
-next-index LCM expression <span class="citation"
-data-cites="erdosstraus1964"><a href="#ref-1">[1]</a></span>. Here any finite upper bound
-suffices under the quadratic-limit assumption. Since <span
+<p>Erdős and Straus assume a nonpositive upper limit in the
+corresponding next-index LCM expression <span class="citation"
+data-cites="erdosstraus1964"><a href="#ref-1">[1]</a></span>, and Tijdeman and Yuan give a
+criterion of the same kind for positive numerators <span
+class="citation" data-cites="tijdemanyuan2002"></span>. Here any finite
+upper bound suffices under the quadratic-limit assumption. Since <span
 class="math inline" data-term-auto="off">\(A_n\mid P_n\)</span>, this also implies
 Corollary <a class="math-ref" href="#res:originalbounded">1.1</a>: multiplication
 by a factor in <span class="math inline" data-term-auto="off">\((0,1]\)</span> preserves an
@@ -667,11 +710,14 @@ sufficient specialisation, not the hypothesis printed in that corollary.
 The all-positive specialisation is the form relevant here.</p>
 <p>The divisor constraint also survives integral numerator coefficients:
 <span class="math inline" data-term-auto="off">\(d=(a_n-1)U_n-b_nL_n\)</span> is divisible by
-every divisor of both <span class="math inline" data-term-auto="off">\(U_n,L_n\)</span>. The
-already-proved coefficient-uniform variant gives bounded LCM height from
-a bounded negative part; normalised vanishing is used afterwards for
-stationarity. Its proof and exact bounded-height counterexamples are in
-the <a
+every divisor of both <span class="math inline" data-term-auto="off">\(U_n,L_n\)</span>. An
+ordinary coefficient-uniform variant gives bounded LCM height from a
+bounded negative part; normalised vanishing is used afterwards for
+stationarity. For positive numerator coefficients the classical
+comparators are Badea’s Corollary 2.2 <span class="citation"
+data-cites="badea1993"><a href="#ref-3">[3]</a></span> and the criterion of Tijdeman and Yuan
+<span class="citation" data-cites="tijdemanyuan2002"><a href="#ref-4">[4]</a></span>. Its proof
+and exact bounded-height counterexamples are in the <a
 href="https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/CoefficientUniformBoundedHeight.md">coefficient
 proof supplement</a>.</p>
 </section>
@@ -712,11 +758,8 @@ class="math inline" data-term-auto="off">\(C_n\)</span> of Section <a class="ma
 class="math inline" data-term-auto="off">\(q\)</span> times the linear form <span
 class="math inline" data-term-auto="off">\(P_nx_1-P_n\sum_{k&lt;n}1/a_k\)</span>, whose
 coefficients are integers. Approximation criteria for irrationality use
-nonzero forms of this kind that tend to zero, as in the quantitative
-form stated as Lemma 3.4 of Koizumi and Yokoi <span class="citation"
-data-cites="koizumiyokoi2026"><a href="#ref-10">[10]</a></span>, applied there to values of <span
-class="math inline" data-term-auto="off">\(q\)</span>-series. At the cubic rate these forms
-grow: since <span class="math inline" data-term-auto="off">\(a_nx_n\to1\)</span>, the
+nonzero forms of this kind that tend to zero. At the cubic rate these
+forms grow: since <span class="math inline" data-term-auto="off">\(a_nx_n\to1\)</span>, the
 identity <span
 class="math inline" data-term-auto="off">\((P_{n+1}/a_{n+1})/(P_n/a_n)=1+\gamma_n\)</span> of
 Section <a class="math-ref" href="#sec:transfer">4</a> makes
@@ -790,10 +833,57 @@ class="math display" data-term-auto="off">\[\begin{equation}
 give <span class="math inline" data-term-auto="off">\(F_B(X)\ge X/P_B-O_B(1)\)</span>, with
 an orbit-dependent CRT modulus <span class="math inline" data-term-auto="off">\(P_B\)</span>.
 The missing step is to derive <a class="math-ref" data-equation-ref="true" href="#eq:remaining-record-budget">eq:remaining-record-budget</a> from
-the canonical dynamics. The equivalence with the existence of an
-admissible summable weight is proved in the <a
-href="https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/LcmDefectCriterionReduction.md">record-budget
-supplement</a>; it does not establish the estimate.</p>
+the canonical dynamics. Its equivalence with the existence of an
+admissible weight is the following elementary lemma, applied to the
+record charges <span class="math inline" data-term-auto="off">\(u_j=U_n\)</span> and <span
+class="math inline" data-term-auto="off">\(w_j=(-V_n-B)_+\)</span> over <span
+class="math inline" data-term-auto="off">\(n\in\mathcal R\)</span> at a fixed <span
+class="math inline" data-term-auto="off">\(B\)</span>.</p>
+<div class="lemma" id="res:weights">
+<p><strong>Lemma 8.3</strong> (weights and linear density). <em> Let
+<span class="math inline" data-term-auto="off">\(u_j\)</span> be positive integers, let <span
+class="math inline" data-term-auto="off">\(w_j\ge0\)</span>, and put <span
+class="math inline" data-term-auto="off">\(F(X)=\sum_{u_j\le X}w_j\)</span>. Then <span
+class="math inline" data-term-auto="off">\(\liminf_{X\to\infty}F(X)/X=0\)</span> if and only
+if there is a finite nonincreasing <span
+class="math inline" data-term-auto="off">\(f:[1,\infty)\to[0,\infty)\)</span> with <span
+class="math inline" data-term-auto="off">\(\int_1^\infty f(t)\,dt=\infty\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum_jw_jf(u_j)&lt;\infty\)</span>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Suppose the lower limit vanishes. Since <span
+class="math inline" data-term-auto="off">\(F\)</span> is constant on each <span
+class="math inline" data-term-auto="off">\([m,m+1)\)</span>, there are integers <span
+class="math inline" data-term-auto="off">\(X_1&lt;X_2&lt;\cdots\)</span> with <span
+class="math inline" data-term-auto="off">\(X_k\ge2^{k}\)</span> and <span
+class="math inline" data-term-auto="off">\(F(X_k)\le2^{-k}X_k\)</span>. Put <span
+class="math inline" data-term-auto="off">\(f=\sum_{k\ge1}X_k^{-1}\mathbf
+1_{[1,X_k]}\)</span>, which is nonincreasing and bounded by <span
+class="math inline" data-term-auto="off">\(\sum_k2^{-k}\)</span>. Then <span
+class="math inline" data-term-auto="off">\(\int_1^\infty f=\sum_k(1-1/X_k)=\infty\)</span>,
+while interchanging the nonnegative sums gives <span
+class="math inline" data-term-auto="off">\(\sum_jw_jf(u_j)=\sum_kF(X_k)/X_k\le1\)</span>.</p>
+<p>Conversely, let <span class="math inline" data-term-auto="off">\(f\)</span> be such a
+weight and suppose <span class="math inline" data-term-auto="off">\(F(m)\ge cm\)</span> for
+some <span class="math inline" data-term-auto="off">\(c&gt;0\)</span> and all integers <span
+class="math inline" data-term-auto="off">\(m\ge M\)</span>. A nonincreasing nonnegative
+function with divergent integral is positive everywhere, so <span
+class="math inline" data-term-auto="off">\(F(X)\le f(X)^{-1}\sum_jw_jf(u_j)\)</span> is
+finite. Partial summation gives, for <span
+class="math inline" data-term-auto="off">\(N&gt;M\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{u_j\le N}w_jf(u_j)
+=F(N)f(N)+\sum_{m=1}^{N-1}F(m)\bigl(f(m)-f(m+1)\bigr)
+\ge c\Bigl(Mf(M)+\sum_{m=M+1}^{N}f(m)\Bigr),\]</span></div>
+<p class="display-continue">every term being
+nonnegative. The right side diverges as <span
+class="math inline" data-term-auto="off">\(N\to\infty\)</span>, because <span
+class="math inline" data-term-auto="off">\(\sum_{m\ge1}f(m)\ge\int_1^\infty
+f(t)\,dt=\infty\)</span>. ◻</p>
+</div>
+<p>The lemma converts the weighted criterion into the displayed density
+condition; supplying <a class="math-ref" data-equation-ref="true" href="#eq:remaining-record-budget">eq:remaining-record-budget</a> for a
+canonical orbit remains open.</p>
 <p>The obstruction is the exact unit-numerator feedback at the record
 sources. The scalar sequence <span
 class="math inline" data-term-auto="off">\(C_n=n^2+1\)</span>, <span
@@ -888,8 +978,11 @@ there.</em></p>
 </div>
 <p>Deciding survival by iteration is expensive because the orbit grows
 doubly exponentially, and it is unnecessary: survival over a finite
-horizon depends on the initial value only through a factorial
-residue.</p>
+horizon depends on the initial value only through a factorial residue.
+Computing a pseudo-greedy orbit through residues modulo a shrinking
+product modulus is Koizumi’s method <span class="citation"
+data-cites="koizumi2025"><a href="#ref-9">[9]</a></span>; for the forced numerator that product
+is a factorial.</p>
 <div class="theorem" id="res:residue">
 <p><strong>Theorem B.2</strong> (factorial residue reduction). <em> For
 all <span class="math inline" data-term-auto="off">\(h\)</span> and all integers <span
@@ -956,43 +1049,43 @@ Univ. Tokyo <strong>8</strong> (2001), 275–316. MR 1837165.</p></li>
 <li id="ref-3"><p>C. Badea, <a
 href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf"><em>A
 theorem on irrationality of infinite series and applications</em></a>,
-Acta Arith. <strong>63</strong> (1993), no. 4, 313–323.</p></li>
-<li id="ref-4"><p>P. Erdős and R. L. Graham, <a
+Acta Arith. <strong>63</strong> (1993), no. 4, 313–323, doi:<a
+href="https://doi.org/10.4064/aa-63-4-313-323">10.4064/aa-63-4-313-323</a>.</p></li>
+<li id="ref-4"><p>R. Tijdeman and P. Yuan, <em>On the rationality of Cantor and
+Ahmes series</em>, Indag. Math. (N.S.) <strong>13</strong> (2002),
+no. 3, 407–418, doi:<a
+href="https://doi.org/10.1016/S0019-3577(02)80018-0">10.1016/S0019-3577(02)80018-0</a>.</p></li>
+<li id="ref-5"><p>P. Erdős and R. L. Graham, <a
 href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
 and New Problems and Results in Combinatorial Number Theory</em></a>,
 Monogr. Enseign. Math. 28, Geneva, 1980, p. 64.</p></li>
-<li id="ref-5"><p>P. Erdős, <em>On the irrationality of certain series: problems
-and results</em>, in A. Baker (ed.), <em>New Advances in Transcendence
-Theory</em>, Cambridge UP, 1988, pp. 102–109, doi:<a
+<li id="ref-6"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1988-22.pdf"><em>On the
+irrationality of certain series: problems and results</em></a>, in
+A. Baker (ed.), <em>New Advances in Transcendence Theory</em>, Cambridge
+UP, 1988, pp. 102–109, doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
-<li id="ref-6"><p>V. Kovač and T. Tao, <a
-href="https://arxiv.org/abs/2406.17593"><em>On several irrationality
-problems for Ahmes series</em></a>, Acta Math. Hungar.
-<strong>175</strong> (2025), 572–608; preprint
-arXiv:2406.17593v4.</p></li>
-<li id="ref-7"><p>W. van Doorn, Y. Li and Q. Tang, <a
-href="https://arxiv.org/abs/2603.28636"><em>Optimal bounds for an Erdős
-problem on matching integers to distinct multiples</em></a>, preprint
-arXiv:2603.28636v1, 2026.</p></li>
-<li id="ref-8"><p>I. O. Bado, <em>Prime-Support Rigidity and Primitive
+<li id="ref-7"><p>I. O. Bado, <em>Prime-Support Rigidity and Primitive
 Pseudo-Greedy Dynamics: Partial Progress on Erdős Problem #243</em>,
-author-posted preprint, September 2026, doi:<a
-href="https://doi.org/10.13140/RG.2.2.36612.08325">10.13140/RG.2.2.36612.08325</a>.
-Not independently validated here.</p></li>
+preprint posted September 2026, doi:<a
+href="https://doi.org/10.13140/RG.2.2.36612.08325">10.13140/RG.2.2.36612.08325</a>.</p></li>
+<li id="ref-8"><p>P. White with Claude (Anthropic), <a
+href="https://erdosproblemaday.com/report/243"><em>Erdős #243: working
+report</em></a>, Erdős Problem a Day, page dated 12 August 2026,
+accessed 16 September 2026. An AI-assisted working report; it has not
+been refereed.</p></li>
 <li id="ref-9"><p>J. Koizumi, <a
 href="https://math.colgate.edu/~integers/aa28/aa28.pdf"><em>Irrationality
 of the reciprocal sum of doubly exponential sequences</em></a>, Integers
 <strong>26</strong> (2026), Paper No. A28, 17 pp., doi:<a
 href="https://doi.org/10.5281/zenodo.18714404">10.5281/zenodo.18714404</a>;
 preprint arXiv:2504.05933v1.</p></li>
-<li id="ref-10"><p>J. Koizumi and A. Yokoi, <a
-href="https://arxiv.org/abs/2608.26918"><em>Apéry-type approximations
-and irrationality measures for certain <span
-class="math inline" data-term-auto="off">\(q\)</span>-series</em></a>, preprint
-arXiv:2608.26918v1, 2026.</p></li>
-<li id="ref-11"><p>T. F. Bloom, <a
+<li id="ref-10"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/243"><em>Erdős Problem
-#243</em></a>, <code>erdosproblems.com/243</code>.</p></li>
+#243</em></a>, <code>erdosproblems.com/243</code>, accessed 28 July 2026
+(page displays “last edited 21 January 2026”). The record labels the
+problem open and cites <span class="upright">[ErGr80, p. 64]</span> and
+<span class="upright">[Er88c, p. 105]</span>.</p></li>
 </ol>
 </section>
   </div>

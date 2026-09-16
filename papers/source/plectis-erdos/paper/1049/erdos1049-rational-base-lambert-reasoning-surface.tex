@@ -27,14 +27,19 @@
 \noteprovenance
 
 \begin{abstract}
-We prove that \(F(a/b)=\sum_{n\ge1}((a/b)^n-1)^{-1}\) is irrational for every pair of coprime integers
+Specialising Zudilin's 2004 construction for \(q\)-harmonic series to rational
+bases, we prove that \(F(a/b)=\sum_{n\ge1}((a/b)^n-1)^{-1}\) is irrational for
+every pair of coprime integers
 \(a>b\ge1\) with \(b^{\mu}<a\), where \(\mu=C_1/C_0=2.464978683574975\ldots\),
 equivalently \(\log b/\log a<\theta^{*}=1/\mu=0.40568302138406054\ldots\), and
 where \(C_1=1091/2\) and \(C_0=266-(3/\pi^{2})(225-J)\) are the constants
-printed by Zudilin in 2004 for his \((14,12,14;27)\) direction, whose ratio is
-the integer-base irrationality-exponent bound proved there. This region
-contains \(31/4\) and every power \((31/4)^r\), \(r\ge1\), beyond the
-published sufficient region of Bundschuh and V\"a\"an\"anen.
+printed by Zudilin for his \((14,12,14;27)\) direction, whose ratio is
+the integer-base irrationality-exponent bound proved there. The linear forms,
+their permutation-group integrality, the direction and the constants come
+from Zudilin's 2004 paper; the rational specialisation, the cancelled-degree
+accounting and the remainder estimates are this paper's own work. The region
+contains \(31/4\) and every power \((31/4)^r\), \(r\ge1\), which lie outside
+the published sufficient region of Bundschuh and V\"a\"an\"anen.
 The same construction gives
 \(\mu_{\rm irr}(F((a/b)^r))\le(1-\theta)/(\theta^{*}-\theta)\), uniformly for
 every integer $r\ge1$, and in particular a bound below $301$ for every power
@@ -52,8 +57,8 @@ approximation family at \(3/2\).
 
 We also determine the \(q\)-order of Zudilin's normalised Hankel determinant
 exactly: \(\operatorname{ord}_qV_N^{*}=N(N-1)(2N-1)/6\) at every rank, with
-leading coefficient \((N!)^{2}(N+1)!/2^{N}\), where the source proves the
-inequality alone. After a row transformation, one determinant term has
+leading coefficient \((N!)^{2}(N+1)!/2^{N}\), sharpening Zudilin's lower
+bound for the order. After a row transformation, one determinant term has
 uniquely least order, so its coefficient cannot cancel. This complete identification
 is ordinary mathematics. Lean source for the all-row statement is published
 outside the checked library build and has never been compiled by public CI.
@@ -68,19 +73,20 @@ that missing step. The universal rational-base assertion remains open.
 \end{abstract}
 
 \begin{paperresult}{What the paper proves}
-\textbf{New irrational bases.} $F(a/b)$ is irrational for coprime
+\textbf{A rational-base region from Zudilin's forms.} $F(a/b)$ is irrational for coprime
 $a>b\ge1$ with $\log b/\log a<\theta^{*}=0.40568302138406054\ldots$
 (Theorem~\ref{long1049:res:region}).  The base $31/4$ and every power $(31/4)^{r}$ lie
 in that region and outside the published region of Bundschuh and
 V\"a\"an\"anen, whose cutoff is $1/2-1/\pi^{2}=0.398678816\ldots$
-(Theorem~\ref{long1049:res:31over4}).  \textbf{Evidence.} An ordinary proof citing
-Zudilin's Lemma~7 and the inputs of its proof, with the finite height
+(Theorem~\ref{long1049:res:31over4}).  \textbf{Evidence.} An ordinary proof that
+specialises Zudilin's forms, using his Lemma~7 with the inputs of its proof,
+his direction and his constants, with the finite height
 arithmetic at $31/4$ checked by the Lean kernel.  \textbf{Reach of the
 mechanism.} A degree-budget theorem caps every base-uniform family of this
 shape at $\sigma/(\sigma+\delta)\le1/2$, and $3/2$ sits at
 $0.6309297535714574\ldots$ (Theorem~\ref{long1049:res:archcap}).
 \textbf{Exact arithmetic at $3/2$.} The bracket $2^{64}<3^{41}<2^{65}$ excludes
-the stated scalar and first-order Hermite--Pad\'e height mechanisms there.
+the stated scalar mechanism and the displayed first-order exponent model there.
 It also yields the sharp finite four-jet count at bottom depth $41$, with a
 B\'ezout--Pl\"ucker reduction under explicit minor and unimodularity hypotheses.
 \textbf{Transfer obstruction.} Direct integer-base clearing fails by an exact
@@ -106,7 +112,8 @@ The question is a conjecture of Chowla; Erd\H{o}s proved it for every integer
 $t\ge2$~\cite{erdos1948}.  Bloom's current catalogue record reproduces the
 displayed rational-\(t\) question, labels it \emph{open}, attributes it to
 Chowla, and points to Erd\H{o}s's 1988 statement on p.~102 and the 1948
-integer-base theorem~\cite{erdosproblems}.  This note proves $F(a/b)$
+integer-base theorem~\cite{erdosproblems}.  Specialising Zudilin's 2004
+construction~\cite{zudilin2004} to rational bases, this note proves $F(a/b)$
 irrational for every pair of coprime integers $a>b\ge1$ with
 $\log b/\log a<\theta^{*}=0.40568302138406054\ldots$, which settles the base
 $31/4$ and every power $(31/4)^{r}$, $r\ge1$.  The universal conjecture over
@@ -124,8 +131,8 @@ integer-base argument from running at $3/2$?
 
 \paragraph{Structure.}
 The rational-base theorem and its cyclotomic degree calculation are
-Theorem~\ref{long1049:res:region}; the first newly covered base is isolated in
-Theorem~\ref{long1049:res:31over4}.  The independent determinant argument is
+Theorem~\ref{long1049:res:region}; the base $31/4$, which lies outside the
+Bundschuh--V\"a\"an\"anen region, is Theorem~\ref{long1049:res:31over4}.  The independent determinant argument is
 Theorem~\ref{long1049:res:zudilin-sharp-qorder}, whose proof identifies the
 unique least-order term at every rank.  The result-family catalogue at the end
 lists the older families admitted to the public review registry.  It is not an
@@ -191,11 +198,13 @@ Amdeberhan--Zeilberger use the moving diagonal
 $P_n(p^{n+1}\mid p^{-1})$, whereas Van Assche uses
 $P_n(p^n\mid p^{-1})$.  Van Assche also records, citing
 Borwein's 1992 Lemma~2, the neighbouring evaluation
-$P_{n-1}(c p^{n+1}\mid p^{-1})$~\cite{borwein1992,vanassche2001}.
+$P_{n-1}(c p^{n+1}\mid p^{-1})$
+\cite[(23) and the following paragraph, p.~6]{vanassche2001};
+see \cite[Lemma~2, p.~143]{borwein1992}.
 The shared kernel therefore does not license transfer of recurrence,
 endpoint, lattice, or valuation claims between the diagonals.  Indeed, if
 $A_n(p)=P_n(p^n\mid p^{-1})$, exact substitution at $n=0$ into the
-Amdeberhan--Zeilberger operator leaves
+Amdeberhan--Zeilberger operator \cite[Sec.~1.5, p.~2]{az1998} leaves
 \[
  -p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2),
 \]
@@ -210,6 +219,13 @@ for $p>1$}.  These are finite statements at $n=0$; they do not supply a
 recurrence for either diagonal.  No recurrence, endpoint, lattice, or
 valuation statement for one diagonal is used for the other; the displayed
 exact residual is the sole claim made here about their incompatibility.
+
+Coussement and Smet use little $q$-Jacobi polynomials for further Lambert
+series whose base parameter is the reciprocal of an integer
+\cite[Thms.~1.2--1.3, p.~2; Sec.~2]{coussementsmet2007}, and Koizumi and
+Yokoi identify one of their three-parameter Ap\'ery-type approximations with
+the Coussement--Smet Pad\'e approximants
+\cite[Sec.~7, Prop.~7.1, p.~33]{koizumiyokoi2026}.
 
 There is a second distinction at rational base $3/2$.  Over the checked range,
 the raw rational approximation errors decrease while the selected cleared
@@ -229,8 +245,12 @@ three retain an integer base.  Luca and Tachiya's periodic-coefficient theorem
 likewise proves irrationality at every integer base of absolute value greater
 than one; their full-support example strengthens this to joint linear
 independence for finite families of iterated divisor functions
-\cite[Theorem~A, p.~139; Example~1, p.~140]{lucatachiya2017}.  This is strong
-integer-base evidence, but it does not cover a rational noninteger base.
+\cite[Theorem~A, p.~139; Example~1, p.~140]{lucatachiya2017}.  Duverney and
+Tachiya refine the Chowla--Erd\H{o}s method to linear independence results for
+Lambert series at an integer base $q$ with $|q|>1$
+\cite[Thms.~1.1--1.2, pp.~2--3]{duverneytachiya2019}; their Corollary~1.1
+generalises Vandehey's Theorem~1.2 \cite[p.~3]{duverneytachiya2019}.  Each of
+these results assumes an integer base.
 
 In 2004 Zudilin obtained the uniform bound
 $\mu(F(p))\le2.46497868\ldots$ for every integer
@@ -247,7 +267,7 @@ coefficient family.
 
 The neighbouring problem of Lambert
 subseries $\sum_{n\in A}(t^{n}-1)^{-1}$ over a restricted index set $A$ is
-treated by Kova\v{c} and Tao~\cite{kovactao2024}.
+treated by Kova\v{c} and Tao~\cite[Sec.~2.1.2 and Thm.~2.3, pp.~4--5]{kovactao2024}.
 
 The rational non-integer
 progress relevant here is instead the height criterion of Bundschuh and
@@ -260,11 +280,11 @@ given for non-integer $p=r/s$ with $|p|>1$, under an assumption
 $\log|r|>c\log|s|$ for some computable
 $c>0$~\cite[Sec.~2, p.~4]{zudilin2016}.  No value of $c$ is computed there.  That remark
 announces the shape of a rational-base extension for the generalized
-$q$-logarithm of that paper.  Section~\ref{long1049:sec:region} identifies an admissible
-constant for $F$ itself, $c=\mu=2.464978683574975\ldots$, which is the 2004
-bound quoted above, by specialising the 2004 forms at a rational base and
-carrying out the denominator accounting, and derives the region and its first
-new base from that constant.
+$q$-logarithm of that paper.  Section~\ref{long1049:sec:region} carries out such an
+extension for $F$ itself: specialising the 2004 forms at a rational base and
+carrying out the denominator accounting shows that
+$c=\mu=2.464978683574975\ldots$, the 2004 bound quoted above, is admissible,
+and gives the resulting region and its application to $31/4$.
 
 A third published rational-base region for this same series is Duverney's
 Th\'eor\`eme~2, whose hypothesis is
@@ -400,9 +420,14 @@ and is not always the least such number.
 
 \paragraph{Results and boundary.}
 Theorems~\ref{long1049:res:region} and~\ref{long1049:res:31over4} are ordinary mathematics.  They
-consume Zudilin's Lemma~7 together with the inputs of that lemma's own proof,
-and every further step is proved in Section~\ref{long1049:sec:region}.  They are not
-kernel-checked.  The linked Lean declarations establish exact inequalities,
+specialise the construction of \cite{zudilin2004} to rational bases.  The linear
+forms, the integrality of Lemma~7 there with the inputs of that lemma's own
+proof, the direction and the constants come from that paper, and the
+cyclotomic limits are its Lemmas~1--2 \cite[p.~155]{zudilin2004}, proved by
+the method of \cite[Lemma~1, p.~466]{zudilin2002}.  The rational
+specialisation, the cancelled-degree accounting and the remainder estimates
+are this paper's own work and are proved in Section~\ref{long1049:sec:region}.
+The two theorems are not kernel-checked.  The linked Lean declarations establish exact inequalities,
 congruences, finite collision counts, recurrence identities, and exclusions for
 the named models; among them are the height comparisons that place \(31/4\)
 inside the enlarged logarithmic region and outside the earlier one.  No Lean
@@ -482,7 +507,9 @@ The proof below needs $J$ in its combinatorial form as well.  Put
 \]
 the weight that \cite[p.~162]{zudilin2004} attaches to the six-tuple
 $c=(13,14,12,14,15,13)$ of the fixed direction; it gives the exponents
-$\nu_l=\omega(n/l)$ of the source's~(22) and enters its limit~(26).
+$\nu_l=\omega(n/l)$ of the source's~(22) and enters its limit~(26).  Zudilin
+lists the support of $\omega$ in the same place; the next lemma verifies that
+list by exact evaluation.
 
 \begin{lemma}[the weight is an indicator]\label{long1049:res:omega-indicator}
 On $[0,1)$ the function $\omega$ takes only the values $0$ and $1$, and
@@ -521,10 +548,14 @@ Let $a>b\ge1$ be coprime integers with
 Then $F(a/b)=\sum_{m\ge1}(( a/b)^{m}-1)^{-1}$ is irrational.
 \end{theorem}
 
-The proof occupies Sections~\ref{long1049:sec:source-forms}--\ref{long1049:sec:integer-forms}.  It
-cites one external statement, the polynomial conclusion of Zudilin's Lemma~7
-together with the coefficientwise argument that proves it; everything else is
-carried out here.
+The proof occupies Sections~\ref{long1049:sec:source-forms}--\ref{long1049:sec:integer-forms}.  Its
+integrality input is the polynomial conclusion of Zudilin's Lemma~7 together
+with the coefficientwise argument that proves it \cite[pp.~156--161]{zudilin2004},
+and it uses his direction and constants.  The cyclotomic limits of
+Section~\ref{long1049:sec:cyclotomic-limit} are his Lemmas~1--2, proved there by the
+method of \cite[Lemma~1, p.~466]{zudilin2002} for the degree count.  The
+rational specialisation, the exact degrees, positivity and the size estimates
+are this paper's own work.
 
 \subsection{The source forms as polynomial
 identities}\label{long1049:sec:source-forms}
@@ -548,6 +579,8 @@ $(z;q)_m=\prod_{j=0}^{m-1}(1-zq^{j})$, the source's summand is
  \frac{(q^{t+1};q)_{a_1-1}}{(q;q)_{a_1-1}}\,
  \frac{(q;q)_{\beta_n-a_2-1}}{(q^{a_2+t};q)_{\beta_n-a_2}}\,q^{a_0t},
 \end{equation}
+whose last denominator has the length $\beta_n-a_2$ given by the gamma
+expression~(7) and the residues~(8) of \cite[p.~156]{zudilin2004},
 and \cite[(8)--(11), pp.~156--157]{zudilin2004} gives $H_n=A_nF-B_n$ with
 $A_n,B_n\in\Q(x)$.  The two coefficients can be written down.  Let
 $\genfrac{[}{]}{0pt}{}{m}{r}_X$ be the Gaussian binomial polynomial, of degree
@@ -666,6 +699,12 @@ One common homogenising width $W_n$ therefore serves both coefficients.
 
 \subsection{The cyclotomic limit}\label{long1049:sec:cyclotomic-limit}
 
+The limits proved in this subsection are those of
+\cite[Lemmas~1--2, p.~155]{zudilin2004}.  The proof splits the condition
+$\{n/l\}\in[u,v)$ into reciprocal blocks and applies the summatory totient
+estimate on each, as in the proof of \cite[Lemma~1, p.~466]{zudilin2002}, and
+adds an explicit truncation estimate.
+
 Write $\Sigma_n=\sum_{2\le l\le N}\nu_{n,l}\varphi(l)$.  The elementary
 summatory estimate is $\sum_{l\le y}\varphi(l)=3\pi^{-2}y^{2}+O(y\log(2y))$.
 Fix one demi-interval $[u,v)$ of Lemma~\ref{long1049:res:omega-indicator}.  The condition
@@ -688,8 +727,9 @@ equation~\eqref{long1049:eq:exact-degree} yields
  \frac{K_n-W_n}{n^{2}}=\frac{M_n-\sum_{l\le N}\varphi(l)+\Sigma_n}{n^{2}}
  \to266-\frac{3}{\pi^{2}}(225-J)=C_0,
 \end{equation}
-and hence $W_n/n^{2}\to C_1-C_0$.  This limit replaces Lemmas~1 and~2 of the
-source, which are consequently not part of the citation set.
+and hence $W_n/n^{2}\to C_1-C_0$.  These are the rational-base degree limits
+built on Zudilin's cyclotomic limits \cite[Lemmas~1--2, p.~155; (26),
+p.~162]{zudilin2004}.
 
 For the Archimedean side, fix a real $x>1$.  From
 $\log\Phi_l(x)-\varphi(l)\log x=\sum_{d\mid l}\mu_{\mathrm{Mob}}(l/d)\log(1-x^{-d})$,
@@ -758,7 +798,7 @@ the known integer-base theorem.  Coprimality is a restriction on the pairs
 treated and is used nowhere in the argument.  Negative bases are excluded,
 because Step~4 is a positivity argument.
 
-\begin{theorem}[the first base beyond the published
+\begin{theorem}[the base $31/4$ outside the Bundschuh--V\"a\"an\"anen
 region]\label{long1049:res:31over4}
 $F(31/4)$ is irrational, and so is $F\bigl((31/4)^{r}\bigr)$ for every integer
 $r\ge1$.  Here
@@ -902,24 +942,24 @@ receipt and is not kernel-checked.
 \subsection{Evidence, attribution and the remaining obligation}
 
 \paragraph{Evidence decomposition.}
-Theorems~\ref{long1049:res:region} and~\ref{long1049:res:31over4} are ordinary proofs.  Their
-citation set is Zudilin's Lemma~7 in its polynomial reading, together with the
+Theorems~\ref{long1049:res:region} and~\ref{long1049:res:31over4} are ordinary proofs.  They
+use Zudilin's construction: his Lemma~7 in its polynomial reading, together with the
 inputs of that lemma's own proof, namely his Lemma~3, the exponent $M(a;b)$
 of~(16) proved by his Lemma~4, the group stability of his Lemma~5, and the
-identity~(9)--(11), all in \cite[pp.~156--161]{zudilin2004}.  Everything else above is
-proved here:
+identity~(9)--(11), all in \cite[pp.~156--161]{zudilin2004}, and his direction and
+constants \cite[p.~162]{zudilin2004}.  Proved here are
 the nonrationality of $F$ as a function, the transfer of Lemma~7 to explicit
 integer polynomials, the exact degree computation, the degree bound on $V_n$,
 positivity, the Archimedean size estimate, and the limit
-$(K_n-W_n)/n^{2}\to C_0$.  That last limit is the content of the source's
-Lemmas~1 and~2, and the elementary proof of
-Section~\ref{long1049:sec:cyclotomic-limit} replaces them, so they are not part of the
-citation set.  Kernel-checked are the finite height comparisons of
+$(K_n-W_n)/n^{2}\to C_0$.  That last limit rests on Zudilin's Lemmas~1 and~2
+\cite[p.~155]{zudilin2004}, whose method goes back to
+\cite[Lemma~1, p.~466]{zudilin2002}; Section~\ref{long1049:sec:cyclotomic-limit}
+proves them by that method with an explicit truncation estimate.  Kernel-checked are the finite height comparisons of
 Theorem~\ref{long1049:res:31over4}, the rational bracket of
 Section~\ref{long1049:sec:regionbracket}, and the four integer identities of the degree
 step in Section~\ref{long1049:sec:degrees}.  Checked by exact computation are the
-reconstructions of $U_n$ and $V_n$ for $n\le4$, together with the numerical
-values of $J$, $C_0$ and $\theta^{*}$; those are computational receipts, and
+reconstructions of $U_n$ and $V_n$ for $n\le4$; the values of $J$, $C_0$ and
+$\theta^{*}$ are numerical evaluations.  Both are computational receipts, and
 the reconstruction is described in Section~\ref{long1049:sec:receipts}.  No part of
 Theorem~\ref{long1049:res:region} is a Lean theorem.
 
@@ -941,7 +981,7 @@ states no rational-base result \cite[Sec.~2, p.~154; Thm.~1]{zudilin2004}.  The
 contribution here is the rational specialisation of the 2004 forms, with the
 denominator accounting and the limit passage carried out in full, which
 identifies the printed $\mu$ as an admissible $c$ for $F$ itself, together with
-the region that constant defines and its first new base.
+the region that constant defines and its application to $31/4$.
 
 \paragraph{Where the earlier criterion stops.}
 Both regions are cut out by the same quantity.  The published cutoff
@@ -1167,14 +1207,16 @@ Among coprime $a/b$ with $a\le60$ the region of Theorem~\ref{long1049:res:region
 $137$ members, of which $78$ are non-integral.  The tightest members are $53/5$,
 at margin $0.000313$ below $\theta^{*}$, and $31/4$, at margin $0.001985$; the
 closest miss is $52/5$ at $\theta=0.4073243836\ldots$, short by $0.001641$.  The
-bases new relative to \cite{bv1994} are those in the strip
+bases in this region and outside the region of \cite{bv1994} are those in the strip
 $s^{\mu}<r\le s^{\mu_{\mathrm{BV}}}$, which is empty for $s=2$ and $s=3$, is
 $\{31\}$ for $s=4$, and is $\{53,54,56\}$ for $s=5$.  The strip is infinite:
 its width $s^{\mu_{\mathrm{BV}}}-s^{\mu}$ eventually exceeds $s$, so for every
 large enough denominator it contains an integer congruent to $1$ modulo $s$.
-Hence $31/4$ is the new base of least denominator and least numerator.
+Hence $31/4$ is the member of the strip with least denominator and least numerator.
 
 \paragraph{The bounded direction search.}
+The direction $(14,12,14;27)$ is Zudilin's \cite[p.~162]{zudilin2004}; the
+scan below compares it with the other directions in a bounded box.
 Over the $37{,}533$ primitive directions on Zudilin's cone with all entries at
 most $30$, the quantity $\theta^{*}(\mathrm{dir})=C_0/C_1$ computed from his
 (25) and (26) has largest recorded value at $(14,12,14;27)$ and its group image
@@ -1369,9 +1411,17 @@ $F(3/2)$ remain open.
 \subsection{The sharp $q$-order of the normalised Hankel
 determinant}\label{long1049:sec:hankel-order}
 
-The charge comparison of Corollary~\ref{long1049:res:sharpgaps} is a statement about how
-much denominator the Hankel determinant can shed.  How much it actually sheds
-is settled by the following exact order.
+The charge comparison of Corollary~\ref{long1049:res:sharpgaps} concerns the stated
+denominator model.  The next theorem determines a different quantity, the
+formal $q$-order of Zudilin's normalised Hankel determinant at $x=z=1$;
+converting a $q$-order into a denominator saving at a rational specialisation
+needs a separate integral normalisation and divisibility argument.  Zudilin
+builds the determinant by combining the Pad\'e-type approximations of Bundschuh
+and Zudilin \cite{bundschuhzudilin2008} with B\'ezivin's method as developed
+in \cite{krvz2009}; see \cite[Sec.~2, p.~3]{zudilin2016}.  His passage from the
+$q$-order to the size of the determinant borrows the proofs of
+\cite[Lemma~2, p.~12, and Prop.~3, p.~13]{krvz2009}, as he notes in
+\cite[Sec.~4, p.~7]{zudilin2016}.
 
 \begin{theorem}[sharp all-rank $q$-order and leading
 coefficient]\label{long1049:res:zudilin-sharp-qorder}
@@ -1386,9 +1436,11 @@ For every rank $N$, the normalised Hankel determinant $V_N^{*}$ of
 
 \noindent The source proves the inequality
 $\operatorname{ord}_q V_N^{*}\ge N(N-1)(2N-1)/6$ and uses it as an upper bound
-on $|V_N^{*}|$ \cite[Sec.~4, p.~7]{zudilin2016}.  Equality is the statement that no
-further cancellation is available inside the determinant, so the hope of a
-hidden cubic decay there is closed.
+on $|V_N^{*}|$ \cite[Sec.~4, p.~7]{zudilin2016}.  Equality rules out any further
+initial power of $q$ in this formal determinant at $x=z=1$.  The size at a
+fixed real $q$ is a separate statement; the positive-measure estimate below
+proves that $V_N^{*}(q)>0$ and that $\log V_N^{*}(q)$ differs from the
+logarithm of its leading term by $O_q(N)$.
 
 \paragraph{The row identity.}
 Work over $A=\Z[[q]]$.  Let $H(X)=1+\sum_{s\ge1}a_s(q)X^{s}$ and put
@@ -1520,7 +1572,7 @@ $T=(-1;q)_\infty^2$, and
 All products converge normally on $|w|\le r<1$ and the $t$-sum is bounded
 there by a constant times $\sum_t r^t$.  The finite-to-infinite product
 identities give $v_m^*=P^4G_q(q^{m+1})$.
-The identity
+The $q$-binomial theorem \cite[Eq.~17.2.37]{dlmf}
 \[
  \frac{(Aw;q)_\infty}{(w;q)_\infty}
    =\sum_{j\ge0}\frac{(A;q)_j}{(q;q)_j}w^j\quad(0\le A\le1)
@@ -1550,7 +1602,9 @@ with infinitely many distinct support points and moments $v_m^*$.
 A nonzero polynomial of degree less than $N$ cannot vanish at all of its
 first $N$ atoms; the associated Gram matrix is positive definite.
 Finite Cauchy--Binet followed by convergence of every matrix entry and
-monotone convergence of the nonnegative tuple sums gives
+monotone convergence of the nonnegative tuple sums gives Heine's expansion of
+a Hankel determinant of moments, whose integral form is reproved in
+\cite[Sec.~2, (2)--(5), pp.~2--3]{zudilin2017det}:
 \[
  V_N^*=\sum_{k_0<\cdots<k_{N-1}}
  \prod_i(P^4\gamma_{k_i}q^{k_i})\prod_{i<j}(q^{k_i}-q^{k_j})^2.
@@ -1713,7 +1767,9 @@ forms of the shape used in Section~\ref{long1049:sec:primitive} out of Heine's b
 transform.  The generic endpoint and jet lemmas below concern arbitrary
 integral coefficient pairs of this shape; they do not construct or instantiate
 Zudilin's actual polynomial family.  Each lemma uses no property beyond
-integrality and quantifies over arbitrary elements of \(\Z[X]\).  The exception is
+integrality and quantifies over arbitrary elements of \(\Z[X]\), and the tools
+are elementary congruences, the pigeonhole principle and B\'ezout's identity.
+The exception is
 Theorem~\ref{long1049:res:scalar} at the end of the section, whose subject is the scalar
 parameters of Zudilin's cone.  It says nothing about the coefficient
 polynomials.
@@ -2068,7 +2124,7 @@ information between its neighbours.
 \href{https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean\#L191}{adjacent-to-pairwise determinant propagation}
 and the resulting
 \href{https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean\#L280}{modular selector collision}
-are Lean-checked, including the
+are proved in Lean at the linked revision, including the
 \href{https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean\#L299}{explicit $S+2R$ threshold}.
 The unit-coordinate statements are special cases of the stronger
 rowwise-coprime theorem.
@@ -2442,8 +2498,8 @@ Thus $81/200$ is the larger of the two explicitly defined cutoffs used below,
 while a cutoff that includes $3/2$ must be strictly larger than
 $\log2/\log3\approx0.6309$.
 
-\section{Denominator exponents for a homogenised Pad\'e
-construction}\label{long1049:sec:pade}
+\section{A denominator-exponent model for Pad\'e-type
+forms}\label{long1049:sec:pade}
 
 A second external route builds the linear forms of Section~\ref{long1049:sec:primitive}
 by Pad\'e approximation.  Such a construction produces its coefficients as sums
@@ -2461,13 +2517,11 @@ of the coefficients after multiplication by the proposed common denominator,
 and establishing nonvanishing and decay of the associated remainder.  None of
 those three is claimed here.
 
-For a
-homogenised construction over integer parameters the proposed common
-denominator exponent is $E_n=(3n^{2}-n)/2$.  Since only doubled exponents
+In the model, the common denominator exponent is $E_n=(3n^{2}-n)/2$.  Since only doubled exponents
 occur below, every statement lives over $\Z$ and no parity bookkeeping is
 needed; we write $\widetilde{E}_n=2E_n=3n^{2}-n$.
 
-\begin{proposition}[summand bound and exact gap]\label{long1049:res:pade}
+\begin{proposition}[exponent model: summand bound and exact gap]\label{long1049:res:pade}
 Let $\widetilde{E}_n=3n^{2}-n$ and put
 \[
  \widetilde{P}(n,k)=2\bigl(k(n-k)+nk\bigr)+k(k-1),
@@ -2742,9 +2796,12 @@ alone is insufficient.
 
 \subsection{One exact alternative-criterion test}
 
-A separate possible method is Mahler's method.  Its first applicability test has
-an exact negative answer, which we record here; an earlier version of this note
-left it open.
+A separate possible method is Mahler's method, and its first applicability test
+has a negative answer.  Bell and Smertnig's classification shows that the
+divisor generating series $\mathcal L$ below is not $k$-Mahler for any $k\ge2$
+\cite[Thm.~1.3 and the consequences on p.~3]{bellsmertnig2026}.  The
+proposition below proves the simultaneous $2$/$3$ case directly from theorems
+of Adamczewski and Bell and of Rivin.
 
 \begin{proposition}[no finite simultaneous $2/3$-system]\label{long1049:res:nomahler}
 Let
@@ -2763,23 +2820,21 @@ denominators gives polynomials $P_0,\dots,P_d$, not all zero, with
 $\sum_{i=0}^{d}P_i(z)\mathcal L(z^{2^i})=0$.  Thus $\mathcal L$ is $2$-Mahler,
 and the same argument under $z\mapsto z^3$ makes it $3$-Mahler.  Since $2$ and
 $3$ are multiplicatively independent, a theorem of Adamczewski and Bell
-\cite[Theorem~1]{adamczewskibell2013} then forces $\mathcal L$ to be a rational
+\cite[Thm.~1.1, p.~6]{adamczewskibell2013} then forces $\mathcal L$ to be a rational
 function.  That contradicts Rivin's periodic-coefficient corollary
 \cite[Cor.~6.4, p.~9]{rivin2026}, by which $\mathcal L$ is not rational.
 \end{proof}
 
 The proposition uses no property of the point $2/3$: the obstruction is
 functional and appears before regularity at a particular point is considered.
-The classification of Bell and Smertnig implies that $\mathcal L$ is not
-$k$-Mahler for any $k\ge2$ \cite[Theorem~1.3 and p.~3]{bellsmertnig2026}, so the
-simultaneous obstruction is subsumed for this scalar function.  The proposition
-remains useful as an elementary proof isolating simultaneous closure.  A
+For this scalar function the single-base classification of Bell and Smertnig
+contains the proposition; the proof above isolates simultaneous closure.  A
 construction using additional functions or functional relations must specify
 those functions and its closure conditions; the single-base statement is not
 an obstruction to every approximation method.  The classification and the two
 external ingredients in the proposition are cited, not proved here.
 
-\subsection{The quantitative height limitation}
+\subsection{A limitation of the rectangular exponent model}
 
 The module \texttt{HermitePadeNoGo} defines an explicit rectangular
 two-parameter exponent model.  Writing $\sigma=1+\rho+u$, its
@@ -2940,8 +2995,9 @@ equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{12
 For a modular tail whose every row is unimodular and whose adjacent minors
 vanish, all minors vanish, the sharper $N<2^k$ collision threshold applies,
 and at modulus $2^S3^R$ with $R>0$ the depth $k\ge S+2R$
-suffices.  These three statements are ordinary in this record;
-those Lean names are not in this checkout.  Neither coordinate must be a unit;
+suffices.  These three statements are proved in this record.  Their
+Lean proofs are at the revision linked in Section~\ref{long1049:sec:endpoints}; the pinned
+revision~\commitshort\ does not contain those declarations.  Neither coordinate must be a unit;
 $(2,3)$ modulo six is an example.
 % ---- part family_catalogue ----
 \clearpage
@@ -3100,12 +3156,17 @@ Binary selectors collide in the four-jet signature at the stated rank and depth.
 \bibitem{az1998} T.~Amdeberhan and D.~Zeilberger, \emph{$q$-Ap\'ery
   irrationality proofs by $q$-WZ pairs}, Adv. Appl. Math. \textbf{20} (1998),
   no.~2, 275--283,
-  \href{https://arxiv.org/abs/math/9804122}{arXiv:math/9804122},
-  doi:\href{https://doi.org/10.1006/aama.1997.0565}{10.1006/aama.1997.0565}.
+  doi:\href{https://doi.org/10.1006/aama.1997.0565}{10.1006/aama.1997.0565};
+  arXiv:\href{https://arxiv.org/abs/math/9804122v1}{math/9804122v1}.
+  Page references are to arXiv:math/9804122v1.
 \bibitem{bv1994} P.~Bundschuh and K.~V\"a\"an\"anen,
   \href{https://numdam.org/item/CM_1994__91_2_175_0.pdf}{\emph{Arithmetical
   investigations of a certain infinite product}},
   Compositio Math. \textbf{91} (1994), no.~2, 175--199.
+\bibitem{zudilin2002} W.~Zudilin, \emph{Remarks on irrationality of
+  \(q\)-harmonic series}, Manuscripta Math. \textbf{107} (2002), no.~4,
+  463--477,
+  doi:\href{https://doi.org/10.1007/s002290200249}{10.1007/s002290200249}.
 \bibitem{zudilin2004} W.~Zudilin,
   \href{https://geodesic.mathdoc.fr/articles/10.4064/aa111-2-4/}{\emph{Heine's
   basic transform and a permutation group for \(q\)-harmonic series}},
@@ -3113,7 +3174,7 @@ Binary selectors collide in the four-jet signature at the stated rank and depth.
   doi:\href{https://doi.org/10.4064/aa111-2-4}{10.4064/aa111-2-4}.
   Page references are to the printed journal pages.
 \bibitem{zudilin2016} W.~Zudilin,
-  \href{https://arxiv.org/abs/1601.02688}{\emph{On the irrationality of
+  \href{https://arxiv.org/abs/1601.02688v2}{\emph{On the irrationality of
   generalized \(q\)-logarithm}}, arXiv:1601.02688; Res. Number Theory
   \textbf{2} (2016), Art.~15,
   doi:\href{https://doi.org/10.1007/s40993-016-0042-x}{10.1007/s40993-016-0042-x}.
@@ -3123,6 +3184,23 @@ Binary selectors collide in the four-jet signature at the stated rank and depth.
   p.~4, in the paragraph beginning ``Finally, we remark''; no value of \(c\) is
   computed there, and the remark is made for the generalized \(q\)-logarithm of
   that paper.
+\bibitem{zudilin2017det} W.~Zudilin, \emph{A determinantal approach to
+  irrationality}, Constr. Approx. \textbf{45} (2017), no.~2, 301--310,
+  doi:\href{https://doi.org/10.1007/s00365-016-9333-7}{10.1007/s00365-016-9333-7};
+  arXiv:\href{https://arxiv.org/abs/1507.05697v1}{1507.05697v1}.
+  Page and equation references are to arXiv:1507.05697v1.
+\bibitem{bundschuhzudilin2008} P.~Bundschuh and W.~Zudilin, \emph{Rational
+  approximations to a \(q\)-analogue of \(\pi\) and some other \(q\)-series},
+  in H.~P. Schlickewei, K.~Schmidt and R.~F. Tichy (eds.), \emph{Diophantine
+  Approximation}, Dev. Math. \textbf{16}, Springer, 2008, pp.~123--139,
+  doi:\href{https://doi.org/10.1007/978-3-211-74280-8_6}{10.1007/978-3-211-74280-8\_6}.
+\bibitem{krvz2009} C.~Krattenthaler, I.~Rochev, K.~V\"a\"an\"anen and
+  W.~Zudilin, \emph{On the non-quadraticity of values of the
+  \(q\)-exponential function and related \(q\)-series}, Acta Arith.
+  \textbf{136} (2009), no.~3, 243--269,
+  doi:\href{https://doi.org/10.4064/aa136-3-4}{10.4064/aa136-3-4};
+  arXiv:\href{https://arxiv.org/abs/0812.2921v1}{0812.2921v1}.
+  Page references are to arXiv:0812.2921v1.
 \bibitem{duverney1996} D.~Duverney,
   \href{https://numdam.org/item/JTNB_1996__8_1_173_0.pdf}{\emph{\`A propos de la
   s\'erie $\sum_{n\ge1}x^{n}/(q^{n}-1)$}},
@@ -3138,21 +3216,35 @@ Binary selectors collide in the four-jet signature at the stated rank and depth.
   both theorem statements on p.~880, where the authors also record that their
   methods do not sharpen the \(q\)-harmonic case of~\cite{zudilin2004}.
 \bibitem{adamczewskibell2013} B.~Adamczewski and J.~P. Bell,
-  \href{https://arxiv.org/abs/1303.2019}{\emph{A problem about Mahler
+  \href{https://arxiv.org/abs/1303.2019v1}{\emph{A problem about Mahler
   functions}}, Ann. Sc. Norm. Super. Pisa Cl. Sci. \textbf{17} (2017), no.~4,
-  1301--1355; arXiv:1303.2019, 2013.  Theorem~1: over a field of characteristic
+  1301--1355; arXiv:\href{https://arxiv.org/abs/1303.2019v1}{1303.2019v1}, 2013.
+  Theorem~1.1 on p.~6 of arXiv:1303.2019v1: over a field of characteristic
   zero, a power series is both \(k\)- and \(\ell\)-Mahler for multiplicatively
-  independent \(k,\ell\) if and only if it is a rational function.
+  independent \(k,\ell\) if and only if it is a rational function.  Bell and
+  Smertnig cite it as Theorem~1.3 of the journal version
+  \cite[Thm.~2.5, p.~5]{bellsmertnig2026}.
 \bibitem{rhinviola1996} G.~Rhin and C.~Viola,
   \href{https://geodesic.mathdoc.fr/articles/10.4064/aa-77-1-23-56/}
   {\emph{On a permutation group related to $\zeta(2)$}},
   Acta Arith. \textbf{77} (1996), no.~1, 23--56,
   doi:10.4064/aa-77-1-23-56.
 \bibitem{vanassche2001} W.~Van Assche,
-  \href{https://arxiv.org/abs/math/0101187}{\emph{Little \(q\)-Legendre
+  \href{https://arxiv.org/abs/math/0101187v1}{\emph{Little \(q\)-Legendre
   polynomials and irrationality of certain Lambert series}},
   Ramanujan J. \textbf{5} (2001), no.~3, 295--310,
   doi:\href{https://doi.org/10.1023/A:1012930828917}{10.1023/A:1012930828917}.
+  Page references are to arXiv:math/0101187v1.
+\bibitem{coussementsmet2007} J.~Coussement and C.~Smet, \emph{Irrationality
+  proof of certain Lambert series using little \(q\)-Jacobi polynomials},
+  J. Comput. Appl. Math. \textbf{233} (2009), no.~3, 680--690,
+  doi:\href{https://doi.org/10.1016/j.cam.2009.02.036}{10.1016/j.cam.2009.02.036};
+  arXiv:\href{https://arxiv.org/abs/math/0701345v1}{math/0701345v1}.
+  Page references are to arXiv:math/0701345v1.
+\bibitem{koizumiyokoi2026} J.~Koizumi and A.~Yokoi, \emph{Ap\'ery-type
+  approximations and irrationality measures for certain \(q\)-series},
+  arXiv:\href{https://arxiv.org/abs/2608.26918v1}{2608.26918v1},
+  27 August 2026.
 \bibitem{vandehey2013} J.~Vandehey,
   \href{https://arxiv.org/abs/1206.0340}{\emph{On an incomplete argument of
   Erd\H{o}s on the irrationality of Lambert series}},
@@ -3163,15 +3255,26 @@ Binary selectors collide in the four-jet signature at the stated rank and depth.
   series}}, RIMS K\^oky\^uroku No.~2014 (2017), 138--150.
   Theorem~A on p.~139 restates the periodic-coefficient irrationality theorem;
   Example~1 on p.~140 gives the divisor-function specialization.
+\bibitem{duverneytachiya2019} D.~Duverney and Y.~Tachiya, \emph{Refinement of
+  the Chowla--Erd\H{o}s method and linear independence of certain Lambert
+  series}, Forum Math. \textbf{31} (2019), no.~6, 1557--1566,
+  doi:\href{https://doi.org/10.1515/forum-2018-0299}{10.1515/forum-2018-0299}.
+  Page references are to the
+  \href{https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf}{authors'
+  version}.
 \bibitem{rivin2026} I.~Rivin,
-\href{https://arxiv.org/abs/2604.25151}{\emph{Zero Coefficients of Rational
-  Power Series and Rational Lambert Series}}, arXiv:2604.25151v1, 2026.
+\href{https://arxiv.org/abs/2604.25151v1}{\emph{Zero Coefficients of Rational
+  Power Series and Rational Lambert Series}}, arXiv:2604.25151v1,
+  28 April 2026.
   Theorem~1.1 is on p.~2 and proved on pp.~6--7; the periodic-coefficient
   Corollary~6.4 is on p.~9.
 \bibitem{kovactao2024} V.~Kova\v{c} and T.~Tao,
-  \href{https://arxiv.org/abs/2406.17593}{\emph{On several irrationality
-  problems for Ahmes series}}, Acta Math. Hungar. \textbf{175} (2025),
-  572--608; arXiv:2406.17593, 2024.
+  \href{https://arxiv.org/abs/2406.17593v4}{\emph{On several irrationality
+  problems for Ahmes series}}, Acta Math. Hungar. \textbf{175} (2025), no.~2,
+  572--608,
+  doi:\href{https://doi.org/10.1007/s10474-025-01528-0}{10.1007/s10474-025-01528-0};
+  arXiv:\href{https://arxiv.org/abs/2406.17593v4}{2406.17593v4}.
+  Page references are to arXiv:2406.17593v4.
 \bibitem{erdosproblems} T.~F. Bloom,
   \href{https://www.erdosproblems.com/1049}{\emph{Erd\H{o}s Problem \#1049}},
   \texttt{erdosproblems.com/1049}, accessed 28 July 2026
@@ -3180,11 +3283,15 @@ Binary selectors collide in the four-jet signature at the stated rank and depth.
   and explicitly describes its status as the website owner's present
   assessment, with no guarantee of literature completeness.
 \bibitem{bellsmertnig2026} J.~Bell and D.~Smertnig,
-  \href{https://arxiv.org/abs/2603.23456}{\emph{Mahler series with
+  \href{https://arxiv.org/abs/2603.23456v1}{\emph{Mahler series with
   multiplicative coefficient sequences}}, arXiv:2603.23456v1,
   24 March 2026.  Theorem~1.3 is on pp.~2--3; its stated consequences on
   p.~3 include that the divisor and totient generating series are not
   $k$-Mahler for any $k\ge2$.
+\bibitem{dlmf} F.~W.~J. Olver et al.\ (eds.), \emph{NIST Digital Library of
+  Mathematical Functions},
+  \href{https://dlmf.nist.gov/17.2.E37}{\texttt{dlmf.nist.gov/17.2.E37}},
+  Eq.~17.2.37 in \S17.2(iii), accessed 15 September 2026.
 \bibitem{formalconjectures1049} The Formal Conjectures Authors,
   \href{https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/1049.lean}
   {\emph{FormalConjectures.ErdosProblems.\texttt{1049}}},

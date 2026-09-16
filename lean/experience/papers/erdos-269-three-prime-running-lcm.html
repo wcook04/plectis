@@ -26,16 +26,24 @@ define
  \operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.</annotation></semantics></math>
 Prime-power divisibility gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">L</mi><mo>&#8289;</mo></mrow><mo>=</mo><mi mathvariant="normal">H</mi></mrow><annotation encoding="application/x-tex">\operatorname{L}=\operatorname{H}</annotation></semantics></math>
-(Proposition ).</p>
+(Proposition ); Fan’s forum post states this identity for every finite
+prime set <span class="citation"
+data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
 <p>With two primes, the corresponding kernel factors into a function of
 each exponent separately, reducing the double sum to a product. The
 first question at three primes is whether finitely many such products
 still suffice. Theorem  rules this out: one floor carry survives after
-all row and column factors have been removed. We first explain that
-obstruction, then recover the two-prime comparison, and finally identify
-the arithmetic of the actual three-prime tails. The last step is
-necessary because the rank of a kernel does not determine the
-irrationality of its sum.</p>
+all row and column factors have been removed. The proof uses only this
+rescaling, the density of the rotations by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">\log_r p</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>r</mi></msub><mi>q</mi></mrow><annotation encoding="application/x-tex">\log_r q</annotation></semantics></math>
+taken separately, and a staircase determinant, and one choice of indices
+serves every third-coordinate layer. We first explain that obstruction,
+then recover the two-prime comparison, and finally identify the
+arithmetic of the actual three-prime tails. The last step is necessary
+because the rank of a kernel does not determine the irrationality of its
+sum.</p>
 </section>
 <section id="sec:rank" class="level2">
 <h2>The binary carry and arbitrary-order rank</h2>
@@ -355,11 +363,12 @@ Let
 retain every smooth-number multiplicity, and let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">𝒟</mi><mrow><mi>p</mi><mo>,</mo><mi>q</mi></mrow></msub><annotation encoding="application/x-tex">\mathcal D_{p,q}</annotation></semantics></math>
 retain the initial value and one reciprocal at each positive pure-power
-jump. Fan’s argument gives the repeated two-prime factorisation and its
-quadratic reduction to a single Hecke–Mahler value. The same
-boundary-channel calculation also yields the de-duplicated affine
-formula displayed below <span class="citation"
-data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
+jump. Fan’s forum post gives the repeated two-prime factorisation and
+its quadratic reduction to a single Hecke–Mahler value, and the same
+boundary-channel calculation yields the de-duplicated affine formula
+displayed below <span class="citation"
+data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>. The proof below was found
+independently.</p>
 <div class="theorem">
 <p><strong>Theorem 3.1</strong> (both two-prime sums). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">p&lt;q</annotation></semantics></math>
@@ -439,15 +448,29 @@ geometric summation gives
 \label{eq:hecke-mahler-boundary}
  A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
 \end{equation}</annotation></semantics></math> Bugeaud and Laurent’s
-Theorem 1.1 applies to these nonzero algebraic
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>,</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x,y</annotation></semantics></math>
-<span class="citation" data-cites="bugeaudlaurent2023"><a href="#ref-5">[5]</a></span>:
+theorem <span class="citation" data-cites="bugeaudlaurent2023"><a href="#ref-5">[5]</a></span>
+applies with intercept
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\rho=0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\beta=x</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">\alpha=y</annotation></semantics></math>:
+the slope
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+is irrational and lies in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
+are nonzero algebraic numbers,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|x|&lt;1</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>x</mi><msup><mi>y</mi><mi>θ</mi></msup><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msup><mi>p</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|xy^\theta|=p^{-2}&lt;1</annotation></semantics></math>;
-the zero-shift case goes back to Loxton and van der Poorten <span
-class="citation" data-cites="bugeaudlaurent2023 loxtonvdp1977"></span>.
-Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>x</mi><msup><mi>y</mi><mi>θ</mi></msup><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msup><mi>p</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|xy^\theta|=p^{-2}&lt;1</annotation></semantics></math>.
+Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>θ</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F_\theta(x,y)</annotation></semantics></math>
+is transcendental; this case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\rho=0</annotation></semantics></math>
+is due to Loxton and van der Poorten <span class="citation"
+data-cites="loxtonvdp1977"><a href="#ref-6">[6]</a></span>. Thus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
 is transcendental. The displayed affine and quadratic polynomials are
 nonconstant, so an algebraic value of either would force
@@ -550,16 +573,7 @@ sum. ◻</p>
 </div>
 <p>The regrouping is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">finite
-smooth kernel sum grouped by height</a>. Fan and Lott build their van
-der Corput coefficients on sums of two squares by the same kind of
-regrouping: up to normalisation, the coefficient at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
-sums a smooth weight over the representations
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><msup><mi>v</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d=v^2(x^2+y^2)</annotation></semantics></math>,
-and the average over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
-keeps the associated complete sums in a fixed sector <span
-class="citation" data-cites="fanlott2026"></span>.</p>
+smooth kernel sum grouped by height</a>.</p>
 <p>From now on let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P=\{2,3,5\}</annotation></semantics></math>
 and
@@ -613,6 +627,32 @@ two, give the four radices. ◻</p>
 <p>Both clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48">literal
 integer forcing and four radices</a>.</p>
+<p>Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mrow><mi>a</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>b</mi><mn>0</mn></msub><msub><mi>b</mi><mn>1</mn></msub><mi>⋯</mi><msub><mi>b</mi><mi>a</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">h_{a+1}=b_0b_1\cdots b_a/2</annotation></semantics></math>,
+the value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>/</mi><mn>2</mn><mo>=</mo><msub><mo>∑</mo><mrow><mi>a</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>m</mi><mi>a</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mn>0</mn></msub><msub><mi>b</mi><mn>1</mn></msub><mi>⋯</mi><msub><mi>b</mi><mi>a</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S/2=\sum_{a\ge0}m_a/(b_0b_1\cdots b_a)</annotation></semantics></math>
+is a Cantor series and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mi>a</mi></mrow></msub><msub><mi>m</mi><mi>j</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>a</mi></msub><mi>⋯</mi><msub><mi>b</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_a=\sum_{j\ge a}m_j/(b_a\cdots b_j)</annotation></semantics></math>
+is its normalised tail. Such tails, with their integer carry recurrence,
+are the classical tool for the rationality of Cantor series. Erdős and
+Straus characterise rationality by integer carries <span
+class="citation" data-cites="erdosstraus1974"></span>, and Hančl and
+Tijdeman give a practical form of that criterion through the tails <span
+class="citation" data-cites="hancltijdeman2004"></span>. Both criteria
+assume that the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>th
+numerator is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(a_{n-1}a_n)</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math>
+is the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>th
+base. Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>a</mi></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m_a\ge1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mrow><mi>a</mi><mo>−</mo><mn>1</mn></mrow></msub><msub><mi>b</mi><mi>a</mi></msub><mo>≤</mo><mn>900</mn></mrow><annotation encoding="application/x-tex">b_{a-1}b_a\le900</annotation></semantics></math>,
+so the recurrence, the bound and the denominator clearing below are
+proved directly for this series.</p>
 <div class="proposition">
 <p><strong>Proposition 4.5</strong> (the actual recurrence and a
 polynomial bound). <em> The series defining
@@ -671,12 +711,15 @@ The factors
 force a bounded such error to be zero. An integral state propagates by
 the integer recurrence. ◻</p>
 </div>
-<p>The constant above is a simple bound for the cap used below. The
-stronger source estimate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>Q</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1210</mn><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>9130</mn><mi>n</mi><mo>+</mo><mn>18847</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>11979</mn></mrow><annotation encoding="application/x-tex">\widetilde Q(n)=(1210n^2+9130n+18847)/11979</annotation></semantics></math>
-uses the exclusion of three successive two-jumps and has a separate
-ordinary proof. The present cap suffices for the criterion; the sharper
-argument belongs in the extended record rather than in this proof.</p>
+<p>The criterion below needs only a valid cap, and the bound just proved
+gives the cap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>90</mn><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">90B(a+1)^2</annotation></semantics></math>.
+The extended reasoning record proves the sharper bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>a</mi></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><msubsup><mi>n</mi><mi>a</mi><mn>2</mn></msubsup><mo>+</mo><mn>8</mn><msub><mi>n</mi><mi>a</mi></msub><mo>+</mo><mn>18</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">X_a\le(n_a^2+8n_a+18)/9</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>a</mi></msub><annotation encoding="application/x-tex">n_a</annotation></semantics></math>
+is the sum of the three height exponents at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>a</mi></msup><annotation encoding="application/x-tex">2^a</annotation></semantics></math>.</p>
 <div class="theorem">
 <p><strong>Theorem 4.6</strong> (actual rationality-to-reduced-carry
 bridge). <em> If
@@ -869,8 +912,11 @@ ratios, the real
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ξ</mi><annotation encoding="application/x-tex">\xi</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">dist</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>g</mi><mi>a</mi></msub><mi>ξ</mi><mo>,</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\operatorname{dist}(g_a\xi,\mathbb Z)\to0</annotation></semantics></math>
-form a countable set, a phenomenon going back to Eggleston <span
-class="citation" data-cites="fan2026strongly"></span>. For
+form a countable set. For increasing sequences this is due to Erdős and
+Taylor <span class="citation" data-cites="erdostaylor1957"><a href="#ref-10">[10]</a></span>, who
+obtain it by modifying Eggleston’s proof of his Theorem 16, and Fan
+proves the form stated here <span class="citation"
+data-cites="fan2026strongly"><a href="#ref-11">[11]</a></span>. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>a</mi></msub><mo>=</mo><mi>B</mi><msub><mi>h</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">g_a=Bh_a</annotation></semantics></math>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a\ge1)</annotation></semantics></math>
 the ratios are the integers
@@ -901,13 +947,15 @@ scopes.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="proof-sources." class="level5">
 <h5>Proof sources.</h5>
-<p>The two-prime argument uses the cited Hecke–Mahler value theorem and
-is Steve Fan’s; it is not a Lean theorem. The arbitrary-order kernel
-theorem is proved in the Lean module <code>KernelCarryRank</code>: it
-contains the uniform minors and the exact finite-separation
-contradiction used above. The literal recurrence and the fixed-split
-rationality bridge likewise have the named Lean statements linked at
-their occurrences above. The <a
+<p>The two-prime theorem is an ordinary deduction from the cited
+Hecke–Mahler value theorem and has no Lean declaration; Steve Fan posted
+the same argument first <span class="citation"
+data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>. The arbitrary-order kernel theorem
+is proved in the Lean module <code>KernelCarryRank</code>: it contains
+the uniform minors and the exact finite-separation contradiction used
+above. The literal recurrence and the fixed-split rationality bridge
+likewise have the named Lean statements linked at their occurrences
+above. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/06f57893e0f9c6d80668048f26f096367ae4cfe7/verification/erdos269-wavea-validation.json">source-current
 validation receipt</a> byte-matches these modules and records their
 compilation inside the public recursive import closure. The receipt’s
@@ -1299,48 +1347,50 @@ href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009
 <li id="ref-3"><p>P. Erdős, <a
 href="https://www.fq.math.ca/Scanned/12-4/letter.pdf"></a> (written
 1 January 1973), Fibonacci Quart. <strong>12</strong> (1974), no. 4,
-p. 335. The letter poses the full series as a conjecture and asserts
-irrationality after retaining only the distinct running-LCM
-values.</p></li>
+p. 335. The letter poses the full series as a conjecture and states,
+without proof, that the sum over the distinct running-LCM values is
+irrational.</p></li>
 <li id="ref-4"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/269"><em>Erdős Problem
 #269</em></a>, <code>erdosproblems.com/269</code>, accessed 28 July 2026
-(page displays “last edited 28 December 2025”). The current record
+(page displays “last edited 28 December 2025”). As accessed, the record
 labels the finite-support problem open, cites
 <code>[ErGr80, p. 65]</code> and <code>[Er88c, p. 106]</code>, routes to
 the 1974 letter on p. 335, records the infinite-prime and de-duplicated
-variants, and explicitly describes its status as the website owner’s
-present assessment rather than a literature-completeness
-guarantee.</p></li>
-<li id="ref-5"><p>Y. Bugeaud and M. Laurent, , Acta Arith. <strong>209</strong>
-(2023), 59–90, doi:10.4064/aa220323-18-1; <a
-href="https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf">authors’
-Online First PDF</a>, <a
-href="https://arxiv.org/abs/2203.12901">arXiv:2203.12901v1</a>.
-Theorem 1.1 is on p. 3 of the inspected Online First PDF; the journal
-publication is pp. 59–90. The authors note there that its
+variants, and describes its status as the website owner’s present
+assessment, with no guarantee of literature completeness.</p></li>
+<li id="ref-5"><p>Y. Bugeaud and M. Laurent, <a
+href="https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf"></a>,
+Acta Arith. <strong>209</strong> (2023), 59–90, doi:<a
+href="https://doi.org/10.4064/aa220323-18-1">10.4064/aa220323-18-1</a>;
+arXiv:<a href="https://arxiv.org/abs/2203.12901v1">2203.12901v1</a>.
+Theorem 1.1 is on p. 3 of the linked Online First version, whose
+introduction, pp. 1–2, credits the case
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\rho=0</annotation></semantics></math>
-case was already obtained by Loxton and van der Poorten.</p></li>
+to Mahler and to Loxton and van der Poorten.</p></li>
 <li id="ref-6"><p>J. H. Loxton and A. J. van der Poorten, , Bull. Austral. Math.
-Soc. <strong>16</strong> (1977), 15–47.</p></li>
+Soc. <strong>16</strong> (1977), 15–47, doi:<a
+href="https://doi.org/10.1017/S0004972700022978">10.1017/S0004972700022978</a>.</p></li>
 <li id="ref-7"><p>S. Fan, comment on Erdős Problem #269, <a
-href="https://www.erdosproblems.com/forum/thread/269">erdosproblems.com
-forum, thread 269</a>, 26 June 2026. The comment gives the two-channel
-factorisation, the Hecke–Mahler reduction, and the transcendence
-conclusion for
+href="https://www.erdosproblems.com/forum/thread/269#post-7218">erdosproblems.com
+forum, thread 269, post 7218</a>, 26 June 2026. The comment gives the
+running-LCM identity for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|P|</annotation></semantics></math>,
+the two-channel factorisation, the Hecke–Mahler reduction, and the
+transcendence conclusion for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>P</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|P|=2</annotation></semantics></math>;
 follow-up comments there note the extension to arbitrary coprime
 pairs.</p></li>
-<li id="ref-8"><p>S. Fan and A. Lott, <a
-href="https://arxiv.org/abs/2606.29185"></a>, arXiv:2606.29185v1,
-28 June 2026. Section 3, pp. 4–8, defines the coefficients by summing
-smooth weights over the representations
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><msup><mi>v</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d=v^2(x^2+y^2)</annotation></semantics></math>;
-pp. 5–6 explain that averaging over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
-places the complete sums in a fixed sector, and Corollary 4.4, p. 12,
-proves the sector bound.</p></li>
-<li id="ref-9"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071"><em>Strongly
+<li id="ref-8"><p>P. Erdős and E. G. Straus, , Pacific J. Math. <strong>55</strong>
+(1974), no. 1, 85–92, doi:<a
+href="https://doi.org/10.2140/pjm.1974.55.85">10.2140/pjm.1974.55.85</a>.</p></li>
+<li id="ref-9"><p>J. Hančl and R. Tijdeman, , Publ. Math. Debrecen
+<strong>65</strong> (2004), no. 3–4, 371–380, doi:<a
+href="https://doi.org/10.5486/PMD.2004.3254">10.5486/PMD.2004.3254</a>.</p></li>
+<li id="ref-10"><p>P. Erdős and S. J. Taylor, , Proc. London Math. Soc. (3)
+<strong>7</strong> (1957), no. 1, 598–615, doi:<a
+href="https://doi.org/10.1112/plms/s3-7.1.598">10.1112/plms/s3-7.1.598</a>.</p></li>
+<li id="ref-11"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071v1"><em>Strongly
 complete sets and a conjecture of Erdős</em></a>, arXiv:2607.14071v1,
 15 July 2026. The paper proves the conjecture listed as Erdős
 Problem #254. Lemma 3.1, p. 7, proves that the

@@ -247,7 +247,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "c2cb9dd0dfb0ac88861dfbec4313cab2f5751cc8c6fed2786cf992e0c83219c0",
+    "source_sha256": "eddb2c91a3f25ec39e95caf92b914d66645c13c046f52b30f7a1ac4d53cf9fbe",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -267,7 +267,7 @@
     "subject": "Erdős #243",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 13,
+    "pages": 14,
     "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
     "precis": "Clearing denominators turns Erdős #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.",
     "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -291,17 +291,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 25,
       "renderer_fingerprint": "777419e3b355e02e",
-      "source_sha256": "da43e2c7b04681839117f8c984f6bd1fdb55bc9e23e1fb31b1a3ee17aad75353",
+      "source_sha256": "32c1a9a1052a531fc4ef549596cd4bb07e29c323d280edb2a97de7bc979f10ce",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 329,
+      "mathml_node_count": 365,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "a2e7f6632ca913291c47e942941360ea09108da313c450bfc32b0f6675492efb",
-      "html_exact_tex_sha256": "69d266c0830072713bee7c3d6d7772924bb62628b9caae86e835d2223561d4d5"
+      "html_mathml_sha256": "1b61021158d2a59cae1680c290906d14032fc185b9d010f4810e27e11b373402",
+      "html_exact_tex_sha256": "6d6bfa172aaf350831b401c9ee60a71793dc3524d051c3ac7d9a00d4351442a3"
     },
     "sections": [
       {
@@ -431,7 +431,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 13,
+      "pages": 14,
       "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
       "precis": "Clearing denominators turns Erdős #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.",
       "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -455,17 +455,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "da43e2c7b04681839117f8c984f6bd1fdb55bc9e23e1fb31b1a3ee17aad75353",
+        "source_sha256": "32c1a9a1052a531fc4ef549596cd4bb07e29c323d280edb2a97de7bc979f10ce",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 329,
+        "mathml_node_count": 365,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "a2e7f6632ca913291c47e942941360ea09108da313c450bfc32b0f6675492efb",
-        "html_exact_tex_sha256": "69d266c0830072713bee7c3d6d7772924bb62628b9caae86e835d2223561d4d5"
+        "html_mathml_sha256": "1b61021158d2a59cae1680c290906d14032fc185b9d010f4810e27e11b373402",
+        "html_exact_tex_sha256": "6d6bfa172aaf350831b401c9ee60a71793dc3524d051c3ac7d9a00d4351442a3"
       },
       "sections": [
         {
@@ -595,7 +595,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 45,
+      "pages": 46,
       "question": "What is the complete state-dynamics and no-go record for Erdős #243, and which unbounded negative orbit regime survives?",
       "precis": "A claim-bounded complete reasoning record for Erdős #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -619,17 +619,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "5a3dbc039d2a446f819f125cb0232b9e81a4e7594156b6794407352a51e51853",
+        "source_sha256": "5e07ff09f0f7bff3a17c00c141c04c0801659bd03a57e98bf8075105abc0b5fc",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1656,
+        "mathml_node_count": 1670,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "1e227640387641ac62350243f173a539893b8b107c059a715571aef7fdc0b9ac",
-        "html_exact_tex_sha256": "05aef6f4b5ef40ba9bc290f2182302b818cf6ca634b7e26b4252401d77b88953"
+        "html_mathml_sha256": "1c6e939c7bf03eeaf94b43c315bcd789b708cb438f74784a51d4fb1b3e41d577",
+        "html_exact_tex_sha256": "c6a9a247440d4a26d4aab153218fbc124b196c4527318ccc6b69fdf53f4cb23f"
       },
       "sections": [
         {
@@ -689,8 +689,8 @@
         },
         {
           "level": 5,
-          "anchor": "two-published-sufficient-conditions.",
-          "label": "Two published sufficient conditions."
+          "anchor": "classical-sufficient-conditions-and-the-pseudo-greedy-formulation.",
+          "label": "Classical sufficient conditions and the pseudo-greedy formulation."
         },
         {
           "level": 3,
@@ -849,8 +849,8 @@
         },
         {
           "level": 3,
-          "anchor": "what-the-method-cannot-reach",
-          "label": "What the method cannot reach"
+          "anchor": "pointwise-signs-and-asymptotic-criteria",
+          "label": "Pointwise signs and asymptotic criteria"
         },
         {
           "level": 5,

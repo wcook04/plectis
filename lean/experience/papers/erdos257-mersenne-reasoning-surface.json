@@ -5,7 +5,7 @@
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 120,
+  "pages": 122,
   "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
   "precis": "The record prints the complete ordinary proof of the finite-prime weighted support criterion, including all-base hereditary irrationality and a reciprocal-divergent host, and the common-witness proof for mixed weighted-and-cover supports. These proofs are not formalised in Lean. It also retains finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "e3280a1becbfe04c30761a8b1ed3c4305d3de9cb56ddbfda59ab8d29318be4ea",
+    "source_sha256": "b83c9d9698d1860ed2508f5877548983274d8c1877ab1a5a22b765dc19baddf3",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 3307,
+    "mathml_node_count": 3341,
     "raw_math_fallback_count": 3,
     "warnings": {
       "mathml": [
@@ -54,8 +54,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "1dbec8b1aa25abe0398337e26e43b0a7835311c91b30e7d58c860daf877f1111",
-    "html_exact_tex_sha256": "ec558803e80c8ff86ec30746c67fe722cebd502ccb3b288fb8faf6429295a40c"
+    "html_mathml_sha256": "5059aa4e58b1301182e9698ee8b8c588794e072e218db274b8d95dbc8903ef67",
+    "html_exact_tex_sha256": "fc95772f22c317ca4453fda7da03375b8f01683495c172635dbd205a15ff4e2b"
   },
   "sections": [
     {
@@ -292,6 +292,11 @@
       "level": 3,
       "anchor": "open-hypotheses-and-candidate-inputs",
       "label": "Open hypotheses and candidate inputs"
+    },
+    {
+      "level": 5,
+      "anchor": "comparison-with-the-known-theorem.",
+      "label": "Comparison with the known theorem."
     },
     {
       "level": 3,
@@ -787,6 +792,11 @@
       "level": 5,
       "anchor": "funding-and-competing-interests.",
       "label": "Funding and competing interests."
+    },
+    {
+      "level": 2,
+      "anchor": "references",
+      "label": "References"
     }
   ],
   "first_pass": {

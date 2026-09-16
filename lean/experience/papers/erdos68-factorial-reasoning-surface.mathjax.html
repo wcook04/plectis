@@ -17,10 +17,10 @@ same passage, records the expectation that <span
 class="math inline" data-term-auto="off">\(\sum_n1/(n!+t)\)</span> is irrational, indeed
 transcendental, for every integer <span class="math inline" data-term-auto="off">\(t\)</span>
 <span class="citation" data-cites="erdos1988"><a href="#ref-1">[1]</a></span>. That is
-conjectural context. Numbering and current status follow <a
+conjectural context. Numbering follows <a
 href="https://www.erdosproblems.com/68">Bloom’s Erdős problem
-catalogue</a> <span class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>; the
-problem is open.</p>
+catalogue</a> <span class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>, which
+lists the problem as open.</p>
 <p>Put</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[d_n=n!-1,\qquad
 H_M=\sum_{n=2}^{M}\frac1{d_n},\qquad
@@ -31,8 +31,12 @@ class="math inline" data-term-auto="off">\(H_M=A_M/L_M\)</span>. Throughout, <sp
 class="math inline" data-term-auto="off">\(\operatorname{den}(x)\)</span> is the positive
 denominator of a rational number in lowest terms. The first question is
 which prime power present in <span class="math inline" data-term-auto="off">\(L_M\)</span>
-remains in <span
-class="math inline" data-term-auto="off">\(\operatorname{den}(H_M)\)</span>.</p>
+remains in <span class="math inline" data-term-auto="off">\(\operatorname{den}(H_M)\)</span>.
+For the largest exponent the answer is a specialisation of the
+reciprocal-sum valuation formula of Louwsma and Martino <span
+class="citation" data-cites="louwsma-martino"></span>; the proof below
+writes it out for the denominators <span
+class="math inline" data-term-auto="off">\(d_n\)</span>.</p>
 <p></p>
 <div class="theorem" id="long68:res:prime-pole">
 <p><strong>Theorem 1.2</strong> (maximal prime-power survival). <em> Let
@@ -83,10 +87,8 @@ class="math inline" data-term-auto="off">\(e\)</span>. A zero residue gives <spa
 class="math inline" data-term-auto="off">\(v_p(\operatorname{den}(H_M))&lt;e\)</span>, and
 further congruences are needed to determine the surviving exponent. The
 proof uses no property of factorials beyond the displayed denominators,
-so it applies to any finite sum of reciprocals. It is the first
-valuation layer of the reciprocal-sum formula of Louwsma and Martino
-<span class="citation" data-cites="louwsma-martino"><a href="#ref-3">[3]</a></span>. What is
-specific here is the behaviour of the actual family <span
+so it applies to any finite sum of reciprocals. What is specific here is
+the behaviour of the actual family <span
 class="math inline" data-term-auto="off">\(d_n=n!-1\)</span>, and that behaviour is not
 generic.</p>
 <section id="two-complete-cancellations." class="level5">
@@ -185,9 +187,12 @@ reflection limits what can be inferred from a large prime factor alone:
 for odd <span class="math inline" data-term-auto="off">\(n&lt;q\)</span> with <span
 class="math inline" data-term-auto="off">\(q\mid n!-1\)</span>, the identity <span
 class="math inline" data-term-auto="off">\((q-1-n)!\,n!\equiv(-1)^{n+1}\pmod q\)</span> gives
-a second hit at <span class="math inline" data-term-auto="off">\(q-n-1\)</span>. The
-reflection identity is classical; see Stewart <span class="citation"
-data-cites="stewart2004"><a href="#ref-7">[7]</a></span>.</p>
+the reflected hit <span class="math inline" data-term-auto="off">\(q-n-1\)</span>, which
+differs from <span class="math inline" data-term-auto="off">\(n\)</span> when <span
+class="math inline" data-term-auto="off">\(q\ne2n+1\)</span> and is at least <span
+class="math inline" data-term-auto="off">\(2\)</span> when <span class="math inline" data-term-auto="off">\(n\le
+q-3\)</span>. The reflection identity is classical; see Stewart <span
+class="citation" data-cites="stewart2004"></span>.</p>
 </section>
 </section>
 <section id="long68:sec:lcm" class="level2">
@@ -216,6 +221,20 @@ class="math inline" data-term-auto="off">\(\sum_{i=1}^{k}a_i\)</span>. The diffe
 <span class="math inline" data-term-auto="off">\(\sum_{i=1}^{k-1}(k-i-1)a_i\)</span>, which
 is nonnegative. ◻</p>
 </div>
+<p>The next divisibility is the case <span
+class="math inline" data-term-auto="off">\(P=-1\)</span> of the relation <span
+class="math inline" data-term-auto="off">\(\gcd(i!+P(i),j!+P(j))\mid
+(j!/i!)P(i)-P(j)\)</span> for <span
+class="math inline" data-term-auto="off">\(P\in\Z[X]\)</span>, obtained by multiplying <span
+class="math inline" data-term-auto="off">\(i!+P(i)\)</span> by <span
+class="math inline" data-term-auto="off">\(j!/i!\)</span> and subtracting <span
+class="math inline" data-term-auto="off">\(j!+P(j)\)</span>. Luca and Shparlinski use this
+relation to bound a common divisor of <span
+class="math inline" data-term-auto="off">\(n!+P(n)\)</span> and <span
+class="math inline" data-term-auto="off">\((n+h)!+P(n+h)\)</span> in the proof of their
+Lemma 5 <span class="citation" data-cites="luca-shparlinski"><a href="#ref-13">[13]</a></span>,
+and Lai uses it for a common prime-power divisor <span class="citation"
+data-cites="lai"><a href="#ref-14">[14]</a></span>.</p>
 <div class="lemma" id="long68:res:gap-gcd">
 <p><strong>Lemma 2.2</strong> (factorial-gap gcd). <em> For <span
 class="math inline" data-term-auto="off">\(2\le i&lt;j\)</span>, the integer <span
@@ -239,20 +258,6 @@ class="math inline" data-term-auto="off">\(j!/i!\)</span> is a product of <span
 class="math inline" data-term-auto="off">\(j-i\)</span> integers each at most <span
 class="math inline" data-term-auto="off">\(j\)</span>. ◻</p>
 </div>
-<p>The divisibility <span class="math inline" data-term-auto="off">\(g\mid j!/i!-1\)</span>
-is the case <span class="math inline" data-term-auto="off">\(P=-1\)</span> of the relation
-<span class="math inline" data-term-auto="off">\(\gcd(i!+P(i),j!+P(j))\mid
-(j!/i!)P(i)-P(j)\)</span> for <span
-class="math inline" data-term-auto="off">\(P\in\Z[X]\)</span>, obtained by multiplying <span
-class="math inline" data-term-auto="off">\(i!+P(i)\)</span> by <span
-class="math inline" data-term-auto="off">\(j!/i!\)</span> and subtracting <span
-class="math inline" data-term-auto="off">\(j!+P(j)\)</span>. Luca and Shparlinski use this
-relation to bound a common divisor of <span
-class="math inline" data-term-auto="off">\(n!+P(n)\)</span> and <span
-class="math inline" data-term-auto="off">\((n+h)!+P(n+h)\)</span> in the proof of Lemma 5
-of <span class="citation" data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, and Lai
-uses it for a common prime-power divisor at display (2.5) of <span
-class="citation" data-cites="lai"></span>.</p>
 <div class="lemma" id="long68:res:segment">
 <p><strong>Lemma 2.3</strong> (segment inequality). <em> For <span
 class="math inline" data-term-auto="off">\(2\le k\le N-1\)</span>, </em></p>
@@ -335,7 +340,7 @@ terminal-block inequality</a>. Its two ingredients are Lemmas <a class="math-re
 factorial-congruence multiplicity theorem. A weaker exponent <span
 class="math inline" data-term-auto="off">\(4/3\)</span> follows instead from Theorem 12 of
 Garaev, Luca and Shparlinski <span class="citation"
-data-cites="garaev-luca-shparlinski"><a href="#ref-6">[6]</a></span>, which bounds by <span
+data-cites="garaev-luca-shparlinski"><a href="#ref-7">[7]</a></span>, which bounds by <span
 class="math inline" data-term-auto="off">\(O(N^{2/3})\)</span> the number of solutions of
 <span class="math inline" data-term-auto="off">\(n!\equiv a\pmod r\)</span> with <span
 class="math inline" data-term-auto="off">\(r\)</span> prime, <span
@@ -353,7 +358,7 @@ located.</p>
 <p><strong>Remark</strong> (polynomial shifts). <em>Fix <span
 class="math inline" data-term-auto="off">\(P\in\Z[X]\setminus\{0\}\)</span>. By Lemma 3 of
 Luca and Shparlinski <span class="citation"
-data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, in the form given by Lai <span
+data-cites="luca-shparlinski"><a href="#ref-13">[13]</a></span>, in the form given by Lai <span
 class="citation" data-cites="lai"></span>, there is <span
 class="math inline" data-term-auto="off">\(n_0\ge2\)</span>, depending only on <span
 class="math inline" data-term-auto="off">\(P\)</span>, such that <span
@@ -448,18 +453,21 @@ class="math inline" data-term-auto="off">\(\lcm(1,\ldots,n)\)</span>, show that 
 be divided by a product <span class="math inline" data-term-auto="off">\(\Phi_n\)</span> of
 prime powers, and compute the growth rate of <span
 class="math inline" data-term-auto="off">\(\Phi_n\)</span> <span class="citation"
-data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span>. That saving enters the
-inequality <span class="citation" data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span>
+data-cites="lai-lupu-sprang"><a href="#ref-15">[15]</a></span>. That saving enters the
+inequality <span class="citation" data-cites="lai-lupu-sprang"><a href="#ref-15">[15]</a></span>
 under which the rescaled forms, which have integer coefficients, meet
-the irrationality criterion quoted in <span class="citation"
-data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span>: nonzero values whose <span
-class="math inline" data-term-auto="off">\(p\)</span>-adic size, multiplied by the largest
-absolute value of a coefficient, tends to zero. The corresponding saving
-for <span class="math inline" data-term-auto="off">\(H_N\)</span> is the ratio <span
-class="math inline" data-term-auto="off">\(L_N/Q_N\)</span>. Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a> decides, for
+the irrationality criterion <span class="citation"
+data-cites="lai-lupu-sprang"><a href="#ref-15">[15]</a></span> that they quote from Lai <span
+class="citation" data-cites="lai-2adic"></span>: nonzero values whose
+<span class="math inline" data-term-auto="off">\(p\)</span>-adic size, multiplied by the
+largest absolute value of a coefficient, tends to zero. The
+corresponding saving for <span class="math inline" data-term-auto="off">\(H_N\)</span> is the
+ratio <span class="math inline" data-term-auto="off">\(L_N/Q_N\)</span>. Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a> decides, for
 each prime <span class="math inline" data-term-auto="off">\(p\mid L_N\)</span>, whether <span
 class="math inline" data-term-auto="off">\(p\)</span> divides this ratio; no asymptotic lower
-bound for the ratio is established here.</p>
+bound for the ratio is established here. This paragraph compares the two
+methods; no <span class="math inline" data-term-auto="off">\(p\)</span>-adic theorem is
+applied to <span class="math inline" data-term-auto="off">\(S\)</span>.</p>
 </section>
 <section id="long68:sec:carry" class="level2">
 <h2>Carries and the rationality boundary</h2>
@@ -487,6 +495,10 @@ gives the tail estimate</p>
 \label{long68:eq:tail-bound}
 0&lt;E_m&lt;\frac{2\,m!}{(m+1)!-1}&lt;\frac2m\le1\qquad(m\ge2).
 \end{equation}\]</span></div>
+<p>The proof of the next theorem feeds this
+estimate into the factorial-tail integrality argument that Hančl and
+Tijdeman use for factorial series with integer coefficients <span
+class="citation" data-cites="hancl-tijdeman"></span>.</p>
 <p> </p>
 <div class="theorem" id="long68:res:carry-equivalence">
 <p><strong>Theorem 3.1</strong> (strict-successor characterisation). <em>
@@ -599,9 +611,13 @@ class="math inline" data-term-auto="off">\(x\)</span> are <span
 class="math inline" data-term-auto="off">\(a_m(x)=\lfloor
 m!x\rfloor-m\lfloor(m-1)!x\rfloor\in\{0,\ldots,m-1\}\)</span>, and <span
 class="math inline" data-term-auto="off">\(x\)</span> is rational exactly when they vanish
-from some index on. That criterion is due to Cantor <span
-class="citation" data-cites="cantor1869"></span> and is recorded in
-Galambos <span class="citation" data-cites="galambos1976"><a href="#ref-5">[5]</a></span>.</p>
+from some index on. The criterion goes back to Cantor <span
+class="citation" data-cites="cantor1869"></span>; Galambos treats the
+rationality of Cantor series in <span class="citation"
+data-cites="galambos1976"><a href="#ref-6">[6]</a></span>, and Koepf and Schmersau prove the
+irrationality direction for nonterminating factorial expansions whose
+digits are not eventually maximal <span class="citation"
+data-cites="koepf-schmersau"><a href="#ref-9">[9]</a></span>.</p>
 <p></p>
 <div class="proposition" id="long68:res:companion-orbit">
 <p><strong>Proposition 3.2</strong> (companion-orbit criterion). <em>
@@ -970,28 +986,95 @@ cancellation coordinate.</p>
 class="level3">
 <h3>The exact low-channel lattice and residual class</h3>
 <p>The integral divisor basis makes the preceding divisibility statement
-exact. Let <span class="math inline" data-term-auto="off">\(U_n\)</span> be the isolated
-<span class="math inline" data-term-auto="off">\(n\)</span>-channel unit, let <span
-class="math inline" data-term-auto="off">\(K_D\)</span> be the canonical vector with moment
-<span class="math inline" data-term-auto="off">\(L_D\)</span> and channels <span
-class="math inline" data-term-auto="off">\(2,\ldots,D\)</span> equal to zero, and write <span
-class="math inline" data-term-auto="off">\(a_D=[e_1]K_D\)</span> and <span
-class="math inline" data-term-auto="off">\(u_n=[e_1]U_n\)</span>. Every vector with zero
-initial coordinate and vanishing channels through <span
-class="math inline" data-term-auto="off">\(D\)</span> has a unique expression</p>
-<div class="math-display" id="long68:eq:low-channel-basis" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\begin{equation}
+exact. For the coordinate calculation only, enlarge the coefficient
+space to finitely supported integer vectors on <span
+class="math inline" data-term-auto="off">\(n\ge1\)</span>, with <span
+class="math inline" data-term-auto="off">\(M\)</span> and <span
+class="math inline" data-term-auto="off">\(V_{d}(\cdot)\)</span> given by the same formulas;
+this introduces no term <span class="math inline" data-term-auto="off">\(1/(1!-1)\)</span>
+into <span class="math inline" data-term-auto="off">\(S\)</span>. Set</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[T_n=ne_{n-1}-e_n,\qquad
+U_n=T_n-\sum_{\substack{d\mid n\\2\le
+d&lt;n}}W_{d,n}U_d\quad(n\ge2),\qquad
+K_D=L_De_1-\sum_{d=2}^{D}\frac{L_D}{d!-1}U_d .\]</span></div>
+<p>The quotient
+<span class="math inline" data-term-auto="off">\(\lfloor i/d\rfloor\)</span> changes between
+<span class="math inline" data-term-auto="off">\(i=n-1\)</span> and <span
+class="math inline" data-term-auto="off">\(i=n\)</span> exactly when <span
+class="math inline" data-term-auto="off">\(d\mid n\)</span>, so <span
+class="math inline" data-term-auto="off">\(V_{d}(T_n)=(d!-1)W_{d,n}\mathbf 1_{d\mid
+n}\)</span>, and induction gives <span
+class="math inline" data-term-auto="off">\(M(U_n)=0\)</span> and <span
+class="math inline" data-term-auto="off">\(V_{d}(U_n)=(d!-1)\mathbf 1_{d=n}\)</span>. Hence
+<span class="math inline" data-term-auto="off">\(M(K_D)=L_D\)</span> and <span
+class="math inline" data-term-auto="off">\(V_{d}(K_D)=0\)</span> for <span
+class="math inline" data-term-auto="off">\(2\le d\le D\)</span>. The change from <span
+class="math inline" data-term-auto="off">\(e_1,T_2,T_3,\ldots\)</span> to <span
+class="math inline" data-term-auto="off">\(e_1,U_2,U_3,\ldots\)</span> is integral triangular
+with unit diagonal, so <span
+class="math inline" data-term-auto="off">\(e_1,U_2,U_3,\ldots\)</span> is an integral basis,
+and applying <span class="math inline" data-term-auto="off">\(M\)</span> and each <span
+class="math inline" data-term-auto="off">\(V_{d}(\cdot)\)</span> gives the unique expansion</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[c=M(c)\,e_1+\sum_{d\ge2}\frac{V_{d}(c)-M(c)}{d!-1}\,U_d
+.\]</span></div>
+<p>Consequently every vector of the enlarged space whose
+channels <span class="math inline" data-term-auto="off">\(2,\ldots,D\)</span> vanish has a
+unique expression</p>
+<div class="math-display" id="long68:eq:low-channel-basis" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:low-channel-basis}
 c=tK_D+\sum_{n&gt;D}z_nU_n,
 \qquad M(c)=tL_D,
 \end{equation}\]</span></div>
 <p class="display-continue">with finitely many nonzero integers <span
-class="math inline" data-term-auto="off">\(z_n\)</span>. Requiring support on <span
+class="math inline" data-term-auto="off">\(z_n\)</span>. Write <span
+class="math inline" data-term-auto="off">\(a_D=[e_1]K_D\)</span> and <span
+class="math inline" data-term-auto="off">\(u_n=[e_1]U_n\)</span>. Requiring support on <span
 class="math inline" data-term-auto="off">\(n\ge2\)</span> adds precisely the scalar equation</p>
 <div class="math-display" id="long68:eq:low-channel-support" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long68:eq:low-channel-support}
 ta_D+\sum_{n&gt;D}z_nu_n=0.
 \end{equation}\]</span></div>
+<p>The scalar coefficients satisfy <span
+class="math inline" data-term-auto="off">\(u_2=2\)</span> and <span
+class="math inline" data-term-auto="off">\(u_n=-\sum_{d\mid n,\ 2\le
+d&lt;n}W_{d,n}u_d\)</span> for <span
+class="math inline" data-term-auto="off">\(n&gt;2\)</span>; in particular <span
+class="math inline" data-term-auto="off">\(u_{2p}=-(2p)!/2^{p-1}\)</span> for every prime
+<span class="math inline" data-term-auto="off">\(p\)</span>. If <span
+class="math inline" data-term-auto="off">\(p\)</span> is a prime with <span
+class="math inline" data-term-auto="off">\(D/2&lt;p\le D\)</span> and <span
+class="math inline" data-term-auto="off">\(H=D(2p-1)\)</span>, then</p>
+<div class="math-display" id="long68:eq:finite-horizon" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{equation}
+\label{long68:eq:finite-horizon}
+\gcd\{u_n:n&gt;D\}=\gcd(u_{D+1},\ldots,u_H)&gt;0,\qquad H&lt;2D^2 .
+\end{equation}\]</span></div>
+<p>Indeed, the finite gcd <span
+class="math inline" data-term-auto="off">\(g\)</span> divides <span
+class="math inline" data-term-auto="off">\(u_{2p}\ne0\)</span> and hence <span
+class="math inline" data-term-auto="off">\((2p)!\)</span>. For <span
+class="math inline" data-term-auto="off">\(n&gt;H\)</span> and a divisor <span
+class="math inline" data-term-auto="off">\(d\le D\)</span> of <span
+class="math inline" data-term-auto="off">\(n\)</span> one has <span
+class="math inline" data-term-auto="off">\(n/d\ge2p\)</span>, and <span
+class="math inline" data-term-auto="off">\((n/d)!\)</span> divides <span
+class="math inline" data-term-auto="off">\(W_{d,n}\)</span>, the quotient counting partitions
+of <span class="math inline" data-term-auto="off">\(n\)</span> points into <span
+class="math inline" data-term-auto="off">\(n/d\)</span> unordered blocks of size <span
+class="math inline" data-term-auto="off">\(d\)</span>; thus <span class="math inline" data-term-auto="off">\(g\mid
+W_{d,n}\)</span>. Strong induction in the recurrence handles the
+remaining divisors <span class="math inline" data-term-auto="off">\(D&lt;d&lt;n\)</span>, so
+<span class="math inline" data-term-auto="off">\(g\)</span> divides every <span
+class="math inline" data-term-auto="off">\(u_n\)</span> with <span
+class="math inline" data-term-auto="off">\(n&gt;D\)</span>. Bertrand’s postulate supplies
+<span class="math inline" data-term-auto="off">\(p\)</span> for <span
+class="math inline" data-term-auto="off">\(D\ge3\)</span>, and <span
+class="math inline" data-term-auto="off">\(p=2\)</span> serves for <span
+class="math inline" data-term-auto="off">\(D=2\)</span>; finally <span
+class="math inline" data-term-auto="off">\(H\le D(2D-1)&lt;2D^2\)</span>. The short note
+proves the same determination as its Theorem 3.2.</p>
 <div class="theorem" id="long68:res:moment-ideal">
 <p><strong>Theorem 5.3</strong> (exact attainable moment ideal). <em> Fix
 <span class="math inline" data-term-auto="off">\(D\ge2\)</span> and a prime <span
@@ -1012,11 +1095,11 @@ by a vector of coefficient content one, hence by a primitive
 vector.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The finite-horizon theorem gives <span
-class="math inline" data-term-auto="off">\(G_D&gt;0\)</span> and identifies it with the gcd
-of the whole tail <span class="math inline" data-term-auto="off">\(\{u_n:n&gt;D\}\)</span>;
-moreover <span class="math inline" data-term-auto="off">\(H&lt;2D^2\)</span>. Thus the finite
-integer combinations in <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-support">long68:eq:low-channel-support</a>
+<p><em>Proof.</em> By <a class="math-ref" data-equation-ref="true" href="#long68:eq:finite-horizon">long68:eq:finite-horizon</a>, <span
+class="math inline" data-term-auto="off">\(G_D&gt;0\)</span> is the gcd of the whole tail
+<span class="math inline" data-term-auto="off">\(\{u_n:n&gt;D\}\)</span>, and <span
+class="math inline" data-term-auto="off">\(H&lt;2D^2\)</span>. Thus the finite integer
+combinations in <a class="math-ref" data-equation-ref="true" href="#long68:eq:low-channel-support">long68:eq:low-channel-support</a>
 form <span class="math inline" data-term-auto="off">\(G_D\Z\)</span>, so that the equation is
 soluble exactly when <span class="math inline" data-term-auto="off">\(G_D\mid ta_D\)</span>.
 Dividing by <span class="math inline" data-term-auto="off">\(\gcd(G_D,a_D)\)</span> shows
@@ -1044,7 +1127,7 @@ R\!\left(tK_D+\sum_{n&gt;D}z_nU_n\right)
 =tL_D(S-H_D)+\sum_{n&gt;D}z_n.\]</span></div>
 <p><em> The residual series converges
 for every finite vector supported away from index zero. A zero-moment
-vector has integral residual, and two such vectors with the same
+vector has integral residual, and any two finite vectors with the same
 factorial moment have residuals differing by an integer.</em></p>
 </div>
 <div class="proof">
@@ -1323,8 +1406,18 @@ Q_{-1}=0,\quad Q_j=a_jQ_{j-1}+Q_{j-2}\]</span></div>
 <p class="display-continue">satisfy <span
 class="math inline" data-term-auto="off">\(Q_{23448}\ge2^{39990}\)</span>. Every rational in
 the open enclosure shares this initial segment, so its reduced
-denominator is at least <span class="math inline" data-term-auto="off">\(Q_{23448}\)</span>;
-the argument is about a common prefix and does not require the last
+denominator is at least <span class="math inline" data-term-auto="off">\(Q_{23448}\)</span>.
+Indeed, write <span class="math inline" data-term-auto="off">\(P_j\)</span> for the
+convergent numerators. Such a rational either equals <span
+class="math inline" data-term-auto="off">\(P_{23448}/Q_{23448}\)</span> or has a complete
+quotient <span class="math inline" data-term-auto="off">\(A/B&gt;1\)</span> after the
+segment, with <span class="math inline" data-term-auto="off">\(A\)</span> and <span
+class="math inline" data-term-auto="off">\(B\)</span> coprime, and then equals <span
+class="math inline" data-term-auto="off">\((P_{23448}A+P_{23447}B)/(Q_{23448}A+Q_{23447}B)\)</span>;
+the determinant identity <span
+class="math inline" data-term-auto="off">\(P_jQ_{j-1}-P_{j-1}Q_j=\pm1\)</span> makes both
+fractions reduced <span class="citation" data-cites="nist-dlmf"><a href="#ref-17">[17]</a></span>.
+The argument is about a common prefix and does not require the last
 convergent to lie inside the enclosure. The integer comparison <span
 class="math inline" data-term-auto="off">\(2^{39990}&gt;10^{12038}\)</span> closes <a class="math-ref" data-equation-ref="true" href="#long68:eq:finite-bounds">long68:eq:finite-bounds</a>. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/cd3bd6fe245867a435e15d503ccedd699c5d02e2/scripts/check_erdos68_continued_fraction.py">integer
@@ -1337,9 +1430,10 @@ power-of-two exponent <span class="math inline" data-term-auto="off">\(39990\)</
 strict decimal exponent <span class="math inline" data-term-auto="off">\(12038\)</span>.</p>
 <p>Both certificates are finite. A refinement of either enlarges the
 excluded range and returns a statement of the same shape, and neither
-excludes an eventual unit-carry tail. The continued-fraction method is
-classical, and no antecedent for these particular numerical outputs was
-located.</p>
+excludes an eventual unit-carry tail. The continued-fraction identities
+are classical <span class="citation" data-cites="nist-dlmf"><a href="#ref-17">[17]</a></span>; the
+enclosure, the prefix length and the exponent are outputs of the
+computation above.</p>
 </section>
 <section id="long68:sec:open" class="level2">
 <h2>The remaining arithmetic inputs</h2>
@@ -1377,7 +1471,7 @@ class="math inline" data-term-auto="off">\(h_{r,e}(p)(e+1)\le2p+e-2\)</span> is 
 unweighted count of collisions does not establish <a class="math-ref" data-equation-ref="true" href="#long68:eq:weighted-target">long68:eq:weighted-target</a>, and
 reflected hits may not be discarded, since Wilson reflection produces
 genuine collision primes. Theorem 12 of Garaev, Luca and Shparlinski
-<span class="citation" data-cites="garaev-luca-shparlinski"><a href="#ref-6">[6]</a></span> is a
+<span class="citation" data-cites="garaev-luca-shparlinski"><a href="#ref-7">[7]</a></span> is a
 multiplicity bound and supplies no lower bound for the complementary
 residue in <a class="math-ref" data-equation-ref="true" href="#long68:eq:global-scale">long68:eq:global-scale</a>.</p>
 </section>
@@ -1499,26 +1593,28 @@ the displayed residual.</p>
 <section id="criteria-from-the-literature-that-do-not-apply."
 class="level5">
 <h5>Criteria from the literature that do not apply.</h5>
-<p>Duverney’s fast-series criteria assume two-sided quadratic
-denominator growth <span class="math inline" data-term-auto="off">\(cu_n^2\le u_{n+1}\le
-c&#39;u_n^2\)</span>, whereas <span
-class="math inline" data-term-auto="off">\(u_{n+1}/u_n^2\to0\)</span> for <span
-class="math inline" data-term-auto="off">\(u_n=n!-1\)</span>, and his all-positive
-specialisation additionally requires <span
-class="math inline" data-term-auto="off">\(\sum_n|u_{n+1}/u_n^2-1|&lt;\infty\)</span>, whose
-summands tend to one here <span class="citation"
-data-cites="duverney"><a href="#ref-9">[9]</a></span>. The theorem of Barreto, Kang, Kim, Kovač
-and Zhang proves irrationality of <span
-class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> under a rapid-growth
-hypothesis that fails for <span class="math inline" data-term-auto="off">\(a_n=n!-1\)</span>,
-since <span class="math inline" data-term-auto="off">\(\log(n!-1)=O(n\log n)\)</span> makes
-<span class="math inline" data-term-auto="off">\((n!-1)^{1/\psi^n}\to1\)</span> for every
-fixed <span class="math inline" data-term-auto="off">\(\psi&gt;1\)</span> <span
-class="citation" data-cites="barreto-et-al"></span>. Failure of a
-sufficient criterion is not a theorem about <span
-class="math inline" data-term-auto="off">\(S\)</span>, and the useful content is the target
-these papers identify: a low-height clearing subsequence, or enough
-exact cancellation in the least common multiple. Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> bounds that
+<p>Duverney’s Theorem 3.1 assumes the quadratic growth condition (1.3),
+<span class="math inline" data-term-auto="off">\(cu_n^2\le u_{n+1}\le c&#39;u_n^2\)</span>,
+whereas <span class="math inline" data-term-auto="off">\(u_{n+1}/u_n^2\to0\)</span> for <span
+class="math inline" data-term-auto="off">\(u_n=n!-1\)</span>; the summability condition (3.6)
+of his Corollary 3.2, <span
+class="math inline" data-term-auto="off">\(\sum_n|u_{n+1}/u_n^2-1|&lt;\infty\)</span>, also
+fails, since its summands tend to one here <span class="citation"
+data-cites="duverney"><a href="#ref-10">[10]</a></span>. For a single denominator sequence the
+rapid-growth criterion goes back to Erdős <span class="citation"
+data-cites="erdos1975"><a href="#ref-3">[3]</a></span>; Barreto, Kang, Kim, Kovač and Zhang
+treat products of consecutive denominators and weighted extensions <span
+class="citation" data-cites="barreto-et-al"></span>. For <span
+class="math inline" data-term-auto="off">\(a_n=n!-1\)</span>, <span
+class="math inline" data-term-auto="off">\(\log(n!-1)=O(n\log n)\)</span> makes <span
+class="math inline" data-term-auto="off">\((n!-1)^{1/\psi^n}\to1\)</span> for every fixed
+<span class="math inline" data-term-auto="off">\(\psi&gt;1\)</span>, so neither Erdős’s
+hypothesis <span
+class="math inline" data-term-auto="off">\(\limsup_na_n^{1/2^n}=\infty\)</span> nor the
+growth hypotheses of their Theorems 2 and 3 hold. These criteria do not
+decide <span class="math inline" data-term-auto="off">\(S\)</span>; the useful content is the
+target these papers identify: a low-height clearing subsequence, or
+enough exact cancellation in the least common multiple. Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> bounds that
 cancellation from one side and Theorem <a class="math-ref" href="#long68:res:prime-pole">1.2</a> describes it
 from the other.</p>
 <p>Erdős #68 is open. Every rational representation with positive
@@ -1689,29 +1785,36 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 </div>
 <p>Attribution. Wilson’s theorem and the Wilson reflection identity are
 classical, the latter recorded by Stewart <span class="citation"
-data-cites="stewart2004"><a href="#ref-7">[7]</a></span>. The factorial-digit termination
-criterion is Cantor’s <span class="citation"
-data-cites="cantor1869"><a href="#ref-4">[4]</a></span>, in the form recorded by Galambos <span
-class="citation" data-cites="galambos1976"></span>; the additions here
-are the telescope <span class="math inline" data-term-auto="off">\(C=S-e+2\)</span>, the
-identification of the digit value <span
-class="math inline" data-term-auto="off">\(m-2\)</span>, and the transport to the shifted
-family. The multiplicity bound is Garaev, Luca and Shparlinski’s <span
-class="citation" data-cites="garaev-luca-shparlinski"></span>, and the
-lcm deduction from it is not theirs. The divisibility in Lemma <a class="math-ref" href="#long68:res:gap-gcd">2.2</a> is the case
+data-cites="stewart2004"><a href="#ref-8">[8]</a></span>. The factorial-digit termination
+criterion goes back to Cantor <span class="citation"
+data-cites="cantor1869"><a href="#ref-5">[5]</a></span>; Koepf and Schmersau prove its
+irrationality direction for digits that are not eventually maximal <span
+class="citation" data-cites="koepf-schmersau"></span>, and Galambos
+treats rationality criteria for Cantor series <span class="citation"
+data-cites="galambos1976"><a href="#ref-6">[6]</a></span>. The additions here are the telescope
+<span class="math inline" data-term-auto="off">\(C=S-e+2\)</span>, the identification of the
+digit value <span class="math inline" data-term-auto="off">\(m-2\)</span>, and the transport
+to the shifted family. The tail-integrality step is the argument of
+Hančl and Tijdeman <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-11">[11]</a></span>. The multiplicity bound is Garaev,
+Luca and Shparlinski’s <span class="citation"
+data-cites="garaev-luca-shparlinski"><a href="#ref-7">[7]</a></span>, and the lcm deduction from
+it is not theirs. The divisibility in Lemma <a class="math-ref" href="#long68:res:gap-gcd">2.2</a> is the case
 <span class="math inline" data-term-auto="off">\(P=-1\)</span> of the relation used in the
 proof of Lemma 5 of Luca and Shparlinski <span class="citation"
-data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span> and at display (2.5) of Lai <span
+data-cites="luca-shparlinski"><a href="#ref-13">[13]</a></span> and at display (2.5) of Lai <span
 class="citation" data-cites="lai"></span>. The nonvanishing cutoff for
 polynomial shifts is Lemma 3 of <span class="citation"
-data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, restated with the bound <span
+data-cites="luca-shparlinski"><a href="#ref-13">[13]</a></span>, restated with the bound <span
 class="math inline" data-term-auto="off">\(n!+P(n)&gt;1\)</span> in <span class="citation"
-data-cites="lai"><a href="#ref-13">[13]</a></span>. The survival criterion is a specialisation of
+data-cites="lai"><a href="#ref-14">[14]</a></span>. The survival criterion is a specialisation of
 Louwsma and Martino’s valuation formula <span class="citation"
-data-cites="louwsma-martino"><a href="#ref-3">[3]</a></span>. For the Wilson cofinality
-packaging, the finite radius bound and Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a>, no
-antecedent was located, which is a negative search result, and no
-priority is claimed.</p>
+data-cites="louwsma-martino"><a href="#ref-4">[4]</a></span>. The single-denominator growth
+criterion is Erdős’s <span class="citation"
+data-cites="erdos1975"><a href="#ref-3">[3]</a></span>, and the continued-fraction identities
+are those of <span class="citation" data-cites="nist-dlmf"><a href="#ref-17">[17]</a></span>. No
+antecedent was located for the Wilson cofinality packaging, the finite
+radius bound or Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a>.</p>
 </section>
 <section id="long68:app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
@@ -1919,7 +2022,8 @@ class="math inline" data-term-auto="off">\(\operatorname{facFloor}(a/q,n)=((n!/q
 and the canonical digit at radix <span
 class="math inline" data-term-auto="off">\(n+1\)</span> vanishes, so every rational input has
 an eventually zero expansion. The converse holds for every real input,
-and gives</p>
+and gives Cantor’s termination criterion <span class="citation"
+data-cites="cantor1869"><a href="#ref-5">[5]</a></span></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[x\in\Q\quad\Longleftrightarrow\quad a_m(x)=0\
 \hbox{for all large }m .\]</span></div>
@@ -1929,7 +2033,7 @@ class="math inline" data-term-auto="off">\(\theta_{N+k}\ge(k+1)\theta_N\)</span>
 remainder is below one, <span class="math inline" data-term-auto="off">\(\theta_N=0\)</span>
 and <span class="math inline" data-term-auto="off">\(x=\lfloor N!x\rfloor/N!\)</span>.</p>
 <p>A zero canonical digit is a different event from a zero-branch hit.
-The returned data contain canonical zero digits at <span
+The reported interval data contain canonical zero digits at <span
 class="math inline" data-term-auto="off">\(m=5\)</span> and <span
 class="math inline" data-term-auto="off">\(m=23\)</span>, while the zero-branch list is empty
 through <span class="math inline" data-term-auto="off">\(m=100000\)</span>.</p>
@@ -1951,13 +2055,15 @@ done.</p>
 <p>Koepf and Schmersau prove that eventual equality between the floors
 of <span class="math inline" data-term-auto="off">\(n\)</span> times a partial sum and <span
 class="math inline" data-term-auto="off">\(n\)</span> times its limit forces irrationality
-<span class="citation" data-cites="koepf-schmersau"><a href="#ref-8">[8]</a></span>; their
-rational-term version obtains that equality from prefix integrality at a
-scale <span class="math inline" data-term-auto="off">\(p_n\)</span> together with the strict
-tail bound <span class="math inline" data-term-auto="off">\(a-s_n&lt;1/(np_n)\)</span> <span
-class="citation" data-cites="koepf-schmersau"></span>. For the natural
-termwise clearing choice <span class="math inline" data-term-auto="off">\(p_n=\lcm\{k!-1:2\le
-k\le n\}\)</span> the last two denominators already obstruct it:</p>
+<span class="citation" data-cites="koepf-schmersau"><a href="#ref-9">[9]</a></span>; their
+rational-term version obtains that equality from the integrality
+condition <span class="math inline" data-term-auto="off">\(np_ns_n\in\mathbb N_0\)</span> and
+the strict tail bound <span
+class="math inline" data-term-auto="off">\(a-s_n&lt;1/(np_n)\)</span> <span class="citation"
+data-cites="koepf-schmersau"><a href="#ref-9">[9]</a></span>. For the choice they record after
+(2.1), the least common multiple of the reduced summand denominators,
+here <span class="math inline" data-term-auto="off">\(p_n=\lcm\{k!-1:2\le k\le n\}\)</span>,
+the last two denominators already obstruct the tail bound:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[p_n\ \ge\
 \frac{(n!-1)\bigl((n-1)!-1\bigr)}{n-1},\]</span></div>
@@ -1970,33 +2076,47 @@ already exceeds <span class="math inline" data-term-auto="off">\(1/(np_n)\)</spa
 hypothesis. Cancellation in the reduced prefix denominator could give a
 smaller scale, and proving enough cancellation is another form of the
 present denominator problem.</p>
-<p>Duverney’s Theorem 3.1 assumes two-sided quadratic denominator growth
+<p>Duverney’s Theorem 3.1 assumes the quadratic growth condition (1.3),
 <span class="math inline" data-term-auto="off">\(cu_n^2\le u_{n+1}\le c&#39;u_n^2\)</span>,
 while <span class="math inline" data-term-auto="off">\(u_{n+1}/u_n^2\to0\)</span> for <span
 class="math inline" data-term-auto="off">\(u_n=n!-1\)</span> <span class="citation"
-data-cites="duverney"><a href="#ref-9">[9]</a></span>; his all-positive Corollary 3.2
-additionally requires <span
+data-cites="duverney"><a href="#ref-10">[10]</a></span>; his Corollary 3.2, which allows signs
+<span class="math inline" data-term-auto="off">\(a_n\in\{-1,1\}\)</span>, requires the
+summability condition (3.6), <span
 class="math inline" data-term-auto="off">\(\sum_n|u_{n+1}/u_n^2-1|&lt;\infty\)</span>,
 whereas those summands tend to one <span class="citation"
-data-cites="duverney"><a href="#ref-9">[9]</a></span>. Both the ratio limit and the
+data-cites="duverney"><a href="#ref-10">[10]</a></span>. Both the ratio limit and the
 nonsummability are kernel-checked. The ratio proof divides numerator and
 denominator by <span class="math inline" data-term-auto="off">\((n!)^2\)</span>; the
 resulting terms tend to zero while <span
 class="math inline" data-term-auto="off">\((1-1/n!)^2\)</span> tends to one.</p>
-<p>The theorem of Barreto, Kang, Kim, Kovač and Zhang proves
-irrationality of <span class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> when
-<span class="math inline" data-term-auto="off">\(a_n^{1/2^n}\to\infty\)</span>, whereas <span
-class="math inline" data-term-auto="off">\((n!-1)^{1/2^n}\to1\)</span> <span class="citation"
-data-cites="barreto-et-al"><a href="#ref-11">[11]</a></span>; the limit is kernel-checked through
-the bound <span class="math inline" data-term-auto="off">\(0\le\log(n!-1)\le n^2\)</span>.
-Their proof identifies a useful exact criterion: Mahler’s elementary
-rationality floor is contradicted by prefix-clearing integers <span
-class="math inline" data-term-auto="off">\(D_N\)</span> whose cleared positive tails satisfy
-<span class="math inline" data-term-auto="off">\(\liminf_ND_Nr_N=0\)</span> <span
-class="citation" data-cites="barreto-et-al"></span>. The ordinary
-product of the factorial-gap denominators is far too large for that
-estimate, so a transfer needs a low-height clearing subsequence, or
-enough exact cancellation in their least common multiple.</p>
+<p>For a single denominator sequence, Erdős proved that <span
+class="math inline" data-term-auto="off">\(\sum_k1/n_k\)</span> is irrational when <span
+class="math inline" data-term-auto="off">\(\limsup_kn_k^{1/2^k}=\infty\)</span> and <span
+class="math inline" data-term-auto="off">\(n_k&gt;k^{1+\varepsilon}\)</span> eventually <span
+class="citation" data-cites="erdos1975"></span>. Barreto, Kang, Kim,
+Kovač and Zhang treat products of consecutive denominators and weighted
+extensions <span class="citation" data-cites="barreto-et-al"><a href="#ref-12">[12]</a></span>.
+For <span class="math inline" data-term-auto="off">\(a_n=n!-1\)</span> the root-growth
+expressions tend to one, <span
+class="math inline" data-term-auto="off">\((n!-1)^{1/2^n}\to1\)</span>, so neither the limsup
+hypothesis of Erdős nor the growth hypotheses of their Theorems 2 and 3
+hold; the limit is kernel-checked through the bound <span
+class="math inline" data-term-auto="off">\(0\le\log(n!-1)\le n^2\)</span>. Their proof of
+Theorem 3 uses the classical criterion, which they trace to Fourier’s
+proof that <span class="math inline" data-term-auto="off">\(e\)</span> is irrational, that a
+rational sum of nonnegative rationals with infinitely many positive
+terms admits no prefix-clearing integers <span
+class="math inline" data-term-auto="off">\(D_N\)</span> with <span
+class="math inline" data-term-auto="off">\(\liminf_ND_Nr_N=0\)</span>, where <span
+class="math inline" data-term-auto="off">\(r_N\)</span> is the tail after <span
+class="math inline" data-term-auto="off">\(N\)</span> terms <span class="citation"
+data-cites="barreto-et-al"><a href="#ref-12">[12]</a></span>; their Proposition 12 produces such
+integers under the hypotheses of that theorem <span class="citation"
+data-cites="barreto-et-al"><a href="#ref-12">[12]</a></span>. The ordinary product of the
+factorial-gap denominators is far too large for that estimate, so a
+transfer needs a low-height clearing subsequence, or enough exact
+cancellation in their least common multiple.</p>
 <p>Dividing the strict-successor recurrence <span
 class="math inline" data-term-auto="off">\(Z_m=mZ_{m-1}+1-b_m\)</span> by <span
 class="math inline" data-term-auto="off">\(m!\)</span> and telescoping gives the exact finite
@@ -2004,16 +2124,23 @@ identity</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{Z_M}{M!}=\frac{Z_2}{2!}+\sum_{m=3}^{M}\frac{1-b_m}{m!},\]</span></div>
 <p class="display-continue">so the carry defects <span class="math inline" data-term-auto="off">\(1-b_m\)</span> are
-genuine factorial-series coefficients. Hančl and Tijdeman give exact
-rationality classifications for polynomial coefficients and
-finite-difference criteria for broader ordinary factorial series <span
-class="citation" data-cites="hancl-tijdeman"></span>; their denominator
-is the cumulative linear product <span class="math inline" data-term-auto="off">\(\prod_{n\le
+genuine factorial-series coefficients. Hančl and Tijdeman classify the
+rational sums with polynomial coefficients <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-11">[11]</a></span>; their denominator is the cumulative
+linear product <span class="math inline" data-term-auto="off">\(\prod_{n\le
 N}(an+b)\)</span>, and the individual number <span
-class="math inline" data-term-auto="off">\(N!-1\)</span> does not occur. Applied to the
-display above, the Cantor–Oppenheim criterion still needs <span
-class="math inline" data-term-auto="off">\(1-b_m\ne0\)</span> infinitely often, which is the
-missing cofinal assertion.</p>
+class="math inline" data-term-auto="off">\(N!-1\)</span> does not occur. The criterion of
+Oppenheim that they reproduce <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-11">[11]</a></span> states that, for coefficients <span
+class="math inline" data-term-auto="off">\(c_n\)</span> with <span
+class="math inline" data-term-auto="off">\(|c_n|&lt;an+b\)</span> eventually and <span
+class="math inline" data-term-auto="off">\(\liminf_n|c_n|/n=0\)</span>, the sum is rational
+exactly when <span class="math inline" data-term-auto="off">\(c_n=0\)</span> eventually. For
+the carry defects <span class="math inline" data-term-auto="off">\(c_m=1-b_m\)</span> the
+first condition holds, since <span class="math inline" data-term-auto="off">\(-1\le b_m\le
+m-1\)</span>, and the second is not established; the needed cofinal
+equivalence is Theorem <a class="math-ref" href="#long68:res:carry-equivalence">3.1</a>, which
+is proved directly.</p>
 </section>
 <section id="long68:sec:ext-superseded" class="level3">
 <h3>A superseded deduction</h3>
@@ -2027,8 +2154,9 @@ class="math inline" data-term-auto="off">\(r\mid n!-1\)</span>; such an index sa
 class="math inline" data-term-auto="off">\(n&lt;r\)</span>. The factorial-congruence
 multiplicity estimate of Garaev, Luca and Shparlinski <span
 class="citation" data-cites="garaev-luca-shparlinski"></span>, applied
-on <span class="math inline" data-term-auto="off">\(1\le n\le\min(N,r-1)\)</span>, gives
-<span class="math inline" data-term-auto="off">\(m_r\ll N^{2/3}\)</span>; the prime <span
+to the residue <span class="math inline" data-term-auto="off">\(a=1\)</span> on <span
+class="math inline" data-term-auto="off">\(1\le n\le\min(N,r-1)\)</span>, gives <span
+class="math inline" data-term-auto="off">\(m_r\ll N^{2/3}\)</span>; the prime <span
 class="math inline" data-term-auto="off">\(2\)</span> divides none of these factors. Writing
 <span class="math inline" data-term-auto="off">\(E_r=\max_{2\le n\le N}v_r(n!-1)\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\log Q_N=\sum_r\sum_{n=2}^{N}v_r(n!-1)\log
@@ -2040,8 +2168,8 @@ class="math inline" data-term-auto="off">\(\log Q_N\asymp N^2\log N\)</span>, wh
 class="math inline" data-term-auto="off">\(\log L_N\gg N^{4/3}\log N\)</span>. Theorem <a class="math-ref" href="#long68:res:lcm-growth">2.4</a> supersedes
 this: its exponent is <span class="math inline" data-term-auto="off">\(3/2\)</span>, its
 constant is explicit, and it uses no external theorem. The deduction is
-retained because it is the shape the returned analyses describe, and
-because it is the only place a multiplicity bound enters the record.</p>
+retained because it is the only place a multiplicity bound enters the
+record.</p>
 <p>The primitive lcm divisibility survives cofactor removal: factorial
 valuations do not remove the channel obstruction once every common
 cofactor divisor has been removed. A corank-one cofactor and determinant
@@ -2305,10 +2433,11 @@ class="math inline" data-term-auto="off">\(n!-1\)</span> satisfies</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[n&lt;q&lt;\left(\frac{\sqrt{145}-1}{8}+\varepsilon\right)n
 ,\]</span></div>
-<p class="display-continue">the printed text transferring estimate (9) from <span
-class="math inline" data-term-auto="off">\(n!+1\)</span> to <span
-class="math inline" data-term-auto="off">\(n!-1\)</span> <span class="citation"
-data-cites="stewart2004"><a href="#ref-7">[7]</a></span>. The source controls <span
+<p class="display-continue">estimate (9) of Theorem 1 being stated for <span
+class="math inline" data-term-auto="off">\(n!+1\)</span> <span class="citation"
+data-cites="stewart2004"><a href="#ref-8">[8]</a></span> and transferred to <span
+class="math inline" data-term-auto="off">\(n!-1\)</span> in the text <span class="citation"
+data-cites="stewart2004"><a href="#ref-8">[8]</a></span>. The source controls <span
 class="math inline" data-term-auto="off">\(q\)</span> relative to the later index <span
 class="math inline" data-term-auto="off">\(n\)</span> and supplies no control relative to the
 private first-hit index, so it is collision-core input. The missing
@@ -2347,34 +2476,56 @@ its residual lies strictly between <span
 class="math inline" data-term-auto="off">\(-93/575\)</span> and <span
 class="math inline" data-term-auto="off">\(-309/13685\)</span>, so it is nonzero and
 subunit.</p>
-<p>Exact integer regeneration verifies the canonical primitive kernels
-for every <span class="math inline" data-term-auto="off">\(2\le D\le12\)</span>: channels
-<span class="math inline" data-term-auto="off">\(2\)</span> through <span
+<p>In the enlarged coefficient space of §<a class="math-ref" href="#long68:sec:channels">5</a>, exact integer
+computation verifies the vectors <span
+class="math inline" data-term-auto="off">\(K_D\)</span> for every <span
+class="math inline" data-term-auto="off">\(2\le D\le12\)</span>: channels <span
+class="math inline" data-term-auto="off">\(2\)</span> through <span
 class="math inline" data-term-auto="off">\(D\)</span> vanish, the factorial moment is <span
 class="math inline" data-term-auto="off">\(L_D\)</span>, and the coefficient content is one.
-At <span class="math inline" data-term-auto="off">\(D=9\)</span> the moment is <span
-class="math inline" data-term-auto="off">\(L_9=31540008254514077395\)</span> and, after the
-stated prime-unit shift, <span
-class="math inline" data-term-auto="off">\(1353/100000&lt;R_9&lt;1354/100000\)</span>. At
-<span class="math inline" data-term-auto="off">\(D=3\)</span> the vector <span
-class="math inline" data-term-auto="off">\(c=(-40,55,-10,1)\)</span> on the support <span
-class="math inline" data-term-auto="off">\((3,4,5,6)\)</span> annihilates channels <span
-class="math inline" data-term-auto="off">\(2\)</span> and <span
+They lie outside the space of vectors supported on <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span>, since <span
+class="math inline" data-term-auto="off">\(L_D\)</span> is odd and every such vector has even
+moment. At <span class="math inline" data-term-auto="off">\(D=9\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[L_9=31540008254514077395,\qquad
+a_9=[e_1]K_9=-3902884074990939115 .\]</span></div>
+<p>Since <span
+class="math inline" data-term-auto="off">\(U_{11}=T_{11}\)</span> has <span
+class="math inline" data-term-auto="off">\(u_{11}=0\)</span>, the vector <span
+class="math inline" data-term-auto="off">\(K_9-9553024718754\,U_{11}\)</span> keeps the
+coordinate <span class="math inline" data-term-auto="off">\(a_9\)</span> and has content one.
+By Theorem <a class="math-ref" href="#long68:res:residual-transparency">5.4</a>
+its residual is <span
+class="math inline" data-term-auto="off">\(L_9(S-H_9)-9553024718754\)</span>, and exact
+rational arithmetic with the tail bound <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge36}1/(n!-1)&lt;2/(36!-1)\)</span> places
+it strictly between <span class="math inline" data-term-auto="off">\(1353/100000\)</span> and
+<span class="math inline" data-term-auto="off">\(1354/100000\)</span>. A different example is
+supported on <span class="math inline" data-term-auto="off">\(n\ge2\)</span>: the vector
+<span class="math inline" data-term-auto="off">\(c=(-40,55,-10,1)\)</span> on the support
+<span class="math inline" data-term-auto="off">\((3,4,5,6)\)</span> annihilates channels
+<span class="math inline" data-term-auto="off">\(2\)</span> and <span
 class="math inline" data-term-auto="off">\(3\)</span>, has moment <span
 class="math inline" data-term-auto="off">\(600\)</span>, and satisfies</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[0.09925341997208298&lt;L_3(c)&lt;0.09925341997208300
-,\]</span></div>
-<p class="display-continue">which excludes denominators dividing <span
-class="math inline" data-term-auto="off">\(600\)</span>.</p>
-<p>There are two different computations at the same endpoint. A returned
+class="math display" data-term-auto="off">\[0.09925341997208298&lt;\mathcal
+R(c)&lt;0.09925341997208300 ,\]</span></div>
+<p class="display-continue">which excludes denominators
+dividing <span class="math inline" data-term-auto="off">\(600\)</span>.</p>
+<p>There are two different computations at the same endpoint. A separate
 interval computation reports the stronger geometric statement that no
 zero-branch event occurs at any <span
-class="math inline" data-term-auto="off">\(m\le100000\)</span>; its cited executable and
-source digest were not supplied, so that classification remains external
-finite evidence. The strict-successor carry computation used in the
-short note is local and independently regenerated, with its own source,
-backend, payload and receipt digests.</p>
+class="math inline" data-term-auto="off">\(m\le100000\)</span>; its executable and source
+digest are not available, so that classification remains external finite
+evidence. The strict-successor census through <span
+class="math inline" data-term-auto="off">\(300000\)</span> used in the short note rests on
+the retained GMP receipt with its source, backend, payload and receipt
+digests; §<a class="math-ref" href="#long68:sec:finite">6</a>
+records that a byte-identical regeneration of that receipt with the
+current driver is outstanding and describes the separate replay through
+<span class="math inline" data-term-auto="off">\(4000\)</span>. The full range is external
+computational evidence outside the Lean development.</p>
 </section>
 <section id="long68:sec:ext-nogo" class="level3">
 <h3>Limits of fixed-coordinate arguments</h3>
@@ -2392,18 +2543,16 @@ additional coupling theorem. Every prime-window test factors into a
 sharp Archimedean strict-ceiling condition and a modular divisibility
 condition, and the missing ingredient is the coupling between
 them.</p></li>
-<li><p>Fixed-denominator scalar canonical-product localisers and
-rank-saturated consecutive-jet Hermite–Padé systems pay the full
-factorial-gap denominator. For <span
-class="math inline" data-term-auto="off">\(E(z)=\prod_{n\ge2}(1-z/n!)\)</span> the genus-zero
-product satisfies <span
-class="math inline" data-term-auto="off">\(-E&#39;(1)/E(1)=S\)</span>, and the natural scalar
-linear form carries the coefficient <span
-class="math inline" data-term-auto="off">\(Q_N=\prod_{2\le n\le N}(n!-1)\)</span>, for which
-<span class="math inline" data-term-auto="off">\(Q_N\)</span> times the tail diverges. Exact
-first-order interpolation, scalar residue weighting, the natural
-Wronskian, and rank-saturated consecutive jets all reassemble the same
-prohibitive denominator.</p></li>
+<li><p>For the genus-zero product <span
+class="math inline" data-term-auto="off">\(E(z)=\prod_{n\ge2}(1-z/n!)\)</span>, local uniform
+convergence and logarithmic differentiation give <span
+class="math inline" data-term-auto="off">\(-E&#39;(1)/E(1)=S\)</span>. The natural termwise
+clearing factor <span class="math inline" data-term-auto="off">\(Q_N=\prod_{2\le n\le
+N}(n!-1)\)</span> satisfies <span
+class="math inline" data-term-auto="off">\(Q_N(S-H_N)\to\infty\)</span>, so this clearing
+choice yields no small positive integer linear form. The calculation
+concerns this clearing factor alone; Hermite–Padé systems with other
+denominators are left open.</p></li>
 <li><p>Zero-moment variations cannot create an additional fractional
 cancellation coordinate, and factorial valuations cannot absorb the
 channel lcm obstruction.</p></li>
@@ -2414,9 +2563,10 @@ note.</p></li>
 </section>
 <section id="long68:sec:ext-generic" class="level3">
 <h3>The generic shape behind the lower-interval form</h3>
-<p>The cofinal statement in the short note has a generic ancestor. For a
-real <span class="math inline" data-term-auto="off">\(x\)</span> and any positive sequence
-<span class="math inline" data-term-auto="off">\(c_m\)</span> with <span
+<p>The cofinal statement in the short note is a case of the following
+immediate consequence of Cantor’s termination criterion. For a real
+<span class="math inline" data-term-auto="off">\(x\)</span> and any positive sequence <span
+class="math inline" data-term-auto="off">\(c_m\)</span> with <span
 class="math inline" data-term-auto="off">\(c_m&lt;1/m\)</span> eventually,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[x\notin\Q
@@ -2603,66 +2753,84 @@ href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009
 href="https://www.erdosproblems.com/68"
 class="uri">https://www.erdosproblems.com/68</a>, accessed 28 July
 2026.</p></li>
-<li id="ref-3"><p>J. Louwsma and J. Martino, <em>Rational numbers with odd greedy
+<li id="ref-3"><p>P. Erdős, <em>Some problems and results on the irrationality of
+the sum of infinite series</em>, J. Math. Sci. <strong>10</strong>
+(1975), 1–7, <a href="https://www.renyi.hu/~p_erdos/1976-44.pdf"
+class="uri">https://www.renyi.hu/~p_erdos/1976-44.pdf</a>. Theorem 1,
+p. 1.</p></li>
+<li id="ref-4"><p>J. Louwsma and J. Martino, <em>Rational numbers with odd greedy
 expansion of fixed length</em>, arXiv:<a
 href="https://arxiv.org/abs/2309.07280v1">2309.07280v1</a>, 2023,
 Lemma 4.1, p. 10.</p></li>
-<li id="ref-4"><p>G. Cantor, <em>Über die einfachen Zahlensysteme</em>,
+<li id="ref-5"><p>G. Cantor, <em>Über die einfachen Zahlensysteme</em>,
 Z. Math. Phys. <strong>14</strong> (1869), 121–128.</p></li>
-<li id="ref-5"><p>J. Galambos, <em>Representations of Real Numbers by Infinite
-Series</em>, Lecture Notes in Mathematics <strong>502</strong>,
-Springer, 1976, Chapter 1. doi:<a
-href="https://doi.org/10.1007/BFb0081642">10.1007/BFb0081642</a>.</p></li>
-<li id="ref-6"><p>M. Z. Garaev, F. Luca, and I. E. Shparlinski, <em>Character sums
+<li id="ref-6"><p>J. Galambos, <em>Representations of Real Numbers by Infinite
+Series</em>, Lecture Notes in Math. <strong>502</strong>, Springer,
+1976, doi:<a
+href="https://doi.org/10.1007/BFb0081642">10.1007/BFb0081642</a>.
+Chapter II, §2.1, pp. 21–22.</p></li>
+<li id="ref-7"><p>M. Z. Garaev, F. Luca, and I. E. Shparlinski, <em>Character sums
 and congruences with <span class="math inline" data-term-auto="off">\(n!\)</span></em>,
-Trans. Amer. Math. Soc. <strong>356</strong> (2004), no. 12, 5089–5102.
-<a href="https://doi.org/10.1090/S0002-9947-04-03612-8"
-class="uri">https://doi.org/10.1090/S0002-9947-04-03612-8</a>; arXiv:<a
-href="https://arxiv.org/abs/math/0403422">math/0403422v1</a>.</p></li>
-<li id="ref-7"><p>C. L. Stewart, <em>On the greatest and least prime factors of
+Trans. Amer. Math. Soc. <strong>356</strong> (2004), no. 12, 5089–5102,
+doi:<a
+href="https://doi.org/10.1090/S0002-9947-04-03612-8">10.1090/S0002-9947-04-03612-8</a>;
+arXiv:<a href="https://arxiv.org/abs/math/0403422v1">math/0403422v1</a>.
+Theorem 12 is cited with arXiv v1 pagination, p. 16.</p></li>
+<li id="ref-8"><p>C. L. Stewart, <em>On the greatest and least prime factors of
 <span class="math inline" data-term-auto="off">\(n!+1\)</span>, II</em>, Publ. Math. Debrecen
-<strong>65</strong> (2004), no. 3–4, 461–480. <a
+<strong>65</strong> (2004), no. 3–4, 461–480, doi:<a
+href="https://doi.org/10.5486/PMD.2004.3190">10.5486/PMD.2004.3190</a>.
+<a
 href="https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf"
 class="uri">https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf</a>.</p></li>
-<li id="ref-8"><p>W. Koepf and D. Schmersau, <em>Irrationality of certain infinite
-series II</em>, Analysis <strong>31</strong> (2011), 117–124. <a
-href="https://doi.org/10.1524/anly.2011.1094"
-class="uri">https://doi.org/10.1524/anly.2011.1094</a>.</p></li>
-<li id="ref-9"><p>D. Duverney, <em>Irrationality of fast converging series of
+<li id="ref-9"><p>W. Koepf and D. Schmersau, <em>Irrationality of certain infinite
+series II</em>, Analysis <strong>31</strong> (2011), 117–124, doi:<a
+href="https://doi.org/10.1524/anly.2011.1094">10.1524/anly.2011.1094</a>.
+Example 3.2, p. 121.</p></li>
+<li id="ref-10"><p>D. Duverney, <em>Irrationality of fast converging series of
 rational numbers</em>, J. Math. Sci. Univ. Tokyo <strong>8</strong>
 (2001), 275–316. <a
 href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"
 class="uri">https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf</a>.</p></li>
-<li id="ref-10"><p>J. Hančl and R. Tijdeman, <a
-href="https://geodesic.mathdoc.fr/articles/10.4064/aa118-4-5/"><em>On
-the irrationality of factorial series</em></a>, Acta
-Arith. <strong>118</strong> (2005), no. 4, 383–401.
-doi:10.4064/aa118-4-5.</p></li>
-<li id="ref-11"><p>K. Barreto, J. Kang, S.-h. Kim, V. Kovač, and S. Zhang,
+<li id="ref-11"><p>J. Hančl and R. Tijdeman, <em>On the irrationality of factorial
+series</em>, Acta Arith. <strong>118</strong> (2005), no. 4, 383–401,
+doi:<a
+href="https://doi.org/10.4064/aa118-4-5">10.4064/aa118-4-5</a>.</p></li>
+<li id="ref-12"><p>K. Barreto, J. Kang, S.-h. Kim, V. Kovač, and S. Zhang,
 <em>Irrationality of rapidly converging series: a problem of Erdős and
 Graham</em>, arXiv:<a
 href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,
-Theorems 2–3 and Remark 4.</p></li>
-<li id="ref-12"><p>F. Luca and I. E. Shparlinski, <em>Prime divisors of shifted
+Theorems 2–3 and Remark 4, pp. 2–5; Lemma 8, p. 6; Proposition 12,
+pp. 9–12.</p></li>
+<li id="ref-13"><p>F. Luca and I. E. Shparlinski, <em>Prime divisors of shifted
 factorials</em>, Bull. London Math. Soc. <strong>37</strong> (2005),
-no. 6, 809–817. doi:<a
+no. 6, 809–817, doi:<a
 href="https://doi.org/10.1112/S0024609305004923">10.1112/S0024609305004923</a>.
 Lemma 3, p. 810; proof of Lemma 5, p. 811.</p></li>
-<li id="ref-13"><p>L. Lai, <em>On the largest prime divisor of <span
+<li id="ref-14"><p>L. Lai, <em>On the largest prime divisor of <span
 class="math inline" data-term-auto="off">\(n!+1\)</span></em>,
-Bull. Aust. Math. Soc. <strong>113</strong> (2026), no. 3, 390–403.
+Bull. Aust. Math. Soc. <strong>113</strong> (2026), no. 3, 390–403,
 doi:<a
 href="https://doi.org/10.1017/S0004972725100543">10.1017/S0004972725100543</a>;
-arXiv:<a href="https://arxiv.org/abs/2103.14894">2103.14894</a>.
+arXiv:<a href="https://arxiv.org/abs/2103.14894v1">2103.14894v1</a>.
 Lemma 2.1, p. 392; display (2.5) in the proof of Lemma 2.4,
 p. 394.</p></li>
-<li id="ref-14"><p>L. Lai, C. Lupu, and J. Sprang, <em>On the irrationality of
+<li id="ref-15"><p>L. Lai, C. Lupu, and J. Sprang, <em>On the irrationality of
 certain <span class="math inline" data-term-auto="off">\(p\)</span>-adic zeta values</em>,
-Res. Math. Sci. <strong>12</strong> (2025), no. 4, Paper No. 77. doi:<a
+Res. Math. Sci. <strong>12</strong> (2025), no. 4, Paper No. 77, doi:<a
 href="https://doi.org/10.1007/s40687-025-00559-x">10.1007/s40687-025-00559-x</a>;
 arXiv:<a href="https://arxiv.org/abs/2505.23088v1">2505.23088v1</a>.
 Numbered as in arXiv v1: Lemma 2.1, p. 3; Lemmas 5.3–5.7, pp. 10–14;
 Lemma 7.3, p. 20; (8.1), p. 22.</p></li>
+<li id="ref-16"><p>L. Lai, <em>On the irrationality of certain <span
+class="math inline" data-term-auto="off">\(2\)</span>-adic zeta values</em>, Int. J. Number
+Theory <strong>21</strong> (2025), no. 1, 207–235; arXiv:<a
+href="https://arxiv.org/abs/2304.00816v1">2304.00816v1</a>. Numbered as
+in arXiv v1: Lemma 2.1, p. 4.</p></li>
+<li id="ref-17"><p>NIST Digital Library of Mathematical Functions, §1.12(ii),
+<em>Convergents</em>, <a href="https://dlmf.nist.gov/1.12"
+class="uri">https://dlmf.nist.gov/1.12</a>, accessed 15 September
+2026.</p></li>
 </ol>
 </section>
   </div>

@@ -19,8 +19,20 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">j\ge0</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><msup><mi>k</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">0\le r&lt;k^j</annotation></semantics></math>.
-The following theorem gives a unique coordinate system at every finite
-level.</p>
+Coons proved that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
+is not
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular
+for any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math> <span
+class="citation" data-cites="coons"></span>, and Martin’s Theorem 1
+implies that the functions
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>↦</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>i</mi></msub><mi>n</mi><mo>+</mo><msub><mi>b</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n\mapsto\varphi(a_in+b_i)</annotation></semantics></math>
+are linearly independent along pairwise nonproportional affine forms
+with integer coefficients and positive slopes <span class="citation"
+data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>. The following theorem
+gives the exact rank and a unique coordinate system at every finite
+level; Section  proves its independence step directly.</p>
 <div class="theorem">
 <p><strong>Theorem 1.1</strong> (exact rank of every totient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-kernel
@@ -308,8 +320,9 @@ and
 is integer-valued but has canonical coefficient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.</p>
 <p>The totient is not
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular
-for any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular,
+in the sense of Allouche and Shallit <span class="citation"
+data-cites="allouche-shallit"><a href="#ref-1">[1]</a></span>, for any
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge2</annotation></semantics></math>:
 Coons proved that the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>-module
@@ -393,8 +406,11 @@ proved. The statement is ordinary in this note;
 <code>PaperCompleteR7/PeriodicAndPulse.lean</code> is not in this
 checkout. ◻</p>
 </div>
-<p>The same argument preserves the basis after deletion of a finite
-prefix. For the two zero channels, large
+<p>Applied on each progression, Martin’s Theorem 1 gives the same
+conclusion <span class="citation"
+data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>. The same argument
+preserves the basis after deletion of a finite prefix. For the two zero
+channels, large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≡</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">n\equiv1\pmod k</annotation></semantics></math>
 and large powers of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
@@ -404,8 +420,18 @@ replace the two evaluations used above.</p>
 <section id="sec:family" class="level2">
 <h2>Bounded residues and rationality</h2>
 <p>The residue theorem uses the same separation principle: force
-neighbouring coefficients to vanish while retaining one central
-value.</p>
+neighbouring coefficients to vanish while retaining one central value.
+Erick Wong posted a proof that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>k</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>k</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}(\varphi(n)\operatorname{mod} k)k^{-n}</annotation></semantics></math>
+is irrational for every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&gt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k&gt;2</annotation></semantics></math>,
+with the base equal to the modulus, as an answer on Mathematics Stack
+Exchange on 29 March 2015 <span class="citation"
+data-cites="wong2015"><a href="#ref-5">[5]</a></span>. Theorem  fixes the base at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+for every modulus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>
+and classifies the dyadic residue observables.</p>
 <div class="theorem">
 <p><strong>Theorem 2.1</strong>. <em> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>,
@@ -842,7 +868,8 @@ certificates follows. <span> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmFactorIdealPulseObstruction.lean#L798">finite
 shift-algebra no-go</a>.</span></p></li>
 </ol>
-<p>The long record supplies a rational control with
+<p>A rational control, proved in
+<code>ParityPerturbedRationalControl.lean</code>, has
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c(n)=\varphi(n)</annotation></semantics></math>
 for odd
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
@@ -878,12 +905,18 @@ at measured finite depths.</p>
  \qquad
  Q(e,Y)=\frac{\bigl(\sum_{d=1}^{Y}\mu(d)/(2^d-1)^{e+2}\bigr)^2}
  {\sum_{d=1}^{Y}\mu(d)/(2^d-1)^{2e+2}}.</annotation></semantics></math>
-The divisor-convolution identity gives the displayed value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Θ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\Theta_2</annotation></semantics></math>,
-as recorded by Fan <span class="citation"
-data-cites="fan2026totient"><a href="#ref-7">[7]</a></span>. The following exact extremum is
-stated in the long record as Theorem <code>thm:rankonefloor</code>; its
-proof is <a
+The divisor-convolution identity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo>=</mo><mi>μ</mi><mo>*</mo><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">d</mi></mrow></mrow><annotation encoding="application/x-tex">\varphi=\mu*\mathrm{Id}</annotation></semantics></math>
+gives the displayed value of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Θ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\Theta_2</annotation></semantics></math>.
+Amiram Eldar posted the corresponding formula
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo>+</mo><msub><mo>∑</mo><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>d</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">S=\tfrac12+\sum_{d\ge1}\mu(d)/(2^d-1)^2</annotation></semantics></math>,
+together with its coprimality interpretation, to OEIS A256936 on 15
+March 2026 <span class="citation" data-cites="eldar2026oeis"><a href="#ref-6">[6]</a></span>,
+and Steve Fan posted the formula on the problem’s forum thread on 16 May
+2026 <span class="citation" data-cites="fan2026totient"><a href="#ref-7">[7]</a></span>. The
+following exact extremum is stated in the long record as
+Theorem <code>thm:rankonefloor</code>; its proof is <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos249/RankOneSharpFloor.lean#L534">the
 sharp-floor argument</a> in the linked source.</p>
 <div class="theorem">
@@ -938,13 +971,13 @@ affine forms with integer coefficients and positive slopes arbitrarily
 separated; this implies their linear independence <span class="citation"
 data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>. Section  gives a direct
 determinant proof tailored to the sections used here. The basis theorem
-gives the exact finite-level normal form. Wong <span class="citation"
-data-cites="wong2015"><a href="#ref-5">[5]</a></span> proved least-residue irrationality when
-the denominator base and modulus are the same integer
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&gt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k&gt;2</annotation></semantics></math>;
-Section  fixes base two and classifies dyadic observables. The original
-question appears in Erdős and Graham <span class="citation"
-data-cites="erdosgraham1980"><a href="#ref-6">[6]</a></span>.</p>
+gives the exact finite-level normal form. Section  treats the residue
+series at base two, where Wong’s matched-base answer is credited, and
+classifies dyadic observables. Erdős and Graham record the irrationality
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+as probably hopeless to prove at present <span class="citation"
+data-cites="erdosgraham1980"><a href="#ref-8">[8]</a></span>.</p>
 <p>The <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientMahlerDefect.lean#L1084">dyadic
 finite-level rank
@@ -971,12 +1004,17 @@ termwise-window and prime-dilation boundaries are proved in
 <code>ParityPerturbedRationalControl.lean</code> and
 <code>PrefixValuationAndControlRigidity.lean</code>, respectively.
 Finite evaluation ranks and the all-level carry lower bound remain
-distinct. The long record retains the separate continued-fraction bounds
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><msup><mn>2</mn><mn>39989</mn></msup></mrow><annotation encoding="application/x-tex">q\ge2^{39989}</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><msup><mn>10</mn><mn>12038</mn></msup></mrow><annotation encoding="application/x-tex">q&gt;10^{12038}</annotation></semantics></math>
-under rationality, alongside the Lean-checked Farey exclusion. Neither
-implies the universal gap.</p>
+distinct. The long record gives the Lean-checked Farey-window exclusion
+at window
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>240</mn></mrow><annotation encoding="application/x-tex">K=240</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>≠</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S\ne a/q</annotation></semantics></math>
+for every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>q</mi><mo>≤</mo><msub><mi>Q</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">0&lt;q\le Q_0</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mn>0</mn></msub><mo>≈</mo><mn>7.96</mn><mo>×</mo><msup><mn>10</mn><mn>34</mn></msup></mrow><annotation encoding="application/x-tex">Q_0\approx7.96\times10^{34}</annotation></semantics></math>
+is stated exactly there. It does not imply the universal gap.</p>
 <p>The remaining first-harmonic obligation is a four-term pivot budget,
 not an opening statement of this note. Write
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mi mathvariant="normal">Re</mi><mo>&#8289;</mo></mrow><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">C</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>14</mn><mn>25</mn></mfrac></mstyle><mi>X</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">F</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">M</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>100</mn></mfrac></mstyle><mi>X</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>100</mn></mfrac></mstyle><mi>X</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" class="ta-r pr0"><mrow><mo stretchy="true" form="prefix">‖</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">N</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="true" form="postfix">‖</mo></mrow></mtd><mtd columnalign="left" class="ta-l pl0"><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>8</mn><mn>25</mn></mfrac></mstyle><mi>X</mi><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
@@ -1004,7 +1042,20 @@ four bounds hold?</em></p>
 </div>
 <p>The quantities are defined with the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L543">budget
-condition</a> in the long record. This note does not prove them. </p>
+condition</a> in the long record. This note does not prove them.
+Balasubramanian, Giri and Srivastav prove asymptotics for shifted
+convolutions
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_nF(n)G(n-h)</annotation></semantics></math>
+of divisor convolutions
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mi>f</mi><mo>*</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F=f*1</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mi>g</mi><mo>*</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">G=g*1</annotation></semantics></math>
+with decaying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>,</mo><mi>g</mi></mrow><annotation encoding="application/x-tex">f,g</annotation></semantics></math>,
+a class that contains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\varphi(n)/n</annotation></semantics></math> <span
+class="citation" data-cites="bgs2016"></span>; the first bound above
+needs cancellation against the dyadic phase, which that theorem does not
+supply. </p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
@@ -1361,23 +1412,39 @@ ranks.</p>
 <h2 class="unnumbered">References</h2>
 <ol>
 <li id="ref-1"><p>J.-P. Allouche and J. Shallit, ,
-Theoret. Comput. Sci. <strong>98</strong> (1992), 163–197.
-doi:10.1016/0304-3975(92)90001-V.</p></li>
+Theoret. Comput. Sci. <strong>98</strong> (1992), no. 2, 163–197, doi:<a
+href="https://doi.org/10.1016/0304-3975(92)90001-V">10.1016/0304-3975(92)90001-V</a>.</p></li>
 <li id="ref-2"><p>M. Coons, , J. Théor. Nombres Bordeaux <strong>22</strong>
-(2010), 339–352, Theorem 3.2. doi:10.5802/jtnb.718.</p></li>
+(2010), no. 2, 339–352, doi:<a
+href="https://doi.org/10.5802/jtnb.718">10.5802/jtnb.718</a>.
+Theorem 3.2, p. 348.</p></li>
 <li id="ref-3"><p>M. Coons, , Internat. J. Found. Comput. Sci. <strong>28</strong>
-(2017), 135–140. doi:10.1142/S0129054117500095; arXiv:1511.07535v1,
-Theorem 1, Proposition 4, Corollary 7 and Appendix A.</p></li>
-<li id="ref-4"><p>G. Martin, , 2006, arXiv:math/0603053, Theorem 1. <a
-href="https://arxiv.org/abs/math/0603053"
-class="uri">https://arxiv.org/abs/math/0603053</a>.</p></li>
+(2017), no. 2, 135–140, doi:<a
+href="https://doi.org/10.1142/S0129054117500095">10.1142/S0129054117500095</a>;
+arXiv:<a href="https://arxiv.org/abs/1511.07535v1">1511.07535v1</a>.
+Theorem 1, Proposition 4, Corollary 7 and Appendix A are cited with the
+arXiv v1 numbering.</p></li>
+<li id="ref-4"><p>G. Martin, , arXiv:<a
+href="https://arxiv.org/abs/math/0603053v1">math/0603053v1</a>, 2006.
+Theorem 1, pp. 1–2.</p></li>
 <li id="ref-5"><p>Erick Wong, <a
 href="https://math.stackexchange.com/a/1211557">answer 1211557</a> to ,
-Mathematics Stack Exchange, 29 March 2015.</p></li>
-<li id="ref-6"><p>P. Erdős and R. L. Graham, , 1980, p. 61.</p></li>
+Mathematics Stack Exchange, 29 March 2015, accessed 15 September
+2026.</p></li>
+<li id="ref-6"><p>A. Eldar, comment and formula added to OEIS A256936 (revisions 28
+and 31), 15 March 2026, <a href="https://oeis.org/history?seq=A256936"
+class="uri">https://oeis.org/history?seq=A256936</a>, accessed 16
+September 2026.</p></li>
 <li id="ref-7"><p>S. Fan, comment on Erdős Problem #249, 16 May 2026, 19:01, <a
 href="https://www.erdosproblems.com/forum/thread/249">Erdős Problems
-discussion thread</a>.</p></li>
+discussion thread</a>, accessed 16 September 2026.</p></li>
+<li id="ref-8"><p>P. Erdős and R. L. Graham, , Monographies de L’Enseignement
+Mathématique <strong>28</strong>, 1980, p. 61.</p></li>
+<li id="ref-9"><p>R. Balasubramanian, S. Giri and P. Srivastav, , J. Number Theory
+<strong>174</strong> (2017), 221–238, doi:<a
+href="https://doi.org/10.1016/j.jnt.2016.10.001">10.1016/j.jnt.2016.10.001</a>;
+arXiv:<a href="https://arxiv.org/abs/1511.02221v3">1511.02221v3</a>.
+Theorem 2.2 is cited with the arXiv v3 pagination, p. 2.</p></li>
 </ol>
 </section>
   </div>

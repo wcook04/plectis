@@ -26,8 +26,11 @@ then
 is irrational for every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b\ge2</annotation></semantics></math>.</em></p>
 </div>
-<p>The statement is ordinary mathematics in this note. This checkout has
-no module <code>AllBaseReciprocalSupportIrrationality.lean</code> and no
+<p>Erdős stated Theorem , with its all-base quantifier, and printed a
+proof only for pairwise coprime supports <span class="citation"
+data-cites="erdos1968"><a href="#ref-7">[7]</a></span>; the history is recalled below. The
+statement is ordinary mathematics in this note. This checkout has no
+module <code>AllBaseReciprocalSupportIrrationality.lean</code> and no
 Lean declaration
 <code>irrational_erdosSupportSeries_of_summable_reciprocal</code>. The
 separate public Lean release <a
@@ -50,7 +53,13 @@ structured-support theorem, not Theorem . Full support at every integer
 base is the separate <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8328">full-support
 irrationality theorem</a>. Arbitrary infinite support remains open.</p>
-<p>For infinite
+<p>Erdős remarks that without coprimality the proof becomes more
+complicated and uses the fact that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+is irrational when the fractional parts of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>t</mi><mi>n</mi></msup><mi>α</mi></mrow><annotation encoding="application/x-tex">t^n\alpha</annotation></semantics></math>
+take infinitely many values <span class="citation"
+data-cites="erdos1968"><a href="#ref-7">[7]</a></span>. For infinite
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N&gt;0</annotation></semantics></math>,
@@ -438,16 +447,28 @@ small nonzero scaled tails give irrationality <span class="citation"
 data-cites="kanekosuzukitachiya"><a href="#ref-2">[2]</a></span>. The incidence coefficients 
 are positive on every multiple of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">\min A</annotation></semantics></math>.
-Hence conditions (iii) and (iv) of their Theorems 1 and 3 fail for every
-splitting of
+For any splitting of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>A</mi></msub><annotation encoding="application/x-tex">c_A</annotation></semantics></math>
-into two sequences, and the scaled tail
+into two sequences the two coefficient supports therefore cover a set of
+positive lower density, which is incompatible with the support-counting
+conditions <span class="citation"
+data-cites="kanekosuzukitachiya"><a href="#ref-2">[2]</a></span> requiring both counts to be
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mi>/</mi><msub><mi>z</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">o(x_n/z_n)</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>n</mi></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">z_n\ge1</annotation></semantics></math>.
+Their remote-tail quantity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mi>x</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_c(q,x,z)</annotation></semantics></math>
+sums only offsets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">j\ge z</annotation></semantics></math>,
+whereas the full scaled tail
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>r</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><mrow><msub><mi>c</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mi>b</mi><mi>r</mi></msup></mfrac><mo>=</mo><munder><mo>∑</mo><mrow><mi>a</mi><mo>∈</mo><mi>A</mi></mrow></munder><mfrac><msup><mi>b</mi><mrow><mi>N</mi><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mi>a</mi></mrow></msup><mrow><msup><mi>b</mi><mi>a</mi></msup><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{r\ge1}\frac{c_A(N+r)}{b^r}
  =\sum_{a\in A}\frac{b^{N\operatorname{mod} a}}{b^a-1}
  =X_A(b)+\Delta_{b,A}(N)</annotation></semantics></math> is at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X_A(b)</annotation></semantics></math>
 for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>,
+which gives no lower bound for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>c</mi></msub><annotation encoding="application/x-tex">R_c</annotation></semantics></math>.
 The proofs above average the displacement
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>b</mi><mo>,</mo><mi>A</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta_{b,A}(N)</annotation></semantics></math>
 instead, along multiples of a modulus that freezes a finite part of
@@ -880,9 +901,12 @@ reciprocal mass of the selected primes as its scale, so arbitrarily slow
 divergence is retained; higher prime powers produce errors only on
 prime-square events. The equidistribution, small-prime, progression and
 exceptional-set hypotheses are referred to a supplement that is not in
-this checkout. The full-prime theorem and the authors’ stated
-full-prime-power extension are theirs. No arbitrary thinning argument is
-promoted from this release.</p>
+this checkout. Tao and Teräväinen prove the full-prime case at
+base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math> <span
+class="citation" data-cites="taoteravainen2025"></span>, and in the
+paragraph after it state that the method extends to every integer base
+and to the full prime-power support, leaving the details to the reader.
+No arbitrary thinning argument is promoted from this release.</p>
 <p>The actual greedy membership problem is treated in Section ; its
 repair inequality has a different logical role from the sufficient
 irrationality criteria above.</p>
@@ -1068,10 +1092,10 @@ known support families.</p>
 alone. Erdős proved irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n1/a_n</annotation></semantics></math>
 for increasing integers with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>≥</mo><msup><mi>n</mi><mrow><mn>1</mn><mo>+</mo><mi>τ</mi></mrow></msup></mrow><annotation encoding="application/x-tex">a_n\ge n^{1+\tau}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>&gt;</mo><msup><mi>n</mi><mrow><mn>1</mn><mo>+</mo><mi>τ</mi></mrow></msup></mrow><annotation encoding="application/x-tex">a_n&gt;n^{1+\tau}</annotation></semantics></math>
 for some
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\tau&gt;0</annotation></semantics></math>
-and every
+and all large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
 together with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msubsup><mi>a</mi><mi>n</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msubsup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup_na_n^{1/2^n}=\infty</annotation></semantics></math> <span
@@ -1080,24 +1104,22 @@ class="citation" data-cites="erdos1975"></span>. At
 the polynomial hypothesis is automatic, since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mo>≥</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">c_n\ge n</annotation></semantics></math>
 gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>≥</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo>≥</mo><msup><mi>n</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">a_n\ge2^n-1\ge n^{3/2}</annotation></semantics></math>
-for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>≥</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_n\ge2^n-1</annotation></semantics></math>,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><msub><mi>c</mi><mi>n</mi></msub></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log_2(2^{c_n}-1)</annotation></semantics></math>
 differs from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>n</mi></msub><annotation encoding="application/x-tex">c_n</annotation></semantics></math>
-by less than
+by at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
 so the growth hypothesis reduces to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msub><mi>c</mi><mi>n</mi></msub><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup_nc_n/2^n=\infty</annotation></semantics></math>.
-The criterion therefore settles exactly the supports with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msub><mi>c</mi><mi>n</mi></msub><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup_nc_n/2^n=\infty</annotation></semantics></math>,
-at every integer base. That class and the reciprocal-summable class of
-Theorem  are incomparable. The powerful integers are reciprocal summable
-and their increasing enumeration satisfies
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mo>≍</mo><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">c_n\asymp n^2</annotation></semantics></math>,
-so
+The criterion therefore proves irrationality, at every integer base, for
+every support with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msub><mi>c</mi><mi>n</mi></msub><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup_nc_n/2^n=\infty</annotation></semantics></math>.
+That class and the reciprocal-summable class of Theorem  are
+incomparable. The squares are reciprocal summable, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mo>=</mo><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">c_n=n^2</annotation></semantics></math>
+gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c_n/2^n\to0</annotation></semantics></math>.
 In the other direction, take blocks of consecutive integers, the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>th
@@ -1131,7 +1153,8 @@ so that consecutive choices differ by one and the attainable sums cover
 an interval. The strict tail inequality of Section  makes the Mersenne
 achievement set totally disconnected, so no interval is ever attained
 and interval filling is unavailable here, on terms and on exponents
-alike. This retires a method; it does not decide the problem.</p>
+alike. This excludes that construction here and does not decide the
+problem.</p>
 <p>A related independence boundary concerns prime-incidence arguments.
 Writing <span class="math inline" data-term-auto="off">$f_A(n)=\sum_{a\in A}{\bf1}_{a\mid
 n}$</span>, the local identity <span
@@ -1182,9 +1205,11 @@ inequality follows by writing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>n</mi></msub><mo>=</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo>+</mo><msup><mn>4</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_n=2^{-n}+4^{-n}/(1-2^{-n})</annotation></semantics></math>
 and using
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge N+1\ge2</annotation></semantics></math>.
-The coding image is a Cantor set, and the disjoint
-level-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
-cylinder covers have total length
+Since every weight exceeds its tail, Hornich’s theorem, as proved by
+Nitecki <span class="citation" data-cites="nitecki2013"><a href="#ref-10">[10]</a></span>, shows
+that the coding image is a Cantor set of measure
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lim</mi><mo>&#8289;</mo></mrow><mi>N</mi></msub><msup><mn>2</mn><mi>N</mi></msup><msub><mi>R</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\lim_N2^NR_N</annotation></semantics></math>;
+the estimate above gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><msub><mi>R</mi><mi>N</mi></msub><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^NR_N\to1</annotation></semantics></math>,
 so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="script">𝒜</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lambda(\mathcal A)=1</annotation></semantics></math>.
@@ -1485,7 +1510,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 full-support theorem</a>; pairwise-coprime summable-reciprocal support
 is <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L10776">the
-pairwise-coprime theorem</a>. The statement of Problem  has been
+pairwise-coprime theorem</a>. The residue-class, odd-support, eventually
+periodic and periodic-weight declarations listed in the appendix are
+formal proofs of statements that follow from the periodic theorem of
+Luca and Tachiya <span class="citation"
+data-cites="lucatachiya2017"><a href="#ref-11">[11]</a></span>. The statement of Problem  has been
 formalised before, as a conjecture with an unfilled proof, in the
 collection <span class="citation"
 data-cites="formalconjectures257"><a href="#ref-6">[6]</a></span>. That collection proves the
@@ -1842,29 +1871,34 @@ Example 1.1 gives the joint squarefree family at all bases
 Both are on p. 4, which also relates Corollary 1.2 to the conjecture of
 Erdős and Graham; the proof of Corollary 1.2 is on pp. 10–11.</p></li>
 <li id="ref-2"><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
-href="https://arxiv.org/abs/2601.20743"><em>Refinements of Erdős’s
+href="https://arxiv.org/abs/2601.20743v1"><em>Refinements of Erdős’s
 irrationality criterion for certain sparse infinite series</em></a>,
 arXiv:2601.20743v1 (2026). The averaged tail
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mi>x</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_c(q,x,z)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>c</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><mi>x</mi><mo>,</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_c(q,x,z)</annotation></semantics></math>,
+a sum over offsets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">j\ge z</annotation></semantics></math>,
 is (1.7) and Theorem 1 is on p. 3; its rational-integer form, Theorem 3,
 is on p. 5. Lemma 1 (pp. 6–7) derives irrationality from arbitrarily
 small nonzero scaled tails, and Lemma 2 (pp. 7–8) shows that most scaled
 tails in a range are small under a counting condition on the support.
 Their criteria assume sparse coefficient supports.</p></li>
-<li id="ref-3"><p>T. Tao and J. Teräväinen, , arXiv:2512.01739 (submitted December
-2025, revised April 2026). Theorem 1.3 proves
+<li id="ref-3"><p>T. Tao and J. Teräväinen, <a
+href="https://arxiv.org/abs/2512.01739v2"></a>, arXiv:2512.01739v2
+(submitted December 2025, revised April 2026). Theorem 1.3 (p. 4) proves
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>ω</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup><mo>=</mo><msub><mo>∑</mo><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>p</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}\omega(n)/2^n=\sum_p(2^p-1)^{-1}</annotation></semantics></math>
 irrational, settling the prime-support case of #257 at
 base <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>;
-the extension to every integer base and the prime-power support are
-stated as remarks with the modifications left to the reader. The theorem
-is on p. 4 and its proof is Section 5, pp. 44–56, in arXiv v2.</p></li>
-<li id="ref-4"><p>V. Kovač and T. Tao, , Acta Math. Hungar. 175 (2025), 572–608, <a
-href="https://doi.org/10.1007/s10474-025-01528-0">DOI</a>. Remark 4.1
-(p. 13) records the strict tail inequality and the Cantor structure.
-Theorem 2.3 (p. 5; proof pp. 13–14) constructs rational merged sums from
-several bases under its mass hypothesis; it is not a fixed-base
-counterexample.</p></li>
+the paragraph after it states that the method extends to every integer
+base and to the prime-power support, leaving the modifications to the
+reader. Theorem 3.1 is on p. 24, and the proof of Theorem 1.3 is
+Section 5, pp. 44–56.</p></li>
+<li id="ref-4"><p>V. Kovač and T. Tao, , Acta Math. Hungar. 175 (2025), no. 2,
+572–608, <a href="https://doi.org/10.1007/s10474-025-01528-0">DOI</a>.
+Page numbers refer to arXiv:2406.17593v4. Remark 4.1 (p. 13) records the
+strict tail inequality and the Cantor structure. Theorem 2.3 (p. 5;
+proof pp. 13–14) constructs rational merged sums from several bases
+under its mass hypothesis; the construction merges several bases and
+leaves fixed-base #257 untouched.</p></li>
 <li id="ref-5"><p>P. Erdős, , J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
 <li id="ref-6"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/257.lean"><em>FormalConjectures.ErdosProblems.<code>257</code></em></a>,
@@ -1884,31 +1918,53 @@ same page says the reciprocal-sum condition could be replaced by a
 weaker but more complicated condition, and p. 226 suggests
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><msub><mi>n</mi><mi>i</mi></msub><mo>&lt;</mo><mi>x</mi></mrow></msub><mn>1</mn><mi>/</mi><msub><mi>n</mi><mi>i</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n_i&lt;x}1/n_i=o(\log\log x)</annotation></semantics></math>
 for pairwise coprime supports.</p></li>
-<li id="ref-8"><p>P. Erdős, , J. Math. Sci. 10 (1975), 1–7. Theorem 1 proves
+<li id="ref-8"><p>P. Erdős, , J. Math. Sci. 10 (1975), 1–7. Theorem 1 (p. 1) proves
 irrationality of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n1/a_n</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>k</mi></msub><mn>1</mn><mi>/</mi><msub><mi>n</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\sum_k1/n_k</annotation></semantics></math>
 for increasing integers with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>≥</mo><msup><mi>n</mi><mrow><mn>1</mn><mo>+</mo><mi>τ</mi></mrow></msup></mrow><annotation encoding="application/x-tex">a_n\ge n^{1+\tau}</annotation></semantics></math>
-for some
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\tau&gt;0</annotation></semantics></math>
-and every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>k</mi></msub><msubsup><mi>n</mi><mi>k</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>k</mi></msup></mrow></msubsup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup_kn_k^{1/2^k}=\infty</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msubsup><mi>a</mi><mi>n</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msubsup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup_na_n^{1/2^n}=\infty</annotation></semantics></math>,
-as restated in Remark 4(4) of <span class="citation"
-data-cites="bkkkz2026"><a href="#ref-9">[9]</a></span>; the original was not consulted for this
-note.</p></li>
-<li id="ref-9"><p>K. Barreto, J. Kang, S. Kim, V. Kovač, and S. Zhang, <a
-href="https://arxiv.org/abs/2601.21442"><em>Irrationality of rapidly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>k</mi></msub><mo>&gt;</mo><msup><mi>k</mi><mrow><mn>1</mn><mo>+</mo><mi>ε</mi></mrow></msup></mrow><annotation encoding="application/x-tex">n_k&gt;k^{1+\varepsilon}</annotation></semantics></math>
+for some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon&gt;0</annotation></semantics></math>
+and all large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>;
+Remark 4(4) of <span class="citation" data-cites="bkkkz2026"><a href="#ref-9">[9]</a></span>
+restates it.</p></li>
+<li id="ref-9"><p>K. Barreto, J. Kang, S.-H. Kim, V. Kovač, and S. Zhang, <a
+href="https://arxiv.org/abs/2601.21442v3"><em>Irrationality of rapidly
 converging series: a problem of Erdős and Graham</em></a>,
-arXiv:2601.21442v3 (2026). Theorem 2 (p. 3) settles Erdős Problem 1051
-at the golden-ratio exponent and Theorem 5 (p. 5) shows the threshold is
-sharp; Remark 4(4) (p. 5) identifies the case
+arXiv:2601.21442v3 (2026), to appear in Bull. London Math. Soc.
+Theorem 2 (pp. 2–3) settles Erdős Problem 1051 at the golden-ratio
+exponent and Theorem 5 (p. 5) shows the threshold is sharp; Remark 4(4)
+(p. 5) identifies the case
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d=1</annotation></semantics></math>
 of its Theorem 3 with <span class="citation"
 data-cites="erdos1975"><a href="#ref-8">[8]</a></span>; Lemma 14 (p. 13) is the interval-filling
-lemma. An unrefereed preprint with no formalisation; it states nothing
-about #257.</p></li>
+lemma. The paper does not treat Problem 257.</p></li>
+<li id="ref-10"><p>Z. Nitecki, <a href="https://arxiv.org/abs/1106.3779v2"></a>,
+arXiv:1106.3779v2 (2013). Theorem 4 (p. 9) shows that when every term
+exceeds its tail the subsum set is a Cantor set of Lebesgue measure
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lim</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msup><mn>2</mn><mi>n</mi></msup><msub><mi>X</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\lim_n2^nX_n</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>n</mi></msub><annotation encoding="application/x-tex">X_n</annotation></semantics></math>
+is the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>th
+tail, and credits this to H. Hornich (1941).</p></li>
+<li id="ref-11"><p>F. Luca and Y. Tachiya, <a
+href="https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2014-14.pdf"></a>,
+RIMS Kôkyûroku No. 2014 (2017), 138–150. Theorem A (p. 139) restates
+Theorem 1.1 of their paper , Int. J. Number Theory 10 (2014), no. 3,
+623–636, <a href="https://doi.org/10.1142/S1793042113501121">DOI</a>:
+for a purely periodic integer sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a(n)</annotation></semantics></math>,
+not identically zero,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></msub><mi>a</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>q</mi><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n\ge1}a(n)/(q^n-1)</annotation></semantics></math>
+is irrational for every integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>q</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|q|&gt;1</annotation></semantics></math>.
+Example 2 (p. 140) treats the odd support.</p></li>
 </ol>
 </section>
   </div>

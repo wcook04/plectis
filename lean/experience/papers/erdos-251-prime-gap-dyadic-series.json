@@ -5,7 +5,7 @@
   "subject": "Erdős #251",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 20,
+  "pages": 21,
   "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
   "precis": "The paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.",
   "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "879dd231e1fd7213a5ba0889e8815481a400f0b97094eefbe05d589682afa928",
+    "source_sha256": "1ce6dcb55886dddaba285f399daf6ea74747225aa78a2fc709dc8d11be778033",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 527,
+    "mathml_node_count": 537,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -51,8 +51,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "93a7930d33b65edec77fb355a0e102df6de67e039c08e917e8e0bf9ace062c94",
-    "html_exact_tex_sha256": "4222e599ba20a6cf5aa8cda8131ca729f9a275668f21e0f58deb86d784c5a654"
+    "html_mathml_sha256": "6d30c76788d7a6c71a22a1d65055a137a73393c1a21ab44d5bf3770e6536735d",
+    "html_exact_tex_sha256": "0ed8044b354c52af7e6fb1d1051cb651295b2a9914e2f731003cd49c0672ad52"
   },
   "sections": [
     {

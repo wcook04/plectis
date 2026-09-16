@@ -196,17 +196,35 @@ grouped by the problem whose note they serve.
 
 ### #68
 
-- Koepf–Schmersau, doi:10.1524/anly.2011.1094; D. Duverney (2001), https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf; Barreto–Kang–Kim–Kovač–Zhang (2026); Hančl–Tijdeman
+- J. Louwsma and J. Martino, *Rational numbers with odd greedy expansion of fixed length*, [arXiv:2309.07280v1](https://arxiv.org/abs/2309.07280v1)
 
-  Four cited irrationality criteria, each checked in the note *not* to apply to `∑ 1/(n!−1)` at a named boundary.
+  Lemma 4.1, p. 10, is the reciprocal-sum valuation formula. The notes' maximal prime-power survival test is its top valuation layer, written out for the denominators `n!−1`; the 139 and 2593 cancellations are the notes' own exact computations.
+
+  **Boundary.** The lemma concerns finite sums of reciprocals and gives no statement about the infinite series.
+
+- J. Hančl and R. Tijdeman, *On the irrationality of factorial series*, Acta Arith. 118 (2005), [doi:10.4064/aa118-4-5](https://doi.org/10.4064/aa118-4-5); W. Koepf and D. Schmersau, *Irrationality of certain infinite series II*, Analysis 31 (2011), [doi:10.1524/anly.2011.1094](https://doi.org/10.1524/anly.2011.1094)
+
+  Hančl–Tijdeman Lemma 2.1 and the following remark (p. 385) give the factorial-tail integrality argument behind the finite-denominator implication. Koepf–Schmersau Example 3.2 (p. 121) states the irrationality direction of the factorial-digit criterion, whose analogue for the companion `C = S − e + 2` the notes prove. The long record compares the Hančl–Tijdeman polynomial-coefficient classification (Theorem 3.1) and the Oppenheim criterion they reproduce (Lemma 2.2), naming the unmet hypothesis of each.
+
+  **Boundary.** The carry characterisation is proved directly in the notes; no source theorem supplies the needed cofinal event.
+
+- F. Luca and I. E. Shparlinski, Bull. London Math. Soc. 37 (2005), [doi:10.1112/S0024609305004923](https://doi.org/10.1112/S0024609305004923); L. Lai, *On the largest prime divisor of n!+1*, Bull. Aust. Math. Soc. 113 (2026), [doi:10.1017/S0004972725100543](https://doi.org/10.1017/S0004972725100543)
+
+  The factorial-gap gcd bound is the case `P = −1` of the subtraction that Luca and Shparlinski use in the proof of their Lemma 5 and Lai uses at display (2.5); Lai's Lemma 2.1 supplies the non-vanishing cutoff for polynomial shifts.
+
+  **Boundary.** The terminal-block optimisation and the resulting lcm growth theorem are the notes' own argument.
+
+- P. Erdős, *Some problems and results on the irrationality of the sum of infinite series* (1975), Theorem 1; D. Duverney (2001), [journal PDF](https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf); Barreto–Kang–Kim–Kovač–Zhang, [arXiv:2601.21442v3](https://arxiv.org/abs/2601.21442v3)
+
+  Rapid-growth and fast-series irrationality criteria, each checked in the long record against `n!−1` with the unmet hypothesis named.
 
   **Boundary.** Non-applicability results; no criterion is claimed to transfer.
 
-- Garaev–Luca–Shparlinski (Trans. AMS 356), doi:10.1090/S0002-9947-04-03612-8; C. L. Stewart (Publ. Math. Debrecen 65)
+- M. Z. Garaev, F. Luca and I. E. Shparlinski (Trans. AMS 356), doi:10.1090/S0002-9947-04-03612-8; C. L. Stewart (Publ. Math. Debrecen 65), doi:10.5486/PMD.2004.3190
 
-  Growth and divisor inputs for the collision-core layer, derived and source-verified in the note.
+  Multiplicity (Theorem 12) and Wilson-reflection and least-prime-factor inputs (pp. 462–464) for the collision-core layer and the superseded lcm deduction.
 
-  **Boundary.** Not kernel-checked; explicitly load-bearing for nothing beyond the stated uses.
+  **Boundary.** Not kernel-checked; load-bearing for nothing beyond the stated uses.
 
 ### #243
 
@@ -274,21 +292,33 @@ grouped by the problem whose note they serve.
 
 ### #269
 
-- Y. Bugeaud and M. Laurent, Hecke–Mahler transcendence (Theorem 1.1 as cited in the #269 note), doi:10.4064/aa220323-18-1
+- J. H. Loxton and A. J. van der Poorten, *Arithmetic properties of certain functions in several variables III*, Bull. Austral. Math. Soc. 16 (1977), [doi:10.1017/S0004972700022978](https://doi.org/10.1017/S0004972700022978); Y. Bugeaud and M. Laurent, *Transcendence and continued fraction expansion of values of Hecke–Mahler series*, Acta Arith. 209 (2023), [doi:10.4064/aa220323-18-1](https://doi.org/10.4064/aa220323-18-1)
 
-  External transcendence engine for the note's two-prime theorems: both the de-duplicated and repeated running-lcm reciprocal sums are transcendental for every pair of distinct primes, by a paper argument.
+  The Hecke–Mahler value theorem (Loxton–van der Poorten Theorem 8, p. 40, in the modern form of Bugeaud–Laurent Theorem 1.1) is the transcendence input for the note's two-prime theorems: both the de-duplicated and repeated running-lcm reciprocal sums are transcendental for every pair of distinct primes, by a paper argument.
 
   **Boundary.** The two-prime theorems are deliberately not Lean declarations; nothing follows for three or more primes.
 
-- S. Fan, [comment on Erdős Problem #269](https://www.erdosproblems.com/forum/thread/269), 26 June 2026
+- S. Fan, [comment on Erdős Problem #269](https://www.erdosproblems.com/forum/thread/269#post-7218), 26 June 2026
 
-  Earlier public disclosure of the same two-channel factorisation, Hecke–Mahler reduction, and transcendence conclusion; later comments extend it to coprime pairs. This note first appeared on 22 July 2026, 26 days later.
+  Public forum post giving the same two-channel factorisation, Hecke–Mahler reduction and transcendence conclusion, and the running-LCM identity for every prime set; later comments extend it to coprime pairs. The note first appeared on 22 July 2026, 26 days later.
 
-  **Boundary.** No priority claim for the two-prime result. The paper argument was developed independently but is not first and is not a Lean theorem; a broader search would be needed to identify the first public proof.
+  **Boundary.** Priority for the two-prime result is Fan's. The note's argument was developed independently and is not a Lean theorem; a broader search would be needed to identify the earliest public proof.
+
+- P. Erdős and E. G. Straus, *On the irrationality of certain series*, Pacific J. Math. 55 (1974), [doi:10.2140/pjm.1974.55.85](https://doi.org/10.2140/pjm.1974.55.85); J. Hančl and R. Tijdeman, *On the irrationality of Cantor and Ahmes series*, Publ. Math. Debrecen 65 (2004), [doi:10.5486/PMD.2004.3254](https://doi.org/10.5486/PMD.2004.3254)
+
+  The literal `{2,3,5}` value is a Cantor series whose normalised tails obey an integer carry recurrence, the classical setting of Erdős–Straus Theorem 2.1 and the Hančl–Tijdeman tail criteria (§§2–3, Theorem 3.1).
+
+  **Boundary.** Both criteria assume a small-numerator hypothesis that fails for this series, so the recurrence, the bounds and the denominator clearing are proved directly in the notes.
+
+- P. Erdős and S. J. Taylor, Proc. London Math. Soc. (3) 7 (1957), Theorem 1; S. Fan, *Strongly complete sets and a conjecture of Erdős*, [arXiv:2607.14071v1](https://arxiv.org/abs/2607.14071v1), Lemma 3.1
+
+  For an unbounded integer sequence with bounded successive ratios, the reals whose multiples by that sequence approach integers form a countable set; the note uses this to identify the integral branch of the bounded-radix alternative.
+
+  **Boundary.** Used only to identify that branch; it gives no irrationality statement.
 
 - P. Erdős, letter of 1 January 1973 (printed p. 335 as cited in the #269 note)
 
-  Asserted the de-duplicated two-prime irrationality without a printed proof; the note's route is an independent modern argument, not a recovery of the unprinted one.
+  Asserted the de-duplicated irrationality for given primes without a printed proof; the note's route is an independent modern argument.
 
   **Boundary.** Historical formulation and priority context only.
 

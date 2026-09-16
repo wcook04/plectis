@@ -25,16 +25,22 @@ q^{\lfloor\log_q x\rfloor}r^{\lfloor\log_r x\rfloor},\qquad
 \operatorname{K}(i,j,k)=\operatorname{H}(p^iq^jr^k)^{-1}.\]</span></div>
 <p>Prime-power divisibility gives <span
 class="math inline" data-term-auto="off">\(\operatorname{L}=\operatorname{H}\)</span>
-(Proposition <a class="math-ref" href="#res:lcm">4.1</a>).</p>
+(Proposition <a class="math-ref" href="#res:lcm">4.1</a>); Fan’s
+forum post states this identity for every finite prime set <span
+class="citation" data-cites="fan2026comment"></span>.</p>
 <p>With two primes, the corresponding kernel factors into a function of
 each exponent separately, reducing the double sum to a product. The
 first question at three primes is whether finitely many such products
 still suffice. Theorem <a class="math-ref" href="#res:infinite-rank">2.1</a> rules this out:
 one floor carry survives after all row and column factors have been
-removed. We first explain that obstruction, then recover the two-prime
-comparison, and finally identify the arithmetic of the actual
-three-prime tails. The last step is necessary because the rank of a
-kernel does not determine the irrationality of its sum.</p>
+removed. The proof uses only this rescaling, the density of the
+rotations by <span class="math inline" data-term-auto="off">\(\log_r p\)</span> and <span
+class="math inline" data-term-auto="off">\(\log_r q\)</span> taken separately, and a
+staircase determinant, and one choice of indices serves every
+third-coordinate layer. We first explain that obstruction, then recover
+the two-prime comparison, and finally identify the arithmetic of the
+actual three-prime tails. The last step is necessary because the rank of
+a kernel does not determine the irrationality of its sum.</p>
 </section>
 <section id="sec:rank" class="level2">
 <h2>The binary carry and arbitrary-order rank</h2>
@@ -279,11 +285,12 @@ identifies this product with the running LCM. Let <span
 class="math inline" data-term-auto="off">\(\mathcal R_{p,q}\)</span> retain every
 smooth-number multiplicity, and let <span class="math inline" data-term-auto="off">\(\mathcal
 D_{p,q}\)</span> retain the initial value and one reciprocal at each
-positive pure-power jump. Fan’s argument gives the repeated two-prime
+positive pure-power jump. Fan’s forum post gives the repeated two-prime
 factorisation and its quadratic reduction to a single Hecke–Mahler
-value. The same boundary-channel calculation also yields the
-de-duplicated affine formula displayed below <span class="citation"
-data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>.</p>
+value, and the same boundary-channel calculation yields the
+de-duplicated affine formula displayed below <span class="citation"
+data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>. The proof below was found
+independently.</p>
 <div class="theorem" id="res:two-prime-transcendence"><span class="tex-label" id="res:two-prime-repeated-transcendence" hidden></span>
 <p><strong>Theorem 3.1</strong> (both two-prime sums). <em> Let <span
 class="math inline" data-term-auto="off">\(p&lt;q\)</span> be distinct primes. Put <span
@@ -346,13 +353,21 @@ geometric summation gives</p>
 \label{eq:hecke-mahler-boundary}
 A=\frac1{1-x}-\frac{1-y}{y}F_\theta(x,y).
 \end{equation}\]</span></div>
-<p>Bugeaud and Laurent’s Theorem 1.1 applies to
-these nonzero algebraic <span class="math inline" data-term-auto="off">\(x,y\)</span> <span
-class="citation" data-cites="bugeaudlaurent2023"></span>: <span
+<p>Bugeaud and Laurent’s theorem <span
+class="citation" data-cites="bugeaudlaurent2023"></span> applies with
+intercept <span class="math inline" data-term-auto="off">\(\rho=0\)</span>, <span
+class="math inline" data-term-auto="off">\(\beta=x\)</span> and <span
+class="math inline" data-term-auto="off">\(\alpha=y\)</span>: the slope <span
+class="math inline" data-term-auto="off">\(\theta\)</span> is irrational and lies in <span
+class="math inline" data-term-auto="off">\((0,1)\)</span>, <span
+class="math inline" data-term-auto="off">\(x\)</span> and <span
+class="math inline" data-term-auto="off">\(y\)</span> are nonzero algebraic numbers, <span
 class="math inline" data-term-auto="off">\(|x|&lt;1\)</span> and <span
-class="math inline" data-term-auto="off">\(|xy^\theta|=p^{-2}&lt;1\)</span>; the zero-shift
-case goes back to Loxton and van der Poorten <span class="citation"
-data-cites="bugeaudlaurent2023 loxtonvdp1977"><a href="#ref-5">[5]</a><a href="#ref-6">[6]</a></span>. Thus <span
+class="math inline" data-term-auto="off">\(|xy^\theta|=p^{-2}&lt;1\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(F_\theta(x,y)\)</span> is transcendental; this
+case <span class="math inline" data-term-auto="off">\(\rho=0\)</span> is due to Loxton and
+van der Poorten <span class="citation"
+data-cites="loxtonvdp1977"><a href="#ref-6">[6]</a></span>. Thus <span
 class="math inline" data-term-auto="off">\(A\)</span> is transcendental. The displayed affine
 and quadratic polynomials are nonconstant, so an algebraic value of
 either would force <span class="math inline" data-term-auto="off">\(A\)</span> to be
@@ -443,14 +458,7 @@ every subsequent infinite sum. ◻</p>
 </div>
 <p>The regrouping is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">finite
-smooth kernel sum grouped by height</a>. Fan and Lott build their van
-der Corput coefficients on sums of two squares by the same kind of
-regrouping: up to normalisation, the coefficient at <span
-class="math inline" data-term-auto="off">\(d\)</span> sums a smooth weight over the
-representations <span class="math inline" data-term-auto="off">\(d=v^2(x^2+y^2)\)</span>, and
-the average over <span class="math inline" data-term-auto="off">\(v\)</span> keeps the
-associated complete sums in a fixed sector <span class="citation"
-data-cites="fanlott2026"><a href="#ref-8">[8]</a></span>.</p>
+smooth kernel sum grouped by height</a>.</p>
 <p>From now on let <span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> and
 <span class="math inline" data-term-auto="off">\(S=\mathcal R_P\)</span>. For <span
 class="math inline" data-term-auto="off">\(a\ge0\)</span> define</p>
@@ -496,6 +504,25 @@ two, give the four radices. ◻</p>
 <p>Both clauses are <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48">literal
 integer forcing and four radices</a>.</p>
+<p>Since <span class="math inline" data-term-auto="off">\(h_{a+1}=b_0b_1\cdots
+b_a/2\)</span>, the value <span
+class="math inline" data-term-auto="off">\(S/2=\sum_{a\ge0}m_a/(b_0b_1\cdots b_a)\)</span> is
+a Cantor series and <span class="math inline" data-term-auto="off">\(X_a=\sum_{j\ge
+a}m_j/(b_a\cdots b_j)\)</span> is its normalised tail. Such tails, with
+their integer carry recurrence, are the classical tool for the
+rationality of Cantor series. Erdős and Straus characterise rationality
+by integer carries <span class="citation"
+data-cites="erdosstraus1974"><a href="#ref-8">[8]</a></span>, and Hančl and Tijdeman give a
+practical form of that criterion through the tails <span
+class="citation" data-cites="hancltijdeman2004"></span>. Both criteria
+assume that the <span class="math inline" data-term-auto="off">\(n\)</span>th numerator is
+<span class="math inline" data-term-auto="off">\(o(a_{n-1}a_n)\)</span>, where <span
+class="math inline" data-term-auto="off">\(a_n\)</span> is the <span
+class="math inline" data-term-auto="off">\(n\)</span>th base. Here <span
+class="math inline" data-term-auto="off">\(m_a\ge1\)</span> and <span
+class="math inline" data-term-auto="off">\(b_{a-1}b_a\le900\)</span>, so the recurrence, the
+bound and the denominator clearing below are proved directly for this
+series.</p>
 <div class="proposition" id="res:actual-orbit">
 <p><strong>Proposition 4.5</strong> (the actual recurrence and a
 polynomial bound). <em> The series defining <span
@@ -541,12 +568,12 @@ class="math inline" data-term-auto="off">\(e_{a+1}=b_ae_a\)</span>. The factors 
 class="math inline" data-term-auto="off">\(b_a\ge2\)</span> force a bounded such error to be
 zero. An integral state propagates by the integer recurrence. ◻</p>
 </div>
-<p>The constant above is a simple bound for the cap used below. The
-stronger source estimate <span class="math inline" data-term-auto="off">\(\widetilde
-Q(n)=(1210n^2+9130n+18847)/11979\)</span> uses the exclusion of three
-successive two-jumps and has a separate ordinary proof. The present cap
-suffices for the criterion; the sharper argument belongs in the extended
-record rather than in this proof.</p>
+<p>The criterion below needs only a valid cap, and the bound just proved
+gives the cap <span class="math inline" data-term-auto="off">\(90B(a+1)^2\)</span>. The
+extended reasoning record proves the sharper bound <span
+class="math inline" data-term-auto="off">\(X_a\le(n_a^2+8n_a+18)/9\)</span>, where <span
+class="math inline" data-term-auto="off">\(n_a\)</span> is the sum of the three height
+exponents at <span class="math inline" data-term-auto="off">\(2^a\)</span>.</p>
 <div class="theorem" id="res:denominator-reduction">
 <p><strong>Theorem 4.6</strong> (actual rationality-to-reduced-carry
 bridge). <em> If <span class="math inline" data-term-auto="off">\(S=A/D\)</span> in lowest
@@ -718,8 +745,11 @@ class="math inline" data-term-auto="off">\((g_a)\)</span> is an unbounded sequen
 positive integers with bounded successive ratios, the real <span
 class="math inline" data-term-auto="off">\(\xi\)</span> with <span
 class="math inline" data-term-auto="off">\(\operatorname{dist}(g_a\xi,\mathbb Z)\to0\)</span>
-form a countable set, a phenomenon going back to Eggleston <span
-class="citation" data-cites="fan2026strongly"></span>. For <span
+form a countable set. For increasing sequences this is due to Erdős and
+Taylor <span class="citation" data-cites="erdostaylor1957"><a href="#ref-10">[10]</a></span>, who
+obtain it by modifying Eggleston’s proof of his Theorem 16, and Fan
+proves the form stated here <span class="citation"
+data-cites="fan2026strongly"><a href="#ref-11">[11]</a></span>. For <span
 class="math inline" data-term-auto="off">\(g_a=Bh_a\)</span> <span
 class="math inline" data-term-auto="off">\((a\ge1)\)</span> the ratios are the integers <span
 class="math inline" data-term-auto="off">\(b_a\in\{2,6,10,30\}\)</span>, and the argument of
@@ -748,13 +778,15 @@ scopes.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="proof-sources." class="level5">
 <h5>Proof sources.</h5>
-<p>The two-prime argument uses the cited Hecke–Mahler value theorem and
-is Steve Fan’s; it is not a Lean theorem. The arbitrary-order kernel
-theorem is proved in the Lean module <code>KernelCarryRank</code>: it
-contains the uniform minors and the exact finite-separation
-contradiction used above. The literal recurrence and the fixed-split
-rationality bridge likewise have the named Lean statements linked at
-their occurrences above. The <a
+<p>The two-prime theorem is an ordinary deduction from the cited
+Hecke–Mahler value theorem and has no Lean declaration; Steve Fan posted
+the same argument first <span class="citation"
+data-cites="fan2026comment"><a href="#ref-7">[7]</a></span>. The arbitrary-order kernel theorem
+is proved in the Lean module <code>KernelCarryRank</code>: it contains
+the uniform minors and the exact finite-separation contradiction used
+above. The literal recurrence and the fixed-split rationality bridge
+likewise have the named Lean statements linked at their occurrences
+above. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/06f57893e0f9c6d80668048f26f096367ae4cfe7/verification/erdos269-wavea-validation.json">source-current
 validation receipt</a> byte-matches these modules and records their
 compilation inside the public recursive import closure. The receipt’s
@@ -1135,47 +1167,53 @@ href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009
 href="https://www.fq.math.ca/Scanned/12-4/letter.pdf"><em>Letter to the
 Editor</em></a> (written 1 January 1973), Fibonacci Quart.
 <strong>12</strong> (1974), no. 4, p. 335. The letter poses the full
-series as a conjecture and asserts irrationality after retaining only
-the distinct running-LCM values.</p></li>
+series as a conjecture and states, without proof, that the sum over the
+distinct running-LCM values is irrational.</p></li>
 <li id="ref-4"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/269"><em>Erdős Problem
 #269</em></a>, <code>erdosproblems.com/269</code>, accessed 28 July 2026
-(page displays “last edited 28 December 2025”). The current record
+(page displays “last edited 28 December 2025”). As accessed, the record
 labels the finite-support problem open, cites
 <code>[ErGr80, p. 65]</code> and <code>[Er88c, p. 106]</code>, routes to
 the 1974 letter on p. 335, records the infinite-prime and de-duplicated
-variants, and explicitly describes its status as the website owner’s
-present assessment rather than a literature-completeness
-guarantee.</p></li>
-<li id="ref-5"><p>Y. Bugeaud and M. Laurent, <em>Transcendence and continued
-fraction expansion of values of Hecke–Mahler series</em>, Acta Arith.
-<strong>209</strong> (2023), 59–90, doi:10.4064/aa220323-18-1; <a
-href="https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf">authors’
-Online First PDF</a>, <a
-href="https://arxiv.org/abs/2203.12901">arXiv:2203.12901v1</a>.
-Theorem 1.1 is on p. 3 of the inspected Online First PDF; the journal
-publication is pp. 59–90. The authors note there that its <span
-class="math inline" data-term-auto="off">\(\rho=0\)</span> case was already obtained by
-Loxton and van der Poorten.</p></li>
+variants, and describes its status as the website owner’s present
+assessment, with no guarantee of literature completeness.</p></li>
+<li id="ref-5"><p>Y. Bugeaud and M. Laurent, <a
+href="https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf"><em>Transcendence
+and continued fraction expansion of values of Hecke–Mahler
+series</em></a>, Acta Arith. <strong>209</strong> (2023), 59–90, doi:<a
+href="https://doi.org/10.4064/aa220323-18-1">10.4064/aa220323-18-1</a>;
+arXiv:<a href="https://arxiv.org/abs/2203.12901v1">2203.12901v1</a>.
+Theorem 1.1 is on p. 3 of the linked Online First version, whose
+introduction, pp. 1–2, credits the case <span
+class="math inline" data-term-auto="off">\(\rho=0\)</span> to Mahler and to Loxton and van
+der Poorten.</p></li>
 <li id="ref-6"><p>J. H. Loxton and A. J. van der Poorten, <em>Arithmetic properties
 of certain functions in several variables III</em>, Bull. Austral. Math.
-Soc. <strong>16</strong> (1977), 15–47.</p></li>
+Soc. <strong>16</strong> (1977), 15–47, doi:<a
+href="https://doi.org/10.1017/S0004972700022978">10.1017/S0004972700022978</a>.</p></li>
 <li id="ref-7"><p>S. Fan, comment on Erdős Problem #269, <a
-href="https://www.erdosproblems.com/forum/thread/269">erdosproblems.com
-forum, thread 269</a>, 26 June 2026. The comment gives the two-channel
-factorisation, the Hecke–Mahler reduction, and the transcendence
-conclusion for <span class="math inline" data-term-auto="off">\(|P|=2\)</span>; follow-up
-comments there note the extension to arbitrary coprime pairs.</p></li>
-<li id="ref-8"><p>S. Fan and A. Lott, <a
-href="https://arxiv.org/abs/2606.29185"><em>The van der Corput property
-for sums of two squares</em></a>, arXiv:2606.29185v1, 28 June 2026.
-Section 3, pp. 4–8, defines the coefficients by summing smooth weights
-over the representations <span
-class="math inline" data-term-auto="off">\(d=v^2(x^2+y^2)\)</span>; pp. 5–6 explain that
-averaging over <span class="math inline" data-term-auto="off">\(v\)</span> places the
-complete sums in a fixed sector, and Corollary 4.4, p. 12, proves the
-sector bound.</p></li>
-<li id="ref-9"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071"><em>Strongly
+href="https://www.erdosproblems.com/forum/thread/269#post-7218">erdosproblems.com
+forum, thread 269, post 7218</a>, 26 June 2026. The comment gives the
+running-LCM identity for every <span class="math inline" data-term-auto="off">\(|P|\)</span>,
+the two-channel factorisation, the Hecke–Mahler reduction, and the
+transcendence conclusion for <span class="math inline" data-term-auto="off">\(|P|=2\)</span>;
+follow-up comments there note the extension to arbitrary coprime
+pairs.</p></li>
+<li id="ref-8"><p>P. Erdős and E. G. Straus, <em>On the irrationality of certain
+series</em>, Pacific J. Math. <strong>55</strong> (1974), no. 1, 85–92,
+doi:<a
+href="https://doi.org/10.2140/pjm.1974.55.85">10.2140/pjm.1974.55.85</a>.</p></li>
+<li id="ref-9"><p>J. Hančl and R. Tijdeman, <em>On the irrationality of Cantor and
+Ahmes series</em>, Publ. Math. Debrecen <strong>65</strong> (2004),
+no. 3–4, 371–380, doi:<a
+href="https://doi.org/10.5486/PMD.2004.3254">10.5486/PMD.2004.3254</a>.</p></li>
+<li id="ref-10"><p>P. Erdős and S. J. Taylor, <em>On the set of points of
+convergence of a lacunary trigonometric series and the equidistribution
+properties of related sequences</em>, Proc. London Math. Soc. (3)
+<strong>7</strong> (1957), no. 1, 598–615, doi:<a
+href="https://doi.org/10.1112/plms/s3-7.1.598">10.1112/plms/s3-7.1.598</a>.</p></li>
+<li id="ref-11"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071v1"><em>Strongly
 complete sets and a conjecture of Erdős</em></a>, arXiv:2607.14071v1,
 15 July 2026. The paper proves the conjecture listed as Erdős
 Problem #254. Lemma 3.1, p. 7, proves that the <span

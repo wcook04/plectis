@@ -15,8 +15,8 @@
       "source_ref": "main",
       "source_path": "docs/claims.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json",
-      "source_sha256": "07766bd76298e64aa42c3b2f1870cd5f04db74e046ed7c17e45b306a41263e64",
-      "bytes": 933112
+      "source_sha256": "ef1fbe4b6974e963ab038b0d4bdf890103a0d96a62b98ef4916735a15c863325",
+      "bytes": 933113
     },
     {
       "hosted_path": "lean/problems.json",
@@ -33,7 +33,7 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "ca6f4238265f431c3194fc320d12c3a659ce50cb2a31361bc983b93479204b3a",
+      "source_sha256": "855db5de4ac83f6bd2f2483e8313d7f0913230b2a0fdd8cea3bc00e51d6e3796",
       "bytes": 377152
     },
     {
@@ -42,8 +42,8 @@
       "source_ref": "main",
       "source_path": "docs/RESULTS.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md",
-      "source_sha256": "c2cb9dd0dfb0ac88861dfbec4313cab2f5751cc8c6fed2786cf992e0c83219c0",
-      "bytes": 119383
+      "source_sha256": "eddb2c91a3f25ec39e95caf92b914d66645c13c046f52b30f7a1ac4d53cf9fbe",
+      "bytes": 119445
     },
     {
       "hosted_path": "lean/human-source/README.md",
@@ -60,8 +60,8 @@
       "source_ref": "main",
       "source_path": "docs/READING_GUIDE.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md",
-      "source_sha256": "555ad22f83748bc1dcce2808025959a0687d10c0e98ab20cb3ce604b8b38e208",
-      "bytes": 7458
+      "source_sha256": "1f1ef4a2f2342e365a73a3d088b543d4f1ab211ad2108195dc6cada913fe45cf",
+      "bytes": 7448
     },
     {
       "hosted_path": "lean/human-source/paper/README.md",
@@ -87,8 +87,8 @@
       "source_ref": "main",
       "source_path": "docs/RESULTS.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md",
-      "source_sha256": "c2cb9dd0dfb0ac88861dfbec4313cab2f5751cc8c6fed2786cf992e0c83219c0",
-      "bytes": 119383
+      "source_sha256": "eddb2c91a3f25ec39e95caf92b914d66645c13c046f52b30f7a1ac4d53cf9fbe",
+      "bytes": 119445
     },
     {
       "hosted_path": "lean/human-source/docs/ORIENTATION.md",
@@ -123,8 +123,8 @@
       "source_ref": "main",
       "source_path": "docs/PRIOR_ART.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/PRIOR_ART.md",
-      "source_sha256": "be26a987033143c31aeb4bc73a2fb38cf06ef74fee3d5bafef5a1e43c2e28b27",
-      "bytes": 40390
+      "source_sha256": "850a9f9ed5abaf58cda2ae0581f8558e66f46aaff1b435f81dcb186d21445f12",
+      "bytes": 44486
     },
     {
       "hosted_path": "lean/human-source/docs/METHODOLOGY.md",

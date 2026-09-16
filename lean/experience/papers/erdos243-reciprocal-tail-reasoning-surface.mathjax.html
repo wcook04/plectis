@@ -31,10 +31,10 @@ class="math display" data-term-auto="off">\[\lim_{n\to\infty}\frac{a_n}{a_{n-1}^
 class="math inline" data-term-auto="off">\(a_n=a_{n-1}^{2}-a_{n-1}+1\)</span> for all
 sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
-<p>See <span class="citation" data-cites="erdosgraham1980"><a href="#ref-4">[4]</a></span>
-and <span class="citation" data-cites="erdos1988"><a href="#ref-5">[5]</a></span>. Bloom’s
+<p>See <span class="citation" data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span>
+and <span class="citation" data-cites="erdos1988"><a href="#ref-6">[6]</a></span>. Bloom’s
 catalogue records the problem as open <span class="citation"
-data-cites="erdosproblems"><a href="#ref-10">[10]</a></span>. Below we index the same recurrence
+data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>. Below we index the same recurrence
 as <span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^{2}-a_n+1\)</span>, which is
 the shift the formal sources use; the two forms are the same statement.
 Write <span
@@ -122,7 +122,9 @@ class="math inline" data-term-auto="off">\(x_n=1/a_n+x_{n+1}\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C_{n+1}=D_{n+1}x_{n+1}=a_nD_n\Bigl(x_n-\frac1{a_n}\Bigr)=a_nC_n-D_n,
 \qquad D_{n+1}=a_nD_n,\]</span></div>
-<p class="display-continue">which is <a class="math-ref" data-equation-ref="true" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a>.
+<p class="display-continue">which is <a class="math-ref" data-equation-ref="true" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a>. These are
+the tail variables of Koizumi’s Lemma 4 <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>, up to a common positive factor.
 Section <a class="math-ref" href="#long243:sec:state">4</a>
 constructs the same triple with its centred error <span
 class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span>, which the present
@@ -320,10 +322,11 @@ restricting nontrivially to <span
 class="math inline" data-term-auto="off">\(K(\beta)\)</span>, so that <span
 class="math inline" data-term-auto="off">\(\sigma\alpha=\alpha\)</span> and <span
 class="math inline" data-term-auto="off">\(\sigma\beta=-\beta\)</span>. By the Chebotarev
-density theorem there are infinitely many unramified rational primes
-whose Frobenius class in <span
-class="math inline" data-term-auto="off">\(\mathop{\mathrm{Gal}}(L/\Q)\)</span> is that of
-<span class="math inline" data-term-auto="off">\(\sigma\)</span>; only the infinitude is
+density theorem in the form stated by Stevenhagen and Lenstra <span
+class="citation" data-cites="stevenhagenlenstra1996"></span>, there are
+infinitely many unramified rational primes whose Frobenius class in
+<span class="math inline" data-term-auto="off">\(\mathop{\mathrm{Gal}}(L/\Q)\)</span> is that
+of <span class="math inline" data-term-auto="off">\(\sigma\)</span>; only the infinitude is
 used. Discard the finitely many primes dividing denominators or the
 discriminant, the prime <span class="math inline" data-term-auto="off">\(2\)</span>, and
 those at which <span class="math inline" data-term-auto="off">\(\beta\)</span> reduces to
@@ -828,11 +831,17 @@ holds, by exclusion of a rational reciprocal sum, and the recurrence is
 never exhibited; Sylvester’s own sequence, whose ratio <span
 class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}\)</span> is <span
 class="math inline" data-term-auto="off">\(1+O(1/a_n)\)</span>, lies outside the class. The
-rate <span class="math inline" data-term-auto="off">\(1+3/n\)</span> sits strictly beyond the
-two sufficient hypotheses recorded in Section <a class="math-ref" href="#long243:sec:priorwork">3</a>: it fails
-Koizumi’s <span class="math inline" data-term-auto="off">\(1+o(1/n)\)</span> condition, and
+rate <span class="math inline" data-term-auto="off">\(1+3/n\)</span> sits beyond the
+hypotheses recorded in Section <a class="math-ref" href="#long243:sec:priorwork">3</a>. The product
+weight <span class="math inline" data-term-auto="off">\(P_n/a_n\)</span> grows like <span
+class="math inline" data-term-auto="off">\(n^{3}\)</span> at this rate, so <span
+class="math inline" data-term-auto="off">\((P_n/a_n)(a_n^2/a_{n+1}-1)\)</span> tends to
+infinity and Koizumi’s Corollary 4(1) does not apply; the rate also
+fails his <span class="math inline" data-term-auto="off">\(1+o(1/n)\)</span> condition, and
 <span class="math inline" data-term-auto="off">\(\sum_n\gamma_n\)</span> diverges, so
-Duverney’s convergent-defect hypothesis does not apply. Theorem <a class="math-ref" href="#long243:res:cubicexclusion">2.2</a> is
+Duverney’s convergent-defect hypothesis does not apply. Whether the
+LCM-weighted criteria apply on this class is not decided here, since the
+ratio of the two weights is the overlap factor. Theorem <a class="math-ref" href="#long243:res:cubicexclusion">2.2</a> is
 independent of any growth or positivity assumption on <span
 class="math inline" data-term-auto="off">\((a_n)\)</span> beyond <a class="math-ref" data-equation-ref="true" href="#long243:eq:cubicorbit">long243:eq:cubicorbit</a>, and the
 later sections of this note decide nothing at the cubic rate.</p>
@@ -840,11 +849,8 @@ later sections of this note decide nothing at the cubic rate.</p>
 class="math inline" data-term-auto="off">\(C_n=q\bigl(\prod_{k&lt;n}a_k\cdot\sum_m1/a_m-\sum_{k&lt;n}\prod_{j&lt;n,\,j\ne
 k}a_j\bigr)\)</span>, a linear form in the reciprocal sum with integer
 coefficients. Approximation criteria for irrationality use nonzero forms
-of this kind that tend to zero, as in the quantitative form stated as
-Lemma 3.4 of Koizumi and Yokoi <span class="citation"
-data-cites="koizumiyokoi2026"><a href="#ref-9">[9]</a></span>, applied there to values of <span
-class="math inline" data-term-auto="off">\(q\)</span>-series. At the cubic rate the integers
-<span class="math inline" data-term-auto="off">\(C_n\)</span> grow: Lemma <a class="math-ref" href="#long243:res:tailratio">2.11</a> gives <span
+of this kind that tend to zero. At the cubic rate the integers <span
+class="math inline" data-term-auto="off">\(C_n\)</span> grow: Lemma <a class="math-ref" href="#long243:res:tailratio">2.11</a> gives <span
 class="math inline" data-term-auto="off">\(C_{n+1}/C_n=1+3/n+o(n^{-3})\)</span>, so <span
 class="math inline" data-term-auto="off">\(C_n\)</span> is a positive multiple of <span
 class="math inline" data-term-auto="off">\(n(n+1)(n+2)\)</span> up to a factor tending to
@@ -858,15 +864,18 @@ excludes.</p>
 </section>
 <section id="long243:sec:priorwork" class="level2">
 <h2>Prior work, and the status of the note</h2>
-<section id="two-published-sufficient-conditions." class="level5">
-<h5>Two published sufficient conditions.</h5>
-<p>Two published results reach the original problem under analytic
+<section
+id="classical-sufficient-conditions-and-the-pseudo-greedy-formulation."
+class="level5">
+<h5>Classical sufficient conditions and the pseudo-greedy
+formulation.</h5>
+<p>Published results reach the original problem under analytic
 hypotheses that are assumed nowhere in this note. Their hypotheses are
 conditions on the sequence <span class="math inline" data-term-auto="off">\((a_n)\)</span>
-itself. Duverney’s is not comparable with the state-level hypotheses
-used here; the Erdős–Straus one, read through the dictionary of the next
-paragraph, is implied by nonnegativity of <span
-class="math inline" data-term-auto="off">\(E\)</span>, the hypothesis of Theorem <a class="math-ref" href="#long243:res:descent">8.1</a>, so that
+itself. Duverney imposes a different sufficient analytic hypothesis; the
+Erdős–Straus one, read through the dictionary of the next paragraph, is
+implied by nonnegativity of <span class="math inline" data-term-auto="off">\(E\)</span>, the
+hypothesis of Theorem <a class="math-ref" href="#long243:res:descent">8.1</a>, so that
 criterion already covers the descent of Section <a class="math-ref" href="#long243:sec:descent">8</a> (see <span
 class="citation" data-cites="koizumi2025"></span>). Erdős and Straus
 proved that if <span class="math inline" data-term-auto="off">\(\lim
@@ -883,12 +892,15 @@ followed by the current catalogue summary, instead prints <span
 class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}-1\)</span> in the second factor
 while retaining the same prefix-LCM quotient; that displayed summary is
 off by one and is not followed here <span class="citation"
-data-cites="erdos1988"><a href="#ref-5">[5]</a></span><span class="citation"
-data-cites="erdosproblems"><a href="#ref-10">[10]</a></span>. Koizumi records the convenient
+data-cites="erdos1988"><a href="#ref-6">[6]</a></span><span class="citation"
+data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>. Koizumi records the convenient
 sufficient rate <span
 class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}=1+o(1/n)\)</span> under which the
 Erdős–Straus criterion settles the problem <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>.</p>
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>. Tijdeman and Yuan give a criterion of
+the same kind for Ahmes series with positive integer numerators,
+weighted by the least common multiple of the earlier denominators <span
+class="citation" data-cites="tijdemanyuan2002"></span>.</p>
 <p>Duverney proved a conditional signed form of the problem itself: for
 signs <span class="math inline" data-term-auto="off">\(\epsilon_n\in\{-1,1\}\)</span>, if
 <span class="math inline" data-term-auto="off">\(\sum_{n\ge0}(a_{n+1}/a_n^{2}-1)\)</span>
@@ -914,14 +926,14 @@ cover the mixed-sign state orbits studied here. Neither result is
 formalised here, and the results below do not recover either of
 them.</p>
 <p>Koizumi’s work on doubly exponential sequences <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> bears directly on the state system used
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> bears directly on the state system used
 below, and supplies the coordinates in which several of the statements
 of this note are most naturally read. For a rational <span
 class="math inline" data-term-auto="off">\(r=p/q\)</span> with pseudo-greedy expansion <span
 class="math inline" data-term-auto="off">\((a_n)\)</span>, remainders <span
 class="math inline" data-term-auto="off">\((x_n)\)</span> and gap sequence <span
 class="math inline" data-term-auto="off">\(\varepsilon_n=x_n^{-1}+1-a_n\)</span>, his Lemma 4
- <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> produces
+ <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> produces
 integers <span class="math inline" data-term-auto="off">\(c_n&gt;0\)</span>, <span
 class="math inline" data-term-auto="off">\(d_n\)</span> and <span
 class="math inline" data-term-auto="off">\(e_n\)</span> with <span
@@ -945,7 +957,7 @@ class="math inline" data-term-auto="off">\(-E_n\)</span>, so it is the negative 
 <span class="math inline" data-term-auto="off">\(e_n\)</span> at an index where the centred
 state is negative.</p>
 <p>His Theorem 3  <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> shows that his Conjecture 1 <span
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> shows that his Conjecture 1 <span
 class="citation" data-cites="koizumi2025"></span>, that for a positive
 rational <span class="math inline" data-term-auto="off">\(r\)</span> whose gap sequence
 satisfies <span class="math inline" data-term-auto="off">\(\varepsilon_n\to0\)</span> one has
@@ -965,7 +977,7 @@ class="math inline" data-term-auto="off">\(n\)</span> forces <span
 class="math inline" data-term-auto="off">\(\varepsilon_n=0\)</span> for all large <span
 class="math inline" data-term-auto="off">\(n\)</span>, is the descent of Theorem <a class="math-ref" href="#long243:res:descent">8.1</a>. These appear
 in canonical coordinates in <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>. Koizumi attributes Proposition 1(2) to
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>. Koizumi attributes Proposition 1(2) to
 Badea. Its contrapositive says that a counterexample must have negative
 errors infinitely often; it assumes the sign is eventually nonnegative,
 while Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a> below assumes
@@ -979,11 +991,11 @@ further produces sequences with <span class="math inline" data-term-auto="off">\
 C^{2^{n}}\)</span> for arbitrarily large <span
 class="math inline" data-term-auto="off">\(C\)</span> whose reciprocals still sum to a
 rational number <span class="citation"
-data-cites="kovactao2024"><a href="#ref-6">[6]</a></span>. The classical sufficient condition
+data-cites="kovactao2024"><a href="#ref-7">[7]</a></span>. The classical sufficient condition
 for irrationality, <span class="math inline" data-term-auto="off">\(\lim_n
 a_n^{1/2^{n}}=\infty\)</span>, is therefore sharp. Kovač and Tao
 identify that condition as folklore  <span class="citation"
-data-cites="kovactao2024"><a href="#ref-6">[6]</a></span>; they attribute the sharpness
+data-cites="kovactao2024"><a href="#ref-7">[7]</a></span>; they attribute the sharpness
 observation to Erdős (1975). A sequence with <span
 class="math inline" data-term-auto="off">\(a_n/a_{n-1}^{2}\to1\)</span> has <span
 class="math inline" data-term-auto="off">\(a_n^{1/2^{n}}\)</span> convergent, so that
@@ -991,7 +1003,7 @@ criterion says nothing about the sequences of Problem <a class="math-ref" href=
 rationality is genuinely possible there. Sylvester’s sequence is
 <code>A000058</code> in the OEIS and its shifts <code>A129871</code>.
 For the recent literature on irrationality of Ahmes series we refer to
-Kovač and Tao <span class="citation" data-cites="kovactao2024"><a href="#ref-6">[6]</a></span>,
+Kovač and Tao <span class="citation" data-cites="kovactao2024"><a href="#ref-7">[7]</a></span>,
 who resolve several problems of Erdős and Graham drawn from the same two
 sources cited above, and whose introduction gives a sample of the
 intermediate work, including Sándor (1984) and Badea (1987). They do not
@@ -1096,8 +1108,8 @@ magnitude (Section <a class="math-ref" href="#long243:sec:periodic">10</a>), bo
 magnitude via a coprimality barrier (Sections <a class="math-ref" href="#long243:sec:barrier">11</a> and <a class="math-ref" href="#long243:sec:bounded">12</a>), finite
 normalised negative mass (Section <a class="math-ref" href="#long243:sec:mass">13</a>), and what is left
 (Section <a class="math-ref" href="#long243:sec:open">14</a>).
-These sections contain the new content; a reader who wants only the
-strongest statements should read Section <a class="math-ref" href="#long243:sec:cubicrate">2</a>, then
+These sections contain the exclusions proved here; a reader who wants
+only the strongest statements should read Section <a class="math-ref" href="#long243:sec:cubicrate">2</a>, then
 Sections <a class="math-ref" href="#long243:sec:lcmrecords">6</a> and <a class="math-ref" href="#long243:sec:records">7</a>, and then
 Section <a class="math-ref" href="#long243:sec:open">14</a>.
 Appendix <a class="math-ref" href="#long243:app:index">A</a> is
@@ -1116,7 +1128,10 @@ clear denominators along the sequence, so that a rational reciprocal sum
 leaves a sequence of integers; the third subtracts from that integer the
 value it takes on Sylvester’s sequence, leaving one number whose
 vanishing is the whole question. All three are maps between integer
-tuples and carry no hypothesis of any kind.</p>
+tuples and carry no hypothesis of any kind. The recurrences they encode
+are Koizumi’s <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>;
+the defect, scaling and two-step identities below are algebraic
+consequences of them in the conventions of the formal sources.</p>
 <p>For <span class="math inline" data-term-auto="off">\(a,D,C\in\Z\)</span> define</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{den}(a,D)=aD,
@@ -1607,14 +1622,12 @@ baseline may be subtracted, and the remaining mass may be
 logarithmically discounted, so a counterexample has to sustain
 divergence along a sparse subsequence. The inherited part of the picture
 is the eventual regime <span class="math inline" data-term-auto="off">\(E_n\ge0\)</span>,
-which Koizumi’s Proposition 1(2) closes, and to which the published sign
-criteria apply once the shift of Proposition <a class="math-ref" href="#long243:res:classicalhalfspace">7.11</a> is
-subtracted. What is added here is a criterion valid in the complementary
-regime as well, stated under the hypotheses of Problem <a class="math-ref" href="#long243:res:problem">1.1</a> and no others.
-Two propositions bound what these coordinates reach. Proposition <a class="math-ref" href="#long243:res:classicalhalfspace">7.11</a>
-exhibits cancellation-free blocks on which every classical hypothesis
-quantity fails by a fixed number of units, and Proposition <a class="math-ref" href="#long243:res:coprimalitycap">7.12</a> shows
-that the data used by Theorem <a class="math-ref" href="#long243:res:barrier">11.3</a> and the landing
+which Koizumi’s Proposition 1(2) closes and which the published criteria
+cover (Section <a class="math-ref" href="#long243:sec:priorwork">3</a>). What is
+added here is a criterion valid in the complementary regime as well,
+stated under the hypotheses of Problem <a class="math-ref" href="#long243:res:problem">1.1</a> and no others.
+Proposition <a class="math-ref" href="#long243:res:coprimalitycap">7.12</a> bounds
+what these coordinates reach: the data used by Theorem <a class="math-ref" href="#long243:res:barrier">11.3</a> and the landing
 lemmas admit walks with rises of order <span
 class="math inline" data-term-auto="off">\(\ell(u)\)</span>, so an argument using only those
 data excludes no negative part of that order. A producer that closes the
@@ -1633,6 +1646,21 @@ one fixed <span class="math inline" data-term-auto="off">\(B\)</span> from ratio
 denominator feedback, or contradict a nonterminal orbit by another
 route. The logarithmic discount weakens what suffices; it does not
 establish it.</p>
+<p>The coordinates below also appear in Bado’s preprint of September
+2026: after the shift between indexing from <span
+class="math inline" data-term-auto="off">\(0\)</span> and from <span
+class="math inline" data-term-auto="off">\(1\)</span>, his least common multiple, his <span
+class="math inline" data-term-auto="off">\(\Delta\)</span>, <span
+class="math inline" data-term-auto="off">\(K\)</span>, <span class="math inline" data-term-auto="off">\(u\)</span>
+and <span class="math inline" data-term-auto="off">\(g\)</span> are the <span
+class="math inline" data-term-auto="off">\(L\)</span>, <span
+class="math inline" data-term-auto="off">\(M\)</span>, <span
+class="math inline" data-term-auto="off">\(U\)</span>, <span class="math inline" data-term-auto="off">\(V\)</span>
+and <span class="math inline" data-term-auto="off">\(\rho\)</span> defined here, with his
+denominator parameter equal to <span class="math inline" data-term-auto="off">\(q\)</span>,
+and his (19) is the update <span
+class="math inline" data-term-auto="off">\(\rho_nU_{n+1}=U_n-V_n\)</span> <span
+class="citation" data-cites="bado2026"></span>.</p>
 <p>Set</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[L_n=\operatorname{lcm}(q,a_0,\ldots,a_{n-1}),\quad
@@ -1839,7 +1867,10 @@ old divisors persist. The statements of this section live in the
 primitive coordinates, where old divisors can be deleted. They are
 collected here because each is an equivalence, a dichotomy, or an
 unconditional exclusion, and because each sharpens the profile of a
-counterexample in a direction the earlier sections do not reach.</p>
+counterexample in a direction the earlier sections do not reach. The
+underlying tools are the Chinese remainder theorem, persistence of
+prime-power divisors and weighted first-crossing counting; the LCM
+compression and the reuse comparison are attributed in Section <a class="math-ref" href="#long243:sec:lcmrecords">6</a>.</p>
 <section id="primitive-coordinates." class="level5">
 <h5>Primitive coordinates.</h5>
 <p>Put <span class="math inline" data-term-auto="off">\(G_n=\gcd(C_n,D_n)\)</span>, <span
@@ -2209,9 +2240,10 @@ and the inclusive constant, and this theorem is retained because its
 hypothesis is stated directly on <span
 class="math inline" data-term-auto="off">\(E_n\)</span>.</p>
 <div class="theorem" id="long243:res:strausbounded">
-<p><strong>Theorem 7.9</strong> (the Erdős–Straus quantity, bounded
-form). <em> Let <span class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span>
-and <span class="math inline" data-term-auto="off">\(\sum1/a_n\in\Q\)</span>, and put </em></p>
+<p><strong>Theorem 7.9</strong> (product-weighted defect: bounded and
+slow-growth forms). <em> Let <span
+class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum1/a_n\in\Q\)</span>, and put </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[Q_n=\frac{a_1a_2\cdots a_{n-1}}{a_n}
      \left(\frac{a_n^2}{a_{n+1}}-1\right).\]</span></div>
@@ -2263,8 +2295,7 @@ the growth factor one index later, so their quantity is <span
 class="math inline" data-term-auto="off">\([a_1,\ldots,a_n]a_{n+1}^{-1}(a_{n+1}^{2}/a_{n+2}-1)\)</span> <span
 class="citation" data-cites="erdosstraus1964"></span>; Koizumi’s
 Corollary 4(1) uses the product form <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>. The statement above is the same
-Lean-checked endpoint as Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a>, transported
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>. The bounded clause is Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a> transported
 into that language, and its content over the published criteria is the
 passage from <span class="math inline" data-term-auto="off">\(\le0\)</span> to <span
 class="math inline" data-term-auto="off">\(&lt;\infty\)</span>. It is the only place in this
@@ -2273,16 +2304,15 @@ the 1964 paper.</p>
 </section>
 <section id="evidence.-7" class="level5">
 <h5>Evidence.</h5>
-<p>Ordinary proof composing Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a> and
-Theorem <a class="math-ref" href="#long243:res:slownegative">7.8</a> with
-Koizumi’s bridge. The identity used is <span
-class="math inline" data-term-auto="off">\(Q_n=-(B_{n-1}/c_1)\varepsilon_n+(B_{n-1}/c_1)\beta_nc_{n+1}\)</span>
-with <span class="math inline" data-term-auto="off">\(\beta_k=O(1/a_k)\)</span>, whose second
-term tends to zero because <span class="math inline" data-term-auto="off">\(c_{n+1}\le
-c_1(3/2)^n\)</span> while <span class="math inline" data-term-auto="off">\(a_n\)</span> is
-doubly exponential.</p>
-<div class="theorem" id="long243:res:onethreshold">
-<p><strong>Theorem 7.10</strong> (the <span
+<p>Ordinary proof. The bounded clause transports Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a>, and the
+slow-growth clause also uses Theorem <a class="math-ref" href="#long243:res:slownegative">7.8</a>; both go
+through the canonical identity <span
+class="math inline" data-term-auto="off">\(E_n+qQ_n=o(1)\)</span> established above, whose
+classical predecessor is the comparison in Koizumi’s proof of
+Corollary 4(1) <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>.</p>
+<div class="corollary" id="long243:res:onethreshold">
+<p><strong>Corollary 7.10</strong> (the <span
 class="math inline" data-term-auto="off">\(1/n\)</span> threshold). <em> Let <span
 class="math inline" data-term-auto="off">\(a_{n+1}/a_n^2\to1\)</span> and <span
 class="math inline" data-term-auto="off">\(\sum1/a_n\in\Q\)</span>. If <span
@@ -2290,21 +2320,39 @@ class="math inline" data-term-auto="off">\(\limsup_n n\,(a_n^2/a_{n+1}-1)_+&lt;1
 then <span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> for all
 large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
-<p>The constant <span class="math inline" data-term-auto="off">\(1\)</span> is the boundary
-of this method. The template <span class="math inline" data-term-auto="off">\(\tilde
-e_n\equiv-1\)</span> with <span class="math inline" data-term-auto="off">\(u_n=c+n\)</span>
-has <span class="math inline" data-term-auto="off">\(n(-\tilde e_n)/u_n\to1\)</span>, meets
-every hypothesis of the Erdős–Straus criterion except the sign, and is
-excluded only by Theorem <a class="math-ref" href="#long243:res:constant">9.2</a>. This sharpens
-the sufficient rate <span
+<div class="proof">
+<p><em>Proof.</em> Put <span
+class="math inline" data-term-auto="off">\(\gamma_n=a_n^2/a_{n+1}-1\)</span> and <span
+class="math inline" data-term-auto="off">\(t_n=\bigl(\prod_{j&lt;n}a_j\bigr)/a_n\)</span>, so
+that <span class="math inline" data-term-auto="off">\(t_{n+1}/t_n=1+\gamma_n\)</span>. Choose
+<span class="math inline" data-term-auto="off">\(r\in(0,1)\)</span> and <span
+class="math inline" data-term-auto="off">\(N\)</span> with <span
+class="math inline" data-term-auto="off">\(\gamma_n^{+}\le r/n\)</span> for all <span
+class="math inline" data-term-auto="off">\(n\ge N\)</span>. Then</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[t_n\le t_N\prod_{k=N}^{n-1}\Bigl(1+\frac
+rk\Bigr)=O(n^{r}),\]</span></div>
+<p class="display-continue">so <span
+class="math inline" data-term-auto="off">\((t_n\gamma_n)_+=t_n\gamma_n^{+}=O(n^{r-1})\)</span>
+tends to zero and <span
+class="math inline" data-term-auto="off">\(\limsup_nt_n\gamma_n\le0\)</span>. Koizumi’s
+Corollary 4(1) <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>
+gives the conclusion. ◻</p>
+</div>
+<p>The constant <span class="math inline" data-term-auto="off">\(1\)</span> is where this
+product bound stops, since at <span class="math inline" data-term-auto="off">\(r=1\)</span>
+the weight <span class="math inline" data-term-auto="off">\(t_n\)</span> may grow linearly.
+The corollary contains the sufficient rate <span
 class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}=1+o(1/n)\)</span> recorded by
-Koizumi <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> to an
-explicit constant. Ordinary proof; the endgame is Koizumi’s
-Proposition 1(2).</p>
+Koizumi <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>. The
+scalar template <span class="math inline" data-term-auto="off">\(\tilde e_n\equiv-1\)</span>
+with <span class="math inline" data-term-auto="off">\(u_n=c+n\)</span>, which has <span
+class="math inline" data-term-auto="off">\(n(-\tilde e_n)/u_n\to1\)</span>, is excluded as an
+orbit by Theorem <a class="math-ref" href="#long243:res:constant">9.2</a>.</p>
 </section>
 </section>
-<section id="what-the-method-cannot-reach" class="level3">
-<h3>What the method cannot reach</h3>
+<section id="pointwise-signs-and-asymptotic-criteria" class="level3">
+<h3>Pointwise signs and asymptotic criteria</h3>
 <div class="proposition" id="long243:res:classicalhalfspace">
 <p><strong>Proposition 7.11</strong> (the classical quantities carry a
 shifted sign). <em> The overlap debt divides the tail gcd, so <span
@@ -2362,29 +2410,20 @@ class="math inline" data-term-auto="off">\(a_n^2/a_{n+1}-1=(a_n-1)/a_{n+1}=\Lamb
 </div>
 <section id="reading." class="level5">
 <h5>Reading.</h5>
-<p>The classical criteria therefore do not decide the half-space <span
-class="math inline" data-term-auto="off">\(E_n\ge0\)</span>. They read the defect <span
-class="math inline" data-term-auto="off">\(-E_n/C_n+\Lambda_n\)</span>, whose positive shift
-<span class="math inline" data-term-auto="off">\(\Lambda_n\)</span> is of order <span
-class="math inline" data-term-auto="off">\(1/a_n\)</span> and is the whole quantity at the
-Sylvester locus. A criterion phrased as a sign condition on <span
-class="math inline" data-term-auto="off">\(Q_n\)</span> is a condition on the state only at
-the indices where the negative part dominates the shift. Ordinary proof
-over exact identities, with an exact finite replay on <span
+<p>The classical hypothesis is a nonpositive upper limit, which admits
+positive values tending to zero, so the pointwise sign of the growth
+defect is a different condition. In the canonical normalisation <span
+class="math inline" data-term-auto="off">\(E_n+qQ_n=o(1)\)</span>, so an eventually
+nonnegative error gives <span
+class="math inline" data-term-auto="off">\(\limsup_nQ_n\le0\)</span>, and the classical
+criteria therefore cover that half-space; the positive values of <span
+class="math inline" data-term-auto="off">\(Q_n\)</span> along a Sylvester tail are consistent
+with it. See Koizumi’s Corollary 4(1) <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> and the criterion of Tijdeman and Yuan
+<span class="citation" data-cites="tijdemanyuan2002"><a href="#ref-4">[4]</a></span>. Ordinary
+proof over exact identities, with an exact finite replay on <span
 class="math inline" data-term-auto="off">\(4{,}472\)</span> frames and <span
-class="math inline" data-term-auto="off">\(610\)</span> clean triples, zero failures. The
-fixture family with <span class="math inline" data-term-auto="off">\(C_n=c+nm\)</span>, <span
-class="math inline" data-term-auto="off">\(D_n=(a_n-1)C_n-m\)</span> and <span
-class="math inline" data-term-auto="off">\(a_n=1+C_{n+1}k_n\)</span> realises, at <span
-class="math inline" data-term-auto="off">\((c,m,h)=(10,3,6)\)</span>, <span
-class="math inline" data-term-auto="off">\((13,3,6)\)</span> and <span
-class="math inline" data-term-auto="off">\((100003,3,5)\)</span>, arbitrarily long blocks on
-which every classical hypothesis quantity equals <span
-class="math inline" data-term-auto="off">\(-E_n=3\)</span> at every index while <span
-class="math inline" data-term-auto="off">\(G_n=\kappa&#39;_n=M_n=1\)</span>. A third
-classical quantity, from Tijdeman and Yuan’s 2002 Theorem 4.1, enters
-the same computation; it is not cited here because this note carries no
-verified bibliographic record of that paper.</p>
+class="math inline" data-term-auto="off">\(610\)</span> clean triples, zero failures.</p>
 <div class="proposition" id="long243:res:coprimalitycap">
 <p><strong>Proposition 7.12</strong> (what whole-modulus avoidance
 permits). <em> Let <span
@@ -2539,6 +2578,12 @@ rest of this note is directed at it.</p>
 </section>
 <section id="long243:sec:constant" class="level2">
 <h2>Excluding a constant negative magnitude</h2>
+<p>The exclusions in this section and the next concern infinite constant
+or periodic negative magnitudes, and they do not bound the length of a
+finite transient. Arbitrarily long constant transients occur on genuine
+rational orbits, by the flat-transient theorem of the working report on
+Problem #243 <span class="citation"
+data-cites="erdosproblemaday243"><a href="#ref-9">[9]</a></span>.</p>
 <p>Suppose the error is negative with a constant magnitude, <span
 class="math inline" data-term-auto="off">\(E_n=-m\)</span> for a fixed <span
 class="math inline" data-term-auto="off">\(m&gt;0\)</span> and every <span
@@ -2869,7 +2914,7 @@ construction uses the same Chinese remaindering for moduli that need not
 be pairwise coprime, with their Claim 3.2 supplying the divisibility of
 residue differences by greatest common divisors that the generalised
 theorem requires <span class="citation"
-data-cites="vandoornlitang2026"><a href="#ref-7">[7]</a></span>. The first-crossing argument
+data-cites="vandoornlitang2026"><a href="#ref-11">[11]</a></span>. The first-crossing argument
 below needs only the pairwise coprime case.</p>
 <div class="example" id="long243:ex:crt">
 <p><strong>Example 11.2</strong> (a block of three consecutive multiples).
@@ -2951,9 +2996,10 @@ Uniformity of the bound is what the proof uses, and it is the hypothesis
 that cannot be relaxed by this argument: a rise bounded only along a
 subsequence leaves the intervening steps free to jump the window. We
 have not looked for a sequence of unbounded rise remaining coprime to
-every fresh modulus. The statement is elementary and we are not aware of
-a prior published form of it, but we would not be surprised if one
-exists.</p>
+every fresh modulus. The same forbidden-block crossing, under a
+two-sided bound on the error, appears in the proof of Bado’s Theorem 5.1
+<span class="citation" data-cites="bado2026"><a href="#ref-8">[8]</a></span>, posted in
+September 2026.</p>
 <p>The moduli are indexed by the same set as the sequence, and the <span
 class="math inline" data-term-auto="off">\(i\)</span>th of them is asked to divide no value
 <span class="math inline" data-term-auto="off">\(u_t\)</span> with <span
@@ -3110,15 +3156,19 @@ and it does not exclude cofinally unbounded negative excursions.</p>
 <h2>Excluding a bounded negative part</h2>
 <p>Assembling the previous section gives Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a>, the endpoint
 of the barrier argument. Theorem <a class="math-ref" href="#long243:res:mass">13.1</a> in the next
-section uses a different finiteness hypothesis. The two results are
-incomparable: Theorem <a class="math-ref" href="#long243:res:mass">13.1</a> assumes only the
-state recurrence with <span class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>,
-while hypothesis (5) below does not imply finite <em>normalised negative
-mass</em>, by which we mean convergence of <span
+section uses a different finiteness hypothesis, finite <em>normalised
+negative mass</em>, by which we mean convergence of <span
 class="math inline" data-term-auto="off">\(\sum_n(-E_n)_+/C_n\)</span>, where <span
-class="math inline" data-term-auto="off">\(x_+=\max(x,0)\)</span>, since a constant negative
-part <span class="math inline" data-term-auto="off">\(-b\)</span> gives <span
-class="math inline" data-term-auto="off">\(C_n\sim bn\)</span> and hence a divergent sum. The
+class="math inline" data-term-auto="off">\(x_+=\max(x,0)\)</span>. The two hypotheses ask for
+different quantities to be estimated, and Theorem <a class="math-ref" href="#long243:res:mass">13.1</a> has the broader
+ambient setting, since it assumes only the state recurrence with <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>. On the common class of exact
+orbits with normalised vanishing each of them is equivalent to eventual
+vanishing of the error. For a scalar sequence they differ:
+hypothesis (5) below holds for a constant negative part <span
+class="math inline" data-term-auto="off">\(-b\)</span>, which gives <span
+class="math inline" data-term-auto="off">\(C_n\sim bn\)</span> and a divergent normalised
+mass, and such a sequence is excluded as an orbit by Theorem <a class="math-ref" href="#long243:res:constant">9.2</a>. The
 hypotheses of Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a> are listed in
 full, because two of them are analytic inputs that are assumed here
 rather than derived from the growth condition of Problem <a class="math-ref" href="#long243:res:problem">1.1</a>.</p>
@@ -3233,7 +3283,7 @@ than about the state system alone. Let <span
 class="math inline" data-term-auto="off">\((a_n)\)</span> satisfy the hypotheses of
 Problem <a class="math-ref" href="#long243:res:problem">1.1</a>.
 After deleting a finite prefix, Corollary 3 of <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> makes the sequence the pseudo-greedy
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> makes the sequence the pseudo-greedy
 expansion of its own reciprocal sum, and Lemma 4 there supplies the
 integers <span class="math inline" data-term-auto="off">\(c_n,d_n,e_n\)</span> of
 Section <a class="math-ref" href="#long243:sec:priorwork">3</a>.
@@ -3255,7 +3305,7 @@ the eventual form used here. Hypothesis (6) is the vanishing of the gap
 sequence in Corollary 3, since <span
 class="math inline" data-term-auto="off">\(\varepsilon_n=e_n/c_n\)</span>. The sole
 hypothesis not supplied is (5), the eventual bound on the negative part;
-nothing in <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>
+nothing in <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>
 yields it and nothing here does either, so Problem #243 stays open.</p>
 </section>
 <section id="long243:sec:mass" class="level2">
@@ -3306,9 +3356,16 @@ href="https://github.com/wcook04/plectis-erdos/blob/d058b9150218ae23d2cfd9755800
 finite-mass criterion</a> supplies the exact state and its positivity.
 Summability of the negative mass remains an assumption; no growth or
 normalised-vanishing hypothesis is needed for this implication.</p>
+<p>For the gap sequence of the pseudo-greedy expansion, the same
+criterion, with the same product bound and integer descent, appears in
+the Erdős Problem a Day working report on Problem #243, dated 12 August
+2026 <span class="citation" data-cites="erdosproblemaday243"><a href="#ref-9">[9]</a></span>.
+Bado’s Theorem 11.1 is a compensated criterion that keeps a favourable
+term from prime-support reuse <span class="citation"
+data-cites="bado2026"><a href="#ref-8">[8]</a></span>.</p>
 <p>The transfer of the previous section applies here as well. On the
 canonical orbit of Corollary 3 of <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> the recurrence <span
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> the recurrence <span
 class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span> holds with <span
 class="math inline" data-term-auto="off">\(C_n&gt;0\)</span> by Lemma 4  <span
 class="citation" data-cites="koizumi2025"></span>. Thus Theorem <a class="math-ref" href="#long243:res:mass">13.1</a> is a conditional
@@ -3606,10 +3663,10 @@ records.</p>
 <div class="remark">
 <p><strong>Remark</strong>. <em>One further question is not left open
 here, since it is answered in <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>: whether normalised vanishing follows
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>: whether normalised vanishing follows
 from <span class="math inline" data-term-auto="off">\(a_{n+1}/a_n^{2}\to1\)</span> and
 rationality. It does. After deleting a finite prefix, Koizumi’s
-Corollary 3  <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>
+Corollary 3  <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>
 makes the sequence the pseudo-greedy expansion of its own reciprocal sum
 and gives <span class="math inline" data-term-auto="off">\(\varepsilon_n\to0\)</span> under
 exactly the hypotheses of Problem <a class="math-ref" href="#long243:res:problem">1.1</a>; rationality is
@@ -3621,7 +3678,7 @@ normalised vanishing. Strict centring comes from the same source and is
 stronger than what Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a> assumes: for a
 rational reciprocal sum, the range <span class="math inline" data-term-auto="off">\(-c_n/2\le
 e_n&lt;c_n/2\)</span> of his Lemma 4(2)  <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> gives <span
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> gives <span
 class="math inline" data-term-auto="off">\(|E_n|&lt;C_n\)</span> at every index, which is
 stronger than eventual strict centring. The eventual form also follows
 directly from normalised vanishing with <span
@@ -3717,7 +3774,7 @@ competing interests.</p>
 <h5>Acknowledgements.</h5>
 <p>The problem numbering and status follow the Erdős Problems catalogue
 maintained by Thomas Bloom <span class="citation"
-data-cites="erdosproblems"><a href="#ref-10">[10]</a></span>.</p>
+data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>.</p>
 </section>
 </section>
 </section>
@@ -3768,7 +3825,10 @@ divisible by <span class="math inline" data-term-auto="off">\(3\)</span>, so the
 there. Deciding survival by iteration is expensive because the orbit
 grows doubly exponentially, and it is unnecessary: survival over a
 finite horizon depends on the initial value only through a factorial
-residue.</p>
+residue. Computing a pseudo-greedy orbit through residues modulo a
+shrinking product modulus is Koizumi’s method <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>; for the forced numerator that product
+is a factorial.</p>
 <div class="theorem" id="long243:res:residue">
 <p><strong>Theorem B.1</strong> (factorial residue reduction). <em> For
 all <span class="math inline" data-term-auto="off">\(h\)</span> and all integers <span
@@ -4026,37 +4086,57 @@ Univ. Tokyo <strong>8</strong> (2001), 275–316. MR 1837165.</p></li>
 <li id="ref-3"><p>C. Badea, <a
 href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf"><em>A
 theorem on irrationality of infinite series and applications</em></a>,
-Acta Arith. <strong>63</strong> (1993), no. 4, 313–323.</p></li>
-<li id="ref-4"><p>P. Erdős and R. L. Graham, <a
+Acta Arith. <strong>63</strong> (1993), no. 4, 313–323, doi:<a
+href="https://doi.org/10.4064/aa-63-4-313-323">10.4064/aa-63-4-313-323</a>.</p></li>
+<li id="ref-4"><p>R. Tijdeman and P. Yuan, <em>On the rationality of Cantor and
+Ahmes series</em>, Indag. Math. (N.S.) <strong>13</strong> (2002),
+no. 3, 407–418, doi:<a
+href="https://doi.org/10.1016/S0019-3577(02)80018-0">10.1016/S0019-3577(02)80018-0</a>.</p></li>
+<li id="ref-5"><p>P. Erdős and R. L. Graham, <a
 href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
 and New Problems and Results in Combinatorial Number Theory</em></a>,
 Monogr. Enseign. Math. 28, Geneva, 1980, p. 64.</p></li>
-<li id="ref-5"><p>P. Erdős, <em>On the irrationality of certain series: problems
-and results</em>, in A. Baker (ed.), <em>New Advances in Transcendence
-Theory</em>, Cambridge UP, 1988, pp. 102–109, doi:<a
+<li id="ref-6"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1988-22.pdf"><em>On the
+irrationality of certain series: problems and results</em></a>, in
+A. Baker (ed.), <em>New Advances in Transcendence Theory</em>, Cambridge
+UP, 1988, pp. 102–109, doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
-<li id="ref-6"><p>V. Kovač and T. Tao, <a
-href="https://arxiv.org/abs/2406.17593"><em>On several irrationality
+<li id="ref-7"><p>V. Kovač and T. Tao, <a
+href="https://arxiv.org/abs/2406.17593v4"><em>On several irrationality
 problems for Ahmes series</em></a>, Acta Math. Hungar.
-<strong>175</strong> (2025), 572–608; preprint
-arXiv:2406.17593v4.</p></li>
-<li id="ref-7"><p>W. van Doorn, Y. Li and Q. Tang, <a
+<strong>175</strong> (2025), no. 2, 572–608, doi:<a
+href="https://doi.org/10.1007/s10474-025-01528-0">10.1007/s10474-025-01528-0</a>;
+arXiv:<a href="https://arxiv.org/abs/2406.17593v4">2406.17593v4</a>.
+Page references are to arXiv:2406.17593v4.</p></li>
+<li id="ref-8"><p>I. O. Bado, <em>Prime-Support Rigidity and Primitive
+Pseudo-Greedy Dynamics: Partial Progress on Erdős Problem #243</em>,
+preprint posted September 2026, doi:<a
+href="https://doi.org/10.13140/RG.2.2.36612.08325">10.13140/RG.2.2.36612.08325</a>.</p></li>
+<li id="ref-9"><p>P. White with Claude (Anthropic), <a
+href="https://erdosproblemaday.com/report/243"><em>Erdős #243: working
+report</em></a>, Erdős Problem a Day, page dated 12 August 2026,
+accessed 16 September 2026. An AI-assisted working report; it has not
+been refereed.</p></li>
+<li id="ref-10"><p>P. Stevenhagen and H. W. Lenstra, Jr., <a
+href="https://pub.math.leidenuniv.nl/~lenstrahw/PUBLICATIONS/1994c/art.pdf"><em>Chebotarëv
+and his density theorem</em></a>, Math. Intelligencer
+<strong>18</strong> (1996), no. 2, 26–37, doi:<a
+href="https://doi.org/10.1007/BF03027290">10.1007/BF03027290</a>. Page
+references are to the linked author version dated 23 March
+1995.</p></li>
+<li id="ref-11"><p>W. van Doorn, Y. Li and Q. Tang, <a
 href="https://arxiv.org/abs/2603.28636"><em>Optimal bounds for an Erdős
 problem on matching integers to distinct multiples</em></a>, preprint
 arXiv:2603.28636v1, 2026.</p></li>
-<li id="ref-8"><p>J. Koizumi, <a
+<li id="ref-12"><p>J. Koizumi, <a
 href="https://math.colgate.edu/~integers/aa28/aa28.pdf"><em>Irrationality
 of the reciprocal sum of doubly exponential sequences</em></a>, Integers
 <strong>26</strong> (2026), Paper No. A28, 17 pp., doi:<a
 href="https://doi.org/10.5281/zenodo.18714404">10.5281/zenodo.18714404</a>;
-preprint arXiv:2504.05933v1. Locators follow the published article; the
-arXiv v1 crosswalk is recorded in the source-closure note.</p></li>
-<li id="ref-9"><p>J. Koizumi and A. Yokoi, <a
-href="https://arxiv.org/abs/2608.26918"><em>Apéry-type approximations
-and irrationality measures for certain <span
-class="math inline" data-term-auto="off">\(q\)</span>-series</em></a>, preprint
-arXiv:2608.26918v1, 2026.</p></li>
-<li id="ref-10"><p>T. F. Bloom, <a
+preprint arXiv:2504.05933v1. Locators follow the published
+article.</p></li>
+<li id="ref-13"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/243"><em>Erdős Problem
 #243</em></a>, <code>erdosproblems.com/243</code>, accessed 28 July 2026
 (page displays “last edited 21 January 2026”). The current record labels
@@ -4064,7 +4144,7 @@ the problem open, cites <code>[ErGr80, p. 64]</code> and
 <code>[Er88c, p. 105]</code>, and explicitly describes its status as the
 website owner’s present assessment rather than a literature-completeness
 guarantee.</p></li>
-<li id="ref-11"><p>The Formal Conjectures Authors, <a
+<li id="ref-14"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/243.lean"><em>FormalConjectures.ErdosProblems.<code>243</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July 2026.
 Its <span class="math inline" data-term-auto="off">\(\Q\)</span>-valued <code>Summable</code>

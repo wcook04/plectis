@@ -25,7 +25,11 @@ rests on the implication</p>
 S=a/q,\quad q\mid(m-1)!,\quad m\ge3
 \quad\Longrightarrow\quad b_m=1.\label{eq:finite-denominator-consumer}
 \end{equation}\]</span></div>
-<p>Indeed, <span
+<p>Its proof is the factorial-tail integrality
+argument that Hančl and Tijdeman use for factorial series with integer
+coefficients <span class="citation" data-cites="hancl-tijdeman"><a href="#ref-6">[6]</a></span>;
+for the denominators <span class="math inline" data-term-auto="off">\(n!-1\)</span> the tail
+estimate is proved directly. Indeed, <span
 class="math inline" data-term-auto="off">\(0&lt;m!(S-H_m)&lt;1\)</span>, by comparison with
 the telescoping series <span
 class="math inline" data-term-auto="off">\(\sum_{n&gt;m}(n-1)/n!=1/m!\)</span>. Thus <span
@@ -50,9 +54,10 @@ class="math inline" data-term-auto="off">\(599998\)</span> satisfies the divisib
 restriction and fails the size restriction, whereas <span
 class="math inline" data-term-auto="off">\(299999!\)</span> does the reverse. Both
 conclusions are finite; they do not decide the irrationality question
-posed by Erdős <span class="citation"
-data-cites="erdos1988 bloom"><a href="#ref-1">[1]</a><a href="#ref-2">[2]</a></span>. Their computational certificates
-are specified in §<a class="math-ref" href="#sec:finite">8</a>.</p>
+posed by Erdős <span class="citation" data-cites="erdos1988"><a href="#ref-1">[1]</a></span> and
+listed in Bloom’s catalogue <span class="citation"
+data-cites="bloom"><a href="#ref-2">[2]</a></span>. Their computational certificates are
+specified in §<a class="math-ref" href="#sec:finite">8</a>.</p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos68/FactorialChannelCertificate.lean#L65">Adjacent
 factorial differences affect exactly their divisor channels</a>. This
@@ -84,6 +89,17 @@ contributes residue <span class="math inline" data-term-auto="off">\(1\)</span> 
 class="math inline" data-term-auto="off">\(m\)</span>; its positive tail removes another unit
 on taking the floor. This accounts for the distinguished residue <span
 class="math inline" data-term-auto="off">\(-2\)</span> in the following theorem.</p>
+<p>Canonical factorial digits come from Cantor’s factorial expansion
+<span class="citation" data-cites="cantor1869"><a href="#ref-3">[3]</a></span>, in which a real
+number is rational exactly when its digits vanish from some index on.
+Galambos treats the rationality of Cantor series in <span
+class="citation" data-cites="galambos1976"></span>, and Koepf and
+Schmersau prove the irrationality direction for nonterminating factorial
+expansions whose digits are not eventually maximal <span
+class="citation" data-cites="koepf-schmersau"></span>. The following
+theorem is the analogue for the companion <span
+class="math inline" data-term-auto="off">\(C=S-e+2\)</span>, whose distinguished digit is
+<span class="math inline" data-term-auto="off">\(m-2\)</span>.</p>
 <div class="theorem" id="res:companion-orbit-rationality-boundary">
 <p><strong>Theorem 2.1</strong> (fixed companion-orbit rationality
 boundary). <em> The following statements are equivalent:</em></p>
@@ -187,18 +203,15 @@ b_m=m-1-d_m(C)+\sigma_m-m\sigma_{m-1}.
 \end{equation}\]</span></div>
 <p>This identity is unconditional. A
 floor-stability hypothesis is required only to discard the two wrap
-terms. Equality in the defining comparison is the no-wrap case.
-Canonical factorial expansions and their rationality criterion are
-classical <span class="citation"
-data-cites="cantor1869 galambos1976"><a href="#ref-3">[3]</a><a href="#ref-4">[4]</a></span>. For an integer-coefficient
-factorial series, the standard tail-integrality argument appears in
-Hančl and Tijdeman <span class="citation"
-data-cites="hancl-tijdeman"><a href="#ref-5">[5]</a></span>: a rational sum has integral
-normalized tails once its denominator divides the preceding factorial.
-Their subsequent finite-difference criteria impose regularity on the
-coefficients. In the present series the denominators are <span
-class="math inline" data-term-auto="off">\(n!-1\)</span>; the companion expansion and the two
-wrap terms in <a class="math-ref" data-equation-ref="true" href="#eq:companion-wrap">eq:companion-wrap</a> account for
+terms. Equality in the defining comparison is the no-wrap case. For a
+factorial series <span class="math inline" data-term-auto="off">\(\sum b_n/n!\)</span> with
+integer coefficients, a rational sum has integral normalised tails once
+its denominator divides the preceding factorial <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-6">[6]</a></span>, and Hančl and Tijdeman classify the
+rational sums with polynomial coefficients <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-6">[6]</a></span>. In the present series the
+denominators are <span class="math inline" data-term-auto="off">\(n!-1\)</span>; the
+companion expansion and the two wrap terms in <a class="math-ref" data-equation-ref="true" href="#eq:companion-wrap">eq:companion-wrap</a> account for
 that change.</p>
 <div class="theorem" id="res:carry-characterization"><span class="tex-label" id="res:strict-successor-complete-characterization" hidden></span>
 <p><strong>Theorem 2.2</strong> (exact carry characterisation). <em> The
@@ -549,11 +562,21 @@ partial sums and bounds no reduced denominator of a rational
 representation of the series. The finite-block inequality has a separate
 Lean source, <a
 href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529">finite
-terminal-block inequality</a>. For a terminal block of <span
-class="math inline" data-term-auto="off">\(k\)</span> terms, the product–lcm–gcd inequality
-and <span class="math inline" data-term-auto="off">\(\gcd(i!-1,j!-1)\mid j!/i!-1\)</span>
-give</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\log L_N\ge\sum_{n=N-k+1}^N\log(n!-1)
+terminal-block inequality</a>. The divisibility <span
+class="math inline" data-term-auto="off">\(\gcd(i!-1,j!-1)\mid j!/i!-1\)</span> follows on
+multiplying <span class="math inline" data-term-auto="off">\(i!-1\)</span> by <span
+class="math inline" data-term-auto="off">\(j!/i!\)</span> and subtracting <span
+class="math inline" data-term-auto="off">\(j!-1\)</span>. It is the case <span
+class="math inline" data-term-auto="off">\(P=-1\)</span> of the subtraction for <span
+class="math inline" data-term-auto="off">\(n!+P(n)\)</span> that Luca and Shparlinski use in
+the proof of their Lemma 5 <span class="citation"
+data-cites="luca-shparlinski"><a href="#ref-9">[9]</a></span> and that Lai uses for a common
+prime-power divisor <span class="citation" data-cites="lai"><a href="#ref-8">[8]</a></span>. For
+a terminal block of <span class="math inline" data-term-auto="off">\(k\)</span> terms, the
+product–lcm–gcd inequality and <span
+class="math inline" data-term-auto="off">\(\gcd(i!-1,j!-1)\mid j!/i!-1\)</span> give</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\log L_N\ge\sum_{n=N-k+1}^N\log(n!-1)
 -\binom{k+1}{3}\log N.\]</span></div>
 <p>Taking <span
 class="math inline" data-term-auto="off">\(k=\lfloor\alpha\sqrt N\rfloor\)</span> gives
@@ -567,10 +590,10 @@ N}(n!+P(n))\)</span>. Here <span class="math inline" data-term-auto="off">\(n_0\
 chosen so that every factor exceeds <span
 class="math inline" data-term-auto="off">\(1\)</span> and every collision difference below is
 nonzero. Such a cutoff exists by <span class="citation"
-data-cites="lai"><a href="#ref-7">[7]</a></span>, where Lai adds the bound <span
+data-cites="lai"><a href="#ref-8">[8]</a></span>, where Lai adds the bound <span
 class="math inline" data-term-auto="off">\(n!+P(n)&gt;1\)</span> to the nonvanishing
 statement of Lemma 3 of Luca and Shparlinski <span class="citation"
-data-cites="luca-shparlinski"><a href="#ref-8">[8]</a></span>. The lower cutoff matters: <span
+data-cites="luca-shparlinski"><a href="#ref-9">[9]</a></span>. The lower cutoff matters: <span
 class="math inline" data-term-auto="off">\(P=-2\)</span> makes the factor at <span
 class="math inline" data-term-auto="off">\(n=2\)</span> vanish. Multiplying the factor at
 <span class="math inline" data-term-auto="off">\(i\)</span> by <span
@@ -579,17 +602,14 @@ class="math inline" data-term-auto="off">\(j\)</span> gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\gcd(i!+P(i),j!+P(j))\mid
 P(j)-(j!/i!)P(i).\]</span></div>
-<p>The same subtraction bounds a common divisor
-in the proof of Lemma 5 of Luca and Shparlinski <span class="citation"
-data-cites="luca-shparlinski"><a href="#ref-8">[8]</a></span>, and a common prime-power divisor
-at display (2.5) of Lai <span class="citation" data-cites="lai"><a href="#ref-7">[7]</a></span>.
-For <span class="math inline" data-term-auto="off">\(n_0\le i&lt;j\le N\)</span> the right
-side is a nonzero integer of absolute value <span
-class="math inline" data-term-auto="off">\(O_P(N^{\,j-i+\deg P})\)</span>, so the block loses
-an additional <span class="math inline" data-term-auto="off">\(O_P(k^2\log N)\)</span>, which
-is lower order. For <span class="math inline" data-term-auto="off">\(P=0\)</span>, the lcm is
-only <span class="math inline" data-term-auto="off">\(N!\)</span>. These are
-common-denominator estimates. Consecutive denominators <span
+<p>For <span class="math inline" data-term-auto="off">\(n_0\le
+i&lt;j\le N\)</span> the right side is a nonzero integer of absolute
+value <span class="math inline" data-term-auto="off">\(O_P(N^{\,j-i+\deg P})\)</span>, so the
+block loses an additional <span class="math inline" data-term-auto="off">\(O_P(k^2\log
+N)\)</span>, which is lower order. For <span
+class="math inline" data-term-auto="off">\(P=0\)</span>, the lcm is only <span
+class="math inline" data-term-auto="off">\(N!\)</span>. These are common-denominator
+estimates. Consecutive denominators <span
 class="math inline" data-term-auto="off">\((N-1)!-1\)</span> and <span
 class="math inline" data-term-auto="off">\(N!-1\)</span> are already coprime for <span
 class="math inline" data-term-auto="off">\(N\ge3\)</span>, so the qualitative failure of
@@ -657,16 +677,23 @@ that the bound may be divided by a product <span
 class="math inline" data-term-auto="off">\(\Phi_n\)</span> of prime powers <span
 class="citation" data-cites="lai-lupu-sprang"></span>. The growth rate
 of <span class="math inline" data-term-auto="off">\(\Phi_n\)</span> <span class="citation"
-data-cites="lai-lupu-sprang"><a href="#ref-9">[9]</a></span> enters the inequality <span
+data-cites="lai-lupu-sprang"><a href="#ref-10">[10]</a></span> enters the inequality <span
 class="citation" data-cites="lai-lupu-sprang"></span> under which the
 rescaled forms, which have integer coefficients, meet the irrationality
-criterion quoted in <span class="citation"
-data-cites="lai-lupu-sprang"><a href="#ref-9">[9]</a></span>: nonzero values whose <span
+criterion <span class="citation" data-cites="lai-lupu-sprang"><a href="#ref-10">[10]</a></span>
+that they quote from Lai <span class="citation"
+data-cites="lai-2adic"><a href="#ref-11">[11]</a></span>: nonzero values whose <span
 class="math inline" data-term-auto="off">\(p\)</span>-adic size, multiplied by the largest
 absolute value of a coefficient, tends to zero. For the prefix sums no
 asymptotic saving of this kind is established here; the first-layer test
 below decides, one prime at a time, whether the largest power of that
-prime survives reduction. Put <span
+prime survives reduction. This paragraph compares the two methods; no
+<span class="math inline" data-term-auto="off">\(p\)</span>-adic theorem is applied to <span
+class="math inline" data-term-auto="off">\(S\)</span>.</p>
+<p>The test is the top valuation layer of the reciprocal-sum valuation
+formula of Louwsma and Martino <span class="citation"
+data-cites="louwsma-martino"><a href="#ref-7">[7]</a></span>, written out here for the
+denominators <span class="math inline" data-term-auto="off">\(n!-1\)</span>. Put <span
 class="math inline" data-term-auto="off">\(L_M=\operatorname{lcm}_{2\le n\le
 M}(n!-1)\)</span> and <span class="math inline" data-term-auto="off">\(A_M=\sum_{n=2}^M
 L_M/(n!-1)\)</span>. For a prime <span class="math inline" data-term-auto="off">\(q\)</span>
@@ -690,11 +717,10 @@ v_q(\operatorname{den}H_M)=e
 <p>The equivalence, with the maximum and its
 attainment taken from the actual prefix lcm, is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompletePrimePole.lean#L118">maximal
-prime power survival</a>. This first-layer test is a consequence of the
-general reciprocal-sum valuation formula of Louwsma and Martino <span
-class="citation" data-cites="louwsma-martino"></span>.</p>
-<p>The actual factorial-gap examples show why the weights matter. At
-<span class="math inline" data-term-auto="off">\(M=138\)</span>, the maximal <span
+prime power survival</a>.</p>
+<p>The following factorial-gap examples come from an exact modular scan;
+they show why the weights matter. At <span
+class="math inline" data-term-auto="off">\(M=138\)</span>, the maximal <span
 class="math inline" data-term-auto="off">\(139\)</span>-hits are <span
 class="math inline" data-term-auto="off">\(69,122,137\)</span>, with cofactor residues <span
 class="math inline" data-term-auto="off">\(6,49,73\)</span>, and</p>
@@ -857,16 +883,25 @@ class="math inline" data-term-auto="off">\(b_{300000}\ne1\)</span>, yielding <sp
 class="math inline" data-term-auto="off">\(q\nmid299999!\)</span> by <a class="math-ref" data-equation-ref="true" href="#eq:finite-denominator-consumer">eq:finite-denominator-consumer</a>.
 This excludes every divisor of that factorial, including large divisors.
 It does not exclude all integers with small prime factors, since their
-multiplicities can be too large.</p>
+multiplicities can be too large. The range through <span
+class="math inline" data-term-auto="off">\(300000\)</span> rests on the retained GMP receipt
+and lies outside the Lean development. The long record gives the
+receipt’s digests and a separate replay through <span
+class="math inline" data-term-auto="off">\(4000\)</span>; a byte-identical regeneration of
+the full-range receipt with the current driver is outstanding.</p>
 <p>The separate <span class="math inline" data-term-auto="off">\(80000\)</span>-bit exact
 rational enclosure forces <span class="math inline" data-term-auto="off">\(23449\)</span>
-common continued-fraction partial quotients. Its best-approximation
-certificate gives <span
-class="math inline" data-term-auto="off">\(q\ge2^{39990}&gt;10^{12038}\)</span>. The
-open-versus-closed complete-quotient endpoint convention matters for a
-sharper extraction; no stronger numerical floor is asserted here. The
-exact sources, enclosure and integer-computation receipts are retained
-with the long record. Neither finite calculation supplies <a class="math-ref" data-equation-ref="true" href="#eq:canonical-open-target">eq:canonical-open-target</a>.</p>
+common continued-fraction partial quotients. The continued-fraction
+recurrences, determinant identity and fractional transformation <span
+class="citation" data-cites="nist-dlmf"></span> turn this common prefix
+into the bound <span
+class="math inline" data-term-auto="off">\(q\ge2^{39990}&gt;10^{12038}\)</span>; the
+enclosure, the prefix length and the exponent are outputs of the
+computation. The open-versus-closed complete-quotient endpoint
+convention matters for a sharper extraction; no stronger numerical floor
+is asserted here. The exact sources, enclosure and integer-computation
+receipts are retained with the long record. Neither finite calculation
+supplies <a class="math-ref" data-equation-ref="true" href="#eq:canonical-open-target">eq:canonical-open-target</a>.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
@@ -1130,38 +1165,54 @@ href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009
 href="https://www.erdosproblems.com/68"
 class="uri">https://www.erdosproblems.com/68</a>, accessed 28 July
 2026.</p></li>
-<li id="ref-3"><p>G. Cantor, <em>Über die einfachen Zahlensysteme</em>, Z. Math.
-Phys. <strong>14</strong> (1869), 121–128.</p></li>
+<li id="ref-3"><p>G. Cantor, <em>Über die einfachen Zahlensysteme</em>,
+Z. Math. Phys. <strong>14</strong> (1869), 121–128.</p></li>
 <li id="ref-4"><p>J. Galambos, <em>Representations of Real Numbers by Infinite
-Series</em>, Lecture Notes in Math. <strong>502</strong>, Springer,
-1976, Chapter 1.</p></li>
-<li id="ref-5"><p>J. Hančl and R. Tijdeman, <em>On the irrationality of factorial
-series</em>, Acta Arith. <strong>118</strong> (2005), 383–401, doi:<a
+Series</em>, Lecture Notes in Math. <strong>502</strong>, Springer,
+1976, doi:<a
+href="https://doi.org/10.1007/BFb0081642">10.1007/BFb0081642</a>.
+Chapter II, §2.1, pp. 21–22.</p></li>
+<li id="ref-5"><p>W. Koepf and D. Schmersau, <em>Irrationality of certain infinite
+series II</em>, Analysis <strong>31</strong> (2011), 117–124, doi:<a
+href="https://doi.org/10.1524/anly.2011.1094">10.1524/anly.2011.1094</a>.
+Example 3.2, p. 121.</p></li>
+<li id="ref-6"><p>J. Hančl and R. Tijdeman, <em>On the irrationality of factorial
+series</em>, Acta Arith. <strong>118</strong> (2005), no. 4, 383–401,
+doi:<a
 href="https://doi.org/10.4064/aa118-4-5">10.4064/aa118-4-5</a>.</p></li>
-<li id="ref-6"><p>J. Louwsma and J. Martino, <em>Rational numbers with odd greedy
+<li id="ref-7"><p>J. Louwsma and J. Martino, <em>Rational numbers with odd greedy
 expansion of fixed length</em>, arXiv:<a
-href="https://arxiv.org/abs/2309.07280">2309.07280v1</a>, 2023,
+href="https://arxiv.org/abs/2309.07280v1">2309.07280v1</a>, 2023,
 Lemma 4.1, p. 10.</p></li>
-<li id="ref-7"><p>L. Lai, <em>On the largest prime divisor of <span
+<li id="ref-8"><p>L. Lai, <em>On the largest prime divisor of <span
 class="math inline" data-term-auto="off">\(n!+1\)</span></em>,
 Bull. Aust. Math. Soc. <strong>113</strong> (2026), no. 3, 390–403,
 doi:<a
 href="https://doi.org/10.1017/S0004972725100543">10.1017/S0004972725100543</a>;
-arXiv:<a href="https://arxiv.org/abs/2103.14894">2103.14894</a>.
+arXiv:<a href="https://arxiv.org/abs/2103.14894v1">2103.14894v1</a>.
 Lemma 2.1, p. 392; display (2.5) in the proof of Lemma 2.4,
 p. 394.</p></li>
-<li id="ref-8"><p>F. Luca and I. E. Shparlinski, <em>Prime divisors of shifted
+<li id="ref-9"><p>F. Luca and I. E. Shparlinski, <em>Prime divisors of shifted
 factorials</em>, Bull. London Math. Soc. <strong>37</strong> (2005),
 no. 6, 809–817, doi:<a
 href="https://doi.org/10.1112/S0024609305004923">10.1112/S0024609305004923</a>.
 Lemma 3, p. 810; proof of Lemma 5, p. 811.</p></li>
-<li id="ref-9"><p>L. Lai, C. Lupu, and J. Sprang, <em>On the irrationality of
+<li id="ref-10"><p>L. Lai, C. Lupu, and J. Sprang, <em>On the irrationality of
 certain <span class="math inline" data-term-auto="off">\(p\)</span>-adic zeta values</em>,
 Res. Math. Sci. <strong>12</strong> (2025), no. 4, Paper No. 77, doi:<a
 href="https://doi.org/10.1007/s40687-025-00559-x">10.1007/s40687-025-00559-x</a>;
 arXiv:<a href="https://arxiv.org/abs/2505.23088v1">2505.23088v1</a>.
-Numbered as in arXiv v1: Lemma 2.1, p. 3; §5, pp. 10–14; Lemma 7.3,
-p. 20; (8.1), p. 22.</p></li>
+Numbered as in arXiv v1: Lemma 2.1, p. 3; Lemmas 5.3–5.7, pp. 10–14;
+Lemma 7.3, p. 20; (8.1), p. 22.</p></li>
+<li id="ref-11"><p>L. Lai, <em>On the irrationality of certain <span
+class="math inline" data-term-auto="off">\(2\)</span>-adic zeta values</em>, Int. J. Number
+Theory <strong>21</strong> (2025), no. 1, 207–235; arXiv:<a
+href="https://arxiv.org/abs/2304.00816v1">2304.00816v1</a>. Numbered as
+in arXiv v1: Lemma 2.1, p. 4.</p></li>
+<li id="ref-12"><p>NIST Digital Library of Mathematical Functions, §1.12(ii),
+<em>Convergents</em>, <a href="https://dlmf.nist.gov/1.12"
+class="uri">https://dlmf.nist.gov/1.12</a>, accessed 15 September
+2026.</p></li>
 </ol>
 </section>
   </div>

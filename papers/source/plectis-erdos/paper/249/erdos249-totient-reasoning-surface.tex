@@ -253,20 +253,29 @@ below explain several ways that a passage from coefficient structure to the
 sum can fail. Each excludes its stated assumptions; they do not establish a
 single obstruction theorem covering all possible methods.
 
-\begin{rem}[Literature coordinates]
-The nearby literature serves three distinct roles.  Kova\v{c}--Tao's
-\href{https://arxiv.org/abs/2406.17593v4}{Ahmes-series paper} maps a broader
-Lambert-subseries landscape, but does not treat the coefficient series $S$.
-Merca's \href{https://doi.org/10.1007/s11139-016-9856-3}{Lambert-series
-factorization theorem} and the
-\href{https://doi.org/10.55016/ojs/cdm.v14i1.62425}{Merca--Schmidt}
-factor-pair formalism provide transform background for the
-M\"obius--Mersenne coordinate.  Finally,
-\href{https://arxiv.org/abs/1511.02221}{Balasubramanian--Giri--Srivastav,
-Theorem~2.2} gives uniform shifted-correlation estimates for the relevant
-divisor-convolution class.  It does not supply the dyadic residue small-ball
-or phase anti-concentration required by $\mathrm{Sep}$.  These are contextual
-or method sources, not proofs of the open certificate supply. \ev{Cited}
+\begin{rem}[Literature]
+Erd\H{o}s and Graham record the irrationality of $S$ as probably hopeless to
+prove at present~\cite[p.~61]{erdosgraham1980}.  Coons proved that $\varphi$
+is not $k$-regular for any $k\ge2$~\cite[Theorem~3.2]{coons}, and Martin's
+Theorem~1 implies that the functions $n\mapsto\varphi(a_in+b_i)$ are linearly
+independent for pairwise nonproportional affine forms with positive integer
+slopes~\cite[Theorem~1]{martin-phi-inequalities}; the exact kernel ranks of
+\S\ref{sec:mahler-defect} refine both.  Erick Wong posted a proof that
+$\sum_{n\ge1}(\varphi(n)\bmod k)k^{-n}$ is irrational for every integer $k>2$
+on Mathematics Stack Exchange on 29 March 2015~\cite{wong2015}; there the base
+equals the modulus.  The M\"obius-square form of $S$ and its coprimality
+interpretation were posted publicly before this record, as credited in
+\S\ref{ssec:coprime}.  Kova\v{c} and Tao show that suitable subsums of Lambert
+series in distinct integer bases can be rational~\cite[Theorem~2.3]{kovac-tao};
+the freedom to choose those subsums is absent for $S$.  The Lambert-series
+factorisations of Merca~\cite[Theorem~1.2]{merca2017} and of Merca and
+Schmidt~\cite{merca-schmidt} are transform background for the
+M\"obius--Mersenne coordinate.  Balasubramanian, Giri and Srivastav prove
+asymptotics for shifted convolutions of the divisor-convolution class that
+contains $\varphi(n)/n$~\cite[Theorem~2.2]{bgs2016}; that theorem does not
+supply the dyadic residue small-ball or phase anti-concentration required by
+$\mathrm{Sep}$.  The remaining sources are cited where their hypotheses are
+used. \ev{Cited}
 \end{rem}
 
 The open question has a sharp equivalent inside the corpus, and it is the
@@ -1353,6 +1362,13 @@ extrapolate.
 The exact finite Farey record behind Theorem~\ref{thm:denom-record} is not tied to
 the $\varphi(n)/2^n$ presentation of $S$; it transfers verbatim to two other
 exact reformulations of the same constant, at exactly half the bound.
+Amiram Eldar posted both reformulations to OEIS A256936 on 15 March 2026: an
+equivalent coprimality interpretation of Proposition~\ref{prop:coprime} in
+revision~28, and the M\"obius-square formula of Proposition~\ref{prop:mobsq}
+in revision~31~\cite{eldar2026oeis}.  Steve Fan posted the M\"obius-square
+formula on the problem's forum thread on 16 May 2026~\cite{fan2026totient}.
+Both identities follow here from M\"obius inversion and geometric sums, with
+the proofs recorded in the linked declarations.
 
 \begin{prop}[Fair-coin coprimality form]
 \label{prop:coprime}
@@ -1443,11 +1459,11 @@ the single reduced target every other result in this subsection and
 The identity of Proposition~\ref{prop:mobsq} rewrites $S$ (equivalently $T$)
 as a \emph{M\"obius-twisted Lambert-squared series}: the numerator weight
 $\mu(d)$ is bounded, $|\mu(d)|\le1$ for every $d$, uniformly in $d$. This
-places $T$ in exactly the coefficient regime of the classical Erd\H{o}s (1948)
-near-integer irrationality criterion and of the level-1 sibling identity
-$L(\mu):=\sum_d \mu(d)/(2^d-1) = \tfrac12$ (rational, trivially) alongside
-$L(1) = \sum_d 1/(2^d-1) = E$, the Erd\H{o}s--Borwein constant, which
-\emph{is} proved irrational in this same kernel
+places $T$ beside the level-1 sibling identity
+$L(\mu):=\sum_d \mu(d)/(2^d-1) = \tfrac12$ (rational, trivially) and
+$L(1) = \sum_d 1/(2^d-1) = E$, the Erd\H{o}s--Borwein constant, whose
+irrationality Erd\H{o}s proved in 1948~\cite{erdos1948lambert} and which
+\emph{is} also proved irrational in this same kernel
 (\lean{irrational_erdosBorwein_series}{CertificateKernel.lean:8335}, \ev{Lean}).
 
 \par\medskip
@@ -1457,15 +1473,18 @@ This is the opposite regime from Proposition~\ref{prop:shift}'s
 $0\le\varphi(n)\le n$ and is unbounded.  The function $\varphi$ has average
 order $6n/\pi^2$, equivalently
 $\sum_{k\le x}\varphi(k)\sim 3x^2/\pi^2$, but there is no pointwise estimate
-$\varphi(n)=\Theta(n)$. A
-near-integer/Dirichlet-approximation argument of Erd\H{o}s-1948 shape
+$\varphi(n)=\Theta(n)$. A near-integer irrationality criterion
 (formalised generically as
 \lean{irrational_of_int_mul_near_int}{CertificateKernel.lean:6120} and its
 base-power specialisation
 \lean{irrational_of_pow_mul_near_int}{CertificateKernel.lean:6149}, both
-\ev{Lean}, \coord{n/a}, fully coordinate-free) has a genuine chance of
-transferring to $T$ precisely because its weight is bounded, in a way it does
-not have a chance of transferring directly to the raw $\varphi(n)/2^n$ series.
+\ev{Lean}, \coord{n/a}, fully coordinate-free) applies more plausibly to $T$,
+whose weight is bounded, than to the raw $\varphi(n)/2^n$ series.
+Erd\H{o}s's 1948 argument is itself a proof for the specific Lambert series:
+it chooses arguments by a system of congruences so that the divisor counts
+along a block are divisible by increasing powers of the base, and a tail bound
+then forces a long run of zero digits~\cite[pp.~63--66]{erdos1948lambert}.
+Boundedness of a signed weight supplies none of that divisibility input.
 
 \par\medskip
 
@@ -1488,6 +1507,12 @@ For $w:\mathbb{N}\to\mathbb{R}$ with $|w(d)|\le d$ for all $d>0$, and $0\le r<1$
 \lean{tsum_lambert_linear_weight_sq_pure}{GcdMomentCalculus.lean:105}
 \end{prop}
 
+\noindent The identity follows by expanding $r^d/(1-r^d)$ as a geometric
+series and interchanging absolutely convergent sums.  It is the squared
+analogue of the classical divisor-sum Lambert identity
+$\sum_na_nq^n/(1-q^n)=\sum_m\bigl(\sum_{d\mid m}a_d\bigr)q^m$~\cite[(1),
+p.~2]{merca-schmidt}.
+
 This one identity, at $r=1/2$, specialises to every squared-Lambert rung the
 corpus computes; two instances are exact and directly relevant to \#249's
 weight structure:
@@ -1498,9 +1523,14 @@ weight structure:
 \sum_{d\ge1} \frac{1}{(2^d-1)^2} \;=\; \sum_{n\ge1} \frac{\sigma(n)-\tau(n)}{2^n} \;=\; \zeta_q(2)-\zeta_q(1) \text{ at } q=\tfrac12,
 \]
 where $\sigma$ is the sum-of-divisors function and $\tau$ the number-of-divisors
-function. The \emph{identity} is machine-checked (\ev{Lean}); irrationality of
-the \emph{value} $\zeta_q(2)-\zeta_q(1)$ is \ev{Cited} (Postelmans--Van Assche
-$q$-Pad\'e), \emph{not} formalised in this corpus.
+function. The \emph{identity} is machine-checked (\ev{Lean}).  With
+$\zeta_q(s)=\sum_{n\ge1}n^{s-1}q^n/(1-q^n)$, Postelmans and Van Assche prove
+that $1,\zeta_q(1),\zeta_q(2)$ are linearly independent over $\mathbb{Q}$ for
+$q=1/p$ with an integer $p\ge2$~\cite[Theorem~1.3, p.~3]{postelmans-vanassche};
+at $q=\tfrac12$ this gives the irrationality of the \emph{value}
+$\zeta_q(2)-\zeta_q(1)$ (\ev{Cited}, \emph{not} formalised in this corpus).
+Two irrational numbers can have a rational difference, so the separate
+irrationality of the two values would not suffice.
 \coord{mobius-mersenne} \scale{n/a}
 \lean{tsum_one_div_mersenne_sq_eq_sigma_sub_tau_series}{GcdMomentCalculus.lean:216}
 \end{prop}
@@ -1511,7 +1541,8 @@ $q$-Pad\'e), \emph{not} formalised in this corpus.
 \sum_{d\ge1} \frac{\varphi(d)}{(2^d-1)^2} \;=\; \sum_{n\ge1} \bigl(P(n)-n\bigr)\cdot 2^{-n} \;=\; \mathbb{E}[\gcd(X,Y)],
 \]
 where $P(n) := \sum_{e\mid n}\varphi(e)\cdot(n/e) = (\varphi * \mathrm{Id})(n)$
-is Pillai's gcd-sum function and $X,Y$ are the independent fair-coin waiting
+is Pillai's gcd-sum function $P(n)=\sum_{k\le n}\gcd(k,n)$~\cite[\S1,
+(1)--(2)]{toth-gcd} and $X,Y$ are the independent fair-coin waiting
 times of Proposition~\ref{prop:coprime}. The identity itself is
 machine-checked (\ev{Lean}); the value $\mathbb{E}[\gcd(X,Y)]$ is \ev{Open} ---
 a cousin rung to \#249, not \#249 itself.
@@ -1984,6 +2015,13 @@ These identities are exact and generic: no coprimality is assumed and no channel
 \par\noindent\ev{Lean} \scale{uniform} \coord{mobius-mersenne} \lean{scaledMobiusShadow\_eq\_radicalBase}{RadicalMobiusShadow.lean:125} \lean{baseMobiusShadow\_den}{RadicalMobiusShadow.lean:150}
 \end{prop}
 
+\noindent The constant in mob:b4 is the value of the gcd word at a primitive
+$m$-th root of unity.  Since the $X^k$ coefficient of that word depends only on
+$\gcd(k,r)$, the value is a discrete Fourier coefficient of a function of the
+greatest common divisor, which Schramm expresses through Ramanujan
+sums~\cite[Theorem and (2), p.~2]{schramm-gcd}; mob:b4 specialises this to the
+present numerator polynomial and proves the integral cyclotomic consequence.
+
 \begin{prop}[mob:b4 --- cyclotomic congruence, T2, \texttt{cyclotomic\_dvd\_mobiusNumeratorPolynomial\_sub}]
 For $r$ squarefree, $m \mid r$: $\Phi_m \mid \big(\mathrm{mobiusNumeratorPolynomial}(r) - C(\mu(m)\cdot J_2(r/m))\big)$ in $\mathbb{Z}[X]$, where $J_2 = \mu * \mathrm{id}^2$ is the Jordan totient. Evaluated: $\mathrm{cyclotomicEval}(m) \mid \mathrm{mobiusNumerator}(r) - \mu(m)\cdot J_2(r/m)$. Every cyclotomic fibre $\Phi_m(2)$ of the numerator is congruent to an explicit constant depending only on $\mu(m)$ and the Jordan totient of the cofactor. Setting $m=r$ gives mob:b5 (top fibre survives).
 \par\noindent\ev{Lean} \scale{uniform} \coord{cyclotomic} \lean{cyclotomic\_dvd\_mobiusNumeratorPolynomial\_sub}{CyclotomicProjectionOfShadow.lean:299} \lean{mobiusNumerator\_mod\_cyclotomicEval}{CyclotomicProjectionOfShadow.lean:310}
@@ -2017,7 +2055,7 @@ Weight $f$ & Value $L(f)$ & Status \\
 \endfirsthead
 $\mu$ & $L(\mu) = 1/2$ & rational, trivial \\
 $\varphi$ & $L(\varphi) = 2$ & rational \\
-$\mathrm{Id}$ & $L(\mathrm{Id}) = \sum_m \sigma(m)/2^m$ & transcendental (Nesterenko 1996, \ev{Cited}, not formalised) \\
+$\mathrm{Id}$ & $L(\mathrm{Id}) = \sum_m \sigma(m)/2^m$ & transcendental, since $1-24L(\mathrm{Id})$ is Ramanujan's $P(1/2)$ (Nesterenko~\cite[Cor.~2, p.~1320]{nesterenko1996}, \ev{Cited}, not formalised) \\
 $1$ & $L(1) = \mathcal{E}$, Erd\H{o}s--Borwein constant & irrational, \ev{Lean} (\nolinkurl{irrational_erdosBorwein_series}, \codeid{CertificateKernel.lean:8007}) — matches \#257's full-support case \\
 $A = \varphi*\mu$ & $L(A) = S$ & \textbf{OPEN} — this is \#249 \\
 \bottomrule
@@ -2179,9 +2217,9 @@ target of the whole batch.
 \lean{PowerTwoActualLcmTopEdgeResidueGapSupply}{TotientActualLcmTopEdgeStaircase.lean:1325}
 \end{prop}
 
-\begin{prop}[The five-link equivalence chain below the residue-gap target]\label{prop:TE-05}
+\begin{prop}[The five-link implication chain below the residue-gap target]\label{prop:TE-05}
 Each of the following cofinal supplies is proved \emph{sufficient} for
-Prop.~\ref{prop:TE-04}'s target, chained in decreasing strength:
+Prop.~\ref{prop:TE-04}'s target, with the displayed proved implications:
 \[
 \begin{aligned}
 &\mathtt{PowerTwoActualLcmTopEdgeResidueGapSupply}
@@ -2193,10 +2231,10 @@ Prop.~\ref{prop:TE-04}'s target, chained in decreasing strength:
 &\Leftarrow \mathtt{PowerTwoFlexibleActualTerminalCarryCorridorEscapeSupply}
 \end{aligned}
 \]
-All six named predicates are open; none is proved. Because the chain is
-implication-only-downward, proving the single \emph{weakest} link
-(\texttt{...TerminalCarryCorridorEscapeSupply}) closes the entire cluster and hence \#249.
-This is the true minimal remaining target of \texttt{TotientActualLcmTopEdgeStaircase}.
+All six named predicates are open; none is proved. Each arrow points from a
+proved sufficient condition to the statement it implies, so proving the last
+link (\texttt{...TerminalCarryCorridorEscapeSupply}) implies every link above
+it and hence \#249.
 \scale{cofinal}\ \ev{Open}\ \coord{mobius-mersenne}\\
 \lean{powerTwoActualLcmTopEdgeResidueGapSupply\_of\_adjacentSuffixMidband}{TotientActualLcmTopEdgeStaircase.lean:2108}
 \end{prop}
@@ -2662,7 +2700,7 @@ Writing $L(f):=\sum_{n\ge1}f(n)/(2^n-1)$: $L(\mu)=1/2$, $L(\varphi)=2$ (exactly 
 machine-checked), $L(1)=E$ = the Erd\H os-Borwein constant, proved \textbf{irrational} in this
 same kernel; $L(A)=S$ for $A=\varphi*\mu$ is exactly \#249 restated in ``positive
 Erd\H os-Borwein form,'' still open; $L(\mathrm{Id})=\sum\sigma(m)/2^m$ is transcendental by
-Nesterenko 1996 (cited, not formalised). Any proof of \#249 sits on this Dirichlet-convolution
+Nesterenko~\cite[Cor.~2, p.~1320]{nesterenko1996} (cited, not formalised). Any proof of \#249 sits on this Dirichlet-convolution
 ladder next to a proved irrational neighbour ($L(1)$) and a proved rational neighbour
 ($L(\varphi)$); this is the clearest bridge into \#257's native Lambert-series coordinate.
 \scale{n/a}\ \ev{Lean, Cited}\ \coord{mobius-mersenne}\\
@@ -2890,7 +2928,11 @@ the module's own docstring states.
 
 \begin{obs}[No fixed integer clears every normalised primitive-Euler coordinate]\label{prop:D6-kill}
 $\forall D>0,\ \neg\forall n>0,\ \exists z{:}\mathbb Z,\ D\cdot(A(n)/n)=z$, where $A=\varphi*\mu$ is
-the Mersenne-Lambert primitive weight (so $S=L(A)$, Prop.~\ref{prop:D7-inv}). Any $D$ clearing
+the Mersenne-Lambert primitive weight (so $S=L(A)$, Prop.~\ref{prop:D7-inv}).
+The coordinates $A(n)/n$ are the M\"obius-inverted orbit counts of $\varphi$,
+whose integrality, together with nonnegativity, characterises the sequences
+realisable as periodic-point counts~\cite[Lemma~3.1, p.~5]{everest-periodic};
+only the integrality part is used here. Any $D$ clearing
 normalised coordinates through horizon $N$ must be divisible by every odd prime $p\le N$, every
 $p^2\le N$, and by $4$ once $N\ge4$ — so no fixed $D$ works for all $n$. \textbf{Kills}: any
 strategy seeking a single fixed integer denominator that simultaneously integralises every
@@ -2956,13 +2998,16 @@ $\mathrm{TailAfterTwo}(r) := \sum_{n\ge 0}\mu(n+3)/(2^{n+3}-1)^r$.
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{mobius-mersenne}.
 \end{defn}
 
-\begin{thm}[Two low rungs are exact rationals tied to \#249]
+\begin{thm}[The first two rungs: a rational value and the totient offset]
 $\Theta_1 = 1/2$, and $\Theta_2 = \bigl(\sum_{n\ge 1}\varphi(n)2^{-n}\bigr) - 1/2$
 --- the second rung is literally $S - 1/2$.
 \lean{Erdos249257.SignedQMomentObstruction.mobiusMersenneTheta_one}{SignedQMomentObstruction.lean:197}
 \quad \lean{Erdos249257.SignedQMomentObstruction.mobiusMersenneTheta_two_eq_totient_offset}{SignedQMomentObstruction.lean:214}
 \quad \ev{Lean} \quad \scale{fixed} \quad \coord{mobius-mersenne}.
 \end{thm}
+
+\noindent The second equality is the M\"obius-square identity credited in
+\S\ref{ssec:coprime}; whether $\Theta_2$ is rational is \#249 itself.
 
 \begin{thm}[Two-atom exact Hankel gap]
 $\mathrm{TwoAtom}(r{+}1)^2 - \mathrm{TwoAtom}(r)\mathrm{TwoAtom}(r{+}2) = 4/3^{r+2}$,
@@ -3616,7 +3661,7 @@ cone-menu nonintegral pair & \lean{exists\_nonintegral\_pair\_of\_coneNonflatCer
 survivorKill engine (carry-orbit route) & \lean{tail\_diff\_notMem\_int\_of\_survivorKill}{CarrySurvivorExtinction.lean:428} & uniform & $\forall h\,\forall N\,\forall K$, given \texttt{survivorKill} & other-carry-orbit\\
 Farey neighbour denominator law & \lean{farey\_gap}{GapFareyBound.lean:51} & uniform & $\forall a\,b\,c\,d\,r\,s{:}\mathbb{Z}$, $b{>}0,d{>}0,bc{-}ad{=}1$, unimodular-between & farey\\
 Dirichlet near-integer criterion & \lean{irrational\_of\_den\_mul\_abs\_sub\_tendsto\_zero}{CertificateKernel.lean:5371} & uniform & $\forall u{:}\mathbb{N}\to\mathbb{Q}\,\forall x{:}\mathbb{R}$ & n/a (generic)\\
-Erd\H{o}s 1948 near-integer criterion & \lean{irrational\_of\_int\_mul\_near\_int}{CertificateKernel.lean:6120} & uniform & $\forall \xi{:}\mathbb{R}$, $\forall q{>}0\,\exists m\,z\,0{<}|m\xi{-}z|{<}1/q$ & n/a (generic)\\
+near-integer irrationality criterion & \lean{irrational\_of\_int\_mul\_near\_int}{CertificateKernel.lean:6120} & uniform & $\forall \xi{:}\mathbb{R}$, $\forall q{>}0\,\exists m\,z\,0{<}|m\xi{-}z|{<}1/q$ & n/a (generic)\\
 finite-minor $\Rightarrow$ linear independence & \lean{linearIndependent\_of\_separatedMinorCertificate}{TotientMahlerDefect.lean:91} & uniform & $\forall\,\mathrm{family}{:}\iota\to\mathbb{N}\to\mathbb{Q}$, given SeparatedMinorCertificate & n/a (generic)\\
 dyadic totient-kernel rank $=2^e{+}1$ & \lean{linearIndependent\_canonicalTotientKernelFamily}{TotientMahlerDefect.lean:935} & uniform & $\forall e$ & other-dyadic-kernel-rank\\
 rationality forces unbounded carry-kernel rank & \lean{not\_irrational\_totientSeries\_implies\_unbounded\_carryRank\_unconditional}{TotientCarryKernelRigidity.lean:300} & uniform & $\lnot\mathrm{Irrational}\,S\to\exists v{>}0\,\exists u\,\forall e$ & other-carry-kernel-rank\\
@@ -3789,7 +3834,7 @@ growth rate, while height-minimal integer-relation minimizers regrow the echo te
 — for every tested family, the two costs cannot both be driven to zero as the scale parameter
 grows. The interface index records the same phenomenon for
 \texttt{HalfRung}$(J)$-shaped truncation rungs: the certificate window $B(J)$ is driven by
-$L_J=\mathrm{lcm}(2,\dots,J)$, which grows super-exponentially in $J$, so the per-$J$ constant
+$L_J=\mathrm{lcm}(2,\dots,J)$, which grows exponentially in $J$ ($\log L_J=\psi(J)\sim J$), so the per-$J$ constant
 degrades with the very parameter the cofinal claim needs to range over — ``the hallmark of a proof
 that does not survive bound removal'' (interface index, row \texttt{d-3a/d-3b}).
 \end{enumerate}
@@ -3897,8 +3942,11 @@ statement about \texttt{windowDiscrepancy}.
 \subsection{Obstructions are coordinate-relative: the binary-digit vs.\ M\"obius--Mersenne case}
 
 The clearest instance of coordinate-relative obstruction in the whole \#249 corpus is the fate of
-the classical Erd\H{o}s (1948) near-integer digit method. That method needs, in essence, a finite
-automaton: a bounded amount of state carried forward from one digit block to the next, so that the
+the classical Erd\H{o}s (1948) digit method. Erd\H{o}s's argument for $\sum_n1/(2^n-1)$ chooses
+arguments by a system of congruences so that the divisor counts along a block are divisible by
+increasing powers of the base, and a tail bound then forces a long run of zero
+digits~\cite[pp.~63--66]{erdos1948lambert}; it uses no finite automaton. The route considered in
+this corpus instead carries a bounded amount of state forward from one digit block to the next, so that the
 value of a far-away digit block can be recovered from a bounded summary of everything before it. In
 the binary-digit coordinate this is exactly what fails, and it fails as a proved Lean theorem, not
 a heuristic remark: \lean{balancedPulse\_no\_autonomous\_decoder}{GenericTailOrbitRigidity.lean:247}
@@ -4128,8 +4176,8 @@ exact remaining content.
 
 \begin{defn}
 The \emph{actual LCM tail orbit} at exponent $a$ is
-$\mathtt{actualLcmTailOrbit}\ a = R_{2H+2H} - R_{H+... }$, precisely
-$\mathrm{totientTail}(2H)-\mathrm{totientTail}(H)$ where $H = \mathtt{periodLcm}(2^a)$
+$\mathtt{actualLcmTailOrbit}\ a = R_{2H}-R_H
+=\mathrm{totientTail}(2H)-\mathrm{totientTail}(H)$, where $H = \mathtt{periodLcm}(2^a)$
 (\lean{actualLcmTailOrbit_pos}{TotientActualLcmOrbitSign.lean:144}).
 \end{defn}
 
@@ -4191,12 +4239,13 @@ $A_{H,H,K}$ (where $H=\mathtt{periodLcm}(2^a)$) below the top strip at even one 
 reduces the condition to the last $m$ arithmetic letters of the word alone.
 \end{defn}
 
-\begin{prop}[The five strictly weaker sufficient links --- proving any one closes \#249]
+\begin{prop}[Five sufficient links, each closing \#249 if proved]
 \label{prop:te-chain}
 All five are proved sufficient for
 \lean{PowerTwoActualLcmTopEdgeResidueGapSupply}{TotientActualLcmTopEdgeStaircase.lean:1325} in the
-same module, and each is \emph{strictly weaker} in the sense that it drops a hypothesis, widens a
-band, or asks only for magnitude rather than a signed inequality.
+same module. Each changes the form of the target by dropping a hypothesis, widening a band, or
+asking only for magnitude in place of a signed inequality; no strict separation between them is
+proved.
 \begin{enumerate}[leftmargin=*]
   \item \lean{PowerTwoAdjacentSuffixMidbandSupply}{TotientActualLcmTopEdgeStaircase.lean:1334}
     (\ev{Open}, \scale{cofinal}):
@@ -4660,8 +4709,9 @@ Either (i) a Dirichlet-criterion bridge in the shape of
 rationals $u_t$ with $u_t\ne S$ and $\mathrm{den}(u_t)\cdot|S-u_t|\to 0$, which requires the
 approximation error to beat the denominator, not merely the denominator to grow; or (ii) a
 transport map from ``channel of size $\ge 2^{t/2}$ survives in the denominator'' to ``windowDiscrepancy
-residue avoids the arc,'' which does not exist in the corpus. Route (i) needs the growth rate
-raised from $2^{t/2}$ to beat the shadow's own truncation error.
+residue avoids the arc,'' which does not exist in the corpus. Route (i) needs truncation errors
+with $\mathrm{den}(u_t)\cdot|S-u_t|\to0$; a larger lower bound for the surviving denominator,
+such as $2^{t/2}$, makes this requirement harder.
 \end{prop}
 
 \subsubsection{d4/d5 --- the parallel rank obligation, and a corrected pair of citations (\coord{carry-rank})}
@@ -4732,9 +4782,8 @@ Second, the top-edge staircase (TE-04 through TE-05-weakest, \coord{actual-lcm-t
 only row where the corpus has both halved the obligation (one-sided instead of symmetric) and
 exposed, via the exact identity of Observation~\ref{obs:staircase-tension}, precisely which of two
 logically symmetric escape branches survives the sign machinery already proved elsewhere in the
-same file family. That five strictly weaker equivalent or sufficient forms are already proved
-inter-derivable (Proposition~\ref{prop:te-chain}) means effort here is not fragmented across
-restatements: proving any one closes the others automatically.
+same file family. Five sufficient forms are already proved, related by the implications of
+Proposition~\ref{prop:te-chain}, and proving any one of them closes \#249.
 
 Third, the d4/d5 rank obligation is structurally independent of the residue-coordinate rows above:
 it is a second, self-contained sufficient condition for \#249 (an upper rank bound contradicting
@@ -4777,19 +4826,16 @@ proof.
 \textbf{(b) Exact mechanism that closed it.} The manuscript's own remark
 (\ev{Math}, prose-only, not formalised in Lean:
 \emph{\S5.4, ``finite inspection cannot establish the supply''}) gives an
-explicit splice construction. Take any coefficient stream \(\gamma:\mathbb
-N\to\mathbb N\) that agrees with \(\varphi\) on every index \(\le B\), and
-alter \(\gamma\) at one residue class beyond \(B\) so that the resulting
-binary series \(\sum\gamma(n)/2^n\) is forced \emph{rational}. Such a
-\(\gamma\) exists for every \(B\) (this is the same coboundary-splice
-technique that produces \S\ref{sec:parity-countermodel}'s
-\texttt{parityCoboundaryWeight} witness, generalised: insert a lacunary
-zero-valued coboundary edit \(2/2^m - 4/2^{m+1} = 0\) at some \(m>B\)). Because
-\(\gamma\) agrees with \(\varphi\) on every index \(\le B\), \(\gamma\) passes
-every finite certificate that only inspects indices \(\le B\) — in
-particular every instance of \(\mathrm{Sep}(h,N,L)\) with \(N+L\le B\) that
-\(\varphi\) itself passes or fails. Yet \(\sum\gamma(n)/2^n\in\mathbb Q\) by
-construction.
+explicit splice construction. Choose an integer \(P>B\), set
+\(\gamma(n)=\varphi(n)\) for \(n\le B\), and \(\gamma(n)=n-\mathbf 1_{P\mid n}\)
+for \(n>B\). Then \(0\le\gamma(n)\le n\), and the binary series
+\(\sum\gamma(n)/2^n\) is \emph{rational}: it is a finite rational prefix, plus
+the tail of \(\sum_n n2^{-n}\), minus a geometric sum over the multiples of
+\(P\) beyond \(B\). Because \(\gamma\) agrees with \(\varphi\) on every index
+\(\le B\), \(\gamma\) passes every finite certificate that only inspects
+indices \(\le B\); in particular it passes or fails every instance of
+\(\mathrm{Sep}(h,N,L)\) with \(N+h+L\le B\) exactly as \(\varphi\) does. Yet
+\(\sum\gamma(n)/2^n\in\mathbb Q\) by construction.
 
 \textbf{(c) Precise scope.} This is a statement about \emph{proof method},
 not about \(\varphi\): it does not touch \(S\) at all. What it excludes is
@@ -4967,10 +5013,11 @@ The upstream
 primitive these import,
 \lean{Erdos249257.RationalDenominatorSurvival.divisor\_dvd\_divInt\_den}{RationalDenominatorSurvival.lean:17} and
 \lean{survivingDivisor\_dvd\_scaled\_divInt\_den}{RationalDenominatorSurvival.lean:38}, gives the exact
-survival/cancellation law: a divisor \(m\mid D\) of a displayed denominator
-survives reduction of \(a/D\) iff \(m\) is coprime to \(a\); after scaling the
-numerator by \(h\), a surviving coprime divisor \(C\mid D\) shrinks to
-exactly \(C/\gcd(C,h)\), never further. \ev{Lean} \scale{uniform}
+survival/cancellation law: the reduced denominator of \(a/D\) is
+\(D/\gcd(a,D)\), so a divisor \(m\mid D\) coprime to \(a\) divides it
+(coprimality is sufficient and not necessary: \(2/8=1/4\) keeps \(m=2\)); after
+scaling the numerator by \(h\), such a divisor \(C\mid D\) still leaves the
+divisor \(C/\gcd(C,h)\) of the reduced denominator. \ev{Lean} \scale{uniform}
 \coord{other:rational-height}.
 
 \textbf{(c) Precise scope.} This is pure \(\mathbb Q\)-arithmetic with zero
@@ -5182,8 +5229,10 @@ channels \(n\mapsto\varphi(2^jn+r)\) that would compress the infinite
 family to a finite-dimensional space, from which a rationality-forcing
 contradiction (or a genuine rank obstruction) might be extracted.  Such a
 compression would make the totient $2$-regular, which
-\href{https://doi.org/10.5802/jtnb.718}{Coons, Theorem~3.2} had already
-excluded for every base $k\ge2$ \ev{Cited}.
+Coons~\cite[Theorem~3.2]{coons} had already
+excluded for every base $k\ge2$ \ev{Cited}.  Martin's Theorem~1 already implies
+the linear independence proved below~\cite[Theorem~1]{martin-phi-inequalities};
+the argument recorded here is a separate CRT--Dirichlet proof.
 
 \textbf{(b) Exact mechanism.}
 \begin{thm}[Infinite dyadic totient-kernel rank]
@@ -5250,8 +5299,7 @@ two-term rows.  The distinction between the retained basis and the redundant
 spanning family of all channels already matters for regular sequences, where
 matrices associated to a basis compute the growth exponent through their joint
 spectral radius and a spanning family gives only an upper bound
-(\href{https://arxiv.org/abs/1511.07535}{Coons, Theorem~1, Proposition~4 and
-Corollary~7}) \ev{Cited}.  The totient is not regular, so that theorem does not
+(Coons~\cite[Theorem~1, Proposition~4 and Corollary~7]{coons-jsr}) \ev{Cited}.  The totient is not regular, so that theorem does not
 apply; the short note records how the section maps act on the retained bases
 from one level to the next.
 
@@ -5272,7 +5320,7 @@ of Coons's theorem cited in~(a); the formal record adds the exact rank
 $2^e+1$ at every level $e\ge1$, the explicit basis, and the integral relation
 module.  Martin's Theorem~1 gives linear independence for any family of
 totient channels along pairwise nonproportional affine forms with positive
-slopes (\href{https://arxiv.org/abs/math/0603053}{Martin, Theorem~1})
+slopes~\cite[Theorem~1]{martin-phi-inequalities}
 \ev{Cited}; in the canonical family only $\varphi(n)$ and $\varphi(2n)$ have
 proportional forms, and one further evaluation separates them, as in the short
 note.  The Lean proof does not use Martin's theorem.
@@ -5509,15 +5557,16 @@ open obligation's shape that a routine strengthening (raising a scale bound,
 widening a hypothesis, or reindexing a quantifier) might close the gap
 without new mathematics. Fifty-six near-miss rows were catalogued across the
 four obligations; eighteen of them were flagged \texttt{promotable\_claimed:
-True} on this first pass. \textbf{Every one of the eighteen proofs was then
-opened and read in full}, not merely re-inspected at the statement level,
-and the promotion claim was checked against the actual proof body. The
-audit table below reports the verdict for all eighteen.
+True} on this first pass. The eighteen promotion claims were then checked
+against the proofs, with the review depth stated per row; in particular the
+NM-12 endpoint proof bodies were not read in that pass. The audit table
+below reports the verdict for all eighteen.
 
-Of the eighteen, \textbf{sixteen are conclusively NOT\_PROMOTABLE}: reading
-the proof body exposes a documented arithmetic, logical, or coordinate
-obstruction that a routine strengthening cannot cross, and the row's own
-record states exactly what new input would be required.
+Of the eighteen, \textbf{sixteen are recorded as NOT\_PROMOTABLE}. For
+fifteen of them, reading the proof body exposes a documented arithmetic,
+logical, or coordinate obstruction that a routine strengthening cannot cross,
+and the row's own record states exactly what new input would be required;
+NM-12 is unverified, since its endpoint proofs were not read.
 
 \textbf{Two}
 (\texttt{NM-02}, \texttt{NM-03} in the \(\#257\)-universal obligation) are
@@ -5529,12 +5578,10 @@ value to a family of targets, without touching the missing arithmetic
 content (a cofinal certificate supply, a rank upper bound, an anti-concentration
 estimate) that every genuine closure of \(\#249\) or \(\#257\) requires.
 
-So
-while the promotion audit is not literally eighteen-for-eighteen at the level
-of ``can this exact statement be re-derived for a wider scope,'' it is
-eighteen-for-eighteen at the level that matters for this paper's obligations:
-\textbf{no promotion candidate in the audited set supplies missing arithmetic
-content toward closing \#249 or \#257}. The two mechanically-widenable rows
+So, at the level that matters for this paper's obligations,
+\textbf{no verified promotion candidate in the audited set supplies missing
+arithmetic content toward closing \#249 or \#257}; NM-12 remains an unverified
+widening. The two mechanically-widenable rows
 are recorded honestly below rather than folded into the sixteen, because
 collapsing that distinction would itself be exactly the kind of
 quantifier-slippage error this paper's accuracy rules forbid.
@@ -5685,9 +5732,9 @@ strong promotability hypothesis, not a verified promotion, since a
 \end{longtable}
 \end{landscape}
 
-\subsection*{Classification of the sixteen genuine blockers}
+\subsection*{Classification of the blockers}
 
-Reading all eighteen proof bodies rather than trusting the \texttt{yields}
+Reading the proof bodies, where the table records them as read, in place of the \texttt{yields}
 clause exposes a small, recurring taxonomy of blocker shapes, tagged by
 \texttt{gap\_kind} in the table above:
 
@@ -5724,7 +5771,7 @@ row with a genuine quantifier-order mismatch (e.g. \texttt{a12}'s
 at first read and excluded from the eighteen entirely, rather than surviving
 to a full proof-body audit. The eighteen audited here are precisely the rows
 whose \emph{stated} hypotheses looked closest to the obligation; that even
-this most-favourable subset yields sixteen genuine blockers and only two
+this most-favourable subset yields fifteen verified blockers, one unverified row and only two
 costless-but-empty restatements is the paper's evidence that the corpus's
 bounds are load-bearing in the strict sense: no amount of routine
 strengthening of what is already proved, at the level the audit checked,
@@ -5953,13 +6000,15 @@ $\varphi$ leaves open.
 \paragraph{Which technique family is even the right shape.}
 Four candidates, in decreasing order of relevance.
 
-\emph{Weyl differencing and van der Corput} are the wrong shape and can be
-dismissed exactly. Both require the phase to be a smooth or polynomial
-function of the summation variable so that a difference operator lowers its
-degree. Here $N\mapsto D(h,N,L)/2^{L}$ is, by Lemma~\ref{lem:orbit}, the
+\emph{Weyl differencing and van der Corput} do not simplify this phase. The
+van der Corput inequality holds for arbitrary bounded complex
+sequences~\cite[Theorem~2.1]{edeko-vdc}, so it applies here, but it leaves the
+correlations of the phase with its shifts to be estimated; Weyl differencing
+gains when a difference operator lowers the degree of a polynomial phase.
+Here $N\mapsto D(h,N,L)/2^{L}$ is, by Lemma~\ref{lem:orbit}, the
 $\times 2$ orbit map: differencing in $N$ multiplies the phase by $2$ and
 subtracts an integer, so the difference operator is an exact isometry of the
-problem and lowers nothing. This is not a heuristic --- it is
+problem and lowers nothing. This is
 $R_{N+1}=2R_N-\varphi(N+1)$ read modulo $1$.
 
 \emph{The large sieve} needs a family of well-separated frequencies and a
@@ -5975,7 +6024,7 @@ prime factor, use $\varphi(mp)=\varphi(m)(p-1)$ to linearise the phase in
 $p$, and sum over primes. \S\ref{sub:pivot} carries this as far as it goes.
 
 \emph{Erd\H{o}s's 1948 digit method}, which proved irrationality of
-$E=\sum_n 1/(2^n-1)=\sum_N d(N)/2^N$, is the right shape for the
+$E=\sum_n 1/(2^n-1)=\sum_N d(N)/2^N$~\cite{erdos1948lambert}, is the right shape for the
 \coord{mobius-mersenne} coordinate. That coordinate exists here and is
 exact: from $\varphi=\mu * \mathrm{id}$,
 \begin{equation}\label{eq:mobmers}
@@ -5983,16 +6032,16 @@ exact: from $\varphi=\mu * \mathrm{id}$,
   \qquad (\ev{Math};\ \text{verified to }16\ \text{digits},\ S=1.3676308019850223\ldots,\ \ev{Cert}).
 \end{equation}
 
-But the method does not transfer, for a reason that can be stated
-quantitatively rather than vaguely. Erd\H{o}s's argument for $E$ exploits
-that the coefficient $d(N)$ has enormous multiplicative fluctuation: over
+But the method does not transfer directly, for a reason that can be stated
+quantitatively. Erd\H{o}s's argument for $E$ solves congruences that make the
+divisor counts along a block divisible by increasing powers of $2$, and a tail
+bound then forces a long run of zero digits~\cite[pp.~63--66]{erdos1948lambert}.
+That uses the large divisibility available to $d(N)$: over
 $N\le Y$ the ratio of its maximum to its typical value is
-$Y^{(\log 2+o(1))/\log\log Y}$, so certain highly composite $N$ deposit
-identifiable spikes into the digit stream. The coefficient here is
+$Y^{(\log 2+o(1))/\log\log Y}$. The coefficient here is
 $\varphi(N)$, which satisfies $\varphi(N)/N\in[c/\log\log N,1]$: its
 multiplicative fluctuation over $N\le Y$ is a factor $e^{\gamma}\log\log Y$,
-that is, $\log\log Y$ rather than $Y^{c/\log\log Y}$. There are no spikes to
-find.
+that is, $\log\log Y$, far below $Y^{c/\log\log Y}$.
 
 In the M\"obius--Mersenne coordinate \eqref{eq:mobmers} the situation is
 worse rather than better: the coefficients $\mu(d)$ change sign, so the
@@ -6007,7 +6056,7 @@ inequivalent to irrationality, and argues the point from the structure of a
 collapse proof. It can be settled outright, and the witness lives in the
 same coefficient class that carries barriers B1 and B7.
 
-\begin{thm}[The gap is strictly stronger than irrationality]\label{thm:lacunary}
+\begin{thm}[Within the class $0\le c(n)\le n$, the gap is strictly stronger than irrationality]\label{thm:lacunary}
 Let $c(n)=1$ if $n=k!$ for some $k\ge 1$ and $c(n)=0$ otherwise, so
 $0\le c(n)\le n$ for all $n\ge 1$, and let $\beta=\sum_{n\ge1}c(n)/2^{n}
 =\sum_{k\ge 1}2^{-k!}$. Then $\beta$ is irrational, and for every $h\ge 1$
@@ -6039,7 +6088,8 @@ $X\ge 81(h+5)$.
 \noindent
 \ev{Math} \quad \scale{cofinal} \quad \coord{other:binary-window}. This
 upgrades the corpus's ``no collapse mechanism is known to apply'' to ``no
-collapse mechanism can exist''. It also says precisely what the missing
+collapse mechanism using only irrationality and the bound $0\le c(n)\le n$ can
+exist''. It also says precisely what the missing
 input must do: it must rule out that $S$ behaves, in its doubling orbit,
 like a Liouville number. That is the content of Corollary~\ref{cor:digitform},
 and it is why the requirement is a digit-statistics statement and not an
@@ -6047,8 +6097,10 @@ irrationality statement.
 
 \paragraph{Size of the quantity, honestly calibrated.}
 Under any model in which the binary digits of $\alpha_h$ behave like fair
-coin flips, $\rho_h(X)\to 1/2$ and the block sum is $O(\sqrt{X\log\log X})$
-by the Erd\H{o}s--G\'al law of the iterated logarithm for lacunary series
+coin flips, $\rho_h(X)\to 1/2$ and the block sum is $O(\sqrt{X\log\log X})$;
+for Lebesgue-almost every phase that is the law of the iterated logarithm of
+Erd\H{o}s and G\'al for lacunary series~\cite[p.~65]{erdos-gal}, which says
+nothing at the particular phase carried by $S$
 \ev{Cited}. The requirement is $\rho_h\ge 0.11$ and a saving of a constant
 factor. The measured values in Table~\ref{tab:blocks} are $\rho_h\approx 0.50$ and a block
 average of order $X^{-1/2}$. So the analytic requirement is weaker than the
@@ -6115,7 +6167,9 @@ asymptotic equality for the non-supplier count.
 
 \noindent
 \ev{Math} for the containment; \ev{Cited} for the smooth-number estimate
-needed to finish the numerical budget.  In particular the earlier identity
+needed to finish the numerical budget, namely
+$\Psi(x,x^{1/u})\sim\rho(u)x$ for fixed $u$~\cite[(1.1), p.~268]{granville-smooth}
+with $\rho(u)=1-\log u$ on $[1,2]$~\cite[(1.3), p.~268]{granville-smooth}.  In particular the earlier identity
 with Dickman density, and numerical extrapolations of an exact crossover
 scale, are not claimed.  The implication is sufficient if the required
 uniform shifted-interval estimate is supplied.
@@ -6123,7 +6177,8 @@ uniform shifted-interval estimate is supplied.
 \begin{prop}[The bad-cofactor budget]\label{prop:badcof}
 For $\eta\in(0,1)$ let $B(\eta)=\{m:\varphi(m)<\eta m\}$, with natural density
 $D(\eta)$; by Schoenberg's theorem $D$ exists, is continuous, and
-$D(0+)=0$ \ev{Cited}. Then
+$D(0+)=0$~\cite[\S17, p.~193]{schoenberg1928}, in the framework
+of~\cite[Theorem~1, pp.~318--319, and \S8, p.~323]{schoenberg1936} \ev{Cited}. Then
 \[
   \#\{N\in[X,2X): N\ \text{a supplier with cofactor}\ m\in B(\eta)\}
   \;\le\;\bigl(D(\eta)+o(1)\bigr)X ,
@@ -6142,12 +6197,13 @@ and use that the logarithmic density of $B(\eta)$ tends to $D(\eta)$.
 \end{proof}
 
 \noindent
-\ev{Math} \quad \scale{cofinal}. The choice is not tight: the least element
-of $B(1/5)$ is $2\cdot3\cdot5\cdot7\cdot11\cdot13=30030$, with
+\ev{Math} \quad \scale{cofinal}. The least element of $B(1/5)$ is
+$2\cdot3\cdot5\cdot7\cdot11\cdot13=30030$, with
 $\varphi(m)/m=5760/30030=0.19181$, and the logarithmic density of $B(1/5)$ up
-to $3\cdot10^{5}$ is $3\cdot 10^{-5}$ \ev{Cert}. So $\eta=1/5$ is already
-defensible pending an explicit numerical bound on $D(1/5)$, and that bound is
-itself a finite computation a reader could start today.
+to $3\cdot10^{5}$ is $3\cdot 10^{-5}$ \ev{Cert}. Using $\eta=1/5$ itself would
+require a rigorous upper bound for the limiting density $D(1/5)$, including
+the part of $B(1/5)$ beyond the enumeration; the finite count does not supply
+one.
 
 \paragraph{The pivot quantifiers force a deep modulus.}
 The pivot sits at offset $t=L-s+1$ in \eqref{eq:window}.  Crucially, the
@@ -6213,9 +6269,16 @@ The missing input is thus a \emph{non-correlation between a fixed quadratic
 character at $p$ and the $2$-adic behaviour of $\varphi$ at the shifts
 $p+1,p+2,\dots$}: a correlation statement for two arithmetic functions at
 shifted arguments, of Chowla--Elliott type. The unconditional results in that
-family --- Matom\"aki--Radziwi\l{}\l{} in almost all short intervals, Tao's
-logarithmically averaged Chowla, Tao--Ter\"av\"ainen for odd order
-\ev{Cited} --- are averaged, never pointwise at a single scale.
+family concern bounded multiplicative functions at fixed shifts, and they are
+averaged: Matom\"aki and Radziwi\l{}\l{} compare short and long averages of
+real multiplicative functions bounded by $1$, outside an exceptional set of
+short intervals~\cite[Theorem~1]{matomaki-radziwill}; Tao proves the
+logarithmically averaged two-point Chowla and Elliott
+conjectures~\cite[Theorems~1.2--1.3]{tao-elliott}; and Tao and Ter\"av\"ainen
+prove the odd-order logarithmically averaged Chowla
+conjecture~\cite[Theorem~1.1]{tao-teravainen} \ev{Cited}. The phase here
+depends on $\varphi$ at a growing window of shifts, so none of these applies
+directly.
 
 \paragraph{A swing: the predicate needs only cofinally many $X$, so average
 over $X$.} This is the one place where the shape of the obligation is a gift.
@@ -6407,11 +6470,13 @@ A statement that a sequence does not almost repeat at some multiple of every
 gap, to logarithmic precision, is a \emph{subword-complexity} statement, and
 the mature technology for such statements about a specific real number is the
 Adamczewski--Bugeaud method: the Schmidt subspace theorem applied to the
-$b$-ary expansion, which shows that an algebraic irrational cannot have too
-many long repetitions \ev{Cited}. The shape fits exactly. The hypothesis does
+$b$-ary expansion, which shows that the block complexity $p(n)$ of the base-$b$
+expansion of an irrational algebraic number satisfies $\liminf_n
+p(n)/n=+\infty$~\cite[Theorem~1, p.~549]{adamczewski-bugeaud} \ev{Cited}. The
+shape fits exactly. The hypothesis does
 not: the method conditions on algebraicity, and $S$ is not known to be
-algebraic --- indeed it is not known to be irrational, which is the whole
-problem. There is no version of the method that runs from an analytic
+algebraic; indeed it is not known to be irrational, which is the whole
+problem. No version of the method is known that runs from an analytic
 description of the constant. That is the entire obstruction, and it is worth
 stating plainly because it explains why Route 4 looks so much easier than it
 is: the required combinatorial property is weak, but the only machine that
@@ -6457,12 +6522,13 @@ $\varphi$-specific floor
 
 \paragraph{The right vocabulary, and the audited gap.}
 Finite-dimensional span of all dyadic sections is the definition of a
-$2$-regular sequence in the sense of Allouche and Shallit \ev{Cited}.  For
+$2$-regular sequence in the sense of Allouche and
+Shallit~\cite[Definition~2.1]{allouche-shallit} \ev{Cited}.  For
 integer-valued sequences this is equivalent to finite generation of the
 $\mathbb Z$-module generated by the sections: if their span has dimension $d$,
 some $d$ evaluations embed it in $\mathbb Q^d$ and that module in
 $\mathbb Z^d$ \ev{Math}.
-\href{https://doi.org/10.5802/jtnb.718}{Coons, Theorem~3.2} proved that
+Coons~\cite[Theorem~3.2]{coons} proved that
 $\varphi$ is not $k$-regular for any $k\ge2$ \ev{Cited}.  The
 unconditional theorem
 \lean{Erdos249257.\allowbreak not_finiteDimensional_\allowbreak span_fullTotientKernel}{TotientMahlerDefect.lean:1145}
@@ -6555,11 +6621,10 @@ $X^{-1/2}$ against a permitted $0.89$ (Table~\ref{tab:blocks}, \ev{Cert}). (b) T
 requirements are weaker than the apparent truth by a factor $\sqrt X$; a
 proof does not need to understand the digits, only to exclude a pathology.
 (c) All countermodels are constructed lacunary objects. (d) The one
-coordinate in which $S$ has classical structure --- the M\"obius--Mersenne
-form \eqref{eq:mobmers} --- is an alternating sum of rational functions of
-$2^{d}$ with no functional equation, no modularity, no continued-fraction
-structure, and no algebraicity: there is no hidden object to find, which is
-consistent with genericity.
+coordinate in which $S$ has classical structure, the M\"obius--Mersenne
+form \eqref{eq:mobmers}, is an alternating sum of rational functions of
+$2^{d}$ for which no functional equation, modular structure or
+continued-fraction structure is known.
 
 \emph{Against, or at least complicating.} (a) B4's self-cancellation is
 exact, unconditional, and holds at every depth $K$: the cost of forcing a
@@ -6570,10 +6635,7 @@ the one place where the object itself pushes back. (b) The exact census
 records residues approaching the forbidden edge --- a closest central margin
 of about $2.2\cdot10^{-4}$ of the modulus at $t=100$ --- which is what a
 uniform model predicts and which rules out, permanently, any argument that
-proceeds by a crude uniform margin. (c) Proposition~\ref{prop:dickman} shows
-that even the pieces of the frontier that are provable become true only past
-$X\approx10^{30}$--$10^{40}$; a genuinely simple object would not usually
-require asymptotics that begin so late.
+proceeds by a crude uniform margin.
 
 \emph{Verdict, flagged as inference.} The evidence supports ``the digits of
 $S$ are generic and the wall is technological'' over ``the object is
@@ -6966,11 +7028,10 @@ cofinal target built from it:
 \lean{Erdos257PeriodNoncollapse.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.irrational_totientSeries_of_topEdgeResidueGapSupply}{TotientActualLcmTopEdgeStaircase.lean:2184}
 \quad \ev{Lean} \quad \scale{cofinal} \quad \coord{mobius-mersenne}.
 
-\paragraph{Five strictly weaker links, each independently proved sufficient.}
-The same file proves five further cofinal predicates, each strictly weaker
-than \texttt{PowerTwoActualLcmTopEdgeResidueGapSupply} (each implies it, so
-each is an easier target), with a direct \#249 endpoint of its own —
-proving the \emph{weakest} of the six closes the entire cluster.
+\paragraph{Five further links, each proved sufficient.}
+The same file proves five further cofinal predicates, each of which implies
+\texttt{PowerTwoActualLcmTopEdgeResidueGapSupply} and has a direct \#249
+endpoint of its own; proving any one of them closes \#249.
 
 \begin{enumerate}
 \item[(i)] $\mathrm{PowerTwoAdjacentSuffixMidbandSupply}$: replaces the
@@ -7031,10 +7092,9 @@ absolute value:
 \lean{Erdos257PeriodNoncollapse.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.irrational_totientSeries_of_flexibleActualTerminalDominanceSupply}{TotientActualLcmTopEdgeStaircase.lean:2221}.
 \end{enumerate}
 
-\paragraph{The weakest known link, and the exact identity pinning it.}
-A sixth predicate, strictly weaker again than (v) — it is the disjunction of
-(v)'s inequality with the opposite-direction escape — is the true minimum
-of the whole cluster:
+\paragraph{A sixth link, and the exact identity pinning it.}
+A sixth predicate is the disjunction of (v)'s inequality with the
+opposite-direction escape:
 \[
   \mathrm{PowerTwoFlexibleActualTerminalCarryCorridorEscapeSupply} :\equiv
   \forall a_0,\ \exists a,q,\quad \cdots\ \wedge\
@@ -7079,7 +7139,8 @@ $2(H{+}q{+}2)\le 4^q$) for non-integrality at that rank.
 \paragraph{A second, independent finite-window target: the short-arithmetic-kill supply.}
 A separate reduction ties the diagonal form (the collapsing-free-parameters chain above) to this actual-orbit
 lane via an exact digit formula with no cleanliness hypothesis at all,
-$\mathrm{lcmRayArithmeticLetter}(t,j) = \varphi(H_t+j)-\varphi(H_t)$ for
+$\mathrm{lcmRayArithmeticLetter}(t,j) = \varphi(2H_t+j)-\varphi(H_t+j)$, with
+$H_t=\mathrm{periodLcm}(t)$, for
 \emph{every} offset $j$
 (\lean{Erdos257PeriodNoncollapse.DiagonalFreshLossBridge.PowerTwoOddWindowAffine.lcmRayArithmeticLetter_eq_deltaTotient}{TotientActualLcmOrbitArithmetic.lean:298},
 \ev{Lean}), and
@@ -7305,7 +7366,7 @@ argument of this shape is attempted or proved anywhere in the corpus.
 target, in every one of its six equivalent-or-sufficient guises, reduces
 under the exact identity of the actual-orbit lane above to control of a single \emph{terminal
 arithmetic letter}: the value $\mathrm{diagonalWindowIncrement}(2^a,2q{+}2)
-= \varphi(2H{+}2q{+}2)-\varphi(2H)$ measured against twice a centred
+= \varphi(2H{+}2q{+}2)-\varphi(H{+}2q{+}2)$ measured against twice a centred
 carry-lift state. What is needed is not a new certificate mechanism — the
 whole apparatus of arithmetic letters, centred lifts, and carry orbits is
 already exact and unconditional — but a genuine size or residue statement
@@ -7332,5 +7393,148 @@ claim that Problem 249 is solved.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding. The author declares no competing interests.
+
+\clearpage
+\begin{thebibliography}{99}
+\small
+\raggedright
+\setlength{\itemsep}{0pt}
+\bibitem{allouche-shallit}
+J.-P.~Allouche and J.~Shallit, \emph{The ring of $k$-regular sequences},
+Theoret.\ Comput.\ Sci.\ \textbf{98} (1992), no.~2, 163--197,
+doi:\href{https://doi.org/10.1016/0304-3975(92)90001-V}{10.1016/0304-3975(92)90001-V}.
+Definitions and early statements are cited with the author preprint's numbering.
+\bibitem{coons}
+M.~Coons, \emph{(Non)Automaticity of number theoretic functions},
+J.\ Th\'eor.\ Nombres Bordeaux \textbf{22} (2010), no.~2, 339--352,
+doi:\href{https://doi.org/10.5802/jtnb.718}{10.5802/jtnb.718}.
+Theorem~3.2, p.~348.
+\bibitem{coons-jsr}
+M.~Coons, \emph{Regular sequences and the joint spectral radius},
+Internat.\ J.\ Found.\ Comput.\ Sci.\ \textbf{28} (2017), no.~2, 135--140,
+doi:\href{https://doi.org/10.1142/S0129054117500095}{10.1142/S0129054117500095};
+arXiv:\href{https://arxiv.org/abs/1511.07535v1}{1511.07535v1}.
+Theorem~1, Proposition~4 and Corollary~7 are cited with the arXiv v1 numbering.
+\bibitem{martin-phi-inequalities}
+G.~Martin, \emph{Simultaneous inequalities among values of the Euler
+phi-function}, arXiv:\href{https://arxiv.org/abs/math/0603053v1}{math/0603053v1}, 2006.
+Theorem~1, pp.~1--2.
+\bibitem{wong2015}
+E.~Wong, \href{https://math.stackexchange.com/a/1211557}{answer 1211557} to
+\emph{An infinite sum based on the mod-parity of Euler's totient function},
+Mathematics Stack Exchange, 29 March 2015, accessed 15 September 2026.
+\bibitem{eldar2026oeis}
+A.~Eldar, comment and formula added to OEIS A256936 (revisions 28 and 31),
+15 March 2026, \url{https://oeis.org/history?seq=A256936},
+accessed 16 September 2026.
+\bibitem{fan2026totient}
+S.~Fan, comment on Erd\H{o}s Problem \#249, 16 May 2026, 19:01,
+\href{https://www.erdosproblems.com/forum/thread/249}{Erd\H{o}s Problems
+discussion thread}, accessed 16 September 2026.
+\bibitem{erdosgraham1980}
+P.~Erd\H{o}s and R.~L.~Graham, \emph{Old and New Problems and Results in
+Combinatorial Number Theory}, Monographies de L'Enseignement
+Math\'ematique \textbf{28}, 1980, p.~61.
+\bibitem{erdos1948lambert}
+P.~Erd\H{o}s, \emph{On arithmetical properties of Lambert series},
+J.\ Indian Math.\ Soc.\ (N.S.) \textbf{12} (1948), 63--66,
+\url{https://users.renyi.hu/~p_erdos/1948-04.pdf}.
+\bibitem{postelmans-vanassche}
+K.~Postelmans and W.~Van Assche, \emph{Irrationality of $\zeta_q(1)$ and
+$\zeta_q(2)$}, J.\ Number Theory \textbf{126} (2007), no.~1, 119--154,
+doi:\href{https://doi.org/10.1016/j.jnt.2006.11.011}{10.1016/j.jnt.2006.11.011};
+arXiv:\href{https://arxiv.org/abs/math/0604312v1}{math/0604312v1}.
+Theorem~1.3 is cited with the arXiv v1 pagination, p.~3.
+\bibitem{nesterenko1996}
+Yu.~V.~Nesterenko, \emph{Modular functions and transcendence questions},
+Sb.\ Math.\ \textbf{187} (1996), no.~9, 1319--1348,
+doi:\href{https://doi.org/10.1070/SM1996v187n09ABEH000158}{10.1070/SM1996v187n09ABEH000158}.
+Corollary~2, p.~1320.
+\bibitem{schramm-gcd}
+W.~Schramm, \emph{The Fourier transform of functions of the greatest common
+divisor}, Integers \textbf{8} (2008), \#A50,
+\url{https://math.colgate.edu/~integers/i50/i50.pdf}.
+Theorem and equation~(2), p.~2.
+\bibitem{toth-gcd}
+L.~T\'oth, \emph{A survey of gcd-sum functions}, J.\ Integer Seq.\ \textbf{13}
+(2010), Article~10.8.1,
+\url{https://cs.uwaterloo.ca/journals/JIS/VOL13/Toth/toth10.pdf}.
+\S1, equations (1)--(2).
+\bibitem{merca-schmidt}
+M.~Merca and M.~D.~Schmidt, \emph{Generating special arithmetic functions by
+Lambert series factorizations}, Contrib.\ Discrete Math.\ \textbf{14} (2019),
+no.~1, 31--45,
+doi:\href{https://doi.org/10.55016/ojs/cdm.v14i1.62425}{10.55016/ojs/cdm.v14i1.62425};
+arXiv:\href{https://arxiv.org/abs/1706.00393v2}{1706.00393v2}.
+Equation~(1) is cited with the arXiv v2 pagination, p.~2.
+\bibitem{merca2017}
+M.~Merca, \emph{The Lambert series factorization theorem},
+Ramanujan J.\ \textbf{44} (2017), 417--435,
+doi:\href{https://doi.org/10.1007/s11139-016-9856-3}{10.1007/s11139-016-9856-3}.
+Theorem~1.2, p.~420.
+\bibitem{kovac-tao}
+V.~Kova\v{c} and T.~Tao, \emph{On several irrationality problems for Ahmes
+series}, Acta Math.\ Hungar.\ \textbf{175} (2025), no.~2, 572--608,
+doi:\href{https://doi.org/10.1007/s10474-025-01528-0}{10.1007/s10474-025-01528-0};
+arXiv:\href{https://arxiv.org/abs/2406.17593v4}{2406.17593v4}.
+Theorem~2.3 is cited with the arXiv v4 pagination, p.~5.
+\bibitem{bgs2016}
+R.~Balasubramanian, S.~Giri and P.~Srivastav, \emph{On correlations of certain
+multiplicative functions}, J.\ Number Theory \textbf{174} (2017), 221--238,
+doi:\href{https://doi.org/10.1016/j.jnt.2016.10.001}{10.1016/j.jnt.2016.10.001};
+arXiv:\href{https://arxiv.org/abs/1511.02221v3}{1511.02221v3}.
+Theorem~2.2 is cited with the arXiv v3 pagination, p.~2.
+\bibitem{granville-smooth}
+A.~Granville, \emph{Smooth numbers: computational number theory and beyond},
+in \emph{Algorithmic Number Theory}, MSRI Publ.\ \textbf{44} (2008), 267--323,
+\url{https://library.slmath.org/books/Book44/files/09andrew.pdf}.
+Equations (1.1) and (1.3), p.~268.
+\bibitem{schoenberg1928}
+I.~Schoenberg, \emph{\"Uber die asymptotische Verteilung reeller Zahlen
+mod~1}, Math.\ Z.\ \textbf{28} (1928), 171--199,
+doi:\href{https://doi.org/10.1007/BF01181156}{10.1007/BF01181156}.
+\S17, p.~193, for the distribution of $\varphi(n)/n$.
+\bibitem{schoenberg1936}
+I.~J.~Schoenberg, \emph{On asymptotic distributions of arithmetical
+functions}, Trans.\ Amer.\ Math.\ Soc.\ \textbf{39} (1936), no.~2, 315--330.
+Theorem~1, pp.~318--319; \S8, p.~323.
+\bibitem{edeko-vdc}
+N.~Edeko, H.~Kreidler and R.~Nagel, \emph{A dynamical proof of the van der
+Corput inequality}, Dyn.\ Syst.\ \textbf{37} (2022), no.~4, 648--665,
+doi:\href{https://doi.org/10.1080/14689367.2022.2100244}{10.1080/14689367.2022.2100244};
+arXiv:\href{https://arxiv.org/abs/2106.11835v3}{2106.11835v3}.
+Theorem~2.1 is cited with the arXiv v3 pagination, p.~4.
+\bibitem{matomaki-radziwill}
+K.~Matom\"aki and M.~Radziwi\l\l, \emph{Multiplicative functions in short
+intervals}, Ann.\ of Math.\ \textbf{183} (2016), no.~3, 1015--1056,
+doi:\href{https://doi.org/10.4007/annals.2016.183.3.6}{10.4007/annals.2016.183.3.6};
+arXiv:\href{https://arxiv.org/abs/1501.04585v4}{1501.04585v4}.
+Theorem~1 is cited with the arXiv v4 pagination, pp.~1--2.
+\bibitem{tao-elliott}
+T.~Tao, \emph{The logarithmically averaged Chowla and Elliott conjectures for
+two-point correlations}, Forum Math.\ Pi \textbf{4} (2016), e8,
+doi:\href{https://doi.org/10.1017/fmp.2016.6}{10.1017/fmp.2016.6};
+arXiv:\href{https://arxiv.org/abs/1509.05422v4}{1509.05422v4}.
+Theorems~1.2--1.3 are cited with the arXiv v4 pagination, pp.~2 and~5.
+\bibitem{tao-teravainen}
+T.~Tao and J.~Ter\"av\"ainen, \emph{Odd order cases of the logarithmically
+averaged Chowla conjecture}, J.\ Th\'eor.\ Nombres Bordeaux \textbf{30}
+(2018), no.~3, 997--1015,
+doi:\href{https://doi.org/10.5802/jtnb.1062}{10.5802/jtnb.1062};
+arXiv:\href{https://arxiv.org/abs/1710.02112v1}{1710.02112v1}.
+Theorem~1.1 is cited with the arXiv v1 pagination, p.~2.
+\bibitem{adamczewski-bugeaud}
+B.~Adamczewski and Y.~Bugeaud, \emph{On the complexity of algebraic numbers
+I. Expansions in integer bases}, Ann.\ of Math.\ \textbf{165} (2007), no.~2,
+547--565. Theorem~1, p.~549.
+\bibitem{everest-periodic}
+G.~Everest, A.~J.~van der Poorten, Y.~Puri and T.~Ward, \emph{Integer
+sequences and periodic points}, J.\ Integer Seq.\ \textbf{5} (2002),
+Article~02.2.3. Lemma~3.1 is cited with the preprint pagination, p.~5.
+\bibitem{erdos-gal}
+P.~Erd\H{o}s and I.~S.~G\'al, \emph{On the law of the iterated logarithm.~I},
+Proc.\ Kon.\ Ned.\ Akad.\ Wetensch.\ Ser.~A \textbf{58} $=$ Indag.\ Math.\
+\textbf{17} (1955), 65--76, \url{https://www.renyi.hu/~p_erdos/1955-06.pdf}.
+\end{thebibliography}
 
 \end{document}

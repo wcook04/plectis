@@ -32,11 +32,12 @@ class="math inline" data-term-auto="off">\([a_1,\ldots,a_n]\)</span> is the leas
 multiple <span class="citation"
 data-cites="erdosgraham1980"><a href="#ref-1">[1]</a></span><span class="citation"
 data-cites="erdos1988"><a href="#ref-2">[2]</a></span>. Bloom’s catalogue records the problem as
-open <span class="citation" data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>. This
-note settles every instance with <span
-class="math inline" data-term-auto="off">\(|P|=2\)</span>, at the level of transcendence, and
-the unresolved finite cases begin at <span
-class="math inline" data-term-auto="off">\(|P|=3\)</span>.</p>
+open <span class="citation" data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>.
+Theorem <a class="math-ref" href="#long269:res:lead-two-prime">1.1</a> settles
+every instance with <span class="math inline" data-term-auto="off">\(|P|=2\)</span>, at the
+level of transcendence, and Fan posted that argument first <span
+class="citation" data-cites="fan2026comment"></span>; the unresolved
+finite cases begin at <span class="math inline" data-term-auto="off">\(|P|=3\)</span>.</p>
 <p>The restriction <span class="math inline" data-term-auto="off">\(|P|\ge2\)</span> is
 necessary. For <span class="math inline" data-term-auto="off">\(P=\{p\}\)</span> the
 enumeration is <span class="math inline" data-term-auto="off">\(a_n=p^{\,n-1}\)</span>, so
@@ -52,12 +53,13 @@ common multiple contributes its reciprocal once. The two differ because
 the running value is constant along stretches of the enumeration. In a
 letter written on 1 January 1973 Erdős recorded that he could prove
 irrationality of the de-duplicated sum <span class="citation"
-data-cites="erdos1974letter"><a href="#ref-3">[3]</a></span>. He states that assertion for a
-general finite list of primes and supplies no proof, so the historical
-record already covers <span class="math inline" data-term-auto="off">\(\mathcal D_P\)</span>
-for every finite <span class="math inline" data-term-auto="off">\(P\)</span>; the open
-question addressed by the catalogue is <span
-class="math inline" data-term-auto="off">\(\mathcal R_P\)</span>.</p>
+data-cites="erdos1974letter"><a href="#ref-3">[3]</a></span>. He states that assertion for given
+primes <span class="math inline" data-term-auto="off">\(p_1,\ldots,p_r\)</span> and supplies
+no proof; for a single prime the de-duplicated sum is again <span
+class="math inline" data-term-auto="off">\(p/(p-1)\)</span>, so the assertion concerns sets
+of at least two primes. The open question addressed by the catalogue is
+<span class="math inline" data-term-auto="off">\(\mathcal R_P\)</span>; its two-prime case is
+Theorem <a class="math-ref" href="#long269:res:lead-two-prime">1.1</a>.</p>
 <div class="theorem" id="long269:res:lead-two-prime">
 <p><strong>Theorem 1.1</strong> (two-prime transcendence). <em> Let <span
 class="math inline" data-term-auto="off">\(p\)</span> and <span
@@ -72,10 +74,9 @@ Both values are explicit polynomials in one Hecke–Mahler boundary sum
 rationals, and transcendence of <span class="math inline" data-term-auto="off">\(A\)</span>
 is the theorem of Loxton and van der Poorten <span class="citation"
 data-cites="loxtonvdp1977"><a href="#ref-11">[11]</a></span> in the modern form of Bugeaud and
-Laurent’s Theorem 1.1 <span class="citation"
-data-cites="bugeaudlaurent2023"><a href="#ref-10">[10]</a></span>. The evidence class is an
-ordinary proof in this paper over a cited external theorem, and no Lean
-declaration formalises it.</p>
+Laurent <span class="citation" data-cites="bugeaudlaurent2023"><a href="#ref-10">[10]</a></span>.
+The evidence class is an ordinary proof in this paper over a cited
+external theorem, and no Lean declaration formalises it.</p>
 <section id="attribution." class="level5">
 <h5>Attribution.</h5>
 <p>Steve Fan posted the running-LCM identity for every <span
@@ -87,9 +88,9 @@ thread observed that the argument applies to arbitrary coprime pairs,
 and Fan’s response proposed the wider setting of nonzero algebraic
 numbers whose logarithms are linearly independent over <span
 class="math inline" data-term-auto="off">\(\Q\)</span>. The priority for the two-prime case
-is his. The proof below is independent and is given in full because it
-fixes the <span class="math inline" data-term-auto="off">\(|P|=2\)</span> boundary of the
-problem and because the same boundary sum drives the three-prime
+is his. The proof below was found independently and is given in full
+because it fixes the <span class="math inline" data-term-auto="off">\(|P|=2\)</span> boundary
+of the problem and because the same boundary sum drives the three-prime
 discussion. The identity of Theorem <a class="math-ref" href="#long269:res:lcm">2.1</a> is cited to
 him.</p>
 </section>
@@ -101,7 +102,12 @@ factors, the two-prime kernel is an outer product and the three-prime
 kernel retains one binary floor carry. That carry is enough to produce
 nonsingular minors of every order, uniformly in the third coordinate,
 and to make the normalised carry matrix inapproximable by finite
-separated sums below half its own jump. Sections <a class="math-ref" href="#long269:sec:blocks">5</a> to <a class="math-ref" href="#long269:sec:escape">7</a> take a second
+separated sums below half its own jump. The minors use only row and
+column rescaling, the density of the rotations by <span
+class="math inline" data-term-auto="off">\(\log_rp\)</span> and <span
+class="math inline" data-term-auto="off">\(\log_rq\)</span> taken separately, and a staircase
+determinant, and one choice of indices serves every layer of the literal
+kernel. Sections <a class="math-ref" href="#long269:sec:blocks">5</a> to <a class="math-ref" href="#long269:sec:escape">7</a> take a second
 route on the literal <span class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span>
 series: dyadic shells give an integer-coefficient tail recurrence, a
 strict endpoint clears the smooth part of a hypothetical denominator,
@@ -212,14 +218,13 @@ The unrestricted analogue is classical: iterating the prime-exponent
 maximum rule gives <span
 class="math inline" data-term-auto="off">\(\lcm(1,\ldots,N)=\prod_{t\le N}t^{\lfloor\log_t
 N\rfloor}\)</span> over the primes <span class="math inline" data-term-auto="off">\(t\le
-N\)</span> <span class="citation" data-cites="apostol1976"><a href="#ref-6">[6]</a></span>,
-equivalently <span
-class="math inline" data-term-auto="off">\(\log\lcm(1,\ldots,N)=\psi(N)\)</span> <span
-class="citation" data-cites="apostol1976"></span>, and Montgomery and
-Vaughan state the identity directly in Exercise 6.2.7 <span
-class="citation" data-cites="montgomeryvaughan2007"></span>. Fan states
-the <span class="math inline" data-term-auto="off">\(P\)</span>-restricted form for every
-<span class="math inline" data-term-auto="off">\(|P|\)</span> <span class="citation"
+N\)</span>, equivalently <span
+class="math inline" data-term-auto="off">\(\log\lcm(1,\ldots,N)=\psi(N)\)</span>; see
+Apostol <span class="citation" data-cites="apostol1976"><a href="#ref-6">[6]</a></span> and
+Montgomery and Vaughan <span class="citation"
+data-cites="montgomeryvaughan2007"><a href="#ref-8">[8]</a></span>. Fan’s forum post states the
+<span class="math inline" data-term-auto="off">\(P\)</span>-restricted form for every <span
+class="math inline" data-term-auto="off">\(|P|\)</span> <span class="citation"
 data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>. The pairwise distinctness
 hypothesis is used exactly once, in the coprimality step.</p>
 <p>At <span class="math inline" data-term-auto="off">\((p,q,r)=(2,3,5)\)</span> the first ten
@@ -376,16 +381,8 @@ coefficients equal <span class="math inline" data-term-auto="off">\(2\)</span> a
 identity reads <span class="math inline" data-term-auto="off">\(18421/10800\)</span> on both
 sides. The identity is between two finite sums over a box, so it is not
 a statement about <span class="math inline" data-term-auto="off">\(\operatorname{L}\)</span>
-at a cutoff. Fan and Lott build their van der Corput coefficients on
-sums of two squares by the same kind of regrouping: up to normalisation,
-the coefficient at <span class="math inline" data-term-auto="off">\(d\)</span> sums a smooth
-weight over the representations <span
-class="math inline" data-term-auto="off">\(d=v^2(x^2+y^2)\)</span>, and the average over
-<span class="math inline" data-term-auto="off">\(v\)</span> keeps the associated complete
-sums in a fixed sector <span class="citation"
-data-cites="fanlott2026"><a href="#ref-13">[13]</a></span>. The same Lean module records the
-one-step map <span class="math inline" data-term-auto="off">\(\tau(b,d,s)=b(s-d)\)</span>,
-the <a
+at a cutoff. The same Lean module records the one-step map <span
+class="math inline" data-term-auto="off">\(\tau(b,d,s)=b(s-d)\)</span>, the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L488">variable-base
 tail step</a>, with the rewriting <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L491">that
@@ -611,8 +608,10 @@ one-dimensional criteria. At two generators that hope is exactly
 correct, and at three it fails at every finite order.</p>
 <div class="proposition" id="long269:res:two-prime-rank">
 <p><strong>Proposition 4.1</strong> (two generators separate). <em> For
-<span class="math inline" data-term-auto="off">\(p,q&gt;1\)</span> and all <span
-class="math inline" data-term-auto="off">\(i,j\)</span>, the two-prime kernel <span
+real <span class="math inline" data-term-auto="off">\(p,q&gt;1\)</span>, with <span
+class="math inline" data-term-auto="off">\(L_{p,q}(t)=p^{\lfloor\log_p
+t\rfloor}q^{\lfloor\log_q t\rfloor}\)</span> as above, and all integers
+<span class="math inline" data-term-auto="off">\(i,j\ge0\)</span>, the two-prime kernel <span
 class="math inline" data-term-auto="off">\(\operatorname{K}_2(i,j)=1/L_{p,q}(p^iq^j)\)</span>
 is the outer product </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -624,17 +623,25 @@ every two-by-two minor of <span
 class="math inline" data-term-auto="off">\(\operatorname{K}_2\)</span> vanishes.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> By the two-variable form of Theorem <a class="math-ref" href="#long269:res:lcm">2.1</a> the exponents of
-<span class="math inline" data-term-auto="off">\(p\)</span> and of <span
-class="math inline" data-term-auto="off">\(q\)</span> in <span
-class="math inline" data-term-auto="off">\(L_{p,q}(p^iq^j)\)</span> are <span
-class="math inline" data-term-auto="off">\(i+\lfloor\log_p q^{j}\rfloor\)</span> and <span
-class="math inline" data-term-auto="off">\(j+\lfloor\log_q p^{i}\rfloor\)</span>, each
-depending on one index only. A matrix whose entries are a product of a
-row function and a column function has vanishing two-by-two
-minors. ◻</p>
+<p><em>Proof.</em> Since <span class="math inline" data-term-auto="off">\(i\)</span> and
+<span class="math inline" data-term-auto="off">\(j\)</span> are integers, <span
+class="math inline" data-term-auto="off">\(\lfloor\log_p(p^iq^j)\rfloor=i+\lfloor\log_p
+q^{j}\rfloor\)</span> and <span
+class="math inline" data-term-auto="off">\(\lfloor\log_q(p^iq^j)\rfloor=j+\lfloor\log_q
+p^{i}\rfloor\)</span>. Hence <span
+class="math inline" data-term-auto="off">\(L_{p,q}(p^iq^j)\)</span> is the product of <span
+class="math inline" data-term-auto="off">\(p^{i}q^{\lfloor\log_q p^{i}\rfloor}\)</span>,
+which depends on <span class="math inline" data-term-auto="off">\(i\)</span> alone, and <span
+class="math inline" data-term-auto="off">\(p^{\lfloor\log_p q^{j}\rfloor}q^{j}\)</span>,
+which depends on <span class="math inline" data-term-auto="off">\(j\)</span> alone. A matrix
+whose entries are a product of a row function and a column function has
+vanishing two-by-two minors. For distinct primes <span
+class="math inline" data-term-auto="off">\(p,q\)</span> the product <span
+class="math inline" data-term-auto="off">\(L_{p,q}\)</span> is the running least common
+multiple by the argument of Theorem <a class="math-ref" href="#long269:res:lcm">2.1</a>. ◻</p>
 </div>
-<p>Checked as the <a
+<p>For integers <span class="math inline" data-term-auto="off">\(p,q&gt;1\)</span> this is
+checked as the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L278">outer-product
 identity</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/KernelCarryRank.lean#L298">vanishing
@@ -1200,6 +1207,32 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 for the genuine infinite tail</a>, over the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos269/DyadicOrderedTailRecurrence.lean#L110">normalised
 state step</a>.</p>
+<p>Since <span class="math inline" data-term-auto="off">\(h_0=1/2\)</span>, the last identity
+at <span class="math inline" data-term-auto="off">\(a=0\)</span> writes <span
+class="math inline" data-term-auto="off">\(S/2=X_0\)</span> as the Cantor series <span
+class="math inline" data-term-auto="off">\(\sum_{j\ge0}m_j/(b_0\cdots b_j)\)</span>, and
+<span class="math inline" data-term-auto="off">\(X_a\)</span> is its normalised tail. Such
+tails, with their integer carry recurrence, are the classical tool for
+the rationality of Cantor series. Erdős and Straus characterise
+rationality by integer carries <span class="citation"
+data-cites="erdosstraus1974"><a href="#ref-13">[13]</a></span>, and Hančl and Tijdeman give a
+practical form of that criterion through tails <span
+class="math inline" data-term-auto="off">\(R_n\)</span> with <span
+class="math inline" data-term-auto="off">\(a_nR_n=b_n+R_{n+1}\)</span>, which is the
+recurrence above in their notation <span class="citation"
+data-cites="hancltijdeman2004"><a href="#ref-14">[14]</a></span>. Koutsoukou-Argyraki and Li
+formalised the Erdős–Straus criteria in Isabelle/HOL <span
+class="citation" data-cites="afperdosstraus2020"></span>. Both criteria
+assume that the <span class="math inline" data-term-auto="off">\(n\)</span>th numerator is
+<span class="math inline" data-term-auto="off">\(o(a_{n-1}a_n)\)</span>, where <span
+class="math inline" data-term-auto="off">\(a_n\)</span> is the <span
+class="math inline" data-term-auto="off">\(n\)</span>th base. Here <span
+class="math inline" data-term-auto="off">\(m_a\ge1\)</span> and <span
+class="math inline" data-term-auto="off">\(b_{a-1}b_a\le900\)</span>, so neither criterion
+applies. The passage from rationality to integral tails is the standard
+denominator clearing, proved for this series in Section <a class="math-ref" href="#long269:sec:actual-orbit">6</a>; the work
+specific to this series is the literal forcing with its multiplicities,
+the strict endpoint normalisation and the explicit bounds.</p>
 <div class="proposition" id="long269:res:actual-dichotomy">
 <p><strong>Proposition 5.3</strong> (integral state or cofinal
 separation). <em> Either <span class="math inline" data-term-auto="off">\(X_a\in\Z\)</span>
@@ -1237,9 +1270,12 @@ class="math inline" data-term-auto="off">\((g_a)\)</span> is an unbounded sequen
 positive integers with bounded successive ratios, the real <span
 class="math inline" data-term-auto="off">\(\xi\)</span> with <span
 class="math inline" data-term-auto="off">\(\operatorname{dist}(g_a\xi,\Z)\to0\)</span> form a
-countable set, a phenomenon going back to Eggleston <span
-class="citation" data-cites="fan2026strongly"></span>. For an integer
-<span class="math inline" data-term-auto="off">\(B\ge1\)</span> and <span
+countable set. For increasing sequences this is due to Erdős and Taylor
+<span class="citation" data-cites="erdostaylor1957"><a href="#ref-16">[16]</a></span>, who obtain
+it by modifying Eggleston’s proof of his Theorem 16, and Fan proves the
+form stated here <span class="citation"
+data-cites="fan2026strongly"><a href="#ref-17">[17]</a></span>. For an integer <span
+class="math inline" data-term-auto="off">\(B\ge1\)</span> and <span
 class="math inline" data-term-auto="off">\(g_a=Bh_a\)</span> <span
 class="math inline" data-term-auto="off">\((a\ge1)\)</span> the ratios are the integers <span
 class="math inline" data-term-auto="off">\(b_a\)</span> of <a class="math-ref" data-equation-ref="true" href="#long269:eq:dyadic-alphabet">long269:eq:dyadic-alphabet</a>, and
@@ -1325,9 +1361,10 @@ index is the positive prime-power jump count strictly below the cutoff.
 Put</p>
 <div class="math-display" id="long269:eq:endpoint-index" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:endpoint-index}
-j_a=\#\{p^{e}&lt;2^{a}:p\in\{2,3,5\},\ e\ge1\}=n_a-1 ,
+j_a=\#\{p^{e}&lt;2^{a}:p\in\{2,3,5\},\ e\ge1\}=n_a-1\qquad(a\ge1),
 \end{equation}\]</span></div>
-<p class="display-continue">the equality holding because the powers of <span
+<p class="display-continue">the equality holding for <span
+class="math inline" data-term-auto="off">\(a\ge1\)</span> because the powers of <span
 class="math inline" data-term-auto="off">\(2\)</span> below <span
 class="math inline" data-term-auto="off">\(2^{a}\)</span> number <span
 class="math inline" data-term-auto="off">\(a-1\)</span> while the powers of <span
@@ -1335,14 +1372,18 @@ class="math inline" data-term-auto="off">\(3\)</span> and of <span
 class="math inline" data-term-auto="off">\(5\)</span> below <span
 class="math inline" data-term-auto="off">\(2^{a}\)</span> number <span
 class="math inline" data-term-auto="off">\(\lfloor\log_3 2^{a}\rfloor\)</span> and <span
-class="math inline" data-term-auto="off">\(\lfloor\log_5 2^{a}\rfloor\)</span>. Substituting
-<span class="math inline" data-term-auto="off">\(n_a=j_a+1\)</span> into <span
+class="math inline" data-term-auto="off">\(\lfloor\log_5 2^{a}\rfloor\)</span>; at <span
+class="math inline" data-term-auto="off">\(a=0\)</span> the count is <span
+class="math inline" data-term-auto="off">\(j_0=0\)</span> and <span
+class="math inline" data-term-auto="off">\(n_0-1=-1\)</span>. Substituting <span
+class="math inline" data-term-auto="off">\(n_a=j_a+1\)</span> into <span
 class="math inline" data-term-auto="off">\(Q\)</span> gives the integer bound used throughout
 the rest of the note:</p>
 <div class="math-display" id="long269:eq:actual-bound" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{equation}
 \label{long269:eq:actual-bound}
-K(B,a)=\bigl\lfloor B\,Q(n_a)\bigr\rfloor
-=\left\lfloor\frac{B(j_a^{2}+10j_a+27)}9\right\rfloor .
+K(B,a)=\bigl\lfloor B\,Q(n_a)\bigr\rfloor,
+\qquad
+K(B,a)=\left\lfloor\frac{B(j_a^{2}+10j_a+27)}9\right\rfloor\quad(a\ge1).
 \end{equation}\]</span></div>
 <p>The cutoff in <a class="math-ref" data-equation-ref="true" href="#long269:eq:endpoint-index">long269:eq:endpoint-index</a> is
 <span class="math inline" data-term-auto="off">\(2^{a}\)</span> and it is strict.</p>
@@ -1708,17 +1749,19 @@ for the series value itself. The Lean equivalence is stated at <span
 class="math inline" data-term-auto="off">\(K_0\)</span>; the band of Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">7.2</a>
 is the paper statement.</p>
 <p>Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">7.2</a>
-settles a question that a reader is entitled to ask about the criterion.
-Sharpening the bound below <span class="math inline" data-term-auto="off">\(K\)</span> does
-not weaken the producer, since escape against a bound that fails to
-dominate the actual carries proves nothing; the zero bound is the
-extreme case. Enlarging the bound up to any subexponential function does
-not weaken it either. The producer is therefore a restatement of
-Erdős #269 for <span class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span>
-throughout the band, and work on it is work on the target. Equivalence
+makes the producer a restatement of Erdős #269 for <span
+class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> throughout the band, so work
+on it is work on the target. The rational direction needs a bound valid
+for every actual positive carry. The bound <span
+class="math inline" data-term-auto="off">\(K\)</span> is one such bound, and a smaller bound
+proved valid for the actual carries could replace it; the zero bound is
+invalid, and <span class="math inline" data-term-auto="off">\(\mathsf E(0)\)</span> holds
+vacuously. Enlarging the bound to any <span class="math inline" data-term-auto="off">\(G\ge
+K\)</span> with <span class="math inline" data-term-auto="off">\(G(B,a)=o(2^{a})\)</span>, in
+particular to any subexponential bound above <span
+class="math inline" data-term-auto="off">\(K\)</span>, preserves the equivalence. Equivalence
 preserves truth and settles nothing about difficulty, so the
-reformulation may still be the easier representation to attack; what it
-does not admit is a cheaper bound.</p>
+reformulation may still be the easier representation to attack.</p>
 <p>Two exact countermodels rule out further shortcuts. For <span
 class="math inline" data-term-auto="off">\((W,F,B)=(6,4,1)\)</span> we have <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_6(-4)=2\)</span>, so the
@@ -1827,8 +1870,8 @@ bound <span class="math inline" data-term-auto="off">\(K\)</span> of <a class="
 class="math display" data-term-auto="off">\[\begin{array}{c|c|c|c|r|r|r|r}
 B&amp;\ell&amp;h&amp;j_{\ell+h}&amp;W&amp;F&amp;R&amp;K\\ \hline
 1&amp;1&amp;2&amp;4&amp;60&amp;47&amp;13&amp;9\\
-7&amp;1&amp;3&amp;5&amp;360&amp;289&amp;137&amp;95\\
-16&amp;1&amp;4&amp;7&amp;10800&amp;8735&amp;640&amp;352
+7&amp;1&amp;3&amp;6&amp;360&amp;289&amp;137&amp;95\\
+16&amp;1&amp;4&amp;9&amp;10800&amp;8735&amp;640&amp;352
 \end{array}\]</span></div>
 <p>The first row reads as follows. The window starts
 at <span class="math inline" data-term-auto="off">\(\ell=1\)</span> and has length <span
@@ -1901,9 +1944,8 @@ class="math inline" data-term-auto="off">\(9.674\times10^{-227}\)</span>, and a 
 <span class="math inline" data-term-auto="off">\(\max X/W=0.185997\)</span>. This is a
 computational certificate and nothing else: no Lean declaration carries
 any part of it, so it rests on the correctness of the exact integer
-engine that produced it, and the certificate record is held in the
-author’s formal-mathematics archive, outside the public source of this
-release.</p>
+engine that produced it, and the certificate record is not part of the
+public source of this release.</p>
 <div class="theorem" id="long269:res:cf-exclusion">
 <p><strong>Theorem 8.2</strong> (continued-fraction exclusion,
 computational certificate). <em> The normalised tail <span
@@ -1915,19 +1957,20 @@ class="math inline" data-term-auto="off">\(10^{6768}\)</span>.</em></p>
 </div>
 <p>The certification is by common prefix of the continued fractions of
 the two endpoints of an interval provably containing <span
-class="math inline" data-term-auto="off">\(X_1\)</span>, so no approximation heuristic
-enters, and the truncation was independently checked to agree with the
-direct smooth-number sum as an exact rational. The machine-readable
-witness and replay receipt for this large computation are not included
-in the public release, so the statement remains an archived ordinary
-computational certificate rather than a publicly replayed or
-Lean-checked result. The recorded statistics are a largest denominator
-of <span class="math inline" data-term-auto="off">\(22{,}483\)</span> bits, a largest partial
-quotient of <span class="math inline" data-term-auto="off">\(129{,}114\)</span>, a mean
-partial quotient of <span class="math inline" data-term-auto="off">\(23.4133\)</span>,
-observed Gauss–Kuzmin frequencies <span
-class="math inline" data-term-auto="off">\(0.4208\)</span>, <span
-class="math inline" data-term-auto="off">\(0.1665\)</span>, <span
+class="math inline" data-term-auto="off">\(X_1\)</span>; the numbers with a given prefix of
+partial quotients form an interval <span class="citation"
+data-cites="bosmaCF"><a href="#ref-19">[19]</a></span>, so no approximation heuristic enters, and
+the truncation was independently checked to agree with the direct
+smooth-number sum as an exact rational. The machine-readable witness and
+replay receipt for this large computation are not included in the public
+release, so the statement is an ordinary computational certificate that
+has been neither publicly replayed nor checked in Lean. The recorded
+statistics are a largest denominator of <span
+class="math inline" data-term-auto="off">\(22{,}483\)</span> bits, a largest partial quotient
+of <span class="math inline" data-term-auto="off">\(129{,}114\)</span>, a mean partial
+quotient of <span class="math inline" data-term-auto="off">\(23.4133\)</span>, observed
+Gauss–Kuzmin frequencies <span class="math inline" data-term-auto="off">\(0.4208\)</span>,
+<span class="math inline" data-term-auto="off">\(0.1665\)</span>, <span
 class="math inline" data-term-auto="off">\(0.0917\)</span>, <span
 class="math inline" data-term-auto="off">\(0.0575\)</span>, <span
 class="math inline" data-term-auto="off">\(0.0391\)</span> against the predicted <span
@@ -1937,9 +1980,12 @@ class="math inline" data-term-auto="off">\(0.0931\)</span>, <span
 class="math inline" data-term-auto="off">\(0.0589\)</span>, <span
 class="math inline" data-term-auto="off">\(0.0406\)</span>, and a Lévy constant of <span
 class="math inline" data-term-auto="off">\(1.18869\)</span> against <span
-class="math inline" data-term-auto="off">\(\pi^{2}/(12\log2)=1.18657\)</span>. No Liouville
-behaviour and no algebraic or self-similar continued-fraction structure
-appears below that height.</p>
+class="math inline" data-term-auto="off">\(\pi^{2}/(12\log2)=1.18657\)</span>. The predicted
+values are the almost-everywhere frequencies of Gauss’s law and Lévy’s
+almost-everywhere constant <span class="citation"
+data-cites="levy1936"><a href="#ref-18">[18]</a></span>. These statistics describe a finite prefix
+and do not bear on whether <span class="math inline" data-term-auto="off">\(X_1\)</span> is a
+Liouville number, algebraic, or rational with a larger denominator.</p>
 <p>Each exclusion is finite and neither contains the other: one is
 indexed by a lattice at a fixed launch and fixed smooth part, the other
 by continued-fraction depth at <span class="math inline" data-term-auto="off">\(a=1\)</span>.
@@ -2130,7 +2176,8 @@ class="math inline" data-term-auto="off">\(|P|\ge3\)</span>. For <span
 class="math inline" data-term-auto="off">\(P=\{2,3,5\}\)</span> the reduction is complete on
 the arithmetic side: the literal digit, the tail, the integral
 recurrence, the smooth-factor cancellation, the explicit onset and the
-sharp carry bound all refer to the same series, and Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">7.2</a>
+explicit quadratic carry bound all refer to the same series, and
+Theorem <a class="math-ref" href="#long269:res:actual-escape-endpoint">7.2</a>
 shows that the one remaining condition is the problem itself throughout
 an entire band of bounds. Three obstructions mark the limits.
 Arbitrary-order minors exclude every finite exact separation of the
@@ -2148,12 +2195,15 @@ begin beyond the onset.</p>
 <h3 class="unnumbered">Statements and declarations</h3>
 <section id="evidence." class="level5">
 <h5>Evidence.</h5>
-<p>Steve Fan’s two-prime argument is an ordinary proof over the cited
-Bugeaud–Laurent theorem and carries no Lean declaration. The
-arbitrary-order kernel minors and the exclusion of finite separation are
-Lean theorems in <code>KernelCarryRank</code>. The named source
-statements for the literal recurrence and fixed-split rationality bridge
-are Lean theorems as well. The <a
+<p>The two-prime theorem has an ordinary proof in this record over the
+Hecke–Mahler value theorem of Loxton and van der Poorten, in the form of
+Bugeaud and Laurent, and carries no Lean declaration; Steve Fan posted
+the same argument first <span class="citation"
+data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>. The arbitrary-order kernel minors
+and the exclusion of finite separation are Lean theorems in
+<code>KernelCarryRank</code>. The named source statements for the
+literal recurrence and fixed-split rationality bridge are Lean theorems
+as well. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/06f57893e0f9c6d80668048f26f096367ae4cfe7/verification/erdos269-wavea-validation.json">source-current
 validation receipt</a> byte-matches these modules and records their
 compilation inside the public recursive import closure; its named
@@ -2166,7 +2216,7 @@ arbitrary-order theorem. The actual-series reduction is given; the
 source-specific cofinal escape remains unproved. Named Lean sources
 below are locators, not a blanket end-to-end coverage claim. The
 quadratic tail bound, the explicit onset <span
-class="math inline" data-term-auto="off">\(a_D\)</span>, the sharp bound <span
+class="math inline" data-term-auto="off">\(a_D\)</span>, the explicit bound <span
 class="math inline" data-term-auto="off">\(K\)</span>, and Theorem <a class="math-ref" href="#long269:res:uniform-rank">4.5</a> are
 ordinary proofs in this paper; the three finite computations of
 Section <a class="math-ref" href="#long269:sec:evidence">8</a>
@@ -2187,12 +2237,14 @@ competing interests.</p>
 </section>
 <section id="acknowledgements." class="level5">
 <h5>Acknowledgements.</h5>
-<p>The two-prime factorisation, its Hecke–Mahler reduction and the
-running-LCM identity for every <span class="math inline" data-term-auto="off">\(|P|\)</span>
-are credited to Steve Fan. The transcendence input is credited to Yann
-Bugeaud and Michel Laurent and to the earlier work of Loxton and van der
-Poorten cited by them. The problem numbering and status follow the Erdős
-Problems catalogue maintained by Thomas Bloom <span class="citation"
+<p>Priority for the two-prime factorisation, its Hecke–Mahler reduction
+and the running-LCM identity for every <span
+class="math inline" data-term-auto="off">\(|P|\)</span> belongs to Steve Fan’s forum post of
+26 June 2026 <span class="citation" data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>.
+The transcendence input is due to Yann Bugeaud and Michel Laurent and to
+the earlier work of Loxton and van der Poorten cited by them. The
+problem numbering and status follow the Erdős Problems catalogue
+maintained by Thomas Bloom <span class="citation"
 data-cites="erdosproblems"><a href="#ref-4">[4]</a></span>.</p>
 </section>
 </section>
@@ -2227,16 +2279,15 @@ R_P\)</span>. A recovered proof of the letter’s assertion, or a
 transcendence statement for <span class="math inline" data-term-auto="off">\(\mathcal
 D_P\)</span> with <span class="math inline" data-term-auto="off">\(|P|\ge3\)</span>, would be
 a different question and needs its own formulation.</p>
-<p>The two-prime argument of the note is independent of the unprinted
-argument in the letter, and it is not the first public proof. Steve Fan
-posted the same factorisation, the same Hecke–Mahler reduction and the
-same conclusion in the discussion thread of the problem’s page on 26
-June 2026 <span class="citation" data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>;
-the comment itself notes that the argument does not seem to generalise
-immediately to <span class="math inline" data-term-auto="off">\(|P|\ge3\)</span>, and a reply
-there observes that it applies to arbitrary coprime pairs. The
-manuscript of the note was first released publicly on 22 July 2026, at
-commit <code>a9d3ab8</code>.</p>
+<p>The letter prints no argument. On 26 June 2026 Steve Fan posted the
+two-prime factorisation, the Hecke–Mahler reduction and the
+transcendence conclusion in the discussion thread of the problem’s page
+<span class="citation" data-cites="fan2026comment"><a href="#ref-12">[12]</a></span>; the comment
+itself notes that the argument does not seem to generalise immediately
+to <span class="math inline" data-term-auto="off">\(|P|\ge3\)</span>, and a reply there
+observes that it applies to arbitrary coprime pairs. The note’s
+two-prime argument was found independently, and its manuscript was first
+released publicly on 22 July 2026, at commit <code>a9d3ab8</code>.</p>
 <p>The statement of the problem has been formalised as a conjecture with
 an unfilled proof in the <em>Formal Conjectures</em> collection <span
 class="citation" data-cites="formalconjectures269"></span>. Its
@@ -2250,7 +2301,10 @@ series-identification lemma, which is not supplied here.</p>
 <p>The note applies the carry machinery to the literal <span
 class="math inline" data-term-auto="off">\(\{2,3,5\}\)</span> orbit. The underlying
 statements are about integer sequences alone, they are reusable, and
-they are recorded here in the generality in which they are checked.</p>
+they are recorded here in the generality in which they are checked. They
+are conditional carry lemmas in the Cantor-series tradition described
+after Theorem <a class="math-ref" href="#long269:res:actual-orbit">5.2</a>, and each
+assumes its divisibility or escape hypothesis.</p>
 <p>Let <span class="math inline" data-term-auto="off">\(D=D_{\mathrm{sm}}B\)</span> with
 <span class="math inline" data-term-auto="off">\(D_{\mathrm{sm}}=2^{u}3^{v}5^{w}\)</span> and
 <span class="math inline" data-term-auto="off">\(\gcd(B,30)=1\)</span>, and let <span
@@ -3212,10 +3266,14 @@ to the short note.</p>
 result. Formal editorial disposition: hold. These are separate
 classifications.</p>
 <p><strong>Reader entry.</strong> Both two-prime running-lcm series are
-proved transcendental by an authored deduction from an external
-theorem.</p>
-<p>Both two-prime running-lcm series are proved transcendental by an
-authored deduction from an external theorem.</p>
+transcendental, by an independent deduction from the Hecke–Mahler value
+theorem of Loxton and van der Poorten in the form of Bugeaud and
+Laurent; Steve Fan posted the same argument first on the problem’s forum
+thread.</p>
+<p>Both two-prime running-lcm series are transcendental, by an
+independent deduction from the Hecke–Mahler value theorem of Loxton and
+van der Poorten in the form of Bugeaud and Laurent; Steve Fan posted the
+same argument first on the problem’s forum thread.</p>
 <p><strong>Authority and reach.</strong> paper argument plus cited
 theorem; paper plus external theorem.</p>
 <p><strong>Exact boundary.</strong> Comparator cannot certify the
@@ -3409,10 +3467,16 @@ complete long record and is not a short-note headline.</p>
 <p><strong>Reader position.</strong> 64 of 70; display band: technical
 support. Formal editorial disposition: hold. These are separate
 classifications.</p>
-<p><strong>Reader entry.</strong> A local-window checker searches 106666
-denominator and start pairs and records small certificates.</p>
-<p>A local-window checker searches 106666 denominator and start pairs
-and records small certificates.</p>
+<p><strong>Reader entry.</strong> A local-window checker searches <span
+class="math inline" data-term-auto="off">\(3{,}869{,}934\)</span> denominator and start
+pairs, after an earlier run over <span
+class="math inline" data-term-auto="off">\(106{,}666\)</span>, and records small
+certificates.</p>
+<p>A local-window checker searches <span
+class="math inline" data-term-auto="off">\(3{,}869{,}934\)</span> denominator and start
+pairs, after an earlier run over <span
+class="math inline" data-term-auto="off">\(106{,}666\)</span>, and records small
+certificates.</p>
 <p><strong>Authority and reach.</strong> external exact computation;
 finite computation.</p>
 <p><strong>Exact boundary.</strong> Finite search is not a cofinal
@@ -3445,19 +3509,17 @@ href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009
 href="https://www.fq.math.ca/Scanned/12-4/letter.pdf"><em>Letter to the
 Editor</em></a> (written 1 January 1973), Fibonacci Quart.
 <strong>12</strong> (1974), no. 4, p. 335. The letter poses the full
-series as a conjecture and asserts irrationality after retaining only
-the distinct running-LCM values, for a general finite list of primes,
-without proof.</p></li>
+series as a conjecture and states, without proof, that the sum over the
+distinct running-LCM values is irrational.</p></li>
 <li id="ref-4"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/269"><em>Erdős Problem
 #269</em></a>, <code>erdosproblems.com/269</code>, accessed 28 July 2026
-(page displays “last edited 28 December 2025”). The current record
+(page displays “last edited 28 December 2025”). As accessed, the record
 labels the finite-support problem open, cites
 <code>[ErGr80, p. 65]</code> and <code>[Er88c, p. 106]</code>, routes to
 the 1974 letter on p. 335, records the infinite-prime and de-duplicated
-variants, and explicitly describes its status as the website owner’s
-present assessment, with no guarantee of literature
-completeness.</p></li>
+variants, and describes its status as the website owner’s present
+assessment, with no guarantee of literature completeness.</p></li>
 <li id="ref-5"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/269.lean"><em>FormalConjectures.ErdosProblems.<code>269</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July
@@ -3468,8 +3530,8 @@ Analytic Number Theory</em></a>, Springer, New York, 1976.</p></li>
 <li id="ref-7"><p>A. Hildebrand, <em>On the number of positive integers <span
 class="math inline" data-term-auto="off">\(\le x\)</span> and free of prime factors <span
 class="math inline" data-term-auto="off">\(&gt;y\)</span></em>, J. Number Theory
-<strong>22</strong> (1986), 289–307, <a
-href="https://doi.org/10.1016/0022-314X(86)90013-2">DOI</a>.</p></li>
+<strong>22</strong> (1986), 289–307, doi:<a
+href="https://doi.org/10.1016/0022-314X(86)90013-2">10.1016/0022-314X(86)90013-2</a>.</p></li>
 <li id="ref-8"><p>H. L. Montgomery and R. C. Vaughan, <em>The Prime Number
 Theorem</em>, in <em>Multiplicative Number Theory I: Classical
 Theory</em>, Cambridge Studies in Advanced Mathematics 97, Cambridge
@@ -3482,39 +3544,46 @@ irrationality problems for Ahmes series</em></a>, Acta Math. Hungar.
 href="https://doi.org/10.1007/s10474-025-01528-0">10.1007/s10474-025-01528-0</a>;
 <a href="https://arxiv.org/abs/2406.17593">arXiv:2406.17593</a>,
 2024.</p></li>
-<li id="ref-10"><p>Y. Bugeaud and M. Laurent, <em>Transcendence and continued
-fraction expansion of values of Hecke–Mahler series</em>, Acta Arith.
-<strong>209</strong> (2023), 59–90, doi:10.4064/aa220323-18-1; <a
-href="https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf">authors’
-Online First PDF</a>, <a
-href="https://arxiv.org/abs/2203.12901">arXiv:2203.12901v1</a>.
-Theorem 1.1 appears on p. 3 of the linked Online First PDF; its
-introduction, p. 2, attributes the zero-shift case to Loxton and van der
-Poorten. The original result is Theorem 8, p. 40, of <span
-class="citation" data-cites="loxtonvdp1977"></span>.</p></li>
+<li id="ref-10"><p>Y. Bugeaud and M. Laurent, <a
+href="https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf"><em>Transcendence
+and continued fraction expansion of values of Hecke–Mahler
+series</em></a>, Acta Arith. <strong>209</strong> (2023), 59–90, doi:<a
+href="https://doi.org/10.4064/aa220323-18-1">10.4064/aa220323-18-1</a>;
+arXiv:<a href="https://arxiv.org/abs/2203.12901v1">2203.12901v1</a>.
+Theorem 1.1 is on p. 3 of the linked Online First version, whose
+introduction, pp. 1–2, credits the case <span
+class="math inline" data-term-auto="off">\(\rho=0\)</span> to Mahler and to Loxton and van
+der Poorten.</p></li>
 <li id="ref-11"><p>J. H. Loxton and A. J. van der Poorten, <em>Arithmetic properties
 of certain functions in several variables III</em>, Bull. Austral. Math.
-Soc. <strong>16</strong> (1977), 15–47, <a
-href="https://doi.org/10.1017/S0004972700022978">doi:10.1017/S0004972700022978</a>;
-Theorem 8, p. 40.</p></li>
+Soc. <strong>16</strong> (1977), 15–47, doi:<a
+href="https://doi.org/10.1017/S0004972700022978">10.1017/S0004972700022978</a>.</p></li>
 <li id="ref-12"><p>S. Fan, comment on Erdős Problem #269, <a
-href="https://www.erdosproblems.com/forum/thread/269">erdosproblems.com
-forum, thread 269</a>, 26 June 2026. The comment gives the running-LCM
-identity for every <span class="math inline" data-term-auto="off">\(|P|\)</span>, the
-two-channel factorisation, the Hecke–Mahler reduction, and the
+href="https://www.erdosproblems.com/forum/thread/269#post-7218">erdosproblems.com
+forum, thread 269, post 7218</a>, 26 June 2026. The comment gives the
+running-LCM identity for every <span class="math inline" data-term-auto="off">\(|P|\)</span>,
+the two-channel factorisation, the Hecke–Mahler reduction, and the
 transcendence conclusion for <span class="math inline" data-term-auto="off">\(|P|=2\)</span>;
 follow-up comments there note the extension to arbitrary coprime
 pairs.</p></li>
-<li id="ref-13"><p>S. Fan and A. Lott, <a
-href="https://arxiv.org/abs/2606.29185"><em>The van der Corput property
-for sums of two squares</em></a>, arXiv:2606.29185v1, 28 June 2026.
-Section 3, pp. 4–8, defines the coefficients by summing smooth weights
-over the representations <span
-class="math inline" data-term-auto="off">\(d=v^2(x^2+y^2)\)</span>; pp. 5–6 explain that
-averaging over <span class="math inline" data-term-auto="off">\(v\)</span> places the
-complete sums in a fixed sector, and Corollary 4.4, p. 12, proves the
-sector bound.</p></li>
-<li id="ref-14"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071"><em>Strongly
+<li id="ref-13"><p>P. Erdős and E. G. Straus, <em>On the irrationality of certain
+series</em>, Pacific J. Math. <strong>55</strong> (1974), no. 1, 85–92,
+doi:<a
+href="https://doi.org/10.2140/pjm.1974.55.85">10.2140/pjm.1974.55.85</a>.</p></li>
+<li id="ref-14"><p>J. Hančl and R. Tijdeman, <em>On the irrationality of Cantor and
+Ahmes series</em>, Publ. Math. Debrecen <strong>65</strong> (2004),
+no. 3–4, 371–380, doi:<a
+href="https://doi.org/10.5486/PMD.2004.3254">10.5486/PMD.2004.3254</a>.</p></li>
+<li id="ref-15"><p>A. Koutsoukou-Argyraki and W. Li, <a
+href="https://www.isa-afp.org/entries/Irrational_Series_Erdos_Straus.html"><em>Irrationality
+Criteria for Series by Erdős and Straus</em></a>, Archive of Formal
+Proofs, 12 May 2020.</p></li>
+<li id="ref-16"><p>P. Erdős and S. J. Taylor, <em>On the set of points of
+convergence of a lacunary trigonometric series and the equidistribution
+properties of related sequences</em>, Proc. London Math. Soc. (3)
+<strong>7</strong> (1957), no. 1, 598–615, doi:<a
+href="https://doi.org/10.1112/plms/s3-7.1.598">10.1112/plms/s3-7.1.598</a>.</p></li>
+<li id="ref-17"><p>S. Fan, <a href="https://arxiv.org/abs/2607.14071v1"><em>Strongly
 complete sets and a conjecture of Erdős</em></a>, arXiv:2607.14071v1,
 15 July 2026. The paper proves the conjecture listed as Erdős
 Problem #254. Lemma 3.1, p. 7, proves that the <span
@@ -3526,6 +3595,15 @@ a_n\)</span> for a fixed <span
 class="math inline" data-term-auto="off">\(\lambda&gt;1\)</span>; the preceding paragraph
 credits the phenomenon to Eggleston (1952) and more general results to
 Erdős and Taylor (1957).</p></li>
+<li id="ref-18"><p>P. Lévy, <a
+href="http://www.numdam.org/item?id=CM_1936__3__286_0"><em>Sur le
+développement en fraction continue d’un nombre choisi au
+hasard</em></a>, Compositio Math. <strong>3</strong> (1936),
+286–303.</p></li>
+<li id="ref-19"><p>W. Bosma, C. Kraaikamp, S. Hommersom, M. Keune, C. Kooloos,
+W. van Loon, R. Loos, E. Omiljan, G. Popma, D. Venhoek and M. Zwart, <a
+href="https://www.math.ru.nl/~bosma/Students/CF.pdf"><em>Continued
+Fractions</em></a>, lecture notes, 2012–2013.</p></li>
 </ol>
 </section>
   </div>

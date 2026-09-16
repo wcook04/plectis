@@ -18,10 +18,10 @@ same passage, records the expectation that
 is irrational, indeed transcendental, for every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
 <span class="citation" data-cites="erdos1988"><a href="#ref-1">[1]</a></span>. That is
-conjectural context. Numbering and current status follow <a
+conjectural context. Numbering follows <a
 href="https://www.erdosproblems.com/68">Bloom’s Erdős problem
-catalogue</a> <span class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>; the
-problem is open.</p>
+catalogue</a> <span class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>, which
+lists the problem as open.</p>
 <p>Put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>H</mi><mi>M</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><mi>M</mi></munderover><mfrac><mn>1</mn><msub><mi>d</mi><mi>n</mi></msub></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>L</mi><mi>M</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>d</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>A</mi><mi>M</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><mi>M</mi></munderover><mfrac><msub><mi>L</mi><mi>M</mi></msub><msub><mi>d</mi><mi>n</mi></msub></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">d_n=n!-1,\qquad H_M=\sum_{n=2}^{M}\frac1{d_n},\qquad
  L_M=\operatorname{lcm}(d_2,\ldots,d_M),\qquad
@@ -34,7 +34,12 @@ is the positive denominator of a rational number in lowest terms. The
 first question is which prime power present in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>M</mi></msub><annotation encoding="application/x-tex">L_M</annotation></semantics></math>
 remains in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{den}(H_M)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{den}(H_M)</annotation></semantics></math>.
+For the largest exponent the answer is a specialisation of the
+reciprocal-sum valuation formula of Louwsma and Martino <span
+class="citation" data-cites="louwsma-martino"></span>; the proof below
+writes it out for the denominators
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>n</mi></msub><annotation encoding="application/x-tex">d_n</annotation></semantics></math>.</p>
 <p></p>
 <div class="theorem">
 <p><strong>Theorem 1.2</strong> (maximal prime-power survival). <em> Let
@@ -104,10 +109,8 @@ A zero residue gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">v_p(\operatorname{den}(H_M))&lt;e</annotation></semantics></math>,
 and further congruences are needed to determine the surviving exponent.
 The proof uses no property of factorials beyond the displayed
-denominators, so it applies to any finite sum of reciprocals. It is the
-first valuation layer of the reciprocal-sum formula of Louwsma and
-Martino <span class="citation" data-cites="louwsma-martino"><a href="#ref-3">[3]</a></span>.
-What is specific here is the behaviour of the actual family
+denominators, so it applies to any finite sum of reciprocals. What is
+specific here is the behaviour of the actual family
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d_n=n!-1</annotation></semantics></math>,
 and that behaviour is not generic.</p>
 <section id="two-complete-cancellations." class="level5">
@@ -224,10 +227,18 @@ with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\mid n!-1</annotation></semantics></math>,
 the identity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>−</mo><mn>1</mn><mo>−</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mspace width="0.167em"></mspace><mi>n</mi><mi>!</mi><mo>≡</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">(q-1-n)!\,n!\equiv(-1)^{n+1}\pmod q</annotation></semantics></math>
-gives a second hit at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>−</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q-n-1</annotation></semantics></math>.
+gives the reflected hit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>−</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q-n-1</annotation></semantics></math>,
+which differs from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≠</mo><mn>2</mn><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\ne2n+1</annotation></semantics></math>
+and is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mi>q</mi><mo>−</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\le q-3</annotation></semantics></math>.
 The reflection identity is classical; see Stewart <span class="citation"
-data-cites="stewart2004"><a href="#ref-7">[7]</a></span>.</p>
+data-cites="stewart2004"><a href="#ref-8">[8]</a></span>.</p>
 </section>
 </section>
 <section id="long68:sec:lcm" class="level2">
@@ -257,6 +268,25 @@ The difference is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i=1}^{k-1}(k-i-1)a_i</annotation></semantics></math>,
 which is nonnegative. ◻</p>
 </div>
+<p>The next divisibility is the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">P=-1</annotation></semantics></math>
+of the relation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\gcd(i!+P(i),j!+P(j))\mid (j!/i!)P(i)-P(j)</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">P\in\mathbb{Z}[X]</annotation></semantics></math>,
+obtained by multiplying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">i!+P(i)</annotation></semantics></math>
+by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">j!/i!</annotation></semantics></math>
+and subtracting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">j!+P(j)</annotation></semantics></math>.
+Luca and Shparlinski use this relation to bound a common divisor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n!+P(n)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n+h)!+P(n+h)</annotation></semantics></math>
+in the proof of their Lemma 5 <span class="citation"
+data-cites="luca-shparlinski"><a href="#ref-13">[13]</a></span>, and Lai uses it for a common
+prime-power divisor <span class="citation" data-cites="lai"><a href="#ref-14">[14]</a></span>.</p>
 <div class="lemma">
 <p><strong>Lemma 2.2</strong> (factorial-gap gcd). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">2\le i&lt;j</annotation></semantics></math>,
@@ -297,28 +327,6 @@ is a product of
 integers each at most
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>. ◻</p>
 </div>
-<p>The divisibility
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>∣</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">g\mid j!/i!-1</annotation></semantics></math>
-is the case
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">P=-1</annotation></semantics></math>
-of the relation
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>∣</mo><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\gcd(i!+P(i),j!+P(j))\mid (j!/i!)P(i)-P(j)</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">P\in\mathbb{Z}[X]</annotation></semantics></math>,
-obtained by multiplying
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">i!+P(i)</annotation></semantics></math>
-by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">j!/i!</annotation></semantics></math>
-and subtracting
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">j!+P(j)</annotation></semantics></math>.
-Luca and Shparlinski use this relation to bound a common divisor of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n!+P(n)</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n+h)!+P(n+h)</annotation></semantics></math>
-in the proof of Lemma 5 of <span class="citation"
-data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, and Lai uses it for a common
-prime-power divisor at display (2.5) of <span class="citation"
-data-cites="lai"><a href="#ref-13">[13]</a></span>.</p>
 <div class="lemma">
 <p><strong>Lemma 2.3</strong> (segment inequality). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2\le k\le N-1</annotation></semantics></math>,
@@ -439,7 +447,7 @@ known and was not located.</p>
 <p><strong>Remark</strong> (polynomial shifts). <em>Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P\in\mathbb{Z}[X]\setminus\{0\}</annotation></semantics></math>.
 By Lemma 3 of Luca and Shparlinski <span class="citation"
-data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span>, in the form given by Lai <span
+data-cites="luca-shparlinski"><a href="#ref-13">[13]</a></span>, in the form given by Lai <span
 class="citation" data-cites="lai"></span>, there is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n_0\ge2</annotation></semantics></math>,
 depending only on
@@ -579,9 +587,10 @@ of prime powers, and compute the growth rate of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\Phi_n</annotation></semantics></math> <span
 class="citation" data-cites="lai-lupu-sprang"></span>. That saving
 enters the inequality <span class="citation"
-data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span> under which the rescaled forms,
-which have integer coefficients, meet the irrationality criterion quoted
-in <span class="citation" data-cites="lai-lupu-sprang"><a href="#ref-14">[14]</a></span>: nonzero
+data-cites="lai-lupu-sprang"><a href="#ref-15">[15]</a></span> under which the rescaled forms,
+which have integer coefficients, meet the irrationality criterion <span
+class="citation" data-cites="lai-lupu-sprang"></span> that they quote
+from Lai <span class="citation" data-cites="lai-2adic"><a href="#ref-16">[16]</a></span>: nonzero
 values whose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-adic
 size, multiplied by the largest absolute value of a coefficient, tends
@@ -594,7 +603,10 @@ Theorem  decides, for each prime
 whether
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
 divides this ratio; no asymptotic lower bound for the ratio is
-established here.</p>
+established here. This paragraph compares the two methods; no
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-adic
+theorem is applied to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.</p>
 </section>
 <section id="long68:sec:carry" class="level2">
 <h2>Carries and the rationality boundary</h2>
@@ -624,7 +636,11 @@ a geometric majorant gives the tail estimate
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><msub><mi>E</mi><mi>m</mi></msub><mo>&lt;</mo><mfrac><mrow><mn>2</mn><mspace width="0.167em"></mspace><mi>m</mi><mi>!</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>&lt;</mo><mfrac><mn>2</mn><mi>m</mi></mfrac><mo>≤</mo><mn>1</mn><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>≥</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long68:eq:tail-bound}
  0&lt;E_m&lt;\frac{2\,m!}{(m+1)!-1}&lt;\frac2m\le1\qquad(m\ge2).
-\end{equation}</annotation></semantics></math></p>
+\end{equation}</annotation></semantics></math> The proof of the next
+theorem feeds this estimate into the factorial-tail integrality argument
+that Hančl and Tijdeman use for factorial series with integer
+coefficients <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-11">[11]</a></span>.</p>
 <p> </p>
 <div class="theorem">
 <p><strong>Theorem 3.1</strong> (strict-successor characterisation). <em>
@@ -759,10 +775,14 @@ are
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>!</mi><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo><mo>−</mo><mi>m</mi><mo stretchy="false" form="prefix">⌊</mo><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">a_m(x)=\lfloor m!x\rfloor-m\lfloor(m-1)!x\rfloor\in\{0,\ldots,m-1\}</annotation></semantics></math>,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
-is rational exactly when they vanish from some index on. That criterion
-is due to Cantor <span class="citation" data-cites="cantor1869"><a href="#ref-4">[4]</a></span>
-and is recorded in Galambos <span class="citation"
-data-cites="galambos1976"><a href="#ref-5">[5]</a></span>.</p>
+is rational exactly when they vanish from some index on. The criterion
+goes back to Cantor <span class="citation"
+data-cites="cantor1869"><a href="#ref-5">[5]</a></span>; Galambos treats the rationality of
+Cantor series in <span class="citation"
+data-cites="galambos1976"><a href="#ref-6">[6]</a></span>, and Koepf and Schmersau prove the
+irrationality direction for nonterminating factorial expansions whose
+digits are not eventually maximal <span class="citation"
+data-cites="koepf-schmersau"><a href="#ref-9">[9]</a></span>.</p>
 <p></p>
 <div class="proposition">
 <p><strong>Proposition 3.2</strong> (companion-orbit criterion). <em>
@@ -1218,23 +1238,56 @@ coordinate.</p>
 class="level3">
 <h3>The exact low-channel lattice and residual class</h3>
 <p>The integral divisor basis makes the preceding divisibility statement
-exact. Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mi>n</mi></msub><annotation encoding="application/x-tex">U_n</annotation></semantics></math>
-be the isolated
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>-channel
-unit, let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>D</mi></msub><annotation encoding="application/x-tex">K_D</annotation></semantics></math>
-be the canonical vector with moment
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>D</mi></msub><annotation encoding="application/x-tex">L_D</annotation></semantics></math>
-and channels
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">2,\ldots,D</annotation></semantics></math>
-equal to zero, and write
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>D</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">]</mo><msub><mi>K</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">a_D=[e_1]K_D</annotation></semantics></math>
+exact. For the coordinate calculation only, enlarge the coefficient
+space to finitely supported integer vectors on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n\ge1</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">]</mo><msub><mi>U</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">u_n=[e_1]U_n</annotation></semantics></math>.
-Every vector with zero initial coordinate and vanishing channels through
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
-has a unique expression
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>⋅</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_{d}(\cdot)</annotation></semantics></math>
+given by the same formulas; this introduces no term
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(1!-1)</annotation></semantics></math>
+into
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
+Set
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><msub><mi>e</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>e</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><msub><mi>T</mi><mi>n</mi></msub><mo>−</mo><munder><mo>∑</mo><mtable><mtr><mtd columnalign="center" class="ta-c"><mrow><mi>d</mi><mo>∣</mo><mi>n</mi></mrow></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><mrow><mn>2</mn><mo>≤</mo><mi>d</mi><mo>&lt;</mo><mi>n</mi></mrow></mtd></mtr></mtable></munder><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><msub><mi>U</mi><mi>d</mi></msub><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>≥</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>K</mi><mi>D</mi></msub><mo>=</mo><msub><mi>L</mi><mi>D</mi></msub><msub><mi>e</mi><mn>1</mn></msub><mo>−</mo><munderover><mo>∑</mo><mrow><mi>d</mi><mo>=</mo><mn>2</mn></mrow><mi>D</mi></munderover><mfrac><msub><mi>L</mi><mi>D</mi></msub><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><msub><mi>U</mi><mi>d</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">T_n=ne_{n-1}-e_n,\qquad
+ U_n=T_n-\sum_{\substack{d\mid n\\2\le d&lt;n}}W_{d,n}U_d\quad(n\ge2),\qquad
+ K_D=L_De_1-\sum_{d=2}^{D}\frac{L_D}{d!-1}U_d .</annotation></semantics></math>
+The quotient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>i</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor i/d\rfloor</annotation></semantics></math>
+changes between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i=n-1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">i=n</annotation></semantics></math>
+exactly when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>∣</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">d\mid n</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>T</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><msub><mn mathvariant="bold">𝟏</mn><mrow><mi>d</mi><mo>∣</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{d}(T_n)=(d!-1)W_{d,n}\mathbf 1_{d\mid n}</annotation></semantics></math>,
+and induction gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M(U_n)=0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mn mathvariant="bold">𝟏</mn><mrow><mi>d</mi><mo>=</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{d}(U_n)=(d!-1)\mathbf 1_{d=n}</annotation></semantics></math>.
+Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mi>D</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>L</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">M(K_D)=L_D</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>K</mi><mi>D</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">V_{d}(K_D)=0</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>d</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">2\le d\le D</annotation></semantics></math>.
+The change from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mn>1</mn></msub><mo>,</mo><msub><mi>T</mi><mn>2</mn></msub><mo>,</mo><msub><mi>T</mi><mn>3</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">e_1,T_2,T_3,\ldots</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mn>1</mn></msub><mo>,</mo><msub><mi>U</mi><mn>2</mn></msub><mo>,</mo><msub><mi>U</mi><mn>3</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">e_1,U_2,U_3,\ldots</annotation></semantics></math>
+is integral triangular with unit diagonal, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mn>1</mn></msub><mo>,</mo><msub><mi>U</mi><mn>2</mn></msub><mo>,</mo><msub><mi>U</mi><mn>3</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">e_1,U_2,U_3,\ldots</annotation></semantics></math>
+is an integral basis, and applying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+and each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>⋅</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_{d}(\cdot)</annotation></semantics></math>
+gives the unique expansion
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msub><mi>e</mi><mn>1</mn></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow></munder><mfrac><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mspace width="0.167em"></mspace><msub><mi>U</mi><mi>d</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">c=M(c)\,e_1+\sum_{d\ge2}\frac{V_{d}(c)-M(c)}{d!-1}\,U_d .</annotation></semantics></math>
+Consequently every vector of the enlarged space whose channels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">2,\ldots,D</annotation></semantics></math>
+vanish has a unique expression
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>t</mi><msub><mi>K</mi><mi>D</mi></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>D</mi></mrow></munder><msub><mi>z</mi><mi>n</mi></msub><msub><mi>U</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>t</mi><msub><mi>L</mi><mi>D</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long68:eq:low-channel-basis}
  c=tK_D+\sum_{n&gt;D}z_nU_n,
@@ -1242,13 +1295,82 @@ has a unique expression
 \end{equation}</annotation></semantics></math> with finitely many
 nonzero integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>z</mi><mi>n</mi></msub><annotation encoding="application/x-tex">z_n</annotation></semantics></math>.
+Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>D</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">]</mo><msub><mi>K</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">a_D=[e_1]K_D</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">]</mo><msub><mi>U</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">u_n=[e_1]U_n</annotation></semantics></math>.
 Requiring support on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>
 adds precisely the scalar equation
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><msub><mi>a</mi><mi>D</mi></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>D</mi></mrow></munder><msub><mi>z</mi><mi>n</mi></msub><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long68:eq:low-channel-support}
  ta_D+\sum_{n&gt;D}z_nu_n=0.
-\end{equation}</annotation></semantics></math></p>
+\end{equation}</annotation></semantics></math> The scalar coefficients
+satisfy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mn>2</mn></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">u_2=2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi>−</mi><msub><mo>∑</mo><mrow><mi>d</mi><mo>∣</mo><mi>n</mi><mo>,</mo><mspace width="0.222em"></mspace><mn>2</mn><mo>≤</mo><mi>d</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><msub><mi>u</mi><mi>d</mi></msub></mrow><annotation encoding="application/x-tex">u_n=-\sum_{d\mid n,\ 2\le d&lt;n}W_{d,n}u_d</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n&gt;2</annotation></semantics></math>;
+in particular
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mi>/</mi><msup><mn>2</mn><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">u_{2p}=-(2p)!/2^{p-1}</annotation></semantics></math>
+for every prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+is a prime with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mn>2</mn><mo>&lt;</mo><mi>p</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">D/2&lt;p\le D</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H=D(2p-1)</annotation></semantics></math>,
+then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>u</mi><mi>n</mi></msub><mo>:</mo><mi>n</mi><mo>&gt;</mo><mi>D</mi><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mrow><mi>D</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>u</mi><mi>H</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>H</mi><mo>&lt;</mo><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{long68:eq:finite-horizon}
+ \gcd\{u_n:n&gt;D\}=\gcd(u_{D+1},\ldots,u_H)&gt;0,\qquad H&lt;2D^2 .
+\end{equation}</annotation></semantics></math> Indeed, the finite gcd
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mn>2</mn><mi>p</mi></mrow></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_{2p}\ne0</annotation></semantics></math>
+and hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">(2p)!</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">n&gt;H</annotation></semantics></math>
+and a divisor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≤</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">d\le D</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+one has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>/</mi><mi>d</mi><mo>≥</mo><mn>2</mn><mi>p</mi></mrow><annotation encoding="application/x-tex">n/d\ge2p</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>/</mi><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">(n/d)!</annotation></semantics></math>
+divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub><annotation encoding="application/x-tex">W_{d,n}</annotation></semantics></math>,
+the quotient counting partitions of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+points into
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>/</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">n/d</annotation></semantics></math>
+unordered blocks of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>;
+thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>∣</mo><msub><mi>W</mi><mrow><mi>d</mi><mo>,</mo><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">g\mid W_{d,n}</annotation></semantics></math>.
+Strong induction in the recurrence handles the remaining divisors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>&lt;</mo><mi>d</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">D&lt;d&lt;n</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+divides every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mi>n</mi></msub><annotation encoding="application/x-tex">u_n</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">n&gt;D</annotation></semantics></math>.
+Bertrand’s postulate supplies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D\ge3</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">p=2</annotation></semantics></math>
+serves for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">D=2</annotation></semantics></math>;
+finally
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>≤</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>D</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">H\le D(2D-1)&lt;2D^2</annotation></semantics></math>.
+The short note proves the same determination as its Theorem 3.2.</p>
 <div class="theorem">
 <p><strong>Theorem 5.3</strong> (exact attainable moment ideal). <em> Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">D\ge2</annotation></semantics></math>
@@ -1274,11 +1396,11 @@ and is attained by a vector of coefficient content one, hence by a
 primitive vector.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> The finite-horizon theorem gives
+<p><em>Proof.</em> By ,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>D</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">G_D&gt;0</annotation></semantics></math>
-and identifies it with the gcd of the whole tail
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>u</mi><mi>n</mi></msub><mo>:</mo><mi>n</mi><mo>&gt;</mo><mi>D</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{u_n:n&gt;D\}</annotation></semantics></math>;
-moreover
+is the gcd of the whole tail
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>u</mi><mi>n</mi></msub><mo>:</mo><mi>n</mi><mo>&gt;</mo><mi>D</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{u_n:n&gt;D\}</annotation></semantics></math>,
+and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>&lt;</mo><mn>2</mn><msup><mi>D</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">H&lt;2D^2</annotation></semantics></math>.
 Thus the finite integer combinations in form
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>D</mi></msub><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">G_D\mathbb{Z}</annotation></semantics></math>,
@@ -1308,9 +1430,9 @@ the vector in ,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><msub><mi>K</mi><mi>D</mi></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>D</mi></mrow></munder><msub><mi>z</mi><mi>n</mi></msub><msub><mi>U</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>t</mi><msub><mi>L</mi><mi>D</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>D</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>D</mi></mrow></munder><msub><mi>z</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal R\!\left(tK_D+\sum_{n&gt;D}z_nU_n\right)
  =tL_D(S-H_D)+\sum_{n&gt;D}z_n.</annotation></semantics></math> The
 residual series converges for every finite vector supported away from
-index zero. A zero-moment vector has integral residual, and two such
-vectors with the same factorial moment have residuals differing by an
-integer.</em></p>
+index zero. A zero-moment vector has integral residual, and any two
+finite vectors with the same factorial moment have residuals differing
+by an integer.</em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> For
@@ -1665,9 +1787,25 @@ satisfy
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mn>23448</mn></msub><mo>≥</mo><msup><mn>2</mn><mn>39990</mn></msup></mrow><annotation encoding="application/x-tex">Q_{23448}\ge2^{39990}</annotation></semantics></math>.
 Every rational in the open enclosure shares this initial segment, so its
 reduced denominator is at least
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>23448</mn></msub><annotation encoding="application/x-tex">Q_{23448}</annotation></semantics></math>;
-the argument is about a common prefix and does not require the last
-convergent to lie inside the enclosure. The integer comparison
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>23448</mn></msub><annotation encoding="application/x-tex">Q_{23448}</annotation></semantics></math>.
+Indeed, write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>j</mi></msub><annotation encoding="application/x-tex">P_j</annotation></semantics></math>
+for the convergent numerators. Such a rational either equals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>23448</mn></msub><mi>/</mi><msub><mi>Q</mi><mn>23448</mn></msub></mrow><annotation encoding="application/x-tex">P_{23448}/Q_{23448}</annotation></semantics></math>
+or has a complete quotient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>/</mi><mi>B</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">A/B&gt;1</annotation></semantics></math>
+after the segment, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+coprime, and then equals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>P</mi><mn>23448</mn></msub><mi>A</mi><mo>+</mo><msub><mi>P</mi><mn>23447</mn></msub><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>Q</mi><mn>23448</mn></msub><mi>A</mi><mo>+</mo><msub><mi>Q</mi><mn>23447</mn></msub><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(P_{23448}A+P_{23447}B)/(Q_{23448}A+Q_{23447}B)</annotation></semantics></math>;
+the determinant identity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub><msub><mi>Q</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>P</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><msub><mi>Q</mi><mi>j</mi></msub><mo>=</mo><mi>±</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">P_jQ_{j-1}-P_{j-1}Q_j=\pm1</annotation></semantics></math>
+makes both fractions reduced <span class="citation"
+data-cites="nist-dlmf"><a href="#ref-17">[17]</a></span>. The argument is about a common prefix
+and does not require the last convergent to lie inside the enclosure.
+The integer comparison
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>39990</mn></msup><mo>&gt;</mo><msup><mn>10</mn><mn>12038</mn></msup></mrow><annotation encoding="application/x-tex">2^{39990}&gt;10^{12038}</annotation></semantics></math>
 closes . The <a
 href="https://github.com/wcook04/plectis-erdos/blob/cd3bd6fe245867a435e15d503ccedd699c5d02e2/scripts/check_erdos68_continued_fraction.py">integer
@@ -1684,9 +1822,10 @@ and strict decimal exponent
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12038</mn><annotation encoding="application/x-tex">12038</annotation></semantics></math>.</p>
 <p>Both certificates are finite. A refinement of either enlarges the
 excluded range and returns a statement of the same shape, and neither
-excludes an eventual unit-carry tail. The continued-fraction method is
-classical, and no antecedent for these particular numerical outputs was
-located.</p>
+excludes an eventual unit-carry tail. The continued-fraction identities
+are classical <span class="citation" data-cites="nist-dlmf"><a href="#ref-17">[17]</a></span>; the
+enclosure, the prefix length and the exponent are outputs of the
+computation above.</p>
 </section>
 <section id="long68:sec:open" class="level2">
 <h2>The remaining arithmetic inputs</h2>
@@ -1726,7 +1865,7 @@ A spacing bound
 is available. An unweighted count of collisions does not establish , and
 reflected hits may not be discarded, since Wilson reflection produces
 genuine collision primes. Theorem 12 of Garaev, Luca and Shparlinski
-<span class="citation" data-cites="garaev-luca-shparlinski"><a href="#ref-6">[6]</a></span> is a
+<span class="citation" data-cites="garaev-luca-shparlinski"><a href="#ref-7">[7]</a></span> is a
 multiplicity bound and supplies no lower bound for the complementary
 residue in .</p>
 </section>
@@ -1878,31 +2017,32 @@ residual.</p>
 <section id="criteria-from-the-literature-that-do-not-apply."
 class="level5">
 <h5>Criteria from the literature that do not apply.</h5>
-<p>Duverney’s fast-series criteria assume two-sided quadratic
-denominator growth
+<p>Duverney’s Theorem 3.1 assumes the quadratic growth condition (1.3),
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup><mo>≤</mo><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≤</mo><msup><mi>c</mi><mo>′</mo></msup><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">cu_n^2\le u_{n+1}\le c&#39;u_n^2</annotation></semantics></math>,
 whereas
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_{n+1}/u_n^2\to0</annotation></semantics></math>
 for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">u_n=n!-1</annotation></semantics></math>,
-and his all-positive specialisation additionally requires
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">u_n=n!-1</annotation></semantics></math>;
+the summability condition (3.6) of his Corollary 3.2,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_n|u_{n+1}/u_n^2-1|&lt;\infty</annotation></semantics></math>,
-whose summands tend to one here <span class="citation"
-data-cites="duverney"><a href="#ref-9">[9]</a></span>. The theorem of Barreto, Kang, Kim, Kovač
-and Zhang proves irrationality of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n1/a_n</annotation></semantics></math>
-under a rapid-growth hypothesis that fails for
+also fails, since its summands tend to one here <span class="citation"
+data-cites="duverney"><a href="#ref-10">[10]</a></span>. For a single denominator sequence the
+rapid-growth criterion goes back to Erdős <span class="citation"
+data-cites="erdos1975"><a href="#ref-3">[3]</a></span>; Barreto, Kang, Kim, Kovač and Zhang
+treat products of consecutive denominators and weighted extensions <span
+class="citation" data-cites="barreto-et-al"></span>. For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_n=n!-1</annotation></semantics></math>,
-since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(n!-1)=O(n\log n)</annotation></semantics></math>
 makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><msup><mi>ψ</mi><mi>n</mi></msup></mrow></msup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(n!-1)^{1/\psi^n}\to1</annotation></semantics></math>
 for every fixed
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ψ</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\psi&gt;1</annotation></semantics></math>
-<span class="citation" data-cites="barreto-et-al"><a href="#ref-11">[11]</a></span>. Failure of a
-sufficient criterion is not a theorem about
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
-and the useful content is the target these papers identify: a low-height
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ψ</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\psi&gt;1</annotation></semantics></math>,
+so neither Erdős’s hypothesis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msubsup><mi>a</mi><mi>n</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msubsup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup_na_n^{1/2^n}=\infty</annotation></semantics></math>
+nor the growth hypotheses of their Theorems 2 and 3 hold. These criteria
+do not decide
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>;
+the useful content is the target these papers identify: a low-height
 clearing subsequence, or enough exact cancellation in the least common
 multiple. Theorem  bounds that cancellation from one side and Theorem 
 describes it from the other.</p>
@@ -2080,32 +2220,38 @@ href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c4
 </div>
 <p>Attribution. Wilson’s theorem and the Wilson reflection identity are
 classical, the latter recorded by Stewart <span class="citation"
-data-cites="stewart2004"><a href="#ref-7">[7]</a></span>. The factorial-digit termination
-criterion is Cantor’s <span class="citation"
-data-cites="cantor1869"><a href="#ref-4">[4]</a></span>, in the form recorded by Galambos <span
-class="citation" data-cites="galambos1976"></span>; the additions here
-are the telescope
+data-cites="stewart2004"><a href="#ref-8">[8]</a></span>. The factorial-digit termination
+criterion goes back to Cantor <span class="citation"
+data-cites="cantor1869"><a href="#ref-5">[5]</a></span>; Koepf and Schmersau prove its
+irrationality direction for digits that are not eventually maximal <span
+class="citation" data-cites="koepf-schmersau"></span>, and Galambos
+treats rationality criteria for Cantor series <span class="citation"
+data-cites="galambos1976"><a href="#ref-6">[6]</a></span>. The additions here are the telescope
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mi>S</mi><mo>−</mo><mi>e</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">C=S-e+2</annotation></semantics></math>,
 the identification of the digit value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m-2</annotation></semantics></math>,
-and the transport to the shifted family. The multiplicity bound is
-Garaev, Luca and Shparlinski’s <span class="citation"
-data-cites="garaev-luca-shparlinski"><a href="#ref-6">[6]</a></span>, and the lcm deduction from
+and the transport to the shifted family. The tail-integrality step is
+the argument of Hančl and Tijdeman <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-11">[11]</a></span>. The multiplicity bound is Garaev,
+Luca and Shparlinski’s <span class="citation"
+data-cites="garaev-luca-shparlinski"><a href="#ref-7">[7]</a></span>, and the lcm deduction from
 it is not theirs. The divisibility in Lemma  is the case
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">P=-1</annotation></semantics></math>
 of the relation used in the proof of Lemma 5 of Luca and Shparlinski
-<span class="citation" data-cites="luca-shparlinski"><a href="#ref-12">[12]</a></span> and at
-display (2.5) of Lai <span class="citation" data-cites="lai"><a href="#ref-13">[13]</a></span>.
+<span class="citation" data-cites="luca-shparlinski"><a href="#ref-13">[13]</a></span> and at
+display (2.5) of Lai <span class="citation" data-cites="lai"><a href="#ref-14">[14]</a></span>.
 The nonvanishing cutoff for polynomial shifts is Lemma 3 of <span
 class="citation" data-cites="luca-shparlinski"></span>, restated with
 the bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+P(n)&gt;1</annotation></semantics></math>
-in <span class="citation" data-cites="lai"><a href="#ref-13">[13]</a></span>. The survival
+in <span class="citation" data-cites="lai"><a href="#ref-14">[14]</a></span>. The survival
 criterion is a specialisation of Louwsma and Martino’s valuation formula
-<span class="citation" data-cites="louwsma-martino"><a href="#ref-3">[3]</a></span>. For the
-Wilson cofinality packaging, the finite radius bound and Theorem , no
-antecedent was located, which is a negative search result, and no
-priority is claimed.</p>
+<span class="citation" data-cites="louwsma-martino"><a href="#ref-4">[4]</a></span>. The
+single-denominator growth criterion is Erdős’s <span class="citation"
+data-cites="erdos1975"><a href="#ref-3">[3]</a></span>, and the continued-fraction identities
+are those of <span class="citation" data-cites="nist-dlmf"><a href="#ref-17">[17]</a></span>. No
+antecedent was located for the Wilson cofinality packaging, the finite
+radius bound or Theorem .</p>
 </section>
 <section id="long68:app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
@@ -2315,7 +2461,8 @@ then
 and the canonical digit at radix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n+1</annotation></semantics></math>
 vanishes, so every rational input has an eventually zero expansion. The
-converse holds for every real input, and gives
+converse holds for every real input, and gives Cantor’s termination
+criterion <span class="citation" data-cites="cantor1869"><a href="#ref-5">[5]</a></span>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><msub><mi>a</mi><mi>m</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn><mspace width="0.222em"></mspace><mrow><mtext mathvariant="normal">for all large </mtext><mspace width="0.333em"></mspace></mrow><mi>m</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">x\in\mathbb{Q}\quad\Longleftrightarrow\quad a_m(x)=0\ \text{for all large }m .</annotation></semantics></math>
 If all digits after index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>
@@ -2326,7 +2473,7 @@ since every remainder is below one,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>N</mi><mi>!</mi><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo><mi>/</mi><mi>N</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">x=\lfloor N!x\rfloor/N!</annotation></semantics></math>.</p>
 <p>A zero canonical digit is a different event from a zero-branch hit.
-The returned data contain canonical zero digits at
+The reported interval data contain canonical zero digits at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">m=5</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>23</mn></mrow><annotation encoding="application/x-tex">m=23</annotation></semantics></math>,
@@ -2353,15 +2500,16 @@ of
 times a partial sum and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
 times its limit forces irrationality <span class="citation"
-data-cites="koepf-schmersau"><a href="#ref-8">[8]</a></span>; their rational-term version
-obtains that equality from prefix integrality at a scale
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>n</mi></msub><annotation encoding="application/x-tex">p_n</annotation></semantics></math>
-together with the strict tail bound
+data-cites="koepf-schmersau"><a href="#ref-9">[9]</a></span>; their rational-term version
+obtains that equality from the integrality condition
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><msub><mi>p</mi><mi>n</mi></msub><msub><mi>s</mi><mi>n</mi></msub><mo>∈</mo><msub><mi mathvariant="double-struck">ℕ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">np_ns_n\in\mathbb N_0</annotation></semantics></math>
+and the strict tail bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>−</mo><msub><mi>s</mi><mi>n</mi></msub><mo>&lt;</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mi>p</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a-s_n&lt;1/(np_n)</annotation></semantics></math>
-<span class="citation" data-cites="koepf-schmersau"><a href="#ref-8">[8]</a></span>. For the
-natural termwise clearing choice
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>k</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>:</mo><mn>2</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">p_n=\operatorname{lcm}\{k!-1:2\le k\le n\}</annotation></semantics></math>
-the last two denominators already obstruct it:
+<span class="citation" data-cites="koepf-schmersau"><a href="#ref-9">[9]</a></span>. For the
+choice they record after (2.1), the least common multiple of the reduced
+summand denominators, here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>k</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>:</mo><mn>2</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">p_n=\operatorname{lcm}\{k!-1:2\le k\le n\}</annotation></semantics></math>,
+the last two denominators already obstruct the tail bound:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mspace width="0.222em"></mspace><mo>≥</mo><mspace width="0.222em"></mspace><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">p_n\ \ge\ \frac{(n!-1)\bigl((n-1)!-1\bigr)}{n-1},</annotation></semantics></math>
 because
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(n!-1,(n-1)!-1)=\gcd((n-1)!-1,n-1)\le n-1</annotation></semantics></math>.
@@ -2376,41 +2524,59 @@ so this
 cannot satisfy their tail hypothesis. Cancellation in the reduced prefix
 denominator could give a smaller scale, and proving enough cancellation
 is another form of the present denominator problem.</p>
-<p>Duverney’s Theorem 3.1 assumes two-sided quadratic denominator growth
+<p>Duverney’s Theorem 3.1 assumes the quadratic growth condition (1.3),
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup><mo>≤</mo><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≤</mo><msup><mi>c</mi><mo>′</mo></msup><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">cu_n^2\le u_{n+1}\le c&#39;u_n^2</annotation></semantics></math>,
 while
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_{n+1}/u_n^2\to0</annotation></semantics></math>
 for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">u_n=n!-1</annotation></semantics></math>
-<span class="citation" data-cites="duverney"><a href="#ref-9">[9]</a></span>; his all-positive
-Corollary 3.2 additionally requires
+<span class="citation" data-cites="duverney"><a href="#ref-10">[10]</a></span>; his Corollary 3.2,
+which allows signs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">a_n\in\{-1,1\}</annotation></semantics></math>,
+requires the summability condition (3.6),
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>u</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>u</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\sum_n|u_{n+1}/u_n^2-1|&lt;\infty</annotation></semantics></math>,
 whereas those summands tend to one <span class="citation"
-data-cites="duverney"><a href="#ref-9">[9]</a></span>. Both the ratio limit and the
+data-cites="duverney"><a href="#ref-10">[10]</a></span>. Both the ratio limit and the
 nonsummability are kernel-checked. The ratio proof divides numerator and
 denominator by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">(n!)^2</annotation></semantics></math>;
 the resulting terms tend to zero while
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>1</mn><mi>/</mi><mi>n</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">(1-1/n!)^2</annotation></semantics></math>
 tends to one.</p>
-<p>The theorem of Barreto, Kang, Kim, Kovač and Zhang proves
-irrationality of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n1/a_n</annotation></semantics></math>
-when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msubsup><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">a_n^{1/2^n}\to\infty</annotation></semantics></math>,
-whereas
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(n!-1)^{1/2^n}\to1</annotation></semantics></math>
-<span class="citation" data-cites="barreto-et-al"><a href="#ref-11">[11]</a></span>; the limit is
-kernel-checked through the bound
+<p>For a single denominator sequence, Erdős proved that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>k</mi></msub><mn>1</mn><mi>/</mi><msub><mi>n</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\sum_k1/n_k</annotation></semantics></math>
+is irrational when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>k</mi></msub><msubsup><mi>n</mi><mi>k</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>k</mi></msup></mrow></msubsup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\limsup_kn_k^{1/2^k}=\infty</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>k</mi></msub><mo>&gt;</mo><msup><mi>k</mi><mrow><mn>1</mn><mo>+</mo><mi>ε</mi></mrow></msup></mrow><annotation encoding="application/x-tex">n_k&gt;k^{1+\varepsilon}</annotation></semantics></math>
+eventually <span class="citation" data-cites="erdos1975"><a href="#ref-3">[3]</a></span>.
+Barreto, Kang, Kim, Kovač and Zhang treat products of consecutive
+denominators and weighted extensions <span class="citation"
+data-cites="barreto-et-al"><a href="#ref-12">[12]</a></span>. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_n=n!-1</annotation></semantics></math>
+the root-growth expressions tend to one,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(n!-1)^{1/2^n}\to1</annotation></semantics></math>,
+so neither the limsup hypothesis of Erdős nor the growth hypotheses of
+their Theorems 2 and 3 hold; the limit is kernel-checked through the
+bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">0\le\log(n!-1)\le n^2</annotation></semantics></math>.
-Their proof identifies a useful exact criterion: Mahler’s elementary
-rationality floor is contradicted by prefix-clearing integers
+Their proof of Theorem 3 uses the classical criterion, which they trace
+to Fourier’s proof that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
+is irrational, that a rational sum of nonnegative rationals with
+infinitely many positive terms admits no prefix-clearing integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mi>N</mi></msub><annotation encoding="application/x-tex">D_N</annotation></semantics></math>
-whose cleared positive tails satisfy
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">liminf</mi><mo>&#8289;</mo></mrow><mi>N</mi></msub><msub><mi>D</mi><mi>N</mi></msub><msub><mi>r</mi><mi>N</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\liminf_ND_Nr_N=0</annotation></semantics></math>
-<span class="citation" data-cites="barreto-et-al"><a href="#ref-11">[11]</a></span>. The ordinary
-product of the factorial-gap denominators is far too large for that
-estimate, so a transfer needs a low-height clearing subsequence, or
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">liminf</mi><mo>&#8289;</mo></mrow><mi>N</mi></msub><msub><mi>D</mi><mi>N</mi></msub><msub><mi>r</mi><mi>N</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\liminf_ND_Nr_N=0</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>N</mi></msub><annotation encoding="application/x-tex">r_N</annotation></semantics></math>
+is the tail after
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+terms <span class="citation" data-cites="barreto-et-al"><a href="#ref-12">[12]</a></span>; their
+Proposition 12 produces such integers under the hypotheses of that
+theorem <span class="citation" data-cites="barreto-et-al"><a href="#ref-12">[12]</a></span>. The
+ordinary product of the factorial-gap denominators is far too large for
+that estimate, so a transfer needs a low-height clearing subsequence, or
 enough exact cancellation in their least common multiple.</p>
 <p>Dividing the strict-successor recurrence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>m</mi></msub><mo>=</mo><mi>m</mi><msub><mi>Z</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">Z_m=mZ_{m-1}+1-b_m</annotation></semantics></math>
@@ -2420,18 +2586,29 @@ and telescoping gives the exact finite identity
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>Z</mi><mi>M</mi></msub><mrow><mi>M</mi><mi>!</mi></mrow></mfrac><mo>=</mo><mfrac><msub><mi>Z</mi><mn>2</mn></msub><mrow><mn>2</mn><mi>!</mi></mrow></mfrac><mo>+</mo><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>3</mn></mrow><mi>M</mi></munderover><mfrac><mrow><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub></mrow><mrow><mi>m</mi><mi>!</mi></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{Z_M}{M!}=\frac{Z_2}{2!}+\sum_{m=3}^{M}\frac{1-b_m}{m!},</annotation></semantics></math>
 so the carry defects
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">1-b_m</annotation></semantics></math>
-are genuine factorial-series coefficients. Hančl and Tijdeman give exact
-rationality classifications for polynomial coefficients and
-finite-difference criteria for broader ordinary factorial series <span
-class="citation" data-cites="hancl-tijdeman"></span>; their denominator
-is the cumulative linear product
+are genuine factorial-series coefficients. Hančl and Tijdeman classify
+the rational sums with polynomial coefficients <span class="citation"
+data-cites="hancl-tijdeman"><a href="#ref-11">[11]</a></span>; their denominator is the cumulative
+linear product
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∏</mo><mrow><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mi>n</mi><mo>+</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\prod_{n\le N}(an+b)</annotation></semantics></math>,
 and the individual number
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N!-1</annotation></semantics></math>
-does not occur. Applied to the display above, the Cantor–Oppenheim
-criterion still needs
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">1-b_m\ne0</annotation></semantics></math>
-infinitely often, which is the missing cofinal assertion.</p>
+does not occur. The criterion of Oppenheim that they reproduce <span
+class="citation" data-cites="hancl-tijdeman"></span> states that, for
+coefficients
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>n</mi></msub><annotation encoding="application/x-tex">c_n</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>c</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>a</mi><mi>n</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">|c_n|&lt;an+b</annotation></semantics></math>
+eventually and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">liminf</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>c</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mi>n</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\liminf_n|c_n|/n=0</annotation></semantics></math>,
+the sum is rational exactly when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c_n=0</annotation></semantics></math>
+eventually. For the carry defects
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">c_m=1-b_m</annotation></semantics></math>
+the first condition holds, since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mo>≤</mo><msub><mi>b</mi><mi>m</mi></msub><mo>≤</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1\le b_m\le m-1</annotation></semantics></math>,
+and the second is not established; the needed cofinal equivalence is
+Theorem , which is proved directly.</p>
 </section>
 <section id="long68:sec:ext-superseded" class="level3">
 <h3>A superseded deduction</h3>
@@ -2450,7 +2627,9 @@ such an index satisfies
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&lt;</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">n&lt;r</annotation></semantics></math>.
 The factorial-congruence multiplicity estimate of Garaev, Luca and
 Shparlinski <span class="citation"
-data-cites="garaev-luca-shparlinski"><a href="#ref-6">[6]</a></span>, applied on
+data-cites="garaev-luca-shparlinski"><a href="#ref-7">[7]</a></span>, applied to the residue
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a=1</annotation></semantics></math>
+on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>,</mo><mi>r</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1\le n\le\min(N,r-1)</annotation></semantics></math>,
 gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>r</mi></msub><mo>≪</mo><msup><mi>N</mi><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">m_r\ll N^{2/3}</annotation></semantics></math>;
@@ -2468,8 +2647,8 @@ whence
 Theorem  supersedes this: its exponent is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">3/2</annotation></semantics></math>,
 its constant is explicit, and it uses no external theorem. The deduction
-is retained because it is the shape the returned analyses describe, and
-because it is the only place a multiplicity bound enters the record.</p>
+is retained because it is the only place a multiplicity bound enters the
+record.</p>
 <p>The primitive lcm divisibility survives cofactor removal: factorial
 valuations do not remove the channel obstruction once every common
 cofactor divisor has been removed. A corank-one cofactor and determinant
@@ -2821,12 +3000,13 @@ of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
 satisfies
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&lt;</mo><mi>q</mi><mo>&lt;</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><msqrt><mn>145</mn></msqrt><mo>−</mo><mn>1</mn></mrow><mn>8</mn></mfrac><mo>+</mo><mi>ε</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>n</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">n&lt;q&lt;\left(\frac{\sqrt{145}-1}{8}+\varepsilon\right)n ,</annotation></semantics></math>
-the printed text transferring estimate (9) from
+estimate (9) of Theorem 1 being stated for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+1</annotation></semantics></math>
+<span class="citation" data-cites="stewart2004"><a href="#ref-8">[8]</a></span> and transferred
 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
-<span class="citation" data-cites="stewart2004"><a href="#ref-7">[7]</a></span>. The source
-controls
+in the text <span class="citation" data-cites="stewart2004"><a href="#ref-8">[8]</a></span>. The
+source controls
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
 relative to the later index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
@@ -2886,7 +3066,9 @@ its residual lies strictly between
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>309</mn><mi>/</mi><mn>13685</mn></mrow><annotation encoding="application/x-tex">-309/13685</annotation></semantics></math>,
 so it is nonzero and subunit.</p>
-<p>Exact integer regeneration verifies the canonical primitive kernels
+<p>In the enlarged coefficient space of §, exact integer computation
+verifies the vectors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>D</mi></msub><annotation encoding="application/x-tex">K_D</annotation></semantics></math>
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>D</mi><mo>≤</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">2\le D\le12</annotation></semantics></math>:
 channels
@@ -2895,14 +3077,32 @@ through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
 vanish, the factorial moment is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>D</mi></msub><annotation encoding="application/x-tex">L_D</annotation></semantics></math>,
-and the coefficient content is one. At
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">D=9</annotation></semantics></math>
-the moment is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>9</mn></msub><mo>=</mo><mn>31540008254514077395</mn></mrow><annotation encoding="application/x-tex">L_9=31540008254514077395</annotation></semantics></math>
-and, after the stated prime-unit shift,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1353</mn><mi>/</mi><mn>100000</mn><mo>&lt;</mo><msub><mi>R</mi><mn>9</mn></msub><mo>&lt;</mo><mn>1354</mn><mi>/</mi><mn>100000</mn></mrow><annotation encoding="application/x-tex">1353/100000&lt;R_9&lt;1354/100000</annotation></semantics></math>.
-At
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D=3</annotation></semantics></math>
+and the coefficient content is one. They lie outside the space of
+vectors supported on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>,
+since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>D</mi></msub><annotation encoding="application/x-tex">L_D</annotation></semantics></math>
+is odd and every such vector has even moment. At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">D=9</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>9</mn></msub><mo>=</mo><mn>31540008254514077395</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>a</mi><mn>9</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">]</mo><msub><mi>K</mi><mn>9</mn></msub><mo>=</mo><mi>−</mi><mn>3902884074990939115</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">L_9=31540008254514077395,\qquad a_9=[e_1]K_9=-3902884074990939115 .</annotation></semantics></math>
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mn>11</mn></msub><mo>=</mo><msub><mi>T</mi><mn>11</mn></msub></mrow><annotation encoding="application/x-tex">U_{11}=T_{11}</annotation></semantics></math>
+has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mn>11</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">u_{11}=0</annotation></semantics></math>,
+the vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mn>9</mn></msub><mo>−</mo><mn>9553024718754</mn><mspace width="0.167em"></mspace><msub><mi>U</mi><mn>11</mn></msub></mrow><annotation encoding="application/x-tex">K_9-9553024718754\,U_{11}</annotation></semantics></math>
+keeps the coordinate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mn>9</mn></msub><annotation encoding="application/x-tex">a_9</annotation></semantics></math>
+and has content one. By Theorem  its residual is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>9</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mn>9</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>9553024718754</mn></mrow><annotation encoding="application/x-tex">L_9(S-H_9)-9553024718754</annotation></semantics></math>,
+and exact rational arithmetic with the tail bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>36</mn></mrow></msub><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>36</mn><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sum_{n\ge36}1/(n!-1)&lt;2/(36!-1)</annotation></semantics></math>
+places it strictly between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1353</mn><mi>/</mi><mn>100000</mn></mrow><annotation encoding="application/x-tex">1353/100000</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1354</mn><mi>/</mi><mn>100000</mn></mrow><annotation encoding="application/x-tex">1354/100000</annotation></semantics></math>.
+A different example is supported on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>:
 the vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>40</mn><mo>,</mo><mn>55</mn><mo>,</mo><mi>−</mi><mn>10</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c=(-40,55,-10,1)</annotation></semantics></math>
 on the support
@@ -2914,18 +3114,24 @@ and
 has moment
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>600</mn><annotation encoding="application/x-tex">600</annotation></semantics></math>,
 and satisfies
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.09925341997208298</mn><mo>&lt;</mo><msub><mi>L</mi><mn>3</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>0.09925341997208300</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">0.09925341997208298&lt;L_3(c)&lt;0.09925341997208300 ,</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.09925341997208298</mn><mo>&lt;</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>0.09925341997208300</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">0.09925341997208298&lt;\mathcal R(c)&lt;0.09925341997208300 ,</annotation></semantics></math>
 which excludes denominators dividing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>600</mn><annotation encoding="application/x-tex">600</annotation></semantics></math>.</p>
-<p>There are two different computations at the same endpoint. A returned
+<p>There are two different computations at the same endpoint. A separate
 interval computation reports the stronger geometric statement that no
 zero-branch event occurs at any
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≤</mo><mn>100000</mn></mrow><annotation encoding="application/x-tex">m\le100000</annotation></semantics></math>;
-its cited executable and source digest were not supplied, so that
+its executable and source digest are not available, so that
 classification remains external finite evidence. The strict-successor
-carry computation used in the short note is local and independently
-regenerated, with its own source, backend, payload and receipt
-digests.</p>
+census through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>300000</mn><annotation encoding="application/x-tex">300000</annotation></semantics></math>
+used in the short note rests on the retained GMP receipt with its
+source, backend, payload and receipt digests; § records that a
+byte-identical regeneration of that receipt with the current driver is
+outstanding and describes the separate replay through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4000</mn><annotation encoding="application/x-tex">4000</annotation></semantics></math>.
+The full range is external computational evidence outside the Lean
+development.</p>
 </section>
 <section id="long68:sec:ext-nogo" class="level3">
 <h3>Limits of fixed-coordinate arguments</h3>
@@ -2943,19 +3149,17 @@ Archimedean floor without an additional coupling theorem. Every
 prime-window test factors into a sharp Archimedean strict-ceiling
 condition and a modular divisibility condition, and the missing
 ingredient is the coupling between them.</p></li>
-<li><p>Fixed-denominator scalar canonical-product localisers and
-rank-saturated consecutive-jet Hermite–Padé systems pay the full
-factorial-gap denominator. For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>z</mi><mi>/</mi><mi>n</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E(z)=\prod_{n\ge2}(1-z/n!)</annotation></semantics></math>
-the genus-zero product satisfies
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msup><mi>E</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">-E&#39;(1)/E(1)=S</annotation></semantics></math>,
-and the natural scalar linear form carries the coefficient
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>N</mi></msub><mo>=</mo><msub><mo>∏</mo><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Q_N=\prod_{2\le n\le N}(n!-1)</annotation></semantics></math>,
-for which
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>N</mi></msub><annotation encoding="application/x-tex">Q_N</annotation></semantics></math>
-times the tail diverges. Exact first-order interpolation, scalar residue
-weighting, the natural Wronskian, and rank-saturated consecutive jets
-all reassemble the same prohibitive denominator.</p></li>
+<li><p>For the genus-zero product
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∏</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>z</mi><mi>/</mi><mi>n</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E(z)=\prod_{n\ge2}(1-z/n!)</annotation></semantics></math>,
+local uniform convergence and logarithmic differentiation give
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msup><mi>E</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">-E&#39;(1)/E(1)=S</annotation></semantics></math>.
+The natural termwise clearing factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>N</mi></msub><mo>=</mo><msub><mo>∏</mo><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Q_N=\prod_{2\le n\le N}(n!-1)</annotation></semantics></math>
+satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">Q_N(S-H_N)\to\infty</annotation></semantics></math>,
+so this clearing choice yields no small positive integer linear form.
+The calculation concerns this clearing factor alone; Hermite–Padé
+systems with other denominators are left open.</p></li>
 <li><p>Zero-moment variations cannot create an additional fractional
 cancellation coordinate, and factorial valuations cannot absorb the
 channel lcm obstruction.</p></li>
@@ -2966,8 +3170,8 @@ note.</p></li>
 </section>
 <section id="long68:sec:ext-generic" class="level3">
 <h3>The generic shape behind the lower-interval form</h3>
-<p>The cofinal statement in the short note has a generic ancestor. For a
-real
+<p>The cofinal statement in the short note is a case of the following
+immediate consequence of Cantor’s termination criterion. For a real
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
 and any positive sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>m</mi></msub><annotation encoding="application/x-tex">c_m</annotation></semantics></math>
@@ -3161,55 +3365,72 @@ href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009
 href="https://www.erdosproblems.com/68"
 class="uri">https://www.erdosproblems.com/68</a>, accessed 28 July
 2026.</p></li>
-<li id="ref-3"><p>J. Louwsma and J. Martino, , arXiv:<a
+<li id="ref-3"><p>P. Erdős, , J. Math. Sci. <strong>10</strong> (1975), 1–7, <a
+href="https://www.renyi.hu/~p_erdos/1976-44.pdf"
+class="uri">https://www.renyi.hu/~p_erdos/1976-44.pdf</a>. Theorem 1,
+p. 1.</p></li>
+<li id="ref-4"><p>J. Louwsma and J. Martino, , arXiv:<a
 href="https://arxiv.org/abs/2309.07280v1">2309.07280v1</a>, 2023,
 Lemma 4.1, p. 10.</p></li>
-<li id="ref-4"><p>G. Cantor, , Z. Math. Phys. <strong>14</strong> (1869),
+<li id="ref-5"><p>G. Cantor, , Z. Math. Phys. <strong>14</strong> (1869),
 121–128.</p></li>
-<li id="ref-5"><p>J. Galambos, , Lecture Notes in Mathematics <strong>502</strong>,
-Springer, 1976, Chapter 1. doi:<a
-href="https://doi.org/10.1007/BFb0081642">10.1007/BFb0081642</a>.</p></li>
-<li id="ref-6"><p>M. Z. Garaev, F. Luca, and I. E. Shparlinski, ,
-Trans. Amer. Math. Soc. <strong>356</strong> (2004), no. 12, 5089–5102.
-<a href="https://doi.org/10.1090/S0002-9947-04-03612-8"
-class="uri">https://doi.org/10.1090/S0002-9947-04-03612-8</a>; arXiv:<a
-href="https://arxiv.org/abs/math/0403422">math/0403422v1</a>.</p></li>
-<li id="ref-7"><p>C. L. Stewart, , Publ. Math. Debrecen <strong>65</strong> (2004),
-no. 3–4, 461–480. <a
+<li id="ref-6"><p>J. Galambos, , Lecture Notes in Math. <strong>502</strong>,
+Springer, 1976, doi:<a
+href="https://doi.org/10.1007/BFb0081642">10.1007/BFb0081642</a>.
+Chapter II, §2.1, pp. 21–22.</p></li>
+<li id="ref-7"><p>M. Z. Garaev, F. Luca, and I. E. Shparlinski, ,
+Trans. Amer. Math. Soc. <strong>356</strong> (2004), no. 12, 5089–5102,
+doi:<a
+href="https://doi.org/10.1090/S0002-9947-04-03612-8">10.1090/S0002-9947-04-03612-8</a>;
+arXiv:<a href="https://arxiv.org/abs/math/0403422v1">math/0403422v1</a>.
+Theorem 12 is cited with arXiv v1 pagination, p. 16.</p></li>
+<li id="ref-8"><p>C. L. Stewart, , Publ. Math. Debrecen <strong>65</strong> (2004),
+no. 3–4, 461–480, doi:<a
+href="https://doi.org/10.5486/PMD.2004.3190">10.5486/PMD.2004.3190</a>.
+<a
 href="https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf"
 class="uri">https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf</a>.</p></li>
-<li id="ref-8"><p>W. Koepf and D. Schmersau, , Analysis <strong>31</strong> (2011),
-117–124. <a href="https://doi.org/10.1524/anly.2011.1094"
-class="uri">https://doi.org/10.1524/anly.2011.1094</a>.</p></li>
-<li id="ref-9"><p>D. Duverney, , J. Math. Sci. Univ. Tokyo <strong>8</strong>
+<li id="ref-9"><p>W. Koepf and D. Schmersau, , Analysis <strong>31</strong> (2011),
+117–124, doi:<a
+href="https://doi.org/10.1524/anly.2011.1094">10.1524/anly.2011.1094</a>.
+Example 3.2, p. 121.</p></li>
+<li id="ref-10"><p>D. Duverney, , J. Math. Sci. Univ. Tokyo <strong>8</strong>
 (2001), 275–316. <a
 href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"
 class="uri">https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf</a>.</p></li>
-<li id="ref-10"><p>J. Hančl and R. Tijdeman, <a
-href="https://geodesic.mathdoc.fr/articles/10.4064/aa118-4-5/"></a>,
-Acta Arith. <strong>118</strong> (2005), no. 4, 383–401.
-doi:10.4064/aa118-4-5.</p></li>
-<li id="ref-11"><p>K. Barreto, J. Kang, S.-h. Kim, V. Kovač, and S. Zhang,
+<li id="ref-11"><p>J. Hančl and R. Tijdeman, , Acta Arith. <strong>118</strong>
+(2005), no. 4, 383–401, doi:<a
+href="https://doi.org/10.4064/aa118-4-5">10.4064/aa118-4-5</a>.</p></li>
+<li id="ref-12"><p>K. Barreto, J. Kang, S.-h. Kim, V. Kovač, and S. Zhang,
 <em>Irrationality of rapidly converging series: a problem of Erdős and
 Graham</em>, arXiv:<a
 href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,
-Theorems 2–3 and Remark 4.</p></li>
-<li id="ref-12"><p>F. Luca and I. E. Shparlinski, , Bull. London
-Math. Soc. <strong>37</strong> (2005), no. 6, 809–817. doi:<a
+Theorems 2–3 and Remark 4, pp. 2–5; Lemma 8, p. 6; Proposition 12,
+pp. 9–12.</p></li>
+<li id="ref-13"><p>F. Luca and I. E. Shparlinski, , Bull. London
+Math. Soc. <strong>37</strong> (2005), no. 6, 809–817, doi:<a
 href="https://doi.org/10.1112/S0024609305004923">10.1112/S0024609305004923</a>.
 Lemma 3, p. 810; proof of Lemma 5, p. 811.</p></li>
-<li id="ref-13"><p>L. Lai, , Bull. Aust. Math. Soc. <strong>113</strong> (2026),
-no. 3, 390–403. doi:<a
+<li id="ref-14"><p>L. Lai, , Bull. Aust. Math. Soc. <strong>113</strong> (2026),
+no. 3, 390–403, doi:<a
 href="https://doi.org/10.1017/S0004972725100543">10.1017/S0004972725100543</a>;
-arXiv:<a href="https://arxiv.org/abs/2103.14894">2103.14894</a>.
+arXiv:<a href="https://arxiv.org/abs/2103.14894v1">2103.14894v1</a>.
 Lemma 2.1, p. 392; display (2.5) in the proof of Lemma 2.4,
 p. 394.</p></li>
-<li id="ref-14"><p>L. Lai, C. Lupu, and J. Sprang, ,
-Res. Math. Sci. <strong>12</strong> (2025), no. 4, Paper No. 77. doi:<a
+<li id="ref-15"><p>L. Lai, C. Lupu, and J. Sprang, ,
+Res. Math. Sci. <strong>12</strong> (2025), no. 4, Paper No. 77, doi:<a
 href="https://doi.org/10.1007/s40687-025-00559-x">10.1007/s40687-025-00559-x</a>;
 arXiv:<a href="https://arxiv.org/abs/2505.23088v1">2505.23088v1</a>.
 Numbered as in arXiv v1: Lemma 2.1, p. 3; Lemmas 5.3–5.7, pp. 10–14;
 Lemma 7.3, p. 20; (8.1), p. 22.</p></li>
+<li id="ref-16"><p>L. Lai, , Int. J. Number Theory <strong>21</strong> (2025),
+no. 1, 207–235; arXiv:<a
+href="https://arxiv.org/abs/2304.00816v1">2304.00816v1</a>. Numbered as
+in arXiv v1: Lemma 2.1, p. 4.</p></li>
+<li id="ref-17"><p>NIST Digital Library of Mathematical Functions, §1.12(ii), , <a
+href="https://dlmf.nist.gov/1.12"
+class="uri">https://dlmf.nist.gov/1.12</a>, accessed 15 September
+2026.</p></li>
 </ol>
 </section>
   </div>

@@ -23,9 +23,13 @@ positive divisor covers.</p>
 then <span class="math inline" data-term-auto="off">\(X_A(b)\)</span> is irrational for every
 integer <span class="math inline" data-term-auto="off">\(b\ge2\)</span>.</em></p>
 </div>
-<p>The statement is ordinary mathematics in this note. This checkout has
-no module <code>AllBaseReciprocalSupportIrrationality.lean</code> and no
-Lean declaration
+<p>Erdős stated Theorem <a class="math-ref" href="#res:reciprocal-support">1.1</a>, with its
+all-base quantifier, and printed a proof only for pairwise coprime
+supports <span class="citation" data-cites="erdos1968"><a href="#ref-7">[7]</a></span>; the
+history is recalled below. The statement is ordinary mathematics in this
+note. This checkout has no module
+<code>AllBaseReciprocalSupportIrrationality.lean</code> and no Lean
+declaration
 <code>irrational_erdosSupportSeries_of_summable_reciprocal</code>. The
 separate public Lean release <a
 href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E257/Challenge.lean#L713"><code>wcook04/plectis-erdos-lean</code></a>
@@ -48,7 +52,12 @@ structured-support theorem, not Theorem <a class="math-ref" href="#res:reciproc
 support at every integer base is the separate <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L8328">full-support
 irrationality theorem</a>. Arbitrary infinite support remains open.</p>
-<p>For infinite <span class="math inline" data-term-auto="off">\(A\)</span> and <span
+<p>Erdős remarks that without coprimality the proof becomes more
+complicated and uses the fact that <span
+class="math inline" data-term-auto="off">\(\alpha\)</span> is irrational when the fractional
+parts of <span class="math inline" data-term-auto="off">\(t^n\alpha\)</span> take infinitely
+many values <span class="citation" data-cites="erdos1968"><a href="#ref-7">[7]</a></span>. For
+infinite <span class="math inline" data-term-auto="off">\(A\)</span> and <span
 class="math inline" data-term-auto="off">\(N&gt;0\)</span>, division of <span
 class="math inline" data-term-auto="off">\(N\)</span> by each <span
 class="math inline" data-term-auto="off">\(a\in A\)</span> gives</p>
@@ -379,16 +388,22 @@ irrationality <span class="citation"
 data-cites="kanekosuzukitachiya"><a href="#ref-2">[2]</a></span>. The incidence
 coefficients <a class="math-ref" data-equation-ref="true" href="#eq:incidence">eq:incidence</a>
 are positive on every multiple of <span class="math inline" data-term-auto="off">\(\min
-A\)</span>. Hence conditions (iii) and (iv) of their Theorems 1 and 3
-fail for every splitting of <span class="math inline" data-term-auto="off">\(c_A\)</span>
-into two sequences, and the scaled tail</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\sum_{r\ge1}\frac{c_A(N+r)}{b^r}
+A\)</span>. For any splitting of <span
+class="math inline" data-term-auto="off">\(c_A\)</span> into two sequences the two
+coefficient supports therefore cover a set of positive lower density,
+which is incompatible with the support-counting conditions <span
+class="citation" data-cites="kanekosuzukitachiya"></span> requiring both
+counts to be <span class="math inline" data-term-auto="off">\(o(x_n/z_n)\)</span> with <span
+class="math inline" data-term-auto="off">\(z_n\ge1\)</span>. Their remote-tail quantity <span
+class="math inline" data-term-auto="off">\(R_c(q,x,z)\)</span> sums only offsets <span
+class="math inline" data-term-auto="off">\(j\ge z\)</span>, whereas the full scaled tail</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{r\ge1}\frac{c_A(N+r)}{b^r}
 =\sum_{a\in A}\frac{b^{N\bmod a}}{b^a-1}
 =X_A(b)+\Delta_{b,A}(N)\]</span></div>
 <p class="display-continue">is at least <span
 class="math inline" data-term-auto="off">\(X_A(b)\)</span> for every <span
-class="math inline" data-term-auto="off">\(N\ge1\)</span>. The proofs above average the
+class="math inline" data-term-auto="off">\(N\ge1\)</span>, which gives no lower bound for
+<span class="math inline" data-term-auto="off">\(R_c\)</span>. The proofs above average the
 displacement <span class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\)</span>
 instead, along multiples of a modulus that freezes a finite part of
 <span class="math inline" data-term-auto="off">\(A\)</span>; the weighted proof adds a second
@@ -741,9 +756,12 @@ reciprocal mass of the selected primes as its scale, so arbitrarily slow
 divergence is retained; higher prime powers produce errors only on
 prime-square events. The equidistribution, small-prime, progression and
 exceptional-set hypotheses are referred to a supplement that is not in
-this checkout. The full-prime theorem and the authors’ stated
-full-prime-power extension are theirs. No arbitrary thinning argument is
-promoted from this release.</p>
+this checkout. Tao and Teräväinen prove the full-prime case at
+base <span class="math inline" data-term-auto="off">\(2\)</span> <span class="citation"
+data-cites="taoteravainen2025"><a href="#ref-3">[3]</a></span>, and in the paragraph after it
+state that the method extends to every integer base and to the full
+prime-power support, leaving the details to the reader. No arbitrary
+thinning argument is promoted from this release.</p>
 <p>The actual greedy membership problem is treated in Section <a class="math-ref" href="#sec:actual-repairs">8</a>; its repair
 inequality has a different logical role from the sufficient
 irrationality criteria above.</p>
@@ -887,26 +905,26 @@ together with the complete catalogue of known support families.</p>
 <p>A separate sufficient condition family is stated in terms of growth
 alone. Erdős proved irrationality of <span
 class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span> for increasing integers with
-<span class="math inline" data-term-auto="off">\(a_n\ge n^{1+\tau}\)</span> for some <span
-class="math inline" data-term-auto="off">\(\tau&gt;0\)</span> and every <span
+<span class="math inline" data-term-auto="off">\(a_n&gt;n^{1+\tau}\)</span> for some <span
+class="math inline" data-term-auto="off">\(\tau&gt;0\)</span> and all large <span
 class="math inline" data-term-auto="off">\(n\)</span>, together with <span
 class="math inline" data-term-auto="off">\(\limsup_na_n^{1/2^n}=\infty\)</span> <span
 class="citation" data-cites="erdos1975"></span>. At <span
 class="math inline" data-term-auto="off">\(a_n=2^{c_n}-1\)</span> the polynomial hypothesis
 is automatic, since <span class="math inline" data-term-auto="off">\(c_n\ge n\)</span> gives
-<span class="math inline" data-term-auto="off">\(a_n\ge2^n-1\ge n^{3/2}\)</span> for every
-<span class="math inline" data-term-auto="off">\(n\ge1\)</span>, and <span
+<span class="math inline" data-term-auto="off">\(a_n\ge2^n-1\)</span>, and <span
 class="math inline" data-term-auto="off">\(\log_2(2^{c_n}-1)\)</span> differs from <span
-class="math inline" data-term-auto="off">\(c_n\)</span> by less than <span
+class="math inline" data-term-auto="off">\(c_n\)</span> by at most <span
 class="math inline" data-term-auto="off">\(1\)</span>, so the growth hypothesis reduces to
 <span class="math inline" data-term-auto="off">\(\limsup_nc_n/2^n=\infty\)</span>. The
-criterion therefore settles exactly the supports with <span
-class="math inline" data-term-auto="off">\(\limsup_nc_n/2^n=\infty\)</span>, at every integer
-base. That class and the reciprocal-summable class of Theorem <a class="math-ref" href="#res:reciprocal-support">1.1</a> are
-incomparable. The powerful integers are reciprocal summable and their
-increasing enumeration satisfies <span class="math inline" data-term-auto="off">\(c_n\asymp
-n^2\)</span>, so <span class="math inline" data-term-auto="off">\(c_n/2^n\to0\)</span>. In
-the other direction, take blocks of consecutive integers, the <span
+criterion therefore proves irrationality, at every integer base, for
+every support with <span
+class="math inline" data-term-auto="off">\(\limsup_nc_n/2^n=\infty\)</span>. That class and
+the reciprocal-summable class of Theorem <a class="math-ref" href="#res:reciprocal-support">1.1</a> are
+incomparable. The squares are reciprocal summable, and <span
+class="math inline" data-term-auto="off">\(c_n=n^2\)</span> gives <span
+class="math inline" data-term-auto="off">\(c_n/2^n\to0\)</span>. In the other direction, take
+blocks of consecutive integers, the <span
 class="math inline" data-term-auto="off">\(k\)</span>th block being the <span
 class="math inline" data-term-auto="off">\(4^{n_k}\)</span> integers from <span
 class="math inline" data-term-auto="off">\(4^{n_k}\)</span> to <span
@@ -929,7 +947,8 @@ choices differ by one and the attainable sums cover an interval. The
 strict tail inequality of Section <a class="math-ref" href="#sec:geometry">7</a> makes the Mersenne
 achievement set totally disconnected, so no interval is ever attained
 and interval filling is unavailable here, on terms and on exponents
-alike. This retires a method; it does not decide the problem.</p>
+alike. This excludes that construction here and does not decide the
+problem.</p>
 <p>A related independence boundary concerns prime-incidence arguments.
 Writing <span class="math inline" data-term-auto="off">\(f_A(n)=\sum_{a\in A}{\bf1}_{a\mid
 n}\)</span>, the local identity</p>
@@ -972,10 +991,12 @@ class="math display" data-term-auto="off">\[2^{-N}&lt;R_N\le2^{-N}+\frac23\,4^{-
 <p class="display-continue">shows that every represented value has a unique selector. The middle
 inequality follows by writing <span
 class="math inline" data-term-auto="off">\(w_n=2^{-n}+4^{-n}/(1-2^{-n})\)</span> and using
-<span class="math inline" data-term-auto="off">\(n\ge N+1\ge2\)</span>. The coding image is a
-Cantor set, and the disjoint level-<span
-class="math inline" data-term-auto="off">\(N\)</span> cylinder covers have total length <span
-class="math inline" data-term-auto="off">\(2^NR_N\to1\)</span>, so <span
+<span class="math inline" data-term-auto="off">\(n\ge N+1\ge2\)</span>. Since every weight
+exceeds its tail, Hornich’s theorem, as proved by Nitecki <span
+class="citation" data-cites="nitecki2013"></span>, shows that the coding
+image is a Cantor set of measure <span
+class="math inline" data-term-auto="off">\(\lim_N2^NR_N\)</span>; the estimate above gives
+<span class="math inline" data-term-auto="off">\(2^NR_N\to1\)</span>, so <span
 class="math inline" data-term-auto="off">\(\lambda(\mathcal A)=1\)</span>. Kovač–Tao record
 this strict-tail inequality and the Cantor conclusion in the fixed-base
 setting <span class="citation" data-cites="kovactao"><a href="#ref-4">[4]</a></span>. The long
@@ -1236,7 +1257,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 full-support theorem</a>; pairwise-coprime summable-reciprocal support
 is <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L10776">the
-pairwise-coprime theorem</a>. The statement of Problem <a class="math-ref" href="#res:problem">1.2</a> has been formalised
+pairwise-coprime theorem</a>. The residue-class, odd-support, eventually
+periodic and periodic-weight declarations listed in the appendix are
+formal proofs of statements that follow from the periodic theorem of
+Luca and Tachiya <span class="citation"
+data-cites="lucatachiya2017"><a href="#ref-11">[11]</a></span>. The statement of Problem <a class="math-ref" href="#res:problem">1.2</a> has been formalised
 before, as a conjecture with an unfilled proof, in the <em>Formal
 Conjectures</em> collection <span class="citation"
 data-cites="formalconjectures257"><a href="#ref-6">[6]</a></span>. That collection proves the
@@ -1589,31 +1614,35 @@ squarefree family at all bases <span class="math inline" data-term-auto="off">\(
 relates Corollary 1.2 to the conjecture of Erdős and Graham; the proof
 of Corollary 1.2 is on pp. 10–11.</p></li>
 <li id="ref-2"><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
-href="https://arxiv.org/abs/2601.20743"><em>Refinements of Erdős’s
+href="https://arxiv.org/abs/2601.20743v1"><em>Refinements of Erdős’s
 irrationality criterion for certain sparse infinite series</em></a>,
 arXiv:2601.20743v1 (2026). The averaged tail <span
-class="math inline" data-term-auto="off">\(R_c(q,x,z)\)</span> is (1.7) and Theorem 1 is on
+class="math inline" data-term-auto="off">\(R_c(q,x,z)\)</span>, a sum over offsets <span
+class="math inline" data-term-auto="off">\(j\ge z\)</span>, is (1.7) and Theorem 1 is on
 p. 3; its rational-integer form, Theorem 3, is on p. 5. Lemma 1
 (pp. 6–7) derives irrationality from arbitrarily small nonzero scaled
 tails, and Lemma 2 (pp. 7–8) shows that most scaled tails in a range are
 small under a counting condition on the support. Their criteria assume
 sparse coefficient supports.</p></li>
-<li id="ref-3"><p>T. Tao and J. Teräväinen, <em>Quantitative correlations and some
-problems on prime factors of consecutive integers</em>, arXiv:2512.01739
-(submitted December 2025, revised April 2026). Theorem 1.3 proves <span
+<li id="ref-3"><p>T. Tao and J. Teräväinen, <a
+href="https://arxiv.org/abs/2512.01739v2"><em>Quantitative correlations
+and some problems on prime factors of consecutive integers</em></a>,
+arXiv:2512.01739v2 (submitted December 2025, revised April 2026).
+Theorem 1.3 (p. 4) proves <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge1}\omega(n)/2^n=\sum_p(2^p-1)^{-1}\)</span>
 irrational, settling the prime-support case of #257 at base <span
-class="math inline" data-term-auto="off">\(2\)</span>; the extension to every integer base
-and the prime-power support are stated as remarks with the modifications
-left to the reader. The theorem is on p. 4 and its proof is Section 5,
-pp. 44–56, in arXiv v2.</p></li>
+class="math inline" data-term-auto="off">\(2\)</span>; the paragraph after it states that the
+method extends to every integer base and to the prime-power support,
+leaving the modifications to the reader. Theorem 3.1 is on p. 24, and
+the proof of Theorem 1.3 is Section 5, pp. 44–56.</p></li>
 <li id="ref-4"><p>V. Kovač and T. Tao, <em>On several irrationality problems for
-Ahmes series</em>, Acta Math. Hungar. 175 (2025), 572–608, <a
-href="https://doi.org/10.1007/s10474-025-01528-0">DOI</a>. Remark 4.1
-(p. 13) records the strict tail inequality and the Cantor structure.
-Theorem 2.3 (p. 5; proof pp. 13–14) constructs rational merged sums from
-several bases under its mass hypothesis; it is not a fixed-base
-counterexample.</p></li>
+Ahmes series</em>, Acta Math. Hungar. 175 (2025), no. 2, 572–608, <a
+href="https://doi.org/10.1007/s10474-025-01528-0">DOI</a>. Page numbers
+refer to arXiv:2406.17593v4. Remark 4.1 (p. 13) records the strict tail
+inequality and the Cantor structure. Theorem 2.3 (p. 5; proof pp. 13–14)
+constructs rational merged sums from several bases under its mass
+hypothesis; the construction merges several bases and leaves fixed-base
+#257 untouched.</p></li>
 <li id="ref-5"><p>P. Erdős, <em>On arithmetical properties of Lambert series</em>,
 J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
 <li id="ref-6"><p>The Formal Conjectures Authors, <a
@@ -1635,25 +1664,47 @@ complicated condition, and p. 226 suggests <span
 class="math inline" data-term-auto="off">\(\sum_{n_i&lt;x}1/n_i=o(\log\log x)\)</span> for
 pairwise coprime supports.</p></li>
 <li id="ref-8"><p>P. Erdős, <em>Some problems and results on the irrationality of
-the sum of infinite series</em>, J. Math. Sci. 10 (1975), 1–7. Theorem 1
-proves irrationality of <span class="math inline" data-term-auto="off">\(\sum_n1/a_n\)</span>
-for increasing integers with <span class="math inline" data-term-auto="off">\(a_n\ge
-n^{1+\tau}\)</span> for some <span
-class="math inline" data-term-auto="off">\(\tau&gt;0\)</span> and every <span
-class="math inline" data-term-auto="off">\(n\)</span> and <span
-class="math inline" data-term-auto="off">\(\limsup_na_n^{1/2^n}=\infty\)</span>, as restated
-in Remark 4(4) of <span class="citation" data-cites="bkkkz2026"><a href="#ref-9">[9]</a></span>;
-the original was not consulted for this note.</p></li>
-<li id="ref-9"><p>K. Barreto, J. Kang, S. Kim, V. Kovač, and S. Zhang, <a
-href="https://arxiv.org/abs/2601.21442"><em>Irrationality of rapidly
+the sum of infinite series</em>, J. Math. Sci. 10 (1975), 1–7. Theorem 1
+(p. 1) proves irrationality of <span
+class="math inline" data-term-auto="off">\(\sum_k1/n_k\)</span> for increasing integers with
+<span class="math inline" data-term-auto="off">\(\limsup_kn_k^{1/2^k}=\infty\)</span> and
+<span class="math inline" data-term-auto="off">\(n_k&gt;k^{1+\varepsilon}\)</span> for some
+<span class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span> and all large
+<span class="math inline" data-term-auto="off">\(k\)</span>; Remark 4(4) of <span
+class="citation" data-cites="bkkkz2026"></span> restates it.</p></li>
+<li id="ref-9"><p>K. Barreto, J. Kang, S.-H. Kim, V. Kovač, and S. Zhang, <a
+href="https://arxiv.org/abs/2601.21442v3"><em>Irrationality of rapidly
 converging series: a problem of Erdős and Graham</em></a>,
-arXiv:2601.21442v3 (2026). Theorem 2 (p. 3) settles Erdős Problem 1051
-at the golden-ratio exponent and Theorem 5 (p. 5) shows the threshold is
-sharp; Remark 4(4) (p. 5) identifies the case <span
-class="math inline" data-term-auto="off">\(d=1\)</span> of its Theorem 3 with <span
-class="citation" data-cites="erdos1975"></span>; Lemma 14 (p. 13) is the
-interval-filling lemma. An unrefereed preprint with no formalisation; it
-states nothing about #257.</p></li>
+arXiv:2601.21442v3 (2026), to appear in Bull. London Math. Soc.
+Theorem 2 (pp. 2–3) settles Erdős Problem 1051 at the golden-ratio
+exponent and Theorem 5 (p. 5) shows the threshold is sharp; Remark 4(4)
+(p. 5) identifies the case <span class="math inline" data-term-auto="off">\(d=1\)</span> of
+its Theorem 3 with <span class="citation"
+data-cites="erdos1975"><a href="#ref-8">[8]</a></span>; Lemma 14 (p. 13) is the interval-filling
+lemma. The paper does not treat Problem 257.</p></li>
+<li id="ref-10"><p>Z. Nitecki, <a
+href="https://arxiv.org/abs/1106.3779v2"><em>Subsum sets: intervals,
+Cantor sets, and Cantorvals</em></a>, arXiv:1106.3779v2 (2013).
+Theorem 4 (p. 9) shows that when every term exceeds its tail the subsum
+set is a Cantor set of Lebesgue measure <span
+class="math inline" data-term-auto="off">\(\lim_n2^nX_n\)</span>, where <span
+class="math inline" data-term-auto="off">\(X_n\)</span> is the <span
+class="math inline" data-term-auto="off">\(n\)</span>th tail, and credits this to H. Hornich
+(1941).</p></li>
+<li id="ref-11"><p>F. Luca and Y. Tachiya, <a
+href="https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2014-14.pdf"><em>Linear
+independence results for the values of divisor functions
+series</em></a>, RIMS Kôkyûroku No. 2014 (2017), 138–150. Theorem A
+(p. 139) restates Theorem 1.1 of their paper <em>Irrationality of
+Lambert series associated with a periodic sequence</em>, Int. J. Number
+Theory 10 (2014), no. 3, 623–636, <a
+href="https://doi.org/10.1142/S1793042113501121">DOI</a>: for a purely
+periodic integer sequence <span class="math inline" data-term-auto="off">\(a(n)\)</span>, not
+identically zero, <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge1}a(n)/(q^n-1)\)</span> is irrational
+for every integer <span class="math inline" data-term-auto="off">\(q\)</span> with <span
+class="math inline" data-term-auto="off">\(|q|&gt;1\)</span>. Example 2 (p. 140) treats the
+odd support.</p></li>
 </ol>
 </section>
   </div>

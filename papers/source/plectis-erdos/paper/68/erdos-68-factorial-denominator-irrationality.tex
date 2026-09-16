@@ -70,6 +70,10 @@ The divisibility exclusion in the abstract rests on the implication
 S=a/q,\quad q\mid(m-1)!,\quad m\ge3
 \quad\Longrightarrow\quad b_m=1.\label{eq:finite-denominator-consumer}
 \end{equation}
+Its proof is the factorial-tail integrality argument that Han\v{c}l and
+Tijdeman use for factorial series with integer coefficients
+\cite[Lemma~2.1 and the following remark, p.~385]{hancl-tijdeman}; for the
+denominators $n!-1$ the tail estimate is proved directly.
 Indeed, $0<m!(S-H_m)<1$, by comparison with the telescoping
 series $\sum_{n>m}(n-1)/n!=1/m!$.  Thus $m!S$ is the unique integer
 strictly above $m!H_m$.  The same argument at $m-1$ gives
@@ -84,7 +88,8 @@ The independent continued-fraction exclusion bounds the denominator's size.
 Neither restriction implies the other: a prime between $299999$ and $599998$
 satisfies the divisibility restriction and fails the size restriction,
 whereas $299999!$ does the reverse.  Both conclusions are finite; they do
-not decide the irrationality question posed by Erd\H{o}s~\cite{erdos1988,bloom}.
+not decide the irrationality question posed by Erd\H{o}s
+\cite[p.~102]{erdos1988} and listed in Bloom's catalogue \cite{bloom}.
 Their computational certificates are specified in \S\ref{sec:finite}.
 
 \lword{Erdos68/FactorialChannelCertificate.lean}{65}{channelEvent_eq_zero_of_not_dvd}{Adjacent factorial differences affect exactly their divisor channels}.
@@ -112,6 +117,15 @@ Absolute convergence gives
 The endpoint of the exponential prefix contributes residue $1$ modulo $m$;
 its positive tail removes another unit on taking the floor.  This accounts
 for the distinguished residue $-2$ in the following theorem.
+
+Canonical factorial digits come from Cantor's factorial expansion
+\cite{cantor1869}, in which a real number is rational exactly when its digits
+vanish from some index on.  Galambos treats the rationality of Cantor series
+in \cite[Ch.~II, \S2.1, pp.~21--22]{galambos1976}, and Koepf and Schmersau
+prove the irrationality direction for nonterminating factorial expansions
+whose digits are not eventually maximal
+\cite[Example~3.2, p.~121]{koepf-schmersau}.  The following theorem is the
+analogue for the companion $C=S-e+2$, whose distinguished digit is $m-2$.
 
 \begin{theorem}[fixed companion-orbit rationality boundary]
 \label{res:companion-orbit-rationality-boundary}
@@ -201,14 +215,13 @@ b_m=m-1-d_m(C)+\sigma_m-m\sigma_{m-1}.
 \end{equation}
 This identity is unconditional.  A floor-stability hypothesis is required
 only to discard the two wrap terms.  Equality in the defining comparison is
-the no-wrap case.  Canonical factorial expansions and their rationality
-criterion are classical~\cite{cantor1869,galambos1976}.
-For an integer-coefficient factorial series, the standard tail-integrality
-argument appears in Han\v{c}l and Tijdeman~\cite[Lemma~2.1 and its
-remark]{hancl-tijdeman}: a rational sum has integral normalized tails
-once its denominator divides the preceding factorial.  Their subsequent
-finite-difference criteria impose regularity on the coefficients.  In the
-present series the denominators are $n!-1$; the companion expansion and
+the no-wrap case.  For a factorial series $\sum b_n/n!$ with integer
+coefficients, a rational sum has integral normalised tails once its
+denominator divides the preceding factorial
+\cite[Lemma~2.1 and the following remark, p.~385]{hancl-tijdeman}, and
+Han\v{c}l and Tijdeman classify the rational sums with polynomial
+coefficients \cite[Theorem~3.1 and Corollary~3.1, pp.~390--391]{hancl-tijdeman}.
+In the present series the denominators are $n!-1$; the companion expansion and
 the two wrap terms in \eqref{eq:companion-wrap} account for that change.
 
 \begin{theorem}[exact carry characterisation]
@@ -478,6 +491,11 @@ no reduced denominator of a rational representation of the series.
 The finite-block inequality has a separate
 Lean source,
 \href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{finite terminal-block inequality}.
+The divisibility $\gcd(i!-1,j!-1)\mid j!/i!-1$ follows on multiplying $i!-1$
+by $j!/i!$ and subtracting $j!-1$.  It is the case $P=-1$ of the subtraction
+for $n!+P(n)$ that Luca and Shparlinski use in the proof of their
+Lemma~5~\cite{luca-shparlinski} and that Lai uses for a common prime-power
+divisor \cite[proof of Lemma~2.4, display~(2.5)]{lai}.
 For a terminal block of $k$ terms, the product--lcm--gcd inequality and
 $\gcd(i!-1,j!-1)\mid j!/i!-1$ give
 \[
@@ -497,9 +515,7 @@ $j!/i!$ and subtracting the factor at $j$ gives
 \[
 \gcd(i!+P(i),j!+P(j))\mid P(j)-(j!/i!)P(i).
 \]
-The same subtraction bounds a common divisor in the proof of Lemma~5 of
-Luca and Shparlinski~\cite{luca-shparlinski}, and a common prime-power
-divisor at display~(2.5) of Lai~\cite{lai}.  For $n_0\le i<j\le N$ the
+For $n_0\le i<j\le N$ the
 right side is a nonzero integer of absolute value $O_P(N^{\,j-i+\deg P})$,
 so the block loses an additional $O_P(k^2\log N)$, which is lower order.  For
 $P=0$, the lcm is only $N!$.
@@ -556,12 +572,18 @@ $\operatorname{lcm}(1,\ldots,n)$ and show that the bound may be divided by a
 product $\Phi_n$ of prime powers~\cite[\S5]{lai-lupu-sprang}.  The growth
 rate of $\Phi_n$~\cite[Lemma~7.3]{lai-lupu-sprang} enters the
 inequality~\cite[(8.1)]{lai-lupu-sprang} under which the rescaled forms,
-which have integer coefficients, meet the irrationality criterion quoted
-in~\cite[Lemma~2.1]{lai-lupu-sprang}: nonzero values whose $p$-adic size,
+which have integer coefficients, meet the irrationality criterion
+\cite[Lemma~2.1, p.~3]{lai-lupu-sprang} that they quote from Lai
+\cite[Lemma~2.1, p.~4]{lai-2adic}: nonzero values whose $p$-adic size,
 multiplied by the largest absolute value of a coefficient, tends to zero.
 For the prefix sums no asymptotic saving of this kind is established here;
 the first-layer test below decides, one prime at a time, whether the largest
-power of that prime survives reduction.
+power of that prime survives reduction.  This paragraph compares the two
+methods; no $p$-adic theorem is applied to $S$.
+
+The test is the top valuation layer of the reciprocal-sum valuation formula
+of Louwsma and Martino \cite[Lemma~4.1, p.~10]{louwsma-martino}, written out
+here for the denominators $n!-1$.
 Put $L_M=\operatorname{lcm}_{2\le n\le M}(n!-1)$ and
 $A_M=\sum_{n=2}^M L_M/(n!-1)$.  For a prime $q$ with attained maximum
 $e=\max_{2\le n\le M}v_q(n!-1)>0$, set
@@ -583,10 +605,9 @@ v_q(\operatorname{den}H_M)=e
 \end{equation}
 The equivalence, with the maximum and its attainment taken from the actual
 prefix lcm, is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompletePrimePole.lean#L118}{maximal prime power survival}.
-This first-layer test is a consequence of the general reciprocal-sum
-valuation formula of Louwsma and Martino~\cite[Lemma~4.1]{louwsma-martino}.
 
-The actual factorial-gap examples show why the weights matter.  At
+The following factorial-gap examples come from an exact modular scan; they
+show why the weights matter.  At
 $M=138$, the maximal $139$-hits are $69,122,137$, with cofactor residues
 $6,49,73$, and
 \[
@@ -726,10 +747,18 @@ In particular $b_{300000}\ne1$, yielding $q\nmid299999!$ by
 \eqref{eq:finite-denominator-consumer}.  This excludes every divisor of that
 factorial, including large divisors.  It does not exclude all integers with
 small prime factors, since their multiplicities can be too large.
+The range through $300000$ rests on the retained GMP receipt and lies outside
+the Lean development.  The long record gives the receipt's digests and a
+separate replay through $4000$; a byte-identical regeneration of the
+full-range receipt with the current driver is outstanding.
 
 The separate $80000$-bit exact rational enclosure forces $23449$ common
-continued-fraction partial quotients.  Its best-approximation certificate gives
-$q\ge2^{39990}>10^{12038}$.  The open-versus-closed complete-quotient endpoint
+continued-fraction partial quotients.  The continued-fraction recurrences,
+determinant identity and fractional transformation
+\cite[\S1.12(ii), (1.12.5)--(1.12.7), (1.12.20)--(1.12.21)]{nist-dlmf} turn
+this common prefix into the bound $q\ge2^{39990}>10^{12038}$; the enclosure,
+the prefix length and the exponent are outputs of the computation.  The
+open-versus-closed complete-quotient endpoint
 convention matters for a sharper extraction; no stronger numerical floor is
 asserted here.  The exact sources, enclosure and integer-computation receipts
 are retained with the long record.  Neither finite calculation supplies
@@ -889,7 +918,7 @@ immutable release before the links represent a replay of the whole note.
 
 \clearpage
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
 \small
 \raggedright
 \setlength{\itemsep}{0pt}
@@ -901,24 +930,30 @@ immutable release before the links represent a replay of the whole note.
 \bibitem{bloom} T.~F. Bloom, \emph{Erd\H{o}s Problem \#68}.
   \url{https://www.erdosproblems.com/68}, accessed 28 July 2026.
 \bibitem{cantor1869} G.~Cantor, \emph{\"Uber die einfachen Zahlensysteme},
-  Z. Math. Phys. \textbf{14} (1869), 121--128.
+  Z.\ Math.\ Phys.\ \textbf{14} (1869), 121--128.
 \bibitem{galambos1976} J.~Galambos, \emph{Representations of Real Numbers by
-  Infinite Series}, Lecture Notes in Math. \textbf{502}, Springer, 1976,
-  Chapter~1.
+  Infinite Series}, Lecture Notes in Math.\ \textbf{502}, Springer, 1976,
+  doi:\href{https://doi.org/10.1007/BFb0081642}{10.1007/BFb0081642}.
+  Chapter~II, \S2.1, pp.~21--22.
+\bibitem{koepf-schmersau} W.~Koepf and D.~Schmersau,
+  \emph{Irrationality of certain infinite series II}, Analysis \textbf{31}
+  (2011), 117--124,
+  doi:\href{https://doi.org/10.1524/anly.2011.1094}{10.1524/anly.2011.1094}.
+  Example~3.2, p.~121.
 \bibitem{hancl-tijdeman} J.~Han\v{c}l and R.~Tijdeman,
   \emph{On the irrationality of factorial series}, Acta Arith.
-  \textbf{118} (2005), 383--401,
+  \textbf{118} (2005), no.~4, 383--401,
   doi:\href{https://doi.org/10.4064/aa118-4-5}{10.4064/aa118-4-5}.
 \bibitem{louwsma-martino}
   J.~Louwsma and J.~Martino,
   \emph{Rational numbers with odd greedy expansion of fixed length},
-  arXiv:\href{https://arxiv.org/abs/2309.07280}{2309.07280v1}, 2023,
+  arXiv:\href{https://arxiv.org/abs/2309.07280v1}{2309.07280v1}, 2023,
   Lemma~4.1, p.~10.
 \bibitem{lai}
   L.~Lai, \emph{On the largest prime divisor of $n!+1$},
   Bull.\ Aust.\ Math.\ Soc.\ \textbf{113} (2026), no.~3, 390--403,
   doi:\href{https://doi.org/10.1017/S0004972725100543}{10.1017/S0004972725100543};
-  arXiv:\href{https://arxiv.org/abs/2103.14894}{2103.14894}.
+  arXiv:\href{https://arxiv.org/abs/2103.14894v1}{2103.14894v1}.
   Lemma~2.1, p.~392; display~(2.5) in the proof of Lemma~2.4, p.~394.
 \bibitem{luca-shparlinski}
   F.~Luca and I.~E. Shparlinski, \emph{Prime divisors of shifted factorials},
@@ -931,8 +966,17 @@ immutable release before the links represent a replay of the whole note.
   Res.\ Math.\ Sci.\ \textbf{12} (2025), no.~4, Paper No.~77,
   doi:\href{https://doi.org/10.1007/s40687-025-00559-x}{10.1007/s40687-025-00559-x};
   arXiv:\href{https://arxiv.org/abs/2505.23088v1}{2505.23088v1}.
-  Numbered as in arXiv v1: Lemma~2.1, p.~3; \S5, pp.~10--14; Lemma~7.3, p.~20;
-  (8.1), p.~22.
+  Numbered as in arXiv v1: Lemma~2.1, p.~3; Lemmas~5.3--5.7, pp.~10--14;
+  Lemma~7.3, p.~20; (8.1), p.~22.
+\bibitem{lai-2adic}
+  L.~Lai, \emph{On the irrationality of certain $2$-adic zeta values},
+  Int.\ J.\ Number Theory \textbf{21} (2025), no.~1, 207--235;
+  arXiv:\href{https://arxiv.org/abs/2304.00816v1}{2304.00816v1}.
+  Numbered as in arXiv v1: Lemma~2.1, p.~4.
+\bibitem{nist-dlmf}
+  NIST Digital Library of Mathematical Functions, \S1.12(ii),
+  \emph{Convergents}, \url{https://dlmf.nist.gov/1.12}, accessed
+  15 September 2026.
 \end{thebibliography}
 
 \companionpapercontext

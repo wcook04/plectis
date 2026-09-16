@@ -199,8 +199,9 @@ transcendental. The
 [ordinary proof](../paper/269/erdos-269-three-prime-running-lcm.tex) expresses
 them as nonconstant quadratic and affine polynomials in one transcendental
 Hecke–Mahler value. Steve Fan posted the repeated-sum two-prime factorisation,
-reduction and transcendence conclusion first, on 26 June 2026; the note
-acknowledges him, derives the de-duplicated formula, and uses the cited
+reduction and transcendence conclusion first, on the problem's forum on
+26 June 2026; the note credits his priority, gives a proof found
+independently, derives the de-duplicated formula, and uses the cited
 Hecke–Mahler transcendence theorem. The two-prime case has an ordinary proof
 and no Lean theorem.
 

@@ -25,11 +25,12 @@ data-cites="erdos1948"><a href="#ref-1">[1]</a></span>. Bloom’s current catalo
 reproduces the displayed rational-<span class="math inline" data-term-auto="off">\(t\)</span>
 question, labels it <em>open</em>, attributes it to Chowla, and points
 to Erdős’s 1988 statement on p. 102 and the 1948 integer-base
-theorem <span class="citation" data-cites="erdosproblems"><a href="#ref-18">[18]</a></span>. This
-note proves <span class="math inline" data-term-auto="off">\(F(a/b)\)</span> irrational for
-every pair of coprime integers <span
-class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> with <span
-class="math inline" data-term-auto="off">\(\log b/\log
+theorem <span class="citation" data-cites="erdosproblems"><a href="#ref-25">[25]</a></span>.
+Specialising Zudilin’s 2004 construction <span class="citation"
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> to rational bases, this note proves
+<span class="math inline" data-term-auto="off">\(F(a/b)\)</span> irrational for every pair of
+coprime integers <span class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> with
+<span class="math inline" data-term-auto="off">\(\log b/\log
 a&lt;\theta^{*}=0.40568302138406054\ldots\)</span>, which settles the
 base <span class="math inline" data-term-auto="off">\(31/4\)</span> and every power <span
 class="math inline" data-term-auto="off">\((31/4)^{r}\)</span>, <span
@@ -54,7 +55,8 @@ running at <span class="math inline" data-term-auto="off">\(3/2\)</span>?</p>
 <h5>Structure.</h5>
 <p>The rational-base theorem and its cyclotomic degree calculation are
 Theorem <a class="math-ref" href="#long1049:res:region">2.2</a>;
-the first newly covered base is isolated in Theorem <a class="math-ref" href="#long1049:res:31over4">2.3</a>. The
+the base <span class="math inline" data-term-auto="off">\(31/4\)</span>, which lies outside
+the Bundschuh–Väänänen region, is Theorem <a class="math-ref" href="#long1049:res:31over4">2.3</a>. The
 independent determinant argument is Theorem <a class="math-ref" href="#long1049:res:zudilin-sharp-qorder">3.4</a>,
 whose proof identifies the unique least-order term at every rank. The
 result-family catalogue at the end lists the older families admitted to
@@ -88,7 +90,7 @@ periodic-coefficient corollary therefore shows that</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_{n\ge1}\frac{z^n}{1-z^n}\]</span></div>
 <p class="display-continue">is not a
-rational function <span class="citation" data-cites="rivin2026"><a href="#ref-16">[16]</a></span>.
+rational function <span class="citation" data-cites="rivin2026"><a href="#ref-23">[23]</a></span>.
 This is an exact structural statement about the function underlying
 Problem #1049, but it gives no irrationality statement for a special
 value at <span class="math inline" data-term-auto="off">\(z=1/t\)</span>: a nonrational
@@ -137,13 +139,15 @@ class="math inline" data-term-auto="off">\(P_n(p^{n+1}\mid p^{-1})\)</span>, whe
 Assche uses <span class="math inline" data-term-auto="off">\(P_n(p^n\mid p^{-1})\)</span>.
 Van Assche also records, citing Borwein’s 1992 Lemma 2, the neighbouring
 evaluation <span class="math inline" data-term-auto="off">\(P_{n-1}(c p^{n+1}\mid
-p^{-1})\)</span> <span class="citation"
-data-cites="borwein1992 vanassche2001"><a href="#ref-4">[4]</a><a href="#ref-13">[13]</a></span>. The shared kernel
-therefore does not license transfer of recurrence, endpoint, lattice, or
-valuation claims between the diagonals. Indeed, if <span
+p^{-1})\)</span> <span class="citation"
+data-cites="vanassche2001"><a href="#ref-17">[17]</a></span>; see <span class="citation"
+data-cites="borwein1992"><a href="#ref-4">[4]</a></span>. The shared kernel therefore does not
+license transfer of recurrence, endpoint, lattice, or valuation claims
+between the diagonals. Indeed, if <span
 class="math inline" data-term-auto="off">\(A_n(p)=P_n(p^n\mid p^{-1})\)</span>, exact
 substitution at <span class="math inline" data-term-auto="off">\(n=0\)</span> into the
-Amdeberhan–Zeilberger operator leaves</p>
+Amdeberhan–Zeilberger operator <span class="citation"
+data-cites="az1998"><a href="#ref-5">[5]</a></span> leaves</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[-p(p-1)^2(p+1)(p^5+2p^4+2p^3+2p^2+2),\]</span></div>
 <p class="display-continue">which is nonzero for every real <span
@@ -159,6 +163,13 @@ supply a recurrence for either diagonal. No recurrence, endpoint,
 lattice, or valuation statement for one diagonal is used for the other;
 the displayed exact residual is the sole claim made here about their
 incompatibility.</p>
+<p>Coussement and Smet use little <span
+class="math inline" data-term-auto="off">\(q\)</span>-Jacobi polynomials for further Lambert
+series whose base parameter is the reciprocal of an integer <span
+class="citation" data-cites="coussementsmet2007"></span>, and Koizumi
+and Yokoi identify one of their three-parameter Apéry-type
+approximations with the Coussement–Smet Padé approximants <span
+class="citation" data-cites="koizumiyokoi2026"></span>.</p>
 <p>There is a second distinction at rational base <span
 class="math inline" data-term-auto="off">\(3/2\)</span>. Over the checked range, the raw
 rational approximation errors decrease while the selected cleared
@@ -173,16 +184,22 @@ alphabet excluding zero; taking <span
 class="math inline" data-term-auto="off">\(a_n=(-1)^n\)</span> completes the elementary digit
 method for integer bases <span
 class="math inline" data-term-auto="off">\(b\le-2\)</span> <span class="citation"
-data-cites="vandehey2013"><a href="#ref-14">[14]</a></span>. His companion theorem permits a
+data-cites="vandehey2013"><a href="#ref-20">[20]</a></span>. His companion theorem permits a
 finite alphabet of nonnegative integers containing zero, provided the
 coefficient sequence is not eventually zero <span class="citation"
-data-cites="vandehey2013"><a href="#ref-14">[14]</a></span>. All three retain an integer base.
+data-cites="vandehey2013"><a href="#ref-20">[20]</a></span>. All three retain an integer base.
 Luca and Tachiya’s periodic-coefficient theorem likewise proves
 irrationality at every integer base of absolute value greater than one;
 their full-support example strengthens this to joint linear independence
 for finite families of iterated divisor functions <span class="citation"
-data-cites="lucatachiya2017"><a href="#ref-15">[15]</a></span>. This is strong integer-base
-evidence, but it does not cover a rational noninteger base.</p>
+data-cites="lucatachiya2017"><a href="#ref-21">[21]</a></span>. Duverney and Tachiya refine the
+Chowla–Erdős method to linear independence results for Lambert series at
+an integer base <span class="math inline" data-term-auto="off">\(q\)</span> with <span
+class="math inline" data-term-auto="off">\(|q|&gt;1\)</span> <span class="citation"
+data-cites="duverneytachiya2019"><a href="#ref-22">[22]</a></span>; their Corollary 1.1
+generalises Vandehey’s Theorem 1.2 <span class="citation"
+data-cites="duverneytachiya2019"><a href="#ref-22">[22]</a></span>. Each of these results assumes
+an integer base.</p>
 <p>In 2004 Zudilin obtained the uniform bound <span
 class="math inline" data-term-auto="off">\(\mu(F(p))\le2.46497868\ldots\)</span> for every
 integer <span class="math inline" data-term-auto="off">\(p\notin\{0,\pm1\}\)</span>, by way
@@ -192,7 +209,7 @@ ordinary-hypergeometric antecedent is Rhin and Viola’s <span
 class="math inline" data-term-auto="off">\(S_5\)</span> action and twelve-coset denominator
 reduction for rational forms in <span
 class="math inline" data-term-auto="off">\(\zeta(2)\)</span> <span class="citation"
-data-cites="rhinviola1996"><a href="#ref-12">[12]</a></span>.</p>
+data-cites="rhinviola1996"><a href="#ref-16">[16]</a></span>.</p>
 <p>Those sources motivate the permutation, denominator and polynomial-
 specialisation architecture of Section <a class="math-ref" href="#long1049:sec:endpoints">5</a>; the
 endpoint lemmas there are abstract and are not yet applied to either
@@ -201,7 +218,7 @@ source’s actual coefficient family.</p>
 class="math inline" data-term-auto="off">\(\sum_{n\in A}(t^{n}-1)^{-1}\)</span> over a
 restricted index set <span class="math inline" data-term-auto="off">\(A\)</span> is treated
 by Kovač and Tao <span class="citation"
-data-cites="kovactao2024"><a href="#ref-17">[17]</a></span>.</p>
+data-cites="kovactao2024"><a href="#ref-24">[24]</a></span>.</p>
 <p>The rational non-integer progress relevant here is instead the height
 criterion of Bundschuh and Väänänen <span class="citation"
 data-cites="bv1994"><a href="#ref-6">[6]</a></span>, which gives the strongest explicit
@@ -215,21 +232,21 @@ rational bases: it remarks that its results can be given for non-integer
 class="math inline" data-term-auto="off">\(|p|&gt;1\)</span>, under an assumption <span
 class="math inline" data-term-auto="off">\(\log|r|&gt;c\log|s|\)</span> for some computable
 <span class="math inline" data-term-auto="off">\(c&gt;0\)</span> <span class="citation"
-data-cites="zudilin2016"><a href="#ref-8">[8]</a></span>. No value of <span
+data-cites="zudilin2016"><a href="#ref-9">[9]</a></span>. No value of <span
 class="math inline" data-term-auto="off">\(c\)</span> is computed there. That remark
 announces the shape of a rational-base extension for the generalized
 <span class="math inline" data-term-auto="off">\(q\)</span>-logarithm of that paper.
 Section <a class="math-ref" href="#long1049:sec:region">2</a>
-identifies an admissible constant for <span
-class="math inline" data-term-auto="off">\(F\)</span> itself, <span
-class="math inline" data-term-auto="off">\(c=\mu=2.464978683574975\ldots\)</span>, which is
-the 2004 bound quoted above, by specialising the 2004 forms at a
-rational base and carrying out the denominator accounting, and derives
-the region and its first new base from that constant.</p>
+carries out such an extension for <span class="math inline" data-term-auto="off">\(F\)</span>
+itself: specialising the 2004 forms at a rational base and carrying out
+the denominator accounting shows that <span
+class="math inline" data-term-auto="off">\(c=\mu=2.464978683574975\ldots\)</span>, the 2004
+bound quoted above, is admissible, and gives the resulting region and
+its application to <span class="math inline" data-term-auto="off">\(31/4\)</span>.</p>
 <p>A third published rational-base region for this same series is
 Duverney’s Théorème 2, whose hypothesis is <span
 class="math inline" data-term-auto="off">\(\log|s|/\log|r|&lt;\frac13\bigl(1-3/\pi^{2}\bigr)=0.2320\ldots\)</span>
-<span class="citation" data-cites="duverney1996"><a href="#ref-9">[9]</a></span>; his Théorème 1
+<span class="citation" data-cites="duverney1996"><a href="#ref-13">[13]</a></span>; his Théorème 1
 for general numerators is weaker still. Both cutoffs lie strictly inside
 the Bundschuh and Väänänen region. Matala-aho, Väänänen and Zudilin’s
 combined treatment of <span class="math inline" data-term-auto="off">\(q\)</span>-logarithms
@@ -238,7 +255,7 @@ class="math inline" data-term-auto="off">\(p=1/q\in\Z\mathbin{\backslash}\{0,\pm
 throughout, and states in print that its methods do not sharpen the
 <span class="math inline" data-term-auto="off">\(q\)</span>-harmonic case of <span
 class="citation" data-cites="zudilin2004"></span> <span class="citation"
-data-cites="matalaaho2006"><a href="#ref-10">[10]</a></span>. So none of the printed regions for
+data-cites="matalaaho2006"><a href="#ref-14">[14]</a></span>. So none of the printed regions for
 <span class="math inline" data-term-auto="off">\(F\)</span> compared here reaches <span
 class="math inline" data-term-auto="off">\(\log4/\log31\)</span>.</p>
 </section>
@@ -414,10 +431,16 @@ and is not always the least such number.</p>
 <section id="results-and-boundary." class="level5">
 <h5>Results and boundary.</h5>
 <p>Theorems <a class="math-ref" href="#long1049:res:region">2.2</a> and <a class="math-ref" href="#long1049:res:31over4">2.3</a> are ordinary
-mathematics. They consume Zudilin’s Lemma 7 together with the inputs of
-that lemma’s own proof, and every further step is proved in
-Section <a class="math-ref" href="#long1049:sec:region">2</a>.
-They are not kernel-checked. The linked Lean declarations establish
+mathematics. They specialise the construction of <span class="citation"
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> to rational bases. The linear forms,
+the integrality of Lemma 7 there with the inputs of that lemma’s own
+proof, the direction and the constants come from that paper, and the
+cyclotomic limits are its Lemmas 1–2 <span class="citation"
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>, proved by the method of <span
+class="citation" data-cites="zudilin2002"></span>. The rational
+specialisation, the cancelled-degree accounting and the remainder
+estimates are this paper’s own work and are proved in Section <a class="math-ref" href="#long1049:sec:region">2</a>. The two
+theorems are not kernel-checked. The linked Lean declarations establish
 exact inequalities, congruences, finite collision counts, recurrence
 identities, and exclusions for the named models; among them are the
 height comparisons that place <span class="math inline" data-term-auto="off">\(31/4\)</span>
@@ -470,7 +493,7 @@ base <span class="math inline" data-term-auto="off">\(31/4\)</span></h2>
 <p>This section states the note’s leading results. Fix Zudilin’s
 direction <span
 class="math inline" data-term-auto="off">\((\alpha_0,\alpha_1,\alpha_2;\beta)=(14,12,14;27)\)</span>
-of <span class="citation" data-cites="zudilin2004"><a href="#ref-7">[7]</a></span> and put</p>
+of <span class="citation" data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> and put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[C_1=(\alpha_0+\alpha_1+\alpha_2)\beta-\tfrac12(\alpha_1^{2}+\alpha_2^{2}+\beta^{2})
 =\frac{1091}{2},
@@ -506,7 +529,7 @@ C_0&amp;=221.300088165005025124042696692215\ldots,\\
 values <span class="math inline" data-term-auto="off">\(C_1=545.5\)</span> and <span
 class="math inline" data-term-auto="off">\(C_0=221.30008816\ldots\)</span> and the ratio
 <span class="math inline" data-term-auto="off">\(C_1/C_0=2.46497868\ldots\)</span> are
-printed at <span class="citation" data-cites="zudilin2004"><a href="#ref-7">[7]</a></span>,
+printed at <span class="citation" data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>,
 where that ratio is the irrationality-exponent bound of <span
 class="citation" data-cites="zudilin2004"></span> for integer bases. The
 further digits displayed above and the reciprocal <span
@@ -518,12 +541,14 @@ combinatorial form as well. Put</p>
 class="math display" data-term-auto="off">\[\omega(\xi)=\max\bigl\{0,\;
 \lfloor14\xi\rfloor+\lfloor13\xi\rfloor-\lfloor12\xi\rfloor-\lfloor15\xi\rfloor,\;
 2\lfloor14\xi\rfloor-\lfloor13\xi\rfloor-\lfloor15\xi\rfloor\bigr\},\]</span></div>
-<p class="display-continue">the weight that <span class="citation" data-cites="zudilin2004"><a href="#ref-7">[7]</a></span>
+<p class="display-continue">the weight that <span class="citation" data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>
 attaches to the six-tuple <span
 class="math inline" data-term-auto="off">\(c=(13,14,12,14,15,13)\)</span> of the fixed
 direction; it gives the exponents <span
 class="math inline" data-term-auto="off">\(\nu_l=\omega(n/l)\)</span> of the source’s (22)
-and enters its limit (26).</p>
+and enters its limit (26). Zudilin lists the support of <span
+class="math inline" data-term-auto="off">\(\omega\)</span> in the same place; the next lemma
+verifies that list by exact evaluation.</p>
 <div class="lemma" id="long1049:res:omega-indicator">
 <p><strong>Lemma 2.1</strong> (the weight is an indicator). <em> On <span
 class="math inline" data-term-auto="off">\([0,1)\)</span> the function <span
@@ -572,10 +597,15 @@ class="math display" data-term-auto="off">\[b^{\mu}&lt;a,
 Then <span class="math inline" data-term-auto="off">\(F(a/b)=\sum_{m\ge1}((
 a/b)^{m}-1)^{-1}\)</span> is irrational.</em></p>
 </div>
-<p>The proof occupies Sections <a class="math-ref" href="#long1049:sec:source-forms">2.1</a>–<a class="math-ref" href="#long1049:sec:integer-forms">2.4</a>. It
-cites one external statement, the polynomial conclusion of Zudilin’s
-Lemma 7 together with the coefficientwise argument that proves it;
-everything else is carried out here.</p>
+<p>The proof occupies Sections <a class="math-ref" href="#long1049:sec:source-forms">2.1</a>–<a class="math-ref" href="#long1049:sec:integer-forms">2.4</a>. Its
+integrality input is the polynomial conclusion of Zudilin’s Lemma 7
+together with the coefficientwise argument that proves it <span
+class="citation" data-cites="zudilin2004"></span>, and it uses his
+direction and constants. The cyclotomic limits of Section <a class="math-ref" href="#long1049:sec:cyclotomic-limit">2.3</a> are
+his Lemmas 1–2, proved there by the method of <span class="citation"
+data-cites="zudilin2002"><a href="#ref-7">[7]</a></span> for the degree count. The rational
+specialisation, the exact degrees, positivity and the size estimates are
+this paper’s own work.</p>
 <section id="long1049:sec:source-forms" class="level3">
 <h3>The source forms as polynomial identities</h3>
 <p>Fix <span class="math inline" data-term-auto="off">\(n\ge1\)</span>, write <span
@@ -589,7 +619,7 @@ a_0=14n+1,\quad a_1=12n+1,\quad a_2=14n+1,\\
 <p>The symbol <span
 class="math inline" data-term-auto="off">\(\beta_n\)</span> is the parameter <span
 class="math inline" data-term-auto="off">\(b\)</span> of <span class="citation"
-data-cites="zudilin2004"><a href="#ref-7">[7]</a></span>, the exponent in the lower parameter
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>, the exponent in the lower parameter
 <span class="math inline" data-term-auto="off">\(q^{b}\)</span> of the Heine series (13) on
 p. 157; the letter <span class="math inline" data-term-auto="off">\(b\)</span> continues to
 denote the denominator of the base, and <span
@@ -603,8 +633,11 @@ H_n(x)=\sum_{t\ge0}
 \frac{(q^{t+1};q)_{a_1-1}}{(q;q)_{a_1-1}}\,
 \frac{(q;q)_{\beta_n-a_2-1}}{(q^{a_2+t};q)_{\beta_n-a_2}}\,q^{a_0t},
 \end{equation}\]</span></div>
-<p class="display-continue">and <span class="citation"
-data-cites="zudilin2004"><a href="#ref-7">[7]</a></span> gives <span
+<p class="display-continue">whose last denominator has the length <span
+class="math inline" data-term-auto="off">\(\beta_n-a_2\)</span> given by the gamma
+expression (7) and the residues (8) of <span class="citation"
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>, and <span class="citation"
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> gives <span
 class="math inline" data-term-auto="off">\(H_n=A_nF-B_n\)</span> with <span
 class="math inline" data-term-auto="off">\(A_n,B_n\in\Q(x)\)</span>. The two coefficients can
 be written down. Let <span
@@ -648,7 +681,7 @@ class="math inline" data-term-auto="off">\(\nu_{n,l}=0\)</span> for <span
 class="math inline" data-term-auto="off">\(l&gt;15n\)</span> because the intervals all begin
 at or above <span class="math inline" data-term-auto="off">\(1/14\)</span>.</p>
 <p>Zudilin’s Lemma 7 <span class="citation"
-data-cites="zudilin2004"><a href="#ref-7">[7]</a></span> applies at the parameters above: the
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> applies at the parameters above: the
 tuple is <span
 class="math inline" data-term-auto="off">\(c=n\cdot(13,14,12,14,15,13)\)</span> with maximum
 <span class="math inline" data-term-auto="off">\(m(c)=15n\)</span> and difference <span
@@ -777,6 +810,12 @@ coefficients.</p>
 </section>
 <section id="long1049:sec:cyclotomic-limit" class="level3">
 <h3>The cyclotomic limit</h3>
+<p>The limits proved in this subsection are those of <span
+class="citation" data-cites="zudilin2004"></span>. The proof splits the
+condition <span class="math inline" data-term-auto="off">\(\{n/l\}\in[u,v)\)</span> into
+reciprocal blocks and applies the summatory totient estimate on each, as
+in the proof of <span class="citation" data-cites="zudilin2002"><a href="#ref-7">[7]</a></span>,
+and adds an explicit truncation estimate.</p>
 <p>Write <span class="math inline" data-term-auto="off">\(\Sigma_n=\sum_{2\le l\le
 N}\nu_{n,l}\varphi(l)\)</span>. The elementary summatory estimate is
 <span class="math inline" data-term-auto="off">\(\sum_{l\le
@@ -812,9 +851,9 @@ n)\)</span>, equation <a class="math-ref" data-equation-ref="true" href="#long1
 \to266-\frac{3}{\pi^{2}}(225-J)=C_0,
 \end{equation}\]</span></div>
 <p class="display-continue">and hence <span
-class="math inline" data-term-auto="off">\(W_n/n^{2}\to C_1-C_0\)</span>. This limit replaces
-Lemmas 1 and 2 of the source, which are consequently not part of the
-citation set.</p>
+class="math inline" data-term-auto="off">\(W_n/n^{2}\to C_1-C_0\)</span>. These are the
+rational-base degree limits built on Zudilin’s cyclotomic limits <span
+class="citation" data-cites="zudilin2004"></span>.</p>
 <p>For the Archimedean side, fix a real <span
 class="math inline" data-term-auto="off">\(x&gt;1\)</span>. From <span
 class="math inline" data-term-auto="off">\(\log\Phi_l(x)-\varphi(l)\log x=\sum_{d\mid
@@ -909,7 +948,8 @@ the known integer-base theorem. Coprimality is a restriction on the
 pairs treated and is used nowhere in the argument. Negative bases are
 excluded, because Step 4 is a positivity argument.</p>
 <div class="theorem" id="long1049:res:31over4">
-<p><strong>Theorem 2.3</strong> (the first base beyond the published
+<p><strong>Theorem 2.3</strong> (the base <span
+class="math inline" data-term-auto="off">\(31/4\)</span> outside the Bundschuh–Väänänen
 region). <em> <span class="math inline" data-term-auto="off">\(F(31/4)\)</span> is
 irrational, and so is <span
 class="math inline" data-term-auto="off">\(F\bigl((31/4)^{r}\bigr)\)</span> for every integer
@@ -1107,31 +1147,35 @@ class="level3">
 <section id="evidence-decomposition." class="level5">
 <h5>Evidence decomposition.</h5>
 <p>Theorems <a class="math-ref" href="#long1049:res:region">2.2</a> and <a class="math-ref" href="#long1049:res:31over4">2.3</a> are ordinary
-proofs. Their citation set is Zudilin’s Lemma 7 in its polynomial
+proofs. They use Zudilin’s construction: his Lemma 7 in its polynomial
 reading, together with the inputs of that lemma’s own proof, namely his
 Lemma 3, the exponent <span class="math inline" data-term-auto="off">\(M(a;b)\)</span>
 of (16) proved by his Lemma 4, the group stability of his Lemma 5, and
 the identity (9)–(11), all in <span class="citation"
-data-cites="zudilin2004"><a href="#ref-7">[7]</a></span>. Everything else above is proved here:
-the nonrationality of <span class="math inline" data-term-auto="off">\(F\)</span> as a
-function, the transfer of Lemma 7 to explicit integer polynomials, the
-exact degree computation, the degree bound on <span
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>, and his direction and constants <span
+class="citation" data-cites="zudilin2004"></span>. Proved here are the
+nonrationality of <span class="math inline" data-term-auto="off">\(F\)</span> as a function,
+the transfer of Lemma 7 to explicit integer polynomials, the exact
+degree computation, the degree bound on <span
 class="math inline" data-term-auto="off">\(V_n\)</span>, positivity, the Archimedean size
 estimate, and the limit <span class="math inline" data-term-auto="off">\((K_n-W_n)/n^{2}\to
-C_0\)</span>. That last limit is the content of the source’s Lemmas 1
-and 2, and the elementary proof of Section <a class="math-ref" href="#long1049:sec:cyclotomic-limit">2.3</a>
-replaces them, so they are not part of the citation set. Kernel-checked
-are the finite height comparisons of Theorem <a class="math-ref" href="#long1049:res:31over4">2.3</a>, the rational
+C_0\)</span>. That last limit rests on Zudilin’s Lemmas 1 and 2 <span
+class="citation" data-cites="zudilin2004"></span>, whose method goes
+back to <span class="citation" data-cites="zudilin2002"><a href="#ref-7">[7]</a></span>;
+Section <a class="math-ref" href="#long1049:sec:cyclotomic-limit">2.3</a>
+proves them by that method with an explicit truncation estimate.
+Kernel-checked are the finite height comparisons of Theorem <a class="math-ref" href="#long1049:res:31over4">2.3</a>, the rational
 bracket of Section <a class="math-ref" href="#long1049:sec:regionbracket">2.5</a>, and the
 four integer identities of the degree step in Section <a class="math-ref" href="#long1049:sec:degrees">2.2</a>. Checked by
 exact computation are the reconstructions of <span
 class="math inline" data-term-auto="off">\(U_n\)</span> and <span
 class="math inline" data-term-auto="off">\(V_n\)</span> for <span
-class="math inline" data-term-auto="off">\(n\le4\)</span>, together with the numerical values
-of <span class="math inline" data-term-auto="off">\(J\)</span>, <span
+class="math inline" data-term-auto="off">\(n\le4\)</span>; the values of <span
+class="math inline" data-term-auto="off">\(J\)</span>, <span
 class="math inline" data-term-auto="off">\(C_0\)</span> and <span
-class="math inline" data-term-auto="off">\(\theta^{*}\)</span>; those are computational
-receipts, and the reconstruction is described in Section <a class="math-ref" href="#long1049:sec:receipts">2.7</a>. No part of
+class="math inline" data-term-auto="off">\(\theta^{*}\)</span> are numerical evaluations.
+Both are computational receipts, and the reconstruction is described in
+Section <a class="math-ref" href="#long1049:sec:receipts">2.7</a>. No part of
 Theorem <a class="math-ref" href="#long1049:res:region">2.2</a>
 is a Lean theorem.</p>
 </section>
@@ -1150,23 +1194,24 @@ with <span class="math inline" data-term-auto="off">\(\lambda=\log h(q)/\log|q|\
 class="math inline" data-term-auto="off">\(\log a/\log(a/b)&lt;(1/2+1/\pi^{2})^{-1}\)</span>,
 which is the displayed inequality. Duverney proved an independent and
 strictly smaller region for the same series <span class="citation"
-data-cites="duverney1996"><a href="#ref-9">[9]</a></span>. Zudilin remarked that his generalized
+data-cites="duverney1996"><a href="#ref-13">[13]</a></span>. Zudilin remarked that his generalized
 <span class="math inline" data-term-auto="off">\(q\)</span>-logarithm results can be given at
 non-integer rational bases under an assumption <span
 class="math inline" data-term-auto="off">\(\log|r|&gt;c\log|s|\)</span> for a computable
 <span class="math inline" data-term-auto="off">\(c&gt;0\)</span>, without computing a value
-<span class="citation" data-cites="zudilin2016"><a href="#ref-8">[8]</a></span>. Zudilin’s 2004
+<span class="citation" data-cites="zudilin2016"><a href="#ref-9">[9]</a></span>. Zudilin’s 2004
 paper supplies the forms and the exponent <span
 class="math inline" data-term-auto="off">\(\mu\)</span> under the standing hypothesis <span
 class="math inline" data-term-auto="off">\(p=1/q\in\Z\mathbin{\backslash}\{0,\pm1\}\)</span>,
 and it states no rational-base result <span class="citation"
-data-cites="zudilin2004"><a href="#ref-7">[7]</a></span>. The contribution here is the rational
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>. The contribution here is the rational
 specialisation of the 2004 forms, with the denominator accounting and
 the limit passage carried out in full, which identifies the printed
 <span class="math inline" data-term-auto="off">\(\mu\)</span> as an admissible <span
 class="math inline" data-term-auto="off">\(c\)</span> for <span
 class="math inline" data-term-auto="off">\(F\)</span> itself, together with the region that
-constant defines and its first new base.</p>
+constant defines and its application to <span
+class="math inline" data-term-auto="off">\(31/4\)</span>.</p>
 </section>
 <section id="where-the-earlier-criterion-stops." class="level5">
 <h5>Where the earlier criterion stops.</h5>
@@ -1177,7 +1222,7 @@ class="math inline" data-term-auto="off">\(\mu_{\mathrm{BV}}=2\pi^{2}/(\pi^{2}-2
 the constant Van Assche later recovered as an integer-base
 irrationality-exponent bound for <span
 class="math inline" data-term-auto="off">\(F(p)\)</span> <span class="citation"
-data-cites="vanassche2001"><a href="#ref-13">[13]</a></span>, and the cutoff <span
+data-cites="vanassche2001"><a href="#ref-17">[17]</a></span>, and the cutoff <span
 class="math inline" data-term-auto="off">\(\theta^{*}\)</span> of Theorem <a class="math-ref" href="#long1049:res:region">2.2</a> is the
 reciprocal of the smaller integer-base bound <span
 class="math inline" data-term-auto="off">\(\mu=C_1/C_0\)</span> printed at <span
@@ -1504,9 +1549,9 @@ class="math inline" data-term-auto="off">\(31/4\)</span>, at margin <span
 class="math inline" data-term-auto="off">\(0.001985\)</span>; the closest miss is <span
 class="math inline" data-term-auto="off">\(52/5\)</span> at <span
 class="math inline" data-term-auto="off">\(\theta=0.4073243836\ldots\)</span>, short by <span
-class="math inline" data-term-auto="off">\(0.001641\)</span>. The bases new relative to <span
-class="citation" data-cites="bv1994"></span> are those in the strip
-<span class="math inline" data-term-auto="off">\(s^{\mu}&lt;r\le
+class="math inline" data-term-auto="off">\(0.001641\)</span>. The bases in this region and
+outside the region of <span class="citation" data-cites="bv1994"><a href="#ref-6">[6]</a></span>
+are those in the strip <span class="math inline" data-term-auto="off">\(s^{\mu}&lt;r\le
 s^{\mu_{\mathrm{BV}}}\)</span>, which is empty for <span
 class="math inline" data-term-auto="off">\(s=2\)</span> and <span
 class="math inline" data-term-auto="off">\(s=3\)</span>, is <span
@@ -1519,13 +1564,16 @@ eventually exceeds <span class="math inline" data-term-auto="off">\(s\)</span>, 
 large enough denominator it contains an integer congruent to <span
 class="math inline" data-term-auto="off">\(1\)</span> modulo <span
 class="math inline" data-term-auto="off">\(s\)</span>. Hence <span
-class="math inline" data-term-auto="off">\(31/4\)</span> is the new base of least denominator
-and least numerator.</p>
+class="math inline" data-term-auto="off">\(31/4\)</span> is the member of the strip with
+least denominator and least numerator.</p>
 </section>
 <section id="the-bounded-direction-search." class="level5">
 <h5>The bounded direction search.</h5>
-<p>Over the <span class="math inline" data-term-auto="off">\(37{,}533\)</span> primitive
-directions on Zudilin’s cone with all entries at most <span
+<p>The direction <span class="math inline" data-term-auto="off">\((14,12,14;27)\)</span> is
+Zudilin’s <span class="citation" data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>; the
+scan below compares it with the other directions in a bounded box. Over
+the <span class="math inline" data-term-auto="off">\(37{,}533\)</span> primitive directions
+on Zudilin’s cone with all entries at most <span
 class="math inline" data-term-auto="off">\(30\)</span>, the quantity <span
 class="math inline" data-term-auto="off">\(\theta^{*}(\mathrm{dir})=C_0/C_1\)</span> computed
 from his (25) and (26) has largest recorded value at <span
@@ -1541,7 +1589,7 @@ tuples <span
 class="math inline" data-term-auto="off">\((\alpha_0,\alpha_1,\alpha_2;\beta)\)</span> with
 <span class="math inline" data-term-auto="off">\(1\le\alpha_j\le30\)</span>, <span
 class="math inline" data-term-auto="off">\(1\le\beta\le30\)</span>, satisfying the cone
-conditions of <span class="citation" data-cites="zudilin2004"><a href="#ref-7">[7]</a></span>
+conditions of <span class="citation" data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>
 and taken up to the common factor of the four entries; the objective is
 the ratio <span class="math inline" data-term-auto="off">\(C_0/C_1\)</span> of the source’s
 (25) and (26), evaluated from the exact rational breakpoints of the
@@ -1608,7 +1656,7 @@ the trigamma series at forty digits, giving <span
 class="math inline" data-term-auto="off">\(J=77.94318447500909\ldots\)</span>, <span
 class="math inline" data-term-auto="off">\(C_0=221.30008816500502\ldots\)</span> and <span
 class="math inline" data-term-auto="off">\(C_1/C_0=2.46497868357497\ldots\)</span>, which
-agree with <span class="citation" data-cites="zudilin2004"><a href="#ref-7">[7]</a></span> to
+agree with <span class="citation" data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> to
 its printed precision.</p>
 <p>The main term <span class="math inline" data-term-auto="off">\(K_n\log b-(K_n-W_n)\log
 a\)</span> at <span class="math inline" data-term-auto="off">\(31/4\)</span>, computed from
@@ -1767,9 +1815,22 @@ open.</p>
 <section id="long1049:sec:hankel-order" class="level3">
 <h3>The sharp <span class="math inline" data-term-auto="off">\(q\)</span>-order of the
 normalised Hankel determinant</h3>
-<p>The charge comparison of Corollary <a class="math-ref" href="#long1049:res:sharpgaps">3.2</a> is a
-statement about how much denominator the Hankel determinant can shed.
-How much it actually sheds is settled by the following exact order.</p>
+<p>The charge comparison of Corollary <a class="math-ref" href="#long1049:res:sharpgaps">3.2</a> concerns the
+stated denominator model. The next theorem determines a different
+quantity, the formal <span class="math inline" data-term-auto="off">\(q\)</span>-order of
+Zudilin’s normalised Hankel determinant at <span
+class="math inline" data-term-auto="off">\(x=z=1\)</span>; converting a <span
+class="math inline" data-term-auto="off">\(q\)</span>-order into a denominator saving at a
+rational specialisation needs a separate integral normalisation and
+divisibility argument. Zudilin builds the determinant by combining the
+Padé-type approximations of Bundschuh and Zudilin <span class="citation"
+data-cites="bundschuhzudilin2008"><a href="#ref-11">[11]</a></span> with Bézivin’s method as
+developed in <span class="citation" data-cites="krvz2009"><a href="#ref-12">[12]</a></span>; see
+<span class="citation" data-cites="zudilin2016"><a href="#ref-9">[9]</a></span>. His passage
+from the <span class="math inline" data-term-auto="off">\(q\)</span>-order to the size of the
+determinant borrows the proofs of <span class="citation"
+data-cites="krvz2009"><a href="#ref-12">[12]</a></span>, as he notes in <span class="citation"
+data-cites="zudilin2016"><a href="#ref-9">[9]</a></span>.</p>
 <div class="theorem" id="long1049:res:zudilin-sharp-qorder">
 <p><strong>Theorem 3.4</strong> (sharp all-rank <span
 class="math inline" data-term-auto="off">\(q\)</span>-order and leading coefficient). <em>
@@ -1788,9 +1849,15 @@ V_N^{*}=\frac{N(N-1)(2N-1)}{6},
 class="math inline" data-term-auto="off">\(\operatorname{ord}_q V_N^{*}\ge
 N(N-1)(2N-1)/6\)</span> and uses it as an upper bound on <span
 class="math inline" data-term-auto="off">\(|V_N^{*}|\)</span> <span class="citation"
-data-cites="zudilin2016"><a href="#ref-8">[8]</a></span>. Equality is the statement that no
-further cancellation is available inside the determinant, so the hope of
-a hidden cubic decay there is closed.</p>
+data-cites="zudilin2016"><a href="#ref-9">[9]</a></span>. Equality rules out any further initial
+power of <span class="math inline" data-term-auto="off">\(q\)</span> in this formal
+determinant at <span class="math inline" data-term-auto="off">\(x=z=1\)</span>. The size at a
+fixed real <span class="math inline" data-term-auto="off">\(q\)</span> is a separate
+statement; the positive-measure estimate below proves that <span
+class="math inline" data-term-auto="off">\(V_N^{*}(q)&gt;0\)</span> and that <span
+class="math inline" data-term-auto="off">\(\log V_N^{*}(q)\)</span> differs from the
+logarithm of its leading term by <span
+class="math inline" data-term-auto="off">\(O_q(N)\)</span>.</p>
 <section id="the-row-identity." class="level5">
 <h5>The row identity.</h5>
 <p>Work over <span class="math inline" data-term-auto="off">\(A=\Z[[q]]\)</span>. Let <span
@@ -1805,7 +1872,7 @@ class="math inline" data-term-auto="off">\(\mathcal N\)</span> is the backward s
 class="math inline" data-term-auto="off">\((\mathcal Nf)_m=f_{m-1}\)</span> in the index
 <span class="math inline" data-term-auto="off">\(m\)</span>, so <span
 class="math inline" data-term-auto="off">\(D_j\)</span> is the source’s backward-difference
-operator of <span class="citation" data-cites="zudilin2016"><a href="#ref-8">[8]</a></span>.
+operator of <span class="citation" data-cites="zudilin2016"><a href="#ref-9">[9]</a></span>.
 Write <span class="math inline" data-term-auto="off">\(\bar H=H\bmod q\)</span> and <span
 class="math inline" data-term-auto="off">\(h_r=[X^{r}]\bar H(X)^{-1}\)</span>, with <span
 class="math inline" data-term-auto="off">\(h_r=0\)</span> for <span
@@ -1985,7 +2052,9 @@ class="math display" data-term-auto="off">\[G_q(w)=\frac1{(w;q)_\infty^3}\sum_{t
 r&lt;1\)</span> and the <span class="math inline" data-term-auto="off">\(t\)</span>-sum is
 bounded there by a constant times <span class="math inline" data-term-auto="off">\(\sum_t
 r^t\)</span>. The finite-to-infinite product identities give <span
-class="math inline" data-term-auto="off">\(v_m^*=P^4G_q(q^{m+1})\)</span>. The identity</p>
+class="math inline" data-term-auto="off">\(v_m^*=P^4G_q(q^{m+1})\)</span>. The <span
+class="math inline" data-term-auto="off">\(q\)</span>-binomial theorem <span class="citation"
+data-cites="dlmf"><a href="#ref-27">[27]</a></span></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac{(Aw;q)_\infty}{(w;q)_\infty}
    =\sum_{j\ge0}\frac{(A;q)_j}{(q;q)_j}w^j\quad(0\le A\le1)\]</span></div>
@@ -2030,7 +2099,9 @@ polynomial of degree less than <span class="math inline" data-term-auto="off">\(
 cannot vanish at all of its first <span class="math inline" data-term-auto="off">\(N\)</span>
 atoms; the associated Gram matrix is positive definite. Finite
 Cauchy–Binet followed by convergence of every matrix entry and monotone
-convergence of the nonnegative tuple sums gives</p>
+convergence of the nonnegative tuple sums gives Heine’s expansion of a
+Hankel determinant of moments, whose integral form is reproved in <span
+class="citation" data-cites="zudilin2017det"></span>:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[V_N^*=\sum_{k_0&lt;\cdots&lt;k_{N-1}}
 \prod_i(P^4\gamma_{k_i}q^{k_i})\prod_{i&lt;j}(q^{k_i}-q^{k_j})^2.\]</span></div>
@@ -2087,7 +2158,7 @@ each matching the closed forms.</p>
 <section id="attribution-and-remaining-obligation." class="level5">
 <h5>Attribution and remaining obligation.</h5>
 <p>The antecedent is the inequality of <span class="citation"
-data-cites="zudilin2016"><a href="#ref-8">[8]</a></span>; the equality and the leading
+data-cites="zudilin2016"><a href="#ref-9">[9]</a></span>; the equality and the leading
 coefficient are proved here. The remaining obligation is a formal one.
 Lemma <a class="math-ref" href="#long1049:res:allrowinitial">3.5</a>
 and <a class="math-ref" data-equation-ref="true" href="#long1049:eq:row-initial">long1049:eq:row-initial</a>
@@ -2223,16 +2294,17 @@ construction has reached that specialised-row stage.</p>
 the four-jet kernel</h2>
 <p>Zudilin’s treatment of <span
 class="math inline" data-term-auto="off">\(q\)</span>-harmonic series <span class="citation"
-data-cites="zudilin2004"><a href="#ref-7">[7]</a></span> builds linear forms of the shape used
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> builds linear forms of the shape used
 in Section <a class="math-ref" href="#long1049:sec:primitive">4</a> out of
 Heine’s basic transform. The generic endpoint and jet lemmas below
 concern arbitrary integral coefficient pairs of this shape; they do not
 construct or instantiate Zudilin’s actual polynomial family. Each lemma
 uses no property beyond integrality and quantifies over arbitrary
-elements of <span class="math inline" data-term-auto="off">\(\Z[X]\)</span>. The exception is
-Theorem <a class="math-ref" href="#long1049:res:scalar">5.12</a>
-at the end of the section, whose subject is the scalar parameters of
-Zudilin’s cone. It says nothing about the coefficient polynomials.</p>
+elements of <span class="math inline" data-term-auto="off">\(\Z[X]\)</span>, and the tools
+are elementary congruences, the pigeonhole principle and Bézout’s
+identity. The exception is Theorem <a class="math-ref" href="#long1049:res:scalar">5.12</a> at the end of
+the section, whose subject is the scalar parameters of Zudilin’s cone.
+It says nothing about the coefficient polynomials.</p>
 <p>Substituting <span class="math inline" data-term-auto="off">\(X=3/2\)</span> into an
 integer polynomial produces a rational number, and multiplying by a
 power of <span class="math inline" data-term-auto="off">\(2\)</span> clears its denominator.
@@ -2454,9 +2526,9 @@ the displayed coprimality assumptions; it does not certify the later
 analytic deductions or Proposition 8.6.</p>
 <p>The methods that reduce denominators at integer bases, the
 factorial-coset quotients of Rhin and Viola <span class="citation"
-data-cites="rhinviola1996"><a href="#ref-12">[12]</a></span> and the order-twelve group and
+data-cites="rhinviola1996"><a href="#ref-16">[16]</a></span> and the order-twelve group and
 cyclotomic divisor of Zudilin <span class="citation"
-data-cites="zudilin2004"><a href="#ref-7">[7]</a></span>, produce their gain as cyclotomic or
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span>, produce their gain as cyclotomic or
 factorial factors of the coefficient polynomials. Proposition <a class="math-ref" href="#long1049:res:cyclounit">5.6</a> says that
 transporting such a factor through the homogenisation at <span
 class="math inline" data-term-auto="off">\((3,2)\)</span> contributes no power of <span
@@ -2703,7 +2775,8 @@ between its neighbours.</p>
 href="https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L191">adjacent-to-pairwise
 determinant propagation</a> and the resulting <a
 href="https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L280">modular
-selector collision</a> are Lean-checked, including the <a
+selector collision</a> are proved in Lean at the linked revision,
+including the <a
 href="https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L299">explicit
 <span class="math inline" data-term-auto="off">\(S+2R\)</span> threshold</a>. The
 unit-coordinate statements are special cases of the stronger
@@ -2782,7 +2855,7 @@ scalar margin</a>. The positive-branch deficit is the checked <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L242"><span
 class="math inline" data-term-auto="off">\(17/41\)</span> margin</a>. The interest is in the
 fence around it. The primary Zudilin theorem <span class="citation"
-data-cites="zudilin2004"><a href="#ref-7">[7]</a></span> supplies an integer-base
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> supplies an integer-base
 irrationality-exponent estimate on its parameter cone, and the
 elementary inequality <span class="math inline" data-term-auto="off">\(\mu\ge2\)</span> then
 forces <span class="math inline" data-term-auto="off">\(2C_0\le C_1\)</span> whenever <span
@@ -3171,7 +3244,7 @@ two explicitly defined cutoffs used below, while a cutoff that includes
 </section>
 </section>
 <section id="long1049:sec:pade" class="level2">
-<h2>Denominator exponents for a homogenised Padé construction</h2>
+<h2>A denominator-exponent model for Padé-type forms</h2>
 <p>A second external route builds the linear forms of Section <a class="math-ref" href="#long1049:sec:primitive">4</a> by Padé
 approximation. Such a construction produces its coefficients as sums of
 rational summands, and to obtain integer rows one multiplies through by
@@ -3187,17 +3260,16 @@ coefficient formula, proving integrality of the coefficients after
 multiplication by the proposed common denominator, and establishing
 nonvanishing and decay of the associated remainder. None of those three
 is claimed here.</p>
-<p>For a homogenised construction over integer parameters the proposed
-common denominator exponent is <span
+<p>In the model, the common denominator exponent is <span
 class="math inline" data-term-auto="off">\(E_n=(3n^{2}-n)/2\)</span>. Since only doubled
 exponents occur below, every statement lives over <span
 class="math inline" data-term-auto="off">\(\Z\)</span> and no parity bookkeeping is needed;
 we write <span
 class="math inline" data-term-auto="off">\(\widetilde{E}_n=2E_n=3n^{2}-n\)</span>.</p>
 <div class="proposition" id="long1049:res:pade">
-<p><strong>Proposition 9.1</strong> (summand bound and exact gap). <em>
-Let <span class="math inline" data-term-auto="off">\(\widetilde{E}_n=3n^{2}-n\)</span> and
-put </em></p>
+<p><strong>Proposition 9.1</strong> (exponent model: summand bound and
+exact gap). <em> Let <span
+class="math inline" data-term-auto="off">\(\widetilde{E}_n=3n^{2}-n\)</span> and put </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\widetilde{P}(n,k)=2\bigl(k(n-k)+nk\bigr)+k(k-1),\]</span></div>
 <div class="math-display" data-term-auto="off"><span
@@ -3513,9 +3585,16 @@ extra divisibility alone is insufficient.</p>
 </section>
 <section id="one-exact-alternative-criterion-test" class="level3">
 <h3>One exact alternative-criterion test</h3>
-<p>A separate possible method is Mahler’s method. Its first
-applicability test has an exact negative answer, which we record here;
-an earlier version of this note left it open.</p>
+<p>A separate possible method is Mahler’s method, and its first
+applicability test has a negative answer. Bell and Smertnig’s
+classification shows that the divisor generating series <span
+class="math inline" data-term-auto="off">\(\mathcal L\)</span> below is not <span
+class="math inline" data-term-auto="off">\(k\)</span>-Mahler for any <span
+class="math inline" data-term-auto="off">\(k\ge2\)</span> <span class="citation"
+data-cites="bellsmertnig2026"><a href="#ref-26">[26]</a></span>. The proposition below proves the
+simultaneous <span class="math inline" data-term-auto="off">\(2\)</span>/<span
+class="math inline" data-term-auto="off">\(3\)</span> case directly from theorems of
+Adamczewski and Bell and of Rivin.</p>
 <div class="proposition" id="long1049:res:nomahler">
 <p><strong>Proposition 10.6</strong> (no finite simultaneous <span
 class="math inline" data-term-auto="off">\(2/3\)</span>-system). <em> Let </em></p>
@@ -3546,7 +3625,7 @@ makes it <span class="math inline" data-term-auto="off">\(3\)</span>-Mahler. Sin
 class="math inline" data-term-auto="off">\(2\)</span> and <span
 class="math inline" data-term-auto="off">\(3\)</span> are multiplicatively independent, a
 theorem of Adamczewski and Bell <span class="citation"
-data-cites="adamczewskibell2013"><a href="#ref-11">[11]</a></span> then forces <span
+data-cites="adamczewskibell2013"><a href="#ref-15">[15]</a></span> then forces <span
 class="math inline" data-term-auto="off">\(\mathcal L\)</span> to be a rational function.
 That contradicts Rivin’s periodic-coefficient corollary <span
 class="citation" data-cites="rivin2026"></span>, by which <span
@@ -3554,22 +3633,18 @@ class="math inline" data-term-auto="off">\(\mathcal L\)</span> is not rational.�
 </div>
 <p>The proposition uses no property of the point <span
 class="math inline" data-term-auto="off">\(2/3\)</span>: the obstruction is functional and
-appears before regularity at a particular point is considered. The
-classification of Bell and Smertnig implies that <span
-class="math inline" data-term-auto="off">\(\mathcal L\)</span> is not <span
-class="math inline" data-term-auto="off">\(k\)</span>-Mahler for any <span
-class="math inline" data-term-auto="off">\(k\ge2\)</span> <span class="citation"
-data-cites="bellsmertnig2026"><a href="#ref-19">[19]</a></span>, so the simultaneous obstruction
-is subsumed for this scalar function. The proposition remains useful as
-an elementary proof isolating simultaneous closure. A construction using
-additional functions or functional relations must specify those
-functions and its closure conditions; the single-base statement is not
-an obstruction to every approximation method. The classification and the
-two external ingredients in the proposition are cited, not proved
-here.</p>
+appears before regularity at a particular point is considered. For this
+scalar function the single-base classification of Bell and Smertnig
+contains the proposition; the proof above isolates simultaneous closure.
+A construction using additional functions or functional relations must
+specify those functions and its closure conditions; the single-base
+statement is not an obstruction to every approximation method. The
+classification and the two external ingredients in the proposition are
+cited, not proved here.</p>
 </section>
-<section id="the-quantitative-height-limitation" class="level3">
-<h3>The quantitative height limitation</h3>
+<section id="a-limitation-of-the-rectangular-exponent-model"
+class="level3">
+<h3>A limitation of the rectangular exponent model</h3>
 <p>The module <code>HermitePadeNoGo</code> defines an explicit
 rectangular two-parameter exponent model. Writing <span
 class="math inline" data-term-auto="off">\(\sigma=1+\rho+u\)</span>, its denominator-cleared
@@ -3647,7 +3722,7 @@ competing interests.</p>
 <h5>Acknowledgements.</h5>
 <p>The problem numbering and status follow the Erdős Problems catalogue
 maintained by Thomas Bloom <span class="citation"
-data-cites="erdosproblems"><a href="#ref-18">[18]</a></span>.</p>
+data-cites="erdosproblems"><a href="#ref-25">[25]</a></span>.</p>
 </section>
 </section>
 </section>
@@ -3686,9 +3761,11 @@ class="math inline" data-term-auto="off">\(N&lt;2^k\)</span> collision threshold
 at modulus <span class="math inline" data-term-auto="off">\(2^S3^R\)</span> with <span
 class="math inline" data-term-auto="off">\(R&gt;0\)</span> the depth <span
 class="math inline" data-term-auto="off">\(k\ge S+2R\)</span> suffices. These three
-statements are ordinary in this record; those Lean names are not in this
-checkout. Neither coordinate must be a unit; <span
-class="math inline" data-term-auto="off">\((2,3)\)</span> modulo six is an example. </p>
+statements are proved in this record. Their Lean proofs are at the
+revision linked in Section <a class="math-ref" href="#long1049:sec:endpoints">5</a>; the pinned
+revision 92b88dc1bbe0 does not contain those declarations. Neither
+coordinate must be a unit; <span class="math inline" data-term-auto="off">\((2,3)\)</span>
+modulo six is an example. </p>
 </section>
 </section>
 <section id="sec:erdos-1049-complete-family-map" class="level2">
@@ -3899,22 +3976,27 @@ above.</p></li>
 <li id="ref-5"><p>T. Amdeberhan and D. Zeilberger, <em><span
 class="math inline" data-term-auto="off">\(q\)</span>-Apéry irrationality proofs by <span
 class="math inline" data-term-auto="off">\(q\)</span>-WZ pairs</em>, Adv. Appl. Math.
-<strong>20</strong> (1998), no. 2, 275–283, <a
-href="https://arxiv.org/abs/math/9804122">arXiv:math/9804122</a>, doi:<a
-href="https://doi.org/10.1006/aama.1997.0565">10.1006/aama.1997.0565</a>.</p></li>
+<strong>20</strong> (1998), no. 2, 275–283, doi:<a
+href="https://doi.org/10.1006/aama.1997.0565">10.1006/aama.1997.0565</a>;
+arXiv:<a href="https://arxiv.org/abs/math/9804122v1">math/9804122v1</a>.
+Page references are to arXiv:math/9804122v1.</p></li>
 <li id="ref-6"><p>P. Bundschuh and K. Väänänen, <a
 href="https://numdam.org/item/CM_1994__91_2_175_0.pdf"><em>Arithmetical
 investigations of a certain infinite product</em></a>, Compositio Math.
 <strong>91</strong> (1994), no. 2, 175–199.</p></li>
-<li id="ref-7"><p>W. Zudilin, <a
+<li id="ref-7"><p>W. Zudilin, <em>Remarks on irrationality of <span
+class="math inline" data-term-auto="off">\(q\)</span>-harmonic series</em>, Manuscripta Math.
+<strong>107</strong> (2002), no. 4, 463–477, doi:<a
+href="https://doi.org/10.1007/s002290200249">10.1007/s002290200249</a>.</p></li>
+<li id="ref-8"><p>W. Zudilin, <a
 href="https://geodesic.mathdoc.fr/articles/10.4064/aa111-2-4/"><em>Heine’s
 basic transform and a permutation group for <span
 class="math inline" data-term-auto="off">\(q\)</span>-harmonic series</em></a>, Acta Arith.
 <strong>111</strong> (2004), no. 2, 153–164, doi:<a
 href="https://doi.org/10.4064/aa111-2-4">10.4064/aa111-2-4</a>. Page
 references are to the printed journal pages.</p></li>
-<li id="ref-8"><p>W. Zudilin, <a href="https://arxiv.org/abs/1601.02688"><em>On the
-irrationality of generalized <span
+<li id="ref-9"><p>W. Zudilin, <a href="https://arxiv.org/abs/1601.02688v2"><em>On
+the irrationality of generalized <span
 class="math inline" data-term-auto="off">\(q\)</span>-logarithm</em></a>, arXiv:1601.02688;
 Res. Number Theory <strong>2</strong> (2016), Art. 15, doi:<a
 href="https://doi.org/10.1007/s40993-016-0042-x">10.1007/s40993-016-0042-x</a>.
@@ -3927,7 +4009,27 @@ the paragraph beginning “Finally, we remark”; no value of <span
 class="math inline" data-term-auto="off">\(c\)</span> is computed there, and the remark is
 made for the generalized <span
 class="math inline" data-term-auto="off">\(q\)</span>-logarithm of that paper.</p></li>
-<li id="ref-9"><p>D. Duverney, <a
+<li id="ref-10"><p>W. Zudilin, <em>A determinantal approach to irrationality</em>,
+Constr. Approx. <strong>45</strong> (2017), no. 2, 301–310, doi:<a
+href="https://doi.org/10.1007/s00365-016-9333-7">10.1007/s00365-016-9333-7</a>;
+arXiv:<a href="https://arxiv.org/abs/1507.05697v1">1507.05697v1</a>.
+Page and equation references are to arXiv:1507.05697v1.</p></li>
+<li id="ref-11"><p>P. Bundschuh and W. Zudilin, <em>Rational approximations to a
+<span class="math inline" data-term-auto="off">\(q\)</span>-analogue of <span
+class="math inline" data-term-auto="off">\(\pi\)</span> and some other <span
+class="math inline" data-term-auto="off">\(q\)</span>-series</em>, in H. P. Schlickewei,
+K. Schmidt and R. F. Tichy (eds.), <em>Diophantine Approximation</em>,
+Dev. Math. <strong>16</strong>, Springer, 2008, pp. 123–139, doi:<a
+href="https://doi.org/10.1007/978-3-211-74280-8_6">10.1007/978-3-211-74280-8_6</a>.</p></li>
+<li id="ref-12"><p>C. Krattenthaler, I. Rochev, K. Väänänen and W. Zudilin, <em>On
+the non-quadraticity of values of the <span
+class="math inline" data-term-auto="off">\(q\)</span>-exponential function and related <span
+class="math inline" data-term-auto="off">\(q\)</span>-series</em>, Acta Arith.
+<strong>136</strong> (2009), no. 3, 243–269, doi:<a
+href="https://doi.org/10.4064/aa136-3-4">10.4064/aa136-3-4</a>; arXiv:<a
+href="https://arxiv.org/abs/0812.2921v1">0812.2921v1</a>. Page
+references are to arXiv:0812.2921v1.</p></li>
+<li id="ref-13"><p>D. Duverney, <a
 href="https://numdam.org/item/JTNB_1996__8_1_173_0.pdf"><em>À propos de
 la série <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge1}x^{n}/(q^{n}-1)\)</span></em></a>, J.
@@ -3936,7 +4038,7 @@ Théorème 2 on p. 174 gives the rational-base region <span
 class="math inline" data-term-auto="off">\(\log|s|/\log|r|&lt;\frac13(1-3/\pi^{2})=0.2320\ldots\)</span>
 for this series; Théorème 1, for a general numerator, is
 weaker.</p></li>
-<li id="ref-10"><p>T. Matala-aho, K. Väänänen and W. Zudilin, <a
+<li id="ref-14"><p>T. Matala-aho, K. Väänänen and W. Zudilin, <a
 href="https://doi.org/10.1090/S0025-5718-05-01812-0"><em>New
 irrationality measures for <span
 class="math inline" data-term-auto="off">\(q\)</span>-logarithms</em></a>, Math. Comp.
@@ -3947,47 +4049,73 @@ is carried in the abstract on p. 879 and in both theorem statements on
 p. 880, where the authors also record that their methods do not sharpen
 the <span class="math inline" data-term-auto="off">\(q\)</span>-harmonic case of <span
 class="citation" data-cites="zudilin2004"></span>.</p></li>
-<li id="ref-11"><p>B. Adamczewski and J. P. Bell, <a
-href="https://arxiv.org/abs/1303.2019"><em>A problem about Mahler
+<li id="ref-15"><p>B. Adamczewski and J. P. Bell, <a
+href="https://arxiv.org/abs/1303.2019v1"><em>A problem about Mahler
 functions</em></a>, Ann. Sc. Norm. Super. Pisa Cl. Sci.
-<strong>17</strong> (2017), no. 4, 1301–1355; arXiv:1303.2019, 2013.
-Theorem 1: over a field of characteristic zero, a power series is both
-<span class="math inline" data-term-auto="off">\(k\)</span>- and <span
-class="math inline" data-term-auto="off">\(\ell\)</span>-Mahler for multiplicatively
+<strong>17</strong> (2017), no. 4, 1301–1355; arXiv:<a
+href="https://arxiv.org/abs/1303.2019v1">1303.2019v1</a>, 2013.
+Theorem 1.1 on p. 6 of arXiv:1303.2019v1: over a field of characteristic
+zero, a power series is both <span class="math inline" data-term-auto="off">\(k\)</span>- and
+<span class="math inline" data-term-auto="off">\(\ell\)</span>-Mahler for multiplicatively
 independent <span class="math inline" data-term-auto="off">\(k,\ell\)</span> if and only if
-it is a rational function.</p></li>
-<li id="ref-12"><p>G. Rhin and C. Viola, <a
+it is a rational function. Bell and Smertnig cite it as Theorem 1.3 of
+the journal version <span class="citation"
+data-cites="bellsmertnig2026"><a href="#ref-26">[26]</a></span>.</p></li>
+<li id="ref-16"><p>G. Rhin and C. Viola, <a
 href="https://geodesic.mathdoc.fr/articles/10.4064/aa-77-1-23-56/"><em>On
 a permutation group related to <span
 class="math inline" data-term-auto="off">\(\zeta(2)\)</span></em></a>, Acta Arith.
 <strong>77</strong> (1996), no. 1, 23–56,
 doi:10.4064/aa-77-1-23-56.</p></li>
-<li id="ref-13"><p>W. Van Assche, <a
-href="https://arxiv.org/abs/math/0101187"><em>Little <span
+<li id="ref-17"><p>W. Van Assche, <a
+href="https://arxiv.org/abs/math/0101187v1"><em>Little <span
 class="math inline" data-term-auto="off">\(q\)</span>-Legendre polynomials and irrationality
 of certain Lambert series</em></a>, Ramanujan J. <strong>5</strong>
 (2001), no. 3, 295–310, doi:<a
-href="https://doi.org/10.1023/A:1012930828917">10.1023/A:1012930828917</a>.</p></li>
-<li id="ref-14"><p>J. Vandehey, <a href="https://arxiv.org/abs/1206.0340"><em>On an
+href="https://doi.org/10.1023/A:1012930828917">10.1023/A:1012930828917</a>.
+Page references are to arXiv:math/0101187v1.</p></li>
+<li id="ref-18"><p>J. Coussement and C. Smet, <em>Irrationality proof of certain
+Lambert series using little <span
+class="math inline" data-term-auto="off">\(q\)</span>-Jacobi polynomials</em>, J. Comput.
+Appl. Math. <strong>233</strong> (2009), no. 3, 680–690, doi:<a
+href="https://doi.org/10.1016/j.cam.2009.02.036">10.1016/j.cam.2009.02.036</a>;
+arXiv:<a href="https://arxiv.org/abs/math/0701345v1">math/0701345v1</a>.
+Page references are to arXiv:math/0701345v1.</p></li>
+<li id="ref-19"><p>J. Koizumi and A. Yokoi, <em>Apéry-type approximations and
+irrationality measures for certain <span
+class="math inline" data-term-auto="off">\(q\)</span>-series</em>, arXiv:<a
+href="https://arxiv.org/abs/2608.26918v1">2608.26918v1</a>, 27 August
+2026.</p></li>
+<li id="ref-20"><p>J. Vandehey, <a href="https://arxiv.org/abs/1206.0340"><em>On an
 incomplete argument of Erdős on the irrationality of Lambert
 series</em></a>, Integers <strong>13</strong> (2013), Paper
 A58.</p></li>
-<li id="ref-15"><p>F. Luca and Y. Tachiya, <a
+<li id="ref-21"><p>F. Luca and Y. Tachiya, <a
 href="https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2014-14.pdf"><em>Linear
 independence results for the values of divisor functions
 series</em></a>, RIMS Kôkyûroku No. 2014 (2017), 138–150. Theorem A on
 p. 139 restates the periodic-coefficient irrationality theorem;
 Example 1 on p. 140 gives the divisor-function specialization.</p></li>
-<li id="ref-16"><p>I. Rivin, <a href="https://arxiv.org/abs/2604.25151"><em>Zero
+<li id="ref-22"><p>D. Duverney and Y. Tachiya, <em>Refinement of the Chowla–Erdős
+method and linear independence of certain Lambert series</em>, Forum
+Math. <strong>31</strong> (2019), no. 6, 1557–1566, doi:<a
+href="https://doi.org/10.1515/forum-2018-0299">10.1515/forum-2018-0299</a>.
+Page references are to the <a
+href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf">authors’
+version</a>.</p></li>
+<li id="ref-23"><p>I. Rivin, <a href="https://arxiv.org/abs/2604.25151v1"><em>Zero
 Coefficients of Rational Power Series and Rational Lambert
-Series</em></a>, arXiv:2604.25151v1, 2026. Theorem 1.1 is on p. 2 and
-proved on pp. 6–7; the periodic-coefficient Corollary 6.4 is on
+Series</em></a>, arXiv:2604.25151v1, 28 April 2026. Theorem 1.1 is on
+p. 2 and proved on pp. 6–7; the periodic-coefficient Corollary 6.4 is on
 p. 9.</p></li>
-<li id="ref-17"><p>V. Kovač and T. Tao, <a
-href="https://arxiv.org/abs/2406.17593"><em>On several irrationality
+<li id="ref-24"><p>V. Kovač and T. Tao, <a
+href="https://arxiv.org/abs/2406.17593v4"><em>On several irrationality
 problems for Ahmes series</em></a>, Acta Math. Hungar.
-<strong>175</strong> (2025), 572–608; arXiv:2406.17593, 2024.</p></li>
-<li id="ref-18"><p>T. F. Bloom, <a
+<strong>175</strong> (2025), no. 2, 572–608, doi:<a
+href="https://doi.org/10.1007/s10474-025-01528-0">10.1007/s10474-025-01528-0</a>;
+arXiv:<a href="https://arxiv.org/abs/2406.17593v4">2406.17593v4</a>.
+Page references are to arXiv:2406.17593v4.</p></li>
+<li id="ref-25"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/1049"><em>Erdős Problem
 #1049</em></a>, <code>erdosproblems.com/1049</code>, accessed 28 July
 2026 (page displays “last edited 28 September 2025”). The current record
@@ -3995,14 +4123,18 @@ labels the problem open, cites <span class="upright">[Er88c,
 p. 102]</span> and <span class="upright">[Er48]</span>, and explicitly
 describes its status as the website owner’s present assessment, with no
 guarantee of literature completeness.</p></li>
-<li id="ref-19"><p>J. Bell and D. Smertnig, <a
-href="https://arxiv.org/abs/2603.23456"><em>Mahler series with
+<li id="ref-26"><p>J. Bell and D. Smertnig, <a
+href="https://arxiv.org/abs/2603.23456v1"><em>Mahler series with
 multiplicative coefficient sequences</em></a>, arXiv:2603.23456v1, 24
 March 2026. Theorem 1.3 is on pp. 2–3; its stated consequences on p. 3
 include that the divisor and totient generating series are not <span
 class="math inline" data-term-auto="off">\(k\)</span>-Mahler for any <span
 class="math inline" data-term-auto="off">\(k\ge2\)</span>.</p></li>
-<li id="ref-20"><p>The Formal Conjectures Authors, <a
+<li id="ref-27"><p>F. W. J. Olver et al. (eds.), <em>NIST Digital Library of
+Mathematical Functions</em>, <a
+href="https://dlmf.nist.gov/17.2.E37"><code>dlmf.nist.gov/17.2.E37</code></a>,
+Eq. 17.2.37 in §17.2(iii), accessed 15 September 2026.</p></li>
+<li id="ref-28"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/1049.lean"><em>FormalConjectures.ErdosProblems.<code>1049</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2026, accessed 28 July 2026.
 The irrationality declarations are unproved; the Lambert-series identity

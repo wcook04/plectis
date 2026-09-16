@@ -41,7 +41,8 @@
 \noindent
 Write $d_n=n!-1$, $H_M=\sum_{2\le n\le M}d_n^{-1}$ and
 $\Lc_M=\lcm(d_2,\ldots,d_M)$.  For a prime $p$ with $e=v_p(\Lc_M)\ge1$, let
-$J=\{n:2\le n\le M,\ v_p(d_n)=e\}$ and write $d_n=p^eu_n$ on $J$.  Then
+$J=\{n:2\le n\le M,\ v_p(d_n)=e\}$ and write $d_n=p^eu_n$ on $J$.
+Specialising the reciprocal-sum valuation formula of Louwsma and Martino gives
 \[
  v_p\bigl(\den(H_M)\bigr)=e
  \quad\Longleftrightarrow\quad
@@ -85,9 +86,9 @@ Is $\Ser=\sum_{n\ge2}(n!-1)^{-1}$ irrational?
 \noindent Erd\H{o}s states the question on p.~102 of his 1988 survey and, in
 the same passage, records the expectation that $\sum_n1/(n!+t)$ is
 irrational, indeed transcendental, for every integer $t$
-\cite[p.~102]{erdos1988}.  That is conjectural context.  Numbering and
-current status follow \href{https://www.erdosproblems.com/68}{Bloom's
-Erd\H{o}s problem catalogue} \cite{bloom}; the problem is open.
+\cite[p.~102]{erdos1988}.  That is conjectural context.  Numbering follows
+\href{https://www.erdosproblems.com/68}{Bloom's Erd\H{o}s problem catalogue}
+\cite{bloom}, which lists the problem as open.
 
 Put
 \[
@@ -97,7 +98,10 @@ Put
 \]
 so that $H_M=A_M/\Lc_M$.  Throughout, $\den(x)$ is the positive denominator
 of a rational number in lowest terms.  The first question is which prime
-power present in $\Lc_M$ remains in $\den(H_M)$.
+power present in $\Lc_M$ remains in $\den(H_M)$.  For the largest exponent the
+answer is a specialisation of the reciprocal-sum valuation formula of Louwsma
+and Martino \cite[Lemma~4.1, p.~10]{louwsma-martino}; the proof below writes
+it out for the denominators $d_n$.
 
 \label{long68:res:lead-prime-pole}\phantomsection
 \begin{theorem}[maximal prime-power survival]\label{long68:res:prime-pole}
@@ -129,9 +133,8 @@ The criterion decides the survival of the full exponent $e$.  A zero residue
 gives $v_p(\den(H_M))<e$, and further congruences are needed to determine the
 surviving exponent.  The proof uses no property of factorials beyond the
 displayed denominators, so it applies to any finite sum of reciprocals.
-It is the first valuation layer of the reciprocal-sum formula of Louwsma
-and Martino \cite[Lemma~4.1, p.~10]{louwsma-martino}.  What is specific here is the behaviour of
-the actual family $d_n=n!-1$, and that behaviour is not generic.
+What is specific here is the behaviour of the actual family $d_n=n!-1$, and
+that behaviour is not generic.
 
 \paragraph{Two complete cancellations.}
 Take $M=p-1$.  The indices below with $p\mid d_n$ are all of them, and every
@@ -181,8 +184,9 @@ The construction gives no useful upper bound for $q$ in terms of its first
 hit, and that comparison is what the scale inequalities of
 \S\ref{long68:sec:residue} consume.  Wilson reflection limits what can be inferred
 from a large prime factor alone: for odd $n<q$ with $q\mid n!-1$, the
-identity $(q-1-n)!\,n!\equiv(-1)^{n+1}\pmod q$ gives a second hit at
-$q-n-1$.  The reflection identity is classical; see Stewart
+identity $(q-1-n)!\,n!\equiv(-1)^{n+1}\pmod q$ gives the reflected hit
+$q-n-1$, which differs from $n$ when $q\ne2n+1$ and is at least $2$ when
+$n\le q-3$.  The reflection identity is classical; see Stewart
 \cite[p.~462, (4)]{stewart2004}.
 
 \statusboundary
@@ -209,6 +213,14 @@ side has $\sum_{i=1}^{k}a_i$.  The difference is
 $\sum_{i=1}^{k-1}(k-i-1)a_i$, which is nonnegative.
 \end{proof}
 
+\noindent The next divisibility is the case $P=-1$ of the relation
+$\gcd(i!+P(i),j!+P(j))\mid (j!/i!)P(i)-P(j)$ for $P\in\Z[X]$, obtained by
+multiplying $i!+P(i)$ by $j!/i!$ and subtracting $j!+P(j)$.  Luca and
+Shparlinski use this relation to bound a common divisor of $n!+P(n)$ and
+$(n+h)!+P(n+h)$ in the proof of their Lemma~5~\cite{luca-shparlinski}, and Lai
+uses it for a common prime-power divisor
+\cite[proof of Lemma~2.4, display~(2.5)]{lai}.
+
 \begin{lemma}[factorial-gap gcd]\label{long68:res:gap-gcd}
 For $2\le i<j$, the integer $g=\gcd(i!-1,j!-1)$ divides $j!/i!-1$, and
 $g\le j!/i!-1<j^{\,j-i}$.
@@ -221,13 +233,6 @@ $j!/i!\equiv1\pmod g$.  Since $j!/i!\ge i+1>1$, the positive integer
 $j!/i!-1$ is a multiple of $g$, whence $g\le j!/i!-1$.  Finally
 $j!/i!$ is a product of $j-i$ integers each at most $j$.
 \end{proof}
-
-\noindent The divisibility $g\mid j!/i!-1$ is the case $P=-1$ of the relation
-$\gcd(i!+P(i),j!+P(j))\mid (j!/i!)P(i)-P(j)$ for $P\in\Z[X]$, obtained by
-multiplying $i!+P(i)$ by $j!/i!$ and subtracting $j!+P(j)$.  Luca and
-Shparlinski use this relation to bound a common divisor of $n!+P(n)$ and
-$(n+h)!+P(n+h)$ in the proof of Lemma~5 of~\cite{luca-shparlinski}, and Lai
-uses it for a common prime-power divisor at display~(2.5) of~\cite{lai}.
 
 \begin{lemma}[segment inequality]\label{long68:res:segment}
 For $2\le k\le N-1$,
@@ -372,13 +377,15 @@ $\lcm(1,\ldots,n)$, show that the bound may be divided by a product $\Phi_n$
 of prime powers, and compute the growth rate of
 $\Phi_n$~\cite[Lemmas~5.3--5.7 and~7.3]{lai-lupu-sprang}.  That saving enters
 the inequality~\cite[(8.1)]{lai-lupu-sprang} under which the rescaled forms,
-which have integer coefficients, meet the irrationality criterion quoted
-in~\cite[Lemma~2.1]{lai-lupu-sprang}: nonzero values whose $p$-adic size,
+which have integer coefficients, meet the irrationality criterion
+\cite[Lemma~2.1, p.~3]{lai-lupu-sprang} that they quote from Lai
+\cite[Lemma~2.1, p.~4]{lai-2adic}: nonzero values whose $p$-adic size,
 multiplied by the largest absolute value of a coefficient, tends to zero.
 The corresponding saving for $H_N$ is the ratio $\Lc_N/Q_N$.
 Theorem~\ref{long68:res:prime-pole} decides, for each prime $p\mid\Lc_N$,
 whether $p$ divides this ratio; no asymptotic lower bound for the ratio is
-established here.
+established here.  This paragraph compares the two methods; no $p$-adic
+theorem is applied to $\Ser$.
 
 \section{Carries and the rationality boundary}\label{long68:sec:carry}
 
@@ -399,6 +406,10 @@ $d_{n+1}>(n+1)d_n$, a geometric majorant gives the tail estimate
 \begin{equation}\label{long68:eq:tail-bound}
  0<E_m<\frac{2\,m!}{(m+1)!-1}<\frac2m\le1\qquad(m\ge2).
 \end{equation}
+The proof of the next theorem feeds this estimate into the factorial-tail
+integrality argument that Han\v{c}l and Tijdeman use for factorial series
+with integer coefficients \cite[Lemma~2.1 and the following remark,
+p.~385]{hancl-tijdeman}.
 
 \label{long68:res:lead-carry-equivalence}\phantomsection
 \label{long68:res:strict-successor-complete-characterization}\phantomsection
@@ -482,9 +493,12 @@ $1/(n!-1)=1/n!+1/(n!(n!-1))$ and absolute convergence give
 \end{equation}
 The canonical factorial digits of a real $x$ are
 $a_m(x)=\lfloor m!x\rfloor-m\lfloor(m-1)!x\rfloor\in\{0,\ldots,m-1\}$, and
-$x$ is rational exactly when they vanish from some index on.  That criterion
-is due to Cantor \cite{cantor1869} and is recorded in Galambos
-\cite[Ch.~1]{galambos1976}.
+$x$ is rational exactly when they vanish from some index on.  The criterion
+goes back to Cantor \cite{cantor1869}; Galambos treats the rationality of
+Cantor series in \cite[Ch.~II, \S2.1, pp.~21--22]{galambos1976}, and Koepf
+and Schmersau prove the irrationality direction for nonterminating factorial
+expansions whose digits are not eventually maximal
+\cite[Example~3.2, p.~121]{koepf-schmersau}.
 
 \label{long68:res:lead-companion-orbit}\phantomsection
 \begin{proposition}[companion-orbit criterion]\label{long68:res:companion-orbit}
@@ -760,19 +774,52 @@ manufacture an extra fractional cancellation coordinate.
 \subsection{The exact low-channel lattice and residual class}
 
 The integral divisor basis makes the preceding divisibility statement exact.
-Let $U_n$ be the isolated $n$-channel unit, let $K_D$ be the canonical vector
-with moment $L_D$ and channels $2,\ldots,D$ equal to zero, and write
-$a_D=[e_1]K_D$ and $u_n=[e_1]U_n$.  Every vector with zero initial coordinate
-and vanishing channels through $D$ has a unique expression
+For the coordinate calculation only, enlarge the coefficient space to
+finitely supported integer vectors on $n\ge1$, with $M$ and $\chn d{\cdot}$
+given by the same formulas; this introduces no term $1/(1!-1)$ into $\Ser$.
+Set
+\[
+ T_n=ne_{n-1}-e_n,\qquad
+ U_n=T_n-\sum_{\substack{d\mid n\\2\le d<n}}W_{d,n}U_d\quad(n\ge2),\qquad
+ K_D=\Lc_De_1-\sum_{d=2}^{D}\frac{\Lc_D}{d!-1}U_d .
+\]
+The quotient $\lfloor i/d\rfloor$ changes between $i=n-1$ and $i=n$ exactly
+when $d\mid n$, so $\chn d{T_n}=(d!-1)W_{d,n}\mathbf 1_{d\mid n}$, and
+induction gives $M(U_n)=0$ and $\chn d{U_n}=(d!-1)\mathbf 1_{d=n}$.  Hence
+$M(K_D)=\Lc_D$ and $\chn d{K_D}=0$ for $2\le d\le D$.  The change from
+$e_1,T_2,T_3,\ldots$ to $e_1,U_2,U_3,\ldots$ is integral triangular with unit
+diagonal, so $e_1,U_2,U_3,\ldots$ is an integral basis, and applying $M$ and
+each $\chn d{\cdot}$ gives the unique expansion
+\[
+ c=M(c)\,e_1+\sum_{d\ge2}\frac{\chn dc-M(c)}{d!-1}\,U_d .
+\]
+Consequently every vector of the enlarged space whose channels $2,\ldots,D$
+vanish has a unique expression
 \begin{equation}\label{long68:eq:low-channel-basis}
  c=tK_D+\sum_{n>D}z_nU_n,
  \qquad M(c)=tL_D,
 \end{equation}
-with finitely many nonzero integers $z_n$.  Requiring support on $n\ge2$
-adds precisely the scalar equation
+with finitely many nonzero integers $z_n$.  Write $a_D=[e_1]K_D$ and
+$u_n=[e_1]U_n$.  Requiring support on $n\ge2$ adds precisely the scalar
+equation
 \begin{equation}\label{long68:eq:low-channel-support}
  ta_D+\sum_{n>D}z_nu_n=0.
 \end{equation}
+The scalar coefficients satisfy $u_2=2$ and
+$u_n=-\sum_{d\mid n,\ 2\le d<n}W_{d,n}u_d$ for $n>2$; in particular
+$u_{2p}=-(2p)!/2^{p-1}$ for every prime $p$.  If $p$ is a prime with
+$D/2<p\le D$ and $H=D(2p-1)$, then
+\begin{equation}\label{long68:eq:finite-horizon}
+ \gcd\{u_n:n>D\}=\gcd(u_{D+1},\ldots,u_H)>0,\qquad H<2D^2 .
+\end{equation}
+Indeed, the finite gcd $g$ divides $u_{2p}\ne0$ and hence $(2p)!$.  For $n>H$
+and a divisor $d\le D$ of $n$ one has $n/d\ge2p$, and $(n/d)!$ divides
+$W_{d,n}$, the quotient counting partitions of $n$ points into $n/d$
+unordered blocks of size $d$; thus $g\mid W_{d,n}$.  Strong induction in the
+recurrence handles the remaining divisors $D<d<n$, so $g$ divides every $u_n$
+with $n>D$.  Bertrand's postulate supplies $p$ for $D\ge3$, and $p=2$ serves
+for $D=2$; finally $H\le D(2D-1)<2D^2$.  The short note proves the same
+determination as its Theorem~3.2.
 
 \begin{theorem}[exact attainable moment ideal]\label{long68:res:moment-ideal}
 Fix $D\ge2$ and a prime $p$ with $D/2<p\le D$.  Put
@@ -788,8 +835,8 @@ coefficient content one, hence by a primitive vector.
 \end{theorem}
 
 \begin{proof}
-The finite-horizon theorem gives $G_D>0$ and identifies it with the gcd of the
-whole tail $\{u_n:n>D\}$; moreover $H<2D^2$.  Thus the finite integer
+By \eqref{long68:eq:finite-horizon}, $G_D>0$ is the gcd of the whole tail
+$\{u_n:n>D\}$, and $H<2D^2$.  Thus the finite integer
 combinations in \eqref{long68:eq:low-channel-support} form $G_D\Z$, so that the
 equation is soluble exactly when $G_D\mid ta_D$.  Dividing by
 $\gcd(G_D,a_D)$ shows that $t$ is a multiple of
@@ -816,8 +863,8 @@ For the vector in \eqref{long68:eq:low-channel-basis},
  =tL_D(\Ser-H_D)+\sum_{n>D}z_n.
 \]
 The residual series converges for every finite vector supported away from
-index zero.  A zero-moment vector has integral residual, and two such vectors
-with the same factorial moment have residuals differing by an integer.
+index zero.  A zero-moment vector has integral residual, and any two finite
+vectors with the same factorial moment have residuals differing by an integer.
 \end{theorem}
 
 \begin{proof}
@@ -1022,7 +1069,13 @@ denominators
  Q_{-2}=1,\quad Q_{-1}=0,\quad Q_j=a_jQ_{j-1}+Q_{j-2}
 \]
 satisfy $Q_{23448}\ge2^{39990}$.  Every rational in the open enclosure shares
-this initial segment, so its reduced denominator is at least $Q_{23448}$; the
+this initial segment, so its reduced denominator is at least $Q_{23448}$.
+Indeed, write $P_j$ for the convergent numerators.  Such a rational either
+equals $P_{23448}/Q_{23448}$ or has a complete quotient $A/B>1$ after the
+segment, with $A$ and $B$ coprime, and then equals
+$(P_{23448}A+P_{23447}B)/(Q_{23448}A+Q_{23447}B)$; the determinant identity
+$P_jQ_{j-1}-P_{j-1}Q_j=\pm1$ makes both fractions reduced
+\cite[\S1.12(ii), (1.12.5)--(1.12.7), (1.12.20)--(1.12.21)]{nist-dlmf}.  The
 argument is about a common prefix and does not require the last convergent to
 lie inside the enclosure.  The integer comparison $2^{39990}>10^{12038}$
 closes \eqref{long68:eq:finite-bounds}.  The
@@ -1034,8 +1087,9 @@ quotients, power-of-two exponent $39990$ and strict decimal exponent $12038$.
 
 Both certificates are finite.  A refinement of either enlarges the excluded
 range and returns a statement of the same shape, and neither excludes an
-eventual unit-carry tail.  The continued-fraction method is classical, and no
-antecedent for these particular numerical outputs was located.
+eventual unit-carry tail.  The continued-fraction identities are classical
+\cite[\S1.12(ii)]{nist-dlmf}; the enclosure, the prefix length and the
+exponent are outputs of the computation above.
 
 \section{The remaining arithmetic inputs}\label{long68:sec:open}
 
@@ -1142,18 +1196,21 @@ gcd-of-minors certificate must specify a positive gcd, its rank hypotheses,
 and its connection to the displayed residual.
 
 \paragraph{Criteria from the literature that do not apply.}
-Duverney's fast-series criteria assume two-sided quadratic denominator growth
+Duverney's Theorem~3.1 assumes the quadratic growth condition (1.3),
 $cu_n^2\le u_{n+1}\le c'u_n^2$, whereas $u_{n+1}/u_n^2\to0$ for
-$u_n=n!-1$, and his all-positive specialisation additionally requires
-$\sum_n|u_{n+1}/u_n^2-1|<\infty$, whose summands tend to one here
-\cite[pp.~275, 285--287]{duverney}.  The theorem of Barreto, Kang, Kim,
-Kova\v{c} and Zhang proves irrationality of $\sum_n1/a_n$ under a
-rapid-growth hypothesis that fails for $a_n=n!-1$, since
+$u_n=n!-1$; the summability condition (3.6) of his Corollary~3.2,
+$\sum_n|u_{n+1}/u_n^2-1|<\infty$, also fails, since its summands tend to one
+here \cite[pp.~275, 285--287]{duverney}.  For a single denominator sequence
+the rapid-growth criterion goes back to Erd\H{o}s
+\cite[Theorem~1, p.~1]{erdos1975}; Barreto, Kang, Kim, Kova\v{c} and Zhang
+treat products of consecutive denominators and weighted extensions
+\cite[Thms.~2--3 and Rem.~4]{barreto-et-al}.  For $a_n=n!-1$,
 $\log(n!-1)=O(n\log n)$ makes $(n!-1)^{1/\psi^n}\to1$ for every fixed
-$\psi>1$ \cite[Thms.~2--3 and Rem.~4]{barreto-et-al}.  Failure of a
-sufficient criterion is not a theorem about $\Ser$, and the useful content is
-the target these papers identify: a low-height clearing subsequence, or
-enough exact cancellation in the least common multiple.
+$\psi>1$, so neither Erd\H{o}s's hypothesis
+$\limsup_na_n^{1/2^n}=\infty$ nor the growth hypotheses of their Theorems~2
+and~3 hold.  These criteria do not decide $\Ser$; the useful content is the
+target these papers identify: a low-height clearing subsequence, or enough
+exact cancellation in the least common multiple.
 Theorem~\ref{long68:res:lcm-growth} bounds that cancellation from one side and
 Theorem~\ref{long68:res:prime-pole} describes it from the other.
 
@@ -1258,10 +1315,15 @@ nonvanishing at
 
 Attribution.  Wilson's theorem and the Wilson reflection identity are
 classical, the latter recorded by Stewart \cite[p.~462, (4)]{stewart2004}.
-The factorial-digit termination criterion is Cantor's \cite{cantor1869}, in
-the form recorded by Galambos \cite[Ch.~1]{galambos1976}; the additions here
-are the telescope $C=\Ser-e+2$, the identification of the digit value $m-2$,
-and the transport to the shifted family.  The multiplicity bound is Garaev,
+The factorial-digit termination criterion goes back to Cantor
+\cite{cantor1869}; Koepf and Schmersau prove its irrationality direction for
+digits that are not eventually maximal
+\cite[Example~3.2, p.~121]{koepf-schmersau}, and Galambos treats rationality
+criteria for Cantor series \cite[Ch.~II, \S2.1]{galambos1976}.  The additions
+here are the telescope $C=\Ser-e+2$, the identification of the digit value
+$m-2$, and the transport to the shifted family.  The tail-integrality step is
+the argument of Han\v{c}l and Tijdeman \cite[Lemma~2.1 and the following
+remark, p.~385]{hancl-tijdeman}.  The multiplicity bound is Garaev,
 Luca and Shparlinski's \cite{garaev-luca-shparlinski}, and the lcm deduction
 from it is not theirs.  The divisibility in Lemma~\ref{long68:res:gap-gcd} is
 the case $P=-1$ of the relation used in the proof of Lemma~5 of Luca and
@@ -1269,10 +1331,12 @@ Shparlinski \cite{luca-shparlinski} and at display~(2.5) of Lai \cite{lai}.  The
 nonvanishing cutoff for polynomial shifts is Lemma~3 of
 \cite{luca-shparlinski}, restated with the bound $n!+P(n)>1$ in
 \cite[Lemma~2.1]{lai}.  The survival criterion is a specialisation of
-Louwsma and Martino's valuation formula \cite[Lemma~4.1]{louwsma-martino}.
-For the Wilson cofinality packaging, the finite radius bound and
-Theorem~\ref{long68:res:lcm-growth}, no antecedent was located, which is a negative search result, and no priority
-is claimed.
+Louwsma and Martino's valuation formula \cite[Lemma~4.1, p.~10]{louwsma-martino}.
+The single-denominator growth criterion is Erd\H{o}s's
+\cite[Theorem~1, p.~1]{erdos1975}, and the continued-fraction identities are
+those of \cite[\S1.12(ii)]{nist-dlmf}.  No antecedent was located for the
+Wilson cofinality packaging, the finite radius bound or
+Theorem~\ref{long68:res:lcm-growth}.
 
 
 \appendix
@@ -1370,7 +1434,8 @@ and the rule that a zero remainder at one index forces every later digit to
 vanish.  The rational direction is also checked: if $q>0$ and $q\le n$, then
 $\operatorname{facFloor}(a/q,n)=((n!/q):\Z)\,a$ and the canonical digit at
 radix $n+1$ vanishes, so every rational input has an eventually zero
-expansion.  The converse holds for every real input, and gives
+expansion.  The converse holds for every real input, and gives Cantor's
+termination criterion \cite{cantor1869}
 \[
  x\in\Q\quad\Longleftrightarrow\quad a_m(x)=0\ \hbox{for all large }m .
 \]
@@ -1379,8 +1444,8 @@ $\theta_{N+k}\ge(k+1)\theta_N$; since every remainder is below one,
 $\theta_N=0$ and $x=\lfloor N!x\rfloor/N!$.
 
 A zero canonical digit is a different event from a zero-branch hit.  The
-returned data contain canonical zero digits at $m=5$ and $m=23$, while the
-zero-branch list is empty through $m=100000$.
+reported interval data contain canonical zero digits at $m=5$ and $m=23$,
+while the zero-branch list is empty through $m=100000$.
 
 A second exact reformulation runs through a defect automaton.  For a rational
 centre recurrence $F_m=mF_{m-1}+1+\varepsilon_m-C_m$, the kernel checks that
@@ -1396,11 +1461,12 @@ is a separate step and is not done.
 Koepf and Schmersau prove that eventual equality between the floors of $n$
 times a partial sum and $n$ times its limit forces irrationality
 \cite[Thm.~1.1, p.~117]{koepf-schmersau}; their rational-term version obtains
-that equality from prefix integrality at a scale $p_n$ together with the
+that equality from the integrality condition $np_ns_n\in\mathbb N_0$ and the
 strict tail bound $a-s_n<1/(np_n)$
-\cite[Thms.~2.2--2.3, pp.~119--120]{koepf-schmersau}.  For the natural
-termwise clearing choice $p_n=\lcm\{k!-1:2\le k\le n\}$ the last two
-denominators already obstruct it:
+\cite[(2.1) and (2.3), p.~118; Thms.~2.2--2.3, pp.~119--120]{koepf-schmersau}.
+For the choice they record after (2.1), the least common multiple of the
+reduced summand denominators, here $p_n=\lcm\{k!-1:2\le k\le n\}$, the last
+two denominators already obstruct the tail bound:
 \[
  p_n\ \ge\ \frac{(n!-1)\bigl((n-1)!-1\bigr)}{n-1},
 \]
@@ -1410,22 +1476,31 @@ $p_n$ cannot satisfy their tail hypothesis.  Cancellation in the reduced
 prefix denominator could give a smaller scale, and proving enough
 cancellation is another form of the present denominator problem.
 
-Duverney's Theorem~3.1 assumes two-sided quadratic denominator growth
+Duverney's Theorem~3.1 assumes the quadratic growth condition (1.3),
 $cu_n^2\le u_{n+1}\le c'u_n^2$, while $u_{n+1}/u_n^2\to0$ for $u_n=n!-1$
-\cite[pp.~275, 285--286]{duverney}; his all-positive Corollary~3.2
-additionally requires $\sum_n|u_{n+1}/u_n^2-1|<\infty$, whereas those
-summands tend to one \cite[Cor.~3.2, p.~287]{duverney}.  Both the ratio limit
+\cite[(1.3), p.~275; Thm.~3.1, pp.~285--286]{duverney}; his Corollary~3.2,
+which allows signs $a_n\in\{-1,1\}$, requires the summability condition (3.6),
+$\sum_n|u_{n+1}/u_n^2-1|<\infty$, whereas those summands tend to one
+\cite[Cor.~3.2, p.~287]{duverney}.  Both the ratio limit
 and the nonsummability are kernel-checked.  The ratio proof divides numerator
 and denominator by $(n!)^2$; the resulting terms tend to zero while
 $(1-1/n!)^2$ tends to one.
 
-The theorem of Barreto, Kang, Kim, Kova\v{c} and Zhang proves irrationality
-of $\sum_n1/a_n$ when $a_n^{1/2^n}\to\infty$, whereas $(n!-1)^{1/2^n}\to1$
-\cite[Thms.~2--3, pp.~2--4]{barreto-et-al}; the limit is kernel-checked
-through the bound $0\le\log(n!-1)\le n^2$.  Their proof identifies a useful
-exact criterion: Mahler's elementary rationality floor is contradicted by
-prefix-clearing integers $D_N$ whose cleared positive tails satisfy
-$\liminf_ND_Nr_N=0$ \cite[Lem.~8 and Prop.~12, pp.~6, 9--12]{barreto-et-al}.
+For a single denominator sequence, Erd\H{o}s proved that $\sum_k1/n_k$ is
+irrational when $\limsup_kn_k^{1/2^k}=\infty$ and $n_k>k^{1+\varepsilon}$
+eventually \cite[Theorem~1, p.~1]{erdos1975}.  Barreto, Kang, Kim, Kova\v{c}
+and Zhang treat products of consecutive denominators and weighted extensions
+\cite[Thms.~2--3 and Rem.~4, pp.~2--5]{barreto-et-al}.  For $a_n=n!-1$ the
+root-growth expressions tend to one, $(n!-1)^{1/2^n}\to1$, so neither the
+limsup hypothesis of Erd\H{o}s nor the growth hypotheses of their Theorems~2
+and~3 hold; the limit is kernel-checked through the bound
+$0\le\log(n!-1)\le n^2$.  Their proof of Theorem~3 uses the classical
+criterion, which they trace to Fourier's proof that $e$ is irrational, that a
+rational sum of nonnegative rationals with infinitely many positive terms
+admits no prefix-clearing integers $D_N$ with $\liminf_ND_Nr_N=0$, where $r_N$
+is the tail after $N$ terms \cite[Lem.~8, p.~6]{barreto-et-al}; their
+Proposition~12 produces such integers under the hypotheses of that theorem
+\cite[pp.~9--12]{barreto-et-al}.
 The ordinary product of the factorial-gap denominators is far too large for
 that estimate, so a transfer needs a low-height clearing subsequence, or
 enough exact cancellation in their least common multiple.
@@ -1436,13 +1511,16 @@ telescoping gives the exact finite identity
  \frac{Z_M}{M!}=\frac{Z_2}{2!}+\sum_{m=3}^{M}\frac{1-b_m}{m!},
 \]
 so the carry defects $1-b_m$ are genuine factorial-series coefficients.
-Han\v{c}l and Tijdeman give exact rationality classifications for polynomial
-coefficients and finite-difference criteria for broader ordinary factorial
-series \cite[Thm.~3.1 and Cor.~3.1, pp.~390--391]{hancl-tijdeman}; their
+Han\v{c}l and Tijdeman classify the rational sums with polynomial coefficients
+\cite[Thm.~3.1 and Cor.~3.1, pp.~390--391]{hancl-tijdeman}; their
 denominator is the cumulative linear product $\prod_{n\le N}(an+b)$, and the
-individual number $N!-1$ does not occur.  Applied to the display above, the Cantor--Oppenheim criterion
-still needs $1-b_m\ne0$ infinitely often, which is the missing cofinal
-assertion.
+individual number $N!-1$ does not occur.  The criterion of Oppenheim that they
+reproduce \cite[Lem.~2.2, p.~385]{hancl-tijdeman} states that, for
+coefficients $c_n$ with $|c_n|<an+b$ eventually and $\liminf_n|c_n|/n=0$, the
+sum is rational exactly when $c_n=0$ eventually.  For the carry defects
+$c_m=1-b_m$ the first condition holds, since $-1\le b_m\le m-1$, and the
+second is not established; the needed cofinal equivalence is
+Theorem~\ref{long68:res:carry-equivalence}, which is proved directly.
 
 \subsection{A superseded deduction}\label{long68:sec:ext-superseded}
 
@@ -1451,8 +1529,9 @@ a weaker exponent from an external multiplicity theorem.  Put
 $Q_N=\prod_{2\le n\le N}(n!-1)$.  For an odd prime $r$, let $m_r$ count the
 indices $2\le n\le N$ with $r\mid n!-1$; such an index satisfies $n<r$.  The
 factorial-congruence multiplicity estimate of Garaev, Luca and Shparlinski
-\cite[arXiv v1, Thm.~12, p.~16]{garaev-luca-shparlinski}, applied on
-$1\le n\le\min(N,r-1)$, gives $m_r\ll N^{2/3}$; the prime $2$ divides none of
+\cite[arXiv v1, Thm.~12, p.~16]{garaev-luca-shparlinski}, applied to the
+residue $a=1$ on $1\le n\le\min(N,r-1)$, gives $m_r\ll N^{2/3}$; the prime $2$
+divides none of
 these factors.  Writing $E_r=\max_{2\le n\le N}v_r(n!-1)$,
 \[
  \log Q_N=\sum_r\sum_{n=2}^{N}v_r(n!-1)\log r
@@ -1462,9 +1541,8 @@ these factors.  Writing $E_r=\max_{2\le n\le N}v_r(n!-1)$,
 and Stirling summation gives $\log Q_N\asymp N^2\log N$, whence
 $\log \Lc_N\gg N^{4/3}\log N$.  Theorem~\ref{long68:res:lcm-growth} supersedes this:
 its exponent is $3/2$, its constant is explicit, and it uses no external
-theorem.  The deduction is retained because it is the shape the returned
-analyses describe, and because it is the only place a multiplicity bound
-enters the record.
+theorem.  The deduction is retained because it is the only place a
+multiplicity bound enters the record.
 
 The primitive lcm divisibility survives cofactor removal: factorial
 valuations do not remove the channel obstruction once every common cofactor
@@ -1650,8 +1728,9 @@ $n$ whose least prime factor $q$ of $n!-1$ satisfies
 \[
  n<q<\left(\frac{\sqrt{145}-1}{8}+\varepsilon\right)n ,
 \]
-the printed text transferring estimate~(9) from $n!+1$ to $n!-1$
-\cite[p.~464]{stewart2004}.  The source controls $q$ relative to the later
+estimate~(9) of Theorem~1 being stated for $n!+1$ \cite[p.~463]{stewart2004}
+and transferred to $n!-1$ in the text \cite[p.~464]{stewart2004}.  The source
+controls $q$ relative to the later
 index $n$ and supplies no control relative to the private first-hit index,
 so it is collision-core input.  The missing private-anchor and global product
 estimates are elsewhere.
@@ -1674,25 +1753,38 @@ $\chn4\lambda=11$, and $\chn d\lambda=-12$ for every $d\ge5$.  Under the
 exact rational tail enclosure $1/119<\Theta_4<1/50$ its residual lies
 strictly between $-93/575$ and $-309/13685$, so it is nonzero and subunit.
 
-Exact integer regeneration verifies the canonical primitive kernels for every
-$2\le D\le12$: channels $2$ through $D$ vanish, the factorial moment is
-$\Lc_D$, and the coefficient content is one.  At $D=9$ the moment is
-$\Lc_9=31540008254514077395$ and, after the stated prime-unit shift,
-$1353/100000<R_9<1354/100000$.  At $D=3$ the vector $c=(-40,55,-10,1)$ on the
-support $(3,4,5,6)$ annihilates channels $2$ and $3$, has moment $600$, and
-satisfies
+In the enlarged coefficient space of \S\ref{long68:sec:channels}, exact
+integer computation verifies the vectors $K_D$ for every $2\le D\le12$:
+channels $2$ through $D$ vanish, the factorial moment is $\Lc_D$, and the
+coefficient content is one.  They lie outside the space of vectors supported
+on $n\ge2$, since $\Lc_D$ is odd and every such vector has even moment.  At
+$D=9$,
 \[
- 0.09925341997208298<\Lc_3(c)<0.09925341997208300 ,
+ \Lc_9=31540008254514077395,\qquad a_9=[e_1]K_9=-3902884074990939115 .
+\]
+Since $U_{11}=T_{11}$ has $u_{11}=0$, the vector $K_9-9553024718754\,U_{11}$
+keeps the coordinate $a_9$ and has content one.  By
+Theorem~\ref{long68:res:residual-transparency} its residual is
+$\Lc_9(\Ser-H_9)-9553024718754$, and exact rational arithmetic with the tail
+bound $\sum_{n\ge36}1/(n!-1)<2/(36!-1)$ places it strictly between
+$1353/100000$ and $1354/100000$.  A different example is supported on
+$n\ge2$: the vector $c=(-40,55,-10,1)$ on the support $(3,4,5,6)$ annihilates
+channels $2$ and $3$, has moment $600$, and satisfies
+\[
+ 0.09925341997208298<\mathcal R(c)<0.09925341997208300 ,
 \]
 which excludes denominators dividing $600$.
 
-There are two different computations at the same endpoint.  A returned
+There are two different computations at the same endpoint.  A separate
 interval computation reports the stronger geometric statement that no
-zero-branch event occurs at any $m\le100000$; its cited executable and source
-digest were not supplied, so that classification remains external finite
-evidence.  The strict-successor carry computation used in the short note is
-local and independently regenerated, with its own source, backend, payload
-and receipt digests.
+zero-branch event occurs at any $m\le100000$; its executable and source
+digest are not available, so that classification remains external finite
+evidence.  The strict-successor census through $300000$ used in the short
+note rests on the retained GMP receipt with its source, backend, payload and
+receipt digests; \S\ref{long68:sec:finite} records that a byte-identical
+regeneration of that receipt with the current driver is outstanding and
+describes the separate replay through $4000$.  The full range is external
+computational evidence outside the Lean development.
 
 \subsection{Limits of fixed-coordinate arguments}\label{long68:sec:ext-nogo}
 
@@ -1707,14 +1799,12 @@ and receipt digests.
   additional coupling theorem.  Every prime-window test factors into a sharp
   Archimedean strict-ceiling condition and a modular divisibility condition,
   and the missing ingredient is the coupling between them.
-\item Fixed-denominator scalar canonical-product localisers and
-  rank-saturated consecutive-jet Hermite--Pad\'e systems pay the full
-  factorial-gap denominator.  For $E(z)=\prod_{n\ge2}(1-z/n!)$ the genus-zero
-  product satisfies $-E'(1)/E(1)=\Ser$, and the natural scalar linear form
-  carries the coefficient $Q_N=\prod_{2\le n\le N}(n!-1)$, for which $Q_N$
-  times the tail diverges.  Exact first-order interpolation, scalar residue
-  weighting, the natural Wronskian, and rank-saturated consecutive jets all
-  reassemble the same prohibitive denominator.
+\item For the genus-zero product $E(z)=\prod_{n\ge2}(1-z/n!)$, local uniform
+  convergence and logarithmic differentiation give $-E'(1)/E(1)=\Ser$.  The
+  natural termwise clearing factor $Q_N=\prod_{2\le n\le N}(n!-1)$ satisfies
+  $Q_N(\Ser-H_N)\to\infty$, so this clearing choice yields no small positive
+  integer linear form.  The calculation concerns this clearing factor alone;
+  Hermite--Pad\'e systems with other denominators are left open.
 \item Zero-moment variations cannot create an additional fractional
   cancellation coordinate, and factorial valuations cannot absorb the channel
   lcm obstruction.
@@ -1725,7 +1815,8 @@ and receipt digests.
 \subsection{The generic shape behind the lower-interval form}
 \label{long68:sec:ext-generic}
 
-The cofinal statement in the short note has a generic ancestor.  For a real
+The cofinal statement in the short note is a case of the following immediate
+consequence of Cantor's termination criterion.  For a real
 $x$ and any positive sequence $c_m$ with $c_m<1/m$ eventually,
 \[
  x\notin\Q
@@ -1851,7 +1942,7 @@ Lean checks small exact misses; a hash-bound GMP scan reaches index 300000 and y
 
 \textbf{Publication placement.} This family is also admitted to the short note.
 % ---- part back ----
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
 \small
 \raggedright
 \setlength{\itemsep}{0pt}
@@ -1862,6 +1953,13 @@ Lean checks small exact misses; a hash-bound GMP scan reaches index 300000 and y
   {10.1017/CBO9780511897184.009}.
 \bibitem{bloom} T.~F. Bloom, \emph{Erd\H{o}s Problem \#68}.
   \url{https://www.erdosproblems.com/68}, accessed 28 July 2026.
+\bibitem{erdos1975}
+  P.~Erd\H{o}s,
+  \emph{Some problems and results on the irrationality of the sum of infinite
+  series},
+  J.\ Math.\ Sci.\ \textbf{10} (1975), 1--7,
+  \url{https://www.renyi.hu/~p_erdos/1976-44.pdf}.
+  Theorem~1, p.~1.
 \bibitem{louwsma-martino}
   J.~Louwsma and J.~Martino,
   \emph{Rational numbers with odd greedy expansion of fixed length},
@@ -1874,24 +1972,28 @@ Lean checks small exact misses; a hash-bound GMP scan reaches index 300000 and y
 \bibitem{galambos1976}
   J.~Galambos,
   \emph{Representations of Real Numbers by Infinite Series},
-  Lecture Notes in Mathematics \textbf{502}, Springer, 1976, Chapter~1.
+  Lecture Notes in Math.\ \textbf{502}, Springer, 1976,
   doi:\href{https://doi.org/10.1007/BFb0081642}{10.1007/BFb0081642}.
+  Chapter~II, \S2.1, pp.~21--22.
 \bibitem{garaev-luca-shparlinski}
   M.~Z. Garaev, F.~Luca, and I.~E. Shparlinski,
   \emph{Character sums and congruences with $n!$},
-  Trans.\ Amer.\ Math.\ Soc.\ \textbf{356} (2004), no.~12, 5089--5102.
-  \url{https://doi.org/10.1090/S0002-9947-04-03612-8};
-  arXiv:\href{https://arxiv.org/abs/math/0403422}{math/0403422v1}.
+  Trans.\ Amer.\ Math.\ Soc.\ \textbf{356} (2004), no.~12, 5089--5102,
+  doi:\href{https://doi.org/10.1090/S0002-9947-04-03612-8}{10.1090/S0002-9947-04-03612-8};
+  arXiv:\href{https://arxiv.org/abs/math/0403422v1}{math/0403422v1}.
+  Theorem~12 is cited with arXiv v1 pagination, p.~16.
 \bibitem{stewart2004}
   C.~L. Stewart,
   \emph{On the greatest and least prime factors of $n!+1$, II},
-  Publ.\ Math.\ Debrecen \textbf{65} (2004), no.~3--4, 461--480.
+  Publ.\ Math.\ Debrecen \textbf{65} (2004), no.~3--4, 461--480,
+  doi:\href{https://doi.org/10.5486/PMD.2004.3190}{10.5486/PMD.2004.3190}.
   \url{https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf}.
 \bibitem{koepf-schmersau}
   W.~Koepf and D.~Schmersau,
   \emph{Irrationality of certain infinite series II},
-  Analysis \textbf{31} (2011), 117--124.
-  \url{https://doi.org/10.1524/anly.2011.1094}.
+  Analysis \textbf{31} (2011), 117--124,
+  doi:\href{https://doi.org/10.1524/anly.2011.1094}{10.1524/anly.2011.1094}.
+  Example~3.2, p.~121.
 \bibitem{duverney}
   D.~Duverney,
   \emph{Irrationality of fast converging series of rational numbers},
@@ -1899,37 +2001,46 @@ Lean checks small exact misses; a hash-bound GMP scan reaches index 300000 and y
   \url{https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf}.
 \bibitem{hancl-tijdeman}
   J.~Han\v{c}l and R.~Tijdeman,
-  \href{https://geodesic.mathdoc.fr/articles/10.4064/aa118-4-5/}
-  {\emph{On the irrationality of factorial series}},
-  Acta Arith.\ \textbf{118} (2005), no.~4, 383--401.
-  doi:10.4064/aa118-4-5.
+  \emph{On the irrationality of factorial series},
+  Acta Arith.\ \textbf{118} (2005), no.~4, 383--401,
+  doi:\href{https://doi.org/10.4064/aa118-4-5}{10.4064/aa118-4-5}.
 \bibitem{barreto-et-al}
   K.~Barreto, J.~Kang, S.-h.~Kim, V.~Kova\v{c}, and S.~Zhang,
   \emph{Irrationality of rapidly converging series: a problem of Erd\H{o}s
   and Graham},
   arXiv:\href{https://arxiv.org/abs/2601.21442v3}{2601.21442v3}, 2026,
-  Theorems~2--3 and Remark~4.
+  Theorems~2--3 and Remark~4, pp.~2--5; Lemma~8, p.~6; Proposition~12,
+  pp.~9--12.
 \bibitem{luca-shparlinski}
   F.~Luca and I.~E. Shparlinski,
   \emph{Prime divisors of shifted factorials},
-  Bull.\ London Math.\ Soc.\ \textbf{37} (2005), no.~6, 809--817.
+  Bull.\ London Math.\ Soc.\ \textbf{37} (2005), no.~6, 809--817,
   doi:\href{https://doi.org/10.1112/S0024609305004923}{10.1112/S0024609305004923}.
   Lemma~3, p.~810; proof of Lemma~5, p.~811.
 \bibitem{lai}
   L.~Lai,
   \emph{On the largest prime divisor of $n!+1$},
-  Bull.\ Aust.\ Math.\ Soc.\ \textbf{113} (2026), no.~3, 390--403.
+  Bull.\ Aust.\ Math.\ Soc.\ \textbf{113} (2026), no.~3, 390--403,
   doi:\href{https://doi.org/10.1017/S0004972725100543}{10.1017/S0004972725100543};
-  arXiv:\href{https://arxiv.org/abs/2103.14894}{2103.14894}.
+  arXiv:\href{https://arxiv.org/abs/2103.14894v1}{2103.14894v1}.
   Lemma~2.1, p.~392; display~(2.5) in the proof of Lemma~2.4, p.~394.
 \bibitem{lai-lupu-sprang}
   L.~Lai, C.~Lupu, and J.~Sprang,
   \emph{On the irrationality of certain $p$-adic zeta values},
-  Res.\ Math.\ Sci.\ \textbf{12} (2025), no.~4, Paper No.~77.
+  Res.\ Math.\ Sci.\ \textbf{12} (2025), no.~4, Paper No.~77,
   doi:\href{https://doi.org/10.1007/s40687-025-00559-x}{10.1007/s40687-025-00559-x};
   arXiv:\href{https://arxiv.org/abs/2505.23088v1}{2505.23088v1}.
   Numbered as in arXiv v1: Lemma~2.1, p.~3; Lemmas~5.3--5.7, pp.~10--14;
   Lemma~7.3, p.~20; (8.1), p.~22.
+\bibitem{lai-2adic}
+  L.~Lai, \emph{On the irrationality of certain $2$-adic zeta values},
+  Int.\ J.\ Number Theory \textbf{21} (2025), no.~1, 207--235;
+  arXiv:\href{https://arxiv.org/abs/2304.00816v1}{2304.00816v1}.
+  Numbered as in arXiv v1: Lemma~2.1, p.~4.
+\bibitem{nist-dlmf}
+  NIST Digital Library of Mathematical Functions, \S1.12(ii),
+  \emph{Convergents}, \url{https://dlmf.nist.gov/1.12}, accessed
+  15 September 2026.
 \end{thebibliography}
 
 \end{document}

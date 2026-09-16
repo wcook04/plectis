@@ -5,7 +5,7 @@
   "subject": "Erdős #1049",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 47,
+  "pages": 49,
   "question": "What is the complete tail, height, Hermite–Padé, and mechanism record for Erdős #1049, and why is base 3/2 still open?",
   "precis": "A claim-bounded complete reasoning record for Erdős #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite–Padé and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.",
   "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "54581b5a98b367977cb68ca26be30daeaf1365bdd2d3b0639b4ca7aac9625a00",
+    "source_sha256": "27ba5070408fa6e926669de124d06bbd823bd28cd1a95a9971954b1a09e5ac7f",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 1591,
+    "mathml_node_count": 1615,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "b7a030f6d2e7531bf2c7c5d91b58aec97cf57017edca46e11c7c7049b4edc36b",
-    "html_exact_tex_sha256": "c58a9333fdca830102404448a7a36831c7e723d8856c3de6c20b78d5130531d1"
+    "html_mathml_sha256": "c185bb2b30903d54b84a6de3f49275baf2a8263f0244bd1523e8d89046fd7646",
+    "html_exact_tex_sha256": "e48343cf72fcc9f52ac525863a44aad79980291e537c14b7a4927ff59cf62d65"
   },
   "sections": [
     {
@@ -230,7 +230,7 @@
     {
       "level": 2,
       "anchor": "long1049:sec:pade",
-      "label": "Denominator exponents for a homogenised Padé construction"
+      "label": "A denominator-exponent model for Padé-type forms"
     },
     {
       "level": 2,
@@ -259,8 +259,8 @@
     },
     {
       "level": 3,
-      "anchor": "the-quantitative-height-limitation",
-      "label": "The quantitative height limitation"
+      "anchor": "a-limitation-of-the-rectangular-exponent-model",
+      "label": "A limitation of the rectangular exponent model"
     },
     {
       "level": 3,

@@ -433,14 +433,21 @@ class="math inline" data-term-auto="off">\(R_c\)</span>, most scaled tails in a 
 small, and arbitrarily small nonzero scaled tails give irrationality
 (Lemmas 1 and 2, pp. 6–8). The divisor-incidence coefficients <span
 class="math inline" data-term-auto="off">\(\#\{a\in A:a\mid n\}\)</span> are positive on
-every multiple of <span class="math inline" data-term-auto="off">\(\min A\)</span>, so
-conditions (iii) and (iv) of their Theorems 1 and 3 fail for every
-splitting into two sequences, and the scaled tail</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\sum_{r\ge1}\frac{\#\{a\in A:a\mid m+r\}}{b^r}
+every multiple of <span class="math inline" data-term-auto="off">\(\min A\)</span>. For any
+splitting into two sequences the two coefficient supports therefore
+cover a set of positive lower density, which is incompatible with the
+support-counting conditions <span class="citation"
+data-cites="kanekosuzukitachiya"><a href="#ref-5">[5]</a></span> requiring both counts to be
+<span class="math inline" data-term-auto="off">\(o(x_n/z_n)\)</span> with <span
+class="math inline" data-term-auto="off">\(z_n\ge1\)</span>. Their remote-tail quantity <span
+class="math inline" data-term-auto="off">\(R_c(q,x,z)\)</span> sums only offsets <span
+class="math inline" data-term-auto="off">\(j\ge z\)</span>, whereas the full scaled tail</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{r\ge1}\frac{\#\{a\in A:a\mid
+m+r\}}{b^r}
 =\sum_{a\in A}\phi_a(m)=S_b(A)+\Delta_{b,A}(m)\]</span></div>
 <p class="display-continue">is at least
-<span class="math inline" data-term-auto="off">\(S_b(A)\)</span>. The proofs above average
+<span class="math inline" data-term-auto="off">\(S_b(A)\)</span>, which gives no lower bound
+for <span class="math inline" data-term-auto="off">\(R_c\)</span>. The proofs above average
 the displacement instead, along multiples of a modulus that freezes a
 finite part of <span class="math inline" data-term-auto="off">\(A\)</span>; the weighted
 proof adds the dyadic average <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-dyadic-average">eq:257-weighted-dyadic-average</a>.
@@ -804,6 +811,20 @@ one common cause.</p>
 <section id="the-unconditional-record-universal-direction"
 class="level3">
 <h3>The unconditional record, universal direction</h3>
+<p>Full-support irrationality is Erdős’s theorem <span class="citation"
+data-cites="erdos1948"><a href="#ref-1">[1]</a></span>. The pairwise-coprime case is Erdős’s
+theorem of 1968, where he also stated that the coprimality condition can
+be removed <span class="citation" data-cites="erdos1968"><a href="#ref-2">[2]</a></span>. Luca
+and Tachiya proved irrationality for every purely periodic integer
+weight that is not identically zero <span class="citation"
+data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>; the purely periodic, eventually
+periodic, residue-class, odd-support and periodic-weight rows below
+follow from their theorem, and odd support is their Example 2 <span
+class="citation" data-cites="lucatachiya2017"></span>. The lcm-gap
+supports, including factorials and powers of two, have summable
+reciprocals, so they fall under the reciprocal-summable theorem stated
+by Erdős. The Lean declarations in the table are formal proofs of these
+statements.</p>
 <p>The checked support families in the following table use
 weighted-coefficient block certificates over the divisor incidence <span
 class="math inline" data-term-auto="off">\(\operatorname{sc}_A(n) := \#\{d \mid n : d \in
@@ -998,10 +1019,14 @@ for an absolutely convergent series and nowhere density under an
 all-index strict-tail condition; <a
 href="https://arxiv.org/abs/2406.17593v4">Kovač–Tao, Remark 4.1</a>
 verifies that strict-tail condition for the fixed-base Mersenne weights.
-Those sources are the classical topological antecedent. The local volume
-dichotomy, injectivity, and greedy-membership statements above and below
-are Lean-checked claims of this corpus. The sparse power-series criteria
-of <a href="https://arxiv.org/abs/2601.20743">Kaneko–Suzuki–Tachiya</a>
+Nitecki proves that a subsum set whose terms all exceed their tails is a
+Cantor set of measure <span class="math inline" data-term-auto="off">\(\lim_n2^nR_n\)</span>,
+and credits this to Hornich <span class="citation"
+data-cites="nitecki2013"><a href="#ref-4">[4]</a></span>; this is the classical source for the
+topology and measure used here. The local volume dichotomy, injectivity,
+and greedy-membership statements above and below are Lean-checked claims
+of this corpus. The sparse power-series criteria of <a
+href="https://arxiv.org/abs/2601.20743">Kaneko–Suzuki–Tachiya</a>
 (Theorems 1–3, pp. 3–5 of arXiv v1) assume sparse coefficient supports;
 their relation to the divisor-incidence coefficients of these subseries
 is recorded after Theorem <a class="math-ref" href="#thm:257-weighted">1.1</a>. <span><span
@@ -1068,33 +1093,32 @@ class="math inline" data-term-auto="off">\(30\)</span> by <code>decide</code>. <
 class="sans-serif">[Cert]</span></span></p>
 <div class="rem">
 <p><em>Remark 1.11</em> (Literature, exactly). <span
-class="math inline" data-term-auto="off">\(E\)</span> is irrational (Erdős 1948). Zudilin’s
-irrationality measure is <span class="math inline" data-term-auto="off">\(\mu(E) \le
-2.42343562\ldots\)</span> (<em>Math. Notes</em> 72 (2002) 858–862; the
-erratum, <em>Acta Arith.</em> 111 (2004) 153–164, gives <span
-class="math inline" data-term-auto="off">\(2.46497868\ldots\)</span>). Transcendence of <span
-class="math inline" data-term-auto="off">\(E\)</span> is unknown (Duverney–Tachiya, <em>Forum
-Math.</em> 31 (2019) 1557–1566), and the Erdős–Graham conjecture that
-every such subset sum is irrational — i.e. (U) — is itself open. For
-binary digit runs of <span class="math inline" data-term-auto="off">\(E\)</span> the only
-rigorous result is a <em>lower</em> bound: Erdős constructs a <span
-class="math inline" data-term-auto="off">\(0\)</span>-run of length <span
-class="math inline" data-term-auto="off">\(\ge c \log^{1/10} N\)</span> among the first <span
-class="math inline" data-term-auto="off">\(N\)</span> bits; Crandall (<em>INTEGERS</em> 12
-(2012) #A23, §7) records the longest observed <span
-class="math inline" data-term-auto="off">\(0\)</span>-run as <span
-class="math inline" data-term-auto="off">\(47\)</span> in the first <span
-class="math inline" data-term-auto="off">\(2^{43}\)</span> bits and states that he does not
-know how to show that <code>11</code> appears infinitely often. Campbell
-(arXiv:2605.24160, 2026) settles that occurrence question affirmatively.
-<span><span class="sans-serif">[Cited]</span></span></p>
+class="math inline" data-term-auto="off">\(E\)</span> is irrational <span class="citation"
+data-cites="erdos1948"><a href="#ref-1">[1]</a></span>. Zudilin proves the irrationality measure
+bound <span
+class="math inline" data-term-auto="off">\(\mu(E)\le2.46497868\ldots\)</span> <span
+class="citation" data-cites="zudilin2004"></span>, correcting an earlier
+computation (see the remark at the end of his Section 3, p. 159).
+Transcendence of <span class="math inline" data-term-auto="off">\(E\)</span> is unknown <span
+class="citation" data-cites="duverneytachiya"></span>, and the
+Erdős–Graham conjecture that every such subset sum is irrational,
+i.e. (U), is itself open. For the binary digits of <span
+class="math inline" data-term-auto="off">\(E\)</span>, Erdős’s proof produces arbitrarily
+long runs of zeros. Crandall asked whether the block <code>11</code>
+occurs infinitely often in the binary expansion of <span
+class="math inline" data-term-auto="off">\(E\)</span>, and Campbell proves that it does <span
+class="citation" data-cites="campbell2026"></span>. <span><span
+class="sans-serif">[Cited]</span></span></p>
 </div>
-<p>That last pair of citations is the sharpest single orientation fact
-available. Every rigorous result in the literature about the digits of
-<span class="math inline" data-term-auto="off">\(E\)</span> points the wrong way: they
-produce long runs, or guarantee that patterns occur. What (H) needs is
-that a pattern <em>never</em> occurs for long. No result of that logical
-type exists.</p>
+<p>The digit results cited here produce long runs or guarantee that
+patterns occur. The finite irrationality exponent bounds runs of equal
+binary digits of <span class="math inline" data-term-auto="off">\(E\)</span> only linearly: a
+run of length <span class="math inline" data-term-auto="off">\(L\)</span> after the <span
+class="math inline" data-term-auto="off">\(N\)</span>th place forces <span
+class="math inline" data-term-auto="off">\(L&lt;(\mu(E)-1+\varepsilon)N\)</span> for large
+<span class="math inline" data-term-auto="off">\(N\)</span>. What (H) needs is that a pattern
+<em>never</em> occurs for long, and no result of that kind is identified
+in this record.</p>
 </section>
 </section>
 <section id="sec:257-wall" class="level2">
@@ -1598,12 +1622,11 @@ producer: for a divisor-dense <span class="math inline" data-term-auto="off">\(A
 block of <span class="math inline" data-term-auto="off">\(K\)</span> consecutive indices with
 <span class="math inline" data-term-auto="off">\(2^K \mid \sum_{r=1}^{K}
 \operatorname{sc}_A(N+r)\,2^{K-r}\)</span> and a bounded middle window.
-These are the same statement in the incidence coordinate. No result of
-that shape exists in the literature in any form, and the only rigorous
-results in that direction — lower bounds on runs, and guarantees that
-patterns occur — have the opposite logical type. That convergence, from
-two independent directions, is the strongest evidence the corpus offers
-that there is exactly one wall here rather than several.</p>
+These are the same statement in the incidence coordinate. No proof of it
+is identified in this record, and the digit results cited above produce
+long runs or guarantee that patterns occur. The two directions meet at
+one missing estimate; this correspondence does not by itself show that
+one estimate settles every remaining obligation.</p>
 </section>
 </section>
 <section id="sec:257-survivors" class="level2">
@@ -1617,8 +1640,9 @@ observed pattern, that is said plainly.</p>
 <section id="ssec:route-1" class="level3">
 <h3>Route 1: the reset <span class="math inline" data-term-auto="off">\(\sqrt{\
 }\)</span>-escape / R-run anti-concentration target</h3>
-<p><strong>What it needs.</strong> Any one of three forms, in decreasing
-strength.</p>
+<p><strong>What it needs.</strong> One of the first two forms below, in
+decreasing strength; the sign law (iii) is a weaker target whose
+transport to half-membership is untested.</p>
 <ol>
 <li><p><em>Run-length form.</em> For every reset row <span
 class="math inline" data-term-auto="off">\(r \ge 31\)</span> the maximal pure-R run starting
@@ -1846,9 +1870,11 @@ class="sans-serif">[Open]</span></span></p>
 <h3>Ranking, stated plainly</h3>
 <p>Route 4 is the only one that can be completed with the mathematics
 currently in hand; it produces theorems, not progress on the wall. Route
-3 is the only one that would produce a new irrationality theorem for a
-named constant, and its missing input is a windowed Mertens estimate,
-which is ordinary analytic number theory rather than a new phenomenon.
+3 concerns the prime-support constant, which Tao and Teräväinen have
+proved irrational <span class="citation"
+data-cites="taoteravainen2025"><a href="#ref-7">[7]</a></span>; completing it would reprove that
+theorem in the coordinates of this record, and its missing input is a
+windowed Mertens estimate, which is ordinary analytic number theory.
 Route 2 is the only place in the half-value branch with a non-singleton
 witness space, which makes it the best target for search. Route 1 is
 where the actual obstruction lives, and Route 5 is Route 1 in another
@@ -2000,7 +2026,10 @@ hypotheses.</p>
 \{1,2,3,\dots\}\)</span>, i.e. <span class="math inline" data-term-auto="off">\(m=1\)</span>
 below), the following named infinite families are each proved irrational
 unconditionally, for every base <span class="math inline" data-term-auto="off">\(b \ge
-2\)</span>:</p>
+2\)</span>. The purely periodic, eventually periodic, residue-class and
+odd supports follow from the periodic theorem of Luca and Tachiya <span
+class="citation" data-cites="lucatachiya2017"></span>, and the
+declarations below are formal proofs of these cases:</p>
 <div class="thm">
 <p><strong>Theorem 5.5</strong> (Purely periodic support). <em>For every
 <span class="math inline" data-term-auto="off">\(b \ge 2\)</span>, every modulus <span
@@ -2055,19 +2084,12 @@ class="sans-serif">[Lean]</span></span><br />
 <strong>Site:</strong> (specializes purely periodic support).</em></p>
 </div>
 <div class="thm">
-<p><strong>Theorem 5.8</strong> (Odd support – first
-density-strictly-between-0-and-1 class). <em>For every <span
+<p><strong>Theorem 5.8</strong> (Odd support). <em>For every <span
 class="math inline" data-term-auto="off">\(b \ge 2\)</span>: <span
 class="math inline" data-term-auto="off">\(\sum_{n \text{ odd}} 1/(b^n-1)\)</span> is
-irrational. This is the first landed support class with natural density
-strictly between <span class="math inline" data-term-auto="off">\(0\)</span> and <span
-class="math inline" data-term-auto="off">\(1\)</span> (odd <span
-class="math inline" data-term-auto="off">\(n\)</span> has density <span
-class="math inline" data-term-auto="off">\(1/2\)</span> inside <span
-class="math inline" data-term-auto="off">\(\mathbb{N}\)</span>), as opposed to the
-density-<span class="math inline" data-term-auto="off">\(1\)</span> full-support case or
-density-<span class="math inline" data-term-auto="off">\(1/m\)</span> residue classes for
-large <span class="math inline" data-term-auto="off">\(m\)</span>.
+irrational. This density-<span class="math inline" data-term-auto="off">\(1/2\)</span>
+support is the case treated explicitly by Luca and Tachiya <span
+class="citation" data-cites="lucatachiya2017"></span>.
 <code>coord:odd-support</code> <span><span
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span><br />
@@ -2105,12 +2127,17 @@ class="math inline" data-term-auto="off">\(E\approx1.6067\)</span>.
 class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Lean]</span></span><br />
 <strong>Site:</strong> , , , , , . Strict separation and summability
-give the compactness, unique coding, and Cantor topology. The measure
-assertion is Mersenne-specific: if <span
-class="math inline" data-term-auto="off">\(R_N=\sum_{n&gt;N}x_n\)</span>, the level-<span
-class="math inline" data-term-auto="off">\(N\)</span> cylinder length is <span
-class="math inline" data-term-auto="off">\(2^N R_N\to1\)</span>. Other weight sequences
-require their own tail asymptotic.<br />
+give the compactness, unique coding, and Cantor topology, and Hornich’s
+strict-tail theorem, as proved by Nitecki <span class="citation"
+data-cites="nitecki2013"><a href="#ref-4">[4]</a></span>, gives the measure as <span
+class="math inline" data-term-auto="off">\(\lim_N2^NR_N\)</span> with <span
+class="math inline" data-term-auto="off">\(R_N=\sum_{n&gt;N}x_n\)</span>: each level-<span
+class="math inline" data-term-auto="off">\(N\)</span> cylinder has length <span
+class="math inline" data-term-auto="off">\(R_N\)</span>, and the <span
+class="math inline" data-term-auto="off">\(2^N\)</span> disjoint cylinders have total length
+<span class="math inline" data-term-auto="off">\(2^NR_N\)</span>. The Mersenne-specific input
+is <span class="math inline" data-term-auto="off">\(2^NR_N\to1\)</span>. Other weight
+sequences require their own tail asymptotic.<br />
 <strong>Chains with:</strong> Theorem <a class="math-ref" href="#thm:greedy-survival-record">5.10</a> below
 (compactness is exactly what powers every “limit of achieved points is
 achieved” argument used downstream, including the seam-limit route of
@@ -2546,9 +2573,10 @@ sufficiency). <em> If the greedy second-channel phase
 (<em>greedyMersenneSecondChannelPhaseRat</em>) stays separated
 (<em>HalfSecondChannelSeparatedRat</em>) at every skipped rank, then
 <span
-class="math inline" data-term-auto="off">\(1/2\in\mathrm{mersenneAchievementSet}\)</span>; a
-rational specialization discharges the hypothesis from row <span
-class="math inline" data-term-auto="off">\(7\)</span> on.</em></p>
+class="math inline" data-term-auto="off">\(1/2\in\mathrm{mersenneAchievementSet}\)</span>;
+the rational specialization proves the rational separation at ranks
+<span class="math inline" data-term-auto="off">\(n\le6\)</span> and assumes it for <span
+class="math inline" data-term-auto="off">\(n\ge7\)</span>.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:second-channel-phase</code>
 </em></p>
@@ -2599,8 +2627,7 @@ class="math inline" data-term-auto="off">\(\mathrm{card}(\mathrm{support})+\math
 &lt; 4\cdot\mathrm{remainder}\)</span>
 (<em>SeamMiddleProducerCardEscape</em>), then <span
 class="math inline" data-term-auto="off">\(1/2\in\mathrm{mersenneAchievementSet}\)</span>.
-The strictly weaker-hypothesis, stronger-conclusion socket
-<em>SeamMiddleProducerRowEscape</em> (<span
+The socket <em>SeamMiddleProducerRowEscape</em> (<span
 class="math inline" data-term-auto="off">\(s\le\mathrm{remainder}\)</span> at every late
 middle row) implies the card escape and hence also closes the
 branch.</em></p>
@@ -2732,8 +2759,9 @@ class="sans-serif">scale:uniform</span></span><code>coord:seam-integer</code>
 irrationality, unconditional). <em> For every base <span
 class="math inline" data-term-auto="off">\(b\ge 2\)</span>: <span
 class="math inline" data-term-auto="off">\(\sum&#39;_{n\ge 1} 1/(b^n-1)\)</span> is
-irrational, unconditionally. No open obligations. Base <span
-class="math inline" data-term-auto="off">\(2\)</span> is the classical Erdős–Borwein
+irrational, unconditionally. No open obligations. The theorem is
+Erdős’s <span class="citation" data-cites="erdos1948"><a href="#ref-1">[1]</a></span>; base
+<span class="math inline" data-term-auto="off">\(2\)</span> is the classical Erdős–Borwein
 constant. This is the terminal target every other rigidity/support
 theorem in this catalogue is measured against.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
@@ -2818,6 +2846,12 @@ Theorem <a class="math-ref" href="#thm:full-support-catalogue">6.14</a>.</em></
 class="sans-serif">scale:uniform</span></span><code>coord:dilation</code>
 </em></p>
 </div>
+<p>Luca and Tachiya proved irrationality for every purely periodic
+integer weight that is not identically zero <span class="citation"
+data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>. The periodic, eventually periodic,
+residue-class and odd-support statements below follow from their
+theorem; the declarations are formal proofs of these cases, and the
+mechanism described is that of the certificate proof.</p>
 <div class="thm" id="thm:periodic-support">
 <p><strong>Theorem 6.20</strong> (Periodic-support irrationality: the
 periodic divisor-orbit sieve). <em> For every <span
@@ -2862,14 +2896,21 @@ irrationality). <em> For every <span class="math inline" data-term-auto="off">\(
 class="math inline" data-term-auto="off">\(\sum_{n\equiv c\,(m)} 1/(b^n-1)\)</span> is
 irrational. Specializing <span class="math inline" data-term-auto="off">\(m=2,c=1\)</span>:
 <span class="math inline" data-term-auto="off">\(\sum_{n\text{ odd}} 1/(b^n-1)\)</span> is
-irrational for every <span class="math inline" data-term-auto="off">\(b\ge 2\)</span> — the
-first support class of density strictly between <span
-class="math inline" data-term-auto="off">\(0\)</span> and <span
-class="math inline" data-term-auto="off">\(1\)</span> to land.</em></p>
+irrational for every <span class="math inline" data-term-auto="off">\(b\ge 2\)</span>, the
+case treated explicitly in <span class="citation"
+data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:periodic-sieve</code>
 </em></p>
 </div>
+<section id="comparison-with-the-known-theorem." class="level5">
+<h5>Comparison with the known theorem.</h5>
+<p>Luca and Tachiya proved irrationality for every nonzero purely
+periodic integer weight, of any signs <span class="citation"
+data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>, so the terminating branch below
+occurs only for the zero weight. The theorem records the dichotomy
+reached by the certificate method, together with its one-sided
+closures.</p>
 <div class="thm" id="thm:signed-periodic">
 <p><strong>Theorem 6.23</strong> (Signed periodic-weight dichotomy and its
 unconditional one-sided closures). <em> For base <span
@@ -2897,13 +2938,13 @@ class="math inline" data-term-auto="off">\(t\)</span>, each dividing a squarefre
 <span class="math inline" data-term-auto="off">\(r\)</span> all of whose prime factors are
 <span class="math inline" data-term-auto="off">\(\le t\)</span>): the pairwise-coprime
 Mersenne product <span class="math inline" data-term-auto="off">\(C=\prod_{p\in
-P}(2^p-1)\)</span> survives fraction reduction — <span
-class="math inline" data-term-auto="off">\(C/\gcd(C,h)\mid
-(h\cdot\mathrm{mobiusNumerator}(r)/\mathrm{mersenne}(r))\mathrm{.den}\)</span>
-— exactly when <span class="math inline" data-term-auto="off">\(C\)</span> is coprime to
-scale <span class="math inline" data-term-auto="off">\(h\)</span> (or, weaker, when every
-prime factor of <span class="math inline" data-term-auto="off">\(h\)</span> is <span
-class="math inline" data-term-auto="off">\(\le t\)</span>). This is the load-bearing
+P}(2^p-1)\)</span> survives fraction reduction in the following sense:
+<span class="math inline" data-term-auto="off">\(C/\gcd(C,h)\)</span> divides the reduced
+denominator of <span
+class="math inline" data-term-auto="off">\(h\cdot\mathrm{mobiusNumerator}(r)/\mathrm{mersenne}(r)\)</span>,
+and when <span class="math inline" data-term-auto="off">\(C\)</span> is coprime to the scale
+<span class="math inline" data-term-auto="off">\(h\)</span> the whole product <span
+class="math inline" data-term-auto="off">\(C\)</span> divides it. This is the load-bearing
 quantitative step behind Theorem <a class="math-ref" href="#thm:full-support-catalogue">6.14</a>.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:cyclotomic</code>
@@ -2924,6 +2965,7 @@ computed in closed form.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:cyclotomic</code>
 </em></p>
 </div>
+</section>
 </section>
 <section id="exact-identities-and-reductions" class="level3">
 <h3>Exact identities and reductions</h3>
@@ -2949,11 +2991,13 @@ pattern <span class="math inline" data-term-auto="off">\(1,0,-1,0\)</span>
 class="math inline" data-term-auto="off">\(\mathrm{intWeightedCoeff}\,w\,n = 0\)</span>
 identically for every <span class="math inline" data-term-auto="off">\(n\equiv 3\pmod
 4\)</span>, via the divisor-involution <span
-class="math inline" data-term-auto="off">\(d\mapsto n/d\)</span>. This is exactly why the
-general signed-periodic case (Theorem <a class="math-ref" href="#thm:signed-periodic">6.23</a>) only reaches a
-dichotomy rather than an unconditional theorem: no residue-blind
-selection can force a nonzero protected residue for every periodic
-signed weight.</p>
+class="math inline" data-term-auto="off">\(d\mapsto n/d\)</span>. This is why the certificate
+method for the general signed-periodic case (Theorem <a class="math-ref" href="#thm:signed-periodic">6.23</a>) reaches only a
+dichotomy: no residue-blind selection can force a nonzero protected
+residue for every periodic signed weight. Luca and Tachiya’s theorem
+gives irrationality for every nonzero periodic weight by another
+argument <span class="citation"
+data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>.</p>
 <p><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:fixed</span></span><code>coord:signed-divisor-calculus</code>
 </p>
@@ -3250,7 +3294,8 @@ problem-agnostic quantifier collapse). <em>
 class="math inline" data-term-auto="off">\(\,d\,E\,j\)</span> picks out the unique nearest
 dyadic power <span class="math inline" data-term-auto="off">\(2^{d-j+1}\ge E\)</span>. Fully
 abstract, pure <span class="math inline" data-term-auto="off">\(\mathbb N\)</span>
-arithmetic, zero seam content: <span
+arithmetic, zero seam content: for <span class="math inline" data-term-auto="off">\(E\le
+2^{d+1}\)</span>, <span
 class="math inline" data-term-auto="off">\(\mathrm{DyadicBandEscape}\,d\,E \iff \exists
 j,\,\mathrm{CriticalDyadicBandIndex}\,d\,E\,j
 \land E+2(d+j)\le 2^{d-j+1}\)</span> — the <span
@@ -4138,12 +4183,13 @@ class="math inline" data-term-auto="off">\(\Leftrightarrow\)</span>
 <code>CriticalDyadicBandIndex</code>, PROBLEM-AGNOSTIC quantifier
 collapse). <em>Pure <span
 class="math inline" data-term-auto="off">\(\mathbb{N}\)</span>-arithmetic, zero seam or
-Mersenne content: for <span class="math inline" data-term-auto="off">\(d,E,j\)</span> with
-<span
+Mersenne content: for <span class="math inline" data-term-auto="off">\(d,E\)</span> with
+<span class="math inline" data-term-auto="off">\(E\le2^{d+1}\)</span>, where <span
 class="math inline" data-term-auto="off">\(\mathrm{CriticalDyadicBandIndex}(d,E,j)\)</span>
-the unique nearest dyadic power <span class="math inline" data-term-auto="off">\(2^{d-j+1}\ge
-E\)</span>, </em></p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathrm{DyadicBandEscape}(d,E)
+selects the unique nearest dyadic power <span
+class="math inline" data-term-auto="off">\(2^{d-j+1}\ge E\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathrm{DyadicBandEscape}(d,E)
 \;\Longleftrightarrow\; \exists j,\
 \mathrm{CriticalDyadicBandIndex}(d,E,j) \wedge E + 2(d+j) \le
 2^{d-j+1}.\]</span></div>
@@ -5753,7 +5799,13 @@ coordinate-split faces, , <span><span
 class="sans-serif">[Lean]</span></span>, which is exactly where unique
 binary coding is spent). None of this module touches irrationality of
 any subseries value; it is a self-contained measure-and-topology
-classification of achievement sets, orthogonal to O1–O5.</p>
+classification of achievement sets, orthogonal to O1–O5. The dichotomy
+is the case of retained coordinates of Hornich’s strict-tail measure
+formula <span class="citation" data-cites="nitecki2013"><a href="#ref-4">[4]</a></span>: the
+retained Mersenne weights still exceed their tails, and the Mersenne
+tail estimate supplies the values <span
+class="math inline" data-term-auto="off">\(2^{-|F|}\)</span> and <span
+class="math inline" data-term-auto="off">\(0\)</span>.</p>
 </section>
 <section id="new-half-counterexample-frontier-tree" class="level4">
 <h4>New half-counterexample frontier tree</h4>
@@ -6560,12 +6612,11 @@ class="math inline" data-term-auto="off">\(J\ge7\)</span>: <span
 class="math inline" data-term-auto="off">\(\mu_J(M)\le\tfrac{11}{15}\Rightarrow 12\mid
 M\)</span> (case analysis on <span
 class="math inline" data-term-auto="off">\(M\bmod4\)</span> and <span
-class="math inline" data-term-auto="off">\(M\bmod3\)</span>). Combined with Corollary <a class="math-ref" href="#cor:tr-half-lcm">8.7</a>, the search for
-possibly-bad ranks inside <span class="math inline" data-term-auto="off">\([4,L_J/2]\)</span>
-can be restricted to multiples of <span
-class="math inline" data-term-auto="off">\(12\)</span>, a <span
-class="math inline" data-term-auto="off">\(12\times\)</span> speedup with no loss of
-coverage.</em></p>
+class="math inline" data-term-auto="off">\(M\bmod3\)</span>). Combined with Corollary <a class="math-ref" href="#cor:tr-half-lcm">8.7</a>, a rank <span
+class="math inline" data-term-auto="off">\(n\in[4,L_J/2]\)</span> needs only the candidate
+witnesses <span class="math inline" data-term-auto="off">\(M\in[n,2n-2]\)</span> that are
+multiples of <span class="math inline" data-term-auto="off">\(12\)</span>; every rank in that
+window is still checked.</em></p>
 </div>
 <div class="thm" id="thm:tr-finite-decision">
 <p><strong>Theorem 8.9</strong> (Finite decision procedure). <em> Call
@@ -7720,7 +7771,9 @@ class="math inline" data-term-auto="off">\(m\)</span>-periodic above <span
 class="math inline" data-term-auto="off">\(N_0\)</span> <span
 class="math inline" data-term-auto="off">\(\Rightarrow\)</span> irrational. Plus: the class
 of supports with irrational series is closed under finite symmetric
-difference in both directions.</p>
+difference in both directions. The statement follows from the periodic
+theorem of Luca and Tachiya <span class="citation"
+data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>.</p>
 <p><strong>Mismatch (<code>hypothesis_strength</code>):</strong> the
 widest unconditional class landed (all moduli, all thresholds, no bound
 anywhere), but eventual periodicity is a measure-zero, countable
@@ -7880,7 +7933,9 @@ class="math inline" data-term-auto="off">\(\vee\)</span> <span class="math inlin
 k,z,\ b^k x=z\)</span>; the terminating branch closes unconditionally as
 soon as <span
 class="math inline" data-term-auto="off">\(\mathrm{intWeightedCoeff}\,w\)</span> is
-one-signed and frequently nonzero.</p>
+one-signed and frequently nonzero. Luca and Tachiya’s theorem already
+gives irrationality for every nonzero periodic weight <span
+class="citation" data-cites="lucatachiya2017"></span>.</p>
 <p><strong>Mismatch (<code>multiple</code>):</strong> two mismatches.
 (i) periodicity of the weight is still required — this is the signed
 lift of NM-08, not an escape from it. (ii) the one-sidedness clause is
@@ -7917,25 +7972,22 @@ correct assembly of the corpus’s proved pieces plus one clearly named
 open step; none decides #257.</p>
 <div class="thm">
 <p><strong>Theorem 9.46</strong> (A — reset-crossing unification).
-<em>The 257-reset target exponent <span
-class="math inline" data-term-auto="off">\((r+5)/2\)</span> is not a fitted constant but a
-<em>derived</em> one: it follows from sqrt-scale reset
-anti-concentration together with the run-length-to-crossing geometry of
-oa-2’s deficit/excess pair above, and every correction constant in the
-derivation is exact (no asymptotic <span
-class="math inline" data-term-auto="off">\(O(\cdot)\)</span> notation is hiding a table).
-Concretely: the deficit-side run law (oa-2, unconditional and uniform)
-converts any anti-concentration bound <span
+<em>Assume sqrt-scale reset anti-concentration. Together with the
+run-length-to-crossing geometry of oa-2’s deficit/excess pair above, it
+gives the 257-reset target exponent <span
+class="math inline" data-term-auto="off">\((r+5)/2\)</span>, with every correction constant
+in the derivation exact. The deficit-side run law (oa-2, unconditional
+and uniform) converts any anti-concentration bound <span
 class="math inline" data-term-auto="off">\(2^{\varepsilon r}\)</span> on <span
 class="math inline" data-term-auto="off">\(|\Delta_r|\)</span> into a run-length ceiling
 <span class="math inline" data-term-auto="off">\(L_r \lesssim (1-\varepsilon)\cdot
-2r\)</span>; matching this against the certified maximum observed run
-growth (SE-7: <span class="math inline" data-term-auto="off">\(\max L_r \sim
-\log_2(\mathrm{row})\)</span>, row 200<span>,</span>000) pins <span
-class="math inline" data-term-auto="off">\(\varepsilon = 1/2\)</span> as the exact crossover
-exponent, not merely a plausible guess. Theorem A is the unification of
-the deficit-run and excess-run geometry into one crossing socket at that
-derived exponent; the open step is exactly the anti-concentration input
+2r\)</span>, and Theorem A joins the deficit-run and excess-run geometry
+into one crossing socket at <span
+class="math inline" data-term-auto="off">\(\varepsilon=1/2\)</span>. The certified maximum
+observed run growth (SE-7: <span class="math inline" data-term-auto="off">\(\max L_r \sim
+\log_2(\mathrm{row})\)</span> through row <span
+class="math inline" data-term-auto="off">\(200{,}000\)</span>) is finite data and does not
+determine the exponent. The open step is the anti-concentration input
 identified in the G5/H4/F5b/oa-3b rows above.</em></p>
 </div>
 <div class="thm">
@@ -7948,14 +8000,13 @@ affine excess recurrence (rc-2) is exact, so once the run length and the
 pulse word are fixed, <span class="math inline" data-term-auto="off">\(w_{r_0+1}\)</span> is
 one of at most two integers with no remaining degree of freedom.
 Consequently a chain of <span class="math inline" data-term-auto="off">\(n\)</span> dangerous
-resets is not <span class="math inline" data-term-auto="off">\(n\)</span> independent
-near-misses; it is a single tower of <span
-class="math inline" data-term-auto="off">\(n{-}1\)</span> nested exact integer coincidences,
-each individually as unlikely as an explicit arithmetic accident and
-none free to vary once the pulse stream is fixed. Failure of sqrt-escape
-therefore requires an exact integer-coincidence tower, not a generic
-accumulation of small errors — the open step is excluding the two pinned
-values (RC-5’s own closing condition).</em></p>
+resets is a tower of <span class="math inline" data-term-auto="off">\(n{-}1\)</span> nested
+exact integer conditions, none free to vary once the pulse stream is
+fixed. Failure of sqrt-escape therefore requires such an
+integer-coincidence tower. No probability model is supplied, so these
+conditions do not by themselves make dangerous resets unlikely; the open
+step is excluding the two pinned values (RC-5’s own closing
+condition).</em></p>
 </div>
 <div class="thm">
 <p><strong>Theorem 9.48</strong> (C — the one-sided finite decision
@@ -8205,9 +8256,9 @@ distribution information. This weighted budget is too coarse to yield
 the required <span class="math inline" data-term-auto="off">\(2^{-3n/2}\)</span> separation
 from the known irrationality measure.</p>
 <p>Zudilin’s bound <span class="math inline" data-term-auto="off">\(\mu(E)\le
-2.42343562\ldots\)</span> (Math. Notes 72 (2002) 858–862; the cited
-erratum gives <span class="math inline" data-term-auto="off">\(2.46497868\ldots\)</span>)
-does not repair this quadratic-versus-linear budget.</p>
+2.46497868\ldots\)</span> <span class="citation"
+data-cites="zudilin2004"><a href="#ref-8">[8]</a></span> does not repair this
+quadratic-versus-linear budget.</p>
 <p><strong>Scope.</strong> The displayed denominator estimate combined
 with a fixed irrationality-measure exponent does not derive the wall. A
 sharper denominator analysis using the actual skip distribution, or a
@@ -8487,19 +8538,19 @@ class="math inline" data-term-auto="off">\(\mathrm{Fintype}\ \mathrm{State}\)</s
 class="math inline" data-term-auto="off">\(\mathrm{card}(\mathrm{State})\ge\mathrm{radius}+1\)</span>,
 unbounded in <span class="math inline" data-term-auto="off">\(m\)</span>. (fan-out lower
 bound at ).</em></p>
-<p><em><strong>Scope.</strong> Rules out, for <em>either</em> #249 or
-#257, any proof strategy that tries to define a bounded/autonomous
-"carry state" summarizing pre-<span class="math inline" data-term-auto="off">\(m\)</span>
-history and use it to exactly determine the post-<span
-class="math inline" data-term-auto="off">\(m\)</span> tail — completely general, no
-dependence on whether the coefficients are <span
-class="math inline" data-term-auto="off">\(\varphi\)</span> or a Möbius-support indicator.
+<p><em><strong>Scope.</strong> Excludes bounded-state encodings of
+pre-<span class="math inline" data-term-auto="off">\(m\)</span> history that must distinguish
+every member of the displayed balanced-pulse family, whether the
+coefficients are <span class="math inline" data-term-auto="off">\(\varphi\)</span> or a
+Möbius-support indicator. Applying it to #249 or #257 requires showing
+that the relevant orbit realises that family, and it does not rule out
+every finite-state proof strategy.
 <code>coord:binary-digit, generic</code> <strong>Object or
-representation:</strong> about a <em>representation</em> class (any
-finite-automaton encoding of history) — it says nothing about <span
-class="math inline" data-term-auto="off">\(C\)</span> or <span class="math inline" data-term-auto="off">\(\mathcal
-A\)</span> directly, only that this whole family of encodings is too
-weak. <span><span class="sans-serif">[Lean]</span></span><span><span
+representation:</strong> about a <em>representation</em> class, the
+encodings of history that separate the balanced-pulse family; it says
+nothing about <span class="math inline" data-term-auto="off">\(C\)</span> or <span
+class="math inline" data-term-auto="off">\(\mathcal A\)</span> directly. <span><span
+class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:n/a</span></span></em></p>
 </div>
 <div class="prop" id="prop:mobius-nogo">
@@ -8818,10 +8869,11 @@ a growing precision, or needs to explain why it does not.</p>
 anti-concentration of a logarithmically short divisor sum</h3>
 <section id="the-statement-needed" class="level4 unnumbered">
 <h4 class="unnumbered">The statement needed</h4>
-<p>Three forms, in decreasing strength; each closes the half-value
-branch, i.e. yields <span
+<p>Three forms, in decreasing strength. Forms (i) and (ii) each close
+the half-value branch through the stated consumers, i.e. yield <span
 class="math inline" data-term-auto="off">\((1/2:\mathbb{R})\in\mathcal{A}\)</span> and hence
-a counterexample to universal #257.</p>
+a counterexample to universal #257. Form (iii) is a weaker target whose
+transport to half-membership is untested.</p>
 <p><em>Form (i), the run-length form.</em> Writing <span
 class="math inline" data-term-auto="off">\(\mathrm{rem}(s)\)</span> for the integer seam
 greedy remainder at row <span class="math inline" data-term-auto="off">\(s\)</span>, <span
@@ -8933,7 +8985,20 @@ at level <span class="math inline" data-term-auto="off">\(L\)</span> in the obvi
 class="math inline" data-term-auto="off">\(M\)</span> is viewed in <span
 class="math inline" data-term-auto="off">\(\widehat{\mathbb{Z}}\)</span>, and the map <span
 class="math inline" data-term-auto="off">\(M\mapsto M+1\)</span> is the odometer, which is
-uniquely ergodic with respect to Haar measure.</p>
+uniquely ergodic with respect to Haar measure. Unique ergodicity
+controls averages of continuous functions, and <span
+class="math inline" data-term-auto="off">\(\Psi_L\)</span> is not one: for Haar-almost every
+<span class="math inline" data-term-auto="off">\(x\)</span> infinitely many primes <span
+class="math inline" data-term-auto="off">\(p\)</span> divide <span
+class="math inline" data-term-auto="off">\(x+1\)</span>, so <span
+class="math inline" data-term-auto="off">\(\Psi_L(x)=\infty\)</span>. For fixed <span
+class="math inline" data-term-auto="off">\(D\)</span> the truncation to <span
+class="math inline" data-term-auto="off">\(2\le d\le D\)</span> is periodic in <span
+class="math inline" data-term-auto="off">\(M\)</span> with period dividing <span
+class="math inline" data-term-auto="off">\(\operatorname{lcm}(1,\ldots,D)\)</span>, and its
+average over a period is an exact finite residue average; passing to all
+<span class="math inline" data-term-auto="off">\(d\)</span>, and then to the reset rows,
+needs separate estimates.</p>
 <p>The corpus’s own Reduction (A), <span
 class="math inline" data-term-auto="off">\(F(n)=\sum_{d\in D_n}
 2^{\,d-i_d(n)}/(2^d-1)\)</span>, is <em>the same functional</em> <span
@@ -8950,11 +9015,13 @@ class="sans-serif">[Open]</span></span> for any consequence.</p>
 <p>So the object required is: <em>an effective equidistribution
 statement for the odometer orbit against <span
 class="math inline" data-term-auto="off">\(\Psi\)</span>, with the precision growing linearly
-in the index.</em> Unique ergodicity gives equidistribution with no
-rate. What is needed is a rate, pointwise along a sparse subsequence
-(the reset rows), at scale <span class="math inline" data-term-auto="off">\(2^{-r/2}\)</span>
-where <span class="math inline" data-term-auto="off">\(r\)</span> is the index. Equivalently,
-in the form a specialist will recognise: a lower bound for <span
+in the index.</em> Unique ergodicity gives equidistribution with no rate
+for continuous functions, such as the truncations to <span
+class="math inline" data-term-auto="off">\(d\le D\)</span>. What is needed is a rate,
+pointwise along a sparse subsequence (the reset rows), at scale <span
+class="math inline" data-term-auto="off">\(2^{-r/2}\)</span> where <span
+class="math inline" data-term-auto="off">\(r\)</span> is the index. Equivalently, in the form
+a specialist will recognise: a lower bound for <span
 class="math inline" data-term-auto="off">\(\mathrm{dist}(\Theta_L(M),\mathbb{Z})\)</span>
 with <span class="math inline" data-term-auto="off">\(L\asymp \log_2 M\)</span>, valid for
 all large <span class="math inline" data-term-auto="off">\(M\)</span> in a specified set, at
@@ -8972,60 +9039,52 @@ Kloosterman-type sums. <em>(b) Fourier analysis on <span
 class="math inline" data-term-auto="off">\(\widehat{\mathbb{Z}}\)</span> / Ramanujan
 expansions.</em> By Lemma <a class="math-ref" href="#lem:odometer">11.2</a> the phase is a
 function of <span class="math inline" data-term-auto="off">\(M\)</span> modulo the <span
-class="math inline" data-term-auto="off">\(d\)</span>’s, so its Fourier expansion is over the
-characters of <span class="math inline" data-term-auto="off">\(\mathbb{Z}/d\)</span>,
-i.e. over Ramanujan sums <span
-class="math inline" data-term-auto="off">\(c_d(\cdot)\)</span>; the required estimate becomes
-decay of the Ramanujan coefficients of <span
-class="math inline" data-term-auto="off">\(\Psi_L\)</span> plus a bound on their tails.
-<em>(c) Second-moment / local-limit machinery.</em> Prove that the
-vector <span class="math inline" data-term-auto="off">\((\tau(M+1),\dots,\tau(M+L))\)</span>,
-<span class="math inline" data-term-auto="off">\(L\asymp\log M\)</span>, obeys a
-<em>local</em> limit theorem strong enough to give anti-concentration of
-the weighted sum at scale <span
-class="math inline" data-term-auto="off">\(2^{-L/2}\)</span>.</p>
+class="math inline" data-term-auto="off">\(d\)</span>’s, so its finite truncations expand in
+the additive characters of <span
+class="math inline" data-term-auto="off">\(\mathbb{Z}/d\)</span>; an expansion in Ramanujan
+sums <span class="math inline" data-term-auto="off">\(c_d(\cdot)\)</span> needs further
+symmetry, and the required estimate would then be decay of those
+coefficients of <span class="math inline" data-term-auto="off">\(\Psi_L\)</span> plus a bound
+on their tails. <em>(c) Second-moment / local-limit machinery.</em>
+Prove that the vector <span
+class="math inline" data-term-auto="off">\((\tau(M+1),\dots,\tau(M+L))\)</span>, <span
+class="math inline" data-term-auto="off">\(L\asymp\log M\)</span>, obeys a <em>local</em>
+limit theorem strong enough to give anti-concentration of the weighted
+sum at scale <span class="math inline" data-term-auto="off">\(2^{-L/2}\)</span>.</p>
 </section>
 <section id="the-specific-obstacle" class="level4 unnumbered">
 <h4 class="unnumbered">The specific obstacle</h4>
 <p>This is the paragraph worth the most, so it is stated as sharply as
 the evidence permits.</p>
-<p><strong>Almost-all divisor-sum results can reach polylogarithmic
-intervals.</strong> Work of <a
-href="https://arxiv.org/abs/2108.11401">Mangerel</a> and <a
-href="https://arxiv.org/abs/2401.08432v3">Sun</a> includes
-divisor-bounded multiplicative functions in windows of this scale, so a
-blanket power-length exclusion is false. These theorems still do not
-directly supply the estimate needed here: their starting points are
-almost-all points, while ours are selected by the actual greedy
-dynamics; their statistic is an ordinary mean, while ours is a
-dyadically weighted fractional part; and our required precision shrinks
-exponentially in the window parameter. An application would need a
-quantitative exceptional-set/trajectory argument and control of this
-weighted phase.</p>
-<p><strong>The one technology that does reach sub-power windows delivers
-the wrong quantifier and the wrong class of function.</strong>
-Matomäki–Radziwiłł theory shows that a multiplicative function bounded
-by <span class="math inline" data-term-auto="off">\(1\)</span> has, in almost all windows
-<span class="math inline" data-term-auto="off">\([x,x+h]\)</span> with <span
-class="math inline" data-term-auto="off">\(h\to\infty\)</span> arbitrarily slowly,
-essentially its long average. Two mismatches, both fatal as stated.
-First, the conclusion is <em>almost all</em> <span
+<p><strong>Almost-all short-interval results reach polylogarithmic
+windows.</strong> Matomäki and Radziwiłł prove that a real-valued
+multiplicative function bounded by <span
+class="math inline" data-term-auto="off">\(1\)</span> has, in almost all windows <span
+class="math inline" data-term-auto="off">\([x,x+h]\)</span> with <span
+class="math inline" data-term-auto="off">\(h\to\infty\)</span>, essentially its long
+average <span class="citation" data-cites="matomakiradziwill"><a href="#ref-10">[10]</a></span>.
+Mangerel extends such bounds to a class of divisor-bounded
+multiplicative functions <span class="citation"
+data-cites="mangerel2021"><a href="#ref-11">[11]</a></span>, and Sun describes the almost-all
+transition profile of the <span class="math inline" data-term-auto="off">\(k\)</span>-fold
+divisor function at its critical polylogarithmic window <span
+class="citation" data-cites="sun2026"></span>. These theorems do not
+directly supply the estimate needed here, for two reasons.</p>
+<p>First, their conclusions hold for almost all <span
 class="math inline" data-term-auto="off">\(x\)</span>, whereas the seam needs <em>every</em>
-reset row <span class="math inline" data-term-auto="off">\(r\ge31\)</span>; a set of
-exceptional <span class="math inline" data-term-auto="off">\(x\)</span> of density zero can
-still contain every reset row, because the reset rows are themselves a
-density-zero set defined by the orbit rather than independently of
-it.</p>
+reset row <span class="math inline" data-term-auto="off">\(r\ge31\)</span>; an exceptional
+set of density zero can contain all the starting points selected by the
+orbit, since those points form a set of density zero.</p>
 <p>Second, <span class="math inline" data-term-auto="off">\(\tau\)</span> is not bounded by
-<span class="math inline" data-term-auto="off">\(1\)</span> and the relevant statistic is not
-an average of a multiplicative function but the distance to <span
-class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span> of a <em>dyadically
-weighted</em> sum of <span class="math inline" data-term-auto="off">\(\tau\)</span>-values;
-the weights <span class="math inline" data-term-auto="off">\(2^{-i}\)</span> mean that a
-single value <span class="math inline" data-term-auto="off">\(\tau(M+1)\)</span> contributes
-half the phase, so no averaging statement over the window can control
-it. Anything that averages within the window destroys the quantity,
-exactly as the wall analysis says of every scale-mismatched tool.</p>
+<span class="math inline" data-term-auto="off">\(1\)</span>, and the relevant statistic is
+the distance to <span class="math inline" data-term-auto="off">\(\mathbb{Z}\)</span> of a
+<em>dyadically weighted</em> sum of <span
+class="math inline" data-term-auto="off">\(\tau\)</span>-values at a precision shrinking
+exponentially in the window parameter; a single value <span
+class="math inline" data-term-auto="off">\(\tau(M+1)\)</span> contributes half the phase, so
+an average over the window does not by itself control it. An application
+would need a quantitative exceptional-set argument along the greedy
+trajectory and control of this weighted phase.</p>
 <p><strong>The joint-distribution literature is at CLT scale, not local
 scale.</strong> Erdős–Kac and its descendants, and the
 Hildebrand–Elliott-type results on the joint normality of <span
@@ -9173,11 +9232,12 @@ certified range that violate <span class="math inline" data-term-auto="off">\(\s
 and Borel–Cantelli gives “finitely many failures” with room to spare.
 This is consistent with, and independently derived from, the corpus’s
 own <span class="math inline" data-term-auto="off">\(\approx 2\times10^{-4}\)</span>
-digit-model estimate. It is a heuristic. Its only rigorous content is
-that the required inequality is not delicate: it asks for a bound <span
-class="math inline" data-term-auto="off">\(2^{15}\)</span> times weaker at <span
+digit-model estimate. It is a heuristic about a model fitted to a finite
+sample and gives no probability bound for the deterministic reset orbit.
+Within that model the required inequality is not delicate: it asks for a
+bound <span class="math inline" data-term-auto="off">\(2^{15}\)</span> times weaker at <span
 class="math inline" data-term-auto="off">\(r=31\)</span>, and exponentially weaker
-thereafter, than what the measured law delivers. That is a useful thing
+thereafter, than what the fitted law delivers. That is a useful thing
 for a specialist to know before deciding whether to spend effort
 here.</p>
 <p><em>Swing 3: attack the sign law first, and here is the reduction to
@@ -10337,15 +10397,14 @@ obstruction has been found.</p>
 near-integer anti-concentration bound for <span
 class="math inline" data-term-auto="off">\(\sum_{i\le L}\delta_n(M+i)2^{-i}\)</span>, a
 geometrically weighted divisor sum in a short interval, at resolution
-<span class="math inline" data-term-auto="off">\(2^{(r+5)/2}\)</span>. This is stated in the
-source material to not exist in the literature in any form, and it is
-explicitly noted to be the same missing ingredient, on the opposite side
-of the Erdős #249/#257 pair, as the totient-window discrepancy
-anti-concentration input needed to close #249’s certificate-supply
-obligation (Part IV). The two open problems, in their Lean-nearest
-forms, terminate at structurally the same missing analytic statement,
-applied to two different arithmetic functions (a Mersenne binary-digit
-count versus Euler’s totient).</p>
+<span class="math inline" data-term-auto="off">\(2^{(r+5)/2}\)</span>. No proof of this input
+is identified in this record. The same shape of input, a totient-window
+discrepancy anti-concentration bound, is needed on the other side of the
+Erdős #249/#257 pair to close #249’s certificate-supply obligation (Part
+IV). The two open problems, in their Lean-nearest forms, terminate at
+structurally the same missing analytic statement, applied to two
+different arithmetic functions (a Mersenne binary-digit count versus
+Euler’s totient).</p>
 </section>
 <section id="summary" class="level3">
 <h3>Summary</h3>
@@ -10384,6 +10443,118 @@ Problem 257 is solved.</p>
 <p>This work received no external funding. The author declares no
 competing interests.</p>
 </section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>P. Erdős, <a
+href="https://www.renyi.hu/~p_erdos/1948-04.pdf"><em>On arithmetical
+properties of Lambert series</em></a>, J. Indian Math. Soc. 12 (1948),
+63–66.</p></li>
+<li id="ref-2"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1969-09.pdf"><em>On the
+irrationality of certain series</em></a>, Math. Student 36 (1968),
+222–226 (issued 1969). The theorem on p. 222 treats pairwise-coprime
+support with convergent reciprocal sum at every integer base <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span>; the claimed removal of pairwise
+coprimality is stated without proof. The same page says the
+reciprocal-sum condition could be replaced by a weaker but more
+complicated condition, and p. 226 suggests <span
+class="math inline" data-term-auto="off">\(\sum_{n_i&lt;x}1/n_i=o(\log\log x)\)</span> for
+pairwise coprime supports.</p></li>
+<li id="ref-3"><p>F. Luca and Y. Tachiya, <a
+href="https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2014-14.pdf"><em>Linear
+independence results for the values of divisor functions
+series</em></a>, RIMS Kôkyûroku No. 2014 (2017), 138–150. Theorem A
+(p. 139) restates Theorem 1.1 of their paper <em>Irrationality of
+Lambert series associated with a periodic sequence</em>, Int. J. Number
+Theory 10 (2014), no. 3, 623–636, <a
+href="https://doi.org/10.1142/S1793042113501121">DOI</a>: for a purely
+periodic integer sequence <span class="math inline" data-term-auto="off">\(a(n)\)</span>, not
+identically zero, <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge1}a(n)/(q^n-1)\)</span> is irrational
+for every integer <span class="math inline" data-term-auto="off">\(q\)</span> with <span
+class="math inline" data-term-auto="off">\(|q|&gt;1\)</span>. Example 2 (p. 140) treats the
+odd support.</p></li>
+<li id="ref-4"><p>Z. Nitecki, <a
+href="https://arxiv.org/abs/1106.3779v2"><em>Subsum sets: intervals,
+Cantor sets, and Cantorvals</em></a>, arXiv:1106.3779v2 (2013).
+Theorem 4 (p. 9) shows that when every term exceeds its tail the subsum
+set is a Cantor set of Lebesgue measure <span
+class="math inline" data-term-auto="off">\(\lim_n2^nX_n\)</span>, where <span
+class="math inline" data-term-auto="off">\(X_n\)</span> is the <span
+class="math inline" data-term-auto="off">\(n\)</span>th tail, and credits this to H. Hornich
+(1941).</p></li>
+<li id="ref-5"><p>H. Kaneko, Y. Suzuki, and Y. Tachiya, <a
+href="https://arxiv.org/abs/2601.20743v1"><em>Refinements of Erdős’s
+irrationality criterion for certain sparse infinite series</em></a>,
+arXiv:2601.20743v1 (2026). The averaged tail <span
+class="math inline" data-term-auto="off">\(R_c(q,x,z)\)</span>, a sum over offsets <span
+class="math inline" data-term-auto="off">\(j\ge z\)</span>, is (1.7) and Theorem 1 is on
+p. 3; its rational-integer form, Theorem 3, is on p. 5. Lemma 1
+(pp. 6–7) derives irrationality from arbitrarily small nonzero scaled
+tails, and Lemma 2 (pp. 7–8) shows that most scaled tails in a range are
+small under a counting condition on the support. Their criteria assume
+sparse coefficient supports.</p></li>
+<li id="ref-6"><p>D. Duverney and Y. Tachiya, <a
+href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf"><em>Refinement
+of the Chowla–Erdős method and linear independence of certain Lambert
+series</em></a>, Forum Math. 31 (2019), no. 6, 1557–1566, <a
+href="https://doi.org/10.1515/forum-2018-0299">DOI</a>. Page numbers
+refer to the linked author preprint. Theorem 1.1 (pp. 2–3) is the
+refined Chowla–Erdős criterion; its proof in Section 2 (pp. 5–7) selects
+an index by minimising a local coefficient mass along an arithmetic
+progression, (2.3)–(2.9). Corollary 1.2 gives the general <span
+class="math inline" data-term-auto="off">\(F_s(E)\)</span> theorem and its monomial images
+under <span class="math inline" data-term-auto="off">\(|q|\operatorname{lcm}(1,\dots,\ell)\le
+s\)</span>, and at every integer base when <span
+class="math inline" data-term-auto="off">\(s=\infty\)</span>; Example 1.1 gives the joint
+squarefree family at all bases <span class="math inline" data-term-auto="off">\(2^j\)</span>,
+<span class="math inline" data-term-auto="off">\(j\ge1\)</span>. Both are on p. 4, which also
+relates Corollary 1.2 to the conjecture of Erdős and Graham; the proof
+of Corollary 1.2 is on pp. 10–11.</p></li>
+<li id="ref-7"><p>T. Tao and J. Teräväinen, <a
+href="https://arxiv.org/abs/2512.01739v2"><em>Quantitative correlations
+and some problems on prime factors of consecutive integers</em></a>,
+arXiv:2512.01739v2 (submitted December 2025, revised April 2026).
+Theorem 1.3 (p. 4) proves <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge1}\omega(n)/2^n=\sum_p(2^p-1)^{-1}\)</span>
+irrational, settling the prime-support case of #257 at base <span
+class="math inline" data-term-auto="off">\(2\)</span>; the paragraph after it states that the
+method extends to every integer base and to the prime-power support,
+leaving the modifications to the reader. Theorem 3.1 is on p. 24, and
+the proof of Theorem 1.3 is Section 5, pp. 44–56.</p></li>
+<li id="ref-8"><p>W. Zudilin, <em>Heine’s basic transform and a permutation group
+for <span class="math inline" data-term-auto="off">\(q\)</span>-harmonic series</em>, Acta
+Arith. 111 (2004), no. 2, 153–164, <a
+href="https://doi.org/10.4064/aa111-2-4">DOI</a>. Theorem 1 (p. 154)
+gives <span
+class="math inline" data-term-auto="off">\(\mu(h_p(1))\le2.46497868\ldots\)</span> for <span
+class="math inline" data-term-auto="off">\(h_p(1)=\sum_{n\ge1}1/(p^n-1)\)</span>, uniformly
+in the integer <span class="math inline" data-term-auto="off">\(p\)</span> with <span
+class="math inline" data-term-auto="off">\(|p|\ge2\)</span>; the remark at the end of
+Section 3 (p. 159) corrects the computation of the author’s earlier
+paper.</p></li>
+<li id="ref-9"><p>J. M. Campbell, <a
+href="https://arxiv.org/abs/2605.24160v1"><em>On the binary digits of
+the Erdős–Borwein constant</em></a>, arXiv:2605.24160v1 (2026).
+Theorem 1 (p. 12) proves that the block <code>11</code> occurs
+infinitely often in the binary expansion of <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge1}1/(2^n-1)\)</span>, answering a
+question of Crandall recalled in the introduction.</p></li>
+<li id="ref-10"><p>K. Matomäki and M. Radziwiłł, <em>Multiplicative functions in
+short intervals</em>, Ann. of Math. (2) 183 (2016), no. 3, 1015–1056, <a
+href="https://doi.org/10.4007/annals.2016.183.3.6">DOI</a>. Page numbers
+refer to arXiv:1501.04585v4.</p></li>
+<li id="ref-11"><p>A. P. Mangerel, <em>Divisor-bounded multiplicative functions in
+short intervals</em>, Res. Math. Sci. 10 (2023), no. 1, Paper No. 12, <a
+href="https://doi.org/10.1007/s40687-023-00376-0">DOI</a>. Page numbers
+refer to arXiv:2108.11401v2.</p></li>
+<li id="ref-12"><p>Y.-C. Sun, <a href="https://arxiv.org/abs/2401.08432v3"><em>The
+critical-window profile for the <span
+class="math inline" data-term-auto="off">\(k\)</span>-fold divisor function in almost all
+short intervals</em></a>, arXiv:2401.08432v3 (2026).</p></li>
+</ol>
 </section>
   </div>
 </article>

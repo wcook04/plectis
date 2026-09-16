@@ -7,7 +7,7 @@
   "form": "Problem note",
   "pages": 12,
   "question": "For Erdős #269, what infinite-rank structure is proved at three primes, which two-prime running-LCM sums are transcendental, and which escape condition remains open?",
-  "precis": "For three pairwise distinct primes, the paper proves that the reciprocal running-LCM kernel has nonsingular minors of every order, with one index choice valid in every third-coordinate layer. After row and column powers are removed, a binary carry gives disjoint threshold intervals; this proves arbitrary-order non-separability and the exact rank of every finite sample. For every pair of distinct primes, both the repeated running-LCM reciprocal sum and the version retaining one term per distinct LCM value are transcendental, by an ordinary deduction from a cited Hecke–Mahler theorem; Steve Fan posted the repeated-sum factorisation, reduction and transcendence conclusion first, and the paper claims no priority or Lean formalisation for that case. The residue-escape condition and the repeated three-prime irrationality question remain open.",
+  "precis": "For three pairwise distinct primes, the paper proves that the reciprocal running-LCM kernel has nonsingular minors of every order, with one index choice valid in every third-coordinate layer. After row and column powers are removed, a binary carry gives disjoint threshold intervals; this proves arbitrary-order non-separability and the exact rank of every finite sample. For every pair of distinct primes, both the repeated running-LCM reciprocal sum and the version retaining one term per distinct LCM value are transcendental, by an ordinary deduction from a cited Hecke–Mahler theorem; Steve Fan posted the same factorisation, reduction and transcendence conclusion first on the problem's forum, and the paper's proof, found independently, is not formalised in Lean. The residue-escape condition and the repeated three-prime irrationality question remain open.",
   "owns": "the problem-specific exposition for Erdős #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
   "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #269, which remains open",
   "problem_id": "erdos_269",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "e11a9dc4c27ec8d16434c561b7649f432658a6aa4871345dc58a7bd141e5ebf7",
+    "source_sha256": "83d6078677d746973d14bbb9aee23dc4ef1b79db72c59e33610a7a305a858564",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 310,
+    "mathml_node_count": 328,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "c29ffafc3f7400d9cf998d721f26d3251fee939333e6bf8a363cd430aa2c09b5",
-    "html_exact_tex_sha256": "3fa96c0a2e9e016b587a5b5df643b5c7ed0d93e34a511a0ab45f725e0fb6bc15"
+    "html_mathml_sha256": "4d3ba44947a2f33995aeeef6e466713fe901368acd3f9d2b9cd61f4d71341301",
+    "html_exact_tex_sha256": "41e784b55c268bfe10360a43bd2a019bfa7d514c1e2abb2933560cbd9466a0d3"
   },
   "sections": [
     {

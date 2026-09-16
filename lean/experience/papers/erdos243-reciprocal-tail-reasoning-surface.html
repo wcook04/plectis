@@ -32,10 +32,10 @@ be a sequence of integers with
 for all sufficiently large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</em></p>
 </div>
-<p>See <span class="citation" data-cites="erdosgraham1980"><a href="#ref-4">[4]</a></span>
-and <span class="citation" data-cites="erdos1988"><a href="#ref-5">[5]</a></span>. Bloom’s
+<p>See <span class="citation" data-cites="erdosgraham1980"><a href="#ref-5">[5]</a></span>
+and <span class="citation" data-cites="erdos1988"><a href="#ref-6">[6]</a></span>. Bloom’s
 catalogue records the problem as open <span class="citation"
-data-cites="erdosproblems"><a href="#ref-10">[10]</a></span>. Below we index the same recurrence
+data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>. Below we index the same recurrence
 as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}=a_n^{2}-a_n+1</annotation></semantics></math>,
 which is the shift the formal sources use; the two forms are the same
@@ -130,7 +130,9 @@ is a positive integer, and
 is a positive integer as well. From
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">x_n=1/a_n+x_{n+1}</annotation></semantics></math>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>D</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub><msub><mi>D</mi><mi>n</mi></msub><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo>−</mo><mfrac><mn>1</mn><msub><mi>a</mi><mi>n</mi></msub></mfrac><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub><msub><mi>C</mi><mi>n</mi></msub><mo>−</mo><msub><mi>D</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>D</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub><msub><mi>D</mi><mi>n</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">C_{n+1}=D_{n+1}x_{n+1}=a_nD_n\Bigl(x_n-\frac1{a_n}\Bigr)=a_nC_n-D_n,
- \qquad D_{n+1}=a_nD_n,</annotation></semantics></math> which is .
+ \qquad D_{n+1}=a_nD_n,</annotation></semantics></math> which is . These
+are the tail variables of Koizumi’s Lemma 4 <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>, up to a common positive factor.
 Section  constructs the same triple with its centred error
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">E_n=D_n-(a_n-1)C_n</annotation></semantics></math>,
 which the present section does not need. Rationality is used here and
@@ -426,8 +428,10 @@ so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>α</mi><mo>=</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">\sigma\alpha=\alpha</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>β</mi><mo>=</mo><mi>−</mi><mi>β</mi></mrow><annotation encoding="application/x-tex">\sigma\beta=-\beta</annotation></semantics></math>.
-By the Chebotarev density theorem there are infinitely many unramified
-rational primes whose Frobenius class in
+By the Chebotarev density theorem in the form stated by Stevenhagen and
+Lenstra <span class="citation"
+data-cites="stevenhagenlenstra1996"><a href="#ref-10">[10]</a></span>, there are infinitely many
+unramified rational primes whose Frobenius class in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Gal</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mi>/</mi><mi mathvariant="double-struck">ℚ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathop{\mathrm{Gal}}(L/\mathbb{Q})</annotation></semantics></math>
 is that of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>;
@@ -1086,13 +1090,21 @@ is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1+O(1/a_n)</annotation></semantics></math>,
 lies outside the class. The rate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>3</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1+3/n</annotation></semantics></math>
-sits strictly beyond the two sufficient hypotheses recorded in Section :
-it fails Koizumi’s
+sits beyond the hypotheses recorded in Section . The product weight
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">P_n/a_n</annotation></semantics></math>
+grows like
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>3</mn></msup><annotation encoding="application/x-tex">n^{3}</annotation></semantics></math>
+at this rate, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(P_n/a_n)(a_n^2/a_{n+1}-1)</annotation></semantics></math>
+tends to infinity and Koizumi’s Corollary 4(1) does not apply; the rate
+also fails his
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1+o(1/n)</annotation></semantics></math>
 condition, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><msub><mi>γ</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n\gamma_n</annotation></semantics></math>
 diverges, so Duverney’s convergent-defect hypothesis does not apply.
-Theorem  is independent of any growth or positivity assumption on
+Whether the LCM-weighted criteria apply on this class is not decided
+here, since the ratio of the two weights is the overlap factor. Theorem 
+is independent of any growth or positivity assumption on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_n)</annotation></semantics></math>
 beyond , and the later sections of this note decide nothing at the cubic
 rate.</p>
@@ -1100,11 +1112,7 @@ rate.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mi>q</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mo>∏</mo><mrow><mi>k</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><msub><mi>a</mi><mi>k</mi></msub><mo>⋅</mo><msub><mo>∑</mo><mi>m</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>m</mi></msub><mo>−</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><msub><mo>∏</mo><mrow><mi>j</mi><mo>&lt;</mo><mi>n</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>j</mi><mo>≠</mo><mi>k</mi></mrow></msub><msub><mi>a</mi><mi>j</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C_n=q\bigl(\prod_{k&lt;n}a_k\cdot\sum_m1/a_m-\sum_{k&lt;n}\prod_{j&lt;n,\,j\ne k}a_j\bigr)</annotation></semantics></math>,
 a linear form in the reciprocal sum with integer coefficients.
 Approximation criteria for irrationality use nonzero forms of this kind
-that tend to zero, as in the quantitative form stated as Lemma 3.4 of
-Koizumi and Yokoi <span class="citation"
-data-cites="koizumiyokoi2026"><a href="#ref-9">[9]</a></span>, applied there to values of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-series.
-At the cubic rate the integers
+that tend to zero. At the cubic rate the integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>n</mi></msub><annotation encoding="application/x-tex">C_n</annotation></semantics></math>
 grow: Lemma  gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn><mo>+</mo><mn>3</mn><mi>/</mi><mi>n</mi><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mrow><mi>−</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C_{n+1}/C_n=1+3/n+o(n^{-3})</annotation></semantics></math>,
@@ -1123,19 +1131,22 @@ which Theorem  excludes.</p>
 </section>
 <section id="long243:sec:priorwork" class="level2">
 <h2>Prior work, and the status of the note</h2>
-<section id="two-published-sufficient-conditions." class="level5">
-<h5>Two published sufficient conditions.</h5>
-<p>Two published results reach the original problem under analytic
+<section
+id="classical-sufficient-conditions-and-the-pseudo-greedy-formulation."
+class="level5">
+<h5>Classical sufficient conditions and the pseudo-greedy
+formulation.</h5>
+<p>Published results reach the original problem under analytic
 hypotheses that are assumed nowhere in this note. Their hypotheses are
 conditions on the sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_n)</annotation></semantics></math>
-itself. Duverney’s is not comparable with the state-level hypotheses
-used here; the Erdős–Straus one, read through the dictionary of the next
-paragraph, is implied by nonnegativity of
+itself. Duverney imposes a different sufficient analytic hypothesis; the
+Erdős–Straus one, read through the dictionary of the next paragraph, is
+implied by nonnegativity of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>,
 the hypothesis of Theorem , so that criterion already covers the descent
 of Section  (see <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>). Erdős and Straus proved that if
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>). Erdős and Straus proved that if
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">lim</mi><mo>&#8289;</mo></mrow><msub><mi>a</mi><mi>n</mi></msub><mi>/</mi><msubsup><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mn>2</mn></msubsup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lim a_n/a_{n-1}^{2}=1</annotation></semantics></math>,
 the reciprocal sum is rational, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math>
@@ -1152,11 +1163,15 @@ summary, instead prints
 in the second factor while retaining the same prefix-LCM quotient; that
 displayed summary is off by one and is not followed here <span
 class="citation" data-cites="erdos1988"></span><span class="citation"
-data-cites="erdosproblems"><a href="#ref-10">[10]</a></span>. Koizumi records the convenient
+data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>. Koizumi records the convenient
 sufficient rate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_n^2/a_{n+1}=1+o(1/n)</annotation></semantics></math>
 under which the Erdős–Straus criterion settles the problem <span
-class="citation" data-cites="koizumi2025"></span>.</p>
+class="citation" data-cites="koizumi2025"></span>. Tijdeman and Yuan
+give a criterion of the same kind for Ahmes series with positive integer
+numerators, weighted by the least common multiple of the earlier
+denominators <span class="citation"
+data-cites="tijdemanyuan2002"><a href="#ref-4">[4]</a></span>.</p>
 <p>Duverney proved a conditional signed form of the problem itself: for
 signs
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϵ</mi><mi>n</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\epsilon_n\in\{-1,1\}</annotation></semantics></math>,
@@ -1185,7 +1200,7 @@ cover the mixed-sign state orbits studied here. Neither result is
 formalised here, and the results below do not recover either of
 them.</p>
 <p>Koizumi’s work on doubly exponential sequences <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> bears directly on the state system used
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> bears directly on the state system used
 below, and supplies the coordinates in which several of the statements
 of this note are most naturally read. For a rational
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mi>p</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">r=p/q</annotation></semantics></math>
@@ -1195,7 +1210,7 @@ remainders
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_n)</annotation></semantics></math>
 and gap sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ε</mi><mi>n</mi></msub><mo>=</mo><msubsup><mi>x</mi><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo>+</mo><mn>1</mn><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\varepsilon_n=x_n^{-1}+1-a_n</annotation></semantics></math>,
-his Lemma 4  <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>
+his Lemma 4  <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>
 produces integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c_n&gt;0</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>n</mi></msub><annotation encoding="application/x-tex">d_n</annotation></semantics></math>
@@ -1227,7 +1242,7 @@ so it is the negative of Koizumi’s
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>e</mi><mi>n</mi></msub><annotation encoding="application/x-tex">e_n</annotation></semantics></math>
 at an index where the centred state is negative.</p>
 <p>His Theorem 3  <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> shows that his Conjecture 1 <span
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> shows that his Conjecture 1 <span
 class="citation" data-cites="koizumi2025"></span>, that for a positive
 rational
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
@@ -1239,7 +1254,7 @@ for all large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
 is equivalent to an affirmative answer to the question of Erdős and
 Graham recorded as his Question 1 <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>, which is Problem  above. Two of the
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>, which is Problem  above. Two of the
 implications proved below have prior art in these canonical coordinates:
 his Lemma 3, that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ε</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon_n=0</annotation></semantics></math>
@@ -1254,7 +1269,7 @@ forces
 for all large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
 is the descent of Theorem . These appear in canonical coordinates
-in <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>. Koizumi
+in <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>. Koizumi
 attributes Proposition 1(2) to Badea. Its contrapositive says that a
 counterexample must have negative errors infinitely often; it assumes
 the sign is eventually nonnegative, while Theorem  below assumes only
@@ -1270,11 +1285,11 @@ and shifting it further produces sequences with
 for arbitrarily large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
 whose reciprocals still sum to a rational number <span class="citation"
-data-cites="kovactao2024"><a href="#ref-6">[6]</a></span>. The classical sufficient condition
+data-cites="kovactao2024"><a href="#ref-7">[7]</a></span>. The classical sufficient condition
 for irrationality,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">lim</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msubsup><mi>a</mi><mi>n</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>n</mi></msup></mrow></msubsup><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\lim_n a_n^{1/2^{n}}=\infty</annotation></semantics></math>,
 is therefore sharp. Kovač and Tao identify that condition as folklore
- <span class="citation" data-cites="kovactao2024"><a href="#ref-6">[6]</a></span>; they
+ <span class="citation" data-cites="kovactao2024"><a href="#ref-7">[7]</a></span>; they
 attribute the sharpness observation to Erdős (1975). A sequence with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mi>/</mi><msubsup><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mn>2</mn></msubsup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_n/a_{n-1}^{2}\to1</annotation></semantics></math>
 has
@@ -1284,14 +1299,14 @@ Problem , and rationality is genuinely possible there. Sylvester’s
 sequence is <code>A000058</code> in the OEIS and its shifts
 <code>A129871</code>. For the recent literature on irrationality of
 Ahmes series we refer to Kovač and Tao <span class="citation"
-data-cites="kovactao2024"><a href="#ref-6">[6]</a></span>, who resolve several problems of Erdős
+data-cites="kovactao2024"><a href="#ref-7">[7]</a></span>, who resolve several problems of Erdős
 and Graham drawn from the same two sources cited above, and whose
 introduction gives a sample of the intermediate work, including Sándor
 (1984) and Badea (1987). They do not treat Problem #243; the rigidity
 conclusion asked for there is not among their results.</p>
 <p>The collection contains a mathematically equivalent unproved
 declaration, up to its zero-based indexing  <span class="citation"
-data-cites="formalconjectures243"><a href="#ref-11">[11]</a></span>. Its summand is
+data-cites="formalconjectures243"><a href="#ref-14">[14]</a></span>. Its summand is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>-valued,
 so Lean’s <code>Summable</code> hypothesis asserts the existence of a
 sum in
@@ -1393,13 +1408,14 @@ in three lines. The rest of the note is the case
 in four widening steps: constant magnitude (Section ), periodic
 magnitude (Section ), bounded magnitude via a coprimality barrier
 (Sections  and ), finite normalised negative mass (Section ), and what
-is left (Section ). These sections contain the new content; a reader who
-wants only the strongest statements should read Section , then Sections 
-and , and then Section . Appendix  is a guide to the formal sources, and
-Appendix  records an exact residue reduction that an earlier finite
-search used. Linked phrases open the corresponding Lean declaration at
-the pinned source revision 92b88dc1bbe0. Where a section names a Lean
-module that is outside that revision, it says so in place of a link.</p>
+is left (Section ). These sections contain the exclusions proved here; a
+reader who wants only the strongest statements should read Section ,
+then Sections  and , and then Section . Appendix  is a guide to the
+formal sources, and Appendix  records an exact residue reduction that an
+earlier finite search used. Linked phrases open the corresponding Lean
+declaration at the pinned source revision 92b88dc1bbe0. Where a section
+names a Lean module that is outside that revision, it says so in place
+of a link.</p>
 </section>
 </section>
 <section id="long243:sec:state" class="level2">
@@ -1409,7 +1425,11 @@ end of Section . The first two clear denominators along the sequence, so
 that a rational reciprocal sum leaves a sequence of integers; the third
 subtracts from that integer the value it takes on Sylvester’s sequence,
 leaving one number whose vanishing is the whole question. All three are
-maps between integer tuples and carry no hypothesis of any kind.</p>
+maps between integer tuples and carry no hypothesis of any kind. The
+recurrences they encode are Koizumi’s <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>; the defect, scaling and two-step
+identities below are algebraic consequences of them in the conventions
+of the formal sources.</p>
 <p>For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>,</mo><mi>D</mi><mo>,</mo><mi>C</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a,D,C\in\mathbb{Z}</annotation></semantics></math>
 define
@@ -1955,14 +1975,12 @@ logarithmically discounted, so a counterexample has to sustain
 divergence along a sparse subsequence. The inherited part of the picture
 is the eventual regime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E_n\ge0</annotation></semantics></math>,
-which Koizumi’s Proposition 1(2) closes, and to which the published sign
-criteria apply once the shift of Proposition  is subtracted. What is
-added here is a criterion valid in the complementary regime as well,
-stated under the hypotheses of Problem  and no others. Two propositions
-bound what these coordinates reach. Proposition  exhibits
-cancellation-free blocks on which every classical hypothesis quantity
-fails by a fixed number of units, and Proposition  shows that the data
-used by Theorem  and the landing lemmas admit walks with rises of order
+which Koizumi’s Proposition 1(2) closes and which the published criteria
+cover (Section ). What is added here is a criterion valid in the
+complementary regime as well, stated under the hypotheses of Problem 
+and no others. Proposition  bounds what these coordinates reach: the
+data used by Theorem  and the landing lemmas admit walks with rises of
+order
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ell(u)</annotation></semantics></math>,
 so an argument using only those data excludes no negative part of that
 order. A producer that closes the gap has to enter the regime displayed
@@ -1984,6 +2002,29 @@ one fixed
 from rational denominator feedback, or contradict a nonterminal orbit by
 another route. The logarithmic discount weakens what suffices; it does
 not establish it.</p>
+<p>The coordinates below also appear in Bado’s preprint of September
+2026: after the shift between indexing from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+and from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
+his least common multiple, his
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Δ</mi><annotation encoding="application/x-tex">\Delta</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+are the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+defined here, with his denominator parameter equal to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+and his (19) is the update
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>n</mi></msub><msub><mi>U</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>U</mi><mi>n</mi></msub><mo>−</mo><msub><mi>V</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\rho_nU_{n+1}=U_n-V_n</annotation></semantics></math>
+<span class="citation" data-cites="bado2026"><a href="#ref-8">[8]</a></span>.</p>
 <p>Set
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>,</mo><msub><mi>a</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>M</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mi>/</mi><msub><mi>L</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>U</mi><mi>n</mi></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>V</mi><mi>n</mi></msub><mo>=</mo><msub><mi>E</mi><mi>n</mi></msub><mi>/</mi><msub><mi>M</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">L_n=\operatorname{lcm}(q,a_0,\ldots,a_{n-1}),\quad
  M_n=D_n/L_n,\quad U_n=C_n/M_n,\quad V_n=E_n/M_n.</annotation></semantics></math>
@@ -2244,7 +2285,10 @@ where old divisors persist. The statements of this section live in the
 primitive coordinates, where old divisors can be deleted. They are
 collected here because each is an equivalence, a dichotomy, or an
 unconditional exclusion, and because each sharpens the profile of a
-counterexample in a direction the earlier sections do not reach.</p>
+counterexample in a direction the earlier sections do not reach. The
+underlying tools are the Chinese remainder theorem, persistence of
+prime-power divisors and weighted first-crossing counting; the LCM
+compression and the reuse comparison are attributed in Section .</p>
 <section id="primitive-coordinates." class="level5">
 <h5>Primitive coordinates.</h5>
 <p>Put
@@ -2749,8 +2793,8 @@ drawdown-corrected observable and the inclusive constant, and this
 theorem is retained because its hypothesis is stated directly on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>.</p>
 <div class="theorem">
-<p><strong>Theorem 7.9</strong> (the Erdős–Straus quantity, bounded
-form). <em> Let
+<p><strong>Theorem 7.9</strong> (product-weighted defect: bounded and
+slow-growth forms). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}/a_n^2\to1</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℚ</mi></mrow><annotation encoding="application/x-tex">\sum1/a_n\in\mathbb{Q}</annotation></semantics></math>,
@@ -2812,9 +2856,9 @@ is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">]</mo><msubsup><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mo stretchy="false" form="prefix">(</mo><msubsup><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[a_1,\ldots,a_n]a_{n+1}^{-1}(a_{n+1}^{2}/a_{n+2}-1)</annotation></semantics></math> <span
 class="citation" data-cites="erdosstraus1964"></span>; Koizumi’s
 Corollary 4(1) uses the product form <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>. The statement above is the same
-Lean-checked endpoint as Theorem , transported into that language, and
-its content over the published criteria is the passage from
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>. The bounded clause is Theorem 
+transported into that language, and its content over the published
+criteria is the passage from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\le0</annotation></semantics></math>
 to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">&lt;\infty</annotation></semantics></math>.
@@ -2823,18 +2867,15 @@ written in the vocabulary of the 1964 paper.</p>
 </section>
 <section id="evidence.-7" class="level5">
 <h5>Evidence.</h5>
-<p>Ordinary proof composing Theorem  and Theorem  with Koizumi’s bridge.
-The identity used is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>B</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>c</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>ε</mi><mi>n</mi></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>B</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>c</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>β</mi><mi>n</mi></msub><msub><mi>c</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">Q_n=-(B_{n-1}/c_1)\varepsilon_n+(B_{n-1}/c_1)\beta_nc_{n+1}</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mi>k</mi></msub><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\beta_k=O(1/a_k)</annotation></semantics></math>,
-whose second term tends to zero because
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≤</mo><msub><mi>c</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">c_{n+1}\le
-c_1(3/2)^n</annotation></semantics></math> while
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>n</mi></msub><annotation encoding="application/x-tex">a_n</annotation></semantics></math>
-is doubly exponential.</p>
-<div class="theorem">
-<p><strong>Theorem 7.10</strong> (the
+<p>Ordinary proof. The bounded clause transports Theorem , and the
+slow-growth clause also uses Theorem ; both go through the canonical
+identity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>+</mo><mi>q</mi><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E_n+qQ_n=o(1)</annotation></semantics></math>
+established above, whose classical predecessor is the comparison in
+Koizumi’s proof of Corollary 4(1) <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>.</p>
+<div class="corollary">
+<p><strong>Corollary 7.10</strong> (the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math>
 threshold). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}/a_n^2\to1</annotation></semantics></math>
@@ -2847,24 +2888,50 @@ then
 for all large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</em></p>
 </div>
+<div class="proof">
+<p><em>Proof.</em> Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>n</mi></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gamma_n=a_n^2/a_{n+1}-1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>n</mi></msub><mo>=</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mo>∏</mo><mrow><mi>j</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><msub><mi>a</mi><mi>j</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">t_n=\bigl(\prod_{j&lt;n}a_j\bigr)/a_n</annotation></semantics></math>,
+so that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msub><mi>t</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn><mo>+</mo><msub><mi>γ</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">t_{n+1}/t_n=1+\gamma_n</annotation></semantics></math>.
+Choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r\in(0,1)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>γ</mi><mi>n</mi><mo>+</mo></msubsup><mo>≤</mo><mi>r</mi><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\gamma_n^{+}\le r/n</annotation></semantics></math>
+for all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">n\ge N</annotation></semantics></math>.
+Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>t</mi><mi>N</mi></msub><munderover><mo>∏</mo><mrow><mi>k</mi><mo>=</mo><mi>N</mi></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mfrac><mi>r</mi><mi>k</mi></mfrac><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mi>r</mi></msup><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">t_n\le t_N\prod_{k=N}^{n-1}\Bigl(1+\frac rk\Bigr)=O(n^{r}),</annotation></semantics></math>
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mi>n</mi></msub><msub><mi>γ</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mo>=</mo><msub><mi>t</mi><mi>n</mi></msub><msubsup><mi>γ</mi><mi>n</mi><mo>+</mo></msubsup><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mrow><mi>r</mi><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(t_n\gamma_n)_+=t_n\gamma_n^{+}=O(n^{r-1})</annotation></semantics></math>
+tends to zero and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msub><mi>t</mi><mi>n</mi></msub><msub><mi>γ</mi><mi>n</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\limsup_nt_n\gamma_n\le0</annotation></semantics></math>.
+Koizumi’s Corollary 4(1) <span class="citation"
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> gives the conclusion. ◻</p>
+</div>
 <p>The constant
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-is the boundary of this method. The template
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>e</mi><mo accent="true">̃</mo></mover><mi>n</mi></msub><mo>≡</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">\tilde e_n\equiv-1</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi>c</mi><mo>+</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">u_n=c+n</annotation></semantics></math>
-has
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mover><mi>e</mi><mo accent="true">̃</mo></mover><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mi>u</mi><mi>n</mi></msub><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n(-\tilde e_n)/u_n\to1</annotation></semantics></math>,
-meets every hypothesis of the Erdős–Straus criterion except the sign,
-and is excluded only by Theorem . This sharpens the sufficient rate
+is where this product bound stops, since at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r=1</annotation></semantics></math>
+the weight
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mi>n</mi></msub><annotation encoding="application/x-tex">t_n</annotation></semantics></math>
+may grow linearly. The corollary contains the sufficient rate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>1</mn><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a_n^2/a_{n+1}=1+o(1/n)</annotation></semantics></math>
 recorded by Koizumi <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> to an explicit constant. Ordinary
-proof; the endgame is Koizumi’s Proposition 1(2).</p>
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>. The scalar template
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>e</mi><mo accent="true">̃</mo></mover><mi>n</mi></msub><mo>≡</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">\tilde e_n\equiv-1</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>n</mi></msub><mo>=</mo><mi>c</mi><mo>+</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">u_n=c+n</annotation></semantics></math>,
+which has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mover><mi>e</mi><mo accent="true">̃</mo></mover><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mi>u</mi><mi>n</mi></msub><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n(-\tilde e_n)/u_n\to1</annotation></semantics></math>,
+is excluded as an orbit by Theorem .</p>
 </section>
 </section>
-<section id="what-the-method-cannot-reach" class="level3">
-<h3>What the method cannot reach</h3>
+<section id="pointwise-signs-and-asymptotic-criteria" class="level3">
+<h3>Pointwise signs and asymptotic criteria</h3>
 <div class="proposition">
 <p><strong>Proposition 7.11</strong> (the classical quantities carry a
 shifted sign). <em> The overlap debt divides the tail gcd, so
@@ -2936,41 +3003,24 @@ so
 </div>
 <section id="reading." class="level5">
 <h5>Reading.</h5>
-<p>The classical criteria therefore do not decide the half-space
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E_n\ge0</annotation></semantics></math>.
-They read the defect
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub><mo>+</mo><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">-E_n/C_n+\Lambda_n</annotation></semantics></math>,
-whose positive shift
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\Lambda_n</annotation></semantics></math>
-is of order
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">1/a_n</annotation></semantics></math>
-and is the whole quantity at the Sylvester locus. A criterion phrased as
-a sign condition on
+<p>The classical hypothesis is a nonpositive upper limit, which admits
+positive values tending to zero, so the pointwise sign of the growth
+defect is a different condition. In the canonical normalisation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>+</mo><mi>q</mi><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E_n+qQ_n=o(1)</annotation></semantics></math>,
+so an eventually nonnegative error gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><msub><mi>Q</mi><mi>n</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\limsup_nQ_n\le0</annotation></semantics></math>,
+and the classical criteria therefore cover that half-space; the positive
+values of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>n</mi></msub><annotation encoding="application/x-tex">Q_n</annotation></semantics></math>
-is a condition on the state only at the indices where the negative part
-dominates the shift. Ordinary proof over exact identities, with an exact
-finite replay on
+along a Sylvester tail are consistent with it. See Koizumi’s
+Corollary 4(1) <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>
+and the criterion of Tijdeman and Yuan <span class="citation"
+data-cites="tijdemanyuan2002"><a href="#ref-4">[4]</a></span>. Ordinary proof over exact
+identities, with an exact finite replay on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>,</mo><mn>472</mn></mrow><annotation encoding="application/x-tex">4{,}472</annotation></semantics></math>
 frames and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>610</mn><annotation encoding="application/x-tex">610</annotation></semantics></math>
-clean triples, zero failures. The fixture family with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mi>c</mi><mo>+</mo><mi>n</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">C_n=c+nm</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>C</mi><mi>n</mi></msub><mo>−</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">D_n=(a_n-1)C_n-m</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn><mo>+</mo><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>k</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">a_n=1+C_{n+1}k_n</annotation></semantics></math>
-realises, at
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>,</mo><mi>m</mi><mo>,</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>10</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(c,m,h)=(10,3,6)</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>13</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(13,3,6)</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>100003</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(100003,3,5)</annotation></semantics></math>,
-arbitrarily long blocks on which every classical hypothesis quantity
-equals
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">-E_n=3</annotation></semantics></math>
-at every index while
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>n</mi></msub><mo>=</mo><msubsup><mi>κ</mi><mi>n</mi><mo>′</mo></msubsup><mo>=</mo><msub><mi>M</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">G_n=\kappa&#39;_n=M_n=1</annotation></semantics></math>.
-A third classical quantity, from Tijdeman and Yuan’s 2002 Theorem 4.1,
-enters the same computation; it is not cited here because this note
-carries no verified bibliographic record of that paper.</p>
+clean triples, zero failures.</p>
 <div class="proposition">
 <p><strong>Proposition 7.12</strong> (what whole-modulus avoidance
 permits). <em> Let
@@ -3182,6 +3232,12 @@ the whole difficulty, and the rest of this note is directed at it.</p>
 </section>
 <section id="long243:sec:constant" class="level2">
 <h2>Excluding a constant negative magnitude</h2>
+<p>The exclusions in this section and the next concern infinite constant
+or periodic negative magnitudes, and they do not bound the length of a
+finite transient. Arbitrarily long constant transients occur on genuine
+rational orbits, by the flat-transient theorem of the working report on
+Problem #243 <span class="citation"
+data-cites="erdosproblemaday243"><a href="#ref-9">[9]</a></span>.</p>
 <p>Suppose the error is negative with a constant magnitude,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><mi>−</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">E_n=-m</annotation></semantics></math>
 for a fixed
@@ -3573,7 +3629,7 @@ so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><msub><mi>C</mi><mi>n</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">e_n=|E_n|\le C_n/2</annotation></semantics></math>
 at a negative index, and the proof of Lemma 4(3) gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>3</mn><mn>2</mn></mfrac></mstyle><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_{n+1}\le\tfrac32C_n</annotation></semantics></math>
- <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>, hence the
+ <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>, hence the
 uniform bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>≤</mo><msub><mi>C</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">C_n\le C_0(3/2)^{n}</annotation></semantics></math>.
 Against this, summability of
@@ -3654,11 +3710,11 @@ contains distinct multiples of at least
 elements of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>,
 and this count is optimal <span class="citation"
-data-cites="vandoornlitang2026"><a href="#ref-7">[7]</a></span>. Their extremal construction
+data-cites="vandoornlitang2026"><a href="#ref-11">[11]</a></span>. Their extremal construction
 uses the same Chinese remaindering for moduli that need not be pairwise
 coprime, with their Claim 3.2 supplying the divisibility of residue
 differences by greatest common divisors that the generalised theorem
-requires <span class="citation" data-cites="vandoornlitang2026"><a href="#ref-7">[7]</a></span>.
+requires <span class="citation" data-cites="vandoornlitang2026"><a href="#ref-11">[11]</a></span>.
 The first-crossing argument below needs only the pairwise coprime
 case.</p>
 <div class="example">
@@ -3785,9 +3841,10 @@ Uniformity of the bound is what the proof uses, and it is the hypothesis
 that cannot be relaxed by this argument: a rise bounded only along a
 subsequence leaves the intervening steps free to jump the window. We
 have not looked for a sequence of unbounded rise remaining coprime to
-every fresh modulus. The statement is elementary and we are not aware of
-a prior published form of it, but we would not be surprised if one
-exists.</p>
+every fresh modulus. The same forbidden-block crossing, under a
+two-sided bound on the error, appears in the proof of Bado’s Theorem 5.1
+<span class="citation" data-cites="bado2026"><a href="#ref-8">[8]</a></span>, posted in
+September 2026.</p>
 <p>The moduli are indexed by the same set as the sequence, and the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>th
 of them is asked to divide no value
@@ -3970,21 +4027,25 @@ and it does not exclude cofinally unbounded negative excursions.</p>
 <h2>Excluding a bounded negative part</h2>
 <p>Assembling the previous section gives Theorem , the endpoint of the
 barrier argument. Theorem  in the next section uses a different
-finiteness hypothesis. The two results are incomparable: Theorem 
-assumes only the state recurrence with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C_n&gt;0</annotation></semantics></math>,
-while hypothesis (5) below does not imply finite , by which we mean
-convergence of
+finiteness hypothesis, finite , by which we mean convergence of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n(-E_n)_+/C_n</annotation></semantics></math>,
 where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mo>+</mo></msub><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_+=\max(x,0)</annotation></semantics></math>,
-since a constant negative part
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">-b</annotation></semantics></math>
-gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mo>+</mo></msub><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_+=\max(x,0)</annotation></semantics></math>.
+The two hypotheses ask for different quantities to be estimated, and
+Theorem  has the broader ambient setting, since it assumes only the
+state recurrence with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C_n&gt;0</annotation></semantics></math>.
+On the common class of exact orbits with normalised vanishing each of
+them is equivalent to eventual vanishing of the error. For a scalar
+sequence they differ: hypothesis (5) below holds for a constant negative
+part
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">-b</annotation></semantics></math>,
+which gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>∼</mo><mi>b</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">C_n\sim bn</annotation></semantics></math>
-and hence a divergent sum. The hypotheses of Theorem  are listed in
-full, because two of them are analytic inputs that are assumed here
-rather than derived from the growth condition of Problem .</p>
+and a divergent normalised mass, and such a sequence is excluded as an
+orbit by Theorem . The hypotheses of Theorem  are listed in full,
+because two of them are analytic inputs that are assumed here rather
+than derived from the growth condition of Problem .</p>
 <p>Informally, hypotheses (5) and (6) below pull against each other. By
 Proposition , hypothesis (5) caps the rise of the tail state at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
@@ -4113,7 +4174,7 @@ conditional theorem about Problem  itself rather than about the state
 system alone. Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_n)</annotation></semantics></math>
 satisfy the hypotheses of Problem . After deleting a finite prefix,
-Corollary 3 of <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>
+Corollary 3 of <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>
 makes the sequence the pseudo-greedy expansion of its own reciprocal
 sum, and Lemma 4 there supplies the integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>n</mi></msub><mo>,</mo><msub><mi>d</mi><mi>n</mi></msub><mo>,</mo><msub><mi>e</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">c_n,d_n,e_n</annotation></semantics></math>
@@ -4143,7 +4204,7 @@ gap sequence in Corollary 3, since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ε</mi><mi>n</mi></msub><mo>=</mo><msub><mi>e</mi><mi>n</mi></msub><mi>/</mi><msub><mi>c</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\varepsilon_n=e_n/c_n</annotation></semantics></math>.
 The sole hypothesis not supplied is (5), the eventual bound on the
 negative part; nothing in <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> yields it and nothing here does either,
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> yields it and nothing here does either,
 so Problem #243 stays open.</p>
 </section>
 <section id="long243:sec:mass" class="level2">
@@ -4202,13 +4263,20 @@ href="https://github.com/wcook04/plectis-erdos/blob/d058b9150218ae23d2cfd9755800
 finite-mass criterion</a> supplies the exact state and its positivity.
 Summability of the negative mass remains an assumption; no growth or
 normalised-vanishing hypothesis is needed for this implication.</p>
+<p>For the gap sequence of the pseudo-greedy expansion, the same
+criterion, with the same product bound and integer descent, appears in
+the Erdős Problem a Day working report on Problem #243, dated 12 August
+2026 <span class="citation" data-cites="erdosproblemaday243"><a href="#ref-9">[9]</a></span>.
+Bado’s Theorem 11.1 is a compensated criterion that keeps a favourable
+term from prime-support reuse <span class="citation"
+data-cites="bado2026"><a href="#ref-8">[8]</a></span>.</p>
 <p>The transfer of the previous section applies here as well. On the
 canonical orbit of Corollary 3 of <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> the recurrence
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> the recurrence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mo>−</mo><msub><mi>E</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">C_{n+1}=C_n-E_n</annotation></semantics></math>
 holds with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">C_n&gt;0</annotation></semantics></math>
-by Lemma 4  <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>.
+by Lemma 4  <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>.
 Thus Theorem  is a conditional theorem about Problem  whose sole
 remaining hypothesis is summability of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n(-E_n)_+/C_n</annotation></semantics></math>.
@@ -4525,11 +4593,11 @@ records.</p>
 <div class="remark">
 <p><strong>Remark</strong>. <em>One further question is not left open
 here, since it is answered in <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>: whether normalised vanishing follows
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>: whether normalised vanishing follows
 from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}/a_n^{2}\to1</annotation></semantics></math>
 and rationality. It does. After deleting a finite prefix, Koizumi’s
-Corollary 3  <span class="citation" data-cites="koizumi2025"><a href="#ref-8">[8]</a></span>
+Corollary 3  <span class="citation" data-cites="koizumi2025"><a href="#ref-12">[12]</a></span>
 makes the sequence the pseudo-greedy expansion of its own reciprocal sum
 and gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ε</mi><mi>n</mi></msub><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon_n\to0</annotation></semantics></math>
@@ -4543,7 +4611,7 @@ Strict centring comes from the same source and is stronger than what
 Theorem  assumes: for a rational reciprocal sum, the range
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><msub><mi>c</mi><mi>n</mi></msub><mi>/</mi><mn>2</mn><mo>≤</mo><msub><mi>e</mi><mi>n</mi></msub><mo>&lt;</mo><msub><mi>c</mi><mi>n</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">-c_n/2\le e_n&lt;c_n/2</annotation></semantics></math>
 of his Lemma 4(2)  <span class="citation"
-data-cites="koizumi2025"><a href="#ref-8">[8]</a></span> gives
+data-cites="koizumi2025"><a href="#ref-12">[12]</a></span> gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">|E_n|&lt;C_n</annotation></semantics></math>
 at every index, which is stronger than eventual strict centring. The
 eventual form also follows directly from normalised vanishing with
@@ -4653,7 +4721,7 @@ competing interests.</p>
 <h5>Acknowledgements.</h5>
 <p>The problem numbering and status follow the Erdős Problems catalogue
 maintained by Thomas Bloom <span class="citation"
-data-cites="erdosproblems"><a href="#ref-10">[10]</a></span>.</p>
+data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>.</p>
 </section>
 </section>
 </section>
@@ -4711,7 +4779,10 @@ is not divisible by
 so the orbit stops there. Deciding survival by iteration is expensive
 because the orbit grows doubly exponentially, and it is unnecessary:
 survival over a finite horizon depends on the initial value only through
-a factorial residue.</p>
+a factorial residue. Computing a pseudo-greedy orbit through residues
+modulo a shrinking product modulus is Koizumi’s method <span
+class="citation" data-cites="koizumi2025"></span>; for the forced
+numerator that product is a factorial.</p>
 <div class="theorem">
 <p><strong>Theorem B.1</strong> (factorial residue reduction). <em> For
 all
@@ -4990,31 +5061,50 @@ Math. Sci. Univ. Tokyo <strong>8</strong> (2001), 275–316.
 MR 1837165.</p></li>
 <li id="ref-3"><p>C. Badea, <a
 href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf"></a>, Acta
-Arith. <strong>63</strong> (1993), no. 4, 313–323.</p></li>
-<li id="ref-4"><p>P. Erdős and R. L. Graham, <a
+Arith. <strong>63</strong> (1993), no. 4, 313–323, doi:<a
+href="https://doi.org/10.4064/aa-63-4-313-323">10.4064/aa-63-4-313-323</a>.</p></li>
+<li id="ref-4"><p>R. Tijdeman and P. Yuan, , Indag. Math. (N.S.)
+<strong>13</strong> (2002), no. 3, 407–418, doi:<a
+href="https://doi.org/10.1016/S0019-3577(02)80018-0">10.1016/S0019-3577(02)80018-0</a>.</p></li>
+<li id="ref-5"><p>P. Erdős and R. L. Graham, <a
 href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"></a>,
 Monogr. Enseign. Math. 28, Geneva, 1980, p. 64.</p></li>
-<li id="ref-5"><p>P. Erdős, , in A. Baker (ed.), , Cambridge UP, 1988, pp. 102–109,
-doi:<a
+<li id="ref-6"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1988-22.pdf"></a>, in A. Baker
+(ed.), , Cambridge UP, 1988, pp. 102–109, doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
-<li id="ref-6"><p>V. Kovač and T. Tao, <a
-href="https://arxiv.org/abs/2406.17593"></a>, Acta Math. Hungar.
-<strong>175</strong> (2025), 572–608; preprint
-arXiv:2406.17593v4.</p></li>
-<li id="ref-7"><p>W. van Doorn, Y. Li and Q. Tang, <a
+<li id="ref-7"><p>V. Kovač and T. Tao, <a
+href="https://arxiv.org/abs/2406.17593v4"></a>, Acta Math. Hungar.
+<strong>175</strong> (2025), no. 2, 572–608, doi:<a
+href="https://doi.org/10.1007/s10474-025-01528-0">10.1007/s10474-025-01528-0</a>;
+arXiv:<a href="https://arxiv.org/abs/2406.17593v4">2406.17593v4</a>.
+Page references are to arXiv:2406.17593v4.</p></li>
+<li id="ref-8"><p>I. O. Bado, <em>Prime-Support Rigidity and Primitive
+Pseudo-Greedy Dynamics: Partial Progress on Erdős Problem #243</em>,
+preprint posted September 2026, doi:<a
+href="https://doi.org/10.13140/RG.2.2.36612.08325">10.13140/RG.2.2.36612.08325</a>.</p></li>
+<li id="ref-9"><p>P. White with Claude (Anthropic), <a
+href="https://erdosproblemaday.com/report/243"><em>Erdős #243: working
+report</em></a>, Erdős Problem a Day, page dated 12 August 2026,
+accessed 16 September 2026. An AI-assisted working report; it has not
+been refereed.</p></li>
+<li id="ref-10"><p>P. Stevenhagen and H. W. Lenstra, Jr., <a
+href="https://pub.math.leidenuniv.nl/~lenstrahw/PUBLICATIONS/1994c/art.pdf"></a>,
+Math. Intelligencer <strong>18</strong> (1996), no. 2, 26–37, doi:<a
+href="https://doi.org/10.1007/BF03027290">10.1007/BF03027290</a>. Page
+references are to the linked author version dated 23 March
+1995.</p></li>
+<li id="ref-11"><p>W. van Doorn, Y. Li and Q. Tang, <a
 href="https://arxiv.org/abs/2603.28636"><em>Optimal bounds for an Erdős
 problem on matching integers to distinct multiples</em></a>, preprint
 arXiv:2603.28636v1, 2026.</p></li>
-<li id="ref-8"><p>J. Koizumi, <a
+<li id="ref-12"><p>J. Koizumi, <a
 href="https://math.colgate.edu/~integers/aa28/aa28.pdf"></a>, Integers
 <strong>26</strong> (2026), Paper No. A28, 17 pp., doi:<a
 href="https://doi.org/10.5281/zenodo.18714404">10.5281/zenodo.18714404</a>;
-preprint arXiv:2504.05933v1. Locators follow the published article; the
-arXiv v1 crosswalk is recorded in the source-closure note.</p></li>
-<li id="ref-9"><p>J. Koizumi and A. Yokoi, <a
-href="https://arxiv.org/abs/2608.26918"></a>, preprint
-arXiv:2608.26918v1, 2026.</p></li>
-<li id="ref-10"><p>T. F. Bloom, <a
+preprint arXiv:2504.05933v1. Locators follow the published
+article.</p></li>
+<li id="ref-13"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/243"><em>Erdős Problem
 #243</em></a>, <code>erdosproblems.com/243</code>, accessed 28 July 2026
 (page displays “last edited 21 January 2026”). The current record labels
@@ -5022,7 +5112,7 @@ the problem open, cites <code>[ErGr80, p. 64]</code> and
 <code>[Er88c, p. 105]</code>, and explicitly describes its status as the
 website owner’s present assessment rather than a literature-completeness
 guarantee.</p></li>
-<li id="ref-11"><p>The Formal Conjectures Authors, <a
+<li id="ref-14"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/243.lean"><em>FormalConjectures.ErdosProblems.<code>243</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July 2026.
 Its

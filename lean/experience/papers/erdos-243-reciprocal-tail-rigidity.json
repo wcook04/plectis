@@ -5,7 +5,7 @@
   "subject": "Erdős #243",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 13,
+  "pages": 14,
   "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
   "precis": "Clearing denominators turns Erdős #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.",
   "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "da43e2c7b04681839117f8c984f6bd1fdb55bc9e23e1fb31b1a3ee17aad75353",
+    "source_sha256": "32c1a9a1052a531fc4ef549596cd4bb07e29c323d280edb2a97de7bc979f10ce",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 329,
+    "mathml_node_count": 365,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "a2e7f6632ca913291c47e942941360ea09108da313c450bfc32b0f6675492efb",
-    "html_exact_tex_sha256": "69d266c0830072713bee7c3d6d7772924bb62628b9caae86e835d2223561d4d5"
+    "html_mathml_sha256": "1b61021158d2a59cae1680c290906d14032fc185b9d010f4810e27e11b373402",
+    "html_exact_tex_sha256": "6d6bfa172aaf350831b401c9ee60a71793dc3524d051c3ac7d9a00d4351442a3"
   },
   "sections": [
     {

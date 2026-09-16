@@ -77,8 +77,8 @@ These are ordinary proofs. Lean separately checks selected support cases and
 achievement-set results. Universal irrationality and the proposed target
 values remain open.
 
-Problem 269 is the running least common multiple of three primes. Building on
-Steve Fan's two-prime work on the problem page, the paper shows that one
+Problem 269 is the running least common multiple of three primes. Steve Fan
+posted the two-prime case on the forum; the paper shows that one
 binary carry makes a chosen minor of the kernel matrix nonzero at every order,
 so no finite sum of separated kernel terms with rational values can represent
 it. This is a Lean theorem. Three-prime irrationality is not proved.

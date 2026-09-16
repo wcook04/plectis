@@ -116,30 +116,41 @@ data-cites="ehp1958"><a href="#ref-4">[4]</a></span>; the preceding paragraph re
 input that one component of the lemniscate contains at least two
 zeros.</p>
 <p>Recent work on polynomial lemniscates separates component counts from
-metric path questions. Ghosh and Ramachandran characterize the number of
-components through critical points and critical values <span
-class="citation" data-cites="ghosh2023"></span>; for the binomial family
-<span class="math inline" data-term-auto="off">\(z^n-a\)</span>, the condition <span
-class="math inline" data-term-auto="off">\(|a|&lt;1\)</span> puts the filled unit lemniscate
-in the connected regime. Connectedness alone gives no path-length bound.
-Bishop, Eremenko and Lazebnik describe the possible shapes: every
-rational lemniscate is a lemniscate graph whose vertices are the
-critical points on the level set, each of even degree at least four
-<span class="citation" data-cites="bishoperemenkolazebnik2025"><a href="#ref-17">[17]</a></span>,
-and a lemniscate graph is realised by a polynomial lemniscate up to a
-homeomorphism of the plane exactly when it is the boundary of its
-unbounded face <span class="citation"
-data-cites="bishoperemenkolazebnik2025"><a href="#ref-17">[17]</a></span>. This topological
-description also gives no path-length bound. Our dynamical terminology
-is also standard: Sutherland calls <span class="math inline" data-term-auto="off">\(\dot
-z=-f(z)/f&#39;(z)\)</span> the continuous Newton flow and observes that
-<span class="math inline" data-term-auto="off">\(f(z(t))\)</span> moves on a straight radial
-line <span class="citation" data-cites="sutherland1992"><a href="#ref-6">[6]</a></span>. We use
-this value-space identity, not a claim that the global trajectory graph
-is a tree.</p>
+metric path questions. Ghosh and Ramachandran record that the open set
+<span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> has <span
+class="math inline" data-term-auto="off">\(1+\#\{j:|f(c_j)|\ge1\}\)</span> components, where
+<span class="math inline" data-term-auto="off">\(c_1,\ldots,c_{n-1}\)</span> are the critical
+points listed with multiplicity <span class="citation"
+data-cites="ghosh2023"><a href="#ref-5">[5]</a></span>; the underlying component-wise
+Riemann–Hurwitz count appears in the proof of <span class="citation"
+data-cites="eks2010"><a href="#ref-8">[8]</a></span>. For the binomial family <span
+class="math inline" data-term-auto="off">\(z^n-a\)</span>, the condition <span
+class="math inline" data-term-auto="off">\(|a|&lt;1\)</span> therefore puts the filled unit
+lemniscate in the connected regime. Connectedness alone gives no
+path-length bound. Bishop, Eremenko and Lazebnik describe the possible
+shapes: every rational lemniscate is a lemniscate graph whose vertices
+are the critical points on the level set, each of even degree at least
+four <span class="citation"
+data-cites="bishoperemenkolazebnik2025"><a href="#ref-20">[20]</a></span>, and a lemniscate graph
+is realised by a polynomial lemniscate up to a homeomorphism of the
+plane exactly when it is the boundary of its unbounded face <span
+class="citation" data-cites="bishoperemenkolazebnik2025"></span>. This
+topological description also gives no path-length bound. Our dynamical
+terminology is also standard: Sutherland calls <span
+class="math inline" data-term-auto="off">\(\dot z=-f(z)/f&#39;(z)\)</span> the Newton flow
+and observes that <span class="math inline" data-term-auto="off">\(f\)</span> maps its
+solution curves to straight lines emanating from the origin <span
+class="citation" data-cites="sutherland1992"></span>. The underlying
+identity <span class="math inline" data-term-auto="off">\(f(z(t))=e^{-t}f(z(0))\)</span> is a
+lemma of Shub, Tischler and Williams, recorded by Kozen and Stefánsson
+<span class="citation" data-cites="kozen-stefansson1997"><a href="#ref-7">[7]</a></span>, and
+the flow curves joining roots and critical points form the Newtonian
+graph, which has finitely many edges and is connected <span
+class="citation" data-cites="kozen-stefansson1997"></span>. The
+arguments below use only the value-space identity.</p>
 <p>Two recent manuscripts are relevant. The 48-page manuscript posted by
 <code>shtuka</code> on 24 March 2026 <span class="citation"
-data-cites="march2026"><a href="#ref-7">[7]</a></span> claims the unrestricted statement. Its
+data-cites="march2026"><a href="#ref-10">[10]</a></span> claims the unrestricted statement. Its
 Proposition 12 (p. 16, with proof continuing through p. 30) supplies the
 spanning-tree decomposition used in the final proof. The defect was
 located publicly in the problem’s discussion thread: on 25 March 2026
@@ -152,7 +163,7 @@ diagnosis of the same local saddle defect, together with the Cassini
 obstruction to the printed global tree budget. That obstruction refutes
 the load-bearing metric estimate, not Erdős #1041. Pendyala’s
 independent June 2026 preprint <span class="citation"
-data-cites="june2026"><a href="#ref-8">[8]</a></span> proves the degree-four case through a
+data-cites="june2026"><a href="#ref-11">[11]</a></span> proves the degree-four case through a
 finite four-point radial lemma and a short polygonal connector. That is
 the degree-four result directly comparable to the root-pair problem.
 Together with the cubic theorem established here, it settles these two
@@ -316,7 +327,7 @@ class="math inline" data-term-auto="off">\(r\ne1\)</span>: one real parameter pe
 <td class="ta-l">Quartic case</td>
 <td class="ta-l"> Cited</td>
 <td class="ta-l"> Proved in <span class="citation"
-data-cites="june2026"><a href="#ref-8">[8]</a></span>; does not extend to general degree.</td>
+data-cites="june2026"><a href="#ref-11">[11]</a></span>; does not extend to general degree.</td>
 </tr>
 <tr>
 <td class="ta-l">Translated quartic quotient fibres</td>
@@ -421,26 +432,6 @@ class="math inline" data-term-auto="off">\(E_f\)</span> by the broken line <span
 class="math inline" data-term-auto="off">\(\zeta_1\to0\to\zeta_2\)</span>, of length <span
 class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span>.</em></p>
 </div>
-<p>The separation assumed here is a condition on critical values, not on
-the locations of roots and critical points. These locations can remain
-uniformly separated while two distinct critical values coalesce. An
-exact example is</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[p(z)=z^4-\frac{z^3}{262144}-2z^2+\frac{3z}{262144}+\frac12,
-\qquad
-p&#39;(z)=4(z+1)(z-3/1048576)(z-1).\]</span></div>
-<p>Its four roots lie
-respectively in <span class="math inline" data-term-auto="off">\((-3/2,-5/4)\)</span>, <span
-class="math inline" data-term-auto="off">\((-3/4,-1/2)\)</span>, <span
-class="math inline" data-term-auto="off">\((1/2,3/4)\)</span>, and <span
-class="math inline" data-term-auto="off">\((5/4,3/2)\)</span>. Thus the four roots and three
-critical points are pairwise more than <span
-class="math inline" data-term-auto="off">\(1/4\)</span> apart, but the critical values at
-<span class="math inline" data-term-auto="off">\(-1\)</span> and <span
-class="math inline" data-term-auto="off">\(1\)</span> differ by only <span
-class="math inline" data-term-auto="off">\(1/65536&lt;3/65536\)</span>. Root and
-critical-point separation alone therefore cannot discharge the
-value-plane hypothesis of the theorem.</p>
 <div class="proof">
 <p><em>Proof.</em> Vieta’s formula gives <span
 class="math inline" data-term-auto="off">\(|b|&lt;1\)</span>. At a zero <span
@@ -593,19 +584,24 @@ class="math inline" data-term-auto="off">\(C_t\)</span> be the ancestor componen
 set, let <span class="math inline" data-term-auto="off">\(k\ge2\)</span> be its root count,
 and put <span class="math inline" data-term-auto="off">\(x=\log(t/\mu)\)</span> and <span
 class="math inline" data-term-auto="off">\(a=\operatorname{Area}(C_t)/\pi\)</span>; Pólya’s
-inequality gives <span class="math inline" data-term-auto="off">\(a\le t^{2/n}&lt;1\)</span>.
-The component is a Jordan domain, and a Riemann map <span
+inequality <span class="citation" data-cites="crane"><a href="#ref-2">[2]</a></span> gives <span
+class="math inline" data-term-auto="off">\(a\le t^{2/n}&lt;1\)</span>. The component is a
+Jordan domain, and a Riemann map <span
 class="math inline" data-term-auto="off">\(\varphi\)</span> turns <span
 class="math inline" data-term-auto="off">\(f/t\)</span> into a finite Blaschke product of
-degree <span class="math inline" data-term-auto="off">\(k\)</span>.</p>
+degree <span class="math inline" data-term-auto="off">\(k\)</span>, as in <span
+class="citation" data-cites="eks2010"></span>.</p>
 <p>For a Riemann map the derivative has Bergman squared norm <span
-class="math inline" data-term-auto="off">\(\operatorname{Area}(C_t)\)</span>, and the radial
-restriction of the Bergman kernel gives <span
-class="math inline" data-term-auto="off">\(\operatorname{length}(\varphi([0,r]))^2\le
-a\log(1/(1-r^2))\)</span>. Moving two preimages to <span
-class="math inline" data-term-auto="off">\(\pm s\)</span> replaces the kernel integral <span
-class="math inline" data-term-auto="off">\(-\log(1-r^2)\)</span> by <span
-class="math inline" data-term-auto="off">\(4\operatorname{artanh}(s^2)\)</span>, so</p>
+class="math inline" data-term-auto="off">\(\operatorname{Area}(C_t)\)</span>. The Bergman
+kernel <span class="math inline" data-term-auto="off">\(K(z,w)=\pi^{-1}(1-z\overline
+w)^{-2}\)</span> of the disc is positive on the real square, so the
+reproducing property, a measurable unimodular phase on <span
+class="math inline" data-term-auto="off">\([0,r]\)</span> and Cauchy–Schwarz give <span
+class="math inline" data-term-auto="off">\(\operatorname{length}(\varphi([0,r]))^2\le\operatorname{Area}(C_t)
+\int_0^r\!\int_0^rK(x,y)\,dx\,dy=a\log(1/(1-r^2))\)</span>. Moving two
+preimages to <span class="math inline" data-term-auto="off">\(\pm s\)</span> replaces the
+kernel integral <span class="math inline" data-term-auto="off">\(-\log(1-r^2)\)</span> by
+<span class="math inline" data-term-auto="off">\(4\operatorname{artanh}(s^2)\)</span>, so</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\operatorname{length}(\varphi([-s,s]))^2\le4a\operatorname{artanh}(s^2).\]</span></div>
 <p>A pair of roots at hyperbolic distance <span
@@ -853,12 +849,13 @@ class="math inline" data-term-auto="off">\((13/25)e^X&lt;0.982000386&lt;1\)</spa
 are the Riemann mapping theorem, the Bergman kernel, the argument
 principle, the coarea formula, and Pólya’s area inequality <span
 class="math inline" data-term-auto="off">\(\operatorname{Area}\{|f|\le t\}\le\pi
-t^{2/n}\)</span> <span class="citation" data-cites="polya1928"><a href="#ref-1">[1]</a></span>.
-The exact rational certificate is a kernel-free replayable computation,
-and no part of this theorem is Lean-checked or independently reviewed.
-Prior art for the assembled statement is unassessed; the hyperbolic
-slice inequality follows from disjointness of the balls and the law of
-cosines and should be assumed known. The public source of record is <a
+t^{2/n}\)</span> <span class="citation" data-cites="polya1928"><a href="#ref-1">[1]</a></span>,
+<span class="citation" data-cites="crane"><a href="#ref-2">[2]</a></span>. The exact rational
+certificate is a kernel-free replayable computation, and no part of this
+theorem is Lean-checked or independently reviewed. Prior art for the
+assembled statement is unassessed; the hyperbolic slice inequality
+follows from disjointness of the balls and the law of cosines and should
+be assumed known. The public source of record is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AngularBudgetLowCriticalClosure.md"><code>AngularBudgetLowCriticalClosure.md</code></a>,
 which carries the full analytic chain, the certified dual table and the
 replay route. The exact remaining obligation is that this threshold
@@ -938,10 +935,11 @@ H^1(\partial C&#39;)^2
 \le2\pi k&#39;\,\sigma\,\frac{d}{d\sigma}
       \operatorname{Area}(K_\sigma\cap
 C&#39;).         \tag{CF1}\]</span></div>
-<p>Pólya’s area–capacity inequality
-<span class="math inline" data-term-auto="off">\(\operatorname{Area}(K_T)\le\pi
-T^{2/n}\)</span> then selects <span class="math inline" data-term-auto="off">\(t\)</span>
-with a degree-free boundary-length bound.</p>
+<p>Pólya’s area inequality <span
+class="math inline" data-term-auto="off">\(\operatorname{Area}(K_T)\le\pi T^{2/n}\)</span>
+<span class="citation" data-cites="crane"><a href="#ref-2">[2]</a></span> then selects <span
+class="math inline" data-term-auto="off">\(t\)</span> with a degree-free boundary-length
+bound.</p>
 <p>For an argument avoiding the finitely many critical-value rays, lift
 the radial value segment from each root to <span
 class="math inline" data-term-auto="off">\(\partial C_t\)</span>. Split each lift at level
@@ -1080,10 +1078,11 @@ the proof of Theorem <a class="math-ref" href="#res:constant-factor-path">4.1</
 exact component form <span
 class="math inline" data-term-auto="off">\(\operatorname{Area}(C)\le\pi\operatorname{cap}(\overline
 C)^2
-=\pi\kappa^2(2\mu)^{2/n}\)</span>. Only the high-lift and boundary terms
-acquire the factor <span class="math inline" data-term-auto="off">\(\kappa\)</span>; the
-low-lift term (CF2) is unchanged. Taking <span
-class="math inline" data-term-auto="off">\(\lambda=2\)</span>, <span
+=\pi\kappa^2(2\mu)^{2/n}\)</span> of the area–capacity inequality <span
+class="citation" data-cites="crane"></span>. Only the high-lift and
+boundary terms acquire the factor <span
+class="math inline" data-term-auto="off">\(\kappa\)</span>; the low-lift term (CF2) is
+unchanged. Taking <span class="math inline" data-term-auto="off">\(\lambda=2\)</span>, <span
 class="math inline" data-term-auto="off">\(r=1/20\)</span>, and the exact bounds above
 together with <span
 class="math inline" data-term-auto="off">\(\log40&lt;12641/3402&lt;(97/50)^2\)</span>, gives
@@ -1101,7 +1100,25 @@ class="math inline" data-term-auto="off">\(\kappa\le1/3\)</span>. ◻</p>
 class="math inline" data-term-auto="off">\(\kappa=e^{-\Sigma/n}\)</span> with <span
 class="math inline" data-term-auto="off">\(\Sigma\)</span> the sum of exterior Green function
 values at the roots excluded from <span
-class="math inline" data-term-auto="off">\(C\)</span>. A remaining counterexample with <span
+class="math inline" data-term-auto="off">\(C\)</span>. Indeed, let <span
+class="math inline" data-term-auto="off">\(\Omega\)</span> be the unbounded component of
+<span class="math inline" data-term-auto="off">\(\widehat{\mathbb
+C}\mathbin{\backslash}\overline C\)</span>, let <span
+class="math inline" data-term-auto="off">\(G\)</span> be its Green function with pole at
+infinity, extended by zero off <span
+class="math inline" data-term-auto="off">\(\Omega\)</span>, and let <span
+class="math inline" data-term-auto="off">\(g(\cdot,a)\)</span> be its Green function with
+pole at <span class="math inline" data-term-auto="off">\(a\in\Omega\)</span>. The function
+<span class="math inline" data-term-auto="off">\(\frac1n\log\frac{|f|}{2\mu}-G+\frac1n\sum_a
+g(\cdot,a)\)</span>, summed over the roots <span
+class="math inline" data-term-auto="off">\(a\in\Omega\)</span> with multiplicity, extends
+harmonically to <span class="math inline" data-term-auto="off">\(\Omega\)</span>, is bounded,
+and vanishes on <span
+class="math inline" data-term-auto="off">\(\partial\Omega\subseteq\partial C\)</span>, so it
+vanishes identically; its value at infinity is <span
+class="math inline" data-term-auto="off">\(\log\kappa+\frac1n\sum_aG(a)\)</span> by the
+symmetry <span class="math inline" data-term-auto="off">\(g(\infty,a)=G(a)\)</span>. A
+remaining counterexample with <span
 class="math inline" data-term-auto="off">\(\mu\le1/2\)</span> therefore has <span
 class="math inline" data-term-auto="off">\(k_0\le16\)</span> and exterior Green defect <span
 class="math inline" data-term-auto="off">\(\Sigma&lt;n\log(40/39)\)</span> at the top arity,
@@ -1116,39 +1133,72 @@ derivative diverges logarithmically at a critical level.</p>
 <p><strong>Problem 4.4</strong> (one-lobe perimeter). <em> Let <span
 class="math inline" data-term-auto="off">\(C\)</span> be a connected component of <span
 class="math inline" data-term-auto="off">\(\{|f|\le\sigma\}\)</span> containing exactly one
-root of <span class="math inline" data-term-auto="off">\(f\)</span>. Prove or refute </em></p>
+root of <span class="math inline" data-term-auto="off">\(f\)</span>. Determine whether a
+constant <span class="math inline" data-term-auto="off">\(\beta\)</span>, independent of
+<span class="math inline" data-term-auto="off">\(f\)</span>, of its degree <span
+class="math inline" data-term-auto="off">\(n\)</span> and of <span
+class="math inline" data-term-auto="off">\(\sigma\)</span>, satisfies </em></p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\mathcal H^1(\partial
-C)\le\sqrt2\,\varpi\,\sigma^{1/n}
-=\sqrt2\,\varpi\operatorname{cap}\{|f|\le\sigma\},
-\qquad
-\sqrt2\,\varpi=\frac{\Gamma(1/4)^2}{2\sqrt\pi}=3.70814935\ldots,\]</span></div>
-<p class="display-continue"><em>
-where <span class="math inline" data-term-auto="off">\(\varpi\)</span> is the lemniscate
-constant.</em></p>
+class="math display" data-term-auto="off">\[\mathcal H^1(\partial C)\le\beta\,\sigma^{1/n}
+=\beta\operatorname{cap}\{|f|\le\sigma\},\]</span></div>
+<p class="display-continue"><em> and if so determine
+the least such constant <span
+class="math inline" data-term-auto="off">\(\beta_*\)</span>.</em></p>
 </div>
-<p>The constant is attained: for <span
-class="math inline" data-term-auto="off">\(f=z^2-d^2\)</span> one has <span
-class="math inline" data-term-auto="off">\(\mu=d^2\)</span>, <span
-class="math inline" data-term-auto="off">\(\rho=d\)</span>, and the one-root lobe boundary
-<span class="math inline" data-term-auto="off">\(|z^2-d^2|=d^2\)</span> is one loop of
-Bernoulli’s lemniscate, of length <span
+<p>For <span class="math inline" data-term-auto="off">\(f=z^2-d^2\)</span> one has <span
+class="math inline" data-term-auto="off">\(\mu=d^2\)</span> and <span
+class="math inline" data-term-auto="off">\(\rho=d\)</span>. For <span
+class="math inline" data-term-auto="off">\(\sigma&lt;d^2\)</span> the component of <span
+class="math inline" data-term-auto="off">\(\{|f|\le\sigma\}\)</span> around <span
+class="math inline" data-term-auto="off">\(d\)</span> contains one root, and as <span
+class="math inline" data-term-auto="off">\(\sigma\uparrow d^2\)</span> its boundary increases
+to one loop of Bernoulli’s lemniscate <span
+class="math inline" data-term-auto="off">\(|z^2-d^2|=d^2\)</span>, of length <span
 class="math inline" data-term-auto="off">\(d\,\Gamma(1/4)^2/(2\sqrt\pi)\)</span> by the
 substitution <span class="math inline" data-term-auto="off">\(\varphi(w)=d\sqrt{1+w}\)</span>
 and <span
-class="math inline" data-term-auto="off">\(\Gamma(1/4)\Gamma(3/4)=\pi\sqrt2\)</span>. On
-<span class="math inline" data-term-auto="off">\(z^n-r^n\)</span> the corresponding closed
-form <span
+class="math inline" data-term-auto="off">\(\Gamma(1/4)\Gamma(3/4)=\pi\sqrt2\)</span>. At
+<span class="math inline" data-term-auto="off">\(\sigma=d^2\)</span> the two loops meet at
+the critical point, and the closed sublevel set is a single component
+containing both roots. Hence <span
+class="math inline" data-term-auto="off">\(\beta_*\ge\sqrt2\,\varpi=\Gamma(1/4)^2/(2\sqrt\pi)=3.70814935\ldots\)</span>,
+where <span class="math inline" data-term-auto="off">\(\varpi\)</span> is the lemniscate
+constant. On <span class="math inline" data-term-auto="off">\(z^n-r^n\)</span> the
+corresponding closed form <span
 class="math inline" data-term-auto="off">\((2^{1/n}/n)\sqrt\pi\,\Gamma(1/(2n))/\Gamma(1/(2n)+1/2)\)</span>
 decreases from <span class="math inline" data-term-auto="off">\(3.7081\)</span> at <span
 class="math inline" data-term-auto="off">\(n=2\)</span> to <span
 class="math inline" data-term-auto="off">\(2\)</span> as <span
-class="math inline" data-term-auto="off">\(n\to\infty\)</span>. Problem <a class="math-ref" href="#prob:conjecture-p">4.4</a> is the one-root
+class="math inline" data-term-auto="off">\(n\to\infty\)</span>.</p>
+<p>The quadratic loop is exceeded in degree eight. For <span
+class="math inline" data-term-auto="off">\(p(z)=z^8-(3/2)z\)</span> and <span
+class="math inline" data-term-auto="off">\(\sigma=1\)</span>, the component <span
+class="math inline" data-term-auto="off">\(C\)</span> of <span
+class="math inline" data-term-auto="off">\(\{|p|\le1\}\)</span> containing the origin lies in
+<span class="math inline" data-term-auto="off">\(\{|z|&lt;4/5\}\)</span>, because <span
+class="math inline" data-term-auto="off">\(|p(z)|\ge6/5-(4/5)^8&gt;1\)</span> on <span
+class="math inline" data-term-auto="off">\(|z|=4/5\)</span>, and it contains a neighbourhood
+of the closed disc of radius <span class="math inline" data-term-auto="off">\(5/8\)</span>,
+because <span class="math inline" data-term-auto="off">\(|p(z)|\le(5/8)^8+15/16&lt;1\)</span>
+on that disc. The other roots satisfy <span
+class="math inline" data-term-auto="off">\(|z|^7=3/2\)</span>, so <span
+class="math inline" data-term-auto="off">\(C\)</span> contains exactly one root, and <span
+class="math inline" data-term-auto="off">\(\mathcal H^1(\partial
+C)&gt;5\pi/4&gt;(\pi/2)(1+\sqrt2)\ge\sqrt2\,\varpi\)</span>. Moreover,
+for fixed <span class="math inline" data-term-auto="off">\(a&gt;1\)</span> and all
+sufficiently large <span class="math inline" data-term-auto="off">\(N\)</span>, the one-root
+component of <span class="math inline" data-term-auto="off">\(\{|z^N-az|\le1\}\)</span>
+contains every disc of radius <span
+class="math inline" data-term-auto="off">\(r&lt;1/a\)</span>, and a circle of radius between
+<span class="math inline" data-term-auto="off">\(1/a\)</span> and <span
+class="math inline" data-term-auto="off">\(1\)</span> isolates it by Rouché’s theorem;
+letting <span class="math inline" data-term-auto="off">\(a\downarrow1\)</span> shows that
+every admissible <span class="math inline" data-term-auto="off">\(\beta\)</span> is at least
+<span class="math inline" data-term-auto="off">\(2\pi\)</span>. Problem <a class="math-ref" href="#prob:conjecture-p">4.4</a> is the one-root
 per-component analogue of the Erdős–Herzog–Piranian lemniscate-length
-problem, with a different extremal: their per-root constant is <span
+problem, whose per-root constant is <span
 class="math inline" data-term-auto="off">\(2\)</span>, attained asymptotically by <span
-class="math inline" data-term-auto="off">\(z^n-1\)</span>, while the one-root maximum here is
-attained by a quadratic.</p>
+class="math inline" data-term-auto="off">\(z^n-1\)</span>.</p>
 <div class="theorem" id="res:conjecture-p-consumer">
 <p><strong>Theorem 4.5</strong> (conditional removal of the level
 window). <em> If the bound of Problem <a class="math-ref" href="#prob:conjecture-p">4.4</a> holds with
@@ -1158,11 +1208,7 @@ class="math inline" data-term-auto="off">\(f\)</span> are joined inside <span
 class="math inline" data-term-auto="off">\(K_\mu\)</span> by a path of length at most </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\Bigl(\frac{8x}{(1-x)^2}+\frac\beta\pi\log\frac1x+\beta\Bigr)\rho
-\qquad(0&lt;x&lt;1),\]</span></div>
-<p class="display-continue"><em> which is about <span
-class="math inline" data-term-auto="off">\(7.4\rho\)</span> at <span
-class="math inline" data-term-auto="off">\(\beta=\sqrt2\varpi\)</span> and <span
-class="math inline" data-term-auto="off">\(x=1/10\)</span>.</em></p>
+\qquad(0&lt;x&lt;1).\]</span></div>
 </div>
 <div class="proof">
 <p><em>Proof.</em> At level <span class="math inline" data-term-auto="off">\(\mu\)</span>
@@ -1193,10 +1239,12 @@ bound. ◻</p>
 <section id="bdry:constant-factor" class="level5">
 <h5>Evidence and exact boundary.</h5>
 <p>Theorem <a class="math-ref" href="#res:constant-factor-path">4.1</a> is
-ordinary mathematics with no Lean-checked part. It uses the capacity
-identity, Pólya’s area inequality, Cauchy–Schwarz, the univalent-map
-distortion estimate, and a finite graph exit lemma; no external paper
-theorem is imported into it. The public source of record is <a
+ordinary mathematics with no Lean-checked part. Its inputs are the
+capacity identity for polynomial preimages <span class="citation"
+data-cites="crane"><a href="#ref-2">[2]</a></span>, Pólya’s area inequality <span
+class="citation" data-cites="crane"></span>, Cauchy–Schwarz, the Koebe
+distortion theorem for univalent maps, and a finite graph exit lemma.
+The public source of record is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/UnconditionalConstantFactorBound.md">unconditional
 constant factor bound</a>, which carries every rational verification
 quoted above. Its containment level is <span
@@ -1208,32 +1256,31 @@ reach the target on their stated regions; each rational cutoff is an
 integer inequality of the form <span
 class="math inline" data-term-auto="off">\((A+Bq)^2&lt;2k\)</span>, checked exactly. The
 complementary cells, low first-merge arity together with high component
-capacity, stay open. Problem <a class="math-ref" href="#prob:conjecture-p">4.4</a> is a conjecture
-and is measured only: <span class="math inline" data-term-auto="off">\(120\)</span>
-configurations over degrees <span class="math inline" data-term-auto="off">\(2\)</span>
-through <span class="math inline" data-term-auto="off">\(10\)</span> and five families give a
-maximum of <span class="math inline" data-term-auto="off">\(\mathcal H^1(\partial
-U)/(\sqrt2\varpi\rho)\)</span> equal to <span
-class="math inline" data-term-auto="off">\(0.9999997747\)</span>, attained at quadratics,
-with the constructed path at <span
-class="math inline" data-term-auto="off">\(5.07\rho\)</span> against the proved <span
-class="math inline" data-term-auto="off">\(7.1\rho\)</span>; no adversarial search has been
-run against it, so the reported maximum is a basin record. The adjacent
-classical literature on lemniscate length measures a different object,
-namely the arclength of the level curve <span
-class="math inline" data-term-auto="off">\(\{|p|=1\}\)</span>, which is Erdős #114: Borwein’s
-<span class="math inline" data-term-auto="off">\(8\pi en\)</span> <span class="citation"
-data-cites="borwein1995"><a href="#ref-10">[10]</a></span>, Eremenko and Hayman’s <span
+capacity, stay open. For Problem <a class="math-ref" href="#prob:conjecture-p">4.4</a>, <span
+class="math inline" data-term-auto="off">\(120\)</span> sampled configurations over degrees
+<span class="math inline" data-term-auto="off">\(2\)</span> through <span
+class="math inline" data-term-auto="off">\(10\)</span> and five families gave a largest ratio
+<span class="math inline" data-term-auto="off">\(\mathcal H^1(\partial
+U)/(\sqrt2\varpi\rho)\)</span> of <span
+class="math inline" data-term-auto="off">\(0.9999997747\)</span>, at quadratics. The
+degree-eight example above exceeds the quadratic constant, so the
+sampled maximum is a local one. The adjacent classical literature on
+lemniscate length concerns the arclength of the level curve <span
+class="math inline" data-term-auto="off">\(\{|p|=1\}\)</span>, which is Erdős #114. Fryntov
+and Nazarov recall its history <span class="citation"
+data-cites="fryntovnazarov2008"><a href="#ref-15">[15]</a></span>: Dolzhenko’s bound <span
+class="math inline" data-term-auto="off">\(4\pi n\)</span>, Pommerenke’s bound <span
+class="math inline" data-term-auto="off">\(74n^2\)</span> of 1961, and Borwein’s bound <span
+class="math inline" data-term-auto="off">\(8\pi en\)</span> <span class="citation"
+data-cites="borwein1995"><a href="#ref-13">[13]</a></span>. Eremenko and Hayman proved <span
 class="math inline" data-term-auto="off">\(9.173n\)</span> <span class="citation"
-data-cites="eremenkohayman1999"><a href="#ref-11">[11]</a></span>, Fryntov and Nazarov’s
+data-cites="eremenkohayman1999"><a href="#ref-14">[14]</a></span>, Fryntov and Nazarov the
 asymptotically sharp <span class="math inline" data-term-auto="off">\(2n+o(n)\)</span> <span
-class="citation" data-cites="fryntovnazarov2008"></span>, and Tao’s
-resolution for large <span class="math inline" data-term-auto="off">\(n\)</span> <span
-class="citation" data-cites="tao2025"></span>. A bound <span
-class="math inline" data-term-auto="off">\(74n^2\)</span> is attributed to Pommerenke in the
-same family, and this note records no located reference for it. None of
-these bounds a root-to-root path, and a dated search on 2 September 2026
-located no constant-factor root-pair bound in arbitrary degree.</p>
+class="citation" data-cites="fryntovnazarov2008"></span>, and Tao
+resolved the problem for large <span class="math inline" data-term-auto="off">\(n\)</span>
+<span class="citation" data-cites="tao2025"><a href="#ref-16">[16]</a></span>. These results bound
+the length of a level curve; a dated search on 2 September 2026 located
+no constant-factor root-pair bound in arbitrary degree.</p>
 </section>
 </section>
 <section id="sec:degree-three" class="level2">
@@ -1410,8 +1457,11 @@ class="math inline" data-term-auto="off">\(1\)</span> lie in <span
 class="math inline" data-term-auto="off">\(Q\)</span>, and (4) says that <span
 class="math inline" data-term-auto="off">\(0\)</span> is the only critical point in <span
 class="math inline" data-term-auto="off">\(U\)</span>. A component of a polynomial lemniscate
-is simply connected. The proper map <span class="math inline" data-term-auto="off">\(P:U\to
-Q\)</span> therefore has degree two: Riemann–Hurwitz gives <span
+is simply connected, by the maximum principle. The proper map <span
+class="math inline" data-term-auto="off">\(P:U\to Q\)</span> therefore has degree two: the
+component-wise Riemann–Hurwitz count in the proof of <span
+class="citation" data-cites="eks2010"></span>, applied to <span
+class="math inline" data-term-auto="off">\((P-w_0)/S\)</span>, gives <span
 class="math inline" data-term-auto="off">\(1=\deg(P|_U)-1\)</span> because the simple
 critical point contributes the only unit of ramification.</p>
 <p>Set <span class="math inline" data-term-auto="off">\(a=1-w_0\)</span>. On <span
@@ -1453,7 +1503,10 @@ class="math inline" data-term-auto="off">\([-q,q]\)</span>, where</p>
 class="math display" data-term-auto="off">\[q^2=\frac{S}{S^2+p}.\]</span></div>
 <p>For <span
 class="math inline" data-term-auto="off">\(\Phi=Z\circ\zeta^{-1}:\mathbb D\to U\)</span>, the
-Bergman segment inequality therefore gives</p>
+Bergman segment inequality, proved by the kernel estimate of
+Section <a class="math-ref" href="#sec:low-critical-closure">3</a> with the
+double integral taken over <span
+class="math inline" data-term-auto="off">\([-q,q]^2\)</span>, gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{align*}
 \operatorname{length}(\Gamma)^2
@@ -1476,7 +1529,9 @@ class="math inline" data-term-auto="off">\(k=2\)</span>, gives</p>
 class="math display" data-term-auto="off">\[\frac{\operatorname{cap}(\overline{U&#39;})^n}{S&#39;}
 &lt;\frac{k}{2n-k}=\frac1{n-1}.\]</span></div>
 <p>Pólya’s area–capacity
-inequality then yields <span
+inequality <span
+class="math inline" data-term-auto="off">\(\operatorname{Area}(K)\le\pi\operatorname{cap}(K)^2\)</span>
+<span class="citation" data-cites="crane"><a href="#ref-2">[2]</a></span> then yields <span
 class="math inline" data-term-auto="off">\(\operatorname{Area}(U&#39;)&lt;\pi(S&#39;/(n-1))^{2/n}\)</span>.
 These components exhaust <span class="math inline" data-term-auto="off">\(U\)</span> as <span
 class="math inline" data-term-auto="off">\(S&#39;\nearrow S\)</span>, so</p>
@@ -1538,6 +1593,26 @@ class="math inline" data-term-auto="off">\(S=6/5\)</span>, since</p>
 class="math display" data-term-auto="off">\[\Bigl(\frac35\Bigr)^{2/3}\log 11&lt;2.\]</span></div>
 <p>This sharper cubic constant is part of the numerical Lean kernel cited
 below.</p>
+<p>The separation hypothesis of Theorem <a class="math-ref" href="#res:critical-value-separation">6.1</a>
+constrains critical values only. Roots and critical points can remain
+uniformly separated while two distinct critical values coalesce. An
+exact example is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[g(z)=z^4-\frac{z^3}{262144}-2z^2+\frac{3z}{262144}+\frac12,
+\qquad
+g&#39;(z)=4(z+1)(z-3/1048576)(z-1).\]</span></div>
+<p>Its four roots lie
+respectively in <span class="math inline" data-term-auto="off">\((-3/2,-5/4)\)</span>, <span
+class="math inline" data-term-auto="off">\((-3/4,-1/2)\)</span>, <span
+class="math inline" data-term-auto="off">\((1/2,3/4)\)</span>, and <span
+class="math inline" data-term-auto="off">\((5/4,3/2)\)</span>. Thus the four roots and three
+critical points are pairwise more than <span
+class="math inline" data-term-auto="off">\(1/4\)</span> apart, but the critical values at
+<span class="math inline" data-term-auto="off">\(-1\)</span> and <span
+class="math inline" data-term-auto="off">\(1\)</span> differ by only <span
+class="math inline" data-term-auto="off">\(1/65536&lt;3/65536\)</span>. Root and
+critical-point separation alone therefore cannot discharge the
+value-plane hypothesis of the theorem.</p>
 <section id="bdry:critical-value-separation" class="level5">
 <h5>Evidence and exact boundary.</h5>
 <p>The two-sheeted component, its square-root uniformisation, the
@@ -1564,7 +1639,7 @@ asserts no existence of a separated disk, and does not prove an
 unrestricted admissible-hub selector, a COVER theorem, or
 Erdős #1041.</p>
 <p>The literature disposition for Dubinin’s Theorem 1 is settled here.
-The source is <span class="citation" data-cites="dubinin"><a href="#ref-9">[9]</a></span>,
+The source is <span class="citation" data-cites="dubinin"><a href="#ref-12">[12]</a></span>,
 Theorem 1 on printed page 85 of the POMI original. It concerns a
 holomorphic function that gives a full <span
 class="math inline" data-term-auto="off">\(n\)</span>-fold covering of an annulus <span
@@ -1710,6 +1785,24 @@ class="math inline" data-term-auto="off">\(n=2\)</span>, so <em>(9)</em> is stri
 one. The selected segment has length at most <span
 class="math inline" data-term-auto="off">\(D&lt;2\)</span>. ◻</p>
 </div>
+<p>Corollary <a class="math-ref" href="#cor:collinear-erdos-1041">7.3</a> already
+follows from a theorem of Erdős, Herzog and Piranian <span
+class="citation" data-cites="ehp1958"></span>: if the zeros of a monic
+polynomial of degree <span class="math inline" data-term-auto="off">\(n\)</span> are real,
+lie in <span class="math inline" data-term-auto="off">\([-1,1]\)</span> and have centroid in
+<span class="math inline" data-term-auto="off">\([0,1]\)</span>, then <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\cap\mathbb R\)</span> contains an
+interval holding at least <span class="math inline" data-term-auto="off">\(n/2\)</span> of
+the zeros. Apply it to the normalized polynomial <span
+class="math inline" data-term-auto="off">\(q\)</span>, after the reflection <span
+class="math inline" data-term-auto="off">\(w\mapsto-w\)</span> if the centroid is negative.
+For <span class="math inline" data-term-auto="off">\(n\ge3\)</span> two consecutive zeros in
+that interval are joined by a segment of length at most <span
+class="math inline" data-term-auto="off">\(D\)</span> inside <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;(D/2)^n\}\)</span>, and for <span
+class="math inline" data-term-auto="off">\(n=2\)</span> the segment between the zeros lies in
+<span class="math inline" data-term-auto="off">\(\{|f|\le(D/2)^2\}\)</span>. Theorem <a class="math-ref" href="#thm:sharp-collinear-diameter">7.2</a> adds
+the sharp level and its equality configurations.</p>
 <section id="critical-sequences-and-the-extremal-configuration."
 class="level5">
 <h5>Critical sequences and the extremal configuration.</h5>
@@ -1723,7 +1816,7 @@ and the gap maxima are the moduli of its critical sequence <span
 class="math inline" data-term-auto="off">\((q(c_1),\ldots,q(c_{n-1}))\)</span>. A real
 polynomial with real zeros is determined by its critical sequence up to
 an increasing real affine change of variable <span class="citation"
-data-cites="eremenkoyuditskii2012"><a href="#ref-14">[14]</a></span>; the proof uses only the
+data-cites="eremenkoyuditskii2012"><a href="#ref-17">[17]</a></span>; the proof uses only the
 alternation count. In this language, <em>(9)</em> says that a real
 polynomial of degree <span class="math inline" data-term-auto="off">\(n\)</span> with <span
 class="math inline" data-term-auto="off">\(n\)</span> distinct real zeros, leading
@@ -1734,7 +1827,7 @@ at most <span class="math inline" data-term-auto="off">\(C_n|a|(D/2)^n\)</span>.
 the monic polynomial of least deviation from zero on <span
 class="math inline" data-term-auto="off">\([-1/r_n,1/r_n]\)</span>, characterised by the
 equioscillation conditions recalled in <span class="citation"
-data-cites="eremenkoyuditskii2012"><a href="#ref-14">[14]</a></span>. All <span
+data-cites="eremenkoyuditskii2012"><a href="#ref-17">[17]</a></span>. All <span
 class="math inline" data-term-auto="off">\(n-1\)</span> of its critical values have modulus
 <span class="math inline" data-term-auto="off">\(C_n\)</span>, so every critical point of
 <span class="math inline" data-term-auto="off">\(q_*\)</span> lies on the level curve <span
@@ -1742,11 +1835,11 @@ class="math inline" data-term-auto="off">\(\{|q_*|=C_n\}\)</span>. Extremals wit
 property also occur in the level-curve length problem, where some
 extremal polynomial has all its critical points on <span
 class="math inline" data-term-auto="off">\(\{|p|=1\}\)</span> <span class="citation"
-data-cites="eremenkohayman1999"><a href="#ref-11">[11]</a></span>, and in the sharp bound for
+data-cites="eremenkohayman1999"><a href="#ref-14">[14]</a></span>, and in the sharp bound for
 <span class="math inline" data-term-auto="off">\(|f&#39;|\)</span> on a connected sublevel
 set <span class="math inline" data-term-auto="off">\(\{|f|\le1\}\)</span> of a monic
 polynomial, proved by Eremenko and Lempert <span class="citation"
-data-cites="eremenkolempert1994"><a href="#ref-15">[15]</a></span>, whose equality cases are <span
+data-cites="eremenkolempert1994"><a href="#ref-18">[18]</a></span>, whose equality cases are <span
 class="math inline" data-term-auto="off">\(e^{-in\theta}T_n(2^{1/n-1}e^{i\theta}z+b)\)</span>
 with <span class="math inline" data-term-auto="off">\(\theta\)</span> real <span
 class="citation" data-cites="eremenko2007"></span>.</p>
@@ -2237,20 +2330,44 @@ open; this family does not solve unrestricted Erdős #1041.</p>
 <section id="sec:translated-quartic-quotient-fibres"
 class="level3 unnumbered">
 <h3 class="unnumbered">Translated quartic quotient fibres</h3>
-<p>Pendyala’s degree-four theorem can also be lifted through every
-nontrivial cyclic power. Let <span class="math inline" data-term-auto="off">\(P\)</span> be a
-monic quartic, let <span class="math inline" data-term-auto="off">\(q\ge2\)</span>, and set</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[f(z)=P((z-h)^q).\]</span></div>
-<p>If all listed
-zeros of <span class="math inline" data-term-auto="off">\(f\)</span> lie in the open unit
-disk, averaging the squared moduli over each complete <span
+<p>Pendyala’s degree-four theorem <span class="citation"
+data-cites="june2026"><a href="#ref-11">[11]</a></span>, with his four-point radial lemma <span
+class="citation" data-cites="june2026"></span>, can also be lifted
+through every nontrivial cyclic power. Let <span
+class="math inline" data-term-auto="off">\(P\)</span> be a monic quartic, let <span
+class="math inline" data-term-auto="off">\(q\ge2\)</span>, and set</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[f(z)=P((z-h)^q).\]</span></div>
+<p>If all listed zeros of
+<span class="math inline" data-term-auto="off">\(f\)</span> lie in the open unit disk,
+averaging the squared moduli over each complete <span
 class="math inline" data-term-auto="off">\(q\)</span>-point fibre shows that every quotient
 root <span class="math inline" data-term-auto="off">\(w\)</span> of <span
 class="math inline" data-term-auto="off">\(P\)</span> satisfies <span
 class="math inline" data-term-auto="off">\(|w|&lt;1\)</span>. Pendyala’s chord-or-radial
-proof then supplies the quotient geometry. The extra issue is metric: a
-short chord in the <span class="math inline" data-term-auto="off">\(w\)</span>-plane need not
-lift isometrically through <span class="math inline" data-term-auto="off">\(y\mapsto
+proof then supplies the quotient geometry, in two cases. If two quotient
+roots satisfy <span class="math inline" data-term-auto="off">\(|w_i-w_j|&lt;1\)</span>, every
+point <span class="math inline" data-term-auto="off">\(w\)</span> of the chord <span
+class="math inline" data-term-auto="off">\([w_i,w_j]\)</span> lies in the unit disc; the two
+endpoint factors of <span class="math inline" data-term-auto="off">\(|P(w)|\)</span> have
+product at most <span class="math inline" data-term-auto="off">\(|w_i-w_j|^2/4\)</span> and
+the other two factors are below <span class="math inline" data-term-auto="off">\(2\)</span>,
+so <span class="math inline" data-term-auto="off">\(|P(w)|\le|w_i-w_j|^2&lt;1\)</span>.
+Otherwise the quotient roots are pairwise at distance at least <span
+class="math inline" data-term-auto="off">\(1\)</span>. Choosing <span
+class="math inline" data-term-auto="off">\(R\)</span> with <span
+class="math inline" data-term-auto="off">\(\max_k|w_k|&lt;R&lt;1\)</span> and applying the
+four-point radial lemma to the points <span
+class="math inline" data-term-auto="off">\(w_k/R\)</span> gives distinct <span
+class="math inline" data-term-auto="off">\(i,j\)</span> with <span
+class="math inline" data-term-auto="off">\(|P(tw_i)|\le R^4\)</span> and <span
+class="math inline" data-term-auto="off">\(|P(tw_j)|\le R^4\)</span> for <span
+class="math inline" data-term-auto="off">\(0\le t\le1\)</span>, so the radial segments <span
+class="math inline" data-term-auto="off">\([0,w_i]\)</span> and <span
+class="math inline" data-term-auto="off">\([0,w_j]\)</span> lie in <span
+class="math inline" data-term-auto="off">\(\{|P|&lt;1\}\)</span>. The extra issue is metric:
+a short chord in the <span class="math inline" data-term-auto="off">\(w\)</span>-plane need
+not lift isometrically through <span class="math inline" data-term-auto="off">\(y\mapsto
 y^q\)</span>.</p>
 <p>Put <span class="math inline" data-term-auto="off">\(\alpha=1/q\)</span>. Along a quotient
 chord whose supporting line has distance <span
@@ -2766,7 +2883,9 @@ the interval under consideration, assume <span
 class="math inline" data-term-auto="off">\(z\)</span> is differentiable, <span
 class="math inline" data-term-auto="off">\(f&#39;(z(t))\ne0\)</span>, and <span
 class="math inline" data-term-auto="off">\(z&#39;(t)=N(z(t))\)</span>; put <span
-class="math inline" data-term-auto="off">\(w(t)=f(z(t))\)</span>.</p>
+class="math inline" data-term-auto="off">\(w(t)=f(z(t))\)</span>. Kozen and Stefánsson record
+the following identity as a lemma of Shub, Tischler and Williams <span
+class="citation" data-cites="kozen-stefansson1997"></span>.</p>
 <div class="theorem" id="res:value">
 <p><strong>Theorem 9.1</strong> (value equation). <em> Let <span
 class="math inline" data-term-auto="off">\(f\)</span> be a polynomial and <span
@@ -2828,8 +2947,13 @@ href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e
 finite connection of distinct value rays</a> in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/PaperNewtonEndpoints.lean">newton
 endpoints</a> make these premises explicit. Their compilation and axiom
-checks are unrun in this return. They construct no trajectories and
-supply no global monodromy theorem.</p>
+checks are not reported here. They construct no trajectories and supply
+no global monodromy theorem. Kozen and Stefánsson draw the same ray
+consequence for the Newtonian graph: under <span
+class="math inline" data-term-auto="off">\(f\)</span>, every edge maps onto a segment of a
+ray through the origin whose endpoints are <span
+class="math inline" data-term-auto="off">\(0\)</span> or critical values <span
+class="citation" data-cites="kozen-stefansson1997"></span>.</p>
 </section>
 <section id="sec:arguments" class="level2">
 <h2>Arguments, not moduli</h2>
@@ -2938,7 +3062,16 @@ descriptions of the same three-ended block do not repair the four-sector
 topology.</p>
 <p>There is nevertheless a complete ordinary topology theorem on the
 generic stratum where the critical values separate both by angle and by
-level.</p>
+level. Its ingredients are classical: the Newtonian graph of Shub,
+Tischler and Williams <span class="citation"
+data-cites="kozen-stefansson1997"><a href="#ref-7">[7]</a></span>, the component-wise
+Riemann–Hurwitz count in the proof of <span class="citation"
+data-cites="eks2010"><a href="#ref-8">[8]</a></span>, and the division of the Riemann surface of
+the inverse function into sheets by slits along rays from its branch
+points, which Dubinin uses to estimate capacities <span class="citation"
+data-cites="dubinin2006capacity"><a href="#ref-9">[9]</a></span>. The theorem below specifies
+the sheets, critical transpositions and descent arcs for the stated
+component.</p>
 <div class="theorem" id="res:attachment-aware-reeb">
 <p><strong>Theorem 11.1</strong> (ray-separated slit-sheet decomposition).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic, and let <span
@@ -3261,29 +3394,40 @@ and slack stability are the open content.</p>
 <section id="the-global-newton-flow-claim-ceiling"
 class="level3 unnumbered">
 <h3 class="unnumbered">5. The global Newton-flow claim ceiling</h3>
+<p>Classical Newton-flow theory supplies the global part of this
+programme. Away from the roots and critical points, every orbit
+satisfies</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[p(z(t))=e^{-(t-t_0)}p(z(t_0)),\qquad
+u(z(t))=u(z(t_0))+t-t_0,\qquad u=-\log|p|,\]</span></div>
+<p class="display-continue">by the lemma of
+Shub, Tischler and Williams <span class="citation"
+data-cites="kozen-stefansson1997"><a href="#ref-7">[7]</a></span>; every maximal orbit has one
+of four types, with finite ends at critical points, an infinite forward
+end at a root and an infinite backward end at the point at infinity
+<span class="citation" data-cites="kozen-stefansson1997"><a href="#ref-7">[7]</a></span>; and
+the orbits joining roots and critical points form a connected Newtonian
+graph with finitely many edges <span class="citation"
+data-cites="kozen-stefansson1997"><a href="#ref-7">[7]</a></span>.</p>
 <div class="problem" id="prob:globalflow1041">
 <p><strong>Problem 13.5</strong> (relative global Newton-flow theorem).
 <em> On a compact regular band </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[M_{a,b}=\{z:a\le-\log|p(z)|\le b\},\]</span></div>
 <p class="display-continue"><em>
-prove real-time existence and the identities </em></p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[p(z(t))=e^{-(t-t_0)}p(z(t_0)),\qquad
-u(z(t))=u(z(t_0))+t-t_0\]</span></div>
-<p class="display-continue"><em> throughout every maximal orbit;
-classify both limiting endpoints among the regular boundary, root ends
-and finite saddle set; and exclude recurrent, accumulating and
-non-Hausdorff orbit phenomena. Under pairwise ray separation of the
+adapt this theory to the band: describe how maximal orbits cross the two
+boundary curves, and show that the orbit space of the chosen strip
+decomposition is Hausdorff. Under pairwise ray separation of the
 critical values, decide whether the flow is Morse–Smale relative to the
 boundary or whether the strongest valid conclusion is only absence of
 saddle-to-saddle connections.</em></p>
 </div>
 <p>The checked algebra proves the pointwise value equation and the
-endpoint-ray consumer. It does not supply global solution theory or an
-orbit-space graph. A positive stronger theorem must give the graph and a
-finite edge bound; a negative answer should exhibit the simplest
-ray-separated polynomial carrying the remaining pathology.</p>
+endpoint-ray consumer; the global solution theory and the finite graph
+are the classical results cited above. The open content is their
+relative form on the band, together with the quantitative slack and
+length control needed for gluing. A negative answer should exhibit the
+simplest ray-separated polynomial carrying the remaining pathology.</p>
 <p>Erdős #1041 remains open. Five separate statements are proved above,
 with different degree ranges, root hypotheses, containment levels and
 constants. Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
@@ -3829,29 +3973,60 @@ complete long record and is not a short-note headline.</p>
 <h2 class="unnumbered">References</h2>
 <ol>
 <li id="ref-1"><p>G. Pólya, <em>Beitrag zur Verallgemeinerung des Verzerrungssatzes
-auf mehrfach zusammenhängende Gebiete</em>, Sitzungsber. Preuss. Akad.
-Wiss., Phys.-Math. Kl. (1928), 228–232 and 280–282.</p></li>
-<li id="ref-2"><p>E. Crane, <em>The area of polynomial images and preimages</em>,
-preprint, arXiv:math/0302189 (17 February 2003), Theorems 2 and 3. <a
-href="https://arxiv.org/abs/math/0302189"
-class="uri">https://arxiv.org/abs/math/0302189</a></p></li>
+auf mehrfach zusammenhängende Gebiete</em>, Sitzungsberichte der
+Preussischen Akademie der Wissenschaften, Physikalisch-Mathematische
+Klasse (1928), printed pp. 228–232 and 280–282. <a
+href="https://archive.org/details/sitzungsbericht1928preu"
+class="uri">https://archive.org/details/sitzungsbericht1928preu</a>.</p></li>
+<li id="ref-2"><p>E. Crane, <em>The areas of polynomial images and pre-images</em>,
+Bull. London Math. Soc. <strong>36</strong> (2004), no. 6, 786–792,
+doi:<a
+href="https://doi.org/10.1112/S0024609304003509">10.1112/S0024609304003509</a>;
+preprint arXiv:<a
+href="https://arxiv.org/abs/math/0302189v1">math/0302189v1</a>, whose
+statement numbers are cited.</p></li>
 <li id="ref-3"><p>T. F. Bloom, <em>Erdős Problems</em>, problem 1041. <a
 href="https://www.erdosproblems.com/1041"
 class="uri">https://www.erdosproblems.com/1041</a></p></li>
 <li id="ref-4"><p>P. Erdős, F. Herzog, and G. Piranian, <em>Metric properties of
-polynomials</em>, J. Analyse Math. <strong>6</strong> (1958), 125–148.
-<a href="https://doi.org/10.1007/BF02790232"
-class="uri">https://doi.org/10.1007/BF02790232</a></p></li>
+polynomials</em>, J. Analyse Math. <strong>6</strong> (1958), 125–148,
+doi:<a
+href="https://doi.org/10.1007/BF02790232">10.1007/BF02790232</a>.</p></li>
 <li id="ref-5"><p>S. Ghosh and K. Ramachandran, <em>Number of Components of
 Polynomial Lemniscates: A Problem of Erdős, Herzog, and Piranian</em>,
-arXiv:2312.13673v1 (2023). <a href="https://arxiv.org/abs/2312.13673"
-class="uri">https://arxiv.org/abs/2312.13673</a></p></li>
+J. Math. Anal. Appl. <strong>540</strong> (2024), no. 1, 128571, doi:<a
+href="https://doi.org/10.1016/j.jmaa.2024.128571">10.1016/j.jmaa.2024.128571</a>;
+preprint arXiv:<a
+href="https://arxiv.org/abs/2312.13673v1">2312.13673v1</a>, whose
+statement numbers are cited.</p></li>
 <li id="ref-6"><p>S. Sutherland, <em>Bad Polynomials for Newton’s Method</em>, in
 B. Bielefeld and M. Lyubich (eds.), <em>Conformal Dynamics Problem
 List</em>, Stony Brook IMS preprint (1992), 42–44. <a
 href="https://www.math.stonybrook.edu/preprints/ims92-7.pdf"
 class="uri">https://www.math.stonybrook.edu/preprints/ims92-7.pdf</a></p></li>
-<li id="ref-7"><p><code>shtuka</code>, <em>A Short Path Joining Two Zeros Inside a
+<li id="ref-7"><p>D. Kozen and K. Stefánsson, <em>Computing the Newtonian
+graph</em>, J. Symbolic Comput. <strong>24</strong> (1997), no. 2,
+125–136, doi:<a
+href="https://doi.org/10.1006/jsco.1997.0118">10.1006/jsco.1997.0118</a>;
+authors’ copy <a
+href="https://www.cs.cornell.edu/kozen/Papers/newton.pdf"
+class="uri">https://www.cs.cornell.edu/kozen/Papers/newton.pdf</a>.</p></li>
+<li id="ref-8"><p>P. Ebenfelt, D. Khavinson, and H. S. Shapiro, <em>Two-dimensional
+shapes and lemniscates</em>, in <em>Complex Analysis and Dynamical
+Systems IV, Part 1</em>, Contemp. Math. <strong>553</strong>, Amer.
+Math. Soc., Providence, RI, 2011, 45–59, doi:<a
+href="https://doi.org/10.1090/conm/553/10931">10.1090/conm/553/10931</a>;
+preprint arXiv:<a
+href="https://arxiv.org/abs/1003.4567v1">1003.4567v1</a>, whose
+statement numbers are cited.</p></li>
+<li id="ref-9"><p>V. N. Dubinin, <em>Lemniscates and inequalities for the
+logarithmic capacities of continua</em>, Mat. Zametki
+<strong>80</strong> (2006), no. 1, 33–37, doi:<a
+href="https://doi.org/10.4213/mzm2777">10.4213/mzm2777</a>; English
+translation, Math. Notes <strong>80</strong> (2006), no. 1, 31–35,
+doi:<a
+href="https://doi.org/10.1007/s11006-006-0105-8">10.1007/s11006-006-0105-8</a>.</p></li>
+<li id="ref-10"><p><code>shtuka</code>, <em>A Short Path Joining Two Zeros Inside a
 Polynomial Lemniscate</em>, manuscript posted 24 March 2026, 48 pp. <a
 href="https://shtuka123.github.io/1041/main.pdf"
 class="uri">https://shtuka123.github.io/1041/main.pdf</a>. The file at
@@ -3861,86 +4036,56 @@ version, its defect, and the author’s 26 March 2026 concession is the
 discussion thread at <a
 href="https://www.erdosproblems.com/forum/thread/1041"
 class="uri">https://www.erdosproblems.com/forum/thread/1041</a>.</p></li>
-<li id="ref-8"><p>V. S. Pendyala, <em>A Degree-Four Lemniscate Path Theorem</em>,
-arXiv:2606.24875v1 (2026). <a href="https://arxiv.org/abs/2606.24875"
-class="uri">https://arxiv.org/abs/2606.24875</a>, doi:<a
+<li id="ref-11"><p>V. S. Pendyala, <em>A Degree-Four Lemniscate Path Theorem</em>,
+arXiv:<a href="https://arxiv.org/abs/2606.24875v1">2606.24875v1</a>
+(2026), doi:<a
 href="https://doi.org/10.48550/arXiv.2606.24875">10.48550/arXiv.2606.24875</a>.</p></li>
-<li id="ref-9"><p>V. N. Dubinin, <em>Some inequalities for polynomials and rational
+<li id="ref-12"><p>V. N. Dubinin, <em>Some inequalities for polynomials and rational
 functions associated with lemniscates</em>, Zap. Nauchn. Sem. POMI
 <strong>404</strong> (2012), 83–99; English translation, J. Math. Sci.
 <strong>193</strong> (2013), no. 1, 45–54, doi:<a
-href="https://doi.org/10.1007/s10958-013-1432-4">10.1007/s10958-013-1432-4</a>.
-Theorem 1, printed page 85, assumes a holomorphic function giving a full
-<span class="math inline" data-term-auto="off">\(n\)</span>-fold covering of an annulus <span
-class="math inline" data-term-auto="off">\(t_1&lt;|w|&lt;t_2\)</span> and, with <span
-class="math inline" data-term-auto="off">\(E\)</span> the complementary set defined there,
-states <span class="math inline" data-term-auto="off">\((t_2/t_1)^{2/n}\le m(E\cup
-D)/m(E)\)</span>. This is a Pólya-type area inequality under a covering
-hypothesis. T. Tao cited it on the Erdős Problem #1041 discussion page,
-25 March 2026, for the relative area scaling factor. It is recorded here
-as a neighbouring result, and no argument in this note uses it; the area
-input used is the absolute Pólya inequality <span class="citation"
-data-cites="polya1928"><a href="#ref-1">[1]</a></span>.</p></li>
-<li id="ref-10"><p>P. Borwein, <em>The arc length of the lemniscate <span
+href="https://doi.org/10.1007/s10958-013-1432-4">10.1007/s10958-013-1432-4</a>.</p></li>
+<li id="ref-13"><p>P. Borwein, <em>The arc length of the lemniscate <span
 class="math inline" data-term-auto="off">\(\{|p(z)|=1\}\)</span></em>, Proc. Amer. Math. Soc.
-(1995), doi:<a
-href="https://doi.org/10.1090/S0002-9939-1995-1223265-3">10.1090/S0002-9939-1995-1223265-3</a>.
-Bound <span class="math inline" data-term-auto="off">\(8\pi en\)</span> for the level-curve
-arclength of Erdős #114.</p></li>
-<li id="ref-11"><p>A. Eremenko and W. Hayman, <em>On the length of lemniscates</em>,
-Michigan Math. J. <strong>46</strong> (1999), no. 2, 409–415; preprint
-arXiv:0805.2295. <a href="https://arxiv.org/abs/0805.2295"
-class="uri">https://arxiv.org/abs/0805.2295</a>. Bound <span
-class="math inline" data-term-auto="off">\(9.173\,n\)</span> for the same level-curve
-arclength.</p></li>
-<li id="ref-12"><p>A. Fryntov and F. Nazarov, <em>New estimates for the length of
+<strong>123</strong> (1995), no. 3, 797–799, doi:<a
+href="https://doi.org/10.1090/S0002-9939-1995-1223265-3">10.1090/S0002-9939-1995-1223265-3</a>.</p></li>
+<li id="ref-14"><p>A. Eremenko and W. Hayman, <em>On the length of lemniscates</em>,
+Michigan Math. J. <strong>46</strong> (1999), no. 2, 409–415, doi:<a
+href="https://doi.org/10.1307/mmj/1030132418">10.1307/mmj/1030132418</a>;
+preprint arXiv:<a
+href="https://arxiv.org/abs/0805.2295">0805.2295</a>.</p></li>
+<li id="ref-15"><p>A. Fryntov and F. Nazarov, <em>New estimates for the length of
 the Erdős–Herzog–Piranian lemniscate</em>, in <em>Linear and Complex
 Analysis</em>, Amer. Math. Soc. Transl. Ser. 2 <strong>226</strong>,
 Amer. Math. Soc., Providence, RI, 2009, 49–60, doi:<a
 href="https://doi.org/10.1090/trans2/226/05">10.1090/trans2/226/05</a>;
-preprint arXiv:0808.0717 (2008). <a
-href="https://arxiv.org/abs/0808.0717"
-class="uri">https://arxiv.org/abs/0808.0717</a>. Proves <span
-class="math inline" data-term-auto="off">\(|L_p|\le 2n+o(n)\)</span> for all monic
-degree-<span class="math inline" data-term-auto="off">\(n\)</span> polynomials and local
-maximality at <span class="math inline" data-term-auto="off">\(p(z)=z^n-1\)</span>.</p></li>
-<li id="ref-13"><p>T. Tao, <em>The maximal length of the Erdős–Herzog–Piranian
-lemniscate in high degree</em>, arXiv:2512.12455 (December 2025). <a
-href="https://arxiv.org/abs/2512.12455"
-class="uri">https://arxiv.org/abs/2512.12455</a>. Resolves the
-Erdős #114 level-curve conjecture for large <span
-class="math inline" data-term-auto="off">\(n\)</span>.</p></li>
-<li id="ref-14"><p>A. Eremenko and P. Yuditskii, <em>Comb functions</em>, Contemp.
-Math. <strong>578</strong> (2012), 99–118; preprint arXiv:1109.1464. <a
-href="https://arxiv.org/abs/1109.1464"
-class="uri">https://arxiv.org/abs/1109.1464</a>. Theorem 1 describes a
-real polynomial with real zeros by its critical sequence, up to an
-increasing real affine change of variable.</p></li>
-<li id="ref-15"><p>A. Eremenko and L. Lempert, <em>An extremal problem for
+preprint arXiv:<a
+href="https://arxiv.org/abs/0808.0717v1">0808.0717v1</a>.</p></li>
+<li id="ref-16"><p>T. Tao, <em>The maximal length of the Erdős–Herzog–Piranian
+lemniscate in high degree</em>, arXiv:<a
+href="https://arxiv.org/abs/2512.12455v1">2512.12455v1</a>
+(2025).</p></li>
+<li id="ref-17"><p>A. Eremenko and P. Yuditskii, <em>Comb functions</em>, Contemp.
+Math. <strong>578</strong> (2012), 99–118, doi:<a
+href="https://doi.org/10.1090/conm/578/11472">10.1090/conm/578/11472</a>;
+preprint arXiv:<a
+href="https://arxiv.org/abs/1109.1464v1">1109.1464v1</a>.</p></li>
+<li id="ref-18"><p>A. Eremenko and L. Lempert, <em>An extremal problem for
 polynomials</em>, Proc. Amer. Math. Soc. <strong>122</strong> (1994),
-191–193. Proves the sharp bound for <span
-class="math inline" data-term-auto="off">\(|f&#39;|\)</span> on a connected sublevel set
-<span class="math inline" data-term-auto="off">\(\{|f|\le1\}\)</span> of a monic polynomial,
-conjectured by Erdős; cited here through its restatement as Theorem A of
-<span class="citation" data-cites="eremenko2007"><a href="#ref-16">[16]</a></span>.</p></li>
-<li id="ref-16"><p>A. Eremenko, <em>A Markov-type inequality for arbitrary plane
+no. 1, 191–193, doi:<a
+href="https://doi.org/10.1090/S0002-9939-1994-1207536-1">10.1090/S0002-9939-1994-1207536-1</a>.</p></li>
+<li id="ref-19"><p>A. Eremenko, <em>A Markov-type inequality for arbitrary plane
 continua</em>, Proc. Amer. Math. Soc. <strong>135</strong> (2007),
-1505–1510, doi:<a
+no. 5, 1505–1510, doi:<a
 href="https://doi.org/10.1090/S0002-9939-06-08640-0">10.1090/S0002-9939-06-08640-0</a>;
-preprint arXiv:math/0606745. <a
-href="https://arxiv.org/abs/math/0606745"
-class="uri">https://arxiv.org/abs/math/0606745</a>. Theorem A records
-the sharp bound for <span class="math inline" data-term-auto="off">\(|f&#39;|\)</span> on a
-connected sublevel set <span class="math inline" data-term-auto="off">\(\{|f|\le1\}\)</span>
-of a monic polynomial, with its Chebyshev equality cases.</p></li>
-<li id="ref-17"><p>C. J. Bishop, A. Eremenko, and K. Lazebnik, <em>On the shapes of
+preprint arXiv:<a
+href="https://arxiv.org/abs/math/0606745v1">math/0606745v1</a>.</p></li>
+<li id="ref-20"><p>C. J. Bishop, A. Eremenko, and K. Lazebnik, <em>On the shapes of
 rational lemniscates</em>, Geom. Funct. Anal. <strong>35</strong>
-(2025), 359–407, doi:<a
+(2025), no. 2, 359–407, doi:<a
 href="https://doi.org/10.1007/s00039-025-00704-2">10.1007/s00039-025-00704-2</a>;
-preprint arXiv:2407.14610. <a href="https://arxiv.org/abs/2407.14610"
-class="uri">https://arxiv.org/abs/2407.14610</a>. Proposition 2.4 shows
-that every rational lemniscate is a lemniscate graph whose vertices are
-the critical points on the level set.</p></li>
+preprint arXiv:<a
+href="https://arxiv.org/abs/2407.14610v1">2407.14610v1</a>.</p></li>
 </ol>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document"

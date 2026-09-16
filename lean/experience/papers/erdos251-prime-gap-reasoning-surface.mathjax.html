@@ -17,7 +17,7 @@ irrational <span class="citation" data-cites="erdos1958"><a href="#ref-1">[1]</
 class="citation" data-cites="erdosgraham1980"></span> <span
 class="citation" data-cites="erdos1988"></span>. Bloom’s catalogue
 records the problem as open <span class="citation"
-data-cites="erdosproblems"><a href="#ref-17">[17]</a></span>. Numerically <span
+data-cites="erdosproblems"><a href="#ref-22">[22]</a></span>. Numerically <span
 class="math inline" data-term-auto="off">\(\Pi=2/2+3/4+5/8+7/16+11/32+\cdots=3.674643966\ldots\)</span>.</p>
 <p>Throughout the formal development the primes are indexed from zero,
 so that <span class="math inline" data-term-auto="off">\(p^{(0)}_0=2\)</span>, <span
@@ -77,26 +77,28 @@ has density zero. A sum over an empty range of indices is zero.</p>
 <section id="relation-to-prior-work." class="level5">
 <h5>Relation to prior work.</h5>
 <p>The passage from the primes to their gaps is already public. Tao
-recorded on the problem page that summation by parts makes the question
-equivalent to irrationality of <span
+posted on the problem’s forum thread on 7 October 2025 that summation by
+parts makes the question equivalent to irrationality of <span
 class="math inline" data-term-auto="off">\(\sum_n(p_{n+1}-p_n)2^{-n}\)</span>, and named the
 shape of the missing input as a sufficiently quantitative and uniform
 prime-tuples hypothesis giving statistical control of the binary
 expansion of about <span class="math inline" data-term-auto="off">\(\log\log n\)</span>
 consecutive gaps <span class="citation"
-data-cites="erdosproblems251thread"><a href="#ref-18">[18]</a></span>. Theorem <a class="math-ref" href="#long251:res:infinite">2.3</a> below is that
+data-cites="erdosproblems251thread"><a href="#ref-23">[23]</a></span>. Theorem <a class="math-ref" href="#long251:res:infinite">2.3</a> below is that
 reduction in exact form, with the endpoint retained, with convergence
 supplied by an elementary bound, and with the statement checked by the
-Lean kernel. The elementary bound replaces the prime number theorem. No
-priority is claimed for the reduction.</p>
-<p>Land has since posted a proof of irrationality, and Ringer a proof
-that <span class="math inline" data-term-auto="off">\(\sum_n p_nB^{-n}\)</span> is normal to
-base <span class="math inline" data-term-auto="off">\(B\)</span> for each integer <span
-class="math inline" data-term-auto="off">\(B\ge2\)</span>, both assuming Kuperberg’s uniform
-Hardy-Littlewood prime-tuples conjecture and both formalised in
-Lean <span class="citation" data-cites="land2026"><a href="#ref-9">[9]</a></span> <span
-class="citation" data-cites="ringer2026"></span>. Land’s route
-constructs weighted prime-gap tails converging to <span
+Lean kernel. The elementary bound replaces the prime number theorem in
+this reduction.</p>
+<p>Assuming Kuperberg’s uniform Hardy–Littlewood prime-tuples
+conjecture <span class="citation" data-cites="kuperberg2023"><a href="#ref-12">[12]</a></span>,
+Land has since posted a research draft dated 5 September 2026 that
+proves irrationality <span class="citation"
+data-cites="land2026"><a href="#ref-13">[13]</a></span>, and Ringer a preprint dated 11 September
+2026 that proves <span class="math inline" data-term-auto="off">\(\sum_n p_nB^{-n}\)</span>
+normal to base <span class="math inline" data-term-auto="off">\(B\)</span> for each integer
+<span class="math inline" data-term-auto="off">\(B\ge2\)</span> <span class="citation"
+data-cites="ringer2026"><a href="#ref-26">[26]</a></span>; both arguments are formalised in Lean.
+Land’s route constructs weighted prime-gap tails converging to <span
 class="math inline" data-term-auto="off">\(6\)</span> from above, imposes a consecutive
 quadratic prime pattern by a mixed prime-counting moment, and averages
 over later prime indices to control the unprescribed tail. Nothing in
@@ -114,9 +116,7 @@ the stronger statement that <span
 class="math inline" data-term-auto="off">\(1,S_0,S_1,S_2,\ldots\)</span> are linearly
 independent over <span class="math inline" data-term-auto="off">\(\Q\)</span>, where <span
 class="math inline" data-term-auto="off">\(S_k=\sum_{n\ge1}p_n^{k}/n!\)</span> <span
-class="citation" data-cites="schlagepuchta2011"></span>. The catalogue
-entry still attributes the whole family to the 1958 article <span
-class="citation" data-cites="erdosproblems"></span>.</p>
+class="citation" data-cites="schlagepuchta2011"></span>.</p>
 <p>On page 103 of his 1988 problem paper Erdős separately stated the
 fixed-denominator problem: he could not prove that <span
 class="math inline" data-term-auto="off">\(\sum_n p_n^{k}/2^{n}\)</span> is irrational for
@@ -126,15 +126,12 @@ difficult. He also stated the variable-denominator expectation that
 <span class="math inline" data-term-auto="off">\(\sum_{n\ge1}p_n/(g_1\cdots g_n)\)</span> is
 irrational whenever <span class="math inline" data-term-auto="off">\(g_n\ge2\)</span> and
 <span class="math inline" data-term-auto="off">\(g_n=o(p_n)\)</span> <span class="citation"
-data-cites="erdos1988"><a href="#ref-4">[4]</a></span>. That expectation is false: Kovač posted
-a construction of such a sequence <span
+data-cites="erdos1988"><a href="#ref-4">[4]</a></span>. That expectation is false: on 15 April
+2026 Kovač posted a note, with the printed attribution ChatGPT 5.4 Pro
+(orchestrated by Vjeko Kovač), constructing such a sequence <span
 class="math inline" data-term-auto="off">\((g_n)\)</span> for which the sum is exactly <span
-class="math inline" data-term-auto="off">\(1\)</span>, on 15 April 2026 <span
-class="citation" data-cites="kovac2026"></span>. The catalogue record
-still repeats the refuted expectation without mentioning the
-counterexample, as checked on 6 September 2026 <span class="citation"
-data-cites="erdosproblems"><a href="#ref-17">[17]</a></span>; its warning that relevant literature
-may be missing applies directly to this omission.</p>
+class="math inline" data-term-auto="off">\(1\)</span> <span class="citation"
+data-cites="kovac2026"><a href="#ref-24">[24]</a></span>.</p>
 <p>Section 3 of the 1958 article proves a classification for the
 variable-denominator family, and the hypotheses matter. Let <span
 class="math inline" data-term-auto="off">\(1&lt;q_1\le q_2\le\cdots\)</span> be integers
@@ -182,17 +179,26 @@ vanish identically, <span
 class="math inline" data-term-auto="off">\(F(g_n,\ldots,g_{n+k})\ne0\)</span> for almost all
 <span class="math inline" data-term-auto="off">\(n\)</span>, where <span
 class="math inline" data-term-auto="off">\(g_n\)</span> are the actual consecutive prime
-gaps <span class="citation" data-cites="schlagepuchta2011"><a href="#ref-14">[14]</a></span>. Its
+gaps <span class="citation" data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>. Its
 proof runs through Selberg’s sieve. Sections <a class="math-ref" href="#long251:sec:obstructions">6</a> draws two
 consequences from it.</p>
 <p>Theorems <a class="math-ref" href="#long251:res:boundedperturbation">6.1</a>
 and <a class="math-ref" href="#long251:res:sparse-rationalisation">6.2</a>
 below produce rational perturbed series by filling an interval of
-attainable values. For a nonincreasing summable sequence of positive
-terms, the sums of subseries form a finite union of closed intervals
-exactly when every late term is at most the sum of all later terms, a
-criterion going back to Kakeya <span class="citation"
-data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>. Kovač and Tao show by nested covering
+attainable values. The first uses only a binary expansion. The second
+uses variable-digit covering, which is classical: for nonincreasing
+weights <span class="math inline" data-term-auto="off">\(r_i\to0\)</span> and digit bounds
+<span class="math inline" data-term-auto="off">\(k_i\)</span>, Fridy showed that every number
+in <span class="math inline" data-term-auto="off">\((0,\sum_ik_ir_i)\)</span> is a sum <span
+class="math inline" data-term-auto="off">\(\sum_ia_ir_i\)</span> with integers <span
+class="math inline" data-term-auto="off">\(0\le a_i\le k_i\)</span> exactly when <span
+class="math inline" data-term-auto="off">\(r_n\le\sum_{i&gt;n}k_ir_i\)</span> for every <span
+class="math inline" data-term-auto="off">\(n\)</span> <span class="citation"
+data-cites="fridy1966"><a href="#ref-9">[9]</a></span>. For a nonincreasing summable sequence of
+positive terms, the sums of subseries form a finite union of closed
+intervals exactly when every late term is at most the sum of all later
+terms, a criterion going back to Kakeya <span class="citation"
+data-cites="kovactao2024"><a href="#ref-11">[11]</a></span>. Kovač and Tao show by nested covering
 that if <span class="math inline" data-term-auto="off">\(\sum_n1/\min J_n&lt;\infty\)</span>
 and, from some stage on, consecutive reciprocals of the integers in
 <span class="math inline" data-term-auto="off">\(J_n\)</span> are no further apart than the
@@ -204,19 +210,20 @@ class="math inline" data-term-auto="off">\(2^n\)</span> can give a rational sum,
 <span class="math inline" data-term-auto="off">\(\sum_{n\ge1}1/(2^n+b_n)=3/4\)</span> with
 every <span class="math inline" data-term-auto="off">\(b_n\in\{1,\ldots,5\}\)</span>,
 answering a question of Erdős and Graham on irrationality
-sequences <span class="citation" data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>. Van
+sequences <span class="citation" data-cites="kovactao2024"><a href="#ref-11">[11]</a></span>. Van
 Doorn and Kovač combine dense filling with a divisibility chain among
 distinguished terms that eventually absorbs every positive integer, so
 that finite reciprocal sums take every rational value in an
-interval <span class="citation" data-cites="vandoornkovac2025"><a href="#ref-15">[15]</a></span>.
+interval <span class="citation" data-cites="vandoornkovac2025"><a href="#ref-20">[20]</a></span>.
 Theorem <a class="math-ref" href="#long251:res:sparse-rationalisation">6.2</a>
-uses both devices: equally spaced digit choices in the nested covering,
-and a chain of factorial moduli that preserves every fixed eventual
-congruence of the corrections.</p>
+uses the same two devices: equally spaced digit choices in a nested
+covering, whose overlap condition is Fridy’s inequality without his
+monotonicity assumption, and a chain of factorial moduli that preserves
+every fixed eventual congruence of the corrections.</p>
 <p>Problem #251 also appears as the unproved declaration
 <code>erdos_251</code> in the <em>Formal Conjectures</em>
 repository <span class="citation"
-data-cites="formalconjectures251"><a href="#ref-20">[20]</a></span>. Its zero-based Lean sum
+data-cites="formalconjectures251"><a href="#ref-25">[25]</a></span>. Its zero-based Lean sum
 starts with the zeroth prime over <span
 class="math inline" data-term-auto="off">\(2^0\)</span>, so it is twice the displayed
 normalisation and has equivalent irrationality status; its proof is
@@ -231,7 +238,7 @@ The classical elementary criteria for series of this kind instead
 control irrationality through the growth of the denominators. Erdős and
 Straus named a sum <span class="math inline" data-term-auto="off">\(\sum_k 1/a_k\)</span>
 over a strictly increasing sequence of positive integers an <em>Ahmes
-series</em> <span class="citation" data-cites="erdosstraus1963"><a href="#ref-5">[5]</a></span>;
+series</em> <span class="citation" data-cites="erdosstraus1963"><a href="#ref-6">[6]</a></span>;
 for such a series the condition <span
 class="math inline" data-term-auto="off">\(a_k^{1/2^k}\to\infty\)</span> is sufficient for
 irrationality, and it is sharp, since shifted Sylvester sequences grow
@@ -239,7 +246,7 @@ like <span class="math inline" data-term-auto="off">\(C^{2^{k}}\)</span> for arb
 large <span class="math inline" data-term-auto="off">\(C\)</span> and have rational
 reciprocal sum. Both statements and their attribution are recorded in
 the introduction of Kovač and Tao <span class="citation"
-data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>. Splitting each term <span
+data-cites="kovactao2024"><a href="#ref-11">[11]</a></span>. Splitting each term <span
 class="math inline" data-term-auto="off">\(p_i/2^{\,i+1}\)</span> into <span
 class="math inline" data-term-auto="off">\(p_i\)</span> copies of <span
 class="math inline" data-term-auto="off">\(2^{-(i+1)}\)</span> writes <span
@@ -276,9 +283,9 @@ remaining obligation. All declarations linked below are checked by the
 Lean 4 kernel against the pinned Mathlib revision at the formal-source
 commit ee650b32b8b2, and the pinned sources contain no proof
 placeholders and no project-defined axioms. The cited system paper
-identifies Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-10">[10]</a></span>,
+identifies Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-14">[14]</a></span>,
 while the Mathlib paper documents the library’s historical Lean 3-era
-architecture <span class="citation" data-cites="mathlib"><a href="#ref-11">[11]</a></span>; it is
+architecture <span class="citation" data-cites="mathlib"><a href="#ref-15">[15]</a></span>; it is
 not authority for the current pinned revision.</p>
 <table>
 <colgroup>
@@ -583,8 +590,11 @@ the summability transfer is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L385">gap-series
 summability theorem</a>, and the displayed identity is the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L427">unconditional
-prime-gap identity</a>. The prime number theorem is not a dependency at
-any point.</p>
+prime-gap identity</a>. The prime number theorem is needed neither for
+this convergence nor for the identity; it enters later through <span
+class="math inline" data-term-auto="off">\(p_n\sim n\log n\)</span> in Corollary <a class="math-ref" href="#long251:res:nonconc-primes">6.5</a> and in
+the state-compression argument <span class="citation"
+data-cites="mv2007"><a href="#ref-17">[17]</a></span>.</p>
 <div class="corollary" id="long251:res:irr-equivalence">
 <p><strong>Corollary 2.4</strong> (exact irrationality reformulation).
 <em> <span class="math inline" data-term-auto="off">\(\Pi\)</span> is irrational if and only
@@ -870,14 +880,11 @@ corollary</a>. The criterion for the actual series is checked as the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L236">free-pair
 equivalence</a>, over the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/FreePairReduction.lean#L186">actual
-real tail recurrence</a>. No antecedent for this packaging has been
-located; the nearest located neighbour is Schlage-Puchta’s
-Theorem 2 <span class="citation" data-cites="schlagepuchta2011"><a href="#ref-14">[14]</a></span>,
-which treats base-<span class="math inline" data-term-auto="off">\(b\)</span> digit strings
-formed by concatenating a slowly growing integer sequence under a
-rationality hypothesis, and is a different object, and the sweep of the
-dyadic tail-recurrence and Bézivin-style functional-equation literature
-has not been run.</p>
+real tail recurrence</a>. The mechanism is elementary: modulo one the
+tail recurrence is multiplication by two, and integrality of <span
+class="math inline" data-term-auto="off">\(T_M-T_N\)</span> beyond a rational state is
+governed by the multiplicative order of <span
+class="math inline" data-term-auto="off">\(2\)</span> modulo the odd reduced denominator.</p>
 <p>The criterion rules out two shortcuts. For the actual prime-gap tail,
 Section <a class="math-ref" href="#long251:sec:xr-compression">D.4</a> combines
 the prime number theorem with a first-moment bound to show that, under
@@ -1013,7 +1020,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 of the actual gaps</a> and the conclusion as <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1023">non-eventual
 periodicity</a>. Far stronger lower bounds for large gaps are
-known <span class="citation" data-cites="fgkmt2018"><a href="#ref-6">[6]</a></span>;
+known <span class="citation" data-cites="fgkmt2018"><a href="#ref-8">[8]</a></span>;
 unboundedness is all that is needed.</p>
 <p>The conjunction in Theorem <a class="math-ref" href="#long251:res:smallpair">4.1</a> has an exact
 normal form. For fixed <span class="math inline" data-term-auto="off">\(h\)</span> write
@@ -1174,7 +1181,8 @@ identity gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[b=b(u&#39;v-uv&#39;)=(av-bu)v&#39;+(bu&#39;-av&#39;)v\ge
 v+v&#39; \ge 2^{589}.\]</span></div>
-<p>Since <span
+<p>This is the classical bound for a
+rational strictly between two Farey neighbours. Since <span
 class="math inline" data-term-auto="off">\(589\log_{10}2&gt;177\)</span>, the floor exceeds
 <span class="math inline" data-term-auto="off">\(10^{177}\)</span>. If <span
 class="math inline" data-term-auto="off">\(S=a/b\)</span>, apply the same argument to <span
@@ -1216,8 +1224,10 @@ reconstruction enters it. The bracket uses the Lean-checked tail
 estimate <span class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span>, so no
 conjecture enters. The classical theorem that a best approximation of
 the second kind is a convergent then converts the certified prefix into
-the denominator bound <span class="citation"
-data-cites="khinchin1964"><a href="#ref-7">[7]</a></span>. The receipt is <a
+the denominator bound <span class="citation"
+data-cites="khinchin1964"><a href="#ref-10">[10]</a></span>; Short gives an accessible statement
+and proof <span class="citation" data-cites="short2009"><a href="#ref-19">[19]</a></span>. The
+receipt is <a
 href="https://github.com/wcook04/plectis-erdos/blob/dd6cc708f650f061de06594eba6ba43878f4de31/research/experiments/erdos251/receipts/certified-cf.json"><code>certified-cf.json</code></a>,
 which records the generating program and its digest, the power-of-two
 exponent <span class="math inline" data-term-auto="off">\(39997\)</span>, the bit length
@@ -1434,7 +1444,7 @@ class="math inline" data-term-auto="off">\(k_j\)</span> are nondecreasing; since
 class="math inline" data-term-auto="off">\(n_j\to\infty\)</span>, they tend to infinity. The
 factorials form a divisibility chain and eventually contain every fixed
 divisor, as do the distinguished terms in <span class="citation"
-data-cites="vandoornkovac2025"><a href="#ref-15">[15]</a></span>. At each of the three coordinates
+data-cites="vandoornkovac2025"><a href="#ref-20">[20]</a></span>. At each of the three coordinates
 <span class="math inline" data-term-auto="off">\(n\)</span> in stage <span
 class="math inline" data-term-auto="off">\(j\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[0\le
@@ -1491,9 +1501,13 @@ class="math inline" data-term-auto="off">\(y\in[0,F_0]\)</span>, choose successi
 leaving each remainder in <span
 class="math inline" data-term-auto="off">\([0,F_{j+1}]\)</span>. Since these capacities tend
 to zero, the resulting series has sum <span
-class="math inline" data-term-auto="off">\(y\)</span>. The same nested covering proves <span
-class="citation" data-cites="kovactao2024"></span>, where the choices at
-each stage are reciprocals of the integers in an interval.
+class="math inline" data-term-auto="off">\(y\)</span>. This is the variable-digit covering of
+Fridy’s lemma <span class="citation" data-cites="fridy1966"><a href="#ref-9">[9]</a></span>,
+whose condition is the overlap <span class="math inline" data-term-auto="off">\(F_{j+1}\ge
+w_j\)</span>; Fridy assumes nonincreasing weights, and the argument
+above uses only the overlap. Kovač and Tao use the same nested covering
+in <span class="citation" data-cites="kovactao2024"><a href="#ref-11">[11]</a></span>, where the
+choices at each stage are reciprocals of the integers in an interval.
 Equation <a class="math-ref" data-equation-ref="true" href="#long251:eq:sparse-baseline">long251:eq:sparse-baseline</a>
 therefore realises every <span class="math inline" data-term-auto="off">\(r\)</span> in the
 fixed interval <span
@@ -1567,7 +1581,7 @@ class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span> which
 vanish identically, <span
 class="math inline" data-term-auto="off">\(F(g_n,\ldots,g_{n+k})\ne0\)</span> for almost all
 <span class="math inline" data-term-auto="off">\(n\)</span> <span class="citation"
-data-cites="schlagepuchta2011"><a href="#ref-14">[14]</a></span>. Say that an integer sequence
+data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>. Say that an integer sequence
 <span class="math inline" data-term-auto="off">\(a\)</span> has <em>fixed-block
 nonconcentration</em> when it satisfies that conclusion for every <span
 class="math inline" data-term-auto="off">\(k\ge0\)</span> and every nonzero <span
@@ -1674,11 +1688,15 @@ class="math inline" data-term-auto="off">\(P_n\sim n\log n\)</span>.</em></p>
 <div class="proof">
 <p><em>Proof.</em> Everything except nonconcentration is Theorem <a class="math-ref" href="#long251:res:boundedperturbation">6.1</a>
 together with <span
-class="math inline" data-term-auto="off">\(\sum_{i&lt;n}g_i=p_n-2\)</span>. The perturbation
-takes values in the fixed two-element set <span
-class="math inline" data-term-auto="off">\(E=\{0,M\}\)</span>, so Theorem <a class="math-ref" href="#long251:res:nonconcentration">6.4</a>
+class="math inline" data-term-auto="off">\(\sum_{i&lt;n}g_i=p_n-2\)</span>, and <span
+class="math inline" data-term-auto="off">\(P_n\sim n\log n\)</span> follows from <span
+class="math inline" data-term-auto="off">\(p_n\sim n\log n\)</span> <span class="citation"
+data-cites="mv2007"><a href="#ref-17">[17]</a></span>. The perturbation takes values in the fixed
+two-element set <span class="math inline" data-term-auto="off">\(E=\{0,M\}\)</span>, so
+Theorem <a class="math-ref" href="#long251:res:nonconcentration">6.4</a>
 applies to the actual gaps, which have fixed-block nonconcentration by
-Schlage-Puchta’s Lemma 4. ◻</p>
+Schlage-Puchta’s lemma <span class="citation"
+data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span>. ◻</p>
 </div>
 <p>Fixed-block polynomial nonconcentration, taken together with a
 prescribed finite prefix of actual gaps, a pointwise bound <span
@@ -1719,7 +1737,8 @@ class="math inline" data-term-auto="off">\(\delta_N\ne0\)</span>, then <span
 class="math inline" data-term-auto="off">\(\delta_N=2\sigma_h(N)-\sigma_h(N+1)\)</span> lies
 in <span class="math inline" data-term-auto="off">\((-3,3)\)</span>, so <span
 class="math inline" data-term-auto="off">\(\delta_N=\pm2\)</span>. Apply Schlage-Puchta’s
-Lemma 4 at index <span class="math inline" data-term-auto="off">\(n=N+1\)</span> with <span
+lemma <span class="citation" data-cites="schlagepuchta2011"><a href="#ref-18">[18]</a></span> at
+index <span class="math inline" data-term-auto="off">\(n=N+1\)</span> with <span
 class="math inline" data-term-auto="off">\(k=h\)</span> to the two polynomials <span
 class="math inline" data-term-auto="off">\(F_\pm(x_0,\ldots,x_h)=x_h-x_0\mp2\)</span>,
 neither of which vanishes identically: each of <span
@@ -1987,10 +2006,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df53
 Positivity, parity, strict growth, unboundedness and nonperiodicity are
 therefore jointly compatible with rationality, and the adjacent trigger
 of Theorem <a class="math-ref" href="#long251:res:signedwindow">4.4</a> fails at
-every index. The telescoping mechanism is the one Kovač used against the
-variable-denominator conjecture printed under the problem <span
-class="citation" data-cites="kovac2026"></span>; the word carries no
-priority claim and is not a result about Problem #251.</p>
+every index. The telescoping mechanism is the one used in the note of
+ChatGPT 5.4 Pro (orchestrated by Vjeko Kovač) against the
+variable-denominator expectation of Erdős <span class="citation"
+data-cites="kovac2026"><a href="#ref-24">[24]</a></span>; the word is not a result about
+Problem #251.</p>
 <p>Rationality also fails to force the coefficients to repeat. Let <span
 class="math inline" data-term-auto="off">\(K:\N\to\Q\)</span> be arbitrary and put <span
 class="math inline" data-term-auto="off">\(\kappa_n=2K_n-K_{n+1}\)</span>: the <a
@@ -2005,6 +2025,25 @@ class="math inline" data-term-auto="off">\(\sum_{i=0}^{n-1}\kappa_i2^{-(i+1)}=K_
 <p><em>Proof.</em> A routine induction; the added term is <span
 class="math inline" data-term-auto="off">\((2K_n-K_{n+1})2^{-(n+1)}=K_n2^{-n}-K_{n+1}2^{-(n+1)}\)</span>. ◻</p>
 </div>
+<p>The carry form <span
+class="math inline" data-term-auto="off">\(\kappa_n=2K_n-K_{n+1}\)</span> is the case <span
+class="math inline" data-term-auto="off">\(a_n=2\)</span> of the rationality criterion of
+Erdős and Straus: for integers <span class="math inline" data-term-auto="off">\(b_n\)</span>
+and positive integers <span class="math inline" data-term-auto="off">\(a_n\)</span> with
+<span class="math inline" data-term-auto="off">\(a_n&gt;1\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span> and <span
+class="math inline" data-term-auto="off">\(|b_n|/(a_{n-1}a_n)\to0\)</span>, the series <span
+class="math inline" data-term-auto="off">\(\sum_nb_n/(a_1\cdots a_n)\)</span> is rational
+exactly when some positive integer <span
+class="math inline" data-term-auto="off">\(B\)</span> and integers <span
+class="math inline" data-term-auto="off">\(c_n\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(Bb_n=c_na_n-c_{n+1}\)</span> and <span
+class="math inline" data-term-auto="off">\(|c_{n+1}|&lt;a_n/2\)</span> for all large <span
+class="math inline" data-term-auto="off">\(n\)</span> <span class="citation"
+data-cites="erdosstraus1974"><a href="#ref-7">[7]</a></span>. For the prime gaps the numerators
+<span class="math inline" data-term-auto="off">\(b_n=g_n\)</span> are unbounded, so that
+hypothesis fails, and the proposition above imposes no condition on
+<span class="math inline" data-term-auto="off">\(K\)</span>.</p>
 <p>Formalised as the <a
 href="https://github.com/wcook04/plectis-erdos/blob/ee650b32b8b2cb98b94e5500df5370d85f7403b8/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1137">carry
 telescoping identity</a>. Taking <span
@@ -2204,20 +2243,20 @@ class="math inline" data-term-auto="off">\(O(\log N)\)</span> gaps together with
 elementary prime bound; producing them cofinally, with uniformity in
 <span class="math inline" data-term-auto="off">\(h\)</span> and in the cutoff, is the open
 work.</p>
-<p>The strongest published results on prime gaps address a different
+<p>The following published results on prime gaps address a different
 shape of question. Zhang’s bounded-gap theorem <span class="citation"
-data-cites="zhang2014"><a href="#ref-16">[16]</a></span> produces infinitely many bounded
+data-cites="zhang2014"><a href="#ref-21">[21]</a></span> produces infinitely many bounded
 consecutive-prime gaps. Maynard bounds <span
 class="math inline" data-term-auto="off">\(\liminf_n(p_{n+m}-p_n)\)</span> for every fixed
 <span class="math inline" data-term-auto="off">\(m\)</span>, giving bounded clusters of every
-fixed size <span class="citation" data-cites="maynard2015"><a href="#ref-12">[12]</a></span>, with
+fixed size <span class="citation" data-cites="maynard2015"><a href="#ref-16">[16]</a></span>, with
 the explicit unconditional bound <span
 class="math inline" data-term-auto="off">\(\liminf_n(p_{n+1}-p_n)\le600\)</span> <span
 class="citation" data-cites="maynard2015"></span>. The large-gap theorem
 of Ford, Green, Konyagin, Maynard and Tao gives an effective lower bound
 for the largest single consecutive-prime gap below <span
 class="math inline" data-term-auto="off">\(X\)</span> <span class="citation"
-data-cites="fgkmt2018"><a href="#ref-6">[6]</a></span>. A theorem giving bounded clusters at
+data-cites="fgkmt2018"><a href="#ref-8">[8]</a></span>. A theorem giving bounded clusters at
 each fixed cluster size does not by itself supply a weighted condition
 on windows whose length grows with the basepoint, and none of these
 results is used as a proof input here.</p>
@@ -2225,7 +2264,7 @@ results is used as a proof input here.</p>
 quantitative prime-tuples control of about <span
 class="math inline" data-term-auto="off">\(\log\log n\)</span> consecutive gaps as the
 plausible route <span class="citation"
-data-cites="erdosproblems251thread"><a href="#ref-18">[18]</a></span>, and Land’s draft carries
+data-cites="erdosproblems251thread"><a href="#ref-23">[23]</a></span>, and Land’s draft carries
 that out under Kuperberg’s uniform prime-tuples conjecture <span
 class="citation" data-cites="land2026"></span>. The obstructions of
 Section <a class="math-ref" href="#long251:sec:obstructions">6</a> say which
@@ -2233,14 +2272,14 @@ unconditional substitutes cannot replace that hypothesis.</p>
 <section id="what-remains-to-be-formalised." class="level5">
 <h5>What remains to be formalised.</h5>
 <p>The two finite certificates of Propositions <a class="math-ref" href="#long251:res:explicit-remainder">4.5</a>
-and <a class="math-ref" href="#long251:res:finite-smallpair">4.6</a>, the
-continued-fraction exclusion of Theorem <a class="math-ref" href="#long251:res:cfexclusion">5.2</a>, the
-nonconcentration transfer of Theorem <a class="math-ref" href="#long251:res:nonconcentration">6.4</a> with
+and <a class="math-ref" href="#long251:res:finite-smallpair">4.6</a> and
+the continued-fraction exclusion of Theorem <a class="math-ref" href="#long251:res:cfexclusion">5.2</a> rest on
+exact arithmetic replay. The nonconcentration transfer of Theorem <a class="math-ref" href="#long251:res:nonconcentration">6.4</a> with
 its corollary, the sparsity statement of Theorem <a class="math-ref" href="#long251:res:sparse">6.6</a>, and the
 construction of Theorem <a class="math-ref" href="#long251:res:polignacfail">6.7</a> are
-ordinary mathematical proofs with exact arithmetic replay and no Lean
-declaration. Everything else linked above is checked by the kernel at
-the pinned commit.</p>
+ordinary mathematical proofs. None of these carries a Lean declaration.
+The other linked declarations are checked by the kernel at the source
+revisions named in their links.</p>
 </section>
 <section id="statements-and-declarations" class="level3 unnumbered">
 <h3 class="unnumbered">Statements and declarations</h3>
@@ -2250,11 +2289,13 @@ the pinned commit.</p>
 the Lean sources, the fixed toolchain, and the library manifest used in
 the verification. Proof authority rests in those pinned sources. The
 present text is exposition and navigation.</p>
-<p>Lean checks each proof term against the fixed library version, and
-the sources linked here contain no proof placeholders and no
-project-defined axioms; Lean does not authorise the exposition, the
-citation choices, or the interpretation, for which the author remains
-responsible. The two receipts named in Section <a class="math-ref" href="#long251:sec:measurements">7</a> and the
+<p>Lean 4 <span class="citation" data-cites="lean4"><a href="#ref-14">[14]</a></span> checks each
+proof term against the fixed version of the mathlib library <span
+class="citation" data-cites="mathlib"></span>, and the sources linked
+here contain no proof placeholders and no project-defined axioms; Lean
+does not authorise the exposition, the citation choices, or the
+interpretation, for which the author remains responsible. The two
+receipts named in Section <a class="math-ref" href="#long251:sec:measurements">7</a> and the
 continued-fraction receipt of Theorem <a class="math-ref" href="#long251:res:cfexclusion">5.2</a>, together
 with their generating programs, are public at the immutable revision
 linked there. The <a
@@ -2271,7 +2312,7 @@ competing interests.</p>
 <h5>Acknowledgements.</h5>
 <p>The problem numbering and status follow the Erdős Problems catalogue
 maintained by Thomas Bloom <span class="citation"
-data-cites="erdosproblems"><a href="#ref-17">[17]</a></span>. The logarithmic-scale construction
+data-cites="erdosproblems"><a href="#ref-22">[22]</a></span>. The logarithmic-scale construction
 of Theorem <a class="math-ref" href="#long251:res:polignacfail">6.7</a> and the
 transfer argument of Theorem <a class="math-ref" href="#long251:res:nonconcentration">6.4</a> arose
 in an external review of an earlier draft of this note; both proofs
@@ -2282,7 +2323,9 @@ printed here were checked independently.</p>
 <section id="long251:app:prime-bound" class="level2">
 <h2>An elementary polynomial bound for the primes</h2>
 <p>We prove <span class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span> for
-every <span class="math inline" data-term-auto="off">\(n\ge0\)</span>. Let <span
+every <span class="math inline" data-term-auto="off">\(n\ge0\)</span> by the central binomial
+coefficient method of Erdős’s proof of Chebyshev’s theorem <span
+class="citation" data-cites="erdos1932"></span>. Let <span
 class="math inline" data-term-auto="off">\(\pi(x)\)</span> count the primes at most <span
 class="math inline" data-term-auto="off">\(x\)</span>. For an integer <span
 class="math inline" data-term-auto="off">\(m\ge4\)</span>,</p>
@@ -2571,7 +2614,7 @@ separate linked Lean evidence.</p>
 <p>Exchanging the order of summation gives <span
 class="math inline" data-term-auto="off">\(\sum_{N\le X}T_N\le(p_{X+1}-p_0)+2T_X\)</span>.
 The prime number theorem <span class="citation"
-data-cites="mv2007"><a href="#ref-13">[13]</a></span> also gives</p>
+data-cites="mv2007"><a href="#ref-17">[17]</a></span> also gives</p>
 <div class="math-display" id="long251:eq:tail-small-relative-prime" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{long251:eq:tail-small-relative-prime}
@@ -3045,156 +3088,126 @@ complete long record and is not a short-note headline.</p>
 href="https://users.renyi.hu/~p_erdos/1958-19.pdf"><em>Sur certaines
 séries à valeur irrationnelle</em></a>, Enseign. Math. (2)
 <strong>4</strong> (1958), 93–100, doi:<a
-href="https://doi.org/10.5169/seals-34629">10.5169/seals-34629</a>. The
-dyadic prime series is stated as unproved on p. 94; the factorial-prime
-family is stated on p. 93, with only the <span
-class="math inline" data-term-auto="off">\(k=1\)</span> proof printed on pp. 94–95; the
-variable-denominator classification, with nondecreasing denominators and
-a lower growth condition, is Theorem §3 on pp. 96–97.</p></li>
+href="https://doi.org/10.5169/seals-34629">10.5169/seals-34629</a>.</p></li>
 <li id="ref-2"><p>P. Erdős and R. L. Graham, <a
 href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
 and New Problems and Results in Combinatorial Number Theory</em></a>,
-Monogr. Enseign. Math. 28, Geneva, 1980, p. 62.</p></li>
+Monogr. Enseign. Math. 28, Geneva, 1980.</p></li>
 <li id="ref-3"><p>P. Erdős and C. Pomerance, <a
 href="https://doi.org/10.1007/BF01818569"><em>On the largest prime
 factors of <span class="math inline" data-term-auto="off">\(n\)</span> and <span
 class="math inline" data-term-auto="off">\(n+1\)</span></em></a>, Aequationes Math.
 <strong>17</strong> (1978), 311–321, doi:<a
-href="https://doi.org/10.1007/BF01818569">10.1007/BF01818569</a>. The
-unnumbered dyadic irrationality theorem and its complete proof are in §7
-on p. 320.</p></li>
+href="https://doi.org/10.1007/BF01818569">10.1007/BF01818569</a>.</p></li>
 <li id="ref-4"><p>P. Erdős, <em>On the irrationality of certain series: problems
 and results</em>, in A. Baker (ed.), <em>New Advances in Transcendence
 Theory</em>, Cambridge UP, 1988, pp. 102–109, doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
-<li id="ref-5"><p>P. Erdős and E. G. Straus, <em>On the irrationality of certain
+<li id="ref-5"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1932-01.pdf"><em>Beweis eines
+Satzes von Tschebyschef</em></a>, Acta Litt. Sci. Szeged
+<strong>5</strong> (1932), 194–198.</p></li>
+<li id="ref-6"><p>P. Erdős and E. G. Straus, <em>On the irrationality of certain
 Ahmes series</em>, J. Indian Math. Soc. (N.S.) <strong>27</strong>
 (1964), 129–133. MR 175848.</p></li>
-<li id="ref-6"><p>K. Ford, B. Green, S. Konyagin, J. Maynard and T. Tao, <em>Long
+<li id="ref-7"><p>P. Erdős and E. G. Straus, <a
+href="https://doi.org/10.2140/pjm.1974.55.85"><em>On the irrationality
+of certain series</em></a>, Pacific J. Math. <strong>55</strong> (1974),
+no. 1, 85–92, doi:<a
+href="https://doi.org/10.2140/pjm.1974.55.85">10.2140/pjm.1974.55.85</a>.</p></li>
+<li id="ref-8"><p>K. Ford, B. Green, S. Konyagin, J. Maynard and T. Tao, <em>Long
 gaps between primes</em>, J. Amer. Math. Soc. <strong>31</strong>
 (2018), 65–105, doi:<a
-href="https://doi.org/10.1090/jams/876">10.1090/jams/876</a>. Theorem 1
-on p. 66 gives the effective lower bound for the largest single
-consecutive-prime gap below <span
-class="math inline" data-term-auto="off">\(X\)</span>.</p></li>
-<li id="ref-7"><p>A. Ya. Khinchin, <em>Continued Fractions</em>, University of
-Chicago Press, Chicago, 1964. Cited for the classical fact that a best
-approximation of the second kind is a convergent, which converts a
-certified partial-quotient prefix into a denominator lower
-bound.</p></li>
-<li id="ref-8"><p>V. Kovač and T. Tao, <a
+href="https://doi.org/10.1090/jams/876">10.1090/jams/876</a>; preprint
+arXiv:<a
+href="https://arxiv.org/abs/1412.5029v3">1412.5029v3</a>.</p></li>
+<li id="ref-9"><p>J. A. Fridy, <a
+href="https://www.fq.math.ca/Scanned/4-3/fridy.pdf"><em>Generalized
+bases for the real numbers</em></a>, Fibonacci Quart. <strong>4</strong>
+(1966), no. 3, 193–201.</p></li>
+<li id="ref-10"><p>A. Ya. Khinchin, <em>Continued Fractions</em>, University of
+Chicago Press, Chicago, 1964.</p></li>
+<li id="ref-11"><p>V. Kovač and T. Tao, <a
 href="https://doi.org/10.1007/s10474-025-01528-0"><em>On several
 irrationality problems for Ahmes series</em></a>, Acta Math. Hungar.
 <strong>175</strong> (2025), 572–608, arXiv:<a
-href="https://arxiv.org/abs/2406.17593">2406.17593</a>. Statement and
-section numbers cited here follow arXiv version 4.</p></li>
-<li id="ref-9"><p>J. Land, <a
+href="https://arxiv.org/abs/2406.17593v4">2406.17593v4</a>. Statement
+and section numbers cited here follow arXiv version 4.</p></li>
+<li id="ref-12"><p>V. Kuperberg, <a
+href="https://arxiv.org/abs/2210.09775v2"><em>Sums of singular series
+with large sets and the tail of the distribution of primes</em></a>,
+arXiv:2210.09775v2, 15 June 2023.</p></li>
+<li id="ref-13"><p>J. Land, <a
 href="https://github.com/beetree/math_erdos_251"><em>A conditional proof
 of the irrationality of <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge1}p_n2^{-n}\)</span> under a uniform
-Hardy-Littlewood prime-tuples conjecture</em></a>, research draft, 5
+Hardy–Littlewood prime-tuples conjecture</em></a>, research draft, 5
 September 2026, with an accompanying Lean formalisation of the
-conditional argument. Its Conjecture 1 is the large-<span
-class="math inline" data-term-auto="off">\(x\)</span> form of Conjecture 1.3 of V. Kuperberg,
-<em>Sums of singular series with large sets and the tail of the
-distribution of primes</em>, arXiv:2210.09775v2, 15 June 2023.</p></li>
-<li id="ref-10"><p>L. de Moura and S. Ullrich, <a
+conditional argument.</p></li>
+<li id="ref-14"><p>L. de Moura and S. Ullrich, <a
 href="https://doi.org/10.1007/978-3-030-79876-5_37"><em>The Lean 4
 theorem prover and programming language</em></a>, in A. Platzer and
 G. Sutcliffe (eds.), CADE 28, Lecture Notes in Comput. Sci. 12699,
 Springer, 2021, pp. 625–635, doi:<a
 href="https://doi.org/10.1007/978-3-030-79876-5_37">10.1007/978-3-030-79876-5_37</a>.</p></li>
-<li id="ref-11"><p>The mathlib Community, <a
+<li id="ref-15"><p>The mathlib Community, <a
 href="https://doi.org/10.1145/3372885.3373824"><em>The Lean mathematical
 library</em></a>, in CPP 2020, ACM, 2020, pp. 367–381, doi:<a
 href="https://doi.org/10.1145/3372885.3373824">10.1145/3372885.3373824</a>.
-The article describes a December 2019 Lean 3-era snapshot; the current
-revision is the one named in the repository lock.</p></li>
-<li id="ref-12"><p>J. Maynard, <a
+The article describes a December 2019 Lean 3-era snapshot; the
+repository lock owns the current revision.</p></li>
+<li id="ref-16"><p>J. Maynard, <a
 href="https://doi.org/10.4007/annals.2015.181.1.7"><em>Small gaps
 between primes</em></a>, Ann. of Math. (2) <strong>181</strong> (2015),
-383–413.</p></li>
-<li id="ref-13"><p>H. L. Montgomery and R. C. Vaughan, <a
+383–413, doi:<a
+href="https://doi.org/10.4007/annals.2015.181.1.7">10.4007/annals.2015.181.1.7</a>.</p></li>
+<li id="ref-17"><p>H. L. Montgomery and R. C. Vaughan, <a
 href="https://doi.org/10.1017/CBO9780511618314"><em>Multiplicative
 Number Theory I: Classical Theory</em></a>, Cambridge Stud. Adv. Math.
-97, Cambridge UP, 2007, Chapter 6, pp. 168–198; Theorem 6.9,
-pp. 179–181, and Exercise 6.2.5, p. 183, doi:<a
+97, Cambridge UP, 2007, doi:<a
 href="https://doi.org/10.1017/CBO9780511618314">10.1017/CBO9780511618314</a>.</p></li>
-<li id="ref-14"><p>J.-C. Schlage-Puchta, <a
-href="https://arxiv.org/abs/1105.1451"><em>The irrationality of some
-number theoretical series</em></a>, arXiv:1105.1451, 2011. Theorem 2
-treats base-<span class="math inline" data-term-auto="off">\(b\)</span> digit strings that
-concatenate the representations of a slowly growing integer sequence;
-Theorem 3 gives the <span class="math inline" data-term-auto="off">\(\Q\)</span>-linear
-independence of <span class="math inline" data-term-auto="off">\(1,S_0,S_1,\ldots\)</span>
-with <span class="math inline" data-term-auto="off">\(S_k=\sum_{n\ge1}p_n^{k}/n!\)</span>;
-Lemma 4, on pp. 5–6, states that for every nonzero <span
-class="math inline" data-term-auto="off">\(F\in\Z[x_0,\ldots,x_k]\)</span> the equation <span
-class="math inline" data-term-auto="off">\(F(\delta_n,\ldots,\delta_{n+k})=0\)</span> holds
-for a set of <span class="math inline" data-term-auto="off">\(n\)</span> of density zero,
-where <span class="math inline" data-term-auto="off">\(\delta_n=p_{n+1}-p_n\)</span>, and its
-proof uses Selberg’s sieve.</p></li>
-<li id="ref-15"><p>W. van Doorn and V. Kovač, <a
+<li id="ref-18"><p>J.-C. Schlage-Puchta, <a
+href="https://arxiv.org/abs/1105.1451v1"><em>The irrationality of some
+number theoretical series</em></a>, arXiv:1105.1451v1, 2011.</p></li>
+<li id="ref-19"><p>I. Short, <a href="https://arxiv.org/abs/0912.1997v1"><em>Ford
+circles, continued fractions, and best approximation of the second
+kind</em></a>, arXiv:0912.1997v1, 2009.</p></li>
+<li id="ref-20"><p>W. van Doorn and V. Kovač, <a
 href="https://doi.org/10.4064/aa251001-13-1"><em>Lacunary sequences
 whose reciprocal sums represent all rational numbers in an
 interval</em></a>, Acta Arith. <strong>223</strong> (2026), 275–295,
-arXiv:<a href="https://arxiv.org/abs/2509.24971">2509.24971</a>.
+arXiv:<a href="https://arxiv.org/abs/2509.24971v3">2509.24971v3</a>.
 Statement numbers cited here follow arXiv version 3.</p></li>
-<li id="ref-16"><p>Y. Zhang, <a
+<li id="ref-21"><p>Y. Zhang, <a
 href="https://doi.org/10.4007/annals.2014.179.3.7"><em>Bounded gaps
 between primes</em></a>, Ann. of Math. (2) <strong>179</strong> (2014),
-1121–1174.</p></li>
-<li id="ref-17"><p>T. F. Bloom, <a
+1121–1174, doi:<a
+href="https://doi.org/10.4007/annals.2014.179.3.7">10.4007/annals.2014.179.3.7</a>.</p></li>
+<li id="ref-22"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/251"><em>Erdős Problem
 #251</em></a>, <code>erdosproblems.com/251</code>, accessed 6 September
-2026 (page displays “last edited 28 September 2025”). The current record
-labels the main dyadic problem open, cites <code>[Er58b]</code>,
-<code>[ErGr80, p. 62]</code> and <code>[Er88c, p. 103]</code>,
-attributes the whole factorial-prime family to the 1958 article, and
-explicitly describes its status as the website owner’s present
-assessment, with no guarantee of literature completeness; it does not
-mention the 2026 counterexample in <span class="citation"
-data-cites="kovac2026"><a href="#ref-19">[19]</a></span> to the adjacent variable-denominator
-conjecture.</p></li>
-<li id="ref-18"><p><em>Erdős Problem #251 discussion thread</em>,
+2026 (page displays “last edited 28 September 2025”).</p></li>
+<li id="ref-23"><p><em>Erdős Problem #251 discussion thread</em>,
 <code>erdosproblems.com/forum/thread/251</code>, accessed 6 September
-2026. Cited for T. Tao’s comment of 17:17 on 7 October 2025 recording
-the summation-by-parts equivalence and naming a uniform quantitative
-prime-tuples hypothesis as a plausible route, and for the two comments
-of J. Land of 6 September 2026 announcing <span class="citation"
-data-cites="land2026"><a href="#ref-9">[9]</a></span>. Comments on that site are the
-responsibility of their authors and are not verified for correctness by
-the catalogue.</p></li>
-<li id="ref-19"><p>ChatGPT 5.4 Pro (orchestrated by V. Kovač), <a
+2026: comment of T. Tao, 7 October 2025, and comments of J. Land, 6
+September 2026.</p></li>
+<li id="ref-24"><p>ChatGPT 5.4 Pro (orchestrated by Vjeko Kovač), <a
 href="https://web.math.pmf.unizg.hr/~vjekovac/files/Erdos_problem_251.pdf"><em>On
 the Erdős problem #251</em></a>, unpublished note, 2026, hosted by the
 Department of Mathematics, University of Zagreb,
-<code>web.math.pmf.unizg.hr</code>, accessed 6 September 2026; posted as
-a thread comment at 11:13 on 15 April 2026 <span class="citation"
-data-cites="erdosproblems251thread"><a href="#ref-18">[18]</a></span>.</p></li>
-<li id="ref-20"><p>The Formal Conjectures Authors, <a
+<code>web.math.pmf.unizg.hr</code>, accessed 6 September 2026; posted in
+the problem’s forum thread on 15 April 2026 <span class="citation"
+data-cites="erdosproblems251thread"><a href="#ref-23">[23]</a></span>.</p></li>
+<li id="ref-25"><p>The Formal Conjectures Authors, <a
 href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/251.lean"><em>FormalConjectures.ErdosProblems.<code>251</code></em></a>,
 Lean source at commit <code>f776d2f</code>, 2025, accessed 28 July
 2026.</p></li>
-<li id="ref-21"><p>S. Ringer, <a
+<li id="ref-26"><p>S. Ringer, <a
 href="https://github.com/StefanRinger/erdos-251"><em>Local gap
-statistics, telescoping, and normality</em></a>, preprint dated
-11 September 2026, with a Lean formalisation whose conditional endpoint
-theorems take Kuperberg’s Conjecture 1.3 as an explicit hypothesis;
-submitted as a partial proof claim at <code>erdosproblems.com/251</code>
-on 13 September 2026. Theorem 1.1 classifies periodic local polynomial
-series in the prime gaps, each rational or normal, under a
-positive-comparison condition on prime-tuple counts that Conjecture 1.3
-implies through a one-sided averaged hypothesis, and Corollary 1.2
-deduces from Conjecture 1.3 the normality of <span
-class="math inline" data-term-auto="off">\(\sum_n p_nB^{-n}\)</span> to base <span
-class="math inline" data-term-auto="off">\(B\)</span> for each integer <span
-class="math inline" data-term-auto="off">\(B\ge2\)</span>, hence for <span
-class="math inline" data-term-auto="off">\(B=2\)</span> its irrationality. Appendix C proves
-unconditionally that <span class="math inline" data-term-auto="off">\(\sum_n
-p_nB^{-S_n}\)</span> with <span class="math inline" data-term-auto="off">\(S_n=\sum_{j\le
-n}\lceil\log_B\log(j+3)\rceil\)</span> is normal to base <span
-class="math inline" data-term-auto="off">\(B\)</span>.</p></li>
+statistics, telescoping, and normality: a local-pattern approach to
+Erdős problem 251</em></a>, preprint dated 11 September 2026, with a
+Lean formalisation; submitted as a partial proof claim at
+<code>erdosproblems.com/251</code> on 13 September 2026.</p></li>
 </ol>
 </section>
   </div>
