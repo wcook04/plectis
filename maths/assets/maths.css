@@ -1163,6 +1163,7 @@ html:not(.scripting) .universe-nojs { display: block; }
   counter-reset: plectis-ref;
 }
 .paper-stage #references li {
+  counter-increment: plectis-ref;
   display: grid;
   grid-template-columns: 2.6em minmax(0, 1fr);
   column-gap: 0.4em;
@@ -1173,7 +1174,6 @@ html:not(.scripting) .universe-nojs { display: block; }
   scroll-margin-top: calc(var(--topbar-h) + 16px);
 }
 .paper-stage #references li::before {
-  counter-increment: plectis-ref;
   content: "[" counter(plectis-ref) "]";
   color: var(--muted);
   font-variant-numeric: lining-nums tabular-nums;
