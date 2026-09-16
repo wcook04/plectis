@@ -545,9 +545,11 @@
 })();
 
 /* Collapsed bands (2026-09-14). Below the hero the landing is a list of
-   section headings. Each band is closed until its heading is clicked;
-   "Expand all" in the page tools opens every band and every disclosure, and
-   turns into "Collapse all". A link into a band opens it. Without scripts
+   section headings. Each band is closed until its heading is clicked,
+   except the recordings band (#demo-videos), which stays open so the three
+   walkthroughs are in view. "Expand all" in the page tools opens every band
+   and every disclosure, and turns into "Collapse all". Collapse all leaves
+   the recordings open. A link into a band opens it. Without scripts
    nothing is collapsed: the page stays complete. */
 (function collapsedBands() {
   'use strict';
@@ -567,7 +569,13 @@
       var tail = doc.getElementById('boundaries');
       if (tail) extra.push(tail);
     }
-    var band = { section: section, head: head, extra: extra, open: false };
+    var band = {
+      section: section,
+      head: head,
+      extra: extra,
+      open: false,
+      stayOpen: section.id === 'demo-videos'
+    };
     head.classList.add('band-head');
     head.setAttribute('role', 'button');
     head.setAttribute('tabindex', '0');
@@ -582,6 +590,7 @@
       if (gist.scrollWidth > gist.clientWidth + 1) gist.setAttribute('data-band-overflow', '');
     };
     band.set = function (open) {
+      if (band.stayOpen) open = true;
       band.open = open;
       section.classList.toggle('is-collapsed', !open);
       extra.forEach(function (el) { el.classList.toggle('is-collapsed', !open); });
@@ -598,7 +607,7 @@
     head.addEventListener('keydown', function (ev) {
       if (ev.key === 'Enter' || ev.key === ' ') onActivate(ev);
     });
-    band.set(false);
+    band.set(band.stayOpen);
     bands.push(band);
   });
   if (!bands.length) return;
@@ -613,7 +622,7 @@
   toggle.hidden = false;
   toggle.addEventListener('click', function () {
     var open = !expanded;
-    bands.forEach(function (b) { b.set(open); });
+    bands.forEach(function (b) { b.set(open || b.stayOpen); });
     var details = main.querySelectorAll('details');
     for (var i = 0; i < details.length; i += 1) details[i].open = open;
     syncToggle();
