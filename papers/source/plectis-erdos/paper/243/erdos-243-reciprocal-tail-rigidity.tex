@@ -575,6 +575,13 @@ bound suffices under the quadratic-limit assumption. Since $A_n\mid P_n$,
 this also implies Corollary~\ref{res:originalbounded}: multiplication by
 a factor in $(0,1]$ preserves an upper bound, including at negative values.
 
+Lean checks Corollary~\ref{res:lcmbounded} as
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49}{the original-coordinate LCM bounded defect}.
+That declaration takes the rational reciprocal sum and the quadratic growth
+limit as hypotheses, with the finite upper limsup recorded as an eventual
+upper bound on $Z_n$; it assumes no divisibility of the denominator by the
+prefix LCM.
+
 Duverney proved a conditional signed form of the problem itself: for signs
 $\epsilon_n\in\{-1,1\}$, if $\sum_{n\ge0}(a_{n+1}/a_n^{2}-1)$ converges,
 then the reciprocal sum with numerators $\epsilon_n$ is rational if and
@@ -676,8 +683,10 @@ Equivalently, must there be a $K\ge1$ for which
 \]
 at infinitely many indices?
 \end{problem}
-\noindent The canonical necessary profile is ordinary in this note.
-\nolinkurl{PaperCompleteR7/Frontier.lean} is not in this checkout.
+\noindent The canonical necessary profile is ordinary in this note, and Lean
+checks it as
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151}{the canonical frontier profile},
+from the rational reciprocal sum and the quadratic growth limit.
 
 For $B\ge0$ put
 \[
@@ -739,7 +748,12 @@ keeps those falsifying examples with the exact hypotheses each preserves.
 The bounded-negative state theorem is checked in Lean 4 against Mathlib
 at the stated source checkpoint:
 \lword{Erdos243/ReciprocalTailRigidity.lean}{2352}{eventuallyBoundedNegativePart_eventually_zero}{eventual bounded-negative rigidity}.
-The canonical analytic transfer and the global weighted, polynomial and
+Lean also checks the endpoint that carries that theorem to the original
+denominators, as
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2412}{the bounded-negative-part recurrence theorem},
+and the canonical analytic transfer of Corollary~\ref{res:lcmbounded}, as
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49}{the original-coordinate LCM bounded defect}.
+The global weighted, polynomial and
 slow-negative arguments are ordinary proofs; the scalar finite-mass proof
 is printed in full above. The auxiliary source guide, the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{350}{no_eventuallyConstantNegative_orbit}{eventual constant exclusion}

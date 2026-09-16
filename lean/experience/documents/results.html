@@ -94,10 +94,10 @@ by itself about the denominator after cancellation. Lean separately
 checks that irrationality of <code>∑ 1/(n!−1)</code> is equivalent to
 cofinally many non-unit factorial carries, and checks a finite
 quotient-band channel obstruction. The required cofinal carries are not
-produced. The <code>PaperCompleteAsymptotics</code> and
-<code>PaperCompleteLiminf</code> files are presented by the public paper
-as proof candidates, not as registered kernel evidence for the
-<code>3/2</code> theorem. The separate public Lean release <a
+produced. Lean checks the <code>3/2</code> theorem as
+<code>common_denominator_growth_liminf</code> in
+<code>PaperCompleteLiminf.lean</code>. The separate public Lean release
+<a
 href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E68/Challenge.lean#L249"><code>wcook04/plectis-erdos-lean</code></a>
 states the <code>3/2</code> bound at commit <code>52f29ad1</code> as
 <code>common_denominator_growth</code> in its entry
@@ -130,10 +130,15 @@ that <code>E(n)</code> is the exact centered state with
 <code>E(n)=0</code> eventually
 (<code>boundedNegativePart_eventually_zero</code>). The checked
 centered-zero theorem then gives the Sylvester recurrence once the exact
-product-cleared orbit has an eventually nonzero next-tail state. The
-passage from the original reciprocal sequence to every displayed
-hypothesis is not an end-to-end Lean theorem; in particular, no uniform
-lower bound on its centered error is proved. Unbounded negative
+product-cleared orbit has an eventually nonzero next-tail state. Lean
+carries that chain to the original denominators in
+<code>boundedNegativePart_sylvesterNext_eventually</code>, and checks
+the LCM-weighted bounded-defect corollary from the rational reciprocal
+sum in <code>original_coordinate_lcm_bounded_defect</code>
+(<code>ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean:49</code>);
+the paper derives the displayed <code>P_n</code> form from that
+corollary by <code>A_n | P_n</code>. For the state-system endpoint, no
+uniform lower bound on the centered error is proved. Unbounded negative
 excursions and the full Erdős endpoint remain open.</p>
 <p><strong><a
 href="https://www.erdosproblems.com/249">#249</a>.</strong>
@@ -272,11 +277,12 @@ It uses the polynomial conclusion of Zudilin’s 2004 Lemma 7, together
 with the arithmetic and growth estimates used in its proof, before that
 source’s integer-specialisation step. It makes no priority claim for the
 rational-base extension. In particular, <code>F((31/4)^r)</code> is
-irrational for every integer <code>r≥1</code>. Lean checks supporting
-arithmetic, the rational-base tail recurrence, and specific route
-exclusions; it does not check this irrationality theorem. The base
-<code>3/2</code> lies outside the sufficient region, and the required
-approximants with analytic remainder control remain open.</p>
+irrational for every integer <code>r≥1</code>. Lean checks that
+specialization with the source supply applied rather than assumed,
+together with the supporting arithmetic, the rational-base tail
+recurrence, and specific route exclusions. The base <code>3/2</code>
+lies outside the sufficient region, and the required approximants with
+analytic remainder control remain open.</p>
 <p>This guide is not a new result ranking. The canonical order of
 mathematical attention is maintained in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>,
@@ -754,13 +760,21 @@ strict <code>|E(n)|&lt;C(n)</code>, a uniform lower bound
 nonzero next tail,
 <code>sylvesterNext_eventually_of_centered_zero</code> recovers the
 Sylvester recurrence. The latter two declarations are mechanism evidence
-for this one family, not separate rows. The analytic passage from the
-reciprocal series to these hypotheses is ordinary mathematics, not an
-end-to-end Lean proof. This is not reciprocal-tail irrationality:
-unbounded upward excursions of the unreduced numerator remain open. The
-selected statement has a separately declared Comparator interface; that
-is not a fresh passing receipt for this release commit (Comparator
-wrapper: <code>ExternalVerification/Challenge.lean:96-109</code>; source
+for this one family, not separate rows. Lean carries the chain to the
+original denominators in
+<code>boundedNegativePart_sylvesterNext_eventually</code>
+(<code>ErdosProblems/Erdos243/ReciprocalTailRigidity.lean:2412</code>),
+and checks the LCM-weighted bounded-defect corollary from the rational
+reciprocal sum in <code>original_coordinate_lcm_bounded_defect</code>
+(<code>ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean:49</code>).
+The frontier profile of a counterexample is checked in
+<code>canonical_frontier</code>
+(<code>ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean:151</code>).
+This is not reciprocal-tail irrationality: unbounded upward excursions
+of the unreduced numerator remain open. The selected statement has a
+separately declared Comparator interface; that is not a fresh passing
+receipt for this release commit (Comparator wrapper:
+<code>ExternalVerification/Challenge.lean:96-109</code>; source
 <code>ErdosProblems/Erdos243/ReciprocalTailRigidity.lean:2265</code>,
 with supporting declarations at <code>:1837</code> and
 <code>:1799</code>).</li>
@@ -1086,13 +1100,14 @@ refutation.</li>
 can make the dyadic sum rational while retaining the prime growth scale,
 eventual fixed-modulus congruences, and short-block statistics at the
 stated scale. Lean checks the elementary pair identities, buffer, and
-abstract filling core (<code>SparseRationalisationCore.lean</code>). The
-full schedule and block-law transfer are ordinary proofs in Proposition
-1.1 of the short paper; they are not Lean- or Comparator-verified, and
-there is no separately published <code>SparseRationalisation.md</code>.
-End-to-end sparse candidate sources are labelled UNRUN. The later
-positions are not asserted to be prime, and the construction does not
-refute Land.</li>
+abstract filling core (<code>SparseRationalisationCore.lean</code>), and
+checks Proposition 1.1 of the short paper end to end, including the
+upper Banach density, a rational target and the block-law transfer
+(<code>SparseAmbientR9.lean</code>, <code>SparsePaperR11.lean</code>,
+<code>GrowingBlocksR11.lean</code>). The proposition has no Comparator
+entry, and there is no separately published
+<code>SparseRationalisation.md</code>. The later positions are not
+asserted to be prime, and the construction does not refute Land.</li>
 <li>Open: cofinally many adjacent index pairs with small tail shifts and
 differing gaps; each smallness condition constrains a complete infinite
 tail.</li>
@@ -1392,9 +1407,10 @@ divisor
 Claims registry: <code>three_halves_coordinatewise_corridor_no_go</code>
 (<code>res:nocorridor</code>) and
 <code>rational_base_cleared_tail_recurrence</code>
-(<code>res:tailrec</code>); both are exact formal boundaries. They do
-not replace the ordinary <code>F(31/4)</code> specialization of Zudilin,
-which is not a Lean irrationality theorem.</li>
+(<code>res:tailrec</code>); both are exact formal boundaries. They sit
+beside the ordinary <code>F(31/4)</code> specialization of Zudilin,
+whose consequence Lean checks in
+<code>ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean</code>.</li>
 <li>The elementary height inequality used by Bundschuh–Väänänen’s
 external irrationality criterion at <code>7/2</code> is checked
 (<code>ErdosProblems/Erdos1049/RationalBaseLambert.lean:83</code>); the

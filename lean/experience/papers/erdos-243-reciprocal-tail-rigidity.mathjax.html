@@ -695,6 +695,13 @@ class="math inline" data-term-auto="off">\(A_n\mid P_n\)</span>, this also impli
 Corollary <a class="math-ref" href="#res:originalbounded">1.1</a>: multiplication
 by a factor in <span class="math inline" data-term-auto="off">\((0,1]\)</span> preserves an
 upper bound, including at negative values.</p>
+<p>Lean checks Corollary <a class="math-ref" href="#res:lcmbounded">6.2</a> as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49">the
+original-coordinate LCM bounded defect</a>. That declaration takes the
+rational reciprocal sum and the quadratic growth limit as hypotheses,
+with the finite upper limsup recorded as an eventual upper bound on
+<span class="math inline" data-term-auto="off">\(Z_n\)</span>; it assumes no divisibility of
+the denominator by the prefix LCM.</p>
 <p>Duverney proved a conditional signed form of the problem itself: for
 signs <span class="math inline" data-term-auto="off">\(\epsilon_n\in\{-1,1\}\)</span>, if
 <span class="math inline" data-term-auto="off">\(\sum_{n\ge0}(a_{n+1}/a_n^{2}-1)\)</span>
@@ -817,8 +824,11 @@ class="math display" data-term-auto="off">\[2^n\le M_n^K\]</span></div>
 <p class="display-continue"><em> at infinitely many
 indices?</em></p>
 </div>
-<p>The canonical necessary profile is ordinary in this note.
-<code>PaperCompleteR7/Frontier.lean</code> is not in this checkout.</p>
+<p>The canonical necessary profile is ordinary in this note, and Lean
+checks it as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151">the
+canonical frontier profile</a>, from the rational reciprocal sum and the
+quadratic growth limit.</p>
 <p>For <span class="math inline" data-term-auto="off">\(B\ge0\)</span> put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[F_B(X)=\sum_{\substack{n\in\mathcal R\\U_n\le
@@ -900,10 +910,16 @@ falsifying examples with the exact hypotheses each preserves.</p>
 <p>The bounded-negative state theorem is checked in Lean 4 against
 Mathlib at the stated source checkpoint: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2352">eventual
-bounded-negative rigidity</a>. The canonical analytic transfer and the
-global weighted, polynomial and slow-negative arguments are ordinary
-proofs; the scalar finite-mass proof is printed in full above. The
-auxiliary source guide, the <a
+bounded-negative rigidity</a>. Lean also checks the endpoint that
+carries that theorem to the original denominators, as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2412">the
+bounded-negative-part recurrence theorem</a>, and the canonical analytic
+transfer of Corollary <a class="math-ref" href="#res:lcmbounded">6.2</a>, as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49">the
+original-coordinate LCM bounded defect</a>. The global weighted,
+polynomial and slow-negative arguments are ordinary proofs; the scalar
+finite-mass proof is printed in full above. The auxiliary source guide,
+the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L350">eventual
 constant exclusion</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796">eventual

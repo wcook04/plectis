@@ -291,9 +291,9 @@ The right-hand side is maximised at $\alpha=\sqrt2$, with value
 $\sqrt2-\tfrac{2\sqrt2}{6}=\tfrac{2\sqrt2}{3}$.
 \end{proof}
 
-The LCM asymptotic is proved here by an ordinary mathematical argument and
-is not kernel-checked.  The associated asymptotic Lean files are proof
-candidates and are not being cited as kernel verification.  The finite-block
+The LCM asymptotic is proved here by an ordinary mathematical argument, and
+Lean checks it as
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42}{common denominator growth liminf}.  The finite-block
 inequality has a separate Lean source,
 \href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{finite terminal-block inequality}.
 Its two ingredients are Lemmas~\ref{long68:res:product-lcm} and~\ref{long68:res:gap-gcd}, and it
@@ -965,8 +965,8 @@ $9(R+1)=16t^3$ for $t\ge4$, so that constraint alone cannot force a strict
 finite endpoint at $16/9$.  The two statements are separate, and
 Corollary~\ref{long68:res:radius-constant} rests on the ordinary proof of
 Theorem~\ref{long68:res:lcm-growth}; the finite-block Lean source does not
-carry the asymptotic deduction, and the asymptotic Lean files are proof
-candidates rather than kernel verification.
+carry the asymptotic deduction.  Lean checks the corollary as
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L54}{asymptotic radius constant liminf}.
 
 The congruence \eqref{long68:eq:channel-congruence} also explains the prime-channel
 corrector.
@@ -1223,9 +1223,10 @@ positive denominator has $q\ge300000$.
 The formal counterparts below are checked by the Lean~4 kernel against
 Mathlib at source snapshot \texttt{\commitshort}, with no \texttt{sorry},
 added axioms, or unchecked evaluation.  Theorem~\ref{long68:res:lcm-growth} and
-Corollary~\ref{long68:res:radius-constant} are ordinary proofs given in full above
-and are not kernel-checked; the associated asymptotic Lean files are proof
-candidates.  The finite-block inequality is the separate Lean source
+Corollary~\ref{long68:res:radius-constant} are ordinary proofs given in full above,
+and Lean checks them as
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42}{common denominator growth liminf} and
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L54}{asymptotic radius constant liminf}.  The finite-block inequality is the separate Lean source
 \href{https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529}{finite terminal-block inequality}.  The two prefix cancellations, the index-$52$
 example and the continued-fraction enclosure are finite integer calculations
 with the procedures displayed above.  The carry census through $300000$ is a
@@ -1913,15 +1914,15 @@ Cofinal zero-branch or large private-factor hypotheses imply the required irrati
 
 \textbf{Reader entry.} An elementary terminal-block argument gives $\liminf\log L_N/(N^{3/2}\log N)\ge 2\sqrt2/3$ for the lcm of factorial-gap denominators. The displayed bound needs no external multiplicity theorem.
 
-An elementary terminal-block argument gives a lower bound of order $N^{3/2}\log N$ for the lcm of factorial-gap denominators. The displayed bound is ordinary mathematics. An older, weaker multiplicity-based route is historical context only. The linked asymptotic Lean files are proof candidates and are not cited as kernel verification. The finite-block inequality has a separate Lean source.
+An elementary terminal-block argument gives a lower bound of order $N^{3/2}\log N$ for the lcm of factorial-gap denominators. The displayed bound has an ordinary proof. An older, weaker multiplicity-based route is historical context only. Lean checks the bound as \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42}{common denominator growth liminf}. The finite-block inequality has a separate Lean source.
 
-\textbf{Authority and reach.} ordinary mathematical argument.
+\textbf{Authority and reach.} Lean kernel plus paper argument.
 
-\textbf{Exact boundary.} The LCM asymptotic is an ordinary paper proof, not a Lean-checked theorem. Comparator cannot certify the authored deduction. The bound does not decide irrationality.
+\textbf{Exact boundary.} The LCM asymptotic has an ordinary paper proof and is checked in Lean. The Comparator entry for this bound belongs to the separate public release \texttt{wcook04/plectis-erdos-lean}. The bound does not decide irrationality.
 
 \textbf{Result-atom population.} 3 of 681 public coordinates. The public atom catalog groups them under this family.
 
-\textbf{Comparator assurance.} not applicable to comparator; 0 executable interface(s), 0 repository-registered selected result interface(s).
+\textbf{Comparator assurance.} not selected for comparator; 0 executable interface(s), 0 repository-registered selected result interface(s).
 
 \textbf{Publication placement.} This family is also admitted to the short note.
 

@@ -77,8 +77,8 @@ CC-BY-4.0; see [`REUSE.toml`](../REUSE.toml) at the repository root.
 For #251, the elementary pair identities live in
 `SparseRationalisationCore.lean`; the ordinary schedule sketch is Proposition
 1.1 of the short paper. There is no separately published
-`SparseRationalisation.md`. End-to-end sparse Lean candidates are labelled
-UNRUN and are not presented as verified.
+`SparseRationalisation.md`. Lean checks the proposition end to end in
+`SparseAmbientR9.lean`, `SparsePaperR11.lean` and `GrowingBlocksR11.lean`.
 
 </details>
 

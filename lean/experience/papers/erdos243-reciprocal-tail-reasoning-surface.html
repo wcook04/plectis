@@ -1349,11 +1349,10 @@ integer dynamics, positivity, normalised vanishing, and an eventually
 bounded negative part, the centred error
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>
 is eventually zero. The original sequence therefore satisfies the
-Sylvester recurrence from some point onward (Theorem ), in the
-bounded-negative-part recurrence theorem
-(<code>boundedNegativePart_sylvesterNext_eventually</code> is not in
-this checkout). Hypothesis (5), the bound on the negative part, is
-supplied by nothing in this note.</p>
+Sylvester recurrence from some point onward (Theorem ), in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2412">the
+bounded-negative-part recurrence theorem</a>. Hypothesis (5), the bound
+on the negative part, is supplied by nothing in this note.</p>
 <p><strong>Second endpoint.</strong> The same conclusion holds when the
 normalised negative mass
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub><mi>/</mi><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_n(-E_n)_+/C_n</annotation></semantics></math>
@@ -4360,6 +4359,12 @@ Descent excludes an eventually nonnegative state. Theorem  excludes a
 bounded negative part, and Theorem  excludes finite normalised negative
 mass. These statements are unchanged by deleting a finite prefix. ◻</p>
 </div>
+<p>Lean checks Proposition  as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151">the
+canonical frontier profile</a>, from the rational reciprocal sum, the
+quadratic growth limit, and the failure of eventual Sylvester behaviour.
+The divergent normalised negative mass is recorded there as divergence
+of the partial sums.</p>
 <p>Put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>n</mi></msub><mo>:=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub></mrow><msub><mi>C</mi><mi>n</mi></msub></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\delta_n:=\frac{(-E_n)_+}{C_n}.</annotation></semantics></math>
 Every argument in Sections – uses a finiteness hypothesis: a fixed set

@@ -342,7 +342,7 @@ Explicit remainder bound and the certified pair at $h=1$, $N=2$ & Ordinary proof
 Denominator floor $b\ge2^{589}$ & Lean-checked by \texttt{decide +kernel}; ordinary proof reprinted here & Theorem~\ref{long251:res:denominatorfloor}. \\
 Certified continued-fraction exclusion $q\ge2^{39997}$ & Exact computation over a Lean-checked tail bound & Theorem~\ref{long251:res:cfexclusion}; no Lean declaration. \\
 Bounded-perturbation obstruction & Lean-checked & Theorem~\ref{long251:res:boundedperturbation}. \\
-Sparse rationalisation with cumulative congruences & Ordinary theorem; elementary Lean core only & Theorem~\ref{long251:res:sparse-rationalisation}; upper Banach density zero, arbitrarily slow eventual coefficient bound, and eventual divisibility of coefficients and cumulative corrections. The explicit schedule is proved in the paper. \\
+Sparse rationalisation with cumulative congruences & Lean-checked; ordinary proof given here & Theorem~\ref{long251:res:sparse-rationalisation}; upper Banach density zero, arbitrarily slow eventual coefficient bound, and eventual divisibility of coefficients and cumulative corrections. The explicit schedule is proved in the paper. \\
 Nonconcentration survives the rationalising perturbation & Ordinary proof; external lemma cited & Theorem~\ref{long251:res:nonconcentration} and Corollary~\ref{long251:res:nonconc-primes}. \\
 The two-window event has density zero & Ordinary proof; external lemma cited & Theorem~\ref{long251:res:sparse}. \\
 Recurring gap values differing by $2$ do not suffice & Ordinary proof & Theorem~\ref{long251:res:polignacfail}. \\
@@ -1198,10 +1198,16 @@ for the original sequence.
 The pair identities, modular repair, and conditional interval filling are the
 elementary core in
 \path{lean/ErdosProblems/Erdos251/SparseRationalisationCore.lean}.
-The source does not itself establish the schedules
-\eqref{long251:eq:sparse-general-schedule}--\eqref{long251:eq:sparse-polylog-schedule},
-upper Banach density, or block-law transfer.  Those parts are the ordinary
-proof above, not a new Lean or Comparator verification claim.  Applied to
+Lean checks the theorem itself, including upper Banach density and block-law
+transfer:
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L217}{arbitrary word sparse rationalisation},
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L53}{arbitrary word sparse rational target},
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L78}{polylogarithmic word interval},
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L139}{growing block TV} and
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L152}{growing block tests uniform}.
+The schedules
+\eqref{long251:eq:sparse-general-schedule}--\eqref{long251:eq:sparse-polylog-schedule}
+belong to the ordinary proof above, and the theorem has no Comparator entry.  Applied to
 prime gaps, the construction makes no assertion that the corrected
 cumulative positions remain prime.
 

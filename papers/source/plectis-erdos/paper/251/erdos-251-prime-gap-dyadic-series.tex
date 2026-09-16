@@ -34,8 +34,8 @@ cumulative sums, and the empirical distributions of all unnormalised gap
 blocks of length $o(\log\log X)$.  For every $0<\varepsilon<1$, its
 corrections can be bounded by $(\log n)^\varepsilon$ eventually.  The
 construction uses pairs with fixed unweighted total and variable dyadic
-weight; its elementary pair identities are checked in Lean, while the sparse
-scheduling argument is ordinary mathematics.  The simpler positive even word
+weight.  Lean checks its pair identities and the proposition it proves, and
+the scheduling argument written here is ordinary mathematics.  The simpler positive even word
 $a_n=2(n^2+4n+2)$ has complete dyadic tails $U_N=2(N+4)^2$ and rational sum
 $\sum_{j\ge1}a_j2^{-j}=32$.  We identify the actual complete prime-gap tails
 and classify rationality by integrality of their shifts.  Two adjacent shifts in $(-1,1)$ with unequal
@@ -1344,11 +1344,20 @@ choices, or the interpretation, for which the author remains responsible.
 
 For Proposition~\ref{res:sparserationalisation}, the pair identities,
 congruence buffer and abstract variable-alphabet filling are checked in
-\texttt{SparseRationalisationCore.lean}.  The explicit three-coordinate schedule, upper Banach density, and
-block-law transfer are ordinary proofs, given in that proposition and in
-the companion record, subsection ``Paired corrections and cumulative
-congruences''; they are not Lean- or Comparator-verified.  End-to-end sparse candidate sources in
-the repository are labelled UNRUN and are not presented as checked theorems.
+\texttt{SparseRationalisationCore.lean}.  Lean checks the proposition itself.
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L217}{Arbitrary word sparse rationalisation}
+gives, for every $f\to\infty$, a support in $[K,\infty)$ of upper Banach density
+zero, an interval above $A$, and a correction realising each point of that
+interval;
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L53}{arbitrary word sparse rational target}
+realises a rational value above $A$; and
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L78}{polylogarithmic word interval}
+gives the polylogarithmic clause, with block limits
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L139}{growing block TV} and
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L152}{growing block tests uniform}.
+The explicit three-coordinate schedule in the construction is the ordinary
+proof, expanded in the companion record, subsection ``Paired corrections and
+cumulative congruences''.  The proposition has no Comparator entry.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.

@@ -1579,13 +1579,26 @@ does not authorise the exposition, the citation choices, or the
 interpretation, for which the author remains responsible.</p>
 <p>For Proposition <a class="math-ref" href="#res:sparserationalisation">1.1</a>, the pair
 identities, congruence buffer and abstract variable-alphabet filling are
-checked in <code>SparseRationalisationCore.lean</code>. The explicit
-three-coordinate schedule, upper Banach density, and block-law transfer
-are ordinary proofs, given in that proposition and in the companion
-record, subsection “Paired corrections and cumulative congruences”; they
-are not Lean- or Comparator-verified. End-to-end sparse candidate
-sources in the repository are labelled UNRUN and are not presented as
-checked theorems.</p>
+checked in <code>SparseRationalisationCore.lean</code>. Lean checks the
+proposition itself. <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L217">Arbitrary
+word sparse rationalisation</a> gives, for every <span
+class="math inline" data-term-auto="off">\(f\to\infty\)</span>, a support in <span
+class="math inline" data-term-auto="off">\([K,\infty)\)</span> of upper Banach density zero,
+an interval above <span class="math inline" data-term-auto="off">\(A\)</span>, and a
+correction realising each point of that interval; <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L53">arbitrary
+word sparse rational target</a> realises a rational value above <span
+class="math inline" data-term-auto="off">\(A\)</span>; and <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L78">polylogarithmic
+word interval</a> gives the polylogarithmic clause, with block limits <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L139">growing
+block TV</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L152">growing
+block tests uniform</a>. The explicit three-coordinate schedule in the
+construction is the ordinary proof, expanded in the companion record,
+subsection “Paired corrections and cumulative congruences”. The
+proposition has no Comparator entry.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>

@@ -764,12 +764,13 @@ terminal-block argument gives liminf log L_N / (N^{3/2} log N) ≥ 2√2/3
 for the lcm of factorial-gap denominators. The displayed bound needs no
 external multiplicity theorem; an older, weaker multiplicity-based route
 is historical context only.<br> <strong>Boundary.</strong> The LCM
-asymptotic is an ordinary paper proof, not a Lean-checked theorem.
-Linked asymptotic Lean files are proof candidates and are not cited as
-kernel verification. The finite-block inequality has a separate Lean
-source. Comparator cannot certify the authored deduction. The bound does
-not decide irrationality.<br> <em>Evidence.</em> ordinary paper argument
-· ordinary mathematical argument</p></li>
+asymptotic has an ordinary paper proof and is checked in Lean as
+common_denominator_growth_liminf in PaperCompleteLiminf.lean. The
+finite-block inequality has a separate Lean source. The Comparator entry
+for this bound belongs to the separate public release
+wcook04/plectis-erdos-lean. The bound does not decide irrationality.<br>
+<em>Evidence.</em> ordinary paper argument · Lean kernel plus paper
+argument</p></li>
 </ul>
 </details>
 <details>
@@ -786,7 +787,7 @@ Comparator: <code>represented_by_isolated_headline</code></p></li>
 <li><p><code>factorial_finite_certificates</code><br> Comparator:
 <code>not_applicable_to_external_execution</code></p></li>
 <li><p><code>factorial_lcm_growth</code><br> Comparator:
-<code>not_applicable_not_a_lean_declaration</code></p></li>
+<code>not_selected_separate_release_comparator_entry</code></p></li>
 </ul>
 </details>
 <hr />
@@ -2812,9 +2813,8 @@ transfer of the integer-base clearing argument forces a
 power-versus-linear inequality, and that this inequality is impossible
 at base three halves.</p>
 <p><strong>Open boundary.</strong> The universal rational-base
-conjecture, including the case 3/2, remains open. The 31/4 power family
-has an ordinary proof in the paper; it is not an end-to-end Lean
-theorem.</p>
+conjecture, including the case 3/2, remains open. The checked 31/4 power
+family settles one region and leaves that conjecture untouched.</p>
 <p><strong>Read.</strong> <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos-1049-rational-base-lambert.pdf">Programme
 paper</a> · <a

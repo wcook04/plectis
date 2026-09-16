@@ -313,6 +313,18 @@ class="math display" data-term-auto="off">\[\theta^*&gt;\frac{2359630009523263}{
 <p>Finally, the logarithmic ratio
 and coprimality are preserved by a common positive integer power. ◻</p>
 </div>
+<p>Lean checks Theorem <a class="math-ref" href="#res:rational-base-threshold">2.1</a> as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L113">the
+rational-base region</a>, and Corollary <a class="math-ref" href="#res:thirtyone-four">2.2</a> as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L117">the
+powers of <span class="math inline" data-term-auto="off">\(31/4\)</span></a>, with <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L121">the
+base <span class="math inline" data-term-auto="off">\(31/4\)</span></a> as the case <span
+class="math inline" data-term-auto="off">\(r=1\)</span>. Both declarations apply the source
+supply rather than assuming it. The construction of the approximations
+is Zudilin’s <span class="citation"
+data-cites="zudilin2004 zudilin2016"><a href="#ref-4">[4]</a><a href="#ref-5">[5]</a></span>. What is checked here is
+the Lean formalisation of that construction’s consequence.</p>
 <div class="corollary" id="cor:rational-base-measure">
 <p><strong>Corollary 2.3</strong> (an irrationality measure uniform over
 powers). <em> For coprime <span
@@ -603,6 +615,11 @@ class="math display" data-term-auto="off">\[\sum_{i=0}^{N-1}(2N-1-2i)i=\frac{N(N
 class="math display" data-term-auto="off">\[\prod_{i=0}^{N-1}c_i=\frac{(N!)^2(N+1)!}{2^N}.\]</span></div>
 <p>No other tuple can cancel this coefficient. ◻</p>
 </div>
+<p>Lean checks both identities at every rank as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173">the
+exact order</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199">the
+leading coefficient</a>.</p>
 <section id="formal-order-and-fixed-base-size." class="level5">
 <h5>Formal order and fixed-base size.</h5>
 <p>The theorem identifies the first formal term. Formal order alone

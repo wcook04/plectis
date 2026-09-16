@@ -38,7 +38,8 @@ this paper's own work: it uses the polynomial form of Lemma~7 there before the
 integer specialisation,
 cancels cyclotomic factors before clearing the rational-base denominator, and
 proves the degree and remainder estimates that measure the cost.
-The proof is an ordinary proof, and Lean checks finite subclaims.
+The proof is an ordinary proof, and Lean checks the theorem and the corollary,
+with the source supply applied.
 The argument does not reach $3/2$.
 Zudilin bounded the $q$-order of his 2016 normalised Hankel determinant
 $V_N^*$ from below; we prove
@@ -314,6 +315,17 @@ Finally, the logarithmic ratio and coprimality are preserved by a common
 positive integer power.
 \end{proof}
 
+\noindent Lean checks Theorem~\ref{res:rational-base-threshold} as
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L113}{the rational-base region},
+and Corollary~\ref{res:thirtyone-four} as
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L117}{the powers of $31/4$},
+with
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L121}{the base $31/4$}
+as the case $r=1$.  Both declarations apply the source supply rather than
+assuming it.  The construction of the approximations is Zudilin's
+\cite{zudilin2004,zudilin2016}.  What is checked here is the Lean
+formalisation of that construction's consequence.
+
 \begin{corollary}[an irrationality measure uniform over powers]
 \label{cor:rational-base-measure}
 For coprime $a>b\ge1$ with $\theta=\log b/\log a<\theta^*$ and every
@@ -537,6 +549,10 @@ and leading coefficient
 \]
 No other tuple can cancel this coefficient.
 \end{proof}
+
+\noindent Lean checks both identities at every rank as
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173}{the exact order} and
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199}{the leading coefficient}.
 
 \paragraph{Formal order and fixed-base size.}
 The theorem identifies the first formal term.  Formal order alone would not

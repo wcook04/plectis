@@ -7,7 +7,7 @@
     "nodes": 260,
     "edges": 328,
     "deferred_node_kinds": {
-      "lean_module": 1272,
+      "lean_module": 1338,
       "mathematical_object": 105
     }
   },

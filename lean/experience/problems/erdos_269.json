@@ -255,7 +255,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "eddb2c91a3f25ec39e95caf92b914d66645c13c046f52b30f7a1ac4d53cf9fbe",
+    "source_sha256": "6cca169626b00d314afb55370107ef5d54d1a4bb31c17c7566eb36ab29f99879",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -885,7 +885,7 @@
         "label": "ErdosProblems.Erdos269.ActualSharpTailMajorantR10",
         "path": "lean/ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean",
         "direct": true,
-        "content_digest": "sha256:ad0ce74da91735a7466c6e4f01cc9655c80c42de12e55b6aff796504732a12f9",
+        "content_digest": "sha256:7a899f4851c53e3c5ae6f433a1462d2b70b84493bccf435dc0776aadc4e75220",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean",
         "role": "Lean proof module"
       },
@@ -921,7 +921,7 @@
         "label": "ErdosProblems.Erdos269.CertificateRangeR11",
         "path": "lean/ErdosProblems/Erdos269/CertificateRangeR11.lean",
         "direct": true,
-        "content_digest": "sha256:5581b1e19ea4f3148948089a6207c2ce452e9713b38b01ad134ecd6f5d9ef829",
+        "content_digest": "sha256:81b3d5ffcc988875ad0bdffcb78fc5aebb55c47c9b78aada224e84ea8445b613",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/CertificateRangeR11.lean",
         "role": "Lean proof module"
       },
@@ -930,7 +930,7 @@
         "label": "ErdosProblems.Erdos269.CertificateSafetyR12",
         "path": "lean/ErdosProblems/Erdos269/CertificateSafetyR12.lean",
         "direct": true,
-        "content_digest": "sha256:d16c98fb547152b7d7ec980be32682ac2a4cb386de9096030940586e594c1451",
+        "content_digest": "sha256:0738bdc1747904e45c7131b5f70349eca7767628cc303b79cfbb1318d4e5ad7e",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/CertificateSafetyR12.lean",
         "role": "Lean proof module"
       },
@@ -1056,7 +1056,7 @@
         "label": "ErdosProblems.Erdos269.PaperR7ActualOrbit",
         "path": "lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean",
         "direct": true,
-        "content_digest": "sha256:6153f9ca22bde343b366fb8e33850a3bc4eb9771284b305d4e241b9e3c9723f4",
+        "content_digest": "sha256:0d473c1cf29b5844953fa062c4fda266c579a1c8a4bcbe40f62b4b53ec1cce75",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean",
         "role": "Lean proof module"
       },
@@ -1065,7 +1065,7 @@
         "label": "ErdosProblems.Erdos269.PaperR7BasicAssembly",
         "path": "lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean",
         "direct": true,
-        "content_digest": "sha256:b8c9250cdac7d3d09cc3e7d91217d9becd247a357ca826fe39921811d717b8cb",
+        "content_digest": "sha256:a65d953d4bc0fba1b4d9d79cc6366fa96dae92f2943ad00e2b3f89831ff2d02f",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean",
         "role": "Lean proof module"
       },
@@ -1074,7 +1074,7 @@
         "label": "ErdosProblems.Erdos269.PaperR7RationalBridge",
         "path": "lean/ErdosProblems/Erdos269/PaperR7RationalBridge.lean",
         "direct": true,
-        "content_digest": "sha256:b511b03bce9f7965c44f03336805766f3d4a01da552ba823c8fb73475a6e2035",
+        "content_digest": "sha256:e4c143c5baf513ff9aa8eae1e4206f918411707126ae39e72d339119f47de377",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR7RationalBridge.lean",
         "role": "Lean proof module"
       },
@@ -1083,7 +1083,7 @@
         "label": "ErdosProblems.Erdos269.PaperR7SeriesIdentification",
         "path": "lean/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean",
         "direct": true,
-        "content_digest": "sha256:07bacd61c97f4d15a7e30962c25611fcc8235b045568fb4da289eb8b87d1020e",
+        "content_digest": "sha256:523ca9807390180396b07f987ec1f0f1fe4004c648974ebea83045e3b926dedd",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean",
         "role": "Lean proof module"
       },
@@ -1092,7 +1092,7 @@
         "label": "ErdosProblems.Erdos269.PaperR7SharpShellBound",
         "path": "lean/ErdosProblems/Erdos269/PaperR7SharpShellBound.lean",
         "direct": true,
-        "content_digest": "sha256:13b534b9e5df5fe1f532dfe416d1e6f24b4522fffcb3e2e064e7f7f3f3bf63ef",
+        "content_digest": "sha256:47c1cc76356682740b7d4589df14b4228ae88537e278db1e4bed07f0acbb00b1",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR7SharpShellBound.lean",
         "role": "Lean proof module"
       },
@@ -1101,7 +1101,7 @@
         "label": "ErdosProblems.Erdos269.PaperR7WindowResults",
         "path": "lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean",
         "direct": true,
-        "content_digest": "sha256:fe82190b7523bcc9b47d622cfe373299ab09b0912030d4247f518d746fb6d456",
+        "content_digest": "sha256:eb8352e0234696bbd5c2e24bbce6a1874b25ccd80814e11c5a05c3afc4958bd8",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean",
         "role": "Lean proof module"
       },
@@ -1119,7 +1119,7 @@
         "label": "ErdosProblems.Erdos269.PaperR9SourceCounts",
         "path": "lean/ErdosProblems/Erdos269/PaperR9SourceCounts.lean",
         "direct": true,
-        "content_digest": "sha256:ad9fb330bcec24bb38c025a9bf7f3e23e8120bfc331902ad78f2015b26f22b08",
+        "content_digest": "sha256:df96219bf8306be4bfd09384fad76a80ccc13b7fa16dd4993752f966fff85040",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR9SourceCounts.lean",
         "role": "Lean proof module"
       },
@@ -1128,7 +1128,7 @@
         "label": "ErdosProblems.Erdos269.PaperR9WidthData",
         "path": "lean/ErdosProblems/Erdos269/PaperR9WidthData.lean",
         "direct": true,
-        "content_digest": "sha256:db7e2951eb3adae520d52f2ebda3b204cc60d5eaffe2dedc4e57612f5d275e09",
+        "content_digest": "sha256:96ab1bf64676b8bc868ec68faffbe8115bbb899b8a413b2f24b2e09922b53f46",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/PaperR9WidthData.lean",
         "role": "Lean proof module"
       },
@@ -1146,7 +1146,7 @@
         "label": "ErdosProblems.Erdos269.R12.ExactModulus",
         "path": "lean/ErdosProblems/Erdos269/R12/ExactModulus.lean",
         "direct": true,
-        "content_digest": "sha256:3568b1f292807a4d72a53bd8b61eba998793abe7e975d311f83ad63006407139",
+        "content_digest": "sha256:e58eeb4f13ca70dd1f91331f5e5d15160c2c381ca043f9420d03bff712ac5214",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/R12/ExactModulus.lean",
         "role": "Lean proof module"
       },
@@ -1164,7 +1164,7 @@
         "label": "ErdosProblems.Erdos269.R12.PrefixExtension",
         "path": "lean/ErdosProblems/Erdos269/R12/PrefixExtension.lean",
         "direct": true,
-        "content_digest": "sha256:1aaa237f6e27db42f868c3ad5517590239a41e37cf65bf7cc2ad0bc3c50e5bd5",
+        "content_digest": "sha256:a6ef664abdf5bc973ea76a9f0c851a36a27449ee71d4270db4dd5e39cc16f26d",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/R12/PrefixExtension.lean",
         "role": "Lean proof module"
       },
@@ -1209,7 +1209,7 @@
         "label": "ErdosProblems.Erdos269.SharpWindowCapR10",
         "path": "lean/ErdosProblems/Erdos269/SharpWindowCapR10.lean",
         "direct": true,
-        "content_digest": "sha256:2e77317820309f9c2ccb93b4b0985331dd49e3d693c11c518774b3b4fec2200a",
+        "content_digest": "sha256:3c21c8d321820caad903ef3816e38fdd72f520414ec727b4e923ea69a047efff",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos269/SharpWindowCapR10.lean",
         "role": "Lean proof module"
       },

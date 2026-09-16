@@ -1405,11 +1405,11 @@ cleanest target for computational exploration — with Theorem  as the
 standing reminder that no amount of such exploration becomes a proof.
 <span><span class="sans-serif">[Open]</span></span></p>
 </section>
-<section id="survivor-5-the-rationality-side-rank-upper-bound"
+<section id="retired-shortcut-a-rationality-side-rank-upper-bound"
 class="level3">
-<h3>Survivor 5: the rationality-side rank upper bound</h3>
+<h3>Retired shortcut: a rationality-side rank upper bound</h3>
 <div class="defn">
-<p><strong>Definition 3.7</strong> (The coordinate-disjoint obligation).
+<p><strong>Definition 3.7</strong> (A counterfactual rank criterion).
 Either: there is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
 such that for every
@@ -1433,31 +1433,27 @@ growing strictly slower than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{e}-1</annotation></semantics></math>
 in place of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>.
-Either version contradicts the proved floor of Proposition  and closes
-#249. <code>coord:carry-rank</code> <span><span
-class="sans-serif">scale:uniform</span></span> <span><span
-class="sans-serif">[Open]</span></span></p>
+Either assertion would contradict the proved floor of Proposition  and
+would therefore close #249. <code>coord:carry-rank</code> <span><span
+class="sans-serif">scale:uniform</span></span></p>
 </div>
-<p>This is the only surviving obligation that is not a residue or
-certificate statement at all, so B2’s certificate completeness cannot
-reach it — it is not a reformulation of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">S</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi></mrow><annotation encoding="application/x-tex">\mathrm{Sep}</annotation></semantics></math>
-in any vocabulary. It evades B1 and B4 entirely (no window, no letters,
-no prescribed residues) and B5 (linear algebra over the whole orbit, not
-a bounded-state summary). The scale side is finished and uniform in
+<p>This is not one of the paper’s live open propositions. It is a
+logically sufficient theorem schema in a coordinate disjoint from the
+residue and certificate statements, and B2’s certificate completeness
+cannot reach it. The proved scale side is uniform in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
-(Proposition ).</p>
-<p><strong>Honest flag, and it is severe.</strong> B6 partly indicts
-this route from inside. The most natural approach to the upper bound is
-dead (), and what rationality actually buys — uniform eventual
-periodicity of the carry’s dyadic sections mod
+(Proposition ), but the present mathematics supplies no reason for
+rationality to impose the opposite rank bound.</p>
+<p><strong>The generic shortcut is retired.</strong> The most natural
+approach to the upper bound is dead (), and what rationality actually
+buys — uniform eventual periodicity of the carry’s dyadic sections mod
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
 — provably does not promote to a
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>-rank
-bound (Proposition ). So this survivor is genuinely coordinate-disjoint
-from everything else, which is its whole value, but its obvious approach
-is closed and the missing input is a rigidity theorem nobody has
-stated.</p>
+bound (Proposition ). Any viable rank argument would therefore need new
+arithmetic specific to the actual totient carry. The criterion is
+retained to record that logical possibility and the no-go result, not as
+a fifth surviving frontier.</p>
 </section>
 </section>
 <section id="reading-the-detailed-record" class="level2">
@@ -3871,9 +3867,11 @@ impossibility result and its explicit all-horizon finite-rank
 shift-polynomial countermodel retire the generic finite-compression
 shortcut (Observation ). Thus the displayed upper bound is only a
 logically sufficient new input, not a third live frontier and not
-evidence that existing rank machinery is close to a contradiction.
-<span><span class="sans-serif">scale:cofinal</span></span> <span><span
-class="sans-serif">[Open]</span></span> <code>coord:other:carry-kernel-rank</code><br />
+evidence that existing rank machinery is close to a contradiction. The
+evidence label below applies to the proved rank floor and no-go results,
+not to the counterfactual upper bound. <span><span
+class="sans-serif">scale:uniform</span></span> <span><span
+class="sans-serif">[Lean]</span></span> <code>coord:other:carry-kernel-rank</code><br />
 </em></p>
 </div>
 <div class="prop">
@@ -8493,20 +8491,21 @@ logically symmetric escape branches survives the sign machinery already
 proved elsewhere in the same file family. Five sufficient forms are
 already proved, related by the implications of Proposition , and proving
 any one of them closes #249.</p>
-<p>Third, the d4/d5 rank obligation is structurally independent of the
-residue-coordinate rows above: it is a second, self-contained sufficient
-condition for #249 (an upper rank bound contradicting the proved
+<p>Third, the retired d4/d5 rank shortcut is structurally independent of
+the residue-coordinate rows above. An upper rank bound would contradict
+the proved
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>e</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^e{-}1</annotation></semantics></math>
-lower bound), in a coordinate (carry-kernel rank) where a natural
-finite-rank strengthening is already proved impossible. A rank upper
-bound, if found, would not need to route through
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="monospace">𝚌</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚛</mi><mi mathvariant="monospace">𝚝</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚏</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚎</mi><mi mathvariant="monospace">𝚍</mi><mi mathvariant="monospace">𝙺</mi><mi mathvariant="monospace">𝚒</mi><mi mathvariant="monospace">𝚕</mi><mi mathvariant="monospace">𝚕</mi></mrow><annotation encoding="application/x-tex">\mathtt{certifiedKill}</annotation></semantics></math>
-at all.</p>
+lower bound, but the corpus supplies no reason for such a bound, and a
+natural finite-rank strengthening is already proved impossible. It is
+therefore a counterfactual sufficient input and a useful no-go record,
+not a third live obligation.</p>
 <p>No row in this index is a solution, a partial solution in the sense
 of resolved cases, or evidence that #249 is likely true or false. Every
-open producer listed is exactly as open as the original Erdős–Borwein
-question it reduces to; what the index adds is the exact remaining
-content, verified against the live Lean tree, of each reduction.</p>
+actual open producer listed is exactly as open as the original
+Erdős–Borwein question it reduces to; the d4/d5 row is retained only as
+the explicitly retired shortcut. What the index adds is the exact
+remaining content, verified against the live Lean tree, of each
+reduction.</p>
 </section>
 </section>
 <section id="closed-routes-with-the-mechanism-that-closed-them"
@@ -11265,11 +11264,11 @@ is precisely why no finite computation will ever be evidence for it.
 <span><span class="sans-serif">[Open]</span></span> (heuristic).</p>
 </section>
 </section>
-<section id="route-5-the-rationality-side-rank-bound-remains-open"
+<section id="a-counterfactual-rank-criterion-not-a-live-route"
 class="level3">
-<h3>Route 5: the rationality-side rank bound remains open</h3>
-<section id="the-exact-statement-that-was-wanted." class="level5">
-<h5>The exact statement that was wanted.</h5>
+<h3>A counterfactual rank criterion, not a live route</h3>
+<section id="the-exact-statement-that-was-considered." class="level5">
+<h5>The exact statement that was considered.</h5>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>C</mi><mspace width="0.222em"></mspace><mo>∀</mo><mi>c</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℕ</mi><mspace width="0.222em"></mspace><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>n</mi><mo>,</mo><mspace width="0.222em"></mspace><mo>¬</mo><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>c</mi></msub><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>∀</mo><mi>v</mi><mo>&gt;</mo><mn>0</mn><mspace width="0.222em"></mspace><mo>∀</mo><mi>u</mi><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">T</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">b</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>,</mo><mi>v</mi><mo>,</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>∀</mo><mi>e</mi><mo>:</mo><mspace width="1.0em"></mspace><msub><mrow><mi mathvariant="normal">rk</mi><mo>&#8289;</mo></mrow><mi>e</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>C</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\exists C\ \forall c:\mathbb{N}\to\mathbb{N}\ \bigl(c(n)\le n,\ \neg\,\mathrm{Irrational}(X_c)\bigr)
   \ \forall v&gt;0\ \forall u\ \mathrm{IsTemperedBinaryOrbit}(c,v,u)\ \forall e:\quad
   \operatorname{rk}_e(u)\le C ,</annotation></semantics></math> where
@@ -11282,7 +11281,10 @@ through level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>.
 A suitable subexponential upper bound would also contradict the landed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>-specific
-floor . No such rationality-side upper bound is proved.</p>
+floor . No such rationality-side upper bound is proved. It is a
+logically sufficient new theorem schema, but the preceding mathematics
+does not isolate it as an open proposition, so it is not counted among
+the surviving routes.</p>
 </section>
 <section id="the-right-vocabulary-and-the-audited-gap." class="level5">
 <h5>The right vocabulary, and the audited gap.</h5>
@@ -11344,8 +11346,9 @@ alone does not imply unbounded
 and the previously claimed bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">rk</mi><mo>&#8289;</mo></mrow><mi>e</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msup><mn>2</mn><mrow><mi>e</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\operatorname{rk}_e(u)\ge2^{e-1}-3</annotation></semantics></math>
 has no valid proof here. The proposed greedy set construction therefore
-supplies neither a counterexample nor a reason to retire the route.
-<span><span class="sans-serif">[Gap]</span></span> <span><span
+supplies neither a counterexample nor support for the criterion, and it
+does not restore the generic shortcut. <span><span
+class="sans-serif">[Gap]</span></span> <span><span
 class="sans-serif">scale:uniform</span></span>
 <code>coord:other:carry-kernel</code>.</p>
 <p>The Lean theorem for
@@ -11355,8 +11358,9 @@ linear independence of the totient kernel, not the invalid generic
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math>
 bridge. The honest status is thus asymmetric. The large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>-specific
-rank floor is proved; a rationality-driven ceiling is open; and the
-generic countermodel attempt is inconclusive.</p>
+rank floor is proved; a rationality-driven ceiling is only a
+counterfactual sufficient input; and the generic countermodel attempt is
+inconclusive.</p>
 </section>
 </section>
 <section id="sub:shape" class="level3">
@@ -11367,10 +11371,10 @@ inference available that no individual reformulation does, and because
 refusing to draw it would be a different kind of dishonesty than drawing
 it carelessly.</p>
 <section
-id="first-a-fact-rather-than-an-inference-the-routes-are-one-route-in-five-coordinates."
+id="first-a-fact-rather-than-an-inference-the-four-live-routes-and-one-retired-shortcut-concern-the-same-digit-sequence."
 class="level5">
-<h5>First, a fact rather than an inference: the routes are one route in
-five coordinates.</h5>
+<h5>First, a fact rather than an inference: the four live routes and one
+retired shortcut concern the same digit sequence.</h5>
 <p>Lemma  collapses the coordinate spread that made the corpus look like
 many independent attacks.</p>
 <div class="center">
@@ -11419,9 +11423,9 @@ ray, in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math></td>
 </tr>
 <tr>
-<td class="ta-l">5</td>
-<td class="ta-l">an open rationality-side upper bound on
-the carry-orbit kernel rank</td>
+<td class="ta-l">5 (retired)</td>
+<td class="ta-l">a counterfactual rationality-side upper
+bound on the carry-orbit kernel rank</td>
 <td class="ta-l">all dyadic sections through level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math></td>
 </tr>
@@ -11429,13 +11433,13 @@ the carry-orbit kernel rank</td>
 </table>
 </div>
 <p> This is the honest content of the operator’s “hundred measurements
-of one wall”. The measurements are of one thing, and the thing is the
-binary digit sequence of
+of one wall”. The four live routes measure the binary digit sequence of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 and of its multiples
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">(2^{h}-1)S</annotation></semantics></math>.
-The routes differ in which positions they interrogate and how uniform a
-margin they demand; they do not differ in subject.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">(2^{h}-1)S</annotation></semantics></math>
+at different positions and margins. The fifth row is retained only to
+show why a generic rank-compression proof does not supply another
+route.</p>
 </section>
 <section
 id="second-the-wall-is-a-wall-about-explicit-constants-not-about-varphi."
@@ -12403,9 +12407,9 @@ same target</td>
 <td class="ta-l">TotientActualLcmOrbitSeparation.lean:305</td>
 </tr>
 <tr>
-<td class="ta-l">rank-compression upper bound (Obl. 2)</td>
-<td class="ta-l">independent obligation, different
-coordinate</td>
+<td class="ta-l">rank-compression upper bound</td>
+<td class="ta-l">counterfactual sufficient input; generic
+shortcut retired</td>
 <td class="ta-l">TotientCarryKernelRigidity.lean:284</td>
 </tr>
 <tr>

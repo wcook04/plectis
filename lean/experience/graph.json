@@ -3,13 +3,13 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 1637,
-    "edges": 4011,
+    "nodes": 1703,
+    "edges": 4196,
     "node_kinds": {
       "comparator_review_family": 70,
       "human_document": 17,
       "integration_surface": 2,
-      "lean_module": 1272,
+      "lean_module": 1338,
       "mathematical_object": 105,
       "paper": 20,
       "problem": 8,
@@ -20,14 +20,14 @@
     "relations": {
       "advances_open_target": 40,
       "builds_on": 64,
-      "contains": 1280,
+      "contains": 1346,
       "corollary_of": 1,
       "eliminates_case": 1,
       "explained_by": 20,
       "formalized_in": 41,
       "has_registry_review_unit": 1,
       "has_review_family": 70,
-      "imports": 2081,
+      "imports": 2200,
       "instantiates": 2,
       "interpreted_by": 17,
       "makes_exact": 1,
@@ -8108,8 +8108,8 @@
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos1041.NewtonFlowRaySeparation",
       "path": "lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean",
-      "declaration_count": 21,
-      "theorem_count": 18,
+      "declaration_count": 28,
+      "theorem_count": 25,
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean",
       "role": "Lean proof module"
@@ -8221,6 +8221,24 @@
       "role": "Lean proof module",
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperReflectedCompletion.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperReflectedCompletion.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1041.PaperSeparationCounterexample",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1041.PaperSeparationCounterexample",
+      "path": "lean/ErdosProblems/Erdos1041/PaperSeparationCounterexample.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperSeparationCounterexample.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperSeparationCounterexample.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1041.PaperStraightObstructions",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1041.PaperStraightObstructions",
+      "path": "lean/ErdosProblems/Erdos1041/PaperStraightObstructions.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperStraightObstructions.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperStraightObstructions.lean"
     },
     {
       "id": "lean-module:ErdosProblems.Erdos1041.PaperWeightedRefinementsR10",
@@ -8628,6 +8646,51 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/WeightedRadialIdentity.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos1049.ActualAGrowthR14",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.ActualAGrowthR14",
+      "path": "lean/ErdosProblems/Erdos1049/ActualAGrowthR14.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualAGrowthR14.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualAGrowthR14.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.ActualMomentGeneratingR12",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.ActualMomentGeneratingR12",
+      "path": "lean/ErdosProblems/Erdos1049/ActualMomentGeneratingR12.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualMomentGeneratingR12.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualMomentGeneratingR12.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.ActualSourceAnalyticIdentityR14",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.ActualSourceAnalyticIdentityR14",
+      "path": "lean/ErdosProblems/Erdos1049/ActualSourceAnalyticIdentityR14.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualSourceAnalyticIdentityR14.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualSourceAnalyticIdentityR14.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.ActualSourceRemainderR14",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.ActualSourceRemainderR14",
+      "path": "lean/ErdosProblems/Erdos1049/ActualSourceRemainderR14.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualSourceRemainderR14.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualSourceRemainderR14.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.ActualSourceResiduesR14",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.ActualSourceResiduesR14",
+      "path": "lean/ErdosProblems/Erdos1049/ActualSourceResiduesR14.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualSourceResiduesR14.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ActualSourceResiduesR14.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos1049.AdelicHeightBridge",
@@ -8700,6 +8763,114 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/BezoutPluckerJets.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos1049.CyclotomicCircleHeightR13",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.CyclotomicCircleHeightR13",
+      "path": "lean/ErdosProblems/Erdos1049/CyclotomicCircleHeightR13.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/CyclotomicCircleHeightR13.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/CyclotomicCircleHeightR13.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.FiniteFourierCoefficientR13",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.FiniteFourierCoefficientR13",
+      "path": "lean/ErdosProblems/Erdos1049/FiniteFourierCoefficientR13.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/FiniteFourierCoefficientR13.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/FiniteFourierCoefficientR13.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.FiniteResidueInterpolationR14",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.FiniteResidueInterpolationR14",
+      "path": "lean/ErdosProblems/Erdos1049/FiniteResidueInterpolationR14.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/FiniteResidueInterpolationR14.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/FiniteResidueInterpolationR14.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.FirstNewBaseR10",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.FirstNewBaseR10",
+      "path": "lean/ErdosProblems/Erdos1049/FirstNewBaseR10.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/FirstNewBaseR10.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/FirstNewBaseR10.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.G02ArithmeticR16",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.G02ArithmeticR16",
+      "path": "lean/ErdosProblems/Erdos1049/G02ArithmeticR16.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02ArithmeticR16.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02ArithmeticR16.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.G02CyclotomicR16",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.G02CyclotomicR16",
+      "path": "lean/ErdosProblems/Erdos1049/G02CyclotomicR16.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02CyclotomicR16.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02CyclotomicR16.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.G02RateCalculusR16",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.G02RateCalculusR16",
+      "path": "lean/ErdosProblems/Erdos1049/G02RateCalculusR16.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02RateCalculusR16.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02RateCalculusR16.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.G02SourceRatesR16",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.G02SourceRatesR16",
+      "path": "lean/ErdosProblems/Erdos1049/G02SourceRatesR16.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02SourceRatesR16.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02SourceRatesR16.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.G02WeightedBlocksR16",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.G02WeightedBlocksR16",
+      "path": "lean/ErdosProblems/Erdos1049/G02WeightedBlocksR16.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02WeightedBlocksR16.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/G02WeightedBlocksR16.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.GaussianCircleBoundsR12",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.GaussianCircleBoundsR12",
+      "path": "lean/ErdosProblems/Erdos1049/GaussianCircleBoundsR12.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/GaussianCircleBoundsR12.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/GaussianCircleBoundsR12.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.GaussianCoefficientsR11",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.GaussianCoefficientsR11",
+      "path": "lean/ErdosProblems/Erdos1049/GaussianCoefficientsR11.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/GaussianCoefficientsR11.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/GaussianCoefficientsR11.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.GaussianDegreeR12",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.GaussianDegreeR12",
+      "path": "lean/ErdosProblems/Erdos1049/GaussianDegreeR12.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/GaussianDegreeR12.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/GaussianDegreeR12.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos1049.HermitePadeNoGo",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos1049.HermitePadeNoGo",
@@ -8711,6 +8882,123 @@
       "role": "Lean proof module"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos1049.IrrationalityExponentR11",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.IrrationalityExponentR11",
+      "path": "lean/ErdosProblems/Erdos1049/IrrationalityExponentR11.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/IrrationalityExponentR11.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/IrrationalityExponentR11.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.LambertSourceSummationR14",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.LambertSourceSummationR14",
+      "path": "lean/ErdosProblems/Erdos1049/LambertSourceSummationR14.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/LambertSourceSummationR14.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/LambertSourceSummationR14.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.MeasureConstantsR10",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.MeasureConstantsR10",
+      "path": "lean/ErdosProblems/Erdos1049/MeasureConstantsR10.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/MeasureConstantsR10.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/MeasureConstantsR10.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperAsymptoticsR9",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperAsymptoticsR9",
+      "path": "lean/ErdosProblems/Erdos1049/PaperAsymptoticsR9.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperAsymptoticsR9.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperAsymptoticsR9.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperHomogenisationR7",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperHomogenisationR7",
+      "path": "lean/ErdosProblems/Erdos1049/PaperHomogenisationR7.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperHomogenisationR7.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperHomogenisationR7.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperLinearFormsR7",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperLinearFormsR7",
+      "path": "lean/ErdosProblems/Erdos1049/PaperLinearFormsR7.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperLinearFormsR7.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperLinearFormsR7.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperLongCapR9",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperLongCapR9",
+      "path": "lean/ErdosProblems/Erdos1049/PaperLongCapR9.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperLongCapR9.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperLongCapR9.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperNoDecayR9",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperNoDecayR9",
+      "path": "lean/ErdosProblems/Erdos1049/PaperNoDecayR9.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperNoDecayR9.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperNoDecayR9.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperOmegaIndicatorR7",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperOmegaIndicatorR7",
+      "path": "lean/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperR17.Constants",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperR17.Constants",
+      "path": "lean/ErdosProblems/Erdos1049/PaperR17/Constants.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperR17/Constants.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperR17/Constants.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperR17.SourceConsumers",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperR17.SourceConsumers",
+      "path": "lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperRankTwoCapR7",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperRankTwoCapR7",
+      "path": "lean/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperRankTwoCapR7.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperShortCapR9",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperShortCapR9",
+      "path": "lean/ErdosProblems/Erdos1049/PaperShortCapR9.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperShortCapR9.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperShortCapR9.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence",
@@ -8720,6 +9008,51 @@
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean",
       "role": "Lean proof module"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.QBinomialUnitIdentity",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.QBinomialUnitIdentity",
+      "path": "lean/ErdosProblems/Erdos1049/QBinomialUnitIdentity.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QBinomialUnitIdentity.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QBinomialUnitIdentity.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.QLucasR13",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.QLucasR13",
+      "path": "lean/ErdosProblems/Erdos1049/QLucasR13.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QLucasR13.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QLucasR13.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.QProductBoundsR10",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.QProductBoundsR10",
+      "path": "lean/ErdosProblems/Erdos1049/QProductBoundsR10.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QProductBoundsR10.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QProductBoundsR10.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.QuadraticMeasureR10",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.QuadraticMeasureR10",
+      "path": "lean/ErdosProblems/Erdos1049/QuadraticMeasureR10.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QuadraticMeasureR10.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/QuadraticMeasureR10.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.RationalApproximationSeparation",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.RationalApproximationSeparation",
+      "path": "lean/ErdosProblems/Erdos1049/RationalApproximationSeparation.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalApproximationSeparation.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RationalApproximationSeparation.lean"
     },
     {
       "id": "lean-module:ErdosProblems.Erdos1049.RationalBaseContour",
@@ -8753,6 +9086,159 @@
       "role": "Lean proof module"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos1049.ReciprocalPochhammerR14",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.ReciprocalPochhammerR14",
+      "path": "lean/ErdosProblems/Erdos1049/ReciprocalPochhammerR14.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ReciprocalPochhammerR14.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ReciprocalPochhammerR14.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.RootUnityLocalCancellationR13",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.RootUnityLocalCancellationR13",
+      "path": "lean/ErdosProblems/Erdos1049/RootUnityLocalCancellationR13.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RootUnityLocalCancellationR13.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/RootUnityLocalCancellationR13.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceBCircleR13",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceBCircleR13",
+      "path": "lean/ErdosProblems/Erdos1049/SourceBCircleR13.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBCircleR13.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBCircleR13.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceBClearingR12",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceBClearingR12",
+      "path": "lean/ErdosProblems/Erdos1049/SourceBClearingR12.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBClearingR12.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBClearingR12.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceBInitialR12",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceBInitialR12",
+      "path": "lean/ErdosProblems/Erdos1049/SourceBInitialR12.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBInitialR12.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBInitialR12.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceBMonomialR12",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceBMonomialR12",
+      "path": "lean/ErdosProblems/Erdos1049/SourceBMonomialR12.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBMonomialR12.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBMonomialR12.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceBTopDegreeR13",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceBTopDegreeR13",
+      "path": "lean/ErdosProblems/Erdos1049/SourceBTopDegreeR13.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBTopDegreeR13.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceBTopDegreeR13.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceFiniteTransformR12",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceFiniteTransformR12",
+      "path": "lean/ErdosProblems/Erdos1049/SourceFiniteTransformR12.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceFiniteTransformR12.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceFiniteTransformR12.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceHeightRateR14",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceHeightRateR14",
+      "path": "lean/ErdosProblems/Erdos1049/SourceHeightRateR14.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceHeightRateR14.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceHeightRateR14.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceHomogeneousR12",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceHomogeneousR12",
+      "path": "lean/ErdosProblems/Erdos1049/SourceHomogeneousR12.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceHomogeneousR12.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceHomogeneousR12.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceOmegaCancellationR13",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceOmegaCancellationR13",
+      "path": "lean/ErdosProblems/Erdos1049/SourceOmegaCancellationR13.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceOmegaCancellationR13.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceOmegaCancellationR13.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourcePolynomialR11",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourcePolynomialR11",
+      "path": "lean/ErdosProblems/Erdos1049/SourcePolynomialR11.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourcePolynomialR11.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourcePolynomialR11.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourcePositiveHBoundsR10",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourcePositiveHBoundsR10",
+      "path": "lean/ErdosProblems/Erdos1049/SourcePositiveHBoundsR10.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourcePositiveHBoundsR10.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourcePositiveHBoundsR10.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceRootBlocksR13",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceRootBlocksR13",
+      "path": "lean/ErdosProblems/Erdos1049/SourceRootBlocksR13.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceRootBlocksR13.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceRootBlocksR13.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.SourceRootCarriesR13",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.SourceRootCarriesR13",
+      "path": "lean/ErdosProblems/Erdos1049/SourceRootCarriesR13.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceRootCarriesR13.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/SourceRootCarriesR13.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.TwoSelectorRemainderEscape",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.TwoSelectorRemainderEscape",
+      "path": "lean/ErdosProblems/Erdos1049/TwoSelectorRemainderEscape.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/TwoSelectorRemainderEscape.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/TwoSelectorRemainderEscape.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.WeightedFloorBlocksR12",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.WeightedFloorBlocksR12",
+      "path": "lean/ErdosProblems/Erdos1049/WeightedFloorBlocksR12.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/WeightedFloorBlocksR12.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/WeightedFloorBlocksR12.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos1049.ZudilinConeArithmetic",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos1049.ZudilinConeArithmetic",
@@ -8784,6 +9270,15 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/ZudilinSharpHankelCoefficient.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos243.CoefficientDivisorFence",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.CoefficientDivisorFence",
+      "path": "lean/ErdosProblems/Erdos243/CoefficientDivisorFence.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/CoefficientDivisorFence.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/CoefficientDivisorFence.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos243.CubicNeighbourIdentity",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos243.CubicNeighbourIdentity",
@@ -8793,12 +9288,21 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/CubicNeighbourIdentity.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos243.CumulativeLcmTransfer",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.CumulativeLcmTransfer",
+      "path": "lean/ErdosProblems/Erdos243/CumulativeLcmTransfer.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/CumulativeLcmTransfer.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/CumulativeLcmTransfer.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos243.DynamicCancellation",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos243.DynamicCancellation",
       "path": "lean/ErdosProblems/Erdos243/DynamicCancellation.lean",
-      "declaration_count": 15,
-      "theorem_count": 15,
+      "declaration_count": 21,
+      "theorem_count": 21,
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/DynamicCancellation.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/DynamicCancellation.lean",
       "role": "Lean proof module"
@@ -8846,6 +9350,15 @@
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/LcmCriticalBoundary.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/LcmCriticalBoundary.lean",
       "role": "Lean proof module"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos243.LcmRecordCrossing",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.LcmRecordCrossing",
+      "path": "lean/ErdosProblems/Erdos243/LcmRecordCrossing.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/LcmRecordCrossing.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/LcmRecordCrossing.lean"
     },
     {
       "id": "lean-module:ErdosProblems.Erdos243.LcmRecordExcess",
@@ -9028,6 +9541,78 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR11/WindowIncidence.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Arithmetic",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.PaperCompleteR7.Arithmetic",
+      "path": "lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.CanonicalState",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.PaperCompleteR7.CanonicalState",
+      "path": "lean/ErdosProblems/Erdos243/PaperCompleteR7/CanonicalState.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/CanonicalState.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/CanonicalState.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Frontier",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.PaperCompleteR7.Frontier",
+      "path": "lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmDefect",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.PaperCompleteR7.LcmDefect",
+      "path": "lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity",
+      "path": "lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmStationarity.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmStationarity.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmStationarity.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Limits",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.PaperCompleteR7.Limits",
+      "path": "lean/ErdosProblems/Erdos243/PaperCompleteR7/Limits.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/Limits.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/Limits.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.ProductDefect",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.PaperCompleteR7.ProductDefect",
+      "path": "lean/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.RealTail",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.PaperCompleteR7.RealTail",
+      "path": "lean/ErdosProblems/Erdos243/PaperCompleteR7/RealTail.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/RealTail.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR7/RealTail.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR9.PolynomialCorrections",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos243.PaperCompleteR9.PolynomialCorrections",
@@ -9048,12 +9633,21 @@
       "role": "Lean proof module"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.PrimitiveRecordBarrier",
+      "path": "lean/ErdosProblems/Erdos243/PrimitiveRecordBarrier.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PrimitiveRecordBarrier.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PrimitiveRecordBarrier.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos243.ReciprocalTailRigidity",
       "path": "lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean",
-      "declaration_count": 77,
-      "theorem_count": 67,
+      "declaration_count": 78,
+      "theorem_count": 68,
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean",
       "role": "Lean proof module"
@@ -9081,8 +9675,8 @@
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos243.SparseResetRecovery",
       "path": "lean/ErdosProblems/Erdos243/SparseResetRecovery.lean",
-      "declaration_count": 20,
-      "theorem_count": 15,
+      "declaration_count": 23,
+      "theorem_count": 18,
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/SparseResetRecovery.lean",
       "role": "Lean proof module"
@@ -14302,8 +14896,8 @@
       "id": "review-family:erdos_68:factorial_lcm_growth",
       "kind": "comparator_review_family",
       "label": "An elementary terminal-block argument gives liminf log L_N / (N^{3/2} log N) ≥ 2√2/3 for the lcm of factorial-gap denominators. The displayed bound needs no external multiplicity theorem; an older, weaker multiplicity-based route is historical context only.",
-      "disposition": "not_applicable_not_a_lean_declaration",
-      "boundary": "The LCM asymptotic is an ordinary paper proof, not a Lean-checked theorem. Linked asymptotic Lean files are proof candidates and are not cited as kernel verification. The finite-block inequality has a separate Lean source. Comparator cannot certify the authored deduction. The bound does not decide irrationality.",
+      "disposition": "not_selected_separate_release_comparator_entry",
+      "boundary": "The LCM asymptotic has an ordinary paper proof and is checked in Lean as common_denominator_growth_liminf in PaperCompleteLiminf.lean. The finite-block inequality has a separate Lean source. The Comparator entry for this bound belongs to the separate public release wcook04/plectis-erdos-lean. The bound does not decide irrationality.",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -14441,16 +15035,16 @@
       "relation": "supported_by",
       "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity",
       "declaration": "no_cofinallyBoundedNegative_of_normalizedVanishes",
-      "line": 1748,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1748"
+      "line": 1754,
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1754"
     },
     {
       "source": "claim:bounded_rise_fresh_modulus_barrier",
       "relation": "supported_by",
       "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity",
       "declaration": "no_boundedRise_of_tailAvoidance",
-      "line": 897,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L897"
+      "line": 903,
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L903"
     },
     {
       "source": "claim:campbell_shift_synchronization_boundary",
@@ -14681,8 +15275,8 @@
       "relation": "supported_by",
       "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity",
       "declaration": "no_eventuallyPeriodicNegative_orbit",
-      "line": 796,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796"
+      "line": 802,
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L802"
     },
     {
       "source": "claim:fatal_gap_right_tail_classification",
@@ -14985,8 +15579,8 @@
       "relation": "supported_by",
       "target": "lean-module:ErdosProblems.Erdos1041.NewtonFlowRaySeparation",
       "declaration": "no_newtonConnection_of_not_samePositiveRay",
-      "line": 315,
-      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315"
+      "line": 334,
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L334"
     },
     {
       "source": "claim:orthogonal_petal_sunflower_reduction",
@@ -22587,6 +23181,66 @@
     {
       "source": "lean-module:ErdosProblems.AxiomAudit",
       "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1041.PaperCriticalValueMeanR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1041.PaperCubicFibres"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.AllRow.Producer"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperR17.SourceConsumers"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Frontier"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmDefect"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR8.KernelRelationBasis"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos251.ActualPrimePaperR11"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos251.PaperTailBoundsR7"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos251.SparseAmbientR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos251.SparsePaperR11"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteLiminf"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
       "target": "lean-module:ErdosProblems.Root"
     },
     {
@@ -23160,6 +23814,16 @@
       "target": "lean-module:ErdosProblems.Erdos1041.PaperReflectedBoundary"
     },
     {
+      "source": "lean-module:ErdosProblems.Erdos1041.PaperSeparationCounterexample",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1041.NewtonFlowRaySeparation"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1041.PaperStraightObstructions",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1041.CriticalTwoRootProximity"
+    },
+    {
       "source": "lean-module:ErdosProblems.Erdos1041.PaperWeightedRefinementsR10",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1041.FreePointCentralCompletion"
@@ -23500,6 +24164,56 @@
       "target": "lean-module:ErdosProblems.Erdos1041.WeightedAnalyticLog"
     },
     {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualAGrowthR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualSourceRemainderR14"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualAGrowthR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.GaussianDegreeR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualMomentGeneratingR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QProductBoundsR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualSourceAnalyticIdentityR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualSourceResiduesR14"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualSourceAnalyticIdentityR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourcePositiveHBoundsR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualSourceRemainderR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualSourceAnalyticIdentityR14"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualSourceRemainderR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperShortCapR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualSourceRemainderR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceOmegaCancellationR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualSourceResiduesR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.LambertSourceSummationR14"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ActualSourceResiduesR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ReciprocalPochhammerR14"
+    },
+    {
       "source": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.HermitePadeNoGo"
@@ -23545,9 +24259,379 @@
       "target": "lean-module:ErdosProblems.Erdos1049.AllRow.FiniteStates"
     },
     {
+      "source": "lean-module:ErdosProblems.Erdos1049.CyclotomicCircleHeightR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.FiniteFourierCoefficientR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.CyclotomicCircleHeightR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBCircleR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.FiniteResidueInterpolationR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QBinomialUnitIdentity"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.FirstNewBaseR10",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QProductBoundsR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.FirstNewBaseR10",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.RationalBaseContour"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02ArithmeticR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QProductBoundsR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02CyclotomicR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualSourceRemainderR14"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02CyclotomicR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02RateCalculusR16"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02RateCalculusR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02WeightedBlocksR16"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02SourceRatesR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualAGrowthR14"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02SourceRatesR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02CyclotomicR16"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02SourceRatesR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.LambertSourceSummationR14"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02SourceRatesR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperLongCapR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02WeightedBlocksR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02ArithmeticR16"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02WeightedBlocksR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceHeightRateR14"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.G02WeightedBlocksR16",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.WeightedFloorBlocksR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.GaussianCircleBoundsR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.GaussianDegreeR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.GaussianCoefficientsR11",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QBinomialUnitIdentity"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.GaussianDegreeR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourcePolynomialR11"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.IrrationalityExponentR11",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QuadraticMeasureR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.LambertSourceSummationR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualMomentGeneratingR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.LambertSourceSummationR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperLinearFormsR7"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.LambertSourceSummationR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBClearingR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.MeasureConstantsR10",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QuadraticMeasureR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.MeasureConstantsR10",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.RationalBaseContour"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperAsymptoticsR9",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperRankTwoCapR7"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperHomogenisationR7",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ZudilinConeArithmetic"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperLinearFormsR7",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperHomogenisationR7"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperLinearFormsR7",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.RationalBaseContour"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperLinearFormsR7",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.TwoSelectorRemainderEscape"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperLongCapR9",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperShortCapR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperNoDecayR9",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperLongCapR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperR17.Constants",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.FirstNewBaseR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperR17.Constants",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02SourceRatesR16"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperR17.Constants",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.MeasureConstantsR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperR17.SourceConsumers",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.IrrationalityExponentR11"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperR17.SourceConsumers",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperNoDecayR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperR17.SourceConsumers",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperR17.Constants"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperRankTwoCapR7",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.BezoutPluckerJets"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperShortCapR9",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperAsymptoticsR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperShortCapR9",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperHomogenisationR7"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.QLucasR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.RootUnityLocalCancellationR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.QuadraticMeasureR10",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperAsymptoticsR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.QuadraticMeasureR10",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperLinearFormsR7"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.QuadraticMeasureR10",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.RationalApproximationSeparation"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.RationalApproximationSeparation",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.TwoSelectorRemainderEscape"
+    },
+    {
       "source": "lean-module:ErdosProblems.Erdos1049.RationalBaseContour",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.ZudilinHeightRegion"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ReciprocalPochhammerR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.FiniteResidueInterpolationR14"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.ReciprocalPochhammerR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QProductBoundsR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.RootUnityLocalCancellationR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceFiniteTransformR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.RootUnityLocalCancellationR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceHomogeneousR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceBCircleR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.GaussianCircleBoundsR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceBCircleR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceOmegaCancellationR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceBClearingR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourcePolynomialR11"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceBInitialR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBMonomialR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceBMonomialR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceHomogeneousR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceBTopDegreeR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.GaussianDegreeR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceBTopDegreeR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBInitialR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceFiniteTransformR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QBinomialUnitIdentity"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceHeightRateR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.CyclotomicCircleHeightR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceHeightRateR14",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperLongCapR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceHomogeneousR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.GaussianDegreeR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceHomogeneousR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBClearingR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceHomogeneousR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceFiniteTransformR12"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceOmegaCancellationR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceRootBlocksR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourcePolynomialR11",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.GaussianCoefficientsR11"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourcePolynomialR11",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperOmegaIndicatorR7"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourcePolynomialR11",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ZudilinConeArithmetic"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourcePositiveHBoundsR10",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperAsymptoticsR9"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourcePositiveHBoundsR10",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QProductBoundsR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceRootBlocksR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceRootCarriesR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceRootCarriesR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QLucasR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.SourceRootCarriesR13",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBTopDegreeR13"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.TwoSelectorRemainderEscape",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.BezoutPluckerJets"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.WeightedFloorBlocksR12",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourcePolynomialR11"
     },
     {
       "source": "lean-module:ErdosProblems.Erdos1049.ZudilinHeightRegion",
@@ -23558,6 +24642,16 @@
       "source": "lean-module:ErdosProblems.Erdos1049.ZudilinSharpHankelCoefficient",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.CumulativeLcmTransfer",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.GlobalLcmHeight"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.CumulativeLcmTransfer",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.SlowRiseBarrier"
     },
     {
       "source": "lean-module:ErdosProblems.Erdos243.DynamicCancellation",
@@ -23578,6 +24672,16 @@
       "source": "lean-module:ErdosProblems.Erdos243.LcmCriticalBoundary",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.LcmRecordCrossing",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.LcmRecordExcess"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.LcmRecordCrossing",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.SlowRiseBarrier"
     },
     {
       "source": "lean-module:ErdosProblems.Erdos243.NewtonV8.GeneralRateExtractionBridge",
@@ -23690,12 +24794,97 @@
       "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR9.PolynomialCorrections"
     },
     {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Arithmetic",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.DynamicCancellation"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Arithmetic",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.CanonicalState",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.RealTail"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Frontier",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.CanonicalState"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Frontier",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.SparseResetRecovery"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmDefect",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmDefect",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.ProductDefect"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.CoefficientDivisorFence"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.CumulativeLcmTransfer"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.LcmCriticalBoundary"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.LcmRecordCrossing"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.CanonicalState"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Limits",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Arithmetic"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.ProductDefect",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.CanonicalState"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.RealTail",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Limits"
+    },
+    {
       "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR9.PolynomialCorrections",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos243.CubicNeighbourIdentity"
     },
     {
       "source": "lean-module:ErdosProblems.Erdos243.PrimitivePrefixRigidity",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.DynamicCancellation"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos243.DynamicCancellation"
     },
@@ -31472,6 +32661,16 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1041.PaperSeparationCounterexample"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1041.PaperStraightObstructions"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos1041.PaperWeightedRefinementsR10"
     },
     {
@@ -31697,6 +32896,31 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualAGrowthR14"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualMomentGeneratingR12"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualSourceAnalyticIdentityR14"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualSourceRemainderR14"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualSourceResiduesR14"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge"
     },
     {
@@ -31737,12 +32961,162 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.CyclotomicCircleHeightR13"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.FiniteFourierCoefficientR13"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.FiniteResidueInterpolationR14"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.FirstNewBaseR10"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02ArithmeticR16"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02CyclotomicR16"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02RateCalculusR16"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02SourceRatesR16"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.G02WeightedBlocksR16"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.GaussianCircleBoundsR12"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.GaussianCoefficientsR11"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.GaussianDegreeR12"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos1049.HermitePadeNoGo"
     },
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.IrrationalityExponentR11"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.LambertSourceSummationR14"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.MeasureConstantsR10"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperAsymptoticsR9"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperHomogenisationR7"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperLinearFormsR7"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperLongCapR9"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperNoDecayR9"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperOmegaIndicatorR7"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperR17.Constants"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperR17.SourceConsumers"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperRankTwoCapR7"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperShortCapR9"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos1049.QAperyDiagonalNonEquivalence"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.QBinomialUnitIdentity"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.QLucasR13"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.QProductBoundsR10"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.QuadraticMeasureR10"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.RationalApproximationSeparation"
     },
     {
       "source": "universe:plectis-lean",
@@ -31762,6 +33136,91 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.ReciprocalPochhammerR14"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.RootUnityLocalCancellationR13"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBCircleR13"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBClearingR12"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBInitialR12"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBMonomialR12"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceBTopDegreeR13"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceFiniteTransformR12"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceHeightRateR14"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceHomogeneousR12"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceOmegaCancellationR13"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourcePolynomialR11"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourcePositiveHBoundsR10"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceRootBlocksR13"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.SourceRootCarriesR13"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.TwoSelectorRemainderEscape"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.WeightedFloorBlocksR12"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos1049.ZudilinConeArithmetic"
     },
     {
@@ -31777,7 +33236,17 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.CoefficientDivisorFence"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos243.CubicNeighbourIdentity"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.CumulativeLcmTransfer"
     },
     {
       "source": "universe:plectis-lean",
@@ -31803,6 +33272,11 @@
       "source": "universe:plectis-lean",
       "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos243.LcmCriticalBoundary"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.LcmRecordCrossing"
     },
     {
       "source": "universe:plectis-lean",
@@ -31907,12 +33381,57 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Arithmetic"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.CanonicalState"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Frontier"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmDefect"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmStationarity"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Limits"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.ProductDefect"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.RealTail"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR9.PolynomialCorrections"
     },
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos243.PrimitivePrefixRigidity"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier"
     },
     {
       "source": "universe:plectis-lean",

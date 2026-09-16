@@ -48,8 +48,8 @@ of $31/4$.
 The proof cancels cyclotomic factors before clearing the rational-base
 denominator. The degree of the cancelled polynomial pair measures the cost,
 and positivity prevents the remainder from vanishing. This is an ordinary
-proof using the polynomial conclusion of Zudilin's Lemma~7; Lean checks
-supporting finite arithmetic, not the irrationality theorem.
+proof using the polynomial conclusion of Zudilin's Lemma~7. Lean checks the
+irrationality statements, with the source supply applied.
 
 A separate degree-budget theorem bounds the sufficient cutoff delivered by
 the stated base-uniform estimates by \(1/2\). It does not exclude every
@@ -60,8 +60,8 @@ exactly: \(\operatorname{ord}_qV_N^{*}=N(N-1)(2N-1)/6\) at every rank, with
 leading coefficient \((N!)^{2}(N+1)!/2^{N}\), sharpening Zudilin's lower
 bound for the order. After a row transformation, one determinant term has
 uniquely least order, so its coefficient cannot cancel. This complete identification
-is ordinary mathematics. Lean source for the all-row statement is published
-outside the checked library build and has never been compiled by public CI.
+is ordinary mathematics, and Lean checks the order and the leading coefficient
+at every rank.
 The record also gives a separate positive-measure proof of
 fixed-real-base size estimates.
 
@@ -427,12 +427,18 @@ cyclotomic limits are its Lemmas~1--2 \cite[p.~155]{zudilin2004}, proved by
 the method of \cite[Lemma~1, p.~466]{zudilin2002}.  The rational
 specialisation, the cancelled-degree accounting and the remainder estimates
 are this paper's own work and are proved in Section~\ref{long1049:sec:region}.
-The two theorems are not kernel-checked.  The linked Lean declarations establish exact inequalities,
+Lean checks both theorems, with the source supply applied rather than assumed:
+the region theorem is
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L113}{the rational-base region},
+and the power family is
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L117}{the powers of \(31/4\)}
+with
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L121}{the base \(31/4\)}.
+The linked Lean declarations establish exact inequalities,
 congruences, finite collision counts, recurrence identities, and exclusions for
 the named models; among them are the height comparisons that place \(31/4\)
-inside the enlarged logarithmic region and outside the earlier one.  No Lean
-declaration in this release's library carries an irrationality statement at a
-rational noninteger base.  Bundschuh and V\"a\"an\"anen's irrationality theorem
+inside the enlarged logarithmic region and outside the earlier one.
+Bundschuh and V\"a\"an\"anen's irrationality theorem
 at \(7/2\), Rivin's functional nonrationality theorem, and the two-variable
 Mahler theorem used below remain external results.  At \(3/2\), the missing
 step is still an actual primitive approximation family with nonzero remainder
@@ -960,8 +966,10 @@ Section~\ref{long1049:sec:regionbracket}, and the four integer identities of the
 step in Section~\ref{long1049:sec:degrees}.  Checked by exact computation are the
 reconstructions of $U_n$ and $V_n$ for $n\le4$; the values of $J$, $C_0$ and
 $\theta^{*}$ are numerical evaluations.  Both are computational receipts, and
-the reconstruction is described in Section~\ref{long1049:sec:receipts}.  No part of
-Theorem~\ref{long1049:res:region} is a Lean theorem.
+the reconstruction is described in Section~\ref{long1049:sec:receipts}.
+Theorem~\ref{long1049:res:region} is checked in Lean as
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L113}{the rational-base region},
+with the source supply applied rather than assumed.
 
 \paragraph{Attribution.}
 Bundschuh and V\"a\"an\"anen proved the irrationality of this value on the
@@ -1627,32 +1635,28 @@ The generating-function identification and infinite determinant expansion
 in this argument are not yet formalised in Lean.
 
 \paragraph{Evidence decomposition.}
-The proof above is ordinary mathematics.  One part of it is kernel-checked
-in this library: the all-depth associated-graded recurrence
-\lword{Erdos1049/AdelicHeightBridge.lean}{183}{hankelAssociatedCoeff_eq_reciprocal}{checked}.
-The initial monomial of transformed row $1$ in every column, of order exactly
-$l+1$ and coefficient exactly $-6$, and the two closed forms
-$6\operatorname{ord}=N(N-1)(2N-1)$ and
-$2^{N}\mathrm{lc}=(N!)^{2}(N+1)!$, are ordinary in this record.  Lean source
-in \texttt{Erdos1049/AllRow} contains statements and proof scripts for the
-initial monomial of every transformed row and for the order and leading
-coefficient of $V_N^{*}$ at every rank, with no row hypothesis.  That source and
-\texttt{ZudilinSharpHankelCoefficient.lean}, which it imports, lie outside the
-checked library build, because the normalised moment definitions they use are
-absent from the published \texttt{AdelicHeightBridge.lean}.  Public CI has never
-compiled either file, so this record treats them as unchecked.  Independently of the proof, the order and the
+The proof above is ordinary mathematics.  Lean checks
+\lword{Erdos1049/AdelicHeightBridge.lean}{183}{hankelAssociatedCoeff_eq_reciprocal}{its all-depth associated-graded recurrence}
+and, at every rank with no row hypothesis, its conclusions.  The order and the
+leading coefficient of $V_N^{*}$ are
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L163}{the sharp Hankel order and coefficient},
+and the two closed forms $6\operatorname{ord}=N(N-1)(2N-1)$ and
+$2^{N}\mathrm{lc}=(N!)^{2}(N+1)!$ are
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173}{the closed order} and
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L185}{the closed leading coefficient}.
+The Lean proof composes the initial monomial of every transformed row, which
+for row $1$ has order exactly $l+1$ and coefficient exactly $-6$ in every
+column.  Independently of the proof, the order and the
 leading coefficient were computed exactly for $1\le N\le7$, giving orders
 $0,1,5,14,30,55,91$ and leading coefficients
 $1,6,108,4320,324000,40824000,8001504000$, each matching the closed forms.
 
 \paragraph{Attribution and remaining obligation.}
 The antecedent is the inequality of \cite[Sec.~4, p.~7]{zudilin2016}; the equality and
-the leading coefficient are proved here.  The remaining obligation is a formal
-one.  Lemma~\ref{long1049:res:allrowinitial} and~\eqref{long1049:eq:row-initial} give the initial monomial of every row, and the Lean
-source in \texttt{Erdos1049/AllRow} states that identity for every row.  The
-formal check still requires a bridge module carrying the moment definitions, a
-successful compilation of that source against it, and an import into the
-supported library root.  Nothing in
+the leading coefficient are proved here.
+Lemma~\ref{long1049:res:allrowinitial} and~\eqref{long1049:eq:row-initial} give the initial monomial of every row, and Lean
+states that identity for every row as
+\href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L143}{the all-row initial monomial}.  Nothing in
 this subsection decides the arithmetic nature of $F(3/2)$.
 
 \section{Integer scalar content is neutral}\label{long1049:sec:primitive}
@@ -2120,14 +2124,14 @@ Some nondegeneracy is essential.  The three rows $(1,0),(0,0),(0,1)$ have
 zero adjacent minors but outer minor one; a zero middle row transmits no
 information between its neighbours.
 
-\noindent The unimodular
-\href{https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean\#L191}{adjacent-to-pairwise determinant propagation}
-and the resulting
-\href{https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean\#L280}{modular selector collision}
-are proved in Lean at the linked revision, including the
-\href{https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean\#L299}{explicit $S+2R$ threshold}.
-The unit-coordinate statements are special cases of the stronger
-rowwise-coprime theorem.
+\noindent Lean checks the unit-coordinate form inside the supported root: the
+\href{https://github.com/wcook04/plectis-erdos/blob/7148c5ae4a4a2f3802cccdeed62c394f64593340/lean/ErdosProblems/Erdos1049/BezoutPluckerJets.lean\#L191}{adjacent-to-pairwise determinant propagation},
+the resulting
+\href{https://github.com/wcook04/plectis-erdos/blob/7148c5ae4a4a2f3802cccdeed62c394f64593340/lean/ErdosProblems/Erdos1049/BezoutPluckerJets.lean\#L230}{modular selector collision},
+and the
+\href{https://github.com/wcook04/plectis-erdos/blob/7148c5ae4a4a2f3802cccdeed62c394f64593340/lean/ErdosProblems/Erdos1049/BezoutPluckerJets.lean\#L249}{explicit $S+2R$ threshold}.
+Each of the three assumes that the second coordinate of every row is a unit.
+The rowwise-coprime statement proved above is the stronger one.
 This conditional theorem is stronger than the ambient four-jet count only
 after its minor-vanishing hypothesis has been established.  No such all-tail
 hypothesis is proved here for an actual $q$-Ap\'ery or Zudilin family, and the

@@ -779,9 +779,8 @@ solution of it.
 Under the exact integer dynamics, positivity, normalised vanishing, and an
 eventually bounded negative part, the centred error $E_n$ is eventually zero.
 The original sequence therefore satisfies the Sylvester recurrence from some
-point onward (Theorem~\ref{long243:res:bounded}), in the
-bounded-negative-part recurrence theorem
-(\texttt{boundedNegativePart\_sylvesterNext\_eventually} is not in this checkout).
+point onward (Theorem~\ref{long243:res:bounded}), in
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2412}{the bounded-negative-part recurrence theorem}.
 Hypothesis~(5), the bound on
 the negative part, is supplied by nothing in this note.
 
@@ -2496,6 +2495,12 @@ eventually nonnegative state.  Theorem~\ref{long243:res:bounded} excludes a boun
 negative part, and Theorem~\ref{long243:res:mass} excludes finite normalised negative
 mass.  These statements are unchanged by deleting a finite prefix.
 \end{proof}
+
+\noindent Lean checks Proposition~\ref{long243:res:frontier} as
+\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151}{the canonical frontier profile},
+from the rational reciprocal sum, the quadratic growth limit, and the failure
+of eventual Sylvester behaviour.  The divergent normalised negative mass is
+recorded there as divergence of the partial sums.
 
 Put
 \[

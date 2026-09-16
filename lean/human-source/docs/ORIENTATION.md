@@ -147,8 +147,8 @@ opens with a ten-minute verdict.
 
 Navigation inventory, not results. Generated certificate shards are
 counted as formal source, never as separate mathematical claims. The
-two roots currently expose 1,274 modules and
-156,245 declarations across #68, #243, #249,
+two roots currently expose 1,340 modules and
+157,378 declarations across #68, #243, #249,
 #251, #257, #269, #1041, and #1049; exact counts and atlas handles
 remain in `docs/orientation.json`.
 

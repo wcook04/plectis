@@ -1051,11 +1051,10 @@ integer dynamics, positivity, normalised vanishing, and an eventually
 bounded negative part, the centred error <span
 class="math inline" data-term-auto="off">\(E_n\)</span> is eventually zero. The original
 sequence therefore satisfies the Sylvester recurrence from some point
-onward (Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a>), in the
-bounded-negative-part recurrence theorem
-(<code>boundedNegativePart_sylvesterNext_eventually</code> is not in
-this checkout). Hypothesis (5), the bound on the negative part, is
-supplied by nothing in this note.</p>
+onward (Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a>), in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2412">the
+bounded-negative-part recurrence theorem</a>. Hypothesis (5), the bound
+on the negative part, is supplied by nothing in this note.</p>
 <p><strong>Second endpoint.</strong> The same conclusion holds when the
 normalised negative mass <span
 class="math inline" data-term-auto="off">\(\sum_n(-E_n)_+/C_n\)</span> is finite, provided
@@ -3442,6 +3441,12 @@ bounded negative part, and Theorem <a class="math-ref" href="#long243:res:mass"
 normalised negative mass. These statements are unchanged by deleting a
 finite prefix. ◻</p>
 </div>
+<p>Lean checks Proposition <a class="math-ref" href="#long243:res:frontier">14.1</a> as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151">the
+canonical frontier profile</a>, from the rational reciprocal sum, the
+quadratic growth limit, and the failure of eventual Sylvester behaviour.
+The divergent normalised negative mass is recorded there as divergence
+of the partial sums.</p>
 <p>Put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\delta_n:=\frac{(-E_n)_+}{C_n}.\]</span></div>

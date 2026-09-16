@@ -445,8 +445,8 @@ tail bound</td>
 <tr>
 <td class="ta-l">Sparse rationalisation with cumulative
 congruences</td>
-<td class="ta-l"> Ordinary theorem; elementary Lean core
-only</td>
+<td class="ta-l"> Lean-checked; ordinary proof given
+here</td>
 <td class="ta-l"> Theorem ; upper Banach density zero,
 arbitrarily slow eventual coefficient bound, and eventual divisibility
 of coefficients and cumulative corrections. The explicit schedule is
@@ -1899,11 +1899,21 @@ blocks and requires no limiting distribution for the original
 sequence. ◻</p>
 </div>
 <p>The pair identities, modular repair, and conditional interval filling
-are the elementary core in . The source does not itself establish the
-schedules –, upper Banach density, or block-law transfer. Those parts
-are the ordinary proof above, not a new Lean or Comparator verification
-claim. Applied to prime gaps, the construction makes no assertion that
-the corrected cumulative positions remain prime.</p>
+are the elementary core in . Lean checks the theorem itself, including
+upper Banach density and block-law transfer: <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L217">arbitrary
+word sparse rationalisation</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L53">arbitrary
+word sparse rational target</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L78">polylogarithmic
+word interval</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L139">growing
+block TV</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L152">growing
+block tests uniform</a>. The schedules – belong to the ordinary proof
+above, and the theorem has no Comparator entry. Applied to prime gaps,
+the construction makes no assertion that the corrected cumulative
+positions remain prime.</p>
 </section>
 <section
 id="algebraic-nonconcentration-survives-the-rationalising-perturbation"

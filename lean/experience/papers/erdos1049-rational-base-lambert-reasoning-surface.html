@@ -561,16 +561,23 @@ Lemmas 1–2 <span class="citation" data-cites="zudilin2004"><a href="#ref-8">[
 proved by the method of <span class="citation"
 data-cites="zudilin2002"><a href="#ref-7">[7]</a></span>. The rational specialisation, the
 cancelled-degree accounting and the remainder estimates are this paper’s
-own work and are proved in Section . The two theorems are not
-kernel-checked. The linked Lean declarations establish exact
-inequalities, congruences, finite collision counts, recurrence
-identities, and exclusions for the named models; among them are the
-height comparisons that place
+own work and are proved in Section . Lean checks both theorems, with the
+source supply applied rather than assumed: the region theorem is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L113">the
+rational-base region</a>, and the power family is <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L117">the
+powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>31</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">31/4</annotation></semantics></math></a>
+with <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L121">the
+base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>31</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">31/4</annotation></semantics></math></a>.
+The linked Lean declarations establish exact inequalities, congruences,
+finite collision counts, recurrence identities, and exclusions for the
+named models; among them are the height comparisons that place
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>31</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">31/4</annotation></semantics></math>
-inside the enlarged logarithmic region and outside the earlier one. No
-Lean declaration in this release’s library carries an irrationality
-statement at a rational noninteger base. Bundschuh and Väänänen’s
-irrationality theorem at
+inside the enlarged logarithmic region and outside the earlier one.
+Bundschuh and Väänänen’s irrationality theorem at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">7/2</annotation></semantics></math>,
 Rivin’s functional nonrationality theorem, and the two-variable Mahler
 theorem used below remain external results. At
@@ -1415,8 +1422,11 @@ the values of
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>θ</mi><mo>*</mo></msup><annotation encoding="application/x-tex">\theta^{*}</annotation></semantics></math>
 are numerical evaluations. Both are computational receipts, and the
-reconstruction is described in Section . No part of Theorem  is a Lean
-theorem.</p>
+reconstruction is described in Section . Theorem  is checked in Lean as
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L113">the
+rational-base region</a>, with the source supply applied rather than
+assumed.</p>
 </section>
 <section id="attribution." class="level5">
 <h5>Attribution.</h5>
@@ -2667,33 +2677,31 @@ expansion in this argument are not yet formalised in Lean.</p>
 </section>
 <section id="evidence-decomposition.-1" class="level5">
 <h5>Evidence decomposition.</h5>
-<p>The proof above is ordinary mathematics. One part of it is
-kernel-checked in this library: the all-depth associated-graded
-recurrence <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L183">checked</a>.
-The initial monomial of transformed row
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-in every column, of order exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">l+1</annotation></semantics></math>
-and coefficient exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">-6</annotation></semantics></math>,
-and the two closed forms
+<p>The proof above is ordinary mathematics. Lean checks <a
+href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L183">its
+all-depth associated-graded recurrence</a> and, at every rank with no
+row hypothesis, its conclusions. The order and the leading coefficient
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>V</mi><mi>N</mi><mo>*</mo></msubsup><annotation encoding="application/x-tex">V_N^{*}</annotation></semantics></math>
+are <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L163">the
+sharp Hankel order and coefficient</a>, and the two closed forms
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mrow><mi mathvariant="normal">ord</mi><mo>&#8289;</mo></mrow><mo>=</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">6\operatorname{ord}=N(N-1)(2N-1)</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi></mrow><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">2^{N}\mathrm{lc}=(N!)^{2}(N+1)!</annotation></semantics></math>,
-are ordinary in this record. Lean source in
-<code>Erdos1049/AllRow</code> contains statements and proof scripts for
-the initial monomial of every transformed row and for the order and
-leading coefficient of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>V</mi><mi>N</mi><mo>*</mo></msubsup><annotation encoding="application/x-tex">V_N^{*}</annotation></semantics></math>
-at every rank, with no row hypothesis. That source and
-<code>ZudilinSharpHankelCoefficient.lean</code>, which it imports, lie
-outside the checked library build, because the normalised moment
-definitions they use are absent from the published
-<code>AdelicHeightBridge.lean</code>. Public CI has never compiled
-either file, so this record treats them as unchecked. Independently of
-the proof, the order and the leading coefficient were computed exactly
-for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">c</mi></mrow><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">2^{N}\mathrm{lc}=(N!)^{2}(N+1)!</annotation></semantics></math>
+are <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173">the
+closed order</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L185">the
+closed leading coefficient</a>. The Lean proof composes the initial
+monomial of every transformed row, which for row
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+has order exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">l+1</annotation></semantics></math>
+and coefficient exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">-6</annotation></semantics></math>
+in every column. Independently of the proof, the order and the leading
+coefficient were computed exactly for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>N</mi><mo>≤</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">1\le N\le7</annotation></semantics></math>,
 giving orders
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>30</mn><mo>,</mo><mn>55</mn><mo>,</mo><mn>91</mn></mrow><annotation encoding="application/x-tex">0,1,5,14,30,55,91</annotation></semantics></math>
@@ -2705,13 +2713,11 @@ each matching the closed forms.</p>
 <h5>Attribution and remaining obligation.</h5>
 <p>The antecedent is the inequality of <span class="citation"
 data-cites="zudilin2016"><a href="#ref-9">[9]</a></span>; the equality and the leading
-coefficient are proved here. The remaining obligation is a formal one.
-Lemma  and  give the initial monomial of every row, and the Lean source
-in <code>Erdos1049/AllRow</code> states that identity for every row. The
-formal check still requires a bridge module carrying the moment
-definitions, a successful compilation of that source against it, and an
-import into the supported library root. Nothing in this subsection
-decides the arithmetic nature of
+coefficient are proved here. Lemma  and  give the initial monomial of
+every row, and Lean states that identity for every row as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L143">the
+all-row initial monomial</a>. Nothing in this subsection decides the
+arithmetic nature of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(3/2)</annotation></semantics></math>.</p>
 </section>
 </section>
@@ -3450,19 +3456,19 @@ three rows
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1,0),(0,0),(0,1)</annotation></semantics></math>
 have zero adjacent minors but outer minor one; a zero middle row
 transmits no information between its neighbours.</p>
-<p>The unimodular <a
-href="https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L191">adjacent-to-pairwise
-determinant propagation</a> and the resulting <a
-href="https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L280">modular
-selector collision</a> are proved in Lean at the linked revision,
-including the <a
-href="https://github.com/wcook04/plectis-erdos/blob/0cfa24a7fe555d75a9d9e7f119da4720a88c1396/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L299">explicit
+<p>Lean checks the unit-coordinate form inside the supported root: the
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/7148c5ae4a4a2f3802cccdeed62c394f64593340/lean/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L191">adjacent-to-pairwise
+determinant propagation</a>, the resulting <a
+href="https://github.com/wcook04/plectis-erdos/blob/7148c5ae4a4a2f3802cccdeed62c394f64593340/lean/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L230">modular
+selector collision</a>, and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/7148c5ae4a4a2f3802cccdeed62c394f64593340/lean/ErdosProblems/Erdos1049/BezoutPluckerJets.lean#L249">explicit
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>+</mo><mn>2</mn><mi>R</mi></mrow><annotation encoding="application/x-tex">S+2R</annotation></semantics></math>
-threshold</a>. The unit-coordinate statements are special cases of the
-stronger rowwise-coprime theorem. This conditional theorem is stronger
-than the ambient four-jet count only after its minor-vanishing
-hypothesis has been established. No such all-tail hypothesis is proved
-here for an actual
+threshold</a>. Each of the three assumes that the second coordinate of
+every row is a unit. The rowwise-coprime statement proved above is the
+stronger one. This conditional theorem is stronger than the ambient
+four-jet count only after its minor-vanishing hypothesis has been
+established. No such all-tail hypothesis is proved here for an actual
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-Apéry
 or Zudilin family, and the theorem says nothing about whether the
 resulting selector difference has nonzero analytic remainder.</p>

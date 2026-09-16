@@ -254,9 +254,9 @@
         "id": "factorial_lcm_growth",
         "contribution_class": "ordinary paper argument",
         "summary": "An elementary terminal-block argument gives liminf log L_N / (N^{3/2} log N) ≥ 2√2/3 for the lcm of factorial-gap denominators. The displayed bound needs no external multiplicity theorem; an older, weaker multiplicity-based route is historical context only.",
-        "evidence_mode": "ordinary mathematical argument",
-        "comparator_disposition": "not_applicable_not_a_lean_declaration",
-        "boundary": "The LCM asymptotic is an ordinary paper proof, not a Lean-checked theorem. Linked asymptotic Lean files are proof candidates and are not cited as kernel verification. The finite-block inequality has a separate Lean source. Comparator cannot certify the authored deduction. The bound does not decide irrationality."
+        "evidence_mode": "Lean kernel plus paper argument",
+        "comparator_disposition": "not_selected_separate_release_comparator_entry",
+        "boundary": "The LCM asymptotic has an ordinary paper proof and is checked in Lean as common_denominator_growth_liminf in PaperCompleteLiminf.lean. The finite-block inequality has a separate Lean source. The Comparator entry for this bound belongs to the separate public release wcook04/plectis-erdos-lean. The bound does not decide irrationality."
       }
     ]
   },
@@ -265,7 +265,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "eddb2c91a3f25ec39e95caf92b914d66645c13c046f52b30f7a1ac4d53cf9fbe",
+    "source_sha256": "6cca169626b00d314afb55370107ef5d54d1a4bb31c17c7566eb36ab29f99879",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -309,7 +309,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 25,
       "renderer_fingerprint": "777419e3b355e02e",
-      "source_sha256": "cb6d5a272f69298ef91b8337a41a98ae3f39d76f4aa72fa969e3d095c79c19fe",
+      "source_sha256": "35e1385794c7fb472a3203879789fe2ea96bf82d356d9715e8f27af47def8a55",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 345,
@@ -318,8 +318,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "1bb3271d98a65bcddefdc182411e1f381b5df733b17139bae0340fcc619a59f3",
-      "html_exact_tex_sha256": "3a015ac4cbf17c362b192ebc242d28a0124646a55c88d00ad10d65cba2b80b2c"
+      "html_mathml_sha256": "1f4a1d488d996b35dca21af85b742fc4888b15102a0154a50a65c4ac712f7692",
+      "html_exact_tex_sha256": "777d56d56ada8e77a495c4311f9adeec0e8f4a5617c8db0dac579d45f2775670"
     },
     "sections": [
       {
@@ -483,7 +483,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "cb6d5a272f69298ef91b8337a41a98ae3f39d76f4aa72fa969e3d095c79c19fe",
+        "source_sha256": "35e1385794c7fb472a3203879789fe2ea96bf82d356d9715e8f27af47def8a55",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 345,
@@ -492,8 +492,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "1bb3271d98a65bcddefdc182411e1f381b5df733b17139bae0340fcc619a59f3",
-        "html_exact_tex_sha256": "3a015ac4cbf17c362b192ebc242d28a0124646a55c88d00ad10d65cba2b80b2c"
+        "html_mathml_sha256": "1f4a1d488d996b35dca21af85b742fc4888b15102a0154a50a65c4ac712f7692",
+        "html_exact_tex_sha256": "777d56d56ada8e77a495c4311f9adeec0e8f4a5617c8db0dac579d45f2775670"
       },
       "sections": [
         {
@@ -657,7 +657,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "48a12f75e1f1ac462094b6812d9c3a2470d49eb1c5dbb18831226f2f3f35753b",
+        "source_sha256": "27fcd32d015cc22d35f2943a1453d961d9e7b99d58d8205e5bcc7352a70f804b",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1050,
@@ -666,8 +666,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "69014d405527921c9652e9e5725e1ba38040877c7e32fdf0744bf948066c0757",
-        "html_exact_tex_sha256": "a00f619085ca07aa7b470d86593826c867072096539a4b10013fdba08af34d63"
+        "html_mathml_sha256": "4797717b4402ce449629e50045a91c46ddd3b2dc4acb4d8475515823ea25b58f",
+        "html_exact_tex_sha256": "10f2af521d3b4d7aa77964e8281c7eb3e361e28dbae167bf50bf59d9d14e2735"
       },
       "sections": [
         {
@@ -1131,7 +1131,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteAsymptotics",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean",
         "direct": true,
-        "content_digest": "sha256:06e0cdc3a2efc8b0b57c7f08804d80eca6872fa3d4fb6e60405f76ab6ce48b8f",
+        "content_digest": "sha256:c1e208e4d5e76a2638e625d9a7ef79066c9a6e36d9ce7a0699a38358d2a93157",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteAsymptotics.lean",
         "role": "Lean proof module"
       },
@@ -1140,7 +1140,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteDivisorCoordinates",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteDivisorCoordinates.lean",
         "direct": true,
-        "content_digest": "sha256:3fd6ba79fbaf42ce63f32d9e341245bb4d6835f893f8925fbcb727aacb566139",
+        "content_digest": "sha256:885ab3723b3b84a8a4e2581d5788907edb25a14e3ebbb972ab45923dcc4ec113",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteDivisorCoordinates.lean",
         "role": "Lean proof module"
       },
@@ -1194,7 +1194,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteIntegerSpan",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteIntegerSpan.lean",
         "direct": true,
-        "content_digest": "sha256:d5da5d1b34b1fbc75ae8a06b7173e9a92e1c9a7ae5f3d817ec9d07588cc1b887",
+        "content_digest": "sha256:426949b9b1ff974217f84eac4a5dbd80570105c003f56fd65dd39343a1763cbf",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteIntegerSpan.lean",
         "role": "Lean proof module"
       },
@@ -1230,7 +1230,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteLiminf",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean",
         "direct": true,
-        "content_digest": "sha256:618a50923335a93cd4d1991edbf19b0df5318c8acb5f8538412c5a3dda365fdf",
+        "content_digest": "sha256:605b5adf98b3ccdbc10831c6834f7d1cdc28d0d23c9c8164febdad0cb58eb0e8",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean",
         "role": "Lean proof module"
       },
@@ -1239,7 +1239,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteLowKernel",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteLowKernel.lean",
         "direct": true,
-        "content_digest": "sha256:1405492533c0fb334832be65b3ae4be931ca7caa63dfda77d3d8b4a8b21bf873",
+        "content_digest": "sha256:abd14959ab6ac1e54448d04c1827ac27d6e87cb23f6822a614bf60ccee6faff0",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteLowKernel.lean",
         "role": "Lean proof module"
       },
@@ -1248,7 +1248,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteMomentHorizon",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean",
         "direct": true,
-        "content_digest": "sha256:70da6cc3777e3eb334a533c4f1530bdee06c44a104c1d93d287f0e3523de42b6",
+        "content_digest": "sha256:2fd257d1192831f5eb91bd629a786839793254c7f48b1276a6df49821368522f",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean",
         "role": "Lean proof module"
       },
@@ -1257,7 +1257,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteMomentIdeal",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteMomentIdeal.lean",
         "direct": true,
-        "content_digest": "sha256:e442b614dcebbd6ab23c123d8043d25468d0e5bf4adf2ff4adb29ccddf8f2eb8",
+        "content_digest": "sha256:61f8a0da3835a0a77f3177b166cc0b02ffe53c400491efc59ce3ace55ab442de",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteMomentIdeal.lean",
         "role": "Lean proof module"
       },
@@ -1266,7 +1266,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteRadiusLimit",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteRadiusLimit.lean",
         "direct": true,
-        "content_digest": "sha256:d9afa1cb46f1079bd9263251af35ec30a38179d7ace37512604a3f028accdf04",
+        "content_digest": "sha256:91b82c36414c0ccd9a048d37d4cfae1880ba4d223321ae051ee8139b406690b9",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteRadiusLimit.lean",
         "role": "Lean proof module"
       },
@@ -1275,7 +1275,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteResidualIdentity",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean",
         "direct": true,
-        "content_digest": "sha256:e67ef7babd9382248f5f7b094416d53863afd5e8526344636a10f7372752b279",
+        "content_digest": "sha256:611edfe9d578f408989be173ece9592367cfc5701316c4fbd4b94e06585b70e7",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean",
         "role": "Lean proof module"
       },

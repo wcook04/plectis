@@ -170,12 +170,12 @@ Mathlib. See the [security policy](.github/SECURITY.md) for the execution bounda
 
 The reviewed layer a mathematician should judge: 141 curated claim records in 30 contribution families, reaching Lean source through 451 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
 
-The rest is engineering inventory. About 91% of the 156,245 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
+The rest is engineering inventory. About 91% of the 157,378 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
 
 | Engineering inventory | Current size |
 |---|---:|
-| Lean modules (the two library roots) | 1,274 |
-| Formal results and supporting lemmas | 153,502 |
+| Lean modules (the two library roots) | 1,340 |
+| Formal results and supporting lemmas | 154,454 |
 | Curated claim records | 141 |
 | Contribution families | 30 |
 

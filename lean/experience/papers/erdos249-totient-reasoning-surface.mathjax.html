@@ -1192,11 +1192,11 @@ cleanest target for computational exploration — with Theorem <a class="math-r
 that no amount of such exploration becomes a proof. <span><span
 class="sans-serif">[Open]</span></span></p>
 </section>
-<section id="survivor-5-the-rationality-side-rank-upper-bound"
+<section id="retired-shortcut-a-rationality-side-rank-upper-bound"
 class="level3">
-<h3>Survivor 5: the rationality-side rank upper bound</h3>
+<h3>Retired shortcut: a rationality-side rank upper bound</h3>
 <div class="defn" id="defn:rankupper">
-<p><strong>Definition 3.7</strong> (The coordinate-disjoint obligation).
+<p><strong>Definition 3.7</strong> (A counterfactual rank criterion).
 Either: there is <span class="math inline" data-term-auto="off">\(C\)</span> such that for
 every <span class="math inline" data-term-auto="off">\(c : \mathbb{N}\to \mathbb{N}\)</span>
 with <span class="math inline" data-term-auto="off">\(c(n) \le n\)</span> and <span
@@ -1210,29 +1210,27 @@ class="math inline" data-term-auto="off">\(\dim_{\mathbb{Q}}
 \le C\)</span>; or the same with any <span
 class="math inline" data-term-auto="off">\(g(e)\)</span> growing strictly slower than <span
 class="math inline" data-term-auto="off">\(2^{e}-1\)</span> in place of <span
-class="math inline" data-term-auto="off">\(C\)</span>. Either version contradicts the proved
-floor of Proposition <a class="math-ref" href="#prop:rank">1.6</a> and closes #249.
-<code>coord:carry-rank</code> <span><span
-class="sans-serif">scale:uniform</span></span> <span><span
-class="sans-serif">[Open]</span></span></p>
+class="math inline" data-term-auto="off">\(C\)</span>. Either assertion would contradict the
+proved floor of Proposition <a class="math-ref" href="#prop:rank">1.6</a> and would therefore close
+#249. <code>coord:carry-rank</code> <span><span
+class="sans-serif">scale:uniform</span></span></p>
 </div>
-<p>This is the only surviving obligation that is not a residue or
-certificate statement at all, so B2’s certificate completeness cannot
-reach it — it is not a reformulation of <span
-class="math inline" data-term-auto="off">\(\mathrm{Sep}\)</span> in any vocabulary. It evades
-B1 and B4 entirely (no window, no letters, no prescribed residues) and
-B5 (linear algebra over the whole orbit, not a bounded-state summary).
-The scale side is finished and uniform in <span
-class="math inline" data-term-auto="off">\(e\)</span> (Proposition <a class="math-ref" href="#prop:rank">1.6</a>).</p>
-<p><strong>Honest flag, and it is severe.</strong> B6 partly indicts
-this route from inside. The most natural approach to the upper bound is
-dead (), and what rationality actually buys — uniform eventual
-periodicity of the carry’s dyadic sections mod <span
-class="math inline" data-term-auto="off">\(v\)</span> — provably does not promote to a <span
-class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span>-rank bound (Proposition <a class="math-ref" href="#prop:period-not-rank">1.7</a>). So this
-survivor is genuinely coordinate-disjoint from everything else, which is
-its whole value, but its obvious approach is closed and the missing
-input is a rigidity theorem nobody has stated.</p>
+<p>This is not one of the paper’s live open propositions. It is a
+logically sufficient theorem schema in a coordinate disjoint from the
+residue and certificate statements, and B2’s certificate completeness
+cannot reach it. The proved scale side is uniform in <span
+class="math inline" data-term-auto="off">\(e\)</span> (Proposition <a class="math-ref" href="#prop:rank">1.6</a>), but the present
+mathematics supplies no reason for rationality to impose the opposite
+rank bound.</p>
+<p><strong>The generic shortcut is retired.</strong> The most natural
+approach to the upper bound is dead (), and what rationality actually
+buys — uniform eventual periodicity of the carry’s dyadic sections mod
+<span class="math inline" data-term-auto="off">\(v\)</span> — provably does not promote to a
+<span class="math inline" data-term-auto="off">\(\mathbb{Q}\)</span>-rank bound
+(Proposition <a class="math-ref" href="#prop:period-not-rank">1.7</a>). Any viable
+rank argument would therefore need new arithmetic specific to the actual
+totient carry. The criterion is retained to record that logical
+possibility and the no-go result, not as a fifth surviving frontier.</p>
 </section>
 </section>
 <section id="reading-the-detailed-record" class="level2">
@@ -3501,9 +3499,10 @@ shift-polynomial countermodel retire the generic finite-compression
 shortcut (Observation <a class="math-ref" href="#prop:B4b-kill">6.115</a>). Thus the displayed
 upper bound is only a logically sufficient new input, not a third live
 frontier and not evidence that existing rank machinery is close to a
-contradiction. <span><span
-class="sans-serif">scale:cofinal</span></span> <span><span
-class="sans-serif">[Open]</span></span> <code>coord:other:carry-kernel-rank</code><br />
+contradiction. The evidence label below applies to the proved rank floor
+and no-go results, not to the counterfactual upper bound. <span><span
+class="sans-serif">scale:uniform</span></span> <span><span
+class="sans-serif">[Lean]</span></span> <code>coord:other:carry-kernel-rank</code><br />
 </em></p>
 </div>
 <div class="prop" id="prop:B12cons">
@@ -7778,19 +7777,20 @@ machinery already proved elsewhere in the same file family. Five
 sufficient forms are already proved, related by the implications of
 Proposition <a class="math-ref" href="#prop:te-chain">9.14</a>,
 and proving any one of them closes #249.</p>
-<p>Third, the d4/d5 rank obligation is structurally independent of the
-residue-coordinate rows above: it is a second, self-contained sufficient
-condition for #249 (an upper rank bound contradicting the proved <span
-class="math inline" data-term-auto="off">\(2^e{-}1\)</span> lower bound), in a coordinate
-(carry-kernel rank) where a natural finite-rank strengthening is already
-proved impossible. A rank upper bound, if found, would not need to route
-through <span class="math inline" data-term-auto="off">\(\mathtt{certifiedKill}\)</span> at
-all.</p>
+<p>Third, the retired d4/d5 rank shortcut is structurally independent of
+the residue-coordinate rows above. An upper rank bound would contradict
+the proved <span class="math inline" data-term-auto="off">\(2^e{-}1\)</span> lower bound, but
+the corpus supplies no reason for such a bound, and a natural
+finite-rank strengthening is already proved impossible. It is therefore
+a counterfactual sufficient input and a useful no-go record, not a third
+live obligation.</p>
 <p>No row in this index is a solution, a partial solution in the sense
 of resolved cases, or evidence that #249 is likely true or false. Every
-open producer listed is exactly as open as the original Erdős–Borwein
-question it reduces to; what the index adds is the exact remaining
-content, verified against the live Lean tree, of each reduction.</p>
+actual open producer listed is exactly as open as the original
+Erdős–Borwein question it reduces to; the d4/d5 row is retained only as
+the explicitly retired shortcut. What the index adds is the exact
+remaining content, verified against the live Lean tree, of each
+reduction.</p>
 </section>
 </section>
 <section id="closed-routes-with-the-mechanism-that-closed-them"
@@ -10172,11 +10172,11 @@ finite computation will ever be evidence for it. <span><span
 class="sans-serif">[Open]</span></span> (heuristic).</p>
 </section>
 </section>
-<section id="route-5-the-rationality-side-rank-bound-remains-open"
+<section id="a-counterfactual-rank-criterion-not-a-live-route"
 class="level3">
-<h3>Route 5: the rationality-side rank bound remains open</h3>
-<section id="the-exact-statement-that-was-wanted." class="level5">
-<h5>The exact statement that was wanted.</h5>
+<h3>A counterfactual rank criterion, not a live route</h3>
+<section id="the-exact-statement-that-was-considered." class="level5">
+<h5>The exact statement that was considered.</h5>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\exists C\ \forall
 c:\mathbb{N}\to\mathbb{N}\ \bigl(c(n)\le n,\
 \neg\,\mathrm{Irrational}(X_c)\bigr)
@@ -10191,7 +10191,9 @@ class="math inline" data-term-auto="off">\(u\)</span> through level <span
 class="math inline" data-term-auto="off">\(e\)</span>. A suitable subexponential upper bound
 would also contradict the landed <span
 class="math inline" data-term-auto="off">\(\varphi\)</span>-specific floor . No such
-rationality-side upper bound is proved.</p>
+rationality-side upper bound is proved. It is a logically sufficient new
+theorem schema, but the preceding mathematics does not isolate it as an
+open proposition, so it is not counted among the surviving routes.</p>
 </section>
 <section id="the-right-vocabulary-and-the-audited-gap." class="level5">
 <h5>The right vocabulary, and the audited gap.</h5>
@@ -10236,8 +10238,9 @@ Consequently non-<span class="math inline" data-term-auto="off">\(2\)</span>-reg
 previously claimed bound <span
 class="math inline" data-term-auto="off">\(\operatorname{rk}_e(u)\ge2^{e-1}-3\)</span> has no
 valid proof here. The proposed greedy set construction therefore
-supplies neither a counterexample nor a reason to retire the route.
-<span><span class="sans-serif">[Gap]</span></span> <span><span
+supplies neither a counterexample nor support for the criterion, and it
+does not restore the generic shortcut. <span><span
+class="sans-serif">[Gap]</span></span> <span><span
 class="sans-serif">scale:uniform</span></span>
 <code>coord:other:carry-kernel</code>.</p>
 <p>The Lean theorem for <span class="math inline" data-term-auto="off">\(\varphi\)</span>
@@ -10246,8 +10249,8 @@ linear independence of the totient kernel, not the invalid generic <span
 class="math inline" data-term-auto="off">\(O(1)\)</span> bridge. The honest status is thus
 asymmetric. The large <span
 class="math inline" data-term-auto="off">\(\varphi\)</span>-specific rank floor is proved; a
-rationality-driven ceiling is open; and the generic countermodel attempt
-is inconclusive.</p>
+rationality-driven ceiling is only a counterfactual sufficient input;
+and the generic countermodel attempt is inconclusive.</p>
 </section>
 </section>
 <section id="sub:shape" class="level3">
@@ -10258,10 +10261,10 @@ inference available that no individual reformulation does, and because
 refusing to draw it would be a different kind of dishonesty than drawing
 it carelessly.</p>
 <section
-id="first-a-fact-rather-than-an-inference-the-routes-are-one-route-in-five-coordinates."
+id="first-a-fact-rather-than-an-inference-the-four-live-routes-and-one-retired-shortcut-concern-the-same-digit-sequence."
 class="level5">
-<h5>First, a fact rather than an inference: the routes are one route in
-five coordinates.</h5>
+<h5>First, a fact rather than an inference: the four live routes and one
+retired shortcut concern the same digit sequence.</h5>
 <p>Lemma <a class="math-ref" href="#lem:orbit">12.2</a> collapses
 the coordinate spread that made the corpus look like many independent
 attacks.</p>
@@ -10307,9 +10310,9 @@ class="math inline" data-term-auto="off">\(2(N+2h+2)2^{-h}\)</span></td>
 ray, in <span class="math inline" data-term-auto="off">\(S\)</span></td>
 </tr>
 <tr>
-<td class="ta-l">5</td>
-<td class="ta-l">an open rationality-side upper bound on
-the carry-orbit kernel rank</td>
+<td class="ta-l">5 (retired)</td>
+<td class="ta-l">a counterfactual rationality-side upper
+bound on the carry-orbit kernel rank</td>
 <td class="ta-l">all dyadic sections through level <span
 class="math inline" data-term-auto="off">\(e\)</span></td>
 </tr>
@@ -10317,11 +10320,11 @@ class="math inline" data-term-auto="off">\(e\)</span></td>
 </table>
 </div>
 <p> This is the honest content of the operator’s “hundred measurements
-of one wall”. The measurements are of one thing, and the thing is the
-binary digit sequence of <span class="math inline" data-term-auto="off">\(S\)</span> and of
-its multiples <span class="math inline" data-term-auto="off">\((2^{h}-1)S\)</span>. The
-routes differ in which positions they interrogate and how uniform a
-margin they demand; they do not differ in subject.</p>
+of one wall”. The four live routes measure the binary digit sequence of
+<span class="math inline" data-term-auto="off">\(S\)</span> and of its multiples <span
+class="math inline" data-term-auto="off">\((2^{h}-1)S\)</span> at different positions and
+margins. The fifth row is retained only to show why a generic
+rank-compression proof does not supply another route.</p>
 </section>
 <section
 id="second-the-wall-is-a-wall-about-explicit-constants-not-about-varphi."
@@ -11251,9 +11254,9 @@ same target</td>
 <td class="ta-l">TotientActualLcmOrbitSeparation.lean:305</td>
 </tr>
 <tr>
-<td class="ta-l">rank-compression upper bound (Obl. 2)</td>
-<td class="ta-l">independent obligation, different
-coordinate</td>
+<td class="ta-l">rank-compression upper bound</td>
+<td class="ta-l">counterfactual sufficient input; generic
+shortcut retired</td>
 <td class="ta-l">TotientCarryKernelRigidity.lean:284</td>
 </tr>
 <tr>

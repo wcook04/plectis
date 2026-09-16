@@ -1840,13 +1840,29 @@ does not authorise the exposition, the citation choices, or the
 interpretation, for which the author remains responsible.</p>
 <p>For Proposition , the pair identities, congruence buffer and abstract
 variable-alphabet filling are checked in
-<code>SparseRationalisationCore.lean</code>. The explicit
-three-coordinate schedule, upper Banach density, and block-law transfer
-are ordinary proofs, given in that proposition and in the companion
-record, subsection “Paired corrections and cumulative congruences”; they
-are not Lean- or Comparator-verified. End-to-end sparse candidate
-sources in the repository are labelled UNRUN and are not presented as
-checked theorems.</p>
+<code>SparseRationalisationCore.lean</code>. Lean checks the proposition
+itself. <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L217">Arbitrary
+word sparse rationalisation</a> gives, for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">f\to\infty</annotation></semantics></math>,
+a support in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>K</mi><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[K,\infty)</annotation></semantics></math>
+of upper Banach density zero, an interval above
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
+and a correction realising each point of that interval; <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L53">arbitrary
+word sparse rational target</a> realises a rational value above
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>;
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L78">polylogarithmic
+word interval</a> gives the polylogarithmic clause, with block limits <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L139">growing
+block TV</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean#L152">growing
+block tests uniform</a>. The explicit three-coordinate schedule in the
+construction is the ordinary proof, expanded in the companion record,
+subsection “Paired corrections and cumulative congruences”. The
+proposition has no Comparator entry.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>

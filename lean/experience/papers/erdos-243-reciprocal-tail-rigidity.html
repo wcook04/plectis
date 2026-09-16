@@ -828,6 +828,13 @@ upper bound suffices under the quadratic-limit assumption. Since
 this also implies Corollary : multiplication by a factor in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">(0,1]</annotation></semantics></math>
 preserves an upper bound, including at negative values.</p>
+<p>Lean checks Corollary  as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49">the
+original-coordinate LCM bounded defect</a>. That declaration takes the
+rational reciprocal sum and the quadratic growth limit as hypotheses,
+with the finite upper limsup recorded as an eventual upper bound on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mi>n</mi></msub><annotation encoding="application/x-tex">Z_n</annotation></semantics></math>;
+it assumes no divisibility of the denominator by the prefix LCM.</p>
 <p>Duverney proved a conditional signed form of the problem itself: for
 signs
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϵ</mi><mi>n</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\epsilon_n\in\{-1,1\}</annotation></semantics></math>,
@@ -959,8 +966,11 @@ for which
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>≤</mo><msubsup><mi>M</mi><mi>n</mi><mi>K</mi></msubsup></mrow><annotation encoding="application/x-tex">2^n\le M_n^K</annotation></semantics></math>
 at infinitely many indices?</em></p>
 </div>
-<p>The canonical necessary profile is ordinary in this note.
-<code>PaperCompleteR7/Frontier.lean</code> is not in this checkout.</p>
+<p>The canonical necessary profile is ordinary in this note, and Lean
+checks it as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151">the
+canonical frontier profile</a>, from the rational reciprocal sum and the
+quadratic growth limit.</p>
 <p>For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">B\ge0</annotation></semantics></math>
 put
@@ -1059,10 +1069,16 @@ hypotheses each preserves.</p>
 <p>The bounded-negative state theorem is checked in Lean 4 against
 Mathlib at the stated source checkpoint: <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2352">eventual
-bounded-negative rigidity</a>. The canonical analytic transfer and the
-global weighted, polynomial and slow-negative arguments are ordinary
-proofs; the scalar finite-mass proof is printed in full above. The
-auxiliary source guide, the <a
+bounded-negative rigidity</a>. Lean also checks the endpoint that
+carries that theorem to the original denominators, as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2412">the
+bounded-negative-part recurrence theorem</a>, and the canonical analytic
+transfer of Corollary , as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49">the
+original-coordinate LCM bounded defect</a>. The global weighted,
+polynomial and slow-negative arguments are ordinary proofs; the scalar
+finite-mass proof is printed in full above. The auxiliary source guide,
+the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L350">eventual
 constant exclusion</a> and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L796">eventual

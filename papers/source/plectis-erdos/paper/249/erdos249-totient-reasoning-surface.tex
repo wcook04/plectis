@@ -1162,36 +1162,36 @@ and names an index. It is listed because it is the cleanest target for
 computational exploration --- with Theorem~\ref{thm:gamma} as the standing
 reminder that no amount of such exploration becomes a proof. \ev{Open}
 
-\subsection{Survivor 5: the rationality-side rank upper bound}
+\subsection{Retired shortcut: a rationality-side rank upper bound}
 
-\begin{defn}[The coordinate-disjoint obligation]
+\begin{defn}[A counterfactual rank criterion]
 \label{defn:rankupper}
 Either: there is $C$ such that for every $c : \N \to \N$ with $c(n) \le n$ and
 $T_c \notin$ the irrationals, every $v > 0$ and every tempered binary orbit
 $u$ for $(c,v)$, and every $e$,
 $\dim_{\Q} \mathrm{span}_{\Q}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr) \le C$;
 or the same with any $g(e)$ growing strictly slower than $2^{e}-1$ in place of
-$C$. Either version contradicts the proved floor of
-Proposition~\ref{prop:rank} and closes \#249.
-\coord{carry-rank} \scale{uniform} \ev{Open}
+$C$. Either assertion would contradict the proved floor of
+Proposition~\ref{prop:rank} and would therefore close \#249.
+\coord{carry-rank} \scale{uniform}
 \end{defn}
 
-This is the only surviving obligation that is not a residue or certificate
-statement at all, so B2's certificate completeness cannot reach it --- it is
-not a reformulation of $\mathrm{Sep}$ in any vocabulary. It evades B1 and B4
-entirely (no window, no letters, no prescribed residues) and B5 (linear algebra
-over the whole orbit, not a bounded-state summary). The scale side is finished
-and uniform in $e$ (Proposition~\ref{prop:rank}).
+This is not one of the paper's live open propositions.  It is a logically
+sufficient theorem schema in a coordinate disjoint from the residue and
+certificate statements, and B2's certificate completeness cannot reach it.
+The proved scale side is uniform in $e$ (Proposition~\ref{prop:rank}), but the
+present mathematics supplies no reason for rationality to impose the opposite
+rank bound.
 
-\textbf{Honest flag, and it is severe.} B6 partly indicts this route from
-inside. The most natural approach to the upper bound is dead
+\textbf{The generic shortcut is retired.} The most natural approach to the
+upper bound is dead
 (\lean{Erdos249257.false\_of\_compressedAdjointCertificate}{TotientMahlerDefect.lean:1183}),
 and what rationality actually buys --- uniform eventual periodicity of the
 carry's dyadic sections mod $v$ --- provably does not promote to a $\Q$-rank
-bound (Proposition~\ref{prop:period-not-rank}). So this survivor is genuinely
-coordinate-disjoint from everything else, which is its whole value, but its
-obvious approach is closed and the missing input is a rigidity theorem nobody
-has stated.
+bound (Proposition~\ref{prop:period-not-rank}). Any viable rank argument would
+therefore need new arithmetic specific to the actual totient carry.  The
+criterion is retained to record that logical possibility and the no-go result,
+not as a fifth surviving frontier.
 
 \section{Reading the detailed record}
 
@@ -2398,7 +2398,9 @@ all-horizon finite-rank shift-polynomial countermodel retire the generic finite-
 shortcut (Observation~\ref{prop:B4b-kill}). Thus the displayed upper bound is only a logically
 sufficient new input, not a third live frontier and not evidence that existing rank machinery is
 close to a contradiction.
-\scale{cofinal}\ \ev{Open}\ \coord{other:carry-kernel-rank}\\
+The evidence label below applies to the proved rank floor and no-go results,
+not to the counterfactual upper bound.
+\scale{uniform}\ \ev{Lean}\ \coord{other:carry-kernel-rank}\\
 \lean{not_irrational_totientSeries_implies_unbounded_carryRank_unconditional}{TotientCarryKernelRigidity.lean:300}
 \end{prop}
 
@@ -4785,16 +4787,18 @@ logically symmetric escape branches survives the sign machinery already proved e
 same file family. Five sufficient forms are already proved, related by the implications of
 Proposition~\ref{prop:te-chain}, and proving any one of them closes \#249.
 
-Third, the d4/d5 rank obligation is structurally independent of the residue-coordinate rows above:
-it is a second, self-contained sufficient condition for \#249 (an upper rank bound contradicting
-the proved $2^e{-}1$ lower bound), in a coordinate (carry-kernel rank) where a natural finite-rank
-strengthening is already proved impossible. A rank upper bound, if found, would not need to route
-through $\mathtt{certifiedKill}$ at all.
+Third, the retired d4/d5 rank shortcut is structurally independent of the
+residue-coordinate rows above.  An upper rank bound would contradict the
+proved $2^e{-}1$ lower bound, but the corpus supplies no reason for such a
+bound, and a natural finite-rank strengthening is already proved impossible.
+It is therefore a counterfactual sufficient input and a useful no-go record,
+not a third live obligation.
 
 No row in this index is a solution, a partial solution in the sense of resolved cases, or evidence
-that \#249 is likely true or false. Every open producer listed is exactly as open as the original
-Erd\H{o}s--Borwein question it reduces to; what the index adds is the exact remaining content,
-verified against the live Lean tree, of each reduction.
+that \#249 is likely true or false. Every actual open producer listed is exactly as open as the
+original Erd\H{o}s--Borwein question it reduces to; the d4/d5 row is retained only as the
+explicitly retired shortcut. What the index adds is the exact remaining content, verified against
+the live Lean tree, of each reduction.
 % ---- part a249_p4 ----
 \section{Closed routes, with the mechanism that closed them}
 
@@ -6505,9 +6509,9 @@ success at the very first admissible depth. The model therefore predicts
 Route 4 holds with enormous margin --- which is precisely why no finite
 computation will ever be evidence for it. \ev{Open} (heuristic).
 
-\subsection{Route 5: the rationality-side rank bound remains open}
+\subsection{A counterfactual rank criterion, not a live route}
 
-\paragraph{The exact statement that was wanted.}
+\paragraph{The exact statement that was considered.}
 \[
   \exists C\ \forall c:\N\to\N\ \bigl(c(n)\le n,\ \neg\,\mathrm{Irrational}(X_c)\bigr)
   \ \forall v>0\ \forall u\ \mathrm{IsTemperedBinaryOrbit}(c,v,u)\ \forall e:\quad
@@ -6518,7 +6522,10 @@ dimension of the span of the dyadic sections of $u$ through level $e$.
 A suitable subexponential upper bound would also contradict the landed
 $\varphi$-specific floor
 \lean{Erdos249257.\allowbreak not_irrational_totientSeries_\allowbreak implies_unbounded_carryRank_unconditional}{TotientCarryKernelRigidity.lean:300}
-\quad \ev{Lean}.  No such rationality-side upper bound is proved.
+\quad \ev{Lean}.  No such rationality-side upper bound is proved.  It is a
+logically sufficient new theorem schema, but the preceding mathematics does
+not isolate it as an open proposition, so it is not counted among the surviving
+routes.
 
 \paragraph{The right vocabulary, and the audited gap.}
 Finite-dimensional span of all dyadic sections is the definition of a
@@ -6548,15 +6555,17 @@ sections can contribute up to $e$ new directions, not a fixed $O(1)$ error.
 Consequently non-$2$-regularity of $c$ alone does not imply unbounded
 $\operatorname{rk}_e(u)$, and the previously claimed bound
 $\operatorname{rk}_e(u)\ge2^{e-1}-3$ has no valid proof here.  The proposed
-greedy set construction therefore supplies neither a counterexample nor a
-reason to retire the route. \ev{Gap} \scale{uniform}
+greedy set construction therefore supplies neither a counterexample nor
+support for the criterion, and it does not restore the generic shortcut.
+\ev{Gap} \scale{uniform}
 \coord{other:carry-kernel}.
 
 The Lean theorem for $\varphi$ remains valid: it uses the special structure
 and independently proved linear independence of the totient kernel, not the
 invalid generic $O(1)$ bridge.  The honest status is thus asymmetric.  The
 large $\varphi$-specific rank floor is proved; a rationality-driven ceiling is
-open; and the generic countermodel attempt is inconclusive.
+only a counterfactual sufficient input; and the generic countermodel attempt
+is inconclusive.
 
 \subsection{What the shape of the wall suggests about the object}\label{sub:shape}
 
@@ -6565,8 +6574,8 @@ theorem. It is written because the assembly makes one inference available
 that no individual reformulation does, and because refusing to draw it would
 be a different kind of dishonesty than drawing it carelessly.
 
-\paragraph{First, a fact rather than an inference: the routes are one route
-in five coordinates.}
+\paragraph{First, a fact rather than an inference: the four live routes and
+one retired shortcut concern the same digit sequence.}
 Lemma~\ref{lem:orbit} collapses the coordinate spread that made the corpus
 look like many independent attacks.
 
@@ -6580,7 +6589,7 @@ $\le 9.1$ in one block per scale & a full dyadic block of $\alpha_h$ \\
 3 & one run of length $\le 3$ & positions $p-h$, $p$ prime, in $\alpha_h$ \\
 4 & the tails at gap $h$ differ by more than $2(N+2h+2)2^{-h}$ & every
 basepoint, some multiple of every ray, in $S$ \\
-5 & an open rationality-side upper bound on the carry-orbit kernel rank &
+5 (retired) & a counterfactual rationality-side upper bound on the carry-orbit kernel rank &
 all dyadic sections through level $e$ \\
 \hline
 \end{tabular}
@@ -6588,10 +6597,10 @@ all dyadic sections through level $e$ \\
 
 \noindent
 This is the honest content of the operator's ``hundred measurements of one
-wall''. The measurements are of one thing, and the thing is the binary digit
-sequence of $S$ and of its multiples $(2^{h}-1)S$. The routes differ in which
-positions they interrogate and how uniform a margin they demand; they do not
-differ in subject.
+wall''. The four live routes measure the binary digit sequence of $S$ and of
+its multiples $(2^{h}-1)S$ at different positions and margins.  The fifth row
+is retained only to show why a generic rank-compression proof does not supply
+another route.
 
 \paragraph{Second: the wall is a wall about explicit constants, not about
 $\varphi$.}
@@ -7327,7 +7336,7 @@ flexible top-edge magnitude supply & weaker than midband; feeds midband, not cor
 flexible terminal-dominance supply & weaker again; one-sided & TotientActualLcmTopEdgeStaircase.lean:1908 \\
 flexible terminal carry-corridor-escape supply & \textbf{weakest known} in this cluster & TotientActualLcmTopEdgeStaircase.lean:1895 \\
 raw-approximant separation supply & alternative (Diophantine) sufficient form, same target & TotientActualLcmOrbitSeparation.lean:305 \\
-rank-compression upper bound (Obl.\ 2) & independent obligation, different coordinate & TotientCarryKernelRigidity.lean:284 \\
+rank-compression upper bound & counterfactual sufficient input; generic shortcut retired & TotientCarryKernelRigidity.lean:284 \\
 Farey growth law (Obl.\ 3) & independent obligation, different coordinate & GapFareyBound.lean, CertificateKernel.lean:18056 \\
 guard-cylinder witness & problem-agnostic normal form of \emph{any} certificate, not scale-comparable & TotientActualLcmTopEdgeStaircase.lean:844 \\
 \end{longtable}

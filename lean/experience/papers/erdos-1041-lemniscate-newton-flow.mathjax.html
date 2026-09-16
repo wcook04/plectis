@@ -476,9 +476,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 all-straight midpoint obstruction</a>, and the displayed proposition
 itself, with both quintic and cubic exhibited as polynomials and the
 nearest-root condition quantified over every zero, records those same
-two evaluations. <code>PaperStraightObstructions.lean</code> is not in
-this checkout. The first defeats a tie-breaking escape hatch; the second
-defeats every straight root-pair segment. Together with Theorem <a class="math-ref" href="#res:critical-proximity">4.1</a>, they
+two evaluations. Lean checks the proposition as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1041/PaperStraightObstructions.lean#L178">the
+complete straight-path obstructions</a>. The first defeats a
+tie-breaking escape hatch; the second defeats every straight root-pair
+segment. Together with Theorem <a class="math-ref" href="#res:critical-proximity">4.1</a>, they
 isolate the real gap: critical-point proximity selects a short metric
 pair, but universal containment requires curved or topological
 geometry.</p>
@@ -818,10 +820,11 @@ class="math inline" data-term-auto="off">\(\mu&gt;13/25\)</span>, and </em></p>
 class="math display" data-term-auto="off">\[\bigl|1-f(c_-)/f(c_+)\bigr|&lt;2/375&lt;2.\]</span></div>
 </div>
 <p>The whole proposition, including the least-modulus assertion rather
-than a supplied minimum, is ordinary in this note.
-<code>PaperSeparationCounterexample.lean</code> is not in this checkout;
-the distinct quartic file <code>SeparationCounterexampleR13.lean</code>
-is not this cubic example.</p>
+than a supplied minimum, is checked in Lean as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1041/PaperSeparationCounterexample.lean#L189">the
+complete separation counterexample</a>; the distinct quartic file
+<code>SeparationCounterexampleR13.lean</code> is not this cubic
+example.</p>
 <div class="proposition" id="res:one-root-gamma-false">
 <p><strong>Proposition 7.2</strong> (one-root gamma bound is false). <em>
 Let <span class="math inline" data-term-auto="off">\(p(z)=z^8-(3/2)z\)</span> and let <span

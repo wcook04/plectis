@@ -358,6 +358,22 @@ gives the rational lower bound
 the logarithmic ratio and coprimality are preserved by a common positive
 integer power. ◻</p>
 </div>
+<p>Lean checks Theorem  as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L113">the
+rational-base region</a>, and Corollary  as <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L117">the
+powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>31</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">31/4</annotation></semantics></math></a>,
+with <a
+href="https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L121">the
+base
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>31</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">31/4</annotation></semantics></math></a>
+as the case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r=1</annotation></semantics></math>.
+Both declarations apply the source supply rather than assuming it. The
+construction of the approximations is Zudilin’s <span class="citation"
+data-cites="zudilin2004 zudilin2016"><a href="#ref-4">[4]</a><a href="#ref-5">[5]</a></span>. What is checked here is
+the Lean formalisation of that construction’s consequence.</p>
 <div class="corollary">
 <p><strong>Corollary 2.3</strong> (an irrationality measure uniform over
 powers). <em> For coprime
@@ -709,6 +725,11 @@ and leading coefficient
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>c</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><msup><mn>2</mn><mi>N</mi></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\prod_{i=0}^{N-1}c_i=\frac{(N!)^2(N+1)!}{2^N}.</annotation></semantics></math>
 No other tuple can cancel this coefficient. ◻</p>
 </div>
+<p>Lean checks both identities at every rank as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173">the
+exact order</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199">the
+leading coefficient</a>.</p>
 <section id="formal-order-and-fixed-base-size." class="level5">
 <h5>Formal order and fixed-base size.</h5>
 <p>The theorem identifies the first formal term. Formal order alone

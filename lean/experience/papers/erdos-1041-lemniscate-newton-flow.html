@@ -571,12 +571,13 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 all-straight midpoint obstruction</a>, and the displayed proposition
 itself, with both quintic and cubic exhibited as polynomials and the
 nearest-root condition quantified over every zero, records those same
-two evaluations. <code>PaperStraightObstructions.lean</code> is not in
-this checkout. The first defeats a tie-breaking escape hatch; the second
-defeats every straight root-pair segment. Together with Theorem , they
-isolate the real gap: critical-point proximity selects a short metric
-pair, but universal containment requires curved or topological
-geometry.</p>
+two evaluations. Lean checks the proposition as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1041/PaperStraightObstructions.lean#L178">the
+complete straight-path obstructions</a>. The first defeats a
+tie-breaking escape hatch; the second defeats every straight root-pair
+segment. Together with Theorem , they isolate the real gap:
+critical-point proximity selects a short metric pair, but universal
+containment requires curved or topological geometry.</p>
 </section>
 <section id="sec:solved-families" class="level2">
 <h2>Solved polynomial families</h2>
@@ -1001,10 +1002,11 @@ and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">|</mo><mn>1</mn><mo>−</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mo>−</mo></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>c</mi><mo>+</mo></msub><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">|</mo><mo>&lt;</mo><mn>2</mn><mi>/</mi><mn>375</mn><mo>&lt;</mo><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\bigl|1-f(c_-)/f(c_+)\bigr|&lt;2/375&lt;2.</annotation></semantics></math></em></p>
 </div>
 <p>The whole proposition, including the least-modulus assertion rather
-than a supplied minimum, is ordinary in this note.
-<code>PaperSeparationCounterexample.lean</code> is not in this checkout;
-the distinct quartic file <code>SeparationCounterexampleR13.lean</code>
-is not this cubic example.</p>
+than a supplied minimum, is checked in Lean as <a
+href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1041/PaperSeparationCounterexample.lean#L189">the
+complete separation counterexample</a>; the distinct quartic file
+<code>SeparationCounterexampleR13.lean</code> is not this cubic
+example.</p>
 <div class="proposition">
 <p><strong>Proposition 7.2</strong> (one-root gamma bound is false). <em>
 Let
