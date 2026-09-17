@@ -132,6 +132,27 @@ instead of improving one cumulatively.
 **Experts:** email me any insight. I will do the work and fully credit you
 for the insight and whatever follows from it.
 
+## Citation and prior work
+
+To cite this software release, use [CITATION.cff](CITATION.cff). For work on
+`main` beyond the named release, also give the commit you used. To cite a
+mathematical result, cite the relevant [problem paper](paper/README.md) and
+its original sources; a citation to this repository does not replace credit
+to the authors of an earlier theorem or proof method.
+
+The papers credit prior work where it is used. The [prior-art map](docs/PRIOR_ART.md)
+explains the comparisons, including the revised [#249 attribution](docs/PRIOR_ART.md#erdős-249-attribution-update-16-september-2026)
+to Coons, Martin, Yazdani (who credits Shallit), Wong, and the related
+regular-sequence and Mahler literature. The [source attribution index](docs/research-commons/SOURCE_ATTRIBUTIONS.md)
+covers all problem and project papers, with named authors, source passages,
+local citation locations, and the relationship each source has to this work.
+
+The [machine-readable registry](docs/research-commons/source-attributions.json)
+keeps source verification separate from local use: a bibliography entry alone
+is not a checked theorem comparison. Formalisation, a new proof, and a new
+mathematical result are distinct contributions. [Contributor credit](docs/research-commons/CREDIT_POLICY.md)
+is recorded separately from literature credit.
+
 ## Read or verify locally
 
 Use [REPRODUCIBILITY](docs/REPRODUCIBILITY.md) for commands to clone the

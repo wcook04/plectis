@@ -16,7 +16,7 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "243ef742cf5de17d7f48689b53e8e908cc76b95a24481fd00e0227d4c0e8b898",
+    "source_sha256": "2e73762aa19c30e2f96d8fb441cc5796fae57d3a3c9ee95549633b25fa54be51",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "3ec02d4f70b045d2be57a4b132d8fd0969850db20afe20a7ac47259227512a6e",
-    "html_exact_tex_sha256": "815461c01e32727dd03042e15b83c1f7e941f4146150d2145d555dc8205d37fe"
+    "html_mathml_sha256": "7cbeacc015d07c4812c46f95a1164e4f61f520682edf944f86ca91d0597130d1",
+    "html_exact_tex_sha256": "04082d1e6c015ec7df6e007b4cd1e6671ab670007340fad1adaa490b9b9d99cc"
   },
   "sections": [
     {
@@ -59,6 +59,11 @@
       "level": 2,
       "anchor": "contribute",
       "label": "Contribute"
+    },
+    {
+      "level": 2,
+      "anchor": "citation-and-prior-work",
+      "label": "Citation and prior work"
     },
     {
       "level": 2,

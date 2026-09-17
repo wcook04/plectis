@@ -22,7 +22,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "243ef742cf5de17d7f48689b53e8e908cc76b95a24481fd00e0227d4c0e8b898",
+        "source_sha256": "2e73762aa19c30e2f96d8fb441cc5796fae57d3a3c9ee95549633b25fa54be51",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
@@ -37,8 +37,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "3ec02d4f70b045d2be57a4b132d8fd0969850db20afe20a7ac47259227512a6e",
-        "html_exact_tex_sha256": "815461c01e32727dd03042e15b83c1f7e941f4146150d2145d555dc8205d37fe"
+        "html_mathml_sha256": "7cbeacc015d07c4812c46f95a1164e4f61f520682edf944f86ca91d0597130d1",
+        "html_exact_tex_sha256": "04082d1e6c015ec7df6e007b4cd1e6671ab670007340fad1adaa490b9b9d99cc"
       },
       "sections": [
         {
@@ -65,6 +65,11 @@
           "level": 2,
           "anchor": "contribute",
           "label": "Contribute"
+        },
+        {
+          "level": 2,
+          "anchor": "citation-and-prior-work",
+          "label": "Citation and prior work"
         },
         {
           "level": 2,
@@ -715,7 +720,7 @@
         "fallback": "html_exact_tex",
         "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
         "frontend_math_dependency": null,
-        "source_sha256": "206617489ead12048cc346b5cc9f955c16af372d3b669d8c49d913734f6888e6",
+        "source_sha256": "f68e05a359b82c74c3d4ffd41a02661277022af1e4943351f0c4f9eb44089874",
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
@@ -730,8 +735,8 @@
           "mathjax": []
         },
         "executable_scripts_embedded": false,
-        "html_mathml_sha256": "577320255810b97e49ce42eb461ea6847c4beb41f6d4cfd766d03810340687a9",
-        "html_exact_tex_sha256": "21d835f0dd326087a09a4cb422f8f5a689050514e6315a787714f3b01e969424"
+        "html_mathml_sha256": "cfa601c0251cb5e35aa3d7a44aa56d65bd54422dfd18bbd10a572b7dde5d16f8",
+        "html_exact_tex_sha256": "30bdc23948b5de5c493de4f67b2dc7b31a1c81f59983d36c7eff811ef3ebd3b4"
       },
       "sections": [
         {

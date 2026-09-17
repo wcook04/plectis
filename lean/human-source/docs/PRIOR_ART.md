@@ -13,12 +13,15 @@ mathematical priority. Formalisation/software dependencies are recorded in
 [CITATION.cff](../CITATION.cff); the Erdős Problems catalogue supplies
 numbering and status context rather than mathematical priority.
 
-The [exposition](../paper/archive/erdos249-257-main-paper.tex) carries the
-mathematics bibliography. [CITATION.cff](../CITATION.cff) is intentionally
-selected release/software citation metadata: it supplies the recommended
-citation for this version and selected foundational or software references,
-not a duplicate bibliography. This map explains why the principal sources are
-credited.
+Each current [problem paper and research record](../paper/README.md) carries
+its own bibliography and credits sources at the point of use. The
+[joint #249/#257 exposition](../paper/archive/erdos249-257-main-paper.tex) is
+archival. [CITATION.cff](../CITATION.cff) supplies the software release citation
+and selected mathematical and software references; it is not a duplicate of
+all the paper bibliographies. Its linked source records explain the local use
+and limits of the selected references. When citing work added after that
+release, also record the commit used. This map explains why the principal
+sources are credited.
 
 ## Browse all source credits
 

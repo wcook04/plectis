@@ -2599,9 +2599,9 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 22,
+      "pages": 23,
       "question": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erdős #257?",
-      "precis": "Fix a finite nonempty prime set P and put h(a)=∏_{p∈P}p^{v_p(a)}. If an infinite support A has ∑_{a∈A}h(a)/(a(2^{h(a)}−1)) finite, its reciprocal Mersenne subseries is irrational at every integer base b≥2, as is the subseries on every infinite subset of A. The paper prints a complete ordinary proof and a host with divergent reciprocal sum, so the criterion is strictly weaker than reciprocal summability. A common observation window also proves hereditary irrationality for unions of weighted supports and strengthened positive-cover supports. These are ordinary results, not Lean theorems, and no priority claim is made. Universal Erdős #257 remains open.",
+      "precis": "Fix a finite nonempty prime set P and put h(a)=∏_{p∈P}p^{v_p(a)}. If an infinite support A has ∑_{a∈A}h(a)/(a(2^{h(a)}−1)) finite, its reciprocal Mersenne subseries is irrational at every integer base b≥2, as is the subseries on every infinite subset of A. The paper prints a complete ordinary proof and a host with divergent reciprocal sum, so the criterion is strictly weaker than reciprocal summability. A common observation window also proves hereditary irrationality for unions of weighted supports and strengthened positive-cover supports. These are ordinary results, not Lean theorems, and no priority claim is made. A proposed logarithmic-endpoint estimate with prefactor 1+L/M is false; the original geometric kernel with factor 1+4L/M is retained. The surviving finite-functional separation and initial-interval bound are unreviewed ordinary mathematics. Logarithmic-tail irrationality is open. Universal Erdős #257 remains open.",
       "owns": "problem-specific mathematical exposition for Erdős #257: exact finite-prime weighted support criterion, mixed weighted-and-cover support theorem and their ordinary proofs, exact finite periods, settled support families, method limits, and the open half-value edge",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, which remains open",
       "problem_id": "erdos_257",
@@ -2623,10 +2623,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "73ea290014a1c5d4daa570df5f986df156566cda5d59098f4772cdc0afc06563",
+        "source_sha256": "7df42db696ae8a71ad6627a9f1f56c645b6a83334e841698d9c2de98501f748e",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 617,
+        "mathml_node_count": 643,
         "raw_math_fallback_count": 4,
         "warnings": {
           "mathml": [
@@ -2654,8 +2654,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "89048f06cb3d551b1812cab72c20baf49bfa6c024e69560027b3ed054c68418c",
-        "html_exact_tex_sha256": "2f0f06c77d4f44e626d75bc1f0dc9275fdd2c8b3144c58147b2806aa6df6f96e"
+        "html_mathml_sha256": "5e22773059cc86df245f624c3f3c7c64537af5eb0c74613902b184cbef2ce790",
+        "html_exact_tex_sha256": "2f9b55b5c41baa0bcf28fe89be2eea5fc16e2903b304fc06c4cde90159ca9287"
       },
       "sections": [
         {
@@ -2697,6 +2697,11 @@
           "level": 3,
           "anchor": "what-every-positive-cover-must-pay",
           "label": "What every positive cover must pay"
+        },
+        {
+          "level": 5,
+          "anchor": "arithmetic-sampling-and-logarithmic-cost.",
+          "label": "Arithmetic sampling and logarithmic cost."
         },
         {
           "level": 3,
@@ -2808,9 +2813,9 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 127,
+      "pages": 132,
       "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
-      "precis": "The record prints the complete ordinary proof of the finite-prime weighted support criterion, including all-base hereditary irrationality and a reciprocal-divergent host, and the common-witness proof for mixed weighted-and-cover supports. These proofs are not formalised in Lean. It also retains finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
+      "precis": "The record prints the complete ordinary proof of the finite-prime weighted support criterion, including all-base hereditary irrationality and a reciprocal-divergent host, and the common-witness proof for mixed weighted-and-cover supports. These proofs are not formalised in Lean. It also retains finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided. A proposed logarithmic-endpoint estimate with prefactor 1+L/M is false; the original geometric kernel with factor 1+4L/M is retained. The arithmetic counterexample, finite-functional cover-cost separation, and initial-interval bound are unreviewed ordinary mathematics. Logarithmic-tail irrationality is open.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
       "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #257, whose universal and half-value questions remain open",
       "problem_id": "erdos_257",
@@ -2832,10 +2837,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "9167e32b7d65a572be1c6a2b0651b4e0107280b8e77dc2fbf8e0a16c171bf88b",
+        "source_sha256": "34a9d4258db842d3596668ac17c25a9067deacec7a96fe9fc06cdb1e3e58ee2e",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 3335,
+        "mathml_node_count": 3508,
         "raw_math_fallback_count": 3,
         "warnings": {
           "mathml": [
@@ -2857,8 +2862,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "01c20b9b0bb4bccd5d8f9b823f393e12991b1f509ae828a8c90a819b9a8fd519",
-        "html_exact_tex_sha256": "e845b3b6f6b556022532a867be5b894f6d4ffbc2500b38a7770666ec8e61ed50"
+        "html_mathml_sha256": "f8ea63796b090d3ff07a97ec14e54ea44fee75309a0ffd250ce520d018fc395e",
+        "html_exact_tex_sha256": "0d1bb2da85b1c577a9537a4716f623c427b1cd13ba5faf6a59e88e44cb161710"
       },
       "sections": [
         {
@@ -3555,6 +3560,26 @@
           "level": 5,
           "anchor": "summary",
           "label": "Summary"
+        },
+        {
+          "level": 4,
+          "anchor": "sec:257-logarithmic-sampling",
+          "label": "Logarithmic cost under arithmetic sampling"
+        },
+        {
+          "level": 5,
+          "anchor": "the-two-finite-costs",
+          "label": "The two finite costs"
+        },
+        {
+          "level": 5,
+          "anchor": "the-arithmetic-lower-bound-for-every-fractional-cover",
+          "label": "The arithmetic lower bound for every fractional cover"
+        },
+        {
+          "level": 5,
+          "anchor": "what-survives-without-arithmetic-restriction",
+          "label": "What survives without arithmetic restriction"
         },
         {
           "level": 4,

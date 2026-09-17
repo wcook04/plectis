@@ -16058,7 +16058,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 1038
+        "line": 1103
       }
     },
     {
@@ -16190,7 +16190,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "weakest native recurrence criterion",
-        "line": 1052
+        "line": 1117
       }
     },
     {
@@ -16202,7 +16202,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "actual-orbit invariant",
-        "line": 1061
+        "line": 1126
       }
     },
     {
@@ -16214,7 +16214,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 1071
+        "line": 1136
       }
     }
   ],

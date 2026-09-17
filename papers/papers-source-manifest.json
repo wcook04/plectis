@@ -115,26 +115,26 @@
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf",
-      "source_sha256": "e8b0bd01c0e94638539afc904f0f1c8c5cff1d8b595aa861b666f9d2c33246f3",
-      "bytes": 174280,
+      "source_sha256": "f4df54acb02ec9fb14b6f2f146570929d6d916f14c71093bb047577a170116e3",
+      "bytes": 181956,
       "source_tex_path": "paper/257/erdos-257-mersenne-support-subseries.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos-257-mersenne-support-subseries.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos-257-mersenne-support-subseries.tex",
-      "hosted_tex_sha256": "73ea290014a1c5d4daa570df5f986df156566cda5d59098f4772cdc0afc06563",
-      "tex_bytes": 79958
+      "hosted_tex_sha256": "7df42db696ae8a71ad6627a9f1f56c645b6a83334e841698d9c2de98501f748e",
+      "tex_bytes": 85123
     },
     {
       "hosted_path": "papers/erdos257-mersenne-reasoning-surface.pdf",
       "source_repo": "plectis-erdos",
       "source_ref": "main",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf",
-      "source_sha256": "6890a22f3e23c16bff732daccde4dced058c9662e9f55dcec475886d1db73206",
-      "bytes": 743363,
+      "source_sha256": "2ca9bf8f066b8b518a614eeaf6946f3cb9931194a874b10926a3b725dcd9ce07",
+      "bytes": 772698,
       "source_tex_path": "paper/257/erdos257-mersenne-reasoning-surface.tex",
       "source_tex_url": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/257/erdos257-mersenne-reasoning-surface.tex",
       "hosted_tex_path": "papers/source/plectis-erdos/paper/257/erdos257-mersenne-reasoning-surface.tex",
-      "hosted_tex_sha256": "9167e32b7d65a572be1c6a2b0651b4e0107280b8e77dc2fbf8e0a16c171bf88b",
-      "tex_bytes": 467827
+      "hosted_tex_sha256": "34a9d4258db842d3596668ac17c25a9067deacec7a96fe9fc06cdb1e3e58ee2e",
+      "tex_bytes": 483385
     },
     {
       "hosted_path": "papers/erdos269-running-lcm-reasoning-surface.pdf",
