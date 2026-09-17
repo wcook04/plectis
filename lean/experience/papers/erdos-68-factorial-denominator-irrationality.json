@@ -5,7 +5,7 @@
   "subject": "Erdős #68",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 16,
+  "pages": 18,
   "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
   "precis": "The paper proves that if S=a/q is rational, q cannot divide 299999! and is at least 2^39990 > 10^12038. The first exclusion comes from the exact strict-successor carry test and the second from continued fractions. Lean also checks the equivalent carry formulation and several consequences. A large common denominator alone does not control the reduced partial sums. Irrationality is reduced to a cofinal miss of the strict factorial successor, which remains open.",
   "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "35e1385794c7fb472a3203879789fe2ea96bf82d356d9715e8f27af47def8a55",
+    "source_sha256": "baaa14b29c0405b6567912d43a056e64d6b8d4d12b73ef2a1f60c320cf1f2195",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 345,
+    "mathml_node_count": 385,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "1f4a1d488d996b35dca21af85b742fc4888b15102a0154a50a65c4ac712f7692",
-    "html_exact_tex_sha256": "777d56d56ada8e77a495c4311f9adeec0e8f4a5617c8db0dac579d45f2775670"
+    "html_mathml_sha256": "02475d5014bd3005f09b473d3b265a2a5945aba586d294c3f484fb32de1a6a75",
+    "html_exact_tex_sha256": "b51deaf82a9c905417ed676a3b6e561c5516d7bf41338e51d50871656918d054"
   },
   "sections": [
     {

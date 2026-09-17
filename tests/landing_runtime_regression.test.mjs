@@ -79,6 +79,14 @@ function harness() {
   return { frames, idle, preloads, scripts, roots };
 }
 
+test('recordings band stays open while the other landing bands start closed', () => {
+  assert.match(SOURCE, /stayOpen: section\.id === 'demo-videos'/);
+  assert.match(SOURCE, /if \(band\.stayOpen\) open = true;/);
+  assert.match(SOURCE, /b\.set\(open \|\| b\.stayOpen\)/);
+  assert.match(SOURCE, /band\.set\(band\.stayOpen\)/);
+  assert.doesNotMatch(SOURCE, /band\.set\(false\);/);
+});
+
 test('landing keeps heavyweight runtimes inert behind the small scheduler', () => {
   assert.match(HTML, /<template data-plectis-runtime="docs"><script src="assets\/docs\.js\?v=/);
   assert.match(HTML, /<template data-plectis-runtime="art"><script src="assets\/art\.js\?v=/);

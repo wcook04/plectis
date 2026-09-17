@@ -1,7 +1,7 @@
 <article class="lean-paper" data-paper-id="erdos-249-binary-totient-series" data-math-mode="mathjax">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Problem note</p>
-    <h1>A Basis for the 2-Kernel of Euler&#x27;s Totient</h1>
+    <h1>Bases and Integral Relations for the $k$-Kernel of Euler&#x27;s Totient</h1>
     <p class="lean-paper__subject">Erdős #249</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/249/erdos-249-binary-totient-series.tex">
@@ -21,9 +21,11 @@ functions <span class="math inline" data-term-auto="off">\(n\mapsto\ph(a_in+b_i)
 linearly independent along pairwise nonproportional affine forms with
 integer coefficients and positive slopes <span class="citation"
 data-cites="martin-phi-inequalities"><a href="#ref-4">[4]</a></span>. The following theorem
-gives the exact rank and a unique coordinate system at every finite
-level; Section <a class="math-ref" href="#sec:rank">1.1</a>
-proves its independence step directly.</p>
+gives the exact rank, unique integral coordinates, and, in
+Corollary <a class="math-ref" href="#cor:integral-normal-form">1.3</a>, all
+integral relations at every finite level. Section <a class="math-ref" href="#sec:rank">1.1</a> gives a direct proof of
+the independence step, with the antecedent of its separation method
+credited there. No priority claim is made for affine independence.</p>
 <div class="theorem" id="thm:kkernelrank">
 <p><strong>Theorem 1.1</strong> (exact rank of every totient <span
 class="math inline" data-term-auto="off">\(k\)</span>-kernel truncation). <em> Let <span
@@ -103,6 +105,16 @@ class="math inline" data-term-auto="off">\(1-1/p\)</span>. When <span
 class="math inline" data-term-auto="off">\(p\mid u\)</span>, the argument already contains
 <span class="math inline" data-term-auto="off">\(p\)</span>, and only its power contributes.
 This gives <span class="math inline" data-term-auto="off">\(C_k(t,u)\)</span>.</p>
+<p>The separation method has an earlier source: Yazdani’s proof of
+Theorem 2, explicitly credited there to Shallit, uses the Chinese
+remainder theorem and Dirichlet’s theorem to distinguish kernel sections
+modulo a fixed modulus <span class="citation"
+data-cites="yazdani2001"><a href="#ref-10">[10]</a></span>. For a later account see Allouche,
+Shallit and Yassawi <span class="citation"
+data-cites="allouche-shallit-yassawi"><a href="#ref-11">[11]</a></span>. Here one separates a
+chosen column from every other column of a finite evaluation matrix.
+Nonsingularity, not merely distinctness of infinitely many sections,
+gives linear independence.</p>
 <p>For independence, consider finitely many forms <span
 class="math inline" data-term-auto="off">\(L_i(n)=a_in+b_i\)</span> with positive slopes and
 <span class="math inline" data-term-auto="off">\(a_ib_j\ne a_jb_i\)</span> for <span
@@ -182,9 +194,11 @@ one.</em></p>
 <div class="proof">
 <p><em>Proof.</em> Every finite subfamily lies in a sufficiently high
 truncation. The theorem gives its independence; the reductions give
-equality of the full spans. The level-zero clause is ordinary in this
-note; <code>PaperCompleteR7/ArithmeticAssemblies.lean</code> is not in
-this checkout. ◻</p>
+equality of the full spans. At level zero the only channel is <span
+class="math inline" data-term-auto="off">\(\varphi(n)\)</span>, which is nonzero since <span
+class="math inline" data-term-auto="off">\(\varphi(1)=1\)</span>, so its span has dimension
+one. This is an ordinary proof; it makes no claim about an additional
+formal declaration. ◻</p>
 </div>
 <div class="corollary" id="cor:integral-normal-form">
 <p><strong>Corollary 1.3</strong> (Integral normal form). <em> Let <span
@@ -270,6 +284,21 @@ class="math inline" data-term-auto="off">\(\Z^d\)</span> (compare the evaluation
 in <span class="citation" data-cites="coons-jsr"><a href="#ref-3">[3]</a></span>). Theorem <a class="math-ref" href="#thm:kkernelrank">1.1</a> therefore recovers
 Coons’s theorem by a different route and gives the dimension at every
 finite level.</p>
+<p>The generating-function context is stronger than non-regularity
+alone. For multiplicative coefficients in characteristic zero, Bell and
+Smertnig prove that <span class="math inline" data-term-auto="off">\(k\)</span>-Mahler
+implies <span class="math inline" data-term-auto="off">\(k\)</span>-regular <span
+class="citation" data-cites="bell-smertnig2026"></span>; their totient
+example therefore rules out a <span
+class="math inline" data-term-auto="off">\(k\)</span>-Mahler equation for <span
+class="math inline" data-term-auto="off">\(F_\varphi(z)=\sum_{n\ge1}\varphi(n)z^n\)</span> in
+every base <span class="math inline" data-term-auto="off">\(k\ge2\)</span>. Bell, Bruin and
+Coons give the corresponding algebraic and <span
+class="math inline" data-term-auto="off">\(D\)</span>-finite classification framework <span
+class="citation" data-cites="bell-bruin-coons"></span>. These are
+restrictions on functions. Neither classification by itself determines
+the arithmetic nature of <span
+class="math inline" data-term-auto="off">\(F_\varphi(1/2)\)</span>.</p>
 <p>For a <span class="math inline" data-term-auto="off">\(k\)</span>-regular sequence the
 difference between a basis of the kernel span and a redundant spanning
 family is material: matrices associated to a basis compute the growth
@@ -314,10 +343,9 @@ class="math inline" data-term-auto="off">\(Q\)</span>. On each progression <span
 class="math inline" data-term-auto="off">\(n=a+Qt\)</span>, the coefficients are constant and
 the cross determinants become <span
 class="math inline" data-term-auto="off">\(Q(a_ib_j-a_jb_i)\ne0\)</span>. Shift beyond the
-threshold and apply the affine independence just proved. The statement
-is ordinary in this note;
-<code>PaperCompleteR7/PeriodicAndPulse.lean</code> is not in this
-checkout. ◻</p>
+threshold and apply the affine independence just proved. This is an
+ordinary proof of the periodic-coefficient statement; no additional
+formal declaration is asserted here. ◻</p>
 </div>
 <p>Applied on each progression, Martin’s Theorem 1 gives the same
 conclusion <span class="citation"
@@ -330,11 +358,19 @@ evaluations used above.</p>
 </section>
 <section id="sec:family" class="level2">
 <h2>Bounded residues and rationality</h2>
-<p>The residue theorem uses the same separation principle: force
-neighbouring coefficients to vanish while retaining one central value.
-Erick Wong posted a proof that <span
-class="math inline" data-term-auto="off">\(\sum_{n\ge1}(\ph(n)\bmod k)k^{-n}\)</span> is
-irrational for every integer <span
+<p>There is an earlier coefficient-level obstruction: for each <span
+class="math inline" data-term-auto="off">\(m\ge3\)</span>, <span
+class="math inline" data-term-auto="off">\(\varphi(n)\bmod m\)</span> is not automatic in any
+integer base <span class="math inline" data-term-auto="off">\(k\ge2\)</span> <span
+class="citation" data-cites="yazdani2001"></span>; see also <span
+class="citation" data-cites="allouche-shallit-yassawi"></span>. This
+does not prove irrationality of the dyadic sum. When <span
+class="math inline" data-term-auto="off">\(m&gt;2\)</span> the raw residues are not binary
+digits, and carrying changes the digit sequence. The residue theorem
+below instead forces neighbouring coefficients to vanish while retaining
+one central value, then uses a bounded-tail argument. Erick Wong posted
+a proof that <span class="math inline" data-term-auto="off">\(\sum_{n\ge1}(\ph(n)\bmod
+k)k^{-n}\)</span> is irrational for every integer <span
 class="math inline" data-term-auto="off">\(k&gt;2\)</span>, with the base equal to the
 modulus, as an answer on Mathematics Stack Exchange on 29 March
 2015 <span class="citation" data-cites="wong2015"><a href="#ref-5">[5]</a></span>. Theorem <a class="math-ref" href="#res:residueseries">2.1</a> fixes the base at
@@ -379,9 +415,8 @@ hence <span class="math inline" data-term-auto="off">\(T_N=0\)</span>. The left 
 now gives <span class="math inline" data-term-auto="off">\(T_{N-L-1}=a_N2^{-L-1}\)</span>, a
 nonzero element of <span class="math inline" data-term-auto="off">\(q^{-1}\Z\)</span> with
 absolute value less than <span class="math inline" data-term-auto="off">\(1/q\)</span>, a
-contradiction. The statement is ordinary in this note (that
-<code>PaperCompleteR7</code> file is absent). The separate public Lean
-release <a
+contradiction. The statement is proved ordinarily above. The separate
+formal counterpart is in <a
 href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E249/Challenge.lean#L572"><code>wcook04/plectis-erdos-lean</code></a>
 at commit <code>52f29ad1</code> states this lemma as
 <code>irrational_dyadicValue_of_pulses</code> in
@@ -1226,6 +1261,29 @@ of certain multiplicative functions</em>, J. Number Theory
 href="https://doi.org/10.1016/j.jnt.2016.10.001">10.1016/j.jnt.2016.10.001</a>;
 arXiv:<a href="https://arxiv.org/abs/1511.02221v3">1511.02221v3</a>.
 Theorem 2.2 is cited with the arXiv v3 pagination, p. 2.</p></li>
+<li id="ref-10"><p>S. Yazdani, <em>Multiplicative functions and <span
+class="math inline" data-term-auto="off">\(k\)</span>-automatic sequences</em>,
+J. Théor. Nombres Bordeaux <strong>13</strong> (2001), no. 2, 651–658,
+<a href="https://www.numdam.org/item/JTNB_2001__13_2_651_0/"
+class="uri">https://www.numdam.org/item/JTNB_2001__13_2_651_0/</a>.
+Theorem 2 and its proof, pp. 652–653; Corollary 4, p. 654.</p></li>
+<li id="ref-11"><p>J.-P. Allouche, J. Shallit and R. Yassawi, <em>How to prove that
+a sequence is not automatic</em>, Exposition. Math. <strong>40</strong>
+(2022), no. 1, 1–22, doi:<a
+href="https://doi.org/10.1016/j.exmath.2021.08.001">10.1016/j.exmath.2021.08.001</a>;
+arXiv:<a href="https://arxiv.org/abs/2104.13072v1">2104.13072v1</a>.
+Theorem and example numbering follows the arXiv v1 (2021).</p></li>
+<li id="ref-12"><p>J. Bell and D. Smertnig, <em>Mahler series with multiplicative
+coefficient sequences</em>, arXiv:<a
+href="https://arxiv.org/abs/2603.23456v1">2603.23456v1</a>, 24 March
+2026, preprint. Theorem 1.3, p. 2; Lemma 3.3, p. 9.</p></li>
+<li id="ref-13"><p>J. P. Bell, N. Bruin and M. Coons, <em>Transcendence of
+generating functions whose coefficients are multiplicative</em>,
+Trans. Amer. Math. Soc. <strong>364</strong> (2012), no. 2, 933–959,
+doi:<a
+href="https://doi.org/10.1090/S0002-9947-2011-05479-6">10.1090/S0002-9947-2011-05479-6</a>;
+arXiv:<a href="https://arxiv.org/abs/1003.2221v2">1003.2221v2</a>.
+Theorems 1.5–1.6 are cited with the arXiv v2 pagination, p. 2.</p></li>
 </ol>
 </section>
   </div>

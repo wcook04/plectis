@@ -247,7 +247,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6cca169626b00d314afb55370107ef5d54d1a4bb31c17c7566eb36ab29f99879",
+    "source_sha256": "565c1568a67c3f4f49f41ab7751be383daf74d7139e9381a94a10eb6896fe469",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -267,7 +267,7 @@
     "subject": "Erdős #243",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 14,
+    "pages": 16,
     "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
     "precis": "Clearing denominators turns Erdős #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.",
     "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -291,23 +291,28 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 25,
       "renderer_fingerprint": "777419e3b355e02e",
-      "source_sha256": "c15cbb5294ef281c7739070f4f1d07c7192b02a759ecdef0dd42d887381c55dd",
+      "source_sha256": "e71664d89ea3c409c3ba3605c9c6f712e2b07fae36cc6577acb5354cc7d01aa4",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 366,
+      "mathml_node_count": 423,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "24e396abd07920c7648fb28f2f28c6ecbd3817b513191b8769bb23ce606ee5e9",
-      "html_exact_tex_sha256": "3bfd2b131dd38d8d0642c9681617a068119e2fe75b9e8b96bf2d39ade137ac2d"
+      "html_mathml_sha256": "41148bbd20c07332f9d1d2fbbc77dcb176c5318b5f0946fe222ec4d56052de30",
+      "html_exact_tex_sha256": "e48c6537a6b0a4b1fa629c5ad1554718b125e857a9ec392813bf86aa172e2649"
     },
     "sections": [
       {
         "level": 2,
         "anchor": "sec:problem",
         "label": "Introduction"
+      },
+      {
+        "level": 5,
+        "anchor": "conventions-and-reading-route.",
+        "label": "Conventions and reading route."
       },
       {
         "level": 5,
@@ -370,11 +375,6 @@
         "label": "Formal scope and supporting record."
       },
       {
-        "level": 5,
-        "anchor": "declarations.",
-        "label": "Declarations."
-      },
-      {
         "level": 2,
         "anchor": "app:index",
         "label": "Guide to the formal sources"
@@ -431,7 +431,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 14,
+      "pages": 16,
       "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
       "precis": "Clearing denominators turns Erdős #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.",
       "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -455,23 +455,28 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "c15cbb5294ef281c7739070f4f1d07c7192b02a759ecdef0dd42d887381c55dd",
+        "source_sha256": "e71664d89ea3c409c3ba3605c9c6f712e2b07fae36cc6577acb5354cc7d01aa4",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 366,
+        "mathml_node_count": 423,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "24e396abd07920c7648fb28f2f28c6ecbd3817b513191b8769bb23ce606ee5e9",
-        "html_exact_tex_sha256": "3bfd2b131dd38d8d0642c9681617a068119e2fe75b9e8b96bf2d39ade137ac2d"
+        "html_mathml_sha256": "41148bbd20c07332f9d1d2fbbc77dcb176c5318b5f0946fe222ec4d56052de30",
+        "html_exact_tex_sha256": "e48c6537a6b0a4b1fa629c5ad1554718b125e857a9ec392813bf86aa172e2649"
       },
       "sections": [
         {
           "level": 2,
           "anchor": "sec:problem",
           "label": "Introduction"
+        },
+        {
+          "level": 5,
+          "anchor": "conventions-and-reading-route.",
+          "label": "Conventions and reading route."
         },
         {
           "level": 5,
@@ -534,11 +539,6 @@
           "label": "Formal scope and supporting record."
         },
         {
-          "level": 5,
-          "anchor": "declarations.",
-          "label": "Declarations."
-        },
-        {
           "level": 2,
           "anchor": "app:index",
           "label": "Guide to the formal sources"
@@ -591,11 +591,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos243-reciprocal-tail-reasoning-surface",
-      "title": "Reciprocal-Tail Rigidity: Complete Reasoning Record",
+      "title": "Reciprocal-Tail Rigidity: Theorems, Proofs and Questions",
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 46,
+      "pages": 48,
       "question": "What is the complete state-dynamics and no-go record for Erdős #243, and which unbounded negative orbit regime survives?",
       "precis": "A claim-bounded complete reasoning record for Erdős #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -619,17 +619,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "b42045682cd1c36f7052431397ebf54fef0c92f908c490db459996d29c0d82e1",
+        "source_sha256": "568bd8ef34de4491d3d5653aed0655b697106332d547d6157fa9df2f59fa69b5",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1670,
+        "mathml_node_count": 1863,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "950b75f9472140e91f272e85a39b880c863fbe9c067f64e59a4c54c6367ef336",
-        "html_exact_tex_sha256": "5ec919b77ec7ef98cbe865c2a9fa746f7b1c17ce73734e0f4d525971d7d789bc"
+        "html_mathml_sha256": "422d31e6156893311e559103b519cb8fd1466384b127d6b991b0bd4dcfed2381",
+        "html_exact_tex_sha256": "373ac99e1df2ae6af008cde782af0da9d451a13fee3cb92a3b10190d27a29c74"
       },
       "sections": [
         {
@@ -640,7 +640,7 @@
         {
           "level": 2,
           "anchor": "long243:sec:cubicrate",
-          "label": "An unconditional irrationality theorem"
+          "label": "Irrationality at the cubic rate"
         },
         {
           "level": 5,
@@ -674,11 +674,6 @@
         },
         {
           "level": 5,
-          "anchor": "evidence.",
-          "label": "Evidence."
-        },
-        {
-          "level": 5,
           "anchor": "position.",
           "label": "Position."
         },
@@ -693,6 +688,11 @@
           "label": "Classical sufficient conditions and the pseudo-greedy formulation."
         },
         {
+          "level": 5,
+          "anchor": "results-and-proof-status.",
+          "label": "Results and proof status."
+        },
+        {
           "level": 3,
           "anchor": "structure",
           "label": "Structure"
@@ -704,8 +704,8 @@
         },
         {
           "level": 5,
-          "anchor": "the-intended-reading-which-is-not-formalised.",
-          "label": "The intended reading, which is not formalised."
+          "anchor": "the-canonical-reciprocal-tail-interpretation.",
+          "label": "The canonical reciprocal-tail interpretation."
         },
         {
           "level": 2,
@@ -724,13 +724,8 @@
         },
         {
           "level": 5,
-          "anchor": "evidence.-1",
+          "anchor": "evidence.",
           "label": "Evidence."
-        },
-        {
-          "level": 5,
-          "anchor": "what-the-record-coordinates-transfer.",
-          "label": "What the record coordinates transfer."
         },
         {
           "level": 5,
@@ -749,8 +744,8 @@
         },
         {
           "level": 5,
-          "anchor": "source-and-evidence-conventions-for-this-section.",
-          "label": "Source and evidence conventions for this section."
+          "anchor": "dictionary-with-duverneys-reduced-parameters.",
+          "label": "Dictionary with Duverney’s reduced parameters."
         },
         {
           "level": 3,
@@ -764,13 +759,8 @@
         },
         {
           "level": 5,
-          "anchor": "evidence.-2",
+          "anchor": "evidence.-1",
           "label": "Evidence."
-        },
-        {
-          "level": 5,
-          "anchor": "remaining-obligation.-1",
-          "label": "Remaining obligation."
         },
         {
           "level": 3,
@@ -784,23 +774,8 @@
         },
         {
           "level": 5,
-          "anchor": "evidence.-3",
-          "label": "Evidence."
-        },
-        {
-          "level": 5,
-          "anchor": "remaining-obligation.-2",
+          "anchor": "remaining-obligation.-1",
           "label": "Remaining obligation."
-        },
-        {
-          "level": 5,
-          "anchor": "mechanism.-2",
-          "label": "Mechanism."
-        },
-        {
-          "level": 5,
-          "anchor": "evidence.-4",
-          "label": "Evidence."
         },
         {
           "level": 5,
@@ -814,12 +789,7 @@
         },
         {
           "level": 5,
-          "anchor": "mechanism.-3",
-          "label": "Mechanism."
-        },
-        {
-          "level": 5,
-          "anchor": "evidence.-5",
+          "anchor": "evidence.-2",
           "label": "Evidence."
         },
         {
@@ -829,12 +799,12 @@
         },
         {
           "level": 5,
-          "anchor": "mechanism.-4",
+          "anchor": "mechanism.-2",
           "label": "Mechanism."
         },
         {
           "level": 5,
-          "anchor": "evidence.-6",
+          "anchor": "evidence.-3",
           "label": "Evidence."
         },
         {
@@ -844,7 +814,7 @@
         },
         {
           "level": 5,
-          "anchor": "evidence.-7",
+          "anchor": "evidence.-4",
           "label": "Evidence."
         },
         {
@@ -970,32 +940,37 @@
         {
           "level": 2,
           "anchor": "sec:erdos-243-complete-family-map",
-          "label": "Complete result-family map"
+          "label": "Result map and proof dependencies"
         },
         {
-          "level": 3,
-          "anchor": "centered-state-dynamics",
-          "label": "Centered state dynamics"
+          "level": 5,
+          "anchor": "bounded-defect.",
+          "label": "Bounded defect."
         },
         {
-          "level": 3,
-          "anchor": "negative-mass-recovery",
-          "label": "Negative mass recovery"
+          "level": 5,
+          "anchor": "finite-negative-mass.",
+          "label": "Finite negative mass."
         },
         {
-          "level": 3,
-          "anchor": "bounded-negative-exclusion",
-          "label": "Bounded negative exclusion"
+          "level": 5,
+          "anchor": "weighted-records-and-protected-epochs.",
+          "label": "Weighted records and protected epochs."
         },
         {
-          "level": 3,
-          "anchor": "bounded-rise-coprimality",
-          "label": "Bounded rise coprimality"
+          "level": 5,
+          "anchor": "cubic-rate.",
+          "label": "Cubic rate."
         },
         {
-          "level": 3,
-          "anchor": "negative-orbit-no-go",
-          "label": "Negative orbit no go"
+          "level": 5,
+          "anchor": "static-barriers.",
+          "label": "Static barriers."
+        },
+        {
+          "level": 5,
+          "anchor": "what-remains.",
+          "label": "What remains."
         },
         {
           "level": 2,
@@ -1009,7 +984,7 @@
         "sections": [
           {
             "id": "long243:sec:cubicrate",
-            "title": "An unconditional irrationality theorem",
+            "title": "Irrationality at the cubic rate",
             "level": 2
           },
           {
@@ -1024,7 +999,7 @@
           },
           {
             "id": "sec:erdos-243-complete-family-map",
-            "title": "Complete result-family map",
+            "title": "Result map and proof dependencies",
             "level": 2
           }
         ]
@@ -1409,6 +1384,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos243.ProtectedEpochEnergy",
+        "label": "ErdosProblems.Erdos243.ProtectedEpochEnergy",
+        "path": "lean/ErdosProblems/Erdos243/ProtectedEpochEnergy.lean",
+        "direct": true,
+        "content_digest": "sha256:1d51a1544d6e1affdac48c1c4d19e8f74b1ba58dd1b9ea9c156634a0d8b4bcfe",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ProtectedEpochEnergy.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity",
         "label": "ErdosProblems.Erdos243.ReciprocalTailRigidity",
         "path": "lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean",
@@ -1418,12 +1402,30 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos243.RecordIncrementBarrier",
+        "label": "ErdosProblems.Erdos243.RecordIncrementBarrier",
+        "path": "lean/ErdosProblems/Erdos243/RecordIncrementBarrier.lean",
+        "direct": true,
+        "content_digest": "sha256:928ef7a15562a2f6290355f543dcc570517fde536b6cad416cfa4e7b80958e26",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/RecordIncrementBarrier.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos243.RepairEntropy",
         "label": "ErdosProblems.Erdos243.RepairEntropy",
         "path": "lean/ErdosProblems/Erdos243/RepairEntropy.lean",
         "direct": true,
         "content_digest": "sha256:02ac5bbed6d2310b630748e0da50e41e25a47496931d5d476b54c297fb854e56",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/RepairEntropy.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos243.SaturatedSquareTransport",
+        "label": "ErdosProblems.Erdos243.SaturatedSquareTransport",
+        "path": "lean/ErdosProblems/Erdos243/SaturatedSquareTransport.lean",
+        "direct": true,
+        "content_digest": "sha256:1647bc4e0497187d1d5493badc01c5ec4e9f1960100d4c9872e78d39a938320e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/SaturatedSquareTransport.lean",
         "role": "Lean proof module"
       },
       {
@@ -1652,6 +1654,14 @@
         "target": "lean-module:ErdosProblems.Erdos243.DynamicCancellation"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos243.ProtectedEpochEnergy",
+        "target": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos243.RecordIncrementBarrier",
+        "target": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos243.RepairEntropy",
         "target": "lean-module:ErdosProblems.Erdos243.PrimitivePrefixRigidity"
       },
@@ -1662,6 +1672,10 @@
       {
         "source": "lean-module:ErdosProblems.Erdos243.RepairEntropy",
         "target": "lean-module:ErdosProblems.Erdos243.WeightedCRTRepair"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos243.SaturatedSquareTransport",
+        "target": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos243.SlowRiseBarrier",

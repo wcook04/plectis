@@ -16,7 +16,7 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "850a9f9ed5abaf58cda2ae0581f8558e66f46aaff1b435f81dcb186d21445f12",
+    "source_sha256": "206617489ead12048cc346b5cc9f955c16af372d3b669d8c49d913734f6888e6",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
@@ -24,15 +24,15 @@
     "publication_manifest_match": true,
     "publication_state": "published_source",
     "public_parity": true,
-    "mathml_node_count": 54,
+    "mathml_node_count": 57,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "52424e393bb8fc13340b294c26df8abb4c76f1da19aea190dff7c8e5f374bade",
-    "html_exact_tex_sha256": "6e9c94612b23f944ae3f30cb0780ea13178317cc0020f3d8abba89e7adb0b38f"
+    "html_mathml_sha256": "577320255810b97e49ce42eb461ea6847c4beb41f6d4cfd766d03810340687a9",
+    "html_exact_tex_sha256": "21d835f0dd326087a09a4cb422f8f5a689050514e6315a787714f3b01e969424"
   },
   "sections": [
     {
@@ -44,6 +44,11 @@
       "level": 2,
       "anchor": "bounded-comparison-route",
       "label": "Bounded comparison route"
+    },
+    {
+      "level": 2,
+      "anchor": "erdős-249-attribution-update-16-september-2026",
+      "label": "Erdős #249: attribution update, 16 September 2026"
     },
     {
       "level": 2,

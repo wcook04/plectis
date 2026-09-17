@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos243-reciprocal-tail-reasoning-surface",
-  "title": "Reciprocal-Tail Rigidity: Complete Reasoning Record",
+  "title": "Reciprocal-Tail Rigidity: Theorems, Proofs and Questions",
   "subject": "Erdős #243",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 46,
+  "pages": 48,
   "question": "What is the complete state-dynamics and no-go record for Erdős #243, and which unbounded negative orbit regime survives?",
   "precis": "A claim-bounded complete reasoning record for Erdős #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.",
   "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "b42045682cd1c36f7052431397ebf54fef0c92f908c490db459996d29c0d82e1",
+    "source_sha256": "568bd8ef34de4491d3d5653aed0655b697106332d547d6157fa9df2f59fa69b5",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 1670,
+    "mathml_node_count": 1863,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "950b75f9472140e91f272e85a39b880c863fbe9c067f64e59a4c54c6367ef336",
-    "html_exact_tex_sha256": "5ec919b77ec7ef98cbe865c2a9fa746f7b1c17ce73734e0f4d525971d7d789bc"
+    "html_mathml_sha256": "422d31e6156893311e559103b519cb8fd1466384b127d6b991b0bd4dcfed2381",
+    "html_exact_tex_sha256": "373ac99e1df2ae6af008cde782af0da9d451a13fee3cb92a3b10190d27a29c74"
   },
   "sections": [
     {
@@ -50,7 +50,7 @@
     {
       "level": 2,
       "anchor": "long243:sec:cubicrate",
-      "label": "An unconditional irrationality theorem"
+      "label": "Irrationality at the cubic rate"
     },
     {
       "level": 5,
@@ -84,11 +84,6 @@
     },
     {
       "level": 5,
-      "anchor": "evidence.",
-      "label": "Evidence."
-    },
-    {
-      "level": 5,
       "anchor": "position.",
       "label": "Position."
     },
@@ -103,6 +98,11 @@
       "label": "Classical sufficient conditions and the pseudo-greedy formulation."
     },
     {
+      "level": 5,
+      "anchor": "results-and-proof-status.",
+      "label": "Results and proof status."
+    },
+    {
       "level": 3,
       "anchor": "structure",
       "label": "Structure"
@@ -114,8 +114,8 @@
     },
     {
       "level": 5,
-      "anchor": "the-intended-reading-which-is-not-formalised.",
-      "label": "The intended reading, which is not formalised."
+      "anchor": "the-canonical-reciprocal-tail-interpretation.",
+      "label": "The canonical reciprocal-tail interpretation."
     },
     {
       "level": 2,
@@ -134,13 +134,8 @@
     },
     {
       "level": 5,
-      "anchor": "evidence.-1",
+      "anchor": "evidence.",
       "label": "Evidence."
-    },
-    {
-      "level": 5,
-      "anchor": "what-the-record-coordinates-transfer.",
-      "label": "What the record coordinates transfer."
     },
     {
       "level": 5,
@@ -159,8 +154,8 @@
     },
     {
       "level": 5,
-      "anchor": "source-and-evidence-conventions-for-this-section.",
-      "label": "Source and evidence conventions for this section."
+      "anchor": "dictionary-with-duverneys-reduced-parameters.",
+      "label": "Dictionary with Duverney’s reduced parameters."
     },
     {
       "level": 3,
@@ -174,13 +169,8 @@
     },
     {
       "level": 5,
-      "anchor": "evidence.-2",
+      "anchor": "evidence.-1",
       "label": "Evidence."
-    },
-    {
-      "level": 5,
-      "anchor": "remaining-obligation.-1",
-      "label": "Remaining obligation."
     },
     {
       "level": 3,
@@ -194,23 +184,8 @@
     },
     {
       "level": 5,
-      "anchor": "evidence.-3",
-      "label": "Evidence."
-    },
-    {
-      "level": 5,
-      "anchor": "remaining-obligation.-2",
+      "anchor": "remaining-obligation.-1",
       "label": "Remaining obligation."
-    },
-    {
-      "level": 5,
-      "anchor": "mechanism.-2",
-      "label": "Mechanism."
-    },
-    {
-      "level": 5,
-      "anchor": "evidence.-4",
-      "label": "Evidence."
     },
     {
       "level": 5,
@@ -224,12 +199,7 @@
     },
     {
       "level": 5,
-      "anchor": "mechanism.-3",
-      "label": "Mechanism."
-    },
-    {
-      "level": 5,
-      "anchor": "evidence.-5",
+      "anchor": "evidence.-2",
       "label": "Evidence."
     },
     {
@@ -239,12 +209,12 @@
     },
     {
       "level": 5,
-      "anchor": "mechanism.-4",
+      "anchor": "mechanism.-2",
       "label": "Mechanism."
     },
     {
       "level": 5,
-      "anchor": "evidence.-6",
+      "anchor": "evidence.-3",
       "label": "Evidence."
     },
     {
@@ -254,7 +224,7 @@
     },
     {
       "level": 5,
-      "anchor": "evidence.-7",
+      "anchor": "evidence.-4",
       "label": "Evidence."
     },
     {
@@ -380,32 +350,37 @@
     {
       "level": 2,
       "anchor": "sec:erdos-243-complete-family-map",
-      "label": "Complete result-family map"
+      "label": "Result map and proof dependencies"
     },
     {
-      "level": 3,
-      "anchor": "centered-state-dynamics",
-      "label": "Centered state dynamics"
+      "level": 5,
+      "anchor": "bounded-defect.",
+      "label": "Bounded defect."
     },
     {
-      "level": 3,
-      "anchor": "negative-mass-recovery",
-      "label": "Negative mass recovery"
+      "level": 5,
+      "anchor": "finite-negative-mass.",
+      "label": "Finite negative mass."
     },
     {
-      "level": 3,
-      "anchor": "bounded-negative-exclusion",
-      "label": "Bounded negative exclusion"
+      "level": 5,
+      "anchor": "weighted-records-and-protected-epochs.",
+      "label": "Weighted records and protected epochs."
     },
     {
-      "level": 3,
-      "anchor": "bounded-rise-coprimality",
-      "label": "Bounded rise coprimality"
+      "level": 5,
+      "anchor": "cubic-rate.",
+      "label": "Cubic rate."
     },
     {
-      "level": 3,
-      "anchor": "negative-orbit-no-go",
-      "label": "Negative orbit no go"
+      "level": 5,
+      "anchor": "static-barriers.",
+      "label": "Static barriers."
+    },
+    {
+      "level": 5,
+      "anchor": "what-remains.",
+      "label": "What remains."
     },
     {
       "level": 2,
@@ -419,7 +394,7 @@
     "sections": [
       {
         "id": "long243:sec:cubicrate",
-        "title": "An unconditional irrationality theorem",
+        "title": "Irrationality at the cubic rate",
         "level": 2
       },
       {
@@ -434,7 +409,7 @@
       },
       {
         "id": "sec:erdos-243-complete-family-map",
-        "title": "Complete result-family map",
+        "title": "Result map and proof dependencies",
         "level": 2
       }
     ]

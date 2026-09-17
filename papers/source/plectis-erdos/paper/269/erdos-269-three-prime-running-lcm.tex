@@ -35,36 +35,39 @@
 \subtitle{Nonsingular minors of every order, two-prime Hecke--Mahler
 polynomials, and the open boundary for Erd\H{o}s Problem~\#269}
 \author{Will Cook}
-\date{July 2026}
+\date{July 2026; revised 16 September 2026}
 
 \begin{document}
 \maketitle
 \noteprovenance
 
 \begin{abstract}
-For three pairwise distinct primes, the reciprocal running-LCM kernel has
-nonsingular minors of every order, with one choice of indices valid in every
-third-coordinate layer.  Dividing out row and column powers leaves a binary
-carry whose consecutive threshold columns differ on disjoint intervals.
-This gives both arbitrary-order non-separability and the exact rank of every
-finite sample.  For two primes, the paper deduces transcendence of both
-running-LCM series from the Hecke--Mahler value theorem of Loxton and van der
-Poorten, in the form given by Bugeaud and Laurent.  Steve Fan posted the same
-factorisation, reduction and conclusion first, on the problem's forum thread
-(erdosproblems.com/269, 26~June~2026, post~7218); the two-prime result is not
-formalised in Lean.  The repeated three-prime irrationality question remains
-open.
+For three distinct primes, the reciprocal running-LCM kernel has nonsingular
+minors of every order, with the same indices in every third-coordinate
+layer.  Diagonal rescaling leaves a binary floor carry whose threshold
+columns determine every finite sampled rank.  This rules out finite exact
+separation of the kernel, not rationality of its sum.  For the repeated
+$\{2,3,5\}$ series, we give the literal integral tail recurrence, a
+quadratic bound, exact denominator clearing and a residue criterion
+equivalent to irrationality.  We do not prove the required cofinal escape.
+The two-prime comparison reproduces the earlier Hecke--Mahler reduction
+attributed to Steve Fan and distinguishes the repeated and distinct-height
+values.  A concrete moving-boundary example explains why quadratic
+coefficient growth does not by itself yield finite-difference cancellation.
 \end{abstract}
 
 \section{Introduction}\label{sec:problem}
-Let $P$ be a finite set of at least two primes and $\mathcal S_P$ its positive
-smooth integers.  Put
+Let $P$ be a finite set of at least two primes and let $\mathcal S_P$ be the
+positive integers supported on $P$, including $1$.  All sums below retain
+multiplicity unless explicitly marked distinct-height.  Put
 \[
  \Lprefix(x)=\lcm\{u\in\mathcal S_P:u\le x\},\qquad
  \mathcal R_P=\sum_{u\in\mathcal S_P}\Lprefix(u)^{-1}.
 \]
-Erd\H{o}s asks whether $\mathcal R_P$ is irrational
+The historical question is whether $\mathcal R_P$ is irrational
 \cite[p.~65]{erdosgraham1980}\cite[p.~106]{erdos1988}.
+We address the repeated series, not the distinct-height assertion recorded
+by Erd\H{o}s in his earlier letter~\cite{erdos1974letter}.
 For $P=\{p,q,r\}$, define
 \[
  \hgt(x)=p^{\lfloor\log_p x\rfloor}
@@ -72,8 +75,11 @@ For $P=\{p,q,r\}$, define
  \Kernel(i,j,k)=\hgt(p^iq^jr^k)^{-1}.
 \]
 Prime-power divisibility gives $\Lprefix=\hgt$
-(Proposition~\ref{res:lcm}); Fan's forum post states this identity for every
-finite prime set~\cite{fan2026comment}.
+(Proposition~\ref{res:lcm}).  The supplied forum record credits Steve Fan's
+post of 26 June 2026 with this identity for every finite prime set and the
+two-prime factorisation, reduction and transcendence conclusion
+\cite{fan2026comment}.  We retain that attribution; the live thread was not
+accessible during this revision.
 
 With two primes, the corresponding kernel factors into a function of each
 exponent separately, reducing the double sum to a product.  The first
@@ -87,6 +93,25 @@ explain that obstruction, then recover the two-prime comparison, and finally
 identify the arithmetic of the actual three-prime tails.  The last step is
 necessary because the rank of a kernel does not determine the irrationality
 of its sum.
+
+\paragraph{Literature and scope.}
+Fixed-prime semigroups and their neighbouring elements are classical objects;
+see Tijdeman--Meijer \cite{tijdemanmeijer1974} and the recent two-prime study
+of Languasco, Luca, Moree and Togb\'e \cite{languasco2025}.  No asymptotic
+counting theorem from those works is needed for our elementary shell bounds.
+Kova\v{c}--Tao \cite{kovactao2024} concerns neighbouring irrationality
+problems for distinct unit fractions, not this repeated-height sum.
+The rank theorem below concerns equality of kernels with arbitrary
+rational-valued separated factors.  It does not exclude a different
+analytic representation of the scalar value.
+
+\paragraph{Reading guide.}
+Section~\ref{sec:rank} proves the representation theorem.  The two-prime
+comparison in Section~\ref{sec:two-prime} uses an external value theorem.
+Sections~\ref{sec:actual-orbit} and~\ref{sec:escape} define the actual
+arithmetic quantities and one open target, in equivalent tail and window
+forms.  Source coordinates are collected in Appendix~\ref{app:sources} and
+the accompanying concordance, not used as substitutes for proofs.
 
 \section{The binary carry and arbitrary-order rank}\label{sec:rank}
 
@@ -164,14 +189,13 @@ $(G_\ell(J(b),k))_{\ell,b}$.  Its rank would be at most $d$, so its
 determinant would vanish, contrary to the minor just constructed.
 \end{proof}
 
-\noindent The two clauses are the Lean declarations
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/KernelCarryRank.lean#L376}{uniform nonsingular minors}
-and
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/KernelCarryRank.lean#L388}{no finite separation}.
-Those declarations require $p\ne r$ and $q\ne r$, but not $p\ne q$.
-The theorem above keeps pairwise distinctness because it is stated for a
-three-prime set; allowing $p=q$ gives an extension of the abstract indexed
-kernel, not a new three-prime case of the running-LCM problem.
+\paragraph{Scope of the rank obstruction.}
+The proof works over $\mathbb R$ or $\mathbb C$ as well as $\mathbb Q$:
+a factorisation through a $d$-dimensional space still has rank at most $d$.
+The displayed theorem retains the rational-valued scope of the supplied
+formal statement.  Also $p\ne q$ is not used by the carry argument itself;
+it is retained because the running-LCM application has three distinct
+prime generators.
 
 \begin{corollary}[the same minors modulo every admissible denominator]
 \label{res:admissible-modular-minors}
@@ -187,7 +211,7 @@ factor is a unit modulo $B$.  The normalised determinant is
 $5^{-1}(-4/5)^{n-1}$, also a unit.
 \end{proof}
 
-\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133}{admissible modular minors}.
+
 
 
 
@@ -196,8 +220,7 @@ For $(p,q,r)=(2,3,5)$, the leading two-by-two determinant is $-1/15$:
 its four entries are $1,1/6,1/2,1/60$, so it equals $1/60-1/12$.
 \end{example}
 
-\noindent The four entries and the determinant are
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L102}{two by two fixture}.
+
 
 \paragraph{The indices must be selected.}
 The leading $4\times4$ block at $\{2,3,5\}$ is singular:
@@ -227,16 +250,16 @@ If $k_1=0$ and $k_t=m$, then $v_0=c\,\mathbf 1$ lies in the span of the
 differences (their sum is $(1-c)\mathbf 1$), so the rank is $t-1$.
 \end{proof}
 
-\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182}{rank cut matrix}.
 
-The formula classifies every finite sampled kernel rank after the row and
-column factors of Theorem~\ref{res:infinite-rank}, independently of the third
-coordinate.  An exact logarithm-free algorithm orders the rationals
-$p^i/r^{\lfloor\log_r p^i\rfloor}$, counts those strictly below each
-$r^{\lfloor\log_r q^j\rfloor+1}/q^j$, and applies the displayed correction.
-Direct elimination on the $\{2,3,5\}$ kernel agrees with the formula through
-order $24$; larger leading ranks recorded with the accompanying checker use
-the formula and exact integer phase comparisons.
+
+After ordering the sampled row phases, the columns have exactly the forms
+$v_k$ above; repeated rows or columns add no rank.  Thus the formula
+classifies every nonempty finite sample after diagonal rescaling, uniformly
+in the third coordinate.  It also gives an exact algorithm: order the
+rationals $p^i/r^{\lfloor\log_r p^i\rfloor}$, count those strictly below
+$r^{\lfloor\log_r q^j\rfloor+1}/q^j$, and apply the endpoint correction.
+Integer comparisons suffice; no floating-point decision at a threshold is
+needed.
 
 
 \paragraph{The norm matters.}
@@ -244,10 +267,12 @@ For the infinite normalised carry matrix,
 \[
  \inf_{F\text{ of finite separated rank}}\|C-F\|_\infty=(1-c)/2.
 \]
-Distinct columns are exactly $1-c$ apart in the supremum norm, by density
-of the row phases. An approximation below half that distance would give
-infinitely many bounded, uniformly separated columns in a finite-dimensional
-space. Compactness excludes this. The constant $(1+c)/2$ attains the bound.
+For $c=1/r$, distinct columns are exactly $1-c$ apart in the supremum
+norm.  An error $\varepsilon<(1-c)/2$ would place the approximating columns
+in a bounded subset of their finite-dimensional span, with pairwise distance
+at least $1-c-2\varepsilon>0$.  Such a subset is totally bounded, a
+contradiction.  This argument uses bounded columns, not bounded individual
+factors in a separated expression.  The constant $(1+c)/2$ attains the bound.
 
 Finite restrictions have a different behaviour. At $c=1/5$,
 \[
@@ -255,8 +280,9 @@ Finite restrictions have a different behaviour. At $c=1/5$,
  A=\begin{pmatrix}3/10&9/10\\1/10&3/10\end{pmatrix}
 \]
 satisfy $\det A=0$ and $\|T-A\|_{\max}=1/10<2/5$.
-For the original kernel, truncating the first coordinate at $N$ gives
-separated rank at most $N$ and
+For the original three-index kernel, put
+$K^{(N)}(i,j,k)=\mathbf1_{\{i<N\}}K(i,j,k)$.  This has separated rank at
+most $N$ across $i\mid(j,k)$, and the $\ell^1(\mathbb N^3)$ error satisfies
 \[
  \|K-K^{(N)}\|_{\ell^1}
  \le\frac{pqr\,p^{-3N}}{(1-p^{-3})(1-q^{-3})(1-r^{-3})}.
@@ -275,8 +301,8 @@ $\mathcal D_{p,q}$ retain the initial value and one reciprocal at each
 positive pure-power jump.  Fan's forum post gives the repeated two-prime
 factorisation and its quadratic reduction to a single Hecke--Mahler value, and
 the same boundary-channel calculation yields the de-duplicated affine formula
-displayed below~\cite{fan2026comment}.  The proof below was found
-independently.
+displayed below~\cite{fan2026comment}.  We give the calculation to fix
+normalisations and to distinguish repeated from distinct-height sums.
 
 \begin{theorem}[both two-prime sums]
 \label{res:two-prime-transcendence}
@@ -344,9 +370,8 @@ introduced next.  The de-duplicated irrationality assertion is historical
 \label{sec:actual-orbit}
 
 \begin{proposition}[the running least common multiple]\label{res:lcm}
-Let $p,q,r$ be pairwise distinct primes and $x\ge1$.  Then the
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{123}{smoothPrefixLcm_eq_threePrimeHeight}{smooth-prefix LCM}
-equals the three-prime height: $\Lprefix(x)=\hgt(x)$.
+Let $p,q,r$ be pairwise distinct primes and $x\ge1$.  Then the running LCM equals the three-prime height:
+$\Lprefix(x)=\hgt(x)$.
 \end{proposition}
 \begin{proof}
 Every smooth $n\le x$ has prime exponents bounded by the corresponding
@@ -355,40 +380,27 @@ powers occur among those smooth numbers; their product divides the running
 LCM because they are pairwise coprime.
 \end{proof}
 
-\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L124}{smooth prefix lcm equals three-prime height}.
-The same definition gives
+The inequalities $x/p<p^{\lfloor\log_p x\rfloor}\le x$ for each of the
+three primes also give
 \begin{equation}\label{res:cube}
  x^3/(pqr)<\hgt(x)\le x^3.
 \end{equation}
-Both inequalities are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L112}{cubic height bounds}.
 
-\begin{proposition}[smooth-prefix LCM cells]\label{res:cell}
-If $x,y\ge1$ lie in the same logarithmic cell, then $\Lprefix(x)=\Lprefix(y)$:
-the
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{179}{smoothPrefixLcm_eq_of_sameLogCell}{smooth-prefix LCM cell}
-is constant.  Advancing exactly one logarithm multiplies the running value
-by the corresponding
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{326}{smoothPrefixLcm_firstLogStep}{first-channel step},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{339}{smoothPrefixLcm_secondLogStep}{second-channel step}
-or
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{352}{smoothPrefixLcm_thirdLogStep}{third-channel step}.
-The
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{278}{threePrimeJumpSetWithOrigin_card}{jump set with the origin},
-formed from the first $n$ positive powers in each channel together with $1$,
-has cardinality $3n+1$.
+\begin{proposition}[cells and jumps]\label{res:cell}
+The running LCM is constant when the three integer logarithms are constant.
+A jump in exactly one logarithm multiplies it by the corresponding prime.
+The first $n$ positive powers in each channel, together with $1$, form
+$3n+1$ distinct points.
 \end{proposition}
 \begin{proof}
-Cell constancy and the three jump ratios follow from
-Proposition~\ref{res:lcm}, since the height depends on $x$ only through the
-three integer logarithms.  Within one channel the first $n$ positive powers
-are distinct; across channels a common value would be a positive power of
-two distinct primes; and $1$ is not a positive prime power.
+The first two claims follow from the height formula.  Positive powers from
+different prime channels cannot coincide, by unique factorisation, and
+none is $1$.
 \end{proof}
 
 \begin{proposition}[height-fibre regrouping]\label{res:fibre-prop}
-If $F(H)$ is a height fibre in a finite exponent box $\mathcal B$, the
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{406}{finiteSmoothKernelSum_groupedByHeight}{height-fibre regrouping}
-gives
+For a finite exponent box $\mathcal B$, set
+$F(H)=\{(i,j,k)\in\mathcal B:\hgt(p^iq^jr^k)=H\}$.  Then
 \begin{equation}\label{res:fibre}
  \sum_{(i,j,k)\in\mathcal B}\Kernel(i,j,k)=\sum_H\frac{\#F(H)}H.
 \end{equation}
@@ -398,7 +410,7 @@ Each term in $F(H)$ equals $1/H$.  The multiplicities remain present in
 every subsequent infinite sum.
 \end{proof}
 
-\noindent The regrouping is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407}{finite smooth kernel sum grouped by height}.
+
 
 From now on let $P=\{2,3,5\}$ and $S=\mathcal R_P$.  For $a\ge0$ define
 \[
@@ -406,8 +418,9 @@ From now on let $P=\{2,3,5\}$ and $S=\mathcal R_P$.  For $a\ge0$ define
  \quad T_a=\sum_{j\ge0}s_{a+j},\quad
  h_a=\frac{\hgt(2^a)}2,\quad X_a=h_aT_a.
 \]
-Thus $T_a$ is the raw tail and $X_a$ its normalised state.
-The literal radix and forcing digit are
+Thus $T_a$ is the raw tail, $X_a$ its normalised state, and
+$P_a:=\hgt(2^a)=2h_a$.  In particular $h_0=1/2$, while $h_a$ is a
+positive integer for $a\ge1$.  The literal radix and forcing numerator are
 \begin{equation}\label{eq:actual-digit}
  b_a=\frac{\hgt(2^{a+1})}{\hgt(2^a)},\qquad
  m_a=\sum_{\substack{x\text{ smooth}\\2^a\le x<2^{a+1}}}
@@ -416,21 +429,21 @@ The literal radix and forcing digit are
 
 \begin{lemma}[integer forcing and the four radices]
 \label{res:dyadic-alphabet}
-For every $a\ge0$, $m_a$ is a positive integer and the
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{699}{dyadicBlockBase235_cases}{four-letter dyadic alphabet}
-satisfies $b_a\in\{2,6,10,30\}$.
+For every $a\ge0$, $m_a$ is a positive integer and
+$b_a\in\{2,6,10,30\}$.  The word ``numerator'' does not impose the
+positional-digit restriction $m_a<b_a$; that restriction need not hold.
 \end{lemma}
 \begin{proof}
 If $x<2^{a+1}$, the two-exponent of $\hgt(x)$ is at most $a$, while the
 other exponents are bounded by those of $\hgt(2^{a+1})$.  Hence
 $2\hgt(x)\mid\hgt(2^{a+1})$.  Each forcing summand is an integer,
-and the shell contains $2^a$.  Between consecutive two-powers,
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{668}{dyadicInternalPower_exponent_unique}{internal-power uniqueness}
-leaves at most one three-power and at most one five-power.  Their optional
+and the shell contains $2^a$.  Between consecutive two-powers there is at most one three-power and at
+most one five-power: two successive powers in either channel have ratio
+strictly greater than two.  Their optional
 factors, together with the terminal factor two, give the four radices.
 \end{proof}
 
-\noindent Both clauses are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L48}{literal integer forcing and four radices}.
+
 
 Since $h_{a+1}=b_0b_1\cdots b_a/2$, the value
 $S/2=\sum_{a\ge0}m_a/(b_0b_1\cdots b_a)$ is a Cantor series and
@@ -444,6 +457,15 @@ criteria assume that the $n$th numerator is $o(a_{n-1}a_n)$, where $a_n$ is
 the $n$th base.  Here $m_a\ge1$ and $b_{a-1}b_a\le900$, so the recurrence,
 the bound and the denominator clearing below are proved directly for this
 series.
+The polynomial criterion of Han\v{c}l--Tijdeman
+\cite[Theorems~2.2 and 3.1]{hancltijdeman2008} assumes a nonconstant
+polynomial radix and does not cover this bounded sequence.  Their
+Theorem~4.2 is a separate, more general telescoping principle: it requires
+an exact finite-product decomposition and a small transformed numerator.
+Neither a quadratic bound nor a polynomial carry ansatz supplies those
+hypotheses.  The prior Isabelle/HOL formalisation of the classical
+Erd\H{o}s--Straus criteria is due to Koutsoukou-Argyraki and Li
+\cite{afperdosstraus2020}; it is not a verification of the present series.
 
 \begin{proposition}[the actual recurrence and a polynomial bound]
 \label{res:actual-orbit}
@@ -458,9 +480,8 @@ at arbitrarily large indices.
 \end{proposition}
 \begin{proof}
 A dyadic shell contains at most one two-exponent for each pair of three-
-and five-exponents.  Each of the latter lies between $0$ and $a$, so the
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{646}{smoothExponentShell_card_quadratic}{quadratic shell bound}
-gives at most $(a+1)^2$ terms.  By~\eqref{res:cube},
+and five-exponents.  Each of the latter lies between $0$ and $a$, so there are at most
+$(a+1)^2$ terms.  By~\eqref{res:cube},
 $s_a\le30(a+1)^2/8^a$.  Therefore
 \[
  X_a\le15(a+1)^2\sum_{j\ge0}\frac{(j+1)^2}{8^j}
@@ -468,8 +489,6 @@ $s_a\le30(a+1)^2/8^a$.  Therefore
 \]
 This proves convergence and the bound.  Splitting the first shell gives
 the recurrence because $m_a=h_{a+1}s_a$ and $h_{a+1}=b_ah_a$.
-All four clauses are \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168}{short actual orbit}.
-
 Put $Y_a=BX_a$.  If all sufficiently late distances are strictly below
 $1/31$, write $Y_a=z_a+e_a$ with $z_a\in\mathbb Z$ and $|e_a|<1/31$.
 Then $e_{a+1}-b_ae_a$ is an integer of absolute value less than one, so
@@ -477,10 +496,11 @@ $e_{a+1}=b_ae_a$.  The factors $b_a\ge2$ force a bounded such error to be
 zero.  An integral state propagates by the integer recurrence.
 \end{proof}
 
-The criterion below needs only a valid cap, and the bound just proved gives
-the cap $90B(a+1)^2$.  The extended reasoning record proves the sharper bound
-$X_a\le(n_a^2+8n_a+18)/9$, where $n_a$ is the sum of the three height
-exponents at $2^a$.
+The window criterion needs only a valid carry cap; $90B(a+1)^2$ suffices.
+The long record proves $X_a\le Q(n_a)$ and the smaller bound
+$X_a\le\widetilde Q(n_a)$, where
+$n_a=a+\lfloor\log_3 2^a\rfloor+\lfloor\log_5 2^a\rfloor$.
+It keeps these sharper caps separate from the coarse cap used here.
 
 \begin{theorem}[actual rationality-to-reduced-carry bridge]
 \label{res:denominator-reduction}
@@ -505,7 +525,25 @@ $BX_a=h_aA/(2^u3^v5^w)-BZ_a$ is integral.  Positivity, the recurrence
 and the bound follow from Proposition~\ref{res:actual-orbit}.
 \end{proof}
 
-\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80}{short fixed split bridge}.
+
+
+\begin{corollary}[the exact clearing onset]\label{res:exact-onset}
+Under the same lowest-terms hypothesis, put $M=2^u3^v5^w$ and let
+$\operatorname{den}$ denote the positive reduced denominator.  For $a\ge1$,
+\[
+ \operatorname{den}(BX_a)=\frac{M}{\gcd(M,h_a)}.
+\]
+Consequently $BX_a$ is integral exactly when
+$2^a\ge\max(2^{u+1},3^v,5^w)$.  The first such $a$ can be found by
+integer comparisons, without logarithmic rounding.
+\end{corollary}
+\begin{proof}
+Equation~\eqref{eq:prefix-lattice} gives
+$BX_a=h_aA/M-BZ_a$.  Since $\gcd(A,M)=1$, reducing that fraction gives
+the displayed denominator.  The three divisibility conditions for $h_a$
+are precisely the three inequalities stated above.
+\end{proof}
+
 
 \section{A window test and the remaining arithmetic}
 \label{sec:escape}\label{sec:open}
@@ -519,8 +557,9 @@ Induction on $h$ gives
 \begin{equation}\label{eq:actual-tail}
  X_{\ell+h}=W_{\ell,h}X_\ell-F_{\ell,h}.
 \end{equation}
-Let $\operatorname{lpr}_W(t)$ be the representative in $\{1,\ldots,W\}$
-of $t\bmod W$, representing a zero residue by $W$.
+For integers $W\ge1$ and $t$, define
+$\operatorname{lpr}_W(t)=1+((t-1)\bmod W)$, using a remainder in
+$\{0,\ldots,W-1\}$.  Thus a zero residue is represented by $W$, not $0$.
 Throughout this section use the valid cap
 \begin{equation}\label{eq:actual-bound}
  K(B,a)=90B(a+1)^2.
@@ -535,7 +574,7 @@ Every positive representative of the residue is at least its least
 positive representative, so $\operatorname{lpr}_W(-BF)\le d\le K$.
 \end{proof}
 
-\noindent The statement is \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138}{finite endpoint obstruction}.
+
 
 \begin{theorem}[the actual window criterion]\label{res:windowconsumer}
 The number $S$ is irrational if and only if
@@ -570,8 +609,7 @@ Its exponentially growing first term eventually exceeds
 $K(B,\ell+h)$.  This proves~\eqref{eq:escape}, in fact from each fixed start.
 \end{proof}
 
-\noindent The equivalence, at the literal smooth-number series, is
-\href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L51}{short window equivalence}.
+
 
 The validity of the cap is needed in the rational direction; an upper
 polynomial growth condition by itself would not suffice.  The zero cap,
@@ -579,6 +617,9 @@ for example, makes positive-residue escape automatic.
 The criterion identifies the target in window coordinates.  The unresolved
 point is the source-specific exclusion below.
 
+\begin{problem}[the repeated three-prime target]
+Prove that $S=\mathcal R_{\{2,3,5\}}$ is irrational.
+\end{problem}
 \begin{problem}[exact nonintegrality of every reduced tail]\label{prob:tails269}
 Prove that for every $a\ge1$ and every integer $B\ge1$ coprime to $30$,
 \begin{equation}\label{eq:tail-nonintegrality}
@@ -586,25 +627,50 @@ Prove that for every $a\ge1$ and every integer $B\ge1$ coprime to $30$,
 \end{equation}
 \end{problem}
 \begin{problem}[actual cofinal local-window escape]\label{prob:producer}
-Prove the displayed quantifier order
+Prove the cofinal window condition~\eqref{eq:escape}.
+\end{problem}
+Indeed, one integral scaled tail makes $S$ rational by
+\eqref{eq:prefix-lattice}; conversely, a rational $S$ has such tails after
+denominator clearing.  These are equivalent formulations of one target,
+not two independent missing hypotheses.
+
+\paragraph{A coefficient obstruction, not a transferred theorem.}
+Luca, Ouaknine and Worrell
+\cite[Definition~5, Theorems~6 and 8, Claim~10]{lucaouaknineworrell2025}
+use finite-difference cancellation away from floor crossings, followed by
+expanding-gap and relative-variation estimates.  For our literal numerators,
+put $\gamma_{a,t}=P_tP_{a+1}/P_{a+t+1}$ and
+$D_{r,a}=15\sum_{j=0}^3(-1)^j\binom3j\gamma_{a,jr}m_{a+jr}$.
+At $a=0,r=35$, exact comparisons give
+$\lfloor\log_3 2^{35\nu}\rfloor=22\nu$,
+$\lfloor\log_5 2^{35\nu}\rfloor=15\nu$ and $b_{35\nu}=2$ for
+$0\le\nu\le3$.  These facts together eliminate the relevant floor-addition
+crossings and make all four corrections $1$.
+Nevertheless
 \[
- \forall B\ge1\ (\gcd(B,30)=1),\ \forall a_0\ge1,\
- \exists\ell\ge a_0\ \exists h\ge1:\quad
- \operatorname{lpr}_{W_{\ell,h}}(-BF_{\ell,h})
-   >K(B,\ell+h).
+ D_{35,0}=15(1-3\cdot195+3\cdot723-1582)=45\ne0.
 \]
-\end{problem}
-\begin{problem}[function-faithful two-dimensional representation]
-Express $\mathcal D_{2,3,5}$ as a nonconstant algebraic combination of values
-of a specified two-dimensional Hecke--Mahler, cone-generating or multivariate
-Mahler function and verify every hypothesis of a published value theorem; or
-give a conditional theorem under an explicit logarithmic nondegeneracy
-hypothesis; or prove that the literal series has no representation in the
-specified finite-dimensional class.
-\end{problem}
-By~\eqref{eq:prefix-lattice}, one integral value would make $S$ rational;
-the bridge proves the reverse implication after clearing its denominator.
-Thus the pointwise formulation is equivalent to the irrationality question.
+The long record proves this by exact lattice counts and isolates the
+uncancelled boundary strips.  It refutes automatic cubic cancellation,
+not every possible operator or an eventual sparse-defect construction.
+
+A fixed-base expansion is not impossible: the direct base-$30$ recoding
+has coefficients $e_a=m_a30^{a+1}/P_{a+1}\in\mathbb Z_{>0}$, but
+$e_a\ge(15/4)^{a+1}$, so it fails the polynomial-growth hypothesis of the
+cited criterion.  The finite-alphabet echoing criterion
+\cite{kebis2024echoing} and the base-expansion complexity theorem
+\cite[Theorem~1]{adamczewskibugeaud2007} likewise require properties of a
+value-preserving coefficient or digit sequence, not merely of $(b_a)$.
+
+\paragraph{A separate distinct-height programme.}
+For $\mathcal D_{2,3,5}$, recovering a proof of the historical irrationality
+assertion or establishing transcendence is a different task.  An analytic
+approach must first construct a specified function and an exact value
+identity, then verify a published value theorem's hypotheses.  In
+particular, the multivariate Mahler theory of Adamczewski and Faverjon
+\cite{adamczewskifaverjon2026} requires a functional system and suitable
+evaluation data; having a two-dimensional lattice count is not enough.
+No such system is established here.
 
 \paragraph{The information the remaining argument must use.}
 The bounded-radix alternative permits the integral branch.  If $(g_a)$ is an
@@ -621,58 +687,36 @@ By~\eqref{eq:prefix-lattice} and Theorem~\ref{res:denominator-reduction} it
 contains $S$ for some $B$ exactly when $S$ is rational.  Infinite rank
 and the modular minors of Corollary~\ref{res:admissible-modular-minors}
 constrain the kernel, while a scalar argument must also use its exact
-multiplicities.  In the existing three-channel rigidity result, preservation
-of every complete same-channel block makes a perturbation a difference of
-three channel potentials.  Two zero anchor transitions make that potential
-constant.  A bounded rationalising lift does not automatically supply those
-unweighted block identities: its actual block defect is weighted.  A proof
-using this route must establish that extra source-faithful condition.
-The extended record retains the exact countermodels and the other proposed
-representations at their stated scopes.
+multiplicities.  The long record gives further conditional rigidity statements, but an
+argument for $S$ must verify their block identities for the actual weighted
+multiplicities.  Neither a finite-dimensional ansatz nor a countability
+statement does that.
 
 \pdfbookmark[1]{Statements and declarations}{statements-declarations}
 \subsection*{Statements and declarations}
 \paragraph{Proof sources.}
-The two-prime theorem is an ordinary deduction from the cited Hecke--Mahler
-value theorem and has no Lean declaration; Steve Fan posted the same argument
-first~\cite{fan2026comment}.
-The arbitrary-order kernel theorem is proved in the Lean module
-\texttt{KernelCarryRank}: it contains the uniform minors and the exact
-finite-separation contradiction used above.  The literal recurrence and the
-fixed-split rationality bridge likewise have the named Lean statements linked
-at their occurrences above.  The
-\href{https://github.com/wcook04/plectis-erdos/blob/06f57893e0f9c6d80668048f26f096367ae4cfe7/verification/erdos269-wavea-validation.json}{source-current validation receipt}
-byte-matches these modules and records their compilation inside the public
-recursive import closure.  The receipt's declaration-by-declaration axiom
-audit concerns the named R12 Wave~A results, not these rank declarations.
-Comparator separately records the finite $(2,3,5)$ minor $-1/15$, the
-running-LCM height identity, and a conditional carry-escape consumer; it is
-not the evidence for the arbitrary-order theorem.
-The separate public Lean release
-\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E269/Challenge.lean#L487}{\texttt{wcook04/plectis-erdos-lean}}
-at commit \texttt{52f29ad1} selects the arbitrary-order theorem itself in
-\texttt{PalomarCorpus/E269/Challenge.lean}:
-\texttt{exists\_uniform\_nonsingular\_threePrimeKernel\_minor} gives
-nonsingular minors of every order, with one index choice valid in every layer
-of the third exponent, for bases $p,q,r>1$ with $\log_r p$ and $\log_r q$
-irrational, and \texttt{threePrimeKernel\_infiniteRank\_and\_noFiniteSeparation}
-gives, for primes $p,q,r$ with $p\ne r$ and $q\ne r$, both those minors and
-the absence of a finite separated representation with rational-valued
-factors; the $(2,3,5)$ minor is selected beside them as
-\texttt{kernel\_235\_minor\_eq\_neg\_one\_fifteen}.  That repository's Linux
-replay of Palomar's Comparator stage accepted the entry with the Lean kernel
-and with NanoDa
-(\href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633}{run 34782407633}).
-Neither selected clause yields irrationality of the sum.
-The finite cut-rank argument and the modular corollary are proved above;
-no additional formal verification claim is made for the latter.
-The actual-series reduction is given; the source-specific cofinal escape
-remains unproved.
+The two-prime deduction uses an external transcendence theorem and is not
+formalised here.  The arbitrary-order rank theorem and literal tail bridge
+have the named Lean sources recorded in the concordance.  Two verification tracks must be
+kept separate: the public repository and the selected Palomar release.
+The supplied 16 September 2026 inventory records a successful public CI build
+at commit \nolinkurl{99f4bf47422abbd8757cbb22b50ba079d764d3a7}.
+The separate Palomar release at \texttt{52f29ad1} selects the
+arbitrary-order uniform-minor and non-separation theorems themselves, not
+merely the $2\times2$ fixture.  Its recorded Comparator replay therefore
+has that broader scope.  These are attached verification receipts, not a
+fresh build performed for this editorial revision, and do not certify every
+sentence of either paper or the irrationality of $S$.
+The elementary modular-minor corollary is proved above.  Its older linked
+module is not among the attached source files, so its current build status
+is not inferred from the inventory.  The exact-denominator corollary and the boundary example added in this
+revision have ordinary proofs and exact checks, but no new formalisation
+claim.  The required cofinal escape remains unproved.
 
 \paragraph{Artefact and data availability.}
 Each source link is pinned to its own immutable revision.  The exact-reference
 inventory records those revisions and their bytewise comparison with the
-current public source commit.
+public source commit recorded in the supplied inventory.
 The extended reasoning record and the accompanying source retain the
 detailed shell bounds, finite experiments and alternative representations
 with their exact hypotheses.  Supplied later-source labels and public links remain separate
@@ -680,292 +724,203 @@ source coordinates.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
-\paragraph{Acknowledgements.} The problem numbering and status follow the
-Erd\H{o}s Problems catalogue maintained by Thomas Bloom~\cite{erdosproblems}.
+\paragraph{Acknowledgements.} The problem numbering and the historical
+status snapshot are taken from the Erd\H{o}s Problems catalogue maintained
+by Thomas Bloom~\cite{erdosproblems}.  Earlier mathematical inputs are
+credited at their points of use.
 
 \appendix
 \section{Guide to the formal sources}\label{app:sources}
+The mathematical dependency chain is: height identity, kernel rescaling,
+threshold determinant; and, independently, literal shell forcing, tail
+recurrence, denominator clearing and residue contradiction.  The historical declaration inventory is retained in the long record and
+the machine-readable source index.  The package also includes an exact
+concordance of the links removed from the main narrative.  Moving a link
+changes its location, not its immutable revision or evidence status.
 
-The formal sources are recorded by the following per-link immutable revisions.
+\begin{center}\small
+\begin{tabular}{p{0.27\linewidth}p{0.64\linewidth}}
+\hline
+Statement family & Source and scope\\ \hline
+Kernel rank & \texttt{KernelCarryRank}: arbitrary-order uniform minors and
+no finite rational separation; also selected in the Palomar release.\\
+Literal series & \texttt{DyadicShellSummability},
+\texttt{RationalityCarryBridge}: actual summable tails and denominator
+clearing, not merely an abstract recurrence.\\
+Quadratic bounds & \texttt{PaperR8RankMajorant} and
+\texttt{ActualSharpTailMajorantR10}: the actual $Q$ bound and the smaller
+jump-constrained bound recorded in the long paper.\\
+Residue equivalence & \texttt{CofinalWindowEscapeEquivalence} and
+\texttt{R12/OcticWindowBand}: conditional consumer and exact equivalence,
+not an unconditional cofinal producer.\\
+External input & Bugeaud--Laurent and Loxton--van der Poorten for the
+two-prime theorem; no Lean value theorem claimed.\\ \hline
+\end{tabular}
+\end{center}
+The public inventory supplied for this revision pins commit
+\nolinkurl{99f4bf47422abbd8757cbb22b50ba079d764d3a7}; historical hyperlinks in
+the text retain their own revisions.  A source location, a CI build, a
+selected Comparator statement and an axiom audit are different evidence
+items.  None may stand in for the others without its own receipt.
 
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{31}{smooth3Val},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{36}{threePrimeHeight},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{40}{threePrimeKernelQ},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{46}{smoothPrefixExponents},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{53}{smoothPrefixLcm},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{59}{smooth3Val_dvd_threePrimeHeight_of_mem},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{77}{smoothPrefixLcm_dvd_threePrimeHeight},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{84}{pureFirst_mem_smoothPrefixExponents},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{97}{pureSecond_mem_smoothPrefixExponents},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{110}{pureThird_mem_smoothPrefixExponents},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{123}{smoothPrefixLcm_eq_threePrimeHeight}{smooth-prefix LCM},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{163}{SameThreePrimeLogCell},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{169}{threePrimeHeight_eq_of_sameLogCell},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{179}{smoothPrefixLcm_eq_of_sameLogCell}{smooth-prefix LCM cell},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{191}{threePrimeKernelQ_eq_of_sameLogCell},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{204}{positivePrimePowers},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{208}{positivePrimePowers_card},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{219}{one_not_mem_positivePrimePowers},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{229}{positivePrimePowers_disjoint},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{243}{threePrimePositiveJumpSet},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{249}{threePrimePositiveJumpSet_card},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{273}{threePrimeJumpSetWithOrigin},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{278}{threePrimeJumpSetWithOrigin_card}{jump set with the origin},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{294}{threePrimeHeight_firstLogStep},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{305}{threePrimeHeight_secondLogStep},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{316}{threePrimeHeight_thirdLogStep},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{326}{smoothPrefixLcm_firstLogStep}{first-channel step},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{339}{smoothPrefixLcm_secondLogStep}{second-channel step},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{352}{smoothPrefixLcm_thirdLogStep}{third-channel step},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{368}{smoothExponentBox},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{373}{smoothPointHeight},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{377}{smoothHeightFiber},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{384}{smoothHeightFiber_kernel_sum},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{406}{finiteSmoothKernelSum_groupedByHeight}{height-fibre regrouping},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{430}{threePrimeHeight_le_cube},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{443}{kernel_235_origin},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{450}{kernel_235_two},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{458}{kernel_235_three},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{467}{kernel_235_six},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{479}{kernel_235_not_rankOne},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{487}{tailStateStep},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{490}{tailStateStep_eq},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{500}{smoothExponentShell},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{509}{exponent_unique_in_short_interval},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{543}{smoothExponentShell_card_le_dropFirst},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{585}{smoothExponentShell_card_le_dropThird},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{629}{sorted_pair_quadratic},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{646}{smoothExponentShell_card_quadratic}{quadratic shell bound},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{662}{DyadicInternalPower},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{668}{dyadicInternalPower_exponent_unique}{internal-power uniqueness},
-\href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L688}{\leanlabel{dyadicBlockBase235}},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{699}{dyadicBlockBase235_cases}{four-letter dyadic alphabet},
-\lref{Erdos269/ThreePrimeRunningLcm.lean}{711}{dyadicBlockBase235_mem_interval},
-\lref{Erdos269/ResidueEscape.lean}{26}{leastPositiveResidue},
-\lref{Erdos269/ResidueEscape.lean}{31}{leastPositiveResidue_pos_le},
-\lref{Erdos269/ResidueEscape.lean}{52}{leastPositiveResidue_modEq},
-\lref{Erdos269/ResidueEscape.lean}{71}{ResidueEscapesWindow},
-\lref{Erdos269/ResidueEscape.lean}{76}{no_bounded_positive_state_of_residue_escape},
-\lref{Erdos269/ResidueEscape.lean}{96}{residue_le_bound_of_bounded_positive_state},
-\lref{Erdos269/ResidueEscape.lean}{110}{no_bounded_positive_int_state_of_leastPositiveResidue},
-\lref{Erdos269/RestrictedFloorSum.lean}{417}{windowBase},
-\lref{Erdos269/RestrictedFloorSum.lean}{422}{windowForcing},
-\lref{Erdos269/RestrictedFloorSum.lean}{455}{affineRecurrence_window},
-\lref{Erdos269/RestrictedFloorSum.lean}{469}{windowForcing_const_mul},
-\lref{Erdos269/RestrictedFloorSum.lean}{480}{integralCarry_window},
-\lref{Erdos269/RestrictedFloorSum.lean}{548}{smooth3Val_dvd_threePrimeHeight_of_le},
-\lref{Erdos269/RestrictedFloorSum.lean}{581}{integralCarry_cancel_commonFactor},
-\lref{Erdos269/RestrictedFloorSum.lean}{601}{reducedCarry_pos_le_of_commonFactor},
-\lref{Erdos269/RestrictedFloorSum.lean}{612}{reducedIntegralCarry_window},
-\lref{Erdos269/RestrictedFloorSum.lean}{629}{CofinalLocalWindowEscape},
-\lref{Erdos269/RestrictedFloorSum.lean}{645}{no_positive_reducedCarry_of_cofinalLocalWindowEscape},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{31}{smooth3Val}{smooth lattice
-value},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{53}{smoothPrefixLcm}{running least
-common multiple},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{36}{threePrimeHeight}{pure-power
-height},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{40}{threePrimeKernelQ}{lattice
-kernel},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{46}{smoothPrefixExponents}{smooth
-prefix index set},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{123}{smoothPrefixLcm_eq_threePrimeHeight}{running-lcm
-identity},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{77}{smoothPrefixLcm_dvd_threePrimeHeight}{divisibility
-into the height},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{84}{pureFirst_mem_smoothPrefixExponents}{first},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{97}{pureSecond_mem_smoothPrefixExponents}{second},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{110}{pureThird_mem_smoothPrefixExponents}{third},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{430}{threePrimeHeight_le_cube}{cubic
-majorant},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{163}{SameThreePrimeLogCell}{cell
-relation},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{179}{smoothPrefixLcm_eq_of_sameLogCell}{cell
-constancy of the running value},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{169}{threePrimeHeight_eq_of_sameLogCell}{cell
-constancy of the height},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{191}{threePrimeKernelQ_eq_of_sameLogCell}{cell
-constancy of the kernel},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{326}{smoothPrefixLcm_firstLogStep}{first},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{339}{smoothPrefixLcm_secondLogStep}{second},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{352}{smoothPrefixLcm_thirdLogStep}{third},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{294}{threePrimeHeight_firstLogStep}{first
-height step},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{305}{threePrimeHeight_secondLogStep}{second},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{316}{threePrimeHeight_thirdLogStep}{third},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{249}{threePrimePositiveJumpSet_card}{positive
-jump count},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{278}{threePrimeJumpSetWithOrigin_card}{jump
-count with the origin},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{208}{positivePrimePowers_card}{channel
-cardinality},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{229}{positivePrimePowers_disjoint}{channel
-disjointness},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{219}{one_not_mem_positivePrimePowers}{exclusion
-of the origin},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{204}{positivePrimePowers}{positive
-power sets},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{368}{smoothExponentBox}{exponent
-box},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{377}{smoothHeightFiber}{height
-fibre},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{406}{finiteSmoothKernelSum_groupedByHeight}{height-fibre
-normal form},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{384}{smoothHeightFiber_kernel_sum}{fibre
-sum},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{373}{smoothPointHeight}{point
-height},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{487}{tailStateStep}{variable-base
-tail step},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{490}{tailStateStep_eq}{that names its
-expanded form},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{500}{smoothExponentShell}{smooth
-exponent shell},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{509}{exponent_unique_in_short_interval}{short-interval
-uniqueness},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{585}{smoothExponentShell_card_le_dropThird}{third-coordinate
-projection},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{543}{smoothExponentShell_card_le_dropFirst}{first-coordinate
-projection},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{646}{smoothExponentShell_card_quadratic}{quadratic
-shell bound},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{629}{sorted_pair_quadratic}{sorted
-quadratic estimate},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{479}{kernel_235_not_rankOne}{non-separation
-witness},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{443}{kernel_235_origin}{origin},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{450}{kernel_235_two}{value at two},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{458}{kernel_235_three}{value at
-three},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{467}{kernel_235_six}{value at six},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{721}{kernel_235_minor_eq_neg_one_fifteen}{rank-two
-certificate},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{668}{dyadicInternalPower_exponent_unique}{checked
-internal-power uniqueness lemma},
-\href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L688}{dyadic
-block base},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{699}{dyadicBlockBase235_cases}{exact
-four-case alphabet},
-\lword{Erdos269/ThreePrimeRunningLcm.lean}{711}{dyadicBlockBase235_mem_interval}{bounded-radix
-consequence},
-\lword{Erdos269/RestrictedFloorSum.lean}{548}{smooth3Val_dvd_threePrimeHeight_of_le}{checked
-absorption},
-\lword{Erdos269/RestrictedFloorSum.lean}{581}{integralCarry_cancel_commonFactor}{checked
-cancellation},
-\lword{Erdos269/RestrictedFloorSum.lean}{601}{reducedCarry_pos_le_of_commonFactor}{checked
-bound transfer},
-\lword{Erdos269/RestrictedFloorSum.lean}{612}{reducedIntegralCarry_window}{checked
-window transfer},
-\lword{Erdos269/RestrictedFloorSum.lean}{417}{windowBase}{window base},
-\lword{Erdos269/RestrictedFloorSum.lean}{422}{windowForcing}{window forcing},
-\lword{Erdos269/RestrictedFloorSum.lean}{480}{integralCarry_window}{checked
-window identity},
-\lword{Erdos269/ResidueEscape.lean}{26}{leastPositiveResidue}{canonical
-representative},
-\lword{Erdos269/ResidueEscape.lean}{31}{leastPositiveResidue_pos_le}{positive
-range},
-\lword{Erdos269/ResidueEscape.lean}{52}{leastPositiveResidue_modEq}{congruence
-to the source integer},
-\lword{Erdos269/RestrictedFloorSum.lean}{629}{CofinalLocalWindowEscape}{cofinal
-local-window escape condition},
-\lword{Erdos269/ResidueEscape.lean}{76}{no_bounded_positive_state_of_residue_escape}{finite
-contradiction},
-\lword{Erdos269/ResidueEscape.lean}{110}{no_bounded_positive_int_state_of_leastPositiveResidue}{integer
-form of the contradiction},
-\lword{Erdos269/ResidueEscape.lean}{138}{leastPositiveResidue_eq_natAbs_of_pos_le_modEq}{exact
-least-positive-residue classifier},
-\lword{Erdos269/RestrictedFloorSum.lean}{645}{no_positive_reducedCarry_of_cofinalLocalWindowEscape}{reduced-carry
-extinction theorem},
-\href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L689}{absorbed-carry extinction theorem},
-\lword{Erdos269/BoundedRadixTailEscape.lean}{89}{boundedRadix_zero_or_cofinal_far}{checked},
-\lword{Erdos269/RestrictedFloorSum.lean}{497}{leastPositiveResidue_windowForcing_eq_carry}{checked},
-\lword{Erdos269/WeightedPhaseCarry.lean}{109}{carry_eq_residueDigit_add_coboundary}{residue--coboundary form},
-\lword{Erdos269/WeightedPhaseCarry.lean}{293}{CartierRealisation}{symbolic realisation},
-\lword{Erdos269/WeightedPhaseCarry.lean}{334}{finite_realisedSpan_of_factorisation}{checked},
-\lword{Erdos269/WeightedPhaseCarry.lean}{150}{carryResidue_mem_interval}{carry interval},
-\lword{Erdos269/WeightedPhaseCarry.lean}{157}{residueDigit_mem_interval}{digit interval},
-\lword{Erdos269/ThreeChannelBlockRigidity.lean}{59}{channelBlockNull_iff_channelPotential}{potential
-classifier},
-\lword{Erdos269/CarryLiftExtinction.lean}{178}{no_carryLift_of_errorBound_below_twoPow}{one-index
-extinction},
-\lword{Erdos269/CarryLiftExtinction.lean}{238}{no_bounded_carryLift_of_blockNull_twoAnchors}{uniform
-extinction},
-\lword{Erdos269/CarryLiftExtinction.lean}{289}{binaryLift_twoAnchors_force_firstBlock_sum_one}{first-block
-sum},
-\lword{Erdos269/CarryLiftExtinction.lean}{308}{no_unitAccurateLift_with_twoAnchors_and_firstTwoBlockNull}{four-state
-obstruction}.
+% BEGIN pin-faithful-source-inventory
+\section{Pinned Lean sources}
+\label{sec:pinned-lean-sources}
+The following declarations are this note's pin-faithful source inventory.
+Line numbers are those of the commit named by \texttt{\textbackslash commit}.
+\begin{itemize}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{123}{smoothPrefixLcm_eq_threePrimeHeight}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{179}{smoothPrefixLcm_eq_of_sameLogCell}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{326}{smoothPrefixLcm_firstLogStep}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{339}{smoothPrefixLcm_secondLogStep}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{352}{smoothPrefixLcm_thirdLogStep}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{278}{threePrimeJumpSetWithOrigin_card}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{406}{finiteSmoothKernelSum_groupedByHeight}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{699}{dyadicBlockBase235_cases}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{668}{dyadicInternalPower_exponent_unique}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{646}{smoothExponentShell_card_quadratic}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{31}{smooth3Val}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{36}{threePrimeHeight}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{40}{threePrimeKernelQ}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{46}{smoothPrefixExponents}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{53}{smoothPrefixLcm}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{59}{smooth3Val_dvd_threePrimeHeight_of_mem}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{77}{smoothPrefixLcm_dvd_threePrimeHeight}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{84}{pureFirst_mem_smoothPrefixExponents}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{97}{pureSecond_mem_smoothPrefixExponents}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{110}{pureThird_mem_smoothPrefixExponents}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{163}{SameThreePrimeLogCell}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{169}{threePrimeHeight_eq_of_sameLogCell}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{191}{threePrimeKernelQ_eq_of_sameLogCell}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{204}{positivePrimePowers}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{208}{positivePrimePowers_card}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{219}{one_not_mem_positivePrimePowers}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{229}{positivePrimePowers_disjoint}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{243}{threePrimePositiveJumpSet}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{249}{threePrimePositiveJumpSet_card}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{273}{threePrimeJumpSetWithOrigin}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{294}{threePrimeHeight_firstLogStep}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{305}{threePrimeHeight_secondLogStep}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{316}{threePrimeHeight_thirdLogStep}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{368}{smoothExponentBox}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{373}{smoothPointHeight}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{377}{smoothHeightFiber}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{384}{smoothHeightFiber_kernel_sum}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{430}{threePrimeHeight_le_cube}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{443}{kernel_235_origin}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{450}{kernel_235_two}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{458}{kernel_235_three}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{467}{kernel_235_six}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{479}{kernel_235_not_rankOne}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{487}{tailStateStep}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{490}{tailStateStep_eq}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{500}{smoothExponentShell}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{509}{exponent_unique_in_short_interval}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{543}{smoothExponentShell_card_le_dropFirst}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{585}{smoothExponentShell_card_le_dropThird}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{629}{sorted_pair_quadratic}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{662}{DyadicInternalPower}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{711}{dyadicBlockBase235_mem_interval}
+\item \lref{Erdos269/ResidueEscape.lean}{26}{leastPositiveResidue}
+\item \lref{Erdos269/ResidueEscape.lean}{31}{leastPositiveResidue_pos_le}
+\item \lref{Erdos269/ResidueEscape.lean}{52}{leastPositiveResidue_modEq}
+\item \lref{Erdos269/ResidueEscape.lean}{71}{ResidueEscapesWindow}
+\item \lref{Erdos269/ResidueEscape.lean}{76}{no_bounded_positive_state_of_residue_escape}
+\item \lref{Erdos269/ResidueEscape.lean}{96}{residue_le_bound_of_bounded_positive_state}
+\item \lref{Erdos269/ResidueEscape.lean}{110}{no_bounded_positive_int_state_of_leastPositiveResidue}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{417}{windowBase}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{422}{windowForcing}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{455}{affineRecurrence_window}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{469}{windowForcing_const_mul}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{480}{integralCarry_window}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{548}{smooth3Val_dvd_threePrimeHeight_of_le}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{581}{integralCarry_cancel_commonFactor}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{601}{reducedCarry_pos_le_of_commonFactor}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{612}{reducedIntegralCarry_window}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{629}{CofinalLocalWindowEscape}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{645}{no_positive_reducedCarry_of_cofinalLocalWindowEscape}
+\item \lref{Erdos269/ThreePrimeRunningLcm.lean}{721}{kernel_235_minor_eq_neg_one_fifteen}
+\item \lref{Erdos269/ResidueEscape.lean}{138}{leastPositiveResidue_eq_natAbs_of_pos_le_modEq}
+\item \lref{Erdos269/BoundedRadixTailEscape.lean}{89}{boundedRadix_zero_or_cofinal_far}
+\item \lref{Erdos269/RestrictedFloorSum.lean}{497}{leastPositiveResidue_windowForcing_eq_carry}
+\item \lref{Erdos269/WeightedPhaseCarry.lean}{109}{carry_eq_residueDigit_add_coboundary}
+\item \lref{Erdos269/WeightedPhaseCarry.lean}{293}{CartierRealisation}
+\item \lref{Erdos269/WeightedPhaseCarry.lean}{334}{finite_realisedSpan_of_factorisation}
+\item \lref{Erdos269/WeightedPhaseCarry.lean}{150}{carryResidue_mem_interval}
+\item \lref{Erdos269/WeightedPhaseCarry.lean}{157}{residueDigit_mem_interval}
+\item \lref{Erdos269/ThreeChannelBlockRigidity.lean}{59}{channelBlockNull_iff_channelPotential}
+\item \lref{Erdos269/CarryLiftExtinction.lean}{178}{no_carryLift_of_errorBound_below_twoPow}
+\item \lref{Erdos269/CarryLiftExtinction.lean}{238}{no_bounded_carryLift_of_blockNull_twoAnchors}
+\item \lref{Erdos269/CarryLiftExtinction.lean}{289}{binaryLift_twoAnchors_force_firstBlock_sum_one}
+\item \lref{Erdos269/CarryLiftExtinction.lean}{308}{no_unitAccurateLift_with_twoAnchors_and_firstTwoBlockNull}
+\end{itemize}
+% END pin-faithful-source-inventory
 
 \begin{thebibliography}{99}
-\small\raggedright
-\setlength{\itemsep}{0pt}
-\bibitem{erdosgraham1980} P.~Erd\H{o}s and R.~L. Graham,
-  \href{https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf}{\emph{Old
-  and New Problems and Results in Combinatorial Number Theory}},
-  Monogr. Enseign. Math. 28, Geneva, 1980, p.~65.  For a possibly infinite
-  prime set $Q$, the page states the infinite-$Q$ irrationality and asks what
-  happens for finite $Q$ with more than one element.
-\bibitem{erdos1988} P.~Erd\H{o}s, \emph{On the irrationality of certain series:
-  problems and results}, in A.~Baker (ed.), \emph{New Advances in Transcendence
-  Theory}, Cambridge UP, 1988, pp.~102--109,
-  doi:\href{https://doi.org/10.1017/CBO9780511897184.009}{10.1017/CBO9780511897184.009}.
-\bibitem{erdos1974letter} P.~Erd\H{o}s,
-  \href{https://www.fq.math.ca/Scanned/12-4/letter.pdf}{\emph{Letter to the
-  Editor}} (written 1~January 1973), Fibonacci Quart. \textbf{12} (1974),
-  no.~4, p.~335.  The letter poses the full series as a conjecture and states,
-  without proof, that the sum over the distinct running-LCM values is
-  irrational.
-\bibitem{erdosproblems} T.~F. Bloom,
-  \href{https://www.erdosproblems.com/269}{\emph{Erd\H{o}s Problem \#269}},
-  \texttt{erdosproblems.com/269}, accessed 28 July 2026 (page displays
-  ``last edited 28 December 2025'').  As accessed, the record labels the
-  finite-support problem open, cites \texttt{[ErGr80, p.~65]} and
-  \texttt{[Er88c, p.~106]}, routes to the 1974 letter on p.~335, records the
-  infinite-prime and de-duplicated variants, and describes its status as the
-  website owner's present assessment, with no guarantee of literature
-  completeness.
-\bibitem{bugeaudlaurent2023} Y.~Bugeaud and M.~Laurent,
-  \href{https://irma.math.unistra.fr/~bugeaud/travaux/BuMLAA.pdf}
-  {\emph{Transcendence and continued fraction expansion of values of
-  Hecke--Mahler series}}, Acta Arith. \textbf{209} (2023), 59--90,
-  doi:\href{https://doi.org/10.4064/aa220323-18-1}{10.4064/aa220323-18-1};
-  arXiv:\href{https://arxiv.org/abs/2203.12901v1}{2203.12901v1}.
-  Theorem~1.1 is on p.~3 of the linked Online First version, whose
-  introduction, pp.~1--2, credits the case $\rho=0$ to Mahler and to Loxton
-  and van der Poorten.
-\bibitem{loxtonvdp1977} J.~H. Loxton and A.~J. van der Poorten,
-  \emph{Arithmetic properties of certain functions in several variables III},
-  Bull. Austral. Math. Soc. \textbf{16} (1977), 15--47,
-  doi:\href{https://doi.org/10.1017/S0004972700022978}{10.1017/S0004972700022978}.
-\bibitem{fan2026comment} S.~Fan, comment on Erd\H{o}s Problem \#269,
-  \href{https://www.erdosproblems.com/forum/thread/269\#post-7218}
-  {erdosproblems.com forum, thread 269, post 7218}, 26 June 2026.  The comment
-  gives the running-LCM identity for every $|P|$, the two-channel
-  factorisation, the Hecke--Mahler reduction, and the transcendence
-  conclusion for $|P|=2$; follow-up comments there note the extension to
-  arbitrary coprime pairs.
-\bibitem{erdosstraus1974} P.~Erd\H{o}s and E.~G. Straus,
-  \emph{On the irrationality of certain series}, Pacific J. Math.
-  \textbf{55} (1974), no.~1, 85--92,
-  doi:\href{https://doi.org/10.2140/pjm.1974.55.85}{10.2140/pjm.1974.55.85}.
-\bibitem{hancltijdeman2004} J.~Han\v{c}l and R.~Tijdeman,
-  \emph{On the irrationality of Cantor and Ahmes series}, Publ. Math. Debrecen
-  \textbf{65} (2004), no.~3--4, 371--380,
-  doi:\href{https://doi.org/10.5486/PMD.2004.3254}{10.5486/PMD.2004.3254}.
-\bibitem{erdostaylor1957} P.~Erd\H{o}s and S.~J. Taylor,
-  \emph{On the set of points of convergence of a lacunary trigonometric series
-  and the equidistribution properties of related sequences}, Proc. London
-  Math. Soc. (3) \textbf{7} (1957), no.~1, 598--615,
-  doi:\href{https://doi.org/10.1112/plms/s3-7.1.598}{10.1112/plms/s3-7.1.598}.
-\bibitem{fan2026strongly} S.~Fan,
-  \href{https://arxiv.org/abs/2607.14071v1}{\emph{Strongly complete sets and a
-  conjecture of Erd\H{o}s}}, arXiv:2607.14071v1, 15~July 2026.  The paper
-  proves the conjecture listed as Erd\H{o}s Problem~\#254.  Lemma~3.1, p.~7,
-  proves that the $\theta\in\mathbb R/\mathbb Z$ with
-  $\operatorname{dist}(a_n\theta,\mathbb Z)\to0$ form a countable set for
-  every unbounded sequence of positive integers with $a_{n+1}\le\lambda a_n$
-  for a fixed $\lambda>1$;
-  the preceding paragraph credits the phenomenon to Eggleston (1952) and more
-  general results to Erd\H{o}s and Taylor (1957).
+\bibitem{erdosgraham1980} Paul Erd\H{o}s and Ronald L. Graham,
+  \emph{Old and New Problems and Results in Combinatorial Number Theory}, Monographies de L'Enseignement Math\'{e}matique \textbf{28}, L'Enseignement Math\'{e}matique (1980),
+  \href{https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf}{source}.
+\bibitem{erdos1988} Paul Erd\H{o}s,
+  \emph{On the irrationality of certain series: problems and results}, in \emph{New Advances in Transcendence Theory}, Cambridge University Press (1988), 102--109,
+  \href{https://doi.org/10.1017/CBO9780511897184.009}{doi:\nolinkurl{10.1017/CBO9780511897184.009}}.
+\bibitem{erdos1974letter} Paul Erd\H{o}s,
+  \emph{Letter to the Editor}, Fibonacci Quarterly \textbf{12}, no.~4 (1974), 335,
+  \href{https://www.fq.math.ca/Scanned/12-4/letter.pdf}{source}.
+\bibitem{erdosproblems} Thomas F. Bloom,
+  \emph{Erd\H{o}s Problem \#269} (2026),
+  \href{https://www.erdosproblems.com/269}{source}. Catalogue snapshot cited in the supplied manuscript: 28 July 2026.
+\bibitem{bugeaudlaurent2023} Yann Bugeaud and Michel Laurent,
+  \emph{Transcendence and continued fraction expansion of values of Hecke--Mahler series}, Acta Arithmetica \textbf{209} (2023), 59--90,
+  \href{https://doi.org/10.4064/aa220323-18-1}{doi:\nolinkurl{10.4064/aa220323-18-1}}; arXiv:\href{https://arxiv.org/abs/2203.12901}{2203.12901}.
+\bibitem{loxtonvdp1977} John H. Loxton and Alfred J. van der Poorten,
+  \emph{Arithmetic properties of certain functions in several variables III}, Bulletin of the Australian Mathematical Society \textbf{16} (1977), 15--47,
+  \href{https://doi.org/10.1017/S0004972700022978}{doi:\nolinkurl{10.1017/S0004972700022978}}.
+\bibitem{fan2026comment} Steve Fan,
+  \emph{Comment on Erd\H{o}s Problem \#269, thread 269, post 7218} (2026),
+  \href{https://www.erdosproblems.com/forum/thread/269#post-7218}{source}. 26 June 2026, thread 269, post 7218; priority retained from the supplied record.
+\bibitem{erdosstraus1974} Paul Erd\H{o}s and Ernst G. Straus,
+  \emph{On the irrationality of certain series}, Pacific Journal of Mathematics \textbf{55}, no.~1 (1974), 85--92,
+  \href{https://doi.org/10.2140/pjm.1974.55.85}{doi:\nolinkurl{10.2140/pjm.1974.55.85}}.
+\bibitem{hancltijdeman2004} Jaroslav Han\v{c}l and Robert Tijdeman,
+  \emph{On the irrationality of Cantor and Ahmes series}, Publicationes Mathematicae Debrecen \textbf{65}, no.~3--4 (2004), 371--380,
+  \href{https://doi.org/10.5486/PMD.2004.3254}{doi:\nolinkurl{10.5486/PMD.2004.3254}}.
+\bibitem{erdostaylor1957} Paul Erd\H{o}s and S. James Taylor,
+  \emph{On the set of points of convergence of a lacunary trigonometric series and the equidistribution properties of related sequences}, Proceedings of the London Mathematical Society \textbf{s3-7}, no.~1 (1957), 598--615,
+  \href{https://doi.org/10.1112/plms/s3-7.1.598}{doi:\nolinkurl{10.1112/plms/s3-7.1.598}}.
+\bibitem{fan2026strongly} Steve Fan,
+  \emph{Strongly complete sets and a conjecture of Erd\H{o}s} (2026),
+  \href{https://arxiv.org/abs/2607.14071v1}{source}; arXiv:\href{https://arxiv.org/abs/2607.14071}{2607.14071}. The cited Lemma~3.1 is in arXiv v1, 15 July 2026.
+\bibitem{hancltijdeman2008} Jaroslav Han\v{c}l and Robert Tijdeman,
+  \emph{On the irrationality of polynomial Cantor series}, Acta Arithmetica \textbf{133}, no.~1 (2008), 37--52,
+  \href{https://doi.org/10.4064/aa133-1-3}{doi:\nolinkurl{10.4064/aa133-1-3}}.
+\bibitem{lucaouaknineworrell2025} Florian Luca, Jo\"{e}l Ouaknine and James Worrell,
+  \emph{Transcendence of Hecke--Mahler Series}, Bulletin of the London Mathematical Society \textbf{57}, no.~5 (2025), 1360--1368,
+  \href{https://doi.org/10.1112/blms.70033}{doi:\nolinkurl{10.1112/blms.70033}}; arXiv:\href{https://arxiv.org/abs/2412.07908}{2412.07908}. Numbered references use the published article.
+\bibitem{kebis2024echoing} Pavol Kebis, Florian Luca, Jo\"{e}l Ouaknine, Andrew Scoones and James Worrell,
+  \emph{On Transcendence of Numbers Related to Sturmian and Arnoux-Rauzy Words}, in \emph{51st International Colloquium on Automata, Languages, and Programming (ICALP 2024)}, Leibniz International Proceedings in Informatics \textbf{297}, Schloss Dagstuhl -- Leibniz-Zentrum f\"{u}r Informatik (2024), 144:1--144:15,
+  \href{https://doi.org/10.4230/LIPIcs.ICALP.2024.144}{doi:\nolinkurl{10.4230/LIPIcs.ICALP.2024.144}}.
+\bibitem{tijdemanmeijer1974} Robert Tijdeman and H. G. Meijer,
+  \emph{On integers generated by a finite number of fixed primes}, Compositio Mathematica \textbf{29}, no.~3 (1974), 273--286,
+  \href{https://www.numdam.org/article/CM_1974__29_3_273_0.pdf}{source}.
+\bibitem{languasco2025} Alessandro Languasco, Florian Luca, Pieter Moree and Alain Togb\'{e},
+  \emph{Sequences of integers generated by two fixed primes}, Abhandlungen aus dem Mathematischen Seminar der Universität Hamburg \textbf{95} (2025), 123--148,
+  \href{https://doi.org/10.1007/s12188-025-00293-9}{doi:\nolinkurl{10.1007/s12188-025-00293-9}}; arXiv:\href{https://arxiv.org/abs/2309.12806}{2309.12806}.
+\bibitem{kovactao2024} Vjekoslav Kova\v{c} and Terence Tao,
+  \emph{On several irrationality problems for Ahmes series}, Acta Mathematica Hungarica \textbf{175} (2025), 572--608,
+  \href{https://doi.org/10.1007/s10474-025-01528-0}{doi:\nolinkurl{10.1007/s10474-025-01528-0}}; arXiv:\href{https://arxiv.org/abs/2406.17593}{2406.17593}.
+\bibitem{afperdosstraus2020} Angeliki Koutsoukou-Argyraki and Wenda Li,
+  \emph{Irrationality Criteria for Series by Erd\H{o}s and Straus}, Archive of Formal Proofs (2020),
+  \href{https://isa-afp.org/entries/Irrational_Series_Erdos_Straus.html}{source}. Entry dated 12 May 2020; proof-document version consulted: 6 February 2026.
+\bibitem{adamczewskibugeaud2007} Boris Adamczewski and Yann Bugeaud,
+  \emph{On the complexity of algebraic numbers I. Expansions in integer bases},
+  Annals of Mathematics \textbf{165}, no.~2 (2007), 547--565,
+  \href{https://doi.org/10.4007/annals.2007.165.547}{doi:\nolinkurl{10.4007/annals.2007.165.547}}.
+\bibitem{adamczewskifaverjon2026} Boris Adamczewski and Colin Faverjon,
+  \emph{Mahler's method in several variables and finite automata},
+  Annals of Mathematics \textbf{204}, no.~2 (2026), 455--533,
+  \href{https://doi.org/10.4007/annals.2026.204.2.1}{doi:\nolinkurl{10.4007/annals.2026.204.2.1}}.
+  Online 13 September 2026; locators here refer to the
+  \href{https://faverjon.perso.math.cnrs.fr/AdamczewskiFaverjon_MahlerFiniteAutomata.pdf}{68-page author manuscript}.
 \end{thebibliography}
 
 \companionpapercontext

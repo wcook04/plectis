@@ -997,7 +997,7 @@
           "title": "Reciprocal-Tail Rigidity for Erdős Problem 243",
           "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
           "rendered": "paper/243/erdos-243-reciprocal-tail-rigidity.pdf",
-          "formal_source_ref": "99f4bf47422abbd8757cbb22b50ba079d764d3a7",
+          "formal_source_ref": "3d6d938d696fed0fb71dd55115a18a73738ff223",
           "role": "Standalone theorem-led problem note for Erdős #243 and the bounded-rise fresh-modulus barrier.",
           "anchor_label_allowlist": [
             "res:barrier"
@@ -1081,14 +1081,14 @@
           "source": "paper/243/erdos243-reciprocal-tail-reasoning-surface.tex",
           "rendered": "paper/243/erdos243-reciprocal-tail-reasoning-surface.pdf",
           "role": "Historical full reasoning record for Erdős #243.",
-          "formal_source_ref": "92b88dc1bbe099aa73bcc900c3c405e9ba5c2334"
+          "formal_source_ref": "3d6d938d696fed0fb71dd55115a18a73738ff223"
         },
         {
           "title": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
           "source": "paper/251/erdos251-prime-gap-reasoning-surface.tex",
           "rendered": "paper/251/erdos251-prime-gap-reasoning-surface.pdf",
           "role": "Historical full reasoning record for Erdős #251.",
-          "formal_source_ref": "ee650b32b8b2cb98b94e5500df5370d85f7403b8"
+          "formal_source_ref": "3d6d938d696fed0fb71dd55115a18a73738ff223"
         },
         {
           "title": "The Three-Prime Running LCM: Complete Reasoning Record",
@@ -8199,6 +8199,10 @@
             "ErdosProblems.Erdos68.PaperCompleteLiminf",
             "ErdosProblems.Erdos243.PaperCompleteR7.LcmDefect",
             "ErdosProblems.Erdos243.PaperCompleteR7.Frontier",
+            "ErdosProblems.Erdos243.ProtectedEpochEnergy",
+            "ErdosProblems.Erdos243.RecordIncrementBarrier",
+            "ErdosProblems.Erdos243.SaturatedSquareTransport",
+            "ErdosProblems.Erdos1041.PaperPrimitiveCompletionR10",
             "ErdosProblems.Erdos1049.PaperR17.SourceConsumers"
           ]
         },
@@ -10107,10 +10111,26 @@
           ]
         },
         {
+          "id": "ErdosProblems.Erdos243.ProtectedEpochEnergy",
+          "path": "lean/ErdosProblems/Erdos243/ProtectedEpochEnergy.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos243.PrimitiveRecordBarrier"
+          ]
+        },
+        {
           "id": "ErdosProblems.Erdos243.ReciprocalTailRigidity",
           "path": "lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean",
           "role": "Lean proof module",
           "imports": []
+        },
+        {
+          "id": "ErdosProblems.Erdos243.RecordIncrementBarrier",
+          "path": "lean/ErdosProblems/Erdos243/RecordIncrementBarrier.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos243.PrimitiveRecordBarrier"
+          ]
         },
         {
           "id": "ErdosProblems.Erdos243.RepairEntropy",
@@ -10120,6 +10140,14 @@
             "ErdosProblems.Erdos243.WeightedCRTRepair",
             "ErdosProblems.Erdos243.SparseResetRecovery",
             "ErdosProblems.Erdos243.PrimitivePrefixRigidity"
+          ]
+        },
+        {
+          "id": "ErdosProblems.Erdos243.SaturatedSquareTransport",
+          "path": "lean/ErdosProblems/Erdos243/SaturatedSquareTransport.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos243.PrimitiveRecordBarrier"
           ]
         },
         {
@@ -13246,6 +13274,7 @@
           "imports": [
             "ErdosProblems.Erdos1041.CriticalTwoRootProximity",
             "ErdosProblems.Erdos1041.NewtonFlowRaySeparation",
+            "ErdosProblems.Erdos1041.PaperPrimitiveCompletionR10",
             "ErdosProblems.Erdos1049.AdelicHeightBridge",
             "ErdosProblems.Erdos1049.BezoutPluckerJets",
             "ErdosProblems.Erdos1049.HermitePadeNoGo",
@@ -13263,6 +13292,9 @@
             "ErdosProblems.Erdos243.ReciprocalTailRigidity",
             "ErdosProblems.Erdos243.SparseResetRecovery",
             "ErdosProblems.Erdos243.WeightedCRTRepair",
+            "ErdosProblems.Erdos243.ProtectedEpochEnergy",
+            "ErdosProblems.Erdos243.RecordIncrementBarrier",
+            "ErdosProblems.Erdos243.SaturatedSquareTransport",
             "ErdosProblems.Erdos249.CyclotomicAnchoredKill",
             "ErdosProblems.Erdos249.FiniteEulerSieve",
             "ErdosProblems.Erdos249.FullDepthRayAmplifier",
@@ -14426,11 +14458,11 @@
     "lean_toolchain": "leanprover/lean4:v4.29.1",
     "repository": "https://github.com/wcook04/plectis-erdos",
     "formal_source": {
-      "ref": "3f5ea2f34c2af25bf270a7a2f484a1602133b9ff",
+      "ref": "beaf0866976c908539fba0a96075374dd658f44a",
       "ref_kind": "commit",
       "publication_state": "published_committed_checkpoint",
       "relationship_to_last_tag": "post_tag_checkpoint",
-      "public_tag": "formal-source-2026-09-16"
+      "public_tag": "formal-source-2026-09-16-r1"
     },
     "public_projection": {
       "posture": "self_contained_public_projection_from_a_larger_ongoing_research_workflow",
@@ -15990,7 +16022,7 @@
         "source": "paper/251/erdos-251-prime-gap-dyadic-series.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 47
+        "line": 48
       }
     },
     {
@@ -16026,7 +16058,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 974
+        "line": 1038
       }
     },
     {
@@ -16062,7 +16094,7 @@
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 126
+        "line": 120
       }
     },
     {
@@ -16074,7 +16106,7 @@
         "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 57
+        "line": 54
       }
     },
     {
@@ -16086,7 +16118,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "Erdős #243",
-        "line": 129
+        "line": 140
       }
     },
     {
@@ -16098,7 +16130,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "exact nonintegrality of every reduced tail",
-        "line": 582
+        "line": 623
       }
     },
     {
@@ -16110,7 +16142,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "actual cofinal local-window escape",
-        "line": 588
+        "line": 629
       }
     },
     {
@@ -16119,10 +16151,10 @@
       "open_target_claim": "erdos_269",
       "statement": "Represent D_{2,3,5} faithfully by a specified two-dimensional Mahler-type value theorem with every hypothesis verified, give a conditional theorem under explicit logarithmic nondegeneracy, or prove no such representation exists.",
       "paper_anchor": {
-        "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
+        "source": "paper/269/erdos269-running-lcm-reasoning-surface.tex",
         "environment": "problem",
         "title": "function-faithful two-dimensional representation",
-        "line": 597
+        "line": 1738
       }
     },
     {
@@ -16134,7 +16166,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "global overlap-height growth",
-        "line": 674
+        "line": 769
       }
     },
     {
@@ -16146,7 +16178,7 @@
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "first-harmonic anti-concentration on supplier fibres",
-        "line": 644
+        "line": 666
       }
     },
     {
@@ -16158,7 +16190,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "weakest native recurrence criterion",
-        "line": 988
+        "line": 1052
       }
     },
     {
@@ -16170,7 +16202,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "actual-orbit invariant",
-        "line": 997
+        "line": 1061
       }
     },
     {
@@ -16182,7 +16214,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 1007
+        "line": 1071
       }
     }
   ],

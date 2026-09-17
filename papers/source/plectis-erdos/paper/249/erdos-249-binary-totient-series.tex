@@ -5,7 +5,7 @@
 \renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
 \renewcommand{\commitshort}{99f4bf47422a}
 \hypersetup{
-  pdftitle={A basis for the 2-kernel of Euler's totient},
+  pdftitle={Bases and integral relations for the k-kernel of Euler's totient},
   pdfsubject={Erdős Problem Notes: Problem 249},
   pdfkeywords={irrationality, Euler totient, k-regular sequences, 2-kernel, Lambert series, Möbius inversion, linear independence, Lean 4},
 }
@@ -19,39 +19,32 @@
 % Status tag from the claim taxonomy, printed on every numbered result.
 \newcommand{\stag}[1]{{\normalfont\footnotesize\textsc{[#1]}}}
 
-\runninghead{Erd\H{o}s \#249: a basis for the dyadic totient sections}
-\title{A Basis for the 2-Kernel of Euler's Totient}
+\runninghead{Erd\H{o}s \#249: bases for totient sections}
+\title{Bases and Integral Relations for the $k$-Kernel of Euler's Totient}
 \subtitle{Exact finite-level ranks and consequences for Erd\H{o}s
 Problem~\#249}
 \author{Will Cook}
-\date{July 2026}
+\date{July 2026; revised 16 September 2026}
 
 \begin{document}
 \maketitle
 \noteprovenance
 
 \begin{abstract}
-For every integer $k\ge2$ and every $e\ge1$, the sections of Euler's totient
-through level $e$ have rational rank $k^e+1$. The zero-residue sections and
-the residues not divisible by $k$ form a basis. Explicit scalar reductions
-give unique integral coordinates and a basis of all integral relations. The
-arithmetic step is independence: divisibility makes an evaluation matrix
-diagonal modulo a prime, with nonzero diagonal entries. This CRT--Dirichlet
-argument proves the all-base theorem ordinarily in the note. Lean also checks
-canonical-family independence and the complete all-base rank unconditionally.
-Martin's theorem supplies a broader external
-affine-independence result, while Coons proved non-$k$-regularity of $\ph$;
-the exact ranks recover that theorem and quantify it level by level.
-A separate ordinary argument uses isolated blocks to prove that
-$\sum_{n\ge1}(\ph(n)\bmod m)2^{-n}$ is irrational for every $m\ge3$,
-with a complete rationality classification for dyadic residue observables.
-For $S=\sum_{n\ge1}\ph(n)2^{-n}$, one nonintegral tail shift forces
-full-depth certificates in every sufficiently late pair of multipliers.
-If $S$ were rational, one tempered integral carry would simultaneously have
-section rank at least $2^e-1$ at every depth and one common eventual period
-modulo a fixed multiplier. These necessary conditions do not decide $S$: its
-irrationality is equivalent to an explicit central-residue gap for every
-prospective denominator, whose arithmetic supply remains open.
+For integers $k\ge2$ and $e\ge1$, we give a basis of the totient sections
+$n\mapsto\varphi(k^jn+r)$ through level $e$. Their rational rank is
+$k^e+1$. Explicit scalar reductions give unique integral coordinates and a
+basis of all integral relations. The independence argument uses
+CRT--Dirichlet separation, an earlier method of Yazdani credited to Shallit;
+Martin's theorem already implies the requisite affine independence, and
+Coons previously proved non-$k$-regularity. The contribution here is the
+finite-level normal form, not those qualitative obstructions.
+We also prove irrationality of $\sum_{n\ge1}(\varphi(n)\bmod m)2^{-n}$
+for every $m\ge3$ and classify rational dyadic residue observables.
+For $S=\sum_{n\ge1}\varphi(n)2^{-n}$, we prove a seed-to-ray amplification
+and record an equivalent central-residue condition. These results do not
+establish irrationality of $S$. Ordinary proofs are given in the note;
+formal counterparts and their precise scope are identified separately.
 \end{abstract}
 
 
@@ -63,8 +56,11 @@ Coons proved that $\ph$ is not $k$-regular for any $k\ge2$~\cite[Thm.~3.2]{coons
 and Martin's Theorem~1 implies that the functions $n\mapsto\ph(a_in+b_i)$ are
 linearly independent along pairwise nonproportional affine forms with integer
 coefficients and positive slopes~\cite[Thm.~1]{martin-phi-inequalities}.
-The following theorem gives the exact rank and a unique coordinate system at
-every finite level; Section~\ref{sec:rank} proves its independence step directly.
+The following theorem gives the exact rank, unique integral coordinates,
+and, in Corollary~\ref{cor:integral-normal-form}, all integral relations at
+every finite level. Section~\ref{sec:rank} gives a direct proof of the
+independence step, with the antecedent of its separation method credited
+there. No priority claim is made for affine independence.
 \begin{theorem}[exact rank of every totient $k$-kernel truncation]
 \label{thm:kkernelrank}
 Let $k\ge2$ and $e\ge1$ be integers, write $F^{(k)}_{j,r}(n)=\ph(k^jn+r)$, and put
@@ -123,6 +119,16 @@ $p\mid k$ that does not divide $u$, the argument $k^{j-t}n+u$ is a $p$-adic
 unit, so multiplication by $k^t$ contributes its power of $p$ and one factor
 $1-1/p$. When $p\mid u$, the argument already contains $p$, and only its
 power contributes. This gives $C_k(t,u)$.
+
+The separation method has an earlier source: Yazdani's proof of
+Theorem~2, explicitly credited there to Shallit, uses the Chinese remainder
+theorem and Dirichlet's theorem to distinguish kernel sections modulo a
+fixed modulus~\cite[Thm.~2 and proof, pp.~652--653]{yazdani2001}.
+For a later account see Allouche, Shallit and Yassawi~\cite[Thm.~3 and
+Rem.~7]{allouche-shallit-yassawi}. Here one separates a chosen column
+from every other column of a finite evaluation matrix. Nonsingularity,
+not merely distinctness of infinitely many sections, gives linear
+independence.
 
 For independence, consider finitely many forms $L_i(n)=a_in+b_i$ with
 positive slopes and $a_ib_j\ne a_jb_i$ for $i\ne j$. A finite shift makes
@@ -185,8 +191,9 @@ truncation has dimension one.
 \begin{proof}
 Every finite subfamily lies in a sufficiently high truncation. The theorem
 gives its independence; the reductions give equality of the full spans.
-The level-zero clause is ordinary in this note;
-\texttt{PaperCompleteR7/ArithmeticAssemblies.lean} is not in this checkout.
+At level zero the only channel is $\varphi(n)$, which is nonzero since
+$\varphi(1)=1$, so its span has dimension one. This is an ordinary proof;
+it makes no claim about an additional formal declaration.
 \end{proof}
 
 \begin{corollary}[Integral normal form]\label{cor:integral-normal-form}
@@ -251,6 +258,16 @@ argument in~\cite[App.~A]{coons-jsr}). Theorem~\ref{thm:kkernelrank}
 therefore recovers Coons's theorem by a different route and gives the
 dimension at every finite level.
 
+The generating-function context is stronger than non-regularity alone.
+For multiplicative coefficients in characteristic zero, Bell and
+Smertnig prove that $k$-Mahler implies $k$-regular~\cite[Thm.~1.3]{bell-smertnig2026};
+their totient example therefore rules out a $k$-Mahler equation for
+$F_\varphi(z)=\sum_{n\ge1}\varphi(n)z^n$ in every base $k\ge2$.
+Bell, Bruin and Coons give the corresponding algebraic and $D$-finite
+classification framework~\cite[Thms.~1.5--1.6]{bell-bruin-coons}.
+These are restrictions on functions. Neither classification by itself
+determines the arithmetic nature of $F_\varphi(1/2)$.
+
 For a $k$-regular sequence the difference between a basis of the kernel span
 and a redundant spanning family is material: matrices associated to a basis
 compute the growth exponent through their joint spectral radius, whereas a
@@ -278,8 +295,8 @@ are rational-valued periodic sequences, then
 Choose a common period $Q$. On each progression $n=a+Qt$, the coefficients
 are constant and the cross determinants become $Q(a_ib_j-a_jb_i)\ne0$.
 Shift beyond the threshold and apply the affine independence just proved.
-The statement is ordinary in this note;
-\texttt{PaperCompleteR7/PeriodicAndPulse.lean} is not in this checkout.
+This is an ordinary proof of the periodic-coefficient statement; no additional
+formal declaration is asserted here.
 \end{proof}
 Applied on each progression, Martin's Theorem~1 gives the same
 conclusion~\cite[Thm.~1]{martin-phi-inequalities}.
@@ -287,8 +304,14 @@ The same argument preserves the basis after deletion of a finite prefix.
 For the two zero channels, large $n\equiv1\pmod k$ and large powers of $k$
 replace the two evaluations used above.
 \section{Bounded residues and rationality}\label{sec:family}
-The residue theorem uses the same separation principle: force neighbouring
-coefficients to vanish while retaining one central value.
+There is an earlier coefficient-level obstruction: for each $m\ge3$,
+$\varphi(n)\bmod m$ is not automatic in any integer base $k\ge2$
+\cite[Cor.~4, p.~654]{yazdani2001}; see also
+\cite[Thm.~3 and Ex.~4]{allouche-shallit-yassawi}.
+This does not prove irrationality of the dyadic sum. When $m>2$ the raw
+residues are not binary digits, and carrying changes the digit sequence.
+The residue theorem below instead forces neighbouring coefficients to
+vanish while retaining one central value, then uses a bounded-tail argument.
 Erick Wong posted a proof that $\sum_{n\ge1}(\ph(n)\bmod k)k^{-n}$ is
 irrational for every integer $k>2$, with the base equal to the modulus, as an
 answer on Mathematics Stack Exchange on 29 March 2015~\cite{wong2015}.
@@ -319,8 +342,7 @@ The right zero block gives $|T_N|\le C2^{-L}<1/q$, hence $T_N=0$.
 The left zero block now gives
 $T_{N-L-1}=a_N2^{-L-1}$, a nonzero element of $q^{-1}\Z$ with absolute
 value less than $1/q$, a contradiction. The statement is
-ordinary in this note (that \texttt{PaperCompleteR7} file is absent).
-The separate public Lean release
+proved ordinarily above. The separate formal counterpart is in
 \href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E249/Challenge.lean#L572}{\texttt{wcook04/plectis-erdos-lean}}
 at commit \texttt{52f29ad1} states this lemma as
 \texttt{irrational\_dyadicValue\_of\_pulses} in
@@ -835,7 +857,7 @@ At the later public checkpoint \texttt{25ef6245d15a},
 \href{https://github.com/wcook04/plectis-erdos/blob/25ef6245d15a47548c6926369ae8f1a0f0a14a80/Erdos249257/AllBaseTotientKernel.lean#L1239}{\texttt{finrank\_allBaseThroughLevelFamily\_eq}}
 provide the unconditional all-base independence and both exact ranks.
 
-\begin{thebibliography}{9}\small
+\begin{thebibliography}{99}\small
 \bibitem{allouche-shallit} J.-P.~Allouche and J.~Shallit,
 \emph{The ring of $k$-regular sequences}, Theoret.\ Comput.\ Sci.\
 \textbf{98} (1992), no.~2, 163--197,
@@ -874,6 +896,27 @@ J.\ Number Theory \textbf{174} (2017), 221--238,
 doi:\href{https://doi.org/10.1016/j.jnt.2016.10.001}{10.1016/j.jnt.2016.10.001};
 arXiv:\href{https://arxiv.org/abs/1511.02221v3}{1511.02221v3}.
 Theorem~2.2 is cited with the arXiv v3 pagination, p.~2.
+\bibitem{yazdani2001} S.~Yazdani,
+\emph{Multiplicative functions and $k$-automatic sequences},
+J.\ Th\'eor.\ Nombres Bordeaux \textbf{13} (2001), no.~2, 651--658,
+\url{https://www.numdam.org/item/JTNB_2001__13_2_651_0/}.
+Theorem~2 and its proof, pp.~652--653; Corollary~4, p.~654.
+\bibitem{allouche-shallit-yassawi} J.-P.~Allouche, J.~Shallit and R.~Yassawi,
+\emph{How to prove that a sequence is not automatic},
+Exposition.\ Math.\ \textbf{40} (2022), no.~1, 1--22,
+doi:\href{https://doi.org/10.1016/j.exmath.2021.08.001}{10.1016/j.exmath.2021.08.001};
+arXiv:\href{https://arxiv.org/abs/2104.13072v1}{2104.13072v1}.
+Theorem and example numbering follows the arXiv v1 (2021).
+\bibitem{bell-smertnig2026} J.~Bell and D.~Smertnig,
+\emph{Mahler series with multiplicative coefficient sequences},
+arXiv:\href{https://arxiv.org/abs/2603.23456v1}{2603.23456v1},
+24 March 2026, preprint. Theorem~1.3, p.~2; Lemma~3.3, p.~9.
+\bibitem{bell-bruin-coons} J.~P.~Bell, N.~Bruin and M.~Coons,
+\emph{Transcendence of generating functions whose coefficients are multiplicative},
+Trans.\ Amer.\ Math.\ Soc.\ \textbf{364} (2012), no.~2, 933--959,
+doi:\href{https://doi.org/10.1090/S0002-9947-2011-05479-6}{10.1090/S0002-9947-2011-05479-6};
+arXiv:\href{https://arxiv.org/abs/1003.2221v2}{1003.2221v2}.
+Theorems~1.5--1.6 are cited with the arXiv v2 pagination, p.~2.
 \end{thebibliography}
 
 \companionpapercontext

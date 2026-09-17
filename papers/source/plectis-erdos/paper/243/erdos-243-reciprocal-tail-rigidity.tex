@@ -8,10 +8,10 @@
 \input{problem-note-preamble}
 % Problem-specific source pin: #243's cancellation and feedback interfaces
 % advance independently of the corpus default.
-\renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
-\renewcommand{\commitshort}{99f4bf47422a}
+\renewcommand{\commit}{3d6d938d696fed0fb71dd55115a18a73738ff223}
+\renewcommand{\commitshort}{3d6d938d696f}
 \hypersetup{
-  pdftitle={Excluding the bounded negative part: Lean-checked rigidity for Erdős Problem 243},
+  pdftitle={Excluding the bounded negative part: a bounded-defect theorem for Erdős Problem 243},
   pdfsubject={Erdős Problem Notes: Problem 243},
   pdfkeywords={irrationality, Ahmes series, Sylvester sequence, unit fractions, Lean 4},
 }
@@ -28,9 +28,9 @@
 
 \runninghead{Erd\H{o}s \#243: excluding the bounded negative part}
 \title{Excluding the Bounded Negative Part}
-\subtitle{Lean-checked rigidity for Erd\H{o}s Problem~\#243}
+\subtitle{A bounded-defect theorem for Erd\H{o}s Problem~\#243}
 \author{Will Cook}
-\date{July 2026; revised September 2026}
+\date{July 2026; second review revision, 16 September 2026}
 
 \begin{document}
 \maketitle
@@ -43,16 +43,28 @@ and rational reciprocal sum, and put $P_n=\prod_{j<n}a_j$. We prove that
  \limsup_{n\to\infty}\frac{P_n}{a_n}
  \left(\frac{a_n^2}{a_{n+1}}-1\right)<+\infty
 \]
-forces $a_{n+1}=a_n^2-a_n+1$ eventually. In the integral tail state,
-bounded negative error caps upward increments, while normalised vanishing
-forces a nonterminal numerator to infinity. Stabilising the common divisor
-then supplies a Chinese remainder block that those increments cannot cross.
-An LCM formulation gives a weighted record criterion and the corresponding
-LCM-prefactor consequence. The required bound or record budget remains
-unproved for the unrestricted problem.
+forces $a_{n+1}=a_n^2-a_n+1$ eventually. We use Koizumi's integral
+rational-tail recurrence, extending eventual nonnegative error to an
+arbitrarily signed error with bounded negative part. The proof combines
+integer descent, stabilisation of a common divisor and a first crossing of
+a Chinese-remainder block. A second argument gives an LCM-weighted record
+criterion. These are sufficient criteria: neither the required defect bound
+nor the record budget is deduced from the unrestricted hypotheses.
 \end{abstract}
 
 \section{Introduction}\label{sec:problem}
+\paragraph{Conventions and reading route.}
+Write $z_+=\max(z,0)$, take empty products and least common multiples to be
+$1$, and allow deletion of a finite prefix. In a higher-order rate such as
+$1+3/n+o(n^{-3})$, retain the original index $n$: deleting terms does not
+authorise renumbering that rate.
+A \emph{Sylvester tail} means eventual equality
+$a_{n+1}=a_n^2-a_n+1$, not a finite reciprocal expansion.
+For the main argument read the next corollary, the integer-state theorem,
+Section~\ref{sec:bounded} and the transfer in Section~\ref{sec:transfer}.
+Sections~\ref{sec:mass}--\ref{sec:lcmrecords} give alternative criteria;
+Section~\ref{sec:secondaryrate} records ordinary consequences whose full
+proofs are in the companion reasoning paper.
 
 For $a_n>1$, the recurrence $a_{n+1}=a_n^2-a_n+1$ is singled out by the telescope
 \[
@@ -73,17 +85,16 @@ $\sum_{n\ge1}1/a_n\in\Q$.  Put $P_n=\prod_{j<n}a_j$.  If
 then $a_{n+1}=a_n^2-a_n+1$ for all sufficiently large $n$.
 \end{corollary}
 
-\noindent Corollary~\ref{res:originalbounded} is an ordinary transfer of the
-integer-state theorem below, proved in Section~\ref{sec:transfer}.  The analytic transfer is separate from the linked Lean theorem.
-The separate public Lean release
-\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/PalomarCorpus/E243/Challenge.lean#L116}{\texttt{wcook04/plectis-erdos-lean}}
-at commit \texttt{52f29ad1} states Corollary~\ref{res:originalbounded}
-itself, with the defect bounded above from some index onward, as
-\texttt{original\_coordinate\_bounded\_defect} in
-\texttt{PalomarCorpus/E243/Challenge.lean} and proves it.  That repository's
-Linux replay of Palomar's Comparator stage accepted the entry with the Lean
-kernel and with NanoDa
-(\href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/34782407633}{run 34782407633}).
+The upper limit is allowed to be $-\infty$; the condition means an eventual
+finite upper bound, not a bound on the absolute value. No monotonicity or
+summability of the growth defect is assumed.
+
+\noindent The proof is given in Section~\ref{sec:transfer}. The full
+original-coordinate implication, including the canonical analytic transfer,
+is also formalised as \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean\#L211}{the original-coordinate bounded-defect theorem}. Its hypothesis is an eventual upper bound on the displayed
+product defect, equivalent here to the finite-upper-limit condition. The
+integer-state theorem below isolates the arithmetic step; it is not the
+whole extent of the formalisation.
 
 \paragraph{The obstruction.}
 Clear the rational reciprocal tail as $C_n/D_n$; these are the
@@ -113,16 +124,16 @@ Let $a,C,D:\N\to\N$ and $E:\N\to\Z$ satisfy
 \item $E_n=\ctr(a_n,D_n,C_n)$ for every $n$;
 \item \emph{eventual strict centring}: $|E_n|<C_n$ for all large $n$;
 \item \emph{eventually bounded negative part}: $-B\le E_n$ for all large $n$,
-for some $B$;
-\item \emph{normalised vanishing}: for every $K$ there is an $N$ with
+for some integer $B\ge0$;
+\item \emph{normalised vanishing}: for every integer $K\ge1$ there is an $N$ with
 $K\,|E_n|<C_n$ for all $n\ge N$.
 \end{enumerate}
 Then $E_n=0$ for all sufficiently large $n$: this is the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{2352}{eventuallyBoundedNegativePart_eventually_zero}{eventual bounded-negative rigidity}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2360}{eventuallyBoundedNegativePart_eventually_zero}{eventual bounded-negative rigidity}.
 \end{theorem}
 The Lean proof shifts the orbit past the centring and lower-bound thresholds
 and applies the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{2265}{boundedNegativePart_eventually_zero}{bounded-negative-part rigidity},
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2271}{boundedNegativePart_eventually_zero}{bounded-negative-part rigidity},
 with centring and bound at every index.
 \end{samepage}
 
@@ -159,19 +170,18 @@ vanishing and integrality give $C_n\to\infty$ on a nonzero tail, while the
 lower error bound gives $C_{n+1}\le C_n+B$.
 
 \begin{proof}[Proof of Theorem~\ref{res:bounded}]
-Suppose not.  We first remove every late zero: by Theorem~\ref{res:absorb} and
-its contrapositive form, $E$ is nowhere zero beyond the centring threshold.
-Two cases remain.  If $E$ is negative cofinally,
-then~(5) bounds those magnitudes, so Proposition~\ref{res:gcdstab} makes the
-tail gcd stabilise and the orbit may be taken reduced past that point.
-Hypothesis~(5) with
-Proposition~\ref{res:update} gives $C_{n+1}\le C_n+B$, a bounded rise;
-hypothesis~(6) with $E$ nowhere zero gives $C_n\to\infty$.  A reduced exact
-tail with a divergent numerator and bounded rise is excluded by
-Theorem~\ref{res:barrier}.  It remains to treat the case that $E$ is eventually
-positive, and there the descent
-of Theorem~\ref{res:descent} applies and forces $E$ to vanish, contradicting
-nowhere-vanishing.
+Suppose not. By Theorem~\ref{res:absorb}, after the centring threshold a
+single zero would force every later error to be zero. Thus $E_n\ne0$
+throughout a sufficiently late tail. If negative indices are infinite,
+condition~(5) bounds their magnitudes. Proposition~\ref{res:gcdstab} makes
+$G_n=\gcd(C_n,D_n)$ constant, say $g>0$, from some index onwards.
+On this tail $u_n=C_n/g$ and $v_n=D_n/g$ form a reduced exact orbit.
+Normalised vanishing and $|E_n|\ge1$ give $C_n\to\infty$, hence
+$u_n\to\infty$. Also $u_{n+1}-u_n=-E_n/g\le B$.
+Theorem~\ref{res:barrier} contradicts these bounded upward steps; when
+$B=0$, descent alone already contradicts divergence.
+If negative indices are finite, the remaining error is nonnegative and
+Theorem~\ref{res:descent} makes it eventually zero, again a contradiction.
 \end{proof}
 
 \begin{corollary}\label{res:cor}
@@ -184,12 +194,19 @@ Apply the two-zero implication in Corollary~\ref{res:eventual} below.
 
 \section{The arithmetic ingredients}\label{sec:state}
 \subsection{Error, absorption and descent}\label{sec:defect}\label{sec:descent}
-The identities below are algebraic consequences of Koizumi's state recurrence
-\cite[Lemmas~2--4, pp.~10--12]{koizumi2025}.  In his coordinates the absorption
-of Theorem~\ref{res:absorb} is his Lemma~3 \cite[p.~10]{koizumi2025}, and the
-nonnegative-error descent is his Proposition~1(2) \cite[p.~14]{koizumi2025},
-which he attributes to Badea \cite[Corollary~2.2, p.~316]{badea1993}.  The
-conventions here are those of the formalisation.
+The identities below follow algebraically from Koizumi's state recurrence
+\cite[Lemmas~2--4, pp.~10--12]{koizumi2025}. His Lemma~3 gives absorption,
+and his Proposition~1(2) gives the nonnegative-error descent, credited there
+to Badea \cite[Corollary~2.2, p.~316]{badea1993}.
+The integer-remainder method for Cantor series is older
+\cite[Theorem~2.1, pp.~85--86]{erdosstraus1974}. Han\v{c}l and Tijdeman
+use a finite polynomial decomposition and the resulting shifted polynomial
+sum to characterise rationality of polynomial Cantor series
+\cite[Theorem~2.2 and its derivation, pp.~39--40]{hancltijdeman2008}.
+Their polynomial hypotheses are essential to this comparison; we do not
+invoke an unrestricted rearrangement of arrays of integer coefficients.
+These are antecedents of the remainder method, not proofs of the
+bounded-negative Chinese-remainder obstruction used here.
 
 Write $\Delta_n=a_{n+1}-(a_n^2-a_n+1)$.
 
@@ -208,7 +225,7 @@ $D_{n+1}=a_nD_n$, $C_{n+1}=a_nC_n-D_n$.
 \noindent Both identities are the
 \lword{Erdos243/ReciprocalTailRigidity.lean}{57}{nextTailState_eq_sub_centered}{update law}
 and the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1769}{sylvesterDefect_mul_nextTailState}{defect identity}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1775}{sylvesterDefect_mul_nextTailState}{defect identity}.
 
 \begin{theorem}[absorption and descent]\label{res:absorb}\label{res:descent}
 For a positive exact state with strict centring, $E_n=0$ implies
@@ -223,9 +240,9 @@ integers, so it stabilises.
 \end{proof}
 
 \noindent Both assertions are
-\lword{Erdos243/ReciprocalTailRigidity.lean}{2221}{centeredState_zero_absorbing}{absorption of a vanishing centred state}
+\lword{Erdos243/ReciprocalTailRigidity.lean}{2227}{centeredState_zero_absorbing}{absorption of a vanishing centred state}
 and
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1837}{centeredState_eventually_zero}{stabilisation of the nonnegative error}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1843}{centeredState_eventually_zero}{stabilisation of the nonnegative error}.
 
 \begin{corollary}[two zero errors]\label{res:step}\label{res:eventual}
 If $E_n=E_{n+1}=0$ and $C_{n+1}\ne0$, then
@@ -237,9 +254,9 @@ The second error identity has nonzero factor $C_{n+1}$.
 \end{proof}
 
 \noindent The local and eventual forms are the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1781}{sylvesterNext_eq_of_centered_zero}{local rigidity step}
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1787}{sylvesterNext_eq_of_centered_zero}{local rigidity step}
 and the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1799}{sylvesterNext_eventually_of_centered_zero}{eventual Sylvester recurrence}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1805}{sylvesterNext_eventually_of_centered_zero}{eventual Sylvester recurrence}.
 
 Absorption holds after any eventual centring threshold. On a nonterminal
 tail it removes all subsequent zeros. Then $|E_n|\ge1$, so normalised
@@ -263,9 +280,9 @@ isolates bounded upward movement, and the gcd stabilisation below makes it
 applicable with only a lower bound on the error.
 
 \begin{theorem}[bounded-rise obstruction]\label{res:barrier}
-Let $u_n\in\N$ tend to infinity with $u_{n+1}\le u_n+B$, for a fixed
-integer $B>0$. There is no infinite pairwise coprime family $m_i\ge2$
-with $\gcd(m_i,u_t)=1$ whenever $i<t$.
+Let $u:\N\to\N$ tend to infinity and let $B\ge1$ be an integer with
+$u_{n+1}\le u_n+B$ for every $n$. There is no sequence of pairwise coprime
+integers $m_i\ge2$ for which $\gcd(m_i,u_t)=1$ whenever $i<t$.
 \end{theorem}
 \begin{proof}
 Choose $m_0,\ldots,m_{B-1}$ and use Lemma~\ref{res:crt} to find
@@ -298,11 +315,11 @@ $\gcd(a_i,a_t)=1$.
 \end{proof}
 
 \noindent All three conclusions are the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{983}{reducedStep_coprime_currentFactor}{step coprimality},
+\lword{Erdos243/ReciprocalTailRigidity.lean}{989}{reducedStep_coprime_currentFactor}{step coprimality},
 the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1010}{reducedTail_pairwiseCoprime}{pairwise coprimality},
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1016}{reducedTail_pairwiseCoprime}{pairwise coprimality},
 and the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1024}{reducedTail_wholeModulusAvoidance}{whole-modulus avoidance}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1030}{reducedTail_wholeModulusAvoidance}{whole-modulus avoidance}.
 
 \begin{proposition}[gcd stabilisation]\label{res:gcdstab}
 For a positive exact state, if negative errors have bounded magnitudes
@@ -318,14 +335,14 @@ preserves both exact updates and leaves the states coprime.
 \end{proof}
 
 \noindent The stable gcd is
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1630}{tailGcd_eventuallyConstant_of_cofinally_boundedNegative}{gcd stabilisation}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1636}{tailGcd_eventuallyConstant_of_cofinally_boundedNegative}{gcd stabilisation}.
 
 In the main proof, division by the stable gcd preserves divergence and a
 bounded upward increment. Theorem~\ref{res:barrier} therefore applies to
 the reduced numerator: this is the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1060}{no_eventuallyBoundedRise_reducedTail}{eventual reduced exclusion}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1066}{no_eventuallyBoundedRise_reducedTail}{eventual reduced exclusion}.
 With normalised vanishing the same obstruction is the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{1748}{no_cofinallyBoundedNegative_of_normalizedVanishes}{exclusion from normalised vanishing}.
+\lword{Erdos243/ReciprocalTailRigidity.lean}{1754}{no_cofinallyBoundedNegative_of_normalizedVanishes}{exclusion from normalised vanishing}.
 Sparse changes of the gcd without eventual
 stabilisation are a different statement; the supporting record retains
 that distinction and its finite-block consequences.
@@ -338,11 +355,17 @@ Let $x_n=\sum_{k\ge n}1/a_k$, suppose $x_1=p/q$ with $q>0$, and put
 \[
  P_n=\prod_{j<n}a_j,\qquad D_n=qP_n,\qquad C_n=D_nx_n.
 \]
-Each $C_n$ is a positive integer, since $D_n$ clears the rational sum and
-every term of the preceding finite prefix. The tail relation
-$x_n=1/a_n+x_{n+1}$ gives the exact state updates.
+Each $C_n$ is a positive integer: explicitly,
+\[
+ C_n=pP_n-q\sum_{k<n}P_n/a_k.
+\]
+Every quotient in the finite sum is an integer. Positivity follows from
+$x_n>0$. The identity $x_n=1/a_n+x_{n+1}$ now gives both exact updates;
+no approximation or rounding occurs in this construction.
 
-Quadratic growth gives $a_n\ge\exp(c2^n)$ eventually for some $c>0$ and
+For all large $n$, $a_{n+1}\ge a_n^2/2\ge2a_n$. Iterating the first
+inequality after an index with $a_n>2$ gives
+$a_n\ge\exp(c2^n)$ for some $c>0$. Summing the remaining doubled tail gives
 \[
  x_n=\frac1{a_n}+\frac1{a_{n+1}}+O(a_{n+1}^{-2}).
 \]
@@ -353,7 +376,9 @@ Consequently
  =\frac{a_n^2}{a_{n+1}}+O(1/a_n)\longrightarrow1,
  \qquad \frac{E_n}{C_n}\longrightarrow0.
 \]
-Thus strict centring also holds eventually. These are the ordinary
+Taking logarithms and averaging also gives $\log C_n=o(n)$; the same
+argument gives $\log\max_{j\le n}C_j=o(n)$, since a fixed initial maximum
+has negligible logarithm divided by $n$. Strict centring follows eventually. These are the ordinary
 canonical-tail implications of Koizumi's work. After a finite shift the
 sequence is the pseudo-greedy expansion of its own tail sum, with gap
 sequence tending to zero \cite[Corollary~3, p.~9]{koizumi2025}. On that
@@ -393,13 +418,15 @@ Identity~\eqref{eq:canonical-dictionary} is the product-weighted comparison
 used in Koizumi's proof of his Corollary~4(1)
 \cite[(11)--(12), p.~15]{koizumi2025}, written in the canonical variables.
 
-The same calculation is valid with $qP_n$ replaced by any positive
-clearance $H_n\le qP_n$: if $W_n=H_nx_n$ and
-$Z_n=H_n-(a_n-1)W_n$, then
+The same estimate holds for any positive real scale $H_n\le qP_n$.
+Put $W_n=H_nx_n$ and $Z_n=H_n-(a_n-1)W_n$; these quantities need not be
+integers unless $H_n$ actually clears the denominator of $x_n$. Then
 \begin{equation}\label{eq:general-clearance-dictionary}
  Z_n+\frac{H_n}{a_n}\gamma_n=o(1).
 \end{equation}
-This will supply the LCM-prefactor consequence below.
+For $H_n=L_n$ below, denominator clearing does hold, and the resulting
+integral variables satisfy their own LCM update rather than the raw product
+update. This supplies the LCM-prefactor consequence.
 
 \section{A scalar finite-mass criterion}\label{sec:mass}
 \begin{theorem}[finite negative relative mass]\label{res:massscalar}\label{res:mass}
@@ -408,8 +435,8 @@ $C_{n+1}=C_n-E_n$. If
 \[
  \sum_n\frac{(-E_n)_+}{C_n}<\infty,
 \]
-then $E_n=0$ eventually. No denominator dynamics or normalised vanishing
-is required.
+then $E_n=0$ eventually. Neither denominator dynamics nor normalised
+vanishing is required. Positivity and integrality of $C_n$ are essential.
 \end{theorem}
 \begin{proof}
 Set $\delta_n=(-E_n)_+/C_n$. Then
@@ -419,17 +446,26 @@ Set $\delta_n=(-E_n)_+/C_n$. Then
 \]
 Choose an integer upper bound $K$ for $C_n$. Each strict rise contributes
 at least $1/K$ to $\sum\delta_n$, so there are only finitely many rises.
-The remaining positive integer sequence is nonincreasing and stabilises.
+The remaining positive integer sequence is nonincreasing and stabilises,
+and the update then gives $E_n=0$.
 \end{proof}
 
-\noindent The product argument is the
-\lword{Erdos243/SparseResetRecovery.lean}{423}{eventually_zero_of_summable_relativeGrowth}{summable relative growth};
-its specialisation to negative mass is the
-\lword{Erdos243/SparseResetRecovery.lean}{488}{eventually_zero_of_summable_negativeRelativeMass}{vanishing from finite negative mass},
-and the statement giving the recurrence directly is the
-\lword{Erdos243/SparseResetRecovery.lean}{510}{sylvesterNext_eventually_of_summable_negativeRelativeMass}{Sylvester recurrence from summable negative mass}.
-The elementary growth comparison is
-\lword{Erdos243/SparseResetRecovery.lean}{378}{tail_growth_le_one_add_negativeRelativeMass}{tail growth}.
+For comparison, the real sequence $C_n=1+1/(n+1)$ has
+$E_n=C_n-C_{n+1}>0$ and zero negative mass, but never stabilises.
+Thus the scalar conclusion is genuinely discrete.
+
+\noindent The scalar statement, with no denominator dynamics or
+normalised-vanishing assumption, is formalised as
+\lword{Erdos243/SparseResetRecovery.lean}{612}{eventually_zero_of_summable_negativeRelativeMass_scalar}{vanishing from finite scalar negative mass}.
+Its exact-orbit consequence is
+\lword{Erdos243/SparseResetRecovery.lean}{690}{sylvesterNext_eventually_of_summable_negativeRelativeMass_scalar}{the Sylvester recurrence from finite scalar negative mass}.
+The same three declarations on an exact reciprocal-tail orbit, with denominator dynamics and normalised vanishing, are
+\lword{Erdos243/SparseResetRecovery.lean}{378}{tail_growth_le_one_add_negativeRelativeMass}{the exact-orbit growth bound},
+\lword{Erdos243/SparseResetRecovery.lean}{488}{eventually_zero_of_summable_negativeRelativeMass}{vanishing from summable exact-orbit negative mass},
+and
+\lword{Erdos243/SparseResetRecovery.lean}{510}{sylvesterNext_eventually_of_summable_negativeRelativeMass}{the exact-orbit Sylvester recurrence from summable negative mass}.
+The shorter proof above is included because this implication is an elementary
+product bound followed by descent of positive integers.
 
 On an exact reciprocal-tail orbit the conclusion gives the Sylvester
 recurrence. For the gap sequence of the pseudo-greedy expansion, the same
@@ -444,14 +480,17 @@ vanishing they are each equivalent to the same endpoint.
 \section{Weighted first crossings of LCM records}\label{sec:lcmrecords}
 
 Only steps setting an LCM numerator record need contribute. The first-crossing
-argument permits subtraction of a fixed baseline and any decreasing weight
-with divergent integral. The theorem in this section has an ordinary proof.
-The LCM coordinates below also appear in Bado's preprint of September 2026:
+argument permits subtraction of a fixed baseline and any nonincreasing
+nonnegative weight with divergent integral. We give the ordinary proof below.
+The separate release also contains the full canonical weighted statement,
+\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos243/PaperCompleteR8/CanonicalWeightedRecords.lean\#L268}{the real-weight criterion}; it is outside the checked main-repository build documented here.
+The LCM coordinates also appear in Bado's September 2026 preprint:
 with his denominator parameter equal to $q$, his $M_{n-1}$, $\Delta_{n-1}$,
 $K_{n-1}$, $u_n$ and $g_n$ are the $L_n$, $M_n$, $U_n$, $V_n$ and $\rho_n$
-defined here, and his~(19) is the update $\rho_nU_{n+1}=U_n-V_n$
-\cite[Prop.~7.1 and (16)--(20), pp.~6--7]{bado2026}; the contraction at a
-reuse step is his~(34) \cite[p.~9]{bado2026}.
+below, and his (19) is $\rho_nU_{n+1}=U_n-V_n$
+\cite[Proposition~7.1 and (16)--(20), pp.~6--7]{bado2026}.
+This overlap concerns both the coordinates and their update, not merely
+terminology.
 
 Set
 \[
@@ -470,7 +509,9 @@ $U_{n+1}<U_n$ when $\rho_n\ge2$, so every sufficiently late strict rise has
 $\rho_n=1$.  The stronger eventual bound $-U_n\le2V_n$, supplied by
 $V_n/U_n=E_n/C_n\to0$, gives the quantitative estimate
 $U_{n+1}\le3U_n/4$ when $\rho_n\ge2$.
-Its actual jump is therefore $d_n=U_{n+1}-U_n=-V_n$.
+At a sufficiently late record step, where $\rho_n=1$, the actual jump is
+$d_n=U_{n+1}-U_n=-V_n>0$. This identity is not asserted at a contracting
+step with $\rho_n\ge2$.
 
 \begin{theorem}[weighted record excess]\label{res:weightedrecord}
 Assume the growth and rationality hypotheses of Problem~\ref{res:problem}.
@@ -485,11 +526,14 @@ if and only if, for some integer $B\ge0$,
 \begin{proof}
 Suppose the sequence is not eventually Sylvester. Absorption and
 integrality give $1/U_n\le |V_n|/U_n=|E_n|/C_n\to0$, so there are
-infinitely many record steps. Every sufficiently late record is fresh.
+infinitely many record steps. Here \emph{fresh} means $\rho_n=1$;
+every sufficiently late record has this property. “Fresh” does not mean
+that the digit itself is prime.
 Their digits are pairwise coprime: an earlier digit divides the later
 $L_n$, while the digit at a fresh record is coprime to $L_n$.
 For any fixed $B\ge1$, choose $B$ such digits
-$m_0,\ldots,m_{B-1}>B$ and take $T$ after their indices.
+$m_0,\ldots,m_{B-1}>B$ and take $T$ after their indices and after the
+freshness threshold. Their size follows from $a_n\to\infty$.
 
 Put $P=\prod_i m_i$ and choose $x$ by the Chinese remainder theorem with
 $m_i\mid x+i$. Consider all translates $\tau=x+B+kP>R_T$, $k\in\Z$;
@@ -506,8 +550,9 @@ $d_n=B+r\le Pr$, whence $h\le r$. Monotonicity of $f$ now gives
  \sum_{\substack{\tau\text{ first crossed}\\\text{at step }n}}f(\tau)
  \le(d_n-B)f(U_n).
 \]
-Each height above $R_T$ has one first crossing. Summing, and comparing each
-interval of length $P$ with its left endpoint, yields the finite bound
+Each selected height above $R_T$ has exactly one first crossing. The first
+selected height is at most $R_T+P$; each later height is $P$ further on.
+For $R_N\ge R_T+P$, comparison of each interval with its left endpoint gives
 \begin{equation}\label{eq:weightedcrossing}
  \sum_{\substack{T\le n<N\\n\in\mathcal R}}(-V_n-B)_+f(U_n)
  \ge\frac1P\int_{R_T+P}^{R_N} f(t)\,dt.
@@ -576,7 +621,7 @@ this also implies Corollary~\ref{res:originalbounded}: multiplication by
 a factor in $(0,1]$ preserves an upper bound, including at negative values.
 
 Lean checks Corollary~\ref{res:lcmbounded} as
-\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49}{the original-coordinate LCM bounded defect}.
+\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49}{the original-coordinate LCM bounded defect}.
 That declaration takes the rational reciprocal sum and the quadratic growth
 limit as hypotheses, with the finite upper limsup recorded as an eventual
 upper bound on $Z_n$; it assumes no divisibility of the denominator by the
@@ -595,6 +640,13 @@ convergence is a stronger sufficient specialisation, not the hypothesis
 printed in that corollary. The all-positive specialisation is the form
 relevant here.
 
+For a quantitative comparison, Duverney, Kurosawa and Shiokawa
+\cite[Theorem~1, author-version p.~2]{duverneykurosawashiokawa2020}
+compute irrationality exponents for signed reciprocal series under eventual
+$x_{n+1}\ge x_n^2$ and a denominator-growth condition on successive rational
+ratios. The growth-side inequality excludes a Sylvester tail; that theorem is
+not an unrestricted near-quadratic rigidity result.
+
 The divisor constraint also survives integral numerator coefficients:
 $d=(a_n-1)U_n-b_nL_n$ is divisible by every divisor of both $U_n,L_n$.
 An ordinary coefficient-uniform variant gives bounded LCM height
@@ -606,6 +658,29 @@ Tijdeman and Yuan \cite{tijdemanyuan2002}. Its proof and exact bounded-height co
 {coefficient proof supplement}.
 
 \section{Further consequences}\label{sec:secondaryrate}
+\begin{corollary}[an inclusive one-sided $1/n$ bound]\label{res:inclusiveone}
+Under the hypotheses of Corollary~\ref{res:originalbounded}, suppose that
+for some $K\ge0$ and $\varepsilon>0$,
+\[
+ \gamma_n:=a_n^2/a_{n+1}-1\le \frac1n+\frac{K}{n^{1+\varepsilon}}
+ \quad\hbox{for all large }n.
+\]
+Then the sequence is eventually Sylvester. In particular, the conclusion
+holds under the pointwise eventual bound $\gamma_n\le1/n$.
+\end{corollary}
+\begin{proof}
+Set $t_n=P_n/a_n$, so $t_{n+1}/t_n=1+\gamma_n$. For all large $n$,
+\[
+ 1+\gamma_n\le(1+1/n)(1+K/n^{1+\varepsilon}).
+\]
+The first product telescopes and the second is bounded, giving $t_n=O(n)$.
+Since $(\gamma_n)_+=O(1/n)$, the product defect $t_n\gamma_n$ is bounded
+above. Apply Corollary~\ref{res:originalbounded}.
+\end{proof}
+This is an ordinary corollary of the bounded-defect theorem. It does not
+assert that the weaker condition $\limsup n(\gamma_n)_+\le1$ suffices;
+a vanishing but nonsummable excess over $1/n$ is not covered by this proof.
+
 \begin{theorem}[cubic-rate irrationality]\label{res:cubicrate}
 A strictly increasing sequence of positive integers with
 \[
@@ -614,19 +689,26 @@ A strictly increasing sequence of positive integers with
 has irrational reciprocal sum.
 \end{theorem}
 \begin{proof}[Proof by the polynomial exclusion]
-Under rationality, the canonical estimate gives
-$C_{n+1}/C_n=1+3/n+o(n^{-3})$. Integer finite differences force
-$C_n=An(n+1)(n+2)+B$ eventually. The fixed-cubic exclusion rules this out.
-The complete ordinary polynomial and number-field argument is retained in
-\href{https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/WeightedRecordOctupleCriteria.md\#8-rising-factorial-cubic-profiles-and-the-cubic-rate-irrationality-r08}
-{the proof supplement, Section~8}; finite congruence checks alone are
-insufficient for that implication.
+Under rationality, Section~\ref{sec:transfer} gives
+$C_{n+1}/C_n=1+3/n+o(n^{-3})$. Integer finite differences then give
+$C_n=An(n+1)(n+2)+B$ eventually, with $A\in\Q_{>0}$ and $B\in\Q$.
+The fixed-cubic exclusion contradicts this profile. The complete ordinary
+argument, including the finite-difference extraction and the cubic-field
+step, is in Section~2 of the
+\href{https://wcook04.github.io/plectis/papers/erdos243-reciprocal-tail-reasoning-surface.pdf}{companion reasoning paper}.
+The field step uses Chebotarev; see
+\cite[Section~3, author version]{stevenhagenlenstra1996} for that classical
+input. This paragraph is a proof by a stated companion result, not a
+standalone finite-congruence proof and not an assembled Lean proof.
 \end{proof}
 
 The same finite-difference extraction excludes every nonintegral
 $\lambda>1$ under the rate
 $a_n^2/a_{n+1}=1+\lambda/n+o(n^{-\lambda})$: eventual polynomial growth
-would force its degree to equal $\lambda$. These rates fall outside $1+o(1/n)$, the rate at which
+would force its degree to equal $\lambda$. The extraction uses
+$\Gamma(n+\lambda)/\Gamma(n)\sim n^\lambda$
+\cite[5.11.12]{dlmf_gamma}; its full proof is in the companion paper.
+These rates fall outside $1+o(1/n)$, the rate at which
 Koizumi notes that the Erd\H{o}s--Straus criterion settles the problem \cite[Remark~3, p.~16]{koizumi2025}, and they make
 Duverney's signed series $\sum_n(a_{n+1}/a_n^{2}-1)$ diverge.
 
@@ -640,7 +722,8 @@ The proof of Theorem~\ref{res:cubicrate} uses the rate at precision
 $o(n^{-3})$: for a rational sum it forces the exact profile
 $C_n=An(n+1)(n+2)+B$, which is then excluded.
 
-There is also an admitted quantitative extension. Under the hypotheses of
+There is also an ordinary quantitative extension, not an end-to-end
+Lean-checked theorem. Under the hypotheses of
 Theorem~\ref{res:bounded} other than (5), put
 $\operatorname{LL}(x)=\log_2\log_2\max(4,x)$. Each fixed
 $\delta\in(0,1)$ gives
@@ -648,7 +731,9 @@ $\delta\in(0,1)$ gives
  (-E_n)_+\le(1-\delta)\operatorname{LL}(C_n)
  \quad\text{eventually}\quad\Longrightarrow\quad E_n=0\text{ eventually}.
 \]
-The LCM version needs the corresponding bound only at late record steps.
+Here $D_0>0$ follows after a shift from $a_n>1$, $C_n>0$ and normalised
+vanishing. The LCM version needs the corresponding bound only at late record
+steps.
 The proofs use a CRT block in $[P,2P)$ and the canonical multiplier scale;
 they are retained in
 \href{https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/SlowNegativePartRigidity.md}{the slow-negative proof}
@@ -656,9 +741,19 @@ and \href{https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d060
 {the record-only extension}. These are ordinary results with stated rate
 hypotheses; neither establishes the general record budget.
 
+Rapid decay alone should not be confused with the rigidity of this particular
+recurrence. In the different setting of Erd\H{o}s Problem~\#270, Crmari\'{c}
+and Kova\v{c} \cite[Theorems~1--2]{crmarickovac2025} show that the sums
+$\sum_n\bigl(\prod_{j=1}^{f(n)}(n+j)\bigr)^{-1}$, with integer
+$f(n)\to\infty$, range over all positive reals. With $f$ nondecreasing the
+value set instead has measure zero, which does not establish irrationality
+of every such sum. Their flexible-series construction is contextual here,
+not an antecedent of the tail-state rigidity proof.
+
 \section{The remaining arithmetic estimate}\label{sec:open}
 \begin{proposition}[necessary profile]\label{res:frontier}
-The canonical state of a counterexample has $E_n\ne0$ eventually,
+The canonical state of a sequence satisfying Problem~\ref{res:problem}'s
+hypotheses but not its conclusion has $E_n\ne0$ eventually,
 $|E_n|/C_n\to0$, unbounded negative magnitudes along negative indices,
 and
 \[
@@ -683,10 +778,10 @@ Equivalently, must there be a $K\ge1$ for which
 \]
 at infinitely many indices?
 \end{problem}
-\noindent The canonical necessary profile is ordinary in this note, and Lean
-checks it as
-\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151}{the canonical frontier profile},
-from the rational reciprocal sum and the quadratic growth limit.
+\noindent The necessary profile is proved above and is formalised as
+\href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean\#L151}{the canonical frontier theorem}. The formal statement assumes the rational reciprocal sum, the
+quadratic growth limit and failure of eventual Sylvester behaviour; the
+last hypothesis is essential to all of its nontermination conclusions.
 
 For $B\ge0$ put
 \[
@@ -698,6 +793,9 @@ The remaining equivalent estimate is
 \end{equation}
 On a nonterminal orbit first crossings instead give
 $F_B(X)\ge X/P_B-O_B(1)$, with an orbit-dependent CRT modulus $P_B$.
+Charges are grouped by their source height $U_n$, not by their record height
+$R_n$ or by their time index. Every fixed height has only finitely many late
+sources because $U_n\to\infty$.
 The missing step is to derive~\eqref{eq:remaining-record-budget} from
 the canonical dynamics. Its equivalence with the existence of an admissible
 weight is the following elementary lemma, applied to the record charges
@@ -705,7 +803,7 @@ $u_j=U_n$ and $w_j=(-V_n-B)_+$ over $n\in\mathcal R$ at a fixed $B$.
 
 \begin{lemma}[weights and linear density]\label{res:weights}
 Let $u_j$ be positive integers, let $w_j\ge0$, and put
-$F(X)=\sum_{u_j\le X}w_j$. Then $\liminf_{X\to\infty}F(X)/X=0$ if and only if
+$F(X)=\sum_{u_j\le X}w_j$, with the sum allowed a priori to be $+\infty$. Then $\liminf_{X\to\infty}F(X)/X=0$ if and only if
 there is a finite nonincreasing $f:[1,\infty)\to[0,\infty)$ with
 $\int_1^\infty f(t)\,dt=\infty$ and $\sum_jw_jf(u_j)<\infty$.
 \end{lemma}
@@ -743,51 +841,55 @@ persistent-zero transport of the exact equations. Likewise, small rises
 and avoidance of an arbitrary sparse coprime family do not control the
 canonical timing and size of the available divisors. The supporting record
 keeps those falsifying examples with the exact hypotheses each preserves.
+In particular, compatibility modulo one fixed old denominator does not
+control later prime arrivals. The companion paper proves that arbitrary
+finite words of units satisfy the reduced recurrence modulo that old
+denominator, while separately deriving a large odd-prime-power supply from
+the canonical growth. Neither fact alone supplies the missing record budget.
 
 \paragraph{Formal scope and supporting record.}
-The bounded-negative state theorem is checked in Lean 4 against Mathlib
-at the stated source checkpoint:
-\lword{Erdos243/ReciprocalTailRigidity.lean}{2352}{eventuallyBoundedNegativePart_eventually_zero}{eventual bounded-negative rigidity}.
-Lean also checks the endpoint that carries that theorem to the original
-denominators, as
-\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2412}{the bounded-negative-part recurrence theorem},
-and the canonical analytic transfer of Corollary~\ref{res:lcmbounded}, as
-\href{https://github.com/wcook04/plectis-erdos/blob/f4e61ed8a6941571310049e22dc239baa1b04e12/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49}{the original-coordinate LCM bounded defect}.
-The global weighted, polynomial and
-slow-negative arguments are ordinary proofs; the scalar finite-mass proof
-is printed in full above. The auxiliary source guide, the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{350}{no_eventuallyConstantNegative_orbit}{eventual constant exclusion}
-and the
-\lword{Erdos243/ReciprocalTailRigidity.lean}{796}{no_eventuallyPeriodicNegative_orbit}{eventual periodic exclusion},
-primitive feedback, finite certificates and unsuccessful global
-extensions belong to the accompanying reasoning record. Their stronger
-global producer hypotheses remain explicit.
+At revision \texttt{\commitshort}, the supplied build receipt covers the
+bounded-negative state theorem, its original-coordinate product- and
+LCM-defect consequences, the scalar finite-mass theorem and the canonical
+frontier theorem. A proof of a state implication is not, by itself, a proof of
+its analytic premises; the canonical transfer is supplied in the separate
+\texttt{PaperCompleteR7} modules cited above. The complete weighted criterion
+has a proof source in the separate release, outside this main-repository
+build. The cubic argument has formalised extraction, normalisation and finite
+transport components, but no assembled declaration of the irrationality
+theorem is identified here. The slow-negative results likewise distinguish
+the checked arithmetic lemmas from the ordinary growth argument.
+The accompanying reasoning record retains those distinctions, the finite
+certificates and the unsuccessful extensions. No finite computation is used
+as a substitute for a universal argument. The supply, valuation and energy
+proofs added to the companion paper in this revision are ordinary proofs;
+no new Lean replay is asserted. For older formal work on integer remainders,
+see the Isabelle/HOL development of Koutsoukou-Argyraki and Li
+\cite{kouli2020}; its endpoint is not Problem~\#243.
 
-\paragraph{Declarations.}
 The authorship and AI-use statement on the first page applies to this
 manuscript. Code and mathematical source are available at the repository
-checkpoint \texttt{\commitshort}. A source declaration establishes only
-its own statement; the ordinary transfer and the unresolved estimate above
-are separately identified.
+checkpoint \texttt{\commitshort}. A declaration establishes only its own
+statement with its stated hypotheses. The finite upper bound and the global
+record estimate remain additional mathematical obligations, not consequences
+of a successful build.
 
 \appendix
 \section{Guide to the formal sources}\label{app:index}
 
-Each linked phrase opens its Lean declaration at the pinned source
-revision~\commitshort.  The state system, the exclusions, the barrier, and the
-bounded-negative-part theorem are in \texttt{ReciprocalTailRigidity.lean}; the
-finite-negative-mass theorem is in \texttt{SparseResetRecovery.lean}; and the
-repair-entropy inequalities are in \texttt{RepairEntropy.lean}.  The residue
-reduction of Appendix~\ref{app:residue} is in
-\texttt{FiniteHorizonResidue.lean}.  Three distinctions are worth carrying into
-the source.  The
-identification of any of these modules with reciprocal tails is the exposition
-of Section~\ref{sec:transfer} and is not a checked statement.  The periodic exclusion
-assumes the regime $e_n<a_n$.  And the final Lean declaration lists strict
-centring and normalised vanishing as hypotheses; the former follows eventually
-from the latter with $K=1$, while the formal source derives neither from the
-original analytic problem.  The ordinary canonical-tail transfer is proved in
-Section~\ref{sec:transfer}.
+Each linked phrase opens its declaration at the stated immutable revision.
+The default checkpoint is \texttt{\commitshort}; separate-release and older
+research-note links are explicitly identified by their destinations.
+\texttt{ReciprocalTailRigidity.lean} contains the state dynamics and arithmetic
+exclusions; \texttt{SparseResetRecovery.lean} contains the scalar finite-mass
+criterion; and \texttt{PaperCompleteR7} supplies the original-coordinate
+product-defect, LCM-defect and canonical-frontier theorems. Thus the
+identification with reciprocal tails is not merely an informal interpretation.
+The periodic exclusion still assumes $e_n<a_n$. The state theorem still lists
+strict centring and normalised vanishing, with the former following from the
+latter by taking $K=1$. Neither fact removes the additional bounded-negative
+hypothesis. Section~\ref{sec:transfer} gives the ordinary analytic proof so the
+reader need not inspect source code to follow the argument.
 
 % The exhaustive source manifest is retained in the authored TeX for automated
 % validation, and kept outside the printed note.
@@ -816,33 +918,33 @@ iterated drift & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{476}{phaseDrift_ad
 repeated-divisor transport & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{494}{repeatedDivisor_forces_periodicCommonScale}\\
 phase-primitive exclusion & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{548}{no_phasePrimitivePeriodicNegative_orbit}\\
 periodic exclusion at every scale & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{690}{no_periodicNegative_orbit}\\
-eventual periodic exclusion & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{796}{no_eventuallyPeriodicNegative_orbit}\\
-shifted consecutive multiples & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{833}{exists_shifted_consecutiveMultiples}\\
-bounded-rise barrier & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{897}{no_boundedRise_of_tailAvoidance}\\
-step coprimality & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{983}{reducedStep_coprime_currentFactor}\\
-pairwise coprimality & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1010}{reducedTail_pairwiseCoprime}\\
-whole-modulus avoidance & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1024}{reducedTail_wholeModulusAvoidance}\\
-reduced bounded-rise exclusion & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1035}{no_boundedRise_reducedTail}\\
-eventual reduced exclusion & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1060}{no_eventuallyBoundedRise_reducedTail}\\
-gcd monotonicity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1424}{tailGcd_dvd_succ}\\
-gcd at a negative index & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1581}{tailGcd_eq_gcd_negativeMagnitude}\\
-chain stabilisation & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1599}{dvdChain_eventuallyConstant_of_cofinally_bounded}\\
-gcd stabilisation & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1630}{tailGcd_eventuallyConstant_of_cofinally_boundedNegative}\\
-tail-divergence form & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1655}{no_cofinallyBoundedNegative_of_tailTendsto}\\
-divergence from normalised vanishing & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1733}{tailState_tendsto_atTop_of_nonzero_normalizedVanishes}\\
-exclusion from normalised vanishing & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1748}{no_cofinallyBoundedNegative_of_normalizedVanishes}\\
-defect identity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1769}{sylvesterDefect_mul_nextTailState}\\
-local rigidity step & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1781}{sylvesterNext_eq_of_centered_zero}\\
-eventual Sylvester recurrence & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1799}{sylvesterNext_eventually_of_centered_zero}\\
-eventual constancy & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1819}{antitone_nat_eventually_constant}\\
-stabilisation of the nonnegative error & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1837}{centeredState_eventually_zero}\\
-tail realisation & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1863}{natTail_eq_nextTailState}\\
-denominator realisation & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1875}{natDen_eq_nextDenState}\\
-signed update law & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1972}{natTail_eq_sub_centeredState}\\
-absorption of a vanishing centred state & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2221}{centeredState_zero_absorbing}\\
-contrapositive along a tail & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2248}{eventually_nonzero_of_zero_absorbing}\\
-bounded-negative-part rigidity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2265}{boundedNegativePart_eventually_zero}\\
-eventual bounded-negative-part rigidity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2352}{eventuallyBoundedNegativePart_eventually_zero}\\
+eventual periodic exclusion & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{802}{no_eventuallyPeriodicNegative_orbit}\\
+shifted consecutive multiples & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{839}{exists_shifted_consecutiveMultiples}\\
+bounded-rise barrier & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{903}{no_boundedRise_of_tailAvoidance}\\
+step coprimality & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{989}{reducedStep_coprime_currentFactor}\\
+pairwise coprimality & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1016}{reducedTail_pairwiseCoprime}\\
+whole-modulus avoidance & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1030}{reducedTail_wholeModulusAvoidance}\\
+reduced bounded-rise exclusion & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1041}{no_boundedRise_reducedTail}\\
+eventual reduced exclusion & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1066}{no_eventuallyBoundedRise_reducedTail}\\
+gcd monotonicity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1430}{tailGcd_dvd_succ}\\
+gcd at a negative index & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1587}{tailGcd_eq_gcd_negativeMagnitude}\\
+chain stabilisation & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1605}{dvdChain_eventuallyConstant_of_cofinally_bounded}\\
+gcd stabilisation & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1636}{tailGcd_eventuallyConstant_of_cofinally_boundedNegative}\\
+tail-divergence form & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1661}{no_cofinallyBoundedNegative_of_tailTendsto}\\
+divergence from normalised vanishing & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1739}{tailState_tendsto_atTop_of_nonzero_normalizedVanishes}\\
+exclusion from normalised vanishing & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1754}{no_cofinallyBoundedNegative_of_normalizedVanishes}\\
+defect identity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1775}{sylvesterDefect_mul_nextTailState}\\
+local rigidity step & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1787}{sylvesterNext_eq_of_centered_zero}\\
+eventual Sylvester recurrence & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1805}{sylvesterNext_eventually_of_centered_zero}\\
+eventual constancy & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1825}{antitone_nat_eventually_constant}\\
+stabilisation of the nonnegative error & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1843}{centeredState_eventually_zero}\\
+tail realisation & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1869}{natTail_eq_nextTailState}\\
+denominator realisation & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1881}{natDen_eq_nextDenState}\\
+signed update law & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{1978}{natTail_eq_sub_centeredState}\\
+absorption of a vanishing centred state & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2227}{centeredState_zero_absorbing}\\
+contrapositive along a tail & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2254}{eventually_nonzero_of_zero_absorbing}\\
+bounded-negative-part rigidity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2271}{boundedNegativePart_eventually_zero}\\
+eventual bounded-negative-part rigidity & \lrefx{Erdos243/ReciprocalTailRigidity.lean}{2360}{eventuallyBoundedNegativePart_eventually_zero}\\
 repair-entropy inequality & \lrefx{Erdos243/RepairEntropy.lean}{48}{repairedFamily_recovery_energy_divisionFree}\\
 independent-repair bound & \lrefx{Erdos243/RepairEntropy.lean}{78}{repaired_card_bound_of_independent}\\
 fixed-length reset disappearance & \lrefx{Erdos243/RepairEntropy.lean}{107}{eventually_recoveryPayment_eq_one_of_fixedLength}\\
@@ -924,19 +1026,19 @@ $\fnum(0,3)=6$ but $\fnum(0,4)=11$.  So one step of survival is decided by the
 parity of $a$ alone, which is Theorem~\ref{res:residue} at its smallest
 nontrivial horizon.
 
-The search this supported is superseded.  Running it over initial states below
-$5000$ produced forced prefixes of length $17$ and no longer, which was
-evidence and not a proof; the Lean-checked
+The inherited search record reports a maximum forced-prefix length of $17$
+among initial states below $5000$. This finite search was not rerun for the
+present revision and is not a proof of exclusion; the Lean-checked
 \lword{Erdos243/ReciprocalTailRigidity.lean}{286}{no_constantNegative_orbit}{constant exclusion at every scale}
 now excludes the constant-negative case outright, for every seed and at every
 scale.  The reduction is retained because it is exact, and because the
 shrinking-modulus technique transfers to any forced orbit whose step is a
 polynomial division.
 
-\begin{thebibliography}{10}
+\begin{thebibliography}{99}
 \small
 \raggedright
-\setlength{\itemsep}{0pt}
+\setlength{\itemsep}{1pt}
 \bibitem{erdosstraus1964} P.~Erd\H{o}s and E.~G. Straus,
   \href{https://users.renyi.hu/~p_erdos/1964-19.pdf}{\emph{On the irrationality
   of certain Ahmes series}},
@@ -970,20 +1072,53 @@ polynomial division.
   {10.13140/RG.2.2.36612.08325}.
 \bibitem{erdosproblemaday243} P.~White with Claude (Anthropic),
   \href{https://erdosproblemaday.com/report/243}{\emph{Erd\H{o}s \#243:
-  working report}}, Erd\H{o}s Problem a Day, page dated 12 August 2026,
-  accessed 16 September 2026.  An AI-assisted working report; it has not been
-  refereed.
+  working report}}, Erd\H{o}s Problem a Day, page dated 12 August 2026.
+  AI-assisted, unrefereed working report.
+\bibitem{stevenhagenlenstra1996} P.~Stevenhagen and H.~W. Lenstra, Jr.,
+  \href{https://pub.math.leidenuniv.nl/~lenstrahw/PUBLICATIONS/1994c/art.pdf}
+  {\emph{Chebotar\"ev and his density theorem}}, Math. Intelligencer
+  \textbf{18} (1996), no.~2, 26--37,
+  doi:\href{https://doi.org/10.1007/BF03027290}{10.1007/BF03027290}.
+  Page references are to the linked author version dated 23 March 1995.
 \bibitem{koizumi2025} J.~Koizumi,
   \href{https://math.colgate.edu/~integers/aa28/aa28.pdf}
   {\emph{Irrationality of the reciprocal sum of doubly exponential sequences}},
   Integers \textbf{26} (2026), Paper No.~A28, 17 pp.,
-  doi:\href{https://doi.org/10.5281/zenodo.18714404}{10.5281/zenodo.18714404};
-  preprint arXiv:2504.05933v1.
+  doi:\href{https://doi.org/10.5281/zenodo.18714404}{10.5281/zenodo.18714404}.
+  Locators refer to this published version.
 \bibitem{erdosproblems} T.~F. Bloom,
   \href{https://www.erdosproblems.com/243}{\emph{Erd\H{o}s Problem \#243}},
-  \texttt{erdosproblems.com/243}, accessed 28 July 2026 (page displays
-  ``last edited 21 January 2026'').  The record labels the problem open and
-  cites \textup{[ErGr80, p.~64]} and \textup{[Er88c, p.~105]}.
+  supplied snapshot of 28 July 2026; not a live status verification.
+\bibitem{erdosstraus1974} P.~Erd\H{o}s and E.~G. Straus,
+  \href{https://msp.org/pjm/1974/55-1/pjm-v55-n1-p08-s.pdf}
+  {\emph{On the irrationality of certain series}}, Pacific J. Math.
+  \textbf{55} (1974), no.~1, 85--92.
+\bibitem{hancltijdeman2008} J.~Han\v{c}l and R.~Tijdeman,
+  \href{https://www.impan.pl/shop/en/publication/transaction/download/product/82186}
+  {\emph{On the irrationality of polynomial Cantor series}},
+  Acta Arith. \textbf{133} (2008), no.~1, 37--52,
+  doi:\href{https://doi.org/10.4064/aa133-1-3}{10.4064/aa133-1-3}.
+  Locators refer to the published version.
+\bibitem{duverneykurosawashiokawa2020} D.~Duverney, T.~Kurosawa and I.~Shiokawa,
+  \href{https://danielduverney.fr/documents/theorie-des-nombres/Tsukuba.pdf}
+  {\emph{Irrationality exponents of certain fast converging series of rational
+  numbers}}, Tsukuba J. Math. \textbf{44} (2020), no.~2, 235--250,
+  doi:\href{https://doi.org/10.21099/tkbjm/20204402235}{10.21099/tkbjm/20204402235}.
+  Theorem locators follow the linked 14-page author version.
+\bibitem{crmarickovac2025} T.~Crmari\'{c} and V.~Kova\v{c},
+  \href{https://arxiv.org/abs/2504.18712v1}
+  {\emph{On the irrationality of certain super-polynomially decaying series}},
+  Colloq. Math. \textbf{179} (2025), 55--68,
+  doi:\href{https://doi.org/10.4064/cm9628-5-2025}{10.4064/cm9628-5-2025}.
+  Theorem locators follow arXiv:2504.18712v1.
+\bibitem{kouli2020} A.~Koutsoukou-Argyraki and W.~Li,
+  \href{https://isa-afp.org/entries/Irrational_Series_Erdos_Straus.html}
+  {\emph{Irrationality Criteria for Series by Erd\H{o}s and Straus}},
+  Archive of Formal Proofs, 12 May 2020. An Isabelle/HOL formalisation;
+  the archive entry identifies the results formalised.
+\bibitem{dlmf_gamma} National Institute of Standards and Technology,
+  \href{https://dlmf.nist.gov/5.11.E12}{\emph{Digital Library of Mathematical
+  Functions}, \S5.11(iii), formula 5.11.12}, accessed 16 September 2026.
 \end{thebibliography}
 
 \companionpapercontext

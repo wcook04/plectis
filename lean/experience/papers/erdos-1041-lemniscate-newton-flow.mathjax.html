@@ -102,11 +102,12 @@ question is Problem 5 of Erdős–Herzog–Piranian <span class="citation"
 data-cites="ehp1958"><a href="#ref-2">[2]</a></span>, listed as Problem 1041 in Bloom’s
 catalogue <span class="citation" data-cites="bloom"><a href="#ref-1">[1]</a></span>. Pendyala
 <span class="citation" data-cites="june2026"><a href="#ref-4">[4]</a></span> proves the complete
-degree-four case. A separate degree-seven counterexample has been
-announced on the <a href="https://www.erdosproblems.com/1041">problem’s
-discussion page</a>. That external claim is not assessed in this note;
-the results below concern the stated polynomial families and sufficient
-conditions.</p>
+degree-four case. His proof separates a close-pair chord case from a
+radial construction: after normalising a smallest enclosing disc, a
+four-point angular lemma selects two safe spokes. That vertex need not
+be a critical point. The results below concern their stated polynomial
+families and sufficient conditions; no assessment of the current
+unrestricted problem status or priority is intended.</p>
 <p>Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
 treats arbitrary geometry when <span
 class="math inline" data-term-auto="off">\(\mu\le13/25\)</span>, without a root-location
@@ -115,8 +116,13 @@ class="math inline" data-term-auto="off">\((5/2)\mu^{1/n}\)</span> in the open l
 class="math inline" data-term-auto="off">\((25/13)\mu\)</span> for every squarefree monic
 polynomial. The independent <span class="math inline" data-term-auto="off">\(71/10\)</span>
 argument below exhibits how inverse lifts and boundary arcs spend area.
-The disk-family theorem gives a different sufficient condition, using a
-simple critical value <span class="math inline" data-term-auto="off">\(v\)</span> with <span
+The scaled <span class="math inline" data-term-auto="off">\(5/2\)</span> consequence is
+stronger in both length and containment, since <span
+class="math inline" data-term-auto="off">\(25/13&lt;2\)</span>; the area-based construction
+is retained for its proof method and its component-sensitive
+refinements. The disk-family theorem gives a different sufficient
+condition, using a simple critical value <span
+class="math inline" data-term-auto="off">\(v\)</span> with <span
 class="math inline" data-term-auto="off">\(0&lt;|v|&lt;1\)</span> and normalised separation
 radius <span class="math inline" data-term-auto="off">\(4/3\)</span>. The collinear and
 sparse families retain the target length <span
@@ -563,9 +569,16 @@ class="math inline" data-term-auto="off">\(2/31\)</span>. Lean checks the finite
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/PrimitiveQuinticBoundaryTail.lean#L200">two
 boundary tail energies below one</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/PrimitiveQuinticInteriorTail.lean#L272">two
-interior tail energies below one</a>; the rotation, moment
-identification, Abel path estimate, and two-spoke assembly are ordinary
-mathematics.</p>
+interior tail energies below one</a>. The attached source snapshot also
+contains <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperPrimitiveCompletionR10.lean#L235">a
+complete primitive-quintic path declaration</a>. This revision admitted
+that module to the checked <code>ErdosProblems</code> root;
+<code>AxiomAudit</code> prints <code>complete_primitive_quintic</code>
+against the standard axioms. The finite checked kernels and the full
+geometric theorem remain distinct layers: the former were already in the
+root, and the latter is now a checked implementation rather than an
+unchecked source file.</p>
 </section>
 <section id="bdry:solved-polynomial-families" class="level3">
 <h3>Sharp collinear roots</h3>
@@ -839,20 +852,27 @@ class="math inline" data-term-auto="off">\(\Gamma(1/4)^2/(2\sqrt{\pi})\)</span> 
 <span
 class="math inline" data-term-auto="off">\((\pi/2)(1+\sqrt2)&lt;5\pi/4\)</span>.</em></p>
 </div>
-<p>A degree-uniform one-root perimeter constant, if one exists, must be
-at least <span class="math inline" data-term-auto="off">\(2\pi\)</span>. For each fixed <span
-class="math inline" data-term-auto="off">\(a&gt;1\)</span>, the one-root component of <span
-class="math inline" data-term-auto="off">\(\{|z^N-az|\le1\}\)</span> contains every disc of
-radius <span class="math inline" data-term-auto="off">\(r&lt;1/a\)</span> for all
-sufficiently large <span class="math inline" data-term-auto="off">\(N\)</span>. A circle of
-radius between <span class="math inline" data-term-auto="off">\(1/a\)</span> and <span
-class="math inline" data-term-auto="off">\(1\)</span> isolates that component by Rouché’s
-theorem. Its perimeter is therefore at least <span
-class="math inline" data-term-auto="off">\(2\pi/a\)</span> in the limit; now let <span
+<p>An arbitrary one-root component has no degree-uniform perimeter
+bound: the Runge-approximation construction in the accompanying research
+addendum <span class="citation" data-cites="revision2026"><a href="#ref-21">[21]</a></span>
+produces monic level-one examples with arbitrarily long analytic
+boundaries. That construction does not require all roots in the unit
+disc. The narrower question relevant here requires <em>every</em>
+inverse branch to be unramified at the chosen level: <span
+class="math inline" data-term-auto="off">\(0&lt;\sigma&lt;\mu(f)\)</span>. For a branch <span
+class="math inline" data-term-auto="off">\(f(\phi(w))=\sigma w\)</span>, it asks whether
+<span
+class="math inline" data-term-auto="off">\(\int_0^{2\pi}|\phi&#39;(e^{it})|\,dt\le\beta\sigma^{1/n}\)</span>
+with an absolute <span class="math inline" data-term-auto="off">\(\beta\)</span>. Necessarily
+<span class="math inline" data-term-auto="off">\(\beta\ge2\pi\)</span>, as shown by <span
+class="math inline" data-term-auto="off">\(z^N-az\)</span> with fixed <span
+class="math inline" data-term-auto="off">\(a&gt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(N\to\infty\)</span>, followed by <span
 class="math inline" data-term-auto="off">\(a\downarrow1\)</span>. The family <span
 class="math inline" data-term-auto="off">\(z^N-z\)</span> at level <span
-class="math inline" data-term-auto="off">\(1\)</span> does not supply a one-root component.
-Neither general path theorem uses the rejected perimeter bound.</p>
+class="math inline" data-term-auto="off">\(1\)</span> does not supply the required isolated
+component. Neither general path theorem uses the rejected
+arbitrary-component bound.</p>
 <div class="proposition" id="res:arity-not-capacity">
 <p><strong>Proposition 7.3</strong> (arity does not force a capacity
 gap). <em> Let <span
@@ -1353,6 +1373,19 @@ class="math display" data-term-auto="off">\[\sum_jw_jG(c_j)^2\le1-\left|\sum_jw_
 nonzero. The specialised four-point and central-radius proofs are
 retained in the long record; the all-degree inequality above removes
 their cardinality restriction.</p>
+<section id="relation-to-classical-critical-value-products."
+class="level5">
+<h5>Relation to classical critical-value products.</h5>
+<p>For a monic polynomial with all zeros in the unit disc, Dubinin <span
+class="citation" data-cites="dubinin2006critical"></span> proves the
+sharp geometric-mean inequality <span
+class="math inline" data-term-auto="off">\(\bigl(\prod_{j=1}^{n-1}|f(c_j)|\bigr)^{1/(n-1)}\le1\)</span>.
+The proof uses the resultant identity (9), the maximum-modulus principle
+and Schur’s unit-circle Vandermonde inequality, not the
+dissymmetrisation argument of his Theorem 1. The positive-moment
+inequality below implies that product bound by AM–GM; the converse
+implication does not hold. This comparison identifies an antecedent, not
+a priority claim for the stronger moment statement.</p>
 <div class="theorem" id="res:fp-to-s">
 <p><strong>Theorem 15.2</strong> (critical-value mean in every degree).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
@@ -1393,24 +1426,31 @@ its boundary. Power means give <span
 class="math inline" data-term-auto="off">\((S)_n\)</span>, and scaling restores <span
 class="math inline" data-term-auto="off">\(R\)</span>. ◻</p>
 </div>
+<p>If a zero is fixed at the disc centre, Dubinin’s Theorem 3 <span
+class="citation" data-cites="dubinin2006critical"></span> gives the
+sharper product estimate <span
+class="math inline" data-term-auto="off">\(\bigl(\prod_j|f(c_j)|\bigr)^{1/(n-1)}
+\le(n-1)(|f&#39;(0)|^2/n^n)^{1/(n-1)}\)</span> in the unit-disc
+normalisation. Dubinin explicitly records the preceding contribution of
+Tischler <span class="citation" data-cites="tischler1989"><a href="#ref-20">[20]</a></span>.
+Neither the product estimate nor its equality family settles the
+marked-zero positive-moment question in the research addendum <span
+class="citation" data-cites="revision2026"></span>.</p>
 <p>The constant is attained by <span
 class="math inline" data-term-auto="off">\(f(z)=(z-h)^n-\lambda\)</span> with <span
-class="math inline" data-term-auto="off">\(|\lambda|=R^n\)</span>. These ordinary analytic
-proofs are recorded in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/FreePointQuadraticAllDegrees.md">free
-point quadratic all degrees</a> and <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/CentredCircleQuadrinomialConnector.md">centred
-circle quadrinomial connector</a>. Lean checks <a
-href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/lean/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101">the
-complete critical-value mean</a>, with the complete all-degree
-conclusion, arbitrary centre, <span class="math inline" data-term-auto="off">\(R=0\)</span>,
-and critical points counted with multiplicity. The exact source bytes
-and its directly audited target alias are recorded in <a
-href="https://github.com/wcook04/plectis-erdos/blob/27c2fc5fe3c55fe547feaeb4c9bb68b3cf63a5bf/verification/erdos1041-returned-r18-v5-full-audit-evidence.json">the
-source-bound Lean build and axiom-audit record</a>. The argument above
-explains that statement; the earlier candidate status in the source
-header predates the successful audit. A critical-value mean supplies no
-attachment or path-length estimate by itself.</p>
+class="math inline" data-term-auto="off">\(|\lambda|=R^n\)</span>. The proof above explains
+the analytic mechanism. The supplied formal index at commit
+<code>3d6d938d696f</code> places <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101">the
+complete critical-value mean</a> and the complete weighted free-point
+theorem in its checked build closure. The critical-value endpoint
+includes arbitrary centre, <span class="math inline" data-term-auto="off">\(R=0\)</span>, and
+critical points counted with multiplicity. This is evidence recorded in
+the attached index, not a fresh kernel replay in this revision. Older
+candidate headers and narrower comparator selections do not supersede
+those complete targets. A critical-value mean supplies no attachment or
+path-length estimate by itself.</p>
+</section>
 </section>
 <section id="sec:orlicz" class="level2">
 <h2>The exact nonlinear lifetime currency</h2>
@@ -1531,9 +1571,17 @@ sufficiency closure</a>.</p>
 value plane along critical rays gives the finite inverse-sheet
 construction recorded in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/AttachmentAwareReeb.md">attachment
-aware reeb</a>. Let <span class="math inline" data-term-auto="off">\(L_f(c)\)</span> be the
-length of the canonical two-root descent arc through a critical point
-<span class="math inline" data-term-auto="off">\(c\)</span>; its two halves are Newton-flow
+aware reeb</a>. The underlying inverse-sheet construction is classical:
+Dubinin <span class="citation" data-cites="dubinin2006critical"><a href="#ref-16">[16]</a></span>
+cuts outward from the critical values and describes the resulting sheet
+adjacency tree; <span class="citation"
+data-cites="dubinin2006capacity"><a href="#ref-22">[22]</a></span> uses a related network in a
+capacity argument. The latter assumes critical values bounded by one and
+controls logarithmic capacity, not Euclidean length. Here the task is to
+specify admissible descent arcs and estimate their metric cost. Let
+<span class="math inline" data-term-auto="off">\(L_f(c)\)</span> be the length of the
+canonical two-root descent arc through a critical point <span
+class="math inline" data-term-auto="off">\(c\)</span>; its two halves are Newton-flow
 trajectories from <span class="math inline" data-term-auto="off">\(c\)</span> to roots, that
 is, edges of the Newtonian graph <span class="citation"
 data-cites="kozen-stefansson1997"><a href="#ref-6">[6]</a></span>. Only critical points with
@@ -1591,6 +1639,15 @@ and an exact degree-dependent degeneration of <span
 class="math inline" data-term-auto="off">\(\Lambda\)</span>. These statements are not parent
 proofs, are not Lean-checked as analytic theorems, and do not replace
 the trinomial flagship.</p>
+<p>The previous return also supplies a near-regular-pentagon family for
+which <em>all</em> origin spokes fail <span class="citation"
+data-cites="revision2026"><a href="#ref-21">[21]</a></span>. The accompanying addendum analyses
+every critical point of that family and gives an ordinary
+counterargument to a critical <em>straight</em>-hub selector even
+locally near the regular pentagon. That new argument is separated from
+the paper’s registered formal results and requires independent review.
+It does not exclude a noncritical vertex, curved inverse-ray arms or an
+arbitrary contained connector.</p>
 <p>The remaining parent regime has <span
 class="math inline" data-term-auto="off">\(\mu&gt;13/25\)</span> and lies outside the solved
 families and the applicable separation conditions. Further progress
@@ -1602,26 +1659,32 @@ and their exact witnesses are preserved in the long record.</p>
 </section>
 <section id="sec:evidence-ledger" class="level2">
 <h2>Proof boundaries</h2>
-<p>The trinomial radial inequalities and length budget, the two-root
-proximity selector, the exact spoke counterexamples, and the specified
-finite kernels are checked in Lean at their linked source revisions.
-Their geometric assemblies are identified separately in the
-corresponding proofs.</p>
-<p>The <span class="math inline" data-term-auto="off">\(13/25\)</span> theorem is ordinary
-analysis with an exact rational certificate. The <span
-class="math inline" data-term-auto="off">\(71/10\)</span> theorem, the analytic inverse-map
-construction, the all-degree Poisson argument, and the generic
-slit-sheet construction are ordinary proofs. The finite coefficient
-identity and the polar circle comparison have checked kernels; neither
-substitutes for Poisson integration or the maximum principle. The
-complete declaration-to-claim map is retained in the long record and the
-formal-source guide below.</p>
+<p>The evidence belongs to each statement, not to a blanket label for
+the whole paper. The supplied index at commit <code>3d6d938d696f</code>
+records complete checked targets for the critical-value mean, weighted
+free-point inequality and translated cubic-fibre path. The trinomial
+radial bounds and radius sum, together with the named finite selectors
+and algebraic kernels, have their own cited formal statements. A
+comparator is a selected interface, not an inventory of every formal
+theorem.</p>
+<p>The complete degree-three and primitive-quintic path declarations
+also occur in the supplied source, but are indexed outside the checked
+build. Their ordinary proofs remain mathematical arguments; absence of
+an attached build receipt is not an absence of an ordinary proof or a
+formal-source file.</p>
+<p>The <span class="math inline" data-term-auto="off">\(13/25\)</span> theorem uses ordinary
+analysis and an exact rational certificate; its scaled corollary, the
+independent <span class="math inline" data-term-auto="off">\(71/10\)</span> argument,
+inverse-map geometry and slit-sheet topology are not certified merely by
+the neighbouring finite Lean kernels. The new research addendum is
+ordinary, unreviewed work, with its rational sign checks explicitly
+separated from its analytic steps. No fresh Lean replay or independent
+human review is claimed in this revision.</p>
 <p>Fixed-degree lower semicontinuity reduces the closed class to a dense
-generic metric bound. The admissible canonical-arc length estimate
-remains open. Raster searches supply candidate paths for finite samples;
-their meaning is separate from the exact rational certificates used in
-proved inequalities. No independent human review or resolution of the
-general problem is claimed.</p>
+generic metric bound. The admissible <em>curved</em> canonical-arc
+estimate is a sufficient target, not an identity for the unrestricted
+path infimum. Raster searches are finite-sample computations, not proofs
+of that target.</p>
 <section id="sec:1041-sources" class="level3 unnumbered">
 <h3 class="unnumbered">Sources and adjacent results</h3>
 <p>The original root-to-root problem is <span class="citation"
@@ -1650,19 +1713,59 @@ uniformisation uses the component-wise Riemann–Hurwitz count in the
 proof of <span class="citation" data-cites="eks2010"><a href="#ref-8">[8]</a></span>. Existence
 of a contained root segment for collinear zeros already follows from
 <span class="citation" data-cites="ehp1958"><a href="#ref-2">[2]</a></span>; Section <a class="math-ref" href="#sec:collinear">14</a> adds the sharp
-constant. Downloaded-source digests, precise locators, and withdrawal
+constant. Crane’s Smale mean-value argument <span class="citation"
+data-cites="crane2007smale"><a href="#ref-17">[17]</a></span> combines inverse branches, radial
+slits and capacity, but concerns a derivative-normalised mean-value
+ratio rather than our absolute monic critical values. Dubinin’s
+four-point theorem <span class="citation"
+data-cites="dubinin2013fourpoint"><a href="#ref-18">[18]</a></span> assumes a bound on
+<em>all</em> critical values and concerns distortion; its normalisation
+does not supply our root-disc moment or path estimate. Kuznetsova and
+Tkachev <span class="citation" data-cites="kuznetsova2003"><a href="#ref-19">[19]</a></span> study
+length functions on regular lemniscate levels. Their log-convexity is
+useful context, not a uniform one-root perimeter bound at a critical
+endpoint. Downloaded-source digests, precise locators, and withdrawal
 history are retained in the long record. No uniqueness or priority claim
 is inferred from this comparison.</p>
 </section>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
-<p>The public
-<code>ErdosProblems.Erdos1041.NewtonFlowRaySeparation</code> module
-contains the checked source for this note. The search of §<a class="math-ref" href="#sec:finite">12</a> is
-<code>scripts/search_counterexample.py</code> in the source package. The
-declaration table below is pinned to the shared formal-source commit
-used throughout this problem-note series.</p>
+<p>The attached declaration index, not a single Newton-flow module or a
+shared historical macro, is the source map for this revision. At
+snapshot <code>3d6d938d696f</code>, the following distinctions are
+essential.</p>
+<ul>
+<li><p>Complete targets in the supplied checked closure: <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101">critical-value
+mean</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperWeightedRefinementsR10.lean#L17">weighted
+free-point inequality</a>, and <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperCubicFibres.lean#L240">translated
+cubic-fibre path</a>.</p></li>
+<li><p>Complete implementations indexed outside that closure: <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperCubicCompletion.lean#L297">degree-three
+path</a>.</p></li>
+<li><p>Admitted to the checked <code>ErdosProblems</code> root in this
+revision: <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperPrimitiveCompletionR10.lean#L235">primitive-quintic
+path</a>.</p></li>
+<li><p>Finite selected kernels, source-only release declarations and
+ordinary analytic assemblies have separate rows in the accompanying
+formal-scope map. The older Newton declaration list is preserved
+verbatim in the editorial transfer archive; it remains useful for those
+lemmas, not as complete paper coverage.</p></li>
+</ul>
+<p>No source-link reachability check or fresh kernel build is implied by
+these snapshot links. The original paper-wide commit macro is retained
+for legacy links; newer target links name their own snapshot
+explicitly.</p>
+</section>
+<section id="sec:pinned-lean-sources" class="level2">
+<h2>Pinned Lean sources</h2>
+<p>The following declarations are this note’s pin-faithful source
+inventory. Line numbers are those of the commit named by
+<code>\commit</code>.</p>
 <ul>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L34">newton
@@ -1670,12 +1773,6 @@ flow vector</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L38">derivative
 mul newton flow vector</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
-flow value has deriv at</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
-flow scaled value has deriv at zero</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L77">same
 positive ray</a></p></li>
@@ -1688,9 +1785,6 @@ positive ray symm</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L92">same
 positive ray trans</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
-same positive ray parameterization</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L127">real
 affine line</a></p></li>
@@ -1710,23 +1804,14 @@ small avoiding finite real affine lines</a></p></li>
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L179">same
 positive ray imp mem real affine line</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
-small translation separating arguments</a></p></li>
-<li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L230">norm
 lt one of near root</a></p></li>
 <li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L257">constant
 perturbation root near original</a></p></li>
 <li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
-perturbation roots in unit disk</a></p></li>
-<li><p><a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L306">same
 positive ray of real exp decay</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315">no
-newton connection of not same positive ray</a></p></li>
 </ul>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -1811,6 +1896,39 @@ Preussischen Akademie der Wissenschaften, Physikalisch-Mathematische
 Klasse (1928), printed pp. 228–232 and 280–282. <a
 href="https://archive.org/details/sitzungsbericht1928preu"
 class="uri">https://archive.org/details/sitzungsbericht1928preu</a>.</p></li>
+<li id="ref-16"><p>V. N. Dubinin, <em>Inequalities for critical values of
+polynomials</em>, Sb. Math. <strong>197</strong> (2006), no. 8,
+1167–1176, doi:<a
+href="https://doi.org/10.1070/SM2006v197n08ABEH003793">10.1070/SM2006v197n08ABEH003793</a>.</p></li>
+<li id="ref-17"><p>E. Crane, <em>A bound for Smale’s mean value conjecture for
+complex polynomials</em>, Bull. London Math. Soc. <strong>39</strong>
+(2007), no. 5, 781–791, doi:<a
+href="https://doi.org/10.1112/blms/bdm063">10.1112/blms/bdm063</a>;
+author preprint <a
+href="https://people.maths.bris.ac.uk/~maetc/SMVCbound.pdf"
+class="uri">https://people.maths.bris.ac.uk/~maetc/SMVCbound.pdf</a>.</p></li>
+<li id="ref-18"><p>V. N. Dubinin, <em>Four-point distortion theorem for complex
+polynomials</em>, arXiv:<a
+href="https://arxiv.org/abs/1301.3985v1">1301.3985v1</a>
+(2013).</p></li>
+<li id="ref-19"><p>O. S. Kuznetsova and V. G. Tkachev, <em>Length functions of
+lemniscates</em>, Manuscripta Math. <strong>112</strong> (2003),
+519–538, doi:<a
+href="https://doi.org/10.1007/s00229-003-0411-3">10.1007/s00229-003-0411-3</a>;
+preprint arXiv:<a
+href="https://arxiv.org/abs/math/0306327">math/0306327</a>.</p></li>
+<li id="ref-20"><p>D. Tischler, <em>Critical points and values of complex
+polynomials</em>, J. Complexity <strong>5</strong> (1989), no. 4,
+438–456.</p></li>
+<li id="ref-21"><p>W. Cook / Plectis, <em>Three refinements for the lemniscate-path
+programme</em>, 16 September 2026, accompanying unreviewed research
+note, Sections 1–3, with the earlier <em>Structural obstructions</em>
+note preserved in the same revision bundle.</p></li>
+<li id="ref-22"><p>V. N. Dubinin, <em>Lemniscates and inequalities for the
+logarithmic capacities of continua</em>, Mat. Zametki
+<strong>80</strong> (2006), no. 1, 33–37; English translation, Math.
+Notes <strong>80</strong> (2006), no. 1, 31–35, doi:<a
+href="https://doi.org/10.1007/s11006-006-0105-8">10.1007/s11006-006-0105-8</a>.</p></li>
 </ol>
 </section>
   </div>

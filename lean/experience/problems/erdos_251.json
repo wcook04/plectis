@@ -202,7 +202,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6cca169626b00d314afb55370107ef5d54d1a4bb31c17c7566eb36ab29f99879",
+    "source_sha256": "565c1568a67c3f4f49f41ab7751be383daf74d7139e9381a94a10eb6896fe469",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -218,11 +218,11 @@
   "paper": {
     "schema": "plectis_lean_paper_v1",
     "paper_id": "erdos-251-prime-gap-dyadic-series",
-    "title": "A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series",
+    "title": "Sparse Congruence-Preserving Perturbations\\\\of Dyadic Series",
     "subject": "Erdős #251",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 21,
+    "pages": 14,
     "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
     "precis": "The paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.",
     "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
@@ -246,30 +246,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 25,
       "renderer_fingerprint": "777419e3b355e02e",
-      "source_sha256": "1f67d8a5796cd1cc9d60b38c7bffee347321204b89b1608b79d5c9a545e0c2e3",
+      "source_sha256": "f463f195426b35104714cc1120aa4c9742834e1f25858192ab8bacf8ada9ddea",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 541,
-      "raw_math_fallback_count": 1,
+      "mathml_node_count": 278,
+      "raw_math_fallback_count": 0,
       "warnings": {
-        "mathml": [
-          "[WARNING] Could not convert TeX math \\begin{split}",
-          "&\\forall N_0\\ \\exists N,r:\\ N_0<N\\text{ and }",
-          "\\forall z\\in\\mathbb{Z},\\quad",
-          "b(N+r)<|B_{h,N,r}-2^rz|\\\\",
-          "&\\hspace{35mm}\\Longleftrightarrow\\quad",
-          "D_N\\notin\\mathbb{Z}\\text{ for arbitrarily large }N.",
-          "\\end{split}",
-          "\\tag{2.4}\\label{eq:fixedcollapse}, rendering as TeX:",
-          "&\\hspace{35mm}\\Longleftrightarrow\\quad",
-          "^",
-          "unexpected \"\\\\\"",
-          "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
-        ],
+        "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "e5ae6c14fbdac7211dd9041e955971d7361320708eae736cf109712f63108220",
-      "html_exact_tex_sha256": "77cd375dc84254e8cdb3e20fa0f3c2fc55ea6639c380119c4c934981208a0c48"
+      "html_mathml_sha256": "f6ea4663ec142519436d358be0f86f383fd7911c468e2f86d3fc2b5281b4a0c0",
+      "html_exact_tex_sha256": "b58c2a2ae4e74ad8c25c078f072018b384d668631582f908a5dda5b96278c403"
     },
     "sections": [
       {
@@ -279,28 +266,13 @@
       },
       {
         "level": 5,
-        "anchor": "the-complete-countermodel-in-one-calculation.",
-        "label": "The complete countermodel in one calculation."
-      },
-      {
-        "level": 5,
-        "anchor": "preserving-more-of-the-actual-gaps.",
-        "label": "Preserving more of the actual gaps."
-      },
-      {
-        "level": 5,
         "anchor": "sparse-corrections-and-local-information.",
         "label": "Sparse corrections and local information."
       },
       {
         "level": 5,
-        "anchor": "the-prime-series-and-its-tails.",
-        "label": "The prime series and its tails."
-      },
-      {
-        "level": 5,
-        "anchor": "what-remains-to-be-distinguished.",
-        "label": "What remains to be distinguished."
+        "anchor": "density-and-block-conventions.",
+        "label": "Density and block conventions."
       },
       {
         "level": 5,
@@ -309,43 +281,28 @@
       },
       {
         "level": 5,
-        "anchor": "notation-and-organisation.",
-        "label": "Notation and organisation."
-      },
-      {
-        "level": 2,
-        "anchor": "sec:diagonal-collapse",
-        "label": "Integral shifts and recurrence obstructions"
+        "anchor": "reading-the-two-papers.",
+        "label": "Reading the two papers."
       },
       {
         "level": 2,
         "anchor": "sec:parts",
-        "label": "Summation by parts, with the endpoint retained"
-      },
-      {
-        "level": 3,
-        "anchor": "sec:infinite",
-        "label": "The infinite identity and the irrationality equivalence"
-      },
-      {
-        "level": 5,
-        "anchor": "the-summability-hypothesis.",
-        "label": "The summability hypothesis."
+        "label": "The prime series and its actual tails"
       },
       {
         "level": 2,
         "anchor": "sec:tail",
-        "label": "The tail recurrence and integral shifts"
+        "label": "Integral shifts: an exact algebraic classification"
       },
       {
-        "level": 5,
-        "anchor": "the-actual-prime-gap-orbit.",
-        "label": "The actual prime-gap orbit."
+        "level": 2,
+        "anchor": "sec:local-certificate",
+        "label": "A local certificate and the missing prime input"
       },
       {
         "level": 3,
-        "anchor": "sec:local-certificate",
-        "label": "Two adjacent small shifts cannot both be integral"
+        "anchor": "finite-exact-tests",
+        "label": "Finite, exact tests"
       },
       {
         "level": 2,
@@ -353,49 +310,19 @@
         "label": "Nonperiodic coefficients with a rational sum"
       },
       {
-        "level": 5,
-        "anchor": "consequence-for-the-coefficients.",
-        "label": "Consequence for the coefficients."
-      },
-      {
         "level": 2,
         "anchor": "sec:open",
-        "label": "Complements and further questions"
-      },
-      {
-        "level": 5,
-        "anchor": "a-finite-truncation-criterion.",
-        "label": "A finite truncation criterion."
-      },
-      {
-        "level": 5,
-        "anchor": "the-remaining-estimate.",
-        "label": "The remaining estimate."
+        "label": "What the countermodels exclude"
       },
       {
         "level": 3,
-        "anchor": "statements-and-declarations",
-        "label": "Statements and declarations"
-      },
-      {
-        "level": 5,
-        "anchor": "artefact-and-data-availability.",
-        "label": "Artefact and data availability."
-      },
-      {
-        "level": 5,
-        "anchor": "funding-and-competing-interests.",
-        "label": "Funding and competing interests."
-      },
-      {
-        "level": 5,
-        "anchor": "acknowledgements.",
-        "label": "Acknowledgements."
+        "anchor": "attribution-and-verification",
+        "label": "Attribution and verification"
       },
       {
         "level": 2,
-        "anchor": "app:index",
-        "label": "Guide to the formal sources"
+        "anchor": "sec:pinned-lean-sources",
+        "label": "Pinned Lean sources"
       },
       {
         "level": 2,
@@ -414,17 +341,17 @@
         },
         {
           "id": "sec:tail",
-          "title": "The tail recurrence and integral shifts",
+          "title": "Integral shifts: an exact algebraic classification",
           "level": 2
         },
         {
           "id": "sec:local-certificate",
-          "title": "Two adjacent small shifts cannot both be integral",
-          "level": 3
+          "title": "A local certificate and the missing prime input",
+          "level": 2
         },
         {
           "id": "sec:open",
-          "title": "Complements and further questions",
+          "title": "What the countermodels exclude",
           "level": 2
         }
       ]
@@ -440,11 +367,11 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos-251-prime-gap-dyadic-series",
-      "title": "A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series",
+      "title": "Sparse Congruence-Preserving Perturbations\\\\of Dyadic Series",
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 21,
+      "pages": 14,
       "question": "What tail-shift condition would prove irrationality in Erdős #251, which natural affine schedules provably cannot supply it, and what prime-gap input still survives?",
       "precis": "The paper identifies the complete prime-gap tails and classifies rationality by integrality of their shifts. Two adjacent shifts in (-1,1) with unequal associated gaps cannot both be integral, so their cofinal occurrence for every positive shift would prove irrationality. A positive even polynomial word has integral shifts everywhere, and a sparse rationalising perturbation of the actual prime gaps preserves every fixed eventual congruence and short-block empirical distribution while keeping small corrections. These countermodels delimit growth, parity, congruence, and local-statistics arguments; the prime-specific cofinal small-shift assertion remains open.",
       "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
@@ -468,30 +395,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "1f67d8a5796cd1cc9d60b38c7bffee347321204b89b1608b79d5c9a545e0c2e3",
+        "source_sha256": "f463f195426b35104714cc1120aa4c9742834e1f25858192ab8bacf8ada9ddea",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 541,
-        "raw_math_fallback_count": 1,
+        "mathml_node_count": 278,
+        "raw_math_fallback_count": 0,
         "warnings": {
-          "mathml": [
-            "[WARNING] Could not convert TeX math \\begin{split}",
-            "&\\forall N_0\\ \\exists N,r:\\ N_0<N\\text{ and }",
-            "\\forall z\\in\\mathbb{Z},\\quad",
-            "b(N+r)<|B_{h,N,r}-2^rz|\\\\",
-            "&\\hspace{35mm}\\Longleftrightarrow\\quad",
-            "D_N\\notin\\mathbb{Z}\\text{ for arbitrarily large }N.",
-            "\\end{split}",
-            "\\tag{2.4}\\label{eq:fixedcollapse}, rendering as TeX:",
-            "&\\hspace{35mm}\\Longleftrightarrow\\quad",
-            "^",
-            "unexpected \"\\\\\"",
-            "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
-          ],
+          "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "e5ae6c14fbdac7211dd9041e955971d7361320708eae736cf109712f63108220",
-        "html_exact_tex_sha256": "77cd375dc84254e8cdb3e20fa0f3c2fc55ea6639c380119c4c934981208a0c48"
+        "html_mathml_sha256": "f6ea4663ec142519436d358be0f86f383fd7911c468e2f86d3fc2b5281b4a0c0",
+        "html_exact_tex_sha256": "b58c2a2ae4e74ad8c25c078f072018b384d668631582f908a5dda5b96278c403"
       },
       "sections": [
         {
@@ -501,28 +415,13 @@
         },
         {
           "level": 5,
-          "anchor": "the-complete-countermodel-in-one-calculation.",
-          "label": "The complete countermodel in one calculation."
-        },
-        {
-          "level": 5,
-          "anchor": "preserving-more-of-the-actual-gaps.",
-          "label": "Preserving more of the actual gaps."
-        },
-        {
-          "level": 5,
           "anchor": "sparse-corrections-and-local-information.",
           "label": "Sparse corrections and local information."
         },
         {
           "level": 5,
-          "anchor": "the-prime-series-and-its-tails.",
-          "label": "The prime series and its tails."
-        },
-        {
-          "level": 5,
-          "anchor": "what-remains-to-be-distinguished.",
-          "label": "What remains to be distinguished."
+          "anchor": "density-and-block-conventions.",
+          "label": "Density and block conventions."
         },
         {
           "level": 5,
@@ -531,43 +430,28 @@
         },
         {
           "level": 5,
-          "anchor": "notation-and-organisation.",
-          "label": "Notation and organisation."
-        },
-        {
-          "level": 2,
-          "anchor": "sec:diagonal-collapse",
-          "label": "Integral shifts and recurrence obstructions"
+          "anchor": "reading-the-two-papers.",
+          "label": "Reading the two papers."
         },
         {
           "level": 2,
           "anchor": "sec:parts",
-          "label": "Summation by parts, with the endpoint retained"
-        },
-        {
-          "level": 3,
-          "anchor": "sec:infinite",
-          "label": "The infinite identity and the irrationality equivalence"
-        },
-        {
-          "level": 5,
-          "anchor": "the-summability-hypothesis.",
-          "label": "The summability hypothesis."
+          "label": "The prime series and its actual tails"
         },
         {
           "level": 2,
           "anchor": "sec:tail",
-          "label": "The tail recurrence and integral shifts"
+          "label": "Integral shifts: an exact algebraic classification"
         },
         {
-          "level": 5,
-          "anchor": "the-actual-prime-gap-orbit.",
-          "label": "The actual prime-gap orbit."
+          "level": 2,
+          "anchor": "sec:local-certificate",
+          "label": "A local certificate and the missing prime input"
         },
         {
           "level": 3,
-          "anchor": "sec:local-certificate",
-          "label": "Two adjacent small shifts cannot both be integral"
+          "anchor": "finite-exact-tests",
+          "label": "Finite, exact tests"
         },
         {
           "level": 2,
@@ -575,49 +459,19 @@
           "label": "Nonperiodic coefficients with a rational sum"
         },
         {
-          "level": 5,
-          "anchor": "consequence-for-the-coefficients.",
-          "label": "Consequence for the coefficients."
-        },
-        {
           "level": 2,
           "anchor": "sec:open",
-          "label": "Complements and further questions"
-        },
-        {
-          "level": 5,
-          "anchor": "a-finite-truncation-criterion.",
-          "label": "A finite truncation criterion."
-        },
-        {
-          "level": 5,
-          "anchor": "the-remaining-estimate.",
-          "label": "The remaining estimate."
+          "label": "What the countermodels exclude"
         },
         {
           "level": 3,
-          "anchor": "statements-and-declarations",
-          "label": "Statements and declarations"
-        },
-        {
-          "level": 5,
-          "anchor": "artefact-and-data-availability.",
-          "label": "Artefact and data availability."
-        },
-        {
-          "level": 5,
-          "anchor": "funding-and-competing-interests.",
-          "label": "Funding and competing interests."
-        },
-        {
-          "level": 5,
-          "anchor": "acknowledgements.",
-          "label": "Acknowledgements."
+          "anchor": "attribution-and-verification",
+          "label": "Attribution and verification"
         },
         {
           "level": 2,
-          "anchor": "app:index",
-          "label": "Guide to the formal sources"
+          "anchor": "sec:pinned-lean-sources",
+          "label": "Pinned Lean sources"
         },
         {
           "level": 2,
@@ -636,17 +490,17 @@
           },
           {
             "id": "sec:tail",
-            "title": "The tail recurrence and integral shifts",
+            "title": "Integral shifts: an exact algebraic classification",
             "level": 2
           },
           {
             "id": "sec:local-certificate",
-            "title": "Two adjacent small shifts cannot both be integral",
-            "level": 3
+            "title": "A local certificate and the missing prime input",
+            "level": 2
           },
           {
             "id": "sec:open",
-            "title": "Complements and further questions",
+            "title": "What the countermodels exclude",
             "level": 2
           }
         ]
@@ -662,7 +516,7 @@
     {
       "schema": "plectis_lean_paper_v1",
       "paper_id": "erdos251-prime-gap-reasoning-surface",
-      "title": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
+      "title": "Prime-Gap Dyadic Series:\\\\Perturbations, Exact Criteria and Certificates",
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Reasoning surface",
@@ -690,11 +544,11 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "7a77baa1c2d27dcd98b628ae7a4e29ae815ace9e3bd18d956ae582545cecade6",
+        "source_sha256": "d8f3d685c628316838ea7b6d653ff036bb9bd1054e171b98ee257aa6f96968d0",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1100,
-        "raw_math_fallback_count": 1,
+        "mathml_node_count": 1167,
+        "raw_math_fallback_count": 7,
         "warnings": {
           "mathml": [
             "[WARNING] Could not convert TeX math \\sum_{n\\ge0}v_n",
@@ -703,12 +557,73 @@
             "e0}u_n-2 . \\qedhere",
             "^",
             "unexpected control sequence \\qedhere",
-            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\begin{equation}",
+            "\\operatorname{den}(T_{N+1})",
+            "=\\frac{\\operatorname{den}(T_N)}{\\gcd(2,\\operatorname{den}(T_N))},",
+            "\\qquad",
+            "\\sigma_h(N)\\in\\mathbb{Z}",
+            "\\iff",
+            "\\operatorname{den}(T_N)\\mid 2^h-1 .",
+            "\\label{long251:eq:den-law}\\ltx@label{eq:shift-denominator}\\ltx@label{res:shiftiff}",
+            "\\end{equation}, rendering as TeX:",
+            "251:eq:den-law}\\ltx@label{eq:shift-denom",
+            "^",
+            "unexpected control sequence \\ltx",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\begin{equation}",
+            "\\sum_{j\\ge1}\\frac{g_{N+h+j}-g_{N+j}}{2^{\\,j}}\\notin\\mathbb{Z} .",
+            "\\label{long251:eq:shift-escape}\\ltx@label{eq:shift-escape}",
+            "\\end{equation}, rendering as TeX:",
+            "q:shift-escape}\\ltx@label{eq:shift-escap",
+            "^",
+            "unexpected control sequence \\ltx",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\begin{equation}",
+            "\\mathcal A_{N,r}\\quad\\Longleftrightarrow\\quad D_N\\in2\\mathbb{Z}.",
+            "\\label{eq:affinecollapse}\\ltx@label{long251:eq:affinecollapse}",
+            "\\end{equation}, rendering as TeX:",
+            "affinecollapse}\\ltx@label{long251:eq:aff",
+            "^",
+            "unexpected control sequence \\ltx",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\begin{equation}",
+            "\\bigl(\\forall N_0\\ \\exists N,r:\\ N_0<N\\text{ and }\\neg\\mathcal A_{N,r}\\bigr)",
+            "\\quad\\Longleftrightarrow\\quad",
+            "D_N\\notin\\mathbb{Z}\\text{ for arbitrarily large }N.",
+            "\\label{eq:affinecofinal}\\ltx@label{long251:eq:affinecofinal}",
+            "\\end{equation}, rendering as TeX:",
+            ":affinecofinal}\\ltx@label{long251:eq:aff",
+            "^",
+            "unexpected control sequence \\ltx",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\begin{equation}",
+            "2b(N+r)q<2^r.",
+            "\\label{eq:dyadicscale}\\ltx@label{long251:eq:dyadicscale}",
+            "\\end{equation}, rendering as TeX:",
+            "eq:dyadicscale}\\ltx@label{long251:eq:dya",
+            "^",
+            "unexpected control sequence \\ltx",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+            "[WARNING] Could not convert TeX math \\begin{equation}",
+            "\\begin{split}",
+            "&\\forall N_0\\ \\exists N,r:\\ N_0<N\\text{ and }",
+            "\\forall z\\in\\mathbb{Z},\\quad",
+            "b(N+r)<|B_{h,N,r}-2^rz|\\\\",
+            "&\\hspace{35mm}\\Longleftrightarrow\\quad",
+            "D_N\\notin\\mathbb{Z}\\text{ for arbitrarily large }N.",
+            "\\end{split}",
+            "\\label{eq:fixedcollapse}\\ltx@label{long251:eq:fixedcollapse}",
+            "\\end{equation}, rendering as TeX:",
+            "&\\hspace{35mm}\\Longleftrightarrow\\quad",
+            "^",
+            "unexpected \"\\\\\"",
+            "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "0fd81cd95f9e7c2d364f99d7c5950de7950efb0cad94ab1b3a477f63bab492f1",
-        "html_exact_tex_sha256": "3668d401e649d3c3daac3c3327be46da4d7659dad63dcfb3d130de447b40ee63"
+        "html_mathml_sha256": "e4b6d18bb6c6c1d5bd1e7eef725b82f6b64eaf116dd62c065cfc8fbadb5d7679",
+        "html_exact_tex_sha256": "bc052f71bfe4168fc5c0564eec955a3791928eb66b951ec1168702849bcf3817"
       },
       "sections": [
         {
@@ -722,9 +637,34 @@
           "label": "Notation."
         },
         {
+          "level": 2,
+          "anchor": "long251:sec:paired-corrections",
+          "label": "Sparse congruence-preserving perturbations"
+        },
+        {
+          "level": 5,
+          "anchor": "density-and-block-conventions.",
+          "label": "Density and block conventions."
+        },
+        {
+          "level": 2,
+          "anchor": "long251:sec:context",
+          "label": "Context and mathematical dependencies"
+        },
+        {
           "level": 5,
           "anchor": "relation-to-prior-work.",
           "label": "Relation to prior work."
+        },
+        {
+          "level": 5,
+          "anchor": "automatic-sequences-and-the-limit-of-the-analogy.",
+          "label": "Automatic sequences and the limit of the analogy."
+        },
+        {
+          "level": 5,
+          "anchor": "the-uniformity-required-from-prime-statistics.",
+          "label": "The uniformity required from prime statistics."
         },
         {
           "level": 5,
@@ -733,8 +673,8 @@
         },
         {
           "level": 5,
-          "anchor": "outline.",
-          "label": "Outline."
+          "anchor": "dependencies-and-reading-routes.",
+          "label": "Dependencies and reading routes."
         },
         {
           "level": 2,
@@ -788,11 +728,6 @@
         },
         {
           "level": 3,
-          "anchor": "long251:sec:paired-corrections",
-          "label": "Paired corrections and cumulative congruences"
-        },
-        {
-          "level": 3,
           "anchor": "algebraic-nonconcentration-survives-the-rationalising-perturbation",
           "label": "Algebraic nonconcentration survives the rationalising perturbation"
         },
@@ -828,8 +763,8 @@
         },
         {
           "level": 5,
-          "anchor": "what-remains-to-be-formalised.",
-          "label": "What remains to be formalised."
+          "anchor": "verification-boundary.",
+          "label": "Verification boundary."
         },
         {
           "level": 3,
@@ -918,8 +853,8 @@
         },
         {
           "level": 5,
-          "anchor": "the-superseded-exclusion.",
-          "label": "The superseded exclusion."
+          "anchor": "two-different-improvements-to-the-exclusion-record.",
+          "label": "Two different improvements to the exclusion record."
         },
         {
           "level": 5,
@@ -933,38 +868,38 @@
         },
         {
           "level": 2,
+          "anchor": "long251:app:affine-detail",
+          "label": "Complete affine-lattice statement from the short note"
+        },
+        {
+          "level": 2,
           "anchor": "sec:erdos-251-complete-family-map",
-          "label": "Complete result-family map"
+          "label": "Mathematical and evidence map"
         },
         {
-          "level": 3,
-          "anchor": "prime-gap-reformulation",
-          "label": "Prime gap reformulation"
+          "level": 5,
+          "anchor": "perturbations.",
+          "label": "Perturbations."
         },
         {
-          "level": 3,
-          "anchor": "dyadic-tail-integrality-classification",
-          "label": "Dyadic tail integrality classification"
+          "level": 5,
+          "anchor": "exact-criteria.",
+          "label": "Exact criteria."
         },
         {
-          "level": 3,
-          "anchor": "integral-shift-classification",
-          "label": "Integral shift classification"
+          "level": 5,
+          "anchor": "obstructions.",
+          "label": "Obstructions."
         },
         {
-          "level": 3,
-          "anchor": "small-mismatch-criterion",
-          "label": "Small mismatch criterion"
+          "level": 5,
+          "anchor": "certificates.",
+          "label": "Certificates."
         },
         {
-          "level": 3,
-          "anchor": "coefficient-only-no-go",
-          "label": "Coefficient only no go"
-        },
-        {
-          "level": 3,
-          "anchor": "totient-shift-propagation",
-          "label": "Totient shift propagation"
+          "level": 5,
+          "anchor": "formal-evidence.",
+          "label": "Formal evidence."
         },
         {
           "level": 2,
@@ -993,7 +928,7 @@
           },
           {
             "id": "sec:erdos-251-complete-family-map",
-            "title": "Complete result-family map",
+            "title": "Mathematical and evidence map",
             "level": 2
           }
         ]

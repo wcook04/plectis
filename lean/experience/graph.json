@@ -3,13 +3,13 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 1703,
-    "edges": 4196,
+    "nodes": 1706,
+    "edges": 4210,
     "node_kinds": {
       "comparator_review_family": 70,
       "human_document": 17,
       "integration_surface": 2,
-      "lean_module": 1338,
+      "lean_module": 1341,
       "mathematical_object": 105,
       "paper": 20,
       "problem": 8,
@@ -20,14 +20,14 @@
     "relations": {
       "advances_open_target": 40,
       "builds_on": 64,
-      "contains": 1346,
+      "contains": 1349,
       "corollary_of": 1,
       "eliminates_case": 1,
       "explained_by": 20,
       "formalized_in": 41,
       "has_registry_review_unit": 1,
       "has_review_family": 70,
-      "imports": 2200,
+      "imports": 2211,
       "instantiates": 2,
       "interpreted_by": 17,
       "makes_exact": 1,
@@ -9642,6 +9642,15 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PrimitiveRecordBarrier.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos243.ProtectedEpochEnergy",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.ProtectedEpochEnergy",
+      "path": "lean/ErdosProblems/Erdos243/ProtectedEpochEnergy.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ProtectedEpochEnergy.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/ProtectedEpochEnergy.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos243.ReciprocalTailRigidity",
@@ -9653,6 +9662,15 @@
       "role": "Lean proof module"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos243.RecordIncrementBarrier",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.RecordIncrementBarrier",
+      "path": "lean/ErdosProblems/Erdos243/RecordIncrementBarrier.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/RecordIncrementBarrier.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/RecordIncrementBarrier.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos243.RepairEntropy",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos243.RepairEntropy",
@@ -9660,6 +9678,15 @@
       "role": "Lean proof module",
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/RepairEntropy.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/RepairEntropy.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos243.SaturatedSquareTransport",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos243.SaturatedSquareTransport",
+      "path": "lean/ErdosProblems/Erdos243/SaturatedSquareTransport.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/SaturatedSquareTransport.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/SaturatedSquareTransport.lean"
     },
     {
       "id": "lean-module:ErdosProblems.Erdos243.SlowRiseBarrier",
@@ -14101,7 +14128,7 @@
     {
       "id": "paper:erdos-1049-rational-base-lambert",
       "kind": "paper",
-      "label": "Irrationality of F(31/4) and the Exact Normalized Hankel Order",
+      "label": "Zudilin's Forms at Rational Bases\\\\and the Exact Normalised Hankel Order",
       "subject": "Erdős #1049",
       "form": "Problem note",
       "href": "papers/erdos-1049-rational-base-lambert.json",
@@ -14119,7 +14146,7 @@
     {
       "id": "paper:erdos-249-binary-totient-series",
       "kind": "paper",
-      "label": "A Basis for the 2-Kernel of Euler's Totient",
+      "label": "Bases and Integral Relations for the $k$-Kernel of Euler's Totient",
       "subject": "Erdős #249",
       "form": "Problem note",
       "href": "papers/erdos-249-binary-totient-series.json",
@@ -14128,7 +14155,7 @@
     {
       "id": "paper:erdos-251-prime-gap-dyadic-series",
       "kind": "paper",
-      "label": "A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series",
+      "label": "Sparse Congruence-Preserving Perturbations\\\\of Dyadic Series",
       "subject": "Erdős #251",
       "form": "Problem note",
       "href": "papers/erdos-251-prime-gap-dyadic-series.json",
@@ -14173,7 +14200,7 @@
     {
       "id": "paper:erdos1049-rational-base-lambert-reasoning-surface",
       "kind": "paper",
-      "label": "Rational-Base Lambert Series: Complete Reasoning Record",
+      "label": "Zudilin's Forms at Rational Bases:\\\\Proofs and Research Record",
       "subject": "Erdős #1049",
       "form": "Reasoning surface",
       "href": "papers/erdos1049-rational-base-lambert-reasoning-surface.json",
@@ -14182,7 +14209,7 @@
     {
       "id": "paper:erdos243-reciprocal-tail-reasoning-surface",
       "kind": "paper",
-      "label": "Reciprocal-Tail Rigidity: Complete Reasoning Record",
+      "label": "Reciprocal-Tail Rigidity: Theorems, Proofs and Questions",
       "subject": "Erdős #243",
       "form": "Reasoning surface",
       "href": "papers/erdos243-reciprocal-tail-reasoning-surface.json",
@@ -14200,7 +14227,7 @@
     {
       "id": "paper:erdos251-prime-gap-reasoning-surface",
       "kind": "paper",
-      "label": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
+      "label": "Prime-Gap Dyadic Series:\\\\Perturbations, Exact Criteria and Certificates",
       "subject": "Erdős #251",
       "form": "Reasoning surface",
       "href": "papers/erdos251-prime-gap-reasoning-surface.json",
@@ -23191,6 +23218,11 @@
     {
       "source": "lean-module:ErdosProblems.AxiomAudit",
       "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1041.PaperPrimitiveCompletionR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.AllRow.Producer"
     },
     {
@@ -23207,6 +23239,21 @@
       "source": "lean-module:ErdosProblems.AxiomAudit",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.LcmDefect"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.ProtectedEpochEnergy"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.RecordIncrementBarrier"
+    },
+    {
+      "source": "lean-module:ErdosProblems.AxiomAudit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.SaturatedSquareTransport"
     },
     {
       "source": "lean-module:ErdosProblems.AxiomAudit",
@@ -24889,6 +24936,16 @@
       "target": "lean-module:ErdosProblems.Erdos243.DynamicCancellation"
     },
     {
+      "source": "lean-module:ErdosProblems.Erdos243.ProtectedEpochEnergy",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.RecordIncrementBarrier",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier"
+    },
+    {
       "source": "lean-module:ErdosProblems.Erdos243.RepairEntropy",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos243.PrimitivePrefixRigidity"
@@ -24902,6 +24959,11 @@
       "source": "lean-module:ErdosProblems.Erdos243.RepairEntropy",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos243.WeightedCRTRepair"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos243.SaturatedSquareTransport",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.PrimitiveRecordBarrier"
     },
     {
       "source": "lean-module:ErdosProblems.Erdos243.SlowRiseBarrier",
@@ -27176,6 +27238,11 @@
     {
       "source": "lean-module:ErdosProblems.Root",
       "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1041.PaperPrimitiveCompletionR10"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Root",
+      "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.AdelicHeightBridge"
     },
     {
@@ -27246,7 +27313,22 @@
     {
       "source": "lean-module:ErdosProblems.Root",
       "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.ProtectedEpochEnergy"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Root",
+      "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Root",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.RecordIncrementBarrier"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Root",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos243.SaturatedSquareTransport"
     },
     {
       "source": "lean-module:ErdosProblems.Root",
@@ -33436,12 +33518,27 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.ProtectedEpochEnergy"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity"
     },
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.RecordIncrementBarrier"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos243.RepairEntropy"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos243.SaturatedSquareTransport"
     },
     {
       "source": "universe:plectis-lean",

@@ -5,7 +5,7 @@
   "subject": "Erdős #243",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 14,
+  "pages": 16,
   "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
   "precis": "Clearing denominators turns Erdős #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.",
   "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -29,23 +29,28 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "c15cbb5294ef281c7739070f4f1d07c7192b02a759ecdef0dd42d887381c55dd",
+    "source_sha256": "e71664d89ea3c409c3ba3605c9c6f712e2b07fae36cc6577acb5354cc7d01aa4",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 366,
+    "mathml_node_count": 423,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "24e396abd07920c7648fb28f2f28c6ecbd3817b513191b8769bb23ce606ee5e9",
-    "html_exact_tex_sha256": "3bfd2b131dd38d8d0642c9681617a068119e2fe75b9e8b96bf2d39ade137ac2d"
+    "html_mathml_sha256": "41148bbd20c07332f9d1d2fbbc77dcb176c5318b5f0946fe222ec4d56052de30",
+    "html_exact_tex_sha256": "e48c6537a6b0a4b1fa629c5ad1554718b125e857a9ec392813bf86aa172e2649"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "sec:problem",
       "label": "Introduction"
+    },
+    {
+      "level": 5,
+      "anchor": "conventions-and-reading-route.",
+      "label": "Conventions and reading route."
     },
     {
       "level": 5,
@@ -106,11 +111,6 @@
       "level": 5,
       "anchor": "formal-scope-and-supporting-record.",
       "label": "Formal scope and supporting record."
-    },
-    {
-      "level": 5,
-      "anchor": "declarations.",
-      "label": "Declarations."
     },
     {
       "level": 2,

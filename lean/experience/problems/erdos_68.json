@@ -13,7 +13,7 @@
     "Integral channel congruences, the lcm tax, the prime unit translator, and factorial-grid Cramer residual identities.",
     "Weighted projection and factor-split rigidity consumers with their exact modular and Archimedean hypotheses.",
     "The zero-plateau and first-exit carry dichotomy, prime-power prefix obstructions, and exact doubled-prime branch characterisations.",
-    "A Lean-checked implication from one exact non-unit carry to a rational-denominator lower bound; an independently regenerated exact GMP certificate at m = 300000 supplies the finite input."
+    "A Lean-checked implication from one exact non-unit carry to a rational-denominator lower bound; a fresh exact GMP certificate at m = 300000 supplies the finite input used by the papers; the event-trace and unit carries match the previously retained receipt."
   ],
   "what_is_not_checked": [
     "Irrationality of the factorial-denominator series.",
@@ -44,7 +44,7 @@
       "statement": "Construct an unbounded factorial-grid family whose exact Cramer residual is nonintegral, using a determinant, valuation, cancellation, or gcd-of-minors certificate that controls the finite sign-changing block."
     }
   ],
-  "finite_search": "An exact GMP recurrence checks the carry sequence through m = 300000 and finds a non-unit carry at that index. The Lean consumer turns that one certificate into q >= 300000 for any hypothetical positive rational denominator; it does not prove a cofinal statement.",
+  "finite_search": "A retained exact GMP receipt through m = 300000 records a non-unit carry at that index, so every positive rational denominator satisfies q ∤ 299999!. A byte-identical regeneration of that receipt with the current driver is outstanding in this revision; a separate exact replay through 4000 reproduces the unit-carry prefix. The Lean consumer turns one non-unit carry at m into q >= m; it does not prove a cofinal statement. An independent continued-fraction enclosure gives q ≥ 2^39990. At the prime 12487 and gap 12, exact polynomial arithmetic exhibits two critical roots 4626 and 7848, so the small-prime pattern of at most one critical root is not uniform; those roots have factorial values 442 and 6300, not 1.",
   "modules": [
     {
       "module": "ErdosProblems.Erdos68.FactorialGapPlateauCore",
@@ -265,7 +265,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "6cca169626b00d314afb55370107ef5d54d1a4bb31c17c7566eb36ab29f99879",
+    "source_sha256": "565c1568a67c3f4f49f41ab7751be383daf74d7139e9381a94a10eb6896fe469",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -285,7 +285,7 @@
     "subject": "Erdős #68",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 16,
+    "pages": 18,
     "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
     "precis": "The paper proves that if S=a/q is rational, q cannot divide 299999! and is at least 2^39990 > 10^12038. The first exclusion comes from the exact strict-successor carry test and the second from continued fractions. Lean also checks the equivalent carry formulation and several consequences. A large common denominator alone does not control the reduced partial sums. Irrationality is reduced to a cofinal miss of the strict factorial successor, which remains open.",
     "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
@@ -309,17 +309,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 25,
       "renderer_fingerprint": "777419e3b355e02e",
-      "source_sha256": "35e1385794c7fb472a3203879789fe2ea96bf82d356d9715e8f27af47def8a55",
+      "source_sha256": "baaa14b29c0405b6567912d43a056e64d6b8d4d12b73ef2a1f60c320cf1f2195",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 345,
+      "mathml_node_count": 385,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "1f4a1d488d996b35dca21af85b742fc4888b15102a0154a50a65c4ac712f7692",
-      "html_exact_tex_sha256": "777d56d56ada8e77a495c4311f9adeec0e8f4a5617c8db0dac579d45f2775670"
+      "html_mathml_sha256": "02475d5014bd3005f09b473d3b265a2a5945aba586d294c3f484fb32de1a6a75",
+      "html_exact_tex_sha256": "b51deaf82a9c905417ed676a3b6e561c5516d7bf41338e51d50871656918d054"
     },
     "sections": [
       {
@@ -459,7 +459,7 @@
       "subject": "Erdős #68",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 16,
+      "pages": 18,
       "question": "What exact denominator obstructions are checked for Erdős #68, and which quantified producer could still prove irrationality?",
       "precis": "The paper proves that if S=a/q is rational, q cannot divide 299999! and is at least 2^39990 > 10^12038. The first exclusion comes from the exact strict-successor carry test and the second from continued fractions. Lean also checks the equivalent carry formulation and several consequences. A large common denominator alone does not control the reduced partial sums. Irrationality is reduced to a cofinal miss of the strict factorial successor, which remains open.",
       "owns": "the problem-specific exposition for Erdős #68: exact factorial normal forms, structural consumers, finite denominator evidence, method boundaries, and five ranked open producers",
@@ -483,17 +483,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "35e1385794c7fb472a3203879789fe2ea96bf82d356d9715e8f27af47def8a55",
+        "source_sha256": "baaa14b29c0405b6567912d43a056e64d6b8d4d12b73ef2a1f60c320cf1f2195",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 345,
+        "mathml_node_count": 385,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "1f4a1d488d996b35dca21af85b742fc4888b15102a0154a50a65c4ac712f7692",
-        "html_exact_tex_sha256": "777d56d56ada8e77a495c4311f9adeec0e8f4a5617c8db0dac579d45f2775670"
+        "html_mathml_sha256": "02475d5014bd3005f09b473d3b265a2a5945aba586d294c3f484fb32de1a6a75",
+        "html_exact_tex_sha256": "b51deaf82a9c905417ed676a3b6e561c5516d7bf41338e51d50871656918d054"
       },
       "sections": [
         {
@@ -657,19 +657,24 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 25,
         "renderer_fingerprint": "777419e3b355e02e",
-        "source_sha256": "27fcd32d015cc22d35f2943a1453d961d9e7b99d58d8205e5bcc7352a70f804b",
+        "source_sha256": "4ad3ae2fde2d6296849cf6afd94dc5c5902753e8fd8c6e44f6b5c07645080f01",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1050,
+        "mathml_node_count": 1112,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "4797717b4402ce449629e50045a91c46ddd3b2dc4acb4d8475515823ea25b58f",
-        "html_exact_tex_sha256": "10f2af521d3b4d7aa77964e8281c7eb3e361e28dbae167bf50bf59d9d14e2735"
+        "html_mathml_sha256": "d02f2a6216fac62d92bc8b1ac755d95f341b48a3a55ced5b2ad0497b45b606fb",
+        "html_exact_tex_sha256": "9f29ede233859342bf8c2d6019b69cc7c803e304e14519b18cf89ea1b77fb6c0"
       },
       "sections": [
+        {
+          "level": 5,
+          "anchor": "reading-route-and-dependencies.",
+          "label": "Reading route and dependencies."
+        },
         {
           "level": 2,
           "anchor": "long68:sec:prime-powers",
@@ -684,6 +689,11 @@
           "level": 2,
           "anchor": "long68:sec:lcm",
           "label": "The growth of the common denominator"
+        },
+        {
+          "level": 5,
+          "anchor": "a-non-polynomial-comparison.",
+          "label": "A non-polynomial comparison."
         },
         {
           "level": 2,
@@ -737,8 +747,18 @@
         },
         {
           "level": 5,
+          "anchor": "a-recent-framework-and-a-missing-hypothesis.",
+          "label": "A recent framework, and a missing hypothesis."
+        },
+        {
+          "level": 5,
           "anchor": "weighted-collisions-and-complementary-residues.",
           "label": "Weighted collisions and complementary residues."
+        },
+        {
+          "level": 5,
+          "anchor": "two-narrower-exploratory-reductions.",
+          "label": "Two narrower exploratory reductions."
         },
         {
           "level": 5,
@@ -823,32 +843,32 @@
         {
           "level": 2,
           "anchor": "sec:erdos-68-complete-family-map",
-          "label": "Complete result-family map"
+          "label": "How the result families fit together"
         },
         {
-          "level": 3,
-          "anchor": "factorial-carry-characterisation",
-          "label": "Factorial carry characterisation"
+          "level": 5,
+          "anchor": "carries.",
+          "label": "Carries."
         },
         {
-          "level": 3,
-          "anchor": "factorial-channel-and-projection-rigidity",
-          "label": "Factorial channel and projection rigidity"
+          "level": 5,
+          "anchor": "channels.",
+          "label": "Channels."
         },
         {
-          "level": 3,
-          "anchor": "factorial-conditional-producers",
-          "label": "Factorial conditional producers"
+          "level": 5,
+          "anchor": "common-and-reduced-denominators.",
+          "label": "Common and reduced denominators."
         },
         {
-          "level": 3,
-          "anchor": "factorial-lcm-growth",
-          "label": "Factorial lcm growth"
+          "level": 5,
+          "anchor": "conditional-routes.",
+          "label": "Conditional routes."
         },
         {
-          "level": 3,
-          "anchor": "factorial-finite-certificates",
-          "label": "Factorial finite certificates"
+          "level": 5,
+          "anchor": "finite-evidence.",
+          "label": "Finite evidence."
         },
         {
           "level": 2,
@@ -877,7 +897,7 @@
           },
           {
             "id": "sec:erdos-68-complete-family-map",
-            "title": "Complete result-family map",
+            "title": "How the result families fit together",
             "level": 2
           }
         ]

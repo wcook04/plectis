@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-249-binary-totient-series",
-  "title": "A Basis for the 2-Kernel of Euler's Totient",
+  "title": "Bases and Integral Relations for the $k$-Kernel of Euler's Totient",
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 12,
+  "pages": 13,
   "question": "What is the exact rank of the totient kernel at every integer base, which parts are formalised, and why does Erdős #249 remain open?",
   "precis": "For every integer base k≥2, including composite bases, the totient kernel through level e≥1 has an explicit rational basis of size k^e + 1; level 0 has dimension 1. The paper gives an ordinary proof using arithmetic independence. Lean also proves all-base canonical-family independence and the complete rank unconditionally by CRT and Dirichlet. These coefficient-space results do not decide irrationality. A 240-bit Farey window excludes every reduced denominator through 79,639,646,646,701,375,323,355,774,875,831,053, and exact diagonal certificates exist for every t through 82. No t = 83 certificate or cofinal certificate supply is proved; Erdős #249 remains open.",
   "owns": "problem-specific mathematical exposition for Erdős #249: the all-base exact finite-level rank and its formalisation boundary, infinite-dimensionality consequence, denominator exclusion, method limits, and open edge",
@@ -29,17 +29,17 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "e1d0dc7bf805894bf2b25438e07249e07bbb38ebf4a87a30cf1e7a45852b961d",
+    "source_sha256": "0ed4d6408985a988f15400cc1e8db859851ccf8f799cd8c0e8cb440cd20810d1",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 368,
+    "mathml_node_count": 381,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "15da9b9ccec6077828962c1cf869ecd787d0a5032c0d3daef8323a3b94d574e2",
-    "html_exact_tex_sha256": "369b96db4b949678c6b1774f414ae59966cac8ee7038849d6794a64ff7270228"
+    "html_mathml_sha256": "0efea00584290a1a4896cb302b26cd1fcbd2815244048448953bf078df070a66",
+    "html_exact_tex_sha256": "d3d9478f3bb5a8a26a69830fa40377050b058ee71c2ce9f276ae675d4d76ca19"
   },
   "sections": [
     {

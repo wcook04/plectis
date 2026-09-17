@@ -5,6 +5,16 @@
     <p class="lean-paper__subject">Erdős #68</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/68/erdos68-factorial-reasoning-surface.tex">
+<section id="reading-route-and-dependencies." class="level5">
+<h5>Reading route and dependencies.</h5>
+<p>For the main mechanism, read the survival criterion in §, the lcm
+argument in §, and the comparison in §. For the strongest finite
+conclusions go directly to §. The channel lattice in § is an independent
+explanation of a limitation, not an input to the finite computations.
+The research targets in § are explicitly conditional. The appendices
+retain longer deductions; source and execution status are recorded
+separately.</p>
+</section>
 <section id="long68:sec:prime-powers" class="level2">
 <h2>Which prime powers survive reduction</h2>
 <div class="problem">
@@ -20,8 +30,10 @@ is irrational, indeed transcendental, for every integer
 <span class="citation" data-cites="erdos1988"><a href="#ref-1">[1]</a></span>. That is
 conjectural context. Numbering follows <a
 href="https://www.erdosproblems.com/68">Bloom’s Erdős problem
-catalogue</a> <span class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>, which
-lists the problem as open.</p>
+catalogue</a> <span class="citation" data-cites="bloom"><a href="#ref-2">[2]</a></span>. The
+catalogue reference retains the manuscript’s historical access date; the
+current page could not be rechecked during this revision. No
+irrationality proof is supplied here.</p>
 <p>Put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>H</mi><mi>M</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><mi>M</mi></munderover><mfrac><mn>1</mn><msub><mi>d</mi><mi>n</mi></msub></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>L</mi><mi>M</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>d</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>A</mi><mi>M</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow><mi>M</mi></munderover><mfrac><msub><mi>L</mi><mi>M</mi></msub><msub><mi>d</mi><mi>n</mi></msub></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">d_n=n!-1,\qquad H_M=\sum_{n=2}^{M}\frac1{d_n},\qquad
  L_M=\operatorname{lcm}(d_2,\ldots,d_M),\qquad
@@ -40,6 +52,10 @@ reciprocal-sum valuation formula of Louwsma and Martino <span
 class="citation" data-cites="louwsma-martino"></span>; the proof below
 writes it out for the denominators
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>n</mi></msub><annotation encoding="application/x-tex">d_n</annotation></semantics></math>.</p>
+<p>The general valuation mechanism is inherited. The explicit factorial
+specialisation, its cancellation witnesses, and its role in the scale
+comparison below are the contributions examined here; no priority claim
+for a new general reciprocal-sum valuation theorem is intended.</p>
 <p></p>
 <div class="theorem">
 <p><strong>Theorem 1.2</strong> (maximal prime-power survival). <em> Let
@@ -86,9 +102,7 @@ gives
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>M</mi></msub><mo>≡</mo><mfrac><msub><mi>L</mi><mi>M</mi></msub><msup><mi>p</mi><mi>e</mi></msup></mfrac><munder><mo>∑</mo><mrow><mi>n</mi><mo>∈</mo><mi>J</mi></mrow></munder><msubsup><mi>u</mi><mi>n</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long68:eq:prime-pole-residue}
  A_M\equiv \frac{L_M}{p^e}\sum_{n\in J}u_n^{-1}\pmod p.
-\end{equation}</annotation></semantics></math> The historical manuscript
-cites , line 118. This module is absent from the retained source pin;
-this citation does not establish kernel verification at that pin.</p>
+\end{equation}</annotation></semantics></math></p>
 <p>Finally
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">den</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>L</mi><mi>M</mi></msub><mi>/</mi><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>A</mi><mi>M</mi></msub><mo>,</mo><msub><mi>L</mi><mi>M</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{den}(H_M)=L_M/\gcd(A_M,L_M)</annotation></semantics></math>,
 whose
@@ -170,12 +184,24 @@ modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>,
 and valuation two would mean
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>n</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r_n=1</annotation></semantics></math>,
-which occurs at neither prime. That enumeration is a finite calculation
-separate from the theorem.</p>
+which occurs at neither prime among the tested indices
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>p</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2\le n\le p-1</annotation></semantics></math>.
+That enumeration is a finite calculation separate from the theorem.</p>
+<p>The recurrence is run modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>p</mi><mn>2</mn></msup><annotation encoding="application/x-tex">p^2</annotation></semantics></math>,
+not merely modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>:
+reduction modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+would locate hits but could not establish that their valuations are
+exactly one. Both examples concern complete cancellation because the
+maximal exponent is one.</p>
 <p>A prime is when it divides
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>m</mi></msub><annotation encoding="application/x-tex">d_m</annotation></semantics></math>
 and divides none of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>d</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">d_2,\ldots,d_{m-1}</annotation></semantics></math>.</p>
+<p>The word private is relative to that prefix, not to all future
+factorial gaps. Later hits can destroy uniqueness in a larger block.</p>
 <div class="proposition">
 <p><strong>Proposition 1.3</strong> (cofinal first prime occurrences).
 <em> For every integer
@@ -287,6 +313,11 @@ and
 in the proof of their Lemma 5 <span class="citation"
 data-cites="luca-shparlinski"><a href="#ref-13">[13]</a></span>, and Lai uses it for a common
 prime-power divisor <span class="citation" data-cites="lai"><a href="#ref-14">[14]</a></span>.</p>
+<p>The earlier spacing method of Erdős and Stewart <span
+class="citation" data-cites="erdos-stewart1976"></span> is related
+background. We now state only the subtraction needed for the lcm
+argument, rather than importing the prime-factor estimates of those
+papers.</p>
 <div class="lemma">
 <p><strong>Lemma 2.2</strong> (factorial-gap gcd). <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">2\le i&lt;j</annotation></semantics></math>,
@@ -334,10 +365,7 @@ integers each at most
 \label{long68:eq:segment}
  \sum_{n=N-k+1}^{N}\log(n!-1)
  \ \le\ \log L_N+\binom{k+1}{3}\log N.
-\end{equation}</annotation></semantics></math> The historical manuscript
-cites , line 28. This module is absent from the retained source pin;
-this citation does not establish kernel verification at that
-pin.</em></p>
+\end{equation}</annotation></semantics></math></em></p>
 </div>
 <div class="proof">
 <p><em>Proof.</em> Apply Lemma  to
@@ -399,7 +427,7 @@ while
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mspace width="0.167em"></mspace><mi>u</mi><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">k\,u=O(N^{3/2})</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msqrt><mi>N</mi></msqrt><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">k\log2=O(\sqrt N)</annotation></semantics></math>.
-Hence the left-hand side is
+Hence the left-hand side is at least
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha N^{3/2}\log N+o(N^{3/2}\log N)</annotation></semantics></math>.</p>
 <p>For the right-hand side,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>3</mn></msup><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">\binom{k+1}{3}\le(k+1)^3/6</annotation></semantics></math>,
@@ -413,37 +441,20 @@ right-hand side is maximised at
 with value
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt><mo>−</mo><mstyle displaystyle="false"><mfrac><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow><mn>6</mn></mfrac></mstyle><mo>=</mo><mstyle displaystyle="false"><mfrac><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow><mn>3</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\sqrt2-\tfrac{2\sqrt2}{6}=\tfrac{2\sqrt2}{3}</annotation></semantics></math>. ◻</p>
 </div>
-<p>The LCM asymptotic is proved here by an ordinary mathematical
-argument, and Lean checks it as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42">common
-denominator growth liminf</a>. The finite-block inequality has a
-separate Lean source, <a
-href="https://github.com/wcook04/plectis-erdos/blob/d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean#L524-L529">finite
-terminal-block inequality</a>. Its two ingredients are Lemmas  and , and
-it needs no factorial-congruence multiplicity theorem. A weaker exponent
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">4/3</annotation></semantics></math>
-follows instead from Theorem 12 of Garaev, Luca and Shparlinski <span
-class="citation" data-cites="garaev-luca-shparlinski"></span>, which
-bounds by
+<p>The displayed proof of the lcm bound uses only Lemmas  and . Its
+formal counterpart is recorded in the source ledger; the status of that
+entry is not a blanket assertion about all linked modules. Theorem 12 of
+Garaev, Luca and Shparlinski <span class="citation"
+data-cites="garaev-luca-shparlinski"><a href="#ref-7">[7]</a></span> supplies a different input:
+a uniform
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(N^{2/3})</annotation></semantics></math>
-the number of solutions of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>≡</mo><mi>a</mi><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">n!\equiv a\pmod r</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
-prime,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≢</mo><mn>0</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">a\not\equiv0\pmod r</annotation></semantics></math>,
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>+</mo><mn>1</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mi>H</mi><mo>+</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">H+1\le n\le H+N</annotation></semantics></math>
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>H</mi><mo>&lt;</mo><mi>H</mi><mo>+</mo><mi>N</mi><mo>&lt;</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">0\le H&lt;H+N&lt;r</annotation></semantics></math>;
-that deduction is recorded in the complete reasoning record and is
-superseded here. No antecedent for a lower bound on the least common
-multiple of the numbers
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
-was located, and the searches were for factorial values shifted by one;
-least common multiples of consecutive integers and of linear recurrences
-are a different family. The finding is that the statement is possibly
-known and was not located.</p>
+bound for a fixed nonzero factorial fibre in an interval of length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+below a prime modulus. The weaker lcm deduction from it is retained in
+§, not used here. The revision makes no exhaustive priority claim for
+the lcm estimate; its precise elementary derivation and the inherited
+subtraction are stated so that the claim can be assessed without relying
+on a search conclusion.</p>
 <div class="remark">
 <p><strong>Remark</strong> (polynomial shifts). <em>Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">P\in\mathbb{Z}[X]\setminus\{0\}</annotation></semantics></math>.
@@ -507,20 +518,27 @@ the least common multiple is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">N!</annotation></semantics></math>
 whatever the cutoff.</em></p>
 </div>
-<p>The constant
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2\sqrt2/3</annotation></semantics></math>
-is the best this argument gives. The gain from a block of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-indices is largest at the top of the range and the pairwise-gcd loss
-grows with the spread, so consecutive top indices are simultaneously
-optimal for both terms, and the bound
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>&lt;</mo><msup><mi>N</mi><mrow><mspace width="0.167em"></mspace><mi>j</mi><mo>−</mo><mi>i</mi></mrow></msup></mrow><annotation encoding="application/x-tex">j!/i!&lt;N^{\,j-i}</annotation></semantics></math>
-is sharp to first order there. Convergence is slow: the omitted term
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>k</mi><mi>u</mi></mrow><annotation encoding="application/x-tex">-ku</annotation></semantics></math>
-is of order
+<section id="a-non-polynomial-comparison." class="level5">
+<h5>A non-polynomial comparison.</h5>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+2^n-1</annotation></semantics></math>,
+Luca and Shparlinski <span class="citation"
+data-cites="luca-shparlinski-exp"><a href="#ref-19">[19]</a></span> eliminate the exponential term
+using three hits; multiplicative order enters the counting. Their
+valuation-layer identity <span class="citation"
+data-cites="luca-shparlinski-exp"><a href="#ref-19">[19]</a></span> records repeated prime-power
+divisibility. These are related tools, not inputs to Theorem , and no
+extension to general non-polynomial perturbations is asserted.</p>
+<p>Within the terminal-block estimate just proved, maximising
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>−</mo><msup><mi>α</mi><mn>3</mn></msup><mi>/</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">\alpha-\alpha^3/6</annotation></semantics></math>
+gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2\sqrt2/3</annotation></semantics></math>.
+This is an optimisation of that one-parameter bound, not an optimality
+theorem for all block selections or all gcd arguments. The discarded
+factorial term has size
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><annotation encoding="application/x-tex">N^{3/2}</annotation></semantics></math>,
-so the finite ratio falls short of the limit by about
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">\sqrt2/\log N</annotation></semantics></math>.</p>
+so a finite normalised ratio need not be close to the limiting lower
+bound.</p>
 <p>Theorem  is a statement about
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>N</mi></msub><annotation encoding="application/x-tex">L_N</annotation></semantics></math>
 and not about
@@ -540,16 +558,28 @@ and
 show why the substitution fails: a prime may occupy the common
 denominator and be absent from the reduced one. One cancelled prime is
 not an asymptotic cancellation theorem.</p>
+<p>For completeness, the consecutive coprimality follows because their
+gcd divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N-1</annotation></semantics></math>,
+whereas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(N-1)!-1</annotation></semantics></math>
+is coprime to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N-1</annotation></semantics></math>.
+Thus the two-term argument is qualitative and does not depend on the
+asymptotic constant.</p>
 <p>The direction of denominator control matters. Write
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>N</mi></msub><mo>=</mo><msub><mi>A</mi><mi>N</mi></msub><mi>/</mi><msub><mi>Q</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">H_N=A_N/Q_N</annotation></semantics></math>
-in lowest terms. Under the hypothetical identity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>N</mi></msub><mo>=</mo><msub><mover><mi>A</mi><mo accent="true">̂</mo></mover><mi>N</mi></msub><mi>/</mi><msub><mi>Q</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">H_N=\widehat A_N/Q_N</annotation></semantics></math>
+in lowest terms, reserving
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>
+above for the numerator over the full common denominator. Under the
+hypothetical identity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>,
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a\in\mathbb{Z}</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\ge1</annotation></semantics></math>,
 positivity of the tail gives
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi>Q</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>a</mi><msub><mi>Q</mi><mi>N</mi></msub><mo>−</mo><mi>q</mi><msub><mi>A</mi><mi>N</mi></msub><mo>∈</mo><msub><mi mathvariant="double-struck">ℤ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">qQ_N(S-H_N)=aQ_N-qA_N\in\mathbb{Z}_{&gt;0}.</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi>Q</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>a</mi><msub><mi>Q</mi><mi>N</mi></msub><mo>−</mo><mi>q</mi><msub><mover><mi>A</mi><mo accent="true">̂</mo></mover><mi>N</mi></msub><mo>∈</mo><msub><mi mathvariant="double-struck">ℤ</mi><mrow><mo>&gt;</mo><mn>0</mn></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">qQ_N(S-H_N)=aQ_N-q\widehat A_N\in\mathbb{Z}_{&gt;0}.</annotation></semantics></math>
 A direct clearing contradiction therefore requires an upper estimate
 that makes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><msub><mi>Q</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>N</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">qQ_N(S-H_N)&lt;1</annotation></semantics></math>
@@ -598,8 +628,10 @@ size, multiplied by the largest absolute value of a coefficient, tends
 to zero. The corresponding saving for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>N</mi></msub><annotation encoding="application/x-tex">H_N</annotation></semantics></math>
 is the ratio
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>N</mi></msub><mi>/</mi><msub><mi>Q</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">L_N/Q_N</annotation></semantics></math>.
-Theorem  decides, for each prime
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>N</mi></msub><mi>/</mi><msub><mi>Q</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">L_N/Q_N</annotation></semantics></math>.</p>
+<p>This ratio is an integer. Merely naming it supplies neither its
+growth nor a small linear form; the analogy is about what an eventual
+estimate would have to accomplish. Theorem  decides, for each prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><msub><mi>L</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">p\mid L_N</annotation></semantics></math>,
 whether
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
@@ -608,6 +640,7 @@ established here. This paragraph compares the two methods; no
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-adic
 theorem is applied to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.</p>
+</section>
 </section>
 <section id="long68:sec:carry" class="level2">
 <h2>Carries and the rationality boundary</h2>
@@ -622,9 +655,7 @@ by
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>m</mi></msub><mo>=</mo><mi>m</mi><msub><mi>Z</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>1</mn><mo>−</mo><msub><mi>b</mi><mi>m</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \label{long68:eq:carry-recurrence}
  Z_m=mZ_{m-1}+1-b_m .
-\end{equation}</annotation></semantics></math> The historical manuscript
-cites , line 73. This module is absent from the retained source pin;
-this citation does not establish kernel verification at that pin.</p>
+\end{equation}</annotation></semantics></math></p>
 <p>Call
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_m=1</annotation></semantics></math>
 a . Put
@@ -945,6 +976,11 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>t</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow></msub><mn>1</mn><mi>/</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>!</mi><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C_t=\sum_{n\ge2}1/\bigl(n!(n!+t)\bigr)</annotation></semantics></math>,
 so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>t</mi></msub><mo>=</mo><mi>−</mi><mi>t</mi><msub><mi>C</mi><mi>t</mi></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S_t=-tC_t+(e-2)</annotation></semantics></math>.</p>
+<p>The restriction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≥</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">t\ge-1</annotation></semantics></math>
+keeps every denominator positive for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>.
+All series in this identity converge absolutely.</p>
 <div class="theorem">
 <p><strong>Theorem 3.4</strong> (uniform family boundary). <em> For every
 integer
@@ -970,13 +1006,41 @@ and therefore misses the residue class at every
 so the boundary returns the irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>.</em></p>
 </div>
+<div class="proof">
+<p><em>Proof.</em> Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>−</mi><mi>t</mi><msub><mi>C</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">Y=-tC_t</annotation></semantics></math>,
+so that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>t</mi></msub><mo>=</mo><mi>Y</mi><mo>+</mo><mi>e</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">S_t=Y+e-2</annotation></semantics></math>.
+The proof of Proposition  applies to any real
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>:
+rationality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>+</mo><mi>e</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">Y+e-2</annotation></semantics></math>
+forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>!</mi><mi>Y</mi><mo stretchy="false" form="postfix">⌋</mo><mo>≡</mo><mi>−</mi><mn>2</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\lfloor m!Y\rfloor\equiv-2\pmod m</annotation></semantics></math>
+eventually. Conversely, that congruence forces the canonical digits of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>
+to equal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m-2</annotation></semantics></math>
+eventually; adding the factorial series of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">e-2</annotation></semantics></math>
+leaves an eventually telescoping tail, hence a rational sum. Finally
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌈</mo><mi>t</mi><mi>m</mi><mi>!</mi><msub><mi>C</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">⌊</mo><mi>m</mi><mi>!</mi><mi>Y</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lceil t m!C_t\rceil=-\lfloor m!Y\rfloor</annotation></semantics></math>
+translates the congruence. Negation gives the cofinal statement. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>,
+the left side is zero, which is not congruent to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">m\ge3</annotation></semantics></math>. ◻</p>
+</div>
 <p>The
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>
-specialisation recovers a classical fact and is included because it is
-the one member of the family the criterion decides, which fixes the
-sense in which the criterion is exact. For every other
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
-the producer of cofinal misses is missing, and the family is open.</p>
+specialisation recovers the classical irrationality of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t\ne0</annotation></semantics></math>
+this paper supplies no cofinal estimate for the displayed orbit. This is
+a statement about the scope of the present argument, not an assertion
+that every other member has the same current literature status.</p>
 </section>
 </section>
 <section id="long68:sec:residue" class="level2">
@@ -1012,6 +1076,11 @@ the scale comparisons below by a factorial factor. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ρ</mi><mi>p</mi></msub><annotation encoding="application/x-tex">\rho_p</annotation></semantics></math>
 the least nonnegative representative. All of these depend only on a
 finite prefix.</p>
+<p>In this section
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+is a natural parameter, not necessarily a prime. Prime divisors used in
+the valuation argument are separate variables. The distinction matters
+when the parameter is tailored to a first hit.</p>
 <p>The core records every prime-power layer occurring in at least two
 gaps, together with the base. A prime dividing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>p</mi></msub><annotation encoding="application/x-tex">R_p</annotation></semantics></math>
@@ -1047,8 +1116,8 @@ and
 is irrational.</em></p>
 </div>
 <p>This natural-parameter form is also the <a
-href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L156-L168">checked
-global complementary criterion</a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos68/PaperCompleteExisting.lean#L156-L168">source
+form of the global complementary criterion</a>.</p>
 <div class="proof">
 <p><em>Proof.</em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>
@@ -1090,6 +1159,17 @@ small collision core nor a lower bound for the normalised gap
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>p</mi></msub><mi>/</mi><msub><mi>R</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\rho_p/R_p</annotation></semantics></math>,
 which is at most one. That is the exact reason Proposition  does not
 close the argument.</p>
+<p>Writing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mi>p</mi></msub><mo>=</mo><msub><mi>ρ</mi><mi>p</mi></msub><mi>/</mi><msub><mi>R</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\eta_p=\rho_p/R_p</annotation></semantics></math>,
+the sufficient comparison becomes
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mover><mi>C</mi><mo accent="true">̃</mo></mover><mi>p</mi></msub><mo>−</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>η</mi><mi>p</mi></msub><mo>&lt;</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mfrac><mrow><mn>2</mn><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>p</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow></mfrac><mo>=</mo><mi>p</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>p</mi><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log\widetilde C_p-\log\eta_p
+ &lt;\log\frac{2p^2(2p-1)!}{(2p+1)(p-1)!}
+ =p\log p+(2\log2-1)p+O(\log p).</annotation></semantics></math> It is a
+joint budget for collision loss and the real gap. The bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>p</mi></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\rho_p\ge1</annotation></semantics></math>
+gives only
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mi>p</mi></msub><mo>≥</mo><mn>1</mn><mi>/</mi><msub><mi>R</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\eta_p\ge1/R_p</annotation></semantics></math>
+and may be far too small.</p>
 <p> The moving-factor criterion is a more specialised sufficient
 condition. For a prefix-private prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
@@ -1112,9 +1192,7 @@ and its scale inequality splits exactly:
  (2p+1)L^{\mathrm{blk}}_p&lt;K_p\rho_p,\\
  (2p+1)C_pq&lt;K_p .
  \end{cases}
-\end{equation}</annotation></semantics></math> The historical manuscript
-cites , line 59. This module is absent from the retained source pin;
-this citation does not establish kernel verification at that pin.</p>
+\end{equation}</annotation></semantics></math></p>
 <p>Testing both entries of the minimum and using gives the equivalence,
 so the reduction has no opaque floor premise left. Cofinal instances of
 both inequalities imply irrationality. The single global condition of
@@ -1174,6 +1252,17 @@ there is an integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">V_{d}(c)=M(c)+(d!-1)k</annotation></semantics></math>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> By ,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d!-1</annotation></semantics></math>
+divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V_d(c)-M(c)</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">k=(V_d(c)-M(c))/(d!-1)</annotation></semantics></math>
+is an integer and gives the identity. The modulus is positive also at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d=2</annotation></semantics></math>,
+when it equals one. ◻</p>
 </div>
 <div class="theorem">
 <p><strong>Theorem 5.2</strong> (quotient-band breakpoint). <em> Let
@@ -1238,6 +1327,12 @@ coordinate.</p>
 <section id="the-exact-low-channel-lattice-and-residual-class"
 class="level3">
 <h3>The exact low-channel lattice and residual class</h3>
+<p>Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">D\ge2</annotation></semantics></math>.
+The low-channel equations, the support equation and the residual
+identity answer different questions: solvability, admissibility on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n\ge2</annotation></semantics></math>,
+and the remaining fractional obstruction, respectively.</p>
 <p>The integral divisor basis makes the preceding divisibility statement
 exact. For the coordinate calculation only, enlarge the coefficient
 space to finitely supported integer vectors on
@@ -1505,9 +1600,7 @@ gives
 \label{long68:eq:radius-log}
  2t\bigl(u\log u-u-\log2\bigr)
  &lt;(R+1)\log(R+1)+\binom{2t+1}{3}\log(2t^2).
-\end{equation}</annotation></semantics></math> The historical manuscript
-cites , line 25. This module is absent from the retained source pin;
-this citation does not establish kernel verification at that pin.</p>
+\end{equation}</annotation></semantics></math></p>
 <p>Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>+</mo><mn>1</mn><mo>≤</mo><mstyle displaystyle="false"><mfrac><mn>3</mn><mn>2</mn></mfrac></mstyle><msup><mi>t</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">R+1\le\tfrac32t^3</annotation></semantics></math>.
 Since
@@ -1714,15 +1807,19 @@ factorial-grid exclusion
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∤</mo><mn>299999</mn><mi>!</mi></mrow><annotation encoding="application/x-tex">q\nmid299999!</annotation></semantics></math>
 is supported separately by the external GMP computation; its full Lean
 certificate also remains an outstanding formal obligation.</p>
-<p>Neither implies the other. A denominator with no prime factor above
+<p>Neither condition implies the other. A prime between
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>299999</mn><annotation encoding="application/x-tex">299999</annotation></semantics></math>
-can still fail to divide
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>599998</mn><annotation encoding="application/x-tex">599998</annotation></semantics></math>
+fails to divide
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>299999</mn><mi>!</mi></mrow><annotation encoding="application/x-tex">299999!</annotation></semantics></math>
-by carrying one prime to a high power, and a denominator far below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>39990</mn></msup><annotation encoding="application/x-tex">2^{39990}</annotation></semantics></math>
-can still fail that divisibility; a magnitude bound above
+but is smaller than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>39990</mn></msup><annotation encoding="application/x-tex">2^{39990}</annotation></semantics></math>,
+whereas
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>299999</mn><mi>!</mi></mrow><annotation encoding="application/x-tex">299999!</annotation></semantics></math>
-would imply it, and no such bound is available here.</p>
+satisfies the size lower bound but fails the nondivisibility condition.
+High powers of small primes further show why nondivisibility is not a
+smoothness exclusion.</p>
 <p>The first exclusion comes from an exact interval carry census. An
 independently implemented GMP integer computation certifies all
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>299998</mn><annotation encoding="application/x-tex">299998</annotation></semantics></math>
@@ -1744,11 +1841,11 @@ and in particular
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">q\ge300000</annotation></semantics></math>.
 The receipt is , schema , payload digest , recording the parameters
 above, the digests of the driver and backend used on its own run, the
-event-trace digest and the final enclosure. The driver and the backend
-accompany it, and their current digests postdate that run, so a
-byte-identical regeneration of the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>300000</mn><annotation encoding="application/x-tex">300000</annotation></semantics></math>
-receipt is outstanding. The same driver replayed independently at
+event-trace digest and the final enclosure. The source packet names the
+driver and backend . This revision records a fresh full-range carry
+replay. The published driver digest is and the backend digest is ; the
+payload digest is . The event-trace and unit-carry certificate match the
+previously retained receipt. The inherited independent replay at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>≤</mo><mn>4000</mn></mrow><annotation encoding="application/x-tex">m\le4000</annotation></semantics></math>
 reproduces the unit-carry prefix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>52</mn><mo>,</mo><mn>591</mn><mo>,</mo><mn>1030</mn><mo>,</mo><mn>1407</mn><mo>,</mo><mn>1438</mn><mo>,</mo><mn>2164</mn></mrow><annotation encoding="application/x-tex">52,591,1030,1407,1438,2164</annotation></semantics></math>
@@ -1756,6 +1853,14 @@ with a non-unit carry at the endpoint, which gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>4000</mn></mrow><annotation encoding="application/x-tex">q\ge4000</annotation></semantics></math>
 on its own. The census is a separate computation from the Lean
 development, and the implication it feeds is the kernel-checked one.</p>
+<p>The first exclusion can also be written
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>κ</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">\kappa(q)\ge300000</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>κ</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>r</mi><mo>≥</mo><mn>1</mn><mo>:</mo><mi>q</mi><mo>∣</mo><mi>r</mi><mi>!</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\kappa(q)=\min\{r\ge1:q\mid r!\}</annotation></semantics></math>
+is the factorial index used by Sondow <span class="citation"
+data-cites="sondow2006"><a href="#ref-21">[21]</a></span>. This is not a smoothness exclusion and
+uses no approximation bound for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>.</p>
 <p>The second exclusion has a short integer description. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><msup><mn>2</mn><mn>80000</mn></msup></mrow><annotation encoding="application/x-tex">D=2^{80000}</annotation></semantics></math>
 and let
@@ -1773,8 +1878,17 @@ makes the tail from
 smaller than
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2/(N!-1)</annotation></semantics></math>,
 so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mi>/</mi><mi>D</mi><mo>&lt;</mo><mi>S</mi><mo>&lt;</mo><mi>u</mi><mi>/</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">\ell/D&lt;S&lt;u/D</annotation></semantics></math>.
-Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mi>/</mi><mi>D</mi><mo>&lt;</mo><mi>S</mi><mo>&lt;</mo><mi>u</mi><mi>/</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">\ell/D&lt;S&lt;u/D</annotation></semantics></math>.</p>
+<p>There are exactly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N-2</annotation></semantics></math>
+rounded prefix terms. The extra
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
+keeps the upper enclosure strict even if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>D</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2D/(N!-1)</annotation></semantics></math>
+happens to be an integer; the positive omitted tail keeps the lower
+enclosure strict. Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>7054</mn></mrow><annotation encoding="application/x-tex">N=7054</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>−</mo><mi>ℓ</mi><mo>=</mo><mn>7053</mn></mrow><annotation encoding="application/x-tex">u-\ell=7053</annotation></semantics></math>.
@@ -1831,9 +1945,48 @@ computation above.</p>
 </section>
 <section id="long68:sec:open" class="level2">
 <h2>The remaining arithmetic inputs</h2>
-<p>The exact target is , equivalently . The routes below are sufficient
-conditions for it, and their quantitative hypotheses are unproved. None
-of them is an equivalent reformulation of the problem.</p>
+<p>The exact target is , equivalently .</p>
+<p>All sufficient conditions below are to be proved for the actual
+factorial sequence. A model obeying selected congruences, or a
+successful bounded computation, is not a substitute for that
+requirement. The routes below are sufficient conditions for it, and
+their quantitative hypotheses are unproved. None of them is an
+equivalent reformulation of the problem.</p>
+<section id="a-recent-framework-and-a-missing-hypothesis."
+class="level5">
+<h5>A recent framework, and a missing hypothesis.</h5>
+<p>Garaev, Luca and Shparlinski’s harmonic-sum estimate <span
+class="citation" data-cites="garaev-luca-shparlinski-harmonic"></span>
+concerns unconditioned harmonic sums, not the fibre on which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>≡</mo><mn>1</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mi>q</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">n!\equiv1\pmod q</annotation></semantics></math>.
+The value-set literature addresses different invariants. Banks, Luca,
+Shparlinski and Stichtenoth <span class="citation"
+data-cites="banks-et-al2005"><a href="#ref-25">[25]</a></span> provide historical missing-value
+context; Klurman and Munsch <span class="citation"
+data-cites="klurman-munsch2017"><a href="#ref-26">[26]</a></span> distinguish unconditional
+averages from GRH-dependent improvements. Grebennikov, Sagdeev,
+Semchankau and Vasilevskii <span class="citation"
+data-cites="grebennikov-et-al2024"><a href="#ref-27">[27]</a></span> study sizes of value and
+quotient sets, as do the factorial-residue and representation results of
+Hu <span class="citation" data-cites="hu2026"><a href="#ref-22">[22]</a></span> and Garaev and
+Pardo <span class="citation" data-cites="garaev-pardo2026"><a href="#ref-23">[23]</a></span>. None
+is a noncancellation theorem for the reciprocal unit weights here. A
+large value set alone does not upper-bound a prescribed fibre. Hu’s
+September preprint <span class="citation"
+data-cites="hu-september2026"><a href="#ref-24">[24]</a></span> gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>A</mi><mo stretchy="false" form="prefix">|</mo><mo>≫</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">{</mo><mi>M</mi><mo>,</mo><mi>p</mi><msup><mo stretchy="false" form="postfix">}</mo><mrow><mn>8</mn><mi>/</mi><mn>15</mn></mrow></msup><msup><mi>μ</mi><mrow><mi>−</mi><mn>4</mn><mi>/</mi><mn>15</mn></mrow></msup></mrow><annotation encoding="application/x-tex">|A|\gg\min\{M,p\}^{8/15}\mu^{-4/15}</annotation></semantics></math>
+for distinct reciprocal-affine maps with at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+internal transitions, at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>A</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|A|</annotation></semantics></math>
+parameters, and nonidentity quotient multiplicity at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.
+Its incidence input is Stevens and de Zeeuw <span class="citation"
+data-cites="stevens-dezeeuw2017"><a href="#ref-28">[28]</a></span>. A proposed transfer to a
+factorial-conditioned harmonic fibre must first construct such internal
+transitions and bound their multiplicity; neither is supplied by an
+unconditioned value-set estimate.</p>
+</section>
 <section id="weighted-collisions-and-complementary-residues."
 class="level5">
 <h5>Weighted collisions and complementary residues.</h5>
@@ -1844,7 +1997,11 @@ class="level5">
  &lt;\log\left(\frac{2p^2}{2p+1}\cdot
        \frac{\prod_{j=p}^{2p-1}j}{q}\right),
 \end{equation}</annotation></semantics></math> and the global half is .
-Both must hold on the same cofinal family. For a prime
+Both must hold on the same cofinal family.</p>
+<p>The order of quantifiers is part of the proposed result: for every
+bound, one parameter must satisfy both inequalities. Two unrelated
+infinite subsequences would not prove the combined criterion. For a
+prime
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
 absent from the base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mi>p</mi></msub><annotation encoding="application/x-tex">F_p</annotation></semantics></math>,
@@ -1870,6 +2027,47 @@ genuine collision primes. Theorem 12 of Garaev, Luca and Shparlinski
 <span class="citation" data-cites="garaev-luca-shparlinski"><a href="#ref-7">[7]</a></span> is a
 multiplicity bound and supplies no lower bound for the complementary
 residue in .</p>
+</section>
+<section id="two-narrower-exploratory-reductions." class="level5">
+<h5>Two narrower exploratory reductions.</h5>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>h</mi></msubsup><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F_h(X)=\prod_{j=1}^h(X+j)</annotation></semantics></math>,
+joint factorial–harmonic hits a distance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+apart require
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F_h(x)=1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><mi>h</mi><mo>′</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F&#39;_h(x)=0</annotation></semantics></math>.
+An exact calculation gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>F</mi><mn>12</mn></msub><mo>−</mo><mn>1</mn><mo>,</mo><msubsup><mi>F</mi><mn>12</mn><mo>′</mo></msubsup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>−</mo><mn>4626</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>−</mo><mn>7848</mn><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">in </mtext><mspace width="0.333em"></mspace></mrow><msub><mi mathvariant="double-struck">𝔽</mi><mn>12487</mn></msub><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\gcd(F_{12}-1,F&#39;_{12})
+ =(X-4626)(X-7848)\quad\text{in }\mathbb F_{12487}[X].</annotation></semantics></math>
+Thus the earlier small-prime observation of at most one critical root is
+not a uniform theorem. These two roots have factorial values
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>442</mn><annotation encoding="application/x-tex">442</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6300</mn><annotation encoding="application/x-tex">6300</annotation></semantics></math>,
+not
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
+so the unconditioned critical-root count is genuinely a relaxation of
+the desired fibre count. The derivation, compressed even-gap polynomial
+and exact replay are in the accompanying research note.</p>
+<p>There is also a useful distinction for the gap products in Stewart’s
+method <span class="citation" data-cites="stewart2004"><a href="#ref-8">[8]</a></span>. Products
+from adjacent gaps
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi><mo>&lt;</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">i&lt;j&lt;k</annotation></semantics></math>
+are unequal: equality
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi><mo>=</mo><mi>k</mi><mi>!</mi><mi>/</mi><mi>j</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">j!/i!=k!/j!</annotation></semantics></math>
+would make
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>!</mi><mi>/</mi><mi>i</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">k!/i!</annotation></semantics></math>
+a square, contrary to the classical non-power theorem <span
+class="citation" data-cites="erdos-selfridge1975"></span>. Selecting two
+short gaps with nearly equal lengths does not preserve adjacency. The
+wider equal-product problem has a separate history <span
+class="citation" data-cites="macleod-barrodale1970"></span>; the
+doubled-length theorem discussed by Nguyen Xuan Tho <span
+class="citation" data-cites="nguyen-tho2026"></span> is another special
+case, not arbitrary near-equal-length nonvanishing. No stronger lcm
+exponent is inferred from these local observations.</p>
 </section>
 <section id="repeated-support-valuation-amplification." class="level5">
 <h5>Repeated-support valuation amplification.</h5>
@@ -1934,9 +2132,7 @@ give
  b_{2p}=1\ \text{and}\ p\mid Z_{2p-1},\ \text{or}\\
  b_{2p}=1+p\ \text{and}\ p\mid2Z_{2p-1}-1 .
  \end{cases}
-\end{equation}</annotation></semantics></math> The historical manuscript
-cites , line 127. This module is absent from the retained source pin;
-this citation does not establish kernel verification at that pin.</p>
+\end{equation}</annotation></semantics></math></p>
 <p>Reduction modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
 forces
@@ -1958,6 +2154,9 @@ Ruling out both branches for infinitely many
 therefore proves irrationality. The two conditions must be coupled;
 controlling only the predecessor residue or only the carry does not meet
 the hypotheses.</p>
+<p>The two branches are disjunctive alternatives for divisibility. To
+force its failure one must rule out both at each chosen prime, not rule
+out one branch on each of two different subsequences.</p>
 </section>
 <section id="a-remote-cramer-residual." class="level5">
 <h5>A remote Cramer residual.</h5>
@@ -2048,9 +2247,16 @@ the useful content is the target these papers identify: a low-height
 clearing subsequence, or enough exact cancellation in the least common
 multiple. Theorem  bounds that cancellation from one side and Theorem 
 describes it from the other.</p>
-<p>Erdős #68 is open. Every rational representation with positive
-denominator has
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>300000</mn></mrow><annotation encoding="application/x-tex">q\ge300000</annotation></semantics></math>.</p>
+<p>No irrationality conclusion is obtained here. The finite conclusion
+is that every rational representation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">S=a/q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q&gt;0</annotation></semantics></math>,
+must satisfy both
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∤</mo><mn>299999</mn><mi>!</mi></mrow><annotation encoding="application/x-tex">q\nmid299999!</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><msup><mn>2</mn><mn>39990</mn></msup><mo>&gt;</mo><msup><mn>10</mn><mn>12038</mn></msup></mrow><annotation encoding="application/x-tex">q\ge2^{39990}&gt;10^{12038}</annotation></semantics></math>.
+The remaining task is a cofinal estimate, not a larger finite
+census.</p>
 </section>
 </section>
 <section id="sources-and-evidence" class="level2 unnumbered">
@@ -3131,10 +3337,9 @@ its executable and source digest are not available, so that
 classification remains external finite evidence. The strict-successor
 census through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>300000</mn><annotation encoding="application/x-tex">300000</annotation></semantics></math>
-used in the short note rests on the retained GMP receipt with its
-source, backend, payload and receipt digests; § records that a
-byte-identical regeneration of that receipt with the current driver is
-outstanding and describes the separate replay through
+used in the short note is a fresh exact GMP replay in this revision; §
+records the published driver, backend and payload digests and describes
+the separate replay through
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4000</mn><annotation encoding="application/x-tex">4000</annotation></semantics></math>.
 The full range is external computational evidence outside the Lean
 development.</p>
@@ -3203,243 +3408,185 @@ equidistribution theorem for this orbit, and none is claimed. </p>
 </section>
 </section>
 <section id="sec:erdos-68-complete-family-map" class="level2">
-<h2>Complete result-family map</h2>
-<p>This section places every registered family for this problem in the
-shared 70-family reader order. The five display bands control exposition
-only; the separate promotion state currently covers 6 families and is
-reported but does not hide or strengthen any family. Mathematical
-statements and evidence modes come from the public claim registry.
-Across all eight problems the public result-atom catalog contains 681
-exact packet coordinates; this problem contributes 112. The recovered
-source catalog contains 682 rows; 1 row(s) belong to families absent
-from the current claim registry and remain disclosed as detached source
-rows. Catalog rows expose bounded statement excerpts plus full-source
-digests, not a claim that every complete packet statement is reproduced
-here.</p>
-<section id="factorial-carry-characterisation" class="level3">
-<h3>Factorial carry characterisation</h3>
-<p><strong>Reader position.</strong> 1 of 70; display band: front door.
-Formal editorial disposition: promote. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> Exact equivalence between
-irrationality, cofinally many non-unit carries, and cofinal
-strict-successor divisibility failures.</p>
-<p>Exact equivalence between irrationality, cofinally many non-unit
-carries, and cofinal strict-successor divisibility failures.</p>
-<p><strong>Authority and reach.</strong> Lean kernel;
-Comparator-selected; locally proved result; novelty unassessed.</p>
-<p><strong>Exact boundary.</strong> An exact reformulation does not
-supply the required cofinal failures.</p>
-<p><strong>Result-atom population.</strong> 33 of 681 public
-coordinates. The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> exact selected interface; 2
-executable interface(s), 2 repository-registered selected result
-interface(s).</p>
-<p><strong>Publication placement.</strong> This family remains in the
-complete long record and is not a short-note headline.</p>
-<ul>
-<li><p><code>ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_nonunit_carries</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses</code></p></li>
-</ul>
+<h2>How the result families fit together</h2>
+<section id="carries." class="level5">
+<h5>Carries.</h5>
+<p>Tail integrality gives the necessary eventual unit carry under
+rationality. Telescoping gives the converse. These are exact
+equivalences; the finite census supplies only bounded instances of
+escape.</p>
 </section>
-<section id="factorial-channel-and-projection-rigidity" class="level3">
-<h3>Factorial channel and projection rigidity</h3>
-<p><strong>Reader position.</strong> 23 of 70; display band: mechanism.
-Formal editorial disposition: split. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> Exact low-channel classification, the
-attainable moment ideal with a content-one primitive generator,
-full-residual transparency modulo integers, finite quotient-band
-factorisation and breakpoint, channel congruences, a two-term
-prime-channel corrector, and endpoint-weighted projection rigidity.</p>
-<p>Exact low-channel classification, the attainable moment ideal with a
-content-one primitive generator, full-residual transparency modulo
-integers, finite quotient-band factorisation and breakpoint, channel
-congruences, a two-term prime-channel corrector, and endpoint-weighted
-projection rigidity.</p>
-<p><strong>Authority and reach.</strong> Lean kernel; locally proved
-result; novelty unassessed.</p>
-<p><strong>Exact boundary.</strong> These structural results determine
-the finite low-channel moment lattice and the residual class modulo
-integers, but they do not produce a cofinal nonintegral real residual or
-another obstruction settling Erdős 68.</p>
-<p><strong>Result-atom population.</strong> 63 of 681 public
-coordinates. The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> represented by selected
-interface; 0 executable interface(s), 0 repository-registered selected
-result interface(s).</p>
-<p><strong>Publication placement.</strong> This family is also admitted
-to the short note.</p>
-<ul>
-<li><p><code>Erdos68.factorialMoment_eq_factorial_pow_mul_channelNumerator_band</code></p></li>
-<li><p><code>Erdos68.exists_index_ge_two_mul_of_factorialMoment_ne_zero_of_channel_eq_zero</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.PaperComplete.attainable_moment_ideal</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.PaperComplete.exact_moment_ideal_with_primitive_attainment</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.PaperComplete.minimum_moment_content_one</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.PaperComplete.minimumMoment_independent_prime</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.PaperComplete.residual_transparency</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.PaperComplete.summable_fullResidual</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.PaperComplete.zero_moment_residual_integral</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.PaperComplete.equal_moment_residual_integer_difference</code></p></li>
-<li><p><code>Erdos68.channelNumerator_mod_factorialMoment</code></p></li>
-<li><p><code>Erdos68.primeTranslator_channelResidual_eq_one</code></p></li>
-<li><p><code>ErdosProblems.Erdos68.projection_disagreement_excludes_bounded_endpoint</code></p></li>
-</ul>
+<section id="channels." class="level5">
+<h5>Channels.</h5>
+<p>Integral triangular elimination solves the selected channel
+equations. Removing the auxiliary coordinate yields a moment ideal. The
+finite horizon computes that ideal at fixed depth, while the residual
+identity explains why zero-moment corrections do not create a new
+fractional degree of freedom.</p>
 </section>
-<section id="factorial-conditional-producers" class="level3">
-<h3>Factorial conditional producers</h3>
-<p><strong>Reader position.</strong> 43 of 70; display band: frontier.
-Formal editorial disposition: hold. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> Cofinal zero-branch or large
-private-factor hypotheses imply the required irrationality
-conclusion.</p>
-<p>Cofinal zero-branch or large private-factor hypotheses imply the
-required irrationality conclusion.</p>
-<p><strong>Authority and reach.</strong> Lean kernel; conditional
-reduction.</p>
-<p><strong>Exact boundary.</strong> The producer hypotheses are
-unproved.</p>
-<p><strong>Result-atom population.</strong> 1 of 681 public coordinates.
-The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> not selected for comparator; 0
-executable interface(s), 0 repository-registered selected result
-interface(s).</p>
-<p><strong>Publication placement.</strong> This family is also admitted
-to the short note.</p>
+<section id="common-and-reduced-denominators." class="level5">
+<h5>Common and reduced denominators.</h5>
+<p>Pairwise subtraction and a terminal block give the lcm lower bound.
+Reciprocal-unit sums determine survival of a maximal prime-power layer
+after reduction. These are complementary statements about different
+integers.</p>
 </section>
-<section id="factorial-lcm-growth" class="level3">
-<h3>Factorial lcm growth</h3>
-<p><strong>Reader position.</strong> 48 of 70; display band: frontier.
-Formal editorial disposition: hold. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> An elementary terminal-block argument
-gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">liminf</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>L</mi><mi>N</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mn>2</mn><msqrt><mn>2</mn></msqrt><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\liminf\log L_N/(N^{3/2}\log N)\ge 2\sqrt2/3</annotation></semantics></math>
-for the lcm of factorial-gap denominators. The displayed bound needs no
-external multiplicity theorem.</p>
-<p>An elementary terminal-block argument gives a lower bound of order
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N^{3/2}\log N</annotation></semantics></math>
-for the lcm of factorial-gap denominators. The displayed bound has an
-ordinary proof. An older, weaker multiplicity-based route is historical
-context only. Lean checks the bound as <a
-href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42">common
-denominator growth liminf</a>. The finite-block inequality has a
-separate Lean source.</p>
-<p><strong>Authority and reach.</strong> Lean kernel plus paper
-argument.</p>
-<p><strong>Exact boundary.</strong> The LCM asymptotic has an ordinary
-paper proof and is checked in Lean. The Comparator entry for this bound
-belongs to the separate public release
-<code>wcook04/plectis-erdos-lean</code>. The bound does not decide
-irrationality.</p>
-<p><strong>Result-atom population.</strong> 3 of 681 public coordinates.
-The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> not selected for comparator; 0
-executable interface(s), 0 repository-registered selected result
-interface(s).</p>
-<p><strong>Publication placement.</strong> This family is also admitted
-to the short note.</p>
+<section id="conditional-routes." class="level5">
+<h5>Conditional routes.</h5>
+<p>A remote residual must lie strictly between consecutive integers, or
+a collision-core estimate must be paired with a sufficiently large
+complementary gap. These are additional quantitative inputs, not
+consequences of divisibility alone.</p>
 </section>
-<section id="factorial-finite-certificates" class="level3">
-<h3>Factorial finite certificates</h3>
-<p><strong>Reader position.</strong> 59 of 70; display band: technical
-support. Formal editorial disposition: hold. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> Lean checks small exact misses; a
-hash-bound GMP scan reaches index 300000 and yields the corresponding
-finite denominator exclusion.</p>
-<p>Lean checks small exact misses; a hash-bound GMP scan reaches index
-300000 and yields the corresponding finite denominator exclusion.</p>
-<p><strong>Authority and reach.</strong> Lean finite theorem plus
-external exact certificate; finite computation.</p>
-<p><strong>Exact boundary.</strong> Finite computation does not change
-the cofinal quantifier.</p>
-<p><strong>Result-atom population.</strong> 12 of 681 public
-coordinates. The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> not applicable to comparator;
-0 executable interface(s), 0 repository-registered selected result
-interface(s).</p>
-<p><strong>Publication placement.</strong> This family is also admitted
-to the short note.</p>
+<section id="finite-evidence." class="level5">
+<h5>Finite evidence.</h5>
+<p>Carry and continued-fraction certificates exclude two incomparable
+sets of rational denominators. Their numerical parameters, source
+lineage and replay status are separately recorded. A larger certificate
+would not remove the need for a cofinal argument.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <ol>
-<li id="ref-1"><p>P. Erdős, , in A. Baker (ed.), , Cambridge UP, 1988, pp. 102–109,
-doi:<a
-href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
-<li id="ref-2"><p>T. F. Bloom, <em>Erdős Problem #68</em>. <a
-href="https://www.erdosproblems.com/68"
-class="uri">https://www.erdosproblems.com/68</a>, accessed 28 July
-2026.</p></li>
-<li id="ref-3"><p>P. Erdős, , J. Math. Sci. <strong>10</strong> (1975), 1–7, <a
-href="https://www.renyi.hu/~p_erdos/1976-44.pdf"
-class="uri">https://www.renyi.hu/~p_erdos/1976-44.pdf</a>. Theorem 1,
-p. 1.</p></li>
-<li id="ref-4"><p>J. Louwsma and J. Martino, , arXiv:<a
-href="https://arxiv.org/abs/2309.07280v1">2309.07280v1</a>, 2023,
-Lemma 4.1, p. 10.</p></li>
-<li id="ref-5"><p>G. Cantor, , Z. Math. Phys. <strong>14</strong> (1869),
-121–128.</p></li>
-<li id="ref-6"><p>J. Galambos, , Lecture Notes in Math. <strong>502</strong>,
-Springer, 1976, doi:<a
-href="https://doi.org/10.1007/BFb0081642">10.1007/BFb0081642</a>.
-Chapter II, §2.1, pp. 21–22.</p></li>
-<li id="ref-7"><p>M. Z. Garaev, F. Luca, and I. E. Shparlinski, ,
-Trans. Amer. Math. Soc. <strong>356</strong> (2004), no. 12, 5089–5102,
-doi:<a
-href="https://doi.org/10.1090/S0002-9947-04-03612-8">10.1090/S0002-9947-04-03612-8</a>;
-arXiv:<a href="https://arxiv.org/abs/math/0403422v1">math/0403422v1</a>.
-Theorem 12 is cited with arXiv v1 pagination, p. 16.</p></li>
-<li id="ref-8"><p>C. L. Stewart, , Publ. Math. Debrecen <strong>65</strong> (2004),
-no. 3–4, 461–480, doi:<a
-href="https://doi.org/10.5486/PMD.2004.3190">10.5486/PMD.2004.3190</a>.
-<a
-href="https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf"
-class="uri">https://publi.math.unideb.hu/paper/989/download/10_5486_PMD_2004_3190.pdf</a>.</p></li>
-<li id="ref-9"><p>W. Koepf and D. Schmersau, , Analysis <strong>31</strong> (2011),
-117–124, doi:<a
-href="https://doi.org/10.1524/anly.2011.1094">10.1524/anly.2011.1094</a>.
-Example 3.2, p. 121.</p></li>
-<li id="ref-10"><p>D. Duverney, , J. Math. Sci. Univ. Tokyo <strong>8</strong>
-(2001), 275–316. <a
-href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"
-class="uri">https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf</a>.</p></li>
-<li id="ref-11"><p>J. Hančl and R. Tijdeman, , Acta Arith. <strong>118</strong>
-(2005), no. 4, 383–401, doi:<a
-href="https://doi.org/10.4064/aa118-4-5">10.4064/aa118-4-5</a>.</p></li>
-<li id="ref-12"><p>K. Barreto, J. Kang, S.-h. Kim, V. Kovač, and S. Zhang,
-<em>Irrationality of rapidly converging series: a problem of Erdős and
-Graham</em>, arXiv:<a
-href="https://arxiv.org/abs/2601.21442v3">2601.21442v3</a>, 2026,
-Theorems 2–3 and Remark 4, pp. 2–5; Lemma 8, p. 6; Proposition 12,
-pp. 9–12.</p></li>
-<li id="ref-13"><p>F. Luca and I. E. Shparlinski, , Bull. London
-Math. Soc. <strong>37</strong> (2005), no. 6, 809–817, doi:<a
-href="https://doi.org/10.1112/S0024609305004923">10.1112/S0024609305004923</a>.
-Lemma 3, p. 810; proof of Lemma 5, p. 811.</p></li>
-<li id="ref-14"><p>L. Lai, , Bull. Aust. Math. Soc. <strong>113</strong> (2026),
-no. 3, 390–403, doi:<a
-href="https://doi.org/10.1017/S0004972725100543">10.1017/S0004972725100543</a>;
-arXiv:<a href="https://arxiv.org/abs/2103.14894v1">2103.14894v1</a>.
-Lemma 2.1, p. 392; display (2.5) in the proof of Lemma 2.4,
-p. 394.</p></li>
-<li id="ref-15"><p>L. Lai, C. Lupu, and J. Sprang, ,
-Res. Math. Sci. <strong>12</strong> (2025), no. 4, Paper No. 77, doi:<a
-href="https://doi.org/10.1007/s40687-025-00559-x">10.1007/s40687-025-00559-x</a>;
-arXiv:<a href="https://arxiv.org/abs/2505.23088v1">2505.23088v1</a>.
-Numbered as in arXiv v1: Lemma 2.1, p. 3; Lemmas 5.3–5.7, pp. 10–14;
-Lemma 7.3, p. 20; (8.1), p. 22.</p></li>
-<li id="ref-16"><p>L. Lai, , Int. J. Number Theory <strong>21</strong> (2025),
-no. 1, 207–235; arXiv:<a
-href="https://arxiv.org/abs/2304.00816v1">2304.00816v1</a>. Numbered as
-in arXiv v1: Lemma 2.1, p. 4.</p></li>
-<li id="ref-17"><p>NIST Digital Library of Mathematical Functions, §1.12(ii), , <a
-href="https://dlmf.nist.gov/1.12"
-class="uri">https://dlmf.nist.gov/1.12</a>, accessed 15 September
-2026.</p></li>
+<li id="ref-1"><p>Paul Erd<span>ő</span>s. <a
+href="https://doi.org/10.1017/CBO9780511897184.009">On the irrationality
+of certain series: problems and results</a>. In Alan Baker (ed.), ,
+Cambridge University Press (1988), pp. 102–109.</p></li>
+<li id="ref-2"><p>Thomas F. Bloom. <a
+href="https://www.erdosproblems.com/68">Erd<span>ő</span>s Problem
+<span>#68</span></a>. Online resource (2026). Historical access: 28 July
+2026; present-page status not reverified.</p></li>
+<li id="ref-3"><p>Paul Erd<span>ő</span>s. <a
+href="https://www.renyi.hu/~p_erdos/1976-44.pdf">Some problems and
+results on the irrationality of the sum of infinite series</a>.
+<strong>10</strong> (1975), 1–7.</p></li>
+<li id="ref-4"><p>Joel Louwsma and Joseph Martino. <a
+href="https://arxiv.org/abs/2309.07280v1">Rational numbers with odd
+greedy expansion of fixed length</a>. Preprint (2023).
+arXiv:2309.07280.</p></li>
+<li id="ref-5"><p>Georg Cantor. <span>Ü</span>ber die einfachen Zahlensysteme.
+<em>Zeitschrift f<span>ü</span>r Mathematik und Physik</em>
+<strong>14</strong> (1869), 121–128.</p></li>
+<li id="ref-6"><p>J<span>á</span>nos Galambos. <a
+href="https://doi.org/10.1007/BFb0081642">Representations of Real
+Numbers by Infinite Series</a>. Lecture Notes in Mathematics 502,
+Springer (1976).</p></li>
+<li id="ref-7"><p>Moubariz Z. Garaev, Florian Luca and Igor E. Shparlinski. <a
+href="https://doi.org/10.1090/S0002-9947-04-03612-8">Character sums and
+congruences with
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math></span></a>.
+<strong>356</strong> (12) (2004), 5089–5102.
+arXiv:math/0403422.</p></li>
+<li id="ref-8"><p>Cameron L. Stewart. <a
+href="https://doi.org/10.5486/PMD.2004.3190">On the greatest and least
+prime factors of
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+1</annotation></semantics></math></span>,
+<span>II</span></a>. <strong>65</strong> (3–4) (2004), 461–480.</p></li>
+<li id="ref-9"><p>Wolfram Koepf and Dieter Schmersau. <a
+href="https://doi.org/10.1524/anly.2011.1094">Irrationality of certain
+infinite series <span>II</span></a>. <strong>31</strong> (2011),
+117–124.</p></li>
+<li id="ref-10"><p>Daniel Duverney. <a
+href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf">Irrationality
+of fast converging series of rational numbers</a>. <strong>8</strong>
+(2001), 275–316.</p></li>
+<li id="ref-11"><p>Jaroslav Han<span>č</span>l and Robert Tijdeman. <a
+href="https://doi.org/10.4064/aa118-4-5">On the irrationality of
+factorial series</a>. <strong>118</strong> (4) (2005), 383–401.</p></li>
+<li id="ref-12"><p>Kevin Barreto, Jiwon Kang, Sang-hyun Kim, Vjekoslav
+Kova<span>č</span> and Shengtong Zhang. <a
+href="https://arxiv.org/abs/2601.21442v3">Irrationality of rapidly
+converging series: a problem of <span>Erd<span>ő</span>s</span> and
+<span>Graham</span></a>. Preprint (2026). arXiv:2601.21442.</p></li>
+<li id="ref-13"><p>Florian Luca and Igor E. Shparlinski. <a
+href="https://doi.org/10.1112/S0024609305004923">Prime divisors of
+shifted factorials</a>. <strong>37</strong> (6) (2005),
+809–817.</p></li>
+<li id="ref-14"><p>Li Lai. <a href="https://doi.org/10.1017/S0004972725100543">On
+the largest prime divisor of
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+1</annotation></semantics></math></span></a>.
+<strong>113</strong> (3) (2026), 390–403. arXiv:2103.14894.</p></li>
+<li id="ref-15"><p>Li Lai, Cezar Lupu and Johannes Sprang. <a
+href="https://doi.org/10.1007/s40687-025-00559-x">On the irrationality
+of certain
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></span>-adic
+zeta values</a>. <strong>12</strong> (4) (2025), article 77.
+arXiv:2505.23088.</p></li>
+<li id="ref-16"><p>Li Lai. <a href="https://doi.org/10.1142/S1793042125500113">On
+the irrationality of certain
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math></span>-adic
+zeta values</a>. <strong>21</strong> (1) (2025), 207–235.
+arXiv:2304.00816.</p></li>
+<li id="ref-17"><p><span>NIST Digital Library of Mathematical Functions</span>. <a
+href="https://dlmf.nist.gov/1.12">Continued fractions: convergents</a>.
+Online resource (2026).</p></li>
+<li id="ref-18"><p>Paul Erd<span>ő</span>s and Cameron L. Stewart. <a
+href="https://doi.org/10.1112/jlms/s2-13.3.513">On the greatest and
+least prime factors of
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+1</annotation></semantics></math></span></a>.
+<strong>13</strong> (3) (1976), 513–519.</p></li>
+<li id="ref-19"><p>Florian Luca and Igor E. Shparlinski. <a
+href="https://doi.org/10.5802/jtnb.524">On the largest prime factor of
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+2^n-1</annotation></semantics></math></span></a>.
+<em>Journal de Th<span>é</span>orie des Nombres de Bordeaux</em>
+<strong>17</strong> (3) (2005), 859–870.</p></li>
+<li id="ref-20"><p>Moubariz Z. Garaev, Florian Luca and Igor E. Shparlinski. <a
+href="https://doi.org/10.1007/s00209-006-0939-5">Distribution of
+harmonic sums and <span>Bernoulli</span> polynomials modulo a prime</a>.
+<strong>253</strong> (2006), 855–865.</p></li>
+<li id="ref-21"><p>Jonathan Sondow. <a href="https://arxiv.org/abs/0704.1282v2">A
+geometric proof that
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math></span>
+is irrational and a new measure of its irrationality</a>.
+<strong>113</strong> (7) (2006), 637–641. arXiv:0704.1282. Addendum:
+<strong>114</strong> (2007), 659; reading copy v2.</p></li>
+<li id="ref-22"><p>Xiyu Hu. <a href="https://arxiv.org/abs/2608.01781v1">Factorial
+residues modulo a prime: beyond the square-root bound</a>. Preprint
+(2026). arXiv:2608.01781. Version 1, 3 August 2026.</p></li>
+<li id="ref-23"><p>Moubariz Z. Garaev and Julio C. Pardo. <a
+href="https://doi.org/10.1090/proc/17753">Additive congruences with
+factorials modulo a prime</a>. <strong>154</strong> (10) (2026),
+4179–4190. arXiv:2508.12127. Published online 1 July 2026; assigned
+October 2026 issue.</p></li>
+<li id="ref-24"><p>Xiyu Hu. <a href="https://arxiv.org/abs/2609.05652v1">Lower
+bounds for some value sets over finite fields: incidence geometry and
+<span>Bourgain</span>’s group expansion theorem</a>. Preprint (2026).
+arXiv:2609.05652. Version 1, 4 September 2026.</p></li>
+<li id="ref-25"><p>William D. Banks, Florian Luca, Igor E. Shparlinski and Henning
+Stichtenoth. <a
+href="https://journals.tubitak.gov.tr/math/vol29/iss2/6/">On the Value
+Set of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math>
+Modulo a Prime</a>. <strong>29</strong> (2) (2005), 169–174.</p></li>
+<li id="ref-26"><p>Oleksiy Klurman and Marc Munsch. <a
+href="https://doi.org/10.5802/jtnb.974">Distribution of factorials
+modulo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></a>.
+<strong>29</strong> (1) (2017), 169–177.</p></li>
+<li id="ref-27"><p>Alexandr Grebennikov, Arsenii Sagdeev, Aliaksei Semchankau and
+Aliaksei Vasilevskii. <a href="https://doi.org/10.4171/RMI/1422">On the
+sequence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math>
+mod
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></a>.
+<strong>40</strong> (2) (2024), 637–648.</p></li>
+<li id="ref-28"><p>Sophie Stevens and Frank de Zeeuw. <a
+href="https://doi.org/10.1112/blms.12077">An improved point-line
+incidence bound over arbitrary fields</a>. <strong>49</strong> (5)
+(2017), 842–858. arXiv:1609.06284.</p></li>
+<li id="ref-29"><p>R. A. Macleod and I. Barrodale. <a
+href="https://doi.org/10.4153/CMB-1970-052-8">On Equal Products of
+Consecutive Integers</a>. <strong>13</strong> (2) (1970),
+255–259.</p></li>
+<li id="ref-30"><p><span>Nguyen Xuan Tho</span>. <a
+href="https://doi.org/10.4171/EM/556">On equal products of consecutive
+integers</a>. <strong>81</strong> (3) (2026), 119–124. First published
+online 10 July 2025.</p></li>
+<li id="ref-31"><p>Paul Erd<span>ő</span>s and John L. Selfridge. <a
+href="https://doi.org/10.1215/ijm/1256050816">The product of consecutive
+integers is never a power</a>. <strong>19</strong> (2) (1975),
+292–301.</p></li>
 </ol>
 </section>
   </div>

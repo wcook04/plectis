@@ -9,14 +9,14 @@
 \renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
 \renewcommand{\commitshort}{99f4bf47422a}
 \hypersetup{
-  pdftitle={Irrationality of F(31/4) and the exact normalized Hankel order (Erdős Problem 1049)},
-  pdfsubject={Erdős Problem Notes: Problem 1049},
-  pdfkeywords={irrationality, Lambert series, rational base, Hankel determinant, q-logarithm, Padé approximation, Lean 4},
+  pdftitle={Zudilin's forms at rational bases and the exact normalised Hankel order (Erdos Problem 1049)},
+  pdfsubject={Erdos Problem Notes: Problem 1049},
+  pdfkeywords={irrationality, Lambert series, rational base, Hankel determinant, q-logarithm, Pade approximation, Lean 4},
 }
 
-\runninghead{Erd\H{o}s \#1049: an irrational base and the exact Hankel order}
-\title{Irrationality of $F(31/4)$ and the\\Exact Normalized Hankel Order}
-\subtitle{Zudilin's forms at rational bases and a unique least-order moment configuration}
+\runninghead{Erd\H{o}s \#1049: rational bases and Hankel order}
+\title{Zudilin's Forms at Rational Bases\\and the Exact Normalised Hankel Order}
+\subtitle{The region containing $31/4$ and its powers; a least-order moment calculation}
 \author{Will Cook}
 \date{September 2026}
 
@@ -25,33 +25,30 @@
 \noteprovenance
 
 \begin{abstract}
-Specialising Zudilin's 2004 construction for $q$-harmonic series to rational
-bases, we prove that for coprime integers $a>b\ge1$ the Lambert value
-$F(a/b)=\sum_{n\ge1}((a/b)^n-1)^{-1}$ is irrational whenever
-$\log b/\log a<\theta^*=0.4056830213840605\ldots$, the reciprocal of
-Zudilin's integer-base exponent bound $2.46497868\ldots$.
-In particular, $F((31/4)^r)$ is irrational for every integer $r\ge1$, and
-the same forms bound its irrationality exponent uniformly in $r$.
-The linear forms, their permutation-group integrality, the direction and the
-constants come from Zudilin's 2004 paper.  The rational specialisation is
-this paper's own work: it uses the polynomial form of Lemma~7 there before the
-integer specialisation,
-cancels cyclotomic factors before clearing the rational-base denominator, and
-proves the degree and remainder estimates that measure the cost.
-The proof is an ordinary proof, and Lean checks the theorem and the corollary,
-with the source supply applied.
-The argument does not reach $3/2$.
-Zudilin bounded the $q$-order of his 2016 normalised Hankel determinant
-$V_N^*$ from below; we prove
+We specialise Zudilin's 2004 $q$-harmonic linear forms to prove that
+$F(a/b)=\sum_{n\ge1}((a/b)^n-1)^{-1}$ is irrational for coprime integers
+$a>b\ge1$ whenever $\log b/\log a<\theta^*$, where
+$\theta^*=0.4056830213840605\ldots$.
+In particular, $F((31/4)^r)$ is irrational for every integer $r\ge1$,
+with the same upper bound $301$ for the irrationality exponent at every $r$.
+The forms, their permutation-group integrality, the direction
+$(14,12,14;27)$ and the constants are Zudilin's. The proof here uses his
+polynomial integrality statement before integer specialisation, cancels
+cyclotomic factors before homogenisation, and establishes the cancelled
+degree and positive-remainder estimates. It does not reach $3/2$.
+For the different normalised Hankel family in Zudilin's 2016 construction,
+we sharpen the lower bound for the formal order to
 \[
- \operatorname{ord}_qV_N^*=\frac{N(N-1)(2N-1)}6,
- \qquad [q^{\operatorname{ord}_qV_N^*}]V_N^*
+ \operatorname{ord}_q V_N^*=\frac{N(N-1)(2N-1)}6,
+ \qquad [q^{\operatorname{ord}_q V_N^*}]V_N^*
        =\frac{(N!)^2(N+1)!}{2^N}.
 \]
-The exponent and coefficient come from a unique least-order tuple in a formal
-moment expansion.  A quantitative selector criterion separates local
-divisibility from the additional estimates needed for a small nonzero real
-remainder.
+The proof identifies a unique least-order tuple in the classical
+moment--Vandermonde expansion. We also state the precise limits of a
+base-uniform rank-two degree estimate and of local residue collisions:
+neither supplies the small nonzero integral forms still required at $3/2$.
+The principal irrationality and formal-order results have source-applied
+Lean declarations; the mathematical proofs are given in the text.
 \end{abstract}
 
 \section{Introduction}\label{sec:problem}
@@ -62,11 +59,14 @@ For $t>1$, expansion of each geometric series gives
      =\sum_{n\ge1}\frac{\tau(n)}{t^n},
 \]
 where $\tau(n)$ is the number of positive divisors of $n$.
+The rearrangement is justified by nonnegativity, and the resulting series
+converges since $\tau(n)\le n$ and $\sum_{n\ge1}nt^{-n}<\infty$.
+
 Chowla conjectured that $F(t)$ is irrational for every rational $t>1$, as
 Erd\H{o}s records \cite[p.~102]{erdos1988}; this is Erd\H{o}s
 Problem~\#1049.  Specialising Zudilin's 2004 construction to rational bases,
 Theorem~\ref{res:rational-base-threshold} proves irrationality on an explicit
-region that contains the power family in the title.
+region that contains the power family in Corollary~\ref{res:thirtyone-four}.
 
 Cyclotomic cancellation in the linear forms of Zudilin's 2004
 construction~\cite{zudilin2004} produces positive forms $\Lambda_n=U_nF-V_n$
@@ -75,7 +75,8 @@ with integral coefficient polynomials of degree at most $W_n$, and
  \log\!\bigl(b^{W_n}\Lambda_n(a/b)\bigr)
  =\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2).
 \]
-A negative exponent yields positive integral linear forms tending to zero.
+A negative exponent yields positive linear forms with integer coefficients
+tending to zero; the values need not themselves be integers.
 
 The order of these operations explains the region. At a rational base $a/b$,
 each remaining polynomial degree costs a power of $b$ when denominators are
@@ -83,12 +84,30 @@ cleared. Cancelling a common cyclotomic factor first reduces that degree.
 The proof must then compare the actual cancelled degree with the decay of
 the positive remainder; divisibility alone gives neither estimate.
 
-The Hankel argument concerns a different family.  Its moment expansion makes
-one increasing index tuple responsible for the first coefficient.  The final
-sections explain what local cancellation can establish at $3/2$ and specify
-the real estimate that would complete that approach.  The complete catalogue
-of other constructions and their failure witnesses is retained in the long
-record.
+The Hankel argument concerns a different family: the 2016 normalised
+remainders, not the 2004 coefficient pair. Section~\ref{sec:hankel-order}
+identifies one increasing moment-index tuple responsible for the first
+coefficient. Section~\ref{sec:open} separates local divisibility at $3/2$
+from nonvanishing and a real size estimate. The long record supplies the
+positive-measure proof, source comparisons and excluded constructions.
+
+\paragraph{Related methods and notation.}
+The integer-base digit argument and its repair for signed coefficients are
+represented by Vandehey~\cite[Thms.~1.1--1.2, p.~2]{vandehey2013};
+Duverney and Tachiya obtain integer-base linear-independence refinements
+\cite[Thms.~1.1--1.2 and Cor.~1.1, pp.~2--3]{duverneytachiya2019}.
+These are not rational-base denominator estimates. Van Assche's little
+$q$-Legendre approximants provide the orthogonal-polynomial comparison
+\cite[(4), (9), (16), pp.~3--4]{vanassche2001}.
+Throughout, $F$ denotes the Lambert value. The function parameter is
+$q=p^{-1}$ when $p>1$; the Gaussian polynomial ${m\brack k}_p$ uses base
+$p$, not $q$. The indices $n$ and $N$ denote, respectively, approximation
+scale and Hankel rank. A formal order as $q\to0$ is not an asymptotic
+estimate as $N\to\infty$ at fixed $q$.
+We use $(z;q)_m=\prod_{j=0}^{m-1}(1-zq^j)$, with empty products and
+empty determinants equal to $1$. The local symbol $N=15n$ in the next
+proof is a cyclotomic cutoff, not a Hankel rank. All logarithms are natural;
+constants in $O_x(\cdot)$ may depend on the fixed base $x$.
 
 
 \section{A rational base at which $F$ is irrational}
@@ -107,6 +126,10 @@ intervals listed in the proof and put
  C_0=266-\frac3{\pi^2}(225-J).
 \]
 Thus $\theta^*=C_0/C_1$ and $\mu=C_1/C_0$ are defined exactly.
+Here $\mu$ is the reciprocal cutoff; it is not the notation
+$\mu_{\rm irr}(\xi)$ for the irrationality exponent of an individual value.
+The cutoff is sufficient for this construction, not asserted optimal.
+
 
 
 \begin{theorem}[rational-base region for Zudilin's forms]
@@ -127,6 +150,9 @@ Then $F(a/b)$ is irrational.
 clearing degree is the degree of the cancelled pair.  The value $3/2$ is
 outside this sufficient region: $J\le\psi_1(1/14)-\psi_1(1)<196$ gives
 $\theta^*<266/(1091/2)<1/2<\log2/\log3$.
+At equality $\log b/\log a=\theta^*$ the leading quadratic exponent
+vanishes, so this argument gives no conclusion from its displayed estimates.
+
 
 \begin{proof}[Proof of Theorem~\ref{res:rational-base-threshold}]
 Set
@@ -210,6 +236,11 @@ $x\to\infty$.  Hence $\Lambda_n(x)=O(x^{W_n-K_n})$.
 Since $F(x)=O(x^{-1})$ and $K_n\ge1$, the identity
 $V_n=U_nF-\Lambda_n$ gives $\deg V_n\le W_n-1$.
 Thus $W_n$ clears both coordinates.
+The degree argument holds with $n$ fixed while $x\to\infty$; the remainder
+estimate below instead holds with $x$ fixed while $n\to\infty$. These are
+different limiting operations. The zero polynomial causes no difficulty in
+the assertion about the second coordinate.
+
 
 \paragraph{The limiting degree cost.}
 The limits below are the cyclotomic limits of
@@ -263,9 +294,10 @@ In particular $\log H_n(x)=O_x(1)$ and $\Lambda_n(x)>0$.
 For fixed $x>1$, the cyclotomic identity
 \[
  \log\Phi_\ell(x)-\varphi(\ell)\log x
- =\sum_{d\mid\ell}\mu(d)\log(1-x^{-\ell/d})
+ =\sum_{d\mid\ell}\mu_{\rm Mob}(d)\log(1-x^{-\ell/d})
 \]
-has total absolute error $O_x(n)$ over $\ell\le15n$.
+has total absolute error $O_x(n)$ over $\ell\le15n$, where
+$\mu_{\rm Mob}$ is the M\"obius function.
 Indeed, it is at most $15n B(x)$, where
 \[
  B(x)=\sum_{d\ge1}\frac{-\log(1-x^{-d})}{d}<\infty.
@@ -288,8 +320,8 @@ Moreover
  &=\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2).
 \end{split}
 \]
-The coefficient is negative under the theorem's hypothesis.  Thus positive
-integral linear forms in $F(a/b)$ tend to zero.  If $F(a/b)=r/s$ were rational,
+The coefficient is negative under the theorem's hypothesis. Thus positive
+linear forms in $F(a/b)$ with integer coefficients tend to zero.  If $F(a/b)=r/s$ were rational,
 every such form would have absolute value at least $1/|s|$, a contradiction.
 The separation bound for a nonzero integral form at a rational target is
 \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/TwoSelectorRemainderEscape.lean#L128}{rational integer linear form gap}.
@@ -341,7 +373,8 @@ In particular, $\mu_{\rm irr}(F((31/4)^r))<301$ for every $r\ge1$.
 \begin{proof}
 The passage from the forms to an exponent bound is the standard one that
 Zudilin uses at integer bases \cite[p.~162]{zudilin2004}; the estimates below
-make it uniform in $r$.
+give an exponent bound independent of $r$, although the estimates are
+applied separately at each fixed base $(a/b)^r$.
 The raw source coefficient is a sum of $O(n)$ Laurent monomials times two
 Gaussian polynomials, each of coefficient sum at most $2^{27n+2}$.
 Its coefficient norm is $\exp(O(n))$, and every exponent is at most $K_n$.
@@ -375,10 +408,24 @@ Let $\eta\downarrow0$.  The resulting bound is
 $1+\alpha/\tau=(1-\theta)/(\theta^*-\theta)$.
 Taking a common power multiplies $\alpha,\tau$ by $r$, leaving this quotient
 unchanged; the constants in the approximation inequality may depend on $r$.
-For $31/4$, sixteen terms of each trigamma difference and
-$\pi>314159/100000$ give $\theta^*>0.40568$.
-The logarithm series gives $\log4/\log31<0.4036982$.
-Thus the bound is less than $2981509/9909<301$.
+For $31/4$, rational interval arithmetic gives
+\[
+ 0.40568302137302<\theta^*<0.40568302139506,
+ \qquad \log4/\log31<0.4036982.
+\]
+For completeness, if $f_{u,v}(x)=(x+u)^{-2}-(x+v)^{-2}$ and $u<v$,
+its positive decreasing tail satisfies
+\[
+ \int_M^\infty f_{u,v}(x)\,dx
+ \le\sum_{k=M}^\infty f_{u,v}(k)
+ \le f_{u,v}(M)+\int_M^\infty f_{u,v}(x)\,dx.
+\]
+The integral is $(M+u)^{-1}-(M+v)^{-1}$. The accompanying certificate uses
+$M=256$, Machin's identity for $\pi$ with alternating-series bounds, and
+the positive $\operatorname{arctanh}$ series for logarithms. All endpoints
+are rational. They enclose the exponent bound between $300.4269130$ and
+$300.4269164$, in particular below $301$. These numerical enclosures are
+exact-arithmetic certificates, not additional Lean declarations.
 \end{proof}
 
 \paragraph{Comparison and scope.}
@@ -409,12 +456,17 @@ $2^{18}<7^7$ yields the
 V\"a\"an\"anen's Theorem~2 ($\alpha=-1$).  Their analytic irrationality
 theorem is not a Lean result here.
 
-Negative bases are not treated.
+Negative bases are not treated: the positive-remainder estimates used here
+assume $x>1$. The boundary $x=1$ is excluded because the Lambert series
+diverges there.
 
 \subsection{The base-uniform degree restriction}
 The preceding construction uses degree and decay estimates valid at every
-fixed real base greater than one.  Such uniformity itself imposes a limit.
+fixed real base greater than one, with common quadratic degree and decay
+parameters. It is this common-parameter hypothesis, not fixed-base
+asymptotics alone, that imposes the following restriction.
 
+\begin{sloppypar}
 \begin{theorem}[Archimedean cap on base-uniform rank-two families]
 \label{res:archimedean-cap}
 Let $(U_n,V_n)$ be pairs in $\mathbb Z[X]^2$ satisfying $\Lambda_n(x)=U_n(x)F(x)-V_n(x)\ne0$,
@@ -427,6 +479,7 @@ $d_n=\max(\deg U_n,\deg V_n)$, the homogenised forms
 $b^{d_n}\Lambda_n(a/b)$ tend to zero whenever
 $\log b/\log a<\sigma/(\sigma+\delta)$, and $\sigma/(\sigma+\delta)\le1/2$.
 \end{theorem}
+\end{sloppypar}
 
 \begin{proof}
 Write $H_n=\max(H(U_n),H(V_n))$.  Then
@@ -460,7 +513,16 @@ sufficient cutoff furnished by the displayed degree estimate.  An exclusion for 
 particular family requires its actual degree and remainder asymptotics.
 \end{proof}
 
-\section{Exact normalized-Hankel order in Zudilin's construction}
+The hypotheses are essential: this is a restriction on the stated
+base-uniform rank-two estimates, not on all Pad\'e or Hermite--Pad\'e
+constructions. For a distinct simultaneous construction, Postelmans and
+Van Assche prove the $\Q$-linear independence of
+$1,\zeta_q(1),\zeta_q(2)$ when $q=1/p$ with integer $p\ge2$
+\cite[Thm.~1.3, p.~3; Sec.~6]{postelmansvanassche2007}.
+Their integer inverse-base hypothesis is not removed here.
+
+
+\section{Exact normalised-Hankel order in Zudilin's construction}
 \label{sec:hankel-order}
 
 Here the problem is cancellation inside a determinant. Entrywise orders give
@@ -469,7 +531,7 @@ expansion below resolves this by finding one uniquely least-order index
 tuple, whose coefficient is nonzero. This is a formal-power-series argument;
 fixed-base estimates are a separate question addressed after the proof.
 
-At $x=z=1$, Zudilin's normalized moments~\cite[(6), pp.~6--7]{zudilin2016} are
+At $x=z=1$, Zudilin's normalised moments~\cite[(6), pp.~6--7]{zudilin2016} are
 \[
  v_m^*=\sum_{t\ge0}q^{(m+1)t}
  \frac{(q;q)_m^3(q^{t+1};q)_m}{(q^{m+1+t};q)_{m+1}},
@@ -554,18 +616,33 @@ No other tuple can cancel this coefficient.
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173}{the exact order} and
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199}{the leading coefficient}.
 
-\paragraph{Formal order and fixed-base size.}
-The theorem identifies the first formal term.  Formal order alone would not
-control a fixed-$q$ residual: multiplying by $(1-q)^{N^3}$ preserves that first
-term and changes the logarithm by a cubic quantity at fixed $0<q<1$.
-The separate positive-measure argument for these same moments proves
-$V_N^*(q)>0$ and
+\paragraph{Formal order, real size and arithmetic content.}
+Formal order alone does not control a fixed-$q$ residual: multiplying by
+$(1-q)^{N^3}$ preserves the first term and changes its logarithm by a cubic
+quantity for fixed $0<q<1$. A separate positive-measure proof in the long
+record gives $V_N^*(q)>0$ and
 $\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)$, where
 $B_N=N(N-1)(2N-1)/6$ and $C_N=(N!)^2(N+1)!/2^N$.
-Its complete ordinary proof is in
-\texttt{ZudilinHankelPositiveMeasure.md} and the long record.
-Neither fact supplies a denominator factor for the 2004 polynomial forms.
+Neither conclusion supplies arithmetic divisibility. The cyclotomic Hankel
+factors in Krattenthaler--Rochev--V\"a\"an\"anen--Zudilin
+\cite[Prop.~4, pp.~14--15]{krvz2009} are proved for a different tail
+recurrence; that recurrence has not been established for this family.
+Likewise, positivity of these remainders does not prove that their
+coefficient sequence is a Stieltjes moment sequence. The latter requires
+positivity of both its Hankel matrices and their once-shifted companions
+\cite[Lemma~2.1, p.~4]{wangzhu2016}, at all ranks. The long record states
+this coefficient question separately and records exact finite-rank tests.
+No divisor from the 2004 forms is transferred to the 2016 family.
 
+The long record now certifies both leading coefficient-Hankel families
+through rank eight, for every real $p\ge1$. At $p>1$ this suffices to make
+the coefficient matrix positive definite through that rank, and hence to
+obtain real pencil roots below $F(p)$, without an all-rank moment conjecture.
+The endpoint coefficient sequence $(m!)^3$ has a Stieltjes measure but is
+indeterminate: a measure need not be unique \cite[Thm.~5.1]{berg2007}.
+Positive continued-fraction coefficients and finite Gaussian quadrature
+are useful finite reformulations \cite{sw2024,golubwelsch1969}; neither
+constructs a single measure for the entire moving-degree sequence.
 
 
 \section{Local cancellation and the remaining real estimate}
@@ -576,11 +653,28 @@ pigeonhole principle and B\'ezout's identity for unimodular rows.  The
 hypotheses on minors, multiplicities and real remainders are stated
 explicitly where they enter.
 
+For natural $a,b,N,K,Q,D$, a \emph{coordinatewise corridor} means
+\[
+ a,Q,D>0,\quad D\le N+K,\quad a^K\mid QD,
+ \quad Qb^{N+K+1}<a^{K+1}.
+\]
+The divisibility and the last inequality imply
+$b^{N+K+1}<a(N+K)$. At $(a,b)=(3,2)$ this contradicts
+$3x<2^{x+1}$ for $x=N+K\ge2$.
+
 \begin{theorem}[no corridor at base $3/2$]\label{res:nocorridor}
 For all $N\ge1$ and $K\ge1$ and all natural $Q,D$, the tuple
 $(3,2,N,K,Q,D)$ is not a
 \lword{Erdos1049/RationalBaseLambert.lean}{155}{threeHalves_no_coordinatewiseCorridor}{coordinatewise corridor}.
 \end{theorem}
+
+For $r,s,B,F\in\Q$ with $r\ne0$ and $c:\N\to\Q$, put
+\[
+ P_N=\sum_{m=0}^{N-1}c(m+1)\frac{s^{m+1}}{r^{m+1}},
+ \qquad U_N=Br^N(F-P_N).
+\]
+Here $F$ in the recurrence is an arbitrary rational parameter; it is not
+an assumption that the Lambert value is rational.
 
 \begin{theorem}[cleared-tail recurrence]\label{res:tailrec}
 Let $r,s,B,F\in\Q$ with $r\ne0$, let $c:\N\to\Q$, and let $P_N$ and $U_N$ be
@@ -591,6 +685,10 @@ is
  U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.
 \]
 \end{theorem}
+Here $P_N$ is the prefix and $U_N$ the cleared tail state in the definitions
+immediately above; the phrase ``cleared tail state'' in the statement refers
+to this declared pair of objects.
+
 
 \begin{theorem}[the forcing term]\label{res:forcing}
 Let $s,B$ be natural numbers and $c:\N\to\N$, and put
@@ -623,6 +721,10 @@ $J_{3,R}(P)=0$ if and only if $3^R\mid H_W(P)$.
 All four jets of $(U,V)$ vanish precisely when $D=3^R2^S$ divides both
 specialised coordinates.  The dependence on the declared width remains fixed
 when rows are added.
+The width is part of $H_W$: replacing it by $W+1$ doubles both evaluated
+coordinates and changes their $2$-adic divisibility. One must not lower a
+row's width to its own degree while forming a common-width selector sum.
+
 
 \begin{theorem}[binary four-jet collision]\label{res:jetkernel}
 Fix a width \(W\) and depths \(R,S\), and let \((U_j,V_j)_{j<M}\) be any \(M\)
@@ -685,15 +787,20 @@ at most $2^S3^R$ values.  Finally
  2^S3^R<2^S4^R=2^{S+2R}\le2^k,
 \]
 and pigeonhole gives the two selectors.
-The ring-generic minor collapse and the modular selector collision are
-together \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L269}{plucker paper statement}.
+The unit-second-coordinate special cases of the minor collapse and modular
+selector collision are recorded together as \href{https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L269}{plucker paper statement}.
 \end{proof}
 
 Primitive integer rows are unimodular modulo every modulus.  A particular
-coordinate need not be a unit: $(2,3)$ modulo $6$ is an example.  The
+coordinate need not be a unit: $(2,3)$ modulo $6$ is an example.
+Explicitly, if $uA+vB=1$ and $AB'-BA'=0$, then
+$(A',B')=(uA'+vB')(A,B)$; this identity is valid even when the ring
+has zero divisors. Unimodularity of the next row makes the scalar a unit,
+although the scalar-multiple conclusion already suffices here.
+  The
 minor-vanishing hypothesis remains a separate condition on the source rows.
 
-\subsection{One minor gcd controls two different costs}
+\subsection{An exponent model and row normalisation}
 
 The next proposition compares two explicit exponent polynomials of a
 Pad\'e-type denominator model.  No coefficient formula producing them is
@@ -721,6 +828,11 @@ is $\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)$.
 \end{enumerate}
 \end{proposition}
 
+For the first exponent inequality, $n=0$ forces $k=0$ and the gap is zero.
+For $n\ge1$ both $n-k$ and $3n-k-1$ are nonnegative. The second identity
+is a direct polynomial identity after substituting $j=n-m-1$; it makes
+no unstated restriction on $m$.
+
 \begin{proposition}[row-content determinant scaling]\label{res:content}
 Rowwise integer contents scale the
 \lword{Erdos1049/RationalPadeArithmetic.lean}{124}{rationalPadeExteriorDet_cast_eq}{exterior determinant}
@@ -731,10 +843,17 @@ and the
 identify the local divisor with the Archimedean height cost.
 \end{proposition}
 
+For nonzero row contents $c_1,c_2$, write $r_i=c_ir_i^{\rm prim}$.
+Then $\det(r_1,r_2)=c_1c_2\det(r_1^{\rm prim},r_2^{\rm prim})$ and
+$r_i\cdot(\xi,-1)=c_i r_i^{\rm prim}\cdot(\xi,-1)$.
+These identities concern multiplication or division of whole integer rows,
+not cancellation of a polynomial factor before specialisation.
+
+\subsection{One minor gcd controls two different costs}
 Let a rank-two lattice $\Lambda\subset\Z^2$ be generated by primitive rows,
 and let $g>0$ be the gcd of their $2\times2$ minors.  By the description of
 Smith invariants through gcds of minors \cite[Thms.~2.3--2.4, p.~3]{stanley2016},
-its Smith invariants are $1,g$.  Therefore
+its Smith invariants are $1,g$.  For $D\ge1$, therefore
 \[
  \bigl|\operatorname{im}(\Lambda\bmod D)\bigr|
        =\frac{D^2}{\gcd(g,D)},\qquad
@@ -746,6 +865,17 @@ $\Lambda$ to $\Z\oplus g\Z$; that change preserves $D\Z^2$.
 The first quotient counts the modular signatures.  The second is the index
 remaining after dividing a successful collision by $D$.
 Once $D\mid g$, the modular count is $D$, while the remaining index is $g/D$.
+Without primitive generators, use both Smith invariants $d_1\mid d_2$:
+\[
+ |\operatorname{im}(\Lambda\bmod D)|=
+ \frac{D^2}{\gcd(d_1,D)\gcd(d_2,D)},\qquad
+ \left[\Z^2:\frac{\Lambda\cap D\Z^2}{D}\right]=
+ \frac{d_1d_2}{\gcd(d_1,D)\gcd(d_2,D)}.
+\]
+This follows coordinatewise from
+$\Lambda\simeq d_1\Z\oplus d_2\Z$; omitting the first invariant without
+primitivity would change both counts.
+
 
 If two independent divided rows $(A_i,B_i)$ have $|A_i|\le H$ and
 $|A_i\xi-B_i|\le\varepsilon$, their determinant gives
@@ -787,7 +917,13 @@ the theorem to binary selectors, with
  \qquad g(\varepsilon)=\sum_j\varepsilon_j e_j.
 \]
 Let $Q$ be the number of attained modular signatures and let $k$ bound the
-simultaneous $(f,g)$ fibres.  All selector remainders lie in an interval of
+simultaneous $(f,g)$ fibres.
+Here $Q$ counts attained signatures, not the whole ambient residue space;
+one may use $Q\le D^2/\gcd(g_0,D)$ when $g_0$ is the minor gcd of the
+primitive row lattice. The letter $g_0$ avoids confusion with the real-value
+map $g$ in the theorem. A useful bound for $k$ is an additional obligation,
+not a consequence of the modular count.
+  All selector remainders lie in an interval of
 length $T=\sum_j|e_j|$.  Dividing that interval into half-open bins of width
 $D/n$ gives the sufficient inequality
 \begin{equation}\label{eq:quantitative-selector-budget}
@@ -795,6 +931,12 @@ $D/n$ gives the sufficient inequality
 \end{equation}
 Its conclusion is a signed row sum divisible coordinatewise by $D$, with a
 nonzero divided real remainder of absolute value less than $1/n$.
+At a right endpoint use the final bin as a singleton if necessary; the
+bound $\lfloor nT/D\rfloor+1$ still applies and two distinct values in
+one bin differ strictly by less than $D/n$. The count is for attained
+signatures and actual equal-value multiplicities, not for all points
+of the ambient residue module.
+
 More precisely, if modular fibre $b$ has its own real span $T_b$ and exact
 value multiplicity $k_b$, it suffices that
 \[
@@ -804,6 +946,10 @@ These are estimates for the primitive real remainders of the declared source
 family.  Bounded unnormalised hypergeometric remainders cannot replace them.
 A nonzero function need not be nonzero at $3/2$, as the factor $2X-3$ shows;
 positive individual remainders need not remain positive after subtraction.
+Primitivity of the input rows does not eliminate repeated subset sums.
+Exact value multiplicity must be bounded in the same family and after
+the same normalisation as the analytic span.
+
 
 \subsection{The source-specific endpoint question}
 
@@ -870,6 +1016,11 @@ an ordinary determinant obstruction to bounded divided errors; that
 obstruction does not exclude sparse scales or the wider deformation.
 Thus the next estimate must concern the real remainders of the chosen family.
 Increasing the number of modular collisions alone does not establish it.
+An efficient test order is therefore: fix the source and width, compute
+primitive rows and the minor gcd, bound the attained signatures, and only
+then estimate real spans and exact-value multiplicities. A failed real
+bound is not repaired merely by finding more congruence solutions.
+
 
 \paragraph{Functional equations.}
 Bell and Smertnig's classification of Mahler series with multiplicative
@@ -896,97 +1047,87 @@ Erd\H{o}s Problems catalogue maintained by Thomas Bloom~\cite{erdosproblems}.
 \appendix
 \section{Guide to the formal sources}\label{app:index}
 
-The seven modules named below are linked at the pinned source
-revision~\commitshort.  Additional declarations in the body of the note are
-linked at a second immutable revision,
-\texttt{f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a}.  These are separate
-snapshots, not one checked revision of the whole library.  Each hyperlink
-opens the named declaration at the commit recorded in its URL.
+The supplied public snapshot is
+\texttt{3d6d938d696fed0fb71dd55115a18a73738ff223}.
+Its \texttt{PaperR17/SourceConsumers.lean} constructs the actual cancelled
+source supply and applies it in \texttt{rational\_base\_region},
+\texttt{thirtyone\_four\_powers} and the measure declarations.
+The \texttt{AllRow/Producer.lean} file proves the actual source-row initial
+monomials and applies the all-rank determinant consumer. These endpoints
+are not merely conditional interfaces.
 
-The declarations linked at~\commitshort\ live in seven modules:
-\texttt{RationalBaseLambert}, \texttt{QAperyDiagonalNonEquivalence},
-\texttt{RationalPadeArithmetic}, \texttt{ZudilinConeArithmetic},
-\texttt{ZudilinHeightRegion}, \texttt{HermitePadeNoGo}, and
-\texttt{BezoutPluckerJets}.  The first contains
-the corridor, cleared-tail recurrence, and elementary $7/2$ certificate; the
-second checks the finite $n=0$ diagonal residual; the remaining four separate
-the Pad\'e exponent arithmetic, endpoint arithmetic, logarithmic comparisons,
-rectangular exponent model, and B\'ezout--Pl\"ucker tail collapse.  The link
-coordinates for those seven modules are validated against that pinned
-revision, so they remain correct as later work moves lines in the working
-tree.
+The accompanying audit distinguishes the public CI evidence in the packet
+from release-only and outside-build material; it is not a fresh kernel run.
+The ordinary unimodular-row B\'ezout--Pl\"ucker proof is stronger than the
+linked unit-second-coordinate Lean version. The finite coefficient-moment
+and cyclotomic-content calculations in the long record are exact computer
+algebra, not Lean theorems. Historical links elsewhere in the text retain
+their own revisions; the audit supplies a declaration-name map for careful
+repinning, rather than claiming that every old line coordinate has been
+revalidated.
 
 % The linked source manifest is retained in the authored TeX for automated
 % validation, and kept outside the printed note.
-\iffalse
+% Historical hidden declaration table is preserved in the pass-one provenance.
 
-\begin{tabular}{@{}ll@{}}
-informal statement & linked Lean source\\
-Van Assche diagonal initial values & \lrefx{Erdos1049/QAperyDiagonalNonEquivalence.lean}{33}{vanAsscheDiagonal_initial_values}\\
-exact $n=0$ residual factorisation & \lrefx{Erdos1049/QAperyDiagonalNonEquivalence.lean}{67}{vanAsscheQAperyResidualAtZero_eq}\\
-nonzero $n=0$ residual for $p>1$ & \lrefx{Erdos1049/QAperyDiagonalNonEquivalence.lean}{94}{vanAsscheQAperyResidualAtZero_ne_zero}\\
-corridor predicate & \lrefx{Erdos1049/RationalBaseLambert.lean}{113}{CoordinatewiseCorridor}\\
-corridor bound & \lrefx{Erdos1049/RationalBaseLambert.lean}{121}{coordinatewiseCorridor_implies_pow_lt_linear}\\
-exponential comparison & \lrefx{Erdos1049/RationalBaseLambert.lean}{142}{three_mul_lt_two_pow_succ}\\
-no corridor at $3/2$ & \lword{Erdos1049/RationalBaseLambert.lean}{155}{threeHalves_no_coordinatewiseCorridor}{coordinatewise corridor}\\
-rational-base prefix & \lrefx{Erdos1049/RationalBaseLambert.lean}{168}{rationalBasePrefixQ}\\
-prefix step & \lrefx{Erdos1049/RationalBaseLambert.lean}{173}{rationalBasePrefixQ_succ}\\
-cleared tail state & \lrefx{Erdos1049/RationalBaseLambert.lean}{181}{rationalBaseClearedTailQ}\\
-cleared-tail recurrence & \lword{Erdos1049/RationalBaseLambert.lean}{187}{rationalBaseClearedTailQ_succ}{cleared-tail recurrence}\\
-forcing magnitude & \lrefx{Erdos1049/RationalBaseLambert.lean}{198}{rationalBaseForcingNat}\\
-exponential lower bound & \lrefx{Erdos1049/RationalBaseLambert.lean}{204}{twoPow_le_rationalBaseForcingNat}\\
-integer-base collapse & \lrefx{Erdos1049/RationalBaseLambert.lean}{218}{rationalBaseForcingNat_one}\\
-integer power comparison & \lword{Erdos1049/RationalBaseLambert.lean}{32}{sevenHalves_power_certificate}{integer power certificate}\\
-exact rational boundary & \lrefx{Erdos1049/RationalBaseLambert.lean}{36}{sevenHalves_rational_margin}\\
-logarithmic ratio bound & \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L48}{\leanlabel{sevenHalves_log_ratio_lt}}\\
-$\pi$ reciprocal-square bound & \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L64}{\leanlabel{one_div_pi_sq_lt_one_nine}}\\
-strict source margin & \href{https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L73}{\leanlabel{sevenHalves_bundschuhVaananen_margin}}\\
-complete $7/2$ height condition & \lword{Erdos1049/RationalBaseLambert.lean}{83}{sevenHalves_archimedean_height_condition}{Archimedean height condition}\\
-doubled common exponent & \lrefx{Erdos1049/RationalPadeArithmetic.lean}{19}{rationalPadeDenExpTwice}\\
-doubled summand exponent & \lrefx{Erdos1049/RationalPadeArithmetic.lean}{24}{rationalPadePSummandDenExpTwice}\\
-summand exponent bound & \lword{Erdos1049/RationalPadeArithmetic.lean}{30}{rationalPadePSummandDenExpTwice_le}{summand exponent bound}\\
-doubled maximal exponent & \lrefx{Erdos1049/RationalPadeArithmetic.lean}{46}{rationalPadeQMaxDenExpTwice}\\
-exact gap identity & \lword{Erdos1049/RationalPadeArithmetic.lean}{52}{rationalPadeQMaxDenExpTwice_gap}{exact gap identity}\\
-maximal exponent bound & \lrefx{Erdos1049/RationalPadeArithmetic.lean}{60}{rationalPadeQMaxDenExpTwice_le}\\
-Pad\'e error scaling & \lrefx{Erdos1049/RationalPadeArithmetic.lean}{84}{rationalPadeError_mul}\\
-row-content determinant factorisation & \lword{Erdos1049/RationalPadeArithmetic.lean}{94}{rationalPadeExteriorDet_mul_contents}{content factorisation}\\
-absolute determinant scaling & \lword{Erdos1049/RationalPadeArithmetic.lean}{104}{natAbs_rationalPadeExteriorDet_mul_contents}{absolute determinant scaling}\\
-content-product divisibility & \lrefx{Erdos1049/RationalPadeArithmetic.lean}{116}{contentProduct_dvd_rationalPadeExteriorDet}\\
-exterior determinant identity & \lword{Erdos1049/RationalPadeArithmetic.lean}{124}{rationalPadeExteriorDet_cast_eq}{exterior determinant}\\
-homogeneous endpoint evaluation & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{98}{homEvalThreeTwo}\\
-four-jet target cardinality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{131}{fourJetSignature_card}\\
-four-jet pigeonhole kernel & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{142}{exists_distinct_binary_selectors_same_fourJet}\\
-rank--depth collision threshold & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{161}{exists_distinct_binary_selectors_same_fourJet_of_rank}\\
-bottom-jet divisibility & \lword{Erdos1049/ZudilinConeArithmetic.lean}{191}{bottomJet3_eq_zero_iff_dvd}{bottom jet}\\
-top-jet divisibility & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{197}{topJet2_eq_zero_iff_dvd}\\
-bottom endpoint modulo three & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{203}{homEvalThreeTwo_mod_three}\\
-generic homogeneous evaluation & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{221}{homEval}\\
-left endpoint congruence & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{226}{homEval_mod_left}\\
-right endpoint congruence & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{238}{homEval_mod_right}\\
-left endpoint coprimality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{254}{homEval_isCoprime_left_of_const_unit}\\
-right endpoint coprimality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{270}{homEval_isCoprime_right_of_top_unit}\\
-two-endpoint coprimality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{286}{homEval_isCoprime_mul_of_endpoint_units}\\
-cyclotomic endpoint coprimality (Proposition~3.6) & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{302}{cyclotomicHomEval_isCoprime_mul}\\
-top endpoint modulo two & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{320}{homEvalThreeTwo_mod_two}\\
-unit constant endpoint obstruction & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{338}{three_not_dvd_homEvalThreeTwo_of_const_unit}\\
-unit top endpoint obstruction & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{356}{two_not_dvd_homEvalThreeTwo_of_top_unit}\\
-common-multiplier exclusion & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{398}{commonMultiplier_not_two_not_three_of_endpoint_units}\\
-irrationality-exponent inequality & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{416}{twice_le_of_irrationalityExponent_bounds}\\
-three-halves scalar margin & \lrefx{Erdos1049/ZudilinConeArithmetic.lean}{428}{three_two_scalar_margin_neg}\\
-$31/4$ logarithmic-region membership & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{45}{thirtyoneFour_mem_zudilinHeightRegion}\\
-positive-power membership & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{59}{thirtyoneFour_power_mem_zudilinHeightRegion}\\
-$31/4$ outside the earlier region & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{91}{thirtyoneFour_outside_bundschuhVaananenHeightRegion}\\
-$81/200$ below the $3/2$ log ratio & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{105}{eightyOneTwoHundredths_lt_threeHalves_log_ratio}\\
-$3/2$ outside the $81/200$ region & \lrefx{Erdos1049/ZudilinHeightRegion.lean}{122}{threeHalves_outside_zudilinHeightRegion}\\
-rectangular exponent-model bound & \lrefx{Erdos1049/HermitePadeNoGo.lean}{103}{rectangular_hp_threshold_le_classical}\\
-equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{126}{rectangular_hp_threshold_eq_classical_iff}\\
-\end{tabular}
-\fi
+% BEGIN pin-faithful-source-inventory
+\section{Pinned Lean sources}
+\label{sec:pinned-lean-sources}
+The following declarations are this note's pin-faithful source inventory.
+Line numbers are those of the commit named by \texttt{\textbackslash commit}.
+\begin{itemize}
+\item \lref{Erdos1049/QAperyDiagonalNonEquivalence.lean}{33}{vanAsscheDiagonal_initial_values}
+\item \lref{Erdos1049/QAperyDiagonalNonEquivalence.lean}{67}{vanAsscheQAperyResidualAtZero_eq}
+\item \lref{Erdos1049/QAperyDiagonalNonEquivalence.lean}{94}{vanAsscheQAperyResidualAtZero_ne_zero}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{113}{CoordinatewiseCorridor}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{121}{coordinatewiseCorridor_implies_pow_lt_linear}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{142}{three_mul_lt_two_pow_succ}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{168}{rationalBasePrefixQ}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{173}{rationalBasePrefixQ_succ}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{181}{rationalBaseClearedTailQ}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{198}{rationalBaseForcingNat}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{204}{twoPow_le_rationalBaseForcingNat}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{218}{rationalBaseForcingNat_one}
+\item \lref{Erdos1049/RationalBaseLambert.lean}{36}{sevenHalves_rational_margin}
+\item \lref{Erdos1049/RationalPadeArithmetic.lean}{19}{rationalPadeDenExpTwice}
+\item \lref{Erdos1049/RationalPadeArithmetic.lean}{24}{rationalPadePSummandDenExpTwice}
+\item \lref{Erdos1049/RationalPadeArithmetic.lean}{46}{rationalPadeQMaxDenExpTwice}
+\item \lref{Erdos1049/RationalPadeArithmetic.lean}{60}{rationalPadeQMaxDenExpTwice_le}
+\item \lref{Erdos1049/RationalPadeArithmetic.lean}{84}{rationalPadeError_mul}
+\item \lref{Erdos1049/RationalPadeArithmetic.lean}{116}{contentProduct_dvd_rationalPadeExteriorDet}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{98}{homEvalThreeTwo}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{131}{fourJetSignature_card}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{142}{exists_distinct_binary_selectors_same_fourJet}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{161}{exists_distinct_binary_selectors_same_fourJet_of_rank}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{197}{topJet2_eq_zero_iff_dvd}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{203}{homEvalThreeTwo_mod_three}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{221}{homEval}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{226}{homEval_mod_left}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{238}{homEval_mod_right}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{254}{homEval_isCoprime_left_of_const_unit}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{270}{homEval_isCoprime_right_of_top_unit}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{286}{homEval_isCoprime_mul_of_endpoint_units}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{302}{cyclotomicHomEval_isCoprime_mul}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{320}{homEvalThreeTwo_mod_two}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{338}{three_not_dvd_homEvalThreeTwo_of_const_unit}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{356}{two_not_dvd_homEvalThreeTwo_of_top_unit}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{398}{commonMultiplier_not_two_not_three_of_endpoint_units}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{416}{twice_le_of_irrationalityExponent_bounds}
+\item \lref{Erdos1049/ZudilinConeArithmetic.lean}{428}{three_two_scalar_margin_neg}
+\item \lref{Erdos1049/ZudilinHeightRegion.lean}{45}{thirtyoneFour_mem_zudilinHeightRegion}
+\item \lref{Erdos1049/ZudilinHeightRegion.lean}{59}{thirtyoneFour_power_mem_zudilinHeightRegion}
+\item \lref{Erdos1049/ZudilinHeightRegion.lean}{91}{thirtyoneFour_outside_bundschuhVaananenHeightRegion}
+\item \lref{Erdos1049/ZudilinHeightRegion.lean}{105}{eightyOneTwoHundredths_lt_threeHalves_log_ratio}
+\item \lref{Erdos1049/ZudilinHeightRegion.lean}{122}{threeHalves_outside_zudilinHeightRegion}
+\item \lref{Erdos1049/HermitePadeNoGo.lean}{103}{rectangular_hp_threshold_le_classical}
+\item \lref{Erdos1049/HermitePadeNoGo.lean}{126}{rectangular_hp_threshold_eq_classical_iff}
+\end{itemize}
+% END pin-faithful-source-inventory
 
 \begin{thebibliography}{99}
 \small
 \raggedright
-\setlength{\itemsep}{0pt}
+\setlength{\itemsep}{2pt}
 \bibitem{erdos1988} P.~Erd\H{o}s, \emph{On the irrationality of certain series:
   problems and results}, in A.~Baker (ed.), \emph{New Advances in Transcendence
   Theory}, Cambridge UP, 1988, pp.~102--109,
@@ -1028,17 +1169,64 @@ equality case for the exponent model & \lrefx{Erdos1049/HermitePadeNoGo.lean}{12
   Page and equation references are to arXiv:1507.05697v1.
 \bibitem{erdosproblems} T.~F. Bloom,
   \href{https://www.erdosproblems.com/1049}{\emph{Erd\H{o}s Problem \#1049}},
-  \texttt{erdosproblems.com/1049}, accessed 28 July 2026
-  (page displays ``last edited 28 September 2025'').  The current record
-  labels the problem open, cites \textup{[Er88c, p.~102]} and \textup{[Er48]},
-  and explicitly describes its status as the website owner's present
-  assessment rather than a literature-completeness guarantee.
+  \texttt{erdosproblems.com/1049}. Historical snapshot cited in the supplied
+  manuscript: accessed 28 July 2026, displaying ``last edited
+  28 September 2025''.
 \bibitem{bellsmertnig2026} J.~Bell and D.~Smertnig,
   \href{https://arxiv.org/abs/2603.23456v1}{\emph{Mahler series with
   multiplicative coefficient sequences}}, arXiv:2603.23456v1,
   24 March 2026.  Theorem~1.3 is on pp.~2--3; its stated consequences on
   p.~3 include that the divisor and totient generating series are not
   $k$-Mahler for any $k\ge2$.
+\bibitem{vandehey2013} J.~Vandehey,
+  \href{https://arxiv.org/abs/1206.0340v1}{\emph{On an incomplete argument of
+  Erd\H{o}s on the irrationality of Lambert series}}, Integers
+  \textbf{13} (2013), Paper A58. Page references are to
+  arXiv:1206.0340v1 (2012).
+\bibitem{duverneytachiya2019} D.~Duverney and Y.~Tachiya, \emph{Refinement of
+  the Chowla--Erd\H{o}s method and linear independence of certain Lambert
+  series}, Forum Math. \textbf{31} (2019), no.~6, 1557--1566,
+  doi:\href{https://doi.org/10.1515/forum-2018-0299}{10.1515/forum-2018-0299}.
+  Page references are to the
+  \href{https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf}{authors'
+  version}.
+\bibitem{vanassche2001} W.~Van Assche,
+  \href{https://arxiv.org/abs/math/0101187v1}{\emph{Little \(q\)-Legendre
+  polynomials and irrationality of certain Lambert series}},
+  Ramanujan J. \textbf{5} (2001), no.~3, 295--310,
+  doi:\href{https://doi.org/10.1023/A:1012930828917}{10.1023/A:1012930828917}.
+  Page references are to arXiv:math/0101187v1.
+\bibitem{postelmansvanassche2007} K.~Postelmans and W.~Van Assche,
+  \href{https://arxiv.org/abs/math/0604312v1}{\emph{Irrationality of
+  $\zeta_q(1)$ and $\zeta_q(2)$}}, J. Number Theory \textbf{126} (2007),
+  no.~1, 119--154,
+  doi:\href{https://doi.org/10.1016/j.jnt.2006.11.011}{10.1016/j.jnt.2006.11.011}.
+  Page references are to arXiv:math/0604312v1 (2006).
+\bibitem{krvz2009} C.~Krattenthaler, I.~Rochev, K.~V\"a\"an\"anen and
+  W.~Zudilin, \emph{On the non-quadraticity of values of the
+  \(q\)-exponential function and related \(q\)-series}, Acta Arith.
+  \textbf{136} (2009), no.~3, 243--269,
+  doi:\href{https://doi.org/10.4064/aa136-3-4}{10.4064/aa136-3-4};
+  arXiv:\href{https://arxiv.org/abs/0812.2921v1}{0812.2921v1}.
+  Page references are to arXiv:0812.2921v1.
+\bibitem{wangzhu2016} Y.~Wang and B.-X.~Zhu,
+  \href{https://arxiv.org/abs/1612.04114v1}{\emph{Log-convex and Stieltjes
+  moment sequences}}, Adv. Appl. Math. \textbf{81} (2016), 115--127,
+  doi:\href{https://doi.org/10.1016/j.aam.2016.06.008}{10.1016/j.aam.2016.06.008}.
+  Page references are to arXiv:1612.04114v1.
+\bibitem{berg2007} C.~Berg, \emph{On powers of Stieltjes moment sequences, II},
+  J. Comput. Appl. Math. \textbf{199} (2007), 23--38;
+  arXiv:\href{https://arxiv.org/abs/math/0412340v1}{math/0412340v1}.
+  Theorem references use the preprint; Theorem~5.1 treats factorial powers.
+\bibitem{sw2024} A.~D. Sokal and J.~Walrad,
+  \emph{Continued-fraction characterization of Stieltjes moment sequences
+  with support in $[\xi,\infty)$},
+  \href{https://arxiv.org/abs/2404.12131v1}{arXiv:2404.12131v1}, 2024.
+  The classical Stieltjes criterion is recalled on pp.~1--2.
+\bibitem{golubwelsch1969} G.~H. Golub and J.~H. Welsch,
+  \emph{Calculation of Gauss Quadrature Rules}, Math. Comp. \textbf{23}
+  (1969), no.~106, 221--230,
+  doi:\href{https://doi.org/10.1090/S0025-5718-69-99647-1}{10.1090/S0025-5718-69-99647-1}.
 \end{thebibliography}
 
 \companionpapercontext

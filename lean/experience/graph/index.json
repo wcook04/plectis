@@ -7,7 +7,7 @@
     "nodes": 260,
     "edges": 328,
     "deferred_node_kinds": {
-      "lean_module": 1338,
+      "lean_module": 1341,
       "mathematical_object": 105
     }
   },
@@ -1178,7 +1178,7 @@
     {
       "id": "paper:erdos-1049-rational-base-lambert",
       "kind": "paper",
-      "label": "Irrationality of F(31/4) and the Exact Normalized Hankel Order",
+      "label": "Zudilin's Forms at Rational Bases\\\\and the Exact Normalised Hankel Order",
       "subject": "Erdős #1049",
       "form": "Problem note",
       "href": "papers/erdos-1049-rational-base-lambert.json",
@@ -1196,7 +1196,7 @@
     {
       "id": "paper:erdos-249-binary-totient-series",
       "kind": "paper",
-      "label": "A Basis for the 2-Kernel of Euler's Totient",
+      "label": "Bases and Integral Relations for the $k$-Kernel of Euler's Totient",
       "subject": "Erdős #249",
       "form": "Problem note",
       "href": "papers/erdos-249-binary-totient-series.json",
@@ -1205,7 +1205,7 @@
     {
       "id": "paper:erdos-251-prime-gap-dyadic-series",
       "kind": "paper",
-      "label": "A Countermodel for Growth-and-Parity Arguments on the Prime-Gap Dyadic Series",
+      "label": "Sparse Congruence-Preserving Perturbations\\\\of Dyadic Series",
       "subject": "Erdős #251",
       "form": "Problem note",
       "href": "papers/erdos-251-prime-gap-dyadic-series.json",
@@ -1250,7 +1250,7 @@
     {
       "id": "paper:erdos1049-rational-base-lambert-reasoning-surface",
       "kind": "paper",
-      "label": "Rational-Base Lambert Series: Complete Reasoning Record",
+      "label": "Zudilin's Forms at Rational Bases:\\\\Proofs and Research Record",
       "subject": "Erdős #1049",
       "form": "Reasoning surface",
       "href": "papers/erdos1049-rational-base-lambert-reasoning-surface.json",
@@ -1259,7 +1259,7 @@
     {
       "id": "paper:erdos243-reciprocal-tail-reasoning-surface",
       "kind": "paper",
-      "label": "Reciprocal-Tail Rigidity: Complete Reasoning Record",
+      "label": "Reciprocal-Tail Rigidity: Theorems, Proofs and Questions",
       "subject": "Erdős #243",
       "form": "Reasoning surface",
       "href": "papers/erdos243-reciprocal-tail-reasoning-surface.json",
@@ -1277,7 +1277,7 @@
     {
       "id": "paper:erdos251-prime-gap-reasoning-surface",
       "kind": "paper",
-      "label": "Prime Gaps and Dyadic Tails: Complete Reasoning Record",
+      "label": "Prime-Gap Dyadic Series:\\\\Perturbations, Exact Criteria and Certificates",
       "subject": "Erdős #251",
       "form": "Reasoning surface",
       "href": "papers/erdos251-prime-gap-reasoning-surface.json",

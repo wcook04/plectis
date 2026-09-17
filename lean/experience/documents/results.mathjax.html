@@ -43,28 +43,29 @@ bases. This combination has an ordinary proof. The achievement-set
 development adds exact topological and measure statements. Universal
 Problem 257, which quantifies over every infinite support, remains
 open.</p>
-<p>Problem 249 contains the deepest collection of endpoint-facing
-mechanisms but no endpoint proof. Under hypothetical rationality, Lean
-constructs one tempered integral carry whose dyadic sections are
-eventually periodic modulo a common multiplier while its canonical
-carry-kernel ranks are at least <code>2^e − 1</code> for every
-<code>e</code>. Those two conclusions are not proved contradictory:
-modulo a divisor of the multiplier, the forcing can vanish and the carry
-can become geometric. Separate checked results determine the coefficient
-kernel’s exact finite-level rank <code>2^e + 1</code>, formalise finite
-denominator exclusions, and give conditional routes from actual-LCM
-separation or first-harmonic decorrelation to irrationality. Every such
-route still lacks its cofinal producer. Checked no-go results also
-explain why fixed precision, quotient periodicity, or coefficient
-structure alone does not close the gap.</p>
+<p>Problem 249 supplies the deepest collection of endpoint-facing
+mechanisms. Under hypothetical rationality, Lean constructs one tempered
+integral carry whose dyadic sections are eventually periodic modulo a
+common multiplier while its canonical carry-kernel ranks are at least
+<code>2^e − 1</code> for every <code>e</code>. Those two conclusions are
+not proved contradictory: modulo a divisor of the multiplier, the
+forcing can vanish and the carry can become geometric. Separate checked
+results determine the coefficient kernel’s exact finite-level rank
+<code>2^e + 1</code>, formalise finite denominator exclusions, and give
+conditional routes from actual-LCM separation or first-harmonic
+decorrelation to irrationality. Every such route still lacks its cofinal
+producer. Checked no-go results also explain why fixed precision,
+quotient periodicity, or coefficient structure alone leave that cofinal
+producer unconstructed.</p>
 <p>The other programmes have substantive but sharply bounded outcomes.
-For Problem 68, an ordinary proof gives a <code>3/2</code> lower growth
-exponent for the full common denominator, while Lean gives exact carry
-equivalences and finite channel obstructions; neither controls the
-reduced denominator or supplies a cofinal carry. Problem 243 has a
-checked signed recovery theorem: exact centered-state dynamics, strict
-centering, a uniform lower bound on the signed error, and normalised
-vanishing force that error to vanish eventually; a separate
+For Problem 68, every positive rational denominator misses
+<code>299999!</code> and satisfies <code>q ≥ 2^{39990}</code>; an
+ordinary proof gives a <code>3/2</code> lower growth exponent for the
+uncleared common denominator, while Lean gives exact carry equivalences
+and finite channel obstructions. Problem 243 has a checked signed
+recovery theorem: exact centered-state dynamics, strict centering, a
+uniform lower bound on the signed error, and normalised vanishing force
+that error to vanish eventually; a separate
 finite-normalised-negative-mass route also yields eventual Sylvester
 behaviour. Problem 251 has the checked prime-gap identity and exact
 tail-shift equivalences, plus a source-backed Lean countermodel with
@@ -76,9 +77,12 @@ several natural prime-gap statistics do not suffice. Problem 269 has an
 ordinary two-prime transcendence theorem for both running-LCM variants,
 Lean-checked three-prime height and finite-minor identities, a checked
 actual rationality-to-reduced-carry bridge, and exact conditional
-window-escape interfaces. Problem 1041 has ordinary all-degree
-trinomial, separated-critical-value connector, bounded-radius concyclic,
-and generic-topology theorems; its sharp critical-value mean is
+window-escape interfaces. Problem 1041 has ordinary all-degree trinomial
+containment, a low-critical connector of length less than <code>2</code>
+whenever <code>μ≤13/25</code>, a scaled connector of length less than
+<code>(5/2)μ^{1/n}</code> in <code>{|f|&lt;(25/13)μ}</code>,
+separated-critical-value connectors, bounded-radius concyclic, and
+generic-topology theorems; its sharp critical-value mean is
 Lean-checked, as are supporting Newton-flow inputs. Problem 1049 has an
 ordinary irrationality region for rational bases, together with a
 Lean-checked rational-base tail recurrence, height region, and route
@@ -86,15 +90,29 @@ exclusions. None closes its Erdős problem.</p>
 <section id="problem-by-problem-guide" class="level3">
 <h3>Problem-by-problem guide</h3>
 <p><strong><a href="https://www.erdosproblems.com/68">#68</a>.</strong>
-Put <code>L_N = lcm_{2≤n≤N}(n!−1)</code>. The short paper gives an
-ordinary proof that <code>liminf log L_N/(N^(3/2) log N) ≥ 2√2/3</code>.
-This is a common-denominator theorem: it shows why clearing every
-summand separately cannot make the positive tail small, but says nothing
-by itself about the denominator after cancellation. Lean separately
-checks that irrationality of <code>∑ 1/(n!−1)</code> is equivalent to
-cofinally many non-unit factorial carries, and checks a finite
-quotient-band channel obstruction. The required cofinal carries are not
-produced. Lean checks the <code>3/2</code> theorem as
+Put <code>S = ∑_{n≥2} 1/(n!−1)</code> and
+<code>L_N = lcm_{2≤n≤N}(n!−1)</code>. Any rational <code>S = a/q</code>
+with <code>q&gt;0</code> satisfies the two incomparable exclusions
+<code>q ∤ 299999!</code> and <code>q ≥ 2^{39990} &gt; 10^{12038}</code>.
+The first is a factorial divisibility constraint from a fresh exact GMP
+carry census through <code>m = 300000</code> together with a Lean
+consumer; that replay matches the previously retained certificate, while
+an independent replay through <code>4000</code> reproduces the
+unit-carry prefix. The second is an independent continued-fraction size
+bound. Neither implication yields the other, and neither proves
+irrationality. An ordinary proof gives
+<code>liminf log L_N/(N^(3/2) log N) ≥ 2√2/3</code>. This is a
+common-denominator theorem: it shows why clearing every summand
+separately cannot make the positive tail small, but says nothing by
+itself about the denominator after cancellation. Lean separately checks
+that irrationality of <code>S</code> is equivalent to cofinally many
+non-unit factorial carries, and checks a finite quotient-band channel
+obstruction. The required cofinal carries are not produced. A local
+exact calculation at the prime <code>12487</code> exhibits two critical
+roots for gap <code>12</code>, so the earlier small-prime pattern of at
+most one critical root is not a uniform theorem; those roots have
+factorial values <code>442</code> and <code>6300</code>, not
+<code>1</code>. Lean checks the <code>3/2</code> theorem as
 <code>common_denominator_growth_liminf</code> in
 <code>PaperCompleteLiminf.lean</code>. The separate public Lean release
 <a
@@ -141,20 +159,27 @@ corollary by <code>A_n | P_n</code>. For the state-system endpoint, no
 uniform lower bound on the centered error is proved. Unbounded negative
 excursions and the full Erdős endpoint remain open.</p>
 <p><strong><a
-href="https://www.erdosproblems.com/249">#249</a>.</strong>
-Bounded-residue series <code>A_m</code> are irrational for every
-<code>m ≥ 3</code>, with a complete rationality classification at dyadic
-moduli; this is ordinary mathematics in the short note, not Lean. The
-strongest checked structural result tied directly to the hypothetical
-rational branch is carry anti-compression: one carry would have
-uniformly eventually-periodic dyadic sections modulo its multiplier
-while retaining canonical section rank at least <code>2^e − 1</code> at
-every level. No finite-rank upper bound is proved, so this is a
-necessary consequence rather than a contradiction. The exact
-coefficient-kernel rank <code>2^e + 1</code> for every
-<code>e ≥ 1</code>, a finite denominator exclusion, and conditional
-actual-LCM and first-harmonic routes remain useful, but none supplies
-the missing cofinal producer.</p>
+href="https://www.erdosproblems.com/249">#249</a>.</strong> The short
+paper proves the all-base finite-level rank <code>k^e+1</code> for every
+<code>k≥2</code> and <code>e≥1</code>, with canonical integral
+coordinates and a basis of all integral relations; at prime base the
+rank is exponential in the depth <code>e</code>. A rational
+<code>5/4</code> control that agrees with totient on odd arguments still
+has tempered carry rank at least <code>2^e−1</code> at every depth, so a
+generic rationality-driven carry-rank ceiling is false. Bounded-residue
+series <code>A_m</code> remain irrational for every <code>m ≥ 3</code>,
+with a complete rationality classification at dyadic moduli; this is
+ordinary mathematics in the short note, not Lean. The strongest checked
+structural result on the hypothetical rational totient branch is carry
+anti-compression: one carry would have uniformly eventually-periodic
+dyadic sections modulo its multiplier while retaining canonical section
+rank at least <code>2^e − 1</code> at every level. No finite-rank upper
+bound is proved, so this is a necessary consequence rather than a
+contradiction. Finite denominator exclusions and conditional actual-LCM
+and first-harmonic routes remain useful, but none supplies the missing
+cofinal producer. Coons non-regularity, Martin affine independence, and
+Yazdani–Shallit CRT–Dirichlet separation are credited antecedents, not
+new claims of this release.</p>
 <p><strong><a
 href="https://www.erdosproblems.com/251">#251</a>.</strong> A <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/AllResidueLogarithmicR9.lean">public
@@ -254,8 +279,14 @@ the sharp arc constant <code>2</code> leaves radii sufficiently close to
 <p>Every monic trinomial with roots in the open unit disc also has
 radial root-to-origin segments inside <code>{|f|&lt;1}</code>, so any
 two roots join through the origin with length less than <code>2</code>;
-that path assembly is ordinary mathematics. The sharp critical-value
-mean on the closed unit disc is Lean-checked with <a
+that path assembly is ordinary mathematics. For a squarefree monic
+polynomial, write <code>μ = min_{f'(c)=0} |f(c)|</code>. An ordinary
+theorem gives a connector of length less than <code>2</code> in the open
+unit lemniscate whenever <code>μ ≤ 13/25</code>, with no root-location
+hypothesis; scaling gives a connector of length less than
+<code>(5/2) μ^{1/n}</code> in <code>{|f| &lt; (25/13)μ}</code>. The
+sharp critical-value mean on the closed unit disc is Lean-checked with
+<a
 href="https://github.com/wcook04/plectis-erdos/blob/main/verification/erdos1041-returned-r18-v5-full-audit-evidence.json">source-bound
 audit evidence</a>, and the paper also gives an ordinary proof. The mean
 controls critical values, not connectors.</p>
@@ -277,12 +308,17 @@ It uses the polynomial conclusion of Zudilin’s 2004 Lemma 7, together
 with the arithmetic and growth estimates used in its proof, before that
 source’s integer-specialisation step. It makes no priority claim for the
 rational-base extension. In particular, <code>F((31/4)^r)</code> is
-irrational for every integer <code>r≥1</code>. Lean checks that
-specialization with the source supply applied rather than assumed,
-together with the supporting arithmetic, the rational-base tail
-recurrence, and specific route exclusions. The base <code>3/2</code>
-lies outside the sufficient region, and the required approximants with
-analytic remainder control remain open.</p>
+irrational for every integer <code>r≥1</code>. Exact Hankel moment
+determinants through rank eight, both shifts, together with 76
+cyclotomic residue witnesses and a rational interval bound placing the
+<code>31/4</code> exponent strictly below 301, are finite
+computer-algebra certificates; they are not Lean theorems and not an
+all-rank sign or uniqueness result. Lean checks that specialization with
+the source supply applied rather than assumed, together with the
+supporting arithmetic, the rational-base tail recurrence, and specific
+route exclusions. The base <code>3/2</code> lies outside the sufficient
+region, and the required approximants with analytic remainder control
+remain open.</p>
 <p>This guide is not a new result ranking. The canonical order of
 mathematical attention is maintained in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>,
@@ -2265,10 +2301,19 @@ respondent-facing output omits the evaluator’s scalar answer key.</p>
 <h3>Erdős Problem 249</h3>
 <p>The irrationality of</p>
 <pre class="text"><code>∑_{n≥1} φ(n)/2^n</code></pre>
-<p>is open. The finite band through <code>t=82</code> and the 123
-distinct certificates in the bounded historical off-diagonal roster do
-not provide the quantified, unbounded certificate supply required by the
-reduction.</p>
+<p>is not proved in this release. The short paper proves all-base
+finite-level rank <code>k^e+1</code> for <code>k≥2, e≥1</code>, with
+canonical integral coordinates and all integral relations; at prime base
+the rank is exponential in the level <code>e</code>. A rational
+<code>5/4</code> control agreeing with totient on odd arguments has
+tempered carry rank at least <code>2^e−1</code> at every depth, so a
+generic rationality-driven carry-rank ceiling is false, and that control
+is distinct from the bounded <code>3/2</code> parity-and-aperiodicity
+analysis. The finite band through <code>t=82</code> and the 123
+historical off-diagonal certificates do not supply a cofinal diagonal or
+an all-ray seed. Coons non-regularity, Martin affine independence, and
+Yazdani–Shallit CRT–Dirichlet separation are credited antecedents, not
+new claims of this release.</p>
 </section>
 <section id="erdős-problem-257" class="level3">
 <h3>Erdős Problem 257</h3>

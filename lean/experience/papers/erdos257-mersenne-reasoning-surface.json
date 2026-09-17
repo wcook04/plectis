@@ -5,7 +5,7 @@
   "subject": "Erdős #257",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 122,
+  "pages": 127,
   "question": "What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?",
   "precis": "The record prints the complete ordinary proof of the finite-prime weighted support criterion, including all-base hereditary irrationality and a reciprocal-divergent host, and the common-witness proof for mixed weighted-and-cover supports. These proofs are not formalised in Lean. It also retains finite-denominator noncollapse; exact restricted-set coding, topology, perfectness, and measure; a squarefree-support method boundary; and an exact carry-pivot normal form. Prime support at base 2 and squarefree support at power-of-two bases are identified as cited prior results. The targets 1/2 and 1/21 have no finite-support representation and reduce to explicit infinite-orbit alternatives. Neither target membership nor universal #257 is decided.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "b83c9d9698d1860ed2508f5877548983274d8c1877ab1a5a22b765dc19baddf3",
+    "source_sha256": "9167e32b7d65a572be1c6a2b0651b4e0107280b8e77dc2fbf8e0a16c171bf88b",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 3341,
+    "mathml_node_count": 3335,
     "raw_math_fallback_count": 3,
     "warnings": {
       "mathml": [
@@ -54,747 +54,717 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "5059aa4e58b1301182e9698ee8b8c588794e072e218db274b8d95dbc8903ef67",
-    "html_exact_tex_sha256": "fc95772f22c317ca4453fda7da03375b8f01683495c172635dbd205a15ff4e2b"
+    "html_mathml_sha256": "01c20b9b0bb4bccd5d8f9b823f393e12991b1f509ae828a8c90a819b9a8fd519",
+    "html_exact_tex_sha256": "e845b3b6f6b556022532a867be5b894f6d4ffbc2500b38a7770666ec8e61ed50"
   },
   "sections": [
     {
-      "level": 2,
+      "level": 4,
       "anchor": "how-to-read-this-document",
       "label": "How to read this document"
     },
     {
       "level": 2,
+      "anchor": "i.-support-theorems-and-their-proofs",
+      "label": "I. Support theorems and their proofs"
+    },
+    {
+      "level": 4,
       "anchor": "sec:257-problem",
       "label": "Support irrationality and its proof mechanisms"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "reciprocal-summable-supports",
       "label": "Reciprocal-summable supports"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "finite-prime-part-weighted-mass",
       "label": "Finite prime-part weighted mass"
     },
     {
       "level": 5,
-      "anchor": "averaging-antecedents.",
-      "label": "Averaging antecedents."
-    },
-    {
-      "level": 5,
-      "anchor": "evidence-boundary.",
-      "label": "Evidence boundary."
-    },
-    {
-      "level": 5,
-      "anchor": "why-the-hypothesis-is-strictly-weaker-than-reciprocal-summability.",
-      "label": "Why the hypothesis is strictly weaker than reciprocal summability."
-    },
-    {
-      "level": 3,
       "anchor": "sec:257-common-kernel",
       "label": "A finite estimate on common observation scales"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "positive-fractional-divisor-covers",
       "label": "Positive fractional divisor covers"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "combining-the-two-support-criteria",
       "label": "Combining the two support criteria"
     },
     {
       "level": 5,
-      "anchor": "the-elementary-independence-boundary.",
-      "label": "The elementary independence boundary."
-    },
-    {
-      "level": 3,
       "anchor": "the-object-and-the-two-exact-statements",
       "label": "The object and the two exact statements"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "the-unconditional-record-universal-direction",
       "label": "The unconditional record, universal direction"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "the-unconditional-record-half-value-direction",
       "label": "The unconditional record, half-value direction"
     },
     {
       "level": 2,
-      "anchor": "sec:257-wall",
-      "label": "The wall"
+      "anchor": "ii.-limitations-and-extensions-of-recorded-methods",
+      "label": "II. Limitations and extensions of recorded methods"
     },
     {
-      "level": 3,
+      "level": 4,
+      "anchor": "sec:257-wall",
+      "label": "Limitations of the recorded methods"
+    },
+    {
+      "level": 5,
       "anchor": "the-thesis",
       "label": "The thesis"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "bar:canon",
       "label": "Barrier 1: canonicalisation — the witness space is a singleton"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "bar:collapse",
       "label": "Barrier 2: route collapse — every “weaker producer” is the goal"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "bar:scale",
       "label": "Barrier 3: scale mismatch — the available information is at the wrong resolution"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "bar:asym",
       "label": "Barrier 4: decision asymmetry — the certificates point the wrong way"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "bar:measure",
       "label": "Barrier 5: measure and category point in opposite directions"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "bar:box",
       "label": "Barrier 6: the two-axis certificate box (universal direction)"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "what-the-six-barriers-converge-on",
       "label": "What the six barriers converge on"
     },
     {
-      "level": 2,
+      "level": 4,
       "anchor": "sec:257-survivors",
-      "label": "What the wall does not block"
+      "label": "Extensions not excluded by these obstructions"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "ssec:route-1",
       "label": "Route 1: the reset \\sqrt{\\ }-escape / R-run anti-concentration target"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "ssec:route-2",
       "label": "Route 2: strict endpoint progress for exact rows"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "ssec:route-3",
       "label": "Route 3 audit: the prime-support theorem is known outside this formal corpus"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "ssec:route-4",
       "label": "Route 4: land the route-collapse equivalences"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "ssec:route-5",
       "label": "Route 5: the sparse/dense trichotomy closure"
     },
     {
-      "level": 3,
-      "anchor": "ranking-stated-plainly",
-      "label": "Ranking, stated plainly"
+      "level": 5,
+      "anchor": "comparison-of-the-remaining-inputs",
+      "label": "Comparison of the remaining inputs"
     },
     {
-      "level": 2,
+      "level": 4,
       "anchor": "sec:257-howto",
       "label": "Reading the detailed record"
     },
     {
-      "level": 5,
-      "anchor": "read-linearly.",
-      "label": "Read linearly."
-    },
-    {
-      "level": 5,
-      "anchor": "use-as-reference.",
-      "label": "Use as reference."
-    },
-    {
-      "level": 5,
-      "anchor": "scale-and-coordinate-discipline.",
-      "label": "Scale and coordinate discipline."
-    },
-    {
       "level": 2,
+      "anchor": "iii.-detailed-statement-and-arithmetic-catalogue",
+      "label": "III. Detailed statement and arithmetic catalogue"
+    },
+    {
+      "level": 4,
       "anchor": "the-object-the-two-questions-and-the-exact-record",
       "label": "The object, the two questions, and the exact record"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "the-object",
       "label": "The object"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "what-is-proved",
       "label": "What is proved"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "full-support-irrationality-for-every-base",
       "label": "Full-support irrationality, for every base"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "named-infinite-support-families",
       "label": "Named infinite-support families"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "topology-and-measure-of-the-achievement-set",
       "label": "Topology and measure of the achievement set"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "ssec:greedy-orbit",
       "label": "The greedy orbit, exactly"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "ssec:seam-model",
       "label": "The seam model and the master identity"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "the-real-form-and-the-master-identitys-analytic-reading",
       "label": "The real form and the master identity’s analytic reading"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "dynamics",
       "label": "Dynamics"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "ssec:anchors",
       "label": "Every anchor"
     },
     {
-      "level": 2,
+      "level": 4,
       "anchor": "catalogue-of-mathematical-ingredients",
       "label": "Catalogue of mathematical ingredients"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "open-hypotheses-and-candidate-inputs",
       "label": "Open hypotheses and candidate inputs"
     },
     {
       "level": 5,
-      "anchor": "comparison-with-the-known-theorem.",
-      "label": "Comparison with the known theorem."
-    },
-    {
-      "level": 3,
       "anchor": "exact-identities-and-reductions",
       "label": "Exact identities and reductions"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "consequence-theorems",
       "label": "Consequence theorems"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-load-bearing-definitions",
       "label": "The load-bearing definitions"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-two-payoff-consumers",
       "label": "The two payoff consumers"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-coherent-repair-consumer-superseded-kept-as-a-fallback-target",
       "label": "The coherent-repair consumer (superseded, kept as a fallback target)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-critical-quotient-supply-consumer-chain",
       "label": "The critical-quotient-supply consumer chain"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "two-unconditional-fill-consumers-booleanmobiusskiprow",
       "label": "Two unconditional fill consumers (BooleanMobiusSkipRow)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-dyadic-band-quantifier-collapse-consumer-halfupperresetcriticalband",
       "label": "The dyadic-band quantifier-collapse consumer (HalfUpperResetCriticalBand)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-frozen-margin-consumer-family-halfcylinderfullshellseambridge-half-membership-track",
       "label": "The frozen-margin consumer family (HalfCylinderFullShellSeamBridge, half-membership track)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "two-square-root-scale-consumers-half-membership-track",
       "label": "Two square-root-scale consumers (half-membership track)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-non-effective-horizon-consumer",
       "label": "The non-effective horizon consumer"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-equivalence-cofinalpositivehalfgreedyskips-reduces-to",
       "label": "The equivalence CofinalPositiveHalfGreedySkips reduces to"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "invariants",
       "label": "Invariants"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "endpoint-transition-algebra-booleanmobiusexacttransition",
       "label": "Endpoint transition algebra (BooleanMobiusExactTransition)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "capacity-identities-booleanmobiusskippedcorecriticalcapacity-booleanmobiusskippedcoreexactrow",
       "label": "Capacity identities (BooleanMobiusSkippedCoreCriticalCapacity, BooleanMobiusSkippedCoreExactRow)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "doubling-branch-invariants-booleanmobiusexactrowranktwo",
       "label": "Doubling-branch invariants (BooleanMobiusExactRowRankTwo)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "base-case-fixture-booleanmobiusexactrowseed",
       "label": "Base-case fixture (BooleanMobiusExactRowSeed)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "global-repair-invariants-booleanmobiusglobalrepair",
       "label": "Global-repair invariants (BooleanMobiusGlobalRepair)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "greedy-window-uniqueness-booleanmobiusgreedyreduction",
       "label": "Greedy-window uniqueness (BooleanMobiusGreedyReduction)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "geometric-normal-form-booleanmobiuscriticalcapacitygeometric",
       "label": "Geometric normal form (BooleanMobiusCriticalCapacityGeometric)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "growth-bound-invariants-for-the-generic-layer",
       "label": "Growth-bound invariants for the generic layer"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "rigidity-corollaries-directly-constraining-a-rational-257-support",
       "label": "Rigidity corollaries directly constraining a rational #257 support"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "first-crossing-machinery-booleanmobiusexactrowcrossing",
       "label": "First-crossing machinery (BooleanMobiusExactRowCrossing)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "möbius-centred-carry-nonnegativity-and-the-skipped-rank-trichotomy-half-membership-track",
       "label": "Möbius-centred carry nonnegativity and the skipped-rank trichotomy (half-membership track)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "total-gap-mass-halfgapmass",
       "label": "Total gap mass (HalfGapMass)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-sharp-fatal-gap-criterion-halfgreedyfatalgap",
       "label": "The sharp fatal-gap criterion (HalfGreedyFatalGap)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "two-sided-dyadic-scale-control-halfcylindermiddlecarrylowerbound-feeds-halfupperresetcriticalband",
       "label": "Two-sided dyadic-scale control (HalfCylinderMiddleCarryLowerBound, feeds HalfUpperResetCriticalBand)"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "abstract-fully-problem-agnostic-invariants-read-alongside-this-lane",
       "label": "Abstract, fully problem-agnostic invariants read alongside this lane"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "obstructions-and-countermodels",
       "label": "Obstructions and countermodels"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "recently-added-declarations",
       "label": "Recently added declarations"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-middle-cell-update-step-chain",
       "label": "The middle-cell update-step chain"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "forgetting-witnesses-the-terminal-only-bridge",
       "label": "Forgetting witnesses: the terminal-only bridge"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "a-strict-weakening-chain-for-the-last-producer-socket",
       "label": "A strict weakening chain for the last-producer socket"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-governed-frozen-margin-producer",
       "label": "The governed frozen-margin producer"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "exact-carry-pivot-normal-form",
       "label": "Exact carry-pivot normal form"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "new-mersenne-subseries-rigidity-tree",
       "label": "New Mersenne-subseries rigidity tree"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "new-half-counterexample-frontier-tree",
       "label": "New half-counterexample frontier tree"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "new-primitive-23-multiplicity-tree",
       "label": "New primitive-2323 multiplicity tree"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "current-121-frontier",
       "label": "Current 1/211/21 frontier"
     },
     {
       "level": 2,
+      "anchor": "iv.-scales-conditional-interfaces-and-unresolved-inputs",
+      "label": "IV. Scales, conditional interfaces and unresolved inputs"
+    },
+    {
+      "level": 4,
       "anchor": "sec:scale-ladder",
       "label": "The scale ladder"
     },
     {
-      "level": 2,
+      "level": 4,
       "anchor": "sec:four-coordinates",
       "label": "One orbit in four coordinates"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "one-decision-stream-four-integerisations",
       "label": "One decision stream, four integerisations"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "the-truncation-rung-ladder",
       "label": "The truncation-rung ladder"
     },
     {
-      "level": 2,
+      "level": 4,
       "anchor": "frontier-index-what-stands-between-the-corpus-and-a-proof",
       "label": "Frontier index: what stands between the corpus and a proof"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "the-three-257-obligations-stated-exactly",
       "label": "The three #257 obligations, stated exactly"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "reading-a-row",
       "label": "Reading a row"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "reset-sixteen-near-misses",
       "label": "257-reset: sixteen near misses"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "cofinal-rows-thirteen-near-misses",
       "label": "257-cofinal-rows: thirteen near misses"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "universal-thirteen-near-misses",
       "label": "257-universal: thirteen near misses"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "three-theorems-assembled-from-the-interface-and-where-each-still-stops",
       "label": "Three theorems assembled from the interface, and where each still stops"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "route-collapse-findings-four-traps-to-name-explicitly",
       "label": "Route-collapse findings: four traps to name explicitly"
     },
     {
-      "level": 2,
-      "anchor": "closed-routes-with-the-mechanism-that-closed-them",
-      "label": "Closed routes, with the mechanism that closed them"
+      "level": 4,
+      "anchor": "hypothesis-specific-obstructions",
+      "label": "Hypothesis-specific obstructions"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "four-closed-attack-families-on-the-wall-itself",
       "label": "Four closed attack families on the wall itself"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "sec:branch-exclusions",
       "label": "Branch exclusions at the final producer: the exceptional dyadic cells"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "no-go-countermodel-and-rigidity-modules-that-bound-the-wall-from-outside",
       "label": "No-go, countermodel, and rigidity modules that bound the wall from outside"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "the-scalar-localisation-height-obstruction",
       "label": "The scalar-localisation height obstruction"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "the-final-skip-band-formula-and-what-it-does-not-show",
       "label": "The final-skip band formula, and what it does not show"
     },
     {
-      "level": 2,
+      "level": 4,
       "anchor": "sec:invent-257",
-      "label": "The mathematics this problem still needs"
+      "label": "Unproved inputs for the recorded implications"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "sec:invent-R1",
       "label": "R1. Reset \\sqrt{\\ }-escape: anti-concentration of a logarithmically short divisor sum"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-statement-needed",
       "label": "The statement needed"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "what-kind-of-object-would-furnish-it-and-the-exact-arithmetic-of-theta_l",
       "label": "What kind of object would furnish it, and the exact arithmetic of ΘL\\Theta_L"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-specific-obstacle",
       "label": "The specific obstacle"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "swings",
       "label": "Swings"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "sec:invent-R2",
       "label": "R2. Strict endpoint progress: the one place canonicalisation does not bite"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-statement-needed-1",
       "label": "The statement needed"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "what-kind-of-object-would-furnish-it",
       "label": "What kind of object would furnish it"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-specific-obstacle-1",
       "label": "The specific obstacle"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "swings-1",
       "label": "Swings"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "sec:invent-R3",
       "label": "R3. Prime support: a known theorem and an internal method boundary"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "sec:invent-R4",
       "label": "R4. Landing the route-collapse equivalences, via perfect-square witness depths"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-statement-needed-2",
       "label": "The statement needed"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-object-and-the-swing-that-supplies-it",
       "label": "The object, and the swing that supplies it"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "why-this-is-a-result-and-not-bookkeeping",
       "label": "Why this is a result and not bookkeeping"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "sec:invent-R5",
       "label": "R5. The sparse/dense trichotomy — and a proof that the present engine cannot close it"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-statement-needed-3",
       "label": "The statement needed"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "what-kind-of-object-would-furnish-it-1",
       "label": "What kind of object would furnish it"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "the-specific-obstacle-proved",
       "label": "The specific obstacle, proved"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "sec:invent-shape",
-      "label": "What the shape of the wall suggests about the underlying object"
+      "label": "What the experiments and obstructions do not imply"
     },
     {
-      "level": 4,
-      "anchor": "the-half-value-branch-looks-pseudorandom-and-the-failures-are-the-evidence",
-      "label": "The half-value branch looks pseudorandom, and the failures are the evidence"
+      "level": 6,
+      "anchor": "finite-observations-and-their-limits",
+      "label": "Finite observations and their limits"
     },
     {
-      "level": 4,
-      "anchor": "three-reasons-to-distrust-that-inference-stated-plainly",
-      "label": "Three reasons to distrust that inference, stated plainly"
+      "level": 6,
+      "anchor": "why-the-support-and-rational-target-problems-remain-distinct",
+      "label": "Why the support and rational-target problems remain distinct"
     },
     {
-      "level": 4,
-      "anchor": "the-universal-branch-reads-differently-and-this-weakens-the-one-wall-thesis",
-      "label": "The universal branch reads differently, and this weakens the one-wall thesis"
-    },
-    {
-      "level": 4,
+      "level": 6,
       "anchor": "what-the-evidence-does-and-does-not-determine",
       "label": "What the evidence does and does not determine"
     },
     {
       "level": 2,
+      "anchor": "v.-outstanding-obligations-and-provenance",
+      "label": "V. Outstanding obligations and provenance"
+    },
+    {
+      "level": 4,
       "anchor": "what-is-open-stated-exactly",
       "label": "What is open, stated exactly"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "notation-fixed-for-this-section",
       "label": "Notation fixed for this section"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "target-o1-universal-erdős-257",
       "label": "Target O1 — Universal Erdős #257"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "target-o2-half-value-membership",
       "label": "Target O2 — Half-value membership"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "waypoints-that-are-actually-equivalent-to-o2-not-weaker",
       "label": "Waypoints that are actually EQUIVALENT to O2, not weaker"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "target-o3-cofinal-exact-local-mersenne-half-rows",
       "label": "Target O3 — Cofinal exact local Mersenne half rows"
     },
     {
-      "level": 4,
+      "level": 6,
       "anchor": "sharp-critical-capacity-conditions-the-booleanmöbius-lanes-producer-for-o3",
       "label": "Sharp critical-capacity conditions — the BooleanMöbius lane’s producer for O3"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "sec:o4",
       "label": "Target O4 — Reset anti-concentration (sqrt-escape) and the R-run form"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "target-o5-the-remaining--2-1-middle-cell-exclusion",
       "label": "Target O5 — The remaining −2,−1-2,-1 middle-cell exclusion"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "target-o2b-membership-of-121",
       "label": "Target O2b — Membership of 1/211/21"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "sec:v-table",
       "label": "Implication table"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "what-kind-of-new-mathematics-each-form-would-need",
       "label": "What kind of new mathematics each form would need"
     },
     {
-      "level": 3,
+      "level": 5,
       "anchor": "summary",
       "label": "Summary"
     },
     {
-      "level": 2,
+      "level": 4,
+      "anchor": "two-proof-details-and-source-comparators",
+      "label": "Two proof details and source comparators"
+    },
+    {
+      "level": 4,
       "anchor": "statements-and-declarations",
       "label": "Statements and declarations"
     },
     {
-      "level": 5,
-      "anchor": "artefact-and-data-availability.",
-      "label": "Artefact and data availability."
-    },
-    {
-      "level": 5,
-      "anchor": "authority-boundary.",
-      "label": "Authority boundary."
-    },
-    {
-      "level": 5,
-      "anchor": "funding-and-competing-interests.",
-      "label": "Funding and competing interests."
-    },
-    {
-      "level": 2,
+      "level": 4,
       "anchor": "references",
       "label": "References"
     }
@@ -806,22 +776,22 @@
       {
         "id": "sec:257-problem",
         "title": "Support irrationality and its proof mechanisms",
-        "level": 2
+        "level": 4
       },
       {
         "id": "sec:257-wall",
-        "title": "The wall",
-        "level": 2
+        "title": "Limitations of the recorded methods",
+        "level": 4
       },
       {
         "id": "sec:257-survivors",
-        "title": "What the wall does not block",
-        "level": 2
+        "title": "Extensions not excluded by these obstructions",
+        "level": 4
       },
       {
         "id": "what-is-open-stated-exactly",
         "title": "What is open, stated exactly",
-        "level": 2
+        "level": 4
       }
     ]
   }

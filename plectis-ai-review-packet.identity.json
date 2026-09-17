@@ -2,20 +2,20 @@
   "schema": "plectis_packet_identity_sidecar_v1",
   "describes": "plectis-ai-review-packet.json",
   "how_to_use": "Run sha256 over your downloaded file and compare it with exact_byte_sha256 below. Equal means you hold this build. Different means you hold another one, and its own numbers are the ones that apply to it -- not these.",
-  "exact_byte_sha256": "sha256:239d8b444e6ae6a88dc369dbdfd10fea7348f8b803019a01806fbdfa3b0f2e5b",
-  "byte_count": 16983540,
-  "payload_sha256_excluding_identity": "sha256:396ca32ac13e681fdc0d737156cf1457874006793ca9346aea22a0d5d04ba819",
+  "exact_byte_sha256": "sha256:cd9d7375cb7357f3f28c450d4cda96e4623f91ba3121bc7442337df8af444ba1",
+  "byte_count": 17040020,
+  "payload_sha256_excluding_identity": "sha256:a128cba670a208da0bfe90d31af08a07c8ece74e83ff9c972c08fa8d03eca2a3",
   "source_fingerprint": "b3cd770524cbb9159e9e9ab24fe554b1",
   "packet_schema": "microcosm_ai_review_packet_v2",
   "lean_release_version": "0.10.0",
-  "formal_source_ref": "92b88dc1bbe099aa73bcc900c3c405e9ba5c2334",
-  "formal_source_public_tag": "formal-source-2026-09-10-r2",
+  "formal_source_ref": "beaf0866976c908539fba0a96075374dd658f44a",
+  "formal_source_public_tag": "formal-source-2026-09-16-r1",
   "repository_heads_at_build": {
     "plectis": "70b1dedbc294a22cb1924727b06e406fd32c8bc5",
-    "plectis-erdos": "7148c5ae4a4a2f3802cccdeed62c394f64593340"
+    "plectis-erdos": "6fdb8a203ffffa7c5cdb0713e16f10c2ad65ee93"
   },
   "source_integrity": null,
-  "suggested_local_filename": "plectis-ai-review-packet-0.10.0-r2-92b88dc.json",
+  "suggested_local_filename": "plectis-ai-review-packet-0.10.0-r1-beaf086.json",
   "why_a_sidecar_and_not_a_second_copy": "Publishing the packet again under a versioned name would cost 14 MB to answer a question a digest answers in a kilobyte, and would put two large files on the host that must never drift apart. The versioned name is a convention for saving it locally, which is where copies actually get confused.",
   "stable_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json"
 }

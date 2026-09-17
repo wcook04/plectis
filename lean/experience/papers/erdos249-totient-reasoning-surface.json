@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "f0ef88ef6a17417194886359536f9b5450dce8d017e36c171720ce791ff78d69",
+    "source_sha256": "29cb8d441841bf6e1e84c56db094ad94a9d7fc211afe8420b962b8c9203f6250",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 3257,
+    "mathml_node_count": 3270,
     "raw_math_fallback_count": 7,
     "warnings": {
       "mathml": [
@@ -97,8 +97,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "7836cc81cef0a46d65673e0967b0e7fa5c7d87baf924d30ce8224b8b44c9b74f",
-    "html_exact_tex_sha256": "23941a224b98ff9b2f6f824d3a8df0e3bdeec17406b45c376c2b5be90a11ab27"
+    "html_mathml_sha256": "4f29ba87a2181a4a1e801f6dd204f75c9eca05ac07fd0c93374ed453f51e9e19",
+    "html_exact_tex_sha256": "9b0d57769406e942b4634f962c83be4c3576aa8851cff998b399543e51d109d2"
   },
   "sections": [
     {
@@ -653,8 +653,8 @@
     },
     {
       "level": 5,
-      "anchor": "which-technique-family-fits-and-why-it-is-unavailable.",
-      "label": "Which technique family fits, and why it is unavailable."
+      "anchor": "a-distinction-from-digit-complexity-methods.",
+      "label": "A distinction from digit-complexity methods."
     },
     {
       "level": 5,
@@ -663,8 +663,8 @@
     },
     {
       "level": 5,
-      "anchor": "a-heuristic-size-computation.",
-      "label": "A heuristic size computation."
+      "anchor": "a-single-phase-heuristic-not-a-probability-proof.",
+      "label": "A single-phase heuristic, not a probability proof."
     },
     {
       "level": 3,

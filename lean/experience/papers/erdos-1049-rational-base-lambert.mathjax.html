@@ -1,7 +1,7 @@
 <article class="lean-paper" data-paper-id="erdos-1049-rational-base-lambert" data-math-mode="mathjax">
   <header class="lean-paper__header">
     <p class="lean-paper__eyebrow">Problem note</p>
-    <h1>Irrationality of F(31/4) and the Exact Normalized Hankel Order</h1>
+    <h1>Zudilin&#x27;s Forms at Rational Bases\\and the Exact Normalised Hankel Order</h1>
     <p class="lean-paper__subject">Erdős #1049</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/1049/erdos-1049-rational-base-lambert.tex">
@@ -14,14 +14,18 @@ class="math display" data-term-auto="off">\[F(t)=\sum_{n\ge1}\frac1{t^n-1}
      =\sum_{n\ge1}\frac{\tau(n)}{t^n},\]</span></div>
 <p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(\tau(n)\)</span> is the number of positive
-divisors of <span class="math inline" data-term-auto="off">\(n\)</span>. Chowla conjectured
-that <span class="math inline" data-term-auto="off">\(F(t)\)</span> is irrational for every
-rational <span class="math inline" data-term-auto="off">\(t&gt;1\)</span>, as Erdős records
-<span class="citation" data-cites="erdos1988"><a href="#ref-1">[1]</a></span>; this is Erdős
+divisors of <span class="math inline" data-term-auto="off">\(n\)</span>. The rearrangement is
+justified by nonnegativity, and the resulting series converges since
+<span class="math inline" data-term-auto="off">\(\tau(n)\le n\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge1}nt^{-n}&lt;\infty\)</span>.</p>
+<p>Chowla conjectured that <span class="math inline" data-term-auto="off">\(F(t)\)</span> is
+irrational for every rational <span
+class="math inline" data-term-auto="off">\(t&gt;1\)</span>, as Erdős records <span
+class="citation" data-cites="erdos1988"></span>; this is Erdős
 Problem #1049. Specialising Zudilin’s 2004 construction to rational
 bases, Theorem <a class="math-ref" href="#res:rational-base-threshold">2.1</a> proves
 irrationality on an explicit region that contains the power family in
-the title.</p>
+Corollary <a class="math-ref" href="#res:thirtyone-four">2.2</a>.</p>
 <p>Cyclotomic cancellation in the linear forms of Zudilin’s 2004
 construction <span class="citation" data-cites="zudilin2004"><a href="#ref-4">[4]</a></span>
 produces positive forms <span
@@ -32,7 +36,8 @@ class="math inline" data-term-auto="off">\(W_n\)</span>, and</p>
 class="math display" data-term-auto="off">\[\log\!\bigl(b^{W_n}\Lambda_n(a/b)\bigr)
 =\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2).\]</span></div>
 <p>A negative exponent
-yields positive integral linear forms tending to zero.</p>
+yields positive linear forms with integer coefficients tending to zero;
+the values need not themselves be integers.</p>
 <p>The order of these operations explains the region. At a rational base
 <span class="math inline" data-term-auto="off">\(a/b\)</span>, each remaining polynomial
 degree costs a power of <span class="math inline" data-term-auto="off">\(b\)</span> when
@@ -40,13 +45,45 @@ denominators are cleared. Cancelling a common cyclotomic factor first
 reduces that degree. The proof must then compare the actual cancelled
 degree with the decay of the positive remainder; divisibility alone
 gives neither estimate.</p>
-<p>The Hankel argument concerns a different family. Its moment expansion
-makes one increasing index tuple responsible for the first coefficient.
-The final sections explain what local cancellation can establish at
-<span class="math inline" data-term-auto="off">\(3/2\)</span> and specify the real estimate
-that would complete that approach. The complete catalogue of other
-constructions and their failure witnesses is retained in the long
-record.</p>
+<p>The Hankel argument concerns a different family: the 2016 normalised
+remainders, not the 2004 coefficient pair. Section <a class="math-ref" href="#sec:hankel-order">3</a> identifies one
+increasing moment-index tuple responsible for the first coefficient.
+Section <a class="math-ref" href="#sec:open">4</a> separates
+local divisibility at <span class="math inline" data-term-auto="off">\(3/2\)</span> from
+nonvanishing and a real size estimate. The long record supplies the
+positive-measure proof, source comparisons and excluded
+constructions.</p>
+<section id="related-methods-and-notation." class="level5">
+<h5>Related methods and notation.</h5>
+<p>The integer-base digit argument and its repair for signed
+coefficients are represented by Vandehey <span class="citation"
+data-cites="vandehey2013"><a href="#ref-10">[10]</a></span>; Duverney and Tachiya obtain
+integer-base linear-independence refinements <span class="citation"
+data-cites="duverneytachiya2019"><a href="#ref-11">[11]</a></span>. These are not rational-base
+denominator estimates. Van Assche’s little <span
+class="math inline" data-term-auto="off">\(q\)</span>-Legendre approximants provide the
+orthogonal-polynomial comparison <span class="citation"
+data-cites="vanassche2001"><a href="#ref-12">[12]</a></span>. Throughout, <span
+class="math inline" data-term-auto="off">\(F\)</span> denotes the Lambert value. The function
+parameter is <span class="math inline" data-term-auto="off">\(q=p^{-1}\)</span> when <span
+class="math inline" data-term-auto="off">\(p&gt;1\)</span>; the Gaussian polynomial <span
+class="math inline" data-term-auto="off">\({m\brack k}_p\)</span> uses base <span
+class="math inline" data-term-auto="off">\(p\)</span>, not <span
+class="math inline" data-term-auto="off">\(q\)</span>. The indices <span
+class="math inline" data-term-auto="off">\(n\)</span> and <span
+class="math inline" data-term-auto="off">\(N\)</span> denote, respectively, approximation
+scale and Hankel rank. A formal order as <span
+class="math inline" data-term-auto="off">\(q\to0\)</span> is not an asymptotic estimate as
+<span class="math inline" data-term-auto="off">\(N\to\infty\)</span> at fixed <span
+class="math inline" data-term-auto="off">\(q\)</span>. We use <span
+class="math inline" data-term-auto="off">\((z;q)_m=\prod_{j=0}^{m-1}(1-zq^j)\)</span>, with
+empty products and empty determinants equal to <span
+class="math inline" data-term-auto="off">\(1\)</span>. The local symbol <span
+class="math inline" data-term-auto="off">\(N=15n\)</span> in the next proof is a cyclotomic
+cutoff, not a Hankel rank. All logarithms are natural; constants in
+<span class="math inline" data-term-auto="off">\(O_x(\cdot)\)</span> may depend on the fixed
+base <span class="math inline" data-term-auto="off">\(x\)</span>.</p>
+</section>
 </section>
 <section id="sec:rational-base-irrationality" class="level2">
 <h2>A rational base at which <span class="math inline" data-term-auto="off">\(F\)</span> is
@@ -67,7 +104,11 @@ J=\sum_{[u,v)\in\mathcal I}\bigl(\psi_1(u)-\psi_1(v)\bigr),\qquad
 C_0=266-\frac3{\pi^2}(225-J).\]</span></div>
 <p>Thus <span
 class="math inline" data-term-auto="off">\(\theta^*=C_0/C_1\)</span> and <span
-class="math inline" data-term-auto="off">\(\mu=C_1/C_0\)</span> are defined exactly.</p>
+class="math inline" data-term-auto="off">\(\mu=C_1/C_0\)</span> are defined exactly. Here
+<span class="math inline" data-term-auto="off">\(\mu\)</span> is the reciprocal cutoff; it is
+not the notation <span class="math inline" data-term-auto="off">\(\mu_{\rm irr}(\xi)\)</span>
+for the irrationality exponent of an individual value. The cutoff is
+sufficient for this construction, not asserted optimal.</p>
 <div class="theorem" id="res:rational-base-threshold">
 <p><strong>Theorem 2.1</strong> (rational-base region for Zudilin’s
 forms). <em> Let <span class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> be
@@ -86,7 +127,10 @@ degree is the degree of the cancelled pair. The value <span
 class="math inline" data-term-auto="off">\(3/2\)</span> is outside this sufficient region:
 <span class="math inline" data-term-auto="off">\(J\le\psi_1(1/14)-\psi_1(1)&lt;196\)</span>
 gives <span
-class="math inline" data-term-auto="off">\(\theta^*&lt;266/(1091/2)&lt;1/2&lt;\log2/\log3\)</span>.</p>
+class="math inline" data-term-auto="off">\(\theta^*&lt;266/(1091/2)&lt;1/2&lt;\log2/\log3\)</span>.
+At equality <span class="math inline" data-term-auto="off">\(\log b/\log a=\theta^*\)</span>
+the leading quadratic exponent vanishes, so this argument gives no
+conclusion from its displayed estimates.</p>
 <div class="proof">
 <p><em>Proof of Theorem <a class="math-ref" href="#res:rational-base-threshold">2.1</a>.</em>
 Set</p>
@@ -183,7 +227,13 @@ class="math inline" data-term-auto="off">\(F(x)=O(x^{-1})\)</span> and <span
 class="math inline" data-term-auto="off">\(K_n\ge1\)</span>, the identity <span
 class="math inline" data-term-auto="off">\(V_n=U_nF-\Lambda_n\)</span> gives <span
 class="math inline" data-term-auto="off">\(\deg V_n\le W_n-1\)</span>. Thus <span
-class="math inline" data-term-auto="off">\(W_n\)</span> clears both coordinates.</p>
+class="math inline" data-term-auto="off">\(W_n\)</span> clears both coordinates. The degree
+argument holds with <span class="math inline" data-term-auto="off">\(n\)</span> fixed while
+<span class="math inline" data-term-auto="off">\(x\to\infty\)</span>; the remainder estimate
+below instead holds with <span class="math inline" data-term-auto="off">\(x\)</span> fixed
+while <span class="math inline" data-term-auto="off">\(n\to\infty\)</span>. These are
+different limiting operations. The zero polynomial causes no difficulty
+in the assertion about the second coordinate.</p>
 </section>
 <section id="the-limiting-degree-cost." class="level5">
 <h5>The limiting degree cost.</h5>
@@ -250,11 +300,13 @@ class="math inline" data-term-auto="off">\(\Lambda_n(x)&gt;0\)</span>.</p>
 identity</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\log\Phi_\ell(x)-\varphi(\ell)\log
 x
-=\sum_{d\mid\ell}\mu(d)\log(1-x^{-\ell/d})\]</span></div>
-<p class="display-continue">has total absolute
-error <span class="math inline" data-term-auto="off">\(O_x(n)\)</span> over <span
-class="math inline" data-term-auto="off">\(\ell\le15n\)</span>. Indeed, it is at most <span
-class="math inline" data-term-auto="off">\(15n B(x)\)</span>, where</p>
+=\sum_{d\mid\ell}\mu_{\rm Mob}(d)\log(1-x^{-\ell/d})\]</span></div>
+<p class="display-continue">has total
+absolute error <span class="math inline" data-term-auto="off">\(O_x(n)\)</span> over <span
+class="math inline" data-term-auto="off">\(\ell\le15n\)</span>, where <span
+class="math inline" data-term-auto="off">\(\mu_{\rm Mob}\)</span> is the Möbius function.
+Indeed, it is at most <span class="math inline" data-term-auto="off">\(15n B(x)\)</span>,
+where</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[B(x)=\sum_{d\ge1}\frac{-\log(1-x^{-d})}{d}&lt;\infty.\]</span></div>
 <p>Since <span class="math inline" data-term-auto="off">\(0\le1-\nu_\ell\le1\)</span>, it
@@ -279,10 +331,10 @@ class="math display" data-term-auto="off">\[\begin{split}
 &amp;=\bigl(C_1\log b-C_0\log a\bigr)n^2+o(n^2).
 \end{split}\]</span></div>
 <p>The coefficient is negative under the theorem’s
-hypothesis. Thus positive integral linear forms in <span
-class="math inline" data-term-auto="off">\(F(a/b)\)</span> tend to zero. If <span
-class="math inline" data-term-auto="off">\(F(a/b)=r/s\)</span> were rational, every such form
-would have absolute value at least <span
+hypothesis. Thus positive linear forms in <span
+class="math inline" data-term-auto="off">\(F(a/b)\)</span> with integer coefficients tend to
+zero. If <span class="math inline" data-term-auto="off">\(F(a/b)=r/s\)</span> were rational,
+every such form would have absolute value at least <span
 class="math inline" data-term-auto="off">\(1/|s|\)</span>, a contradiction. The separation
 bound for a nonzero integral form at a rational target is <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/TwoSelectorRemainderEscape.lean#L128">rational
@@ -346,13 +398,16 @@ every <span class="math inline" data-term-auto="off">\(r\ge1\)</span>.</em></p>
 <p><em>Proof.</em> The passage from the forms to an exponent bound is
 the standard one that Zudilin uses at integer bases <span
 class="citation" data-cites="zudilin2004"></span>; the estimates below
-make it uniform in <span class="math inline" data-term-auto="off">\(r\)</span>. The raw
-source coefficient is a sum of <span class="math inline" data-term-auto="off">\(O(n)\)</span>
-Laurent monomials times two Gaussian polynomials, each of coefficient
-sum at most <span class="math inline" data-term-auto="off">\(2^{27n+2}\)</span>. Its
-coefficient norm is <span class="math inline" data-term-auto="off">\(\exp(O(n))\)</span>, and
-every exponent is at most <span class="math inline" data-term-auto="off">\(K_n\)</span>. The
-same normalising multiplier used above therefore gives</p>
+give an exponent bound independent of <span
+class="math inline" data-term-auto="off">\(r\)</span>, although the estimates are applied
+separately at each fixed base <span
+class="math inline" data-term-auto="off">\((a/b)^r\)</span>. The raw source coefficient is a
+sum of <span class="math inline" data-term-auto="off">\(O(n)\)</span> Laurent monomials times
+two Gaussian polynomials, each of coefficient sum at most <span
+class="math inline" data-term-auto="off">\(2^{27n+2}\)</span>. Its coefficient norm is <span
+class="math inline" data-term-auto="off">\(\exp(O(n))\)</span>, and every exponent is at most
+<span class="math inline" data-term-auto="off">\(K_n\)</span>. The same normalising
+multiplier used above therefore gives</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[|U_n(x)|\le
 x^{W_n}\exp(O_x(n))\qquad(x&gt;1\text{ fixed}).\]</span></div>
@@ -394,13 +449,29 @@ class="math inline" data-term-auto="off">\(\alpha,\tau\)</span> by <span
 class="math inline" data-term-auto="off">\(r\)</span>, leaving this quotient unchanged; the
 constants in the approximation inequality may depend on <span
 class="math inline" data-term-auto="off">\(r\)</span>. For <span
-class="math inline" data-term-auto="off">\(31/4\)</span>, sixteen terms of each trigamma
-difference and <span class="math inline" data-term-auto="off">\(\pi&gt;314159/100000\)</span>
-give <span class="math inline" data-term-auto="off">\(\theta^*&gt;0.40568\)</span>. The
-logarithm series gives <span
-class="math inline" data-term-auto="off">\(\log4/\log31&lt;0.4036982\)</span>. Thus the bound
-is less than <span
-class="math inline" data-term-auto="off">\(2981509/9909&lt;301\)</span>. ◻</p>
+class="math inline" data-term-auto="off">\(31/4\)</span>, rational interval arithmetic gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[0.40568302137302&lt;\theta^*&lt;0.40568302139506,
+\qquad \log4/\log31&lt;0.4036982.\]</span></div>
+<p>For completeness, if <span
+class="math inline" data-term-auto="off">\(f_{u,v}(x)=(x+u)^{-2}-(x+v)^{-2}\)</span> and
+<span class="math inline" data-term-auto="off">\(u&lt;v\)</span>, its positive decreasing
+tail satisfies</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\int_M^\infty f_{u,v}(x)\,dx
+\le\sum_{k=M}^\infty f_{u,v}(k)
+\le f_{u,v}(M)+\int_M^\infty f_{u,v}(x)\,dx.\]</span></div>
+<p>The integral is
+<span class="math inline" data-term-auto="off">\((M+u)^{-1}-(M+v)^{-1}\)</span>. The
+accompanying certificate uses <span
+class="math inline" data-term-auto="off">\(M=256\)</span>, Machin’s identity for <span
+class="math inline" data-term-auto="off">\(\pi\)</span> with alternating-series bounds, and
+the positive <span class="math inline" data-term-auto="off">\(\operatorname{arctanh}\)</span>
+series for logarithms. All endpoints are rational. They enclose the
+exponent bound between <span class="math inline" data-term-auto="off">\(300.4269130\)</span>
+and <span class="math inline" data-term-auto="off">\(300.4269164\)</span>, in particular
+below <span class="math inline" data-term-auto="off">\(301\)</span>. These numerical
+enclosures are exact-arithmetic certificates, not additional Lean
+declarations. ◻</p>
 </div>
 <section id="comparison-and-scope." class="level5">
 <h5>Comparison and scope.</h5>
@@ -441,13 +512,17 @@ height condition</a> </em></p>
 class="math inline" data-term-auto="off">\(q=7/2\)</span> in Bundschuh and Väänänen’s
 Theorem 2 (<span class="math inline" data-term-auto="off">\(\alpha=-1\)</span>). Their
 analytic irrationality theorem is not a Lean result here.</p>
-<p>Negative bases are not treated.</p>
+<p>Negative bases are not treated: the positive-remainder estimates used
+here assume <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>. The boundary
+<span class="math inline" data-term-auto="off">\(x=1\)</span> is excluded because the Lambert
+series diverges there.</p>
 </section>
 <section id="the-base-uniform-degree-restriction" class="level3">
 <h3>The base-uniform degree restriction</h3>
 <p>The preceding construction uses degree and decay estimates valid at
-every fixed real base greater than one. Such uniformity itself imposes a
-limit.</p>
+every fixed real base greater than one, with common quadratic degree and
+decay parameters. It is this common-parameter hypothesis, not fixed-base
+asymptotics alone, that imposes the following restriction.</p>
 <div class="theorem" id="res:archimedean-cap">
 <p><strong>Theorem 2.5</strong> (Archimedean cap on base-uniform rank-two
 families). <em> Let <span class="math inline" data-term-auto="off">\((U_n,V_n)\)</span> be
@@ -518,17 +593,27 @@ cap iff</a>. The conclusion bounds the sufficient cutoff furnished by
 the displayed degree estimate. An exclusion for a particular family
 requires its actual degree and remainder asymptotics. ◻</p>
 </div>
+<p>The hypotheses are essential: this is a restriction on the stated
+base-uniform rank-two estimates, not on all Padé or Hermite–Padé
+constructions. For a distinct simultaneous construction, Postelmans and
+Van Assche prove the <span class="math inline" data-term-auto="off">\(\Q\)</span>-linear
+independence of <span
+class="math inline" data-term-auto="off">\(1,\zeta_q(1),\zeta_q(2)\)</span> when <span
+class="math inline" data-term-auto="off">\(q=1/p\)</span> with integer <span
+class="math inline" data-term-auto="off">\(p\ge2\)</span> <span class="citation"
+data-cites="postelmansvanassche2007"><a href="#ref-13">[13]</a></span>. Their integer inverse-base
+hypothesis is not removed here.</p>
 </section>
 </section>
 <section id="sec:hankel-order" class="level2">
-<h2>Exact normalized-Hankel order in Zudilin’s construction</h2>
+<h2>Exact normalised-Hankel order in Zudilin’s construction</h2>
 <p>Here the problem is cancellation inside a determinant. Entrywise
 orders give only a lower bound because terms of that order may cancel.
 The moment expansion below resolves this by finding one uniquely
 least-order index tuple, whose coefficient is nonzero. This is a
 formal-power-series argument; fixed-base estimates are a separate
 question addressed after the proof.</p>
-<p>At <span class="math inline" data-term-auto="off">\(x=z=1\)</span>, Zudilin’s normalized
+<p>At <span class="math inline" data-term-auto="off">\(x=z=1\)</span>, Zudilin’s normalised
 moments <span class="citation" data-cites="zudilin2016"><a href="#ref-5">[5]</a></span> are</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[v_m^*=\sum_{t\ge0}q^{(m+1)t}
 \frac{(q;q)_m^3(q^{t+1};q)_m}{(q^{m+1+t};q)_{m+1}},
@@ -620,22 +705,44 @@ href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df
 exact order</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199">the
 leading coefficient</a>.</p>
-<section id="formal-order-and-fixed-base-size." class="level5">
-<h5>Formal order and fixed-base size.</h5>
-<p>The theorem identifies the first formal term. Formal order alone
-would not control a fixed-<span class="math inline" data-term-auto="off">\(q\)</span>
-residual: multiplying by <span
-class="math inline" data-term-auto="off">\((1-q)^{N^3}\)</span> preserves that first term and
-changes the logarithm by a cubic quantity at fixed <span
-class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. The separate
-positive-measure argument for these same moments proves <span
+<section id="formal-order-real-size-and-arithmetic-content."
+class="level5">
+<h5>Formal order, real size and arithmetic content.</h5>
+<p>Formal order alone does not control a fixed-<span
+class="math inline" data-term-auto="off">\(q\)</span> residual: multiplying by <span
+class="math inline" data-term-auto="off">\((1-q)^{N^3}\)</span> preserves the first term and
+changes its logarithm by a cubic quantity for fixed <span
+class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. A separate positive-measure
+proof in the long record gives <span
 class="math inline" data-term-auto="off">\(V_N^*(q)&gt;0\)</span> and <span
 class="math inline" data-term-auto="off">\(\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)\)</span>, where
 <span class="math inline" data-term-auto="off">\(B_N=N(N-1)(2N-1)/6\)</span> and <span
-class="math inline" data-term-auto="off">\(C_N=(N!)^2(N+1)!/2^N\)</span>. Its complete
-ordinary proof is in <code>ZudilinHankelPositiveMeasure.md</code> and
-the long record. Neither fact supplies a denominator factor for the 2004
-polynomial forms.</p>
+class="math inline" data-term-auto="off">\(C_N=(N!)^2(N+1)!/2^N\)</span>. Neither conclusion
+supplies arithmetic divisibility. The cyclotomic Hankel factors in
+Krattenthaler–Rochev–Väänänen–Zudilin <span class="citation"
+data-cites="krvz2009"><a href="#ref-14">[14]</a></span> are proved for a different tail
+recurrence; that recurrence has not been established for this family.
+Likewise, positivity of these remainders does not prove that their
+coefficient sequence is a Stieltjes moment sequence. The latter requires
+positivity of both its Hankel matrices and their once-shifted companions
+<span class="citation" data-cites="wangzhu2016"><a href="#ref-15">[15]</a></span>, at all ranks.
+The long record states this coefficient question separately and records
+exact finite-rank tests. No divisor from the 2004 forms is transferred
+to the 2016 family.</p>
+<p>The long record now certifies both leading coefficient-Hankel
+families through rank eight, for every real <span
+class="math inline" data-term-auto="off">\(p\ge1\)</span>. At <span
+class="math inline" data-term-auto="off">\(p&gt;1\)</span> this suffices to make the
+coefficient matrix positive definite through that rank, and hence to
+obtain real pencil roots below <span
+class="math inline" data-term-auto="off">\(F(p)\)</span>, without an all-rank moment
+conjecture. The endpoint coefficient sequence <span
+class="math inline" data-term-auto="off">\((m!)^3\)</span> has a Stieltjes measure but is
+indeterminate: a measure need not be unique <span class="citation"
+data-cites="berg2007"><a href="#ref-16">[16]</a></span>. Positive continued-fraction coefficients
+and finite Gaussian quadrature are useful finite reformulations <span
+class="citation" data-cites="sw2024 golubwelsch1969"></span>; neither
+constructs a single measure for the entire moving-degree sequence.</p>
 </section>
 </section>
 <section id="sec:open" class="level2">
@@ -644,6 +751,17 @@ polynomial forms.</p>
 endpoints, the pigeonhole principle and Bézout’s identity for unimodular
 rows. The hypotheses on minors, multiplicities and real remainders are
 stated explicitly where they enter.</p>
+<p>For natural <span class="math inline" data-term-auto="off">\(a,b,N,K,Q,D\)</span>, a
+<em>coordinatewise corridor</em> means</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[a,Q,D&gt;0,\quad D\le N+K,\quad a^K\mid QD,
+\quad Qb^{N+K+1}&lt;a^{K+1}.\]</span></div>
+<p>The divisibility and the last
+inequality imply <span
+class="math inline" data-term-auto="off">\(b^{N+K+1}&lt;a(N+K)\)</span>. At <span
+class="math inline" data-term-auto="off">\((a,b)=(3,2)\)</span> this contradicts <span
+class="math inline" data-term-auto="off">\(3x&lt;2^{x+1}\)</span> for <span
+class="math inline" data-term-auto="off">\(x=N+K\ge2\)</span>.</p>
 <div class="theorem" id="res:nocorridor">
 <p><strong>Theorem 4.1</strong> (no corridor at base <span
 class="math inline" data-term-auto="off">\(3/2\)</span>). <em> For all <span
@@ -654,6 +772,16 @@ class="math inline" data-term-auto="off">\((3,2,N,K,Q,D)\)</span> is not a <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155">coordinatewise
 corridor</a>.</em></p>
 </div>
+<p>For <span class="math inline" data-term-auto="off">\(r,s,B,F\in\Q\)</span> with <span
+class="math inline" data-term-auto="off">\(r\ne0\)</span> and <span
+class="math inline" data-term-auto="off">\(c:\N\to\Q\)</span>, put</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[P_N=\sum_{m=0}^{N-1}c(m+1)\frac{s^{m+1}}{r^{m+1}},
+\qquad U_N=Br^N(F-P_N).\]</span></div>
+<p>Here <span
+class="math inline" data-term-auto="off">\(F\)</span> in the recurrence is an arbitrary
+rational parameter; it is not an assumption that the Lambert value is
+rational.</p>
 <div class="theorem" id="res:tailrec">
 <p><strong>Theorem 4.2</strong> (cleared-tail recurrence). <em> Let <span
 class="math inline" data-term-auto="off">\(r,s,B,F\in\Q\)</span> with <span
@@ -667,6 +795,10 @@ recurrence</a> is </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.\]</span></div>
 </div>
+<p>Here <span class="math inline" data-term-auto="off">\(P_N\)</span> is the prefix and <span
+class="math inline" data-term-auto="off">\(U_N\)</span> the cleared tail state in the
+definitions immediately above; the phrase “cleared tail state” in the
+statement refers to this declared pair of objects.</p>
 <div class="theorem" id="res:forcing">
 <p><strong>Theorem 4.3</strong> (the forcing term). <em> Let <span
 class="math inline" data-term-auto="off">\(s,B\)</span> be natural numbers and <span
@@ -704,7 +836,12 @@ class="math inline" data-term-auto="off">\(3^R\mid H_W(P)\)</span>.</em></p>
 <p>All four jets of <span class="math inline" data-term-auto="off">\((U,V)\)</span> vanish
 precisely when <span class="math inline" data-term-auto="off">\(D=3^R2^S\)</span> divides
 both specialised coordinates. The dependence on the declared width
-remains fixed when rows are added.</p>
+remains fixed when rows are added. The width is part of <span
+class="math inline" data-term-auto="off">\(H_W\)</span>: replacing it by <span
+class="math inline" data-term-auto="off">\(W+1\)</span> doubles both evaluated coordinates
+and changes their <span class="math inline" data-term-auto="off">\(2\)</span>-adic
+divisibility. One must not lower a row’s width to its own degree while
+forming a common-width selector sum.</p>
 <div class="theorem" id="res:jetkernel">
 <p><strong>Theorem 4.5</strong> (binary four-jet collision). <em> Fix a
 width <span class="math inline" data-term-auto="off">\(W\)</span> and depths <span
@@ -786,18 +923,25 @@ class="math inline" data-term-auto="off">\(2^S3^R\)</span> values. Finally</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[2^S3^R&lt;2^S4^R=2^{S+2R}\le2^k,\]</span></div>
 <p class="display-continue">and
-pigeonhole gives the two selectors. The ring-generic minor collapse and
-the modular selector collision are together <a
+pigeonhole gives the two selectors. The unit-second-coordinate special
+cases of the minor collapse and modular selector collision are recorded
+together as <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L269">plucker
 paper statement</a>. ◻</p>
 </div>
 <p>Primitive integer rows are unimodular modulo every modulus. A
 particular coordinate need not be a unit: <span
 class="math inline" data-term-auto="off">\((2,3)\)</span> modulo <span
-class="math inline" data-term-auto="off">\(6\)</span> is an example. The minor-vanishing
+class="math inline" data-term-auto="off">\(6\)</span> is an example. Explicitly, if <span
+class="math inline" data-term-auto="off">\(uA+vB=1\)</span> and <span
+class="math inline" data-term-auto="off">\(AB&#39;-BA&#39;=0\)</span>, then <span
+class="math inline" data-term-auto="off">\((A&#39;,B&#39;)=(uA&#39;+vB&#39;)(A,B)\)</span>;
+this identity is valid even when the ring has zero divisors.
+Unimodularity of the next row makes the scalar a unit, although the
+scalar-multiple conclusion already suffices here. The minor-vanishing
 hypothesis remains a separate condition on the source rows.</p>
-<section id="one-minor-gcd-controls-two-different-costs" class="level3">
-<h3>One minor gcd controls two different costs</h3>
+<section id="an-exponent-model-and-row-normalisation" class="level3">
+<h3>An exponent model and row normalisation</h3>
 <p>The next proposition compares two explicit exponent polynomials of a
 Padé-type denominator model. No coefficient formula producing them is
 derived here, so the proposition by itself gives no integrality,
@@ -826,6 +970,15 @@ gap identity</a> is <span
 class="math inline" data-term-auto="off">\(\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)\)</span>.</em></p></li>
 </ol>
 </div>
+<p>For the first exponent inequality, <span
+class="math inline" data-term-auto="off">\(n=0\)</span> forces <span
+class="math inline" data-term-auto="off">\(k=0\)</span> and the gap is zero. For <span
+class="math inline" data-term-auto="off">\(n\ge1\)</span> both <span
+class="math inline" data-term-auto="off">\(n-k\)</span> and <span
+class="math inline" data-term-auto="off">\(3n-k-1\)</span> are nonnegative. The second
+identity is a direct polynomial identity after substituting <span
+class="math inline" data-term-auto="off">\(j=n-m-1\)</span>; it makes no unstated restriction
+on <span class="math inline" data-term-auto="off">\(m\)</span>.</p>
 <div class="proposition" id="res:content">
 <p><strong>Proposition 4.8</strong> (row-content determinant scaling).
 <em> Rowwise integer contents scale the <a
@@ -837,13 +990,25 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 determinant scaling</a> identify the local divisor with the Archimedean
 height cost.</em></p>
 </div>
+<p>For nonzero row contents <span
+class="math inline" data-term-auto="off">\(c_1,c_2\)</span>, write <span
+class="math inline" data-term-auto="off">\(r_i=c_ir_i^{\rm prim}\)</span>. Then <span
+class="math inline" data-term-auto="off">\(\det(r_1,r_2)=c_1c_2\det(r_1^{\rm prim},r_2^{\rm
+prim})\)</span> and <span class="math inline" data-term-auto="off">\(r_i\cdot(\xi,-1)=c_i
+r_i^{\rm prim}\cdot(\xi,-1)\)</span>. These identities concern
+multiplication or division of whole integer rows, not cancellation of a
+polynomial factor before specialisation.</p>
+</section>
+<section id="one-minor-gcd-controls-two-different-costs" class="level3">
+<h3>One minor gcd controls two different costs</h3>
 <p>Let a rank-two lattice <span
 class="math inline" data-term-auto="off">\(\Lambda\subset\Z^2\)</span> be generated by
 primitive rows, and let <span class="math inline" data-term-auto="off">\(g&gt;0\)</span> be
 the gcd of their <span class="math inline" data-term-auto="off">\(2\times2\)</span> minors.
 By the description of Smith invariants through gcds of minors <span
 class="citation" data-cites="stanley2016"></span>, its Smith invariants
-are <span class="math inline" data-term-auto="off">\(1,g\)</span>. Therefore</p>
+are <span class="math inline" data-term-auto="off">\(1,g\)</span>. For <span
+class="math inline" data-term-auto="off">\(D\ge1\)</span>, therefore</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\bigl|\operatorname{im}(\Lambda\bmod D)\bigr|
        =\frac{D^2}{\gcd(g,D)},\qquad
@@ -858,7 +1023,16 @@ modular signatures. The second is the index remaining after dividing a
 successful collision by <span class="math inline" data-term-auto="off">\(D\)</span>. Once
 <span class="math inline" data-term-auto="off">\(D\mid g\)</span>, the modular count is <span
 class="math inline" data-term-auto="off">\(D\)</span>, while the remaining index is <span
-class="math inline" data-term-auto="off">\(g/D\)</span>.</p>
+class="math inline" data-term-auto="off">\(g/D\)</span>. Without primitive generators, use
+both Smith invariants <span class="math inline" data-term-auto="off">\(d_1\mid d_2\)</span>:</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[|\operatorname{im}(\Lambda\bmod D)|=
+\frac{D^2}{\gcd(d_1,D)\gcd(d_2,D)},\qquad
+\left[\Z^2:\frac{\Lambda\cap D\Z^2}{D}\right]=
+\frac{d_1d_2}{\gcd(d_1,D)\gcd(d_2,D)}.\]</span></div>
+<p>This follows
+coordinatewise from <span class="math inline" data-term-auto="off">\(\Lambda\simeq
+d_1\Z\oplus d_2\Z\)</span>; omitting the first invariant without
+primitivity would change both counts.</p>
 <p>If two independent divided rows <span
 class="math inline" data-term-auto="off">\((A_i,B_i)\)</span> have <span
 class="math inline" data-term-auto="off">\(|A_i|\le H\)</span> and <span
@@ -915,11 +1089,19 @@ D,
 <p>Let <span
 class="math inline" data-term-auto="off">\(Q\)</span> be the number of attained modular
 signatures and let <span class="math inline" data-term-auto="off">\(k\)</span> bound the
-simultaneous <span class="math inline" data-term-auto="off">\((f,g)\)</span> fibres. All
-selector remainders lie in an interval of length <span
-class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span>. Dividing that interval
-into half-open bins of width <span class="math inline" data-term-auto="off">\(D/n\)</span>
-gives the sufficient inequality</p>
+simultaneous <span class="math inline" data-term-auto="off">\((f,g)\)</span> fibres. Here
+<span class="math inline" data-term-auto="off">\(Q\)</span> counts attained signatures, not
+the whole ambient residue space; one may use <span
+class="math inline" data-term-auto="off">\(Q\le D^2/\gcd(g_0,D)\)</span> when <span
+class="math inline" data-term-auto="off">\(g_0\)</span> is the minor gcd of the primitive row
+lattice. The letter <span class="math inline" data-term-auto="off">\(g_0\)</span> avoids
+confusion with the real-value map <span class="math inline" data-term-auto="off">\(g\)</span>
+in the theorem. A useful bound for <span
+class="math inline" data-term-auto="off">\(k\)</span> is an additional obligation, not a
+consequence of the modular count. All selector remainders lie in an
+interval of length <span class="math inline" data-term-auto="off">\(T=\sum_j|e_j|\)</span>.
+Dividing that interval into half-open bins of width <span
+class="math inline" data-term-auto="off">\(D/n\)</span> gives the sufficient inequality</p>
 <div class="math-display" id="eq:quantitative-selector-budget" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
 \label{eq:quantitative-selector-budget}
@@ -928,8 +1110,15 @@ class="math display" data-term-auto="off">\[\begin{equation}
 <p>Its conclusion is a signed row sum divisible
 coordinatewise by <span class="math inline" data-term-auto="off">\(D\)</span>, with a nonzero
 divided real remainder of absolute value less than <span
-class="math inline" data-term-auto="off">\(1/n\)</span>. More precisely, if modular fibre
-<span class="math inline" data-term-auto="off">\(b\)</span> has its own real span <span
+class="math inline" data-term-auto="off">\(1/n\)</span>. At a right endpoint use the final
+bin as a singleton if necessary; the bound <span
+class="math inline" data-term-auto="off">\(\lfloor nT/D\rfloor+1\)</span> still applies and
+two distinct values in one bin differ strictly by less than <span
+class="math inline" data-term-auto="off">\(D/n\)</span>. The count is for attained signatures
+and actual equal-value multiplicities, not for all points of the ambient
+residue module.</p>
+<p>More precisely, if modular fibre <span
+class="math inline" data-term-auto="off">\(b\)</span> has its own real span <span
 class="math inline" data-term-auto="off">\(T_b\)</span> and exact value multiplicity <span
 class="math inline" data-term-auto="off">\(k_b\)</span>, it suffices that</p>
 <div class="math-display" data-term-auto="off"><span
@@ -940,7 +1129,10 @@ source family. Bounded unnormalised hypergeometric remainders cannot
 replace them. A nonzero function need not be nonzero at <span
 class="math inline" data-term-auto="off">\(3/2\)</span>, as the factor <span
 class="math inline" data-term-auto="off">\(2X-3\)</span> shows; positive individual
-remainders need not remain positive after subtraction.</p>
+remainders need not remain positive after subtraction. Primitivity of
+the input rows does not eliminate repeated subset sums. Exact value
+multiplicity must be bounded in the same family and after the same
+normalisation as the analytic span.</p>
 </section>
 <section id="the-source-specific-endpoint-question" class="level3">
 <h3>The source-specific endpoint question</h3>
@@ -1013,7 +1205,11 @@ regular-scale family has an ordinary determinant obstruction to bounded
 divided errors; that obstruction does not exclude sparse scales or the
 wider deformation. Thus the next estimate must concern the real
 remainders of the chosen family. Increasing the number of modular
-collisions alone does not establish it.</p>
+collisions alone does not establish it. An efficient test order is
+therefore: fix the source and width, compute primitive rows and the
+minor gcd, bound the attained signatures, and only then estimate real
+spans and exact-value multiplicities. A failed real bound is not
+repaired merely by finding more congruence solutions.</p>
 <section id="functional-equations." class="level5">
 <h5>Functional equations.</h5>
 <p>Bell and Smertnig’s classification of Mahler series with
@@ -1053,27 +1249,167 @@ data-cites="erdosproblems"><a href="#ref-8">[8]</a></span>.</p>
 </section>
 <section id="app:index" class="level2">
 <h2>Guide to the formal sources</h2>
-<p>The seven modules named below are linked at the pinned source
-revision 99f4bf47422a. Additional declarations in the body of the note
-are linked at a second immutable revision,
-<code>f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a</code>. These are
-separate snapshots, not one checked revision of the whole library. Each
-hyperlink opens the named declaration at the commit recorded in its
-URL.</p>
-<p>The declarations linked at 99f4bf47422a live in seven modules:
-<code>RationalBaseLambert</code>,
-<code>QAperyDiagonalNonEquivalence</code>,
-<code>RationalPadeArithmetic</code>, <code>ZudilinConeArithmetic</code>,
-<code>ZudilinHeightRegion</code>, <code>HermitePadeNoGo</code>, and
-<code>BezoutPluckerJets</code>. The first contains the corridor,
-cleared-tail recurrence, and elementary <span
-class="math inline" data-term-auto="off">\(7/2\)</span> certificate; the second checks the
-finite <span class="math inline" data-term-auto="off">\(n=0\)</span> diagonal residual; the
-remaining four separate the Padé exponent arithmetic, endpoint
-arithmetic, logarithmic comparisons, rectangular exponent model, and
-Bézout–Plücker tail collapse. The link coordinates for those seven
-modules are validated against that pinned revision, so they remain
-correct as later work moves lines in the working tree.</p>
+<p>The supplied public snapshot is
+<code>3d6d938d696fed0fb71dd55115a18a73738ff223</code>. Its
+<code>PaperR17/SourceConsumers.lean</code> constructs the actual
+cancelled source supply and applies it in
+<code>rational_base_region</code>, <code>thirtyone_four_powers</code>
+and the measure declarations. The <code>AllRow/Producer.lean</code> file
+proves the actual source-row initial monomials and applies the all-rank
+determinant consumer. These endpoints are not merely conditional
+interfaces.</p>
+<p>The accompanying audit distinguishes the public CI evidence in the
+packet from release-only and outside-build material; it is not a fresh
+kernel run. The ordinary unimodular-row Bézout–Plücker proof is stronger
+than the linked unit-second-coordinate Lean version. The finite
+coefficient-moment and cyclotomic-content calculations in the long
+record are exact computer algebra, not Lean theorems. Historical links
+elsewhere in the text retain their own revisions; the audit supplies a
+declaration-name map for careful repinning, rather than claiming that
+every old line coordinate has been revalidated.</p>
+</section>
+<section id="sec:pinned-lean-sources" class="level2">
+<h2>Pinned Lean sources</h2>
+<p>The following declarations are this note’s pin-faithful source
+inventory. Line numbers are those of the commit named by
+<code>\commit</code>.</p>
+<ul>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L33">van
+assche diagonal initial values</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67">van
+assche qapery residual at zero eq</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L94">van
+assche qapery residual at zero ne zero</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L113">coordinatewise
+corridor</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L121">coordinatewise
+corridor implies pow lt linear</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L142">three
+mul lt two pow succ</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L168">rational
+base prefix q</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L173">rational
+base prefix q succ</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L181">rational
+base cleared tail q</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L198">rational
+base forcing nat</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L204">two
+pow le rational base forcing nat</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L218">rational
+base forcing nat one</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L36">seven
+halves rational margin</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L19">rational
+pade den exp twice</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L24">rational
+pade psummand den exp twice</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L46">rational
+pade qmax den exp twice</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L60">rational
+pade qmax den exp twice le</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L84">rational
+pade error mul</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L116">content
+product dvd rational pade exterior det</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L98">hom
+eval three two</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L131">four
+jet signature card</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L142">exists
+distinct binary selectors same four jet</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L161">exists
+distinct binary selectors same four jet of rank</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L197">top
+jet2 eq zero iff dvd</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L203">hom
+eval three two mod three</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L221">hom
+eval</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L226">hom
+eval mod left</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L238">hom
+eval mod right</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L254">hom
+eval is coprime left of const unit</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L270">hom
+eval is coprime right of top unit</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286">hom
+eval is coprime mul of endpoint units</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L302">cyclotomic
+hom eval is coprime mul</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L320">hom
+eval three two mod two</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L338">three
+not dvd hom eval three two of const unit</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L356">two
+not dvd hom eval three two of top unit</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L398">common
+multiplier not two not three of endpoint units</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L416">twice
+le of irrationality exponent bounds</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L428">three
+two scalar margin neg</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L45">thirtyone
+four mem zudilin height region</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L59">thirtyone
+four power mem zudilin height region</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91">thirtyone
+four outside bundschuh vaananen height region</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L105">eighty
+one two hundredths lt three halves log ratio</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L122">three
+halves outside zudilin height region</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103">rectangular
+hp threshold le classical</a></p></li>
+<li><p><a
+href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L126">rectangular
+hp threshold eq classical iff</a></p></li>
+</ul>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
@@ -1123,12 +1459,9 @@ arXiv:<a href="https://arxiv.org/abs/1507.05697v1">1507.05697v1</a>.
 Page and equation references are to arXiv:1507.05697v1.</p></li>
 <li id="ref-8"><p>T. F. Bloom, <a
 href="https://www.erdosproblems.com/1049"><em>Erdős Problem
-#1049</em></a>, <code>erdosproblems.com/1049</code>, accessed 28 July
-2026 (page displays “last edited 28 September 2025”). The current record
-labels the problem open, cites <span class="upright">[Er88c,
-p. 102]</span> and <span class="upright">[Er48]</span>, and explicitly
-describes its status as the website owner’s present assessment rather
-than a literature-completeness guarantee.</p></li>
+#1049</em></a>, <code>erdosproblems.com/1049</code>. Historical snapshot
+cited in the supplied manuscript: accessed 28 July 2026, displaying
+“last edited 28 September 2025”.</p></li>
 <li id="ref-9"><p>J. Bell and D. Smertnig, <a
 href="https://arxiv.org/abs/2603.23456v1"><em>Mahler series with
 multiplicative coefficient sequences</em></a>, arXiv:2603.23456v1, 24
@@ -1136,6 +1469,59 @@ March 2026. Theorem 1.3 is on pp. 2–3; its stated consequences on p. 3
 include that the divisor and totient generating series are not <span
 class="math inline" data-term-auto="off">\(k\)</span>-Mahler for any <span
 class="math inline" data-term-auto="off">\(k\ge2\)</span>.</p></li>
+<li id="ref-10"><p>J. Vandehey, <a href="https://arxiv.org/abs/1206.0340v1"><em>On
+an incomplete argument of Erdős on the irrationality of Lambert
+series</em></a>, Integers <strong>13</strong> (2013), Paper A58. Page
+references are to arXiv:1206.0340v1 (2012).</p></li>
+<li id="ref-11"><p>D. Duverney and Y. Tachiya, <em>Refinement of the Chowla–Erdős
+method and linear independence of certain Lambert series</em>, Forum
+Math. <strong>31</strong> (2019), no. 6, 1557–1566, doi:<a
+href="https://doi.org/10.1515/forum-2018-0299">10.1515/forum-2018-0299</a>.
+Page references are to the <a
+href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf">authors’
+version</a>.</p></li>
+<li id="ref-12"><p>W. Van Assche, <a
+href="https://arxiv.org/abs/math/0101187v1"><em>Little <span
+class="math inline" data-term-auto="off">\(q\)</span>-Legendre polynomials and irrationality
+of certain Lambert series</em></a>, Ramanujan J. <strong>5</strong>
+(2001), no. 3, 295–310, doi:<a
+href="https://doi.org/10.1023/A:1012930828917">10.1023/A:1012930828917</a>.
+Page references are to arXiv:math/0101187v1.</p></li>
+<li id="ref-13"><p>K. Postelmans and W. Van Assche, <a
+href="https://arxiv.org/abs/math/0604312v1"><em>Irrationality of <span
+class="math inline" data-term-auto="off">\(\zeta_q(1)\)</span> and <span
+class="math inline" data-term-auto="off">\(\zeta_q(2)\)</span></em></a>, J. Number Theory
+<strong>126</strong> (2007), no. 1, 119–154, doi:<a
+href="https://doi.org/10.1016/j.jnt.2006.11.011">10.1016/j.jnt.2006.11.011</a>.
+Page references are to arXiv:math/0604312v1 (2006).</p></li>
+<li id="ref-14"><p>C. Krattenthaler, I. Rochev, K. Väänänen and W. Zudilin, <em>On
+the non-quadraticity of values of the <span
+class="math inline" data-term-auto="off">\(q\)</span>-exponential function and related <span
+class="math inline" data-term-auto="off">\(q\)</span>-series</em>, Acta Arith.
+<strong>136</strong> (2009), no. 3, 243–269, doi:<a
+href="https://doi.org/10.4064/aa136-3-4">10.4064/aa136-3-4</a>; arXiv:<a
+href="https://arxiv.org/abs/0812.2921v1">0812.2921v1</a>. Page
+references are to arXiv:0812.2921v1.</p></li>
+<li id="ref-15"><p>Y. Wang and B.-X. Zhu, <a
+href="https://arxiv.org/abs/1612.04114v1"><em>Log-convex and Stieltjes
+moment sequences</em></a>, Adv. Appl. Math. <strong>81</strong> (2016),
+115–127, doi:<a
+href="https://doi.org/10.1016/j.aam.2016.06.008">10.1016/j.aam.2016.06.008</a>.
+Page references are to arXiv:1612.04114v1.</p></li>
+<li id="ref-16"><p>C. Berg, <em>On powers of Stieltjes moment sequences, II</em>, J.
+Comput. Appl. Math. <strong>199</strong> (2007), 23–38; arXiv:<a
+href="https://arxiv.org/abs/math/0412340v1">math/0412340v1</a>. Theorem
+references use the preprint; Theorem 5.1 treats factorial
+powers.</p></li>
+<li id="ref-17"><p>A. D. Sokal and J. Walrad, <em>Continued-fraction
+characterization of Stieltjes moment sequences with support in <span
+class="math inline" data-term-auto="off">\([\xi,\infty)\)</span></em>, <a
+href="https://arxiv.org/abs/2404.12131v1">arXiv:2404.12131v1</a>, 2024.
+The classical Stieltjes criterion is recalled on pp. 1–2.</p></li>
+<li id="ref-18"><p>G. H. Golub and J. H. Welsch, <em>Calculation of Gauss Quadrature
+Rules</em>, Math. Comp. <strong>23</strong> (1969), no. 106, 221–230,
+doi:<a
+href="https://doi.org/10.1090/S0025-5718-69-99647-1">10.1090/S0025-5718-69-99647-1</a>.</p></li>
 </ol>
 </section>
   </div>

@@ -49,6 +49,16 @@ not evidence of novelty. Lean source checked by the pinned Lean kernel remains
 proof authority; this bibliography and its search history are authored
 attribution evidence only.
 
+## Erdős #249: attribution update, 16 September 2026
+
+The finite-level result is an explicit basis, rank \(k^e+1\) for \(k\ge2,e\ge1\), and an integral basis of all relations among the totient sections. Coons’s non-regularity theorem and Martin’s affine-independence theorem are antecedents, not new claims of this release. For composite bases the retained condition is \(k\nmid r\).
+
+Yazdani’s Theorem 2 and proof (2001, pp. 652–653) use CRT–Dirichlet separation and explicitly credit Shallit; this is the method antecedent of the evaluation-matrix proof. Yazdani’s Corollary 4 (p. 654) already gives non-automaticity of totient residues modulo every m≥3 in every base. Allouche–Shallit–Yassawi’s survey (published 2022; arXiv v1 2021, Theorem 3, Example 4 and Remark 7) explains that result. The fixed-base-2 bounded-residue irrationality theorem requires a separate carrying argument; Wong’s earlier base-equals-modulus theorem remains credited.
+
+Bell–Smertnig (2026 preprint, Theorem 1.3) proves that a characteristic-zero Mahler series with multiplicative coefficients is regular, and explicitly excludes the totient series from every Mahler base. Bell–Bruin–Coons (2012, Theorems 1.5–1.6) supplies the earlier algebraic and D-finite classification context. These are generating-function statements, not proofs about the value at 1/2. Adamczewski–Drmota–Müllner (2022; arXiv v2 2021, Theorem 1.4 and Remark 1.5) provides the automatic-prime density context, with local conditions rather than unconditional positive density for every state.
+
+Primary sources: [Yazdani](https://www.numdam.org/item/JTNB_2001__13_2_651_0/); [Allouche–Shallit–Yassawi](https://arxiv.org/abs/2104.13072v1); [Bell–Smertnig](https://arxiv.org/abs/2603.23456v1); [Bell–Bruin–Coons](https://arxiv.org/abs/1003.2221v2); [Adamczewski–Drmota–Müllner](https://arxiv.org/abs/2009.14773v2); [Martin](https://arxiv.org/abs/math/0603053v1). No priority claim for the local normal form is certified by this comparison.
+
 ## Principal sources
 
 Each entry gives the source, then its relationship to this release, then the

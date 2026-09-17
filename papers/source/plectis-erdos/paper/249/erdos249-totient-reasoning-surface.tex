@@ -24,7 +24,7 @@
 \usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,
   citecolor=linkinternal]{hyperref}
 \hypersetup{bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
-  pdftitle={The Binary Totient Series: a detailed map of the current attack on Erdos Problem 249},
+  pdftitle={The Binary Totient Series: results and remaining arithmetic conditions for Erdos Problem 249},
   pdfauthor={Will Cook},pdflang={en-GB}}
 % Lean declaration names are full of underscores and are typeset in text mode.
 % Category codes are fixed when TeX READS a line, not when a macro expands, so
@@ -158,9 +158,9 @@
 
 \runninghead{Erd\H{o}s \#249: the binary totient series}
 \title{The Binary Totient Series}
-\subtitle{A detailed map of the current attack on Erd\H{o}s Problem~\#249}
+\subtitle{Results, proof dependencies and remaining arithmetic conditions\newline for Erd\H{o}s Problem~\#249}
 \author{Will Cook}
-\date{July 2026}
+\date{July 2026; revised 16 September 2026}
 
 \begin{document}
 \maketitle
@@ -171,15 +171,19 @@
 This paper gives a claim-bounded map of the current formal attack on Erd\H{o}s
 Problem~249, which asks whether
 $S=\sum_{n\ge1}\ph(n)/2^n$ is irrational.  The problem remains open.
-The unconditional headline results are an explicit rational basis for the
-full dyadic totient kernel, exact rank $2^e+1$ through every level $e\ge1$, a denominator
+The coefficient results include an explicit rational basis for the full
+dyadic totient kernel and rank $2^e+1$ through every level $e\ge1$;
+the companion short paper proves the all-base rank $k^e+1$ and integral
+normal form. Further results include a denominator
 exclusion through approximately $7.96\times10^{34}$, and finite
 lcm-diagonal certificates for every $t\le82$.  The full kernel is therefore
 infinite-dimensional, which recovers the case $k=2$ of Coons's theorem that
 $\ph$ is not $k$-regular.  The paper also records exact equivalences between
 irrationality and several cofinal certificate or tail-nonintegrality supplies.
-Those equivalences re-express rather than solve the problem: no certificate at
-$t=83$, unbounded certificate family, or irrationality proof is obtained.  The
+Those equivalences do not establish irrationality. The supplied record has
+no certificate at $t=83$ and no cofinal lcm-diagonal supply. It does contain
+unbounded full-depth families on a fixed ray once a seed is given;
+the unresolved obligation is a seed for every required ray and basepoint.  The
 contribution is the audited organization of checked results,
 coordinate-specific obstructions, and open implications---not a solution, an
 exhaustive reproduction of every repository theorem, or a priority claim for
@@ -194,13 +198,15 @@ open interfaces before work begins.  The machine-readable corpus remains the
 current inventory when later theorem waves outrun this exposition.  Three
 conventions carry the paper's claim boundary.
 
-\emph{Evidence bands.}  Every statement is tagged.  \ev{Lean} means a proof term
-was checked by the pinned Lean kernel.  \ev{Cert} means an exact finite
-computation, with no floating-point decision anywhere in it.  \ev{Math} means
-proved in ordinary mathematics in the sources but not formalised.  \ev{Cited}
-means established in the published literature.  \ev{Open} means not proved.
-These are never blurred, and a statement carrying one band is never described in
-language belonging to another.
+\emph{Evidence and logical scope.} \ev{Lean} identifies a formal theorem
+and its pinned source or supplied checking receipt; this editorial revision
+is not a fresh kernel replay. \ev{Cert} identifies an exact finite
+computation. \ev{Math} identifies an ordinary mathematical proof.
+\ev{Cited} identifies an external result, with a preprint labelled as such.
+\ev{Open} identifies an unproved assertion. A checked implication
+$P\Rightarrow Q$ does not establish $Q$ when $P$ remains open. Accordingly,
+proof authority and the scope of the assumptions must be read separately;
+a conditional Lean theorem can have an open arithmetic input.
 
 \emph{Scale.}  Every parameter-indexed statement is tagged \scale{fixed} (proved
 at specific listed values), \scale{bounded} (proved below an explicit bound),
@@ -222,9 +228,10 @@ identity or reduction, and \emph{socket} for the precise place where the
 missing hypothesis enters.  These are local navigation terms, not additional
 mathematical objects or evidence classes.
 
-Erd\H{o}s Problem 249 is open.  No section of this document claims
-otherwise, and a reduction of the problem to another statement is recorded as a
-reduction, never as progress toward a solution.
+No section of this document proves the irrationality of $S$. An equivalence
+identifies an alternative statement of that question; it does not discharge
+its arithmetic hypothesis. Independent structural results, finite
+certificates and conditional implications are therefore reported separately.
 \clearpage
 \tableofcontents
 \clearpage
@@ -234,8 +241,10 @@ reduction, never as progress toward a solution.
 The dyadic sections $n\mapsto\varphi(2^jn+r)$ through each level $e\ge1$
 have exact rational rank $2^e+1$. The two zero-residue sections and the
 odd-residue sections give independent coordinates; scalar reductions recover
-the omitted sections. The short paper proves the corresponding integral
-normal form and explains the evaluation-matrix argument. This record supplies
+the omitted sections. The short paper proves the all-base theorem
+$\dim_{\Q}V_{k,e}=k^e+1$ for $e\ge1$, its integral normal form and the
+evaluation-matrix argument. For composite $k$ the retained condition is
+$k\nmid r$, not $\gcd(k,r)=1$. This record supplies
 the tail identities, countermodels, and individual arithmetic constructions
 needed to compare that structure with the irrationality question.
 
@@ -254,13 +263,23 @@ sum can fail. Each excludes its stated assumptions; they do not establish a
 single obstruction theorem covering all possible methods.
 
 \begin{rem}[Literature]
-Erd\H{o}s and Graham record the irrationality of $S$ as probably hopeless to
-prove at present~\cite[p.~61]{erdosgraham1980}.  Coons proved that $\varphi$
+Erd\H{o}s and Graham record the irrationality question for
+$S$~\cite[p.~61]{erdosgraham1980}. Coons proved that $\varphi$
 is not $k$-regular for any $k\ge2$~\cite[Theorem~3.2]{coons}, and Martin's
 Theorem~1 implies that the functions $n\mapsto\varphi(a_in+b_i)$ are linearly
 independent for pairwise nonproportional affine forms with positive integer
-slopes~\cite[Theorem~1]{martin-phi-inequalities}; the exact kernel ranks of
-\S\ref{sec:mahler-defect} refine both.  Erick Wong posted a proof that
+slopes~\cite[Theorem~1]{martin-phi-inequalities}. The exact ranks in
+\S\ref{sec:mahler-defect}, together with the all-base normal form in the
+short paper, identify the retained sections and every relation among them.
+The independence itself is not claimed as new. The CRT--Dirichlet separation
+method is already present in Yazdani's Theorem~2 and proof, which explicitly
+credit Shallit~\cite[pp.~652--653]{yazdani2001}; our evaluation matrix uses
+one such separation for each column. Yazdani also proves non-automaticity of
+$\varphi(n)\bmod m$ for every $m\ge3$ in every base~\cite[Cor.~4]{yazdani2001}.
+Allouche, Shallit and Yassawi give a survey account~\cite[Thm.~3,
+Ex.~4 and Rem.~7]{allouche-shallit-yassawi}.
+
+Erick Wong posted a proof that
 $\sum_{n\ge1}(\varphi(n)\bmod k)k^{-n}$ is irrational for every integer $k>2$
 on Mathematics Stack Exchange on 29 March 2015~\cite{wong2015}; there the base
 equals the modulus.  The M\"obius-square form of $S$ and its coprimality
@@ -275,7 +294,24 @@ asymptotics for shifted convolutions of the divisor-convolution class that
 contains $\varphi(n)/n$~\cite[Theorem~2.2]{bgs2016}; that theorem does not
 supply the dyadic residue small-ball or phase anti-concentration required by
 $\mathrm{Sep}$.  The remaining sources are cited where their hypotheses are
-used. \ev{Cited}
+used.
+
+At the generating-function level, the characteristic-zero multiplicative
+classification of Bell and Smertnig gives $k$-Mahler $\Rightarrow$
+$k$-regular, and hence rules out $k$-Mahler equations for the totient series
+in every base~\cite[Thm.~1.3 and p.~3]{bell-smertnig2026}.
+The algebraic and $D$-finite classifications of Bell, Bruin and Coons
+belong to the same function-level context~\cite[Thms.~1.5--1.6]{bell-bruin-coons}.
+They do not by themselves decide the value at $z=1/2$.
+
+Automatic prime-sampling theorems address a different issue.
+Adamczewski, Drmota and M\"ullner identify a computable local coprimality
+condition governing the relevant logarithmic densities, with a conditional
+ordinary-density transfer~\cite[Thm.~1.4 and Rem.~1.5]{adamczewski-drmota-mullner}.
+Their theorem does not assert that every output state has positive density
+on a prescribed prime progression, nor does it prove independence with
+automatic coefficient weights. Any use for that purpose needs its own
+compatibility argument. \ev{Cited}
 \end{rem}
 
 The open question has a sharp equivalent inside the corpus, and it is the
@@ -322,8 +358,12 @@ The entire \#249 side of the programme therefore reduces to one obligation.
   \forall h \ge 1\ \forall N_0\ \exists N \ge N_0\ \exists L,\;
   \mathrm{certifiedKill}(h,N,L).
 \]
-$\mathrm{Sep} \Rightarrow \mathrm{Irrational}(S)$
-(\lean{Erdos249257.irrational\_totient\_series\_of\_certificate\_supply}{TotientTailPeriodKiller.lean:394}).
+$\mathrm{Sep} \Longleftrightarrow \mathrm{Irrational}(S)$
+(\lean{irrational\_totient\_series\_iff\_certificate\_supply}{LcmConeFlatness.lean:412}).
+The forward implication is also
+\lean{Erdos249257.irrational\_totient\_series\_of\_certificate\_supply}{TotientTailPeriodKiller.lean:394}.
+The equivalence identifies the missing quantified input; it supplies no
+certificate by itself.
 \coord{binary-digit} \scale{cofinal} \ev{Lean}
 \end{defn}
 
@@ -372,15 +412,18 @@ endpoint \lean{Erdos249257.certifiedKill\_diagonal\_t64}{DiagonalPincerCertifica
 all shifts $h \in [1,16]$ simultaneously at $(N,L) = (14,9)$, by
 \texttt{decide}
 (\lean{Erdos249257.certifiedKill\_all\_upto\_sixteen}{CarrySurvivorExtinction.lean:574});
-and eight further period deposits at $N = 300$. Every deposit fires within a
-small additive constant of the minimum depth permitted by
-$\mathrm{certifiedKill\_depth\_floor}$. Note the quantifier order: this deposit
+and eight further period deposits at $N = 300$. These are historical
+sub-banks. The supplied source also proves a complete diagonal band for
+$1\le t\le82$, with no omitted scales
+(\lean{exists\_diagonalKill\_le\_82}{ErdosProblems/Skip/LadderT67.lean:71264}).
+This is bounded coverage, not a cofinal diagonal family.
+Note the quantifier order: the simultaneous small-shift deposit
 proves $\exists N \exists L\, \forall h \le 16$, whereas $\mathrm{Sep}$ needs
 $\forall h\, \forall N_0\, \exists N \exists L$.
 \coord{binary-digit} \scale{fixed} \ev{Lean}
 \end{prop}
 
-\begin{prop}[Cofinal positivity, and why it is exactly half a certificate]
+\begin{prop}[Cofinal positivity and the remaining top-edge condition]
 \label{prop:sign}
 The true actual-LCM tail difference is strictly positive for every $a \ge 8$,
 with no irrationality hypothesis
@@ -389,9 +432,11 @@ with no irrationality hypothesis
 In the same coordinate, integrality of the orbit forces the residue to the
 \emph{top edge}, exactly $2^{K} - e$
 (\lean{Erdos257PeriodNoncollapse.actualLcm\_integral\_forces\_topEdgeResidue}{TotientActualLcmOrbitSign.lean:211}).
-Positivity does not exclude the top edge. So the strongest cofinal fact the
-corpus owns about the actual object supplies one of the two inequalities a
-certificate needs and provably cannot supply the other.
+Positivity excludes the nonnegative endpoint survivor in this coordinate;
+under integrality the negative survivor and its top-edge residue remain.
+Thus positivity alone does not establish the central-residue inequalities.
+This is a statement about these hypotheses, not an obstruction to every
+possible use of the actual-LCM coordinate.
 \coord{actual-lcm} \scale{cofinal} \ev{Lean}
 \end{prop}
 
@@ -401,8 +446,8 @@ If $S$ is rational then, for every $e$, the dyadic carry-kernel family at
 level $e$ has $\Q$-rank at least $2^{e}-1$
 (\lean{Erdos249257.not\_irrational\_totientSeries\_implies\_unbounded\_carryRank\_unconditional}{TotientCarryKernelRigidity.lean:300}).
 The scale side is complete and uniform in $e$: the canonical family of
-$2^{e}+1$ dyadic totient-kernel channels is linearly independent over $\Q$ at
-every depth, via CRT plus Dirichlet
+$2^{e}+1$ canonical dyadic channels is linearly independent over $\Q$
+for $e\ge1$, via CRT plus Dirichlet
 (\lean{Erdos249257.linearIndependent\_canonicalTotientKernelFamily}{TotientMahlerDefect.lean:935}),
 so the full family spans an infinite-dimensional space
 (\lean{Erdos249257.not\_finiteDimensional\_span\_fullTotientKernel}{TotientMahlerDefect.lean:1145}),
@@ -412,10 +457,15 @@ the case $k=2$ of Coons's non-regularity theorem (\S\ref{sec:mahler-defect}).
 
 \begin{prop}[What rationality actually buys, and what it does not]
 \label{prop:period-not-rank}
-Rationality gives uniform eventual periodicity of the carry's dyadic sections
-modulo $v$; that periodicity provably does \emph{not} promote to any $\Q$-rank
-bound on the carry family
+If $S$ is rational, its carry has both uniform eventual periodicity of its
+dyadic sections modulo $v$ and unbounded rational section rank
 (\lean{Erdos257PeriodNoncollapse.not\_irrational\_totientSeries\_implies\_mod\_period\_and\_unbounded\_rank}{TotientTailCarryPeriod.lean:224}).
+This conditional theorem alone is not a counterexample to a general
+periodicity-to-rank implication: its antecedent is not established.
+The separate $5/4$ control supplies a concrete counterexample to the generic
+rationality-driven rank ceiling; see
+\texttt{control\_temperedOrbit\_carryRank\_unbounded}, line~478 of
+\texttt{ParityPerturbedRationalControl.lean}.
 \coord{carry-rank} \scale{uniform} \ev{Lean}
 \end{prop}
 
@@ -435,7 +485,7 @@ and the window-separated-pairs predicate
 \coord{binary-digit} \scale{cofinal} \ev{Lean}
 \end{prop}
 
-\begin{prop}[A rational sequence indistinguishable from $\varphi$ by every coarse invariant]
+\begin{prop}[A rational sequence preserving size bounds, parity and aperiodicity]
 \label{prop:parity}
 There is $c : \N \to \N$ with $c(n) \le 6$ and $c(n) \le n$ for all $n$,
 $c(n) \equiv \varphi(n) \pmod 2$ for \emph{every} $n$, and $c$ not eventually
@@ -448,12 +498,12 @@ sum at \texttt{:359}, aperiodicity at \texttt{:487}, parity match at \texttt{:19
 \coord{coefficient-word} \scale{uniform} \ev{Lean}
 \end{prop}
 
-Propositions~\ref{prop:sign}--\ref{prop:parity} are the four facts a reader
-should carry into the next section: the corpus's best cofinal information is
-half a certificate, its best rank information runs the wrong way, its
-reformulations are equivalences rather than reductions, and the listed size
-bound, parity and aperiodicity of the coefficient word are satisfied by a
-rational countermodel.
+These propositions separate several logical obligations. Positivity leaves
+a top-edge condition; a large rational carry rank is not a contradiction;
+and exact equivalences still require a certificate supply. The stated size
+bounds, parity and aperiodicity also hold for a rational control. Each
+conclusion concerns its stated hypotheses, not all possible arithmetic
+information about $\varphi$.
 
 \section{What the countermodels exclude}
 \label{sec:wall}
@@ -1176,12 +1226,13 @@ Proposition~\ref{prop:rank} and would therefore close \#249.
 \coord{carry-rank} \scale{uniform}
 \end{defn}
 
-This is not one of the paper's live open propositions.  It is a logically
-sufficient theorem schema in a coordinate disjoint from the residue and
-certificate statements, and B2's certificate completeness cannot reach it.
-The proved scale side is uniform in $e$ (Proposition~\ref{prop:rank}), but the
-present mathematics supplies no reason for rationality to impose the opposite
-rank bound.
+The generic assertion in Definition~\ref{defn:rankupper} is false, not a
+live open proposition. The $5/4$ control in
+\texttt{ParityPerturbedRationalControl.lean} has $0\le c(n)\le n$ and a
+tempered integral carry of rank at least $2^e-1$ at every depth
+(\texttt{control\_temperedOrbit\_carryRank\_unbounded}, line~478).
+It refutes both proposed generic ceilings. A bound restricted by additional
+totient-specific hypotheses would be a different assertion.
 
 \textbf{The generic shortcut is retired.} The most natural approach to the
 upper bound is dead
@@ -2392,12 +2443,13 @@ carry orbit with $\mathbb Q$-rank $\ge 2^e-1$ at every level (Prop.~\ref{prop:CP
 \[
 \text{bounding the dyadic-section rank of \emph{every} rationality-supplied tempered carry}
 \]
-would contradict this lower bound and close \#249. The corpus supplies no such theorem or
-mechanism. More strongly, its compressed-adjoint impossibility result and its explicit
-all-horizon finite-rank shift-polynomial countermodel retire the generic finite-compression
-shortcut (Observation~\ref{prop:B4b-kill}). Thus the displayed upper bound is only a logically
-sufficient new input, not a third live frontier and not evidence that existing rank machinery is
-close to a contradiction.
+would contradict this lower bound and close \#249 if proved with the
+necessary additional totient-specific hypotheses. The generic assertion
+for arbitrary rational coefficient series is false: the $5/4$ control in
+\texttt{ParityPerturbedRationalControl.lean} has a tempered integral carry
+with the same exponential rank floor. The compressed-adjoint and
+shift-polynomial obstructions (Observation~\ref{prop:B4b-kill}) remain
+separate no-go results. None is a generic rationality-driven rank ceiling.
 The evidence label below applies to the proved rank floor and no-go results,
 not to the counterfactual upper bound.
 \scale{uniform}\ \ev{Lean}\ \coord{other:carry-kernel-rank}\\
@@ -6460,31 +6512,25 @@ $\Z$ is exactly a certified kill at depth $h$.
 \end{proof}
 
 \noindent
-\ev{Math}. So Route 4 asks: \emph{for every ray $d$ and every basepoint $N$,
-some multiple $h=td$ is such that the tail of the binary expansion of $S$
-beginning at position $N+1$ and the tail beginning at position $N+h+1$, read
-as reals in $[0,1)$, are more than $2(N+2h+2)/2^{h}$ apart in $\R/\Z$.} Two
-things follow. First, unlike Routes 1--3, this involves only $S$ itself, not
-the multiples $\alpha_h$. Second, the required precision grows only like
-$\log_2(N+2h)$ while the available depth grows linearly in $t$: the demand
-weakens rapidly along each ray.
+\ev{Math}. Proposition~\ref{prop:route4} gives a sufficient analytic
+criterion for Route~4: for each $d\ge1$ and $N\ge0$, it is enough to find
+$h=td$, $t\ge1$, for which the displayed distance exceeds the stated
+threshold. The criterion is not asserted to be equivalent to each individual
+finite certificate. It involves the phase of $S$ itself, and the threshold
+tends to zero exponentially along a fixed ray. The earlier full-depth
+amplifier explains why a nonintegral seed produces late certificates; it
+does not supply seeds for all $d,N$.
 
-\paragraph{Which technique family fits, and why it is unavailable.}
-A statement that a sequence does not almost repeat at some multiple of every
-gap, to logarithmic precision, is a \emph{subword-complexity} statement, and
-the mature technology for such statements about a specific real number is the
-Adamczewski--Bugeaud method: the Schmidt subspace theorem applied to the
-$b$-ary expansion, which shows that the block complexity $p(n)$ of the base-$b$
-expansion of an irrational algebraic number satisfies $\liminf_n
-p(n)/n=+\infty$~\cite[Theorem~1, p.~549]{adamczewski-bugeaud} \ev{Cited}. The
-shape fits exactly. The hypothesis does
-not: the method conditions on algebraicity, and $S$ is not known to be
-algebraic; indeed it is not known to be irrational, which is the whole
-problem. No version of the method is known that runs from an analytic
-description of the constant. That is the entire obstruction, and it is worth
-stating plainly because it explains why Route 4 looks so much easier than it
-is: the required combinatorial property is weak, but the only machine that
-produces such properties needs an input we do not have.
+\paragraph{A distinction from digit-complexity methods.}
+The phase inequality above is a quantitative statement at specified
+positions and period multiples. A general block-complexity assertion is a
+different quantified statement, of the kind treated by the
+Adamczewski--Bugeaud method for algebraic numbers
+\cite[Theorem~1, p.~549]{adamczewski-bugeaud}. No implication from such an
+assertion to the required inequality is established here. In particular, this record
+does not justify describing one existing method as the only possible route,
+or algebraicity as the sole missing input. The arithmetic nonintegrality
+obligation must be stated and proved in its own right.
 
 \paragraph{What the data says.}
 At $N=300$, the least $t$ with $\mathrm{certifiedKill}(td,300,td)$ exists
@@ -6497,17 +6543,17 @@ $d=23$, against edge radii $3.1\cdot10^{-1}$, $8.0\cdot10^{-2}$,
 $2.0\cdot10^{-2}$, $2.6\cdot10^{-3}$, $4.1\cdot10^{-5}$ \ev{Cert}. This is a
 floor, not a trend, exactly as barrier B1 requires; it decides nothing.
 
-\paragraph{A heuristic size computation.}
-Under a uniform model for $\|2^{N}(2^{h}-1)S\|$ the failure probability at
-depth $h=td$ is $\approx 4(N+2h+2)/2^{h}$, which is $\approx 1$ at the first
-admissible $t$ and falls by a factor $2^{d}$ at each subsequent $t$. The
-probability that a given $(d,N)$ fails at every $t$ is therefore a product
-$\prod_{j\ge0}\min(1,\,c\,2^{-jd})$, super-exponentially small, and the
-expected number of failing pairs $(d,N)$ over all $N$ converges. At $d=1$,
-$N=300$ the product evaluates to about $10^{-5}$, and the observed value is a
-success at the very first admissible depth. The model therefore predicts
-Route 4 holds with enormous margin --- which is precisely why no finite
-computation will ever be evidence for it. \ev{Open} (heuristic).
+\paragraph{A single-phase heuristic, not a probability proof.}
+If a phase $U$ were uniform on $\R/\Z$, then
+$\Pr(\|U\|\le\epsilon)=\min(1,2\epsilon)$ for $\epsilon\ge0$.
+At $\epsilon=2(N+2h+2)2^{-h}$ this gives the marginal model
+$\min(1,4(N+2h+2)2^{-h})$. The phases
+$2^N(2^{td}-1)S$ on a fixed ray are arithmetically dependent; no independence
+model or uniform distribution theorem for this orbit is proved here.
+Consequently the marginal estimate cannot be multiplied across depths, and
+no summability conclusion over all basepoints follows from it. The finite
+experiments remain finite evidence, not a proof of the all-ray supply.
+\ev{Open} (heuristic only).
 
 \subsection{A counterfactual rank criterion, not a live route}
 
@@ -6523,9 +6569,17 @@ A suitable subexponential upper bound would also contradict the landed
 $\varphi$-specific floor
 \lean{Erdos249257.\allowbreak not_irrational_totientSeries_\allowbreak implies_unbounded_carryRank_unconditional}{TotientCarryKernelRigidity.lean:300}
 \quad \ev{Lean}.  No such rationality-side upper bound is proved.  It is a
-logically sufficient new theorem schema, but the preceding mathematics does
-not isolate it as an open proposition, so it is not counted among the surviving
-routes.
+logically sufficient theorem schema for $\varphi$, but the generic schema
+as displayed is false. The rational control in
+\texttt{ParityPerturbedRationalControl.lean} satisfies $0\le c(n)\le n$,
+agrees with $\varphi(n)$ at every odd $n$, and has binary sum $5/4$.
+It has a tempered integral carry of rank at least $2^e-1$ for every $e$
+(\texttt{control\_series}, line~379, and
+\texttt{control\_temperedOrbit\_carryRank\_unbounded}, line~478, in the
+supplied separate Lean release). Thus neither a uniform nor a subexponential
+generic carry-rank ceiling follows from rationality and these size bounds.
+This $5/4$ control is distinct from the bounded $3/2$ parity control in
+Proposition~\ref{prop:parity}.
 
 \paragraph{The right vocabulary, and the audited gap.}
 Finite-dimensional span of all dyadic sections is the definition of a
@@ -6562,10 +6616,11 @@ support for the criterion, and it does not restore the generic shortcut.
 
 The Lean theorem for $\varphi$ remains valid: it uses the special structure
 and independently proved linear independence of the totient kernel, not the
-invalid generic $O(1)$ bridge.  The honest status is thus asymmetric.  The
-large $\varphi$-specific rank floor is proved; a rationality-driven ceiling is
-only a counterfactual sufficient input; and the generic countermodel attempt
-is inconclusive.
+invalid generic $O(1)$ bridge. The greedy construction above remains a
+record of an unsuccessful argument. It is not the current status of the
+generic ceiling: the separate $5/4$ control refutes that ceiling directly.
+Any replacement upper bound must use additional totient-specific hypotheses
+that this control does not satisfy.
 
 \subsection{What the shape of the wall suggests about the object}\label{sub:shape}
 
@@ -7255,12 +7310,12 @@ of course contradict the displayed lower bound:
   \text{ for a rational } S,\quad
   \forall e,\quad \operatorname{rank}_{\mathbb{Q}}\operatorname{span}\bigl(\mathrm{canonicalCarryKernelFamily}(u,e)\bigr) \le C
 \]
-(or any bound growing slower than $2^e-1$).  This is a logically sufficient
-new theorem schema, not an open proposition isolated by the preceding
-mathematics: the corpus gives no
-reason rationality should force it, and explicit finite-rank
-shift-polynomial countermodels show that periodic denominator data alone do
-not.
+(or any bound growing slower than $2^e-1$). For arbitrary rational
+coefficient series this schema is refuted by the $5/4$ control and
+\texttt{control\_temperedOrbit\_carryRank\_unbounded}, line~478 of
+\texttt{ParityPerturbedRationalControl.lean}. An upper bound for the actual
+totient carry would therefore require additional arithmetic hypotheses;
+rationality and periodic denominator data alone are insufficient.
 
 The most direct generic construction is also impossible: no
 \texttt{CompressedAdjointCertificate} ($Q\cdot v\cdot A =
@@ -7336,7 +7391,7 @@ flexible top-edge magnitude supply & weaker than midband; feeds midband, not cor
 flexible terminal-dominance supply & weaker again; one-sided & TotientActualLcmTopEdgeStaircase.lean:1908 \\
 flexible terminal carry-corridor-escape supply & \textbf{weakest known} in this cluster & TotientActualLcmTopEdgeStaircase.lean:1895 \\
 raw-approximant separation supply & alternative (Diophantine) sufficient form, same target & TotientActualLcmOrbitSeparation.lean:305 \\
-rank-compression upper bound & counterfactual sufficient input; generic shortcut retired & TotientCarryKernelRigidity.lean:284 \\
+rank-compression upper bound & generic ceiling refuted by the $5/4$ control; any totient-specific replacement needs extra hypotheses & ParityPerturbedRationalControl.lean:478 \\
 Farey growth law (Obl.\ 3) & independent obligation, different coordinate & GapFareyBound.lean, CertificateKernel.lean:18056 \\
 guard-cylinder witness & problem-agnostic normal form of \emph{any} certificate, not scale-comparable & TotientActualLcmTopEdgeStaircase.lean:844 \\
 \end{longtable}
@@ -7544,6 +7599,34 @@ Article~02.2.3. Lemma~3.1 is cited with the preprint pagination, p.~5.
 P.~Erd\H{o}s and I.~S.~G\'al, \emph{On the law of the iterated logarithm.~I},
 Proc.\ Kon.\ Ned.\ Akad.\ Wetensch.\ Ser.~A \textbf{58} $=$ Indag.\ Math.\
 \textbf{17} (1955), 65--76, \url{https://www.renyi.hu/~p_erdos/1955-06.pdf}.
+\bibitem{yazdani2001} S.~Yazdani,
+\emph{Multiplicative functions and $k$-automatic sequences},
+J.\ Th\'eor.\ Nombres Bordeaux \textbf{13} (2001), no.~2, 651--658,
+\url{https://www.numdam.org/item/JTNB_2001__13_2_651_0/}.
+Theorem~2 and its proof, pp.~652--653; Corollary~4, p.~654.
+\bibitem{allouche-shallit-yassawi} J.-P.~Allouche, J.~Shallit and R.~Yassawi,
+\emph{How to prove that a sequence is not automatic},
+Exposition.\ Math.\ \textbf{40} (2022), no.~1, 1--22,
+doi:\href{https://doi.org/10.1016/j.exmath.2021.08.001}{10.1016/j.exmath.2021.08.001};
+arXiv:\href{https://arxiv.org/abs/2104.13072v1}{2104.13072v1}.
+Theorem and example numbering follows the arXiv v1 (2021).
+\bibitem{bell-smertnig2026} J.~Bell and D.~Smertnig,
+\emph{Mahler series with multiplicative coefficient sequences},
+arXiv:\href{https://arxiv.org/abs/2603.23456v1}{2603.23456v1},
+24 March 2026, preprint. Theorem~1.3, p.~2; Lemma~3.3, p.~9.
+\bibitem{bell-bruin-coons} J.~P.~Bell, N.~Bruin and M.~Coons,
+\emph{Transcendence of generating functions whose coefficients are multiplicative},
+Trans.\ Amer.\ Math.\ Soc.\ \textbf{364} (2012), no.~2, 933--959,
+doi:\href{https://doi.org/10.1090/S0002-9947-2011-05479-6}{10.1090/S0002-9947-2011-05479-6};
+arXiv:\href{https://arxiv.org/abs/1003.2221v2}{1003.2221v2}.
+Theorems~1.5--1.6 are cited with the arXiv v2 pagination, p.~2.
+\bibitem{adamczewski-drmota-mullner} B.~Adamczewski, M.~Drmota and C.~M\"ullner,
+\emph{(Logarithmic) densities for automatic sequences along primes and squares},
+Trans.\ Amer.\ Math.\ Soc.\ \textbf{375} (2022), no.~1, 455--499,
+doi:\href{https://doi.org/10.1090/tran/8476}{10.1090/tran/8476};
+arXiv:\href{https://arxiv.org/abs/2009.14773v2}{2009.14773v2}.
+Theorem~1.4 and Remark~1.5, p.~4, and the proof at the end of Section~7,
+p.~19, refer to the arXiv v2 (2021).
 \end{thebibliography}
 
 \end{document}

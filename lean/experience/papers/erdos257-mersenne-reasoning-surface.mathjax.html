@@ -5,8 +5,8 @@
     <p class="lean-paper__subject">Erdős #257</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/257/erdos257-mersenne-reasoning-surface.tex">
-<section id="how-to-read-this-document" class="level2 unnumbered">
-<h2 class="unnumbered">How to read this document</h2>
+<section id="how-to-read-this-document" class="level4 unnumbered">
+<h4 class="unnumbered">How to read this document</h4>
 <p>This is a reasoning surface, not an exhaustive corpus export or a
 literature survey. It exposes the principal premises, method boundaries,
 and open interfaces; the machine-readable corpus remains the current
@@ -51,10 +51,13 @@ objects or evidence classes.</p>
 otherwise, and a reduction of the problem to another statement is
 recorded as a reduction, never as progress toward a solution. </p>
 </section>
-<section id="sec:257-problem" class="level2">
-<h2>Support irrationality and its proof mechanisms</h2>
-<section id="reciprocal-summable-supports" class="level3">
-<h3>Reciprocal-summable supports</h3>
+<section id="i.-support-theorems-and-their-proofs"
+class="level2 unnumbered">
+<h2 class="unnumbered">I. Support theorems and their proofs</h2>
+<section id="sec:257-problem" class="level4">
+<h4>Support irrationality and its proof mechanisms</h4>
+<section id="reciprocal-summable-supports" class="level5">
+<h5>Reciprocal-summable supports</h5>
 <p>For every infinite set <span class="math inline" data-term-auto="off">\(A\)</span> of
 positive integers with <span class="math inline" data-term-auto="off">\(\sum_{a\in
 A}1/a&lt;\infty\)</span>, the series</p>
@@ -150,8 +153,8 @@ class="math inline" data-term-auto="off">\(\Delta_{2,\mathbb
 N_{&gt;0}}(N)&gt;1-2^{-N}\ge1/2\)</span>. Full-support irrationality
 therefore uses a different argument; its checked form appears below.</p>
 </section>
-<section id="finite-prime-part-weighted-mass" class="level3">
-<h3>Finite prime-part weighted mass</h3>
+<section id="finite-prime-part-weighted-mass" class="level5">
+<h5>Finite prime-part weighted mass</h5>
 <div class="thm" id="thm:257-weighted">
 <p><strong>Theorem 1.1</strong> (Finite prime-part weighted mass). <em>
 Let <span class="math inline" data-term-auto="off">\(b\ge2\)</span> be an integer, let <span
@@ -415,8 +418,8 @@ class="math inline" data-term-auto="off">\(W_{b,\mathcal P}(A)\le W_{2,\mathcal
 P}(A)\)</span>. Thus the base-two weighted hypothesis gives the
 conclusion simultaneously at every integer base. The hypothesis is also
 hereditary under passage to infinite subsets.</p>
-<section id="averaging-antecedents." class="level5">
-<h5>Averaging antecedents.</h5>
+<section id="averaging-antecedents." class="level7">
+<p class="heading">Averaging antecedents.</p>
 <p>Both averaging proofs in this section end by choosing a term no
 larger than a finite mean. <a
 href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf">Duverney
@@ -453,8 +456,8 @@ finite part of <span class="math inline" data-term-auto="off">\(A\)</span>; the 
 proof adds the dyadic average <a class="math-ref" data-equation-ref="true" href="#eq:257-weighted-dyadic-average">eq:257-weighted-dyadic-average</a>.
 <span><span class="sans-serif">[Cited]</span></span></p>
 </section>
-<section id="evidence-boundary." class="level5">
-<h5>Evidence boundary.</h5>
+<section id="evidence-boundary." class="level7">
+<p class="heading">Evidence boundary.</p>
 <p>This is a complete ordinary proof, not an end-to-end Lean theorem.
 The finite orbit argument and analytic diagonal above are not discharged
 by a linked declaration. For comparison only, the pinned corpus checks
@@ -466,9 +469,9 @@ theorem priority.</p>
 </section>
 <section
 id="why-the-hypothesis-is-strictly-weaker-than-reciprocal-summability."
-class="level5">
-<h5>Why the hypothesis is strictly weaker than reciprocal
-summability.</h5>
+class="level7">
+<p class="heading">Why the hypothesis is strictly weaker than reciprocal
+summability.</p>
 <p>At base two take</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[A_\star=\{2^k m:k\ge1,\
 m\text{ odd},\ m\le2^{2^k}\}.\]</span></div>
@@ -492,8 +495,8 @@ all-base irrationality for every infinite subset of an explicit
 reciprocal-divergent host.</p>
 </section>
 </section>
-<section id="sec:257-common-kernel" class="level3">
-<h3>A finite estimate on common observation scales</h3>
+<section id="sec:257-common-kernel" class="level5">
+<h5>A finite estimate on common observation scales</h5>
 <p>For <span class="math inline" data-term-auto="off">\(1&lt;B\le2\)</span>, positive
 integers <span class="math inline" data-term-auto="off">\(L,d,M\)</span>, and an integer
 <span class="math inline" data-term-auto="off">\(R\ge0\)</span>, put</p>
@@ -554,8 +557,8 @@ not in this checkout. Nonnegative interchange permits summation against
 any coefficients <span class="math inline" data-term-auto="off">\(c_d\)</span> with <span
 class="math inline" data-term-auto="off">\(\sum_dc_d/d&lt;\infty\)</span>.</p>
 </section>
-<section id="positive-fractional-divisor-covers" class="level3">
-<h3>Positive fractional divisor covers</h3>
+<section id="positive-fractional-divisor-covers" class="level5">
+<h5>Positive fractional divisor covers</h5>
 <p>For a finite set <span class="math inline" data-term-auto="off">\(F\)</span>, put <span
 class="math inline" data-term-auto="off">\(f_F(n)=\#\{a\in F:a\mid n\}\)</span>. Let <span
 class="math inline" data-term-auto="off">\(F_j\)</span> be finite sets of positive integers,
@@ -632,8 +635,8 @@ class="math inline" data-term-auto="off">\(2^{j\alpha_j}\)</span> in <a class="
 <span class="math inline" data-term-auto="off">\(\eta_j^{-\alpha_j}\)</span> and take <span
 class="math inline" data-term-auto="off">\(t_j=\varepsilon\eta_j\)</span>.</p>
 </section>
-<section id="combining-the-two-support-criteria" class="level3">
-<h3>Combining the two support criteria</h3>
+<section id="combining-the-two-support-criteria" class="level5">
+<h5>Combining the two support criteria</h5>
 <p>Separate small-displacement witnesses need not occur at the same
 index. For example, a sequence small only at even indices and one small
 only at odd indices need never have a small sum. The useful feature
@@ -738,8 +741,8 @@ whereas <span class="math inline" data-term-auto="off">\(X_{\mathcal
 P}(2)\le\sum_{a\ge2}(2^a-1)^{-1}&lt;2/3\)</span>. Here <span
 class="math inline" data-term-auto="off">\(\omega(n)\)</span> is the number of distinct prime
 divisors of <span class="math inline" data-term-auto="off">\(n\)</span>.</p>
-<section id="the-elementary-independence-boundary." class="level5">
-<h5>The elementary independence boundary.</h5>
+<section id="the-elementary-independence-boundary." class="level7">
+<p class="heading">The elementary independence boundary.</p>
 <p>For <span class="math inline" data-term-auto="off">\(f_A(n)=\sum_{a\in A}\mathbf1_{a\mid
 n}\)</span> and a fixed <span class="math inline" data-term-auto="off">\(a\in A\)</span>, the
 identity <span class="math inline" data-term-auto="off">\(f_A(an)-f_A(n)=1-\mathbf1_{a\mid
@@ -762,8 +765,8 @@ prime-incidence argument. This brief ordinary calculation marks a
 boundary of that argument, not an irrationality criterion.</p>
 </section>
 </section>
-<section id="the-object-and-the-two-exact-statements" class="level3">
-<h3>The object and the two exact statements</h3>
+<section id="the-object-and-the-two-exact-statements" class="level5">
+<h5>The object and the two exact statements</h5>
 <p>For an integer <span class="math inline" data-term-auto="off">\(n \ge 1\)</span> set <span
 class="math inline" data-term-auto="off">\(x_n := 1/(2^n-1)\)</span>, and for <span
 class="math inline" data-term-auto="off">\(A \subseteq \{1,2,3,\dots\}\)</span> write <span
@@ -809,8 +812,8 @@ by individual approaches; they do not prove that all such failures have
 one common cause.</p>
 </section>
 <section id="the-unconditional-record-universal-direction"
-class="level3">
-<h3>The unconditional record, universal direction</h3>
+class="level5">
+<h5>The unconditional record, universal direction</h5>
 <p>Full-support irrationality is Erdős’s theorem <span class="citation"
 data-cites="erdos1948"><a href="#ref-1">[1]</a></span>. The pairwise-coprime case is Erdős’s
 theorem of 1968, where he also stated that the coprimality condition can
@@ -906,8 +909,9 @@ class="math inline" data-term-auto="off">\(\sum_{a \in A} 1/a &lt; \infty\)</spa
 </tr>
 <tr>
 <td class="ta-l">Signed periodic weights</td>
-<td class="ta-l">periodic integer weights, nonnegative,
-frequently nonzero</td>
+<td class="ta-l">periodic integer weights; their
+divisor-transformed coefficients are nonnegative and frequently
+nonzero</td>
 <td class="ta-l"></td>
 </tr>
 </tbody>
@@ -975,10 +979,22 @@ recorded here is derived from it. The corpus still has no general
 theorem for an arbitrary positive-density nonperiodic or divisor-dense
 support, and the universal statement remains open.</p>
 </div>
+<section id="periodic-weights-the-two-hypothesis-sets." class="level7">
+<p class="heading">Periodic weights: the two hypothesis sets.</p>
+<p>The periodic sequence theorem belongs to Luca and Tachiya <span
+class="citation" data-cites="lucatachiya2014periodic"></span>; their
+later author-written account states it as Theorem A <span
+class="citation" data-cites="lucatachiya2017"></span>. In the displayed
+Lean row above, nonnegativity and frequent nonvanishing are assumptions
+on <span class="math inline" data-term-auto="off">\(c_w(n)=\sum_{d\mid n}w(d)\)</span>, not
+on <span class="math inline" data-term-auto="off">\(w(n)\)</span> itself. The formal row must
+therefore be read as a separately specified instance, not as an exact
+transcription of every clause of the published theorem.</p>
+</section>
 </section>
 <section id="the-unconditional-record-half-value-direction"
-class="level3">
-<h3>The unconditional record, half-value direction</h3>
+class="level5">
+<h5>The unconditional record, half-value direction</h5>
 <div class="thm" id="thm:geometry">
 <p><strong>Theorem 1.7</strong> (Achievement-set geometry). <em> <span
 class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> is compact, closed, perfect,
@@ -1121,26 +1137,26 @@ class="math inline" data-term-auto="off">\(L&lt;(\mu(E)-1+\varepsilon)N\)</span>
 in this record.</p>
 </section>
 </section>
-<section id="sec:257-wall" class="level2">
-<h2>The wall</h2>
-<section id="the-thesis" class="level3">
-<h3>The thesis</h3>
-<p>This programme has produced many reformulations of #257 and no proof
-of it. That is the honest summary, and expert readers have said so. The
-claim of this section is that the reformulations are not a hundred
-separate failures. They are repeated measurements of <em>one</em>
-obstruction, taken in different coordinates, and once they are assembled
-the obstruction has a describable shape. A record of which attacks were
-tried, which landed calculations obstructed them, and which hypotheses
-remain, is a result about the problem; a reformulation is not. That
-record follows. It does not claim an impossibility theorem for every
-method in a named class.</p>
-<p>The generating fact is a single structural one, and it is not a
-convenience of the formalisation.</p>
+</section>
+<section id="ii.-limitations-and-extensions-of-recorded-methods"
+class="level2 unnumbered">
+<h2 class="unnumbered">II. Limitations and extensions of recorded
+methods</h2>
+<section id="sec:257-wall" class="level4">
+<h4>Limitations of the recorded methods</h4>
+<section id="the-thesis" class="level5">
+<h5>The thesis</h5>
+<p>This section studies the scope of particular reformulations and
+certificate mechanisms. Several share the greedy representation, but no
+proof identifies a single necessary obstruction to all methods. The
+statements below are useful insofar as they specify which hypotheses
+fail, which implications are equivalences, and which parameters must be
+uniform. The first structural fact is uniqueness at a fixed target and
+depth.</p>
 <div class="obs" id="obs:no-ensemble">
-<p><em>Observation 2.1</em> (The problem admits no ensemble). The
-Mersenne weights are strictly superincreasing. Consequently the digit
-coding is injective (Theorem <a class="math-ref" href="#thm:geometry">1.7</a>), the greedy orbit is
+<p><em>Observation 2.1</em> (Uniqueness within the fixed-target coding).
+The Mersenne weights are strictly superincreasing. Consequently the
+digit coding is injective (Theorem <a class="math-ref" href="#thm:geometry">1.7</a>), the greedy orbit is
 the unique candidate support for any target, and distinct subset sums of
 a row of seam weights are separated by at least <span
 class="math inline" data-term-auto="off">\(2^{s+1}\)</span>. Every one of the nine
@@ -1150,37 +1166,38 @@ class="math inline" data-term-auto="off">\(s\)</span>, integer margin, sharp tai
 half-carry <span class="math inline" data-term-auto="off">\(K_n\)</span>, reverse-carry word,
 Boolean–Möbius exact row, fatal-cell interval packing, Dedekind
 cut-locator — is therefore a coordinate on the binary digits of
-<em>one</em> specific real orbit. There is no family to range over.
-<code>coord:meta</code> <span><span
+<em>one</em> specific real orbit. This removes freedom to choose a
+different support with the same value in this coding. It does not
+exclude averaging over indices, moduli, nearby targets, or auxiliary
+constructions. <code>coord:meta</code> <span><span
 class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">[Math]</span></span><br />
 <strong>Sites:</strong> , , .</p>
 </div>
-<p>All six barriers below are consequences of Observation <a class="math-ref" href="#obs:no-ensemble">2.1</a> in different
-directions: the recorded witness space is a singleton (<a class="math-ref" href="#bar:canon">2.2</a>), the listed sufficient
-conditions are equivalent to the goal rather than strictly weaker (<a class="math-ref" href="#bar:collapse">2.3</a>), measure and category
-disagree on <span class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> (<a class="math-ref" href="#bar:measure">2.6</a>), the available
-information sits at the wrong scale for the short-window bound (<a class="math-ref" href="#bar:scale">2.4</a>), survival certificates
-point the wrong way for membership (<a class="math-ref" href="#bar:asym">2.5</a>), and, on the universal
-side, a general support need not satisfy the certificate engine’s first
-hypothesis (<a class="math-ref" href="#bar:box">2.7</a>).</p>
+<p>The six limitations below require separate arguments. Fixed-target
+uniqueness explains canonicalisation (<a class="math-ref" href="#bar:canon">2.2</a>); the recorded identities
+determine which sufficient conditions are equivalent to their goal
+(<a class="math-ref" href="#bar:collapse">2.3</a>). Measure and
+category (<a class="math-ref" href="#bar:measure">2.6</a>),
+observation scales (<a class="math-ref" href="#bar:scale">2.4</a>), finite versus infinite
+membership (<a class="math-ref" href="#bar:asym">2.5</a>), and
+the hypotheses of the support certificate (<a class="math-ref" href="#bar:box">2.7</a>) do not follow from
+injectivity alone.</p>
 </section>
-<section id="bar:canon" class="level3">
-<h3>Barrier 1: canonicalisation — the witness space is a singleton</h3>
+<section id="bar:canon" class="level5">
+<h5>Barrier 1: canonicalisation — the witness space is a singleton</h5>
 <div class="prop" id="prop:canon">
 <p><strong>Proposition 2.2</strong> (Canonicalisation; <span
 class="smallcaps">proved</span>). <em> For the half-target in strictly
-superincreasing Mersenne weights, every finite object satisfying an
-approximate-hit condition at depth <span
-class="math inline" data-term-auto="off">\(d\)</span> <em>is</em> the canonical greedy prefix
-at depth <span class="math inline" data-term-auto="off">\(d\)</span>. Precisely: (i) every
-straddling word at depth <span class="math inline" data-term-auto="off">\(d\)</span> agrees
-bit-for-bit with the greedy support of <span
-class="math inline" data-term-auto="off">\(1/2\)</span> on <span
-class="math inline" data-term-auto="off">\((0,d]\)</span>; (ii) every below-half core <span
-class="math inline" data-term-auto="off">\(D\)</span> whose crossing deficit is smaller than
-the next weight is forced to equal <span
+superincreasing Mersenne weights, the three specified finite conditions
+below force the indicated canonical greedy word. The claim is not about
+every possible approximation condition. Precisely: (i) every straddling
+word at depth <span class="math inline" data-term-auto="off">\(d\)</span> agrees bit-for-bit
+with the greedy support of <span class="math inline" data-term-auto="off">\(1/2\)</span> on
+<span class="math inline" data-term-auto="off">\((0,d]\)</span>; (ii) every below-half core
+<span class="math inline" data-term-auto="off">\(D\)</span> whose crossing deficit is smaller
+than the next weight is forced to equal <span
 class="math inline" data-term-auto="off">\(\texttt{halfGreedyPrefixSupport}(c-1)\)</span>, so
 the universally quantified <span class="math inline" data-term-auto="off">\(\forall
 D\)</span> in the lane’s headline socket collapses onto one orbit; (iii)
@@ -1190,12 +1207,11 @@ bit-word. <code>coord:straddle-prefix / integer-greedy</code>
 class="sans-serif">[Lean]</span></span><br />
 <strong>Sites:</strong> ; ; .</em></p>
 </div>
-<p><strong>Rules out.</strong> Every argument whose leverage comes from
-<em>choosing</em> a favourable witness: a support <span
-class="math inline" data-term-auto="off">\(D\)</span>, a Boolean word, a straddle prefix, an
-adversarial late word, or a lattice/covering configuration. At each
-depth the admissible set has one element, so there is no choice to
-exploit and no adversary to defeat.</p>
+<p><strong>Excludes at fixed depth.</strong> Under the three
+canonicalisation hypotheses just stated, a proof cannot gain freedom by
+choosing a different admissible word for the same target and depth. This
+says nothing about families satisfying different approximation
+conditions, or about averaging over depths or auxiliary data.</p>
 <p><strong>Explains.</strong> Three recorded attack families die for
 exactly this reason, and their deaths look superficially unrelated. (1)
 <em>Generic lattice covering</em> proves the wrong sign: the free prefix
@@ -1242,8 +1258,8 @@ routes through fractional mass is already refuted. <span><span
 class="sans-serif">[Lean]</span></span></p>
 </div>
 </section>
-<section id="bar:collapse" class="level3">
-<h3>Barrier 2: route collapse — every “weaker producer” is the goal</h3>
+<section id="bar:collapse" class="level5">
+<h5>Barrier 2: route collapse — every “weaker producer” is the goal</h5>
 <p>This is the barrier that most consistently wastes effort, because the
 sockets it kills look strictly weaker on the page: they are <span
 class="math inline" data-term-auto="off">\(\Pi^0_2\)</span> statements (<span
@@ -1384,9 +1400,9 @@ yields only the one-sided statement <span
 class="math inline" data-term-auto="off">\(\texttt{hbound} \iff (1/2 - x_A) \le 0\)</span>.
 This limit must be stated verbatim wherever the equivalence is used.</p>
 </section>
-<section id="bar:scale" class="level3">
-<h3>Barrier 3: scale mismatch — the available information is at the
-wrong resolution</h3>
+<section id="bar:scale" class="level5">
+<h5>Barrier 3: scale mismatch — the available information is at the
+wrong resolution</h5>
 <p>The input the half-value branch actually needs is a per-index,
 growing-precision, <em>short-window</em> near-integer anti-concentration
 bound: at reset row <span class="math inline" data-term-auto="off">\(r\)</span>, a lower
@@ -1478,9 +1494,9 @@ class="smallcaps">observed pattern</span>, not a theorem, and is
 labelled as such wherever it is used below.</p>
 </div>
 </section>
-<section id="bar:asym" class="level3">
-<h3>Barrier 4: decision asymmetry — the certificates point the wrong
-way</h3>
+<section id="bar:asym" class="level5">
+<h5>Barrier 4: decision asymmetry — the certificates point the wrong
+way</h5>
 <div class="thm" id="thm:one-sided">
 <p><strong>Theorem 2.11</strong> (One-sidedness; <span
 class="smallcaps">proved</span>). <em> <span class="math inline" data-term-auto="off">\(1/2
@@ -1530,8 +1546,8 @@ orders of magnitude across the recorded history with no change in
 membership status. Accumulated survival is not, by itself, convergence
 toward a membership proof.</p>
 </section>
-<section id="bar:measure" class="level3">
-<h3>Barrier 5: measure and category point in opposite directions</h3>
+<section id="bar:measure" class="level5">
+<h5>Barrier 5: measure and category point in opposite directions</h5>
 <div class="prop" id="prop:soft">
 <p><strong>Proposition 2.12</strong> (Achievement-set geometry does not
 decide rational-target membership). <em> The achievement set has
@@ -1566,8 +1582,8 @@ measure-side object that cannot see a specific point of a nowhere-dense
 set of measure one. <span><span
 class="sans-serif">[Cert]</span></span></p>
 </section>
-<section id="bar:box" class="level3">
-<h3>Barrier 6: the two-axis certificate box (universal direction)</h3>
+<section id="bar:box" class="level5">
+<h5>Barrier 6: the two-axis certificate box (universal direction)</h5>
 <div class="obs" id="obs:box">
 <p><em>Observation 2.13</em> (The box; <span class="smallcaps">observed
 pattern</span>). Every landed unconditional theorem in the table of
@@ -1611,35 +1627,30 @@ class="math inline" data-term-auto="off">\(2\)</span> value open, since Tao–Te
 it by a different analytic method. The sunflower generalisation inherits
 both axes and therefore does not recover that external theorem.</p>
 </section>
-<section id="what-the-six-barriers-converge-on" class="level3">
-<h3>What the six barriers converge on</h3>
-<p>Both halves of #257 terminate at the same missing object, stated
-twice in two coordinates. On the half-value side it is a near-integer
-anti-concentration bound for <span class="math inline" data-term-auto="off">\(\sum_{i \le L}
-(\tau(M+i) - 1)\,2^{-i}\)</span>, a geometrically weighted divisor sum
-in a short interval. On the universal side it is the dense-branch
-producer: for a divisor-dense <span class="math inline" data-term-auto="off">\(A\)</span>, a
-block of <span class="math inline" data-term-auto="off">\(K\)</span> consecutive indices with
-<span class="math inline" data-term-auto="off">\(2^K \mid \sum_{r=1}^{K}
-\operatorname{sc}_A(N+r)\,2^{K-r}\)</span> and a bounded middle window.
-These are the same statement in the incidence coordinate. No proof of it
-is identified in this record, and the digit results cited above produce
-long runs or guarantee that patterns occur. The two directions meet at
-one missing estimate; this correspondence does not by itself show that
-one estimate settles every remaining obligation.</p>
+<section id="what-the-six-barriers-converge-on" class="level5">
+<h5>What the six barriers converge on</h5>
+<p>The half-target analysis involves a geometrically weighted divisor
+sum <span class="math inline" data-term-auto="off">\(\sum_{i\le
+L}(\tau(M+i)-1)2^{-i}\)</span> and possible near-integer estimates. One
+universal-support certificate instead asks for an opening divisible
+block together with a controlled middle window. These inputs are related
+through incidence identities, but the displayed arguments do not prove
+them equivalent for all supports. They should therefore be retained as
+separate obligations. Digit-pattern occurrence results do not by
+themselves supply either required uniform estimate.</p>
 </section>
 </section>
-<section id="sec:257-survivors" class="level2">
-<h2>What the wall does not block</h2>
+<section id="sec:257-survivors" class="level4">
+<h4>Extensions not excluded by these obstructions</h4>
 <p>Six barriers eliminate a great deal. What they do not eliminate is a
 short, specific list, and the point of the elimination is that this list
 is short. Each route below is given with the exact statement it needs,
 the barrier it evades, and <em>why</em> it evades it. Where a route
 evades every proved barrier but sits inside the class indicted by an
 observed pattern, that is said plainly.</p>
-<section id="ssec:route-1" class="level3">
-<h3>Route 1: the reset <span class="math inline" data-term-auto="off">\(\sqrt{\
-}\)</span>-escape / R-run anti-concentration target</h3>
+<section id="ssec:route-1" class="level5">
+<h5>Route 1: the reset <span class="math inline" data-term-auto="off">\(\sqrt{\
+}\)</span>-escape / R-run anti-concentration target</h5>
 <p><strong>What it needs.</strong> One of the first two forms below, in
 decreasing strength; the sign law (iii) is a weaker target whose
 transport to half-membership is untested.</p>
@@ -1714,8 +1725,8 @@ the same frontier viewed from the two sides, which is the honest reason
 it is listed first: it is where the real mathematics has to be done, not
 a way around it. <span><span class="sans-serif">[Open]</span></span></p>
 </section>
-<section id="ssec:route-2" class="level3">
-<h3>Route 2: strict endpoint progress for exact rows</h3>
+<section id="ssec:route-2" class="level5">
+<h5>Route 2: strict endpoint progress for exact rows</h5>
 <p><strong>What it needs.</strong> Rule out the recycle branch returning
 to a bounded endpoint forever. Any one of:</p>
 <ol>
@@ -1776,9 +1787,9 @@ so the data here is a two-sided observable rather than a one-sided
 survival lower bound — a real softening of Barrier <a class="math-ref" href="#bar:asym">2.5</a>, though not an escape from
 it.</p>
 </section>
-<section id="ssec:route-3" class="level3">
-<h3>Route 3 audit: the prime-support theorem is known outside this
-formal corpus</h3>
+<section id="ssec:route-3" class="level5">
+<h5>Route 3 audit: the prime-support theorem is known outside this
+formal corpus</h5>
 <p>The base-<span class="math inline" data-term-auto="off">\(2\)</span> prime-support value
 is not an open target:</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\sum_{p\ {\rm
@@ -1803,8 +1814,8 @@ prime-power extensions with modifications omitted in the cited version;
 this paper records only the fully proved base-<span
 class="math inline" data-term-auto="off">\(2\)</span> theorem.</p>
 </section>
-<section id="ssec:route-4" class="level3">
-<h3>Route 4: land the route-collapse equivalences</h3>
+<section id="ssec:route-4" class="level5">
+<h5>Route 4: land the route-collapse equivalences</h5>
 <p><strong>What it needs.</strong> Five biconditionals, each with <span
 class="math inline" data-term-auto="off">\(1/2 \in \mathcal{A}\)</span> on the right-hand
 side: the <code>hbound</code> hypothesis of the two
@@ -1831,8 +1842,8 @@ class="math inline" data-term-auto="off">\(\sqrt{\cdot}\)</span> mismatch that p
 blocked two of the five, and it needs no widening of the strip
 constant.</p>
 </section>
-<section id="ssec:route-5" class="level3">
-<h3>Route 5: the sparse/dense trichotomy closure</h3>
+<section id="ssec:route-5" class="level5">
+<h5>Route 5: the sparse/dense trichotomy closure</h5>
 <p><strong>What it needs.</strong> An unconditional</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[A \text{ infinite} \;\Longrightarrow\;
@@ -1866,37 +1877,35 @@ different coordinate, and a proof might be easier there — but it is a
 reason not to count it as an independent line of attack. <span><span
 class="sans-serif">[Open]</span></span></p>
 </section>
-<section id="ranking-stated-plainly" class="level3">
-<h3>Ranking, stated plainly</h3>
-<p>Route 4 is the only one that can be completed with the mathematics
-currently in hand; it produces theorems, not progress on the wall. Route
-3 concerns the prime-support constant, which Tao and Teräväinen have
-proved irrational <span class="citation"
-data-cites="taoteravainen2025"><a href="#ref-7">[7]</a></span>; completing it would reprove that
-theorem in the coordinates of this record, and its missing input is a
-windowed Mertens estimate, which is ordinary analytic number theory.
-Route 2 is the only place in the half-value branch with a non-singleton
-witness space, which makes it the best target for search. Route 1 is
-where the actual obstruction lives, and Route 5 is Route 1 in another
-coordinate. Neither problem is close to being solved, and no route above
-is a proof of anything.</p>
+<section id="comparison-of-the-remaining-inputs" class="level5">
+<h5>Comparison of the remaining inputs</h5>
+<p>Route 4 packages recorded equivalences; it does not establish their
+unproved existence hypotheses. Route 3 must be compared with the
+external prime-support theorem of Tao and Teräväinen <span
+class="citation" data-cites="taoteravainen2025"></span>; reproducing it
+in this framework requires its own analytic input. Route 2 offers a
+different finite search space under the conditions stated there.
+Routes 1 and 5 share some incidence identities, but this is not a proof
+that every missing hypothesis is equivalent. The appropriate comparison
+is the input each route needs, its quantifiers, and what a successful
+estimate would imply.</p>
 </section>
 </section>
-<section id="sec:257-howto" class="level2">
-<h2>Reading the detailed record</h2>
+<section id="sec:257-howto" class="level4">
+<h4>Reading the detailed record</h4>
 <p>The opening note has already defined the evidence bands, scale tags,
 coordinates, and catalogue terminology. The longer record has two
 different reading modes, and they should not be confused.</p>
-<section id="read-linearly." class="level5">
-<h5>Read linearly.</h5>
+<section id="read-linearly." class="level7">
+<p class="heading">Read linearly.</p>
 <p>Sections <a class="math-ref" href="#sec:257-wall">2</a> and
 <a class="math-ref" href="#sec:257-survivors">3</a> form one
 argument: the first identifies the recurring obstructions, and the
 second isolates the routes those obstructions do not exclude. Read them
 in order before selecting a new attack.</p>
 </section>
-<section id="use-as-reference." class="level5">
-<h5>Use as reference.</h5>
+<section id="use-as-reference." class="level7">
+<p class="heading">Use as reference.</p>
 <p>The mathematical-ingredient catalogue may be entered by coordinate:
 the certificate method and universal-direction record; the greedy and
 achievement-set geometry; the seam model, master identity, and dynamics;
@@ -1905,8 +1914,8 @@ results. The later implication tables record what chains with what,
 while the near-miss index gives the exact mismatch at each open
 obligation.</p>
 </section>
-<section id="scale-and-coordinate-discipline." class="level5">
-<h5>Scale and coordinate discipline.</h5>
+<section id="scale-and-coordinate-discipline." class="level7">
+<p class="heading">Scale and coordinate discipline.</p>
 <p>The direct certified instances remain fixed or bounded — rungs <span
 class="math inline" data-term-auto="off">\(J \le 22\)</span>, seam rows <span
 class="math inline" data-term-auto="off">\(\le 200{,}000\)</span>, ranks <span
@@ -1917,14 +1926,19 @@ a bounded range does not establish a cofinal statement. Coordinate tags
 are equally literal: an obstruction in <code>coord:half-carry</code>,
 <code>coord:seam-row</code>, or <code>coord:diophantine</code> does not
 transfer to another representation without a proved map. Coordinate-free
-barriers are marked explicitly.</p>
+barriers are marked explicitly. </p>
 </section>
 </section>
+</section>
+<section id="iii.-detailed-statement-and-arithmetic-catalogue"
+class="level2 unnumbered">
+<h2 class="unnumbered">III. Detailed statement and arithmetic
+catalogue</h2>
 <section id="the-object-the-two-questions-and-the-exact-record"
-class="level2">
-<h2>The object, the two questions, and the exact record</h2>
-<section id="the-object" class="level3">
-<h3>The object</h3>
+class="level4">
+<h4>The object, the two questions, and the exact record</h4>
+<section id="the-object" class="level5">
+<h5>The object</h5>
 <p>Fix the Mersenne weight function <span class="math inline" data-term-auto="off">\(x_n :=
 1/(2^n-1)\)</span> for integers <span class="math inline" data-term-auto="off">\(n \ge
 2\)</span>. For a set <span class="math inline" data-term-auto="off">\(A \subseteq
@@ -1985,10 +1999,10 @@ class="sans-serif">scale:n/a</span></span> <span><span
 class="sans-serif">[Math]</span></span></p>
 </div>
 </section>
-<section id="what-is-proved" class="level3">
-<h3>What is proved</h3>
-<section id="full-support-irrationality-for-every-base" class="level4">
-<h4>Full-support irrationality, for every base</h4>
+<section id="what-is-proved" class="level5">
+<h5>What is proved</h5>
+<section id="full-support-irrationality-for-every-base" class="level6">
+<h6>Full-support irrationality, for every base</h6>
 <div class="thm" id="thm:full-support">
 <p><strong>Theorem 5.4</strong> (Full-support irrationality,
 unconditional, every base <span class="math inline" data-term-auto="off">\(b \ge 2\)</span>).
@@ -2020,8 +2034,8 @@ absolute value greater than one. The base-two Erdős–Borwein constant is
 a particular case; the Lean theorem is landed with no open
 hypotheses.</p>
 </section>
-<section id="named-infinite-support-families" class="level4">
-<h4>Named infinite-support families</h4>
+<section id="named-infinite-support-families" class="level6">
+<h6>Named infinite-support families</h6>
 <p>Beyond full support (<span class="math inline" data-term-auto="off">\(A =
 \{1,2,3,\dots\}\)</span>, i.e. <span class="math inline" data-term-auto="off">\(m=1\)</span>
 below), the following named infinite families are each proved irrational
@@ -2107,8 +2121,8 @@ the structured-support corner of universal #257’s infinite search
 space.</p>
 </section>
 <section id="topology-and-measure-of-the-achievement-set"
-class="level4">
-<h4>Topology and measure of the achievement set</h4>
+class="level6">
+<h6>Topology and measure of the achievement set</h6>
 <div class="thm" id="thm:topology">
 <p><strong>Theorem 5.9</strong> (Achievement-set topology and measure).
 <em> <span class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> (Definition <a class="math-ref" href="#defn:half-question">5.2</a>) is compact,
@@ -2164,8 +2178,8 @@ class="sans-serif">[Lean]</span></span><br />
 </div>
 </section>
 </section>
-<section id="ssec:greedy-orbit" class="level3">
-<h3>The greedy orbit, exactly</h3>
+<section id="ssec:greedy-orbit" class="level5">
+<h5>The greedy orbit, exactly</h5>
 <p>Fix the target <span class="math inline" data-term-auto="off">\(1/2\)</span> and the
 weights <span class="math inline" data-term-auto="off">\(x_n = 1/(2^n-1)\)</span>. Here <span
 class="math inline" data-term-auto="off">\(x_1=1\)</span>, so exponent one cannot occur in a
@@ -2224,8 +2238,8 @@ class="sans-serif">scale:uniform</span></span> <span><span
 class="sans-serif">[Math]</span></span></p>
 </div>
 </section>
-<section id="ssec:seam-model" class="level3">
-<h3>The seam model and the master identity</h3>
+<section id="ssec:seam-model" class="level5">
+<h5>The seam model and the master identity</h5>
 <p>The seam model is a base-<span class="math inline" data-term-auto="off">\(4\)</span>
 rescaled integer reformulation of Definition <a class="math-ref" href="#defn:greedy-orbit">5.11</a>, built so that
 every quantity involved is an exact natural number (no real-number or
@@ -2319,8 +2333,8 @@ composes directly through (I).</em></p>
 </div>
 </section>
 <section id="the-real-form-and-the-master-identitys-analytic-reading"
-class="level3">
-<h3>The real form and the master identity’s analytic reading</h3>
+class="level5">
+<h5>The real form and the master identity’s analytic reading</h5>
 <div class="thm" id="thm:real-form">
 <p><strong>Theorem 5.15</strong> (Real (non-integer) form of the master
 identity). <em> Let <span class="math inline" data-term-auto="off">\(x_d :=
@@ -2364,8 +2378,8 @@ template, not yet matched to any analogous constant on the #249
 side.</em></p>
 </div>
 </section>
-<section id="dynamics" class="level3">
-<h3>Dynamics</h3>
+<section id="dynamics" class="level5">
+<h5>Dynamics</h5>
 <div class="thm" id="thm:dynamics">
 <p><strong>Theorem 5.16</strong> (Deviation dynamics and the R/M/U branch
 structure). <em> Let <span class="math inline" data-term-auto="off">\(\lambda_n := \Delta_n /
@@ -2413,8 +2427,8 @@ derived, under the coordinate name <span class="math inline" data-term-auto="off
 record).</em></p>
 </div>
 </section>
-<section id="ssec:anchors" class="level3">
-<h3>Every anchor</h3>
+<section id="ssec:anchors" class="level5">
+<h5>Every anchor</h5>
 <p>The following are exact, certified numerical facts about the seam
 orbit of §<a class="math-ref" href="#ssec:seam-model">5.4</a>–§<a class="math-ref" href="#ssec:seam-model">5.4</a>, stated literally
 so they can be used as regression fixtures without re-running any
@@ -2496,8 +2510,8 @@ scale/evidence tag reflects only what its cited source claims for
 it.</p>
 </section>
 </section>
-<section id="catalogue-of-mathematical-ingredients" class="level2">
-<h2>Catalogue of mathematical ingredients</h2>
+<section id="catalogue-of-mathematical-ingredients" class="level4">
+<h4>Catalogue of mathematical ingredients</h4>
 <p>This section catalogues machinery for Erdős #257 (is <span
 class="math inline" data-term-auto="off">\(\sum_{n\in A} 1/(2^n-1)\)</span> irrational for
 every infinite <span
@@ -2519,8 +2533,8 @@ numerals). Within each subsection entries are ordered by scale: fixed
 class="math inline" data-term-auto="off">\(&lt;\)</span> cofinal <span
 class="math inline" data-term-auto="off">\(&lt;\)</span> uniform <span
 class="math inline" data-term-auto="off">\(&lt;\)</span> n/a.</p>
-<section id="open-hypotheses-and-candidate-inputs" class="level3">
-<h3>Open hypotheses and candidate inputs</h3>
+<section id="open-hypotheses-and-candidate-inputs" class="level5">
+<h5>Open hypotheses and candidate inputs</h5>
 <div class="thm" id="thm:fatal-absorbing">
 <p><strong>Theorem 6.1</strong> (Cofinal skip forces half-membership).
 <em> Fatality is absorbing for the greedy Mersenne recursion at target
@@ -2903,8 +2917,8 @@ data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>.</em></p>
 class="sans-serif">scale:uniform</span></span><code>coord:periodic-sieve</code>
 </em></p>
 </div>
-<section id="comparison-with-the-known-theorem." class="level5">
-<h5>Comparison with the known theorem.</h5>
+<section id="comparison-with-the-known-theorem." class="level7">
+<p class="heading">Comparison with the known theorem.</p>
 <p>Luca and Tachiya proved irrationality for every nonzero purely
 periodic integer weight, of any signs <span class="citation"
 data-cites="lucatachiya2017"><a href="#ref-3">[3]</a></span>, so the terminating branch below
@@ -2952,23 +2966,26 @@ class="sans-serif">scale:uniform</span></span><code>coord:cyclotomic</code>
 </div>
 <div class="thm" id="thm:mersenne-channel-growth">
 <p><strong>Theorem 6.25</strong> (Mersenne-channel exponential denominator
-growth). <em> Via Bertrand’s postulate, at every scale <span
-class="math inline" data-term-auto="off">\(t\ge 5\)</span> there is an upper-half prime <span
-class="math inline" data-term-auto="off">\(p\)</span> with <span
-class="math inline" data-term-auto="off">\(2^{t/2}\le
-2^{p-1}\le\mathrm{mersenne}(p)\)</span>, giving the explicit exponential
-lower bound <span class="math inline" data-term-auto="off">\(2^{t/2}\le(\text{reduced
-denominator of the scaled M\&quot;obius shadow at LCM-height
-}t)\)</span>. The exact reduced denominator at every LCM height is also
-computed in closed form.</em></p>
+growth). <em> Let <span class="math inline" data-term-auto="off">\(D_t\)</span> denote the
+reduced denominator of the scaled Möbius shadow at LCM-height <span
+class="math inline" data-term-auto="off">\(t\)</span>. The cited upper-half prime estimate
+gives, for every <span class="math inline" data-term-auto="off">\(t\ge5\)</span>, a prime
+<span class="math inline" data-term-auto="off">\(p\)</span> with </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[2^{t/2}\le 2^{p-1}\le\mathrm{mersenne}(p)\le
+D_t.\]</span></div>
+<p><em> Thus <span class="math inline" data-term-auto="off">\(D_t\ge2^{t/2}\)</span>.
+The second cited result also gives an exact formula for <span
+class="math inline" data-term-auto="off">\(D_t\)</span>. This denominator estimate is not by
+itself an approximation-error bound.</em></p>
 <p><em><span><span class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:uniform</span></span><code>coord:cyclotomic</code>
 </em></p>
 </div>
 </section>
 </section>
-<section id="exact-identities-and-reductions" class="level3">
-<h3>Exact identities and reductions</h3>
+<section id="exact-identities-and-reductions" class="level5">
+<h5>Exact identities and reductions</h5>
 <div class="obs" id="obs:half-regression">
 <p><em>Observation 6.26</em> (Half-greedy regression fixtures: exact
 rational checkpoints). Three closed numeric facts,
@@ -3778,14 +3795,14 @@ class="sans-serif">scale:n/a</span></span><code>coord:abstract-perturbed-greedy<
 </em></p>
 </div>
 </section>
-<section id="consequence-theorems" class="level3">
-<h3>Consequence theorems</h3>
+<section id="consequence-theorems" class="level5">
+<h5>Consequence theorems</h5>
 <p>The BooleanMöbius lane (repo root
 <code>Erdos257PeriodNoncollapse/</code>, mirrored at
 <code>Erdos249257/</code> for the modules that have been made public) is
 where the reduction of Erdős #257 to a single arithmetic socket actually
-lives. Sixteen of its modules have never been published:
-<code>BooleanMobiusCofinalExactRows</code>,
+lives. Sixteen of its modules were described as unpublished in the
+historical source fragment: <code>BooleanMobiusCofinalExactRows</code>,
 <code>BooleanMobiusCriticalCapacityCofinal</code>,
 <code>BooleanMobiusCriticalCapacityGeometric</code>,
 <code>BooleanMobiusExactRowCrossing</code>,
@@ -3801,8 +3818,8 @@ lives. Sixteen of its modules have never been published:
 <code>BooleanMobiusSkipRowCofinal</code>,
 <code>BooleanMobiusSkippedCoreCriticalCapacity</code>,
 <code>BooleanMobiusSkippedCoreExactRow</code>; plus three sibling
-modules on the half-membership track, also never published:
-<code>HalfGapMass</code>, <code>HalfGreedyFatalGap</code>,
+modules on the half-membership track, likewise described there as
+unpublished: <code>HalfGapMass</code>, <code>HalfGreedyFatalGap</code>,
 <code>HalfUpperResetCriticalBand</code>. Every one of the nineteen is
 covered below. Consumers in this subsection are theorems whose
 conclusion is a genuine payoff (<span
@@ -3810,8 +3827,8 @@ class="math inline" data-term-auto="off">\((1/2:\mathbb{R})\in\mathrm{mersenneAc
 or an infinite counterexample support) but whose hypothesis is an
 unsupplied predicate. Every such hypothesis is displayed, not buried in
 prose: that predicate is the actual target.</p>
-<section id="the-load-bearing-definitions" class="level4 unnumbered">
-<h4 class="unnumbered">The load-bearing definitions</h4>
+<section id="the-load-bearing-definitions" class="level6 unnumbered">
+<h6 class="unnumbered">The load-bearing definitions</h6>
 <div class="defn">
 <p><strong>Definition 6.63</strong> (257bm:d1 —
 <code>ExactLocalMersenneHalfRow</code>). For <span
@@ -3886,8 +3903,8 @@ says nothing about this predicate.</p>
 <code>coord:mobius-mersenne</code> </p>
 </div>
 </section>
-<section id="the-two-payoff-consumers" class="level4 unnumbered">
-<h4 class="unnumbered">The two payoff consumers</h4>
+<section id="the-two-payoff-consumers" class="level6 unnumbered">
+<h6 class="unnumbered">The two payoff consumers</h6>
 <div class="thm">
 <p><strong>Theorem 6.67</strong> (257bm:c1 —
 <code>half_mem_mersenneAchievementSet_of_cofinalExactLocalRows</code>,
@@ -3945,9 +3962,9 @@ further combinatorial search.</em></p>
 </section>
 <section
 id="the-coherent-repair-consumer-superseded-kept-as-a-fallback-target"
-class="level4 unnumbered">
-<h4 class="unnumbered">The coherent-repair consumer (superseded, kept as
-a fallback target)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">The coherent-repair consumer (superseded, kept as
+a fallback target)</h6>
 <div class="thm">
 <p><strong>Theorem 6.69</strong> (257bm:c3 —
 <code>GlobalBooleanMobiusRepairFeasible</code>). <em>A repair <span
@@ -3980,8 +3997,8 @@ Kept as a fallback target only; 257bm:c1/c2 supersede it.</em></p>
 </div>
 </section>
 <section id="the-critical-quotient-supply-consumer-chain"
-class="level4 unnumbered">
-<h4 class="unnumbered">The critical-quotient-supply consumer chain</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">The critical-quotient-supply consumer chain</h6>
 <div class="thm">
 <p><strong>Theorem 6.70</strong> (257bm:c4 —
 <code>SkippedCoreCriticalQuotientSupply</code>, THE REMAINING OPEN
@@ -4106,9 +4123,9 @@ target.</em></p>
 </div>
 </section>
 <section id="two-unconditional-fill-consumers-booleanmobiusskiprow"
-class="level4 unnumbered">
-<h4 class="unnumbered">Two unconditional fill consumers
-(<code>BooleanMobiusSkipRow</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Two unconditional fill consumers
+(<code>BooleanMobiusSkipRow</code>)</h6>
 <div class="thm">
 <p><strong>Theorem 6.75</strong> (257bm:c7 —
 <code>exists_exactRowStrictUpperFill_of_skippedCoreSharpCapacity</code>).
@@ -4173,9 +4190,9 @@ core without any capacity input. This is the base construction
 </section>
 <section
 id="the-dyadic-band-quantifier-collapse-consumer-halfupperresetcriticalband"
-class="level4 unnumbered">
-<h4 class="unnumbered">The dyadic-band quantifier-collapse consumer
-(<code>HalfUpperResetCriticalBand</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">The dyadic-band quantifier-collapse consumer
+(<code>HalfUpperResetCriticalBand</code>)</h6>
 <div class="thm">
 <p><strong>Theorem 6.79</strong> (257bm:c11 —
 <code>DyadicBandEscape</code> <span
@@ -4222,10 +4239,10 @@ side condition in practice.</em></p>
 </section>
 <section
 id="the-frozen-margin-consumer-family-halfcylinderfullshellseambridge-half-membership-track"
-class="level4 unnumbered">
-<h4 class="unnumbered">The frozen-margin consumer family
+class="level6 unnumbered">
+<h6 class="unnumbered">The frozen-margin consumer family
 (<code>HalfCylinderFullShellSeamBridge</code>, half-membership
-track)</h4>
+track)</h6>
 <p>Three graded sockets, strongest hypothesis to weakest, all funnel
 into the same endpoint <span
 class="math inline" data-term-auto="off">\(\mathrm{half\_mem\_mersenneAchievementSet\_of\_governedFrozenMarginProducer}\)</span>.</p>
@@ -4272,9 +4289,9 @@ across this whole lane as a proof-engineering idiom.</em></p>
 </div>
 </section>
 <section id="two-square-root-scale-consumers-half-membership-track"
-class="level4 unnumbered">
-<h4 class="unnumbered">Two square-root-scale consumers (half-membership
-track)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Two square-root-scale consumers (half-membership
+track)</h6>
 <div class="thm">
 <p><strong>Theorem 6.84</strong> (257rig:c16 — a square-root carry bound
 implies half-membership). <em>Write <span
@@ -4339,8 +4356,8 @@ frozen-prefix carry (needed by 257bm:c7’s fill) and the live-orbit carry
 </div>
 </section>
 <section id="the-non-effective-horizon-consumer"
-class="level4 unnumbered">
-<h4 class="unnumbered">The non-effective horizon consumer</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">The non-effective horizon consumer</h6>
 <div class="thm">
 <p><strong>Theorem 6.87</strong> (257bm:c19 — the non-effective
 frozen-margin consumer). <em>At every dyadically safe rank <span
@@ -4364,15 +4381,17 @@ would close it: <span
 class="math inline" data-term-auto="off">\(\mathrm{margin}(k,J)\ge0\)</span> as soon as <span
 class="math inline" data-term-auto="off">\((k+J+3)/2^J &lt;
 |\mathrm{halfGreedyNextDyadicExcessNumerator}(k)|/\mathrm{halfGreedyPrefixDenominator}(k)\)</span>
-— pure bookkeeping over existing lemmas, no new idea.</em></p>
+The displayed inequality remains an obligation: the cited identities
+alone do not prove that the required margin holds at that prescribed
+horizon.</em></p>
 <p><em> <span><span class="sans-serif">scale:uniform</span></span>
 <code>coord:other:frozen-margin</code> </em></p>
 </div>
 </section>
 <section id="the-equivalence-cofinalpositivehalfgreedyskips-reduces-to"
-class="level4 unnumbered">
-<h4 class="unnumbered">The equivalence
-<code>CofinalPositiveHalfGreedySkips</code> reduces to</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">The equivalence
+<code>CofinalPositiveHalfGreedySkips</code> reduces to</h6>
 <div class="thm">
 <p><strong>Theorem 6.88</strong> (257bm:c20 — half-membership is
 equivalent to infinitely many greedy skips). <em></em></p>
@@ -4391,16 +4410,16 @@ reason this restatement does not itself prove membership.</em></p>
 </div>
 </section>
 </section>
-<section id="invariants" class="level3">
-<h3>Invariants</h3>
+<section id="invariants" class="level5">
+<h5>Invariants</h5>
 <p>Invariants are unconditional identities, monotonicity facts, and
 quantitative bounds that hold regardless of which branch of the lane’s
 case splits fires. They are the load-bearing algebra every producer and
 consumer above is built from.</p>
 <section id="endpoint-transition-algebra-booleanmobiusexacttransition"
-class="level4 unnumbered">
-<h4 class="unnumbered">Endpoint transition algebra
-(<code>BooleanMobiusExactTransition</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Endpoint transition algebra
+(<code>BooleanMobiusExactTransition</code>)</h6>
 <div class="thm">
 <p><strong>Theorem 6.89</strong> (257bm:i1a —
 <code>localMersenneQuotient_endpoint_succ</code>). <em>Exact one-step
@@ -4451,10 +4470,10 @@ cofinal-exact-row route of this catalogue.</em></p>
 </section>
 <section
 id="capacity-identities-booleanmobiusskippedcorecriticalcapacity-booleanmobiusskippedcoreexactrow"
-class="level4 unnumbered">
-<h4 class="unnumbered">Capacity identities
+class="level6 unnumbered">
+<h6 class="unnumbered">Capacity identities
 (<code>BooleanMobiusSkippedCoreCriticalCapacity</code>,
-<code>BooleanMobiusSkippedCoreExactRow</code>)</h4>
+<code>BooleanMobiusSkippedCoreExactRow</code>)</h6>
 <div class="defn">
 <p><strong>Definition 6.92</strong> (257bm:i-cap — the sharp capacity
 test). For <span class="math inline" data-term-auto="off">\(c\ge4\)</span>, <span
@@ -4521,9 +4540,9 @@ this corpus.</em></p>
 </div>
 </section>
 <section id="doubling-branch-invariants-booleanmobiusexactrowranktwo"
-class="level4 unnumbered">
-<h4 class="unnumbered">Doubling-branch invariants
-(<code>BooleanMobiusExactRowRankTwo</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Doubling-branch invariants
+(<code>BooleanMobiusExactRowRankTwo</code>)</h6>
 <div class="thm">
 <p><strong>Theorem 6.95</strong> (257bm:i7 —
 <code>localBinarySuffix_two_mul_sub_one_lt_upperWindow_of_exact_below</code>).
@@ -4560,9 +4579,9 @@ needs separate discharge downstream.</em></p>
 </div>
 </section>
 <section id="base-case-fixture-booleanmobiusexactrowseed"
-class="level4 unnumbered">
-<h4 class="unnumbered">Base-case fixture
-(<code>BooleanMobiusExactRowSeed</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Base-case fixture
+(<code>BooleanMobiusExactRowSeed</code>)</h6>
 <div class="defn">
 <p><strong>Definition 6.97</strong> (257bm:i-seed —
 <code>exactRowSixSupport</code>, the smallest exact row). <span
@@ -4583,9 +4602,9 @@ valid seed.</p>
 </div>
 </section>
 <section id="global-repair-invariants-booleanmobiusglobalrepair"
-class="level4 unnumbered">
-<h4 class="unnumbered">Global-repair invariants
-(<code>BooleanMobiusGlobalRepair</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Global-repair invariants
+(<code>BooleanMobiusGlobalRepair</code>)</h6>
 <div class="prop">
 <p><strong>Proposition 6.98</strong> (257bm:i9 —
 <code>abs_localMersennePrefixValue_sub_half_le</code>). <em>An exact row
@@ -4612,9 +4631,9 @@ infinite.</em></p>
 </div>
 </section>
 <section id="greedy-window-uniqueness-booleanmobiusgreedyreduction"
-class="level4 unnumbered">
-<h4 class="unnumbered">Greedy-window uniqueness
-(<code>BooleanMobiusGreedyReduction</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Greedy-window uniqueness
+(<code>BooleanMobiusGreedyReduction</code>)</h6>
 <div class="thm">
 <p><strong>Theorem 6.100</strong> (257bm:i11a —
 <code>remainder_lt_gap_iff_eq_integerGreedyBits</code>). <em>Under gap
@@ -4654,9 +4673,9 @@ principle instantiated by 257rig:i3 (the wall).</em></p>
 </section>
 <section
 id="geometric-normal-form-booleanmobiuscriticalcapacitygeometric"
-class="level4 unnumbered">
-<h4 class="unnumbered">Geometric normal form
-(<code>BooleanMobiusCriticalCapacityGeometric</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Geometric normal form
+(<code>BooleanMobiusCriticalCapacityGeometric</code>)</h6>
 <div class="thm">
 <p><strong>Theorem 6.103</strong> (257bm:i12 — division-free
 re-coordinatisation of the sharp capacity iff). <em><span
@@ -4678,9 +4697,9 @@ to any base <span class="math inline" data-term-auto="off">\(b\)</span>.</em></p
 </div>
 </section>
 <section id="growth-bound-invariants-for-the-generic-layer"
-class="level4 unnumbered">
-<h4 class="unnumbered">Growth-bound invariants for the generic
-layer</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Growth-bound invariants for the generic
+layer</h6>
 <div class="thm">
 <p><strong>Theorem 6.104</strong> (257bm:i2 —
 <code>binaryCoeffTail_le</code>, public). <em>For <span
@@ -4751,9 +4770,9 @@ machinery, closing the loop that makes T7 the actual engine behind
 </section>
 <section
 id="rigidity-corollaries-directly-constraining-a-rational-257-support"
-class="level4 unnumbered">
-<h4 class="unnumbered">Rigidity corollaries directly constraining a
-rational #257 support</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Rigidity corollaries directly constraining a
+rational #257 support</h6>
 <p>These five invariants
 (<code>RationalSupportCarrySkeleton.lean</code>,
 <code>SublogDivisorCoverage.lean</code>,
@@ -4867,9 +4886,9 @@ just algebra, not a rigidity result on its own.</em></p>
 </div>
 </section>
 <section id="first-crossing-machinery-booleanmobiusexactrowcrossing"
-class="level4 unnumbered">
-<h4 class="unnumbered">First-crossing machinery
-(<code>BooleanMobiusExactRowCrossing</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">First-crossing machinery
+(<code>BooleanMobiusExactRowCrossing</code>)</h6>
 <div class="defn">
 <p><strong>Definition 6.113</strong> (257bm:i-cross —
 <code>localMersenneCrossingRanks</code>).</p>
@@ -4914,9 +4933,9 @@ if restated with a different weight function.</em></p>
 </section>
 <section
 id="möbius-centred-carry-nonnegativity-and-the-skipped-rank-trichotomy-half-membership-track"
-class="level4 unnumbered">
-<h4 class="unnumbered">Möbius-centred carry nonnegativity and the
-skipped-rank trichotomy (half-membership track)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Möbius-centred carry nonnegativity and the
+skipped-rank trichotomy (half-membership track)</h6>
 <div class="thm">
 <p><strong>Theorem 6.115</strong> (257hg:i6 —
 <code>mobiusCenteredHalfCarry_nonneg_of_supportSeries_lt_half</code>
@@ -4970,8 +4989,8 @@ that the corpus has managed to exclude so far.</em></p>
 <code>coord:other:frozen-margin</code> </em></p>
 </div>
 </section>
-<section id="total-gap-mass-halfgapmass" class="level4 unnumbered">
-<h4 class="unnumbered">Total gap mass (<code>HalfGapMass</code>)</h4>
+<section id="total-gap-mass-halfgapmass" class="level6 unnumbered">
+<h6 class="unnumbered">Total gap mass (<code>HalfGapMass</code>)</h6>
 <div class="defn">
 <p><strong>Definition 6.117</strong> (257hg:i1 — the Mersenne gap). Let
 <span class="math inline" data-term-auto="off">\(g_n:=w_n-T_n&gt;0\)</span>, the per-level
@@ -5004,9 +5023,9 @@ measure-theoretic rather than single-point argument.</em></p>
 </div>
 </section>
 <section id="the-sharp-fatal-gap-criterion-halfgreedyfatalgap"
-class="level4 unnumbered">
-<h4 class="unnumbered">The sharp fatal-gap criterion
-(<code>HalfGreedyFatalGap</code>)</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">The sharp fatal-gap criterion
+(<code>HalfGreedyFatalGap</code>)</h6>
 <div class="defn">
 <p><strong>Definition 6.119</strong> (257hg:i3 —
 <code>mersenneTailLB3</code>, the three-channel Lambert lower bound).
@@ -5065,10 +5084,10 @@ exact declaration names are linked below.</em></p>
 </section>
 <section
 id="two-sided-dyadic-scale-control-halfcylindermiddlecarrylowerbound-feeds-halfupperresetcriticalband"
-class="level4 unnumbered">
-<h4 class="unnumbered">Two-sided dyadic-scale control
+class="level6 unnumbered">
+<h6 class="unnumbered">Two-sided dyadic-scale control
 (<code>HalfCylinderMiddleCarryLowerBound</code>, feeds
-<code>HalfUpperResetCriticalBand</code>)</h4>
+<code>HalfUpperResetCriticalBand</code>)</h6>
 <div class="thm">
 <p><strong>Theorem 6.122</strong> (257bm:i13 —
 <code>SeamTwoSidedDyadicCellEscape.twoSided</code>). <em>Given a minimal
@@ -5113,9 +5132,9 @@ proving the general band-avoidance arithmetically (which is what
 </section>
 <section
 id="abstract-fully-problem-agnostic-invariants-read-alongside-this-lane"
-class="level4 unnumbered">
-<h4 class="unnumbered">Abstract, fully problem-agnostic invariants read
-alongside this lane</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Abstract, fully problem-agnostic invariants read
+alongside this lane</h6>
 <div class="thm">
 <p><strong>Theorem 6.124</strong> (257bm:i15 —
 <code>PerturbedFamily</code>, <code>AdjacentCut</code>, the abstract
@@ -5198,8 +5217,8 @@ divisor-coefficient bookkeeping, e.g. #249’s own divisor sums.</em></p>
 </div>
 </section>
 </section>
-<section id="obstructions-and-countermodels" class="level3">
-<h3>Obstructions and countermodels</h3>
+<section id="obstructions-and-countermodels" class="level5">
+<h5>Obstructions and countermodels</h5>
 <p>Every record below is a HAZARD RECORD: a proof that some
 plausible-looking route to cofinality, either does not work, or provably
 cannot work as stated. These are load-bearing warnings, not merely
@@ -5537,8 +5556,8 @@ socket (i) outright.</em></p>
 <code>coord:other:mobius-centred-carry</code> </em></p>
 </div>
 </section>
-<section id="recently-added-declarations" class="level3">
-<h3>Recently added declarations</h3>
+<section id="recently-added-declarations" class="level5">
+<h5>Recently added declarations</h5>
 <p>The modules surveyed above were read at an earlier snapshot. Four
 already-public modules have since grown by union merge, and one wholly
 new problem-centric tree, <code>ErdosProblems/Erdos257/</code>, has been
@@ -5546,8 +5565,8 @@ published alongside the legacy <code>Erdos249257</code> namespace. This
 subsection catalogues only the declarations the earlier parts do not
 cite. None of it decides O1–O5 above; it fills in machinery that those
 targets’ own producer chains were stated abstractly against.</p>
-<section id="the-middle-cell-update-step-chain" class="level4">
-<h4>The middle-cell update-step chain</h4>
+<section id="the-middle-cell-update-step-chain" class="level6">
+<h6>The middle-cell update-step chain</h6>
 <p>The O5 discussion above states
 <code>SeamTwoSidedDyadicCellEscape</code> and
 <code>SeamUpperResetDyadicBandEscape</code> as named hypotheses without
@@ -5626,8 +5645,8 @@ obstruction, nothing more.</p>
 </div>
 </section>
 <section id="forgetting-witnesses-the-terminal-only-bridge"
-class="level4">
-<h4>Forgetting witnesses: the terminal-only bridge</h4>
+class="level6">
+<h6>Forgetting witnesses: the terminal-only bridge</h6>
 <p>This entire file is new and previously uncited. It is a
 lossy-projection bridge: every object in the corpus’s much richer
 suffix-cylinder stage machinery (<code>CylinderStage</code>,
@@ -5676,8 +5695,8 @@ anywhere in the file.</p>
 </div>
 </section>
 <section id="a-strict-weakening-chain-for-the-last-producer-socket"
-class="level4">
-<h4>A strict weakening chain for the last-producer socket</h4>
+class="level6">
+<h6>A strict weakening chain for the last-producer socket</h6>
 <p>Five declarations extend the already-cited
 <code>SeamMiddleProducerSqrtEscape</code> socket with a genuine strength
 reduction, wiring the <span class="math inline" data-term-auto="off">\(-3\)</span> cell
@@ -5715,8 +5734,8 @@ decreasing sockets where previously only the endpoints were exposed; all
 three antecedents remain <span><span
 class="sans-serif">[Open]</span></span>.</p>
 </section>
-<section id="the-governed-frozen-margin-producer" class="level4">
-<h4>The governed frozen-margin producer</h4>
+<section id="the-governed-frozen-margin-producer" class="level6">
+<h6>The governed frozen-margin producer</h6>
 <p>One further declaration completes a chain the earlier parts cite only
 up to its antecedent equivalence ().</p>
 <div class="defn">
@@ -5738,8 +5757,8 @@ bound (<span class="math inline" data-term-auto="off">\(J\le k+1\)</span>, unifo
 <span><span class="sans-serif">[Open]</span></span> and has not been
 checked against any of O3–O5’s producer sockets.</p>
 </section>
-<section id="exact-carry-pivot-normal-form" class="level4">
-<h4>Exact carry-pivot normal form</h4>
+<section id="exact-carry-pivot-normal-form" class="level6">
+<h6>Exact carry-pivot normal form</h6>
 <p>Numeral-adjacent boundary words have more structure than the
 previously used coefficient bound. If the lower suffix numeral is one
 larger than the upper suffix numeral, there is a unique carry pivot
@@ -5765,8 +5784,8 @@ normal form for the two-sheet boundary. It does not produce adjacent
 stages cofinally and therefore does not close HALF or universal
 #257.</p>
 </section>
-<section id="new-mersenne-subseries-rigidity-tree" class="level4">
-<h4>New Mersenne-subseries rigidity tree</h4>
+<section id="new-mersenne-subseries-rigidity-tree" class="level6">
+<h6>New Mersenne-subseries rigidity tree</h6>
 <p>This module works in the new <code>ErdosProblems.Erdos257</code>
 namespace and states in its own header that its results “concern
 achievement-set geometry and do not settle the universal irrationality
@@ -5807,8 +5826,8 @@ tail estimate supplies the values <span
 class="math inline" data-term-auto="off">\(2^{-|F|}\)</span> and <span
 class="math inline" data-term-auto="off">\(0\)</span>.</p>
 </section>
-<section id="new-half-counterexample-frontier-tree" class="level4">
-<h4>New half-counterexample frontier tree</h4>
+<section id="new-half-counterexample-frontier-tree" class="level6">
+<h6>New half-counterexample frontier tree</h6>
 <p>This short module restates <span
 class="math inline" data-term-auto="off">\(\mathrm{U257}\)</span> in the new namespace () and
 gives it a problem-centric interface to the legacy half-terminal
@@ -5843,9 +5862,9 @@ class="math inline" data-term-auto="off">\(\{2,3,6\}\)</span> are exact arithmet
 removes finite termination for that target; it does not establish
 achievement-set membership.</p>
 </section>
-<section id="new-primitive-23-multiplicity-tree" class="level4">
-<h4>New primitive-<span class="math inline" data-term-auto="off">\(23\)</span> multiplicity
-tree</h4>
+<section id="new-primitive-23-multiplicity-tree" class="level6">
+<h6>New primitive-<span class="math inline" data-term-auto="off">\(23\)</span> multiplicity
+tree</h6>
 <p>This module records the exact arithmetic of the primitive cone <span
 class="math inline" data-term-auto="off">\(2p+3q=n\)</span>, <span
 class="math inline" data-term-auto="off">\(p,q&gt;0\)</span>, <span
@@ -5869,8 +5888,8 @@ class="math inline" data-term-auto="off">\(1/21\)</span> Booleanises. The recurr
 multiplicities are precisely the unresolved collision data, not zero–one
 support digits.</p>
 </section>
-<section id="current-121-frontier" class="level4">
-<h4>Current <span class="math inline" data-term-auto="off">\(1/21\)</span> frontier</h4>
+<section id="current-121-frontier" class="level6">
+<h6>Current <span class="math inline" data-term-auto="off">\(1/21\)</span> frontier</h6>
 <p>The later quotient-greedy analysis removes the diffuse alternatives.
 Let <code>TwentyOneFatalAlignedBranch</code> denote the explicit branch
 consisting of a fatal greedy gap, finite skipped support (hence cofinite
@@ -5897,12 +5916,17 @@ excludes that regime, forces unbounded closed returns, or proves
 membership. Combined with the finite-support obstruction above,
 membership would provide an infinite-support rational counterexample to
 universal #257; its present status remains <span><span
-class="sans-serif">[Open]</span></span>.</p>
+class="sans-serif">[Open]</span></span>. </p>
 </section>
 </section>
 </section>
-<section id="sec:scale-ladder" class="level2">
-<h2>The scale ladder</h2>
+</section>
+<section id="iv.-scales-conditional-interfaces-and-unresolved-inputs"
+class="level2 unnumbered">
+<h2 class="unnumbered">IV. Scales, conditional interfaces and unresolved
+inputs</h2>
+<section id="sec:scale-ladder" class="level4">
+<h4>The scale ladder</h4>
 <p>Every claim in this programme carries a <em>scale</em> tag alongside
 its evidence band. The two axes are independent and both matter to a
 reader deciding whether a result can be used as a premise. Evidence
@@ -6378,11 +6402,11 @@ the uniform row is conditional, concerns another predicate, or covers
 only a finite band.</p>
 </div>
 </section>
-<section id="sec:four-coordinates" class="level2">
-<h2>One orbit in four coordinates</h2>
+<section id="sec:four-coordinates" class="level4">
+<h4>One orbit in four coordinates</h4>
 <section id="one-decision-stream-four-integerisations"
-class="level3 unnumbered">
-<h3 class="unnumbered">One decision stream, four integerisations</h3>
+class="level5 unnumbered">
+<h5 class="unnumbered">One decision stream, four integerisations</h5>
 <p>Fix the weights <span class="math inline" data-term-auto="off">\(x_n:=1/(2^n-1)\)</span>,
 <span class="math inline" data-term-auto="off">\(n\ge2\)</span>, and the target <span
 class="math inline" data-term-auto="off">\(1/2\)</span>. The single object under study
@@ -6513,8 +6537,8 @@ decision stream, not four independent producers that happen to agree so
 far.</p>
 </div>
 </section>
-<section id="the-truncation-rung-ladder" class="level3 unnumbered">
-<h3 class="unnumbered">The truncation-rung ladder</h3>
+<section id="the-truncation-rung-ladder" class="level5 unnumbered">
+<h5 class="unnumbered">The truncation-rung ladder</h5>
 <p>The cleanest of the four coordinates to reason about directly is the
 rung ladder, because at each finite <span
 class="math inline" data-term-auto="off">\(J\)</span> it is a genuinely finite, decidable
@@ -6666,8 +6690,8 @@ not by themselves supply it.</p>
 </section>
 </section>
 <section id="frontier-index-what-stands-between-the-corpus-and-a-proof"
-class="level2">
-<h2>Frontier index: what stands between the corpus and a proof</h2>
+class="level4">
+<h4>Frontier index: what stands between the corpus and a proof</h4>
 <p>This section is the sharp end of the paper. Parts I–II assembled the
 corpus; here every result in it is tested against three exact open
 obligations and rendered as a usable premise: what it yields, the exact
@@ -6678,8 +6702,8 @@ mismatch against the obligation, a classified gap kind
 close it. Nothing here decides #249 or #257; the corpus’s own moderator
 standard applies throughout — a reduction is not a result, and a finite
 verified list is not a cofinal supply.</p>
-<section id="the-three-257-obligations-stated-exactly" class="level3">
-<h3>The three #257 obligations, stated exactly</h3>
+<section id="the-three-257-obligations-stated-exactly" class="level5">
+<h5>The three #257 obligations, stated exactly</h5>
 <div class="defn">
 <p><strong>Definition 9.1</strong> (257-reset). For every reset row
 <span class="math inline" data-term-auto="off">\(r \ge 31\)</span>: <span
@@ -6722,8 +6746,8 @@ every infinite support, not one target value and not one structural
 class.</p>
 </div>
 </section>
-<section id="reading-a-row" class="level3">
-<h3>Reading a row</h3>
+<section id="reading-a-row" class="level5">
+<h5>Reading a row</h5>
 <p>Each entry below has the form: <strong>tag — declarations</strong>,
 <code>site</code> (file:line, opened and read, not inferred),
 <code>gap_kind</code>, <strong>yields</strong> (the exact statement,
@@ -6735,8 +6759,8 @@ class="sans-serif">[Lean]</span></span> unless marked <span><span
 class="sans-serif">[Math]</span></span> or <span><span
 class="sans-serif">[Cert]</span></span> (exact finite computation).</p>
 </section>
-<section id="reset-sixteen-near-misses" class="level3">
-<h3>257-reset: sixteen near misses</h3>
+<section id="reset-sixteen-near-misses" class="level5">
+<h5>257-reset: sixteen near misses</h5>
 <div class="obs">
 <p><em>Observation 9.4</em> (oa-2 / deficit-side run law). <span><span
 class="sans-serif">[Lean]</span></span> . <strong>Yields:</strong> <span
@@ -7157,8 +7181,8 @@ class="math inline" data-term-auto="off">\(L_J
 does not by itself rule out a cofinal argument.</p>
 </div>
 </section>
-<section id="cofinal-rows-thirteen-near-misses" class="level3">
-<h3>257-cofinal-rows: thirteen near misses</h3>
+<section id="cofinal-rows-thirteen-near-misses" class="level5">
+<h5>257-cofinal-rows: thirteen near misses</h5>
 <div class="obs">
 <p><em>Observation 9.20</em> (Sharp-capacity fill, unconditional).
 <span><span class="sans-serif">[Lean]</span></span> , .
@@ -7531,8 +7555,8 @@ cofinal. Nothing weaker than one of these two can work through this
 dichotomy.</p>
 </div>
 </section>
-<section id="universal-thirteen-near-misses" class="level3">
-<h3>257-universal: thirteen near misses</h3>
+<section id="universal-thirteen-near-misses" class="level5">
+<h5>257-universal: thirteen near misses</h5>
 <div class="obs">
 <p><em>Observation 9.33</em> (NM-01 / the single certificate socket).
 <span><span class="sans-serif">[Lean]</span></span> (carry variant ).
@@ -7963,9 +7987,9 @@ restated a third time.</p>
 </section>
 <section
 id="three-theorems-assembled-from-the-interface-and-where-each-still-stops"
-class="level3">
-<h3>Three theorems assembled from the interface, and where each still
-stops</h3>
+class="level5">
+<h5>Three theorems assembled from the interface, and where each still
+stops</h5>
 <p><span><span class="sans-serif">[Math]</span></span> throughout this
 subsection — none of Theorems A, B, C is a Lean declaration. Each is a
 correct assembly of the corpus’s proved pieces plus one clearly named
@@ -8032,8 +8056,8 @@ by SE-7/RC-7.</em></p>
 </div>
 </section>
 <section id="route-collapse-findings-four-traps-to-name-explicitly"
-class="level3">
-<h3>Route-collapse findings: four traps to name explicitly</h3>
+class="level5">
+<h5>Route-collapse findings: four traps to name explicitly</h5>
 <p>These four rows are not near-misses to be closed by further work —
 they are targets that, once adversarially checked, turn out to be
 logically equivalent to the obligation itself (or to <span
@@ -8110,9 +8134,8 @@ catch.</p>
 </div>
 </section>
 </section>
-<section id="closed-routes-with-the-mechanism-that-closed-them"
-class="level2">
-<h2>Closed routes, with the mechanism that closed them</h2>
+<section id="hypothesis-specific-obstructions" class="level4">
+<h4>Hypothesis-specific obstructions</h4>
 <p>This section is a graveyard with load-bearing headstones. Each entry
 below is a route that was tried against the <span
 class="math inline" data-term-auto="off">\(\sqrt{}\)</span>-escape wall (Part III) and
@@ -8139,8 +8162,8 @@ class="math inline" data-term-auto="off">\(|\mathrm{rem}(r+1)-2^{r+1}| &gt;
 class="math inline" data-term-auto="off">\(r\ge 10\)</span> (RC-4, Part III); this is the
 wall every closure below is measured against.</p>
 <section id="four-closed-attack-families-on-the-wall-itself"
-class="level3">
-<h3>Four closed attack families on the wall itself</h3>
+class="level5">
+<h5>Four closed attack families on the wall itself</h5>
 <div class="obs" id="obs:prime-doubling">
 <p><em>Observation 10.1</em> (Prime-doubling — closed by explicit
 counterexample). <strong>Route as conceived.</strong> The universal
@@ -8339,9 +8362,9 @@ excludes a <em>different</em> kind of coarse-grained argument (density,
 tautological parity, single-exponent approximation, fixed-window
 valuation) while leaving the exact digit recursion itself untouched.</p>
 </section>
-<section id="sec:branch-exclusions" class="level3">
-<h3>Branch exclusions at the final producer: the exceptional dyadic
-cells</h3>
+<section id="sec:branch-exclusions" class="level5">
+<h5>Branch exclusions at the final producer: the exceptional dyadic
+cells</h5>
 <p>The two-sided dyadic invariant <span
 class="math inline" data-term-auto="off">\(\min(\mathrm{rem}(s), \mathrm{overshoot}(s)) \le
 2^s\)</span> (all <span class="math inline" data-term-auto="off">\(s\ge 5\)</span>) is the
@@ -8509,9 +8532,9 @@ class="sans-serif">scale:cofinal</span></span></p>
 </section>
 <section
 id="no-go-countermodel-and-rigidity-modules-that-bound-the-wall-from-outside"
-class="level3">
-<h3>No-go, countermodel, and rigidity modules that bound the wall from
-outside</h3>
+class="level5">
+<h5>No-go, countermodel, and rigidity modules that bound the wall from
+outside</h5>
 <p>The digit-carry route is not merely unclimbed; a family of
 general-purpose no-go and countermodel results independently constrains
 <em>what kind of proof</em> can ever close it. These are not about the
@@ -8663,8 +8686,8 @@ class="sans-serif">[Lean]</span></span><span><span
 class="sans-serif">scale:cofinal</span></span></em></p>
 </div>
 </section>
-<section id="the-scalar-localisation-height-obstruction" class="level3">
-<h3>The scalar-localisation height obstruction</h3>
+<section id="the-scalar-localisation-height-obstruction" class="level5">
+<h5>The scalar-localisation height obstruction</h5>
 <div class="lem" id="lem:scalar-localization">
 <p><strong>Lemma 10.13</strong> (Denominator complement survives scaling).
 <em> For <span class="math inline" data-term-auto="off">\(x:\mathbb Q\)</span>, <span
@@ -8725,8 +8748,8 @@ class="sans-serif">scale:n/a</span></span></em></p>
 </div>
 </section>
 <section id="the-final-skip-band-formula-and-what-it-does-not-show"
-class="level3">
-<h3>The final-skip band formula, and what it does not show</h3>
+class="level5">
+<h5>The final-skip band formula, and what it does not show</h5>
 <div class="defn" id="defn:band-escape">
 <p><strong>Definition 10.15</strong> (Upper-reset dyadic band escape).</p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathsf{SeamUpperResetDyadicBandEscape} :=
@@ -8816,8 +8839,8 @@ class="sans-serif">scale:cofinal</span></span></p>
 </div>
 </section>
 </section>
-<section id="sec:invent-257" class="level2">
-<h2>The mathematics this problem still needs</h2>
+<section id="sec:invent-257" class="level4">
+<h4>Unproved inputs for the recorded implications</h4>
 <p>Everything in Parts I–IV of this document is either an unconditional
 theorem at a fixed or bounded scale, an exact reformulation, or a
 producer socket whose supply is missing. None of it decides Erdős #257,
@@ -8835,10 +8858,10 @@ where the argument is complete ordinary mathematics, <span><span
 class="sans-serif">[Cert]</span></span> where the support is exact
 computation, <span><span class="sans-serif">[Open]</span></span> where
 the item is a proposal and nothing more.</p>
-<p>The organising fact, established in the wall analysis and not
-repeated here, is that both halves of #257 — the universal statement and
-the half-value instance — converge on one missing object. It has a name
-in this section:</p>
+<p>One recurring quantity in the half-target calculations is the
+short-window divisor phase defined below. Its role in particular
+universal-support criteria is discussed separately; it is not a proved
+common necessary obstruction for the two problems.</p>
 <div class="defn" id="defn:theta">
 <p><strong>Definition 11.1</strong> (The short-window divisor phase). For
 <span class="math inline" data-term-auto="off">\(M\ge 1\)</span> and <span
@@ -8864,11 +8887,11 @@ universal-direction obstruction written in the divisor incidence
 coordinate. Every route below either needs a lower bound on <span
 class="math inline" data-term-auto="off">\(\mathrm{dist}(\Theta_L(M),\mathbb{Z})\)</span> at
 a growing precision, or needs to explain why it does not.</p>
-<section id="sec:invent-R1" class="level3">
-<h3>R1. Reset <span class="math inline" data-term-auto="off">\(\sqrt{\ }\)</span>-escape:
-anti-concentration of a logarithmically short divisor sum</h3>
-<section id="the-statement-needed" class="level4 unnumbered">
-<h4 class="unnumbered">The statement needed</h4>
+<section id="sec:invent-R1" class="level5">
+<h5>R1. Reset <span class="math inline" data-term-auto="off">\(\sqrt{\ }\)</span>-escape:
+anti-concentration of a logarithmically short divisor sum</h5>
+<section id="the-statement-needed" class="level6 unnumbered">
+<h6 class="unnumbered">The statement needed</h6>
 <p>Three forms, in decreasing strength. Forms (i) and (ii) each close
 the half-value branch through the stated consumers, i.e. yield <span
 class="math inline" data-term-auto="off">\((1/2:\mathbb{R})\in\mathcal{A}\)</span> and hence
@@ -8931,9 +8954,9 @@ class="sans-serif">[Open]</span></span> as a theorem.</p>
 </section>
 <section
 id="what-kind-of-object-would-furnish-it-and-the-exact-arithmetic-of-theta_l"
-class="level4 unnumbered">
-<h4 class="unnumbered">What kind of object would furnish it, and the
-exact arithmetic of <span class="math inline" data-term-auto="off">\(\Theta_L\)</span></h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">What kind of object would furnish it, and the
+exact arithmetic of <span class="math inline" data-term-auto="off">\(\Theta_L\)</span></h6>
 <p>The first thing to say is what the quantity actually is, because the
 corpus states it in seam coordinates and that hides its arithmetic
 nature. The following identity is elementary and exact, and it is the
@@ -9052,8 +9075,8 @@ class="math inline" data-term-auto="off">\(L\asymp\log M\)</span>, obeys a <em>l
 limit theorem strong enough to give anti-concentration of the weighted
 sum at scale <span class="math inline" data-term-auto="off">\(2^{-L/2}\)</span>.</p>
 </section>
-<section id="the-specific-obstacle" class="level4 unnumbered">
-<h4 class="unnumbered">The specific obstacle</h4>
+<section id="the-specific-obstacle" class="level6 unnumbered">
+<h6 class="unnumbered">The specific obstacle</h6>
 <p>This is the paragraph worth the most, so it is stated as sharply as
 the evidence permits.</p>
 <p><strong>Almost-all short-interval results reach polylogarithmic
@@ -9109,8 +9132,8 @@ and the three paragraphs above are the reason there is nothing there.
 The barrier catalogue and the analytic literature agree, independently,
 on where the gap is.</p>
 </section>
-<section id="swings" class="level4 unnumbered">
-<h4 class="unnumbered">Swings</h4>
+<section id="swings" class="level6 unnumbered">
+<h6 class="unnumbered">Swings</h6>
 <p><em>Swing 1: the exponent <span
 class="math inline" data-term-auto="off">\((r+5)/2\)</span> is forced, and can be derived in
 four lines.</em> <span><span class="sans-serif">[Math]</span></span>,
@@ -9275,11 +9298,11 @@ outcome is a result; the computation is an afternoon’s work and needs no
 new theory.</p>
 </section>
 </section>
-<section id="sec:invent-R2" class="level3">
-<h3>R2. Strict endpoint progress: the one place canonicalisation does
-not bite</h3>
-<section id="the-statement-needed-1" class="level4 unnumbered">
-<h4 class="unnumbered">The statement needed</h4>
+<section id="sec:invent-R2" class="level5">
+<h5>R2. Strict endpoint progress: the one place canonicalisation does
+not bite</h5>
+<section id="the-statement-needed-1" class="level6 unnumbered">
+<h6 class="unnumbered">The statement needed</h6>
 <p>The exact-row transition (<span><span
 class="sans-serif">[Lean]</span></span>) says every exact row <span
 class="math inline" data-term-auto="off">\(n\ge6\)</span> either doubles to <span
@@ -9309,8 +9332,8 @@ class="math display" data-term-auto="off">\[\text{(c)}\quad
 the recycle branch at incoming endpoint } n.\]</span></div>
 </section>
 <section id="what-kind-of-object-would-furnish-it"
-class="level4 unnumbered">
-<h4 class="unnumbered">What kind of object would furnish it</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">What kind of object would furnish it</h6>
 <p>This route is different in kind from R1, and the difference is worth
 stating because it is the only place in the half-value branch where the
 witness space is not a singleton.</p>
@@ -9343,8 +9366,8 @@ class="math inline" data-term-auto="off">\(c-2\)</span>-bit suffix capacity <spa
 class="math inline" data-term-auto="off">\(\mathtt{localBinarySuffix}\,D\,1\,(2c-2)&lt;2^{\,c-2}\)</span>
 is met.</p>
 </section>
-<section id="the-specific-obstacle-1" class="level4 unnumbered">
-<h4 class="unnumbered">The specific obstacle</h4>
+<section id="the-specific-obstacle-1" class="level6 unnumbered">
+<h6 class="unnumbered">The specific obstacle</h6>
 <p>The obstruction here is isolated, formalised, and the sharpest of its
 kind in the corpus: the transition schema <em>plus</em> a seed provably
 does not give cofinality. The theorem (<span><span
@@ -9366,8 +9389,8 @@ class="math inline" data-term-auto="off">\(c=5\)</span>) exhibits a real crossin
 violating it. So the fractional mass route is closed with a witness, not
 merely unattempted.</p>
 </section>
-<section id="swings-1" class="level4 unnumbered">
-<h4 class="unnumbered">Swings</h4>
+<section id="swings-1" class="level6 unnumbered">
+<h6 class="unnumbered">Swings</h6>
 <p><em>Swing 4: use canonicalisation as a help rather than an
 obstruction.</em> <span><span class="sans-serif">[Math]</span></span>
 for the observation, <span><span class="sans-serif">[Open]</span></span>
@@ -9417,9 +9440,9 @@ unbounded</em>. If true it closes form (c) directly; if false, the
 counterexample is a finite object and worth having.</p>
 </section>
 </section>
-<section id="sec:invent-R3" class="level3">
-<h3>R3. Prime support: a known theorem and an internal method
-boundary</h3>
+<section id="sec:invent-R3" class="level5">
+<h5>R3. Prime support: a known theorem and an internal method
+boundary</h5>
 <p>The base-<span class="math inline" data-term-auto="off">\(2\)</span> statement</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathrm{Irrational}\Bigl(\sum_{p\ {\rm
@@ -9457,11 +9480,11 @@ or prime-power supports are mentioned by the cited authors with proof
 modifications omitted; this paper promotes only the fully written
 base-<span class="math inline" data-term-auto="off">\(2\)</span> theorem.</p>
 </section>
-<section id="sec:invent-R4" class="level3">
-<h3>R4. Landing the route-collapse equivalences, via perfect-square
-witness depths</h3>
-<section id="the-statement-needed-2" class="level4 unnumbered">
-<h4 class="unnumbered">The statement needed</h4>
+<section id="sec:invent-R4" class="level5">
+<h5>R4. Landing the route-collapse equivalences, via perfect-square
+witness depths</h5>
+<section id="the-statement-needed-2" class="level6 unnumbered">
+<h6 class="unnumbered">The statement needed</h6>
 <p>Five biconditionals, each with <span
 class="math inline" data-term-auto="off">\((1/2:\mathbb{R})\in\mathcal{A}\)</span> on the
 right:</p>
@@ -9484,8 +9507,8 @@ The forward directions of (2)–(5) are landed Lean (, , , , all
 the reverse directions, and they all run through one lemma.</p>
 </section>
 <section id="the-object-and-the-swing-that-supplies-it"
-class="level4 unnumbered">
-<h4 class="unnumbered">The object, and the swing that supplies it</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">The object, and the swing that supplies it</h6>
 <div class="lem" id="lem:sqwitness">
 <p><strong>Lemma 11.3</strong> (Perfect-square strip witness). <em> Let
 <span class="math inline" data-term-auto="off">\(A\subseteq\mathbb{N}\)</span> with <span
@@ -9535,8 +9558,8 @@ class="math inline" data-term-auto="off">\(\mathtt{mersenneWeight}\,1=1&gt;1/2\)
 gives the witness required by and hence (5).</p>
 </section>
 <section id="why-this-is-a-result-and-not-bookkeeping"
-class="level4 unnumbered">
-<h4 class="unnumbered">Why this is a result and not bookkeeping</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">Why this is a result and not bookkeeping</h6>
 <p>Under the standing rule that a reduction is not a result, one might
 discount R4. That would be a mistake, and the reason is the organising
 thesis of this document. Each biconditional is a theorem, not a
@@ -9567,11 +9590,11 @@ bound supply the strip. Membership is then read off by (<span><span
 class="sans-serif">[Lean]</span></span>).</p>
 </section>
 </section>
-<section id="sec:invent-R5" class="level3">
-<h3>R5. The sparse/dense trichotomy — and a proof that the present
-engine cannot close it</h3>
-<section id="the-statement-needed-3" class="level4 unnumbered">
-<h4 class="unnumbered">The statement needed</h4>
+<section id="sec:invent-R5" class="level5">
+<h5>R5. The sparse/dense trichotomy — and a proof that the present
+engine cannot close it</h5>
+<section id="the-statement-needed-3" class="level6 unnumbered">
+<h6 class="unnumbered">The statement needed</h6>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\forall
 A\subseteq\mathbb{N}_{\ge1}:\quad A.\mathrm{Infinite}\ \Longrightarrow\
 \underbrace{\bigl(\text{cofinally many super-logarithmic zero windows in
@@ -9596,8 +9619,8 @@ C,
 q\,(C+N+L+2)&lt;2^{L}.\]</span></div>
 </section>
 <section id="what-kind-of-object-would-furnish-it-1"
-class="level4 unnumbered">
-<h4 class="unnumbered">What kind of object would furnish it</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">What kind of object would furnish it</h6>
 <p><span class="math inline" data-term-auto="off">\(\mathtt{supportCoeff}\,A = \mathbf{1}_A *
 \mathbf{1}\)</span> is a Dirichlet convolution, so the dense branch
 asks: for an <em>arbitrary</em> <span
@@ -9619,8 +9642,8 @@ class="math inline" data-term-auto="off">\(a\in A\)</span> are independent; for 
 class="math inline" data-term-auto="off">\(A\)</span> they are entangled through pairwise
 gcds and CRT has nothing to prescribe.</p>
 </section>
-<section id="the-specific-obstacle-proved" class="level4 unnumbered">
-<h4 class="unnumbered">The specific obstacle, proved</h4>
+<section id="the-specific-obstacle-proved" class="level6 unnumbered">
+<h6 class="unnumbered">The specific obstacle, proved</h6>
 <p>Here the honest answer is stronger than an obstacle: the dense branch
 as stated is <em>false</em>, and the falsifier is an explicit, natural,
 divisor-dense support. This also corrects the reduction recorded earlier
@@ -9671,117 +9694,57 @@ is methodological: test a no-go statement under rational finite changes
 before attributing it to the underlying value.</p>
 </section>
 </section>
-<section id="sec:invent-shape" class="level3">
-<h3>What the shape of the wall suggests about the underlying object</h3>
+<section id="sec:invent-shape" class="level5">
+<h5>What the experiments and obstructions do not imply</h5>
 <p>Everything in this subsection is inference from the accumulated
 failures, not theorem. It is labelled that way throughout, and where the
 evidence does not determine the answer it says so rather than
 manufacturing a story.</p>
-<section
-id="the-half-value-branch-looks-pseudorandom-and-the-failures-are-the-evidence"
-class="level4 unnumbered">
-<h4 class="unnumbered">The half-value branch looks pseudorandom, and the
-failures are the evidence</h4>
-<p>The strongest available inference is about the <em>kind</em> of
-difficulty, and it comes from the manner in which the attacks failed
-rather than the fact that they failed.</p>
-<p>When a hard problem conceals structure, partial attacks typically
-return partial information: a bias, a correlation, an exceptional set, a
-bound with the wrong constant. That is not what happened here. Parity
-returned a tautology — the identity <span
-class="math inline" data-term-auto="off">\(J(M+1)\equiv\delta(M+1)\pmod2\)</span> holds for
-<em>any</em> digit stream obeying the recursion shape, so it forbids no
-residue and no run. Fixed-precision valuation data returned a proved
-no-go: for any starting carry and any word of odd-unit symbols, a
-compatible centred completion exists (, <span><span
-class="sans-serif">[Lean]</span></span>). Bounded carry state returned
-an unbounded fan-out (, <span><span
-class="sans-serif">[Lean]</span></span>). Long common suffixes returned
-exact erasure of the predecessor (, <span><span
-class="sans-serif">[Lean]</span></span>). Prime-doubling returned a
-witness where three primes sit inside an eleven-step quiet run. These
-are not near misses. They are the signature of a coordinate in which
-there is no arithmetic bias to find — which is what one expects if the
-digit stream really is pseudorandom.</p>
-<p>The positive measurements point the same way and are quantitative.
-The branch counts over <span class="math inline" data-term-auto="off">\(200{,}000\)</span>
-seam rows are <span class="math inline" data-term-auto="off">\(R:M:U =
-100197:49899:49898\)</span>, matching the balanced-signed-digit
-prediction to within sampling noise. The run-length histogram is
-geometric with ratio <span class="math inline" data-term-auto="off">\(\approx2\)</span>. The
-binary expansion of <span class="math inline" data-term-auto="off">\(C=E-3/2\)</span> agrees
-bit-for-bit with OEIS A211706 and has longest equal run <span
+<section id="finite-observations-and-their-limits"
+class="level6 unnumbered">
+<h6 class="unnumbered">Finite observations and their limits</h6>
+<p>The recorded obstructions concern specified coordinate systems. Fixed
+precision, a bounded carry state and a prescribed suffix can lose
+information needed by the actual-selector condition. They do not show
+that the underlying deterministic sequence has no arithmetic structure.
+The relevant exact statements remain , and . Their hypotheses, rather
+than the fact that an attempted argument failed, determine their
+scope.</p>
+<p>The inherited experiment log reports <span
+class="math inline" data-term-auto="off">\(200{,}000\)</span> seam rows with counts <span
+class="math inline" data-term-auto="off">\(R:M:U=100197:49899:49898\)</span>, a roughly
+geometric run-length histogram, and a longest equal run of <span
 class="math inline" data-term-auto="off">\(15\)</span> in <span
-class="math inline" data-term-auto="off">\(40{,}000\)</span> bits. And the measurement in
-Swing 2 above shows the fractional part of the short-window divisor
-phase <span class="math inline" data-term-auto="off">\(\Theta_L\)</span> is, to three
-significant figures, Haar-distributed, with a near-integer tail constant
-<span class="math inline" data-term-auto="off">\(c\approx2.5\)</span> against the uniform
-value <span class="math inline" data-term-auto="off">\(2\)</span>.</p>
-<p><em>Inference (not theorem).</em> The object behind the half-value
-branch is most likely <strong>simple in description and pseudorandom in
-behaviour</strong>. Its description is two lines: <span
-class="math inline" data-term-auto="off">\(K(2)=1\)</span>, <span
-class="math inline" data-term-auto="off">\(K(M+1)=2K(M)-(\tau(M+1)-1)\)</span>, together with
-a superincreasing greedy orbit. Its behaviour is, on every statistic yet
-measured, indistinguishable from a fair coin. If that is right, then the
-missing theorem is a <em>pseudorandomness</em> statement about an
-explicit deterministic sequence, and it belongs to the same family as
-normality of specific constants, or Chowla-type independence: elegant to
-state, and hard for the structural reason that there is no structure to
-exploit. On this reading the wall is not hiding a mechanism; it is the
-absence of one.</p>
-</section>
-<section id="three-reasons-to-distrust-that-inference-stated-plainly"
-class="level4 unnumbered">
-<h4 class="unnumbered">Three reasons to distrust that inference, stated
-plainly</h4>
-<p>First, coordinate-relativity. Obstructions are relative to a
-representation, and all nine coordinates the corpus built — rung, seam
-row, integer margin, sharp tail margin, half-carry, reverse-carry word,
-Boolean–Möbius exact row, fatal-cell packing, Dedekind cut-locator — are
-descendants of one family, the superincreasing greedy carry. Their
-agreement is therefore <em>not</em> nine independent votes. A genuinely
-foreign coordinate (a <span class="math inline" data-term-auto="off">\(p\)</span>-adic
-dynamical one, a representation-theoretic one, an automatic-sequence
-one) has not been tried, and “no bias in these nine” is weaker evidence
-than it looks.</p>
-<p>Second, the single exception. Exactly one row of the real orbit fails
-<span class="math inline" data-term-auto="off">\(\sqrt{\ }\)</span>-escape, <span
-class="math inline" data-term-auto="off">\(r=7\)</span>, which is also the site of the only
-real <span class="math inline" data-term-auto="off">\(R\)</span>-branch crossing ever
-observed, at <span class="math inline" data-term-auto="off">\((s,d)=(10,7)\)</span>. A lone
-low-lying exception is what a random model predicts; it is also what a
-hidden structure with a small modulus predicts. That datum does not
-discriminate.</p>
-<p>Third, and this is the sharpest internal check available:
-pseudorandomness is a claim about the <em>absence</em> of structure, and
-the corpus contains an unmistakable piece of <em>present</em> structure
-— strict superincreasingness of the Mersenne weights, which forces the
-digit coding to be injective (, <span><span
-class="sans-serif">[Lean]</span></span>), collapses every witness space
-to a singleton, and makes the static adversarial tier coincide with the
-dynamic greedy orbit. That structure is rigid, not random. So the honest
-description is a hybrid: a rigid skeleton with a pseudorandom digit
-stream running along it. The rigidity constrains representation
-uniqueness. It does not by itself exclude averaging over indices,
-shifts, residues, observation scales or auxiliary constructions. <span
-class="math inline" data-term-auto="off">\(\mathcal{A}\)</span> has Lebesgue measure exactly
-<span class="math inline" data-term-auto="off">\(1\)</span> inside an interval of length
-<span class="math inline" data-term-auto="off">\(E\approx1.6067\)</span> and is nowhere
-dense, so the two standard notions of “typical” disagree on it; neither
-fact decides membership of a specified rational. The recorded
-calculations obstruct the particular models and estimates analysed here;
-no impossibility theorem for all probabilistic, measure-theoretic or
-averaging methods is claimed. Separately, the observed lack of
-arithmetic bias is why the specific arithmetic methods recorded here
-returned no information.</p>
+class="math inline" data-term-auto="off">\(40{,}000\)</span> binary digits. It also reports
+agreement with OEIS A211706 and a near-integer phase constant of about
+<span class="math inline" data-term-auto="off">\(2.5\)</span>. These computations and the
+external digit comparison were not rerun in this revision. They are
+descriptive reports, not certificates of normality, independence, a
+random sampling model, or an infinite anti-concentration estimate. A
+statement about “sampling noise” would require a specified probabilistic
+model that is not supplied here.</p>
+<p>The previously reported exceptional row <span
+class="math inline" data-term-auto="off">\(r=7\)</span> and crossing <span
+class="math inline" data-term-auto="off">\((s,d)=(10,7)\)</span> are likewise statements
+about the tested range only. The exact range and reproduction artefacts
+must accompany them before they are used as numerical evidence outside
+this historical record. No claim that this is the only exceptional row
+of the infinite orbit is made.</p>
+<p>These coordinates all descend from the same greedy-carry
+representation; they are not independent tests of a common random
+hypothesis. Strict superincreasingness gives an injective coding, but
+says neither that its digits are random nor that averaging over indices
+is impossible. The measure-one and nowhere-dense properties of the
+achievement set do not decide membership of a specified rational. The
+correct research question is whether a precise arithmetic estimate can
+be proved for the actual selector, not whether finite data resemble a
+random model.</p>
 </section>
 <section
-id="the-universal-branch-reads-differently-and-this-weakens-the-one-wall-thesis"
-class="level4 unnumbered">
-<h4 class="unnumbered">The universal branch reads differently, and this
-weakens the one-wall thesis</h4>
+id="why-the-support-and-rational-target-problems-remain-distinct"
+class="level6 unnumbered">
+<h6 class="unnumbered">Why the support and rational-target problems
+remain distinct</h6>
 <p>Proposition <a class="math-ref" href="#prop:squarefree">11.4</a> is a reason to
 separate the two halves rather than assimilate them. On the universal
 side the present certificate engine first meets a coordinate-dependent
@@ -9790,19 +9753,17 @@ to be irrational at power-of-two bases, and adjoining <span
 class="math inline" data-term-auto="off">\(1\)</span> removes the opening-block obstruction
 without changing irrationality. Thus the no-go diagnoses this engine; it
 does not diagnose the value or the universal problem.</p>
-<p>The wall analysis’s claim that both halves converge on one missing
-object — short-window near-integer anti-concentration of a
-divisor-weighted sum — survives, but with a correction: on the universal
-side that object is the <em>second</em> obstruction, not the first, and
-it becomes relevant only after one chooses an engine whose opening
-condition is invariant under rational finite changes. Reporting the
-convergence without that ordering would overstate the unity of the
-wall.</p>
+<p>Short-window near-integer anti-concentration is one possible missing
+input for the particular mechanisms analysed here. No equivalence shows
+that it is necessary for either problem, and no argument identifies it
+as a common necessary obstruction to both. The squarefree example shows
+why finite rational changes of support must be checked before an
+opening-block failure is interpreted as a property of the value.</p>
 </section>
 <section id="what-the-evidence-does-and-does-not-determine"
-class="level4 unnumbered">
-<h4 class="unnumbered">What the evidence does and does not
-determine</h4>
+class="level6 unnumbered">
+<h6 class="unnumbered">What the evidence does and does not
+determine</h6>
 <p>It does not determine whether a short proof exists. Nothing in a
 catalogue of failed methods bounds the length of a successful one, and
 this document should not pretend otherwise.</p>
@@ -9819,13 +9780,17 @@ decide rational-target membership, and they do not yield an
 impossibility theorem for all probabilistic, measure-theoretic or
 averaging methods. Each recorded obstruction is reusable in a way that a
 failed attempt is not. That is the contribution: not a proof, not a
-reduction, and not a map of every region in which a proof cannot
-live.</p>
+reduction, and not a map of every region in which a proof cannot live.
+</p>
 </section>
 </section>
 </section>
-<section id="what-is-open-stated-exactly" class="level2">
-<h2>What is open, stated exactly</h2>
+</section>
+<section id="v.-outstanding-obligations-and-provenance"
+class="level2 unnumbered">
+<h2 class="unnumbered">V. Outstanding obligations and provenance</h2>
+<section id="what-is-open-stated-exactly" class="level4">
+<h4>What is open, stated exactly</h4>
 <p>Erdős #257 asks whether <span class="math inline" data-term-auto="off">\(\sum_{n\in
 A}1/(2^n-1)\)</span> is irrational for <em>every</em> infinite <span
 class="math inline" data-term-auto="off">\(A\subseteq\mathbb{N}_{\ge 1}\)</span>. Nothing in
@@ -9839,8 +9804,8 @@ another. <strong>Read the implication table in §<a class="math-ref" href="#sec:
 single target below</strong>: several apparent waypoints are
 <em>equivalent</em> to the full problem, not easier approaches to
 it.</p>
-<section id="notation-fixed-for-this-section" class="level3">
-<h3>Notation fixed for this section</h3>
+<section id="notation-fixed-for-this-section" class="level5">
+<h5>Notation fixed for this section</h5>
 <p>The functional <span
 class="math inline" data-term-auto="off">\(\mathtt{erdosSupportSeries}\ 2\ (-)\)</span>
 denotes the base-<span class="math inline" data-term-auto="off">\(2\)</span> Erdős support
@@ -9864,8 +9829,8 @@ class="math inline" data-term-auto="off">\(r\)</span> is a row where the greedy 
 to the near-<span class="math inline" data-term-auto="off">\(2^r\)</span> regime after a run
 of takes or skips.</p>
 </section>
-<section id="target-o1-universal-erdős-257" class="level3">
-<h3>Target O1 — Universal Erdős #257</h3>
+<section id="target-o1-universal-erdős-257" class="level5">
+<h5>Target O1 — Universal Erdős #257</h5>
 <div class="defn">
 <p><strong>Definition 12.1</strong> (Universal #257).</p>
 <div class="math-display" data-term-auto="off"><span
@@ -9918,8 +9883,8 @@ class="math inline" data-term-auto="off">\(\mathrm{U257}\)</span> itself; <span
 class="math inline" data-term-auto="off">\(\mathrm{O1&#39;}\)</span> is a rejected sufficient
 strengthening, not an open equivalent normal form.</p>
 </section>
-<section id="target-o2-half-value-membership" class="level3">
-<h3>Target O2 — Half-value membership</h3>
+<section id="target-o2-half-value-membership" class="level5">
+<h5>Target O2 — Half-value membership</h5>
 <div class="defn">
 <p><strong>Definition 12.2</strong> (Half membership).</p>
 <div class="math-display" data-term-auto="off"><span
@@ -9957,8 +9922,8 @@ so the same theorem holds verbatim for every rational <span
 class="math inline" data-term-auto="off">\(t\ge 0\)</span> in place of <span
 class="math inline" data-term-auto="off">\(1/2\)</span>).</p>
 <section id="waypoints-that-are-actually-equivalent-to-o2-not-weaker"
-class="level4">
-<h4>Waypoints that are actually EQUIVALENT to O2, not weaker</h4>
+class="level6">
+<h6>Waypoints that are actually EQUIVALENT to O2, not weaker</h6>
 <p>Three named "producer sockets" that read as strictly easier routes to
 <span class="math inline" data-term-auto="off">\(\mathrm{HALF}\)</span> have been
 adversarially checked and found to be <em>equivalent</em> to <span
@@ -10044,8 +10009,8 @@ class="math inline" data-term-auto="off">\(A\)</span> version is only a one-side
 </section>
 </section>
 <section id="target-o3-cofinal-exact-local-mersenne-half-rows"
-class="level3">
-<h3>Target O3 — Cofinal exact local Mersenne half rows</h3>
+class="level5">
+<h5>Target O3 — Cofinal exact local Mersenne half rows</h5>
 <div class="defn">
 <p><strong>Definition 12.6</strong>.</p>
 <div class="math-display" data-term-auto="off"><span
@@ -10091,9 +10056,9 @@ is to supply the cofinal exact rows, or any equivalent membership
 condition.</p>
 <section
 id="sharp-critical-capacity-conditions-the-booleanmöbius-lanes-producer-for-o3"
-class="level4">
-<h4>Sharp critical-capacity conditions — the BooleanMöbius lane’s
-producer for O3</h4>
+class="level6">
+<h6>Sharp critical-capacity conditions — the BooleanMöbius lane’s
+producer for O3</h6>
 <p>The corpus’s engine for O3 is a sharp <span
 class="math inline" data-term-auto="off">\(c\)</span>-2-bit capacity test. Write</p>
 <div class="math-display" data-term-auto="off"><span
@@ -10166,9 +10131,9 @@ harder producer than (O3-supply) because it is pinned to the greedy
 prefix rather than an arbitrary core.</p>
 </section>
 </section>
-<section id="sec:o4" class="level3">
-<h3>Target O4 — Reset anti-concentration (sqrt-escape) and the R-run
-form</h3>
+<section id="sec:o4" class="level5">
+<h5>Target O4 — Reset anti-concentration (sqrt-escape) and the R-run
+form</h5>
 <div class="defn">
 <p><strong>Definition 12.7</strong> (Reset <span
 class="math inline" data-term-auto="off">\(\sqrt{\text{-escape}}\)</span> from row 10).</p>
@@ -10273,9 +10238,9 @@ a short run is untouched by this theorem.</p>
 </div>
 </section>
 <section id="target-o5-the-remaining--2-1-middle-cell-exclusion"
-class="level3">
-<h3>Target O5 — The remaining <span class="math inline" data-term-auto="off">\(-2,-1\)</span>
-middle-cell exclusion</h3>
+class="level5">
+<h5>Target O5 — The remaining <span class="math inline" data-term-auto="off">\(-2,-1\)</span>
+middle-cell exclusion</h5>
 <div class="defn">
 <p><strong>Definition 12.10</strong>. <span
 class="math inline" data-term-auto="off">\(\mathtt{SeamTwoSidedDyadicCellEscape}\)</span>
@@ -10325,9 +10290,9 @@ It is proved logically equivalent to a single-critical-index check per
 row (, <span><span class="sans-serif">[Lean]</span></span>), which is a
 genuine quantifier-complexity reduction, not a strength reduction.</p>
 </section>
-<section id="target-o2b-membership-of-121" class="level3">
-<h3>Target O2b — Membership of <span
-class="math inline" data-term-auto="off">\(1/21\)</span></h3>
+<section id="target-o2b-membership-of-121" class="level5">
+<h5>Target O2b — Membership of <span
+class="math inline" data-term-auto="off">\(1/21\)</span></h5>
 <p>The second rational target has an exact current frontier:</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\frac1{21}\in\mathcal A
@@ -10349,8 +10314,8 @@ exclude the fatal aligned affine-supercapacity branch (or force
 unbounded closed returns); neither is proved. <span><span
 class="sans-serif">[Open]</span></span></p>
 </section>
-<section id="sec:v-table" class="level3">
-<h3>Implication table</h3>
+<section id="sec:v-table" class="level5">
+<h5>Implication table</h5>
 <p>Read left to right: an entry <span
 class="math inline" data-term-auto="off">\(\Rightarrow\)</span> means the row target implies
 the column target unconditionally (Lean or fully checked math); <span
@@ -10363,8 +10328,8 @@ means no transport has been attempted in the corpus.</p>
 </div>
 </section>
 <section id="what-kind-of-new-mathematics-each-form-would-need"
-class="level3">
-<h3>What kind of new mathematics each form would need</h3>
+class="level5">
+<h5>What kind of new mathematics each form would need</h5>
 <p>None of the following is offered as a plan of attack, and none is
 close. Each is stated to make the shape of the missing ingredient
 legible.</p>
@@ -10406,8 +10371,8 @@ structurally the same missing analytic statement, applied to two
 different arithmetic functions (a Mersenne binary-digit count versus
 Euler’s totient).</p>
 </section>
-<section id="summary" class="level3">
-<h3>Summary</h3>
+<section id="summary" class="level5">
+<h5>Summary</h5>
 <p>Erdős #257 is open in the universal form (O1<span
 class="math inline" data-term-auto="off">\({}={}\)</span>U257), and both rational membership
 targets <span class="math inline" data-term-auto="off">\(1/2\)</span> (O2) and <span
@@ -10424,28 +10389,67 @@ paper closes any of these gaps, and no claim above should be read as
 progress toward doing so.</p>
 </section>
 </section>
-<section id="statements-and-declarations" class="level2 unnumbered">
-<h2 class="unnumbered">Statements and declarations</h2>
-<section id="artefact-and-data-availability." class="level5">
-<h5>Artefact and data availability.</h5>
+<section id="two-proof-details-and-source-comparators"
+class="level4 unnumbered">
+<h4 class="unnumbered">Two proof details and source comparators</h4>
+<p>The elementary atom comparison can be sharpened to <span
+class="math inline" data-term-auto="off">\(\Delta_{b,A}(N)\le\Delta_{2,A}(N)\)</span> for all
+real <span class="math inline" data-term-auto="off">\(b\ge2\)</span>. After cancelling <span
+class="math inline" data-term-auto="off">\(b-1\)</span>, differentiate the ratio <span
+class="math inline" data-term-auto="off">\(\sum_{i&lt;r}b^i/\sum_{i&lt;d}b^i\)</span>: its
+numerator is <span class="math inline" data-term-auto="off">\(\sum_{i&lt;r\le
+j&lt;d}(i-j)b^{i+j-1}\le0\)</span>. Only the rational-lattice step needs
+an integer base.</p>
+<p>For the scalar positive-cover cost, put <span
+class="math inline" data-term-auto="off">\(z=\log_2t\)</span>. Direct differentiation of
+<span class="math inline" data-term-auto="off">\(y^z/(y-1)\)</span> on <span
+class="math inline" data-term-auto="off">\(1&lt;y\le2\)</span> gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\Psi(t)=t\quad(1\le t\le4),\qquad
+\Psi(t)=\frac{z^z}{(z-1)^{z-1}}\quad(t&gt;4).\]</span></div>
+<p>These are
+ordinary proof details, not additional replayed declarations.</p>
+<p>The original periodic and linear-independence papers of Luca and
+Tachiya are now distinguished from their later overview <span
+class="citation"
+data-cites="lucatachiya2014periodic lucatachiya2014independence lucatachiya2017"></span>.
+Their theorem formulations used in this revision were read in the
+supplied author-written overview; the two original publisher PDFs were
+not successfully retrieved in this pass. Van Assche’s nonvanishing and
+small-linear-form argument for the full Lambert series <span
+class="citation" data-cites="vanassche2001"></span> is a comparator for
+the missing upper-height control, not a result for arbitrary
+thinnings.</p>
+<p>For achievement-set background, Hornich’s original bibliographic
+record <span class="citation" data-cites="hornich1941"><a href="#ref-16">[16]</a></span> is
+separated from the exposition actually used here <span class="citation"
+data-cites="nitecki2013"><a href="#ref-4">[4]</a></span>. Głąb and Prus-Wiśniowski’s survey
+<span class="citation" data-cites="glabprus2025"><a href="#ref-17">[17]</a></span> provides a
+modern map of geometry and cardinality questions, not a
+rational-membership theorem for the present set.</p>
+</section>
+<section id="statements-and-declarations" class="level4 unnumbered">
+<h4 class="unnumbered">Statements and declarations</h4>
+<section id="artefact-and-data-availability." class="level7">
+<p class="heading">Artefact and data availability.</p>
 <p>The linked Lean declarations, fixed toolchain, and library manifest
 are published in the companion repository. This manuscript provides
 navigation and exposition rather than proof authority.</p>
 </section>
-<section id="authority-boundary." class="level5">
-<h5>Authority boundary.</h5>
+<section id="authority-boundary." class="level7">
+<p class="heading">Authority boundary.</p>
 <p>Kernel checking establishes that a proposition was proved; it does
 not authorise the exposition, literature judgements, or any claim that
 Problem 257 is solved.</p>
 </section>
-<section id="funding-and-competing-interests." class="level5">
-<h5>Funding and competing interests.</h5>
+<section id="funding-and-competing-interests." class="level7">
+<p class="heading">Funding and competing interests.</p>
 <p>This work received no external funding. The author declares no
 competing interests.</p>
 </section>
 </section>
-<section id="references" class="level2 unnumbered">
-<h2 class="unnumbered">References</h2>
+<section id="references" class="level4 unnumbered">
+<h4 class="unnumbered">References</h4>
 <ol>
 <li id="ref-1"><p>P. Erdős, <a
 href="https://www.renyi.hu/~p_erdos/1948-04.pdf"><em>On arithmetical
@@ -10554,7 +10558,31 @@ refer to arXiv:2108.11401v2.</p></li>
 critical-window profile for the <span
 class="math inline" data-term-auto="off">\(k\)</span>-fold divisor function in almost all
 short intervals</em></a>, arXiv:2401.08432v3 (2026).</p></li>
+<li id="ref-13"><p>F. Luca and Y. Tachiya, <em>Irrationality of Lambert series
+associated with a periodic sequence</em>, International Journal of
+Number Theory <strong>10</strong> (2014), no. 3, 623–636. <a
+href="https://doi.org/10.1142/S1793042113501121">doi:10.1142/S1793042113501121</a>.</p></li>
+<li id="ref-14"><p>F. Luca and Y. Tachiya, <em>Linear independence of certain
+Lambert series</em>, Proceedings of the American Mathematical Society
+<strong>142</strong> (2014), no. 10, 3411–3419. <a
+href="https://doi.org/10.1090/S0002-9939-2014-12102-2">doi:10.1090/S0002-9939-2014-12102-2</a>.</p></li>
+<li id="ref-15"><p>W. Van Assche, <em>Little <span
+class="math inline" data-term-auto="off">\(q\)</span>-Legendre polynomials and irrationality
+of certain Lambert series</em>, The Ramanujan Journal <strong>5</strong>
+(2001), 295–310. <a
+href="https://doi.org/10.1023/A:1012930828917">doi:10.1023/A:1012930828917</a>;
+<a
+href="https://arxiv.org/abs/math/0101187v1">arXiv:math/0101187v1</a>.</p></li>
+<li id="ref-16"><p>H. Hornich, <em>Über beliebige Teilsummen absolut konvergenter
+Reihen</em>, Monatshefte für Mathematik und Physik <strong>49</strong>
+(1941), 316–320. <a
+href="https://doi.org/10.1007/BF01707309">doi:10.1007/BF01707309</a>.</p></li>
+<li id="ref-17"><p>S. Głąb and F. Prus-Wiśniowski, <em>Achievement sets – current
+results and open problems</em>, arXiv:2512.17285v1 (2025), preprint. <a
+href="https://arxiv.org/abs/2512.17285v1"
+class="uri">https://arxiv.org/abs/2512.17285v1</a>.</p></li>
 </ol>
+</section>
 </section>
   </div>
 </article>

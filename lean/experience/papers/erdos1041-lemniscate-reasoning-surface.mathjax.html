@@ -5,72 +5,17 @@
     <p class="lean-paper__subject">Erdős #1041</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/1041/erdos1041-lemniscate-reasoning-surface.tex">
-<blockquote>
-<p><strong>Contribution.</strong> The paper gives an all-degree path
-theorem for every monic trinomial, a sharp critical-value mean checked
-in Lean, a quantitative connector at a separated simple critical value
-whose threshold <span class="math inline" data-term-auto="off">\(S=4/3\)</span> reaches every
-degree <span class="math inline" data-term-auto="off">\(n\ge 3\)</span>, a short contained
-connector whenever the least critical-value modulus is at most <span
-class="math inline" data-term-auto="off">\(13/25\)</span>, a constant-factor connector of
-length at most <span class="math inline" data-term-auto="off">\((71/10)\mu^{1/n}\)</span>
-inside <span class="math inline" data-term-auto="off">\(\{|f|\le 2\mu\}\)</span>, the full
-degree-three case, a sharp all-degree collinear theorem, a complete
-primitive sparse quintic theorem, and translated cubic quotient-fibre
-theorems in every degree <span class="math inline" data-term-auto="off">\(3q\)</span>. Lean
-checks exponential Newton-value decay, positive-ray collision
-interfaces, finite translation avoidance, and quantified root retention.
-Exact obstruction examples, including a Cassini counterexample to the
-printed global tree budget, show why those estimates cannot be promoted
-to a general connector theorem.</p>
-<p><strong>Relation to the open problem.</strong> The critical-value
-mean and translated cubic fibre path have complete Lean statements. The
-trinomial radial inequalities and radius budget are checked at their own
-public pin, with the final rectifiable-path interpretation ordinary. The
-analytic low-critical and separation arguments retain the source
-boundaries stated in their sections; the regime <span
-class="math inline" data-term-auto="off">\(13/25&lt;\mu&lt;1\)</span> is untouched by the
-threshold argument. The checked dynamical and perturbative inputs do not
-construct unrestricted connectors, so the unrestricted conclusion is not
-established here. A reported degree-seven counterexample announcement is
-a separate external claim, not a theorem of this record.</p>
-<p><strong>Executable review object.</strong> The selected solved-family
-Comparator interfaces are separate from the full proof coverage: they
-check the registered kernels. The complete critical-value mean and
-translated cubic fibre path have the source-bound Lean evidence cited in
-their sections. Those checks provide neither a general connector theorem
-nor an assessment of novelty or significance. The repository’s
-external-verification job compares these exact Lean propositions with
-separately declared challenge statements and an axiom budget, then asks
-Lean’s kernel to check the submitted proofs. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/ca0e13f8acf5ccf48506e4bdb870953d3a0856fa/formalization.yaml">formalisation
-manifest</a> and the commit-bound CI receipt record that check; they do
-not assess novelty, significance, or whether the original problem is
-solved.</p>
-</blockquote>
-<p>The two selected perturbation interfaces have the following exact
-boundaries. For a finite type <span
-class="math inline" data-term-auto="off">\(\iota\)</span>, an injective family of critical
-values <span class="math inline" data-term-auto="off">\(c\colon\iota\to\mathbb C\)</span>,
-and every <span class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, the row
-<code>exists_small_translation_separating_arguments</code> supplies a
-shift of norm less than <span class="math inline" data-term-auto="off">\(\varepsilon\)</span>
-such that every translated value is nonzero and every two distinct
-translated values lie on different positive rays. Separately, for a
-monic split polynomial of positive degree whose roots have norm at most
-<span class="math inline" data-term-auto="off">\(\rho\)</span>, the row
-<code>constant_perturbation_roots_in_unitDisk</code> requires <span
-class="math inline" data-term-auto="off">\(\rho\ge0\)</span>, <span
-class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>, the margin</p>
-<div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[((\operatorname{natDegree}f+1)\varepsilon)^{1/\operatorname{natDegree}f}
-   +\rho&lt;1,\]</span></div>
-<p class="display-continue">and a shift of norm less than <span
-class="math inline" data-term-auto="off">\(\varepsilon\)</span>; it then places every root of
-<span class="math inline" data-term-auto="off">\(f+\operatorname{C}(\text{shift})\)</span> in
-the open unit disc. These are finite perturbation and stability
-interfaces only: neither row supplies the missing global topology or the
-length-<span class="math inline" data-term-auto="off">\(2\)</span> gluing argument.</p>
+<section id="how-to-read-the-record." class="level5">
+<h5>How to read the record.</h5>
+<p>The short note is the entry point; this record supplies hypotheses,
+proofs, counterexamples and evidence boundaries. Statements sharing a
+label across the two papers are still separate formalisation
+obligations. The final source guide names complete targets as well as
+partial kernels. The former front-page inventories and the exact
+perturbation-interface descriptions are preserved verbatim in the
+editorial transfer archive rather than repeated before the first
+argument.</p>
+</section>
 <section id="the-principal-arguments-and-their-dependencies."
 class="level5">
 <h5>The principal arguments and their dependencies.</h5>
@@ -108,9 +53,10 @@ class="math inline" data-term-auto="off">\(|f(iy)|=1+y^2\ge1\)</span>, so no suc
 in the open unit lemniscate. Repeated roots, counted as distinct
 occurrences, give a constant path; the substantive case is therefore
 squarefree.</p>
-<p>Numbering and current status follow Bloom’s Erdős problem catalogue
-<span class="citation" data-cites="bloom"><a href="#ref-3">[3]</a></span>, which records the
-problem as open. The original source is Problem 5 on printed p. 139 of
+<p>The problem numbering follows Bloom’s Erdős problem catalogue <span
+class="citation" data-cites="bloom"></span>. This record does not
+adjudicate announcements or the current status of the unrestricted
+problem. The original source is Problem 5 on printed p. 139 of
 Erdős–Herzog–Piranian <span class="citation"
 data-cites="ehp1958"><a href="#ref-4">[4]</a></span>; the preceding paragraph records the known
 input that one component of the lemniscate contains at least two
@@ -175,243 +121,16 @@ at the cost of a larger constant or a weaker containment level. The
 quartic theorem does not close the problem.</p>
 <p>We study the Newton flow whose trajectories foliate the
 lemniscate.</p>
-<table>
-<colgroup>
-<col />
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th class="ta-l"><p>Statement</p></th>
-<th class="ta-l"> Status</th>
-<th class="ta-l"> Exact boundary</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="ta-l">Erdős #1041</td>
-<td class="ta-l"> Open</td>
-<td class="ta-l"> No proof is claimed.</td>
-</tr>
-<tr>
-<td class="ta-l">Every monic trinomial <span
-class="math inline" data-term-auto="off">\(z^n+az^m+b\)</span></td>
-<td class="ta-l"> Checked radial bounds; ordinary path
-interpretation</td>
-<td class="ta-l"> <span class="math inline" data-term-auto="off">\(1\le
-m&lt;n\)</span> and every zero in the open unit disc; the middle
-coefficient is unrestricted and <span
-class="math inline" data-term-auto="off">\(|b|&lt;1\)</span> comes from Vieta. The pinned
-Abel source checks both complete spokes and the radius-sum bound. Two
-intermediate coefficients can break the radial mechanism.</td>
-</tr>
-<tr>
-<td class="ta-l">Separated critical-value disk, <span
-class="math inline" data-term-auto="off">\(S=4/3\)</span>, <span
-class="math inline" data-term-auto="off">\(n\ge3\)</span></td>
-<td class="ta-l"> Ordinary all-degree theorem; Lean-checked
-numerical kernel</td>
-<td class="ta-l"> A simple selected saddle with <span
-class="math inline" data-term-auto="off">\(|f(d)/v-w_0|\ge4/3\)</span> at every other
-critical point for some <span
-class="math inline" data-term-auto="off">\(w_0\in[0,1]\)</span>, and <span
-class="math inline" data-term-auto="off">\(|f(c)|&lt;1\)</span> for the parent conclusion.
-The two-sheeted uniformisation, Bergman estimate and exterior-fibre
-capacity gap are ordinary. No existence of such a disk is asserted.</td>
-</tr>
-<tr>
-<td class="ta-l">Low critical value <span
-class="math inline" data-term-auto="off">\(\mu\le13/25\)</span></td>
-<td class="ta-l"> Ordinary all-degree theorem with an exact
-rational certificate</td>
-<td class="ta-l"> Squarefree monic, <span
-class="math inline" data-term-auto="off">\(n\ge2\)</span>, least critical-value modulus at
-most <span class="math inline" data-term-auto="off">\(13/25\)</span>; no hypothesis on root
-locations, component arity or component capacity. The analytic chain and
-the certificate are ordinary; nothing here is Lean-checked; the regime
-<span class="math inline" data-term-auto="off">\(13/25&lt;\mu&lt;1\)</span> is
-untouched.</td>
-</tr>
-<tr>
-<td class="ta-l">Unconditional constant factor <span
-class="math inline" data-term-auto="off">\((71/10)\mu^{1/n}\)</span></td>
-<td class="ta-l"> Ordinary all-degree theorem</td>
-<td class="ta-l"> Monic, <span
-class="math inline" data-term-auto="off">\(n\ge2\)</span>, no further hypothesis; containment
-is <span class="math inline" data-term-auto="off">\(\{|f|\le2\mu\}\)</span>; the target set
-is <span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span>, and the constant
-<span class="math inline" data-term-auto="off">\(71/10\)</span> exceeds the target <span
-class="math inline" data-term-auto="off">\(2\)</span>. Degree two is the separate exact case
-with constant <span class="math inline" data-term-auto="off">\(2\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Degree three</td>
-<td class="ta-l"> Ordinary theorem, complete for that
-degree</td>
-<td class="ta-l"> Roots in the open unit disc, listed with
-multiplicity; the two selected roots are distinct in the squarefree
-case. The spoke identity and its norm bound have a Lean companion in the
-research corpus, outside the pinned formal-source library.</td>
-</tr>
-<tr>
-<td class="ta-l">Critical-value separation, general
-disk</td>
-<td class="ta-l"> Ordinary all-degree theorem</td>
-<td class="ta-l"> A simple nonzero hub, <span
-class="math inline" data-term-auto="off">\(S&gt;\max(w_0,1-w_0)\)</span> and the coefficient
-inequality in Theorem <a class="math-ref" href="#res:critical-value-separation">6.1</a>; the
-covering, Bergman and capacity arguments remain ordinary.</td>
-</tr>
-<tr>
-<td class="ta-l">Critical-value budget in every degree</td>
-<td class="ta-l"> Lean-checked theorem</td>
-<td class="ta-l"> <span
-class="math inline" data-term-auto="off">\(\sum_j|f(c_j)|^{1/n}\le(n-1)R\)</span> for every
-<span class="math inline" data-term-auto="off">\(n\ge2\)</span> and <span
-class="math inline" data-term-auto="off">\(R\ge0\)</span>, with the sharper Poisson mean
-<span class="math inline" data-term-auto="off">\(\sum_j|f(c_j)|^{2/(n-1)}\le n-1\)</span> on
-the closed unit disc. The complete mean is checked in
-<code>PaperCriticalValueMeanR10.lean</code>, with matching source-bound
-build evidence cited below. No inverse-ray length estimate is
-implied.</td>
-</tr>
-<tr>
-<td class="ta-l">Coefficient energy to path length</td>
-<td class="ta-l"> Checked</td>
-<td class="ta-l"> Termwise differentiation and the length
-integral of the actual power series; the inverse branch and area bound
-must be supplied.</td>
-</tr>
-<tr>
-<td class="ta-l">Uniform central free-point region</td>
-<td class="ta-l"> Checked</td>
-<td class="ta-l"> Every positive number of points; <span
-class="math inline" data-term-auto="off">\(|c_i|\le\sqrt{1-e^{-2}}\)</span>, with no
-additional series hypotheses.</td>
-</tr>
-<tr>
-<td class="ta-l">Newton value equation <span
-class="math inline" data-term-auto="off">\(w&#39;=-w\)</span></td>
-<td class="ta-l"> Checked local derivative</td>
-<td class="ta-l"> For a complex local parameter, away from
-critical points and along a curve tangent to <span
-class="math inline" data-term-auto="off">\(-f/f&#39;\)</span>.</td>
-</tr>
-<tr>
-<td class="ta-l">Scaled-value derivative</td>
-<td class="ta-l"> Checked local derivative</td>
-<td class="ta-l"> For the same complex local parameter,
-<span
-class="math inline" data-term-auto="off">\(\tfrac{d}{dt}\bigl(e^{t}f(z(t))\bigr)=0\)</span>;
-constancy on a real interval is an ordinary integration step.</td>
-</tr>
-<tr>
-<td class="ta-l">Ray separation of critical values</td>
-<td class="ta-l"> Lean-checked endpoint consumer plus
-ordinary finite-trajectory deduction</td>
-<td class="ta-l"> Lean contradicts distinct rays from an
-assumed exponential endpoint relation. Continuity at the endpoints and
-noncritical Newton evolution on the open interval yield that relation by
-ordinary integration; no global trajectory producer is supplied.</td>
-</tr>
-<tr>
-<td class="ta-l">Ray-collision locus</td>
-<td class="ta-l"> Checked</td>
-<td class="ta-l"> <span
-class="math inline" data-term-auto="off">\(\beta=(ra-b)/(1-r)\)</span>, <span
-class="math inline" data-term-auto="off">\(r&gt;0\)</span>, <span
-class="math inline" data-term-auto="off">\(r\ne1\)</span>: one real parameter per pair.</td>
-</tr>
-<tr>
-<td class="ta-l">Quartic case</td>
-<td class="ta-l"> Cited</td>
-<td class="ta-l"> Proved in <span class="citation"
-data-cites="june2026"><a href="#ref-11">[11]</a></span>; does not extend to general degree.</td>
-</tr>
-<tr>
-<td class="ta-l">Translated quartic quotient fibres</td>
-<td class="ta-l"> Ordinary theorem with a Lean-checked
-metric kernel</td>
-<td class="ta-l"> For <span
-class="math inline" data-term-auto="off">\(f(z)=P((z-h)^q)\)</span>, <span
-class="math inline" data-term-auto="off">\(P\)</span> monic quartic and <span
-class="math inline" data-term-auto="off">\(q\ge2\)</span>; Pendyala supplies the quartic
-geometry, while Lean checks the root-lift density, exact primitive, and
-strict endpoint budget.</td>
-</tr>
-<tr>
-<td class="ta-l">Signed-moment cyclic tetranomials</td>
-<td class="ta-l"> Lean-checked two-index safe-spoke
-theorem</td>
-<td class="ta-l"> For an indexed finite root family of
-<span class="math inline" data-term-auto="off">\(g(w)=w^m+aw^r+bw^s+c\)</span>, an exact
-signed <span class="math inline" data-term-auto="off">\(L^2\)</span> moment budget selects
-two distinct indices whose complete spokes are safe; distinct root
-values require injectivity of the indexing map.</td>
-</tr>
-<tr>
-<td class="ta-l">Concyclic zeros with <span
-class="math inline" data-term-auto="off">\(2\rho^n\le1\)</span></td>
-<td class="ta-l"> Ordinary proof; finite exact and
-numerical checks</td>
-<td class="ta-l"> Distinct-root theorem; not Lean checked;
-the unrestricted concyclic case remains open.</td>
-</tr>
-<tr>
-<td class="ta-l">Unrestricted proof of <span
-class="citation" data-cites="march2026"></span></td>
-<td class="ta-l"> Printed tree budget false</td>
-<td class="ta-l"> Proposition 12 uses a false three-ended
-local saddle block, and the Cassini polynomial <span
-class="math inline" data-term-auto="off">\(z^2-a^2\)</span> at <span
-class="math inline" data-term-auto="off">\(a=9/10\)</span> refutes the printed <span
-class="math inline" data-term-auto="off">\(1/(2\pi)\)</span> spanning-tree estimate. A
-different route cannot retain that coefficient. This does not refute
-Erdős #1041.</td>
-</tr>
-<tr>
-<td class="ta-l">Constant-translation ray separation and
-root retention</td>
-<td class="ta-l"> Checked</td>
-<td class="ta-l"> After critical-value injectivity,
-arbitrary small ray avoidance and an explicit unit-disc margin.</td>
-</tr>
-<tr>
-<td class="ta-l">Coefficient perturbation and slack
-stability</td>
-<td class="ta-l"> Open</td>
-<td class="ta-l"> Must first create injective critical
-values and preserve the component, collars and length budget.</td>
-</tr>
-<tr>
-<td class="ta-l">Ray-separated slit-sheet
-decomposition</td>
-<td class="ta-l"> Ordinary theorem on a generic
-stratum</td>
-<td class="ta-l"> Critical points in the component are
-simple, critical values are nonzero, and their arguments and moduli are
-pairwise distinct. Simultaneous levels and the broader compact-band cut
-problem are not covered.</td>
-</tr>
-<tr>
-<td class="ta-l">Metric fan-in</td>
-<td class="ta-l"> Open</td>
-<td class="ta-l"> The generic topology supplies a canonical
-inverse-ray tree but no target-scale length estimate; near-tied
-arguments, multiple saddles and the general compact-band gluing problem
-remain open.</td>
-</tr>
-<tr>
-<td class="ta-l">Random search to degree <span
-class="math inline" data-term-auto="off">\(10\)</span></td>
-<td class="ta-l"> Numerical candidate connectors</td>
-<td class="ta-l"> Grid distances for sampled
-configurations, with no continuous sublevel certificate on any
-edge.</td>
-</tr>
-</tbody>
-</table>
+<section id="evidence-vocabulary." class="level5">
+<h5>Evidence vocabulary.</h5>
+<p>A proved ordinary statement, a complete formal declaration, a
+declaration inside the supplied checked closure and an exact finite
+certificate are separate kinds of evidence. The theorem-level boundaries
+are given beside the proofs and in the final source guide. The former
+front status table, including superseded source descriptions, is
+preserved verbatim in the editorial transfer archive rather than
+duplicated here.</p>
+</section>
 </section>
 <section id="sec:trinomials" class="level2">
 <h2>Trinomials</h2>
@@ -868,14 +587,54 @@ class="math inline" data-term-auto="off">\(n=5\)</span>, where the corresponding
 are <span class="math inline" data-term-auto="off">\(61/100\)</span> and <span
 class="math inline" data-term-auto="off">\(139/250\)</span>; from <span
 class="math inline" data-term-auto="off">\(n=6\)</span> on the all-degree constant <span
-class="math inline" data-term-auto="off">\(13/25\)</span> is the better statement.
-Erdős #1041 remains open.</p>
+class="math inline" data-term-auto="off">\(13/25\)</span> is the better statement. These
+threshold arguments do not settle the unrestricted root-connector
+conclusion.</p>
+<div class="corollary" id="res:scaled-low-critical-path">
+<p><strong>Corollary 3.5</strong> (scaled low-critical connection). <em>
+Every squarefree monic polynomial <span class="math inline" data-term-auto="off">\(f\)</span>
+of degree <span class="math inline" data-term-auto="off">\(n\ge2\)</span> has two distinct
+zeros joined by a rectifiable curve of length less than <span
+class="math inline" data-term-auto="off">\((5/2)\mu^{1/n}\)</span> in <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;(25/13)\mu\}\)</span>, where <span
+class="math inline" data-term-auto="off">\(\mu=\min_{f&#39;(c)=0}|f(c)|\)</span>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(n\ge3\)</span>, apply
+Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
+to <span class="math inline" data-term-auto="off">\(g(z)=s^{-n}f(sz)\)</span> with <span
+class="math inline" data-term-auto="off">\(s=((25/13)\mu)^{1/n}\)</span>. Its least critical
+modulus is <span class="math inline" data-term-auto="off">\(13/25\)</span>; rescaling gives
+length less than <span
+class="math inline" data-term-auto="off">\(2(25/13)^{1/n}\mu^{1/n}&lt;(5/2)\mu^{1/n}\)</span>,
+since <span class="math inline" data-term-auto="off">\(25/13&lt;(5/4)^3\)</span>. For <span
+class="math inline" data-term-auto="off">\(n=2\)</span>, write <span
+class="math inline" data-term-auto="off">\(f(z)=(z-h)^2-d^2\)</span>. The two radial segments
+through <span class="math inline" data-term-auto="off">\(h\)</span> have total length <span
+class="math inline" data-term-auto="off">\(2|d|=2\mu^{1/2}\)</span> and lie in the closed
+level <span class="math inline" data-term-auto="off">\(\mu\)</span>, which is inside the
+stated open level. ◻</p>
+</div>
+<p>This is the scale-free consequence already displayed in the short
+note. It improves both the length constant and the containment level of
+the next theorem: <span class="math inline" data-term-auto="off">\(5/2&lt;71/10\)</span> and
+<span class="math inline" data-term-auto="off">\(25/13&lt;2\)</span>. The older proof is
+retained for its independent area mechanism and component-sensitive
+estimates.</p>
 </section>
 </section>
 <section id="sec:constant-factor" class="level2">
 <h2>An unconditional all-degree constant-factor path theorem</h2>
-<p>Dropping the threshold entirely costs a constant. For a monic
-degree-<span class="math inline" data-term-auto="off">\(n\)</span> polynomial put</p>
+<p>The scaled low-critical corollary above supersedes the universal
+constant in this section, with a smaller containment level as well. We
+retain the independent area-based construction because its proof exposes
+root-count and component-capacity dependence. Its high-arity and
+capacity-defect corollaries are also retained, although their stated
+<span class="math inline" data-term-auto="off">\(\mu\le1/2\)</span> ranges are already
+covered by the stronger <span class="math inline" data-term-auto="off">\(\mu\le13/25\)</span>
+theorem. They describe the area method, not an additional uncovered part
+of the problem. For a monic degree-<span
+class="math inline" data-term-auto="off">\(n\)</span> polynomial put</p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[K_t=\{z:|f(z)|\le t\},\qquad
 \mu=\min_{f&#39;(c)=0}|f(c)|,\qquad \rho=\mu^{1/n}.\]</span></div>
@@ -1117,34 +876,66 @@ and vanishes on <span
 class="math inline" data-term-auto="off">\(\partial\Omega\subseteq\partial C\)</span>, so it
 vanishes identically; its value at infinity is <span
 class="math inline" data-term-auto="off">\(\log\kappa+\frac1n\sum_aG(a)\)</span> by the
-symmetry <span class="math inline" data-term-auto="off">\(g(\infty,a)=G(a)\)</span>. A
-remaining counterexample with <span
-class="math inline" data-term-auto="off">\(\mu\le1/2\)</span> therefore has <span
+symmetry <span class="math inline" data-term-auto="off">\(g(\infty,a)=G(a)\)</span>. Failure
+of these component-sensitive criteria alone, in the range <span
+class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>, forces <span
 class="math inline" data-term-auto="off">\(k_0\le16\)</span> and exterior Green defect <span
-class="math inline" data-term-auto="off">\(\Sigma&lt;n\log(40/39)\)</span> at the top arity,
-so it must be simultaneously low-arity and nearly round.</p>
+class="math inline" data-term-auto="off">\(\Sigma&lt;n\log(40/39)\)</span> at the top arity.
+This is a limitation of the area-based criteria. The low-critical
+theorem already excludes an actual counterexample throughout that
+range.</p>
 <p>The level window <span
 class="math inline" data-term-auto="off">\([\mu,\lambda\mu]\)</span> is the only loss in
 Theorem <a class="math-ref" href="#res:constant-factor-path">4.1</a> that the
 mechanism itself demands, and removing it isolates one clean extremal
 problem. At the critical level itself (CF1) fails, because the area
 derivative diverges logarithmically at a critical level.</p>
+<p>The unrestricted one-component assertion previously posed here is
+false. The supplied previous-return construction, reproduced in <span
+class="citation" data-cites="revision2026"></span>, uses Runge
+approximation and monicisation to make a level-one component with one
+simple zero and arbitrarily long analytic boundary. It imposes neither a
+unit root disc nor a global lower bound on critical-value moduli. The
+useful surviving question is narrower.</p>
 <div class="problem" id="prob:conjecture-p">
-<p><strong>Problem 4.4</strong> (one-lobe perimeter). <em> Let <span
-class="math inline" data-term-auto="off">\(C\)</span> be a connected component of <span
-class="math inline" data-term-auto="off">\(\{|f|\le\sigma\}\)</span> containing exactly one
-root of <span class="math inline" data-term-auto="off">\(f\)</span>. Determine whether a
+<p><strong>Problem 4.4</strong> (globally subcritical one-lobe
+perimeter). <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be
+squarefree and monic of degree <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span>, and put <span
+class="math inline" data-term-auto="off">\(\mu=\min_{f&#39;(c)=0}|f(c)|\)</span>. Is there a
 constant <span class="math inline" data-term-auto="off">\(\beta\)</span>, independent of
-<span class="math inline" data-term-auto="off">\(f\)</span>, of its degree <span
-class="math inline" data-term-auto="off">\(n\)</span> and of <span
-class="math inline" data-term-auto="off">\(\sigma\)</span>, satisfies </em></p>
+<span class="math inline" data-term-auto="off">\(n,f\)</span> and <span
+class="math inline" data-term-auto="off">\(0&lt;\sigma&lt;\mu\)</span>, such that every
+component <span class="math inline" data-term-auto="off">\(C\)</span> of <span
+class="math inline" data-term-auto="off">\(\{|f|\le\sigma\}\)</span> satisfies </em></p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\mathcal H^1(\partial C)\le\beta\,\sigma^{1/n}
-=\beta\operatorname{cap}\{|f|\le\sigma\},\]</span></div>
-<p class="display-continue"><em> and if so determine
-the least such constant <span
-class="math inline" data-term-auto="off">\(\beta_*\)</span>.</em></p>
+class="math display" data-term-auto="off">\[\mathcal H^1(\partial
+C)\le\beta\sigma^{1/n}?\]</span></div>
+<p><em> Equivalently, each of the <span
+class="math inline" data-term-auto="off">\(n\)</span> univalent inverse branches <span
+class="math inline" data-term-auto="off">\(f(\phi_j(w))=\sigma w\)</span> should have <span
+class="math inline" data-term-auto="off">\(\int_0^{2\pi}|\phi_j&#39;(e^{it})|\,dt\le\beta\sigma^{1/n}\)</span>.
+There is no root-location hypothesis. If such constants exist, write
+<span class="math inline" data-term-auto="off">\(\beta_*\)</span> for their infimum.</em></p>
 </div>
+<p>All these components contain one zero. The simultaneous condition
+<span class="math inline" data-term-auto="off">\(\sigma&lt;\mu\)</span> is essential: local
+univalence of just one selected component is not enough. For <span
+class="math inline" data-term-auto="off">\(1&lt;R&lt;\mu/\sigma\)</span>, the area estimate
+gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[{1\over2\pi}\int_0^{2\pi}|\phi_j&#39;(e^{it})|\,dt
+\le { (\sigma R)^{1/n}\over\sqrt{R^2-1}}.\]</span></div>
+<p>Indeed, circular
+means of <span class="math inline" data-term-auto="off">\(|\phi_j&#39;|^2\)</span> increase,
+the image of the annulus <span
+class="math inline" data-term-auto="off">\(1&lt;|w|&lt;R\)</span> has area at least <span
+class="math inline" data-term-auto="off">\(\pi(R^2-1)\)</span> times the mean at <span
+class="math inline" data-term-auto="off">\(1\)</span>, and Pólya’s preimage-area bound <span
+class="citation" data-cites="crane"></span> bounds that area by <span
+class="math inline" data-term-auto="off">\(\pi(\sigma R)^{2/n}\)</span>. The loss as <span
+class="math inline" data-term-auto="off">\(R\downarrow1\)</span> belongs to this argument and
+does not prove an endpoint divergence.</p>
 <p>For <span class="math inline" data-term-auto="off">\(f=z^2-d^2\)</span> one has <span
 class="math inline" data-term-auto="off">\(\mu=d^2\)</span> and <span
 class="math inline" data-term-auto="off">\(\rho=d\)</span>. For <span
@@ -1194,16 +985,24 @@ class="math inline" data-term-auto="off">\(r&lt;1/a\)</span>, and a circle of ra
 class="math inline" data-term-auto="off">\(1\)</span> isolates it by Rouché’s theorem;
 letting <span class="math inline" data-term-auto="off">\(a\downarrow1\)</span> shows that
 every admissible <span class="math inline" data-term-auto="off">\(\beta\)</span> is at least
-<span class="math inline" data-term-auto="off">\(2\pi\)</span>. Problem <a class="math-ref" href="#prob:conjecture-p">4.4</a> is the one-root
-per-component analogue of the Erdős–Herzog–Piranian lemniscate-length
-problem, whose per-root constant is <span
-class="math inline" data-term-auto="off">\(2\)</span>, attained asymptotically by <span
-class="math inline" data-term-auto="off">\(z^n-1\)</span>.</p>
+<span class="math inline" data-term-auto="off">\(2\pi\)</span>. For the latter family all
+critical values have modulus <span
+class="math inline" data-term-auto="off">\((1-1/N)a(a/N)^{1/(N-1)}\to a&gt;1\)</span>, so it
+also gives the necessary bound <span
+class="math inline" data-term-auto="off">\(\beta_*\ge2\pi\)</span> under the corrected global
+subcritical hypothesis. Kuznetsova–Tkachev <span class="citation"
+data-cites="kuznetsova2003"><a href="#ref-24">[24]</a></span> establish Laplace-transform and
+log-convexity properties for regular level-length functions. Those
+results do not provide a uniform bound at the first critical level.
+Total lemniscate length and one-branch endpoint length are different
+extremal quantities.</p>
 <div class="theorem" id="res:conjecture-p-consumer">
 <p><strong>Theorem 4.5</strong> (conditional removal of the level
 window). <em> If the bound of Problem <a class="math-ref" href="#prob:conjecture-p">4.4</a> holds with
 constant <span class="math inline" data-term-auto="off">\(\beta\)</span> for every <span
-class="math inline" data-term-auto="off">\(\sigma\le\mu\)</span>, then two roots of <span
+class="math inline" data-term-auto="off">\(0&lt;\sigma&lt;\mu\)</span>, where <span
+class="math inline" data-term-auto="off">\(f\)</span> is squarefree and monic of degree <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span>, then two distinct roots of <span
 class="math inline" data-term-auto="off">\(f\)</span> are joined inside <span
 class="math inline" data-term-auto="off">\(K_\mu\)</span> by a path of length at most </em></p>
 <div class="math-display" data-term-auto="off"><span
@@ -1211,11 +1010,18 @@ class="math display" data-term-auto="off">\[\Bigl(\frac{8x}{(1-x)^2}+\frac\beta\
 \qquad(0&lt;x&lt;1).\]</span></div>
 </div>
 <div class="proof">
-<p><em>Proof.</em> At level <span class="math inline" data-term-auto="off">\(\mu\)</span>
-exactly, <span class="math inline" data-term-auto="off">\(c_*\)</span> lies on the boundary
-of two one-root lobes <span class="math inline" data-term-auto="off">\(U_a,U_b\)</span>, so
-it suffices to bound the intrinsic distance from <span
-class="math inline" data-term-auto="off">\(a\)</span> to <span
+<p><em>Proof.</em> At the first critical level a critical point <span
+class="math inline" data-term-auto="off">\(c_*\)</span> belongs to the closures of at least
+two distinct one-root components of <span
+class="math inline" data-term-auto="off">\(\{|f|&lt;\mu\}\)</span>; choose <span
+class="math inline" data-term-auto="off">\(U_a,U_b\)</span> among them. No simplicity
+assumption is needed. Each inverse map extends continuously to its
+algebraic boundary. Its boundary values are injective, since <span
+class="math inline" data-term-auto="off">\(f(\phi(e^{it}))=\mu e^{it}\)</span>; hence the
+boundary is a Jordan curve. The subcritical perimeter bound passes to
+that boundary by lower semicontinuity of length under uniform
+convergence. It therefore suffices to bound the intrinsic distance from
+<span class="math inline" data-term-auto="off">\(a\)</span> to <span
 class="math inline" data-term-auto="off">\(c_*\)</span> inside <span
 class="math inline" data-term-auto="off">\(\overline{U_a}\)</span>. Lift from <span
 class="math inline" data-term-auto="off">\(a\)</span> along a ray to <span
@@ -1249,22 +1055,15 @@ href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35
 constant factor bound</a>, which carries every rational verification
 quoted above. Its containment level is <span
 class="math inline" data-term-auto="off">\(2\mu\)</span> and its constant is <span
-class="math inline" data-term-auto="off">\(71/10\)</span>, so the theorem itself reaches
-neither half of the target, and the sharp constant <span
-class="math inline" data-term-auto="off">\(2\)</span> remains open. Corollaries <a class="math-ref" href="#res:constant-factor-arity">4.2</a> and <a class="math-ref" href="#res:constant-factor-capacity">4.3</a> do
-reach the target on their stated regions; each rational cutoff is an
-integer inequality of the form <span
-class="math inline" data-term-auto="off">\((A+Bq)^2&lt;2k\)</span>, checked exactly. The
-complementary cells, low first-merge arity together with high component
-capacity, stay open. For Problem <a class="math-ref" href="#prob:conjecture-p">4.4</a>, <span
-class="math inline" data-term-auto="off">\(120\)</span> sampled configurations over degrees
-<span class="math inline" data-term-auto="off">\(2\)</span> through <span
-class="math inline" data-term-auto="off">\(10\)</span> and five families gave a largest ratio
-<span class="math inline" data-term-auto="off">\(\mathcal H^1(\partial
-U)/(\sqrt2\varpi\rho)\)</span> of <span
-class="math inline" data-term-auto="off">\(0.9999997747\)</span>, at quadratics. The
-degree-eight example above exceeds the quadratic constant, so the
-sampled maximum is a local one. The adjacent classical literature on
+class="math inline" data-term-auto="off">\(71/10\)</span>. The scaled low-critical corollary
+has both a smaller constant and a smaller level. The proof retained here
+is ordinary, with component-sensitive consequences on their stated
+regions; its rational cutoffs are exact integer inequalities. The former
+finite perimeter samples concerned the superseded auxiliary formulation
+and are retained only in the editorial history. They do not support the
+corrected global subcritical endpoint question. The sharp root-connector
+conclusion is not established for the unrestricted class by the
+arguments in this record. The adjacent classical literature on
 lemniscate length concerns the arclength of the level curve <span
 class="math inline" data-term-auto="off">\(\{|p|=1\}\)</span>, which is Erdős #114. Fryntov
 and Nazarov recall its history <span class="citation"
@@ -1279,8 +1078,9 @@ asymptotically sharp <span class="math inline" data-term-auto="off">\(2n+o(n)\)<
 class="citation" data-cites="fryntovnazarov2008"></span>, and Tao
 resolved the problem for large <span class="math inline" data-term-auto="off">\(n\)</span>
 <span class="citation" data-cites="tao2025"><a href="#ref-16">[16]</a></span>. These results bound
-the length of a level curve; a dated search on 2 September 2026 located
-no constant-factor root-pair bound in arbitrary degree.</p>
+the length of a level curve, not the least internal root-pair path. This
+distinction identifies the quantity being estimated; no claim of novelty
+follows from the scope or outcome of a literature search.</p>
 </section>
 </section>
 <section id="sec:degree-three" class="level2">
@@ -1381,26 +1181,18 @@ endpoint. ◻</p>
 </div>
 <section id="bdry:degree-three" class="level5">
 <h5>Evidence and exact boundary.</h5>
-<p>The cubic reduction, zero-count lemma and path assembly are now
-checked in
-<code>ErdosProblems/Erdos1041/PaperCubicCompletion.lean</code>, with
-endpoint <code>cubic_paper_complete</code>; the supporting root count is
-in <code>PaperCubicSchur.lean</code>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/3be82b1a7340284aea72e9a5c8493cb020843921/ErdosProblems/Erdos1041/PaperCubicMonic.lean#L32">monic-cubic
-endpoint</a> also discharges the root enumeration: monicity and degree
-three supply the factorisation over <span class="math inline" data-term-auto="off">\(\mathbb
-C\)</span>, with multiplicities retained. The connector therefore starts
-from the polynomial and its open-disc root condition alone;
-squarefreeness gives distinct root endpoints. The earlier
-research-corpus presentation is historical working material, rather than
-the present proof boundary. Pendyala proves the degree-four case <span
-class="citation" data-cites="june2026"></span>; whether degree three was
-already recorded on the Erdős Problem #1041 discussion thread or in
-<span class="citation" data-cites="ehp1958"><a href="#ref-4">[4]</a></span> has not been
-adjudicated, so the priority question here is open. The argument uses
-the sparse normalized form <span
-class="math inline" data-term-auto="off">\(w^3-\tfrac32bw^2+1\)</span>, and a higher-degree
-proof needs a replacement for that sparsity.</p>
+<p>The supplied snapshot contains <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperCubicCompletion.lean#L297">the
+complete degree-three path implementation</a> and its supporting cubic
+source. The index classifies this endpoint as
+<code>outside_checked_build</code>. Thus the ordinary theorem is proved
+above and a complete formal-source implementation is supplied, but this
+revision does not claim an attached successful build for that endpoint
+or a fresh kernel replay. Multiplicity and the distinction between
+different root occurrences and different complex values must be read
+from the precise target statement. Pendyala <span class="citation"
+data-cites="june2026"><a href="#ref-11">[11]</a></span> proves the separate quartic case; no
+historical priority for the cubic theorem is asserted here.</p>
 </section>
 </section>
 <section id="sec:critical-value-separation" class="level2">
@@ -1977,13 +1769,16 @@ class="math inline" data-term-auto="off">\(|w_i|+|w_j|\)</span> are strict. ◻
 </div>
 <section id="rem:primitive-quintic-formal-boundary" class="level5">
 <h5>Formal boundary.</h5>
-<p>Lean checks the five-index moment hypotheses, the harmonic cap, the
-sum-of-squares unsafe estimate, and the ten-pair conclusion in
-Theorem <a class="math-ref" href="#prop:primitive-quintic-two-tail-energy-selector">7.4</a>.
-The rotation, derivation of Newton moments from the roots, root-tail
-identity, Abel decomposition, path assembly, and any passage from
-distinct indices to distinct complex values remain ordinary
-mathematics.</p>
+<p>The finite moment and tail-selection kernels are formally supplied.
+The attached snapshot additionally contains <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperPrimitiveCompletionR10.lean#L235">a
+complete primitive-quintic implementation</a>, including the geometric
+assembly. This revision admitted that module to the checked
+<code>ErdosProblems</code> root; <code>AxiomAudit</code> prints
+<code>complete_primitive_quintic</code> against the standard axioms
+<code>propext</code>, <code>Classical.choice</code>, and
+<code>Quot.sound</code>. The ordinary proof above remains the paper
+argument; the Lean module is now a checked implementation of it.</p>
 </section>
 </section>
 <section id="subsec:translated-cubic-quotient-fibres" class="level3">
@@ -2094,15 +1889,16 @@ not as a separately audited endpoint.</p>
 </section>
 <section id="bdry:solved-polynomial-families" class="level5">
 <h5>Shared assurance boundary.</h5>
-<p>The three Comparator declarations route respectively to
-Theorems <a class="math-ref" href="#prop:sharp-collinear-chebyshev-comparator">7.1</a>,
-<a class="math-ref" href="#prop:primitive-quintic-two-tail-energy-selector">7.4</a>,
-and <a class="math-ref" href="#lem:cubic-safe-root-spoke">7.6</a>. They
-support, but are strictly weaker than, the ordinary assembled
-Theorems <a class="math-ref" href="#thm:sharp-collinear-diameter">7.2</a>, <a class="math-ref" href="#thm:primitive-quintic-two-tail">7.5</a>, and
-<a class="math-ref" href="#thm:translated-cubic-quotient-fibres">7.7</a>.
-The displayed Lean endpoints and the assembled geometric theorems
-therefore have different formalization boundaries.</p>
+<p>The selected Comparator declarations route to the finite collinear,
+primitive-tail and cubic-safe-spoke interfaces. They do not exhaust
+formal coverage: the complete translated cubic-fibre path is in the
+supplied checked closure, while the complete primitive-quintic
+implementation is indexed outside it. The sharper <span
+class="math inline" data-term-auto="off">\(2\sqrt{1-|h|^2}\)</span> reading and the quartic
+quotient-lift geometry retain the ordinary proof boundaries stated
+locally. Each paper statement therefore requires its own declaration and
+hypothesis comparison; a same-named comparator is not automatically the
+whole theorem.</p>
 </section>
 </section>
 </section>
@@ -2324,8 +2120,9 @@ class="math inline" data-term-auto="off">\(M\)</span>, and the displayed budget;
 derive that budget from arbitrary tetranomial coefficients, prove that
 the supplied family is a complete root multiset, perform cyclic-fibre
 lifting, or construct the final path object. Without the signed-moment,
-root-dependent, or coefficient-only budget, the tetranomial case remains
-open; this family does not solve unrestricted Erdős #1041.</p>
+root-dependent, or coefficient-only budget, the tetranomial case is not
+covered by this argument; this family does not solve unrestricted
+Erdős #1041.</p>
 </section>
 <section id="sec:translated-quartic-quotient-fibres"
 class="level3 unnumbered">
@@ -2414,6 +2211,18 @@ formalize Pendyala’s geometric lemma, the continuous covering-space
 construction of the root lift, or the ordinary chord/radial case
 assembly. This is a structured all-scale family, not a proof of
 unrestricted Erdős #1041.</p>
+<section
+id="the-quartic-input-is-geometric-not-a-critical-hub-assertion."
+class="level5">
+<h5>The quartic input is geometric, not a critical-hub assertion.</h5>
+<p>In <span class="citation" data-cites="june2026"><a href="#ref-11">[11]</a></span>, Pendyala
+first treats a close pair by a contained chord; otherwise a
+smallest-enclosing-disc normalisation and a balanced-vertex angular
+lemma supply two radial arms. The proof of a power-map pullback must
+specify which vertex those arms use. An arbitrary broken line cannot
+inherit a single-chord endpoint budget merely by being called a quartic
+connector. The two cases above retain that distinction.</p>
+</section>
 </section>
 <section id="a-critical-value-budget-in-every-degree"
 class="level3 unnumbered">
@@ -2422,6 +2231,25 @@ class="level3 unnumbered">
 <span class="math inline" data-term-auto="off">\(n\ge2\)</span>. This gives a budget for the
 merge levels; it does not bound the lengths of the paths that reach
 them.</p>
+<p>Dubinin <span class="citation"
+data-cites="dubinin2006critical"><a href="#ref-21">[21]</a></span> proves the sharp unit-disc
+critical-value product inequality using the resultant identity, the
+maximum-modulus principle and Schur’s Vandermonde inequality. The
+positive-moment estimate below implies his product bound by AM–GM,
+whereas the product bound does not bound a positive moment. For a zero
+prescribed at the origin, his Theorem 3 (p. 1174) gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\left(\prod_j|f(c_j)|\right)^{1/(n-1)}
+\le(n-1)\left({|f&#39;(0)|^2\over n^n}\right)^{1/(n-1)}.\]</span></div>
+<p>Dubinin explicitly identifies Tischler’s earlier contribution <span
+class="citation" data-cites="tischler1989"></span>. His Theorem 1 uses
+dissymmetrisation; that is not the proof mechanism of Theorem 2. Schur’s
+original paper <span class="citation" data-cites="schur1918"><a href="#ref-27">[27]</a></span> is
+the historical antecedent cited there, not a separately re-proved source
+in this record. A sharp marked-zero positive-moment bound remains a
+separate question; <span class="citation"
+data-cites="revision2026"><a href="#ref-26">[26]</a></span> reduces its maximum to a boundary-root
+configuration without solving that angular optimisation.</p>
 <div class="theorem" id="res:critical-value-budget">
 <p><strong>Theorem 8.1</strong> (critical-value budget in every degree).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic of degree <span
@@ -2613,10 +2441,11 @@ class="math display" data-term-auto="off">\[M^2+\sum_jw_j(G(c_j)-M)^2=\sum_jw_jG
 observations are constant on positive support. Equal weights therefore
 give the quadratic finite inequality above for every <span
 class="math inline" data-term-auto="off">\(m\ge1\)</span>, with equality only at the zero
-configuration. The three-point theorem<a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and
-four-point theorem state these conclusions with their equality
-cases.</p>
+configuration. The three-point and four-point specialisations follow
+with their equality cases. The supplied snapshot records the complete
+weighted target in <code>PaperWeightedRefinementsR10.lean</code>; a
+dated working-tree footnote is not a reliable description of its current
+attached source coverage.</p>
 <p>The previous three-point Hölder proof is withdrawn as an alternative
 proof from this record. Its scalar defect identity survives
 independently, but that algebra alone is not credited with the omitted
@@ -2646,10 +2475,12 @@ href="https://github.com/wcook04/plectis-erdos/blob/d4fed71423840f70f10edf27b9ad
 series transport</a> justifies termwise circle integration when the
 terms are circle integrable and admit a summable uniform norm bound; its
 Taylor double-product form assumes absolute summability of both
-coefficient sequences. The checked analytic assembly is accompanied by
-an 80-declaration audit. The repaired R10 dependency chain and the R11
-aggregate and smoke target pass. Across the R10, R11, and closure
-audits, 320 named prints report only , , and .</p>
+coefficient sequences. The complete weighted and critical-value targets
+are indexed in the supplied checked closure. Their exact statements,
+dependencies and status are recorded in the accompanying formal-scope
+map. Historical totals of named axiom prints are not an additional proof
+of a paper statement; no fresh axiom audit was run for this
+revision.</p>
 </section>
 <section id="a-uniform-central-region-in-every-degree." class="level5">
 <h5>A uniform central region in every degree.</h5>
@@ -2674,9 +2505,10 @@ and <span class="math inline" data-term-auto="off">\(|h_j|\le\sqrt2r\)</span> fe
 exponential energy inequality, yielding <span
 class="math inline" data-term-auto="off">\(\sum_j e^{h_j}\le m\)</span>. Thus the series
 estimates are proved for the actual configuration, rather than assumed
-as suppliers. This checks a central equal-weight case; the short paper’s
-ordinary all-disc weighted inequality has greater mathematical
-scope.</p>
+as suppliers. This checks a central equal-weight case. The complete
+all-disc weighted target has greater mathematical scope and is itself in
+the supplied checked closure; the restricted proof remains an
+independent mechanism.</p>
 <p>The earlier adaptive certificate remains useful for other
 configurations.</p>
 <p>For <span class="math inline" data-term-auto="off">\(m\ge1\)</span>, let <span
@@ -2753,25 +2585,31 @@ t_*={5\over16}+{3\sqrt{105}\over80},
 <p>This is an 11-fold improvement
 over the earlier deep-low threshold, but it does not assert that every
 quintic has a critical value below this level.</p>
-<p>The exact remaining degree-five statement is therefore not “improve
-the constant” but the following selection problem:</p>
-<blockquote>
-<p>For every monic quintic with roots in the closed unit disc, there is
-a critical point <span class="math inline" data-term-auto="off">\(c\)</span> with <span
-class="math inline" data-term-auto="off">\(|f(c)|\le1\)</span> and two roots <span
-class="math inline" data-term-auto="off">\(a,b\)</span> such that <span
-class="math inline" data-term-auto="off">\(|f|\le1\)</span> on <span
-class="math inline" data-term-auto="off">\([c,a]\cup[c,b]\)</span> and <span
-class="math inline" data-term-auto="off">\(|c-a|+|c-b|\le2\)</span>.</p>
-</blockquote>
-<p>The public file calls this (SPOKE-5). Together with the existing
-two-segment reduction it would settle degree five, but (SPOKE-5) is not
-proved. Coverage experiments put the residual in rapid, nearly
-simultaneous merging near the regular pentagon: the generic sampled
-families were covered, whereas the surviving band has every named merge
-threshold active and <span class="math inline" data-term-auto="off">\(D\)</span> near <span
-class="math inline" data-term-auto="off">\(1\)</span>. Those percentages locate the work;
-they are not a theorem.</p>
+<p>The stronger critical straight-hub assertion formerly called
+(SPOKE-5) is withdrawn as an open target. For the family</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[P_\epsilon(z)=z^5+\epsilon^5z^4+\epsilon^3z^3
+              -\epsilon^3z^2-\epsilon^5z-1,
+\quad F_\epsilon(z)=r^5P_\epsilon(z/r),\quad r=1-\epsilon^9,\]</span></div>
+<p class="display-continue">the previous return obstructs all origin spokes as the roots approach a
+regular pentagon. The accompanying ordinary counterargument <span
+class="citation" data-cites="revision2026"></span> shows that, for
+sufficiently small positive <span
+class="math inline" data-term-auto="off">\(\epsilon\)</span>, no critical point supplies two
+contained straight arms of total length at most <span
+class="math inline" data-term-auto="off">\(2\)</span>. That new proof is not a registered
+Lean endpoint; it is provided separately for independent review. It
+invalidates the universal critical <em>straight</em>-hub target, not the
+original path problem or a selector using curved inverse-ray arms.</p>
+<p>A different local question allows a freely chosen, noncritical
+vertex: for some <span class="math inline" data-term-auto="off">\(\delta&gt;0\)</span>, does
+every monic quintic with open-disc roots within <span
+class="math inline" data-term-auto="off">\(\delta\)</span> of a rotated regular pentagon
+admit two contained straight arms through some <span
+class="math inline" data-term-auto="off">\(h\in\mathbb C\)</span> of total length below <span
+class="math inline" data-term-auto="off">\(2\)</span>? Neither the origin nor a critical
+point is prescribed in this question. The sufficient low-critical
+threshold preceding this paragraph is unchanged.</p>
 <p>At the same degree, the terminal connected component admits a sharper
 area identity. If <span class="math inline" data-term-auto="off">\(K_t=\{|f|\le t\}\)</span>
 is connected and the centred exterior map is</p>
@@ -2787,8 +2625,8 @@ a_1=-\frac{c_{n-2}}{n\,t^{1/n}}
 \quad\text{after centring}.\]</span></div>
 <p>It replaces a Pólya upper bound at
 that terminal node, but extending it to proper components and connecting
-it to the parent theorem remains open. The degree-five statements and
-their evidence classes are recorded in <a
+it to the parent theorem are not established here. The degree-five
+statements and their evidence classes are recorded in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/Degree5AssemblyAndSharpenedCuts.md">degree5
 assembly and sharpened cuts</a>.</p>
 </section>
@@ -2823,53 +2661,37 @@ href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35
 hub arm budget refutation</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/SeparatrixAggregateReduction.md">separatrix
 aggregate reduction</a>.</p>
-<p>Third, the origin is not a uniform near-Fekete hub. An exact rational
-quintic with roots scaled by <span
-class="math inline" data-term-auto="off">\(999999/1000000\)</span> has four of five origin
-spokes escaping <span class="math inline" data-term-auto="off">\(\{|f|\le1\}\)</span> at
-explicit rational sample points, even though <span
-class="math inline" data-term-auto="off">\(1-D=3.19991\cdot10^{-4}\)</span>. This witness
-rules out the origin-spoke selector on every defect range that contains
-its value. Ruling the selector out on every positive neighbourhood of
-the Fekete locus would need a sequence of witnesses with defect tending
-to zero, or a limiting argument proving that assertion; neither is
-supplied here. The mechanism is angular: the first several Fourier modes
-can point against different spokes. The certificate is exact for the
-displayed witness; the claim that the phenomenon persists throughout a
-limiting family is computational. The witness was engineered against the
-origin selector, and a different admissible hub at the same
-configuration supplies a contained pair. What fails here is the origin
-selector; the admissible hubs are not exhausted. The full witness and
-replay route are in <a
-href="https://github.com/wcook04/plectis-erdos/blob/f214a6b45528dc5eefe20ffadc35f2e981627d4c/research_corpus/Erdos1041/NearFeketeRadialAngularSplit.md">near
-fekete radial angular split</a>.</p>
+<p>Third, the origin is not a uniform near-Fekete hub. Beyond the
+isolated rational witness in the original record, the previous return
+gives an explicit sequence <span
+class="math inline" data-term-auto="off">\(F_\epsilon\)</span> approaching the regular
+pentagon for which all five origin spokes escape <span class="citation"
+data-cites="revision2026"><a href="#ref-26">[26]</a></span>. Thus failure occurs arbitrarily near
+the equality configuration, not just at one fixed positive defect. The
+extension to all critical straight hubs is the separate new
+counterargument just stated. Neither result excludes curved canonical
+arcs or an arbitrary connector. The former isolated-witness account is
+preserved verbatim in the editorial transfer archive as superseded
+evidence, not as the current frontier.</p>
 </section>
 <section id="the-surviving-carrier-and-the-actual-open-endpoint"
 class="level3 unnumbered">
 <h3 class="unnumbered">The surviving carrier and the actual open
 endpoint</h3>
-<p>These refutations leave a selector as the surviving carrier. On the
-ray-separated dense class, the public frontier records the canonical
-open row</p>
-<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\min_{c\ \mathrm{admissible}}
-L(c)\le2,\]</span></div>
-<p class="display-continue">where admissibility includes the two inverse-ray arms
-being contained in the relevant lemniscate component. Its measured
-values remain below <span class="math inline" data-term-auto="off">\(2\)</span> at the
-refuting configurations, and the existing attachment and lower
-semicontinuity reductions would turn this row into the parent theorem.
-No proof of the row is currently available. In particular, the nonzero
-hub that rescues the origin-spoke witnesses is evidence for the
-selector, not a universal construction.</p>
-<p>The honest current endpoint is therefore a containment selector with
-three separate obligations: choose the hub, keep both arms inside the
-component, and control the metric fan-in. The Lean module cited
-elsewhere in this note checks the Newton value equation, ray-collision
-avoidance, and root-retention inputs; the new frontier files above are
-ordinary proof, exact-certificate, and computational research records,
-not formal authority for (SPOKE-5), the no-go generalisations, or the
-parent theorem. Keeping those authority boundaries visible is part of
-making the frontier reusable.</p>
+<p>The sufficient canonical target uses <em>curved</em> inverse-ray
+arcs, not straight segments. On a generic ray-separated class let <span
+class="math inline" data-term-auto="off">\(L_f(c)\)</span> be the length of the two-root
+descent arc at an admissible critical point, where <span
+class="math inline" data-term-auto="off">\(|f(c)|\le1\)</span>. Then</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\min_{c\ \mathrm{admissible}}L_f(c)\le2\]</span></div>
+<p class="display-continue">would imply the root-connector conclusion by the stated generic-closure
+argument. The unrestricted infimum over all contained curves can be
+smaller; equality of these two optimisation problems is not assumed. The
+straight-hub obstruction supplies no proof or disproof of this curved
+arc estimate. Finite sampled rescues are not a universal selector. The
+obligations are joint: admissibility, containment and metric cost must
+be achieved by the same selected competitor.</p>
 </section>
 </section>
 <section id="sec:newton" class="level2">
@@ -3067,11 +2889,14 @@ Tischler and Williams <span class="citation"
 data-cites="kozen-stefansson1997"><a href="#ref-7">[7]</a></span>, the component-wise
 Riemann–Hurwitz count in the proof of <span class="citation"
 data-cites="eks2010"><a href="#ref-8">[8]</a></span>, and the division of the Riemann surface of
-the inverse function into sheets by slits along rays from its branch
-points, which Dubinin uses to estimate capacities <span class="citation"
-data-cites="dubinin2006capacity"><a href="#ref-9">[9]</a></span>. The theorem below specifies
-the sheets, critical transpositions and descent arcs for the stated
-component.</p>
+the inverse function into sheets by outward critical-value slits.
+Dubinin describes the sheet adjacency tree directly in <span
+class="citation" data-cites="dubinin2006critical"></span> and uses a
+related network for capacity in <span class="citation"
+data-cites="dubinin2006capacity"><a href="#ref-9">[9]</a></span>. The latter paper assumes
+bounded critical values and controls capacity; it does not supply a
+Euclidean tree-length bound. The theorem below specifies the sheets,
+critical transpositions and descent arcs for the stated component.</p>
 <div class="theorem" id="res:attachment-aware-reeb">
 <p><strong>Theorem 11.1</strong> (ray-separated slit-sheet decomposition).
 <em> Let <span class="math inline" data-term-auto="off">\(f\)</span> be monic, and let <span
@@ -3428,157 +3253,77 @@ are the classical results cited above. The open content is their
 relative form on the band, together with the quantitative slack and
 length control needed for gluing. A negative answer should exhibit the
 simplest ray-separated polynomial carrying the remaining pathology.</p>
-<p>Erdős #1041 remains open. Five separate statements are proved above,
-with different degree ranges, root hypotheses, containment levels and
-constants. Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
-holds in every degree <span class="math inline" data-term-auto="off">\(n\ge2\)</span> for
-squarefree <span class="math inline" data-term-auto="off">\(f\)</span> under the single
-hypothesis <span class="math inline" data-term-auto="off">\(\mu\le13/25\)</span>, with no
-condition on where the roots lie, and gives a connector inside <span
-class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> of length below <span
-class="math inline" data-term-auto="off">\(2\)</span>; the regime <span
-class="math inline" data-term-auto="off">\(13/25&lt;\mu&lt;1\)</span> is untouched.
-Theorem <a class="math-ref" href="#res:constant-factor-path">4.1</a> drops
-every threshold and every root hypothesis, and pays for that with the
-constant <span class="math inline" data-term-auto="off">\(71/10\)</span> and the weaker
-containment level <span class="math inline" data-term-auto="off">\(\{|f|\le2\mu\}\)</span>;
-the containment <span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> with
-length at most <span class="math inline" data-term-auto="off">\(5.7\)</span> needs only <span
-class="math inline" data-term-auto="off">\(\mu\le1/2\)</span>, and both bounds fall short of
-the target constant <span class="math inline" data-term-auto="off">\(2\)</span>.
-Theorem <a class="math-ref" href="#res:degree-three">5.1</a>
-settles degree three completely for roots in the open unit disc.
-Theorem <a class="math-ref" href="#res:critical-value-separation">6.1</a> holds
-in every degree and is conditional on the critical-value separation
-<span class="math inline" data-term-auto="off">\(S\)</span>, with the uniform threshold <span
-class="math inline" data-term-auto="off">\(S=4/3\)</span> reaching every degree <span
-class="math inline" data-term-auto="off">\(n\ge3\)</span> and every real centre of the
-normalised value segment by Corollary <a class="math-ref" href="#res:critical-value-thresholds">6.2</a>.
-Theorem <a class="math-ref" href="#res:trinomial-all-degree">2.1</a> settles
-the whole trinomial family in every degree by an ordinary radial
-argument. Their formal coverage differs: the translated cubic fibres
-have a complete rectifiable-path theorem; the trinomial source checks
-both radial bounds and the radius sum. The remaining companions check
-the named numerical, algebraic and power-series steps inside them, the
-degree-three companion lies outside the pinned formal-source library and
-carries no kernel receipt in this release, and the disk uniformisation,
-Bergman estimate, capacity gap, area bounds and certificate chain remain
-ordinary mathematics. The source now publicly verifies the Newton
-kernel, finite ray avoidance and quantitative constant-translation root
-control. The ray-separated generic stratum has the ordinary slit-sheet
-decomposition of Theorem <a class="math-ref" href="#res:attachment-aware-reeb">11.1</a>;
-coefficient perturbation, the exceptional compact-band decompositions
-and metric gluing remain unresolved.</p>
+<p>This record does not establish the unrestricted conclusion of
+Erdős #1041. Its sufficient conditions have different hypotheses and
+containment levels: low critical value, separated simple critical value,
+and the individually proved polynomial families are not a cover of the
+remaining class. In particular, the scaled <span
+class="math inline" data-term-auto="off">\((5/2)\mu^{1/n}\)</span> bound is at level <span
+class="math inline" data-term-auto="off">\((25/13)\mu\)</span>, which is smaller than <span
+class="math inline" data-term-auto="off">\(2\mu\)</span>; it therefore improves both the
+constant and the level of the <span class="math inline" data-term-auto="off">\(71/10\)</span>
+construction. The latter is retained for its independent proof and
+component-sensitive estimates. The critical-value moment does not choose
+a contained pair. The ordinary generic slit-sheet topology has classical
+antecedents; the missing sufficient canonical estimate is metric, and
+the general curve infimum need not equal the canonical-arc minimum.</p>
+<section id="adjacent-inverse-map-methods." class="level5">
+<h5>Adjacent inverse-map methods.</h5>
+<p>Crane <span class="citation" data-cites="crane2007smale"><a href="#ref-22">[22]</a></span> uses
+inverse-branch hyperbolic geometry, Dubinin’s radial-slit input and
+capacity for a derivative-normalised Smale ratio. Dubinin’s four-point
+result <span class="citation" data-cites="dubinin2013fourpoint"><a href="#ref-23">[23]</a></span>
+assumes bounded critical values and estimates distortion. These are
+relevant methods, not direct sources of the present positive moment or
+connector constant, and their normalisations are not interchangeable
+with a root-disc hypothesis.</p>
+</section>
 </section>
 </section>
 <section id="statements-and-declarations" class="level2 unnumbered">
 <h2 class="unnumbered">Statements and declarations</h2>
-<p>Lean does not check the exposition, citation choices, or
-interpretation. This manuscript cites Lean only for the formal
-statements and proofs that the pinned kernel accepts. The checked core
-is the local Newton value equation, the zero-derivative form of its
-exponentially scaled value, the algebraic consumer from an assumed
-exponential endpoint relation, the finite planar-avoidance theorem,
-quantitative constant-translation root retention, and the ray-collision
-parameterisation. The real-time first integral and finite-trajectory ray
-exclusion use the ordinary interval-integration and endpoint-continuity
-argument given in the paper. The decomposition and length statements of
-§<a class="math-ref" href="#sec:open">13</a> are not proved. The
-diagnosis of Proposition 12 in §<a class="math-ref" href="#sec:gap">11</a> records both the invalid
-local saddle block and the Cassini obstruction to the printed global
-tree budget. The search results of §<a class="math-ref" href="#sec:finite">12</a> are computations.</p>
+<p>Lean checks exact formal statements, not citation choices or
+mathematical priority. The supplied index places the complete weighted
+free-point, critical-value mean and translated cubic-fibre targets in
+its checked build closure. Complete cubic and primitive-quintic
+implementations are also supplied but indexed outside that closure.
+Finite comparators are selected interfaces, not a substitute for a
+statement-by-statement comparison. The analytic path arguments and the
+new research addendum retain their ordinary proof boundaries. No fresh
+kernel replay or independent human review was performed for this
+revision.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
-<p>The public
-<code>ErdosProblems.Erdos1041.NewtonFlowRaySeparation</code> module
-contains the checked source for this note. The search of §<a class="math-ref" href="#sec:finite">12</a> is
-<code>scripts/search_counterexample.py</code> in the source package. The
-declaration table below is pinned to the shared formal-source commit
-used throughout this problem-note series.</p>
+<p>The attached declaration index, not a single Newton-flow module or a
+shared historical macro, is the source map for this revision. At
+snapshot <code>3d6d938d696f</code>, the following distinctions are
+essential.</p>
 <ul>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L34">newton
-flow vector</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L38">derivative
-mul newton flow vector</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L50">newton
-flow value has deriv at</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L64">newton
-flow scaled value has deriv at zero</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L77">same
-positive ray</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L80">same
-positive ray refl</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L84">same
-positive ray symm</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L92">same
-positive ray trans</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
-same positive ray parameterization</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L127">real
-affine line</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L130">real
-affine line eq affine span</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L147">is
-closed real affine line</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L152">dense
-compl real affine line</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L162">exists
-small avoiding finite real affine lines</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L179">same
-positive ray imp mem real affine line</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L197">exists
-small translation separating arguments</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L230">norm
-lt one of near root</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L257">constant
-perturbation root near original</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L287">constant
-perturbation roots in unit disk</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L306">same
-positive ray of real exp decay</a></p></li>
-<li><p><a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L315">no
-newton connection of not same positive ray</a></p></li>
+<li><p>Complete targets in the supplied checked closure: <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean#L101">critical-value
+mean</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperWeightedRefinementsR10.lean#L17">weighted
+free-point inequality</a>, and <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperCubicFibres.lean#L240">translated
+cubic-fibre path</a>.</p></li>
+<li><p>Complete implementations indexed outside that closure: <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperCubicCompletion.lean#L297">degree-three
+path</a>.</p></li>
+<li><p>Admitted to the checked <code>ErdosProblems</code> root in this
+revision: <a
+href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos1041/PaperPrimitiveCompletionR10.lean#L235">primitive-quintic
+path</a>.</p></li>
+<li><p>Finite selected kernels, source-only release declarations and
+ordinary analytic assemblies have separate rows in the accompanying
+formal-scope map. The older Newton declaration list is preserved
+verbatim in the editorial transfer archive; it remains useful for those
+lemmas, not as complete paper coverage.</p></li>
 </ul>
-<section
-id="checked-declarations-behind-the-translated-quotient-fibre-families."
-class="level5">
-<h5>Checked declarations behind the translated quotient-fibre
-families.</h5>
-<p>For the translated cubic and quartic quotient families <span
-class="math inline" data-term-auto="off">\(f(z)=P((z-h)^q)\)</span> the metric theorems are
-ordinary; the kernel checks the cyclic-fibre mean square and the
-quotient-disk bridge. The fibre norm identity is <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L21">fibre
-mean square</a>, the strict unit bound is <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L37">fibre
-unit bound</a>, the quotient roots land in the open disk by <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L60">quotient
-disk bridge</a>, and the composition vanishes on the fibre by <a
-href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ErdosProblems/Erdos1041/CyclicFiberMeanSquare.lean#L73">fibre
-zero identity</a>.</p>
-</section>
+<p>No source-link reachability check or fresh kernel build is implied by
+these snapshot links. The original paper-wide commit macro is retained
+for legacy links; newer target links name their own snapshot
+explicitly.</p>
 </section>
 <section id="sec:record-circle-slice" class="level2">
 <h2>Record: the circle-slice arity floor in numbers</h2>
@@ -3808,166 +3553,59 @@ geometry of the failure configuration. How much it would improve the
 final threshold is unproved.</p>
 </section>
 <section id="sec:erdos-1041-complete-family-map" class="level2">
-<h2>Complete result-family map</h2>
-<p>This section places every registered family for this problem in the
-shared 70-family reader order. The five display bands control exposition
-only; the separate promotion state currently covers 6 families and is
-reported but does not hide or strengthen any family. Mathematical
-statements and evidence modes come from the public claim registry.
-Across all eight problems the public result-atom catalog contains 681
-exact packet coordinates; this problem contributes 182. The recovered
-source catalog contains 682 rows; 1 row(s) belong to families absent
-from the current claim registry and remain disclosed as detached source
-rows. Catalog rows expose bounded statement excerpts plus full-source
-digests, not a claim that every complete packet statement is reproduced
-here.</p>
-<section id="root-retention" class="level3">
-<h3>Root retention</h3>
-<p><strong>Reader position.</strong> 7 of 70; display band: front door.
-Formal editorial disposition: split. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> A quantified small constant
-perturbation keeps every polynomial root inside the open unit disc.</p>
-<p>A quantified small constant perturbation keeps every polynomial root
-inside the open unit disc.</p>
-<p><strong>Authority and reach.</strong> Lean kernel;
-Comparator-selected; locally proved result; novelty unassessed.</p>
-<p><strong>Exact boundary.</strong> Root retention is one input to a
-still-incomplete route.</p>
-<p><strong>Result-atom population.</strong> 51 of 681 public
-coordinates. The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> exact selected interface; 1
-executable interface(s), 1 repository-registered selected result
-interface(s).</p>
-<p><strong>Publication placement.</strong> This family is also admitted
-to the short note.</p>
-</section>
-<section id="newton-value-decay" class="level3">
-<h3>Newton value decay</h3>
-<p><strong>Reader position.</strong> 13 of 70; display band: major
-result. Formal editorial disposition: split. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> Lean checks the local Newton value
-equation and the zero-derivative form of its exponentially scaled value;
-constancy along a real-time interval is an ordinary calculus consequence
-in the paper.</p>
-<p>Lean checks the local Newton value equation and the zero-derivative
-form of its exponentially scaled value; constancy along a real-time
-interval is an ordinary calculus consequence in the paper.</p>
-<p><strong>Authority and reach.</strong> Lean kernel plus authored
-synthesis; locally proved result and formalised calculus; novelty
-unassessed.</p>
-<p><strong>Exact boundary.</strong> The cited declarations are pointwise
-derivative statements. The real-time first integral requires the paper’s
-interval integration step, and value decay alone does not construct a
-global trajectory or give a short connecting curve.</p>
-<p><strong>Result-atom population.</strong> 95 of 681 public
-coordinates. The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> not selected for comparator; 0
-executable interface(s), 0 repository-registered selected result
-interface(s).</p>
-<p><strong>Publication placement.</strong> This family is also admitted
-to the short note.</p>
-<ul>
-<li><p><code>ErdosProblems.Erdos1041.newtonFlow_value_hasDerivAt</code></p></li>
-<li><p><code>ErdosProblems.Erdos1041.newtonFlow_scaledValue_hasDerivAt_zero</code></p></li>
-</ul>
-</section>
-<section id="ray-separation" class="level3">
-<h3>Ray separation</h3>
-<p><strong>Reader position.</strong> 25 of 70; display band: mechanism.
-Formal editorial disposition: split. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> Lean checks that distinct positive
-rays contradict an assumed exponential endpoint relation; the paper
-derives that relation for a finite real-time Newton trajectory by
-ordinary integration and endpoint continuity.</p>
-<p>Lean checks that distinct positive rays contradict an assumed
-exponential endpoint relation; the paper derives that relation for a
-finite real-time Newton trajectory by ordinary integration and endpoint
-continuity.</p>
-<p><strong>Authority and reach.</strong> Lean kernel plus authored
-synthesis; locally proved result; novelty unassessed.</p>
-<p><strong>Exact boundary.</strong> The finite-trajectory conclusion
-retains continuity on the closed interval, differentiability and
-noncritical Newton evolution on its interior, and the ordinary endpoint
-passage. It supplies neither global trajectory existence nor geometric
-length control.</p>
-<p><strong>Result-atom population.</strong> 19 of 681 public
-coordinates. The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> represented by selected
-interface; 0 executable interface(s), 0 repository-registered selected
-result interface(s).</p>
-<p><strong>Publication placement.</strong> This family is also admitted
-to the short note.</p>
-<ul>
-<li><p><code>ErdosProblems.Erdos1041.samePositiveRay_of_real_exp_decay</code></p></li>
-<li><p><code>ErdosProblems.Erdos1041.no_newtonConnection_of_not_samePositiveRay</code></p></li>
-</ul>
-</section>
-<section id="published-proof-gap" class="level3">
-<h3>Published proof gap</h3>
-<p><strong>Reader position.</strong> 46 of 70; display band: frontier.
-Formal editorial disposition: split. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> The paper identifies an invalid local
-saddle block in a claimed unrestricted proof.</p>
-<p>The paper identifies an invalid local saddle block in a claimed
-unrestricted proof.</p>
-<p><strong>Authority and reach.</strong> authored source analysis; paper
-diagnosis.</p>
-<p><strong>Exact boundary.</strong> The diagnosis does not prove that no
-repair exists.</p>
-<p><strong>Result-atom population.</strong> 4 of 681 public coordinates.
-The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> not applicable to comparator;
-0 executable interface(s), 0 repository-registered selected result
-interface(s).</p>
-<p><strong>Publication placement.</strong> This family is also admitted
-to the short note.</p>
-</section>
-<section id="lemniscate-finite-search" class="level3">
-<h3>Lemniscate finite search</h3>
-<p><strong>Reader position.</strong> 55 of 70; display band: frontier.
-Formal editorial disposition: split. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> A bounded search records finite
-geometric evidence.</p>
-<p>A bounded search records finite geometric evidence.</p>
-<p><strong>Authority and reach.</strong> external computation; finite
-computation.</p>
-<p><strong>Exact boundary.</strong> Finite evidence does not settle the
-universal problem.</p>
-<p><strong>Result-atom population.</strong> 6 of 681 public coordinates.
-The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> not applicable to comparator;
-0 executable interface(s), 0 repository-registered selected result
-interface(s).</p>
-<p><strong>Publication placement.</strong> This family remains in the
-complete long record and is not a short-note headline.</p>
-</section>
-<section id="translation-avoidance" class="level3">
-<h3>Translation avoidance</h3>
-<p><strong>Reader position.</strong> 61 of 70; display band: technical
-support. Formal editorial disposition: split. These are separate
-classifications.</p>
-<p><strong>Reader entry.</strong> Collision translations are
-parameterised by real affine lines and an arbitrarily small common
-translation avoids finitely many of them.</p>
-<p>Collision translations are parameterised by real affine lines and an
-arbitrarily small common translation avoids finitely many of them.</p>
-<p><strong>Authority and reach.</strong> Lean kernel;
-Comparator-selected; locally proved result; novelty unassessed.</p>
-<p><strong>Exact boundary.</strong> The finite-family avoidance theorem
-does not perform the global topology or metric gluing.</p>
-<p><strong>Result-atom population.</strong> 7 of 681 public coordinates.
-The public atom catalog groups them under this family.</p>
-<p><strong>Comparator assurance.</strong> exact selected interface; 1
-executable interface(s), 1 repository-registered selected result
-interface(s).</p>
-<p><strong>Publication placement.</strong> This family remains in the
-complete long record and is not a short-note headline.</p>
-</section>
+<h2>Result-family reading map</h2>
+<p>The former generated family inventory, including its registration
+counts, is preserved verbatim in the editorial transfer archive. Counts
+of source rows or executable interfaces are not measures of novelty,
+strength or independent assurance. The mathematical reading order
+is:</p>
+<div class="center">
+<table>
+<thead>
+<tr>
+<th class="ta-l">Family or mechanism</th>
+<th class="ta-l">What the reader should extract</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">Trinomials</td>
+<td class="ta-l">Two controlled partial sums give every
+origin spoke.</td>
+</tr>
+<tr>
+<td class="ta-l">Low critical values</td>
+<td class="ta-l">A geometric area-growth contradiction plus
+a finite certificate; the scaled consequence has a larger containment
+level.</td>
+</tr>
+<tr>
+<td class="ta-l">Separated simple value</td>
+<td class="ta-l">A resolved inverse map, Bergman segment
+estimate and capacity bound; simple branching and isolation are
+hypotheses.</td>
+</tr>
+<tr>
+<td class="ta-l">Collinear and sparse families</td>
+<td class="ta-l">Exact selection mechanisms with local
+formal boundaries, not one general sparse-polynomial theorem.</td>
+</tr>
+<tr>
+<td class="ta-l">Critical-value means</td>
+<td class="ta-l">A sharp positive moment, stronger than the
+classical product bound but not a metric selector.</td>
+</tr>
+<tr>
+<td class="ta-l">Obstructions and residual</td>
+<td class="ta-l">Arbitrary one-lobe perimeter and critical
+straight-hub targets fail; globally subcritical perimeter and curved
+canonical selection are distinct surviving questions.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This table changes no theorem statement. The source-level index and
+exact cut text remain available in the revision archive.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
@@ -4086,19 +3724,37 @@ rational lemniscates</em>, Geom. Funct. Anal. <strong>35</strong>
 href="https://doi.org/10.1007/s00039-025-00704-2">10.1007/s00039-025-00704-2</a>;
 preprint arXiv:<a
 href="https://arxiv.org/abs/2407.14610v1">2407.14610v1</a>.</p></li>
-</ol>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>The Lean modules PaperAnalyticClosureAuditR11,
-PaperAnalyticR10, PaperAnalyticR10Audit, PaperAnalyticR11,
-PaperAnalyticSmokeR11, PaperWeightedCoverageR11, ThreePointDefectR11
-cited in this section are in the author’s working tree and are not yet
-in the public repository; WeightedBoundaryDeficitR10 and
-WeightedCauchyTransportR10 are.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
+<li id="ref-21"><p>V. N. Dubinin, <em>Inequalities for critical values of
+polynomials</em>, Sb. Math. <strong>197</strong> (2006), no. 8,
+1167–1176, doi:<a
+href="https://doi.org/10.1070/SM2006v197n08ABEH003793">10.1070/SM2006v197n08ABEH003793</a>.</p></li>
+<li id="ref-22"><p>E. Crane, <em>A bound for Smale’s mean value conjecture for
+complex polynomials</em>, Bull. London Math. Soc. <strong>39</strong>
+(2007), no. 5, 781–791, doi:<a
+href="https://doi.org/10.1112/blms/bdm063">10.1112/blms/bdm063</a>;
+author preprint <a
+href="https://people.maths.bris.ac.uk/~maetc/SMVCbound.pdf"
+class="uri">https://people.maths.bris.ac.uk/~maetc/SMVCbound.pdf</a>.</p></li>
+<li id="ref-23"><p>V. N. Dubinin, <em>Four-point distortion theorem for complex
+polynomials</em>, arXiv:<a
+href="https://arxiv.org/abs/1301.3985v1">1301.3985v1</a>
+(2013).</p></li>
+<li id="ref-24"><p>O. S. Kuznetsova and V. G. Tkachev, <em>Length functions of
+lemniscates</em>, Manuscripta Math. <strong>112</strong> (2003),
+519–538, doi:<a
+href="https://doi.org/10.1007/s00229-003-0411-3">10.1007/s00229-003-0411-3</a>;
+preprint arXiv:<a
+href="https://arxiv.org/abs/math/0306327">math/0306327</a>.</p></li>
+<li id="ref-25"><p>D. Tischler, <em>Critical points and values of complex
+polynomials</em>, J. Complexity <strong>5</strong> (1989), no. 4,
+438–456.</p></li>
+<li id="ref-26"><p>W. Cook / Plectis, <em>Three refinements for the lemniscate-path
+programme</em>, 16 September 2026, accompanying unreviewed research
+note, Sections 1–3, with the earlier <em>Structural obstructions</em>
+note preserved in the same revision bundle.</p></li>
+<li id="ref-27"><p>I. Schur, <em>Über die Verteilung der Wurzeln bei gewissen
+algebraischen Gleichungen mit ganzzahligen Koeffizienten</em>, Math. Z.
+<strong>1</strong> (1918), no. 4, 377–402.</p></li>
 </ol>
 </section>
   </div>

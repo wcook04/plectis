@@ -13,7 +13,7 @@
 % result appears with its exact hypotheses, its evidence band, the scale at
 % which it is proved, and the Lean declaration that carries it.
 \usepackage{paper-house-style}
-\usepackage{array}
+\usepackage{array,seqsplit}
 \usepackage{adjustbox}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -24,7 +24,7 @@
 \usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,
   citecolor=linkinternal]{hyperref}
 \hypersetup{bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
-  pdftitle={Reciprocal Mersenne Subseries: a detailed map of the current attack on Erdos Problem 257},
+  pdftitle={Reciprocal Mersenne Subseries: proofs, attribution and conditional interfaces for Erdos Problem 257},
   pdfauthor={Will Cook},pdflang={en-GB}}
 % Lean declaration names are full of underscores and are typeset in text mode.
 % Category codes are fixed when TeX READS a line, not when a macro expands, so
@@ -99,11 +99,19 @@
 % Declaration names are written \mathtt{...} in maths and, unavoidably, in
 % running prose too. Rather than police every occurrence, make the command
 % mode-agnostic: monospace is what is meant in both places.
+\ExplSyntaxOn
+\cs_new_protected:Npn \breakablemathtt #1
+  {\tl_map_inline:nn {#1} {\origmathtt{##1}\allowbreak}}
+\cs_new_protected:Npn \breakablemathrm #1
+  {\tl_map_inline:nn {#1} {\origmathrm{##1}\allowbreak}}
+\ExplSyntaxOff
 \AtBeginDocument{%
+  \let\origtexttt\texttt
+  \renewcommand{\texttt}[1]{\origtexttt{\seqsplit{#1}}}%
   \let\origmathtt\mathtt
-  \renewcommand{\mathtt}[1]{\ifmmode\origmathtt{#1}\else\texttt{#1}\fi}%
+  \renewcommand{\mathtt}[1]{\ifmmode\breakablemathtt{#1}\else\texttt{#1}\fi}%
   \let\origmathrm\mathrm
-  \renewcommand{\mathrm}[1]{\ifmmode\origmathrm{#1}\else\textrm{#1}\fi}%
+  \renewcommand{\mathrm}[1]{\ifmmode\breakablemathrm{#1}\else\textrm{#1}\fi}%
 }
 
 % One authored part uses \m{...} as an inline-maths shorthand. Defining it is
@@ -115,6 +123,7 @@
 % what a kernel checked, what an exact computation checked, what was proved in
 % ordinary mathematics, what is quoted from the literature, and what is open.
 % ---------------------------------------------------------------------------
+% [Lean] records a supplied source/receipt, not a fresh run in this revision.
 \newcommand{\ev}[1]{{\small\textsf{[#1]}}\xspace}
 
 % Scale at which a statement is proved. This is the load-bearing axis of both
@@ -163,7 +172,7 @@
 
 \runninghead{Erd\H{o}s \#257: reciprocal Mersenne subseries}
 \title{Reciprocal Mersenne Subseries}
-\subtitle{A detailed map of the current attack on Erd\H{o}s Problem~\#257}
+\subtitle{Support criteria, finite arithmetic and conditional orbit problems}
 \author{Will Cook}
 \date{July 2026}
 
@@ -255,6 +264,9 @@ reduction, never as progress toward a solution.
 % barrier analysis, the surviving routes, and the reading contract. Everything
 % before the premise catalogue.
 
+\clearpage
+\part*{I. Support theorems and their proofs}
+\addcontentsline{toc}{part}{I. Support theorems and their proofs}
 \section{Support irrationality and its proof mechanisms}
 \label{sec:257-problem}
 
@@ -872,7 +884,7 @@ Odd support (density $1/2$) & --- & \lean{irrational\_erdosSupportSeries\_odd}{C
 Lacunary (lcm gap) & $a_k$ outgrows $\operatorname{lcm}\{a_0,\dots,a_{k-1}\}$ & \lean{irrational\_erdosSum\_of\_lcm\_gap}{CertificateKernel.lean:5883} \\
 Factorials; powers of two & instances of the lcm-gap theorem & \lean{irrational\_erdosSum\_factorial\_support}{CertificateKernel.lean:6035}, \lean{irrational\_erdosSum\_two\_pow\_support}{CertificateKernel.lean:6059} \\
 Pairwise coprime (Erd\H{o}s 1968) & $A$ infinite, pairwise coprime, \emph{and} $\sum_{a \in A} 1/a < \infty$ & \lean{irrational\_erdosSupportSeries\_pairwise\_coprime}{CertificateKernel.lean:10776} \\
-Signed periodic weights & periodic integer weights, nonnegative, frequently nonzero & \lean{irrational\_intWeightedErdosSeries\_periodic\_of\_coeff\_nonneg\_of\_frequently\_ne\_zero}{CertificateKernel.lean:14583} \\
+Signed periodic weights & periodic integer weights; their divisor-transformed coefficients are nonnegative and frequently nonzero & \lean{irrational\_intWeightedErdosSeries\_periodic\_of\_coeff\_nonneg\_of\_frequently\_ne\_zero}{CertificateKernel.lean:14583} \\
 \hline
 \end{longtable}
 \end{center}
@@ -924,6 +936,15 @@ is derived from it.  The corpus still has no general theorem for an
 arbitrary positive-density nonperiodic or divisor-dense support, and the
 universal statement remains open.
 \end{rem}
+
+\paragraph{Periodic weights: the two hypothesis sets.}
+The periodic sequence theorem belongs to Luca and Tachiya
+\cite{lucatachiya2014periodic}; their later author-written account states
+it as Theorem~A~\cite[p.~139]{lucatachiya2017}.  In the displayed Lean
+row above, nonnegativity and frequent nonvanishing are assumptions on
+$c_w(n)=\sum_{d\mid n}w(d)$, not on $w(n)$ itself.  The formal row must
+therefore be read as a separately specified instance, not as an exact
+transcription of every clause of the published theorem.
 
 \subsection{The unconditional record, half-value direction}
 
@@ -1031,22 +1052,22 @@ irrationality exponent bounds runs of equal binary digits of $E$ only linearly: 
 after the $N$th place forces $L<(\mu(E)-1+\varepsilon)N$ for large $N$. What (H) needs is that a
 pattern \emph{never} occurs for long, and no result of that kind is identified in this record.
 
-\section{The wall}
+\clearpage
+\part*{II. Limitations and extensions of recorded methods}
+\addcontentsline{toc}{part}{II. Limitations and extensions of recorded methods}
+\section{Limitations of the recorded methods}
 \label{sec:257-wall}
 
 \subsection{The thesis}
 
-This programme has produced many reformulations of \#257 and no proof of it. That is the honest
-summary, and expert readers have said so. The claim of this section is that the reformulations are
-not a hundred separate failures. They are repeated measurements of \emph{one} obstruction, taken in
-different coordinates, and once they are assembled the obstruction has a describable shape. A
-record of which attacks were tried, which landed calculations obstructed them, and which
-hypotheses remain, is a result about the problem; a reformulation is not. That record follows. It
-does not claim an impossibility theorem for every method in a named class.
+This section studies the scope of particular reformulations and
+certificate mechanisms.  Several share the greedy representation, but no
+proof identifies a single necessary obstruction to all methods.  The
+statements below are useful insofar as they specify which hypotheses fail,
+which implications are equivalences, and which parameters must be uniform.
+The first structural fact is uniqueness at a fixed target and depth.
 
-The generating fact is a single structural one, and it is not a convenience of the formalisation.
-
-\begin{obs}[The problem admits no ensemble]
+\begin{obs}[Uniqueness within the fixed-target coding]
 \label{obs:no-ensemble}
 The Mersenne weights are strictly superincreasing. Consequently the digit coding is injective
 (Theorem~\ref{thm:geometry}), the greedy orbit is the unique candidate support for any target, and
@@ -1054,29 +1075,31 @@ distinct subset sums of a row of seam weights are separated by at least $2^{s+1}
 nine coordinates the corpus has built --- truncation rung $J$, seam row $s$, integer margin, sharp
 tail margin, half-carry $K_n$, reverse-carry word, Boolean--M\"obius exact row, fatal-cell interval
 packing, Dedekind cut-locator --- is therefore a coordinate on the binary digits of \emph{one}
-specific real orbit. There is no family to range over.
+specific real orbit.  This removes freedom to choose a different support
+with the same value in this coding.  It does not exclude averaging over
+indices, moduli, nearby targets, or auxiliary constructions.
 \coord{meta} \scale{uniform} \ev{Lean}\ev{Math}\\
 \textbf{Sites:} \lean{weightedBoolSum\_separated}{HalfCylinderIntegerGreedy.lean:447},
 \lean{three\_mul\_tailWeight\_add\_exactLateGap\_eq\_three\_mul\_headWeight}{HalfCylinderLargestSkipGap.lean:230},
 \lean{positiveMersenneDigitValue\_injective}{GreedyAchievementSet.lean:1582}.
 \end{obs}
 
-All six barriers below are consequences of Observation~\ref{obs:no-ensemble} in different
-directions: the recorded witness space is a singleton (\ref{bar:canon}), the listed sufficient
-conditions are equivalent to the goal rather than strictly weaker (\ref{bar:collapse}), measure and
-category disagree on $\mathcal{A}$ (\ref{bar:measure}), the available information sits at the wrong
-scale for the short-window bound (\ref{bar:scale}), survival certificates point the wrong way for
-membership (\ref{bar:asym}), and, on the universal side, a general support need not satisfy the
-certificate engine's first hypothesis (\ref{bar:box}).
+The six limitations below require separate arguments.  Fixed-target
+uniqueness explains canonicalisation (\ref{bar:canon}); the recorded
+identities determine which sufficient conditions are equivalent to their
+goal (\ref{bar:collapse}).  Measure and category (\ref{bar:measure}),
+observation scales (\ref{bar:scale}), finite versus infinite membership
+(\ref{bar:asym}), and the hypotheses of the support certificate
+(\ref{bar:box}) do not follow from injectivity alone.
 
 \subsection{Barrier 1: canonicalisation --- the witness space is a singleton}
 \label{bar:canon}
 
 \begin{prop}[Canonicalisation; \textsc{proved}]
 \label{prop:canon}
-For the half-target in strictly superincreasing Mersenne weights, every finite object satisfying an
-approximate-hit condition at depth $d$ \emph{is} the canonical greedy prefix at depth $d$.
-Precisely: (i) every straddling word at depth $d$ agrees bit-for-bit with the greedy support of
+For the half-target in strictly superincreasing Mersenne weights, the three
+specified finite conditions below force the indicated canonical greedy word.
+The claim is not about every possible approximation condition.  Precisely: (i) every straddling word at depth $d$ agrees bit-for-bit with the greedy support of
 $1/2$ on $(0,d]$; (ii) every below-half core $D$ whose crossing deficit is smaller than the next
 weight is forced to equal $\texttt{halfGreedyPrefixSupport}(c-1)$, so the universally quantified
 $\forall D$ in the lane's headline socket collapses onto one orbit; (iii) a remainder below the gap
@@ -1087,10 +1110,11 @@ is equivalent to being the integer greedy bit-word.
 \lean{remainder\_lt\_gap\_iff\_eq\_integerGreedyBits}{BooleanMobiusGreedyReduction.lean:918}.
 \end{prop}
 
-\textbf{Rules out.} Every argument whose leverage comes from \emph{choosing} a favourable witness:
-a support $D$, a Boolean word, a straddle prefix, an adversarial late word, or a lattice/covering
-configuration. At each depth the admissible set has one element, so there is no choice to exploit
-and no adversary to defeat.
+\textbf{Excludes at fixed depth.} Under the three canonicalisation
+hypotheses just stated, a proof cannot gain freedom by choosing a different
+admissible word for the same target and depth.  This says nothing about
+families satisfying different approximation conditions, or about averaging
+over depths or auxiliary data.
 
 \textbf{Explains.} Three recorded attack families die for exactly this reason, and their deaths
 look superficially unrelated. (1) \emph{Generic lattice covering} proves the wrong sign: the free
@@ -1394,17 +1418,16 @@ therefore does not recover that external theorem.
 
 \subsection{What the six barriers converge on}
 
-Both halves of \#257 terminate at the same missing object, stated twice in two coordinates. On the
-half-value side it is a near-integer anti-concentration bound for
-$\sum_{i \le L} (\tau(M+i) - 1)\,2^{-i}$, a geometrically weighted divisor sum in a short interval.
-On the universal side it is the dense-branch producer: for a divisor-dense $A$, a block of $K$
-consecutive indices with $2^K \mid \sum_{r=1}^{K} \operatorname{sc}_A(N+r)\,2^{K-r}$ and a bounded
-middle window. These are the same statement in the incidence coordinate. No proof of it is identified in
-this record, and the digit results cited above produce long runs or guarantee that patterns
-occur. The two directions meet at one missing estimate; this correspondence does not by itself
-show that one estimate settles every remaining obligation.
+The half-target analysis involves a geometrically weighted divisor sum
+$\sum_{i\le L}(\tau(M+i)-1)2^{-i}$ and possible near-integer estimates.
+One universal-support certificate instead asks for an opening divisible
+block together with a controlled middle window.  These inputs are related
+through incidence identities, but the displayed arguments do not prove
+them equivalent for all supports.  They should therefore be retained as
+separate obligations.  Digit-pattern occurrence results do not by
+themselves supply either required uniform estimate.
 
-\section{What the wall does not block}
+\section{Extensions not excluded by these obstructions}
 \label{sec:257-survivors}
 
 Six barriers eliminate a great deal. What they do not eliminate is a short, specific list, and the
@@ -1595,16 +1618,17 @@ in the incidence coordinate. That is not a reason to discard the route --- the r
 genuinely a different coordinate, and a proof might be easier there --- but it is a reason not to
 count it as an independent line of attack. \ev{Open}
 
-\subsection{Ranking, stated plainly}
+\subsection{Comparison of the remaining inputs}
 
-Route 4 is the only one that can be completed with the mathematics currently in hand; it produces
-theorems, not progress on the wall. Route 3 concerns the prime-support constant, which Tao and
-Ter\"av\"ainen have proved irrational~\cite[Theorem~1.3, p.~4]{taoteravainen2025}; completing it
-would reprove that theorem in the coordinates of this record, and its missing input is a windowed
-Mertens estimate, which is ordinary analytic number theory. Route 2 is the only place in the
-half-value branch with a non-singleton witness space, which makes it the best target for search.
-Route 1 is where the actual obstruction lives, and Route 5 is Route 1 in another coordinate.
-Neither problem is close to being solved, and no route above is a proof of anything.
+Route~4 packages recorded equivalences; it does not establish their
+unproved existence hypotheses.  Route~3 must be compared with the external
+prime-support theorem of Tao and Ter\"av\"ainen
+\cite[Theorem~1.3]{taoteravainen2025}; reproducing it in this framework
+requires its own analytic input.  Route~2 offers a different finite
+search space under the conditions stated there.  Routes~1 and~5 share
+some incidence identities, but this is not a proof that every missing
+hypothesis is equivalent.  The appropriate comparison is the input each
+route needs, its quantifiers, and what a successful estimate would imply.
 
 \section{Reading the detailed record}
 \label{sec:257-howto}
@@ -1634,6 +1658,9 @@ equally literal: an obstruction in \coord{half-carry}, \coord{seam-row}, or
 \coord{diophantine} does not transfer to another representation without a
 proved map.  Coordinate-free barriers are marked explicitly.
 % ---- part a257_p0 ----
+\clearpage
+\part*{III. Detailed statement and arithmetic catalogue}
+\addcontentsline{toc}{part}{III. Detailed statement and arithmetic catalogue}
 \section{The object, the two questions, and the exact record}
 
 \subsection{The object}
@@ -2324,10 +2351,15 @@ Theorem~\ref{thm:full-support-catalogue}.
 
 \begin{thm}[Mersenne-channel exponential denominator growth]
 \label{thm:mersenne-channel-growth}
-Via Bertrand's postulate, at every scale $t\ge 5$ there is an upper-half prime $p$ with
-$2^{t/2}\le 2^{p-1}\le\mathrm{mersenne}(p)$, giving the explicit exponential lower bound
-$2^{t/2}\le(\text{reduced denominator of the scaled M\"obius shadow at LCM-height }t)$.
-The exact reduced denominator at every LCM height is also computed in closed form.
+Let $D_t$ denote the reduced denominator of the scaled M\"obius shadow
+at LCM-height $t$.  The cited upper-half prime estimate gives, for every
+$t\ge5$, a prime $p$ with
+\[
+ 2^{t/2}\le 2^{p-1}\le\mathrm{mersenne}(p)\le D_t.
+\]
+Thus $D_t\ge2^{t/2}$.  The second cited result also gives an exact formula
+for $D_t$.  This denominator estimate is not by itself an approximation-error
+bound.
 \par\ev{Lean}\scale{uniform}\coord{cyclotomic}
 \lean{upperHalfMersenneProduct\_lower\_bound}{MersenneShadowDenominatorGrowth.lean:60}
 \lean{lcmHeight\_scaledMobiusShadow\_den\_exact}{MersenneShadowDenominatorGrowth.lean:147}
@@ -2916,7 +2948,7 @@ instead of re-proving maximality from scratch.
 The BooleanM\"obius lane (repo root \texttt{Erdos257PeriodNoncollapse/}, mirrored at
 \texttt{Erdos249257/} for the modules that have been made public) is where the reduction
 of Erd\H{o}s \#257 to a single arithmetic socket actually lives. Sixteen of its modules
-have never been published: \texttt{BooleanMobiusCofinalExactRows},
+were described as unpublished in the historical source fragment: \texttt{BooleanMobiusCofinalExactRows},
 \texttt{BooleanMobiusCriticalCapacityCofinal}, \texttt{BooleanMobiusCriticalCapacityGeometric},
 \texttt{BooleanMobiusExactRowCrossing}, \texttt{BooleanMobiusExactRowDichotomy},
 \texttt{BooleanMobiusExactRowDoubling}, \texttt{BooleanMobiusExactRowRankTwo},
@@ -2925,7 +2957,7 @@ have never been published: \texttt{BooleanMobiusCofinalExactRows},
 \texttt{BooleanMobiusLocalRepair}, \texttt{BooleanMobiusSkipRow},
 \texttt{BooleanMobiusSkipRowCofinal}, \texttt{BooleanMobiusSkippedCoreCriticalCapacity},
 \texttt{BooleanMobiusSkippedCoreExactRow}; plus three sibling modules on the half-membership
-track, also never published: \texttt{HalfGapMass}, \texttt{HalfGreedyFatalGap},
+track, likewise described there as unpublished: \texttt{HalfGapMass}, \texttt{HalfGreedyFatalGap},
 \texttt{HalfUpperResetCriticalBand}. Every one of the nineteen is covered below. Consumers
 in this subsection are theorems whose conclusion is a genuine payoff
 ($(1/2:\mathbb{R})\in\mathrm{mersenneAchievementSet}$, or an infinite counterexample support)
@@ -3233,7 +3265,7 @@ already on disk: $\mathrm{binaryCoeffTail\_eq\_finiteCoeffWindow\_add\_shiftedTa
 $\mathrm{gap} = \mathrm{tail}(k+1+J)/2^J$, and 257bm:i2 (the tail growth bound) gives
 $\mathrm{tail}(m)\le m+2$. What would close it: $\mathrm{margin}(k,J)\ge0$ as soon as
 $(k+J+3)/2^J < |\mathrm{halfGreedyNextDyadicExcessNumerator}(k)|/\mathrm{halfGreedyPrefixDenominator}(k)$
-— pure bookkeeping over existing lemmas, no new idea.
+The displayed inequality remains an obligation: the cited identities alone do not prove that the required margin holds at that prescribed horizon.
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:frozen-margin} \lean{exists\_greedyHalfFrozenMargin\_nonneg\_of\_excess\_neg}{HalfCylinderFiniteShadow.lean:1198} \lean{exists\_greedyHalfFrozenMargin\_nonneg\_iff\_excess\_neg}{HalfCylinderFiniteShadow.lean:1229}
 \end{thm}
 
@@ -4191,6 +4223,9 @@ Combined with the finite-support obstruction above, membership would provide
 an infinite-support rational counterexample to universal \#257; its present
 status remains \ev{Open}.
 % ---- part a257_p2 ----
+\clearpage
+\part*{IV. Scales, conditional interfaces and unresolved inputs}
+\addcontentsline{toc}{part}{IV. Scales, conditional interfaces and unresolved inputs}
 \section{The scale ladder}
 \label{sec:scale-ladder}
 
@@ -5552,7 +5587,7 @@ lemma. A future attacker who verifies the scoped equivalence and then silently d
 qualifier reproduces exactly the quantifier-slippage error this index is built to catch.
 \end{rem}
 % ---- part a257_p4 ----
-\section{Closed routes, with the mechanism that closed them}
+\section{Hypothesis-specific obstructions}
 
 This section is a graveyard with load-bearing headstones. Each entry below is a route that was
 tried against the $\sqrt{}$-escape wall (Part~III) and failed, but the way it failed is itself a
@@ -6079,7 +6114,7 @@ certified range.
 \ev{Open}\scale{cofinal}
 \end{rem}
 % ---- part a257_invent ----
-\section{The mathematics this problem still needs}
+\section{Unproved inputs for the recorded implications}
 \label{sec:invent-257}
 
 Everything in Parts I--IV of this document is either an unconditional theorem at a fixed or
@@ -6094,9 +6129,10 @@ where possible attempts an actual construction, estimate or reduction. Attempts 
 honestly: \ev{Math} where the argument is complete ordinary mathematics, \ev{Cert} where the
 support is exact computation, \ev{Open} where the item is a proposal and nothing more.
 
-The organising fact, established in the wall analysis and not repeated here, is that both halves
-of \#257 --- the universal statement and the half-value instance --- converge on one missing
-object. It has a name in this section:
+One recurring quantity in the half-target calculations is the short-window
+divisor phase defined below.  Its role in particular universal-support
+criteria is discussed separately; it is not a proved common necessary
+obstruction for the two problems.
 
 \begin{defn}[The short-window divisor phase]
 \label{defn:theta}
@@ -6678,83 +6714,52 @@ irrationality proof follows.  The durable conclusion is methodological:
 test a no-go statement under rational finite changes before attributing it
 to the underlying value.
 
-\subsection{What the shape of the wall suggests about the underlying object}
+\subsection{What the experiments and obstructions do not imply}
 \label{sec:invent-shape}
 
 Everything in this subsection is inference from the accumulated failures, not theorem. It is
 labelled that way throughout, and where the evidence does not determine the answer it says so
 rather than manufacturing a story.
 
-\subsubsection*{The half-value branch looks pseudorandom, and the failures are the evidence}
+\subsubsection*{Finite observations and their limits}
+The recorded obstructions concern specified coordinate systems.  Fixed
+precision, a bounded carry state and a prescribed suffix can lose
+information needed by the actual-selector condition.  They do not show
+that the underlying deterministic sequence has no arithmetic structure.
+The relevant exact statements remain
+\lean{fixedPrecisionTropicalNoGo}{TropicalCurvatureCarry.lean:137},
+\lean{balancedPulse_no_autonomous_decoder}{GenericTailOrbitRigidity.lean:247}
+and
+\lean{affineBinaryOrbit_mod_twoPow_eq}{GenericTailOrbitRigidity.lean:307}.
+Their hypotheses, rather than the fact that an attempted argument failed,
+determine their scope.
 
-The strongest available inference is about the \emph{kind} of difficulty, and it comes from the
-manner in which the attacks failed rather than the fact that they failed.
+The inherited experiment log reports $200{,}000$ seam rows with counts
+$R:M:U=100197:49899:49898$, a roughly geometric run-length histogram, and a
+longest equal run of $15$ in $40{,}000$ binary digits.  It also reports
+agreement with OEIS A211706 and a near-integer phase constant of about
+$2.5$.  These computations and the external digit comparison were not rerun
+in this revision.  They are descriptive reports, not certificates of
+normality, independence, a random sampling model, or an infinite
+anti-concentration estimate.  A statement about ``sampling noise'' would
+require a specified probabilistic model that is not supplied here.
 
-When a hard problem conceals structure, partial attacks typically return partial information: a
-bias, a correlation, an exceptional set, a bound with the wrong constant. That is not what
-happened here. Parity returned a tautology --- the identity $J(M+1)\equiv\delta(M+1)\pmod2$ holds
-for \emph{any} digit stream obeying the recursion shape, so it forbids no residue and no run.
-Fixed-precision valuation data returned a proved no-go: for any starting carry and any word of
-odd-unit symbols, a compatible centred completion exists
-(\lean{fixedPrecisionTropicalNoGo}{TropicalCurvatureCarry.lean:137}, \ev{Lean}). Bounded carry
-state returned an unbounded fan-out
-(\lean{balancedPulse_no_autonomous_decoder}{GenericTailOrbitRigidity.lean:247}, \ev{Lean}). Long
-common suffixes returned exact erasure of the predecessor
-(\lean{affineBinaryOrbit_mod_twoPow_eq}{GenericTailOrbitRigidity.lean:307}, \ev{Lean}).
-Prime-doubling returned a witness where three primes sit inside an eleven-step quiet run. These
-are not near misses. They are the signature of a coordinate in which there is no arithmetic bias
-to find --- which is what one expects if the digit stream really is pseudorandom.
+The previously reported exceptional row $r=7$ and crossing $(s,d)=(10,7)$
+are likewise statements about the tested range only.  The exact range and
+reproduction artefacts must accompany them before they are used as
+numerical evidence outside this historical record.  No claim that this is
+the only exceptional row of the infinite orbit is made.
 
-The positive measurements point the same way and are quantitative. The branch counts over
-$200{,}000$ seam rows are $R:M:U = 100197:49899:49898$, matching the balanced-signed-digit
-prediction to within sampling noise. The run-length histogram is geometric with ratio $\approx2$.
-The binary expansion of $C=E-3/2$ agrees bit-for-bit with OEIS A211706 and has longest equal run
-$15$ in $40{,}000$ bits. And the measurement in Swing~2 above shows the fractional part of the
-short-window divisor phase $\Theta_L$ is, to three significant figures, Haar-distributed, with a
-near-integer tail constant $c\approx2.5$ against the uniform value $2$.
+These coordinates all descend from the same greedy-carry representation;
+they are not independent tests of a common random hypothesis.  Strict
+superincreasingness gives an injective coding, but says neither that its
+digits are random nor that averaging over indices is impossible.  The
+measure-one and nowhere-dense properties of the achievement set do not
+decide membership of a specified rational.  The correct research question
+is whether a precise arithmetic estimate can be proved for the actual
+selector, not whether finite data resemble a random model.
 
-\emph{Inference (not theorem).} The object behind the half-value branch is most likely
-\textbf{simple in description and pseudorandom in behaviour}. Its description is two lines:
-$K(2)=1$, $K(M+1)=2K(M)-(\tau(M+1)-1)$, together with a superincreasing greedy orbit. Its
-behaviour is, on every statistic yet measured, indistinguishable from a fair coin. If that is
-right, then the missing theorem is a \emph{pseudorandomness} statement about an explicit
-deterministic sequence, and it belongs to the same family as normality of specific constants, or
-Chowla-type independence: elegant to state, and hard for the structural reason that there is no
-structure to exploit. On this reading the wall is not hiding a mechanism; it is the absence of
-one.
-
-\subsubsection*{Three reasons to distrust that inference, stated plainly}
-
-First, coordinate-relativity. Obstructions are relative to a representation, and all nine
-coordinates the corpus built --- rung, seam row, integer margin, sharp tail margin, half-carry,
-reverse-carry word, Boolean--M\"obius exact row, fatal-cell packing, Dedekind cut-locator --- are
-descendants of one family, the superincreasing greedy carry. Their agreement is therefore
-\emph{not} nine independent votes. A genuinely foreign coordinate (a $p$-adic dynamical one, a
-representation-theoretic one, an automatic-sequence one) has not been tried, and ``no bias in
-these nine'' is weaker evidence than it looks.
-
-Second, the single exception. Exactly one row of the real orbit fails $\sqrt{\ }$-escape, $r=7$,
-which is also the site of the only real $R$-branch crossing ever observed, at $(s,d)=(10,7)$. A
-lone low-lying exception is what a random model predicts; it is also what a hidden structure with
-a small modulus predicts. That datum does not discriminate.
-
-Third, and this is the sharpest internal check available: pseudorandomness is a claim about the
-\emph{absence} of structure, and the corpus contains an unmistakable piece of \emph{present}
-structure --- strict superincreasingness of the Mersenne weights, which forces the digit coding to
-be injective (\lean{positiveMersenneDigitValue_injective}{GreedyAchievementSet.lean:1582},
-\ev{Lean}), collapses every witness space to a singleton, and makes the static adversarial tier
-coincide with the dynamic greedy orbit. That structure is rigid, not random. So the honest
-description is a hybrid: a rigid skeleton with a pseudorandom digit stream running along it. The
-rigidity constrains representation uniqueness. It does not by itself exclude averaging over
-indices, shifts, residues, observation scales or auxiliary constructions. $\mathcal{A}$ has
-Lebesgue measure exactly $1$ inside an interval of length $E\approx1.6067$ and is nowhere dense,
-so the two standard notions of ``typical'' disagree on it; neither fact decides membership of a
-specified rational. The recorded calculations obstruct the particular models and estimates
-analysed here; no impossibility theorem for all probabilistic, measure-theoretic or averaging
-methods is claimed. Separately, the observed lack of arithmetic bias is why the specific
-arithmetic methods recorded here returned no information.
-
-\subsubsection*{The universal branch reads differently, and this weakens the one-wall thesis}
+\subsubsection*{Why the support and rational-target problems remain distinct}
 
 Proposition~\ref{prop:squarefree} is a reason to separate the two halves
 rather than assimilate them.  On the universal side the present
@@ -6764,12 +6769,12 @@ power-of-two bases, and adjoining $1$ removes the opening-block obstruction
 without changing irrationality.  Thus the no-go diagnoses this engine; it
 does not diagnose the value or the universal problem.
 
-The wall analysis's claim that both halves converge on one missing object --- short-window
-near-integer anti-concentration of a divisor-weighted sum --- survives, but with a correction: on
-the universal side that object is the \emph{second} obstruction, not the first, and it becomes
-relevant only after one chooses an engine whose opening condition is
-invariant under rational finite changes. Reporting the convergence without
-that ordering would overstate the unity of the wall.
+Short-window near-integer anti-concentration is one possible missing
+input for the particular mechanisms analysed here.  No equivalence shows
+that it is necessary for either problem, and no argument identifies it as
+a common necessary obstruction to both.  The squarefree example shows why
+finite rational changes of support must be checked before an opening-block
+failure is interpreted as a property of the value.
 
 \subsubsection*{What the evidence does and does not determine}
 
@@ -6787,6 +6792,9 @@ all probabilistic, measure-theoretic or averaging methods. Each recorded obstruc
 in a way that a failed attempt is not. That is the contribution: not a proof, not a reduction, and
 not a map of every region in which a proof cannot live.
 % ---- part a257_p5 ----
+\clearpage
+\part*{V. Outstanding obligations and provenance}
+\addcontentsline{toc}{part}{V. Outstanding obligations and provenance}
 \section{What is open, stated exactly}
 
 Erd\H{o}s \#257 asks whether $\sum_{n\in A}1/(2^n-1)$ is irrational for \emph{every} infinite
@@ -7205,6 +7213,38 @@ only on a finite initial segment, however large a margin that segment exhibits. 
 paper closes any of these gaps, and no claim above should be read as progress toward doing so.
 
 \clearpage
+\section*{Two proof details and source comparators}
+The elementary atom comparison can be sharpened to
+$\Delta_{b,A}(N)\le\Delta_{2,A}(N)$ for all real $b\ge2$.
+After cancelling $b-1$, differentiate the ratio
+$\sum_{i<r}b^i/\sum_{i<d}b^i$: its numerator is
+$\sum_{i<r\le j<d}(i-j)b^{i+j-1}\le0$.
+Only the rational-lattice step needs an integer base.
+
+For the scalar positive-cover cost, put $z=\log_2t$.  Direct differentiation
+of $y^z/(y-1)$ on $1<y\le2$ gives
+\[
+ \Psi(t)=t\quad(1\le t\le4),\qquad
+ \Psi(t)=\frac{z^z}{(z-1)^{z-1}}\quad(t>4).
+\]
+These are ordinary proof details, not additional replayed declarations.
+
+The original periodic and linear-independence papers of Luca and Tachiya
+are now distinguished from their later overview
+\cite{lucatachiya2014periodic,lucatachiya2014independence,lucatachiya2017}.
+Their theorem formulations used in this revision were read in the
+supplied author-written overview; the two original publisher PDFs were
+not successfully retrieved in this pass.  Van Assche's nonvanishing and
+small-linear-form argument for the full Lambert series
+\cite[Lemma~1 and (34)--(35)]{vanassche2001} is a comparator for the missing
+upper-height control, not a result for arbitrary thinnings.
+
+For achievement-set background, Hornich's original bibliographic record
+\cite{hornich1941} is separated from the exposition actually used here
+\cite{nitecki2013}.  G\l\k{a}b and Prus-Wi\'sniowski's survey
+\cite{glabprus2025} provides a modern map of geometry and cardinality
+questions, not a rational-membership theorem for the present set.
+
 \section*{Statements and declarations}
 
 \paragraph{Artefact and data availability.} The linked Lean declarations,
@@ -7310,6 +7350,37 @@ funding. The author declares no competing interests.
   \href{https://arxiv.org/abs/2401.08432v3}{\emph{The critical-window profile
   for the $k$-fold divisor function in almost all short intervals}},
   arXiv:2401.08432v3 (2026).
+\bibitem{lucatachiya2014periodic}
+F.~Luca and Y.~Tachiya,
+\emph{Irrationality of Lambert series associated with a periodic sequence},
+International Journal of Number Theory \textbf{10} (2014), no.~3, 623--636.
+\href{https://doi.org/10.1142/S1793042113501121}{doi:10.1142/S1793042113501121}.
+
+\bibitem{lucatachiya2014independence}
+F.~Luca and Y.~Tachiya,
+\emph{Linear independence of certain Lambert series},
+Proceedings of the American Mathematical Society \textbf{142} (2014), no.~10, 3411--3419.
+\href{https://doi.org/10.1090/S0002-9939-2014-12102-2}{doi:10.1090/S0002-9939-2014-12102-2}.
+
+\bibitem{vanassche2001}
+W.~Van Assche,
+\emph{Little $q$-Legendre polynomials and irrationality of certain Lambert series},
+The Ramanujan Journal \textbf{5} (2001), 295--310.
+\href{https://doi.org/10.1023/A:1012930828917}{doi:10.1023/A:1012930828917};
+\href{https://arxiv.org/abs/math/0101187v1}{arXiv:math/0101187v1}.
+
+\bibitem{hornich1941}
+H.~Hornich,
+\emph{\"Uber beliebige Teilsummen absolut konvergenter Reihen},
+Monatshefte f\"ur Mathematik und Physik \textbf{49} (1941), 316--320.
+\href{https://doi.org/10.1007/BF01707309}{doi:10.1007/BF01707309}.
+
+\bibitem{glabprus2025}
+S.~G\l\k{a}b and F.~Prus-Wi\'sniowski,
+\emph{Achievement sets -- current results and open problems},
+arXiv:2512.17285v1 (2025), preprint.
+\url{https://arxiv.org/abs/2512.17285v1}.
+
 \end{thebibliography}
 
 \end{document}
