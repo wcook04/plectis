@@ -80,11 +80,16 @@ show the private interface; they do not establish its reliability.
 ## Explore with a coding agent
 
 Clone the repository, open the folder in a coding agent with access to local
-files and a terminal, and give it a question. For example:
+files and a terminal, and give it a question. Use current `main` for new work;
+release tags preserve earlier editions. The
+[agent quickstart](QUICKSTART.md#use-your-own-coding-agent) shows how to record
+the revision, find an example and return a useful result. For example:
 
 > Read AGENTS.override.md and follow its instructions. Explain how Plectis
-> relates to [my topic]. Run one relevant example, show me the input and
-> output files, and explain what the program computed or compared.
+> relates to [my topic]. Record the checkout commit. Find and run one relevant
+> example, save its output under .microcosm/, show me the input and output
+> files, and explain what the program computed or compared. Report the exact
+> commands and what the result does and does not establish.
 
 [AGENTS.override.md](AGENTS.override.md) and [AGENTS.md](AGENTS.md) contain
 instructions for the agent. Task maps list commands and relevant files;

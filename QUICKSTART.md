@@ -33,6 +33,9 @@ prints introductory text without creating files. In PowerShell, set `$env:PYTHON
 `.microcosm/cold_clone_probe.json` with the resulting status.
 `./bootstrap.sh --dry-run` previews that command without running it.
 
+## Use your own coding agent
+[Agent setup and example tasks](docs/README.md#use-your-own-coding-agent).
+
 ## 2. Install
 
 Installation is optional. The browse and browser steps use the source form,
