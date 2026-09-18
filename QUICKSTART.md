@@ -65,7 +65,7 @@ does not establish. A concrete failed run is a useful contribution too; see
 [CONTRIBUTING](CONTRIBUTING.md).
 
 For theorem status, proof search or mathematical work, use the separate
-[Lean corpus agent quickstart](https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKBENCH.md#start-with-current-public-work).
+[Lean corpus agent quickstart](https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work).
 Its `scripts/agent_entry.py` selects the mathematical workflow and reports
 checkout provenance. Plectis component examples do not substitute for that
 repository's proof evidence.
