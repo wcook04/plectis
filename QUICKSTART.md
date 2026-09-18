@@ -34,41 +34,7 @@ prints introductory text without creating files. In PowerShell, set `$env:PYTHON
 `./bootstrap.sh --dry-run` previews that command without running it.
 
 ## Use your own coding agent
-
-Open this clone in any coding agent that can read files and run shell commands.
-Ask it to read `AGENTS.override.md`, then give it a concrete question or change.
-The public commands use local files; they do not need the author's private
-system or a model API key. Your coding agent has its own provider requirements.
-
-For new work, start from public `main`. Before running an example, record the
-checkout and any local changes:
-
-```bash
-git rev-parse HEAD
-git status --short
-git ls-remote https://github.com/wcook04/plectis.git refs/heads/main
-PYTHONPATH=src python3 -m plectis comprehend --first-action "Replay a prompt injection example" --format text
-```
-
-The first and third commands report the local and current public commits.
-The third needs a network connection but changes no files. Different commits
-can mean older, ahead or divergent work; preserve existing changes and use a
-fresh clone in another directory when you need current `main`. A release tag
-is a frozen edition. Offline, use the local tools and report that public
-currentness was not checked.
-
-Follow the selected component's command, replacing the `plectis` executable
-with `PYTHONPATH=src python3 -m plectis` if you did not install it. Put run
-outputs under `.microcosm/`, as in the worked example below. Return the commit,
-commands, input and output paths, what passed or failed, and what the example
-does not establish. A concrete failed run is a useful contribution too; see
-[CONTRIBUTING](CONTRIBUTING.md).
-
-For theorem status, proof search or mathematical work, use the separate
-[Lean corpus agent quickstart](https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work).
-Its `scripts/agent_entry.py` selects the mathematical workflow and reports
-checkout provenance. Plectis component examples do not substitute for that
-repository's proof evidence.
+[Agent setup and example tasks](docs/README.md#use-your-own-coding-agent).
 
 ## 2. Install
 
