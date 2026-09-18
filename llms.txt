@@ -77,29 +77,29 @@ A separate generated subsite. It is not in the software-site page list above.
 - [Maths library](maths/index.html)
 - [Universe](maths/universe.html)
 - [Erdős #68](maths/problems/erdos_68.html)
-- [erdos-68-factorial-denominator-irrationality (Problem note, 18 pp.)](maths/papers/erdos-68-factorial-denominator-irrationality.html)
-- [erdos68-factorial-reasoning-surface (Reasoning surface, 34 pp.)](maths/papers/erdos68-factorial-reasoning-surface.html)
+- [erdos-68-factorial-denominator-irrationality (Problem note, 19 pp.)](maths/papers/erdos-68-factorial-denominator-irrationality.html)
+- [erdos68-factorial-reasoning-surface (Reasoning surface, 47 pp.)](maths/papers/erdos68-factorial-reasoning-surface.html)
 - [Erdős #243](maths/problems/erdos_243.html)
-- [erdos-243-reciprocal-tail-rigidity (Problem note, 16 pp.)](maths/papers/erdos-243-reciprocal-tail-rigidity.html)
-- [erdos243-reciprocal-tail-reasoning-surface (Reasoning surface, 48 pp.)](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html)
+- [erdos-243-reciprocal-tail-rigidity (Problem note, 18 pp.)](maths/papers/erdos-243-reciprocal-tail-rigidity.html)
+- [erdos243-reciprocal-tail-reasoning-surface (Reasoning surface, 59 pp.)](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html)
 - [Erdős #249](maths/problems/erdos_249.html)
-- [erdos-249-binary-totient-series (Problem note, 13 pp.)](maths/papers/erdos-249-binary-totient-series.html)
-- [erdos249-totient-reasoning-surface (Reasoning surface, 132 pp.)](maths/papers/erdos249-totient-reasoning-surface.html)
+- [erdos-249-binary-totient-series (Problem note, 17 pp.)](maths/papers/erdos-249-binary-totient-series.html)
+- [erdos249-totient-reasoning-surface (Reasoning surface, 146 pp.)](maths/papers/erdos249-totient-reasoning-surface.html)
 - [Erdős #251](maths/problems/erdos_251.html)
 - [erdos-251-prime-gap-dyadic-series (Problem note, 14 pp.)](maths/papers/erdos-251-prime-gap-dyadic-series.html)
-- [erdos251-prime-gap-reasoning-surface (Reasoning surface, 39 pp.)](maths/papers/erdos251-prime-gap-reasoning-surface.html)
+- [erdos251-prime-gap-reasoning-surface (Reasoning surface, 46 pp.)](maths/papers/erdos251-prime-gap-reasoning-surface.html)
 - [Erdős #257](maths/problems/erdos_257.html)
-- [erdos-257-mersenne-support-subseries (Problem note, 23 pp.)](maths/papers/erdos-257-mersenne-support-subseries.html)
-- [erdos257-mersenne-reasoning-surface (Reasoning surface, 132 pp.)](maths/papers/erdos257-mersenne-reasoning-surface.html)
+- [erdos-257-mersenne-support-subseries (Problem note, 22 pp.)](maths/papers/erdos-257-mersenne-support-subseries.html)
+- [erdos257-mersenne-reasoning-surface (Reasoning surface, 152 pp.)](maths/papers/erdos257-mersenne-reasoning-surface.html)
 - [Erdős #269](maths/problems/erdos_269.html)
-- [erdos269-running-lcm-reasoning-surface (Reasoning surface, 37 pp.)](maths/papers/erdos269-running-lcm-reasoning-surface.html)
-- [erdos-269-three-prime-running-lcm (Problem note, 16 pp.)](maths/papers/erdos-269-three-prime-running-lcm.html)
+- [erdos269-running-lcm-reasoning-surface (Reasoning surface, 50 pp.)](maths/papers/erdos269-running-lcm-reasoning-surface.html)
+- [erdos-269-three-prime-running-lcm (Problem note, 15 pp.)](maths/papers/erdos-269-three-prime-running-lcm.html)
 - [Erdős #1041](maths/problems/erdos_1041.html)
-- [erdos-1041-lemniscate-newton-flow (Problem note, 26 pp.)](maths/papers/erdos-1041-lemniscate-newton-flow.html)
-- [erdos1041-lemniscate-reasoning-surface (Reasoning surface, 46 pp.)](maths/papers/erdos1041-lemniscate-reasoning-surface.html)
+- [erdos-1041-lemniscate-newton-flow (Problem note, 30 pp.)](maths/papers/erdos-1041-lemniscate-newton-flow.html)
+- [erdos1041-lemniscate-reasoning-surface (Reasoning surface, 75 pp.)](maths/papers/erdos1041-lemniscate-reasoning-surface.html)
 - [Erdős #1049](maths/problems/erdos_1049.html)
-- [erdos-1049-rational-base-lambert (Problem note, 19 pp.)](maths/papers/erdos-1049-rational-base-lambert.html)
-- [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 53 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
+- [erdos-1049-rational-base-lambert (Problem note, 20 pp.)](maths/papers/erdos-1049-rational-base-lambert.html)
+- [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 63 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
 - [claim-faithful-publication-systems (Research architecture, 20 pp.)](maths/papers/claim-faithful-publication-systems.html)
 - [cold-clone-to-proof-receipt (Agent navigation, 11 pp.)](maths/papers/cold-clone-to-proof-receipt.html)
 - [open-source-mathematics-strategy (Open-source research strategy, 21 pp.)](maths/papers/open-source-mathematics-strategy.html)
@@ -147,7 +147,7 @@ Every paper on this site ships its LaTeX beside its PDF, so the source can be re
 
 - [AI packet](plectis-ai-review-packet.json) (~17 MB): start here -- upload this file and ask for a guided tour of the website or either GitHub repository. It carries the papers, full glossary, page prose and source records, with question routes, indexed names, section links and exact source pointers. Open question_router.routes.guided_tour for a tour; use retrieval_index for a term, page, paper or repository file.
 - [reviewer brief](plectis-reviewer-brief.json) (~10 MB): smaller optional source download -- paper LaTeX, assertions, glossary, repository documents and path indexes. Use the full AI packet for website prose and guided tours.
-- [reader digest](plectis-ai-reader-digest.json) (~350 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
+- [reader digest](plectis-ai-reader-digest.json) (~349 KB): lite software band -- quick_path, canonical_question_routes, headline_results, component_digest, family_digest, claim_ceiling_index. Routes and ceilings without paper bodies.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
 - [complete text corpus](plectis-ai-reader-complete.json) (~11 MB): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, without instruction layers.
 - [reference index](docs/reference.html): the human middle layer -- areas, components, doctrine records, and paper modules in one navigable roster.

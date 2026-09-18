@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos1049-rational-base-lambert-reasoning-surface",
-  "title": "Zudilin's Forms at Rational Bases:\\\\Proofs and Research Record",
+  "title": "Zudilin's Forms at Rational Bases: Proofs and Research Record",
   "subject": "Erdős #1049",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 53,
+  "pages": 63,
   "question": "What is the complete tail, height, Hermite–Padé, and mechanism record for Erdős #1049, and why is base 3/2 still open?",
   "precis": "A claim-bounded complete reasoning record for Erdős #1049. It retains rational-base tail recurrences and forcing bounds, the base-three-halves coordinatewise exclusion, height-region results, Hermite–Padé and Mahler frontiers, failed constructions, and every registered family. Neither irrationality at 3/2 nor the universal rational-base assertion is proved.",
   "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
@@ -27,90 +27,44 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 25,
-    "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "ee1203d190630024a56a204bc76f1787b8be38f18877c23a80f16429edcbcdb0",
+    "renderer_contract_version": 26,
+    "renderer_fingerprint": "497e10530f97a71a",
+    "source_sha256": "5125a128adebb5ca10e1e1f5a70d87aa9e6ffca571ddc9ae4970b13581833b20",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 1768,
-    "raw_math_fallback_count": 0,
+    "mathml_node_count": 2331,
+    "raw_math_fallback_count": 2,
     "warnings": {
-      "mathml": [],
+      "mathml": [
+        "[WARNING] Could not convert TeX math \\sum_{m\\ge0}s_m(p)z^m",
+        "=\\cfrac{1}{1-\\cfrac{\\lambda_1z}{1-\\cfrac{\\lambda_2z}{1-\\cdots}}},, rendering as TeX:",
+        "=\\cfrac{1}{1-\\cfrac{\\lambda_1z}{1-\\cfra",
+        "^",
+        "unexpected control sequence \\cfrac",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\"",
+        "[WARNING] Could not convert TeX math \\begin{aligned}",
+        "C_1(\\alpha)&=(\\alpha_0+\\alpha_1+\\alpha_2)\\beta",
+        "-\\frac{\\alpha_1^2+\\alpha_2^2+\\beta^2}{2},\\\\",
+        "C_0(\\alpha)&=\\frac{\\alpha_1^2}{2}+\\alpha_0\\alpha_1",
+        "+(\\beta-\\alpha_2)(\\alpha_2-\\alpha_1)\\\\",
+        "&\\hspace{8mm}-\\frac3{\\pi^2}",
+        "\\left(m^2-\\int_0^1\\omega_\\alpha(u)\\,d(-\\psi_1(u))\\right).",
+        "\\end{aligned}, rendering as TeX:",
+        "&\\hspace{8mm}-\\frac3{\\pi^2}",
+        "^",
+        "unexpected \"\\\\\"",
+        "expecting \"&\", \"\\\\\\\\\", white space or \"\\\\end\""
+      ],
       "mathjax": []
     },
-    "html_mathml_sha256": "ec05c7a35f878ab9cac2accdc366b966792d6342bb3b263eef684564c4358507",
-    "html_exact_tex_sha256": "77e531d6a875d20393471825a5aac1a4508ce222b49866d9efd33a8d7a12ef4a"
+    "html_mathml_sha256": "e471ce34d41607e566189a2a5c1243b66960b4e236847501368e62e73c466413",
+    "html_exact_tex_sha256": "5439e52d9e8fe861589fc25c9873cd0d53725cbe36395307a36a4e17c3539617"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "long1049:sec:problem",
       "label": "Introduction"
-    },
-    {
-      "level": 5,
-      "anchor": "dependencies-and-conventions.",
-      "label": "Dependencies and conventions."
-    },
-    {
-      "level": 5,
-      "anchor": "formal-identity-and-historical-integer-base-results.",
-      "label": "Formal identity and historical integer-base results."
-    },
-    {
-      "level": 5,
-      "anchor": "functional-nonrationality-is-not-value-irrationality.",
-      "label": "Functional nonrationality is not value irrationality."
-    },
-    {
-      "level": 5,
-      "anchor": "padé-and-orthogonal-polynomial-constructions.",
-      "label": "Padé and orthogonal-polynomial constructions."
-    },
-    {
-      "level": 5,
-      "anchor": "related-kernels-and-non-transfer-of-recurrences.",
-      "label": "Related kernels and non-transfer of recurrences."
-    },
-    {
-      "level": 5,
-      "anchor": "erdőss-integer-base-argument-in-outline.",
-      "label": "Erdős’s integer-base argument, in outline."
-    },
-    {
-      "level": 5,
-      "anchor": "the-direct-cut-and-clear-attempt-studied-here.",
-      "label": "The direct cut-and-clear attempt studied here."
-    },
-    {
-      "level": 5,
-      "anchor": "terminology.",
-      "label": "Terminology."
-    },
-    {
-      "level": 5,
-      "anchor": "the-shortfall-at-32.",
-      "label": "The shortfall at 3/23/2."
-    },
-    {
-      "level": 5,
-      "anchor": "sharpness.",
-      "label": "Sharpness."
-    },
-    {
-      "level": 5,
-      "anchor": "scope-of-the-present-results.",
-      "label": "Scope of the present results."
-    },
-    {
-      "level": 5,
-      "anchor": "results-and-boundary.",
-      "label": "Results and boundary."
-    },
-    {
-      "level": 5,
-      "anchor": "structure.",
-      "label": "Structure."
     },
     {
       "level": 2,
@@ -120,7 +74,7 @@
     {
       "level": 3,
       "anchor": "long1049:sec:source-forms",
-      "label": "The source forms as polynomial identities"
+      "label": "The polynomial forms and their common factors"
     },
     {
       "level": 3,
@@ -135,7 +89,7 @@
     {
       "level": 3,
       "anchor": "long1049:sec:integer-forms",
-      "label": "Positive integral forms and the contradiction"
+      "label": "Positive linear forms with integer coefficients"
     },
     {
       "level": 3,
@@ -144,13 +98,13 @@
     },
     {
       "level": 3,
-      "anchor": "evidence-attribution-and-the-remaining-obligation",
-      "label": "Evidence, attribution and the remaining obligation"
+      "anchor": "proofs-earlier-work-and-limitations",
+      "label": "Proofs, earlier work and limitations"
     },
     {
       "level": 5,
-      "anchor": "evidence-decomposition.",
-      "label": "Evidence decomposition."
+      "anchor": "formal-verification-and-computations.",
+      "label": "Formal verification and computations."
     },
     {
       "level": 5,
@@ -164,28 +118,28 @@
     },
     {
       "level": 5,
-      "anchor": "the-exact-remaining-obligation.",
-      "label": "The exact remaining obligation."
+      "anchor": "what-a-larger-region-would-require.",
+      "label": "What a larger region would require."
     },
     {
       "level": 5,
-      "anchor": "the-region-explicitly.",
-      "label": "The region, explicitly."
+      "anchor": "examples-of-rational-bases.",
+      "label": "Examples of rational bases."
     },
     {
       "level": 5,
-      "anchor": "the-bounded-direction-search.",
-      "label": "The bounded direction search."
+      "anchor": "a-certified-finite-parameter-search.",
+      "label": "A certified finite parameter search."
     },
     {
       "level": 3,
       "anchor": "long1049:sec:receipts",
-      "label": "Finite receipts"
+      "label": "Finite calculations"
     },
     {
       "level": 2,
       "anchor": "long1049:sec:sharp",
-      "label": "The sharp 41/6541/65 certificate"
+      "label": "Power comparisons and Hankel determinants"
     },
     {
       "level": 3,
@@ -209,13 +163,13 @@
     },
     {
       "level": 5,
-      "anchor": "evidence-decomposition.-1",
-      "label": "Evidence decomposition."
+      "anchor": "formal-verification-and-computations.-1",
+      "label": "Formal verification and computations."
     },
     {
       "level": 5,
-      "anchor": "attribution-and-remaining-obligation.",
-      "label": "Attribution and remaining obligation."
+      "anchor": "earlier-work-and-the-unresolved-value-at-32.",
+      "label": "Earlier work and the unresolved value at 3/23/2."
     },
     {
       "level": 3,
@@ -239,33 +193,43 @@
     },
     {
       "level": 5,
-      "anchor": "a-more-concrete-coefficient-moment-question.",
-      "label": "A more concrete coefficient-moment question."
+      "anchor": "formal-continued-fractions-and-finite-quadrature.",
+      "label": "Formal continued fractions and finite quadrature."
     },
     {
       "level": 5,
-      "anchor": "what-would-count-as-extra-cyclotomic-divisibility.",
-      "label": "What would count as extra cyclotomic divisibility."
+      "anchor": "testing-for-additional-cyclotomic-factors.",
+      "label": "Testing for additional cyclotomic factors."
     },
     {
       "level": 2,
       "anchor": "long1049:sec:primitive",
-      "label": "Integer scalar content is neutral"
+      "label": "Rescaling integer rows"
     },
     {
       "level": 2,
       "anchor": "long1049:sec:endpoints",
-      "label": "Endpoint residues at (3,2)(3,2) and the four-jet kernel"
+      "label": "Congruences after evaluation at 3/23/2"
     },
     {
       "level": 2,
       "anchor": "long1049:sec:corridor",
-      "label": "Failure of coordinatewise clearing at 3/23/2"
+      "label": "Failure of the stated clearing conditions at 3/23/2"
+    },
+    {
+      "level": 5,
+      "anchor": "erdőss-integer-base-argument-in-outline.",
+      "label": "Erdős’s integer-base argument, in outline."
+    },
+    {
+      "level": 5,
+      "anchor": "the-direct-cut-and-clear-attempt-studied-here.",
+      "label": "The direct cut-and-clear attempt studied here."
     },
     {
       "level": 2,
       "anchor": "long1049:sec:tail",
-      "label": "The cleared-tail recurrence and the size of the forcing term"
+      "label": "Successive scaled remainders"
     },
     {
       "level": 2,
@@ -288,34 +252,59 @@
       "label": "Complements and further questions"
     },
     {
+      "level": 5,
+      "anchor": "why-the-choice-of-family-matters.",
+      "label": "Why the choice of family matters."
+    },
+    {
       "level": 3,
-      "anchor": "exact-kernel-escape",
-      "label": "Exact kernel escape"
+      "anchor": "a-congruence-relation-with-nonzero-remainder",
+      "label": "A congruence relation with nonzero remainder"
     },
     {
       "level": 5,
-      "anchor": "the-specialised-lattice-is-a-separate-calculation.",
-      "label": "The specialised lattice is a separate calculation."
+      "anchor": "selector-spans-and-multiplicities.",
+      "label": "Selector spans and multiplicities."
+    },
+    {
+      "level": 5,
+      "anchor": "the-lattice-after-evaluation.",
+      "label": "The lattice after evaluation."
     },
     {
       "level": 3,
-      "anchor": "determinant-families-definition-before-conjecture",
-      "label": "Determinant families: definition before conjecture"
+      "anchor": "estimating-the-divided-remainder",
+      "label": "Estimating the divided remainder"
     },
     {
       "level": 3,
-      "anchor": "asymptotic-adequacy-after-kernel-escape",
-      "label": "Asymptotic adequacy after kernel escape"
-    },
-    {
-      "level": 3,
-      "anchor": "one-exact-alternative-criterion-test",
-      "label": "One exact alternative-criterion test"
+      "anchor": "a-restriction-on-mahler-functional-equations",
+      "label": "A restriction on Mahler functional equations"
     },
     {
       "level": 3,
       "anchor": "a-limitation-of-the-rectangular-exponent-model",
       "label": "A limitation of the rectangular exponent model"
+    },
+    {
+      "level": 2,
+      "anchor": "related-work-and-comparison-of-constructions",
+      "label": "Related work and comparison of constructions"
+    },
+    {
+      "level": 5,
+      "anchor": "functional-nonrationality-is-not-value-irrationality.",
+      "label": "Functional nonrationality is not value irrationality."
+    },
+    {
+      "level": 5,
+      "anchor": "padé-and-orthogonal-polynomial-constructions.",
+      "label": "Padé and orthogonal-polynomial constructions."
+    },
+    {
+      "level": 5,
+      "anchor": "related-series-and-their-different-recurrences.",
+      "label": "Related series and their different recurrences."
     },
     {
       "level": 3,
@@ -344,13 +333,18 @@
     },
     {
       "level": 5,
-      "anchor": "four-jet-collision-family.",
-      "label": "Four-jet collision family."
+      "anchor": "the-lambert-identity-and-the-integer-case.",
+      "label": "The Lambert identity and the integer case."
+    },
+    {
+      "level": 5,
+      "anchor": "the-hypotheses-in-the-modular-row-argument.",
+      "label": "The hypotheses in the modular row argument."
     },
     {
       "level": 2,
       "anchor": "sec:erdos-1049-complete-family-map",
-      "label": "Result registry and publication scope"
+      "label": "Publication scope"
     },
     {
       "level": 2,
@@ -379,7 +373,7 @@
       },
       {
         "id": "sec:erdos-1049-complete-family-map",
-        "title": "Result registry and publication scope",
+        "title": "Publication scope",
         "level": 2
       }
     ]

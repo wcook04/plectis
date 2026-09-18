@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-1041-lemniscate-newton-flow",
-  "title": "Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates",
+  "title": "Paths in Polynomial Lemniscates: Trinomials and Critical-Value Bounds",
   "subject": "Erdős #1041",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 26,
+  "pages": 30,
   "question": "Which explicit short-path families and critical-value estimates are proved for Erdős #1041, and which of those statements have Lean or Comparator checks?",
   "precis": "The paper gives ordinary proofs of the length-less-than-2 conclusion for monic trinomials z^n+a z^m+b, with 1≤m<n and all roots in the open unit disc. It also proves that distinct concyclic zeros in degree n≥3 admit an adjacent chord shorter than 2 in {|f|<1} when their circle radius ρ satisfies 2ρ^n≤1; this alternation proof is not formalised in Lean. For squarefree monic polynomials, if the least critical-value modulus μ is at most 13/25, there is also such a connector. Without a root-location restriction, the scaled result gives a path shorter than (5/2) μ^(1/n) in {|f|<(25/13)μ}. Separate length-area and critical-value estimates give further control. Exact counterexamples show why these ingredients do not yield the unrestricted connector theorem; Erdős #1041 remains open.",
   "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
@@ -27,19 +27,19 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 25,
-    "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "a29286662b2228d0c6e511a9a3ebf45be630f1d0e26ba886462f46f4364bd9f4",
+    "renderer_contract_version": 26,
+    "renderer_fingerprint": "497e10530f97a71a",
+    "source_sha256": "c945263aa1fae707f2713ad337567146a3b15f0b2f8a32cf348f9df662ae3ed7",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 644,
+    "mathml_node_count": 785,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "0c5d0bd3390e0fb0a6575362975fcb2908070d231ca80474472911710b4dea00",
-    "html_exact_tex_sha256": "2a165eb2d4d868b7080e7d3ec02d8a0e5b0884ca958bf387b303628e3ff090f1"
+    "html_mathml_sha256": "4c552cdc64ad7829be682ea0af3f34de5b89c6908331b3e8f694843c96f3233d",
+    "html_exact_tex_sha256": "6a3e1d52f0c71c7de8b01a625a9518b2ea40a3b3c8931d929534d1f8d9ca3efa"
   },
   "sections": [
     {
@@ -49,13 +49,13 @@
     },
     {
       "level": 5,
-      "anchor": "a-finite-convex-certificate.",
-      "label": "A finite convex certificate."
+      "anchor": "abel-summation-along-a-segment.",
+      "label": "Abel summation along a segment."
     },
     {
       "level": 2,
       "anchor": "sec:problem",
-      "label": "The problem and the general regimes"
+      "label": "The historical question and the path estimates"
     },
     {
       "level": 2,
@@ -64,8 +64,23 @@
     },
     {
       "level": 5,
-      "anchor": "the-geometric-step-behind-1325.",
-      "label": "The geometric step behind 13/2513/25."
+      "anchor": "proof-outline-for-the-1325-criterion.",
+      "label": "Proof outline for the 13/2513/25 criterion."
+    },
+    {
+      "level": 2,
+      "anchor": "supplementary-results",
+      "label": "Supplementary results"
+    },
+    {
+      "level": 5,
+      "anchor": "the-finite-packing-input.",
+      "label": "The finite packing input."
+    },
+    {
+      "level": 5,
+      "anchor": "the-recorded-stopping-time.",
+      "label": "The recorded stopping time."
     },
     {
       "level": 5,
@@ -84,13 +99,13 @@
     },
     {
       "level": 3,
-      "anchor": "translated-cubic-quotient-fibres",
-      "label": "Translated cubic quotient fibres"
+      "anchor": "a-cubic-composed-with-a-power-map",
+      "label": "A cubic composed with a power map"
     },
     {
       "level": 3,
-      "anchor": "primitive-sparse-quintics",
-      "label": "Primitive sparse quintics"
+      "anchor": "quintics-with-two-missing-coefficients",
+      "label": "Quintics with two missing coefficients"
     },
     {
       "level": 3,
@@ -105,12 +120,12 @@
     {
       "level": 5,
       "anchor": "bdry:critical-value-separation",
-      "label": "Boundary."
+      "label": "Formalisation."
     },
     {
       "level": 2,
       "anchor": "sec:exact-obstructions",
-      "label": "Three exact covering obstructions"
+      "label": "Three limits of the sufficient conditions"
     },
     {
       "level": 2,
@@ -125,12 +140,12 @@
     {
       "level": 2,
       "anchor": "sec:reciprocal",
-      "label": "Local coordinates for perturbative competitors"
+      "label": "Local polynomial expansions"
     },
     {
       "level": 2,
       "anchor": "sec:gap",
-      "label": "A proof gap in the unrestricted argument"
+      "label": "Why the proposed spanning-tree estimate fails"
     },
     {
       "level": 2,
@@ -140,22 +155,22 @@
     {
       "level": 2,
       "anchor": "sec:binomial",
-      "label": "Exact symmetric benchmark: complementary chords for every binomial degree"
+      "label": "Two chord constructions for binomials"
     },
     {
       "level": 2,
       "anchor": "sec:collinear",
-      "label": "The sharp collinear theorem: order buys an exact Chebyshev extremal"
-    },
-    {
-      "level": 5,
-      "anchor": "critical-sequences-and-the-extremal-configuration.",
-      "label": "Critical sequences and the extremal configuration."
+      "label": "The sharp Chebyshev bound for collinear roots"
     },
     {
       "level": 2,
       "anchor": "sec:freepoint",
       "label": "A Poisson identity for critical-value means"
+    },
+    {
+      "level": 5,
+      "anchor": "the-fourth-power-refinement.",
+      "label": "The fourth-power refinement."
     },
     {
       "level": 5,
@@ -165,22 +180,22 @@
     {
       "level": 2,
       "anchor": "sec:orlicz",
-      "label": "The exact nonlinear lifetime currency"
+      "label": "A nonlinear integral for component mergers"
     },
     {
       "level": 2,
       "anchor": "sec:open",
-      "label": "The remaining geometric selection problem"
+      "label": "What a universal path estimate would require"
     },
     {
       "level": 5,
-      "anchor": "a-dense-generic-class-suffices.",
-      "label": "A dense generic class suffices."
+      "anchor": "passing-a-length-bound-to-a-limit.",
+      "label": "Passing a length bound to a limit."
     },
     {
       "level": 5,
-      "anchor": "a-sufficient-canonical-arc-estimate.",
-      "label": "A sufficient canonical-arc estimate."
+      "anchor": "the-particular-curves-used-in-the-earlier-approach.",
+      "label": "The particular curves used in the earlier approach."
     },
     {
       "level": 5,
@@ -201,6 +216,11 @@
       "level": 3,
       "anchor": "sec:1041-sources",
       "label": "Sources and adjacent results"
+    },
+    {
+      "level": 2,
+      "anchor": "acknowledgements",
+      "label": "Acknowledgements"
     },
     {
       "level": 2,
@@ -234,12 +254,12 @@
       },
       {
         "id": "sec:gap",
-        "title": "A proof gap in the unrestricted argument",
+        "title": "Why the proposed spanning-tree estimate fails",
         "level": 2
       },
       {
         "id": "sec:open",
-        "title": "The remaining geometric selection problem",
+        "title": "What a universal path estimate would require",
         "level": 2
       }
     ]

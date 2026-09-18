@@ -1,7 +1,7 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-251-prime-gap-dyadic-series",
-  "title": "Sparse Congruence-Preserving Perturbations\\\\of Dyadic Series",
+  "title": "Sparse Congruence-Preserving Perturbations of Dyadic Series",
   "subject": "Erdős #251",
   "subject_kind": "problem",
   "form": "Problem note",
@@ -27,30 +27,25 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 25,
-    "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "f463f195426b35104714cc1120aa4c9742834e1f25858192ab8bacf8ada9ddea",
+    "renderer_contract_version": 26,
+    "renderer_fingerprint": "497e10530f97a71a",
+    "source_sha256": "10c6cff02d746a305f99839db2ec3bfe30f1a2574e0d0a707c891920cfb7b4cb",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 278,
+    "mathml_node_count": 380,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "f6ea4663ec142519436d358be0f86f383fd7911c468e2f86d3fc2b5281b4a0c0",
-    "html_exact_tex_sha256": "b58c2a2ae4e74ad8c25c078f072018b384d668631582f908a5dda5b96278c403"
+    "html_mathml_sha256": "a6b52a82fcb90916e3083465882656d30b642b27001dbe6261ad1a497c33e1b4",
+    "html_exact_tex_sha256": "6aa507396af4d3c4b25856da3f1c6a8575799dd7acebae0705702d91cbd95a43"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "sec:problem",
       "label": "Introduction"
-    },
-    {
-      "level": 5,
-      "anchor": "sparse-corrections-and-local-information.",
-      "label": "Sparse corrections and local information."
     },
     {
       "level": 5,
@@ -61,11 +56,6 @@
       "level": 5,
       "anchor": "relation-to-prior-work.",
       "label": "Relation to prior work."
-    },
-    {
-      "level": 5,
-      "anchor": "reading-the-two-papers.",
-      "label": "Reading the two papers."
     },
     {
       "level": 2,
@@ -95,7 +85,7 @@
     {
       "level": 2,
       "anchor": "sec:open",
-      "label": "What the countermodels exclude"
+      "label": "Consequences and limits"
     },
     {
       "level": 3,
@@ -105,7 +95,12 @@
     {
       "level": 2,
       "anchor": "sec:pinned-lean-sources",
-      "label": "Pinned Lean sources"
+      "label": "Sources and further comparisons"
+    },
+    {
+      "level": 5,
+      "anchor": "further-comparisons.",
+      "label": "Further comparisons."
     },
     {
       "level": 2,
@@ -134,7 +129,7 @@
       },
       {
         "id": "sec:open",
-        "title": "What the countermodels exclude",
+        "title": "Consequences and limits",
         "level": 2
       }
     ]

@@ -5,7 +5,7 @@
   "subject": "Erdős #243",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 48,
+  "pages": 59,
   "question": "What is the complete state-dynamics and no-go record for Erdős #243, and which unbounded negative orbit regime survives?",
   "precis": "A claim-bounded complete reasoning record for Erdős #243. It retains the centred-state dynamics, negative-mass recovery, bounded-rise and periodic exclusions, conditional bounded-negative result, residue mechanisms, and all registered families. Mixed-sign unbounded negative excursions remain uncontrolled, so the original eventual-recurrence problem remains open.",
   "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -27,19 +27,29 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 25,
-    "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "568bd8ef34de4491d3d5653aed0655b697106332d547d6157fa9df2f59fa69b5",
+    "renderer_contract_version": 26,
+    "renderer_fingerprint": "497e10530f97a71a",
+    "source_sha256": "8c50e2034e8d642a45576ad572c5be26f9ec3dc8b2874cba7efc8693220fe022",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 1863,
-    "raw_math_fallback_count": 0,
+    "mathml_node_count": 2400,
+    "raw_math_fallback_count": 1,
     "warnings": {
-      "mathml": [],
+      "mathml": [
+        "[WARNING] Could not convert TeX math \\begin{aligned}",
+        "\\relax[a'-(a^2-a+1)]\\,(aC-D)",
+        "&=a^2[D-(a-1)C]\\\\",
+        "&\\quad-\\bigl[aD-(a'-1)(aC-D)\\bigr],",
+        "\\end{aligned}, rendering as TeX:",
+        "\\relax[a'-(a^2-a+1)]\\,(aC-D)",
+        "^",
+        "unexpected control sequence \\relax",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+      ],
       "mathjax": []
     },
-    "html_mathml_sha256": "422d31e6156893311e559103b519cb8fd1466384b127d6b991b0bd4dcfed2381",
-    "html_exact_tex_sha256": "373ac99e1df2ae6af008cde782af0da9d451a13fee3cb92a3b10190d27a29c74"
+    "html_mathml_sha256": "0c7a6757fedf22698d611045a598f18971a43ced3cc12631948194f5d76c0875",
+    "html_exact_tex_sha256": "bb1b7fdd4477d4a61aec4fb2677691060f19e1dbe622c849538da5dd5a922bcb"
   },
   "sections": [
     {
@@ -54,48 +64,43 @@
     },
     {
       "level": 5,
-      "anchor": "the-canonical-integer-tail.",
-      "label": "The canonical integer tail."
+      "anchor": "the-integer-tail.",
+      "label": "The integer tail."
     },
     {
       "level": 3,
-      "anchor": "sparse-agreement-forces-a-primitive-integral-cubic",
-      "label": "Sparse agreement forces a primitive integral cubic"
+      "anchor": "reduction-under-the-zero-lower-density-assumption",
+      "label": "Reduction under the zero lower-density assumption"
     },
     {
       "level": 3,
-      "anchor": "the-square-forced-by-the-transport",
-      "label": "The square forced by the transport"
+      "anchor": "a-square-condition-from-three-consecutive-numerators",
+      "label": "A square condition from three consecutive numerators"
     },
     {
       "level": 3,
-      "anchor": "the-cubic-field-leaves-one-scale",
-      "label": "The cubic field leaves one scale"
+      "anchor": "the-square-condition-forces-m12",
+      "label": "The square condition forces m=12m=12"
     },
     {
       "level": 3,
       "anchor": "long243:sec:modseven",
-      "label": "Both survivors fail modulo seven"
+      "label": "The two remaining cubics fail modulo seven"
     },
     {
       "level": 3,
-      "anchor": "from-a-regular-rate-to-an-exact-cubic",
-      "label": "From a regular rate to an exact cubic"
-    },
-    {
-      "level": 5,
-      "anchor": "position.",
-      "label": "Position."
+      "anchor": "from-an-asymptotic-ratio-to-an-exact-polynomial",
+      "label": "From an asymptotic ratio to an exact polynomial"
     },
     {
       "level": 2,
       "anchor": "long243:sec:priorwork",
-      "label": "Prior work, and the status of the note"
+      "label": "Prior work and formalisation"
     },
     {
       "level": 5,
-      "anchor": "classical-sufficient-conditions-and-the-pseudo-greedy-formulation.",
-      "label": "Classical sufficient conditions and the pseudo-greedy formulation."
+      "anchor": "classical-criteria-and-pseudo-greedy-expansions.",
+      "label": "Classical criteria and pseudo-greedy expansions."
     },
     {
       "level": 5,
@@ -103,119 +108,89 @@
       "label": "Results and proof status."
     },
     {
-      "level": 3,
-      "anchor": "structure",
-      "label": "Structure"
-    },
-    {
       "level": 2,
       "anchor": "long243:sec:state",
-      "label": "The centred integer state"
+      "label": "Integer numerators, denominators and errors"
     },
     {
       "level": 5,
-      "anchor": "the-canonical-reciprocal-tail-interpretation.",
-      "label": "The canonical reciprocal-tail interpretation."
+      "anchor": "construction-from-the-reciprocal-sum.",
+      "label": "Construction from the reciprocal sum."
     },
     {
       "level": 2,
       "anchor": "long243:sec:defect",
-      "label": "The defect identity and its two consequences"
+      "label": "When a zero error forces the Sylvester recurrence"
     },
     {
       "level": 3,
-      "anchor": "two-step-cancellation-and-feedback",
-      "label": "Two-step cancellation and feedback"
+      "anchor": "relations-among-three-consecutive-numerators",
+      "label": "Relations among three consecutive numerators"
     },
     {
       "level": 2,
       "anchor": "long243:sec:lcmrecords",
-      "label": "Weighted first crossings of LCM records"
+      "label": "A criterion using new maxima of an LCM numerator"
     },
     {
       "level": 5,
-      "anchor": "evidence.",
-      "label": "Evidence."
+      "anchor": "formalisation.",
+      "label": "Formalisation."
     },
     {
       "level": 5,
-      "anchor": "remaining-obligation.",
-      "label": "Remaining obligation."
+      "anchor": "integer-coefficients.",
+      "label": "Integer coefficients."
     },
     {
       "level": 2,
       "anchor": "long243:sec:records",
-      "label": "Criteria in the record coordinates"
+      "label": "New maxima of reduced numerators"
     },
     {
       "level": 5,
-      "anchor": "primitive-coordinates.",
-      "label": "Primitive coordinates."
+      "anchor": "fractions-in-lowest-terms.",
+      "label": "Fractions in lowest terms."
     },
     {
       "level": 5,
-      "anchor": "dictionary-with-duverneys-reduced-parameters.",
-      "label": "Dictionary with Duverney’s reduced parameters."
+      "anchor": "comparison-with-duverneys-reduced-parameters.",
+      "label": "Comparison with Duverney’s reduced parameters."
     },
     {
       "level": 3,
-      "anchor": "the-record-increment-coefficient",
-      "label": "The record-increment coefficient"
+      "anchor": "how-fast-the-running-maximum-must-increase",
+      "label": "How fast the running maximum must increase"
     },
     {
       "level": 5,
-      "anchor": "mechanism.",
-      "label": "Mechanism."
-    },
-    {
-      "level": 5,
-      "anchor": "evidence.-1",
-      "label": "Evidence."
+      "anchor": "formalisation.-1",
+      "label": "Formalisation."
     },
     {
       "level": 3,
-      "anchor": "two-exact-equivalences-under-arbitrary-cancellation",
-      "label": "Two exact equivalences under arbitrary cancellation"
-    },
-    {
-      "level": 5,
-      "anchor": "mechanism.-1",
-      "label": "Mechanism."
-    },
-    {
-      "level": 5,
-      "anchor": "remaining-obligation.-1",
-      "label": "Remaining obligation."
-    },
-    {
-      "level": 5,
-      "anchor": "relation.",
-      "label": "Relation."
+      "anchor": "bounds-that-allow-for-cancellation-and-earlier-decreases",
+      "label": "Bounds that allow for cancellation and earlier decreases"
     },
     {
       "level": 3,
-      "anchor": "protected-epochs-and-the-energy-criterion",
-      "label": "Protected epochs and the energy criterion"
+      "anchor": "counting-jumps-before-a-prime-power-can-be-lost",
+      "label": "Counting jumps before a prime power can be lost"
     },
     {
       "level": 5,
-      "anchor": "evidence.-2",
-      "label": "Evidence."
+      "anchor": "formalisation.-2",
+      "label": "Formalisation."
     },
     {
       "level": 3,
-      "anchor": "a-slow-negative-part-and-the-original-coordinates",
-      "label": "A slow negative part, and the original coordinates"
+      "anchor": "bounds-on-the-error-and-on-the-original-sequence",
+      "label": "Bounds on the error and on the original sequence"
     },
     {
       "level": 5,
-      "anchor": "mechanism.-2",
-      "label": "Mechanism."
-    },
-    {
-      "level": 5,
-      "anchor": "evidence.-3",
-      "label": "Evidence."
+      "anchor": "formalisation.-3",
+      "label": "Formalisation."
     },
     {
       "level": 5,
@@ -223,29 +198,19 @@
       "label": "Attribution."
     },
     {
-      "level": 5,
-      "anchor": "evidence.-4",
-      "label": "Evidence."
-    },
-    {
       "level": 3,
-      "anchor": "pointwise-signs-and-asymptotic-criteria",
-      "label": "Pointwise signs and asymptotic criteria"
+      "anchor": "signs-of-the-error-and-of-the-growth-ratio",
+      "label": "Signs of the error and of the growth ratio"
     },
     {
       "level": 5,
-      "anchor": "reading.",
-      "label": "Reading."
+      "anchor": "a-comparison-with-mathcal-b-free-integers.",
+      "label": "A comparison with ℬ\\mathcal B-free integers."
     },
     {
       "level": 5,
-      "anchor": "reading.-1",
-      "label": "Reading."
-    },
-    {
-      "level": 5,
-      "anchor": "the-exact-remaining-obstacle.",
-      "label": "The exact remaining obstacle."
+      "anchor": "conditions-on-a-possible-counterexample.",
+      "label": "Conditions on a possible counterexample."
     },
     {
       "level": 2,
@@ -255,27 +220,27 @@
     {
       "level": 2,
       "anchor": "long243:sec:constant",
-      "label": "Excluding a constant negative magnitude"
+      "label": "When the negative error is constant"
     },
     {
       "level": 2,
       "anchor": "long243:sec:periodic",
-      "label": "Excluding a periodic negative magnitude"
+      "label": "When the negative error is periodic"
     },
     {
       "level": 2,
       "anchor": "long243:sec:barrier",
-      "label": "Bounded rise cannot remain coprime to fresh moduli"
+      "label": "Bounded increases and coprimality to earlier moduli"
     },
     {
       "level": 2,
       "anchor": "long243:sec:bounded",
-      "label": "Excluding a bounded negative part"
+      "label": "A lower bound on the error forces eventual zero"
     },
     {
       "level": 2,
       "anchor": "long243:sec:mass",
-      "label": "Excluding finite normalised negative mass"
+      "label": "Finite total relative increase"
     },
     {
       "level": 2,
@@ -283,14 +248,19 @@
       "label": "Complements and further questions"
     },
     {
-      "level": 3,
-      "anchor": "global-height-and-old-factor-overlap",
-      "label": "Global height and old-factor overlap"
+      "level": 5,
+      "anchor": "a-scalar-profile-need-not-satisfy-the-recurrences.",
+      "label": "A scalar profile need not satisfy the recurrences."
     },
     {
       "level": 3,
-      "anchor": "repair-entropy-across-a-recovery",
-      "label": "Repair entropy across a recovery"
+      "anchor": "growth-of-the-factors-repeated-in-the-denominator",
+      "label": "Growth of the factors repeated in the denominator"
+    },
+    {
+      "level": 3,
+      "anchor": "cancellation-before-a-numerator-regains-its-former-value",
+      "label": "Cancellation before a numerator regains its former value"
     },
     {
       "level": 3,
@@ -299,8 +269,8 @@
     },
     {
       "level": 3,
-      "anchor": "a-barrier-extension",
-      "label": "A barrier extension"
+      "anchor": "what-changes-when-upward-increments-are-not-bounded",
+      "label": "What changes when upward increments are not bounded"
     },
     {
       "level": 3,
@@ -354,18 +324,18 @@
     },
     {
       "level": 5,
-      "anchor": "bounded-defect.",
-      "label": "Bounded defect."
+      "anchor": "bounded-upward-increments.",
+      "label": "Bounded upward increments."
     },
     {
       "level": 5,
-      "anchor": "finite-negative-mass.",
-      "label": "Finite negative mass."
+      "anchor": "a-convergent-sum-of-relative-increases.",
+      "label": "A convergent sum of relative increases."
     },
     {
       "level": 5,
-      "anchor": "weighted-records-and-protected-epochs.",
-      "label": "Weighted records and protected epochs."
+      "anchor": "new-maxima-and-prime-power-persistence.",
+      "label": "New maxima and prime-power persistence."
     },
     {
       "level": 5,
@@ -399,7 +369,7 @@
       },
       {
         "id": "long243:sec:bounded",
-        "title": "Excluding a bounded negative part",
+        "title": "A lower bound on the error forces eventual zero",
         "level": 2
       },
       {

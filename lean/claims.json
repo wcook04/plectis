@@ -15998,7 +15998,7 @@
         "source": "paper/68/erdos-68-factorial-denominator-irrationality.tex",
         "environment": "problem",
         "title": "Erdős #68",
-        "line": 36
+        "line": 32
       }
     },
     {
@@ -16022,7 +16022,7 @@
         "source": "paper/251/erdos-251-prime-gap-dyadic-series.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 48
+        "line": 49
       }
     },
     {
@@ -16058,7 +16058,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 1103
+        "line": 1084
       }
     },
     {
@@ -16082,7 +16082,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 59
+        "line": 48
       }
     },
     {
@@ -16094,7 +16094,7 @@
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 120
+        "line": 122
       }
     },
     {
@@ -16106,7 +16106,7 @@
         "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 54
+        "line": 49
       }
     },
     {
@@ -16118,7 +16118,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "Erdős #243",
-        "line": 140
+        "line": 133
       }
     },
     {
@@ -16129,8 +16129,8 @@
       "paper_anchor": {
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
-        "title": "exact nonintegrality of every reduced tail",
-        "line": 623
+        "title": "no reduced tail is an integer",
+        "line": 574
       }
     },
     {
@@ -16141,8 +16141,8 @@
       "paper_anchor": {
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
-        "title": "actual cofinal local-window escape",
-        "line": 629
+        "title": "residue inequalities after every starting index",
+        "line": 580
       }
     },
     {
@@ -16153,8 +16153,8 @@
       "paper_anchor": {
         "source": "paper/269/erdos269-running-lcm-reasoning-surface.tex",
         "environment": "problem",
-        "title": "function-faithful two-dimensional representation",
-        "line": 1738
+        "title": "an exact function representing the distinct-height sum",
+        "line": 2222
       }
     },
     {
@@ -16165,8 +16165,8 @@
       "paper_anchor": {
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
-        "title": "global overlap-height growth",
-        "line": 769
+        "title": "growth of repeated denominator factors",
+        "line": 799
       }
     },
     {
@@ -16177,8 +16177,8 @@
       "paper_anchor": {
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
-        "title": "first-harmonic anti-concentration on supplier fibres",
-        "line": 666
+        "title": "Four estimates for the first-harmonic sum",
+        "line": 709
       }
     },
     {
@@ -16189,8 +16189,8 @@
       "paper_anchor": {
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
-        "title": "weakest native recurrence criterion",
-        "line": 1117
+        "title": "bounded returns of the scaled remainder",
+        "line": 1100
       }
     },
     {
@@ -16201,8 +16201,8 @@
       "paper_anchor": {
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
-        "title": "actual-orbit invariant",
-        "line": 1126
+        "title": "arithmetic tests for the greedy sequence",
+        "line": 1109
       }
     },
     {
@@ -16214,7 +16214,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 1136
+        "line": 1120
       }
     }
   ],

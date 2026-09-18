@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos269-running-lcm-reasoning-surface",
-  "title": "The Three-Prime Running LCM: Complete Reasoning Record",
+  "title": "The Three-Prime Running LCM: Kernel Rank and Tail Arithmetic",
   "subject": "Erdős #269",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 37,
+  "pages": 50,
   "question": "What is the complete block, shell, carry, and observer record for Erdős #269, and which cofinal escape remains?",
   "precis": "A claim-bounded complete reasoning record for Erdős #269. It retains the two-prime benchmark, literal three-prime block digits, shell recurrences, residue and carry forms, finite contradictions, observer limitations, and all registered families. In the registered release slice the rationality-to-carry bridge and cofinal window escape remain open, so no three-prime irrationality result is claimed.",
   "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
@@ -27,12 +27,12 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 25,
-    "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "795b94a3238bb93b57908a23c65803dfd319fe825a7939106edfd897e318d771",
+    "renderer_contract_version": 26,
+    "renderer_fingerprint": "497e10530f97a71a",
+    "source_sha256": "b3ee7c5dd8d0f937f43e8a7466586a57c26e0bb27df8f1304bfd8d6bfe955439",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 1214,
+    "mathml_node_count": 1707,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -47,15 +47,10 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "f77b4c218e8524925dca892373f7bcbe6a5336df92786ac3443731eea7dcb162",
-    "html_exact_tex_sha256": "9d3568fd0f1fcf98b28ec726b1f2e5fe89f21a163df2273e8c0f4aada738b8a5"
+    "html_mathml_sha256": "d8ab6c85cfd431b0d6413fdd9aac989b1d71d8cdf45882e6a3390852e6a9f5ac",
+    "html_exact_tex_sha256": "f4f7b88027b2139e33b9214580250c63e8324e85b56f6cf32ae45819b86db9fe"
   },
   "sections": [
-    {
-      "level": 5,
-      "anchor": "how-the-short-paper-uses-this-record.",
-      "label": "How the short paper uses this record."
-    },
     {
       "level": 2,
       "anchor": "long269:sec:problem",
@@ -63,18 +58,13 @@
     },
     {
       "level": 5,
-      "anchor": "attribution.",
-      "label": "Attribution."
+      "anchor": "what-the-third-prime-changes.",
+      "label": "What the third prime changes."
     },
     {
       "level": 5,
-      "anchor": "what-the-third-prime-does.",
-      "label": "What the third prime does."
-    },
-    {
-      "level": 3,
-      "anchor": "notation-and-proof-dependencies",
-      "label": "Notation and proof dependencies"
+      "anchor": "relation-to-the-short-paper.",
+      "label": "Relation to the short paper."
     },
     {
       "level": 2,
@@ -89,37 +79,47 @@
     {
       "level": 2,
       "anchor": "long269:sec:rank",
-      "label": "The rank phase transition"
+      "label": "Why the third prime prevents finite separation"
     },
     {
       "level": 5,
-      "anchor": "attribution-and-reach.",
-      "label": "Attribution and reach."
+      "anchor": "scope-of-the-rank-theorem.",
+      "label": "Scope of the rank theorem."
     },
     {
       "level": 3,
-      "anchor": "a-sharp-uniform-obstruction-for-the-normalised-carry-matrix",
-      "label": "A sharp uniform obstruction for the normalised carry matrix"
+      "anchor": "the-exact-uniform-approximation-error",
+      "label": "The exact uniform approximation error"
     },
     {
       "level": 2,
       "anchor": "long269:sec:blocks",
-      "label": "Dyadic blocks and the literal infinite tail"
+      "label": "The recurrence for tails between powers of two"
     },
     {
       "level": 2,
       "anchor": "long269:sec:actual-orbit",
-      "label": "A quadratic tail bound and denominator cancellation"
+      "label": "Bounding the tails and clearing a rational denominator"
     },
     {
       "level": 3,
-      "anchor": "the-jump-constrained-improvement",
-      "label": "The jump-constrained improvement"
+      "anchor": "a-smaller-bound-from-the-order-of-the-prime-power-jumps",
+      "label": "A smaller bound from the order of the prime-power jumps"
+    },
+    {
+      "level": 5,
+      "anchor": "relation-to-cantor-series-criteria.",
+      "label": "Relation to Cantor-series criteria."
     },
     {
       "level": 2,
       "anchor": "long269:sec:escape",
-      "label": "Residue windows and the equivalence band"
+      "label": "A residue criterion and the bounds it allows"
+    },
+    {
+      "level": 5,
+      "anchor": "the-exact-growth-restriction-on-a-dominating-bound.",
+      "label": "The exact growth restriction on a dominating bound."
     },
     {
       "level": 3,
@@ -129,17 +129,22 @@
     {
       "level": 2,
       "anchor": "long269:sec:evidence",
-      "label": "The finite evidence"
+      "label": "Finite computations and their limits"
     },
     {
       "level": 3,
-      "anchor": "the-dyadic-window-scan",
-      "label": "The dyadic-window scan"
+      "anchor": "checking-individual-windows",
+      "label": "Checking individual windows"
     },
     {
       "level": 3,
-      "anchor": "two-finite-denominator-exclusions",
-      "label": "Two finite denominator exclusions"
+      "anchor": "finite-denominator-bounds",
+      "label": "Finite denominator bounds"
+    },
+    {
+      "level": 5,
+      "anchor": "a-denominator-bound-from-twelve-shells.",
+      "label": "A denominator bound from twelve shells."
     },
     {
       "level": 5,
@@ -149,7 +154,7 @@
     {
       "level": 5,
       "anchor": "long269:res:cf-exclusion",
-      "label": "Archived continued-fraction exclusion report (witness unavailable)."
+      "label": "Archived continued-fraction report."
     },
     {
       "level": 2,
@@ -164,7 +169,7 @@
     {
       "level": 3,
       "anchor": "long269:sec:boundary-difference",
-      "label": "The boundary term in the weighted difference"
+      "label": "Why the growing boundary need not cancel"
     },
     {
       "level": 5,
@@ -173,23 +178,23 @@
     },
     {
       "level": 5,
-      "anchor": "the-echoing-comparison-has-a-different-interface.",
-      "label": "The echoing comparison has a different interface."
+      "anchor": "why-a-finite-alphabet-of-bases-is-not-enough.",
+      "label": "Why a finite alphabet of bases is not enough."
     },
     {
       "level": 3,
-      "anchor": "the-analytic-route-and-what-it-would-need",
-      "label": "The analytic route and what it would need"
+      "anchor": "what-a-function-theoretic-proof-would-require",
+      "label": "What a function-theoretic proof would require"
     },
     {
       "level": 5,
-      "anchor": "which-value-theorem-hypotheses-remain-missing.",
-      "label": "Which value-theorem hypotheses remain missing."
+      "anchor": "the-cited-value-theorems-and-their-hypotheses.",
+      "label": "The cited value theorems and their hypotheses."
     },
     {
       "level": 3,
-      "anchor": "structural-constraints-already-in-place",
-      "label": "Structural constraints already in place"
+      "anchor": "what-the-auxiliary-carry-results-assume",
+      "label": "What the auxiliary carry results assume"
     },
     {
       "level": 3,
@@ -218,13 +223,18 @@
     },
     {
       "level": 5,
+      "anchor": "authorship-and-review.",
+      "label": "Authorship and review."
+    },
+    {
+      "level": 5,
       "anchor": "acknowledgements.",
       "label": "Acknowledgements."
     },
     {
       "level": 2,
       "anchor": "long269:long:extended",
-      "label": "Extended record: migrated arguments and finite evidence"
+      "label": "Further examples, conditional lemmas and source references"
     },
     {
       "level": 3,
@@ -254,7 +264,7 @@
     {
       "level": 2,
       "anchor": "sec:erdos-269-complete-family-map",
-      "label": "Mathematical result and evidence map"
+      "label": "What the results use and what they do not prove"
     },
     {
       "level": 2,
@@ -273,7 +283,7 @@
       },
       {
         "id": "long269:sec:rank",
-        "title": "The rank phase transition",
+        "title": "Why the third prime prevents finite separation",
         "level": 2
       },
       {
@@ -283,7 +293,7 @@
       },
       {
         "id": "sec:erdos-269-complete-family-map",
-        "title": "Mathematical result and evidence map",
+        "title": "What the results use and what they do not prove",
         "level": 2
       }
     ]

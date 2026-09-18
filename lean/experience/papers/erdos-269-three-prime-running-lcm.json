@@ -5,7 +5,7 @@
   "subject": "Erdős #269",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 16,
+  "pages": 15,
   "question": "For Erdős #269, what infinite-rank structure is proved at three primes, which two-prime running-LCM sums are transcendental, and which escape condition remains open?",
   "precis": "For three pairwise distinct primes, the paper proves that the reciprocal running-LCM kernel has nonsingular minors of every order, with one index choice valid in every third-coordinate layer. After row and column powers are removed, a binary carry gives disjoint threshold intervals; this proves arbitrary-order non-separability and the exact rank of every finite sample. For every pair of distinct primes, both the repeated running-LCM reciprocal sum and the version retaining one term per distinct LCM value are transcendental, by an ordinary deduction from a cited Hecke–Mahler theorem; Steve Fan posted the same factorisation, reduction and transcendence conclusion first on the problem's forum, and the paper's proof, found independently, is not formalised in Lean. The residue-escape condition and the repeated three-prime irrationality question remain open.",
   "owns": "the problem-specific exposition for Erdős #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -27,19 +27,19 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 25,
-    "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "3eb7cdc8fd66718cadff0ed9108de0f63dcc9778bc143dd5f4da8e90d54a0565",
+    "renderer_contract_version": 26,
+    "renderer_fingerprint": "497e10530f97a71a",
+    "source_sha256": "5ff270bb32dbf9cfef527e120a7f809244344f84d1fae72c547ac949b954853e",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 349,
+    "mathml_node_count": 377,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "dc40032b398dcfd26eb85729816a61d0811a1b9810098a440a728bcc5be81e0c",
-    "html_exact_tex_sha256": "9a1a45b3d8e8239193d841ceea14d86b38b8c421c8326fe85f944e518c259fee"
+    "html_mathml_sha256": "be183ac19445ab39a02b697b344af2312c1f6dd71d4e6321eb7f3e67819fb1a3",
+    "html_exact_tex_sha256": "0ef1b7325c6516dfdf833bcc250d0a2a8ed88b2ac7c78698afac9061bbf6d61b"
   },
   "sections": [
     {
@@ -48,24 +48,9 @@
       "label": "Introduction"
     },
     {
-      "level": 5,
-      "anchor": "literature-and-scope.",
-      "label": "Literature and scope."
-    },
-    {
-      "level": 5,
-      "anchor": "reading-guide.",
-      "label": "Reading guide."
-    },
-    {
       "level": 2,
       "anchor": "sec:rank",
-      "label": "The binary carry and arbitrary-order rank"
-    },
-    {
-      "level": 5,
-      "anchor": "scope-of-the-rank-obstruction.",
-      "label": "Scope of the rank obstruction."
+      "label": "Nonsingular minors of every order"
     },
     {
       "level": 5,
@@ -74,8 +59,8 @@
     },
     {
       "level": 5,
-      "anchor": "the-norm-matters.",
-      "label": "The norm matters."
+      "anchor": "exact-rank-is-not-an-approximation-obstruction.",
+      "label": "Exact rank is not an approximation obstruction."
     },
     {
       "level": 2,
@@ -85,27 +70,12 @@
     {
       "level": 2,
       "anchor": "sec:lcm",
-      "label": "Exact multiplicities and normalised tails"
+      "label": "The recurrence for the repeated sum"
     },
     {
       "level": 2,
       "anchor": "sec:escape",
       "label": "A window test and the remaining arithmetic"
-    },
-    {
-      "level": 5,
-      "anchor": "a-coefficient-obstruction-not-a-transferred-theorem.",
-      "label": "A coefficient obstruction, not a transferred theorem."
-    },
-    {
-      "level": 5,
-      "anchor": "a-separate-distinct-height-programme.",
-      "label": "A separate distinct-height programme."
-    },
-    {
-      "level": 5,
-      "anchor": "the-information-the-remaining-argument-must-use.",
-      "label": "The information the remaining argument must use."
     },
     {
       "level": 3,
@@ -138,6 +108,11 @@
       "label": "Guide to the formal sources"
     },
     {
+      "level": 5,
+      "anchor": "scope-of-the-supplementary-literature.",
+      "label": "Scope of the supplementary literature."
+    },
+    {
       "level": 2,
       "anchor": "sec:pinned-lean-sources",
       "label": "Pinned Lean sources"
@@ -159,12 +134,12 @@
       },
       {
         "id": "sec:rank",
-        "title": "The binary carry and arbitrary-order rank",
+        "title": "Nonsingular minors of every order",
         "level": 2
       },
       {
         "id": "sec:lcm",
-        "title": "Exact multiplicities and normalised tails",
+        "title": "The recurrence for the repeated sum",
         "level": 2
       },
       {

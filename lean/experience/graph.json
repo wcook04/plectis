@@ -14119,7 +14119,7 @@
     {
       "id": "paper:erdos-1041-lemniscate-newton-flow",
       "kind": "paper",
-      "label": "Sharp Solved Families and Constant-Factor Paths in Polynomial Lemniscates",
+      "label": "Paths in Polynomial Lemniscates: Trinomials and Critical-Value Bounds",
       "subject": "Erdős #1041",
       "form": "Problem note",
       "href": "papers/erdos-1041-lemniscate-newton-flow.json",
@@ -14128,7 +14128,7 @@
     {
       "id": "paper:erdos-1049-rational-base-lambert",
       "kind": "paper",
-      "label": "Zudilin's Forms at Rational Bases\\\\and the Exact Normalised Hankel Order",
+      "label": "Zudilin's Forms at Rational Bases and the Exact Normalised Hankel Order",
       "subject": "Erdős #1049",
       "form": "Problem note",
       "href": "papers/erdos-1049-rational-base-lambert.json",
@@ -14137,7 +14137,7 @@
     {
       "id": "paper:erdos-243-reciprocal-tail-rigidity",
       "kind": "paper",
-      "label": "Excluding the Bounded Negative Part",
+      "label": "Bounded Increments and Rational Reciprocal Sums",
       "subject": "Erdős #243",
       "form": "Problem note",
       "href": "papers/erdos-243-reciprocal-tail-rigidity.json",
@@ -14155,7 +14155,7 @@
     {
       "id": "paper:erdos-251-prime-gap-dyadic-series",
       "kind": "paper",
-      "label": "Sparse Congruence-Preserving Perturbations\\\\of Dyadic Series",
+      "label": "Sparse Congruence-Preserving Perturbations of Dyadic Series",
       "subject": "Erdős #251",
       "form": "Problem note",
       "href": "papers/erdos-251-prime-gap-dyadic-series.json",
@@ -14191,7 +14191,7 @@
     {
       "id": "paper:erdos1041-lemniscate-reasoning-surface",
       "kind": "paper",
-      "label": "Lemniscates and Newton Flow: Complete Reasoning Record",
+      "label": "Paths in Polynomial Lemniscates: Proofs and Examples",
       "subject": "Erdős #1041",
       "form": "Reasoning surface",
       "href": "papers/erdos1041-lemniscate-reasoning-surface.json",
@@ -14200,7 +14200,7 @@
     {
       "id": "paper:erdos1049-rational-base-lambert-reasoning-surface",
       "kind": "paper",
-      "label": "Zudilin's Forms at Rational Bases:\\\\Proofs and Research Record",
+      "label": "Zudilin's Forms at Rational Bases: Proofs and Research Record",
       "subject": "Erdős #1049",
       "form": "Reasoning surface",
       "href": "papers/erdos1049-rational-base-lambert-reasoning-surface.json",
@@ -14227,7 +14227,7 @@
     {
       "id": "paper:erdos251-prime-gap-reasoning-surface",
       "kind": "paper",
-      "label": "Prime-Gap Dyadic Series:\\\\Perturbations, Exact Criteria and Certificates",
+      "label": "Prime-Gap Dyadic Series: Perturbations, Exact Criteria and Certificates",
       "subject": "Erdős #251",
       "form": "Reasoning surface",
       "href": "papers/erdos251-prime-gap-reasoning-surface.json",
@@ -14245,7 +14245,7 @@
     {
       "id": "paper:erdos269-running-lcm-reasoning-surface",
       "kind": "paper",
-      "label": "The Three-Prime Running LCM: Complete Reasoning Record",
+      "label": "The Three-Prime Running LCM: Kernel Rank and Tail Arithmetic",
       "subject": "Erdős #269",
       "form": "Reasoning surface",
       "href": "papers/erdos269-running-lcm-reasoning-surface.json",
@@ -14254,7 +14254,7 @@
     {
       "id": "paper:erdos68-factorial-reasoning-surface",
       "kind": "paper",
-      "label": "The Factorial-Denominator Series: Complete Reasoning Record",
+      "label": "Denominators and Rationality Criteria for $\\sum_{n\\ge2}(n!-1)^{-1}$",
       "subject": "Erdős #68",
       "form": "Reasoning surface",
       "href": "papers/erdos68-factorial-reasoning-surface.json",

@@ -1,11 +1,11 @@
 {
   "schema": "plectis_lean_paper_v1",
   "paper_id": "erdos-243-reciprocal-tail-rigidity",
-  "title": "Excluding the Bounded Negative Part",
+  "title": "Bounded Increments and Rational Reciprocal Sums",
   "subject": "Erdős #243",
   "subject_kind": "problem",
   "form": "Problem note",
-  "pages": 16,
+  "pages": 18,
   "question": "Which bounded negative-error behaviours can be excluded for Erdős #243, and which analytic hypotheses still keep it open?",
   "precis": "Clearing denominators turns Erdős #243 into a centred integer error orbit. Normalised vanishing together with an eventually bounded negative part forces eventual Sylvester recurrence; for the canonical orbit, Koizumi supplies normalised vanishing. Absorption and descent are also identified with Koizumi's prior lemmas in canonical coordinates, with no priority claimed over them. Stabilisation of the common divisor and a Chinese remainder block give the final obstruction. The required negative-part bound, or the corresponding weighted record budget in the LCM formulation, remains unproved.",
   "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -27,19 +27,19 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 25,
-    "renderer_fingerprint": "777419e3b355e02e",
-    "source_sha256": "e71664d89ea3c409c3ba3605c9c6f712e2b07fae36cc6577acb5354cc7d01aa4",
+    "renderer_contract_version": 26,
+    "renderer_fingerprint": "497e10530f97a71a",
+    "source_sha256": "a342a68ed3eede0e4bed6ecb87ea7837820e8f9fc00982f94afd0a2cd90620ee",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 423,
+    "mathml_node_count": 505,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "41148bbd20c07332f9d1d2fbbc77dcb176c5318b5f0946fe222ec4d56052de30",
-    "html_exact_tex_sha256": "e48c6537a6b0a4b1fa629c5ad1554718b125e857a9ec392813bf86aa172e2649"
+    "html_mathml_sha256": "c26ff8483553ab41658afcee89ba3354e10fbe9ac3cd2f7fce87c5b450a28cb6",
+    "html_exact_tex_sha256": "2a7339871aed2f469a30ec2effd3dd56bfc08762afc064486c867d3ecfd206c4"
   },
   "sections": [
     {
@@ -48,19 +48,9 @@
       "label": "Introduction"
     },
     {
-      "level": 5,
-      "anchor": "conventions-and-reading-route.",
-      "label": "Conventions and reading route."
-    },
-    {
-      "level": 5,
-      "anchor": "the-obstruction.",
-      "label": "The obstruction."
-    },
-    {
       "level": 2,
       "anchor": "sec:bounded",
-      "label": "Proof of bounded-negative rigidity"
+      "label": "Proof under a lower bound on the error"
     },
     {
       "level": 2,
@@ -85,17 +75,22 @@
     {
       "level": 2,
       "anchor": "sec:transfer",
-      "label": "Transfer to a reciprocal series"
+      "label": "Constructing the integers from a reciprocal series"
+    },
+    {
+      "level": 5,
+      "anchor": "an-example-with-positive-limiting-increments.",
+      "label": "An example with positive limiting increments."
     },
     {
       "level": 2,
       "anchor": "sec:mass",
-      "label": "A scalar finite-mass criterion"
+      "label": "Finite total relative increase"
     },
     {
       "level": 2,
       "anchor": "sec:lcmrecords",
-      "label": "Weighted first crossings of LCM records"
+      "label": "A criterion using new maxima of an LCM numerator"
     },
     {
       "level": 2,
@@ -109,13 +104,33 @@
     },
     {
       "level": 5,
-      "anchor": "formal-scope-and-supporting-record.",
-      "label": "Formal scope and supporting record."
+      "anchor": "acknowledgements.",
+      "label": "Acknowledgements."
     },
     {
       "level": 2,
       "anchor": "app:index",
-      "label": "Guide to the formal sources"
+      "label": "Sources and related methods"
+    },
+    {
+      "level": 5,
+      "anchor": "recorded-coverage.",
+      "label": "Recorded coverage."
+    },
+    {
+      "level": 5,
+      "anchor": "earlier-remainder-methods-and-related-problems.",
+      "label": "Earlier remainder methods and related problems."
+    },
+    {
+      "level": 5,
+      "anchor": "main-criterion-and-arithmetic-lemmas.",
+      "label": "Main criterion and arithmetic lemmas."
+    },
+    {
+      "level": 5,
+      "anchor": "the-scalar-criterion.",
+      "label": "The scalar criterion."
     },
     {
       "level": 2,
@@ -139,7 +154,7 @@
       },
       {
         "id": "sec:bounded",
-        "title": "Proof of bounded-negative rigidity",
+        "title": "Proof under a lower bound on the error",
         "level": 2
       },
       {
