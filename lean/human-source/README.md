@@ -46,6 +46,20 @@ using Git and Python. You do not need a Lean installation or model account.
 The clone is hundreds of megabytes; the separate proof-build route downloads
 a larger Lean and Mathlib environment.
 
+### Bring your own agent
+
+Open a clone of the current `main` branch in your coding agent and give it a
+concrete task. The [agent quickstart](docs/agents/README.md#start-with-current-public-work)
+has clone commands, a copyable prompt, and small first tasks. Navigation needs
+Git and Python 3; proof builds have their own setup. No account with a particular
+agent provider or access to my private system is required by the repository.
+
+Start with current `main` for new work. A release tag is useful for reproducing
+a particular edition, but does not include later changes. The agent entry
+command reports the checkout revision and can compare it with public `main`.
+Return a source-linked explanation, a reproducible check, or a focused patch
+with the starting commit and what remains unresolved.
+
 ## Why this exists
 
 I prioritised expository quality and a collaborative structure over trying to

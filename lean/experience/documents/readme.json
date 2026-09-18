@@ -16,7 +16,7 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "2e73762aa19c30e2f96d8fb441cc5796fae57d3a3c9ee95549633b25fa54be51",
+    "source_sha256": "0f0f97ce99b9beee4a6cb1258f6755f63f2a3ea8cc2118943659b50db3097cb1",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 25,
     "renderer_fingerprint": "777419e3b355e02e",
@@ -31,14 +31,19 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "7cbeacc015d07c4812c46f95a1164e4f61f520682edf944f86ca91d0597130d1",
-    "html_exact_tex_sha256": "04082d1e6c015ec7df6e007b4cd1e6671ab670007340fad1adaa490b9b9d99cc"
+    "html_mathml_sha256": "c4ea818a2f4f51782c2866194b1334c852a280af95b677c8515b190995fea339",
+    "html_exact_tex_sha256": "cb72a60716db15fe298385055df1bba3f34d205a37803bacf0e95dc493bb0f21"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "where-to-start",
       "label": "Where to start"
+    },
+    {
+      "level": 3,
+      "anchor": "bring-your-own-agent",
+      "label": "Bring your own agent"
     },
     {
       "level": 2,

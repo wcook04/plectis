@@ -131426,7 +131426,7 @@
             "page": "paper-module-verifier-lab-kernel.html"
           }
         ],
-        "total_occurrences": 2003
+        "total_occurrences": 2005
       },
       "visible_text_byte_count": 1230
     },
@@ -131740,7 +131740,7 @@
             "page": "paper-module-mcp-tool-authority-replay.html"
           }
         ],
-        "total_occurrences": 2025
+        "total_occurrences": 2027
       },
       "visible_text_byte_count": 1174
     },
@@ -133045,10 +133045,10 @@
           },
           {
             "count": 25,
-            "page": "paper-module-agent-route-observability-runtime.html"
+            "page": "coding-agents.html"
           }
         ],
-        "total_occurrences": 775
+        "total_occurrences": 777
       },
       "visible_text_byte_count": 770
     },
@@ -134990,7 +134990,7 @@
             "page": "components.html"
           }
         ],
-        "total_occurrences": 1279
+        "total_occurrences": 1278
       },
       "visible_text_byte_count": 866
     },
@@ -136937,7 +136937,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 2141
+        "total_occurrences": 2142
       },
       "visible_text_byte_count": 754
     },
@@ -137186,7 +137186,7 @@
             "page": "paper-module-doctrine-fact-claim-audit.html"
           }
         ],
-        "total_occurrences": 2106
+        "total_occurrences": 2104
       },
       "visible_text_byte_count": 853
     },
@@ -137790,7 +137790,7 @@
         "top_page": "coding-agents.html",
         "top_pages": [
           {
-            "count": 5,
+            "count": 4,
             "page": "coding-agents.html"
           },
           {
@@ -137814,7 +137814,7 @@
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 12
+        "total_occurrences": 11
       },
       "visible_text_byte_count": 852
     },
@@ -138504,7 +138504,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 162
+        "total_occurrences": 164
       },
       "visible_text_byte_count": 859
     },
@@ -138638,7 +138638,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 193,
+        "page_count": 194,
         "top_page": "paper-module-cold-reader-route-map.html",
         "top_pages": [
           {
@@ -138666,7 +138666,7 @@
             "page": "paper-module-spatial-world-model-counterfactual-simulation-replay.html"
           }
         ],
-        "total_occurrences": 267
+        "total_occurrences": 269
       },
       "visible_text_byte_count": 971
     },
@@ -144033,7 +144033,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 106,
+        "page_count": 107,
         "top_page": "paper-module-annex-knowledge-routing.html",
         "top_pages": [
           {
@@ -144061,7 +144061,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 461
+        "total_occurrences": 464
       },
       "visible_text_byte_count": 1086
     },
@@ -149799,7 +149799,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 21,
+        "page_count": 22,
         "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
         "top_pages": [
           {
@@ -149827,7 +149827,7 @@
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 49
+        "total_occurrences": 50
       },
       "visible_text_byte_count": 816
     },
@@ -153003,7 +153003,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 49,
+        "page_count": 48,
         "top_page": "doctrine.html",
         "top_pages": [
           {
@@ -153031,7 +153031,7 @@
             "page": "paper-module-mission-transaction-work-spine.html"
           }
         ],
-        "total_occurrences": 108
+        "total_occurrences": 107
       },
       "visible_text_byte_count": 858
     },
@@ -153827,15 +153827,10 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 1,
-        "top_page": "coding-agents.html",
-        "top_pages": [
-          {
-            "count": 1,
-            "page": "coding-agents.html"
-          }
-        ],
-        "total_occurrences": 1
+        "page_count": 0,
+        "top_page": null,
+        "top_pages": [],
+        "total_occurrences": 0
       },
       "visible_text_byte_count": 828
     },
@@ -154362,6 +154357,10 @@
           },
           {
             "count": 3,
+            "page": "coding-agents.html"
+          },
+          {
+            "count": 3,
             "page": "paper-module-proof-diagnostic-evidence-spine.html"
           },
           {
@@ -154371,13 +154370,9 @@
           {
             "count": 2,
             "page": "tour.html"
-          },
-          {
-            "count": 1,
-            "page": "architecture.html"
           }
         ],
-        "total_occurrences": 28
+        "total_occurrences": 30
       },
       "visible_text_byte_count": 877
     },
@@ -158261,7 +158256,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 8,
+        "page_count": 7,
         "top_page": "architecture.html",
         "top_pages": [
           {
@@ -158278,18 +158273,18 @@
           },
           {
             "count": 1,
-            "page": "coding-agents.html"
-          },
-          {
-            "count": 1,
             "page": "components.html"
           },
           {
             "count": 1,
             "page": "doctrine.html"
+          },
+          {
+            "count": 1,
+            "page": "reference.html"
           }
         ],
-        "total_occurrences": 12
+        "total_occurrences": 11
       },
       "visible_text_byte_count": 849
     },
@@ -158696,7 +158691,7 @@
             "page": "component-research-replication-rubric-artifact-replay.html"
           }
         ],
-        "total_occurrences": 281
+        "total_occurrences": 280
       },
       "visible_text_byte_count": 1057
     },
@@ -161506,7 +161501,7 @@
       "status": "active",
       "term_kind": "mathematical_concept",
       "used_in": {
-        "page_count": 120,
+        "page_count": 121,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -161534,7 +161529,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 1604
+        "total_occurrences": 1605
       },
       "visible_text_byte_count": 883
     },
@@ -162294,7 +162289,7 @@
         "top_page": "coding-agents.html",
         "top_pages": [
           {
-            "count": 3,
+            "count": 6,
             "page": "coding-agents.html"
           },
           {
@@ -162318,7 +162313,7 @@
             "page": "open-questions.html"
           }
         ],
-        "total_occurrences": 13
+        "total_occurrences": 16
       },
       "visible_text_byte_count": 929
     },
@@ -163924,7 +163919,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 22,
+        "page_count": 23,
         "top_page": "doctrine.html",
         "top_pages": [
           {
@@ -163952,7 +163947,7 @@
             "page": "architecture.html"
           }
         ],
-        "total_occurrences": 52
+        "total_occurrences": 54
       },
       "visible_text_byte_count": 789
     },
@@ -164240,18 +164235,18 @@
           },
           {
             "count": 7,
-            "page": "coding-agents.html"
-          },
-          {
-            "count": 7,
             "page": "paper-module-batch8-policy-engines-capsule.html"
           },
           {
             "count": 7,
             "page": "paper-module-mission-transaction-work-spine.html"
+          },
+          {
+            "count": 6,
+            "page": "coding-agents.html"
           }
         ],
-        "total_occurrences": 177
+        "total_occurrences": 176
       },
       "visible_text_byte_count": 798
     },
@@ -164553,7 +164548,7 @@
             "page": "paper-module-proof-diagnostic-evidence-spine.html"
           }
         ],
-        "total_occurrences": 1462
+        "total_occurrences": 1461
       },
       "visible_text_byte_count": 889
     },
@@ -165516,14 +165511,14 @@
           },
           {
             "count": 2,
-            "page": "coding-agents.html"
+            "page": "paper-module-cold-reader-route-map.html"
           },
           {
             "count": 2,
-            "page": "paper-module-cold-reader-route-map.html"
+            "page": "paper-module-formal-math-premise-retrieval.html"
           }
         ],
-        "total_occurrences": 51
+        "total_occurrences": 50
       },
       "visible_text_byte_count": 823
     },
@@ -167432,12 +167427,16 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 22,
+        "page_count": 23,
         "top_page": "introduction.html",
         "top_pages": [
           {
             "count": 5,
             "page": "introduction.html"
+          },
+          {
+            "count": 3,
+            "page": "coding-agents.html"
           },
           {
             "count": 3,
@@ -167454,13 +167453,9 @@
           {
             "count": 2,
             "page": "paper-module-metabolism-queue-reconciliation.html"
-          },
-          {
-            "count": 2,
-            "page": "paper-module-pattern-assimilation.html"
           }
         ],
-        "total_occurrences": 34
+        "total_occurrences": 37
       },
       "visible_text_byte_count": 789
     },
@@ -171893,7 +171888,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 7,
+        "page_count": 8,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -171918,10 +171913,10 @@
           },
           {
             "count": 1,
-            "page": "doctrine.html"
+            "page": "coding-agents.html"
           }
         ],
-        "total_occurrences": 180
+        "total_occurrences": 181
       },
       "visible_text_byte_count": 840
     },
@@ -273181,7 +273176,7 @@
         "area-architecture.html": 5,
         "area-continuity.html": 4,
         "area-entry.html": 1,
-        "coding-agents.html": 23,
+        "coding-agents.html": 25,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 8,
         "component-agent-closeout-faithfulness-audit.html": 6,
         "component-agent-memory-temporal-conflict-replay.html": 8,
@@ -273283,7 +273278,7 @@
       },
       "page_count": 104,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 775
+      "total_occurrences": 777
     },
     "agent_reliability": {
       "by_page": {
@@ -273652,7 +273647,7 @@
         "area-formal-math.html": 6,
         "area-import-drift.html": 10,
         "area-research.html": 1,
-        "coding-agents.html": 2,
+        "coding-agents.html": 1,
         "component-agent-monitor-redteam-falsification-replay.html": 1,
         "component-agent-route-observability-runtime.html": 3,
         "component-agent-sabotage-scheming-monitor-replay.html": 1,
@@ -273802,7 +273797,7 @@
       },
       "page_count": 154,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1279
+      "total_occurrences": 1278
     },
     "authorization": {
       "by_page": {
@@ -274674,7 +274669,7 @@
         "area-architecture.html": 8,
         "area-formal-math.html": 15,
         "area-import-drift.html": 8,
-        "coding-agents.html": 6,
+        "coding-agents.html": 7,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
         "component-agent-closeout-faithfulness-audit.html": 4,
         "component-agent-memory-temporal-conflict-replay.html": 2,
@@ -274852,7 +274847,7 @@
       },
       "page_count": 180,
       "top_page": "doctrine.html",
-      "total_occurrences": 2141
+      "total_occurrences": 2142
     },
     "checker": {
       "by_page": {
@@ -275010,7 +275005,7 @@
         "area-formal-math.html": 22,
         "area-import-drift.html": 10,
         "area-research.html": 15,
-        "coding-agents.html": 11,
+        "coding-agents.html": 9,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 2,
         "component-agent-closeout-faithfulness-audit.html": 4,
         "component-agent-memory-temporal-conflict-replay.html": 1,
@@ -275192,7 +275187,7 @@
       },
       "page_count": 187,
       "top_page": "doctrine.html",
-      "total_occurrences": 2106
+      "total_occurrences": 2104
     },
     "client": {
       "by_page": {
@@ -275260,7 +275255,7 @@
     },
     "coding_agent": {
       "by_page": {
-        "coding-agents.html": 5,
+        "coding-agents.html": 4,
         "contact.html": 1,
         "index.html": 1,
         "papers.html": 1,
@@ -275269,7 +275264,7 @@
       },
       "page_count": 6,
       "top_page": "coding-agents.html",
-      "total_occurrences": 12
+      "total_occurrences": 11
     },
     "coefficient": {
       "by_page": {
@@ -275359,7 +275354,7 @@
         "area-continuity.html": 2,
         "area-formal-math.html": 2,
         "area-import-drift.html": 1,
-        "coding-agents.html": 3,
+        "coding-agents.html": 5,
         "component-agent-closeout-faithfulness-audit.html": 2,
         "component-batch10-live-source-drift-capsule.html": 1,
         "component-cognitive-operator-registry.html": 1,
@@ -275390,10 +275385,11 @@
       },
       "page_count": 31,
       "top_page": "paper-module-agent-closeout-faithfulness-audit.html",
-      "total_occurrences": 162
+      "total_occurrences": 164
     },
     "compact": {
       "by_page": {
+        "coding-agents.html": 2,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 1,
         "component-agent-closeout-faithfulness-audit.html": 1,
         "component-agent-memory-temporal-conflict-replay.html": 1,
@@ -275588,9 +275584,9 @@
         "paper-module-world-model-projection-drift-control-room.html": 1,
         "rules-and-ideas.html": 4
       },
-      "page_count": 193,
+      "page_count": 194,
       "top_page": "paper-module-cold-reader-route-map.html",
-      "total_occurrences": 267
+      "total_occurrences": 269
     },
     "comparator": {
       "by_page": {
@@ -275664,7 +275660,7 @@
         "area-formal-math.html": 31,
         "area-import-drift.html": 26,
         "area-research.html": 15,
-        "coding-agents.html": 5,
+        "coding-agents.html": 7,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 5,
         "component-agent-closeout-faithfulness-audit.html": 4,
         "component-agent-memory-temporal-conflict-replay.html": 4,
@@ -275871,7 +275867,7 @@
       },
       "page_count": 212,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 2003
+      "total_occurrences": 2005
     },
     "compression": {
       "by_page": {
@@ -277104,6 +277100,7 @@
         "architecture.html": 4,
         "area-architecture.html": 6,
         "area-entry.html": 3,
+        "coding-agents.html": 3,
         "component-annex-knowledge-routing.html": 3,
         "component-batch8-validator-checker-capsule.html": 1,
         "component-cold-reader-route-map.html": 2,
@@ -277208,9 +277205,9 @@
         "source.html": 1,
         "tour.html": 2
       },
-      "page_count": 106,
+      "page_count": 107,
       "top_page": "paper-module-annex-knowledge-routing.html",
-      "total_occurrences": 461
+      "total_occurrences": 464
     },
     "environment": {
       "by_page": {
@@ -279278,6 +279275,7 @@
       "by_page": {
         "architecture.html": 1,
         "area-formal-math.html": 2,
+        "coding-agents.html": 1,
         "component-formal-math-premise-retrieval.html": 1,
         "component-lean-std-premise-index.html": 1,
         "component-mathematical-strategy-atlas-hypothesis-scorer.html": 3,
@@ -279298,9 +279296,9 @@
         "reference.html": 2,
         "rules-and-ideas.html": 8
       },
-      "page_count": 21,
+      "page_count": 22,
       "top_page": "paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
-      "total_occurrences": 49
+      "total_occurrences": 50
     },
     "idempotency": {
       "by_page": {
@@ -280547,7 +280545,6 @@
     "limit": {
       "by_page": {
         "area-import-drift.html": 2,
-        "coding-agents.html": 1,
         "component-agent-route-observability-runtime.html": 2,
         "component-bridge-campaign-dag-validation.html": 1,
         "component-egress-self-compliance-audit.html": 1,
@@ -280596,9 +280593,9 @@
         "quickstart.html": 1,
         "rules-and-ideas.html": 5
       },
-      "page_count": 49,
+      "page_count": 48,
       "top_page": "doctrine.html",
-      "total_occurrences": 108
+      "total_occurrences": 107
     },
     "lineage": {
       "by_page": {
@@ -280778,14 +280775,6 @@
       "page_count": 2,
       "top_page": "paper-module-metabolism-queue-reconciliation.html",
       "total_occurrences": 3
-    },
-    "machine_checked": {
-      "by_page": {
-        "coding-agents.html": 1
-      },
-      "page_count": 1,
-      "top_page": "coding-agents.html",
-      "total_occurrences": 1
     },
     "machine_readable": {
       "by_page": {
@@ -281085,7 +281074,7 @@
     "mathematics": {
       "by_page": {
         "architecture.html": 1,
-        "coding-agents.html": 1,
+        "coding-agents.html": 3,
         "contact.html": 1,
         "evidence.html": 1,
         "introduction.html": 12,
@@ -281096,7 +281085,7 @@
       },
       "page_count": 9,
       "top_page": "introduction.html",
-      "total_occurrences": 28
+      "total_occurrences": 30
     },
     "mathlib": {
       "by_page": {
@@ -282306,15 +282295,14 @@
         "architecture.html": 4,
         "area-architecture.html": 1,
         "area-entry.html": 2,
-        "coding-agents.html": 1,
         "components.html": 1,
         "doctrine.html": 1,
         "reference.html": 1,
         "tour.html": 1
       },
-      "page_count": 8,
+      "page_count": 7,
       "top_page": "architecture.html",
-      "total_occurrences": 12
+      "total_occurrences": 11
     },
     "orphan": {
       "by_page": {
@@ -282416,7 +282404,7 @@
         "architecture.html": 2,
         "area-architecture.html": 1,
         "area-research.html": 4,
-        "coding-agents.html": 3,
+        "coding-agents.html": 2,
         "component-executable-doctrine-grammar.html": 2,
         "component-formal-evidence-cell-anchor-resolver.html": 1,
         "component-research-replication-rubric-artifact-replay.html": 9,
@@ -282488,7 +282476,7 @@
       },
       "page_count": 72,
       "top_page": "papers.html",
-      "total_occurrences": 281
+      "total_occurrences": 280
     },
     "paper_module": {
       "by_page": {
@@ -283542,6 +283530,7 @@
         "area-continuity.html": 1,
         "area-formal-math.html": 75,
         "area-import-drift.html": 8,
+        "coding-agents.html": 1,
         "component-agent-route-observability-runtime.html": 1,
         "component-agentic-vulnerability-discovery-patch-proof-replay.html": 5,
         "component-batch4-proof-authority-runtime.html": 12,
@@ -283657,9 +283646,9 @@
         "tour.html": 5,
         "vulnerability-disclosure.html": 1
       },
-      "page_count": 120,
+      "page_count": 121,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1604
+      "total_occurrences": 1605
     },
     "proof_assistant": {
       "by_page": {
@@ -284197,7 +284186,7 @@
     },
     "quickstart": {
       "by_page": {
-        "coding-agents.html": 3,
+        "coding-agents.html": 6,
         "contact.html": 1,
         "lineage.html": 1,
         "open-questions.html": 1,
@@ -284208,7 +284197,7 @@
       },
       "page_count": 8,
       "top_page": "coding-agents.html",
-      "total_occurrences": 13
+      "total_occurrences": 16
     },
     "rate_limit": {
       "by_page": {
@@ -284521,7 +284510,7 @@
         "area-architecture.html": 4,
         "area-formal-math.html": 11,
         "area-research.html": 8,
-        "coding-agents.html": 4,
+        "coding-agents.html": 6,
         "component-agent-benchmark-integrity-anti-gaming-replay.html": 2,
         "component-agent-closeout-faithfulness-audit.html": 1,
         "component-agent-memory-temporal-conflict-replay.html": 3,
@@ -284731,7 +284720,7 @@
       },
       "page_count": 212,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 2025
+      "total_occurrences": 2027
     },
     "recurrence": {
       "by_page": {
@@ -285183,6 +285172,7 @@
       "by_page": {
         "architecture.html": 2,
         "area-import-drift.html": 1,
+        "coding-agents.html": 2,
         "component-batch12-release-claim-language-gate.html": 4,
         "component-batch8-validator-checker-capsule.html": 1,
         "component-proof-derived-governed-mutation-authorization.html": 1,
@@ -285204,9 +285194,9 @@
         "updates.html": 5,
         "vulnerability-disclosure.html": 1
       },
-      "page_count": 22,
+      "page_count": 23,
       "top_page": "doctrine.html",
-      "total_occurrences": 52
+      "total_occurrences": 54
     },
     "reliability": {
       "by_page": {
@@ -285333,7 +285323,7 @@
         "area-formal-math.html": 3,
         "area-import-drift.html": 1,
         "area-research.html": 1,
-        "coding-agents.html": 7,
+        "coding-agents.html": 6,
         "component-annex-knowledge-routing.html": 1,
         "component-batch8-policy-engines-capsule.html": 1,
         "component-batch8-tools-tail-primitives-capsule.html": 2,
@@ -285388,7 +285378,7 @@
       },
       "page_count": 60,
       "top_page": "paper-modules.html",
-      "total_occurrences": 177
+      "total_occurrences": 176
     },
     "reproducible": {
       "by_page": {
@@ -285455,7 +285445,7 @@
         "area-formal-math.html": 4,
         "area-import-drift.html": 2,
         "area-research.html": 2,
-        "coding-agents.html": 3,
+        "coding-agents.html": 2,
         "component-agent-memory-temporal-conflict-replay.html": 3,
         "component-agent-monitor-redteam-falsification-replay.html": 2,
         "component-agentic-vulnerability-discovery-patch-proof-replay.html": 1,
@@ -285610,7 +285600,7 @@
       },
       "page_count": 157,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1462
+      "total_occurrences": 1461
     },
     "retry": {
       "by_page": {
@@ -285716,7 +285706,7 @@
     },
     "runnable": {
       "by_page": {
-        "coding-agents.html": 2,
+        "coding-agents.html": 1,
         "component-batch12-market-dashboard-read-model-capsule.html": 1,
         "component-batch12-prediction-market-board-capsule.html": 1,
         "component-batch12-release-claim-language-gate.html": 1,
@@ -285747,7 +285737,7 @@
       },
       "page_count": 28,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 51
+      "total_occurrences": 50
     },
     "running_lcm": {
       "by_page": {
@@ -286474,6 +286464,7 @@
     "software": {
       "by_page": {
         "architecture.html": 1,
+        "coding-agents.html": 3,
         "component-generated-projection-drift-runtime.html": 1,
         "contact.html": 2,
         "evidence.html": 1,
@@ -286496,9 +286487,9 @@
         "source.html": 1,
         "tour.html": 1
       },
-      "page_count": 22,
+      "page_count": 23,
       "top_page": "introduction.html",
-      "total_occurrences": 34
+      "total_occurrences": 37
     },
     "source": {
       "by_page": {
@@ -287902,6 +287893,7 @@
     },
     "upstream": {
       "by_page": {
+        "coding-agents.html": 1,
         "doctrine.html": 1,
         "paper-module-batch10-governance-compilers-capsule.html": 2,
         "paper-module-batch9-macro-engines-capsule.html": 1,
@@ -287910,9 +287902,9 @@
         "paper-module-macro-projection-import-protocol.html": 2,
         "rules-and-ideas.html": 169
       },
-      "page_count": 7,
+      "page_count": 8,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 180
+      "total_occurrences": 181
     },
     "url": {
       "by_page": {
@@ -288658,5 +288650,5 @@
       "total_occurrences": 5
     }
   },
-  "term_occurrence_term_count": 377
+  "term_occurrence_term_count": 376
 }
