@@ -15,6 +15,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from microcosm_core import release_export
 from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
@@ -158,7 +159,9 @@ def _resolve_ref(ref: str, *, public_root: Path) -> Path:
     path = Path(ref)
     if path.is_absolute():
         return path
-    if ref.startswith("microcosm-substrate/") or ref.startswith("state/"):
+    if ref.startswith("microcosm-substrate/"):
+        return public_root / Path(*path.parts[1:])
+    if ref.startswith("state/"):
         return _repo_root(public_root) / path
     return public_root / path
 
@@ -1050,12 +1053,33 @@ def _validate_fixture_contract(
         for row in source_manifest.get("modules", [])
         if isinstance(row, dict)
     }
-    if source_refs != manifest_refs:
+    omission_rows = source_manifest.get("release_substitution_omissions", [])
+    if not isinstance(omission_rows, list):
+        findings.append(
+            {
+                "error_code": "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID",
+                "body_redacted": True,
+            }
+        )
+        omission_rows = []
+    omission_refs = {
+        str(row.get("path"))
+        for row in omission_rows
+        if isinstance(row, dict) and row.get("path")
+    }
+    if len(omission_refs) != len(omission_rows) or manifest_refs & omission_refs:
+        findings.append(
+            {
+                "error_code": "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID",
+                "body_redacted": True,
+            }
+        )
+    if source_refs != manifest_refs | omission_refs:
         findings.append(
             {
                 "error_code": "BRIDGE_CONTINUITY_SOURCE_REF_MISMATCH",
                 "fixture_ref_count": len(source_refs),
-                "manifest_ref_count": len(manifest_refs),
+                "manifest_ref_count": len(manifest_refs | omission_refs),
                 "body_redacted": True,
             }
         )
@@ -1077,11 +1101,29 @@ def _validate_fixture_contract(
             continue
         digest = hashlib.sha256(target.read_bytes()).hexdigest()
         expected_digest = str(row.get("target_sha256") or "")
-        status = PASS if digest == expected_digest else "blocked"
-        if status != PASS:
+        target_sha256_match = bool(expected_digest) and digest == expected_digest
+        source_digest = row.get("source_sha256")
+        original_body_verified = (
+            target_sha256_match
+            and row.get("body_copied") is True
+            and row.get("sha256_match") is True
+            and isinstance(source_digest, str)
+            and bool(source_digest)
+            and source_digest == expected_digest
+        )
+        status = PASS if target_sha256_match and original_body_verified else "blocked"
+        if not target_sha256_match:
             findings.append(
                 {
                     "error_code": "BRIDGE_CONTINUITY_SOURCE_DIGEST_MISMATCH",
+                    "target_ref": target_ref,
+                    "body_redacted": True,
+                }
+            )
+        elif not original_body_verified:
+            findings.append(
+                {
+                    "error_code": "BRIDGE_CONTINUITY_SOURCE_PROVENANCE_MISMATCH",
                     "target_ref": target_ref,
                     "body_redacted": True,
                 }
@@ -1090,7 +1132,96 @@ def _validate_fixture_contract(
             {
                 "target_ref": target_ref,
                 "status": status,
-                "sha256_match": digest == expected_digest,
+                "sha256_match": target_sha256_match,
+                "original_body_verified": original_body_verified,
+                "verification_mode": "sha256",
+            }
+        )
+    for row in omission_rows:
+        if not isinstance(row, dict):
+            findings.append(
+                {
+                    "error_code": "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID",
+                    "body_redacted": True,
+                }
+            )
+            continue
+        raw_target_ref = row.get("path")
+        target_ref = raw_target_ref if isinstance(raw_target_ref, str) else ""
+        substitution = row.get("release_substitution")
+        target_path = Path(target_ref)
+        expected_prefix = "microcosm-substrate/"
+        target_lexically_within_public_root = (
+            target_ref.startswith(expected_prefix)
+            and not target_path.is_absolute()
+            and ".." not in target_path.parts
+        )
+        contamination_class = (
+            substitution.get("contamination_class")
+            if isinstance(substitution, dict)
+            else None
+        )
+        valid_metadata = (
+            target_lexically_within_public_root
+            and isinstance(row.get("module_id"), str)
+            and bool(row.get("module_id"))
+            and row.get("body_in_receipt") is False
+            and isinstance(substitution, dict)
+            and substitution.get("substitution") == "public_safe_stub"
+            and substitution.get("body_in_receipt") is False
+            and isinstance(contamination_class, str)
+            and contamination_class
+            in release_export.PRIVATE_BODY_BLOCKING_CONTAMINATION_CLASSES
+            and isinstance(substitution.get("matched_private_ref"), str)
+            and bool(substitution.get("matched_private_ref"))
+            and row.get("source_ref") == substitution.get("matched_private_ref")
+        )
+        target = _resolve_ref(target_ref, public_root=public_root)
+        resolved_public_root = public_root.resolve(strict=False)
+        resolved_target = target.resolve(strict=False)
+        target_resolves_within_public_root = resolved_target.is_relative_to(
+            resolved_public_root
+        )
+        may_read_stub = valid_metadata and target_resolves_within_public_root
+        expected_text = (
+            release_export._source_module_private_body_substitution_text(
+                rel=target_ref,
+                match_row=substitution,
+            )
+            if may_read_stub
+            else None
+        )
+        actual_text = None
+        if may_read_stub:
+            try:
+                actual_text = (
+                    resolved_target.read_text(encoding="utf-8")
+                    if resolved_target.is_file()
+                    else None
+                )
+            except (OSError, UnicodeError):
+                actual_text = None
+        valid_stub = isinstance(expected_text, str) and actual_text == expected_text
+        status = PASS if may_read_stub and valid_stub else "blocked"
+        if status != PASS:
+            findings.append(
+                {
+                    "error_code": (
+                        "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_STUB_MISSING_OR_TAMPERED"
+                        if may_read_stub
+                        else "BRIDGE_CONTINUITY_RELEASE_SUBSTITUTION_INVALID"
+                    ),
+                    "target_ref": target_ref,
+                    "body_redacted": True,
+                }
+            )
+        source_digest_results.append(
+            {
+                "target_ref": target_ref,
+                "status": status,
+                "sha256_match": False,
+                "original_body_verified": False,
+                "verification_mode": "release_export_public_safe_stub_exact_match",
             }
         )
 

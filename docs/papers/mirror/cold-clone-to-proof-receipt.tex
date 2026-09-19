@@ -15,7 +15,7 @@
   pdflang={en-GB},
   pdfkeywords={Lean 4, formal mathematics, AI agents, navigation, proof receipts, incremental compilation, reproducibility},
 }
-\newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257}
+\newcommand{\repobase}{https://github.com/wcook04/plectis-erdos}
 \DefineVerbatimEnvironment{routeblock}{Verbatim}{
   fontsize=\scriptsize,
   frame=single,
@@ -26,12 +26,12 @@
   xrightmargin=0.02\linewidth
 }
 % BEGIN generated_semantic_coverage_macros
-\newcommand{\SemanticAuthoredTheoremLike}{145,515}
+\newcommand{\SemanticAuthoredTheoremLike}{147,737}
 \newcommand{\SemanticAuthoredInterpreted}{139,817}
 \newcommand{\SemanticDirectEvidence}{3,329}
 \newcommand{\SemanticContextual}{136,488}
-\newcommand{\SemanticStructuralOnly}{5,698}
-\newcommand{\SemanticAuthoredPercent}{96.1}
+\newcommand{\SemanticStructuralOnly}{7,920}
+\newcommand{\SemanticAuthoredPercent}{94.6}
 % END generated_semantic_coverage_macros
 \emergencystretch=1.6em
 
@@ -52,8 +52,8 @@ repository architecture that separates first-contact comprehension from proof
 checking. At the audited revision, a cold clone exposes a public proof cockpit
 that composes checkout and toolchain identity, corpus scale, exact open
 propositions, problem obligations, and committed workbench receipts. Beneath
-that card sit a bounded six-line tour, a mathematical map of ten programmes, a
-reviewed public claim map with five explicit open propositions, and an
+that card sit a bounded tour card, a mathematical map of ten programmes, a
+reviewed public claim map with explicit open propositions, and an
 elaborated loaded-root reference graph joined to source coordinates. These are
 committed navigation products: they require no Lean build and make omissions
 and authority boundaries explicit.
@@ -80,7 +80,7 @@ complete inventory, selective interpretation, short intent-based routes,
 recorded reasoning, and incremental validation. It is not an autonomous theorem
 prover, a portability study, or evidence that the agent's reasoning was optimal
 or mathematically novel outside the repository history. It is a prototype
-audited in the author's environment. As of 31 August 2026, no completed
+audited in the author's environment. As of 14 September 2026, no completed
 external cold-clone use had been recorded.
 \end{abstract}
 
@@ -226,11 +226,11 @@ exhaustive direct understanding. A paper-seeded population query continues to
 rank exact live citations whose best route is structural rather than authored.
 
 \paragraph{Reviewed public claims.}
-The claim map selects 101 results for public exposition. It records 37 as
-proved here, 8 as formalised here, 5 as unconditional progress, 39 as
-conditional reductions, 7 as verified finite instances, 3 as cited only, and
-2 as open. Five explicit frontier propositions describe the stronger
-obligations that survive. These labels are maintainer-reviewed public meaning,
+At the audited revision the claim map selected 101 results for public exposition.
+It recorded 37 as proved here, 8 as formalised here, 5 as unconditional progress,
+39 as conditional reductions, 7 as verified finite instances, 3 as cited only,
+and 2 as open. Five explicit frontier propositions described the stronger
+obligations that survived; the current registry is larger. These labels are maintainer-reviewed public meaning,
 not outputs inferred by the proof kernel.
 
 \section{A short tour with exact follow-up queries}\label{sec:tour}
@@ -245,9 +245,9 @@ routing surface: even its \texttt{--check} mode runs public structural checks,
 not Lean, and cannot promote a navigation result or workbench note into a
 theorem.
 
-The underlying tour command returns a six-line card rather than a database dump. It
-derives corpus scale, formal-graph scale and misses, the authority boundary,
-the eight-problem map, the open frontier, and the available intent classes from the committed
+The underlying tour command returns a short card rather than a database dump. It
+derives the first result to inspect, its contribution class and boundary, the
+eight-problem map with its open count, and the next route commands from the committed
 projections. The full packet uses a registry-scaled budget: 18\,kB of base
 context plus 2\,kB per indexed problem, hence 34\,kB for the present eight-problem
 registry. It expands the card into a mathematical map, status counts,
@@ -353,6 +353,15 @@ result: accepted, accepted with an admitted placeholder, or rejected. The
 agent cannot type a verdict into the ledger. A claim must cite an accepted
 probe receipt; the notary rejects weaker citations. Replay reruns every stored
 probe and compares the current result with the recorded verdict.
+
+Workflow-provenance systems already record what ran, when and where it ran,
+how tasks and data were connected, and who initiated them; they also
+distinguish a planned workflow from the trace of an executed one
+\cite{workflowprovenance}. That is the closest established role for the
+notary's execution metadata. The notary adds a different contract: its ledger
+types an agent's conjectures, abandonments, probes, and claims, while the
+pinned Lean process alone supplies probe verdicts. The comparison does not show
+that the resulting record improves the agent's research choices.
 
 This design deliberately leaves search policy open. LeanDojo couples an open
 programmatic Lean environment with extracted proof data, premise annotations,
@@ -460,6 +469,16 @@ sketch--retrieve--reflect~\cite{leanexplore,leansearchv2}. The narrower claim
 here is that one cold-clone contract composes source addresses, selective
 semantics, dependency cones, incremental validation, and authority receipts
 without requiring a hosted service or an initial Lean build.
+
+Repository question answering provides a second comparison. Abedu,
+Khatoonabadi, and Shihab combine an LLM with a knowledge graph built from
+users, commits, issues, and files; their evaluation spans five open-source
+repositories and a 20-participant task study~\cite{repokg}. They explicitly
+leave code entities and program-analysis edges to future work. The tour here
+does not evaluate a conversational interface. It commits code-level Lean
+declarations, elaborated dependencies, authored mathematical interpretations,
+and claim-status boundaries so that a reader can inspect the route before an
+LLM explains it.
 
 Large-library maintenance supplies the relevant compilation lesson.
 \emph{Growing Mathlib} describes performance-aware library design,
@@ -661,6 +680,16 @@ Computer Mathematics}, 2025,
 Integrated Proof Environment for Scalable Human--AI Collaborative
 Formalization}, 2026,
 \href{https://doi.org/10.48550/arXiv.2604.16347}{arXiv:2604.16347}.
+\bibitem{workflowprovenance} R.~Souza, T.~Poteet, B.~Etz, D.~Rosendo,
+A.~Gueroudji, W.~Shin, P.~Balaprakash, and R.~Ferreira da Silva,
+\emph{LLM Agents for Interactive Workflow Provenance: Reference Architecture
+and Evaluation Methodology}, WORKS at the ACM/IEEE International Conference
+for High Performance Computing, Networking, Storage and Analysis, 2025,
+\href{https://doi.org/10.1145/3731599.3767582}{DOI}.
+\bibitem{repokg} S.~Abedu, S.~Khatoonabadi, and E.~Shihab,
+\emph{Synergizing LLMs and Knowledge Graphs: A Novel Approach to Software
+Repository-Related Question Answering}, 2024, revised 2025,
+\href{https://arxiv.org/abs/2412.03815}{arXiv:2412.03815}.
 \end{thebibliography}
 \end{multicols}
 }

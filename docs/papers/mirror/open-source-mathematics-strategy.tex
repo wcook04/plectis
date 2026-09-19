@@ -16,7 +16,7 @@
   pdfkeywords={open source, formal mathematics, Lean 4, AI agents, volunteer computing, research commons, attribution},
 }
 \newcommand{\repobase}{https://github.com/wcook04/plectis-erdos}
-\newcommand{\repolink}[2]{\href{\repobase/blob/9b654f4cce44384f69d21fd2d0c51e62c4812b76/#1}{\texttt{#2}}}
+\newcommand{\repolink}[2]{\href{\repobase/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/#1}{\texttt{#2}}}
 \newcommand{\repoissue}[2]{\href{\repobase/issues/new?template=#1}{#2}}
 \emergencystretch=1.7em
 
@@ -24,7 +24,7 @@
 \title{From Spare Compute to Cumulative Mathematics}
 \subtitle{An open-source strategy for agent-assisted research on hard problems}
 \author{Will Cook}
-\date{September 2026}
+\date{August 2026}
 
 \begin{document}
 \maketitle
@@ -38,40 +38,43 @@ Cook did not independently verify every mathematical claim.}
 \fontsize{9.2pt}{11pt}\selectfont
 
 \begin{abstract}
-An open-source research environment lets contributors share the cost of
-navigation, experiment records, formal proof checking, claim review, and
-attribution.  Once these tools exist, someone with a mathematical idea or a
-night of spare compute should be able to use them without rebuilding the
-infrastructure.  This paper describes a strategy for doing so with
-agent-assisted mathematical research.
+This paper describes an open-source strategy for agent-assisted mathematical
+research.  The starting point is a practical asymmetry.  Building a durable
+research environment requires navigation, experiment records, formal proof
+checking, claim boundaries, review tools, and attribution machinery.  Once
+that fixed cost has been paid, another person should not have to rebuild it in
+order to contribute a mathematical idea or a night of spare compute.
 
-Contributors may supply compute, mathematical direction, infrastructure
-improvements, or review.  Useful returns include proofs, counterexamples,
+The proposed research commons accepts four independently useful inputs:
+compute, mathematical direction, infrastructure improvements, and review.
+Its outputs are not limited to solved problems.  Proofs, counterexamples,
 finite computations, corrected statements, failed mechanisms, formal no-go
-theorems, and research tools.  These can reduce the cost or improve the
-direction of later work when their interpretation survives review.  Accepted
-mathematics enters a versioned problem corpus; accepted infrastructure changes
-alter how later work is produced and checked.  The record preserves the
-origin of each contribution and the roles of those who supplied it.
+theorems, and better research tools all reduce the cost or improve the
+direction of later work.  Accepted mathematical returns enlarge a versioned
+problem corpus; accepted architectural returns improve the process that
+turns future compute and insight into reviewable mathematics.  Provenance and
+role-specific credit remain attached when a contribution is assimilated.
 
-The implementation is a public Lean repository organised around eight open
-Erd\H{o}s problems, chosen to test the research process on difficult questions.
-A fresh clone contains papers, formal source, explicit open boundaries, corpus
-queries, validation programs, and structured return paths.  All eight problems
-remain open.  The repository demonstrates research infrastructure; it supplies
-no evidence that distributed agents outperform mathematicians or that more
-compute will solve a named problem.  As of 31 August 2026, the author had
-recorded neither a completed external cold-clone use nor an accepted external
-contribution.  Contributor experience therefore remains untested outside
-author-operated runs.
+The implemented case is a public Lean repository organised around eight open
+Erd\H{o}s problems.  The problems were chosen as difficult research worlds,
+not because the present system was expected to solve them.  A fresh clone
+contains papers, formal source, explicit open boundaries, corpus queries,
+validation programs, and structured return paths.  All eight problems remain
+open.  The repository is therefore a proof of concept for cumulative research
+infrastructure, not evidence that distributed agents already outperform
+mathematicians or that additional compute will solve a named problem. As of
+14 September 2026, the author had not recorded a completed external cold-clone use
+or an accepted external contribution, so the contributor experience remains
+untested outside author-operated runs.
 
-The account includes a production model, a contribution protocol with trust,
-security, and attribution rules, and a proposed evaluation.  It compares the
-project with volunteer computing, Polymath-style collaboration, formalisation
-projects, and multi-agent proof systems.  Mathematics is the first domain
-because its objects are digital and formal claims can be checked
-incrementally.  Experimental science would require domain scientists,
-physical laboratories, safety governance, and other sources of evidence.
+The paper gives a production model, contribution protocol, trust and security
+boundary, attribution policy, comparison with volunteer computing,
+Polymath-style collaboration, formalisation projects, the Prove2Me platform,
+the Aletheia case study, and multi-agent proof systems, and an evaluation
+agenda.  Mathematics is the initial domain because
+its objects are digital and formal claims can be checked incrementally.  Any
+later extension to experimental science would require domain scientists,
+physical laboratories, safety governance, and new evidential authorities.
 \end{abstract}
 
 \begin{paperresult}{What is implemented}
@@ -87,102 +90,77 @@ contribution has yet tested the proposed contributor experience.
 \section{The strategy}\label{sec:strategy}
 
 This project began with one undergraduate working without an institutional
-research team or a dedicated compute allocation.  Those circumstances explain
-the interest in sharing infrastructure; they provide no validation of the
-mathematics or the software.  The proposed research commons lets people share
-an environment while contributing different kinds of work.
+research team or a dedicated compute allocation.  That fact does not validate
+the mathematics or the architecture.  It makes the strategic question
+concrete: can the fixed cost of research infrastructure be paid once,
+published, and then shared by people who bring different scarce inputs?
 
-A mathematician may supply
+The intended answer is an open research commons.  A mathematician may supply
 a theorem, counterexample, reference, or correction.  A Lean contributor may
 formalise or audit one statement.  A person with spare compute may run an
 agent against a bounded public frontier; at present that means choosing a
 bounded task, operating it through a runner of their own, and returning
-evidence.  There is no turnkey client.  An infrastructure contributor may
+evidence, not installing a turnkey client.  An infrastructure contributor may
 improve navigation, experiments, validation, reproducibility, or the public
-contribution path.  A reviewer may compare a formal statement with its
-intended meaning or find an error in a returned result.
-The credit record should describe each contribution on its own terms,
-including work that leaves the problem open.
+contribution path.  A reviewer may reconcile a formal statement with its
+intended meaning or decide that a returned result does not survive scrutiny.
+These are different contributions.  None should have to masquerade as a
+solution to receive credit.
 
-Contributors may use language models and agent harnesses throughout the work
-and must disclose that use.  Model assistance alone says nothing about the
-mathematical value of a return.  Acceptance concerns the attributable work:
-an idea or direction that produces useful mathematics, a proof or
-counterexample, a review, or an infrastructure change that improves later
-research.  Each needs evidence and review appropriate to its claim.
+The project is AI-native in a narrow, declared sense.  Contributors may use
+language models and agent harnesses throughout the work, provided that their
+use is disclosed.  Model assistance is neither a defect nor evidence of
+mathematical value.  What enters the accepted record is the attributable
+delta: a mathematical idea, a question or direction that produces useful
+mathematics, a proof or counterexample, a review, or an architectural change
+that makes later research more effective.  Each still needs the evidence and
+review appropriate to its claim.
 
-The unresolved questions give the repository a continuing purpose.  A run
-selects a subproblem, reads prior work, tests conjectures, records failed
-routes, formalises stable steps, and explains what was established and what
-remains open.  Even when it produces no solution, it can leave a record that
-another researcher can inspect and use.
+The repository is deliberately centred on hard problems that current systems
+cannot simply dispatch in one prompt.  The purpose is to expose the complete
+research process: selecting a useful subproblem, reading prior work, testing
+conjectures, recording failed routes, formalising stable steps, explaining the
+result, and preserving the exact statement that remains open.  A solution is
+one possible output of this process.  The cumulative record is the output that
+can be produced on every serious run.
 
-A \emph{continuous goal} keeps the endpoint fixed across runs while updating
-the known results and remaining work.  The next agent reads the accumulated
-theorems, computations, counterexamples, failed mechanisms, citations, and open
-obligations before choosing an attempt.  Its return may be a theorem, a
-narrower reduction, a refuted route, a source correction, or a better question.
-The run is assessed by that return and its evidence.  Preserving it avoids
-paying to reconstruct the same starting point.
+Each problem is therefore treated as a continuous goal rather than a sequence
+of blank-slate prompts.  The endpoint persists while the frontier changes.  A
+new agent run starts from the accumulated theorems, computations,
+counterexamples, failed mechanisms, citations, and open obligations; chooses a
+direct mathematical transition worth attempting; and returns an inspectable
+delta plus the boundary that survived.  It may hand back a theorem, a narrower
+reduction, a killed route, a source correction, or a better next question.
+When the endpoint remains open, that is not a failed run.  Losing the state and
+paying to rediscover it would be.
 
-\subsection*{Choosing what to automate}
-
-The choice of task should state what someone hopes to understand and what
-would change their next mathematical decision.  Recovering an earlier proof,
-checking one calculation, comparing two mechanisms, or explaining a
-counterexample may be the useful task.  A newly available solver is not by
-itself a reason to expand the search.  When the purpose is learning, a hint or
-a check of the reader's own attempt may serve it better than the completed
-argument.  The contributor guide and coupled-goals skill state this
-distinction; the reading guide offers an optional worked countermodel with
-the hint and explanation separated.
-
-The September 2026 Math and AI declaration identifies conceptual understanding,
-the development of students and ideas, attribution, and human transmission as
-purposes that a race to solve problems can undermine \cite{mathandai2026}.
-For this project, that means choosing automation with the people doing the
-work and respecting the terms on which a question was shared.  An open
-discussion of a student's project or an unfinished approach is not a request
-for an automated search to complete it.  A bounded collaboration can still
-welcome substantial automation, but its purpose and expectations should be
-clear before the search begins.
-
-For a substantial search, the record should preserve the details needed to
-interpret or reproduce it, including alternatives that explained a change of
-direction.  Relevant details may include starting sources, tools, material
-human interventions, effort and the stopping condition; estimates and unknowns
-remain labelled.  Small corrections need no run history.  A reported success
-rate must include unsuccessful attempts.  A timeout records a limit of that
-run; a mathematical obstruction requires an argument at its stated scope.  These records can help compare
-methods under declared conditions.  They do not establish a fixed boundary
-between problems that AI can and cannot solve, a distinction raised by Tao in
-his discussion of the changing difficulty landscape \cite{tao2026landscape}.
-
-\subsection*{Discovery and stewardship}
+\subsection*{Two coupled goals, not one endless agent}
 \papersectiontarget{strategy-coupled-goals}
 
-The proposed deployment separates two persistent roles.  A
+The most useful public deployment has two persistent roles.  A
 \emph{discovery goal} stays close to one mathematical frontier: it reads the
 corpus, compares attacks, uses computation to discriminate them, attempts
 ordinary and formal proofs, and returns the smallest stable theorem,
 counterexample, no-go, computation, or corrected boundary.  A
 \emph{stewardship goal} stays close to the corpus as a whole: it compares the
 new object with existing results, decides which declarations form one
-mathematical family, reconciles the papers and assurance records, and returns
-the next research question justified by that assessment.  The corresponding systems
+mathematical family, reconciles the paper and assurance surfaces, and returns
+the strongest next question to the discovery goal.  The corresponding systems
 contract is stated in the \papersectionlink{claim-faithful-publication-systems-paper.pdf}%
 {systems-coupled-goals}{coupled-goals section of the systems paper}.
 
 The two roles can be run by different people, agent harnesses, or machines.
 A compute contributor may operate only the discovery side.  A mathematician
-may suggest a direction, assess whether a result is nontrivial, or repair its
-statement and exposition without paying for a long model run.  An expositor
-can revise the paper, a Lean contributor can strengthen the formal interface,
-and an agent builder can reduce the cost of a run.  The record credits the
-work each supplied.
+may supply a direction, assess whether a result is genuinely nontrivial, or
+repair the statement and exposition without paying for a long model run.  An
+expositor may improve the paper projection; a Lean contributor may strengthen
+the formal interface; an agent builder may make the loop cheaper.  All of
+these acts remain attributable contributions to one evolving mathematical
+record.
 
-Stewardship determines where future effort goes as well as how a result is
-presented.  It may discover that a new ``theorem'' is only a reformulation, that five declarations are one coherent
+The stewardship role is not a ceremonial reviewer added after the work.  Its
+appraisal changes where future effort goes.  It may discover that a new
+``theorem'' is only a reformulation, that five declarations are one coherent
 result family, that a short no-go eliminates an expensive research direction,
 or that a paper still leads with a weaker theorem.  It then updates four
 separate outputs: proof and evidence status, mathematical appraisal, paper
@@ -190,33 +168,36 @@ prominence, and the next allocation of compute or expert attention.  These
 outputs may influence one another, but they are not one score and none can
 promote an unproved claim.
 
-The roles resume when there is new work to assess.  A stable mathematical
-change calls for stewardship; a revised assessment, an affected result that
-needs checking, or a sharper open boundary can justify another discovery run.
-When the repository is unchanged, neither role needs an agent turn to report
-that fact.
+The coupling is event-driven.  A stable mathematical delta wakes the steward;
+a changed appraisal, missing consumer, or sharper open boundary can wake the
+miner.  An unchanged repository should consume no agent turn merely to report
+that it is unchanged.  This makes continuous work a sequence of inspectable
+state transitions rather than an expensive synonym for leaving a chat window
+open.
 
 The public \repolink{skills/run-coupled-research-goals/SKILL.md}%
-{run-coupled-research-goals skill} specifies how to run this sequence in a
-cold clone.  It directs the mining and consequence-propagation jobs to use a
-shared source pin and exchange committed objects and receipts.  One agent may
-alternate between the roles; different people, models, subscriptions, or
-machines may also perform them.  The decisions remain separate in either
-arrangement.
+{run-coupled-research-goals skill} makes this control shape executable in a
+cold clone.  It invokes the existing mining and consequence-propagation jobs,
+preserves a shared source pin, and passes committed objects and receipts rather
+than conversational claims of progress.  One agent may alternate between the
+roles, or different people, models, subscriptions, and machines may supply
+them.  The architecture requires distinct decisions, not an unnecessarily
+grand collection of laptops.
 
-The public clone must work without the private machine that produced the
-initial corpus.  The private workbench is part of that production history and
-grants no proof or publication authority to a return.  Contributors may use
-any model runner or no model at all, provided their work follows the public
-problem definition, evidence requirements, and review procedure.
+This is not a proposal to place a public queue in front of a private machine.
+The public clone must stand on its own.  The larger private workbench explains
+how the initial corpus was produced, but it grants no proof or publication
+authority to a returned result.  Contributors may use any model runner or no
+model at all.  What joins their work is the public problem definition,
+evidence contract, and review path.
 
 The \papersectionlink{claim-faithful-publication-systems-paper.pdf}%
 {systems-lifecycle}{systems paper} gives the complete claim-transition
 lifecycle. The \papersectionlink{cold-clone-to-proof-receipt.pdf}%
 {cold-clone-problem}{cold-clone paper} tests how a new agent reaches the public
-mathematics and the validation boundary. This paper describes participation,
-credit, and growth. The three accounts concern different parts of the same
-prototype.
+mathematics and the validation boundary. This paper owns the participation,
+credit, and growth strategy; the three papers therefore describe different
+parts of one prototype rather than competing accounts of it.
 
 \subsection*{What one clone lets a contributor do}
 
@@ -233,15 +214,6 @@ the ordinary request ``explain this repository to me'' rather than first
 mastering its file layout.  The other skills select and run a frontier,
 coordinate the coupled goals, install the same workflows in a compatible agent
 harness, and describe the present multi-stage process for adding a problem.
-
-The clone-local \repolink{scripts/agent_entry.py}{task-entry command} makes
-that first choice inspectable. A request to ``maintain public infrastructure''
-selects the maintenance workflow and its checks; a request to prove a remaining
-implication selects bounded research and points to the relevant corpus support
-and proof-plan queries. The output names the lane, a small set of documents to
-read, the next commands, and the claim boundary before work begins. These routes
-and their regression checks are implemented. Whether they reduce contributor
-effort or improve distributed research remains unmeasured.
 
 \begin{figure}[H]
 \centering
@@ -327,12 +299,12 @@ The open-source strategy adds two recursive updates:
  \end{aligned}
 \tag{2.3}\label{eq:feedback}
 \]
-Only reviewed returns with explicit scope enter these updates.  The first
-line retains mathematical results for later research; the second records
-changes intended to reduce cost or improve reliability.  A failed attempt may
-supply a mathematical obstruction for $K_t$, or expose a recurring process
-defect whose repair belongs in $I_t$.  Repairing the process does not change
-the truth status of a conjecture.
+Only reviewed, scoped returns enter these updates.  The first line makes later
+research less forgetful.  The second makes later research less expensive or
+more reliable.  A local failure can therefore have two legitimate effects: it
+may add a mathematical obstruction to $K_t$, or reveal a reusable process
+defect whose repair improves $I_t$.  It cannot change a conjecture's truth
+status merely because it changed the process.
 
 \begin{figure}[H]
 \centering
@@ -399,8 +371,8 @@ announced and the number and cost of failed attempts are hidden
 
 \section{Why begin with hard mathematics}\label{sec:math}
 
-Mathematics suits a first implementation because its objects, programs,
-papers, and formal statements can all travel in one clone.
+Mathematics is an unusually clean first domain for this strategy.  The
+objects, programs, papers, and formal statements can all travel in one clone.
 Many conjectures can be probed by exact computation.  A proof assistant can
 check a stable formal step without waiting for an entire long argument to be
 written informally and retrofitted later.  This does not make mathematical
@@ -411,8 +383,8 @@ Computation has a second role.  It can provide an artificial form of local
 intuition to a system that is better at writing and running code than at
 reproducing a mathematician's tacit judgement.  Exact experiments can expose
 counterexamples, compare representations, and locate a narrow regularity.
-The results guide which approach to attempt and which conjectures to pursue.
-They leave the evidence class of an unbounded statement unchanged.  In Bayesian language,
+Their result updates route selection and conjecture pressure.  It does not
+change the evidence class of an unbounded statement.  In Bayesian language,
 an experiment can update which route deserves attention; it cannot assign a
 formal posterior probability to a theorem or replace proof.
 
@@ -454,17 +426,17 @@ Every row admits more than theorem proving.  A mathematician may sharpen a
 hypothesis or supply a counterexample.  A programmer may run a discriminating
 exact calculation.  A formaliser may turn a paper deduction into a checked
 declaration or find that the two statements disagree.  A literature reader
-may locate a theorem that closes or invalidates a route.  Each return must
-state what was established and its limitation; the problem number supplies
-no additional evidence of value.
+may locate a theorem that closes or invalidates a route.  The contribution is
+the exact returned object and its limitation, not the prestige of the problem
+number.
 
 \section{The public research object}\label{sec:object}
 
 The unit of participation is a \emph{problem world}.  A problem world includes
 the endpoint question, current public status, principal theorems, formal
 source, experiments, known counterexamples, failed mechanisms, source
-literature, and exact open obligations.  A bounded task selects the part of
-that world needed for one question.
+literature, and exact open obligations.  A bounded task is a neighbourhood in
+that world, not an invitation to read the repository indiscriminately.
 
 The research was initially developed inside a private workbench.  The public
 release carries both the mathematical corpus and the workflows needed to
@@ -473,8 +445,8 @@ checkout as the working environment; access to the private workbench is not
 part of the contribution protocol, and the workbench grants no proof or
 publication authority to a returned result.
 
-Figure~\ref{fig:authority-ladder} separates the kinds of evidence and review
-available in the public project.
+The public layers carry different kinds of evidence.  Their order is easier to
+read as an authority ladder than as one all-purpose badge.
 
 \begin{figure}[H]
 \centering
@@ -512,7 +484,8 @@ of a later one.}
 \label{fig:authority-ladder}
 \end{figure}
 
-The project builds on established mathematical and computational practices.  Erd\H{o}s Problems supplies questions, sources, status,
+The project is a composition layer around substantial prior work, not a
+replacement for it.  Erd\H{o}s Problems supplies questions, sources, status,
 and a problem community \cite{erdosproblems}.  Lean supplies the formal
 language and kernel \cite{lean4}.  DeepMind's
 \texttt{formal-conjectures} supplies a public one-problem-file model with
@@ -526,11 +499,11 @@ independent checks, and legible credit matter \cite{boinc,gimps}.  The present
 repository wraps these practices into a route that a newcomer can enter
 without first rebuilding each component.
 
-The same sources can serve a short public primer, a specialist paper, a
-detailed proof account, Lean declarations, an agent explanation, and
-machine-readable queries.  Every account must link to its source claims and
-evidence and preserve their scope, however briefly or informally it explains
-them.
+The same underlying substrate can support several reader projections: a short
+public primer, a specialist paper, a detailed proof account, Lean declarations,
+an agent explanation, and machine-readable queries.  Each projection must link
+back to its source claims and evidence.  A shorter or friendlier account does
+not acquire permission to strengthen them.
 
 An external runner begins at \repolink{AGENTS.md}{the compact agent
 entry}.  It can inspect all problem frontiers, choose a bounded question, read
@@ -543,17 +516,18 @@ boundary.
 \section{The contribution protocol}\label{sec:protocol}
 \papersectiontarget{strategy-protocol}
 
-To propose a patch, a contributor forks or clones the repository, creates a
-branch, commits a focused change, pushes the branch to a public fork, and
-opens a pull request.  A person who has a result but no patch
+The ordinary Git verb is a pull request.  A contributor forks or clones the
+repository, creates a branch, commits a focused change, pushes the branch to a
+public fork, and opens a pull request.  A person who has a result but no patch
 can open a structured research-progress issue.  A person with an
 infrastructure proposal can use the parallel architecture-proposal path.
 
-The clone-local \texttt{submit-pull-request} skill gives agents the same
-procedure. It groups separable mathematical or infrastructure changes into
-coherent commits, runs the relevant checks, and prepares the repository's
-pull-request template. A commit may span several files when they form one
-change. Pushing to a fork and opening the pull
+The clone-local \texttt{submit-pull-request} skill makes this sequence
+agent-readable. It separates mathematically or architecturally coherent
+changes into reviewable commits when they can genuinely be separated, runs the
+narrow checks for each change, and prepares the repository's pull-request
+template. Commit boundaries follow the meaning of a change rather than a rule
+of one file or one diff type per commit. Pushing to a fork and opening the pull
 request are external actions and occur only after the contributor authorises
 them.
 
@@ -598,14 +572,20 @@ The complete protocol has nine steps.
       they do not erase the earlier contributor.
 \end{enumerate}
 
-A non-specialist compute contributor needs an intelligible task and a way
-to return evidence.  They are not asked to certify a proof or invent a
+The accessibility claim is role-bounded.  A non-specialist compute
+contributor is not asked to decide what constitutes a proof or to invent a
 mathematically meaningful objective unaided.  The default work unit is a
 packet prepared from an authored mathematical route: an exact open statement,
-relevant sources, a permitted experiment or proof obligation, an expected
-evidence class, and a stopping condition.  Qualified mathematical review should precede large-scale
+a relevant source neighbourhood, a permitted
+experiment or proof obligation, an expected evidence class, and a stopping
+condition.  Qualified mathematical review should precede large-scale
 distribution; it is not claimed for every present route.  The contributor and
-agent execute the packet and return evidence.
+agent execute the packet and return evidence.  Feng et al.\ report a case in
+which stating the admissibility rules of the target, after a first attempt
+had cited results that likely do not exist, cut the inference needed for a
+correct solution sixteenfold on their scale \cite{autonomousmath}.  A task
+packet is that rule statement written down once, before the compute is
+spent.
 Lean checks a formal proposition.  A qualified reviewer checks whether that
 proposition says what was intended and whether the return is relevant.  The
 return remains a candidate until the applicable gates have been crossed.
@@ -618,7 +598,7 @@ resulting statement, argument, prior art, and significance.  One person may
 perform both roles, but the provenance record must not let an input certify
 its own output merely because it came from a mathematician.
 
-The protocol accepts two kinds of contribution.  The \emph{mathematics track}
+This protocol supports two first-class tracks.  The \emph{mathematics track}
 accepts proofs, reductions, computations, counterexamples, corrections,
 formalisation, and reproducible failed routes.  The \emph{architecture track}
 accepts improvements to agent workflow, navigation, validation,
@@ -626,8 +606,9 @@ reproducibility, public experience, governance, and tooling.  An architecture
 return never needs a fictitious problem number, and it cannot request
 promotion of a mathematical claim.
 
-A pull request proposes a change; review records whether it is adopted, and
-a release records an immutable public version.  These separate records permit
+The distinction between a return and an adopted result is load-bearing.  A
+pull request is a proposed delta.  A review act records a decision.  A release
+generation is an immutable public state.  Keeping these separate permits
 credit for a useful counterexample, correction, or design even when no theorem
 is merged.
 
@@ -641,8 +622,21 @@ problem.  Formal verification therefore strengthens one layer of evidence;
 it does not collapse correctness, intended meaning, novelty, significance,
 and community acceptance into a single status.
 
-The proposed review sequence reserves specialist attention for returns that
-have passed the earlier checks:
+Feng et al.\ measured this gap on the Erd\H{o}s problems themselves
+\cite{aletheia}.  Their agent worked the 700 problems then marked open in
+Bloom's database; human graders assessed 200 candidate solutions, found 63
+technically correct and 13 meaningfully correct, and traced the fifty vacuous
+solutions to statements that had been misread or mistranscribed.  The
+lengthiest step of their study was deciding whether a correct solution was
+new and whether it addressed the intended problem.  Their pipeline placed an
+automated natural-language verifier before scarce human experts, and the
+funnel below has the same shape.  Their companion report states the premise
+of this section outright: many open questions lie within reach of existing
+techniques and stay open for want of time and attention from the right
+experts, and machine effort is bottlenecked by different factors
+\cite{autonomousmath}.
+
+The project uses a deliberately asymmetric attention funnel:
 
 \begin{enumerate}
 \item \textbf{Candidate.}  A person or agent returns a scoped argument,
@@ -653,18 +647,23 @@ have passed the earlier checks:
       to break the statement, locate stronger prior art, vary the experiment,
       and reconcile formal and informal formulations.
 \item \textbf{Maintainer triage.}  A human checks whether the bundle is
-      coherent and relevant, and whether the earlier checks justify asking
-      a specialist to spend time on it.
+      coherent enough, relevant enough, and sufficiently de-risked to justify
+      scarce specialist attention.
 \item \textbf{External record.}  A mature Lean result may be packaged through
       Comparator and submitted to Palomar; a mathematical account relevant to
       a listed problem may be placed before the Erd\H{o}s Problems community
       and the appropriate research audience.
 \item \textbf{Acceptance.}  Mathematicians inspect, explain, criticise, reuse,
       publish, or reject the work over time.  Broad mathematical acceptance is
-      a community judgement that the repository maintainer cannot grant.
+      exogenous to this repository and cannot be granted by its maintainer.
 \end{enumerate}
 
-Palomar mechanically verifies a pinned challenge--solution interface using
+Step three follows Henkel, who proposed a different model for verification
+than for generation on the evidence that each model is worst at grading its
+own proofs \cite{henkel,openproofcorpus}.
+
+Palomar is valuable precisely because its claim is narrower than peer review.
+It mechanically verifies a pinned challenge--solution interface using
 Comparator and kernel checking, records structured disclosure, and applies a
 documented automated editorial filter.  It explicitly does not endorse the
 result, establish novelty, or provide human expert review \cite{palomar}.
@@ -673,19 +672,20 @@ linked as external documents and filters implausibly incomplete claims; it is
 a route to relevant attention, not a substitute for that community's
 judgement \cite{erdosproblems}.
 
-Several contributors can make a return easier to assess through independent
-replay, adversarial review, repairs to different failure modes, a stable
-formal interface, or exposition that a specialist can audit.  Their number
-alone provides no mathematical evidence.  The work they record can justify
-specialist attention without strengthening the theorem's status.  This gives
-a contributor without institutional connections concrete reasons to ask for
-review, while sparing the expert the raw agent transcripts.
+Multiple contributors can improve triage, but headcount is not mathematical
+evidence.  What raises a bundle's priority is costly, legible corroboration:
+independent replay, adversarial review, distinct contributors repairing
+different failure modes, a stable formal interface, and an exposition that a
+specialist can audit.  This social proof should allocate attention, never
+inflate the theorem status.  It lets a contributor without institutional
+connections accumulate a public chain of reasons for an expert to look,
+without requiring the expert to sift every raw agent transcript.
 
 \section{Progress, provenance, and credit}\label{sec:credit}
 \papersectiontarget{strategy-credit}
 
-Each return states what kind of evidence it supplies.  The accepted forms
-include:
+The project recognises progress in evidence classes rather than by counting
+commits or theorems.  A return may contain:
 
 \begin{itemize}
 \item an unconditional theorem or a formal proof of an existing statement;
@@ -700,19 +700,44 @@ include:
       and check.
 \end{itemize}
 
-A single leaderboard would obscure the differences between compute volume,
-mathematical depth, software quality, correction work, exposition, and review.
-The public recognition view can list contributors with their accepted
-artefacts, evidence classes, problem or infrastructure area, and roles.  The current receipt schema supports the
+Two of these classes have measured value.  Feng et al.\ found that
+literature identification was the lengthiest step of their Erd\H{o}s study
+and that misread statements produced most of their vacuous solutions, so they
+proposed revised statements as a deliverable \cite{aletheia}.
+
+These items should not be placed on one scalar leaderboard.  Compute volume,
+mathematical depth, software quality, correction work, exposition, and review
+are not commensurable.  Feng et al.\ propose a public two-axis classification
+for AI-assisted results, level of autonomy (primarily human, human--AI
+collaboration, essentially autonomous) against level of mathematical
+significance (negligible novelty to landmark breakthrough), and hold that
+only domain experts can place a result on the second axis
+\cite{autonomousmath}.  The role ledger here is compatible with that scheme
+and finer-grained on the first axis: it records which role each contributor
+played and which evidence class each artefact carries, from which an autonomy
+level can be read off.  The significance axis remains an expert judgement
+that the ledger does not attempt to fill.  The same report calls for
+transparent standards for how AI-generated mathematics is documented,
+evaluated, and communicated, and offers its taxonomy and cards as a starting
+point; the protocol, evidence classes, and receipts here are one such
+standard, offered in the same spirit.  A public recognition view can instead expose the
+contributor, accepted artefacts, evidence classes, problem or architecture
+area, and contribution roles.  The current receipt schema supports the
 fourteen CRediT roles as an optional vocabulary, including conceptualisation,
 methodology, software, validation, investigation, and writing
 \cite{credit}.  CRediT describes work; it does not decide authorship.
 
-Adopting a contribution does not give the project ownership of its underlying
-idea.  The public record should name its originator and identify the work
-that was retained.  Authorship and formal publication still require separate
-judgements.  Recording roles preserves contributions that would disappear
-under sole solver credit or an undifferentiated collective name.
+The default promise is simple: the project does not demand ownership of a
+contributor's underlying idea in exchange for adoption.  If a mathematical or
+architectural contribution is assimilated, the public lineage should continue
+to name who originated it and what survived.  Substantial authorship and
+formal publication decisions remain separate judgements.  Feng et al.\ hold
+that mathematics papers should always be authored by humans because
+authorship carries accountability for validity and attribution
+\cite{aletheia}; this project applies the same rule, and its manuscripts name
+one human author with the agents disclosed as production tools.  A role ledger is
+more honest than either a winner-takes-all solver credit or a pseudonymous
+collective record when the project can preserve exact provenance.
 
 The same rule applies when a local result is carried into a broader library.
 The ledger should distinguish the person or run that produced the local
@@ -723,18 +748,24 @@ into a Mathlib-quality contribution, the project does not demand ownership of
 the resulting pull request or paper.  It asks for a reasonable provenance
 link back to the route from which the idea arose, while crediting the expert
 fully for the mathematical judgement and upstream work they actually
-performed.
+performed.  Provenance is not a device for seizing authorship in arrears.
 
-Credit for partial and negative work gives an outside contributor a reason
-to spend thought or compute on an unsolved problem.  The same record makes
-later correction, reproduction, and literature attribution possible.
+This policy is deliberately generous because attribution is part of the
+growth strategy.  A stranger needs a reason to spend thought or compute on a
+project whose open problems remain unsolved.  Durable, inspectable credit for
+partial and negative work is one such reason.  It is also technically useful:
+provenance makes later correction, reproduction, and literature attribution
+possible.
 
-A contributor outside a university, research institute, or AI laboratory can
-point to the accepted artefact.  Its receipt identifies their idea or
-implementation, the public files containing it, the evidence reviewers
-checked, their roles, and the remaining boundary.  The record documents that
-contribution publicly.  It confers no degree, peer-review status, employment
-recommendation, or guarantee of recognition by another institution.
+For a contributor outside a university, research institute, or AI laboratory,
+the accepted artifact is also something concrete they can point to.  The
+receipt identifies the idea or implementation they supplied, the public paths
+that carry it, the evidence reviewers checked, the roles they performed, and
+the boundary that remained.  This is not a degree, peer review, employment
+recommendation, or guarantee that another institution will value the work.
+It is a durable public account of an actual mathematical or architectural
+contribution, rather than a claim stranded in a private conversation or an
+unattributed model transcript.
 
 \subsection*{Record now, trace consequences later}
 
@@ -744,32 +775,35 @@ which evidence and limitation.  It need not guess the contribution's eventual
 importance.  Later accepted work can add reviewed lineage edges such as
 \emph{uses}, \emph{enables}, \emph{repairs}, \emph{formalises}, \emph{refutes},
 or \emph{explains}.  A consequence view can then show which later results,
-tools, or expositions depend on an earlier contribution.
+tools, or expositions depend on an earlier contribution.  Prove2Me already
+implements the simplest such edge as a credit rule: a contributor earns
+credit when later proofs import a statement they proposed \cite{prove2me}.
 
-Before returning a result, the contributor follows the clone-local
-\texttt{propagate-research-consequences} skill to inspect its plausible uses.
-Each affected statement, file, or process is updated, verified unchanged,
-deferred with a reason, or excluded from scope.  Later work may reveal further
-consequences; known uses still need checking at the time of return.
+This later view begins with an immediate obligation. Before a result is
+returned, the clone-local \texttt{propagate-research-consequences} skill gives
+every plausible downstream consumer a disposition. The later graph may reveal
+further consequences as the corpus grows, but it does not excuse leaving known
+current consumers stale.
 
-These links provide a revisable account of later uses, without assigning an
-objective impact score.  A later event does not establish causation, and an
-authored dependency claim can be mistaken.  A small observation may have many
-consequences; a large compute run may have none beyond its negative result.
-Both keep their original receipt, and readers must be able to inspect and
-correct the subsequent links.
+This is more informative than awarding points at intake, but it is not an
+objective measure of impact.  Time does not establish causation, and a graph
+edge is an authored claim that may need correction.  The view should therefore
+remain inspectable, non-scalar, and corrigible.  A small observation may later
+have many consequences; a large compute run may have none beyond its negative
+result.  Both retain their original receipt.
 
 Any financial reward scheme would require a separate prospective policy for
 eligibility, conflicts, funding, tax, dispute, and the treatment of old
-receipts.  Existing attribution creates no financial entitlement.  A mining
-run can still disclose the model, provider, harness, compute donor, starting
-commit, and any human direction as distinct roles.
+receipts.  Existing attribution must not silently become a financial contract.
+The graph can record that an idea mattered; it cannot, at present, send an
+invoice.  Pure mining runs can still disclose the model, provider, harness,
+compute donor, starting commit, and any human direction as distinct roles.
 
-\section{Running contributed code safely}\label{sec:security}
+\section{Distributed compute without distributed authority}\label{sec:security}
 \papersectiontarget{strategy-security}
 
-BOINC packages scientific jobs for heterogeneous consumer devices, and BOINC
-Central explicitly aims to
+Volunteer compute has an established precedent.  BOINC packages scientific
+jobs for heterogeneous consumer devices, and BOINC Central explicitly aims to
 make volunteer computing available to scientists without the resources to
 operate their own project \cite{boinc}.  GIMPS shows a mathematical version:
 volunteers run a common search program, independent machines confirm a prime,
@@ -782,10 +816,12 @@ change code, propose a conjecture, or misread the problem.  The public system
 therefore distributes \emph{search} while keeping authority local to each
 evidence type.  Mathematicians and formalisation contributors design or review
 the routes; volunteers may execute them with Claude Code, Codex, Cursor,
-Antigravity, OpenCode, another open or proprietary harness, or no agent at all.  The
-shared task packet, evidence boundary, and return record permit different
-runners.  Returned code is untrusted until reviewed.  Expensive or privileged
-continuous-integration jobs must not execute fork code with
+Antigravity, another open or proprietary harness, or no agent at all.  The
+runner is replaceable.  Prove2Me takes the same position for a hosted
+platform: it accepts any shell-capable agent and reports missions closed on
+ordinary consumer subscriptions \cite{prove2me}.  The task packet, evidence
+boundary, and return record are the shared protocol.  Returned code is untrusted until reviewed.  Expensive or
+privileged continuous-integration jobs must not execute fork code with
 repository secrets.  In particular, a GitHub \texttt{pull\_request\_target}
 workflow must not check out and execute an untrusted fork; GitHub documents
 that combination as a route to secret leakage and repository compromise
@@ -797,9 +833,15 @@ A useful compute return records at least the source commit, model and runner,
 tool disclosure, prompt or task packet, wall-clock time, human time, token or
 subscription use, and hardware budget where available, together with commands,
 changed paths, outputs, validation receipts, failures, and the stopping rule.
-A mathematician's time, an API bill, and donated hardware cannot be reduced
-to one exchange rate.  Reporting them separately still permits interpretable
-comparisons and makes the cost of the surrounding assistance visible.
+These inputs should not be forced into one exchange rate: a mathematician's
+hour, an API bill, and a donated graphics processor are different resources.
+They can still be disclosed well enough to make a capability comparison
+interpretable and to reveal when hidden scaffolding paid most of the cost.
+Feng et al.\ propose a human--AI interaction card, a short record of each
+human query and each model return with the raw prompts and outputs
+published, as a transparency baseline for results where AI input was
+essential \cite{autonomousmath}.  The return record here is that card with
+the evidence class and validation receipts attached.
 
 The first public mode may remain deliberately simple: contributors clone the
 repository and run their own agents locally.  A later volunteer-compute layer
@@ -808,12 +850,15 @@ without granting write access.  It should be built only after task identity,
 sandboxing, deduplication, resource budgets, result replay, and abuse handling
 have explicit owners.
 
-\section{Precedents}\label{sec:prior}
+\section{Precedents and the missing composition}\label{sec:prior}
 
-The strategy combines practices from Erd\H{o}s Problems, Lean and mathlib,
-Comparator and Palomar, DeepMind's \texttt{formal-conjectures}, Polymath,
-BOINC, GIMPS, and recent multi-agent formalisation systems.  Its intended
-contribution is to make these practices available through one clone.
+No part of this strategy is without precedent.  The project deliberately
+packages practices developed by the Erd\H{o}s Problems project, Lean and
+mathlib, Comparator and Palomar, DeepMind's \texttt{formal-conjectures},
+Polymath, BOINC, GIMPS, the Prove2Me platform, and recent multi-agent
+formalisation systems.  The intended contribution is an accessible
+composition: a person should be able to enter through one clone without
+first recreating those infrastructures.
 
 \paragraph{Distributed compute.}
 BOINC and GIMPS show that members of the public will donate hardware to a
@@ -836,59 +881,132 @@ and many claimable lemma-sized tasks, with formalisation feeding corrections
 back into the informal plan \cite{mathlib,carleson}.  Google DeepMind's
 \texttt{formal-conjectures} repository similarly uses one-problem files,
 issue assignment, pull requests, metadata, and stable snapshots for a growing
-Lean benchmark \cite{formalconjectures}.  These projects show how a large
-formalisation can be divided into tasks for public contributors.
+Lean benchmark \cite{formalconjectures}.  These projects demonstrate that
+large checked mathematical objects can be made publicly divisible.
 
 \paragraph{Multi-agent formal research.}
 Agent Hunt studies bounties, locks, guarded ownership, and collaborative
 agents for autoformalisation \cite{agenthunt}.  Lean Atlas uses formal
 dependency information to reduce the declarations a person must inspect for
 semantic verification \cite{leanatlas}.  These mechanisms address search,
-coordination, and review focus.  The
-additional proposal here is a public adoption procedure that records the
-provenance of both mathematics and improvements to the research process.
+coordination, and review focus.  They do not by themselves provide a public
+commons in which mathematics and improvements to the research architecture
+enter one provenance-preserving adoption path.
+
+\paragraph{Individual research practice.}
+Henkel gives a framework for one mathematician working with publicly
+affordable models: five guiding principles, of which critical verification
+of every output is the second, and seven applications across the research
+lifecycle from ideation to writing \cite{henkel}.  He proposes cross-model
+checking on the evidence that each model grades its own proofs worst
+\cite{openproofcorpus}, and he treats acknowledgement of tool use as an
+emerging norm while recording that community standards for it remain to be
+established.  His unit is one researcher at a chat window.  The commons here
+supplies the shared record, evidence classes, and credit machinery that such
+a norm needs in order to hold across contributors.
+
+\paragraph{Open agent platforms.}
+Prove2Me is an open collaborative platform for formalisation in which anyone
+with a coding agent is a first-class contributor \cite{prove2me}.  Its first
+arXiv version appeared on 28 August 2026, three days before the first public
+version of this paper, and it had first several of the ideas proposed here.
+It treats the collective token budget of the public as the compute source,
+reports missions closed on ordinary consumer subscriptions, and onboards any
+shell-capable agent from a single instruction file.  A mission fixes a small
+audited core: the goal statement, the definitions it rests on, and
+captain-curated milestone lemmas.  Agents introduce every other intermediate
+theorem freely.  A proof-sketch is a \texttt{sorry}-free proof that imports
+statements not yet proved, so the target is verified exactly when its
+imported children are, and proof search decomposes into atomised sub-problems
+that different agents can close.  Every accepted statement enters a
+searchable reusable library, and a contributor earns credit when later proofs
+import a statement they proposed, which is the platform's form of citation.
+Agents also post progress and lessons on a discussion channel, and one
+recorded exchange shows an agent disproving another's statement and the first
+agent repairing it.  Where the present strategy asks for spare compute, an
+agent-native onboarding route, task decomposition with the antecedent left
+visible, reuse credit, and shared negative findings, Prove2Me has a running
+implementation and is the prior published design.
+
+The two differ in what the shared object is.  Prove2Me is a hosted service
+with server-side verification, and its reported completed missions formalise
+results whose proofs already exist in a paper or textbook.  The commons here
+is a git repository with no service behind it, and its eight endpoints are
+open research problems whose proofs do not exist.  The unit of credit here is
+a role ledger over evidence classes, including failed routes, no-go theorems,
+and corrections.  This paper does not claim that the second design is better.
+Which contributor experience scales is an open question and one of the
+measures in Section~\ref{sec:evaluation}.
+
+\paragraph{Semi-autonomous discovery on the Erd\H{o}s problems.}
+Feng et al.\ ran a research agent built on Gemini Deep Think over the 700
+problems then marked open in Bloom's database and published the full
+accounting \cite{aletheia}: from 200 graded candidates, two autonomous
+resolutions, two partial solutions, four independent rediscoveries, and five
+literature identifications.  They classify outcomes by novelty as well as
+correctness, cede priority wherever a prior human argument exists, name the
+risk that a model reproduces a training-set argument without attribution, and
+warn that a correct proof of a mistranscribed statement settles nothing;
+their Erd\H{o}s-75 appendix is the specimen.  Each of those distinctions is
+an evidence class or a review step in this paper, and their study is the
+prior published demonstration that the distinctions matter at scale.  Their
+run was a single-organisation sweep with a human grading team, released once
+with raw outputs; the commons here is a persistent per-problem record that
+anyone can extend.  None of this repository's eight problems appears in their
+results.  Their companion report on the same agent \cite{autonomousmath}
+adds the generate, verify, and revise loop with a separated verifier that
+declines to answer, four further papers, the finding that a search-equipped
+model still misquotes real references, and the two-axis disclosure taxonomy
+and interaction cards taken up in Sections~\ref{sec:credit}
+and~\ref{sec:security}.  It concludes that formal verification systems
+cannot yet formulate the questions of interest on most research frontiers
+and chooses informal natural-language verification for that reason.  This
+project accepts that bound and works the other side of it: each problem
+world exists because its endpoint can be stated exactly, and the Lean layer
+is empty wherever it cannot.  The report also concedes that benchmark
+results may be contaminated by training data and mitigates this by
+perturbing known problems; a genuinely open endpoint has no solution to
+memorise, which is one more reason to work on open problems.
+
+Tao's community wiki of AI contributions to the Erd\H{o}s problems is the
+existing public register in this exact domain \cite{taowiki}.  It records
+which problems AI systems have touched and with what outcome.  It carries no
+evidence classes, roles, or checkable claim boundaries, and it is edited by
+hand.  The protocol here is meant to feed that register with returns that
+already carry those fields, and to leave a trail from each wiki line back to
+the exact commit, receipt, and surviving boundary.
 
 \paragraph{Proof abundance.}
 Tao separates problem solving into generation, verification, exposition,
 digestion and acceptance, and canonicalisation, and argues that proof
 abundance will create bottlenecks between these stages \cite{tao2026}.  The
-strategy invites contributions at each of these stages, including review
-that prevents an overclaim and exposition that explains a hard step.  Tao's
-rule of thumb, that a result
+strategy here treats those bottlenecks as contribution surfaces.  A reviewer
+who prevents an overclaim or an expositor who makes a hard step recoverable is
+not ancillary to the research pipeline.  Tao's rule of thumb, that a result
 whose authors cannot give a clear, correct, properly attributed expert-level
-account of it is incomplete even when formally verified, sets the standard
-for exposition here.  A record designed to help a reader learn a result does
-not establish that its authors have supplied such an account.  That must be
-shown for each result.  At the time of writing, no selected result has a
-recorded expert account of this kind.  Section~\ref{sec:evaluation} proposes
-testing whether the record helps people produce one.
+account of it is incomplete even when formally verified, sets the bar for the
+exposition layer here.  Two questions are kept apart: whether the record lets a
+reader learn the result, and whether the people responsible for its
+publication have given that account.  The record is designed for the first;
+the second is a per-result event.  At the time of writing no selected result
+carries a recorded expert account of that kind, and adopting the standard is
+not compliance with it.  Whether the record supports such an account is one of
+the measures in Section~\ref{sec:evaluation}.
 
-A digestive-system analogy helps distinguish the preparation from its use:
-breaking down food is different from absorbing its nutrients.  The AI system
-performs \emph{pre-digestion} when it organises sources, expands a derivation,
-prepares examples, or connects a statement to its proof.  People can do this
-preparatory work too.  Mathematical digestion occurs when mathematicians work
-through the argument, understand why its assumptions and difficult steps are
-needed, and can explain and use its ideas.  A readable paper shows that
-material has been prepared; it does not demonstrate human understanding.
-We use this analogy to express Tao's separation of verification, exposition,
-and community digestion and acceptance
-\cite[Sec.~6, pp.~6--8; Sec.~8, p.~11]{tao2026}.  It describes the
-preparation for review.  Claims still require verification, and human
-understanding must be demonstrated through what people can explain and use.
-
-The implementation brings volunteer compute, small shared insights, formal
-task decomposition, problem worlds, recorded negative results, untrusted
-returns, credit by role, and human review into one open corpus.  This
-combination is the proposed contribution.  The paper makes no universal
-priority claim and reports no controlled comparison showing an increased
-discovery rate.
+The proposed composition joins these precedents.  It combines volunteer
+compute, small shared insights, formal task decomposition, agent-native
+problem worlds, explicit negative knowledge, untrusted public returns,
+role-aware credit, and human review.  The candidate contribution is this
+composition and its implementation in one open mathematical corpus.  The
+paper makes no universal priority claim and reports no controlled comparison
+showing that the composition increases discovery rate.
 
 \section{Adding another problem world}\label{sec:add-problem}
 \papersectiontarget{strategy-add-problem}
 
-To extend the repository beyond the present eight problems, each new problem
-needs a canonical question and primary source; a dated account of its current status; an explicit
+The architecture is intended to hold more than the present eight problems,
+but adding a folder is not enough.  A coherent new world needs a canonical
+question and primary source; a dated account of its current status; an explicit
 public claim boundary; a readable primer or problem note; formal statements
 with an informal-faithfulness account where formalisation is appropriate;
 known literature, computations, counterexamples, and failed routes; exact open
@@ -907,8 +1025,8 @@ facts.
 After any of these transitions, consequence propagation inspects the problem
 registry, paper corpus, query routes, cold-start inventory, validation roster,
 return schema, and external crosswalks. A new problem is complete at its stated
-entry level only when the contributor has recorded what was done about each
-affected use.
+entry level only when every affected consumer has an explicit disposition; a
+new directory is not itself a lifecycle receipt.
 
 The last transition is not yet a one-command public operation.  The current
 paper-corpus fan-in has a maintainer-owned stage, several checks enumerate the
@@ -916,13 +1034,13 @@ present roster, and the bounded problem index is already close to its size
 limit.  The immediate infrastructure work is therefore to derive rosters from
 one public authority, admit an explicit incubating state, split verbose detail
 out of the bounded index, and make an absent external crosswalk record a normal
-state rather than an error.  The add-problem skill identifies these dependencies so that a contributor
-can account for them during integration.
+state rather than an error.  Until then, the add-problem skill reports the
+couplings instead of concealing them behind a scaffold command.
 
-The design aims to accommodate increasingly deep problem records, but its
-scaling has not been measured.  A useful test asks whether a new agent can
-retrieve what it needs without reading every paper or rediscovering a known
-failure as the number and depth of problems grow.  That test should be repeated whenever the roster or
+Arbitrary depth is a design target, not a measured scaling result.  The useful
+test is whether a cold agent can retrieve the relevant neighbourhood without
+reading every paper or rediscovering an existing failure as the number and
+depth of worlds grow.  That test should be repeated whenever the roster or
 navigation machinery changes.
 
 \section{Participation and growth}\label{sec:growth}
@@ -949,23 +1067,24 @@ repository.
       understanding.
 \end{itemize}
 
-The first screen of the README should give the basic invitation: clone the project, point a local agent at the compact entry file, and
+The lowest-friction invitation should appear on the first screen of the
+README: clone the project, point a local agent at the compact entry file, and
 ask it to choose a bounded frontier that matches the available tools.  The
 same screen must say that all eight problems remain open, that a useful return
-need not solve one, and that infrastructure contributions receive credit.
+need not solve one, and that architecture contributions receive first-class
+credit.
 
-The contribution procedure should work before the project is publicised
-through Hacker News, a research talk, or a model-community post.  The claim
-would then be specific: an outside contributor can clone the corpus, find an
-exact open question, run or improve the tools, submit a result with its
-evidence, and find accepted work in the public record.  Stars, clone counts,
-and agent-hours measure attention or activity, without establishing
-mathematical progress.
+Publicity should follow a working contribution loop rather than precede it.
+A Hacker News launch, research talk, or model-community post can then make a
+specific claim: a stranger can clone the corpus, reach an exact open question,
+run or improve the machinery, return a typed result, and see accepted work in
+public lineage.  Stars, clones, and raw agent-hours measure attention or
+activity.  They do not measure mathematical progress.
 
 \section{Evaluation}\label{sec:evaluation}
 
-Evaluation should examine what happens between choosing a task, producing a
-return, reviewing it, and using the result.  Initial measures include:
+The strategy should be evaluated at each conversion boundary.  Useful initial
+measures include:
 
 \begin{itemize}
 \item time from a cold clone to a correctly scoped first task;
@@ -981,7 +1100,7 @@ return, reviewing it, and using the result.  Initial measures include:
       infrastructure component changes.
 \end{itemize}
 
-Counts need mathematical interpretation.  One accepted counterexample may be
+The numerator must remain claim-bounded.  One accepted counterexample may be
 more useful than hundreds of generated lemmas.  Generated certificate shards
 must not be counted as independent discoveries.  A theorem accepted by Lean
 but rejected on intended meaning is not a successful public transition.
@@ -996,15 +1115,24 @@ from what was learned.
 Longitudinal model comparisons should use immutable problem snapshots and
 held-out variants where possible.  Public hard problems are susceptible to
 training-data contamination, and the repository itself will become more
-informative over time.  A later run may therefore use both a stronger model
-and a more informative corpus.  The study should measure these factors
-separately before attributing later success to the model.
+informative over time.  A later model therefore receives both a stronger
+model and a richer corpus.  The design should measure these factors
+separately rather than presenting every later success as model improvement.
 
-This paper reports the implementation and protocol and proposes measures
-for a later study.  It supplies no such evaluation.
+The present work supplies no such evaluation.  It establishes an implemented
+case, an explicit protocol, and falsifiable measures for a later study.
 
-A small first study should diagnose difficulties in the contribution path;
-it would not estimate their frequency across a population.  An outside researcher receives one problem world and is asked to
+Yuan et al. provide a useful precedent for the missing external test: two
+student teams attempted an end-to-end build from public documentation for
+scientific hardware designed more than a decade earlier
+\cite{documentationtest}. Their study concerns open-source hardware in large
+collaborations, not formal mathematics, and does not validate this repository's
+route. It supplies a precedent for testing accessibility by asking outsiders
+to complete the documented task, rather than by asking the maintainer whether
+the documents and files exist.
+
+The first study should be small and diagnostic rather than a population
+estimate.  An outside researcher receives one problem world and is asked to
 recover its strongest established statement, explain the main idea, state what
 remains unproved, distinguish a genuine obstruction from an unsuccessful
 attempt, and then undertake one bounded task and return it in a form the
@@ -1018,16 +1146,6 @@ command that could not be run, a source that could not be located, an
 interpretation that was corrected, or a result judged uninteresting are four
 different findings.
 
-That study should also ask what the reader can do after the session: reconstruct
-the decisive step without copying it, explain why a tempting alternative fails,
-locate the prior idea, or formulate a nearby question with a mathematical
-reason for asking it.  Record the actual explanation, correction or follow-up
-use and the help the reader needed.  A completed checklist, shorter reading
-time or a model's judgement that the prose is clear cannot substitute for
-those observations.  Nor should these activities become a compulsory score
-for exploratory work.  They are proposed ways to learn whether the record
-helps people think; this paper reports no such reader outcomes.
-
 \section{Learning from every run}\label{sec:learning}
 
 The research memory has three levels.  Problem-local memory records the exact
@@ -1039,7 +1157,7 @@ that transfer: a navigation failure, an experiment pattern, a formalisation
 pitfall, a validation gap, or a review rule.  A local theorem does not enter
 the second level merely because its variables have been renamed.
 
-A continuing discovery run should:
+A continuous mining run should execute a visible loop:
 
 \begin{enumerate}
 \item re-read the current frontier and the relevant corpus neighbourhood;
@@ -1056,7 +1174,7 @@ A continuing discovery run should:
       separately for review.
 \end{enumerate}
 
-Stewardship should then:
+A continuous stewardship run executes a second loop beside it:
 
 \begin{enumerate}
 \item wake on a stable theorem, counterexample, computation, authority change,
@@ -1074,23 +1192,26 @@ Stewardship should then:
       its hard step, the exact boundary, and the next discriminating question.
 \end{enumerate}
 
-A changed assessment of the mathematics can warrant a different paper order.
-The strongest exact results and mechanisms should lead, while routine
-supporting material remains available with less space.  Comparator checks
-exact interfaces and Palomar provides an external registration route.
-Stewardship may prepare and prioritise submissions to them; it cannot confer
-novelty, acceptance, or canonical status.
+This second loop explains why paper order is allowed to change as the corpus
+improves.  A paper is a reader-facing projection of current mathematical
+judgement, not a chronological dump of agent activity.  The strongest exact
+results and mechanisms should lead; routine scaffolding remains available but
+receives less space.  Comparator remains an exact-interface firewall, and
+Palomar remains an external review route.  The stewardship goal may prepare
+and prioritise those objects, but it cannot award novelty, acceptance, or
+canonical status to itself.
 
 Subagents can divide literature reading, computation, proof search,
 formalisation, and adversarial review when their questions and evidence remain
 independent.  The integrating agent must read and verify their returns, and
-each lane keeps its own starting state and stop condition.  Every attempt
-needs the same evidence regardless of how many agents contributed.
+each lane keeps its own starting state and stop condition.  Parallel agents
+can multiply attempts.  They do not multiply truth.
 
-The system calls the transfer of a local process lesson to a reusable rule
-\emph{up-propagation}.  A proposal states the evidence, comparable cases,
-intended scope, and cases to which it should not apply.  Review determines
-whether it warrants a change to a general skill or route.  Computational
+The system calls learning a reusable lesson from a local run
+\emph{up-propagation}.  A local lesson is not copied immediately into a
+universal mathematical-reasoning rule.  It is first stated with its evidence,
+sibling cases, proposed scope, and over-generalisation guard.  If the pattern
+survives review, it may improve a general skill or route.  Computational
 reasoning can likewise become a specialised skill with reusable experiment
 forms, but every new experiment still records its finite domain and
 interpretation.
@@ -1098,9 +1219,9 @@ interpretation.
 \subsection{The local-to-general track}\label{sec:local-to-general}
 \papersectiontarget{strategy-local-to-general}
 
-A theorem developed while studying a hard problem may be useful elsewhere,
-even if that problem stays open.  Preparing it for broader use requires a
-separate mathematical review:
+Hard problems are useful partly because they generate mathematical by-products
+under sustained pressure.  A partial theorem that does not solve its parent
+problem may still deserve a life outside it.  The proposed digestion route is:
 
 \begin{enumerate}
 \item identify the exact local result and retain its problem-specific proof and
@@ -1152,19 +1273,19 @@ does not decide generality, library fit, or stewardship.}
 \label{fig:local-to-general}
 \end{figure}
 
-Mathlib provides an external model for this final stage.  Its contribution
-guide welcomes useful
+Mathlib is the clearest external model for the final stage, and also a warning
+against automating it badly.  Its contribution guide welcomes useful
 contributions and supplies a public fork-and-pull-request route; it does not
 reserve contribution to people with institutional credentials.  It also sets
 high standards for generality, integration, maintainability, style, and
 documentation, and its current AI policy rejects low-quality unsupervised
 agent submissions while requiring AI use to be disclosed \cite{mathlib}.
-A compute donor should therefore not be directed to submit unreviewed agent
-lemmas to Mathlib.  A subject and Lean expert must understand the candidate,
-decide whether it belongs, bring it to community standards, and take
-responsibility for the discussion.  Credit follows the roles they performed.
-The originating problem remains part of the provenance and gives this
-project no claim to ownership of that contribution.
+Accordingly, this project should never direct a compute donor to spray raw
+agent lemmas into Mathlib.  A subject and Lean expert must take custody of a
+candidate, understand it, decide whether it belongs, bring it to community
+standards, and own the discussion.  The public contribution is then theirs in
+the roles they performed; the originating problem route remains a provenance
+fact, not a competing claim of ownership.
 
 The present prototype does not automate this track and reports no Mathlib
 contribution produced by it.  It can preserve local evidence and provenance,
@@ -1174,7 +1295,7 @@ remain external outcomes.  The
 {systems-mathloop}{systems paper's mathematical loop} describes the authority
 separation underneath this handoff.
 
-The research graph also records objects other than theorems.  Nodes may be
+This produces a graph that is richer than a theorem library.  Nodes may be
 endpoints, conjectures, representations, computations, proofs,
 counterexamples, no-go theorems, reviews, or architecture changes.  Edges
 distinguish proof dependency, implication, equivalence, refutation,
@@ -1199,9 +1320,9 @@ a simulation or experimental script whose variables are linked to a formal
 model and a semantic account of the hypothesis.  Physical observations could
 then update the research graph and select the next experiment.
 
-The mathematical implementation tests this sequence of research operations.
-It supplies no evidence that the current system can conduct physics,
-chemistry, or biology.  Formal verification has a special strength in mathematics because
+Mathematics is only a proof of concept for the \emph{workflow shape}.  It is
+not evidence that the current system can conduct physics, chemistry, or
+biology.  Formal verification has a special strength in mathematics because
 the target objects and proof rules are digital.  In an experimental domain,
 the instrument, calibration, sample, protocol, measurement uncertainty,
 physical environment, and causal interpretation become independent
@@ -1217,21 +1338,23 @@ data.  Autonomous physical experimentation is not a present project goal.
 \section{Limits and governance}\label{sec:limits}
 \papersectiontarget{strategy-limits}
 
-All eight endpoint problems remain open.  The repository contains
+The present strategy has substantial limits.
+
+First, all eight endpoint problems remain open.  The repository contains
 intermediate mathematics and deep records of failed routes, but no evidence
 that a distributed run will solve any problem.  The claim that infrastructure
 improves the conversion from compute to mathematics has not yet been measured
 in a controlled experiment.
 
 The prototype had no recorded external user or accepted outside contribution
-by 31 August 2026. Its clone instructions, agent skills, cross-paper links,
+by 14 September 2026. Its clone instructions, agent skills, cross-paper links,
 pull-request path, and credit machinery may therefore contain friction that an
 author-operated audit does not reveal. Reproducing a clean clone, reporting a
 broken instruction, simplifying setup, repairing an unsafe default, or making
 the contribution route easier to understand are first-class architecture
 contributions even when they do not alter any mathematics.
 
-The project remains centred on its maintainer.  The initial problem
+Second, the project remains maintainer-centred.  The initial problem
 selection, architecture, claim boundaries, review decisions, and public
 presentation were all chosen through one operator-controlled process.  Open
 source makes those choices inspectable and contestable; it does not make them
@@ -1239,23 +1362,23 @@ independent.  A serious growth phase needs external maintainers and reviewers,
 published conflict and appeal rules, and a way for contributor-controlled
 reports to remain visible when the project declines to adopt them.
 
-Review capacity is limited.  More public agents may worsen the burden by
+Third, review is scarce.  More public agents may worsen the burden by
 generating plausible but low-value returns.  Entry tests, evidence schemas,
 automated replay, and Palomar-style selection should protect expert attention,
 but automatic filters cannot award significance or community acceptance.
 
-Contributors may dispute credit.  A role vocabulary preserves more information
+Fourth, credit is contestable.  A role vocabulary preserves more information
 than a single score, but it cannot mechanically decide authorship, priority,
 or the relative weight of an idea and its proof.  The project must disclose
 its policy in advance and preserve correction history.
 
-An open corpus can be gamed.  Contributors may optimise for visible
+Fifth, an open corpus can be gamed.  Contributors may optimise for visible
 activity, generated theorem counts, or a public model comparison.  Strong
 models may have encountered repository text during training.  Security bugs
 may arrive as apparently useful workflow improvements.  No automatic
 leaderboard should be allowed to become the objective function.
 
-Open access also leaves resource inequalities in place.  Compute donors,
+Finally, openness does not remove resource inequality.  Compute donors,
 frontier-model providers, established mathematicians, and maintainers have
 different access and influence.  The strategy can lower the fixed cost of
 entry and make attribution more durable.  It cannot by itself make research
@@ -1263,7 +1386,7 @@ participation equitable.
 
 \section{Execution order}\label{sec:execution}
 
-Further implementation should follow this order.
+The strategy should be implemented in the following order.
 
 \begin{enumerate}
 \item Make the README state the experiment, contributor types, exact open
@@ -1288,21 +1411,29 @@ Turnkey multi-provider mining, a public volunteer-compute scheduler,
 independent governance, and a cross-domain laboratory interface are not
 reported capabilities.
 
-\section{The next test}\label{sec:conclusion}
+\section{Conclusion}\label{sec:conclusion}
 
-The public clone provides a route from a hard question to a bounded task,
-with procedures for returning evidence and crediting accepted work.
-Contributors can share the infrastructure while supplying mathematics,
-compute, formalisation, software, review, or exposition.  Accepted results
-extend the corpus; accepted infrastructure changes revise how later work is
-produced and checked.  Both keep their provenance.
+The open-source strategy is to make mathematical infrastructure a shared
+conversion layer.  A contributor may add compute, mathematical direction,
+formalisation, software, review, or exposition without rebuilding the whole
+system and without pretending to have solved an endpoint problem.  Accepted
+mathematical work enlarges the reusable corpus.  Accepted architecture work
+improves the process that produces and checks later work.  Both retain public
+provenance.
 
-The eight Erd\H{o}s problems give this design real mathematical questions and
-exact open boundaries.  Their difficulty requires the record to account for
-failed approaches, while leaving room to study changes in models, compute,
-infrastructure, and human direction over time.  The next test is whether
-outside contributors can use the procedure, reviewers can assess their
-returns, and the accumulated record improves subsequent attempts.
+The eight Erd\H{o}s problems are hard test worlds for this design.  They make
+failure unavoidable enough that the system must learn to preserve it, and
+deep enough that improvements in models, compute, infrastructure, and human
+insight can be observed over time.  Their role is not to guarantee a dramatic
+solution.  It is to ensure that the research commons is exercised on real
+mathematics with exact open boundaries.
+
+The strongest claim at present is therefore architectural.  A fresh clone can
+carry a stranger from a hard question to a bounded frontier and give that
+stranger a path for returning evidence and receiving credit.  The next test is
+social and empirical: whether outside contributors can use that path, whether
+reviewers can absorb the returns, and whether the accumulated graph makes the
+next attempt genuinely better.
 
 \appendix
 \section{Public entry routes}\label{app:routes}
@@ -1371,17 +1502,6 @@ are production tools, not authors, and supply no independent authority.
 T. Tao, \emph{Mathematics in the age of AI}, 2026,
 \href{https://arxiv.org/abs/2608.16753}{arXiv:2608.16753}.
 
-\bibitem{mathandai2026}
-Math and AI, \emph{A Severe Misalignment of AI in Mathematics},
-\href{https://mathandai.org/}{declaration},
-accessed 12 September 2026.
-
-\bibitem{tao2026landscape}
-T. Tao, \emph{Discussion of the difficulty landscape for mathematical
-problems}, Mathstodon post, 8 September 2026,
-\href{https://mathstodon.xyz/@tao/117237322160500501}{part 3 of 4},
-accessed 12 September 2026.
-
 \bibitem{boinc}
 D. P. Anderson, \emph{BOINC: A Platform for Volunteer Computing}, Journal of
 Grid Computing 18 (2020), 99--122,
@@ -1438,6 +1558,36 @@ B. Yanahama and A. Sannai, \emph{Lean Atlas: An Integrated Proof Environment
 for Scalable Human--AI Collaborative Formalization}, 2026,
 \href{https://arxiv.org/abs/2604.16347}{arXiv:2604.16347}.
 
+\bibitem{prove2me}
+S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, \emph{Prove2Me: An Open
+Collaborative Platform for Scaling Math Formalization}, 2026,
+\href{https://arxiv.org/abs/2608.28433}{arXiv:2608.28433}.
+
+\bibitem{aletheia}
+T. Feng, T. Trinh, G. Bingham, et al., \emph{Semi-Autonomous Mathematics
+Discovery with Gemini: A Case Study on the Erd\H{o}s Problems}, 2026,
+\href{https://arxiv.org/abs/2601.22401}{arXiv:2601.22401}.
+
+\bibitem{autonomousmath}
+T. Feng, T. H. Trinh, G. Bingham, et al., \emph{Towards Autonomous
+Mathematics Research}, 2026,
+\href{https://arxiv.org/abs/2602.10177}{arXiv:2602.10177}.
+
+\bibitem{henkel}
+J. Henkel, \emph{The Mathematician's Assistant: Integrating AI into Research
+Practice}, 2025,
+\href{https://arxiv.org/abs/2508.20236}{arXiv:2508.20236}.
+
+\bibitem{openproofcorpus}
+J. Dekoninck et al., \emph{The Open Proof Corpus: A Large-Scale Study of
+LLM-Generated Mathematical Proofs}, 2025,
+\href{https://arxiv.org/abs/2506.21621}{arXiv:2506.21621}.
+
+\bibitem{taowiki}
+T. Tao, \emph{AI contributions to Erd\H{o}s problems}, community wiki,
+\href{https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems}{GitHub wiki page},
+accessed September 2026.
+
 \bibitem{credit}
 NISO, \emph{CRediT: Contributor Roles Taxonomy},
 \href{https://credit.niso.org/contributor-roles-defined/}{role definitions},
@@ -1447,6 +1597,11 @@ accessed August 2026.
 GitHub, \emph{Preventing pwn requests}, GitHub Actions security guidance,
 \href{https://docs.github.com/en/actions/reference/security/secure-use}{documentation},
 accessed August 2026.
+
+\bibitem{documentationtest}
+M. Yuan et al., \emph{End-to-End Testing of Open-Source Hardware Documentation
+Developed in Large Collaborations}, 2023,
+\href{https://arxiv.org/abs/2309.05942}{arXiv:2309.05942}.
 
 \end{thebibliography}
 
