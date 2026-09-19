@@ -111,11 +111,13 @@ results.
 
 ## What you get
 
-The public executable code includes **88 components grouped into seven areas**.
+The public library contains **88 components grouped into seven areas**.
 A component is one program or group of related programs listed in
 [ORGANS.md](ORGANS.md). Some run a computation or an external tool; others
 compare supplied records against explicit rules. The component pages state
-which kind of example you are running.
+which kind of example you are running. Each replay reports whether its required
+source and dependencies are available; a catalogue entry alone is not a
+successful run.
 
 You can also search the component descriptions:
 
