@@ -12,7 +12,7 @@ This paper describes an open-source strategy for agent-assisted mathematical res
 
 The proposed research commons accepts four independently useful inputs: compute, mathematical direction, infrastructure improvements, and review. Its outputs are not limited to solved problems. Proofs, counterexamples, finite computations, corrected statements, failed mechanisms, formal no-go theorems, and better research tools all reduce the cost or improve the direction of later work. Accepted mathematical returns enlarge a versioned problem corpus; accepted architectural returns improve the process that turns future compute and insight into reviewable mathematics. Provenance and role-specific credit remain attached when a contribution is assimilated.
 
-The implemented case is a public Lean repository organised around eight open Erdős problems. The problems were chosen as difficult research worlds, not because the present system was expected to solve them. A fresh clone contains papers, formal source, explicit open boundaries, corpus queries, validation programs, and structured return paths. All eight problems remain open. The repository is therefore a proof of concept for cumulative research infrastructure, not evidence that distributed agents already outperform mathematicians or that additional compute will solve a named problem. As of 14 September 2026, the author had not recorded a completed external cold-clone use or an accepted external contribution, so the contributor experience remains untested outside author-operated runs.
+The implemented case is a public Lean repository organised around eight Erdős problem programmes. The problems were chosen as difficult research worlds, not because the present system was expected to solve them. A fresh clone contains papers, formal source, explicit open boundaries, corpus queries, validation programs, and structured return paths. The degree-seven example refutes the total-variation formulation of Problem 1041; correspondence with its historical curve-length question remains unreviewed. The other seven targets remain unresolved here. The repository is a proof of concept for cumulative research infrastructure, not evidence that distributed agents already outperform mathematicians or that additional compute will solve a named problem. As of 14 September 2026, the author had not recorded a completed external cold-clone use or an accepted external contribution, so the contributor experience remains untested outside author-operated runs.
 
 The paper gives a production model, contribution protocol, trust and security boundary, attribution policy, comparison with volunteer computing, Polymath-style collaboration, formalisation projects, the Prove2Me platform, the Aletheia case study, and multi-agent proof systems, and an evaluation agenda. Mathematics is the initial domain because its objects are digital and formal claims can be checked incrementally. Any later extension to experimental science would require domain scientists, physical laboratories, safety governance, and new evidential authorities.
 
@@ -24,7 +24,7 @@ The paper gives a production model, contribution protocol, trust and security bo
 
 **What is implemented**
 
-**Contribution.** A public contribution protocol accepts compute, mathematical direction, infrastructure, and review as independently useful inputs, while preserving evidence boundaries and role-specific credit. **Implementation.** One fresh clone contains eight problem worlds, formal source, explicit open obligations, validation programs, and structured return paths. **Limit.** All eight problems remain open, and no external contribution has yet tested the proposed contributor experience.
+**Contribution.** A public contribution protocol accepts compute, mathematical direction, infrastructure, and review as independently useful inputs, while preserving evidence boundaries and role-specific credit. **Implementation.** One fresh clone contains eight problem worlds, formal source, explicit open obligations, validation programs, and structured return paths. **Limit.** No external contribution had tested the proposed contributor experience by 14 September 2026.
 
 </div>
 
@@ -393,7 +393,7 @@ The project should present several independent reasons to clone the repository.
 
 - A **reviewer or expositor** can reconcile meaning, rank results, correct attribution, or turn a checked proof into recoverable understanding.
 
-The lowest-friction invitation should appear on the first screen of the README: clone the project, point a local agent at the compact entry file, and ask it to choose a bounded frontier that matches the available tools. The same screen must say that all eight problems remain open, that a useful return need not solve one, and that architecture contributions receive first-class credit.
+The lowest-friction invitation should appear on the first screen of the README: clone the project, point a local agent at the compact entry file, and ask it to choose a bounded frontier that matches the available tools. The same screen must state the checked results beside their exact remaining-open questions, explain that a useful return need not solve a problem, and give architecture contributions first-class credit.
 
 Publicity should follow a working contribution loop rather than precede it. A Hacker News launch, research talk, or model-community post can then make a specific claim: a stranger can clone the corpus, reach an exact open question, run or improve the machinery, return a typed result, and see accepted work in public lineage. Stars, clones, and raw agent-hours measure attention or activity. They do not measure mathematical progress.
 
@@ -528,7 +528,7 @@ Any transfer would therefore require domain scientists, controlled physical infr
 
 The present strategy has substantial limits.
 
-First, all eight endpoint problems remain open. The repository contains intermediate mathematics and deep records of failed routes, but no evidence that a distributed run will solve any problem. The claim that infrastructure improves the conversion from compute to mathematics has not yet been measured in a controlled experiment.
+First, the selected total-variation refutation for Problem 1041 does not establish correspondence with the historical question, and the other seven targets remain unresolved here. The repository contains intermediate mathematics and deep records of failed routes, but no evidence that a distributed run will solve any problem. The claim that infrastructure improves the conversion from compute to mathematics has not yet been measured in a controlled experiment.
 
 The prototype had no recorded external user or accepted outside contribution by 14 September 2026. Its clone instructions, agent skills, cross-paper links, pull-request path, and credit machinery may therefore contain friction that an author-operated audit does not reveal. Reproducing a clean clone, reporting a broken instruction, simplifying setup, repairing an unsafe default, or making the contribution route easier to understand are first-class architecture contributions even when they do not alter any mathematics.
 

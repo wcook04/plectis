@@ -235,7 +235,7 @@ def _preferred_citation(paper: dict[str, Any]) -> dict[str, Any]:
         "canonical_source_commit": commit,
         "canonical_source_url": url,
         "licence": licence,
-        "identifier_kind": "commit_pinned_source",
+        "identifier_kind": "commit_pinned_source" if commit else "unversioned_source",
         "text": text,
         "derived_from": [
             f"{CORPUS_REL}: title, copyright, home_repository, "
