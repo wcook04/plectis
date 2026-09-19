@@ -20,6 +20,7 @@ from typing import Any
 from microcosm_core.organs.macro_projection_import_protocol import (
     VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS,
 )
+from microcosm_core.validators.source_module_boundary import exported_copy_matches
 from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
 from microcosm_core.secret_exclusion_scan import (
@@ -273,20 +274,7 @@ def _strings(value: object) -> list[str]:
 
 
 def _repo_root_for_public_root(public_root: Path) -> Path:
-    """
-    Produce the repo root for public root value used by
-    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop`.
-
-    Inputs are `public_root`; notable helpers are `extend`, `resolve`, `is_file`, `is_dir`,
-    and 1 more.
-    """
-    search_roots = [public_root, *public_root.parents, Path.cwd().resolve(strict=False)]
-    search_roots.extend(Path.cwd().resolve(strict=False).parents)
-    for candidate in search_roots:
-        if (candidate / "AGENTS.override.md").is_file() and (
-            candidate / "microcosm-substrate"
-        ).is_dir():
-            return candidate
+    """Resolve public evidence within this checkout, independent of neighbours."""
     return public_root
 
 
@@ -666,7 +654,6 @@ def _source_module_result(
     verified_count = 0
     byte_count = 0
     modules = _rows(manifest, "modules")
-    repo_root = _repo_root_for_public_root(public_root)
     if not modules:
         findings.append(
             _finding(
@@ -709,7 +696,7 @@ def _source_module_result(
                     subject_kind="source_module",
                 )
             )
-        if not isinstance(target_ref, str) or not target_ref:
+        if not isinstance(target_ref, str) or not _path_ref_is_public_safe(target_ref):
             module_findings.append(
                 _finding(
                     "VOICE_DOCTRINE_SOURCE_MODULE_TARGET_REF_MISSING",
@@ -722,16 +709,18 @@ def _source_module_result(
             target_path = None
         else:
             target_path = public_root / target_ref
+            if any(parent.is_symlink() for parent in (target_path, *target_path.parents)):
+                target_path = None
         actual_sha = None
         actual_byte_count = 0
         actual_line_count = 0
         anchors_present = False
-        source_path_exists = False
+        source_path_exists = None
         source_sha = None
-        source_hash_matches = False
-        source_target_exact_copy = False
-        source_anchors_present = False
-        source_path = None
+        source_hash_matches = None
+        source_target_exact_copy = None
+        source_anchors_present = None
+        exported_identity_matches = False
         if not _path_ref_is_public_safe(source_ref):
             module_findings.append(
                 _finding(
@@ -742,19 +731,6 @@ def _source_module_result(
                     subject_kind="source_module",
                 )
             )
-        elif source_ref:
-            source_path = repo_root / source_ref
-            source_path_exists = source_path.is_file()
-            if not source_path_exists:
-                module_findings.append(
-                    _finding(
-                        "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_MISSING",
-                        "Copied source body source_ref must exist in the macro source tree.",
-                        case_id="source_module_manifest",
-                        subject_id=module_id,
-                        subject_kind="source_module",
-                    )
-                )
         if target_path is None or not target_path.is_file():
             module_findings.append(
                 _finding(
@@ -818,49 +794,17 @@ def _source_module_result(
                         subject_kind="source_module",
                     )
                 )
-            if source_path is not None and source_path_exists:
-                source_body = source_path.read_bytes()
-                source_text = source_body.decode("utf-8")
-                source_sha = hashlib.sha256(source_body).hexdigest()
-                expected_source_sha = str(row.get("source_sha256") or "")
-                source_hash_matches = bool(expected_source_sha) and (
-                    source_sha == expected_source_sha
-                )
-                source_target_exact_copy = source_body == body
-                source_anchors_present = all(
-                    anchor in source_text for anchor in required_anchors
-                )
-                if not source_hash_matches:
-                    module_findings.append(
-                        _finding(
-                            "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_HASH_MISMATCH",
-                            "Copied source body source_sha256 must match the live macro source file.",
-                            case_id="source_module_manifest",
-                            subject_id=module_id,
-                            subject_kind="source_module",
-                        )
+            exported_identity_matches = exported_copy_matches(public_root, manifest_path, target_path)
+            if not exported_identity_matches:
+                module_findings.append(
+                    _finding(
+                        "VOICE_DOCTRINE_SOURCE_MODULE_EXPORTED_IDENTITY_MISMATCH",
+                        "The copied body and its attribution must match the public export inventory.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id,
+                        subject_kind="source_module",
                     )
-                if not source_target_exact_copy:
-                    if not verified_light_edit:
-                        module_findings.append(
-                            _finding(
-                                "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_TARGET_COPY_MISMATCH",
-                                "Copied source body target must be an exact copy of the live macro source file.",
-                                case_id="source_module_manifest",
-                                subject_id=module_id,
-                                subject_kind="source_module",
-                            )
-                        )
-                if not source_anchors_present:
-                    module_findings.append(
-                        _finding(
-                            "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_ANCHOR_MISSING",
-                            "Live macro source file must contain each manifest anchor.",
-                            case_id="source_module_manifest",
-                            subject_id=module_id,
-                            subject_kind="source_module",
-                        )
-                    )
+                )
         if not source_ref:
             module_findings.append(
                 _finding(
@@ -888,7 +832,10 @@ def _source_module_result(
                 "source_sha256": source_sha,
                 "source_hash_matches": source_hash_matches,
                 "source_target_exact_copy": source_target_exact_copy,
-                "source_target_verified_light_edit": verified_light_edit,
+                "source_target_verified_light_edit": None,
+                "exported_identity_matches": exported_identity_matches,
+                "upstream_currentness": "not_assessed",
+                "upstream_source_checked": False,
                 "source_anchors_present": source_anchors_present,
                 "byte_count": actual_byte_count,
                 "line_count": actual_line_count,
@@ -922,7 +869,9 @@ def _source_module_result(
                 str(row.get("target_ref") or "") for row in modules if row.get("target_ref")
             ),
             "manifest_ref": _display(manifest_path, public_root=public_root),
-            "source_refs_live_checked": True,
+            "source_refs_live_checked": False,
+            "verification_mode": "public_export_identity_and_copied_body",
+            "upstream_currentness": "not_assessed",
             "source_target_exact_copy_count": len(
                 [
                     row

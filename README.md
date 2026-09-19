@@ -55,7 +55,7 @@ The [paper guide](docs/papers/README.md) introduces the other papers, with PDFs
 and searchable text available in the clone.
 
 The [mathematics companion](https://github.com/wcook04/plectis-erdos) contains
-papers and Lean proofs around eight open Erdős problems. A maths task needs
+papers and Lean proofs across eight Erdős problem programmes. A maths task needs
 only that repository; a software task needs only this one.
 [Recorded walkthroughs](https://wcook04.github.io/plectis/#demo-videos)
 show the private interface; they do not establish its reliability.
@@ -111,11 +111,13 @@ results.
 
 ## What you get
 
-The public executable code includes **88 components grouped into seven areas**.
+The public library contains **88 components grouped into seven areas**.
 A component is one program or group of related programs listed in
 [ORGANS.md](ORGANS.md). Some run a computation or an external tool; others
 compare supplied records against explicit rules. The component pages state
-which kind of example you are running.
+which kind of example you are running. Each replay reports whether its required
+source and dependencies are available; a catalogue entry alone is not a
+successful run.
 
 You can also search the component descriptions:
 

@@ -14,9 +14,9 @@ truth validators; those stay with their owners (`validators/readme_front_door.py
 and `validators/public_entry_docs.py` here, `scripts/check_release.py` in the
 Lean repo), and `--deep` delegates to them by subprocess when asked.
 
-Output is failure-first human text, or `--json`. Exit 1 only on unclassified
-failures; classified exceptions (each pointing at its owning migration plan)
-report as pending work without failing the gate.
+Output is failure-first human text, or `--json`. Root reference documents
+are classified by their existing owner. Missing owners and unclassified
+entries fail the gate; retaining an intentional public path is not migration debt.
 
 Authority ceiling: root/README presentation legibility only. A pass is not a
 release decision, quality score, correctness claim, or archive guarantee.
@@ -33,7 +33,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-PROFILE_VERSION = "1.1"
+PROFILE_VERSION = "1.2"
 AGENT_ENTRY_MAX_BYTES = 32_768
 
 # Files every profile expects at the root (missing -> failure).
@@ -53,16 +53,17 @@ PYTHON_TOOL_ALLOWED = {
     "receipts", "scripts", "skills", "src", "standards", "tests",
 }
 
-# Root entries that are KNOWN pending-migration surfaces, each classified to
-# the plan that owns its move. Reported, not failed.
-PYTHON_TOOL_CLASSIFIED_EXCEPTIONS = {
-    name: "docs/maintainers/root-migration-plan.md"
-    for name in (
-        "AGENT_ROUTES.md", "ANTI_PRINCIPLES.md", "ARCHITECTURE.md", "AXIOMS.md",
-        "FIRST_ACTION.md",
-        "ORGANS.md", "PRINCIPLES.md", "PROVENANCE.md",
-        "RELEASE_REVIEW.md", "SOURCE_STATUS.md",
-    )
+# Stable public references have real owners. Their root paths are consumed by
+# generators, package metadata and incoming links; relocation is optional.
+PYTHON_TOOL_REFERENCE_OWNERS = {
+    **{name: "src/microcosm_core/projections/organ_atlas.py" for name in
+       ("ORGANS.md", "ARCHITECTURE.md", "AGENT_ROUTES.md")},
+    "FIRST_ACTION.md": "scripts/build_first_action_demo.py",
+    "RELEASE_REVIEW.md": "scripts/build_release_review.py",
+    **{name: "src/microcosm_core/doctrine_lattice.py" for name in
+       ("AXIOMS.md", "PRINCIPLES.md", "ANTI_PRINCIPLES.md")},
+    "PROVENANCE.md": "docs/governance/public-boundary.md",
+    "SOURCE_STATUS.md": "docs/governance/public-boundary.md",
 }
 
 MATH_ARTIFACT_ALLOWED = {
@@ -76,7 +77,6 @@ MATH_ARTIFACT_ALLOWED = {
     "lakefile.toml", "lake-manifest.json", "lean-toolchain",
     "erdos249-257-exposition.pdf",
 }
-MATH_ARTIFACT_CLASSIFIED_EXCEPTIONS: dict[str, str] = {}
 
 # Old-name leakage scan for the hero region (python_research_tool only): the
 # former product name may appear as a current label only in compatibility
@@ -140,18 +140,16 @@ def _root_entries(root: Path) -> list[str]:
 
 def _check_root_allowlist(root: Path, mode: str, report: dict[str, Any]) -> None:
     allowed = PYTHON_TOOL_ALLOWED if mode == "python_research_tool" else MATH_ARTIFACT_ALLOWED
-    exceptions = (
-        PYTHON_TOOL_CLASSIFIED_EXCEPTIONS
-        if mode == "python_research_tool"
-        else MATH_ARTIFACT_CLASSIFIED_EXCEPTIONS
-    )
+    owners = PYTHON_TOOL_REFERENCE_OWNERS if mode == "python_research_tool" else {}
     unclassified: list[str] = []
-    pending: dict[str, str] = {}
+    references: dict[str, str] = {}
     for entry in _root_entries(root):
         if entry in allowed:
             continue
-        if entry in exceptions:
-            pending[entry] = exceptions[entry]
+        if entry in owners:
+            references[entry] = owners[entry]
+            if not (root / owners[entry]).is_file():
+                report["failures"].append(f"root_allowlist: missing owner for {entry}: {owners[entry]}")
             continue
         # Root Lean library files are the artifact itself in math mode.
         if mode == "formalised_mathematics_artifact" and (
@@ -162,7 +160,9 @@ def _check_root_allowlist(root: Path, mode: str, report: dict[str, Any]) -> None
         unclassified.append(entry)
     report["root_allowlist"] = {
         "unclassified_entries": unclassified,
-        "classified_pending_migration": pending,
+        "classified_reference_documents": references,
+        # Compatibility for consumers of profile 1.1; no relocation is required.
+        "classified_pending_migration": {},
     }
     if unclassified:
         report["failures"].append(
@@ -409,13 +409,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"public repo profile ({args.mode}): {report['status']}")
         for failure in report["failures"]:
             print(f"  FAIL {failure}")
-        pending = report["root_allowlist"]["classified_pending_migration"]
-        if pending:
-            plans = sorted(set(pending.values()))
-            print(
-                f"  pending migration: {len(pending)} root entries classified to "
-                f"{', '.join(plans)}"
-            )
+        references = report["root_allowlist"]["classified_reference_documents"]
+        if references:
+            print(f"  reference documents: {len(references)} with verified owner paths")
     return 0 if report["status"] == "pass" else 1
 
 

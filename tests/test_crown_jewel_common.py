@@ -223,3 +223,79 @@ def test_run_crown_jewel_organ_blocks_section_status_without_findings(
         and row.get("subject_id") == "exercise"
         for row in result["findings"]
     )
+
+
+def test_invalid_source_manifest_prevents_evaluator_execution(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = public_root / "examples/test"
+    bundle.mkdir(parents=True)
+
+    def forbidden(*args):
+        raise AssertionError("invalid or omitted source must not execute")
+
+    result = run_crown_jewel_organ(
+        _spec(), bundle, public_root / "receipts/test",
+        evaluator=forbidden, negative_case_evaluator=forbidden,
+    )
+    assert result["status"] == "blocked"
+    assert result["exercise"]["status"] == "unavailable"
+    assert result["observed_negative_cases"] == []
+    assert result["semantic_negative_case_evaluator_used"] is False
+    assert "CROWN_JEWEL_EXECUTION_DEPENDENCY_UNAVAILABLE" in result["error_codes"]
+
+
+def test_missing_transitive_module_is_unavailable_not_a_passing_exercise(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = public_root / "examples/test"
+    _write_json(bundle / "source_module_manifest.json",
+                {"source_import_class": SOURCE_IMPORT_CLASS, "modules": []})
+
+    def missing_module(*args):
+        raise ModuleNotFoundError(name="omitted_private_dependency")
+
+    def forbidden(*args):
+        raise AssertionError("negative cases require the unavailable runtime")
+
+    result = run_crown_jewel_organ(_spec(), bundle, public_root / "receipts/test",
+        evaluator=missing_module, negative_case_evaluator=forbidden)
+    assert result["status"] == "blocked"
+    assert result["exercise"]["status"] == "unavailable"
+    assert result["observed_negative_cases"] == []
+    assert result["semantic_negative_case_evaluator_used"] is False
+
+
+def test_empty_manifest_cannot_satisfy_required_source_contract(tmp_path: Path) -> None:
+    from dataclasses import replace
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = public_root / "examples/test"
+    _write_json(bundle / "source_module_manifest.json",
+                {"source_import_class": SOURCE_IMPORT_CLASS, "modules": []})
+    spec = replace(_spec(), source_required_anchors={"required.py": ("def run(",)})
+    result = validate_source_manifest(bundle, spec, public_root=public_root)
+    assert result["status"] == "blocked"
+    assert any(row["error_code"] == "CROWN_JEWEL_REQUIRED_SOURCE_MODULE_MISSING"
+               for row in result["findings"])
+
+
+def test_verified_retained_sources_do_not_authorize_omitted_dependency_execution(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = public_root / "examples/test"
+    _write_json(bundle / "source_module_manifest.json", {
+        "source_import_class": SOURCE_IMPORT_CLASS, "modules": [],
+        "release_substitution_omissions": [{"source_ref": "private_dependency.py"}],
+    })
+
+    def forbidden(*args):
+        raise AssertionError("a retained-source pass cannot authorize omitted code")
+
+    result = run_crown_jewel_organ(_spec(), bundle, public_root / "receipts/test",
+        evaluator=forbidden, negative_case_evaluator=forbidden)
+    assert result["source_module_manifest"]["status"] == "pass"
+    assert result["source_module_manifest"]["execution_dependency_omissions"] == ["private_dependency.py"]
+    assert result["status"] == "blocked"
+    assert result["exercise"]["status"] == "unavailable"
+    assert result["observed_negative_cases"] == []

@@ -345,22 +345,6 @@ def _public_ref_path(input_dir: Path, ref: str) -> Path:
     return input_dir / Path(ref)
 
 
-def _repo_root_for_public_refactor(public_root: Path) -> Path | None:
-    """
-    Return repo root for public refactor for
-    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
-
-    Inputs are `public_root`; notable helpers are `is_file`.
-    """
-    for candidate in (public_root.parent, *public_root.parents):
-        if (
-            (candidate / AGENT_EXECUTION_TRACE_SOURCE_REF).is_file()
-            and (candidate / AGENT_EXECUTION_TRACE_TARGET_FILE_REF).is_file()
-        ):
-            return candidate
-    return None
-
-
 def _body_import_verification(
     base_verification: dict[str, Any],
     *,
@@ -375,27 +359,19 @@ def _body_import_verification(
 
     The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
-    repo_root = _repo_root_for_public_refactor(public_root)
-    source_path = (
-        repo_root / AGENT_EXECUTION_TRACE_SOURCE_REF if repo_root is not None else None
+    # Historical upstream provenance is not a dependency of a public replay.
+    # Never search parent directories for a private checkout.
+    target_path = public_root / AGENT_EXECUTION_TRACE_TARGET_FILE_REF.removeprefix(
+        "microcosm-substrate/"
     )
-    target_path = (
-        repo_root / AGENT_EXECUTION_TRACE_TARGET_FILE_REF
-        if repo_root is not None
-        else None
-    )
-    source_digest = (
-        _sha256(source_path) if source_path is not None and source_path.is_file() else None
-    )
-    target_digest = (
-        _sha256(target_path) if target_path is not None and target_path.is_file() else None
-    )
+    source_digest = None
+    target_digest = _sha256(target_path) if target_path.is_file() else None
     source_module_count = int(source_imports.get("copied_source_artifact_count") or 0)
     return {
         **base_verification,
         "verification_status": "verified",
         "verification_mode": (
-            "extension_of_existing_public_refactor_with_live_digest_relation"
+            "public_refactor_replay_with_upstream_unassessed"
         ),
         "body_import_classification": "extension_of_existing_public_refactor",
         "source_to_target_relation": "source_faithful_public_refactor",
@@ -406,6 +382,8 @@ def _body_import_verification(
         "target_ref": AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF,
         "target_file_ref": AGENT_EXECUTION_TRACE_TARGET_FILE_REF,
         "source_body_digest": source_digest,
+        "upstream_currentness": "not_assessed",
+        "upstream_source_checked": False,
         "target_body_digest": target_digest,
         "public_trace_status": public_trace["status"],
         "public_trace_span_count": public_trace["span_count"],

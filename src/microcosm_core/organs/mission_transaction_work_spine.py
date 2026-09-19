@@ -1076,6 +1076,39 @@ def _collision_claim_ids(collisions: list[dict[str, Any]]) -> list[str]:
     )
 
 
+def _unavailable_snapshot_result(
+    input_dir: Path, public_root: Path, reason: str
+) -> dict[str, Any]:
+    """Keep an omitted replay dependency distinct from an executed check."""
+    return {
+        "status": "unavailable",
+        "findings": [_bundle_finding(
+            "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE", reason,
+            subject_id=REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME,
+            subject_kind="real_work_ledger_snapshot_fixture",
+        )],
+        "observed_negative_cases": {},
+        "fixture_ref": public_relative_path(
+            input_dir / REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME, display_root=public_root
+        ),
+        "realness_evidence": {
+            "status": "unavailable",
+            "verdict_rederived_from_runtime_evidence": False,
+            "expected_labels_used_for_verdict": False,
+            "baked_fixture_label_sufficient": False,
+            "release_authorized": False,
+            "body_in_receipt": False,
+        },
+        "realness_rank": 0,
+        "realness_rung": "R0",
+        "realness_state": "runtime_dependency_unavailable",
+        "real_good_input_passed": False,
+        "real_wrong_input_rejected": False,
+        "real_wrong_input_clear_mutation_passed": False,
+        "body_in_receipt": False,
+    }
+
+
 def validate_real_active_claims_snapshot(
     payload: object,
     input_dir: Path,
@@ -1110,7 +1143,20 @@ def validate_real_active_claims_snapshot(
     if not isinstance(runtime_status, dict):
         runtime_status = {}
     source_modules_root = _work_ledger_source_modules_root(input_dir, public_root)
+    if not (source_modules_root / "system/lib/work_ledger_runtime.py").is_file():
+        return _unavailable_snapshot_result(
+            input_dir, public_root, "The Work Ledger replay runtime is absent from this clone."
+        )
     work_ledger_runtime = _import_exact_copy_work_ledger_runtime(source_modules_root)
+    if getattr(work_ledger_runtime, "PUBLIC_MICROCOSM_STUB", False) or not all(
+        callable(getattr(work_ledger_runtime, name, None))
+        for name in ("build_active_claims_snapshot", "active_claim_collisions_for_paths")
+    ):
+        return _unavailable_snapshot_result(
+            input_dir, public_root,
+            "This public export omits the private Work Ledger replay runtime. "
+            "The snapshot replay was not executed; public preflight checks remain separate.",
+        )
     snapshot_now = _parse_iso_utc(payload.get("snapshot_now"))
     snapshot = work_ledger_runtime.build_active_claims_snapshot(
         public_root,

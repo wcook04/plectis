@@ -105,6 +105,18 @@ python3 -m json.tool .microcosm/evidence/routes.json
 Run `plectis tour --card .` first if the result file does not exist. Reading
 a saved result does not rerun the command that produced it.
 
+For the bundled demonstration, `plectis run --card examples/runtime_shell/demo_project`
+reads the stored result. An existing cache is current only when its selected
+components, public input files, runtime code, Python version and evidence files
+match the recorded binding. Older unbound results remain readable as stale.
+Run `plectis run examples/runtime_shell/demo_project` explicitly to refresh it;
+that command executes the full demonstration and can take several minutes.
+
+A copied source file can match the published export while its upstream
+currentness remains unassessed. A component whose private dependency was
+omitted reports that execution as unavailable. Neither case establishes a
+successful execution; inspect the result's failure codes and input scope.
+
 ## Pytest isolation detail
 
 If `make` is unavailable, install the test dependencies in a virtual environment:

@@ -21,7 +21,6 @@ from microcosm_core.organs.research_replication_rubric_artifact_replay import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/research_replication_rubric_artifact_replay/input"
@@ -517,7 +516,7 @@ def test_research_replication_exported_bundle_validates_runtime_shape(
     verification = result["body_import_verification"]
     assert verification["verification_status"] == "verified"
     assert verification["verification_mode"] == (
-        "extension_of_existing_public_refactor_with_live_digest_relation"
+        "public_refactor_replay_with_upstream_unassessed"
     )
     assert verification["body_import_classification"] == (
         "extension_of_existing_public_refactor"
@@ -525,7 +524,9 @@ def test_research_replication_exported_bundle_validates_runtime_shape(
     assert verification["source_to_target_relation"] == (
         "source_faithful_public_refactor"
     )
-    assert verification["digest_relation"] == "source_target_refactor_digests_recorded"
+    assert verification["digest_relation"] == "source_target_refactor_digests_unavailable_in_public_copy"
+    assert verification["upstream_currentness"] == "not_assessed"
+    assert verification["upstream_source_checked"] is False
     assert verification["source_ref"] == "system/lib/agent_execution_trace.py"
     assert verification["target_file_ref"] == (
         "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
@@ -534,9 +535,7 @@ def test_research_replication_exported_bundle_validates_runtime_shape(
         "microcosm-substrate/src/microcosm_core/macro_tools/"
         "agent_execution_trace.py::build_public_research_replication_trace"
     )
-    assert verification["source_body_digest"] == _sha256(
-        SOURCE_ROOT / "system/lib/agent_execution_trace.py"
-    )
+    assert verification["source_body_digest"] is None
     assert verification["target_body_digest"] == _sha256(
         MICROCOSM_ROOT / "src/microcosm_core/macro_tools/agent_execution_trace.py"
     )
@@ -548,7 +547,7 @@ def test_research_replication_exported_bundle_validates_runtime_shape(
     )
     assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
     assert result["body_import_verification"]["verification_mode"] == (
-        "extension_of_existing_public_refactor_with_live_digest_relation"
+        "public_refactor_replay_with_upstream_unassessed"
     )
     assert (
         result["public_agent_execution_trace"]["source_faithful_refactor"][
@@ -1275,3 +1274,23 @@ def test_public_agent_execution_trace_refactor_builds_research_replay_spans() ->
     assert trace["audit"]["coverage"]["failure_taxonomy_coverage"] is True
     assert trace["audit"]["coverage"]["cold_rerun_coverage"] is True
     assert "system/lib/agent_execution_trace.py" in trace["source_refs"]
+
+
+def test_public_replay_does_not_discover_parent_private_sources(tmp_path: Path) -> None:
+    root = tmp_path / "microcosm-substrate"
+    target = root / "src/microcosm_core/macro_tools/agent_execution_trace.py"
+    target.parent.mkdir(parents=True)
+    target.write_text("public replay implementation\n")
+    inputs = dict(public_root=root, public_trace={"status": "pass", "span_count": 1,
+                  "summary": {"trace_digest": "trace"}},
+                  source_imports={"copied_source_artifact_count": 1,
+                                  "source_module_manifest_ref": "manifest.json"})
+    before = research_replication_rubric_artifact_replay._body_import_verification({}, **inputs)
+    private = tmp_path / "system/lib/agent_execution_trace.py"
+    private.parent.mkdir(parents=True)
+    private.write_text("private body must not be inspected\n")
+    after = research_replication_rubric_artifact_replay._body_import_verification({}, **inputs)
+    assert before == after
+    assert after["source_body_digest"] is None
+    assert after["target_body_digest"] == _sha256(target)
+    assert after["upstream_source_checked"] is False

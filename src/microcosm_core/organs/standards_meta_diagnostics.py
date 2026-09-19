@@ -17,6 +17,12 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.validators.source_module_boundary import (
+    copied_source_identity,
+    exported_copy_matches,
+    export_identity_input_paths,
+)
+
 from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
@@ -341,7 +347,7 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
         return []
-    paths = [manifest_path]
+    paths = [manifest_path, *export_identity_input_paths(public_root)]
     try:
         manifest = read_json_strict(manifest_path)
     except Exception:
@@ -349,9 +355,9 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     for row in _rows(manifest, "modules"):
         source_ref = str(row.get("source_ref") or "")
         if source_ref:
-            paths.append(
-                _source_module_source_path(source_ref, public_root=public_root)
-            )
+            source = _source_module_source_path(source_ref, public_root=public_root)
+            if source.is_file():
+                paths.append(source)
         target_ref = str(row.get("target_ref") or row.get("path") or "")
         if target_ref:
             paths.append(
@@ -494,6 +500,7 @@ def _source_module_manifest_result(
             )
 
     verified_count = 0
+    source_identity_checks: list[dict[str, Any]] = []
     for row in modules:
         module_id = str(row.get("module_id") or "source_module")
         module_ids.append(module_id)
@@ -550,17 +557,7 @@ def _source_module_manifest_result(
                     subject_kind="source_ref",
                 )
             )
-        elif not source.is_file():
-            findings.append(
-                _finding(
-                    "STANDARDS_META_SOURCE_MODULE_SOURCE_REF_MISSING",
-                    "Source module source_ref must resolve to a live source authority file.",
-                    case_id="source_module_manifest",
-                    subject_id=source_ref,
-                    subject_kind="source_ref",
-                )
-            )
-        else:
+        elif source.is_file():
             source_authority_refs.append(source_ref)
             source_refs.append(source_ref)
         target = _source_module_target_path(
@@ -597,22 +594,19 @@ def _source_module_manifest_result(
                     subject_kind="source_module",
                 )
             )
-        if source.is_file():
-            source_actual = _sha256(source)
-            if (
-                digest_values["source_sha256"] != source_actual
-                or source_actual != target_actual
-            ):
-                findings.append(
-                    _finding(
-                        "STANDARDS_META_SOURCE_MODULE_SOURCE_DIGEST_MISMATCH",
-                        "Source module source_ref digest must match the live source "
-                        "file and copied target body.",
-                        case_id="source_module_manifest",
-                        subject_id=module_id,
-                        subject_kind="source_ref",
-                    )
-                )
+        identity = copied_source_identity(
+            row, target.read_bytes(),
+            source.read_bytes() if source.is_file() else None,
+            exported_identity_matches=exported_copy_matches(public_root, manifest_path, target),
+        )
+        source_identity_checks.append({"module_id": module_id, **identity})
+        if identity["status"] != PASS:
+            findings.append(_finding(
+                "STANDARDS_META_SOURCE_MODULE_SOURCE_DIGEST_MISMATCH",
+                "The shipped copy must match its recorded source digest and any available upstream bytes.",
+                case_id="source_module_manifest_floor", subject_id=module_id,
+                subject_kind="source_module",
+            ))
         text = target.read_text(encoding="utf-8")
         missing_anchors = [
             anchor for anchor in _strings(row.get("required_anchors")) if anchor not in text
@@ -642,6 +636,7 @@ def _source_module_manifest_result(
         ),
         "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
         "module_count": len(modules),
+        "source_identity_checks": source_identity_checks,
         "verified_module_count": verified_count,
         "module_ids": module_ids,
         "material_classes": sorted(material_class_counts),

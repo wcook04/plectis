@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -549,9 +550,14 @@ def test_public_system_paper_check_rejects_narrow_bibliography_label_width(
     tmp_path: Path,
 ) -> None:
     paper = tmp_path / "paper.tex"
+    source = PAPER.read_text(encoding="utf-8")
+    bibliography = re.search(r"\\begin\{thebibliography\}\{(\d+)\}", source)
+    assert bibliography is not None
+    width = int(bibliography.group(1))
+    assert width >= 10, "this fixture requires a two-digit bibliography"
     paper.write_text(
-        PAPER.read_text(encoding="utf-8").replace(
-            r"\begin{thebibliography}{12}",
+        source.replace(
+            bibliography.group(0),
             r"\begin{thebibliography}{9}",
         ),
         encoding="utf-8",
@@ -559,7 +565,7 @@ def test_public_system_paper_check_rejects_narrow_bibliography_label_width(
 
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
-    assert "bibliography label width must match item count: expected 12" in failures
+    assert f"bibliography label width must match item count: expected {width}" in failures
 
 
 def test_public_system_paper_check_rejects_tiny_bibliography_type(
@@ -1217,8 +1223,8 @@ def test_public_system_paper_check_rejects_claim_routing_step_removal(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "comprehend --first-action",
-            '--show-something',
+            "python3 -m plectis comprehend",
+            "python3 -m plectis --show-something",
         )
         .replace(
             "but do not run its first suggested\ncommand",
@@ -1237,6 +1243,35 @@ def test_public_system_paper_check_rejects_claim_routing_step_removal(
     assert any(
         "missing executable first-review route" in failure
         and "do not run its first suggested command" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_noncopyable_first_review_command(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    source = PAPER.read_text(encoding="utf-8")
+    command_block = (
+        "\\begin{Verbatim}[fontsize=\\small]\n"
+        "PYTHONPATH=src python3 -m plectis comprehend \\\n"
+        '  --first-action "audio level calculation" --format text\n'
+        "\\end{Verbatim}"
+    )
+    assert command_block in source
+    paper.write_text(
+        source.replace(
+            command_block,
+            r"\resizebox{\linewidth}{!}{\Verb|PYTHONPATH=src python3 -m plectis "
+            r'comprehend --first-action "audio level calculation" --format text|}',
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "first-review route in a copyable code block" in failure
         for failure in failures
     )
 

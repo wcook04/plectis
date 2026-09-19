@@ -69,8 +69,9 @@ untested outside author-operated runs.
 
 The paper gives a production model, contribution protocol, trust and security
 boundary, attribution policy, comparison with volunteer computing,
-Polymath-style collaboration, formalisation projects, and multi-agent proof
-systems, and an evaluation agenda.  Mathematics is the initial domain because
+Polymath-style collaboration, formalisation projects, the Prove2Me platform,
+the Aletheia case study, and multi-agent proof systems, and an evaluation
+agenda.  Mathematics is the initial domain because
 its objects are digital and formal claims can be checked incrementally.  Any
 later extension to experimental science would require domain scientists,
 physical laboratories, safety governance, and new evidential authorities.
@@ -579,7 +580,12 @@ a relevant source neighbourhood, a permitted
 experiment or proof obligation, an expected evidence class, and a stopping
 condition.  Qualified mathematical review should precede large-scale
 distribution; it is not claimed for every present route.  The contributor and
-agent execute the packet and return evidence.
+agent execute the packet and return evidence.  Feng et al.\ report a case in
+which stating the admissibility rules of the target, after a first attempt
+had cited results that likely do not exist, cut the inference needed for a
+correct solution sixteenfold on their scale \cite{autonomousmath}.  A task
+packet is that rule statement written down once, before the compute is
+spent.
 Lean checks a formal proposition.  A qualified reviewer checks whether that
 proposition says what was intended and whether the return is relevant.  The
 return remains a candidate until the applicable gates have been crossed.
@@ -616,6 +622,20 @@ problem.  Formal verification therefore strengthens one layer of evidence;
 it does not collapse correctness, intended meaning, novelty, significance,
 and community acceptance into a single status.
 
+Feng et al.\ measured this gap on the Erd\H{o}s problems themselves
+\cite{aletheia}.  Their agent worked the 700 problems then marked open in
+Bloom's database; human graders assessed 200 candidate solutions, found 63
+technically correct and 13 meaningfully correct, and traced the fifty vacuous
+solutions to statements that had been misread or mistranscribed.  The
+lengthiest step of their study was deciding whether a correct solution was
+new and whether it addressed the intended problem.  Their pipeline placed an
+automated natural-language verifier before scarce human experts, and the
+funnel below has the same shape.  Their companion report states the premise
+of this section outright: many open questions lie within reach of existing
+techniques and stay open for want of time and attention from the right
+experts, and machine effort is bottlenecked by different factors
+\cite{autonomousmath}.
+
 The project uses a deliberately asymmetric attention funnel:
 
 \begin{enumerate}
@@ -637,6 +657,10 @@ The project uses a deliberately asymmetric attention funnel:
       publish, or reject the work over time.  Broad mathematical acceptance is
       exogenous to this repository and cannot be granted by its maintainer.
 \end{enumerate}
+
+Step three follows Henkel, who proposed a different model for verification
+than for generation on the evidence that each model is worst at grading its
+own proofs \cite{henkel,openproofcorpus}.
 
 Palomar is valuable precisely because its claim is narrower than peer review.
 It mechanically verifies a pinned challenge--solution interface using
@@ -676,9 +700,27 @@ commits or theorems.  A return may contain:
       and check.
 \end{itemize}
 
+Two of these classes have measured value.  Feng et al.\ found that
+literature identification was the lengthiest step of their Erd\H{o}s study
+and that misread statements produced most of their vacuous solutions, so they
+proposed revised statements as a deliverable \cite{aletheia}.
+
 These items should not be placed on one scalar leaderboard.  Compute volume,
 mathematical depth, software quality, correction work, exposition, and review
-are not commensurable.  A public recognition view can instead expose the
+are not commensurable.  Feng et al.\ propose a public two-axis classification
+for AI-assisted results, level of autonomy (primarily human, human--AI
+collaboration, essentially autonomous) against level of mathematical
+significance (negligible novelty to landmark breakthrough), and hold that
+only domain experts can place a result on the second axis
+\cite{autonomousmath}.  The role ledger here is compatible with that scheme
+and finer-grained on the first axis: it records which role each contributor
+played and which evidence class each artefact carries, from which an autonomy
+level can be read off.  The significance axis remains an expert judgement
+that the ledger does not attempt to fill.  The same report calls for
+transparent standards for how AI-generated mathematics is documented,
+evaluated, and communicated, and offers its taxonomy and cards as a starting
+point; the protocol, evidence classes, and receipts here are one such
+standard, offered in the same spirit.  A public recognition view can instead expose the
 contributor, accepted artefacts, evidence classes, problem or architecture
 area, and contribution roles.  The current receipt schema supports the
 fourteen CRediT roles as an optional vocabulary, including conceptualisation,
@@ -689,7 +731,11 @@ The default promise is simple: the project does not demand ownership of a
 contributor's underlying idea in exchange for adoption.  If a mathematical or
 architectural contribution is assimilated, the public lineage should continue
 to name who originated it and what survived.  Substantial authorship and
-formal publication decisions remain separate judgements.  A role ledger is
+formal publication decisions remain separate judgements.  Feng et al.\ hold
+that mathematics papers should always be authored by humans because
+authorship carries accountability for validity and attribution
+\cite{aletheia}; this project applies the same rule, and its manuscripts name
+one human author with the agents disclosed as production tools.  A role ledger is
 more honest than either a winner-takes-all solver credit or a pseudonymous
 collective record when the project can preserve exact provenance.
 
@@ -729,7 +775,9 @@ which evidence and limitation.  It need not guess the contribution's eventual
 importance.  Later accepted work can add reviewed lineage edges such as
 \emph{uses}, \emph{enables}, \emph{repairs}, \emph{formalises}, \emph{refutes},
 or \emph{explains}.  A consequence view can then show which later results,
-tools, or expositions depend on an earlier contribution.
+tools, or expositions depend on an earlier contribution.  Prove2Me already
+implements the simplest such edge as a credit rule: a contributor earns
+credit when later proofs import a statement they proposed \cite{prove2me}.
 
 This later view begins with an immediate obligation. Before a result is
 returned, the clone-local \texttt{propagate-research-consequences} skill gives
@@ -769,8 +817,10 @@ therefore distributes \emph{search} while keeping authority local to each
 evidence type.  Mathematicians and formalisation contributors design or review
 the routes; volunteers may execute them with Claude Code, Codex, Cursor,
 Antigravity, another open or proprietary harness, or no agent at all.  The
-runner is replaceable.  The task packet, evidence boundary, and return record
-are the shared protocol.  Returned code is untrusted until reviewed.  Expensive or
+runner is replaceable.  Prove2Me takes the same position for a hosted
+platform: it accepts any shell-capable agent and reports missions closed on
+ordinary consumer subscriptions \cite{prove2me}.  The task packet, evidence
+boundary, and return record are the shared protocol.  Returned code is untrusted until reviewed.  Expensive or
 privileged continuous-integration jobs must not execute fork code with
 repository secrets.  In particular, a GitHub \texttt{pull\_request\_target}
 workflow must not check out and execute an untrusted fork; GitHub documents
@@ -787,6 +837,11 @@ These inputs should not be forced into one exchange rate: a mathematician's
 hour, an API bill, and a donated graphics processor are different resources.
 They can still be disclosed well enough to make a capability comparison
 interpretable and to reveal when hidden scaffolding paid most of the cost.
+Feng et al.\ propose a human--AI interaction card, a short record of each
+human query and each model return with the raw prompts and outputs
+published, as a transparency baseline for results where AI input was
+essential \cite{autonomousmath}.  The return record here is that card with
+the evidence class and validation receipts attached.
 
 The first public mode may remain deliberately simple: contributors clone the
 repository and run their own agents locally.  A later volunteer-compute layer
@@ -800,9 +855,10 @@ have explicit owners.
 No part of this strategy is without precedent.  The project deliberately
 packages practices developed by the Erd\H{o}s Problems project, Lean and
 mathlib, Comparator and Palomar, DeepMind's \texttt{formal-conjectures},
-Polymath, BOINC, GIMPS, and recent multi-agent formalisation systems.  The
-intended contribution is an accessible composition: a person should be able
-to enter through one clone without first recreating those infrastructures.
+Polymath, BOINC, GIMPS, the Prove2Me platform, and recent multi-agent
+formalisation systems.  The intended contribution is an accessible
+composition: a person should be able to enter through one clone without
+first recreating those infrastructures.
 
 \paragraph{Distributed compute.}
 BOINC and GIMPS show that members of the public will donate hardware to a
@@ -836,6 +892,89 @@ semantic verification \cite{leanatlas}.  These mechanisms address search,
 coordination, and review focus.  They do not by themselves provide a public
 commons in which mathematics and improvements to the research architecture
 enter one provenance-preserving adoption path.
+
+\paragraph{Individual research practice.}
+Henkel gives a framework for one mathematician working with publicly
+affordable models: five guiding principles, of which critical verification
+of every output is the second, and seven applications across the research
+lifecycle from ideation to writing \cite{henkel}.  He proposes cross-model
+checking on the evidence that each model grades its own proofs worst
+\cite{openproofcorpus}, and he treats acknowledgement of tool use as an
+emerging norm while recording that community standards for it remain to be
+established.  His unit is one researcher at a chat window.  The commons here
+supplies the shared record, evidence classes, and credit machinery that such
+a norm needs in order to hold across contributors.
+
+\paragraph{Open agent platforms.}
+Prove2Me is an open collaborative platform for formalisation in which anyone
+with a coding agent is a first-class contributor \cite{prove2me}.  Its first
+arXiv version appeared on 28 August 2026, three days before the first public
+version of this paper, and it had first several of the ideas proposed here.
+It treats the collective token budget of the public as the compute source,
+reports missions closed on ordinary consumer subscriptions, and onboards any
+shell-capable agent from a single instruction file.  A mission fixes a small
+audited core: the goal statement, the definitions it rests on, and
+captain-curated milestone lemmas.  Agents introduce every other intermediate
+theorem freely.  A proof-sketch is a \texttt{sorry}-free proof that imports
+statements not yet proved, so the target is verified exactly when its
+imported children are, and proof search decomposes into atomised sub-problems
+that different agents can close.  Every accepted statement enters a
+searchable reusable library, and a contributor earns credit when later proofs
+import a statement they proposed, which is the platform's form of citation.
+Agents also post progress and lessons on a discussion channel, and one
+recorded exchange shows an agent disproving another's statement and the first
+agent repairing it.  Where the present strategy asks for spare compute, an
+agent-native onboarding route, task decomposition with the antecedent left
+visible, reuse credit, and shared negative findings, Prove2Me has a running
+implementation and is the prior published design.
+
+The two differ in what the shared object is.  Prove2Me is a hosted service
+with server-side verification, and its reported completed missions formalise
+results whose proofs already exist in a paper or textbook.  The commons here
+is a git repository with no service behind it, and its eight endpoints are
+open research problems whose proofs do not exist.  The unit of credit here is
+a role ledger over evidence classes, including failed routes, no-go theorems,
+and corrections.  This paper does not claim that the second design is better.
+Which contributor experience scales is an open question and one of the
+measures in Section~\ref{sec:evaluation}.
+
+\paragraph{Semi-autonomous discovery on the Erd\H{o}s problems.}
+Feng et al.\ ran a research agent built on Gemini Deep Think over the 700
+problems then marked open in Bloom's database and published the full
+accounting \cite{aletheia}: from 200 graded candidates, two autonomous
+resolutions, two partial solutions, four independent rediscoveries, and five
+literature identifications.  They classify outcomes by novelty as well as
+correctness, cede priority wherever a prior human argument exists, name the
+risk that a model reproduces a training-set argument without attribution, and
+warn that a correct proof of a mistranscribed statement settles nothing;
+their Erd\H{o}s-75 appendix is the specimen.  Each of those distinctions is
+an evidence class or a review step in this paper, and their study is the
+prior published demonstration that the distinctions matter at scale.  Their
+run was a single-organisation sweep with a human grading team, released once
+with raw outputs; the commons here is a persistent per-problem record that
+anyone can extend.  None of this repository's eight problems appears in their
+results.  Their companion report on the same agent \cite{autonomousmath}
+adds the generate, verify, and revise loop with a separated verifier that
+declines to answer, four further papers, the finding that a search-equipped
+model still misquotes real references, and the two-axis disclosure taxonomy
+and interaction cards taken up in Sections~\ref{sec:credit}
+and~\ref{sec:security}.  It concludes that formal verification systems
+cannot yet formulate the questions of interest on most research frontiers
+and chooses informal natural-language verification for that reason.  This
+project accepts that bound and works the other side of it: each problem
+world exists because its endpoint can be stated exactly, and the Lean layer
+is empty wherever it cannot.  The report also concedes that benchmark
+results may be contaminated by training data and mitigates this by
+perturbing known problems; a genuinely open endpoint has no solution to
+memorise, which is one more reason to work on open problems.
+
+Tao's community wiki of AI contributions to the Erd\H{o}s problems is the
+existing public register in this exact domain \cite{taowiki}.  It records
+which problems AI systems have touched and with what outcome.  It carries no
+evidence classes, roles, or checkable claim boundaries, and it is edited by
+hand.  The protocol here is meant to feed that register with returns that
+already carry those fields, and to leave a trail from each wiki line back to
+the exact commit, receipt, and surviving boundary.
 
 \paragraph{Proof abundance.}
 Tao separates problem solving into generation, verification, exposition,
@@ -1418,6 +1557,36 @@ Collaborative Autoformalization With LLM Agents}, 2026,
 B. Yanahama and A. Sannai, \emph{Lean Atlas: An Integrated Proof Environment
 for Scalable Human--AI Collaborative Formalization}, 2026,
 \href{https://arxiv.org/abs/2604.16347}{arXiv:2604.16347}.
+
+\bibitem{prove2me}
+S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, \emph{Prove2Me: An Open
+Collaborative Platform for Scaling Math Formalization}, 2026,
+\href{https://arxiv.org/abs/2608.28433}{arXiv:2608.28433}.
+
+\bibitem{aletheia}
+T. Feng, T. Trinh, G. Bingham, et al., \emph{Semi-Autonomous Mathematics
+Discovery with Gemini: A Case Study on the Erd\H{o}s Problems}, 2026,
+\href{https://arxiv.org/abs/2601.22401}{arXiv:2601.22401}.
+
+\bibitem{autonomousmath}
+T. Feng, T. H. Trinh, G. Bingham, et al., \emph{Towards Autonomous
+Mathematics Research}, 2026,
+\href{https://arxiv.org/abs/2602.10177}{arXiv:2602.10177}.
+
+\bibitem{henkel}
+J. Henkel, \emph{The Mathematician's Assistant: Integrating AI into Research
+Practice}, 2025,
+\href{https://arxiv.org/abs/2508.20236}{arXiv:2508.20236}.
+
+\bibitem{openproofcorpus}
+J. Dekoninck et al., \emph{The Open Proof Corpus: A Large-Scale Study of
+LLM-Generated Mathematical Proofs}, 2025,
+\href{https://arxiv.org/abs/2506.21621}{arXiv:2506.21621}.
+
+\bibitem{taowiki}
+T. Tao, \emph{AI contributions to Erd\H{o}s problems}, community wiki,
+\href{https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems}{GitHub wiki page},
+accessed September 2026.
 
 \bibitem{credit}
 NISO, \emph{CRediT: Contributor Roles Taxonomy},

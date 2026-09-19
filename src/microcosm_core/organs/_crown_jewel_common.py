@@ -79,6 +79,8 @@ class CrownJewelSpec:
     source_manifest_ref: str
     source_required_anchors: Mapping[str, tuple[str, ...]]
     bundle_input_mode: str
+    # Opt in only when the organ already implements and tests a public replacement.
+    public_refactor_when_source_omitted: bool = False
 
     @property
     def acceptance_receipt_rel(self) -> str:
@@ -406,6 +408,20 @@ def validate_source_manifest(
 
     manifest = load_json_object(manifest_path, findings, label="source module manifest")
     module_rows = rows(manifest, "modules")
+    declared_sources = {str(row.get("source_ref") or "") for row in module_rows}
+    if spec.public_refactor_when_source_omitted:
+        declared_sources.update(
+            str(row.get("source_ref") or "")
+            for row in rows(manifest, "release_substitution_omissions")
+            if isinstance(row.get("release_substitution"), dict)
+            and row["release_substitution"].get("substitution") == "public_safe_stub"
+        )
+    for missing in sorted(set(spec.source_required_anchors) - declared_sources):
+        findings.append(finding(
+            "CROWN_JEWEL_REQUIRED_SOURCE_MODULE_MISSING",
+            "The execution contract requires a source module omitted from this manifest.",
+            subject_id=missing,
+        ))
     source_artifact_paths.append(manifest_path)
     if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
         findings.append(
@@ -683,6 +699,10 @@ def validate_source_manifest(
         "modules": module_receipts,
         "source_artifact_paths": [display(path, public_root=public_root) for path in source_artifact_paths],
         "source_manifest_path": str(manifest_path),
+        "execution_dependency_omissions": [
+            str(row.get("source_ref") or row.get("module_id") or "unknown_dependency")
+            for row in rows(manifest, "release_substitution_omissions")
+        ],
         "body_in_receipt": False,
         "all_expected_digests_matched": all(
             row["digest_status"] == "match" for row in module_receipts
@@ -909,13 +929,49 @@ def run_crown_jewel_organ(
 
     source_manifest = validate_source_manifest(input_path, spec, public_root=public_root)
     findings.extend(source_manifest.get("findings", []))
-    exercise = evaluator(input_path, public_root, source_manifest)
+    if source_manifest.get("status") == PASS and (
+        not source_manifest.get("execution_dependency_omissions")
+        or spec.public_refactor_when_source_omitted
+    ):
+        try:
+            exercise = evaluator(input_path, public_root, source_manifest)
+            negative_cases = validate_negative_cases(
+                input_path,
+                spec.expected_negative_cases,
+                negative_case_evaluator=negative_case_evaluator,
+            )
+        except ModuleNotFoundError as exc:
+            unavailable = finding(
+                "CROWN_JEWEL_EXECUTION_DEPENDENCY_UNAVAILABLE",
+                "A required Python dependency is absent from this public clone.",
+                subject_id=str(exc.name or "unknown_module"),
+            )
+            exercise = {"status": "unavailable", "findings": [unavailable]}
+            negative_cases = {
+                "status": "unavailable", "findings": [unavailable],
+                "observed_negative_cases": [],
+                "missing_negative_cases": sorted(spec.expected_negative_cases),
+                "negative_case_semantics": {}, "semantic_evaluator_used": False,
+                "error_codes": ["CROWN_JEWEL_EXECUTION_DEPENDENCY_UNAVAILABLE"],
+            }
+    else:
+        # A failed import contract cannot authorize execution of copied modules.
+        # Public exports may deliberately omit them; a historical receipt is not
+        # a substitute for the missing runtime.
+        unavailable = finding(
+            "CROWN_JEWEL_EXECUTION_DEPENDENCY_UNAVAILABLE",
+            "Execution requires a passing source-module manifest; no evaluator was run.",
+            subject_id="source_module_manifest",
+        )
+        exercise = {"status": "unavailable", "findings": [unavailable]}
+        negative_cases = {
+            "status": "unavailable", "findings": [unavailable],
+            "observed_negative_cases": [],
+            "missing_negative_cases": sorted(spec.expected_negative_cases),
+            "negative_case_semantics": {}, "semantic_evaluator_used": False,
+            "error_codes": ["CROWN_JEWEL_EXECUTION_DEPENDENCY_UNAVAILABLE"],
+        }
     findings.extend(exercise.get("findings", []))
-    negative_cases = validate_negative_cases(
-        input_path,
-        spec.expected_negative_cases,
-        negative_case_evaluator=negative_case_evaluator,
-    )
     findings.extend(negative_cases.get("findings", []))
 
     # The overall verdict below is derived from findings alone, so a section
@@ -987,6 +1043,7 @@ def run_crown_jewel_organ(
         "created_at": utc_now(),
         "status": status,
         "input_mode": input_mode,
+        "public_refactor_when_source_omitted": spec.public_refactor_when_source_omitted,
         "input_ref": display(input_path, public_root=public_root),
         "command": command,
         "anti_claim": spec.anti_claim,

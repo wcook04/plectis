@@ -17,12 +17,12 @@
 }
 \newcommand{\repobase}{https://github.com/wcook04/plectis-erdos}
 % BEGIN generated_semantic_coverage_macros
-\newcommand{\SemanticAuthoredTheoremLike}{145,515}
+\newcommand{\SemanticAuthoredTheoremLike}{147,737}
 \newcommand{\SemanticAuthoredInterpreted}{139,817}
 \newcommand{\SemanticDirectEvidence}{3,329}
 \newcommand{\SemanticContextual}{136,488}
-\newcommand{\SemanticStructuralOnly}{5,698}
-\newcommand{\SemanticAuthoredPercent}{96.1}
+\newcommand{\SemanticStructuralOnly}{7,920}
+\newcommand{\SemanticAuthoredPercent}{94.6}
 % END generated_semantic_coverage_macros
 \newcommand{\repolink}[2]{\href{\repobase/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/#1}{\texttt{#2}}}
 \emergencystretch=1.7em
@@ -116,6 +116,17 @@ remaining silent about the prose around it. A release checker can preserve a
 reviewed sentence without making the review correct. External attention can
 signal interest without validating a proof. The architecture exists to keep
 these questions separate while allowing work to move between them.
+
+The gap between these questions has been measured on the same problem family.
+Feng et al.\ ran an agent built on Gemini Deep Think over 700 open
+Erd\H{o}s problems and had humans grade 200 candidate solutions: 63 were
+technically correct and 13 were meaningfully correct, the rest having answered
+a misread or mistranscribed statement, and their Erd\H{o}s-75 appendix
+documents a correct proof of a formulation that was itself flawed
+\cite{aletheia}. They report that deciding novelty and intent took longer
+than checking correctness, and that formal verification helps with neither.
+Those findings predate this paper and motivate the separation it
+implements.
 
 The \href{\repobase}{public repository studied here} contains Lean source,
 papers, and release machinery around eight open Erd\H{o}s problems. At this
@@ -879,7 +890,9 @@ this separately stated Lean interface under this axiom budget?'' It does not
 answer whether the interface is the right translation of an informal problem,
 whether the theorem is new or important, or whether an independent human has
 reviewed the proof. ``Comparator-checked'' is accurate; ``independently
-verified'' is not.
+verified'' is not. Prove2Me applies the same exact-type requirement to every
+proof submitted to its platform \cite{prove2me}; here it is applied to a
+selected interface at release time.
 
 \subsection{Review selection, and what the Palomar registry is not}
 
@@ -958,7 +971,14 @@ The remaining design choices follow the same programme. Tool use is disclosed;
 models are not listed as authors; human contributors retain differentiated
 credit; references and source paths are inspectable; automatic checks filter
 work without impersonating peer review; and theorem counts do not determine
-value. The repository turns those recommendations into an implementation
+value. Feng et al.\ state the rule in both of their reports: humans author
+mathematics papers even when generated content is correct, because
+authorship carries accountability for validity and attribution
+\cite{aletheia,autonomousmath}. Henkel stated it earlier, treating the model
+as an interactive instrument and leaving ownership and responsibility for
+verification with the human author \cite{henkel}. The provenance note on the
+first page follows that rule. The
+repository turns those recommendations into an implementation
 experiment: it asks how a small project can
 prepare for proof abundance without confusing abundant output with collective
 mathematical progress.
@@ -1282,10 +1302,91 @@ workers, independent verifiers, compact working memory, a larger repository,
 and Lean feedback \cite{openprover}. Agent Hunt already studies concurrent
 formalisation with locks, bounties, guarded ownership, and collaborative
 agents \cite{agenthunt}. DreamProver learns a compact reusable lemma library
-through wake--sleep cycles \cite{dreamprover}. These are baselines for proof
-interaction, parallel search, and learned proof memory. Here those mechanisms
+through wake--sleep cycles \cite{dreamprover}. Aletheia separates a
+generator, verifier, and reviser in natural language and credits the
+separated verifier, which may decline, for its accuracy
+\cite{autonomousmath}. Henkel grounds the same separation in measurement:
+in the Open Proof Corpus judgement matrix each model scores lowest when
+grading proofs it generated itself, which he reads as a reason to use
+different models for generation and verification
+\cite{henkel,openproofcorpus}. These are baselines for proof interaction,
+parallel search, verification structure, and learned proof memory. Here those mechanisms
 sit upstream of a different question: after a proof is found, what exactly may
 move into a reviewed public claim?
+
+\paragraph{Open formalisation platforms.}
+Prove2Me is a hosted platform on which anyone with a coding agent submits
+theorems and proofs, and it implements several of this paper's boundaries as
+platform primitives \cite{prove2me}. A statement is an immutable object that
+may carry many proofs; a proof submission must declare a term of exactly the
+target's type with no \texttt{sorry} and no new axiom; a disproof is a proof
+of the negation. That is the check Comparator performs here for a selected
+interface at each release (Section~\ref{sec:assurance}); Prove2Me applies it
+to every submission on the server. Its audited missions confine human review
+to a curated core of goal, definitions, and milestone lemmas while agents add
+intermediate lemmas without audit, and a sub-agent read-back renders each
+Lean statement back into ordinary mathematics without sight of the source so
+that a human compares two informal statements. A proof-sketch imports
+statements that are still open and is verified exactly when they are. The
+first public version of this paper (July 2026) predates Prove2Me (August
+2026) and the two designs were developed independently. Prove2Me is the
+published reference for statement--proof separation, audited cores, and
+read-back auditing as hosted platform mechanisms, and this paper claims no
+priority over it. The designs differ in scope. Prove2Me verifies submissions
+centrally and its reported completed missions formalise proofs that already
+exist. The corpus here is a clone with no service behind it, its endpoints are
+open problems, and its records carry failed routes, obstruction theorems, and
+claim ceilings alongside proved statements.
+
+\paragraph{Semi-autonomous discovery studies.}
+Feng et al.\ describe a hybrid pipeline in which an automated
+natural-language verifier narrows an agent's candidates before a small expert
+team grades them, a four-way outcome taxonomy (autonomous resolution, partial
+solution, independent rediscovery, literature identification), revised
+problem statements as a deliverable, and the risk that a model reproduces a
+training-set argument without attribution \cite{aletheia}. Those are the
+distinctions this architecture records as typed fields: evidence class, claim
+ceiling, source locator, and reviewed wording. Their study is a one-time
+sweep by one organisation, reported after human rewriting; the corpus here is
+a persistent public record over eight problems, none of which appears in
+their results. Their companion report proposes reporting AI-assisted results
+on two public axes, autonomy and mathematical significance, and holds that
+the significance axis can be set only by domain experts
+\cite{autonomousmath}; the review-selection ranking of
+Section~\ref{sec:assurance} allocates attention on the near side of that
+line and never fills the significance axis. It also proposes an
+interaction card, each human query and model return with raw prompts
+published; the receipt here carries those fields plus evidence class and
+validation receipts. Its appendices show three of
+these boundaries kept by hand: a solution graded down for citing results
+that likely do not exist, a defective step repaired in an authors' footnote
+on an accepted proof, and a footnote noting that the statement solved
+differed from the statement of record by one noun. Here those are the
+source-locator class, the annotated open obligation, and Comparator. The
+same report concludes that formal verification cannot yet formulate the
+questions of interest on most research frontiers and so chooses informal
+verification. This architecture accepts the bound and builds for the
+minority: a problem-sized world exists because its endpoint can be stated in
+Lean, and Comparator certifies that the stated interface is what was
+checked; where no such statement exists the world still records
+experiments, sources, and failed routes, and its Lean layer is empty.
+Li et al.\ published a human-in-the-loop protocol for research mathematics
+a year before this paper, with a released prompt library \cite{lihai}. The
+human fixes the statement, the assumptions, and the acceptance criteria;
+the model supplies candidate lemmas, constants, and counterexamples; and
+generation and validation are held apart by a local check of each claim
+under the stated assumptions and a global check of its fit in the argument.
+Their prove-or-disprove prompt runs a proof branch and a disproof branch
+together and keeps both records, and their discovery loop abstracts
+surviving results into a portable schema for transfer to adjacent settings.
+Their workflow uses no proof assistant; its checks are numerical scripts on
+a seed set and line-by-line reading, so the distinction between a
+computation receipt and a kernel receipt does not arise there. This paper
+claims no priority over that protocol. Tao's
+community wiki of AI contributions to the Erd\H{o}s problems is the public
+register such a result would reach \cite{taowiki}; the reviewed claim record
+here is what a wiki line would point back to. The paper claims no priority
+over their taxonomy and makes no comparison of the review processes.
 
 \paragraph{Graphs and checked exposition.}
 Proof blueprints connect informal proof plans to named Lean declarations.
@@ -1463,6 +1564,27 @@ Formalization}, 2026, \href{https://doi.org/10.48550/arXiv.2604.16347}{arXiv}.
 \bibitem{econcs} N.~Garg, \emph{EconCSLib: AI-Assisted Lean Formalization for
 Economics \& Computation Research}, 2026,
 \href{https://doi.org/10.48550/arXiv.2606.13306}{arXiv}.
+\bibitem{prove2me} S.~Chen, K.~Marwaha, X.~Lu, H.~Yuen, and T.~Peng,
+\emph{Prove2Me: An Open Collaborative Platform for Scaling Math
+Formalization}, 2026, \href{https://doi.org/10.48550/arXiv.2608.28433}{arXiv}.
+\bibitem{aletheia} T.~Feng, T.~Trinh, G.~Bingham, et al., \emph{Semi-Autonomous
+Mathematics Discovery with Gemini: A Case Study on the Erd\H{o}s Problems},
+2026, \href{https://doi.org/10.48550/arXiv.2601.22401}{arXiv}.
+\bibitem{autonomousmath} T.~Feng, T.~H.~Trinh, G.~Bingham, et al.,
+\emph{Towards Autonomous Mathematics Research}, 2026,
+\href{https://doi.org/10.48550/arXiv.2602.10177}{arXiv}.
+\bibitem{henkel} J.~Henkel, \emph{The Mathematician's Assistant:
+Integrating AI into Research Practice}, 2025,
+\href{https://doi.org/10.48550/arXiv.2508.20236}{arXiv}.
+\bibitem{openproofcorpus} J.~Dekoninck et al., \emph{The Open Proof
+Corpus: A Large-Scale Study of LLM-Generated Mathematical Proofs}, 2025,
+\href{https://doi.org/10.48550/arXiv.2506.21621}{arXiv}.
+\bibitem{lihai} C.~Li, Z.~Lai, D.~An, J.~Hu, and Z.~Wen, \emph{Advancing
+Mathematical Research via Human-AI Interactive Theorem Proving}, 2025,
+\href{https://doi.org/10.48550/arXiv.2512.09443}{arXiv}.
+\bibitem{taowiki} T.~Tao, \emph{AI contributions to Erd\H{o}s problems},
+\href{https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems}{GitHub},
+accessed September 2026.
 \bibitem{isadof} A.~D.~Brucker and B.~Wolff, \emph{Isabelle/DOF: Design and
 Implementation}, in \emph{Software Engineering and Formal Methods}, 2019,
 pp.~275--293.

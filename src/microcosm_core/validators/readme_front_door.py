@@ -49,7 +49,8 @@ HERO_BANNED_PATTERNS: tuple[tuple[str, str], ...] = (
 FRONT_DOOR_LOCAL_ONLY_WORD_LIMIT = 180
 FRONT_DOOR_REQUIRED_PATTERNS: tuple[tuple[str, str], ...] = (
     (
-        r"\bpublic\b.{0,80}\bexecutable\b|\bexecutable\b.{0,80}\bpublic\b",
+        r"\bpublic\b.{0,80}\b(?:executable|python toolkit|library)\b"
+        r"|\bexecutable\b.{0,80}\bpublic\b",
         "public-executable-identity",
     ),
     (r"\bmechanisms?\b|\bcomponents?\b", "mechanism-or-component-surface"),
