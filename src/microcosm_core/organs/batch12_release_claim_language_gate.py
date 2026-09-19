@@ -159,6 +159,7 @@ SPEC = CrownJewelSpec(
     ),
     source_required_anchors=SOURCE_REQUIRED_ANCHORS,
     bundle_input_mode=BUNDLE_INPUT_MODE,
+    public_refactor_when_source_omitted=True,
 )
 
 

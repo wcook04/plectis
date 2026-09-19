@@ -17,6 +17,12 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.validators.source_module_boundary import (
+    copied_source_identity,
+    exported_copy_matches,
+    export_identity_input_paths,
+)
+
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_belief_state_process_reward_trace,
 )
@@ -416,7 +422,7 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
         return []
-    paths = [manifest_path]
+    paths = [manifest_path, *export_identity_input_paths(public_root)]
     try:
         manifest = read_json_strict(manifest_path)
     except Exception:
@@ -458,8 +464,7 @@ def _source_module_authority_paths(input_dir: Path, *, public_root: Path) -> lis
         source = _source_module_authority_path(source_ref, public_root=public_root)
         if source is not None:
             paths.append(source)
-        elif not Path(source_ref).is_absolute():
-            paths.append(Path.cwd() / source_ref.removeprefix("ai_workflow/"))
+
     return paths
 
 
@@ -802,6 +807,7 @@ def _source_module_manifest_result(
             )
 
     verified_count = 0
+    source_identity_checks: list[dict[str, Any]] = []
     for row in modules:
         module_id = str(row.get("module_id") or "source_module")
         module_ids.append(module_id)
@@ -880,32 +886,19 @@ def _source_module_manifest_result(
             )
         source_ref = str(row.get("source_ref") or "")
         source = _source_module_authority_path(source_ref, public_root=public_root)
-        if source is None:
-            findings.append(
-                _finding(
-                    "BELIEF_REWARD_SOURCE_MODULE_SOURCE_AUTHORITY_MISSING",
-                    "Source module source_ref must resolve to live source authority.",
-                    case_id="source_module_manifest_floor",
-                    subject_id=source_ref or module_id,
-                    subject_kind="source_module_source_ref",
-                )
-            )
-        else:
-            source_actual = _sha256(source)
-            if (
-                str(row.get("source_sha256") or "") != source_actual
-                or actual != source_actual
-                or str(row.get("target_sha256") or "") != source_actual
-            ):
-                findings.append(
-                    _finding(
-                        "BELIEF_REWARD_SOURCE_MODULE_SOURCE_AUTHORITY_MISMATCH",
-                        "Source module copied body and manifest digests must match live source authority.",
-                        case_id="source_module_manifest_floor",
-                        subject_id=source_ref,
-                        subject_kind="source_module_source_ref",
-                    )
-                )
+        identity = copied_source_identity(
+            row, target.read_bytes(),
+            source.read_bytes() if source is not None else None,
+            exported_identity_matches=exported_copy_matches(public_root, manifest_path, target),
+        )
+        source_identity_checks.append({"module_id": module_id, **identity})
+        if identity["status"] != PASS:
+            findings.append(_finding(
+                "BELIEF_REWARD_SOURCE_MODULE_SOURCE_AUTHORITY_MISMATCH",
+                "The shipped copy must match its recorded source digest and any available upstream bytes.",
+                case_id="source_module_manifest_floor", subject_id=module_id,
+                subject_kind="source_module",
+            ))
         text = target.read_text(encoding="utf-8")
         missing_anchors = [
             anchor
@@ -937,6 +930,7 @@ def _source_module_manifest_result(
         ),
         "source_module_manifest_ref": manifest_ref,
         "module_count": len(modules),
+        "source_identity_checks": source_identity_checks,
         "verified_module_count": verified_count,
         "module_ids": module_ids,
         "material_classes": sorted(material_class_counts),

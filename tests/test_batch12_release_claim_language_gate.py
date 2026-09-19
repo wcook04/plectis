@@ -216,7 +216,8 @@ def test_batch12_release_claim_language_gate_rejects_source_module_digest_mismat
         assert "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH" in result["error_codes"]
         assert result["source_module_manifest"]["all_expected_digests_matched"] is False
     else:
-        assert "BATCH12_RELEASE_SOURCE_MODULE_UNAVAILABLE" in result["error_codes"]
+        assert "CROWN_JEWEL_REQUIRED_SOURCE_MODULE_MISSING" in result["error_codes"]
+        assert result["exercise"]["status"] == "unavailable"
 
 
 def test_batch12_release_claim_language_gate_rejects_fixture_path_traversal(

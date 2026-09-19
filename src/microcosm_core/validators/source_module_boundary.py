@@ -17,8 +17,10 @@ import json
 from collections.abc import Iterable, Iterator
 from pathlib import Path
 from typing import Any
+from functools import lru_cache
 
 from microcosm_core.schemas import read_json_strict
+from microcosm_core.resource_root import microcosm_root
 
 
 CHECKER_ID = "checker.microcosm.validators.source_module_boundary"
@@ -33,6 +35,79 @@ SOURCE_MODULE_REFRESH_POLICY_REF = "core/source_module_refresh_policy_v0.json"
 EXACT_COPY_SOURCE_MODULE_REFRESH_OPERATION = "exact_copy_source_module_refresh"
 PASS = "pass"
 BLOCKED = "blocked"
+
+
+def copied_source_identity(
+    row: dict[str, Any], target_bytes: bytes, upstream_bytes: bytes | None = None,
+    *, exported_identity_matches: bool = False,
+) -> dict[str, Any]:
+    """Verify a shipped exact copy separately from optional upstream currentness.
+
+    An independent public clone can verify the recorded source digest without
+    possessing the private source checkout. This never claims a live upstream
+    comparison when those bytes were unavailable, or execution of the copy.
+    """
+    actual = hashlib.sha256(target_bytes).hexdigest()
+    expected = [str(row.get(key) or "").removeprefix("sha256:")
+                for key in ("sha256", "source_sha256", "target_sha256")]
+    upstream = hashlib.sha256(upstream_bytes).hexdigest() if upstream_bytes is not None else None
+    stub = b"PUBLIC_MICROCOSM_STUB = True" in target_bytes
+    copy_matches = bool(row.get("source_ref")) and not stub and all(value == actual for value in expected)
+    upstream_status = "not_assessed" if upstream is None else "match" if upstream == actual else "changed"
+    independently_bound = upstream is not None or exported_identity_matches
+    return {
+        "status": PASS if copy_matches and independently_bound and upstream_status != "changed" else BLOCKED,
+        "recorded_source_digest_matches": copy_matches,
+        "exported_identity_matches": exported_identity_matches,
+        "upstream_currentness": upstream_status,
+        "upstream_source_checked": upstream is not None,
+        "runtime_execution_checked": False,
+        "body_in_receipt": False,
+    }
+
+
+@lru_cache(maxsize=16)
+def _export_digest_inventory(path: Path, mtime_ns: int, size: int) -> dict[str, str]:
+    """Read the existing export owner's inventory; stat keys invalidate caching."""
+    del mtime_ns, size
+    try:
+        payload = read_json_strict(path)
+        return {str(row["path"]): str(row["sha256"])
+                for row in payload["inventory_receipt"]["files"]}
+    except (OSError, ValueError, KeyError, TypeError):
+        return {}
+
+
+def exported_copy_matches(public_root: Path, manifest: Path, target: Path) -> bool:
+    """Bind both attribution metadata and copied bytes to the existing export.
+
+    The installed public inventory can check a separately supplied bundle. No
+    private source tree or freshly recomputed self-attestation is substituted.
+    """
+    root = public_root.resolve()
+    try:
+        refs = {str(path.resolve().relative_to(root)): hashlib.sha256(path.read_bytes()).hexdigest()
+                for path in (manifest, target)}
+    except (OSError, ValueError):
+        return False
+    for inventory_root in dict.fromkeys((public_root, microcosm_root())):
+        path = inventory_root / "receipts/release/release_export_receipt.json"
+        try:
+            stamp = path.stat()
+        except OSError:
+            continue
+        recorded = _export_digest_inventory(path, stamp.st_mtime_ns, stamp.st_size)
+        if all(recorded.get(ref) == digest for ref, digest in refs.items()):
+            return True
+    return False
+
+
+def export_identity_input_paths(public_root: Path) -> list[Path]:
+    """Include identity authorities in the consumers' existing freshness keys."""
+    return [Path(__file__), *[
+        path for root in dict.fromkeys((public_root, microcosm_root()))
+        if (path := root / "receipts/release/release_export_receipt.json").is_file()
+    ]]
 
 REF_FIELD_KEYS = frozenset(
     {
