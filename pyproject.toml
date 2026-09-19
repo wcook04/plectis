@@ -87,6 +87,12 @@ where = ["src"]
 "share/plectis/core/fixture_manifests" = ["core/fixture_manifests/*.json"]
 "share/plectis/core/preflight_support" = ["core/preflight_support/*.json"]
 "share/plectis/src/microcosm_core/macro_tools" = ["src/microcosm_core/macro_tools/*.py"]
+# The voice-to-doctrine example checks these public source, test and result
+# references as evidence. Include the same tracked files in regular installs.
+"share/plectis/src/microcosm_core" = ["src/microcosm_core/runtime_shell.py"]
+"share/plectis/src/microcosm_core/organs" = ["src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py"]
+"share/plectis/tests" = ["tests/test_runtime_shell.py", "tests/test_voice_to_doctrine_self_improvement_loop.py"]
+"share/plectis/receipts/first_wave/voice_to_doctrine_self_improvement_loop" = ["receipts/first_wave/voice_to_doctrine_self_improvement_loop/*.json"]
 "share/plectis/fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input" = ["fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/*.json"]
 "share/plectis/fixtures/first_wave/agent_memory_temporal_conflict_replay/input" = ["fixtures/first_wave/agent_memory_temporal_conflict_replay/input/*.json"]
 "share/plectis/fixtures/first_wave/agent_monitor_redteam_falsification_replay/input" = ["fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/*.json"]

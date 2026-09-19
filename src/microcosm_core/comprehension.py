@@ -16,6 +16,8 @@ import hashlib
 import json
 import posixpath
 import re
+import shlex
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -820,7 +822,7 @@ def _write_targets(command: str) -> list[tuple[str, str]]:
     The side effect is the explicit file, receipt, parser, print, or instance-state update
     performed in this function.
     """
-    parts = str(command or "").split()
+    parts = shlex.split(str(command or ""))
     targets: list[tuple[str, str]] = []
     for i, part in enumerate(parts):
         match = _WRITE_FLAG_RE.match(part)
@@ -2920,6 +2922,28 @@ def _first_action_path_contract(
 
 
 def compile_first_action(
+    inputs: dict[str, Any], root: Path | None, goal: str
+) -> dict[str, Any]:
+    """Compile a first action for a checkout or a regular installed package."""
+    base = root or default_root()
+    pack = _compile_first_action(inputs, base, goal)
+    if resource_root.is_installed_microcosm_root(base):
+        def bind(value: Any) -> Any:
+            if isinstance(value, dict):
+                return {key: bind(item) for key, item in value.items()}
+            if isinstance(value, list):
+                return [bind(item) for item in value]
+            if isinstance(value, str) and value.startswith(("PYTHONPATH=src ", "python3 -m ", "python -m ")):
+                return resource_root.installed_command(value, base)
+            return value
+
+        pack = bind(pack)
+        action = pack.get("first_action") or {}
+        action["writes_outputs_under"] = _writes_outputs_under(action.get("command", ""))
+    return pack
+
+
+def _compile_first_action(
     inputs: dict[str, Any], root: Path | None, goal: str
 ) -> dict[str, Any]:
     """
@@ -5132,7 +5156,9 @@ def _is_cold_runnable_source_command(command: str) -> bool:
     The result is derived from `command` with `split`, `fullmatch`, and `startswith`;
     failing evidence is returned or raised exactly where the body says so.
     """
-    parts = str(command or "").split()
+    parts = shlex.split(str(command or ""))
+    if len(parts) >= 3 and parts[0] == sys.executable and parts[1] == "-m":
+        return parts[2] == "microcosm_core" or parts[2].startswith("microcosm_core.")
     if not parts or parts[0] != "PYTHONPATH=src":
         return False
     index = 1

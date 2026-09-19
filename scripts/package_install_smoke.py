@@ -13,6 +13,7 @@ import argparse
 import contextlib
 import json
 import os
+import shlex
 import shutil
 import subprocess
 import sys
@@ -244,8 +245,15 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     pip_cache_dir = work_dir / "pip-cache"
     for scratch_dir in (tmp_dir, pycache_dir, pip_cache_dir):
         scratch_dir.mkdir(parents=True, exist_ok=True)
+    home_dir = work_dir / "home"
+    home_dir.mkdir()
     env = {
-        **os.environ,
+        **{key: os.environ[key] for key in ("SYSTEMROOT", "WINDIR", "COMSPEC", "LANG", "LC_ALL") if key in os.environ},
+        "PATH": str(_bin_dir(venv_dir)) + os.pathsep + os.defpath,
+        "HOME": str(home_dir),
+        "USERPROFILE": str(home_dir),
+        "PYTHONNOUSERSITE": "1",
+        "PIP_CONFIG_FILE": os.devnull,
         "PIP_DISABLE_PIP_VERSION_CHECK": "1",
         "PIP_CACHE_DIR": str(pip_cache_dir),
         "PYTHONPYCACHEPREFIX": str(pycache_dir),
@@ -270,8 +278,12 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
                 "--no-deps",
                 str(staged_source),
             ],
+            cwd=project_dir,
             env=env,
         )
+
+    # The built source is no longer an available working directory or import root.
+    staged_source.rename(work_dir / "source-after-install")
 
     # Install-context independence: the console commands below must exercise
     # the pip-installed copy, not a shadowing checkout import.
@@ -281,6 +293,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
             "-c",
             "import microcosm_core; print(microcosm_core.__file__)",
         ],
+        cwd=project_dir,
         env=env,
     ).stdout.strip()
     if not import_root.startswith(str(venv_dir)):
@@ -326,7 +339,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     for name, argv, kind in checks:
         suffix = "json" if kind in ("json", "contract") else "txt"
         out_path = output_dir / f"{name}.{suffix}"
-        _run(argv, env=env, stdout_path=out_path)
+        _run(argv, cwd=project_dir, env=env, stdout_path=out_path)
         out_path.write_text(
             _normalize_work_refs(out_path.read_text(encoding="utf-8"), work_dir),
             encoding="utf-8",
@@ -355,9 +368,9 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
         raise SystemExit("first-action contract did not resolve the hero goal")
     action = contract.get("first_action") or {}
     command = str(action.get("command") or "")
-    if not command.startswith("PYTHONPATH=src python3 -m microcosm_core"):
-        raise SystemExit("first-action contract command is not cold-runnable source form")
-    if "<" in command:
+    if not shlex.split(command)[:3] == [_normalize_work_refs(str(venv_python), work_dir), "-m", "microcosm_core"]:
+        raise SystemExit("first-action command does not use the installed interpreter")
+    if "<" in command.replace(WORK_DIR_TOKEN, "work-dir"):
         raise SystemExit("first-action contract command carries an unresolved placeholder")
     proof = contract.get("proof_path") or {}
     if not (proof.get("runnable_validator") or proof.get("validation_commands")):
@@ -368,6 +381,33 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     if not str(contract.get("do_not_claim") or "").strip():
         raise SystemExit("first-action contract lacks a claim ceiling")
 
+    for name, goal in (
+        ("prompt-injection", "prompt injection"),
+        ("voice-to-doctrine", "voice to doctrine"),
+        ("finance", "How do I evaluate the finance forecasting system?"),
+    ):
+        card = json.loads(_run(
+            [str(plectis), "comprehend", "--first-action", goal],
+            cwd=project_dir, env=env,
+        ).stdout)
+        action = card["first_action"]
+        argv = shlex.split((action.get("clean_run") or action)["command"])
+        if argv[:2] != [str(venv_python), "-m"]:
+            raise SystemExit(f"{name}: returned command does not use this installation")
+        output = _run(argv, cwd=project_dir, env=env, stdout_path=output_dir / f"action-{name}.json")
+        if output.stdout.strip() != "pass":
+            _assert_status_pass(json.loads(output.stdout), label=name)
+        out_path = project_dir / argv[argv.index("--out") + 1]
+        results = sorted(out_path.glob("*result.json"))
+        if not results:
+            raise SystemExit(f"{name}: command produced no result file")
+        for result_path in results:
+            _assert_status_pass(_json_payload(result_path, label=name), label=name)
+        (output_dir / f"action-{name}.json").write_text(
+            _normalize_work_refs(output.stdout, work_dir), encoding="utf-8",
+        )
+        _assert_no_private_markers(output_dir / f"action-{name}.json", label=name)
+
     print("Microcosm package smoke: pass")
     # The work dir is host-private; callers that capture this stdout as
     # public evidence must never receive an absolute path from a passing run.
@@ -375,7 +415,8 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     print(f"version: {version_text}")
     print(
         "checks: version, hello, first-screen, tour, status, authority, "
-        "workingness, legibility, first-action, first-action-assay"
+        "workingness, legibility, first-action, first-action-assay, "
+        "prompt-injection execution, voice-to-doctrine execution, finance execution"
     )
 
 

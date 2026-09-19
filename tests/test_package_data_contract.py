@@ -6,13 +6,59 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import subprocess
+import shlex
+import sys
 import tomllib
 
 from microcosm_core import resource_root
 from microcosm_core import runtime_shell
+from microcosm_core import comprehension
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_installed_action_binds_inputs_preserves_consumer_outputs(tmp_path, monkeypatch):
+    root = tmp_path / "prefix with spaces" / "share/plectis"
+    monkeypatch.setattr(resource_root, "installed_microcosm_root", lambda: root)
+    command = "PYTHONPATH=src python3 -m microcosm_core demo run --input fixtures/missing --out receipts/demo"
+    tokens = shlex.split(resource_root.installed_command(command, root))
+    assert tokens[:3] == [sys.executable, "-m", "microcosm_core"]
+    assert tokens[tokens.index("--input") + 1] == str(root / "fixtures/missing")
+    assert tokens[tokens.index("--out") + 1] == ".microcosm/first_action_runs/demo"
+    assert resource_root.installed_command(command, tmp_path / "checkout") == command
+    absolute = "python3 -m microcosm_core demo --input /user/fixture --out /user/output"
+    assert shlex.split(resource_root.installed_command(absolute, root))[-4:] == ["--input", "/user/fixture", "--out", "/user/output"]
+
+
+def test_installed_first_action_and_proof_paths_use_package_resources(monkeypatch):
+    inputs = comprehension.load_inputs(MICROCOSM_ROOT)
+    monkeypatch.setattr(resource_root, "is_installed_microcosm_root", lambda root: root == MICROCOSM_ROOT)
+    for goal in ("prompt injection", "voice to doctrine", "How do I evaluate the finance forecasting system?"):
+        card = comprehension.compile_first_action(inputs, MICROCOSM_ROOT, goal)
+        action = card["first_action"]
+        for command in (action["command"], action["clean_run"]["command"]):
+            argv = shlex.split(command)
+            assert argv[:2] == [sys.executable, "-m"]
+            input_path = Path(argv[argv.index("--input") + 1])
+            assert input_path.is_absolute() and input_path.is_dir()
+            assert argv[argv.index("--out") + 1].startswith(".microcosm/")
+        assert comprehension._first_action_contract_complete(card)
+
+
+def test_voice_lesson_evidence_is_in_installed_data():
+    data_files = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())["tool"]["setuptools"]["data-files"]
+    lessons = json.loads((MICROCOSM_ROOT / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/local_lessons.json").read_text())["lessons"]
+    for lesson in lessons:
+        for field in ("changed_surface_ref", "closeout_ref", "validation_ref", "evidence_refs"):
+            refs = lesson.get(field, [])
+            if isinstance(refs, str):
+                refs = [refs]
+            for ref in refs:
+                if not ref:  # Some lesson dispositions have no changed surface.
+                    continue
+                path = ref.split("::", 1)[0]
+                assert _is_packaged_by_data_files(data_files, path), path
 MANIFEST = MICROCOSM_ROOT / "MANIFEST.in"
 ACCEPTANCE_PATH = MICROCOSM_ROOT / "core/acceptance/first_wave_acceptance.json"
 SUBSTRATE_LEDGER_PATH = MICROCOSM_ROOT / "core/substrate_substitution_ledger.json"

@@ -8,8 +8,46 @@ live behind explicit calls.
 """
 from __future__ import annotations
 
+import shlex
 import sys
 from pathlib import Path
+
+
+def installed_command(command: str, root: Path) -> str:
+    """Bind a published source command to this installation and its shipped inputs.
+
+    Inputs come from the installed data tree. Outputs stay relative to the caller,
+    so running an example never writes into site-packages or share/plectis.
+    Source-checkout commands retain their documented spelling.
+    """
+    if not is_installed_microcosm_root(root):
+        return command
+    parts = shlex.split(command)
+    if parts and parts[0] == "PYTHONPATH=src":
+        parts.pop(0)
+    index = 0
+    while index < len(parts) and "=" in parts[index]:
+        index += 1
+    if parts[index:index + 2] not in (["python3", "-m"], ["python", "-m"]):
+        return command
+    if len(parts) <= index + 2 or not parts[index + 2].startswith("microcosm_core"):
+        return command
+    parts[index] = sys.executable
+    read_flags = {"--input", "--root", "--manifest", "--policy", "--protocol"}
+    for position in range(index + 3, len(parts)):
+        token = parts[position]
+        flag, equal, value = token.partition("=")
+        prior = parts[position - 1] if position else ""
+        if (equal and flag in read_flags) or prior in read_flags:
+            ref = value if equal else token
+            path = Path(ref)
+            if not path.is_absolute() and ".." not in path.parts:
+                # A missing shipped input must still fail at its declared location.
+                bound = str(root / path)
+                parts[position] = f"{flag}={bound}" if equal else bound
+        elif prior == "--out" and token.startswith("receipts/"):
+            parts[position] = ".microcosm/first_action_runs/" + Path(token).name
+    return shlex.join(parts)
 
 
 def _has_public_data(root: Path) -> bool:
