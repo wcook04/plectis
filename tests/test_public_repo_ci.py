@@ -246,29 +246,16 @@ def test_pyproject_urls_point_to_standalone_public_repository() -> None:
 def test_pyproject_description_matches_mechanism_first_identity() -> None:
     pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
 
-    # The string this pinned twice described Plectis by its record layer -- once
-    # as a harness for testing "the claims of an AI-built system", then as
-    # something that "writes a local record you can re-run". README.md states the
-    # property both violated: read mechanisms, then evidence discipline, then the
-    # local runtime, because if the record layer sounds like the product the
-    # project has been underread. This is the summary PyPI publishes, so it is
-    # where a record-first identity would outlive every surface that corrected it.
-    assert pyproject["project"]["description"] == (
-        "88 runnable mechanisms from an AI-native research and engineering "
-        "runtime — formal proof, agent reliability, research, projection-drift "
-        "control, validators, work landing, continuity — each naming the code "
-        "it runs, the evidence its result stands on, and where that result "
-        "stops. Also a local tool: point it at a project and it writes an "
-        "inspectable record beside your source."
-    )
+    # Check the public purpose and limits without freezing one marketing sentence
+    # or equating the inventory size with successful execution of every example.
+    description = pyproject["project"]["description"]
+    assert description.index("formal proof") < description.index("evidence")
+    for topic in ("public toolkit", "agent reliability", "research", "inputs", "execution limits"):
+        assert topic in description
+    assert "88 runnable" not in description
     lowered = pyproject["project"]["description"].lower()
     for banned in ("impressive", "ambitious", "strongest public claim"):
         assert banned not in lowered
-    # Pinning an exact string stops silent drift but cannot say what the string
-    # has to mean. Name the two properties directly: the mechanisms arrive before
-    # the record, and the summary still addresses a reader about their own project.
-    assert lowered.index("mechanisms") < lowered.index("record")
-    assert "point it at a project" in lowered
     assert "zenith/blob/main/microcosm-substrate" not in (
         pyproject["project"]["urls"]["Documentation"]
     )
