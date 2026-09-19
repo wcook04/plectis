@@ -65,6 +65,7 @@ PUBLIC_TESTS += tests/test_public_repo_profile.py
 PUBLIC_TESTS += tests/test_lean_companion_snapshot.py
 PUBLIC_TESTS += tests/test_paper_corpus.py
 PUBLIC_TESTS += tests/test_agent_closeout_faithfulness_audit.py
+PUBLIC_TESTS += tests/test_voice_to_doctrine_self_improvement_loop.py
 PUBLIC_TESTS += tests/test_lean_proof_trust.py
 # First-contact guards. These belong on the floor rather than in the broad drift
 # suite: they are the only checks that speak for the reader who arrives with a

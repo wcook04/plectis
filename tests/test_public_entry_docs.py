@@ -982,7 +982,9 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     # Cold agents get concrete behavior and limits before repository jargon.
     for phrase in (
         "local Python command-line tool",
-        "88 runnable reference components",
+        "reference components",
+        "execution availability",
+        "inclusion in the catalogue does not establish",
         "code that runs",
         "evidence it uses",
         "receipt it writes",
