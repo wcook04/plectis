@@ -1549,7 +1549,7 @@ def _positive_transition_batch_source(rows: list[dict[str, Any]]) -> str:
         f"{_lean_body_for_transition(row)}"
         for row in rows
     ]
-    return f"{header}{'\n\n'.join(bodies)}{footer}"
+    return header + "\n\n".join(bodies) + footer
 
 
 def _execute_positive_transition_batch(

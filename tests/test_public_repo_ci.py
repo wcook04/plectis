@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import re
 from pathlib import Path
 import tomllib
@@ -19,6 +20,15 @@ GITHUB_ACTION_USES_RE = re.compile(
     r"^\s*uses:\s*"
     r"(?P<repo>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)@(?P<ref>[^\s#]+)"
 )
+
+
+def test_all_public_modules_parse_on_the_minimum_supported_python() -> None:
+    metadata = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
+    match = re.fullmatch(r">=(\d+)\.(\d+)", metadata["project"]["requires-python"])
+    assert match, "Update the syntax check when the supported Python range changes"
+    minimum = tuple(map(int, match.groups()))
+    for source in sorted((MICROCOSM_ROOT / "src").rglob("*.py")):
+        ast.parse(source.read_text(encoding="utf-8"), filename=str(source), feature_version=minimum)
 
 
 def _setuptools_floor(build_requires: list[str]) -> tuple[int, ...]:
@@ -143,6 +153,7 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
 
     for required in (
         "name: CI",
+        "push:\n    branches: [main]",
         "pull_request:",
         "workflow_dispatch:",
         "permissions:",
