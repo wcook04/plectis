@@ -26,13 +26,14 @@ def test_profile_passes_on_this_repository() -> None:
     assert report["status"] == "pass"
     assert report["failures"] == []
     assert report["mode"] == "python_research_tool"
-    # The remaining root documents are classified pending-migration surfaces,
-    # every one owned by the root migration plan; nothing is unclassified.
+    # Intentional root references have present owners; moving them is optional.
     allow = report["root_allowlist"]
     assert allow["unclassified_entries"] == []
-    for plan in allow["classified_pending_migration"].values():
-        assert plan == "docs/maintainers/root-migration-plan.md"
-        assert (MICROCOSM_ROOT / plan).is_file()
+    assert allow["classified_pending_migration"] == {}
+    references = allow["classified_reference_documents"]
+    assert references["ARCHITECTURE.md"] == "src/microcosm_core/projections/organ_atlas.py"
+    for owner in references.values():
+        assert (MICROCOSM_ROOT / owner).is_file()
     # First-screen shape held.
     first_screen = report["readme_first_screen"]
     assert first_screen["h1"] == "Plectis"
@@ -140,3 +141,13 @@ def test_profile_fails_when_agent_entry_replaces_the_human_front_door(
     assert split["agents_human_redirect_in_first_1024_bytes"] is False
     assert split["agents_task_route_in_first_4096_bytes"] is False
     assert any("README title presents an agent contract" in row for row in report["failures"])
+
+
+def test_profile_fails_when_classified_reference_owner_is_missing(tmp_path: Path) -> None:
+    root = tmp_path / "repo"
+    root.mkdir()
+    (root / "ARCHITECTURE.md").write_text("# Stale map\n")
+    result = _run("--root", str(root), "--json")
+    report = json.loads(result.stdout)
+    assert result.returncode != 0
+    assert any("missing owner for ARCHITECTURE.md" in item for item in report["failures"])

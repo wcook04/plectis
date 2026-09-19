@@ -18,6 +18,7 @@ import html
 import importlib
 import json
 import os
+import sys
 import threading
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -1573,7 +1574,7 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
     RuntimeStep(
         organ_id="derived_fact_provider_runtime",
         span="derived_fact_provider_runtime.validate",
-        input_mode="derived_fact_provider_runtime_fixture_cases",
+        input_mode="derived_fact_provider_registry_fixture_cases",
         example_rel="fixtures/first_wave/derived_fact_provider_runtime/input",
         runner=derived_fact_provider_runtime.run_derived_fact_provider_runtime_bundle,
         receipt_name="derived_fact_provider_runtime_result.json",
@@ -1597,7 +1598,7 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
     RuntimeStep(
         organ_id="egress_self_compliance_audit",
         span="egress_self_compliance_audit.validate",
-        input_mode="egress_self_compliance_audit_fixture_cases",
+        input_mode="egress_self_compliance_fixture_cases",
         example_rel="fixtures/first_wave/egress_self_compliance_audit/input",
         runner=egress_self_compliance_audit.run_egress_self_compliance_audit_bundle,
         receipt_name="egress_self_compliance_audit_result.json",
@@ -1605,7 +1606,7 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
     RuntimeStep(
         organ_id="generated_projection_drift_runtime",
         span="generated_projection_drift_runtime.validate",
-        input_mode="generated_projection_drift_runtime_fixture_cases",
+        input_mode="generated_projection_drift_gate_fixture_cases",
         example_rel="fixtures/first_wave/generated_projection_drift_runtime/input",
         runner=generated_projection_drift_runtime.run_generated_projection_drift_runtime_bundle,
         receipt_name="generated_projection_drift_runtime_result.json",
@@ -21212,6 +21213,10 @@ class RuntimeShell:
                     "inputs": _public_relative(input_dir, self.root),
                     "outputs": _public_relative(out_dir, self.root),
                     "evidence_ref": receipt_ref,
+                    "error_codes": result.get("error_codes", []),
+                    "execution_status": result.get("exercise", {}).get(
+                        "status", result.get("real_active_claims_snapshot_status", "not_assessed")
+                    ),
                 }
             )
             summaries.append(f"{step.organ_id}: {status} via {step.input_mode}")
@@ -21256,6 +21261,7 @@ class RuntimeShell:
                 "provider calls, private-data equivalence, or live ledger mutation."
             ),
         }
+        result["input_binding"] = self._runtime_demo_binding(project, result)
         write_json_atomic(run_root / "demo_project_trace.json", trace)
         write_json_atomic(run_root / "demo_project_result.json", result)
         return result
@@ -21297,6 +21303,67 @@ class RuntimeShell:
         run_root = self.runtime_receipt_dir / project_id
         return project_path, project_ref, project_id, run_root
 
+    def _runtime_demo_binding(
+        self, project: str | Path, result: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Bind the recorded result to public inputs, runtime code and evidence.
+
+        Reuse the export owner's file selection. Runtime outputs are excluded
+        from that input inventory; the selected evidence is bound separately.
+        A digest describes this local result, not upstream or external validity.
+        """
+        from microcosm_core.release_export import _iter_allowed_files
+
+        project_path, project_ref, _, _ = self._runtime_demo_project_context(project)
+        steps = _product_runtime_steps()
+        missing = []
+        try:
+            files, excluded, missing_exports = _iter_allowed_files(self.root)
+            if any(row.get("reason") == "symlink_not_exported" for row in excluded):
+                missing.append("symlink_input_not_bound")
+            inputs = {
+                path.relative_to(self.root).as_posix(): _sha256_file_digest(path)
+                for path in set(files)
+                if not path.relative_to(self.root).as_posix().startswith("receipts/runtime_shell/")
+            }
+            # Installed code can live outside the bundled public resource root.
+            package = Path(__file__).parent
+            code = {path.relative_to(package).as_posix(): _sha256_file_digest(path)
+                    for path in sorted(package.rglob("*.py"))}
+            project_manifest = project_path / "project_manifest.json"
+            inputs["selected_project_manifest"] = _sha256_file_digest(project_manifest)
+            evidence = {}
+            _, _, _, run_root = self._runtime_demo_project_context(project)
+            expected_refs = [_public_relative(run_root / "organs" / step.organ_id / step.receipt_name,
+                                              self.root) for step in steps]
+            if result.get("evidence_refs") != expected_refs:
+                missing.append("selected_evidence_mismatch")
+            for ref in result.get("evidence_refs", []):
+                path = (self.root / ref).resolve()
+                if not path.is_relative_to(self.root.resolve()) or not path.is_file():
+                    missing.append("selected_evidence")
+                else:
+                    evidence[ref] = _sha256_file_digest(path)
+            for step in steps:
+                if not (self.root / step.example_rel).is_dir():
+                    missing.append(step.organ_id)
+            payload = {
+                "project": project_ref, "python": sys.version, "runtime_code": code,
+                "inputs": inputs, "missing_exports": sorted(missing_exports),
+                "steps": [[step.organ_id, step.example_rel, step.receipt_name,
+                           step.input_mode, step.span] for step in steps],
+                "events": result.get("events"), "result_status": result.get("status"),
+                "evidence": evidence,
+            }
+            digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+            return {"schema_version": "microcosm_runtime_demo_binding_v1",
+                    "status": "bound" if not missing else "not_assessed",
+                    "sha256": digest, "input_count": len(inputs) + len(code),
+                    "evidence_count": len(evidence), "missing_count": len(missing)}
+        except (OSError, ValueError, TypeError):
+            return {"schema_version": "microcosm_runtime_demo_binding_v1",
+                    "status": "not_assessed", "reason": "inputs_unavailable"}
+
     def _cached_runtime_demo_result(
         self,
         project: str | Path,
@@ -21304,14 +21371,17 @@ class RuntimeShell:
         """
         Read a cached demo run result when it still matches the project context.
 
-        The method rejects missing, malformed, wrong-project, and stale event-count
-        payloads by returning `None` so callers can replay the demo.
+        Missing or malformed results have no usable cache. Existing stale results
+        remain inspectable, with their stale status carried through the card.
         """
         _, _, project_id, run_root = self._runtime_demo_project_context(project)
         result_path = run_root / "demo_project_result.json"
         if not _path_is_file(result_path):
             return None
-        payload = read_json_strict(result_path)
+        try:
+            payload = read_json_strict(result_path)
+        except (OSError, ValueError):
+            return None
         if not isinstance(payload, dict):
             return None
         if payload.get("schema_version") != "microcosm_runtime_demo_result_v1":
@@ -21324,11 +21394,23 @@ class RuntimeShell:
             return None
         cached_event_count = len(payload["events"])
         expected_event_count = len(_product_runtime_steps())
-        freshness_status = (
-            "current"
-            if cached_event_count == expected_event_count
-            else "stale_event_count_mismatch"
-        )
+        recorded_binding = payload.get("input_binding")
+        current_binding = self._runtime_demo_binding(project, payload)
+        expected_organs = [step.organ_id for step in _product_runtime_steps()]
+        observed_organs = [event.get("organ_id") if isinstance(event, dict) else None
+                           for event in payload["events"]]
+        if cached_event_count != expected_event_count:
+            freshness_status = "stale_event_count_mismatch"
+        elif observed_organs != expected_organs:
+            freshness_status = "stale_selected_steps_mismatch"
+        elif not isinstance(recorded_binding, dict) or recorded_binding.get("status") != "bound":
+            freshness_status = "stale_unbound_inputs"
+        elif current_binding.get("status") != "bound":
+            freshness_status = "stale_inputs_unavailable"
+        elif recorded_binding != current_binding:
+            freshness_status = "stale_inputs_changed"
+        else:
+            freshness_status = "current"
         cache_status = (
             "cached_result_read"
             if freshness_status == "current"
@@ -21349,8 +21431,8 @@ class RuntimeShell:
         """
         Build the runtime demo card, using a fresh cache when available.
 
-        If no current demo result exists, the method replays the demo command and then
-        summarizes pass/fail counts for the public card.
+        A missing result is replayed. A stale result is summarized with an explicit
+        stale status; a card read never starts an expensive refresh implicitly.
         """
         _, project_ref, _, _ = self._runtime_demo_project_context(project)
         card_command = f"plectis run --card {project_ref}"
@@ -21390,6 +21472,15 @@ class RuntimeShell:
             "event_count": len(events),
             "passed_event_count": passed_count,
             "failed_organs": failed_organs,
+            "unavailable_execution_count": sum(
+                event.get("execution_status") == "unavailable" for event in events
+            ),
+            "failure_samples": [
+                {"organ_id": event.get("organ_id"), "status": event.get("status"),
+                 "error_codes": event.get("error_codes", [])[:3],
+                 "evidence_ref": event.get("evidence_ref")}
+                for event in events if event.get("status") != PASS
+            ][:5],
             "trace_ref": result.get("trace_ref"),
             "result_ref": result_ref,
             "evidence_ref_samples": evidence_refs[:5],
@@ -21428,6 +21519,8 @@ class RuntimeShell:
             "transaction_id": result.get("transaction_id"),
             "schedulable_workitem_ids": result.get("schedulable_workitem_ids", []),
             "blocked_workitem_ids": result.get("blocked_workitem_ids", []),
+            "error_codes": result.get("error_codes", []),
+            "real_active_claims_snapshot_status": result.get("real_active_claims_snapshot_status", "not_assessed"),
             "evidence_ref": receipt_ref,
             "authority_ceiling": {
                 "live_task_ledger_mutation_authorized": False,

@@ -88,6 +88,10 @@ PUBLIC_TESTS += tests/test_bridge_phase_continuity_runtime.py::test_bridge_phase
 PUBLIC_TESTS += tests/test_bridge_phase_continuity_runtime.py::test_bridge_phase_continuity_original_modules_retain_digest_verification
 PUBLIC_TESTS += tests/test_cli.py::test_cli_bridge_phase_continuity_runtime_accepts_card_flag
 PUBLIC_TESTS += tests/test_cli.py::test_root_doc_command_spans_include_microcosm_entrypoint
+# Exercise the complete public shell and CLI, including command naming and export boundaries.
+PUBLIC_TESTS += tests/test_runtime_shell.py tests/test_cli.py tests/test_bridge_phase_continuity_runtime.py
+PUBLIC_TESTS += tests/test_crown_jewel_common.py tests/test_source_module_boundary.py tests/test_runtime_demo_freshness.py
+PUBLIC_TESTS += tests/test_mission_transaction_work_spine.py::test_public_omitted_runtime_reports_unavailable_without_execution
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card

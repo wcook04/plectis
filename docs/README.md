@@ -57,10 +57,8 @@ review. The runbooks answer narrower questions:
   tests, compare generated files with their source data, or produce a standalone export.
 - [Security](maintainers/security-runbook.md): search selected text files for
   the policy's listed tokens, read recorded permission fields, and report a security issue.
-- [CLI decomposition plan](maintainers/cli-decomposition.md): the proposed split
-  of the command module, for contributors working on that code.
-- [Root migration plan](maintainers/root-migration-plan.md): dependencies to
-  update before moving generated documents or runtime inputs.
+- [Architecture maintenance](maintainers/architecture.md): document owners,
+  regeneration rules, and the interfaces to preserve when moving code or files.
 
 <a id="reference"></a>
 
