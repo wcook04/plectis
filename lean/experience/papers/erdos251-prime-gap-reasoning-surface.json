@@ -5,7 +5,7 @@
   "subject": "Erdős #251",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 47,
+  "pages": 48,
   "question": "What exact tail criteria, sparse countermodels, and finite denominator bounds are proved for the prime-gap dyadic series, and why is irrationality still open?",
   "precis": "A convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero, eventually bounded by any f(n)→∞, while preserving every fixed modulus and, for a logarithmic allowance, short-block empirical distributions. For prime gaps the cumulative positions remain asymptotic to n log n; no primality conclusion is asserted. Summation by parts reduces the prime series to the gap series, and the tails T_N=∑_{j≥1} g_{N+j} 2^{-j} satisfy T_{N+1}=2T_N−g_{N+1}. That recurrence characterises rationality and yields finite tests with explicit remainder bounds. An exact finite certificate shows that a rational value of the prime series would have denominator at least 2^{39998}>10^{12040}. The bound does not establish irrationality.",
   "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
@@ -27,9 +27,9 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 28,
-    "renderer_fingerprint": "1afa7218572522ac",
-    "source_sha256": "361e20f610a3b08c4f69f22ec09833dcccce14d23d9ea672e3903f1d091ddcb8",
+    "renderer_contract_version": 29,
+    "renderer_fingerprint": "815b27130b0e7a63",
+    "source_sha256": "56bc6951eac088ab304ee841d2fdf2ed8a722205e78b2fd4306eb74681998196",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 1528,
@@ -110,8 +110,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "32859a3b3c69c15558c3d881eff01ec3eb064463a9365d9391b20c24b06abf2e",
-    "html_exact_tex_sha256": "8cacbc8f6b29a17111490a51aae0aab4130d5debdfadc740c66a6daca5cc43bc"
+    "html_mathml_sha256": "341debc5bff529dbf843c222e22a141a4153a8eac1b883a39d8de6ff9630a62e",
+    "html_exact_tex_sha256": "b91c83a2ea8eb4992f87549926bf3ebb3194b0aea17dec202ea4661e640471a8"
   },
   "sections": [
     {

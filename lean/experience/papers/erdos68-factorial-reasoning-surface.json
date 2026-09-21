@@ -5,7 +5,7 @@
   "subject": "Erdős #68",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 47,
+  "pages": 48,
   "question": "What growth, valuation, and finite-denominator facts are proved for ∑_{n≥2}(n!−1)^{-1}, and which tail inequalities remain?",
   "precis": "The record proves liminf (log L_N)/(N^{3/2} log N) ≥ 2√2/3 for L_N=lcm(2!−1,…,N!−1), by comparing a terminal block of denominators with pairwise gcds rather than an external multiplicity theorem. Specialising a Louwsma–Martino valuation, it exhibits primes 139 and 2593 absent from all later reduced denominators. Coefficient constructions give integer forms MS+k; at fixed moment the remainder changes only by an integer. Rationality criteria use factorial digits and the next integer above a scaled partial sum; the digit argument also recovers the irrationality of e. Two exact calculations give q∤299999! and q≥2^39990>10^12038. These exclusions do not prove irrationality.",
   "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
@@ -27,9 +27,9 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 28,
-    "renderer_fingerprint": "1afa7218572522ac",
-    "source_sha256": "d2d0c98ce42f08ffa032f04ef17a62e345c5ca8dcb3b6254cc449834c65126d8",
+    "renderer_contract_version": 29,
+    "renderer_fingerprint": "815b27130b0e7a63",
+    "source_sha256": "1efee070dc9bacff9025c9acd5502823a3e6f146eef29653b39a5f84f285a277",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 1848,
@@ -45,8 +45,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "1488e4cabcbeba0a480b3d6971874e0efa15fdda6fd0a6c26babaece24728df5",
-    "html_exact_tex_sha256": "531850233aec4145ddb1d3f7f2c68bcdacfdc1fe26fbcf923a3ef0ffc3bbbd61"
+    "html_mathml_sha256": "f24ea0bcdee9149fc78b59f290a92b184385325fd14d5f5336591940de6594cf",
+    "html_exact_tex_sha256": "6e79f734f5b0fb9a4c9c56ade4ad82a7f4aac6ea5883be56276718cf051a590a"
   },
   "sections": [
     {

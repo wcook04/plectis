@@ -65,6 +65,7 @@ segment $[0,\zeta]$ lies in $\{|f|<1\}$.  Distinct zeros $\zeta_1,\zeta_2$
 are therefore joined by the broken line $\zeta_1\to0\to\zeta_2$ of length
 $\|\zeta_1\|+\|\zeta_2\|<2$ inside the open unit lemniscate.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperTrinomialWholeR21.lean}{23}{all_degree_monic_trinomials_whole}.}
 
 \begin{proof}
 If $\zeta^n+a\zeta^m+b=0$, then
@@ -108,6 +109,7 @@ There exist $r\in(0,1)$ for which every zero of
 lies in the open unit disc, yet the radial spoke from the origin to the zero
 $r$ leaves $\{|f_r|<1\}$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR20/SexticSpokeWhole.lean}{9}{sextic_spoke_counterexample_whole}.}
 
 Indeed, after $z=rw$, the polynomial factors as
 $r^6(w^2-1)(w^4+\tfrac65 w^2+1)$, so all six roots have modulus $r$.
@@ -178,6 +180,7 @@ Let $f$ be squarefree and monic of degree $n\ge2$, and let $\mu$ be its least
 critical-value modulus.  If $\mu\le13/25$, then two distinct roots are joined
 inside $\{|f|<1\}$ by a rectifiable curve of length strictly less than $2$.
 \end{theorem}
+\leannote{Not formalised: the degree-two case and the exact rational arithmetic of the stopping-time comparison are checked, and the analytic argument in higher degrees is not. See the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 The condition $\mu\le13/25$ is sufficient, not necessary. For
 $f(z)=z^n-b$ with $0<|b|<1$, one has $\mu=|b|$, so this criterion covers
@@ -197,6 +200,7 @@ joined in $\{|f|<(25/13)\mu\}$ by a curve of length less than
 \]
 In every degree the length can be chosen less than $(5/2)\mu^{1/n}$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LowCriticalScaleTransport.lean}{460}{scaledLowCritical_of_lowCritical}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LowCriticalScaleTransport.lean}{491}{scaledLowCriticalFiveHalves_of_lowCritical}. Conditional on Theorem~\ref{res:low-critical-thirteen-twentyfifths} as stated; see the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \begin{proof}
 Put $s=((25/13)\mu)^{1/n}$ and $g(z)=s^{-n}f(sz)$.  Then $g$ is monic and
@@ -323,6 +327,7 @@ inside $K_{2\mu}$.  If $f$ is squarefree, their locations are distinct.
 If $\mu\le1/2$, the construction may be chosen inside $\{|f|<1\}$ with
 length at most $5.7$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean}{677}{cfa_constant_factor_path}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean}{355}{cfaBracket_two_three_twentieths_lt}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean}{393}{cfaBracket_five_point_seven}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean}{313}{cfa_degenerate}, and 3 further declarations. Conditional on the level and direction averaging construction that this proof produces; see the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 The constant is the rationally certified specialization of a two-parameter
 bound.  If the selected component contains $k\ge2$ roots, then for
@@ -412,6 +417,7 @@ then there are distinct indices $i,j$ such that
   |c-z_i|+|c-z_j|\le2r.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean}{289}{exists_two_roots_dist_sum_le_two_mul_geomMean}.}
 
 \noindent The proof chooses the two smallest distances $d_i\le d_j$.
 The reciprocal balance gives $d_j\le(n-1)d_i$, while minimality and the
@@ -433,6 +439,7 @@ including the choice of two indices and both inequalities, is checked as
 If the roots lie in the open unit disc and $c$ is a non-root critical point,
 the two nearest roots to $c$ have total distance strictly below $2$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR20/TwoNearestPolynomial.lean}{9}{two_nearest_roots_of_polynomial_critical}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR20/TwoNearestPolynomial.lean}{31}{exists_two_nearest_roots_of_polynomial_critical}.}
 \begin{proof}
 For roots in the closed unit disc, rotate so that $c=t\ge0$ and order
 $0<d_1\le\cdots\le d_n$. The root-disc inequalities and
@@ -467,6 +474,7 @@ to $c$ outside $\{|f|<1\}$.  There is also a monic cubic with all roots in the
 open unit disc such that the midpoint of every pair of distinct roots lies
 outside $\{|f|<1\}$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperStraightObstructions.lean}{178}{complete_straight_path_obstructions}.}
 
 \begin{proof}
 For the quintic, put $p=999/1000$ and $a=(901/902)p$, and take
@@ -536,6 +544,7 @@ If all zeros of $f$ lie in the open unit disc and $f$ has at least two
 distinct zeros, then two distinct zeros of $f$ are joined by a two-segment
 path of length strictly less than $2$ contained in $\{|f|<1\}$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCubicFibres.lean}{240}{complete_translated_cubic_quotient_fibres}.}
 
 \begin{proof}
 First check that the roots of $P$ lie in the open unit disc. Let $r$
@@ -602,6 +611,7 @@ and the corresponding two radial spokes join them through the origin inside
 $\{|p|<1\}$ with total length strictly below $2$.  If the two occurrences
 coincide, the associated root-to-root path is degenerate.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperPrimitiveCompletionR10.lean}{237}{complete_primitive_quintic}.}
 
 \noindent The selection argument first allows roots on the closed disc,
 where the two bounds may be non-strict. If $a\ne0$, both selected bounds are strict. If $a=0$, the root equation
@@ -666,6 +676,7 @@ $\{|f|\le|v|\}$ by a curve $\Gamma$ satisfying
  \log\!\frac{S^2+S+p}{S^2-S+p}.
 \end{equation}
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean}{534}{discSep_separation_short}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean}{410}{discSepNormalise_spec}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean}{475}{discSep_transport}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean}{305}{discSep_squared_length_le}, and 1 further declaration. Conditional on the connector and area construction that this proof produces; see the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 This isolation can be checked directly in familiar examples. For
 $f(z)=z^3-3a^2z$ with $0<a<1/\sqrt3$, choose $c=a$, so $v=-2a^3$.
@@ -687,6 +698,7 @@ then two roots are joined inside $\{|f|<1\}$ by a curve of length strictly
 below $2$.  In degree three the branch-centred choice $w_0=1$ already works
 with $4/3$ replaced by $6/5$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean}{702}{discSep_uniform_radius}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean}{738}{discSep_cubic_six_fifths}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean}{645}{discSepCoefficient_lt_two}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean}{677}{discSepCoefficient_three_six_fifths}. Conditional on the connector and area construction in the proof of Theorem~\ref{res:critical-value-separation}; see the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \begin{corollary}[a sufficient condition for a length-$2$ path]\label{res:separation-parent}
 Let $f$ be monic of degree $n\ge3$ with all roots in the open unit disc, and
@@ -694,6 +706,7 @@ let $c$ be a simple critical point with $v=f(c)$ and $0<|v|<1$.  If some real ce
 $w_0\in[0,1]$ admits a radius $S\ge4/3$ such that $|f(d)/v-w_0|\ge S$ for
 every other critical point $d$, then Erd\H{o}s Problem~\#1041 holds for $f$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/SeparationParent.lean}{162}{separation_parent}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/SeparationParent.lean}{98}{separationCoefficient_lt_two}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/SeparationParent.lean}{123}{squared_bound_lt_four}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/SeparationParent.lean}{144}{connectedBelow_of_connectedAtMost}. Conditional on Theorem~\ref{res:critical-value-separation} as stated; see the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \noindent The hypothesis $|v|<1$ is required: normalised separation controls a
 connector in $\{|f|\le|v|\}$, which lies in the unit lemniscate only when
@@ -797,6 +810,7 @@ rays, $\mu>13/25$, and
  \bigl|1-f(c_-)/f(c_+)\bigr|<2/375<2.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperSeparationCounterexample.lean}{189}{complete_sep_or_counterexample}.}
 
 \noindent The whole proposition, including the least-modulus assertion rather
 than a supplied minimum, is checked in Lean as
@@ -811,6 +825,7 @@ neighbourhood of the closed disc of radius $5/8$, so
 $\mathcal H^1(\partial C)>5\pi/4$.  The constant
 $\Gamma(1/4)^2/(2\sqrt{\pi})$ is at most $(\pi/2)(1+\sqrt2)<5\pi/4$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean}{253}{one_root_gamma_false}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean}{177}{lobe_unique_zero}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean}{139}{lobe_nhd_of_closed_disc}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean}{212}{lobe_perimeter_gt}, and 3 further declarations. Conditional on a perimeter lower bound for a bounded plane set containing a disc, and a numerical bound on the gamma function at $1/4$; see the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 This example also lies below every critical-value modulus: its critical
 points satisfy $c^7=3/16$ and $p(c)=-(21/16)c$, so
@@ -847,6 +862,7 @@ $\mu=187/2000\le1/2$. The first merger joins two root components, so
 $k_0=2$, but the component at level $2\mu$ containing that pair has
 normalised capacity $1$.
 \end{proposition}
+\leannote{Not formalised: the pinned library has no logarithmic capacity of a compact plane set and no notion of the level at which two sublevel components merge, so neither remaining clause can yet be stated. See the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \section{The Newton value equation}\label{sec:newton}
 
@@ -869,6 +885,7 @@ $w'=-w$, and
  f(z(t))=e^{-(t-t_0)}f(z(t_0))\qquad(t,t_0\in I).
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR20/NewtonRealTime.lean}{52}{newton_real_value_whole}.}
 
 \noindent The local computation is one line:
 $w'=f'(z)z'=-f(z)=-w$.  Multiplication by $e^t$ and integration on $I$
@@ -905,6 +922,7 @@ If the endpoint values are nonzero, they lie on the same positive ray.
 In particular, critical points whose values lie on distinct positive rays
 cannot be the endpoints of such a finite connection.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR20/NewtonRealTime.lean}{69}{newton_real_endpoint_whole}.}
 
 \noindent Apply the value equation inside $(a,b)$ and pass to the
 endpoints by continuity.  This does not evaluate $-f/f'$ at a critical
@@ -948,6 +966,7 @@ and $b+\beta$ lie on the same positive ray has the form
   \qquad r\in\mathbb{R}_{>0},\ r\ne1 .
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean}{107}{translated_samePositiveRay_parameterization}.}
 
 Indeed, write $b+\beta=r(a+\beta)$ with $r>0$. Since $a\ne b$,
 one has $r\ne1$, and solving for $\beta$ gives the displayed formula.
@@ -1106,6 +1125,7 @@ $|f|=1$ at its midpoint and therefore lies only in the closed lemniscate.
 Open containment at and above the switch uses the inner chord
 after a radial contraction.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/BinomialChords.lean}{1084}{binomial_chords_path}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/BinomialChords.lean}{1094}{binomial_chords_below_threshold}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/BinomialChords.lean}{1104}{binomial_chords_above_threshold}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/BinomialChords.lean}{1118}{binomial_chords_at_threshold}, and 3 further declarations in the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 The central chord calculation is exact.  On the chord between adjacent roots,
 \[
@@ -1163,6 +1183,7 @@ of length at most $D$, on which
 The constant is sharp: equality is attained by the affine images of the
 scaled Chebyshev root configuration with extreme roots at distance $D$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean}{367}{sharp_collinear_root_diameter}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean}{967}{sharp_collinear_root_diameter_monic}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean}{928}{exists_collinear_factorisation}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean}{212}{exists_gap_le_comparisonBound}, and 5 further declarations in the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \begin{proof}
 Repeated zeros give the constant path, so suppose the zeros are distinct.
@@ -1260,6 +1281,7 @@ Then
 with equality if and only if every $c_j=0$.  Equal weights therefore give
 $\sum_j(\prod_k|1-\overline{c_k}c_j|)^{1/m}\le m$ for every $m$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperWeightedRefinementsR10.lean}{17}{paper_weighted_free_point}, \lproof{ErdosProblems/Erdos1041/PaperWeightedRefinementsR10.lean}{155}{geometric_row_mean_closed_disc_le}.}
 
 \begin{proof}
 For interior points, choose analytic logarithms zero at the origin and put
@@ -1344,6 +1366,7 @@ Then
 \]
 In particular, $\sum_j|f(c_j)|^{1/n}\le(n-1)R$ in every degree.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCriticalValueMeanR10.lean}{101}{paper_critical_value_mean}.}
 
 \begin{proof}
 For $R>0$, translate and scale to the unit disc; $R=0$ is immediate.
@@ -1458,6 +1481,7 @@ satisfies
 In particular, no positive universal constant bounds $I_k(r)$ below
 by that constant times $k^{-1}\log(1/r)$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/MergerScaleOrlicz.lean}{374}{orlicz_currency}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/MergerScaleOrlicz.lean}{115}{orliczKernel_continuous}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/MergerScaleOrlicz.lean}{163}{orliczKernel_tendsto_zero}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/MergerScaleOrlicz.lean}{278}{mergerIntegral_eq_mul_phi}, and 4 further declarations in the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \begin{proof}
 Set $q=e^{-kt}$.  Then $dq/q=-k\,dt$, the endpoints $q=1,r$ become

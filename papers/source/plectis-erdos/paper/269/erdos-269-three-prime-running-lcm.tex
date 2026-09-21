@@ -83,6 +83,7 @@ $f_\ell(i)$ and $G_\ell(j,k)$, $0\le\ell<d$, satisfying
  \qquad\hbox{for all }i,j,k.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7BasicAssembly.lean}{22}{paper_uniform_rank_and_nonseparation}.}
 
 \begin{proof}
 For fixed $k$, we rescale rows and columns to obtain a matrix independent
@@ -157,6 +158,7 @@ for every $B\ge2$ coprime to $30$ and every $k\ge0$, the selected $n\times n$
 kernel matrix has unit determinant over $\mathbb Z/B\mathbb Z$, with each
 reciprocal prime power interpreted by its modular inverse.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7ModularMinors.lean}{133}{admissible_modular_minors}.}
 \begin{proof}
 Choose the maps from Theorem~\ref{res:infinite-rank}.  Every row and column
 factor is a unit modulo $B$.  The normalised determinant is
@@ -191,6 +193,7 @@ the first $k$ coordinates and $c$ thereafter.
 A matrix whose distinct columns are $v_k$ for $k$ in a nonempty set $E$ has
 rank $|E|-\mathbf 1_{\{0,m\}\subseteq E}$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean}{182}{rank_cutMatrix}.}
 
 The correction accounts for the two constant columns: $v_0=c v_m$.
 There is no other dependence among distinct threshold columns.
@@ -245,6 +248,7 @@ running LCM once.  Then
 \end{equation}
 Both numbers are transcendental.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean}{841}{two_prime_affine_and_quadratic}, \lproof{ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean}{872}{two_prime_sums_transcendental}, \lproof{ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean}{88}{runningLcm_eq_twoPrimeHeight}, \lproof{ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean}{159}{twoPrimeHeight_smooth}, and 9 further declarations. Conditional on the transcendence theorem of Bugeaud and Laurent; see the \papersectionlink{erdos269-running-lcm-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 \begin{proof}
 Set $x=1/p$, $y=1/q$, $m_n=\lfloor n\theta\rfloor$ and
 $\delta_n=m_{n+1}-m_n$.  Unique factorisation makes $\theta$ irrational,
@@ -303,6 +307,7 @@ assertion is a separate historical statement~\cite{erdos1974letter}.
 Let $p,q,r$ be pairwise distinct primes and $x\ge1$.  Then the running LCM equals the three-prime height:
 $\Lprefix(x)=\hgt(x)$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{49}{running_lcm_real_cutoff_exact}.}
 \begin{proof}
 Every smooth $n\le x$ has prime exponents bounded by the corresponding
 integer logarithms, so $n\mid\hgt(x)$.  Conversely the three maximal pure
@@ -322,6 +327,7 @@ A jump in exactly one logarithm multiplies it by the corresponding prime.
 The first $n$ positive powers of each prime, together with $1$, form
 $3n+1$ distinct points.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{65}{realPrefixLcm_eq_of_sameLogCell}, \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{87}{realPrefixLcm_jump_first}, \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{117}{realPrefixLcm_jump_second}, \lproof{ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean}{129}{realPrefixLcm_jump_third}, and 1 further declaration in the \papersectionlink{erdos269-running-lcm-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 \begin{proof}
 The first two claims follow from the height formula.  Positive powers of different primes cannot coincide, by unique factorisation, and
 none is $1$.
@@ -339,6 +345,7 @@ $F(H)=\{(i,j,k)\in\mathcal B:\hgt(p^iq^jr^k)=H\}$.  Then
  \sum_{(i,j,k)\in\mathcal B}\Kernel(i,j,k)=\sum_H\frac{\#F(H)}H.
 \end{equation}
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean}{407}{finiteSmoothKernelSum_groupedByHeight}.}
 \begin{proof}
 Each term in $F(H)$ equals $1/H$.  The multiplicities remain present in
 every subsequent infinite sum.
@@ -366,6 +373,7 @@ For every $a\ge0$, $m_a$ is a positive integer and
 $b_a\in\{2,6,10,30\}$.  The word ``numerator'' does not impose the
 positional-digit restriction $m_a<b_a$; that restriction need not hold.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperCompleteR20/DyadicAlphabetWhole.lean}{19}{dyadic_alphabet_whole}.}
 \begin{proof}
 If $x<2^{a+1}$, the exponent of $2$ in $\hgt(x)$ is at most $a$, while the
 other exponents are bounded by those of $\hgt(2^{a+1})$.  Hence
@@ -393,6 +401,7 @@ For every integer $B\ge1$, either some $BX_a$ is integral and all later
 states are integral, or $\operatorname{dist}(BX_a,\mathbb Z)\ge1/31$
 at arbitrarily large indices.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean}{168}{short_actual_orbit}.}
 \begin{proof}
 For each pair of exponents of $3$ and $5$, at most one exponent of $2$
 places the smooth integer in $[2^a,2^{a+1})$.  The two odd-prime exponents
@@ -434,6 +443,7 @@ $a\ge a_0=u+1+2v+3w$,
  d_{a+1}=b_ad_a-Bm_a,\qquad d_a\le90B(a+1)^2.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7RationalBridge.lean}{80}{short_fixed_split_bridge}.}
 \begin{proof}
 For $a\ge1$, every $\hgt(x)$ with $x<2^a$ divides $h_a$.  Subtracting
 the finite prefix therefore gives
@@ -469,6 +479,7 @@ Consequently $BX_a$ is integral exactly when
 $2^a\ge\max(2^{u+1},3^v,5^w)$.  The first such $a$ can be found by
 integer comparisons, without logarithmic rounding.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperExactDenominatorR13.lean}{334}{exact_denominators_and_minimal_clearing}, \lproof{ErdosProblems/Erdos269/PaperExactDenominatorR13.lean}{309}{scaled_state_is_integer_iff_firstClearingIndex_le}, \lproof{ErdosProblems/Erdos269/PaperExactDenominatorR13.lean}{166}{clearingCondition_iff_max}.}
 \begin{proof}
 By~\eqref{eq:prefix-lattice}, $BX_a$ differs from $h_aA/M$ by an integer.
 Since $\gcd(A,M)=1$, reducing that fraction gives
@@ -512,6 +523,7 @@ Throughout this section use the upper bound
 If $d$ is a positive integer with $d\le K$ and $d\equiv -BF\pmod W$,
 where $W\ge1$, then $\operatorname{lpr}_W(-BF)\le K$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7BasicAssembly.lean}{138}{paper_finite_endpoint_obstruction}.}
 \begin{proof}
 Every positive representative of the residue is at least its least
 positive representative, so $\operatorname{lpr}_W(-BF)\le d\le K$.
@@ -535,6 +547,7 @@ The number $S$ is irrational if and only if
  \end{gathered}
 \end{equation}
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos269/PaperR7WindowResults.lean}{51}{short_window_equivalence}.}
 \begin{proof}
 Assume~\eqref{eq:escape} and suppose $S$ is rational.
 Theorem~\ref{res:denominator-reduction} supplies a positive integral

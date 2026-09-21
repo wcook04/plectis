@@ -63,6 +63,7 @@ $\sum_{n\ge1}1/a_n\in\Q$.  Put $P_n=\prod_{j<n}a_j$.  If
 \]
 then $a_{n+1}=a_n^2-a_n+1$ for all sufficiently large $n$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean}{211}{original_coordinate_bounded_defect}.}
 
 The assumption bounds the upward increments of $P_n/a_n$; it does not
 bound $P_n/a_n$ itself. Indeed,
@@ -120,6 +121,7 @@ $K\,|E_n|<C_n$ for all $n\ge N$.
 \end{enumerate}
 Then $E_n=0$ for all sufficiently large $n$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{2360}{eventuallyBoundedNegativePart_eventually_zero}.}
 \end{samepage}
 
 Condition~(5) bounds upward steps but permits sign changes and places no
@@ -180,6 +182,7 @@ incompatible with divergence and the displayed bound on upward steps.
 Under Theorem~\ref{res:bounded}, the multipliers satisfy
 $a_{n+1}=a_n^2-a_n+1$ eventually.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{179}{bounded_negative_endpoint_eventual_multiplier}.}
 \begin{proof}
 Theorem~\ref{res:bounded} gives eventual zero error. Since $C_n>0$,
 Corollary~\ref{res:eventual} gives the recurrence.
@@ -205,6 +208,7 @@ For an exact integer state,
  \bigl(a_{n+1}-a_n^2+a_n-1\bigr)C_{n+1}=a_n^2E_n-E_{n+1}.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{21}{error_identities}.}
 \begin{proof}
 Substitute $E_n=D_n-(a_n-1)C_n$ and use
 $D_{n+1}=a_nD_n$, $C_{n+1}=a_nC_n-D_n$.
@@ -215,6 +219,7 @@ For a positive exact state with strict centring, $E_n=0$ implies
 $E_{n+1}=0$. For any positive integer state with $C_{n+1}=C_n-E_n$,
 eventual nonnegativity of $E_n$ implies its eventual vanishing.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{120}{absorption_and_descent}.}
 \begin{proof}
 When $E_n=0$, the second identity makes $E_{n+1}$ a multiple of
 $C_{n+1}$; strict centring forces that multiple to be zero. In the second
@@ -227,6 +232,7 @@ If $E_n=E_{n+1}=0$ and $C_{n+1}\ne0$, then
 $a_{n+1}=a_n^2-a_n+1$. Thus eventual zero error in a positive exact state
 implies the eventual Sylvester recurrence.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{1787}{sylvesterNext_eq_of_centered_zero}, \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean}{156}{natural_sylvester_of_eventual_zero}.}
 \begin{proof}
 The second error identity has nonzero factor $C_{n+1}$.
 \end{proof}
@@ -242,6 +248,7 @@ $C_n\to\infty$.
 For pairwise coprime integers $m_0,\ldots,m_{B-1}\ge2$ and every lower
 bound, there is a larger $t$ such that $m_i\mid t+i$ for each $i<B$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{839}{exists_shifted_consecutiveMultiples}.}
 \begin{proof}
 Solve $t\equiv-i\pmod{m_i}$ by the Chinese remainder theorem, then add
 multiples of $\prod_i m_i$.
@@ -265,6 +272,7 @@ Let $u:\N\to\N$ tend to infinity and let $B\ge1$ be an integer with
 $u_{n+1}\le u_n+B$ for every $n$. There is no sequence of pairwise coprime
 integers $m_i\ge2$ for which $\gcd(m_i,u_t)=1$ whenever $i<t$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/ReciprocalTailRigidity.lean}{903}{no_boundedRise_of_tailAvoidance}.}
 \begin{proof}
 Choose $m_0,\ldots,m_{B-1}$ and use Lemma~\ref{res:crt} to find
 $t>\max(u_0,\ldots,u_B)$ with $m_i\mid t+i$.  Since $u_n\to\infty$,
@@ -291,6 +299,7 @@ In a reduced exact tail, $\gcd(a_n,v_n)=1$. Distinct multipliers are
 pairwise coprime, and every earlier multiplier is coprime to every later
 numerator.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean}{16}{persistent_coprimality}.}
 \begin{proof}
 A common prime divisor of $a_n,v_n$ would divide both $u_{n+1}$ and
 $v_{n+1}$. Also, $a_i\mid v_t$ for $i<t$, so reducedness gives
@@ -304,6 +313,7 @@ satisfies $-B\le E_n<0$ at infinitely many indices. Then
 $G_n=\gcd(C_n,D_n)$ is eventually constant. Division by its stable value
 gives a reduced exact tail.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean}{103}{gcd_stabilises_and_reduces}.}
 \begin{proof}
 Both updates preserve common divisors, so $G_n\mid G_{n+1}$, and
 $G_n\mid E_n$. For any $n$, choose $t\ge n$ with $-B\le E_t<0$.
@@ -434,6 +444,7 @@ $C_{n+1}=C_n-E_n$. If
 \]
 then $E_n=0$ eventually. Neither denominator dynamics nor vanishing relative error is required.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean}{84}{finite_negative_mass_paper}.}
 \begin{proof}
 Set $\delta_n=(-E_n)_+/C_n$. Then
 \[
@@ -518,6 +529,7 @@ if and only if, for some integer $B\ge0$,
  \sum_{n\in\mathcal R}(-V_n-B)_+f(U_n)<\infty.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR11/CanonicalRecords.lean}{202}{canonical_weighted_record_excess}.}
 
 Only a step reaching a new maximum contributes. At a late such step,
 $-V_n=U_{n+1}-U_n$, so the first $B$ units of the increase are ignored.
@@ -625,6 +637,7 @@ $A_n=\operatorname{lcm}(a_1,\ldots,a_{n-1})$ with $A_1=1$. If
 \]
 then the sequence is eventually Sylvester.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean}{49}{original_coordinate_lcm_bounded_defect}.}
 
 \begin{proof}
 Since $L_n/A_n=q/\gcd(q,A_n)$ lies in $[1,q]$, an upper bound on the
@@ -696,6 +709,7 @@ and $\sum_n1/a_n\in\Q$. Suppose that for some $K\ge0$ and $\varepsilon>0$,
 Then the sequence is eventually Sylvester. In particular, the conclusion
 holds under the pointwise eventual bound $\gamma_n\le1/n$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean}{207}{original_coordinate_inclusive_one}, \lproof{ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean}{225}{original_coordinate_inclusive_one_pointwise}.}
 \begin{proof}
 Set $t_n=P_n/a_n$, so $t_{n+1}/t_n=1+\gamma_n$. For all large $n$,
 \[
@@ -716,6 +730,7 @@ A strictly increasing sequence of positive integers with
 \]
 has irrational reciprocal sum.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/GaloisSignFlipClosure.lean}{270}{cubic_rate_irrationality_of_chebotarev}. Conditional on Chebotarev's density theorem; see the \papersectionlink{erdos243-reciprocal-tail-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 \begin{proof}[Proof by the polynomial exclusion]
 Under rationality, Section~\ref{sec:transfer} gives
 $C_{n+1}/C_n=1+3/n+o(n^{-3})$. Integer finite differences then give
@@ -783,6 +798,7 @@ and
  \sum_n\frac{(-E_n)_+}{C_n}=\infty.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean}{151}{canonical_frontier}.}
 \begin{proof}
 Absorption excludes late zeros, descent excludes an eventually
 nonnegative error, and Theorems~\ref{res:bounded} and~\ref{res:massscalar}
@@ -848,6 +864,7 @@ $F(X)=\sum_{u_j\le X}w_j$, with the sum allowed a priori to be $+\infty$. Then $
 there is a finite nonincreasing $f:[1,\infty)\to[0,\infty)$ with
 $\int_1^\infty f(t)\,dt=\infty$ and $\sum_jw_jf(u_j)<\infty$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean}{87}{real_lowerDensityZero_iff_exists_admissible_real_weight}.}
 
 \begin{proof}
 Suppose the lower limit vanishes. Choose cutoffs at which the ratio
@@ -1086,6 +1103,7 @@ factorial.
 For all $h$ and all integers $a\equiv b \pmod{(h+1)!}$, the orbit from $a$
 survives $h$ forced updates exactly when the orbit from $b$ does.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/FiniteHorizonResidue.lean}{134}{forcedSurvives_iff_of_modEq_factorial}.}
 
 \begin{proof}
 Define $M(0,i)=1$ and $M(h+1,i)=(i+2)M(h,i+1)$. Thus

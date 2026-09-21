@@ -275,7 +275,7 @@
     "subject": "Erdős #269",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 15,
+    "pages": 16,
     "question": "Why does the Erdős #269 running-LCM kernel admit no finite separable representation, and which residue inequalities remain for {2,3,5}?",
     "precis": "For three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier coprime to 30 and arbitrarily late starts.",
     "owns": "the problem-specific exposition for Erdős #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -297,9 +297,9 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 28,
-      "renderer_fingerprint": "1afa7218572522ac",
-      "source_sha256": "022020477a9abdf2a63e0d3d4f8847b22d6be33df65ca9acf1704e718c14a772",
+      "renderer_contract_version": 29,
+      "renderer_fingerprint": "815b27130b0e7a63",
+      "source_sha256": "bc1d183a2accf273b46c64c014c1f9f0b3c5f0d009a7548d0dec6632094d6726",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 381,
@@ -308,8 +308,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "112e477e73d8d1a62ab0ff481d1af8cb349b604658ca3056302e973e82ebb36c",
-      "html_exact_tex_sha256": "32d6c070ac3f5ea7e5a41054beea7ef5dd0f7c96ca6f4d1b3c3d3680b02deb7c"
+      "html_mathml_sha256": "2cf7771de68f943ccf260f98c04f99abf60a64c874872207548c00fe3b0011d8",
+      "html_exact_tex_sha256": "f3c312f8d94ce3b981593702891a0e2913218e35332fdf6ead16d089248b458e"
     },
     "sections": [
       {
@@ -434,7 +434,7 @@
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 15,
+      "pages": 16,
       "question": "Why does the Erdős #269 running-LCM kernel admit no finite separable representation, and which residue inequalities remain for {2,3,5}?",
       "precis": "For three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier coprime to 30 and arbitrarily late starts.",
       "owns": "the problem-specific exposition for Erdős #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -456,9 +456,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "022020477a9abdf2a63e0d3d4f8847b22d6be33df65ca9acf1704e718c14a772",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "bc1d183a2accf273b46c64c014c1f9f0b3c5f0d009a7548d0dec6632094d6726",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 381,
@@ -467,8 +467,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "112e477e73d8d1a62ab0ff481d1af8cb349b604658ca3056302e973e82ebb36c",
-        "html_exact_tex_sha256": "32d6c070ac3f5ea7e5a41054beea7ef5dd0f7c96ca6f4d1b3c3d3680b02deb7c"
+        "html_mathml_sha256": "2cf7771de68f943ccf260f98c04f99abf60a64c874872207548c00fe3b0011d8",
+        "html_exact_tex_sha256": "f3c312f8d94ce3b981593702891a0e2913218e35332fdf6ead16d089248b458e"
       },
       "sections": [
         {
@@ -593,7 +593,7 @@
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 52,
+      "pages": 53,
       "question": "What infinite-rank and tail-arithmetic facts are proved for the three-prime running LCM, and which residue windows remain open?",
       "precis": "The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density supplies the required threshold pattern. The record computes the rank of every finite restriction and the least uniform approximation error over all matrices of finite separated rank. For the repeated {2,3,5} sum it derives an integer-coefficient tail recurrence and a residue criterion equivalent to irrationality. The unproved step is to find such windows for every positive multiplier coprime to 30 and after every prescribed start. It also gives the full two-prime comparison, following Fan's earlier Hecke–Mahler reduction, and identifies the boundary terms that survive a proposed finite-difference cancellation.",
       "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
@@ -615,9 +615,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "5d25ab03ebf0b3fd4cb36381bc3fb7305795146cf5fda734d340e56886148b01",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "f79f7a4b6d2a58db332c82fe9c85f165ce2958f2e24f7a2a32777f99038644c3",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1719,
@@ -635,8 +635,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "6dc501f4c9147a05d358762e0300086f3a1acb9aab804c8171a867d9297e9767",
-        "html_exact_tex_sha256": "5fdb152a6fbc0932abf9111945384d9e5ba02310abf69bad5973bfa522b66016"
+        "html_mathml_sha256": "1885e99ce46aadfb3471ef6d076af089c2f92f83aed7a3d14588bf4f652f3805",
+        "html_exact_tex_sha256": "76573ef4d50dfa38571f975189e94a03e6b3f4b8cb1a3cb4415bc6ca5730e40a"
       },
       "sections": [
         {

@@ -106,6 +106,22 @@
 \newcommand{\lean}[2]{\leanlink{#2}}
 \ExplSyntaxOff
 
+% ===========================================================================
+% Statement-level proof links.  The exact endpoints the coverage ledger binds
+% were written after both pins above, so a third immutable pin carries them.
+% \ledgercommit is the public revision whose Lean sources the ledger resolved
+% its declarations against; every file it names is byte-identical to that
+% revision.  The note printed under each statement is generated from that
+% ledger and verified by scripts/check_generated_lean_notes.py.  Do not edit a
+% \leannote by hand: regenerate it.
+% ===========================================================================
+\newcommand{\ledgercommit}{181078b6b009d905809cf2e007ad309386a3d1e0}
+\newcommand{\ledgerbase}{https://github.com/wcook04/plectis-erdos/blob/\ledgercommit}
+\newcommand{\lproof}[3]{\href{\ledgerbase/lean/#1\#L#2}{\texttt{#3}}}
+\newcommand{\leannote}[1]{%
+  \par\nobreak\vspace{-0.3\baselineskip}%
+  \noindent{\small #1\par}\vspace{0.15\baselineskip}}
+
 % Declaration names are written \mathtt{...} in maths and, unavoidably, in
 % running prose too. Rather than police every occurrence, make the command
 % mode-agnostic: monospace is what is meant in both places.
@@ -400,6 +416,7 @@ In contrast, $\mathrm{Sep}$ requires arbitrarily large $N$ for each
 positive $h$; neither the shift range nor the basepoint threshold is bounded.
 \coord{binary-digit} \scale{fixed} \ev{Lean}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/DiagonalPincerCertificatesT64.lean}{1967}{certifiedKill_diagonal_all_imported_through_t64}, \lproof{Erdos249257/DiagonalPincerCertificatesT64.lean}{1928}{certifiedKill_diagonal_t64}, \lproof{Erdos249257/CarrySurvivorExtinction.lean}{574}{certifiedKill_all_upto_sixteen}, \lproof{ErdosProblems/Erdos249/PeriodMultipleEscape.lean}{471}{certifiedKill_67_300}, and 8 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[Positivity does not exclude an integer]
 \label{prop:sign}
@@ -428,6 +445,7 @@ establish the central-residue inequalities. Both restrictions on $K$ are
 part of this conclusion.
 \coord{LCM-diagonal} \scale{cofinal} \ev{Lean}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/TotientActualLcmOrbitSign.lean}{39}{actualLcmTailDiff_shift_pos}, \lproof{Erdos249257/TotientActualLcmOrbitSign.lean}{211}{actualLcm_integral_forces_topEdgeResidue}, \lproof{Erdos249257/CarrySurvivorExtinction.lean}{393}{carryOrbit_eq_tail_diff}.}
 
 For the next two propositions, a rational value $S=a/v$, with integers
 $a$ and $v\ge1$, would give the integer carry
@@ -500,6 +518,7 @@ These equivalences change the form of the arithmetic question, not its
 logical strength.
 \coord{binary-digit} \scale{cofinal} \ev{Lean}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PeriodMultipleEscape.lean}{432}{periodMultipleKillSupply_iff_irrational}, \lproof{Erdos249257/LcmConeFlatness.lean}{412}{irrational_totient_series_iff_certificate_supply}, \lproof{Erdos249257/LcmConeFlatness.lean}{426}{irrational_totient_series_iff_lcm_diagonal_certificate_supply}, \lproof{Erdos249257/TotientTailCarryPeriod.lean}{875}{irrational_totientSeries_iff_cofinalDirectedLcmCertificateSupply}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[A rational sequence preserving size bounds, parity and aperiodicity]
 \label{prop:parity}
@@ -513,6 +532,7 @@ sum at \texttt{:359}, aperiodicity at \texttt{:487}, parity match at \texttt{:19
 \texttt{\#print axioms} clean).
 \coord{coefficient-word} \scale{uniform} \ev{Lean}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/TotientParityCoboundaryCountermodel.lean}{637}{exists_totientParity_arbitrarilyManySeparatedCarry_rational_countermodel}, \lproof{Erdos249257/TotientParityCoboundaryCountermodel.lean}{359}{tsum_parityCoboundaryWeight_eq_three_halves}.}
 
 These propositions separate several logical obligations. Positivity leaves
 an upper-endpoint condition; a large rational carry rank is not a contradiction;
@@ -575,6 +595,7 @@ Let $c:\N\to\N$ satisfy $c(n)\le n$ for all $n$. For $h,N,L\in\N$,
 $\mathcal C_c(h,N,L) \Rightarrow R^{c}_{N+h} - R^{c}_{N} \notin \Z$.
 \coord{binary-digit} \scale{uniform} \ev{Lean}
 \end{lem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean}{66}{certificate_sound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean}{48}{scaled_difference}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean}{55}{truncation_error_bound}.}
 
 \begin{proof}
 Splitting both tails after $L$ terms gives
@@ -604,6 +625,7 @@ $m\mid 2^h-1$, then
 $R^{c}_{N+h} - R^{c}_{N} \in \Z$ for every $N \ge e$.
 \coord{binary-digit} \scale{cofinal} \ev{Lean}
 \end{lem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean}{98}{generic_tail_period}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean}{33}{scaled_tail_split}.}
 
 \begin{proof}
 Since $2^NT_c-R^c_N=\sum_{n=1}^N c(n)2^{N-n}$ is an integer,
@@ -648,6 +670,7 @@ Hence for every $B$ there is a coefficient sequence in the same class,
 agreeing with $\varphi$ on all of $[1,B]$, whose quantified condition is false.
 \coord{binary-digit} \scale{uniform} \ev{Lean}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean}{15}{gamma_le}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean}{21}{gamma_prefix}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean}{24}{discrepancy_prefix}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean}{108}{exact_series}, and 4 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{proof}
 (i) is immediate; (ii) holds because $D_\varphi(h,N,L)$ reads $\varphi$ only at
@@ -685,6 +708,7 @@ the fixed arithmetic sequence $\varphi$ together with compatible information
 at arbitrarily large horizons; the theorem gives a different $\gamma_B$ for
 each $B$, not one sequence agreeing with $\varphi$ at every $B$.
 \end{cor}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean}{74}{no_uniform_prefix_rule}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean}{69}{gamma_not_separation}.}
 \lean{ErdosProblems.Erdos249.PaperCompleteR20.FinitePrefixCountermodel.no\_uniform\_prefix\_rule}{lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean:74}
 
 \begin{rem}[Four distinct finite restrictions]
@@ -757,6 +781,7 @@ intermediate lemmas. The full-block and fixed-margin conditions in
 three arguments above do not supply.
 \coord{binary-digit} \scale{cofinal} \ev{Lean}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ThreeParticularEquivalences.lean}{33}{three_particular_equivalences}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ThreeParticularEquivalences.lean}{55}{two_point_sample_numerical_requirement}.}
 
 \begin{rem}
 Second-difference certificates need not occur at a smaller depth than
@@ -814,6 +839,7 @@ Theorem or every prescribed totient pattern.
 \lean{Erdos257PeriodNoncollapse.exists\_prime\_deltaTotient\_twoAdic\_pulseBlock}{TotientTwoAdicPulseBlock.lean:211}
 \lean{Erdos257PeriodNoncollapse.windowDiscrepancy\_modEq\_half\_of\_twoAdic\_pulse}{TotientTwoAdicPulseBlock.lean:262}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseCertificateFailure.lean}{29}{twoAdic_pulse_construction_never_certifies}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseCertificateFailure.lean}{60}{twoAdic_pulse_defining_congruence}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseCertificateFailure.lean}{85}{twoAdic_pulse_error_bound}.}
 
 \begin{rem}[Two further prescribed patterns]
 \label{rem:b4}
@@ -876,6 +902,7 @@ must verify that it uses no additional arithmetic information that the
 comparison families fail to preserve.
 \coord{carry-orbit} \scale{uniform} \ev{Lean}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean}{93}{balancedPulse_common_history}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean}{30}{balancedPulse_tail_at}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean}{76}{balancedPulse_series}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean}{114}{balancedPulse_label_lower_bound}, and 3 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[Four limits of particular linear constructions]
 \label{prop:b6}
@@ -944,6 +971,7 @@ $S$ and is not, by itself, a counterexample. The separate rational $5/4$
 comparison supplies the counterexample to the generic rank bound.
 \coord{carry-rank} \scale{uniform} \ev{Lean}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean}{72}{b6_retained_dyadic_sections_independent}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean}{80}{b6_compressed_adjoint_identity_impossible}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean}{101}{b6_mobius_incidence_unimodular_and_injective}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean}{129}{b6_adjugate_tail_cost_floor}, and 6 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[The coefficient properties of the rational example]
 \label{prop:b7}
@@ -955,6 +983,7 @@ The example does not exclude arguments using further totient identities,
 including its multiplicative relations.
 \coord{coefficient-word} \scale{uniform} \ev{Lean}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/RationalParityCountermodelProperties.lean}{28}{exists_rational_parityComparison}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/RationalParityCountermodelProperties.lean}{37}{parityComparisonProperties_do_not_imply_irrational}.}
 
 \subsection{What the counterexamples establish}
 
@@ -1427,6 +1456,7 @@ the mediant of two explicit unimodular Farey neighbours.
 \lean{gap_check_window_1_240_le_79639646646701375323355774875831053}{GapFareyBound.lean:176}
 \lean{gap_check_window_1_240_first_failure}{GapFareyBound.lean:225}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/CertificateKernel.lean}{18310}{totient_carry_residue_window_1_240_eq}, \lproof{Erdos249257/GapFareyBound.lean}{176}{gap_check_window_1_240_le_79639646646701375323355774875831053}, \lproof{Erdos249257/GapFareyBound.lean}{225}{gap_check_window_1_240_first_failure}.}
 
 \begin{thm}[Denominator exclusion]
 \label{thm:denom-record}
@@ -1501,6 +1531,7 @@ exactly; and for every $d>0$, $\Pr(d\mid X \wedge d\mid Y) = 1/(2^d-1)^2$.
 \lean{tsum_pos_coprime_inv_mersenne_eq_one}{GcdMomentCalculus.lean:349}
 \lean{tsum_pos_pair_both_dvd_half_eq_inv_mersenne_sq}{GcdMomentCalculus.lean:266}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/GeometricCoprimality.lean}{480}{tsum_gcd_layer_pos_coprime_half_eq_one}, \lproof{Erdos249257/GcdMomentCalculus.lean}{266}{tsum_pos_pair_both_dvd_half_eq_inv_mersenne_sq}.}
 
 \begin{thm}[Denominator exclusion for the coprimality-probability form]
 \label{thm:denomcoprime}
@@ -1558,6 +1589,7 @@ since adding a rational number does not change irrationality.
 \lean{totientSeries_eq_pnat_half_pow}{SquaredMersenneDiagonalEnclosure.lean:72}
 \lean{tsum_totient_half_pow_eq_half_add_moebius_sq}{MersenneLambertLadder.lean:665}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/MobiusSquareReduction.lean}{10}{mobius_square_reduction}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/MobiusSquareReduction.lean}{17}{irrational_totient_iff_mobius_square}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/MobiusSquareReduction.lean}{25}{moebius_three_values}.}
 
 \begin{rem}[Why the bounded coefficients matter; the Erd\H{o}s-1948 regime]
 The identity of Proposition~\ref{prop:mobsq} rewrites $S$ (equivalently $T$)
@@ -1645,6 +1677,7 @@ irrationality of the two values would not suffice.
 \coord{mobius-mersenne} \scale{n/a}
 \lean{tsum_one_div_mersenne_sq_eq_sigma_sub_tau_series}{GcdMomentCalculus.lean:216}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean}{36}{divisor_sum_identity}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean}{17}{qZeta}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean}{81}{qZeta_half_two_sub_one}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean}{143}{irrational_qZeta_half_difference_of_linearIndependent}, and 1 further declaration. Conditional on the linear independence theorem of Postelmans and Van Assche; see the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[The gcd-moment identity]
 \label{prop:pillai}
@@ -1660,6 +1693,7 @@ different series from $S$.
 \coord{mobius-mersenne} \scale{n/a}
 \lean{tsum_totient_div_mersenne_sq_eq_gcd_moment_series}{GcdMomentCalculus.lean:235}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean}{334}{gcd_moment_identity_three_members}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean}{307}{tsum_pos_pair_gcd_half_eq_totient_div_mersenne_sq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean}{77}{sum_gcd_Icc_eq_pillaiP}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean}{67}{pillaiP_eq_totient_mul_id}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{rem}[Related series]
 Writing $L(f):=\sum_d f(d)/(2^d-1)$ and
@@ -1845,6 +1879,7 @@ shift for which all sufficiently late tail differences are integral.
 \par\noindent\ev{Lean} \scale{uniform}
 \lean{eventual\_period\_of\_not\_irrational}{TotientTailPeriodKiller.lean:358}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/SpecifiedTailPeriod.lean}{44}{specified_euler_tail_period}.}
 
 \begin{thm}[Rationality forces unbounded carry rank]\label{catalogue:cert:d5}
 If $S\in\mathbb Q$, there are an integer $v>0$ and an integer sequence
@@ -1889,6 +1924,7 @@ alone says nothing about rationality of their weighted sum.
 \lean{card\_totientCanonicalIndex}{TotientMahlerDefect.lean:61}
 \lean{linearIndependent\_canonicalTotientKernelFamily}{TotientMahlerDefect.lean:935}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR8/FullKernelAssemblies.lean}{177}{displayed_canonical_and_full_dyadic}.}
 
 \begin{prop}[Denominator divisibility forces tail integrality]\label{catalogue:cert:a8}
 If $S=a/q$ in lowest terms with $q>0$ and
@@ -1934,6 +1970,7 @@ $r$ is squarefree. This proves that the indicated cyclotomic factor
 cannot cancel from $b_r$.
 \par\noindent\ev{Lean} \scale{uniform} \coord{cyclotomic} \lean{mobiusNumerator\_gcd\_cyclotomicValue}{CyclotomicProjectionOfShadow.lean:350} \lean{cyclotomicValue\_dvd\_baseMobiusShadow\_den}{CyclotomicProjectionOfShadow.lean:389}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/RepunitMobiusNumerator.lean}{445}{mobiusNumeratorPolynomial_eval_two}, \lproof{Erdos249257/CyclotomicProjectionOfShadow.lean}{350}{mobiusNumerator_gcd_cyclotomicValue}, \lproof{Erdos249257/CyclotomicProjectionOfShadow.lean}{389}{cyclotomicValue_dvd_baseMobiusShadow_den}.}
 
 \begin{prop}[Primes in the upper half remain after cancellation]\label{catalogue:mob:b6}
 For $t\ge5$ the whole product
@@ -1949,6 +1986,7 @@ the LCM result above follows.
 
 \par\noindent\ev{Lean} \scale{uniform} \coord{cyclotomic} \lean{upperHalfPrimes}{MersenneShadowCyclotomicNoncollapse.lean:914} \lean{upperHalfChannel\_product\_dvd\_den\_of\_scale\_primeFactors\_le}{MersenneShadowCyclotomicNoncollapse.lean:809} \lean{lcmHeight\_upperHalf\_product\_dvd\_den}{MersenneShadowCyclotomicNoncollapse.lean:983}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/MersenneShadowCyclotomicNoncollapse.lean}{983}{lcmHeight_upperHalf_product_dvd_den}, \lproof{Erdos249257/MersenneShadowCyclotomicNoncollapse.lean}{795}{upperHalfChannel_product_dvd_den_of_coprime_scale}, \lproof{Erdos249257/MersenneShadowCyclotomicNoncollapse.lean}{809}{upperHalfChannel_product_dvd_den_of_scale_primeFactors_le}.}
 
 The restriction $t\ge5$ belongs to the sufficient prime-factor condition,
 not just to the LCM example. At $t=3$, one has $r_t=6$,
@@ -1974,6 +2012,7 @@ tail decomposition can still cancel this rational contribution, so
 denominator growth alone does not prove irrationality of $S$.
 \par\noindent\ev{Lean} \scale{uniform} \coord{mobius-mersenne} \lean{upperHalfMersenneProduct\_lower\_bound}{MersenneShadowDenominatorGrowth.lean:60}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/DenominatorBounds.lean}{10}{upper_half_product_denominator_bounds}.}
 
 \begin{prop}[The exact reduced denominator]\label{catalogue:mob:b7b}
 At every integer scale $t\ge0$,
@@ -1990,6 +2029,7 @@ merely a lower bound for the denominator. For example, $H_5=60$ and
 $r_5=30$, and the denominator is $(2^{30}-1)/3$.
 \par\noindent\ev{Lean} \scale{uniform} \coord{mobius-mersenne} \lean{lcmHeight\_scaledMobiusShadow\_den\_exact}{MersenneShadowDenominatorGrowth.lean:147}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/MersenneShadowDenominatorGrowth.lean}{147}{lcmHeight_scaledMobiusShadow_den_exact}, \lproof{Erdos249257/MersenneShadowDenominatorGrowth.lean}{187}{lcmHeight_five_scaledMobiusShadow_den_exact}.}
 
 \begin{prop}[Nonvanishing of a signed dyadic sum]\label{catalogue:mob:d3}
 Let $I$ be finite, let $u_i\in\mathbb Z$ and $e_i\in\mathbb N$, and
@@ -2006,6 +2046,7 @@ moments. The result tests a specified configuration; it does not show
 that a suitable maximal-exponent term exists at arbitrarily large scales.
 \par\noindent\ev{Lean} \scale{bounded} \coord{p-adic} \lean{scaled\_dyadic\_sum\_ne\_zero}{SignedQMomentObstruction.lean:96} \lean{det\_mul\_rectangular}{SignedQMomentObstruction.lean:29}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean}{8}{signed_dyadic_clearing}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean}{28}{signed_dyadic_sum_ne_zero}, \lproof{Erdos249257/SignedQMomentObstruction.lean}{78}{scaled_dyadic_sum_odd}.}
 
 \begin{prop}[Small certificates]\label{catalogue:cert:a11}
 For each integer $1\le h\le8$, the finite test $\mathcal C(h,12,16)$
@@ -2020,6 +2061,7 @@ This follows from Propositions~\ref{catalogue:cert:a6}
 and~\ref{catalogue:cert:a8}.
 \par\noindent\ev{Cert} \scale{fixed} \coord{other:binary-window} \lean{certifiedKill\_all\_small}{TotientTailPeriodKiller.lean:404} \lean{totient\_series\_ne\_rat\_of\_den\_dvd}{TotientTailPeriodKiller.lean:416}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean}{33}{small_certificate_windows}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean}{45}{small_certificates_and_exclusions}.}
 
 \begin{prop}[A common certificate for sixteen shifts]\label{catalogue:cert:a12}
 For each integer $1\le h\le16$, one has $\mathcal C(h,14,9)$.
@@ -2030,6 +2072,7 @@ Thus $S\ne a/b$ for every reduced fraction with $b>0$ such that
 $b\mid2^{14}(2^h-1)$ for at least one $1\le h\le16$.
 \par\noindent\ev{Cert} \scale{fixed} \coord{other:binary-window} \lean{totient\_series\_ne\_rat\_of\_den\_dvd\_pow\_two\_mul\_mersenne\_upto\_sixteen}{CertificateKernel.lean:18890}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean}{39}{sixteen_certificate_windows}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean}{51}{sixteen_certificates_and_exclusions}.}
 
 \begin{prop}[Historical diagonal examples and the complete band through 82]\label{catalogue:cert:b11}
 Let $H_t=\operatorname{lcm}(1,\ldots,t)$ and let
@@ -2054,6 +2097,7 @@ holes but supplies neither $P(83)$ nor a cofinal family.
 \par\noindent\ev{Cert} \scale{bounded} \coord{other:lcm-diagonal}
 \lean{ErdosProblems.Skip.LadderT67.exists_diagonalKill_le_82}{ErdosProblems/Skip/LadderT67.lean:71264}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean}{57}{historical_table_size_and_initial_depths}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean}{64}{historical_table_and_complete_band}.}
 
 \subsection{Definitions and elementary identities}
 
@@ -2115,6 +2159,7 @@ the irrationality criterion.
 \par\noindent\ev{Lean} \scale{uniform}
 \lean{two\_pow\_mul\_totient\_series\_eq}{TotientTailPeriodKiller.lean:150}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean}{8}{prefix_fractional_part}, \lproof{Erdos249257/TotientTailPeriodKiller.lean}{150}{two_pow_mul_totient_series_eq}, \lproof{Erdos249257/LcmConeFlatness.lean}{327}{tail_diff_mem_int_iff_scaled_series_mem_int}.}
 
 \begin{lem}[The necessary depth inequality]\label{catalogue:cert:a5}
 For $h,N,L\in\N$, the condition $\mathcal C(h,N,L)$ implies
@@ -2128,6 +2173,7 @@ This is a necessary depth bound, not an upper bound for finding a
 certificate.
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:binary-window} \lean{certifiedKill\_depth\_floor}{TotientTailPeriodKiller.lean:79}
 \end{lem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean}{20}{certificate_logarithmic_depth}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean}{30}{fixed_depth_bounds_indices}, \lproof{Erdos249257/TotientTailPeriodKiller.lean}{79}{certifiedKill_depth_floor}.}
 
 \begin{prop}[A certificate implies nonintegrality]\label{catalogue:cert:a6}
 For all $h,N,L\in\mathbb N$,
@@ -2142,6 +2188,7 @@ multiple of $2^L$, contrary to the two strict residue inequalities.
 \par\noindent\ev{Lean} \scale{uniform}
 \lean{tail\_diff\_notMem\_int\_of\_certifiedKill}{TotientTailPeriodKiller.lean:262}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean}{13}{totient_scaled_truncation_error}, \lproof{Erdos249257/TotientTailPeriodKiller.lean}{262}{tail_diff_notMem_int_of_certifiedKill}.}
 
 \begin{thm}[Nonintegrality gives a certificate at some depth]\label{catalogue:cert:a7}
 For every $h,N\in\mathbb N$,
@@ -2222,6 +2269,7 @@ base powers is genuinely stronger. This example is an ordinary mathematical
 argument, not an additional claim about the linked formalisation.
 \par\noindent\ev{Lean} \scale{n/a} \coord{n/a} \lean{irrational\_of\_int\_mul\_near\_int}{CertificateKernel.lean:6120} \lean{irrational\_of\_pow\_mul\_near\_int}{CertificateKernel.lean:6149}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/CertificateKernel.lean}{6120}{irrational_of_int_mul_near_int}, \lproof{Erdos249257/CertificateKernel.lean}{6149}{irrational_of_pow_mul_near_int}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NearIntegerIrrationalityCriterion.lean}{16}{irrational_of_near_integer_multiples}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NearIntegerIrrationalityCriterion.lean}{25}{irrational_of_near_integer_base_powers}, and 16 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[A nonzero evaluation minor gives independence]\label{catalogue:cert:d3}
 Let $I$ be a finite index set and let $f_j:\mathbb N\to\mathbb Q$
@@ -2249,6 +2297,7 @@ denominators. A large denominator in an unreduced displayed expression
 need not be the reduced denominator appearing in this conclusion.
 \par\noindent\ev{Lean} \scale{n/a} \coord{n/a} \lean{positive\_rational\_difference\_lower\_bound}{PrimitiveRationalGapSupply.lean:31}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/RationalSpacingCorrespondence.lean}{6}{rational_difference_exact}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/RationalSpacingCorrespondence.lean}{17}{rational_cross_numerator_positive}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/RationalSpacingCorrespondence.lean}{27}{rational_error_denominator_bound}, \lproof{Erdos249257/PrimitiveRationalGapSupply.lean}{31}{positive_rational_difference_lower_bound}.}
 
 \begin{prop}[The M\"obius identity for $S$]\label{catalogue:mob:a1a}
 The absolutely convergent series satisfy
@@ -2265,6 +2314,7 @@ These are identities of values, not transfers of irrationality from a
 Lambert series with a different weight.
 \par\noindent\ev{Lean} \scale{n/a} \coord{mobius-mersenne} \lean{tsum\_totient\_half\_pow\_eq\_half\_add\_moebius\_sq}{MersenneLambertLadder.lean:665} \lean{totientSeries\_eq\_pnat\_half\_pow}{SquaredMersenneDiagonalEnclosure.lean:72} \lean{mobius\_square\_series\_eq\_partial\_add\_tail}{SquaredMersenneDiagonalEnclosure.lean:94}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/MersenneLambertLadder.lean}{491}{tsum_moebius_lambert_sq}, \lproof{Erdos249257/CertificateKernel.lean}{18454}{totient_series_eq_half_add_moebius_mersenne_square}.}
 
 \begin{cor}[An equivalent irrationality question]\label{catalogue:mob:a1b}
 Subtracting the rational number $1/2$ gives
@@ -2278,6 +2328,7 @@ representation. The notation $L_2(\mu)$ for the right-hand series is
 introduced in Definition~\ref{catalogue:mob:a3}.
 \par\noindent\ev{Lean} \scale{n/a} \coord{mobius-mersenne} \lean{tsum\_totient\_half\_pow\_eq\_half\_add\_moebius\_sq}{MersenneLambertLadder.lean:665}
 \end{cor}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR7/ArithmeticAssemblies.lean}{40}{irrational_totient_iff_moebius_square}.}
 
 \begin{prop}[The squared-Lambert identity]\label{catalogue:mob:a2}
 Let $w:\mathbb N\to\mathbb R$ satisfy $|w(d)|\le d$ for $d\ge1$,
@@ -2315,6 +2366,7 @@ to that of Definition~\ref{catalogue:mob:a3}. Observation~\ref{catalogue:mob:a6}
 compares the two choices of weight.
 \par\noindent\ev{Lean} \scale{n/a} \coord{mobius-mersenne} \lean{tsum\_one\_div\_mersenne\_sq\_eq\_sigma\_sub\_tau\_series}{GcdMomentCalculus.lean:216}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean}{36}{divisor_sum_identity}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean}{17}{qZeta}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean}{81}{qZeta_half_two_sub_one}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean}{143}{irrational_qZeta_half_difference_of_linearIndependent}, and 1 further declaration. Conditional on the linear independence theorem of Postelmans and Van Assche; see the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[Totient weight and gcd moments]\label{catalogue:mob:a5}
 $\sum_{d:\mathbb{N}^+}' \varphi(d)/(2^d-1)^2 = \sum_{n:\mathbb{N}^+}' (P(n)-n)\cdot(1/2)^n$, where $P = \varphi * \mathrm{Id}$ (Pillai's gcd-sum function). It also equals $\mathbb E[\gcd(X,Y)]$ when $X,Y$ are independent and
@@ -2324,6 +2376,7 @@ This is a different weighted series. Its rationality is not settled by
 the identities proved here.
 \par\noindent\ev{Lean} \scale{n/a} \coord{mobius-mersenne} \lean{tsum\_totient\_div\_mersenne\_sq\_eq\_gcd\_moment\_series}{GcdMomentCalculus.lean:235}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean}{334}{gcd_moment_identity_three_members}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean}{307}{tsum_pos_pair_gcd_half_eq_totient_div_mersenne_sq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean}{67}{pillaiP_eq_totient_mul_id}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean}{77}{sum_gcd_Icc_eq_pillaiP}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{obs}[Comparison of weighted series]\label{catalogue:mob:a6}
 For $L(f)=\sum_{d\ge1}f(d)/(2^d-1)$, the three weights give
@@ -2358,6 +2411,7 @@ $\sum_{k\ge1}2^{-dk}=1/(2^d-1)$. It explains the squared denominator
 in the preceding M\"obius identity.
 \par\noindent\ev{Lean} \scale{uniform} \coord{probability} \lean{tsum\_pos\_pair\_both\_dvd\_half\_eq\_inv\_mersenne\_sq}{GcdMomentCalculus.lean:266}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean}{62}{pair_divisibility_mass}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean}{79}{tsum_geometric_multiples}, \lproof{Erdos249257/GcdMomentCalculus.lean}{266}{tsum_pos_pair_both_dvd_half_eq_inv_mersenne_sq}.}
 
 \begin{prop}[The sum over coprime directions]\label{catalogue:mob:a8}
 The sum over positive coprime pairs satisfies
@@ -2401,6 +2455,7 @@ geometric variables used above. The identity does not describe a
 conservative mass split between the two children alone.
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:stern-brocot} \lean{cylinderMass\_split}{GcdMomentCalculus.lean:474}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean}{42}{divisibility_mass}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean}{86}{cylinderMass_eq_divisibility_mass_mul}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean}{95}{cylinder_mediant_split}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean}{103}{cylinder_root_values}, and 3 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[Convergence with an explicit error]\label{catalogue:mob:a9b}
 In the splitting identity of Proposition~\ref{catalogue:mob:a9a}, the
@@ -2416,6 +2471,7 @@ defined infinite set of descendants; no additional identification is
 asserted here.
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:stern-brocot} \lean{sternBrocotDepthMass\_error}{GcdMomentCalculus.lean:525} \lean{tendsto\_sternBrocotDepthMass}{GcdMomentCalculus.lean:560}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/GcdMomentCalculus.lean}{514}{cylinderMass_children_le}, \lproof{Erdos249257/GcdMomentCalculus.lean}{525}{sternBrocotDepthMass_error}, \lproof{Erdos249257/GcdMomentCalculus.lean}{560}{tendsto_sternBrocotDepthMass}.}
 
 \begin{prop}[A numerator polynomial and its coefficients]\label{catalogue:mob:b1}
 For squarefree $r\ge1$, the polynomial defined above has coefficients
@@ -2447,6 +2503,7 @@ these are exactly its divisors. This identifies the polynomial
 calculation with the numerator used in $b_r$.
 \par\noindent\ev{Lean} \scale{uniform} \coord{cyclotomic} \lean{mobiusNumeratorPolynomial\_eval\_two}{RepunitMobiusNumerator.lean:445} \lean{mobiusNumerator}{RadicalMobiusShadow.lean:101}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/RepunitMobiusNumerator.lean}{445}{mobiusNumeratorPolynomial_eval_two}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/NumeratorEvaluation.lean}{32}{numerator_eval_two_divisors}.}
 
 \begin{prop}[Decomposition by the radical]\label{catalogue:mob:b3}
 For $H\ge1$ and $r\ge1$,
@@ -2462,6 +2519,7 @@ by $H/\operatorname{rad}(H)$ can cause further cancellation. No
 coprimality assumption is included in either identity.
 \par\noindent\ev{Lean} \scale{uniform} \coord{mobius-mersenne} \lean{scaledMobiusShadow\_eq\_radicalBase}{RadicalMobiusShadow.lean:125} \lean{baseMobiusShadow\_den}{RadicalMobiusShadow.lean:150}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/RadicalDecomposition.lean}{50}{radical_decomposition}.}
 
 \noindent The constant in Proposition~\ref{catalogue:mob:b4} is the value of $P_r$ at a primitive
 $m$-th root of unity. Since the $X^k$ coefficient of $P_r$ depends only on
@@ -2482,6 +2540,7 @@ totient. Evaluation at two gives
 \]
 \par\noindent\ev{Lean} \scale{uniform} \coord{cyclotomic} \lean{cyclotomic\_dvd\_mobiusNumeratorPolynomial\_sub}{CyclotomicProjectionOfShadow.lean:299} \lean{mobiusNumerator\_mod\_cyclotomicEval}{CyclotomicProjectionOfShadow.lean:310}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/CyclotomicProjectionOfShadow.lean}{299}{cyclotomic_dvd_mobiusNumeratorPolynomial_sub}, \lproof{Erdos249257/CyclotomicProjectionOfShadow.lean}{310}{mobiusNumerator_mod_cyclotomicEval}, \lproof{Erdos249257/CyclotomicProjectionOfShadow.lean}{67}{jordanTotientTwo_eq_prod_primeFactors}.}
 
 \begin{proof}
 To prove the congruence, let $\zeta$ be a primitive $m$-th root of
@@ -2563,6 +2622,7 @@ form of the denominator; it does not transfer an irrationality theorem
 for one weight to another.
 \par\noindent\ev{Lean} \scale{n/a} \coord{mobius-mersenne} \lean{tsum\_totient\_div\_pow\_two\_eq\_pnat\_half\_pow}{CertificateKernel.lean:18415}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LambertDivisorTransform.lean}{42}{lambertValue_eq_divisor_sum_series}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LambertDivisorTransform.lean}{101}{alpha_divisor_sum_eq_totient}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LambertDivisorTransform.lean}{109}{lambertValue_alpha_eq_totientSeries}.}
 
 \begin{longtable}{@{}
   >{\raggedright\arraybackslash}p{0.14\linewidth}
@@ -2644,6 +2704,7 @@ required unbounded family of LCM heights remains unproved, as in
 Theorems~\ref{catalogue:mob:e2} and~\ref{catalogue:cert:b6}.
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:lcm-diagonal} \lean{oldChannel\_affine\_moment\_annihilation}{JointExponentTransport.lean:36} \lean{joint35\_oldChannel\_zero}{JointExponentTransport.lean:71} \lean{sharpJoint35ConeRadius}{JointExponentTransport.lean:124}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean}{28}{transportResidueKernel_eq_mobiusTermKernel}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean}{47}{mobiusTermKernel_affine_in_multiplier}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean}{99}{joint35ConeWindow_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean}{119}{totientTail_enclosure}, and 5 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[The error under composite dilation]\label{catalogue:mob:f1}
 For $A\subseteq\mathbb N$ and $n\ge1$, let
@@ -2674,6 +2735,7 @@ $A=\mathbb N$ in this unweighted formula. Also $\alpha(p)=p-2$ for primes
 $p$, so $\alpha$ is unbounded and is not a periodic weight.
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:support-divisor-counting} \lean{supportCoeff\_mul\_eq\_add\_defect}{CompositeDilationDefect.lean:30} \lean{compositeDilationDefect\_eq\_zero\_of\_prime\_support}{CompositeDilationDefect.lean:103} \lean{supportCoeff\_mul\_prime\_support}{CompositeDilationDefect.lean:119}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean}{27}{composite_dilation_divisor_count}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean}{36}{composite_dilation_defect_eq_zero_of_prime_support}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean}{42}{composite_dilation_divisor_count_prime_support}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean}{49}{composite_dilation_defect_univ_six_one}, and 8 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \paragraph{Iterated prime dilations of divisor counts.}
 Multiplying an argument by a new prime adds exactly one new family of
@@ -2737,6 +2799,7 @@ displayed implication therefore makes this quantified condition
 equivalent to irrationality; its truth remains unproved.
 \par\noindent\ev{Lean} (implication proved; hypothesis \ev{Open}) \scale{cofinal} \coord{other:lcm-period-multiple} \lean{irrational\_totient\_series\_of\_multiple\_certificate\_supply}{CarrySurvivorExtinction.lean:502}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean}{25}{irrational_of_period_multiple_certificate_supply}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean}{33}{period_multiple_certificate_at_one}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean}{55}{rational_forces_period_multiple_integrality}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean}{41}{period_multiple_certificate_supply_iff}.}
 
 \begin{thm}[The diagonal condition is equivalent to irrationality]\label{catalogue:cert:b3}
 $\big(\forall t_0:\mathbb{N},\ \exists t\ge t_0,\ \exists L,\ \mathcal{C}({H}(t), {H}(t), L)\big) \leftrightarrow S\notin\mathbb Q$. For a fixed hypothetical rational value, sufficiently large $t$ makes both its dyadic denominator and its odd-part period admissible at $N=h={H}(t)$. Conversely, irrationality and pointwise completeness supply a witness for every prescribed $t$. This is an equivalent condition with one scale parameter; the verified cases $t\le82$ do not establish it at arbitrarily large scales.
@@ -2769,6 +2832,7 @@ where $\varphi(H(2)+2)=2$ but the proposed product would be $1$.
 
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:lcm-window-multiplicative} \lean{totient\_periodLcm\_ray\_split}{LcmDiagonalReduction.lean:208}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{67}{clean_lcm_ray_factorisation}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{76}{unclean_lcm_ray_counterexample}.}
 
 \begin{thm}[Rationality forces tail integrality on an LCM grid]\label{catalogue:cert:b6}
 If $S\in\mathbb Q$, there is $t_1\in\mathbb N$ such that for all
@@ -2787,6 +2851,7 @@ rational value.
 
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:lcm-cone} \lean{rational\_totient\_series\_forces\_lcm\_cone\_flatness}{CertificateKernel.lean:19002}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{8}{lcm_grid_flatness}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{15}{lcm_grid_fractional_parts}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{27}{certificate_denominator_exclusion}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{40}{lcm_grid_supply_iff}.}
 
 \begin{thm}[A sufficient nonintegrality condition on the grid]\label{catalogue:cert:b7}
 Suppose that for every $t_0\in\N$ there are integers
@@ -2805,6 +2870,7 @@ in Theorem~\ref{catalogue:cert:b3} also gives the converse from
 irrationality to the displayed quantified condition.
 \par\noindent\ev{Lean} (implication proved; hypothesis \ev{Open}) \scale{cofinal} \coord{other:lcm-cone} \lean{irrational\_totient\_series\_of\_lcm\_cone\_window\_kill\_supply}{CertificateKernel.lean:19014}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{40}{lcm_grid_supply_iff}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{50}{lcm_grid_multiplier_positive}.}
 
 \begin{cor}[Equivalent conditions stated without certificates]\label{catalogue:cert:b8}
 The series $S$ is irrational if and only if
@@ -2820,6 +2886,7 @@ respectively. These are equivalent statements of the irrationality
 question; the required unbounded sets of scales are not established.
 \par\noindent\ev{Lean} (implication proved; hypothesis \ev{Open}) \scale{cofinal} \coord{other:real-analytic-nonintegrality} \lean{irrational\_totient\_series\_of\_lcm\_diagonal\_nonintegrality\_supply}{CertificateKernel.lean:19034} \lean{irrational\_totient\_series\_of\_lcm\_cone\_nonintegrality\_supply}{CertificateKernel.lean:19046}
 \end{cor}
+\leannote{Lean: \lproof{Erdos249257/LcmConeFlatness.lean}{386}{irrational_totient_series_iff_all_tail_diffs_nonintegral}, \lproof{Erdos249257/LcmConeFlatness.lean}{439}{periodLcm_diagonal_kill_iff_tail_diff_notMem_int}, \lproof{Erdos249257/LcmConeFlatness.lean}{451}{irrational_totient_series_of_lcm_diagonal_nonintegrality_supply}, \lproof{Erdos249257/LcmConeFlatness.lean}{462}{irrational_totient_series_of_lcm_cone_nonintegrality_supply}.}
 
 \begin{prop}[Soundness of a second-difference certificate]\label{catalogue:cert:b9a}
 Let $h,N,L\in\mathbb N$. If
@@ -2842,6 +2909,7 @@ cases. This finite comparison is not a uniform ordering of the depths.
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:binary-window}
 \lean{second\_diff\_notMem\_int\_of\_certifiedRank2Kill}{LcmConeFlatness.lean:493} (the certified $(1,8)$ comparison: \lean{totient\_tail\_rank\_two\_kill\_sound\_but\_not\_shallower\_cell}{CertificateKernel.lean:19090}).
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean}{65}{abs_tail_diff_scaled_sub_window_le}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean}{104}{second_difference_error_bound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean}{121}{second_difference_certificate_sound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean}{136}{second_difference_cell_one_eight}.}
 
 
 For $H,L\in\mathbb N$ and a finite set $Q$ of multipliers, put
@@ -2861,6 +2929,7 @@ $B_q<2^L$ for every $q\in Q$ and that
 Then $R_{q_jH}-R_{q_iH}\notin\mathbb Z$ for some $q_i,q_j\in Q$.
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:lcm-cone-menu} \lean{exists\_nonintegral\_pair\_of\_coneNonflatCert}{LcmConeNonflat.lean:126}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean}{12}{paperGridNumerator_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean}{36}{finite_grid_nonintegral_pair}.}
 \begin{proof}
 The tail identity and its elementary bound give
 \[
@@ -2910,6 +2979,7 @@ The example above verifies one grid; it does not establish the
 quantified hypothesis.
 \par\noindent\ev{Lean} (implication proved; hypothesis \ev{Open}) \scale{cofinal} \coord{other:lcm-cone-menu} \lean{irrational\_totient\_series\_of\_lcm\_cone\_nonflat\_supply}{CertificateKernel.lean:19140}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean}{12}{paperGridNumerator_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean}{49}{finite_grid_supply_irrational}.}
 
 \begin{prop}[A finite carry test implies nonintegrality]\label{catalogue:cert:b12}
 For each integer $z$ with $|z|\le N+h+1$, define
@@ -2930,6 +3000,7 @@ This proposition proves soundness for a specified $h,N,K$; an
 irrationality argument still needs the quantified family of tests.
 \par\noindent\ev{Lean} \scale{uniform} \coord{other:carry-orbit} \lean{survivorKill}{CarrySurvivorExtinction.lean:412} \lean{tail\_diff\_notMem\_int\_of\_survivorKill}{CarrySurvivorExtinction.lean:428}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean}{8}{finite_carry_test_sound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean}{22}{finite_carry_candidate_count}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean}{27}{finite_carry_true_orbit}.}
 
 \begin{thm}[The block norm condition implies irrationality]\label{catalogue:mob:e1}
 Suppose that for every integer $h\ge1$ and every threshold $X_0\in\N$
@@ -2949,6 +3020,7 @@ specific numerical gap; an unspecified saving below $X$ is not the
 stated hypothesis.
 \par\noindent\ev{Lean} (conditional theorem proved; hypothesis \ev{Open}) \scale{cofinal} \coord{binary-digit} \lean{irrational\_totient\_series\_of\_first\_harmonic\_norm\_gap}{FirstHarmonicPivot.lean:83} \lean{exists\_certifiedKill\_of\_first\_harmonic\_gap}{FirstHarmonicGap.lean:128}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean}{71}{irrational_of_first_harmonic_norm_gap}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean}{40}{first_harmonic_re_bound_of_norm_bound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean}{54}{exists_certificate_of_first_harmonic_real_bound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean}{61}{exists_certificate_of_first_harmonic_norm_bound}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{thm}[A four-tail residue criterion]\label{catalogue:mob:e2}
 For nonnegative integers $H,p,L$, define the four-tail combination,
@@ -2988,6 +3060,7 @@ $W(H,p,L)\bmod2^L=18834$ and $B(H,p,L)=282$.
 
 \par\noindent\ev{Lean} (conditional theorem + \ev{Cert} witness; supply \ev{Open}) \scale{cofinal} \coord{other:lcm-diagonal} \lean{irrational\_totient\_series\_of\_primeJumpSharpKill\_supply}{PrimeJumpWindow.lean:193} \lean{primeJumpSharpKill\_twelve\_five}{PrimeJumpWindow.lean:186}
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean}{103}{four_tail_combination_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean}{93}{four_tail_window_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean}{81}{windowDiscrepancy_diagonal_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean}{113}{four_tail_error_bound}, and 5 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 % ; - part a249_p1b ; -
 \subsection{Consequences}
 
@@ -3042,6 +3115,7 @@ finite inequality that establishes the right-hand side.
 \par\noindent\ev{Lean} (equivalence)
 \lean{irrational_totientSeries_iff_actualLcmOrbitNonintegralitySupply}{TotientActualLcmOrbitNonintegrality.lean:37}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{29}{irrational_iff_diagonal_orbit_nonintegrality}.}
 
 \begin{prop}[A sufficient short-window condition]\label{prop:AR-07}
 Suppose that for every $a_0\in\mathbb N$ there are $a\ge a_0$
@@ -3061,6 +3135,7 @@ supply a depth below $2\cdot2^a$.
 \scale{cofinal}\ \ev{Open}\ \coord{mobius-mersenne}\\
 \lean{PowerTwoActualLcmShortArithmeticKillSupply}{TotientActualLcmOrbitArithmetic.lean:2107}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{56}{irrational_of_short_window_diagonal_supply}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{40}{diagonal_certificate_unfolded}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{68}{pointwise_completeness_supplies_some_depth}.}
 
 \begin{prop}[A sufficient approximation condition]\label{prop:SEP-03}
 Use the prescribed index $q_a$ and the error
@@ -3081,6 +3156,7 @@ stated margin. The depth is prescribed, not an additional free witness.
 \scale{cofinal}\ \ev{Open}\ \coord{mobius-mersenne}\\
 \lean{irrational_totientSeries_of_actualLcmOrbitSeparationSupply}{TotientActualLcmOrbitSeparation.lean:305}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{145}{irrational_of_diagonal_orbit_separation_supply}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{77}{prescribedOddIndex}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{80}{oddGuarded_depth_eq_prescribed}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{98}{abs_orbit_sub_rawApprox_lt}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[A sufficient upper-endpoint separation]\label{prop:TE-04}
 Let $a,J,K,m\in\mathbb N$, $a\ge8$, and $H=H(2^a)$. Assume
@@ -3108,6 +3184,7 @@ The required unbounded family is not established.
 \par\noindent\ev{Lean} (implication; quantified hypothesis \ev{Open})
 \lean{PowerTwoActualLcmTopEdgeResidueGapSupply}{TotientActualLcmTopEdgeStaircase.lean:1325}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean}{29}{upper_endpoint_condition_iff}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean}{38}{upper_endpoint_gap_nonintegral}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean}{50}{integral_tail_forces_upper_endpoint_residue}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean}{66}{irrational_of_upper_endpoint_gap_supply}.}
 
 \begin{prop}[Relations among the sufficient conditions]\label{prop:TE-05}
 The sufficient conditions do not form a single linear chain. The proved
@@ -3134,6 +3211,7 @@ required unbounded families is proved here.
 \par\noindent\ev{Lean} (implications; hypotheses \ev{Open})
 \lean{powerTwoActualLcmTopEdgeResidueGapSupply\_of\_adjacentSuffixMidband}{TotientActualLcmTopEdgeStaircase.lean:2108}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean}{80}{te_chain_relations}.}
 
 \begin{prop}[An exact endpoint formula]\label{prop:TE-06}
 Let $a,q\in\mathbb N$, $a\ge8$, and $H=H(2^a)$. Assume
@@ -3159,6 +3237,7 @@ sufficient. Its converse is not asserted.
 \par\noindent\ev{Lean}
 \lean{two_mul_actualOddHalfCenteredLift_eq_terminal_sub_trueCarry}{TotientActualLcmTopEdgeStaircase.lean:1678}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean}{142}{endpoint_identity}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean}{158}{integral_carry_strictly_between}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean}{187}{endpoint_criterion_nonintegral}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean}{116}{oddHalfCenteredLift_spec}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[A sufficient extension of the examples through exponent 6]\label{prop:SK-02}
 The supplied finite result is
@@ -3175,6 +3254,7 @@ thresholds in Proposition~\ref{prop:AR-07} unproved.
 \scale{bounded}\ \ev{Lean (finite prefix only)}\ \coord{mobius-mersenne}\\
 \lean{powerTwoActualLcmShortArithmeticKillSupply_through_six}{TotientActualLcmShortKill.lean:54}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{161}{short_window_diagonal_through_six}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean}{169}{short_window_diagonal_witnesses}.}
 
 \begin{prop}[A sufficient extremal-order condition]\label{prop:FR-01}
 Let $H\ge1$ and $j\ge0$. If
@@ -3197,6 +3277,7 @@ $a$. The elementary implication does not establish those occurrences.
 \scale{uniform}\ \ev{Lean}\ \coord{other:fixed-rank-curvature}\\
 \lean{MiddleRankTotientExtremal}{TotientFixedRankLcmAsymptotic.lean:267}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean}{27}{extremal_order_curvature_pos}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean}{36}{extremal_order_curvature_neg}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean}{45}{extremal_order_curvature_ne_zero}.}
 
 \begin{prop}[A directed certificate condition]\label{prop:CP-06}
 For fixed $h,N\in\N$, a depth $L\in\N$ satisfying
@@ -3207,6 +3288,7 @@ For fixed $h,N\in\N$, a depth $L\in\N$ satisfying
 exists if and only if $R_{N+h}-R_N\notin\mathbb Z$.
 The endpoint inequalities are non-strict.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean}{59}{directed_certificate_iff}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean}{71}{directed_certificate_example}.}
 
 \begin{proof}
 The exact truncation identity leaves an error $R_{N+h+L}-R_{N+L}$ strictly between
@@ -3257,6 +3339,7 @@ prime for each $h$.
 \scale{cofinal}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{irrational_totientSeries_of_cofinal_modFourPulseSurvivorKill}{TotientTailCarryPeriod.lean:1066}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean}{105}{irrational_of_modFour_pulse_supply}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean}{88}{rational_forces_pulse_class_integrality}.}
 
 \begin{prop}[The full quantified condition]\label{prop:A10}
 \[
@@ -3318,6 +3401,7 @@ finite set, is given in Theorem~\ref{catalogue:cert:b10a}.
 \scale{cofinal}\ \ev{Lean (implication; premise unproved)}\ \coord{mobius-mersenne}\\
 \lean{irrational_totient_series_of_lcm_cone_nonflat_supply}{CertificateKernel.lean:19140}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean}{12}{paperGridNumerator_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean}{36}{finite_grid_nonintegral_pair}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean}{49}{finite_grid_supply_irrational}.}
 
 \begin{prop}[Unbounded Farey bounds imply irrationality]\label{prop:C2sup}
 The Farey-gap denominator bound at window $K$ is currently $\sim 7.96\times10^{34}$ at $K=240$
@@ -3329,6 +3413,7 @@ The Farey-gap denominator bound at window $K$ is currently $\sim 7.96\times10^{3
 \scale{cofinal}\ \ev{Open}\ \coord{other:farey-gap}\\
 \lean{gap\_check\_window\_1\_240\_le\_79639646646701375323355774875831053}{GapFareyBound.lean:176}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyGapDenominatorExclusion.lean}{41}{gapCertificate_window_1_240}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyGapDenominatorExclusion.lean}{29}{irrational_totientSeries_of_fareyGapExclusionUnbounded}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyGapDenominatorExclusion.lean}{51}{gapFareyBound_window_1_240}.}
 
 \begin{prop}[The lower bound and a false proposed upper bound]\label{prop:D5cons}
 By Prop.~\ref{prop:D4-inv}, the canonical dyadic totient-kernel family is unconditionally
@@ -3348,6 +3433,7 @@ not to the counterfactual upper bound.
 \scale{uniform}\ \ev{Lean}\ \coord{other:carry-kernel-rank}\\
 \lean{not_irrational_totientSeries_implies_unbounded_carryRank_unconditional}{TotientCarryKernelRigidity.lean:300}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GenericCarryRankCeilingCounterexample.lean}{143}{rank_floor_and_false_proposed_carryRank_ceiling}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GenericCarryRankCeilingCounterexample.lean}{64}{fiveQuarter_comparison_rational_with_carryRank_floor}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GenericCarryRankCeilingCounterexample.lean}{100}{no_generic_rationality_carryRank_ceiling}.}
 
 \begin{prop}[Soundness of the finite carry test]\label{prop:B12cons}
 For fixed $h,N,K\in\mathbb N$, use the integer recurrences
@@ -3367,6 +3453,7 @@ finite test; no bound for a successful search depth is asserted.
 \scale{n/a}\ \ev{Lean}\ \coord{other:carry-orbit-dynamics}\\
 \lean{tail_diff_notMem_int_of_survivorKill}{CarrySurvivorExtinction.lean:428}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean}{8}{finite_carry_test_sound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean}{22}{finite_carry_candidate_count}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean}{27}{finite_carry_true_orbit}.}
 
 \subsection{Further exact identities}
 
@@ -3404,6 +3491,7 @@ Thus no coprimality assumption is imposed on the full expression.
 \scale{uniform}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{lcmRayArithmeticLetter_eq_deltaTotient}{TotientActualLcmOrbitArithmetic.lean:298}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean}{56}{lcmRayArithmeticLetter_eq_totient_difference}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean}{70}{totient_mul_eq_totient_mul_gcd_div_totient_gcd}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean}{86}{lcmRay_divisor_denominators_pos}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean}{104}{lcmRay_divisor_product_formula}, and 3 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[A lower bound for the totient of a rough integer]\label{prop:AR-03-inv}
 Let $a\ge8$, set $t=2^a$, and let $n>0$ be an integer all of
@@ -3422,6 +3510,7 @@ not pointwise bounds for arbitrary totient values.
 \scale{uniform}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{three_quarters_mul_lt_totient_of_rough_lt_two_pow}{TotientActualLcmOrbitArithmetic.lean:768}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean}{215}{rough_integer_prime_count_and_totient_bound}.}
 
 \begin{prop}[Positivity of the short-window differences]\label{prop:AR-05-inv}
 For $a\ge8$ and $1\le j<2\cdot2^a$,
@@ -3438,6 +3527,7 @@ still needed to obtain that theorem.
 \scale{uniform}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{lcmRayArithmeticLetter_pos_of_lt_two_mul}{TotientActualLcmOrbitArithmetic.lean:1703}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean}{229}{shortWindow_totient_difference_pos}.}
 
 \begin{prop}[The accumulated sum is the discrepancy]\label{prop:AR-06-inv}
 For all $t,L\in\mathbb N$, the weighted diagonal sum is exactly
@@ -3453,6 +3543,7 @@ restricted-depth witness.
 \scale{n/a}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{lcmDiagonalArithmeticKill_iff_certifiedKill}{TotientActualLcmOrbitArithmetic.lean:2045}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean}{241}{weighted_shortWindow_sum_eq_windowDiscrepancy}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean}{262}{weighted_shortWindow_band_iff_certifiedKill}.}
 
 \begin{prop}[A global-to-local identity]\label{prop:SEP-01-inv}
 \[
@@ -3464,6 +3555,7 @@ other rational-approximation arguments to use this particular translate.
 \scale{n/a}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{actualLcmTailOrbit_eq_scaled_totientSeries_sub_prefix}{TotientActualLcmOrbitSeparation.lean:68}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean}{24}{actualLcmTailOrbit_global_to_local}.}
 
 \begin{prop}[A rational approximation with an error bound]\label{prop:SEP-02-inv}
 For all $a,q\in\mathbb N$, with $H=H_{2^a}$ and the finite
@@ -3479,6 +3571,7 @@ optimality is made.
 \scale{uniform}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{abs_actualLcmTailOrbit_sub_rawApprox_lt}{TotientActualLcmOrbitSeparation.lean:141}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean}{39}{abs_actualLcmTailOrbit_sub_rawApprox_lt_explicit}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean}{49}{tendsto_actualLcmRawErrorRadius_atTop_nhds_zero}.}
 
 \begin{prop}[Unconditional positivity]\label{prop:SGN-01}
 For $a\ge8$, $J+(a+6)<2\cdot2^a$:
@@ -3493,6 +3586,7 @@ this gives $0<\Omega_a$.
 \scale{uniform}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{actualLcmTailDiff_shift_pos}{TotientActualLcmOrbitSign.lean:39}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean}{82}{actualLcm_tailDiff_shift_pos_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean}{89}{actualLcmTailOrbit_pos}.}
 
 \begin{prop}[The residue forced by integrality]\label{prop:SGN-03}
 Let $a,J,K\in\mathbb N$, $a\ge8$, $H=H(2^a)$, and assume
@@ -3514,6 +3608,7 @@ separate estimate must exclude this upper interval.
 \par\noindent\ev{Lean} \scale{uniform}
 \lean{actualLcm_integral_forces_topEdgeResidue}{TotientActualLcmOrbitSign.lean:211}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean}{105}{actualLcm_integral_forces_topEdgeResidue_paper}.}
 
 
 \begin{prop}[The penultimate term of a partial divisibility pattern]\label{prop:TE-02-inv}
@@ -3544,6 +3639,7 @@ at arbitrarily large $a$.
 \scale{bounded}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{puncturedDyadicStaircase_penultimate_eq_half}{TotientActualLcmTopEdgeStaircase.lean:1187}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean}{37}{penultimate_shortWindow_difference_eq_half}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean}{80}{dyadicScale_unique_in_open_interval}.}
 
 \begin{prop}[An equivalent test using two residue bits]\label{prop:TE-03-inv}
 For every $h,N\in\mathbb N$, existence of a certificate at some
@@ -3565,6 +3661,7 @@ it supplies no totient-specific assertion that a witness exists.
 \scale{uniform}\ \ev{Lean}\ \coord{seam-integer}\\
 \lean{exists_certifiedKill_iff_guardCylinderWitness}{TotientActualLcmTopEdgeStaircase.lean:844}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean}{129}{exists_certifiedKill_iff_twoBitResidueTest}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean}{104}{dyadicMixedGuard_iff_twoBitBand}.}
 
 \begin{prop}[The factor in a second difference]\label{prop:FR-02-inv}
 Let $a\ge4$ and $j\ge1$ be integers with $j^2\le2^a$, and put
@@ -3590,6 +3687,7 @@ establish sharpness within this restricted family.
 \scale{bounded}\ \ev{Lean}\ \coord{other:fixed-rank-curvature}\\
 \lean{two_mul_totient_dvd_fixedRankSecondDifference}{TotientFixedRankLcmAsymptotic.lean:519}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean}{219}{two_mul_totient_dvd_totient_second_difference}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean}{169}{fixedRank_cleanWindow_structure}.}
 
 \begin{prop}[Carry displacement and tail integrality]\label{prop:CP-01-inv}
 For a positive integer $v$ and a tempered integral totient carry $u$,
@@ -3604,6 +3702,7 @@ with its scaled tail; those hypotheses must be checked in each application.
 \scale{uniform}\ \ev{Lean}\ \coord{seam-integer}\\
 \lean{carryShift_dvd_iff_tailDiff_mem_int}{TotientTailCarryPeriod.lean:77}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TailCarryPeriodAndRankFloor.lean}{31}{carryShift_dvd_iff_tailDiff_integral}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TailCarryPeriodAndRankFloor.lean}{20}{temperedCarry_eq_scaledTail_and_shift}.}
 
 \begin{prop}[A consequence of rationality and its limitation]\label{prop:CP-02}
 If $S\in\mathbb Q$, there are a positive integer $v$ and a tempered
@@ -3618,6 +3717,7 @@ be deduced from these recurrence assumptions alone.
 \scale{uniform}\ \ev{Lean}\ \coord{other:carry-kernel-rank}\\
 \lean{not_irrational_totientSeries_implies_mod_period_and_unbounded_rank}{TotientTailCarryPeriod.lean:224}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TailCarryPeriodAndRankFloor.lean}{46}{rationality_forces_mod_period_and_unbounded_rank}.}
 
 \begin{prop}[A totient difference congruent to two modulo four]\label{prop:CP-05-inv}
 For every positive integer $h$ and every $B\in\mathbb N$, there is
@@ -3638,6 +3738,7 @@ remains a separate hypothesis.
 \scale{cofinal}\ \ev{Lean}\ \coord{other:dirichlet-crt}\\
 \lean{exists_prime_deltaTotient_four_mul_mod_four_two}{TotientTailCarryPeriod.lean:384}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean}{28}{exists_prime_totient_shift_four_mul_congr_two_mod_four}.}
 
 \begin{prop}[An arbitrarily long zero prefix followed by a two-adic pulse]\label{prop:TA-inv}
 Let $K\ge2$ and $H>K$ be integers. For every $B\in\mathbb N$ there
@@ -3682,6 +3783,7 @@ arbitrarily large $K$ for one fixed shift $H$.
 \scale{cofinal}\ \ev{Lean}\ \coord{p-adic}\\
 \lean{exists_prime_totient_twoAdic_pulse_divisors}{TotientTwoAdicPulseBlock.lean:54}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean}{81}{exists_prime_twoAdic_pulse_block}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean}{41}{pulse_delta_of_divisor_data}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean}{100}{exists_prime_integral_tailDiff_half_pulse}.}
 
 \begin{prop}[A M\"obius-inversion formula for the tail]\label{prop:MP-01-inv}
 
@@ -3706,6 +3808,7 @@ assert that every M\"obius or Lambert-series argument must use it.
 \scale{uniform}\ \ev{Lean}\ \coord{cyclotomic}\\
 \lean{totientTail_eq_tsum_shiftedMobiusPulse}{TotientShiftedMobiusPulse.lean:547}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean}{114}{forwardMultiple_spec}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean}{125}{forwardMultipleShift_least}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean}{139}{forwardMultiple_enumeration}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean}{151}{totientTail_eq_tsum_mobius_inversion}.}
 
 \begin{prop}[Explicit finite examples]\label{prop:SK-01-inv}
 The finite certificates
@@ -3721,6 +3824,7 @@ can be checked.
 \scale{fixed}\ \ev{Cert}\ \coord{mobius-mersenne}\\
 \lean{actualLcmTailOrbit_four_and_six_notMem_int}{TotientActualLcmShortKill.lean:35}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean}{36}{shortWindow_certificates_kill_omega_four_and_six}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean}{49}{shortWindow_inequalities}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean}{27}{actualLcmTailOrbit_eq_tail_difference}.}
 
 \begin{prop}[The necessary depth]\label{prop:A5-inv}
 Every certificate $\mathcal C(h,N,L)$ satisfies
@@ -3736,6 +3840,7 @@ stated modulus and does not reverse this implication.
 \scale{n/a}\ \ev{Lean}\ \coord{seam-integer}\\
 \lean{certifiedKill_depth_floor}{TotientTailPeriodKiller.lean:79}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean}{20}{certificate_logarithmic_depth}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean}{30}{fixed_depth_bounds_indices}, \lproof{Erdos249257/TotientTailPeriodKiller.lean}{79}{certifiedKill_depth_floor}.}
 
 \begin{prop}[Rationality gives an eventual tail period]\label{prop:A9-inv}
 Suppose $S=a/(2^c v)$ in lowest terms, where $a\in\mathbb Z$,
@@ -3760,6 +3865,7 @@ depth bound.
 \scale{uniform}\ \ev{Lean}\ \coord{other:euler-theorem}\\
 \lean{eventual_period_of_not_irrational}{TotientTailPeriodKiller.lean:358}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean}{65}{rational_tail_period_explicit_witnesses}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean}{56}{totient_one_eq_one}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean}{111}{eventual_tail_period_of_not_irrational}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean}{119}{irrational_of_certificate_supply}, and 2 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[Tail integrality on an LCM grid]\label{prop:B6-inv}
 If $S\in\mathbb Q$, there is $t_1\in\mathbb N$ such that for all
@@ -3776,6 +3882,7 @@ threshold supplied by any such rational value.
 \scale{n/a}\ \ev{Lean}\ \coord{mobius-mersenne}\\
 \lean{rational_totient_series_forces_lcm_cone_flatness}{CertificateKernel.lean:19002}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{8}{lcm_grid_flatness}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{27}{certificate_denominator_exclusion}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{40}{lcm_grid_supply_iff}.}
 
 \begin{prop}[Independence of the retained dyadic family]\label{prop:D4-inv}
 For every $e\ge0$, the auxiliary canonical dyadic family has
@@ -3790,6 +3897,7 @@ dimension is one. No rationality hypothesis on $S$ is used.
 \scale{n/a}\ \ev{Lean}\ \coord{other:carry-kernel-rank}\\
 \lean{card_totientCanonicalIndex}{TotientMahlerDefect.lean:61}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean}{21}{card_canonical_dyadic_index}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean}{26}{linearIndependent_canonical_dyadic_family}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean}{33}{canonical_family_basis_through_level}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean}{46}{canonical_level_zero_channels}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[The exact range of the stated Farey-gap inequality]\label{prop:C2-inv}
 Let $V$ be the totient residue at $(N,K)=(1,240)$ defined in
@@ -3813,6 +3921,7 @@ Proposition~\ref{prop:C3-inv}, approximately $7.96\times10^{34}$.
 \scale{fixed}\ \ev{Cert}\ \coord{other:farey-gap}\\
 \lean{gap_check_window_1_240_first_failure}{GapFareyBound.lean:225}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean}{26}{farey_window_1_240_exact_range}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean}{39}{farey_window_1_240_range_magnitude}.}
 
 \begin{prop}[The resulting denominator exclusion]\label{prop:C3-inv}
 For every reduced fraction $a/q$, with $a\in\mathbb Z$ and $q\ge1$,
@@ -3827,6 +3936,7 @@ does not rule out rational values with larger reduced denominators.
 \scale{fixed}\ \ev{Lean}\ \coord{other:farey-gap}\\
 \lean{tsum_totient_div_pow_two_ne_ratCast_of_den_le_79639646646701375323355774875831053}{CertificateKernel.lean:18384}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean}{49}{totient_series_ne_reduced_fraction_of_small_denominator}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean}{57}{totient_series_ne_int_div_of_small_denominator}.}
 
 \begin{prop}[Two general irrationality criteria]\label{prop:D1D2-inv}
 Let $x\in\mathbb R$. One sufficient condition is a sequence of
@@ -3851,6 +3961,7 @@ The linked declaration proves the first criterion.
 \scale{n/a}\ \ev{Lean}\ \coord{other:dirichlet-approximation}\\
 \lean{irrational_of_den_mul_abs_sub_tendsto_zero}{CertificateKernel.lean:5371}
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/CertificateKernel.lean}{5371}{irrational_of_den_mul_abs_sub_tendsto_zero}, \lproof{Erdos249257/CertificateKernel.lean}{5342}{one_div_den_mul_den_le_abs_sub}, \lproof{Erdos249257/CertificateKernel.lean}{6120}{irrational_of_int_mul_near_int}, \lproof{Erdos249257/CertificateKernel.lean}{6149}{irrational_of_pow_mul_near_int}, and 8 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[Lambert identities involving $S$]\label{prop:D7-inv}
 For $L(f)=\sum_{n\ge1}f(n)/(2^n-1)$, the identities are
@@ -3867,6 +3978,7 @@ Proposition~\ref{catalogue:cert:d7} and its table.
 \scale{n/a}\ \ev{Lean, Cited}\ \coord{mobius-mersenne}\\
 \lean{tsum_totient_div_pow_two_eq_pnat_half_pow}{CertificateKernel.lean:18415}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LambertSigmaRungAndNesterenko.lean}{38}{lambert_ladder_four_values}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LambertSigmaRungAndNesterenko.lean}{53}{primWeight_is_totient_conv_moebius}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LambertSigmaRungAndNesterenko.lean}{58}{totient_series_index_bridge'}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LambertSigmaRungAndNesterenko.lean}{80}{lambert_id_rung_eq_sigma_series}, and 2 further declarations. Conditional on Nesterenko's algebraic independence theorem; see the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[A general rational gap bound]\label{prop:D9-inv}
 If $a/b<c/d$ are reduced fractions with $b,d>0$, then
@@ -3891,6 +4003,7 @@ Proposition~\ref{prop:C2-inv}.
 \scale{n/a}\ \ev{Lean}\ \coord{other:farey-gap}\\
 \lean{positive_rational_difference_lower_bound}{PrimitiveRationalGapSupply.lean:31}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean}{138}{rational_gap_lower_bound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean}{146}{den_lower_bound_of_positive_error}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean}{164}{denominator_bound_tendsto_atTop_iff}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean}{189}{irrational_of_den_mul_error_product_tendsto_zero}, and 4 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[Diagonal certificates through $82$]\label{prop:B11-inv}
 The current aggregate establishes
@@ -3911,6 +4024,7 @@ Propositions~\ref{prop:A10}, \ref{prop:B3} and \ref{prop:B7}.
 \lean{certifiedKill_diagonal_all_imported}{DiagonalPincerCertificates.lean:2870}
 \lean{ErdosProblems.Skip.LadderT67.exists_diagonalKill_le_82}{ErdosProblems/Skip/LadderT67.lean:71264}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean}{57}{historical_table_size_and_initial_depths}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean}{64}{historical_table_and_complete_band}.}
 
 \begin{prop}[A coprime-pair expression for $S$]\label{prop:C1-inv}
 For $n\ge0$, the number of integer pairs $a\ge1$, $b\ge0$ with
@@ -3930,6 +4044,7 @@ binary digits or tail residues used elsewhere in the paper.
 \scale{n/a}\ \ev{Lean}\ \coord{other:visible-lattice-points}\\
 \lean{tsum_pos_coprime_pair_pow}{GeometricCoprimality.lean:182}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean}{218}{card_visible_antidiagonal}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean}{225}{totient_zero_eq_zero}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean}{228}{visible_antidiagonal_one}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean}{234}{positive_antidiagonal_one}, and 2 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \subsection{Counterexamples and limitations}
 
@@ -4343,6 +4458,7 @@ The first two values are $\Theta_1=1/2$ and $\Theta_2=S-1/2$.
 \quad \lean{Erdos249257.SignedQMomentObstruction.mobiusMersenneTheta_two_eq_totient_offset}{SignedQMomentObstruction.lean:214}
 \quad \ev{Lean} \quad \scale{fixed} \quad \coord{mobius-mersenne}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean}{23}{mobiusMersenneTheta_one_and_two}.}
 
 \noindent The second equality is the M\"obius-square identity credited in
 \S\ref{ssec:coprime}; whether $\Theta_2$ is rational is \#249 itself.
@@ -4353,6 +4469,7 @@ so the rational sequence $1-3^{-r}$ is strictly log-concave for every integer $r
 \lean{Erdos249257.SignedQMomentObstruction.mobiusMersenneTwoAtom_hankelGap}{SignedQMomentObstruction.lean:311}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{mobius-mersenne}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean}{35}{twoAtom_hankel_gap}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean}{43}{twoAtom_strict_logConcave}.}
 
 \begin{thm}[Strict log-concavity for all integer $r\ge1$]
 For every integer $r\ge1$,
@@ -4369,6 +4486,7 @@ the linked declarations prove the same strict inequality.
 \quad \lean{Erdos249257.SignedQMomentObstruction.mobiusMersenneTheta_hankel_two_neg}{SignedQMomentObstruction.lean:740}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{mobius-mersenne}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean}{52}{theta_strict_logConcave}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean}{58}{theta_hankel_det_neg}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean}{66}{theta_hankel_two_neg}.}
 \begin{proof}[A quantitative comparison]
 For this proof put $a_r=1-3^{-r}$ and $\varepsilon_r=1/(2^r(2^r-1))$.
 The preceding bound gives $|\Theta_r-a_r|\le\varepsilon_r$.
@@ -4471,6 +4589,7 @@ zero.
 \lean{Erdos249257.doublingOrbit_eq_zero_of_tempered}{GenericTailOrbitRigidity.lean:315}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:tail-orbit-rigidity}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean}{28}{doubling_tempered_sequence_eq_zero}.}
 
 \begin{obs}[The specified finite-state decoder is impossible]
 Fix $m\ge2$, put $R=\lfloor(m+1)/2\rfloor$, and for
@@ -4541,6 +4660,7 @@ ordering between $D$ and $H$.
 \lean{Erdos249257.SquaredMersenneDiagonalEnclosure.scaleDiagonalTailDifference_sub_lambertProjectedDiagonal}{SquaredMersenneDiagonalEnclosure.lean:138}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:squared-mersenne-tail}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean}{118}{tailDifference_sub_rationalApproximation}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean}{88}{tailDifference_eq_coefficient_mul_series}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean}{99}{totientSeries_pnat_form}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean}{106}{totientSeries_eq_half_add_moebius_sq}.}
 
 \begin{prop}[A geometric tail bound]
 For every integer $D\ge0$,
@@ -4554,6 +4674,7 @@ geometric majorant is $\sum_{j\ge0}4^{-j}=4/3$.
 \lean{Erdos249257.SquaredMersenneDiagonalEnclosure.abs_mobiusSquareTail_le}{SquaredMersenneDiagonalEnclosure.lean:167}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:squared-mersenne-tail}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean}{155}{abs_mobiusSquareTail_le_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean}{138}{abs_moebius_cast_le_one}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean}{144}{mersenne_geometric_shift}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean}{149}{tsum_quarter_geometric}.}
 
 \begin{obs}[One-sided and symmetric error bounds]
 Suppose $n>D$, $\mu(d)=0$ for $D<d<n$, and $|\mu(n)|=1$. Removing
@@ -4608,6 +4729,7 @@ $\operatorname{rad}(H)=\prod_{p\mid H}p$.
 \lean{Erdos249257.DiagonalFreshLossBridge.oldMobiusIncrement_eq_scale_gcdWordCoeff}{DiagonalFreshLossBridge.lean:653}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:gcd-word}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{68}{sum_divisorIndices_mobius}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{98}{sum_divisors_moebius_div_eq_totient_div}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{121}{sum_divisorIndices_radical_form}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{117}{squarefreeKernel_eq_prod_primeFactors}.}
 
 \begin{prop}[The divisor sum and its complement]
 For integers $H>0$ and $s\ge0$,
@@ -4628,6 +4750,7 @@ divides $s$, and its difference is then $\mu(d)H/d$.
 \lean{Erdos249257.DiagonalFreshLossBridge.diagonalHeightIncrement_eq_oldMobius_add_finiteForeign}{DiagonalFreshLossBridge.lean:829}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:gcd-word}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{217}{totientDifference_eq_divisorPart_add_complement}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{134}{totient_eq_mobius_divisor_sum}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{141}{divisorIndex_endpoint_behaviour}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{159}{complementSummand_eq_phaseTerm}.}
 
 \begin{thm}[Doubling the full totient difference]
 For nonnegative integers $H,r$ with $H$ even,
@@ -4645,6 +4768,7 @@ $\varphi(2n)=\varphi(n)$ for odd $n$.
 \quad \lean{Erdos249257.DiagonalFreshLossBridge.diagonalHeightIncrement_two_mul_odd}{DiagonalFreshLossBridge.lean:323}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:gcd-word}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{262}{totientDifference_doubling_seam}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{250}{totient_two_mul_even}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{255}{totient_two_mul_odd}.}
 
 \begin{obs}[Squarefree support of the complementary terms]
 A nonzero summand in the complementary sum must have a squarefree
@@ -4675,6 +4799,7 @@ alone is not a cancellation of their weighted contributions.
 \lean{Erdos249257.DiagonalFreshLossBridge.foreignChannelPhaseTerm_low_double_echo}{DiagonalFreshLossBridge.lean:941}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:gcd-word}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean}{289}{complementSummand_low_double_echo}.}
 
 \subsubsection{A numerator polynomial with explicit positive coefficients}
 \label{repunit-gcd-word}
@@ -4696,6 +4821,7 @@ subset-of-primes definition in the formal source.
 \quad \lean{Erdos249257.RepunitMobiusNumerator.gcdWordCoeff}{RepunitMobiusNumerator.lean:41}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:gcd-word}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{67}{paperNumerator_eq_gcdWordForm}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{82}{paperNumerator_coeff_pos}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{88}{paperNumerator_coeff_eq_zero}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{94}{paperNumerator_coeff_eq_gcd_divisor_sum}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{cor}
 For the same squarefree $r$, evaluation at $X=2$ gives the integer
@@ -4706,6 +4832,7 @@ Each quotient is an integer because $d\mid r$.
 \lean{Erdos249257.RepunitMobiusNumerator.mobiusNumeratorPolynomial_eval_two}{RepunitMobiusNumerator.lean:445}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:gcd-word}.
 \end{cor}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{111}{paperNumerator_eval_two}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{106}{mersenne_dvd_of_dvd}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{145}{paperNumerator_eval_two_primeSubsetForm}.}
 
 \subsubsection{Exact dyadic comparisons and tail bounds}
 
@@ -4745,6 +4872,7 @@ Indeed, $1-2^{-n}\ge3/4$. Summing over $n>m$, for an integer $m\ge1$, gives
 \quad \lean{Erdos249257.mersenneWeightRemainderTail_le_four_twentyone}{DyadicPrefixCompression.lean:1179}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:dyadic-carry}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{166}{mersenneRemainder_identity_and_bound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{156}{one_sub_half_pow_ge}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{208}{mersenneRemainderTail_le}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean}{182}{tsum_eighth_pow_tail}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \subsubsection{Squared distances between complex phases}
 
@@ -4766,6 +4894,7 @@ separation for the totient phases.
 \quad \lean{Erdos249257.TotientTailPeriodKiller.firstHarmonicAnchorDefect_eq}{PivotAntiReconstruction.lean:550}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:pivot-fiber}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{31}{sum_sq_dist_from_phase_one}.}
 
 \begin{lem}[Squared-distance bound for separated pairs]
 For a finite family $z:T\to\mathbb{C}$, a real number $\delta\ge0$, and any set of pairs $P\subseteq
@@ -4774,6 +4903,7 @@ T\times T$ each separated by $\ge\delta$, $|P|\cdot\delta^2 \le
 \lean{Erdos249257.TotientTailPeriodKiller.card_mul_sq_le_sum_pairwise_norm_sq_of_separatedPairs}{PivotAntiReconstruction.lean:720}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:pivot-fiber}.
 \end{lem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{40}{card_mul_sq_le_pairwise_energy}.}
 
 \subsubsection{Approximating the nondivisor terms}\label{sec:nondivisor-enclosure}
 
@@ -4818,6 +4948,7 @@ the nondivisor terms must still be included.
 \lean{Erdos249257.ActualForeignResidueProjection.scaleExplicitShadow_eq_sum_divisors_residueIncrement}{ActualForeignResidueProjection.lean:338}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:foreign-residue-projection}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{69}{divisorChannels_sum_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{50}{residueOffset_of_dvd}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{58}{residueKernel_increment_of_dvd}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{84}{scaleExplicitShadow_eq_divisorChannels}.}
 
 For $H>0$ and an integer cutoff $D\ge0$, set
 \[
@@ -4843,6 +4974,7 @@ Then $R_{2H}-R_H\notin\Z$.
 \lean{Erdos249257.ActualForeignResidueProjection.scaleFullTarget_miss_of_projected_separation}{ActualForeignResidueProjection.lean:414}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:foreign-residue-projection}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{119}{tailDifference_not_integral_of_separation}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{103}{projectedForeignDefect_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{110}{foreignComplementBound_paper}.}
 \begin{proof}
 If $R_{2H}-R_H=z\in\Z$, the two hypotheses give opposite inequalities
 for $|A_H+P_{H,D}-z|$.
@@ -4910,6 +5042,7 @@ $\varphi(1)=1$.
 \lean{GeometricCoprimality.card_antidiagonal_filter_pos_coprime}{GeometricCoprimality.lean:56}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:coprime-lattice}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{147}{card_coprime_antidiagonal}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean}{154}{boundary_pair_at_one}.}
 
 \begin{prop}[Two lattice sums]
 For $0\le r<1$, the two choices of boundary give
@@ -4933,6 +5066,7 @@ This total is $1$ exactly when $r=1/2$.
 \quad \lean{GeometricCoprimality.tsum_gcd_layer_pos_coprime_pow}{GeometricCoprimality.lean:328}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:coprime-lattice}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean}{27}{tsum_totient_pow_shift}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean}{38}{coprimeLattice_halfOpen_sum}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean}{46}{coprimeLattice_positive_sum}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean}{53}{coprimeLattice_removed_pair}, and 2 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{thm}[The classical coprime-pair Lambert identity]
 For every $0\le r<1$, $\sum_{(a,b)\ \mathrm{coprime},\, a,b\ge 1}
@@ -4950,6 +5084,7 @@ Adding the boundary pair $(1,0)$ recovers $S$ in the plain-weight sum.
 \lean{GeometricCoprimality.tsum_pos_coprime_lambert_eq_sq}{GeometricCoprimality.lean:407}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:coprime-lattice}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean}{106}{coprimeLattice_lambert_identity}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean}{114}{coprimeLattice_lambert_rational}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean}{127}{coprimeLattice_lambert_half_eq_one}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean}{46}{coprimeLattice_positive_sum}, and 2 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{obs}
 The Lambert-weighted sum is rational at every rational $r\in[0,1)$.
@@ -5001,6 +5136,7 @@ but the displayed product would be $1$.
 \quad \lean{Erdos249257.TotientTailPeriodKiller.totient_periodLcm_ray_split}{LcmDiagonalReduction.lean:208}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:lcm-diagonal}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{57}{short_lcm_window_nondivisor}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{67}{clean_lcm_ray_factorisation}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{76}{unclean_lcm_ray_counterexample}, \lproof{Erdos249257/CarrySurvivorExtinction.lean}{525}{dvd_periodLcm}.}
 
 \begin{obs}[Finite diagonal examples]
 The cited file proves $\mathcal C(H_t,H_t,L)$ at the following depths:
@@ -5039,6 +5175,7 @@ resultant hypothesis left open.
 \quad \lean{ErdosProblems.Erdos249.CyclotomicAnchoredKill.mersenneLayer_unboundedPrimeDivisorSupply}{ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean:105}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:cyclotomic-anchor}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean}{33}{mersenneLayer_prime_divisor_order}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean}{63}{mersenneLayer_unbounded_prime_support}.}
 
 \begin{thm}[A prime satisfying the stated cyclotomic conditions]
 For every period $h>0$ and threshold $N_0$, there exist a prime $q$ and a
@@ -5051,6 +5188,7 @@ $p\mid h$).
 \quad \lean{ErdosProblems.Erdos249.CyclotomicAnchoredKill.binaryCyclotomicLayer_prime_order_decomposition}{ErdosProblems/Erdos249/CyclotomicAnchoredKill.lean:1431}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:cyclotomic-anchor}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean}{73}{exists_clean_cyclotomic_anchor_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean}{84}{cyclotomic_layer_prime_order_decomposition_paper}.}
 
 \begin{obs}
 The first theorem uses the multiplicative order of $2$ modulo a prime.
@@ -5124,6 +5262,7 @@ $\Phi_6(2)=3$, but $6\nmid3-1$. For the binary cyclotomic family, choosing
 $q>\max(m,2^m)$ removes these exceptional indices. Other families require
 their own proof of the divisibility and nontriviality assumptions.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean}{94}{boundedDegreeOrderConsumer_unfolded}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean}{101}{coprime_of_dvd_pow_sub_one}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean}{113}{dvd_pow_sub_one_iff_orderOf_dvd}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean}{136}{boundedOrder_witness_iff_orderOf_le}, and 8 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \subsubsection{The lower bound for rank-one quotients}
 \label{rank-one-subrank}
@@ -5151,6 +5290,7 @@ In particular, these inequalities make the denominator positive.
 \quad \lean{ErdosProblems.Erdos249.RankOneSubrankObstruction.mobiusMersenneTheta_ge_alpha}{ErdosProblems/Erdos249/RankOneSubrankObstruction.lean:163}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:rank-one-subrank}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/RankOneSubrankObstruction.lean}{238}{rankOneSubrankQuotient_sub_theta_two_gt}, \lproof{ErdosProblems/Erdos249/RankOneSubrankObstruction.lean}{163}{mobiusMersenneTheta_ge_alpha}, \lproof{ErdosProblems/Erdos249/RankOneSubrankObstruction.lean}{196}{mobiusMersenneTheta_lt_one}, \lproof{ErdosProblems/Erdos249/RankOneSubrankObstruction.lean}{73}{abs_mobiusMersenneTheta_sub_prefix_le}, and 2 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{prop}[The bound is preserved by positive normalised averaging]
 For a nonempty finite family of admissible quotients with positive
@@ -5205,6 +5345,7 @@ order-three and order-four factors into one doubling chain.
 \quad \lean{ErdosProblems.Erdos249.PeriodMultipleEscape.totientBlock_two_mul}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:373}
 \quad \ev{Lean} \quad \scale{uniform} \quad \coord{other:lcm-period-multiple}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean}{23}{totientBlock_eq_paper_indexed_sum}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean}{41}{totientBlock_concatenation}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean}{46}{totientBlock_doubling}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean}{53}{cyclotomic_four_eval}, and 5 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{obs}[An equivalent quantified condition]
 \lean{ErdosProblems.Erdos249.PeriodMultipleEscape.periodMultipleKillSupply_iff_irrational}{ErdosProblems/Erdos249/PeriodMultipleEscape.lean:432}
@@ -5827,6 +5968,7 @@ For all $h,X,L$ with $0<X$ and the room condition $16(2X{+}h{+}L{+}2)\le 2^L$, i
 \]
 then $\exists N\in[X,2X)$ with $\mathcal{C}\ h\ N\ L$.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean}{23}{windowFirstCos_unfolded}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean}{34}{exists_certifiedKill_of_block_real_part_bound}.}
 
 \begin{thm}[The same implication for a nonempty subset]
 \label{thm:hgap-subset}
@@ -5841,6 +5983,7 @@ Theorem~\ref{thm:hgap-real}: $T$ can be \emph{any} explicitly chosen nonempty fi
 dyadic block, not the whole block, and the proof (an averaging pigeonhole, \S below) never uses
 that $T$ has positive density or comes from a partition.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean}{50}{exists_certifiedKill_of_subset_real_part_bound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean}{65}{block_real_part_bound_of_subset_form}.}
 
 \begin{thm}[A norm bound gives the real-part criterion]
 \label{thm:hgap-norm}
@@ -5866,6 +6009,7 @@ proved in full, with no further gap, by chaining
 Theorem~\ref{thm:hgap-norm}$\to$Theorem~\ref{thm:hgap-real}$\to$
 \lean{irrational_totient_series_of_certificate_supply}{TotientTailPeriodKiller.lean:394}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean}{86}{blockNormCondition_unfolded}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean}{97}{real_part_bound_of_norm_bound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean}{110}{exists_certifiedKill_of_block_norm_bound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean}{118}{irrational_of_blockNormCondition}.}
 
 \begin{obs}[What remains unproved]
 \label{obs:no-instance}
@@ -5932,6 +6076,7 @@ $a$: it rests on two facts proved for all $a\ge 8$ by a two-case structural spli
 vs.\ foreign prime power), with absolute constants $4,8,32$ and no lookup table; \lean{lcmRayArithmeticLetter_pos_of_lt_two_mul}{TotientActualLcmOrbitArithmetic.lean:1703} and
 \lean{periodLcm_lt_eight_mul_t_mul_lcmRayArithmeticLetter}{TotientActualLcmOrbitArithmetic.lean:1906}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{39}{actualLcm_corridor_pos}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{49}{corridor_letter_pos}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{56}{corridor_height_lt_letter}.}
 
 \begin{rem}[Which endpoint interval must be excluded]
 Under the hypotheses of Proposition~\ref{prop:SGN-03}, integrality would
@@ -5966,6 +6111,7 @@ forces ${R}(2H{+}J) - {R}(H{+}J)\notin\mathbb Z$. No lower margin
 at all is demanded. The proof chain is complete: the theorem holds for every $a\ge 8$, and
 \emph{\m{\text{cofinal upper-endpoint condition}} $\Rightarrow$ Irrational $S$} is proved.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{64}{topEdgeResidueGap_unfolded}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{75}{topEdgeResidueGap_forces_nonintegral}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{83}{topEdgeResidueGap_orbit_nonintegral}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{92}{irrational_of_topEdgeResidueGapSupply}.}
 
 \begin{defn}[The unproved quantified condition]
 \lean{PowerTwoActualLcmTopEdgeResidueGapSupply}{TotientActualLcmTopEdgeStaircase.lean:1325}.
@@ -6027,6 +6173,7 @@ $\Leftrightarrow$ half-word-band at \lean{}{TotientActualLcmTopEdgeStaircase.lea
 flexible-magnitude $\to$ midband at \lean{}{TotientActualLcmTopEdgeStaircase.lean:2008};
 final-magnitude $\to$ flexible-magnitude at \lean{}{TotientActualLcmTopEdgeStaircase.lean:1993}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean}{56}{paperTeChain_item_one_unfolded}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{113}{teChain_item_two_unfolded}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{124}{teChain_item_three_unfolded}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{133}{teChain_item_four_unfolded}, and 11 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \subsubsection{A bound on the last totient difference}
 
@@ -6054,6 +6201,7 @@ and
 integrality of \m{\Omega_a}, and the supply predicate composes to
 \m{S\notin\mathbb Q}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{217}{terminalDominance_orbit_nonintegral}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{228}{irrational_of_terminalDominanceSupply}.}
 
 \begin{obs}[How the sign and size bounds enter the contradiction]\label{obs:staircase-tension}
 Use the hypotheses and notation of Proposition~\ref{prop:TE-06}. Under
@@ -6088,6 +6236,7 @@ implies corridor escape via a clean sign split (positive branch escapes above th
 negative branch escapes below the directed bound), without prescribing the sign of the centred representative. Neither
 branch is supplied by the conditional sign identity itself.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{236}{irrational_of_lower_escape_supply}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{252}{corridor_escape_and_irrational_of_magnitude}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{133}{teChain_item_four_unfolded}.}
 
 \subsubsection{Separation of a rational approximation}
 
@@ -6103,6 +6252,7 @@ where $\rho_{a,q}$ is an explicit finite computable rational block. For fixed $a
 condition below, however, the depth is prescribed, so increasing $q$
 is not a free way to satisfy the separation hypothesis.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{276}{abs_actualLcmTailOrbit_sub_rawApprox_lt_paper_form}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{266}{two_pow_odd_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{312}{actualLcmRawApprox_isRat}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean}{294}{actualLcmRawErrorRadius_tendsto_zero}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{rem}[Scope of the implication]
 A cofinal $1/32$-separation of the raw approximants at the prescribed
@@ -6156,6 +6306,7 @@ This proves the displayed bounded statement. It does not construct
 witnesses for unbounded thresholds; further finite checks would extend
 the verified range, not establish the universally quantified condition below.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean}{29}{shortWindowSupply_through_six_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean}{38}{shortWindowSupply_single_witness_six_ninetyThree}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean}{47}{shortWindowSupply_witness_eq_t64_certificate}.}
 
 \begin{defn}[The additional hypothesis]
 $\text{cofinal short-window condition}$: \ev{Open}, \scale{cofinal}.
@@ -6200,6 +6351,7 @@ not every totient between the endpoints $12252241$ and $24504506$.
 These computations verify the listed cases; they do not give a formula
 producing a certificate for every $t$.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DiagonalCertificateTableScales.lean}{22}{diagonalPincerCertificateScales_list}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DiagonalCertificateTableScales.lean}{26}{diagonalPincerKillDepth_list}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DiagonalCertificateTableScales.lean}{33}{certifiedKill_diagonal_table}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DiagonalCertificateTableScales.lean}{40}{exists_diagonalKill_on_table}, and 3 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{rem}[The observed depths are finite data]
 \lean{certifiedKill_depth_floor}{TotientTailPeriodKiller.lean:79} forces $2(2H_t{+}L{+}2)<2^L$,
@@ -6218,6 +6370,7 @@ This asks for a certificate within a fixed additive constant of the
 necessary logarithmic depth bound. The uniform constant is an additional
 requirement, not a consequence of the finite data.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean}{58}{irrational_of_logarithmicDepth_diagonal_supply}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean}{72}{irrational_of_restrictedDepth_diagonal_supply}.}
 
 \subsubsection{One common certificate for sixteen shifts}
 
@@ -6236,6 +6389,7 @@ $1\le h\le16$. The exact computation uses two nine-term windows for
 each shift and reduces their discrepancy modulo $2^9$. The earlier
 eight-shift computation uses basepoint $12$ and depth $16$.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean}{85}{commonCertificate_sixteen_shifts_basepoint_fourteen}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean}{91}{totientSeries_ne_rat_of_den_dvd_two_pow_fourteen_mul_mersenne}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean}{98}{commonCertificate_eight_shifts_basepoint_twelve}.}
 
 \begin{rem}[Finite simultaneity and the unbounded condition]
 The displayed computation concerns only $N=14$, $L=9$ and
@@ -6256,6 +6410,7 @@ The existence of a function $f:\N\to\N$ with $f(N)\to\infty$ such that
 is equivalent to irrationality of $S$. Under irrationality, one can
 take $f(N)=N+1$, and every $N$ has a suitable depth. \ev{Math}
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SimultaneousShiftCertificateDepth.lean}{131}{exists_growingShift_simultaneous_certificate_iff_irrational}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SimultaneousShiftCertificateDepth.lean}{122}{exists_simultaneous_depth_succ_of_irrational}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/SimultaneousShiftCertificateDepth.lean}{89}{exists_simultaneous_depth_of_irrational}.}
 \begin{proof}
 The displayed condition supplies Proposition~\ref{prop:A10}'s
 quantified certificate condition: for fixed $h\ge1$, choose the
@@ -6298,6 +6453,7 @@ its reduced denominator exceeds $7.9639646646701375323355774875831053\times 10^{
 numeral in the declaration name). This is the finite denominator exclusion in the
 corpus, logically independent of the certificate-supply reduction.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean}{23}{totientSeries_rational_den_gt_fareyBound}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean}{31}{farey_gap_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean}{39}{gapCheck_window_1_240_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean}{48}{gapCheck_window_1_240_first_failure_paper}.}
 
 \begin{rem}[What a larger Farey bound requires]
 Unbounded valid denominator exclusions would imply $S\notin\Q$.
@@ -6348,6 +6504,7 @@ continued-fraction denominators of $S$ is asserted; such a comparison
 would require its own proof connecting those convergents to the
 certified intervals.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean}{68}{irrational_of_unbounded_window_one_gapCheck}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean}{58}{gapCheck_window_one_excludes}.}
 
 \subsubsection{A two-adic congruence that does not give a certificate}
 
@@ -6365,6 +6522,7 @@ $p>B$ with a length-$(K{-}1)$ zero prefix and a terminal half-modulus, giving
 Under eventual integrality this transfers to an integer $z$ with $(z:\mathbb R) =
 {R}(p{+}H) - R_{p}$ and $z\equiv 2^{K-1}\pmod{2^K}$.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean}{26}{exists_prime_twoAdic_half_pulse_window}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean}{41}{eventual_integral_tailDiff_twoAdic_half_pulse}.}
 
 \begin{rem}[Why the central residue still fails the test]
 This lands the residue at the exact centre of the residue-certificate arc: $2^{K-1}$ is maximally far
@@ -6395,6 +6553,7 @@ weighted sum $D(h,N,L)$, not on a single totient difference.
 An unbounded set of triples with no control of the shift does not
 supply the displayed quantifiers. The required family remains unproved.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean}{77}{irrational_of_accumulated_halfModulus_supply}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean}{53}{certifiedKill_of_halfModulus_residue}.}
 
 \subsubsection{The residue margin at an LCM jump}
 
@@ -6410,6 +6569,7 @@ The condition
 asks for the additional residue margin along this explicit sequence.
 Knowing these jump positions does not establish that margin.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean}{26}{exists_periodLcm_strict_jump_ge_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean}{31}{periodLcm_strict_jump_at_prime_pred}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean}{46}{periodLcm_strict_jump_at_powerTwo_pred}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean}{59}{periodLcm_zero_and_one_eq_one}.}
 
 \begin{defn}[The remaining residue margin]
 For $t\ge3$, put $H=H_t$ and define
@@ -6468,6 +6628,7 @@ This is the sufficient condition defined above, not a claim that the
 inequality holds at arbitrarily large indices. Equality at the edge
 is allowed: the condition is nonnegativity, not strict positivity.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean}{90}{irrational_of_powerTwo_postJump_slack_supply}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean}{68}{canonicalAdjacentSuffixCentralSlack_paper_formula}.}
 
 \subsubsection{A certificate for a four-tail combination}
 
@@ -6486,6 +6647,7 @@ $4pH+(p+1)(L+2)$ bound obtained by treating the two diagonal
 differences separately, it saves $pH$. This is a strict improvement
 when $pH>0$; optimality for totient tails is not asserted.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{36}{primeJumpTailCommutator_notMem_int_of_central_window}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{31}{primeJumpSharpRadius_formula}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{45}{primeJumpSharpRadius_saves_pH}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{52}{primeJumpSharpRadius_lt_twoCellRadius}.}
 
 \begin{thm}[One explicit witness]
 \lean{primeJumpSharpKill_twelve_five}{PrimeJumpWindow.lean:186}. \ev{Cert}. \scale{fixed}.
@@ -6500,6 +6662,7 @@ claim of uniqueness or of the smallest possible height. The implication
 from a quantified family is
 \lean{irrational_totient_series_of_primeJumpSharpKill_supply}{PrimeJumpWindow.lean:193}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{62}{periodLcm_four_eq_twelve}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{68}{primeJump_witness_twelve_five_values}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{76}{primeJumpTailCommutator_twelve_five_notMem_int}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{81}{irrational_of_primeJumpSharp_supply}.}
 
 \begin{rem}[Scope of the witness]
 The quantified hypothesis asks, for every $t_0\in\mathbb N$, for
@@ -6542,6 +6705,7 @@ bounds. The divisibility follows from
 Proposition~\ref{catalogue:mob:b6}; divisibility of a positive reduced
 denominator also gives the product inequality.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{110}{upperHalfMersenneProduct_between_bounds}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{123}{exists_upperHalf_channel_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{98}{upperHalfPrimes_nonempty_paper}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{103}{upperHalfPrimes_member_bounds}, and 2 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{rem}[Growth of these denominators does not give approximation of $S$]
 The number $H_t\beta_{H_t}$ is the finite rational contribution to a
@@ -6575,6 +6739,7 @@ term. The denominator theorem alone contains no such separation
 statement. Neither sufficient argument is established by its lower
 bound, and these are not claimed to exhaust possible approaches.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{137}{irrational_totientSeries_of_rational_separation}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean}{149}{den_mul_abs_sub_ge_one_div_den}.}
 
 \subsubsection{Rationality and carry rank}
 
@@ -6590,6 +6755,7 @@ all sections through level $e$, of dimension $2^e+1$. The proof uses the
 Chinese remainder theorem and Dirichlet's theorem. The complete level-zero
 truncation, consisting only of $\varphi$, has dimension one.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean}{79}{retainedSections_basis_and_rank}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean}{93}{completeLevelZeroTruncation_is_totient_and_rank_one}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean}{33}{canonicalTotientKernelFamily_entries}.}
 
 \begin{thm}
 \lean{not_irrational_totientSeries_implies_unbounded_carryRank_unconditional}{TotientCarryKernelRigidity.lean:300}.
@@ -6602,6 +6768,7 @@ $u_{N+1}=2u_N-v\varphi(N+1)$, and $0\le u_N\le v(N+2)$. For every $e\ge0$,
 \]
 The proof is given in Section~\ref{sec:mahler-defect}.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean}{129}{rationalValue_integral_carry_and_rank_floor}.}
 
 \begin{rem}[The generic upper-bound inference is false]
 The bound $2^e-1$ holds at every level. An upper bound contradicting it
@@ -6632,6 +6799,7 @@ quotient; it does not bound the rational span of the integer-valued
 sections. The $5/4$ comparison shows that this distinction persists for
 a rational coefficient series.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean}{238}{rationalControl_periodic_with_unbounded_carry_rank}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean}{256}{rationality_gives_mod_period_and_unbounded_rank}.}
 
 \subsection{What the preceding comparisons show}
 
@@ -6737,6 +6905,7 @@ every \(N,G,K\) there is a block of \(K\) explicit \((6,0)\) carry-pulse
 pairs beyond \(N\), each pair separated by more than \(G\); and
 \(\sum_n c(n)/2^n = 3/2\).
 \end{prop}
+\leannote{Lean: \lproof{Erdos249257/TotientParityCoboundaryCountermodel.lean}{227}{parityCoboundaryWeight_le_six}, \lproof{Erdos249257/TotientParityCoboundaryCountermodel.lean}{155}{parityCoboundaryWeight_le_self}, \lproof{Erdos249257/TotientParityCoboundaryCountermodel.lean}{194}{parityCoboundaryWeight_mod_two_eq_totient}, \lproof{Erdos249257/TotientParityCoboundaryCountermodel.lean}{457}{exists_later_arbitrarily_many_separated_parityCoboundaryWeight_carry_pairs}, and 1 further declaration in the \hyperref[sec:coverage]{coverage section}.}
 \lean{Erdos257PeriodNoncollapse.exists\_totientParity\_arbitrarilyManySeparatedCarry\_rational\_countermodel}{TotientParityCoboundaryCountermodel.lean:637}
 (sum computation \lean{tsum\_parityCoboundaryWeight\_eq\_three\_halves}{TotientParityCoboundaryCountermodel.lean:359}; non-periodicity
 \lean{parityCoboundaryWeight\_not\_eventually\_periodic}{TotientParityCoboundaryCountermodel.lean:487}; exact parity match
@@ -6834,6 +7003,7 @@ denominator of $cx$ divides $H$, then
  b/H\mid c.
 \]
 \end{lem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ScalarLocalisationAndInversePhaseGauge.lean}{29}{complementDenominator_dvd_scalar}.}
 \lean{Erdos249257.AdelicHeightObstruction.scalarLocalization\_complement\_dvd}{AdelicHeightObstruction.lean:23}.
 Indeed, the hypothesis makes $Hcx=Hca/b$ integral. Since
 $\gcd(a,b)=1$, it follows that $b\mid Hc$, hence $b/H\mid c$.
@@ -6918,6 +7088,7 @@ If $u_m$ is odd, then
 \]
 In particular, the sum is nonzero.
 \end{lem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean}{8}{signed_dyadic_clearing}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean}{28}{signed_dyadic_sum_ne_zero}, \lproof{Erdos249257/SignedQMomentObstruction.lean}{78}{scaled_dyadic_sum_odd}.}
 Every term except $u_m$ is even, which proves the assertion. For
 example, $1/2-1/8=3/8$ has odd cleared numerator. Uniqueness is
 necessary for this argument: two odd contributions with the same
@@ -6970,6 +7141,7 @@ Multiplying column $j$ by $W_j=z_j^{-1}$ gives
 Thus a nonzero determinant remains nonzero while row $i_0$ becomes
 constant. If all $|z_j|=1$, its absolute value is also unchanged.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/ScalarLocalisationAndInversePhaseGauge.lean}{51}{inversePhaseGauge_locks_row_and_preserves_minor}.}
 The entry formula and the determinant of a product prove the statement
 (\lean{Erdos249257.locked\_reconstruction\_preserves\_nonzero\_minor}{ResidualGaugeObstruction.lean:94},
 \lean{det\_residualMonomialMatrix}{ResidualGaugeObstruction.lean:47}).
@@ -7011,6 +7183,7 @@ assert a smaller successful depth than the diagonal test.
 {R}(q\cdot{H}(t)) \in
 \mathbb Z\).
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean}{8}{lcm_grid_flatness}.}
 \lean{rational\_totient\_series\_forces\_lcm\_cone\_flatness}{CertificateKernel.lean:19002} (body
 lcm cone flatness source). \ev{Lean} \scale{uniform} (for all
 sufficiently large \(t\), \emph{given} rationality) \coord{other:lcm-ray-totient}.
@@ -7033,6 +7206,7 @@ Then $R_{q_jH}-R_{q_iH}\notin\mathbb Z$ for some $q_i,q_j\in Q$.
 The proof and a four-point example are given in
 Theorem~\ref{catalogue:cert:b10a}.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean}{12}{paperGridNumerator_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean}{36}{finite_grid_nonintegral_pair}.}
 \lean{exists\_nonintegral\_pair\_of\_coneNonflatCert}{LcmConeNonflat.lean:126} (quantified assertion
 \lean{irrational\_totient\_series\_of\_lcm\_cone\_nonflat\_supply}{CertificateKernel.lean:19140}). \ev{Lean}
 \scale{bounded} (proved for each finite set satisfying the hypotheses;
@@ -7096,6 +7270,7 @@ is linearly independent over $\Q$. It contains $2^e+1$ sequences
 (\lean{card\_totientCanonicalIndex}{TotientMahlerDefect.lean:61}) and spans
 the sections through level $e$ by the zero- and even-residue reductions.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean}{33}{canonicalTotientKernelFamily_entries}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean}{53}{canonicalTotientKernelFamily_independent_card_and_span}.}
 The forms $n$ and $2n$ are proportional, so their coefficients need a
 separate argument. Restrict a proposed relation to $n=2m+1$, where $\ph(2n)=\ph(n)$.
 The odd-residue sections and $\ph(n)$ then correspond to pairwise
@@ -7602,6 +7777,7 @@ number:
 Hence, for fixed $h$, the phases $\{\,R_{N+h}-R_N \bmod 1\,\}_{N\ge 0}$ are
 the forward orbit of $\alpha_h \bmod 1$ under $x\mapsto 2x$.
 \end{lem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean}{26}{orbit_tail_recurrence}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean}{32}{orbit_tail_diff_eq}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean}{41}{orbit_tail_diff_sub_scaled_is_int}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean}{53}{orbit_tail_diff_firstChar_eq}, and 2 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \noindent
 The second identity and the character form are proved:
@@ -7626,6 +7802,7 @@ Suppose that
 \]
 This hypothesis implies that $S$ is irrational.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean}{92}{irrational_totientSeries_of_block_cosine_gap}.}
 
 \begin{proof}
 Fix $h\ge 1$ and $X_0$, and take $X$ as supplied. Choose $L\ge h$ with
@@ -7670,6 +7847,7 @@ exactly a change between binary digits $N+1$ and $N+2$. Thus the same
 sufficient hypothesis asks for at least $11X/100$ such changes, counted
 with $X\le N<2X$, on arbitrarily large blocks for every $h$.
 \end{cor}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean}{121}{irrational_totientSeries_of_quarterFarPhase_proportion}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean}{146}{quarterFarFromInt_iff_binaryDigitAt_change}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean}{233}{irrational_totientSeries_of_digitChange_count}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean}{95}{irrational_totientSeries_of_quarterFarPhase_count}, and 3 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{proof}
 The inequality $\|x\|_{\R/\Z}\ge1/4$ gives $\cos(2\pi x)\le0$.
@@ -7849,6 +8027,7 @@ and the bound $c(n)\le n$ do not imply the block gap. A proof for $S$
 needs an additional property not shared by this example; the comparison
 does not specify which additional property will suffice.
 \end{thm}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean}{68}{lacCoef_bounds}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean}{88}{lacBeta_eq_factorial_series}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean}{121}{irrational_lacBeta}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean}{333}{lacunary_block_cos_gap}, and 2 further declarations in the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{proof}
 The binary expansion of $\beta$ has infinitely many ones separated by
@@ -7956,6 +8135,7 @@ integers at most $x$ whose prime factors are all at most $y$.
 This is an upper bound for the unassigned count, not an asymptotic equality
 for that count.
 \end{prop}
+\leannote{Not formalised: the bound on the largest prime factor at an unassigned index is checked, and the passage from it to the count of smooth integers in the two intervals, with the asymptotic evaluating that count, is not. See the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{proof}
 Let $p=P(n)$ and $m=n/p$. Since $n>1$, failure of the assignment condition
@@ -8006,6 +8186,7 @@ required. It supplies only the excluded-cofactor bound: the mean and
 mean-subtracted estimates must still hold for this same $\eta$, and do
 not follow from making $\eta$ smaller.
 \end{prop}
+\leannote{Not formalised: the counting function of indices with excluded cofactor is carried by the development, and neither Schoenberg's density theorem nor the partial summation over the cofactors is formalised. See the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{proof}
 For a fixed cofactor $m\le\sqrt X/2$, each assigned index gives a prime
@@ -8292,6 +8473,7 @@ with the proved strip $|R_{M+h}-R_M|<M+h+2$
 $\mathcal{C}(h,N,h)$ holds whenever
 $\bigl\|2^{N+h}S-2^{N}S\bigr\|_{\R/\Z}>2(N+2h+2)/2^{h}$.
 \end{prop}
+\leannote{Lean: \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean}{130}{certifiedKill_of_fullDepth_phase_separation}, \lproof{ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean}{119}{bracket_of_two_sided_separation}.}
 
 \begin{proof}
 $\|D(h,N,h)/2^{h}\|\ge\|R_{N+h}-R_N\|-|R_{N+2h}-R_{N+h}|/2^{h}
@@ -9352,6 +9534,7 @@ implication is applied.
 
 \subsection*{Formalisation coverage and remaining dependencies}
 \label{sec:coverage}
+\papersectiontarget{coverage}
 
 Every theorem, lemma, proposition and corollary of this record other than the
 five listed below has a Lean statement of the same assertion, with the same

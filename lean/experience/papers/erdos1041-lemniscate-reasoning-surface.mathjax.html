@@ -163,6 +163,11 @@ class="math inline" data-term-auto="off">\(E_f\)</span> by the broken line <span
 class="math inline" data-term-auto="off">\(\zeta_1\to0\to\zeta_2\)</span>, of length <span
 class="math inline" data-term-auto="off">\(|\zeta_1|+|\zeta_2|&lt;2\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperTrinomial.lean#L26">all
+spokes</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperTrinomial.lean#L38">complete
+trinomial</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Vieta’s formula gives <span
 class="math inline" data-term-auto="off">\(|b|&lt;1\)</span>. At a zero <span
@@ -280,6 +285,10 @@ length strictly below <span class="math inline" data-term-auto="off">\(2\)</span
 hypothesis is placed on the locations of the roots, on the number of
 roots in any component, or on the capacity of any component.</em></p>
 </div>
+<p class="lean-note"><small>Not formalised: the degree-two case and the
+exact rational arithmetic of the stopping-time comparison are checked,
+and the analytic argument in higher degrees is not. See the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <p>For <span class="math inline" data-term-auto="off">\(f(z)=z^n-b\)</span> with <span
 class="math inline" data-term-auto="off">\(0&lt;|b|&lt;1\)</span>, the only critical point is
 <span class="math inline" data-term-auto="off">\(0\)</span> and <span
@@ -303,6 +312,10 @@ inside <span class="math inline" data-term-auto="off">\(\{|f|&lt;(25/13)\mu\}\)<
 curve of length below <span
 class="math inline" data-term-auto="off">\(2\bigl((25/13)\mu\bigr)^{1/n}\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/LowCriticalScaleTransport.lean#L460">scaled
+low critical of low critical</a>. Conditional on Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
+as stated; see the <a href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Apply Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
 to <span class="math inline" data-term-auto="off">\(s^{-n}f(sz)\)</span> with <span
@@ -483,6 +496,16 @@ where <span class="math inline" data-term-auto="off">\(\operatorname{clamp}\)</s
 truncates its argument to <span
 class="math inline" data-term-auto="off">\([-1,1]\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L563">circle
+slice packing</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L141">cosh
+dist polar</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L166">dist
+polar i</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L177">exists
+polar</a>, and 2 further declarations in the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The open balls <span
 class="math inline" data-term-auto="off">\(B_j=B_{\mathrm{hyp}}(b_j,D/2)\)</span> are
@@ -518,6 +541,17 @@ class="math display" data-term-auto="off">\[U=\sup_{d\ge d_{\mathrm{low}}(a)}
 <span class="math inline" data-term-auto="off">\(U&gt;0\)</span>, then failure forces <span
 class="math inline" data-term-auto="off">\(k\ge(x-\pi\Sigma)/U\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L594">dual
+arity floor sup</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L579">dual
+arity floor</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L506">le
+of lam le</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L141">cosh
+dist polar</a>, and 1 further declaration. Conditional on the radius and
+budget bound that this proof derives from the standing failure
+hypothesis; see the <a href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> By <a class="math-ref" data-equation-ref="true" href="#eq:lc-radius-and-budget">eq:lc-radius-and-budget</a>,
 Lemma <a class="math-ref" href="#res:circle-slice-packing">3.3</a> and the
@@ -919,6 +953,12 @@ class="math inline" data-term-auto="off">\((5/2)\mu^{1/n}\)</span> in <span
 class="math inline" data-term-auto="off">\(\{|f|&lt;(25/13)\mu\}\)</span>, where <span
 class="math inline" data-term-auto="off">\(\mu=\min_{f&#39;(c)=0}|f(c)|\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/LowCriticalScaleTransport.lean#L491">scaled
+low critical five halves of low critical</a>. Conditional on
+Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
+as stated, and only in degrees above two; see the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(n\ge3\)</span>, apply
 Theorem <a class="math-ref" href="#res:low-critical-thirteen-twentyfifths">3.1</a>
@@ -968,6 +1008,17 @@ construction may be chosen inside <span
 class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> with length at most <span
 class="math inline" data-term-auto="off">\(5.7\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L677">cfa
+constant factor path</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L355">cfa
+bracket two three twentieths lt</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L393">cfa
+bracket five point seven</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L313">cfa
+degenerate</a>, and 3 further declarations. Conditional on the level and
+direction averaging construction that this proof produces; see the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <p>The constant is the rationally certified specialization of a
 two-parameter bound. If the selected component contains <span
 class="math inline" data-term-auto="off">\(k\ge2\)</span> roots, then for every <span
@@ -1154,6 +1205,18 @@ class="math display" data-term-auto="off">\[\mu\le\tfrac12\ \text{and}\ k_0\ge17
 \mu\le\tfrac14\ \text{and}\ k_0\ge12,\qquad
 \mu\le\tfrac18\ \text{and}\ k_0\ge10 .\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L765">cfa
+arity criterion</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L440">cfa
+arity bracket case one</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L455">cfa
+arity bracket case two</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L470">cfa
+arity bracket case three</a>, and 2 further declarations. Conditional on
+the level and direction averaging construction in the proof of
+Theorem <a class="math-ref" href="#res:constant-factor-path">4.1</a>; see the
+<a href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(\mu=0\)</span>, a
 repeated zero gives the constant path. Assume henceforth <span
@@ -1227,6 +1290,18 @@ suffice at <span class="math inline" data-term-auto="off">\(k_0=3,\ldots,9\)</sp
 to <span class="math inline" data-term-auto="off">\(39/40\)</span> at <span
 class="math inline" data-term-auto="off">\(k_0=16\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L538">cfa
+capacity criterion</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L583">cfa
+tau third</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L591">cfa
+tau cutoffs</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean#L572">cfa
+tau ge of sq</a>, and 2 further declarations. Conditional on the level
+and direction averaging construction in the proof of Theorem <a class="math-ref" href="#res:constant-factor-path">4.1</a>, together
+with the area-capacity inequality; see the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Repeat the averaging proof of Theorem <a class="math-ref" href="#res:constant-factor-path">4.1</a> with <span
 class="math inline" data-term-auto="off">\(A(\sigma)=\operatorname{Area}(K_\sigma\cap
@@ -1476,6 +1551,18 @@ class="math inline" data-term-auto="off">\(K_\mu=\{|f|\le\mu\}\)</span> by a rec
 of length at most <span
 class="math inline" data-term-auto="off">\(\beta\mu^{1/n}\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/SubcriticalPerimeterPath.lean#L265">subcritical
+perimeter path paper</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/SubcriticalPerimeterPath.lean#L245">subcritical
+perimeter path</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/SubcriticalPerimeterPath.lean#L203">connected
+at most half perimeter</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/SubcriticalPerimeterPath.lean#L216">half
+perimeter join of jordan arc datum</a>, and 4 further declarations.
+Conditional on the two-component split at the first critical level that
+this proof constructs; see the <a href="#sec:coverage">coverage
+section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em></p>
 <div id="perimeter-to-path">
@@ -1633,6 +1720,9 @@ length strictly below <span class="math inline" data-term-auto="off">\(2\)</span
 class="math inline" data-term-auto="off">\(f\)</span> is squarefree the two are
 distinct.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCubicCompletion.lean#L297">cubic
+paper complete</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Multiple roots give a constant path, so assume <span
 class="math inline" data-term-auto="off">\(f\)</span> squarefree. The Erdős–Herzog–Piranian
@@ -1849,6 +1939,17 @@ class="math display" data-term-auto="off">\[\begin{equation*}
 \log\!\frac{S^2+S+p}{S^2-S+p}&lt;2.                    \tag{6}
 \end{equation*}\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean#L344">disc
+sep separation long</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean#L305">disc
+sep squared length le</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean#L334">disc
+sep length lt two</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean#L179">disc
+sep bergman factor</a>, and 2 further declarations. Conditional on the
+connector and area construction that this proof produces; see the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Let <span class="math inline" data-term-auto="off">\(Q=D(w_0,S)\)</span>
 and let <span class="math inline" data-term-auto="off">\(U\)</span> be the component of <span
@@ -2088,6 +2189,17 @@ then two roots of <span class="math inline" data-term-auto="off">\(f\)</span> ar
 inside <span class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span> by a curve of
 length strictly below <span class="math inline" data-term-auto="off">\(2\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean#L645">disc
+sep coefficient lt two</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean#L702">disc
+sep uniform radius</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean#L629">disc
+sep ratio le branch</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean#L637">disc
+sep branch le seven</a>. Conditional on the connector and area
+construction in the proof of Theorem <a class="math-ref" href="#res:critical-value-separation">6.1</a>; see
+the <a href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(S\ge4/3\)</span> and
 <span class="math inline" data-term-auto="off">\(p\ge0\)</span>,</p>
@@ -2285,6 +2397,9 @@ class="math inline" data-term-auto="off">\(0\le i&lt;m\)</span>. Then </em></p>
 class="math display" data-term-auto="off">\[\min_{0\le i\le m}|p(c_i)|\le
 C_{m+2}.\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/SharpCollinearChebyshev.lean#L133">exists
+peak le comparison bound</a>.</small></p>
 <p>This is exactly the statement selected as <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L74">the
 formal Chebyshev endpoint</a>. It proves the finite alternation
@@ -2310,6 +2425,16 @@ attained by affine images of the zeros of <span
 class="math inline" data-term-auto="off">\(T_n\)</span> whose extreme zeros have distance
 <span class="math inline" data-term-auto="off">\(D\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L367">sharp
+collinear root diameter</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L967">sharp
+collinear root diameter monic</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L928">exists
+collinear factorisation</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L212">exists
+gap le comparison bound</a>, and 5 further declarations in the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> A repeated zero gives the constant path, so assume
 the zero values are distinct. Let <span class="math inline" data-term-auto="off">\(m\)</span>
@@ -2372,6 +2497,15 @@ disc, two of them are joined by a curve of length strictly below <span
 class="math inline" data-term-auto="off">\(2\)</span> inside <span
 class="math inline" data-term-auto="off">\(\{|f|&lt;1\}\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L515">collinear
+erdos 1041</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L984">collinear
+erdos 1041 monic</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L928">exists
+collinear factorisation</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L367">sharp
+collinear root diameter</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> A repeated zero gives the constant path, so assume
 the zeros are distinct. Their diameter satisfies <span
@@ -2485,6 +2619,9 @@ i&lt;j\le4\)</span> satisfies <span
 class="math inline" data-term-auto="off">\(E_i&lt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(E_j&lt;1\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PrimitiveQuinticInteriorTail.lean#L272">primitive
+interior exists two tail energy lt one</a>.</small></p>
 <p>This is the exact finite conclusion selected as <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L24">the
 formal two-index inequality</a>. It selects two distinct indices. It
@@ -2519,6 +2656,16 @@ through <span class="math inline" data-term-auto="off">\(0\)</span> when their v
 distinct, and the constant path when the selected occurrences have the
 same value.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean#L260">primitive
+quintic two tail</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean#L313">primitive
+quintic two tail of polynomial</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean#L93">two
+tails closed disc of ne zero</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean#L199">tail
+le one and eq iff of leading zero</a>, and 1 further declaration in the
+<a href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(a=0\)</span>, the root
 equation gives <span class="math inline" data-term-auto="off">\(|bw_i+c|=|w_i|^5\)</span> for
@@ -2665,6 +2812,9 @@ class="math inline" data-term-auto="off">\(u\in\{r,s,v\}\)</span> satisfies </em
 class="math display" data-term-auto="off">\[\left|(tu-r)(tu-s)(tu-v)\right|\le1
 \qquad(0\le t\le1).\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/CubicQuotientFiberCase.lean#L161">cubic
+has safe root spoke</a>.</small></p>
 <p>This is exactly <a
 href="https://github.com/wcook04/plectis-erdos/blob/92b88dc1bbe099aa73bcc900c3c405e9ba5c2334/ExternalVerification1041SolvedFamilies/Solution.lean#L14">the
 formal cubic segment inequality</a>.</p>
@@ -2688,6 +2838,9 @@ class="math display" data-term-auto="off">\[(z-h)^{3q}+A(z-h)^{2q}+B(z-h)^q+C\]<
 <p class="display-continue"><em> in
 every degree <span class="math inline" data-term-auto="off">\(3q\ge6\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCubicFibres.lean#L240">complete
+translated cubic quotient fibres</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Fix a <span class="math inline" data-term-auto="off">\(q\)</span>th root
 <span class="math inline" data-term-auto="off">\(y\)</span> of a quotient root and a
@@ -3560,6 +3713,11 @@ class="math inline" data-term-auto="off">\(f(z)=(z-\tau)^n-\lambda\)</span> with
 disk centred at <span class="math inline" data-term-auto="off">\(\tau\)</span> and radius
 <span class="math inline" data-term-auto="off">\(R=|\lambda|^{1/n}\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR20/CriticalMeanWhole.lean#L14">critical
+value three budgets</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR20/CriticalMeanWhole.lean#L36">critical
+value three budgets sharp</a>.</small></p>
 <p>The finite inequality behind the theorem concerns arbitrary points of
 the disk, without asking them to arise as critical points. Its quadratic
 form is</p>
@@ -3580,6 +3738,9 @@ class="math display" data-term-auto="off">\[\begin{equation}
 |f(c_j)|\le\prod_{k=1}^{n-1}|1-\overline{c_j}c_k|.
 \end{equation}\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperReflectedCompletion.lean#L254">reflected
+critical value</a>.</small></p>
 <p><a
 href="https://github.com/wcook04/plectis-erdos/blob/bb4e24651b37cd096d3749ef299c3317930b3a3b/ErdosProblems/Erdos1041/PaperReflectedCompletion.lean#L254">The
 reflected-derivative inequality is checked in Lean, including
@@ -4694,6 +4855,9 @@ class="math inline" data-term-auto="off">\(w=f\circ z\)</span>, one has <span
 class="math inline" data-term-auto="off">\(w&#39;(t)=-w(t)\)</span> on <span
 class="math inline" data-term-auto="off">\(I\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR20/NewtonRealTime.lean#L52">newton
+real value whole</a>.</small></p>
 <p>The computation is one line: <span
 class="math inline" data-term-auto="off">\(w&#39;=f&#39;(z)\,z&#39;=f&#39;(z)\cdot(-f(z)/f&#39;(z))=-f(z)=-w\)</span>.
 The kernel checks the local complex-parameter chain rule as <a
@@ -4735,6 +4899,9 @@ critical points with values on distinct positive rays cannot be
 endpoints of such a finite connection. The trajectory in the <span
 class="math inline" data-term-auto="off">\(z\)</span> plane need not be radial.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR20/NewtonRealTime.lean#L69">newton
+real endpoint whole</a>.</small></p>
 <p>The interior identity passes to the endpoints by continuity, not by
 evaluating <span class="math inline" data-term-auto="off">\(-f/f&#39;\)</span> at a critical
 endpoint. The candidate declarations <a
@@ -4803,6 +4970,9 @@ the form </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\beta=\frac{ra-b}{1-r},
   \qquad r\in\mathbb{R}_{&gt;0},\ r\ne1 .\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107">translated
+same positive ray parameterization</a>.</small></p>
 <p>Indeed, write <span class="math inline" data-term-auto="off">\(b+\beta=r(a+\beta)\)</span>
 with <span class="math inline" data-term-auto="off">\(r&gt;0\)</span>. Since <span
 class="math inline" data-term-auto="off">\(a\ne b\)</span>, one has <span
@@ -5013,6 +5183,10 @@ tree.</em></p></li>
 <span class="math inline" data-term-auto="off">\(O(\sqrt\delta)\)</span> at value radius
 <span class="math inline" data-term-auto="off">\(\delta\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Not formalised: the ray-disjointness,
+level-separation and saddle-scale steps of the proof are checked, and
+the Morse, monodromy and strip statements are not. See the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The map <span class="math inline" data-term-auto="off">\(f:U\to\mathbb
 D\)</span> is proper of degree <span class="math inline" data-term-auto="off">\(k\)</span>,

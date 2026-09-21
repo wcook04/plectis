@@ -193,6 +193,7 @@ Precisely the coupling error is at most $m|S\cap[X,2X+m)|/X$; with
 $\|\Phi\|_\infty\le B_0$ the bounded-test error is at most twice this
 quantity times $B_0$, also for tests depending on the starting index.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/SparseAmbientR9.lean}{269}{arbitrary_word_sparse_rationalisation_uniform}, \lproof{ErdosProblems/Erdos251/SparsePaperR11.lean}{137}{polylogarithmic_word_interval_uniform}, \lproof{ErdosProblems/Erdos251/PaperCompleteR20/SparseConstructionAudit.lean}{8}{bounded_test_finite_coupling}.}
 
 The hypotheses allow any nonnegative integer sequence of polynomial
 growth, but not $a_n=2^n$, whose dyadic series diverges.  The correction
@@ -411,6 +412,7 @@ Appendix~\ref{long251:app:index}.
 For the sparse theorem for an arbitrary sequence, the target interval can additionally
 be required to lie in $(A,A+\eta)$ for any prescribed $\eta>0$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/LocalTargetInterval.lean}{38}{local_target_interval}.}
 \begin{proof}
 In the general schedule, every supported entry satisfies $e_n\le n$.
 Choose an integer $K'\ge K$ sufficiently large that
@@ -711,6 +713,7 @@ For every rational sequence $P$ and every $n\ge0$,
        -\frac{P(n)}{2^{\,n+1}} .
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PrimeGapDyadicTail.lean}{138}{dyadicPartialSumQ_eq_start_add_differences}.}
 
 \begin{proof}
 At $n=0$ both sides equal $P(0)/2$.  When $n$ is replaced by $n+1$,
@@ -734,6 +737,7 @@ $g_i=p_{i+1}-p_i$.  For every $n\ge0$,
  =2+\sum_{i=0}^{n-1}\frac{g_i}{2^{\,i+1}}-\frac{p_n}{2^{\,n+1}} .
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PrimeGapDyadicTail.lean}{172}{prime0_dyadic_summation_by_parts}.}
 
 The leading $2$ is the first prime, not a normalising constant.
 At $n=2$, for instance, the left side is $2/2+3/4+5/8=19/8$ and the right side
@@ -760,6 +764,7 @@ Both series converge and
  \;=\;2+\sum_{n\ge0}\frac{g_n}{2^{\,n+1}} .
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{47}{infinite_prime_gap_identity}.}
 
 \begin{proof}
 The bound $p_n\le1250(n+1)^4$ of Appendix~\ref{long251:app:prime-bound} makes $(u_n)$
@@ -783,6 +788,7 @@ $\Pi$ is irrational if and only if $S=\sum_{n\ge0}g_n2^{-(n+1)}$ is irrational.
 The corresponding zero-based series with denominator $2^n$ equals $4+2S$ and
 has the same irrationality status.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{56}{irrationality_reformulation}.}
 \begin{proof}
 The identity just proved gives $\Pi=2+S$.  Adding a rational constant or
 multiplying by a nonzero rational number preserves rationality and
@@ -840,6 +846,7 @@ For every $N$ and $h$,
  \sigma_h(N)=(2^{h}-1)\,T_N-B_{h,N} .
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{76}{real_block_identity}.}
 
 \begin{proof}
 The case $h=0$ follows from $B_{0,N}=0$.  If the first identity holds at
@@ -900,6 +907,7 @@ Consequently $T_0$ is irrational if and only if every positive-length shift is
 nonintegral at every index, equivalently if and only if for every $h\ge1$ and
 every cutoff some later $N$ has $\sigma_h(N)\notin\Z$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{94}{rationality_classification}.}
 
 \begin{proof}
 For \textup{(i)}$\Rightarrow$\textup{(iii)}, the block identity makes every
@@ -924,6 +932,7 @@ Then
  \quad\Longleftrightarrow\quad 2^{-N}U_N\longrightarrow0.
 \]
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean}{57}{real_dyadic_orbit_eq_true_tail_iff}.}
 \begin{proof}
 Iteration gives
 $2^{-N}U_N=U_0-\sum_{j=1}^{N}a_j2^{-j}$.
@@ -972,6 +981,7 @@ equivalent to irrationality.
 $S$ is irrational if and only if for every $t\ge1$ and every $N_0$ there are
 $N,M\ge N_0$ with $M\equiv N\pmod t$ and $T_M-T_N\notin\Z$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{189}{actual_free_pair_criterion}.}
 
 \begin{proof}
 If $S$ is irrational, take $M=N+t$ for the $N$ supplied by
@@ -1005,6 +1015,7 @@ Let $g:\N\to\Z$ and $T:\N\to\R$ satisfy $T_{N+1}=2T_N-g_{N+1}$.  Then
 $T_0$ is irrational if and only if
 $T_{2L_j}-T_{L_j}\notin\Z$ for every $j\ge0$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/OrderLatticeDiagonal.lean}{153}{irrational_initial_iff_all_lcmDiagonal_nonintegral}.}
 
 \begin{proof}
 Theorem~\ref{long251:res:escape-irrational} gives the forward implication.  Conversely,
@@ -1042,6 +1053,7 @@ then $\sigma_h(N)$ and $\sigma_h(N+1)$ cannot both be integers.  Consequently,
 if such a pair occurs beyond every threshold, the $h$-shift is not eventually
 integral.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{267}{rational_small_pair_bundle}.}
 
 \begin{proof}
 An integer strictly between $-1$ and $1$ is zero.  If both shifts were
@@ -1055,6 +1067,7 @@ The same statement holds for a real orbit, with the same proof.  If for every
 $h\ge1$ and every cutoff some later $N$ satisfies the three displayed
 conditions for the actual prime gaps, then $\Pi$ is irrational.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{298}{real_small_pair_prime_endpoint}.}
 
 The unequal-gap condition alone is available: at $h=1$, $N=2$ it reads
 $g_4=2\ne4=g_3$, and Proposition~\ref{long251:res:gap-nonperiodic}
@@ -1068,6 +1081,7 @@ intersect.
 For every positive $h$, the actual consecutive-prime-gap sequence is not
 eventually periodic with period $h$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{175}{prime_gaps_not_eventually_periodic}.}
 
 \begin{proof}
 For $m\ge2$ the integers $(m+1)!+2,\ldots,(m+1)!+m+1$ are composite, so the
@@ -1098,6 +1112,7 @@ $-1<D_N<1$, $-1<D_{N+1}<1$, $\delta_N\ne0$ is equivalent to
  \bigl(\delta_N=-2\ \hbox{ and }-1<D_N<-\tfrac12\bigr).
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{135}{real_signed_two_window}.}
 
 \begin{proof}
 Since $\delta_N=2D_N-D_{N+1}$, the bounds $|D_N|<1$ and
@@ -1134,6 +1149,7 @@ $|F_{h,N,L}|+E_{h,N,L}<1$ certifies $|\sigma_h(N)|<1$, and
 $\operatorname{dist}(F_{h,N,L},\Z)>E_{h,N,L}$ certifies
 $\sigma_h(N)\notin\Z$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperTailBoundsR7.lean}{211}{explicit_remainder_certificate}.}
 
 \begin{proof}
 The checked bound $p_n\le1250(n+1)^4$ gives $0\le g_m\le p_{m+1}\le1250(m+2)^4$,
@@ -1152,6 +1168,7 @@ For the actual prime gaps, $h=1$ and $N=2$ satisfy the three hypotheses of
 Theorem~\ref{long251:res:smallpair}: both $\sigma_1(2)$ and $\sigma_1(3)$ lie in
 $(-1,1)$ and are nonintegral, and $g_4=2\ne4=g_3$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean}{111}{finite_small_pair}.}
 
 \begin{proof}
 Take $L=40$ and $Q=2^{40}=1099511627776$.  Exact integer arithmetic over the
@@ -1185,6 +1202,7 @@ then $1/2<sD_N<1$, $|D_{N+1}|<1$, and both $D_N,D_{N+1}$ are
 nonintegral.  In particular the adjacent small-shift obstruction is
 certified from just one tail enclosure.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean}{6}{one_tail_signed_certificate}.}
 \begin{proof}
 The inequalities place the complete interval
 $[(sA-B)/Q,(sA+B)/Q]$ inside $(1/2,1)$.
@@ -1209,6 +1227,7 @@ proves irrationality.
 Let $a\in\Z$ and let $b$ be a positive integer.  If $\Pi=a/b$ then $b\ge2^{589}>10^{177}$, and
 the same floor holds for every rational equal to $S$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean}{142}{denominator_floor_both}, \lproof{ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean}{137}{denominator_floor_decimal}.}
 
 \begin{proof}
 Put $c=1229$, the number of primes below $10^4$, and
@@ -1260,6 +1279,7 @@ The four Farey literals have $177$ and $178$ digits.
 Every rational equal to $\Pi$, and hence every rational equal to $S$, has
 reduced denominator $q\ge2^{39997}$, and therefore $q>10^{12040}$.
 \end{theorem}
+\leannote{Not formalised: the deduction from the four integer comparisons is checked in general form, and the certificate they are applied to is too large for the Lean kernel to evaluate, so the exclusion rests on the separate exact-arithmetic verifier described in the proof. See the \hyperref[long251:sec:coverage]{coverage section}.}
 
 \begin{proof}
 The accompanying integer-arithmetic verifier constructs an $80000$-bit
@@ -1340,6 +1360,7 @@ every integer $M\ge1$ and every cutoff $K$ there are digits
 $\varepsilon_n\in\{0,1\}$, zero for $n<K$, such that
 $\sum_{n\ge0}(a_n+M\varepsilon_n)2^{-(n+1)}$ is rational.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{200}{rational_bounded_perturbation}.}
 
 \begin{proof}
 Write $A=\sum_{n\ge0}a_n2^{-(n+1)}$ and choose a rational
@@ -1410,6 +1431,7 @@ $x,x+d,x+s,x+s+d+r$ prime. Then, for every $N,H\ge0$,
  (h+1)p_{N+h+1}+(H+1)Q_{N,H,r}.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/ShiftedGapCountingR9.lean}{152}{shifted_count_bound}.}
 
 \begin{proof}
 For a counted index $n$, put $x=p_n$, $d=g_n$ and
@@ -1450,6 +1472,7 @@ Let $a:\N\to\Z$ have fixed-block nonconcentration, let $E\subset\Z$ be finite,
 and let $b_n=a_n+e_n$ with $e_n\in E$ for every $n$.  Then $b$ has fixed-block
 nonconcentration.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperNonconcentrationR7.lean}{100}{finite_perturbation_stability}.}
 
 \begin{proof}
 Fix $k\ge0$ and a nonzero $F\in\Z[x_0,\ldots,x_k]$.  For a tuple
@@ -1485,6 +1508,7 @@ fixed-block nonconcentration, and the cumulative sequence
 $P_n=2+\sum_{i<n}b_i$ satisfies $p_n\le P_n\le p_n+Mn$ and hence
 $P_n\sim n\log n$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean}{126}{nonconcentration_does_not_force_irrationality}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean}{67}{perturbed_position_bounds}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean}{45}{sum_range_primeGap0}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean}{59}{perturbed_position_eq}, and 1 further declaration. Conditional on the prime number theorem; see the \hyperref[long251:sec:coverage]{coverage section}.}
 
 \begin{proof}
 Theorem~\ref{long251:res:boundedperturbation} gives the rational sum,
@@ -1514,6 +1538,7 @@ Let $a,b:\N\to\Z$ agree off a set $S$ of ordinary density zero.
 If $a$ has fixed-block nonconcentration, then so does $b$.
 No boundedness assumption on $a-b$ is needed.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/SparseNonconcentration.lean}{80}{sparse_nonconcentration}.}
 \begin{proof}
 For fixed $k$ and a nonzero $F\in\Z[x_0,\ldots,x_k]$, a zero of
 $F(b_n,\ldots,b_{n+k})$ either is already a zero at the $a$-block or has
@@ -1538,6 +1563,7 @@ fixed-block polynomial nonconcentration, and vanishing total variation distance 
  \qquad P_n\sim n\log n.
 \]
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean}{256}{long_joint_prime_gap_countermodel}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean}{228}{cut_prefix_bound}. Conditional on Schlage-Puchta's density lemma and the prime number theorem; see the \hyperref[long251:sec:coverage]{coverage section}.}
 \end{samepage}
 \begin{proof}
 Apply Theorem~\ref{long251:res:sparse-rationalisation} at a rational target.
@@ -1601,6 +1627,7 @@ Theorem~\ref{long251:res:smallpair} hold for the actual prime gaps has density z
 For the same $h$, the set of $N$ with $g_{N+h+1}=g_{N+1}$ also has density
 zero.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean}{38}{prime_gap_two_window_sparse}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean}{50}{prime_gap_equal_shift_zeroDensity}, \lproof{ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean}{30}{primeGap_tail_recurrence}. Conditional on Schlage-Puchta's density lemma; see the \hyperref[long251:sec:coverage]{coverage section}.}
 
 \begin{proof}
 For $N\ge1$ every gap involved is even, so $\delta_N=g_{N+h+1}-g_{N+1}$ is
@@ -1676,6 +1703,7 @@ $\sum_{j\ge1}a_{N+j}2^{-j}$ is an integer, so every tail shift is integral.
 The increasing odd sequence $P_n=3+\sum_{j\le n}a_j$ satisfies
 $P_n\sim n\log n$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/LogarithmicCarryAsymptoticsR8.lean}{368}{exists_logarithmic_recurring_values_countermodel}.}
 
 \begin{proof}
 Put $b_n=2\lceil\tfrac12\log(n+64)\rceil$, so
@@ -1830,6 +1858,7 @@ integral, $c_{n+1}-c_n=4n+10$ is never $\pm2$, and
  \sum_{j\ge1}\frac{c_j}{2^{\,j}}=32 .
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{27}{polynomial_countermodel}.}
 
 \begin{proof}
 Direct expansion gives the recurrence, and the finite telescope is
@@ -1869,6 +1898,7 @@ arbitrary and put $\kappa_n=2K_n-K_{n+1}$: the
 For every $n\ge0$,
 $\sum_{i=0}^{n-1}\kappa_i2^{-(i+1)}=K_0-K_n2^{-n}$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PrimeGapDyadicTail.lean}{1137}{carryPartialSum_eq}.}
 
 \begin{proof}
 The sum is empty when $n=0$.  Passing from $n$ to $n+1$ adds
@@ -2236,6 +2266,7 @@ not a construction of new primes.  The complete link inventory is also retained 
 
 \subsection*{Formalisation coverage and remaining dependencies}
 \label{long251:sec:coverage}
+\papersectiontarget{coverage}
 
 Every theorem, lemma, proposition and corollary of this record other than the
 four listed below has a Lean statement of the same assertion, with the same
@@ -2533,6 +2564,7 @@ Let $T:\N\to\Q$ satisfy the dyadic tail recurrence with integer coefficients.  I
 reduced denominator $d$ of $T_N$ is odd, then $\sigma_{\ph(d)}(N)$ is an
 integer.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PrimeGapDyadicTail.lean}{877}{tailShift_integral_totient_of_odd_den}.}
 
 \begin{proof}
 Since $d$ is odd, $2$ and $d$ are coprime, so Euler's congruence gives
@@ -2547,6 +2579,7 @@ and define $\sigma_h(N)=T_{N+h}-T_N$.  For fixed $h,N\ge0$,
 if $\sigma_h(N)$ is an integer, then $\sigma_h(N+k)$ is an integer
 for every $k\ge0$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/RealPropagation.lean}{27}{realTailShift_integral_add}.}
 
 \begin{proof}
 The shift step identity gives
@@ -2587,6 +2620,7 @@ If for every $h\ge1$ and every $N_0$ there are $N\ge N_0$ and $L\ge1$ with
 $\operatorname{dist}(S_{h,N,L},\Z)>R_{h,N,L}(M)$, then the nonintegrality
 condition in Problem~\ref{long251:prob:escape} holds.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperTailBoundsR7.lean}{261}{cofinal_escape_of_finite_truncation}.}
 \end{samepage}
 
 \begin{proof}
@@ -2628,6 +2662,7 @@ $|D-S_L|\le R_L$ and $R_L\to0$.  Then
  \text{there exists }L\text{ with }\operatorname{dist}(S_L,\Z)>R_L.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean}{25}{finite_separation_complete}.}
 \begin{proof}
 The reverse implication follows from the triangle inequality.
 For the forward implication put $\delta=\operatorname{dist}(D,\Z)>0$.
@@ -2778,6 +2813,7 @@ at index $2\,k!$, so both recur infinitely often at indices divisible by any fix
 $t\ge1$.  The series $\sum_{n\ge1}a_n2^{-n}$ equals $4$ and every tail
 $\sum_{j\ge1}a_{N+j}2^{-j}$ equals the integer $U_N$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperBoundedCarryR7.lean}{179}{bounded_recurring_values_countermodel}.}
 
 \begin{proof}
 For $k\ge3$ the index $k!$ is even and at least $6$, and $k!-1$ is odd, so the
@@ -2958,6 +2994,7 @@ Then
 \label{eq:fixedcollapse}\compatlabel{long251:eq:fixedcollapse}
 \end{equation}
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos251/PaperCoreR7.lean}{241}{affine_circularity_bundle}.}
 
 \begin{proof}
 Substituting $D_{N+r}=2^rD_N-B_{h,N,r}$ into the first membership condition cancels the

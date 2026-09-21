@@ -90,6 +90,11 @@ class="math inline" data-term-auto="off">\(m=m(X)\ge1\)</span> with <span
 class="math inline" data-term-auto="off">\(m(X)=o(\log\log X)\)</span>, uniformly over target
 values.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L269">arbitrary
+word sparse rationalisation uniform</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L137">polylogarithmic
+word interval uniform</a>.</small></p>
 <p>The convergence hypothesis includes all nonnegative integer sequences
 of polynomial growth, but excludes <span
 class="math inline" data-term-auto="off">\(a_n=2^n\)</span>. The allowance <span
@@ -324,6 +329,14 @@ class="math display" data-term-auto="off">\[0\le P_n-p_n=O_\varepsilon\!\left(
 <p><em> These positions are not asserted to be
 prime.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean#L431">short
+joint prime gap countermodel</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean#L228">cut
+prefix bound</a>. Conditional on Schlage-Puchta’s density lemma and the
+prime number theorem; see the <a
+href="../../../papers/erdos251-prime-gap-reasoning-surface.pdf#nameddest=coverage">coverage
+section of the companion record</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Choose a rational target in the interval of
 Proposition <a class="math-ref" href="#res:sparserationalisation">1.1</a> and put
@@ -441,6 +454,17 @@ class="math inline" data-term-auto="off">\(G\)</span> and <span
 class="math inline" data-term-auto="off">\(T_0\)</span> have the same rationality
 status.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L47">infinite
+prime gap identity</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L31">real
+prime gap tail eq tsum shifted gaps</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L57">real
+prime gap tail zero</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/RealPrimeGapTail.lean#L48">real
+prime gap tail recurrence</a>, and 2 further declarations in the <a
+href="../../../papers/erdos251-prime-gap-reasoning-surface.pdf#nameddest=coverage">coverage
+section of the companion record</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Finite summation by parts retains the endpoint:</p>
 <div class="math-display" data-term-auto="off"><span
@@ -465,6 +489,9 @@ class="math inline" data-term-auto="off">\(U_N=\sum_{j\ge1}a_{N+j}2^{-j}\)</span
 <span class="math inline" data-term-auto="off">\(N\)</span> if and only if <span
 class="math inline" data-term-auto="off">\(2^{-N}U_N\to0\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean#L57">real
+dyadic orbit eq true tail iff</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The recurrence gives <span
 class="math inline" data-term-auto="off">\(2^{-N}U_N=U_0-\sum_{j=1}^{N}a_j2^{-j}\)</span>. If
@@ -524,6 +551,11 @@ positive shift is nonintegral at every index, equivalently when for each
 fixed <span class="math inline" data-term-auto="off">\(h\ge1\)</span> there are arbitrarily
 late nonintegral shifts.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/ExactDenominator.lean#L62">real
+orbit exact den and shift</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L94">rationality
+classification</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Iteration gives</p>
 <div class="math-display" data-term-auto="off"><span
@@ -586,6 +618,11 @@ that case <span class="math inline" data-term-auto="off">\(sD&#39;\in(-1,0)\)</s
 <span class="math inline" data-term-auto="off">\(D\)</span> and <span
 class="math inline" data-term-auto="off">\(D&#39;\)</span> are nonintegral.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean#L7">signed
+two window iff</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean#L47">signed
+two window consequences</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The bounds on <span class="math inline" data-term-auto="off">\(D\)</span>
 and <span class="math inline" data-term-auto="off">\(D&#39;\)</span> imply <span
@@ -656,6 +693,9 @@ class="math display" data-term-auto="off">\[\begin{equation}
 <p class="display-continue"><em> then <span class="math inline" data-term-auto="off">\(\Pi\)</span> is
 irrational.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean#L273">irrational
+prime series of finite truncation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The distance from <span
 class="math inline" data-term-auto="off">\(D_N\)</span> to <span
@@ -772,6 +812,11 @@ small.</p>
 prime-gap dyadic series is. Both series converge by the polynomial bound
 proved above; neither side is proved irrational.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L47">infinite
+prime gap identity</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L56">irrationality
+reformulation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Theorem <a class="math-ref" href="#res:infinite">2.1</a> gives <span
 class="math inline" data-term-auto="off">\(\Pi=2+G\)</span>, and adding a rational number
@@ -783,6 +828,9 @@ preserves both rationality and irrationality. ◻</p>
 actual consecutive-prime-gap sequence is not eventually periodic with
 period <span class="math inline" data-term-auto="off">\(h\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L175">prime
+gaps not eventually periodic</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> An eventually periodic sequence takes only finitely
 many values and is bounded. Prime gaps are unbounded: for each <span

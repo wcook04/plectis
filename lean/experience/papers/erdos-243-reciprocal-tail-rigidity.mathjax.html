@@ -34,6 +34,9 @@ class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\frac{P_n}{a_n}
 class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span> for all sufficiently
 large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean#L211">original
+coordinate bounded defect</a>.</small></p>
 <p>The assumption bounds the upward increments of <span
 class="math inline" data-term-auto="off">\(P_n/a_n\)</span>; it does not bound <span
 class="math inline" data-term-auto="off">\(P_n/a_n\)</span> itself. Indeed,</p>
@@ -109,6 +112,9 @@ class="math inline" data-term-auto="off">\(n\ge N\)</span>.</em></p></li>
 <p><em>Then <span class="math inline" data-term-auto="off">\(E_n=0\)</span> for all
 sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2360">eventually
+bounded negative part eventually zero</a>.</small></p>
 <p>Condition (5) bounds upward steps but permits sign changes and places
 no independent upper bound on positive errors. Condition (6) is <span
 class="math inline" data-term-auto="off">\(|E_n|/C_n\to0\)</span>. Absorption needs only the
@@ -175,6 +181,9 @@ displayed bound on upward steps. ◻</p>
 satisfy <span class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span>
 eventually.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L179">bounded
+negative endpoint eventual multiplier</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Theorem <a class="math-ref" href="#res:bounded">1.2</a> gives eventual zero
 error. Since <span class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>,
@@ -204,6 +213,9 @@ integer state, </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[C_{n+1}=C_n-E_n,\qquad
 \bigl(a_{n+1}-a_n^2+a_n-1\bigr)C_{n+1}=a_n^2E_n-E_{n+1}.\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L21">error
+identities</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Substitute <span
 class="math inline" data-term-auto="off">\(E_n=D_n-(a_n-1)C_n\)</span> and use <span
@@ -219,6 +231,9 @@ with <span class="math inline" data-term-auto="off">\(C_{n+1}=C_n-E_n\)</span>, 
 nonnegativity of <span class="math inline" data-term-auto="off">\(E_n\)</span> implies its
 eventual vanishing.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L120">absorption
+and descent</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> When <span class="math inline" data-term-auto="off">\(E_n=0\)</span>, the
 second identity makes <span class="math inline" data-term-auto="off">\(E_{n+1}\)</span> a
@@ -235,6 +250,11 @@ class="math inline" data-term-auto="off">\(a_{n+1}=a_n^2-a_n+1\)</span>. Thus ev
 error in a positive exact state implies the eventual Sylvester
 recurrence.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1787">sylvester
+next eq of centered zero</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L156">natural
+sylvester of eventual zero</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The second error identity has nonzero factor <span
 class="math inline" data-term-auto="off">\(C_{n+1}\)</span>. ◻</p>
@@ -256,6 +276,9 @@ bound, there is a larger <span class="math inline" data-term-auto="off">\(t\)</s
 that <span class="math inline" data-term-auto="off">\(m_i\mid t+i\)</span> for each <span
 class="math inline" data-term-auto="off">\(i&lt;B\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L839">exists
+shifted consecutive multiples</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Solve <span
 class="math inline" data-term-auto="off">\(t\equiv-i\pmod{m_i}\)</span> by the Chinese
@@ -289,6 +312,9 @@ pairwise coprime integers <span class="math inline" data-term-auto="off">\(m_i\g
 for which <span class="math inline" data-term-auto="off">\(\gcd(m_i,u_t)=1\)</span> whenever
 <span class="math inline" data-term-auto="off">\(i&lt;t\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L903">no
+bounded rise of tail avoidance</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Choose <span
 class="math inline" data-term-auto="off">\(m_0,\ldots,m_{B-1}\)</span> and use Lemma <a class="math-ref" href="#res:crt">3.4</a> to find <span
@@ -326,6 +352,9 @@ class="math inline" data-term-auto="off">\(\gcd(a_n,v_n)=1\)</span>. Distinct mu
 pairwise coprime, and every earlier multiplier is coprime to every later
 numerator.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean#L16">persistent
+coprimality</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> A common prime divisor of <span
 class="math inline" data-term-auto="off">\(a_n,v_n\)</span> would divide both <span
@@ -346,6 +375,9 @@ indices. Then <span class="math inline" data-term-auto="off">\(G_n=\gcd(C_n,D_n)
 eventually constant. Division by its stable value gives a reduced exact
 tail.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean#L103">gcd
+stabilises and reduces</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Both updates preserve common divisors, so <span
 class="math inline" data-term-auto="off">\(G_n\mid G_{n+1}\)</span>, and <span
@@ -500,6 +532,9 @@ class="math display" data-term-auto="off">\[\sum_n\frac{(-E_n)_+}{C_n}&lt;\infty
 then <span class="math inline" data-term-auto="off">\(E_n=0\)</span> eventually. Neither
 denominator dynamics nor vanishing relative error is required.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L84">finite
+negative mass paper</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Set <span
 class="math inline" data-term-auto="off">\(\delta_n=(-E_n)_+/C_n\)</span>. Then</p>
@@ -620,6 +655,9 @@ class="math inline" data-term-auto="off">\(B\ge0\)</span>, </em></p>
 class="math display" data-term-auto="off">\[\sum_{n\in\mathcal
 R}(-V_n-B)_+f(U_n)&lt;\infty.\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/CanonicalRecords.lean#L202">canonical
+weighted record excess</a>.</small></p>
 <p>Only a step reaching a new maximum contributes. At a late such step,
 <span class="math inline" data-term-auto="off">\(-V_n=U_{n+1}-U_n\)</span>, so the first
 <span class="math inline" data-term-auto="off">\(B\)</span> units of the increase are
@@ -771,6 +809,9 @@ class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\frac{A_n}{a_n}
 <p class="display-continue"><em> then the
 sequence is eventually Sylvester.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/LcmDefect.lean#L49">original
+coordinate lcm bounded defect</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Since <span
 class="math inline" data-term-auto="off">\(L_n/A_n=q/\gcd(q,A_n)\)</span> lies in <span
@@ -863,6 +904,11 @@ Sylvester. In particular, the conclusion holds under the pointwise
 eventual bound <span
 class="math inline" data-term-auto="off">\(\gamma_n\le1/n\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean#L207">original
+coordinate inclusive one</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean#L225">original
+coordinate inclusive one pointwise</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Set <span class="math inline" data-term-auto="off">\(t_n=P_n/a_n\)</span>,
 so <span class="math inline" data-term-auto="off">\(t_{n+1}/t_n=1+\gamma_n\)</span>. For all
@@ -888,6 +934,12 @@ class="math display" data-term-auto="off">\[a_n^2/a_{n+1}=1+\frac3n+o(n^{-3})\]<
 <p class="display-continue"><em> has
 irrational reciprocal sum.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/GaloisSignFlipClosure.lean#L270">cubic
+rate irrationality of chebotarev</a>. Conditional on Chebotarev’s
+density theorem; see the <a
+href="../../../papers/erdos243-reciprocal-tail-reasoning-surface.pdf#nameddest=coverage">coverage
+section of the companion record</a>.</small></p>
 <div class="proof">
 <p><em>Proof by the polynomial exclusion.</em> Under rationality,
 Section <a class="math-ref" href="#sec:transfer">4</a> gives
@@ -967,6 +1019,9 @@ unbounded negative magnitudes along negative indices, and </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sum_n\frac{(-E_n)_+}{C_n}=\infty.\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151">canonical
+frontier</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Absorption excludes late zeros, descent excludes an
 eventually nonnegative error, and Theorems <a class="math-ref" href="#res:bounded">1.2</a> and <a class="math-ref" href="#res:massscalar">5.1</a> exclude the two
@@ -1055,6 +1110,9 @@ class="math inline" data-term-auto="off">\(f:[1,\infty)\to[0,\infty)\)</span> wi
 class="math inline" data-term-auto="off">\(\int_1^\infty f(t)\,dt=\infty\)</span> and <span
 class="math inline" data-term-auto="off">\(\sum_jw_jf(u_j)&lt;\infty\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean#L87">real
+lower density zero iff exists admissible real weight</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Suppose the lower limit vanishes. Choose cutoffs at
 which the ratio <span class="math inline" data-term-auto="off">\(F(X)/X\)</span> is small.
@@ -1283,6 +1341,9 @@ class="math inline" data-term-auto="off">\(a\equiv b \pmod{(h+1)!}\)</span>, the
 class="math inline" data-term-auto="off">\(h\)</span> forced updates exactly when the orbit
 from <span class="math inline" data-term-auto="off">\(b\)</span> does.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L134">forced
+survives iff of mod eq factorial</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Define <span class="math inline" data-term-auto="off">\(M(0,i)=1\)</span>
 and <span class="math inline" data-term-auto="off">\(M(h+1,i)=(i+2)M(h,i+1)\)</span>. Thus

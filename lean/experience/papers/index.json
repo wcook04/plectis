@@ -32,9 +32,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "24185ca24d344389ef0e77daf8481dbd9085344fa6cf001303052b0e9127cdbf",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "7a9b37c07700cdf95a6614c2e98d9b6a01e62eeec14d39b03a3fd623fa900f81",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 591,
@@ -43,8 +43,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "729c22d255eb2ca5dfef30d6edb30a7c6048b4721f8fcfdf221416b38496401f",
-        "html_exact_tex_sha256": "b8ee0a33d3c98630ac836daab397457e74bd1f2611a49cb438379c2693df1999"
+        "html_mathml_sha256": "98083041bcf0478af35cc9579f31c19e06ffc8887357e68989a7e80cf4b17e6e",
+        "html_exact_tex_sha256": "cff390d0da0170a322adaddc8bf2516c4b1dd3fcdd1125abbdbee4394c8efd2c"
       },
       "sections": [
         {
@@ -227,7 +227,7 @@
       "subject": "Erdős #68",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 47,
+      "pages": 48,
       "question": "What growth, valuation, and finite-denominator facts are proved for ∑_{n≥2}(n!−1)^{-1}, and which tail inequalities remain?",
       "precis": "The record proves liminf (log L_N)/(N^{3/2} log N) ≥ 2√2/3 for L_N=lcm(2!−1,…,N!−1), by comparing a terminal block of denominators with pairwise gcds rather than an external multiplicity theorem. Specialising a Louwsma–Martino valuation, it exhibits primes 139 and 2593 absent from all later reduced denominators. Coefficient constructions give integer forms MS+k; at fixed moment the remainder changes only by an integer. Rationality criteria use factorial digits and the next integer above a scaled partial sum; the digit argument also recovers the irrationality of e. Two exact calculations give q∤299999! and q≥2^39990>10^12038. These exclusions do not prove irrationality.",
       "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
@@ -249,9 +249,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "d2d0c98ce42f08ffa032f04ef17a62e345c5ca8dcb3b6254cc449834c65126d8",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "1efee070dc9bacff9025c9acd5502823a3e6f146eef29653b39a5f84f285a277",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1848,
@@ -267,8 +267,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "1488e4cabcbeba0a480b3d6971874e0efa15fdda6fd0a6c26babaece24728df5",
-        "html_exact_tex_sha256": "531850233aec4145ddb1d3f7f2c68bcdacfdc1fe26fbcf923a3ef0ffc3bbbd61"
+        "html_mathml_sha256": "f24ea0bcdee9149fc78b59f290a92b184385325fd14d5f5336591940de6594cf",
+        "html_exact_tex_sha256": "6e79f734f5b0fb9a4c9c56ade4ad82a7f4aac6ea5883be56276718cf051a590a"
       },
       "sections": [
         {
@@ -511,7 +511,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 18,
+      "pages": 19,
       "question": "If a reciprocal sum is rational and a_{n+1}/a_n^2→1, what increment bound forces the Sylvester recurrence, and why does that not settle Erdős #243?",
       "precis": "Let a_1<a_2<⋯ be positive integers with a_{n+1}/a_n^2→1 and ∑ 1/a_n rational, and put P_n=∏_{j<n}a_j. An eventual upper bound on P_{n+1}/a_{n+1}−P_n/a_n forces a_{n+1}=a_n^2−a_n+1 eventually. This strengthens a sufficient condition that only required the upper limit of those increments to be nonpositive. Clearing denominators then produces positive integer numerators with bounded upward increments. Integer descent handles an eventually nonnegative error; otherwise, stabilising the common divisor makes a Chinese-remainder obstruction available. The increment bound is not derived from growth and rationality alone, so the condition does not resolve Erdős #243.",
       "owns": "the problem-specific exposition for Erdős #243: the centred integer state, negative-part exclusions, conditional theorem, and remaining analytic obligations",
@@ -533,9 +533,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "408e8b0dac83d25b2d6a510eb68fb8aefc464da395956dd750d8796dcaed4d88",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "64608f5ddf5a21c732995811596fba56fff3027aba0b5298dccb804c71cf4dc7",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 505,
@@ -544,8 +544,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "55606c6420b28ad589a2afefc72c094f76d75e03ef6cfd85dc9a67074901035e",
-        "html_exact_tex_sha256": "919e59f1c1fb4b7240a9196624caff0691045ff6aa973973c2733bf606420460"
+        "html_mathml_sha256": "b7fa43725ef6e87323c7e9ccd84417e49faeebc8f05976ae1572d1d19f2404ab",
+        "html_exact_tex_sha256": "1a68d0fb09bc02166f6e20e766e057f89e1ace6151ffe2d846daddb84214c0da"
       },
       "sections": [
         {
@@ -683,7 +683,7 @@
       "subject": "Erdős #243",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 61,
+      "pages": 63,
       "question": "Which growth hypotheses make a reciprocal sum irrational, and which sufficient conditions force the Sylvester recurrence without settling Erdős #243?",
       "precis": "An increasing sequence of positive integers satisfying a_n^2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum: rationality would force integer tail numerators to agree eventually with a cubic polynomial, which divisibility, a cubic-field calculation, and congruences modulo seven exclude. For rational reciprocal sums under a_{n+1}/a_n^2→1, the record also develops sufficient conditions for the eventual recurrence a_{n+1}=a_n^2−a_n+1, controlling either increases of an integer tail numerator or a convergent sum at steps setting new maxima. Examples separate numerical growth bounds from the exact recurrences. The cubic proof is distinguished from the theorems formalised in Lean. None of the additional bounds is derived for every rational reciprocal sum in Erdős #243.",
       "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -705,9 +705,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "df3aad71e0d0df3a9ad2d3fa1515eb543f3b8cca65ec8171c3a7685c3268c948",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "7ead244efb0f153c2d1ed1bffbe9f98c866ee8aec713ffb5c7bc4ba70cdb18d4",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2403,
@@ -726,8 +726,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "1c436f8ec0eecf494c682e3d1b362682839d132316c74e0802f2cc0acafb825d",
-        "html_exact_tex_sha256": "4e9a15b1933d6f2360c9d80aafc431c759d9cf9664ede4be6851ca06a48fb978"
+        "html_mathml_sha256": "98ca2b4acf222ee231ac37ded1fdbe9e1eb7dde34636b02792299fa32787992d",
+        "html_exact_tex_sha256": "66a89a1a2aa95cc7b1bc69d4a19f2042cd8abfba50f214b63a0376b88f4cc871"
       },
       "sections": [
         {
@@ -1102,9 +1102,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "2989c5d03312e98a85b2bf68cf44b4e97880b3cc9f6eb23cdc86a77255e4844c",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "833cb57cc394f07ae36e58dec6ce7587bc82b6054065d8fec406848b4c36bd03",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 538,
@@ -1113,8 +1113,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "1d860eaff43cf7d3394dff53c3feeccf7cc149720d3b37761989feb3448ac7ba",
-        "html_exact_tex_sha256": "d29148992e5ad0bcb2a17cf82b7f679eb9ec92cf1fb7a7e170af6dd8d1138b4a"
+        "html_mathml_sha256": "778425ba3305a12819c50765fb5b8bb73d71c9575d97e4fe2d343bba4e6380db",
+        "html_exact_tex_sha256": "296a2ca7409198efdc8cc4831df41d760ca5f641557e51aabc163cc140018dc7"
       },
       "sections": [
         {
@@ -1242,7 +1242,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 155,
+      "pages": 162,
       "question": "What can the totient-kernel basis and residue tests say about Erdős #249, and which hypotheses still block irrationality?",
       "precis": "The dyadic totient sections through level e≥1 have an explicit rational basis of size 2^e+1. Truncating a scaled tail difference produces an integer whose residue certifies nonintegrality when its distances from both endpoints of the residue interval exceed an explicit error bound. The record develops the resulting finite denominator exclusions, equivalent residue criteria, and sufficient exponential-sum estimates. Rational comparison sequences identify the limitations of particular size, parity, rank, and finite-prefix arguments. The short paper supplies the all-base basis theorem; here each conditional result carries the arithmetic hypothesis still needed to apply it. Those hypotheses are not established in the form required to prove irrationality of S=∑ φ(n)2^{-n}.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -1264,9 +1264,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "6ece2228614e41b62e264cd890cdb26856f5b2fcb46e9e22d878859ff0c8eea7",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "21de183af43e966b5d66ca3a9c7633e6c17ea4756623b560c76f7819ad530ced",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 4452,
@@ -1294,8 +1294,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "9e50ec56cbc5828d89dbea277d42cafd5bfa4aa7f62951428166cbd89bfdbd37",
-        "html_exact_tex_sha256": "ae76ab3c951e3412f58ed37bab85a200462c5cfbc5d89f97ef5e32754dc0494d"
+        "html_mathml_sha256": "36dce85aa914975d963e22e9aadb912db10c091aaab5a964bcd272dc1fc21935",
+        "html_exact_tex_sha256": "507b7c00bcb0a35cd0f25d5073d80f0472f0f9385f1143f59860ecbd7101929f"
       },
       "sections": [
         {
@@ -2148,7 +2148,7 @@
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 14,
+      "pages": 15,
       "question": "Which sparse congruence-preserving corrections can rationalise a dyadic series, and why does that not prove Erdős #251 irrational?",
       "precis": "Sparse nonnegative integer corrections can rationalise a convergent dyadic series with nonnegative integer coefficients. Given a finite prefix to retain and any allowance f(n)→∞, one permitted index set of upper Banach density zero supports corrections attaining every real target in a nondegenerate interval above the original sum. The corrections are eventually bounded by f; each fixed modulus divides both the corrections and their cumulative sums beyond a cutoff independent of the target. For f(n)=(log(n+3))^ε, the empirical unnormalised block distributions of original and corrected sequences become close in total variation for lengths o(log log X). Applied to prime gaps, the construction gives rational dyadic sums while cumulative positions remain asymptotic to n log n. These congruences and block statistics alone cannot establish irrationality, and the construction does not assert that the cumulative positions are prime.",
       "owns": "the problem-specific exposition for Erdős #251: summation by parts, dyadic tail recurrences, integral-shift criteria, local certificates, order-lattice and factorial-diagonal structure, adaptive and fixed affine no-go theorems, and the remaining cofinal condition",
@@ -2170,9 +2170,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "10c6cff02d746a305f99839db2ec3bfe30f1a2574e0d0a707c891920cfb7b4cb",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "ddc51a73fab16e533cf890e113f01cfa34658f1197ac85de3940da066cbdd41c",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 380,
@@ -2181,8 +2181,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "a6b52a82fcb90916e3083465882656d30b642b27001dbe6261ad1a497c33e1b4",
-        "html_exact_tex_sha256": "6aa507396af4d3c4b25856da3f1c6a8575799dd7acebae0705702d91cbd95a43"
+        "html_mathml_sha256": "f9776c9776642c8e7075815aca11086a520993ad18739f36155611074252cc8d",
+        "html_exact_tex_sha256": "3d394433ac47bcae3b38dc78a8a4cf4391f359b01d2115ef68eb215dc456934b"
       },
       "sections": [
         {
@@ -2285,7 +2285,7 @@
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 47,
+      "pages": 48,
       "question": "What exact tail criteria, sparse countermodels, and finite denominator bounds are proved for the prime-gap dyadic series, and why is irrationality still open?",
       "precis": "A convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero, eventually bounded by any f(n)→∞, while preserving every fixed modulus and, for a logarithmic allowance, short-block empirical distributions. For prime gaps the cumulative positions remain asymptotic to n log n; no primality conclusion is asserted. Summation by parts reduces the prime series to the gap series, and the tails T_N=∑_{j≥1} g_{N+j} 2^{-j} satisfy T_{N+1}=2T_N−g_{N+1}. That recurrence characterises rationality and yields finite tests with explicit remainder bounds. An exact finite certificate shows that a rational value of the prime series would have denominator at least 2^{39998}>10^{12040}. The bound does not establish irrationality.",
       "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
@@ -2307,9 +2307,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "361e20f610a3b08c4f69f22ec09833dcccce14d23d9ea672e3903f1d091ddcb8",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "56bc6951eac088ab304ee841d2fdf2ed8a722205e78b2fd4306eb74681998196",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1528,
@@ -2390,8 +2390,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "32859a3b3c69c15558c3d881eff01ec3eb064463a9365d9391b20c24b06abf2e",
-        "html_exact_tex_sha256": "8cacbc8f6b29a17111490a51aae0aab4130d5debdfadc740c66a6daca5cc43bc"
+        "html_mathml_sha256": "341debc5bff529dbf843c222e22a141a4153a8eac1b883a39d8de6ff9630a62e",
+        "html_exact_tex_sha256": "b91c83a2ea8eb4992f87549926bf3ebb3194b0aea17dec202ea4661e640471a8"
       },
       "sections": [
         {
@@ -2781,9 +2781,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "9851316d4cbc0d4d1904082f4ad1ab5ac43c1ac4c89f59d42e6204a8862c2ba6",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "fc88570d017fbc97be2553c27cb3c6ed218ddc46b0fa311860814914537808e8",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 718,
@@ -2798,8 +2798,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "bd0511bad0f0b8ead62a5dc6700b7fad0adad8f7aa8dc8b11a4f31fe252d5303",
-        "html_exact_tex_sha256": "83d55973229189b749deca863ffc9b8eac107d6185de071781154a88f050fb8e"
+        "html_mathml_sha256": "76f798da936e03a09638055ded0285efa10ac992e315d5731065618c80940641",
+        "html_exact_tex_sha256": "d20adde14aba15620702ab1467c1ef52a43fa9d4b8bb00babb1152aad9a5cef3"
       },
       "sections": [
         {
@@ -3027,7 +3027,7 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 160,
+      "pages": 165,
       "question": "What weighted and cover criteria prove hereditary Mersenne irrationality for Erdős #257, and which targets remain open?",
       "precis": "A weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set P, every infinite A with ∑ h(a)/(a(b^{h(a)}−1)) finite has irrational ∑ (b^a−1)^{-1}. The base-two condition gives the conclusion at every integer base for every infinite subset, and permits an example with divergent reciprocal sum, while excluding full support and all odd exponents. The proof averages over a finite part of the support and over dyadic observation lengths. Erdős's weaker reciprocal-summable theorem is proved in full, and a common window extends both arguments to unions of weighted and positive-cover supports. Finite-denominator and achievement-set calculations formulate tests for the targets 1/2 and 1/21; those tests do not decide either target or the universal question. Prime support at base 2 and squarefree support at power-of-two bases are attributed as existing work.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
@@ -3049,9 +3049,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "2cd6f42dcf091827264f89d16bc6a0d0b2850343e73c4c51f3604d084f78a868",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "a80d26ec3674d64b2c1100dc38d6d2591deeeb3babdcaeb543875c1252111201",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 4495,
@@ -3091,8 +3091,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "62ca23f364ef5d86b55ddc9ceb068dd465caca90f8d0b9a56426f55c5a9a632f",
-        "html_exact_tex_sha256": "c269e6826bff54be14c7e88bd7bb189287b72b27cec3b0e24ef1b0520c52e146"
+        "html_mathml_sha256": "8f42ac92a236f4da9241725442140457ced863c5d00cfcd0b33549a76f7d6add",
+        "html_exact_tex_sha256": "66c3c216ee8f0cea95916fc4bbd97327ecaf577a191090e1a6e0bf66af1de465"
       },
       "sections": [
         {
@@ -3885,7 +3885,7 @@
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 52,
+      "pages": 53,
       "question": "What infinite-rank and tail-arithmetic facts are proved for the three-prime running LCM, and which residue windows remain open?",
       "precis": "The reciprocal three-prime running-LCM kernel has nonsingular minors of every order: row and column rescaling leaves a two-valued matrix, and density supplies the required threshold pattern. The record computes the rank of every finite restriction and the least uniform approximation error over all matrices of finite separated rank. For the repeated {2,3,5} sum it derives an integer-coefficient tail recurrence and a residue criterion equivalent to irrationality. The unproved step is to find such windows for every positive multiplier coprime to 30 and after every prescribed start. It also gives the full two-prime comparison, following Fan's earlier Hecke–Mahler reduction, and identifies the boundary terms that survive a proposed finite-difference cancellation.",
       "owns": "the complete problem-specific reasoning surface for Erdős #269, including all registered result families and their boundaries",
@@ -3907,9 +3907,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "5d25ab03ebf0b3fd4cb36381bc3fb7305795146cf5fda734d340e56886148b01",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "f79f7a4b6d2a58db332c82fe9c85f165ce2958f2e24f7a2a32777f99038644c3",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1719,
@@ -3927,8 +3927,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "6dc501f4c9147a05d358762e0300086f3a1acb9aab804c8171a867d9297e9767",
-        "html_exact_tex_sha256": "5fdb152a6fbc0932abf9111945384d9e5ba02310abf69bad5973bfa522b66016"
+        "html_mathml_sha256": "1885e99ce46aadfb3471ef6d076af089c2f92f83aed7a3d14588bf4f652f3805",
+        "html_exact_tex_sha256": "76573ef4d50dfa38571f975189e94a03e6b3f4b8cb1a3cb4415bc6ca5730e40a"
       },
       "sections": [
         {
@@ -4196,7 +4196,7 @@
       "subject": "Erdős #269",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 15,
+      "pages": 16,
       "question": "Why does the Erdős #269 running-LCM kernel admit no finite separable representation, and which residue inequalities remain for {2,3,5}?",
       "precis": "For three distinct primes, the reciprocal running-LCM kernel has nonsingular minors of every order, with the same indices in every third-coordinate layer. Row and column rescaling reduces the proof to a matrix whose entries are 1 or the reciprocal of the third prime. Thus no finite sum of products separates one exponent from the other two. Separately, for the repeated {2,3,5} series the paper proves a tail recurrence and a residue criterion equivalent to irrationality. The unresolved step is to prove its inequalities for every positive multiplier coprime to 30 and arbitrarily late starts.",
       "owns": "the problem-specific exposition for Erdős #269: the two-prime transcendence deductions and attribution, three-prime product formula, cell and shell structure, non-separability, finite experiments, and remaining cofinal escape condition",
@@ -4218,9 +4218,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "022020477a9abdf2a63e0d3d4f8847b22d6be33df65ca9acf1704e718c14a772",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "bc1d183a2accf273b46c64c014c1f9f0b3c5f0d009a7548d0dec6632094d6726",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 381,
@@ -4229,8 +4229,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "112e477e73d8d1a62ab0ff481d1af8cb349b604658ca3056302e973e82ebb36c",
-        "html_exact_tex_sha256": "32d6c070ac3f5ea7e5a41054beea7ef5dd0f7c96ca6f4d1b3c3d3680b02deb7c"
+        "html_mathml_sha256": "2cf7771de68f943ccf260f98c04f99abf60a64c874872207548c00fe3b0011d8",
+        "html_exact_tex_sha256": "f3c312f8d94ce3b981593702891a0e2913218e35332fdf6ead16d089248b458e"
       },
       "sections": [
         {
@@ -4348,7 +4348,7 @@
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 30,
+      "pages": 32,
       "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and which hypotheses do they require?",
       "precis": "For a monic trinomial f(z)=z^n+a z^m+b, 1≤m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.",
       "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
@@ -4370,19 +4370,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "da8c08c91e45d7b8a71a9b82c019349837744f13cff97fa1dbdfc6cb4a010a8b",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "ee640f2b65f49089e8ed10bd6cfacfa649071e0c1d9bc2191011f5aea54eb946",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 787,
+        "mathml_node_count": 788,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "a977be339ab627373e8444e3c92b46a7e852544b20f791488224a35b9825a5e1",
-        "html_exact_tex_sha256": "baed6d1e2f14dab03a3746d3da997d826dacb61c926cee01d13c0cfe14dc2960"
+        "html_mathml_sha256": "0deb46c014b4ea0f6fb12d2e5e731608655131788f2356960fef7fd20ad076c6",
+        "html_exact_tex_sha256": "0118b6b60fb7c9fd26892366a3800320bf47b44762df6037e69fdcf1a2326ac3"
       },
       "sections": [
         {
@@ -4615,7 +4615,7 @@
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 76,
+      "pages": 78,
       "question": "What path-length, critical-value, and coefficient-family results are proved for polynomial lemniscates, and what remains of the unrestricted length-2 problem?",
       "precis": "For a monic trinomial with roots in the open unit disc, any two distinct roots are joined inside {|f|<1} by a path of length less than 2. For any squarefree monic polynomial of degree n≥2, an area-growth argument gives such a path when the least critical-value modulus μ is at most 13/25; scaling gives length less than (5/2)μ^{1/n} inside {|f|<(25/13)μ}. The record develops this argument, an inverse-ray averaging estimate, and a construction using an isolated simple critical value, together with results for collinear roots and several coefficient families. A weighted Poisson identity gives a sharp mean bound on critical values; examples distinguish that bound from path-length control. The final sections examine inverse-sheet topology and refute an earlier spanning-tree estimate. These results do not prove the unrestricted length-2 assertion.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
@@ -4637,9 +4637,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "5b045bb3e96dc9da3c440b95f6c27dc21ac6b6d576b3d308ffb817369158440f",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "ac7fc17d84644a4862571c19adfb14392d57ac26c9a830b813eb492b8ca4176b",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2553,
@@ -4667,8 +4667,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "87659aaf364c33142d6e5c751e500673a3f7abcc5e47bc88ab5fe42b72b7f874",
-        "html_exact_tex_sha256": "dde1a4408cd2c0655b4ccd4b2d2b42d503636efbd7c0e023193f56cf902a7132"
+        "html_mathml_sha256": "a4d4eeacabcb5edae6d8ea992f8c691eeb81de14ff8a3996d7c2be3150635db6",
+        "html_exact_tex_sha256": "82fd9018791c0e06b45af5e421180b31d1c61746dd7a1b7adf623b9bbfe87103"
       },
       "sections": [
         {
@@ -5073,9 +5073,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "f8b59587ad61a01439462544320099d9f8b9ab7dd6832d366081fb3fbdb886ef",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "d89d61ecb860ccb505fc369f9a8b0162e5160533bc19e86cb1da824b28d6029a",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 680,
@@ -5084,8 +5084,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "3edf79b9ded4b63aa2452bdf754641e195550428abda69542810919a8fc8f364",
-        "html_exact_tex_sha256": "de2f27585924f6b496fd859197dd1a0e3cfd919e769f069befc25ed6c913f9bc"
+        "html_mathml_sha256": "5418107198595a590cf56c19aef4dc360b913247f3e6c8a97a53fa7e5c17dcc9",
+        "html_exact_tex_sha256": "20bce142aef7430c2cb333ccc2b77d7b7cf27a259eb3350fb312204548c6e785"
       },
       "sections": [
         {
@@ -5298,7 +5298,7 @@
       "subject": "Erdős #1049",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 64,
+      "pages": 66,
       "question": "What all-rank Zudilin specialisations and Hankel formulae are proved at rational bases, and which clearing arguments still fail at 3/2?",
       "precis": "Specialising Zudilin's 2004 linear forms shows F(a/b) irrational for coprime a>b≥1 when θ=log b / log a is less than θ^*=0.4056830213840605…, with irrationality-exponent bound (1−θ)/(θ^*−θ) for every positive integral power. In particular the bound is less than 301 for every positive integral power of 31/4. The constants are Zudilin's; the proof cancels common cyclotomic factors before rational specialisation. For the 2016 Hankel construction with x=z=1, the first nonzero term of the normalised determinant is computed at every rank. A separate positive-measure argument proves positivity and a size estimate for each fixed real 0<q<1. The final sections explain the limits of the stated clearing and congruence arguments at 3/2: no small nonzero sequence of divided remainders is constructed there, and the full rational-base conjecture remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
@@ -5320,9 +5320,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "79d089dc2e3e2c07b3aa0933d1cbd67c05fe977959dcbb50fbaf26e094ee6595",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "8ee2a5e9ab502f29ace661910d0d2292af1d43b5fa19ef21f2248a6fc2625802",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2342,
@@ -5350,8 +5350,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "48b22bdcbdf176560e87e6d25a8c44a76f86524e79f7d1795b477349ed82d1e7",
-        "html_exact_tex_sha256": "14076cee7a1b87630e5040468b58047a5088178899a4cdb47deab003e4d26fe6"
+        "html_mathml_sha256": "50449b2b6c5ad04472fa547567dafd53d27b4c8bc8f3ae261ef6095257376612",
+        "html_exact_tex_sha256": "d0e360acc6b8b581ed6ccfb3ecc496cd59be3aaca4065fd68541a0d2718c3d7c"
       },
       "sections": [
         {
@@ -5711,8 +5711,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
         "source_sha256": "8f38a10e7ef2ec9fe571f0df1062658d12f4dd346c19eeb99a940369abe81959",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -6028,8 +6028,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
         "source_sha256": "67b05a5c3d4857022d8b79850b5c0d258db36c694bee74c4e5a13f0942f05f7d",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -6205,8 +6205,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
         "source_sha256": "13f7aade865f32012ac747a38866d074f8331835579fe38ed7bc33cfd1f27271",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -6459,8 +6459,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
         "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
         "source_manifest_match": true,
         "publication_manifest_match": true,

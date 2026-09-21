@@ -58,6 +58,9 @@ class="math inline" data-term-auto="off">\(0\le\ell&lt;d\)</span>, satisfying </
 class="math display" data-term-auto="off">\[\operatorname{K}(i,j,k)=\sum_{\ell&lt;d}f_\ell(i)G_\ell(j,k)
 \qquad\hbox{for all }i,j,k.\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">paper
+uniform rank and nonseparation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For fixed <span class="math inline" data-term-auto="off">\(k\)</span>, we
 rescale rows and columns to obtain a matrix independent of <span
@@ -153,6 +156,9 @@ determinant over <span class="math inline" data-term-auto="off">\(\mathbb Z/B\ma
 Z\)</span>, with each reciprocal prime power interpreted by its modular
 inverse.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133">admissible
+modular minors</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Choose the maps from Theorem <a class="math-ref" href="#res:infinite-rank">2.1</a>. Every row and
 column factor is a unit modulo <span class="math inline" data-term-auto="off">\(B\)</span>.
@@ -202,6 +208,9 @@ class="math inline" data-term-auto="off">\(E\)</span> has rank <span
 class="math inline" data-term-auto="off">\(|E|-\mathbf 1_{\{0,m\}\subseteq
 E}\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">rank
+cut matrix</a>.</small></p>
 <p>The correction accounts for the two constant columns: <span
 class="math inline" data-term-auto="off">\(v_0=c v_m\)</span>. There is no other dependence
 among distinct threshold columns.</p>
@@ -277,6 +286,18 @@ running LCM once. Then </em></p>
 \end{equation}\]</span></div>
 <p><em> Both numbers are transcendental.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L841">two
+prime affine and quadratic</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L872">two
+prime sums transcendental</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L88">running
+lcm eq two prime height</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L159">two
+prime height smooth</a>, and 9 further declarations. Conditional on the
+transcendence theorem of Bugeaud and Laurent; see the <a
+href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#nameddest=coverage">coverage
+section of the companion record</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Set <span class="math inline" data-term-auto="off">\(x=1/p\)</span>, <span
 class="math inline" data-term-auto="off">\(y=1/q\)</span>, <span
@@ -364,6 +385,9 @@ primes and <span class="math inline" data-term-auto="off">\(x\ge1\)</span>. Then
 LCM equals the three-prime height: <span
 class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{H}(x)\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L49">running
+lcm real cutoff exact</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every smooth <span class="math inline" data-term-auto="off">\(n\le
 x\)</span> has prime exponents bounded by the corresponding integer
@@ -387,6 +411,17 @@ first <span class="math inline" data-term-auto="off">\(n\)</span> positive power
 prime, together with <span class="math inline" data-term-auto="off">\(1\)</span>, form <span
 class="math inline" data-term-auto="off">\(3n+1\)</span> distinct points.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L65">real
+prefix lcm eq of same log cell</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L87">real
+prefix lcm jump first</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L117">real
+prefix lcm jump second</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L129">real
+prefix lcm jump third</a>, and 1 further declaration in the <a
+href="../../../papers/erdos269-running-lcm-reasoning-surface.pdf#nameddest=coverage">coverage
+section of the companion record</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The first two claims follow from the height formula.
 Positive powers of different primes cannot coincide, by unique
@@ -411,6 +446,9 @@ class="math display" data-term-auto="off">\[\begin{equation}
 \sum_{(i,j,k)\in\mathcal B}\operatorname{K}(i,j,k)=\sum_H\frac{\#F(H)}H.
 \end{equation}\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">finite
+smooth kernel sum grouped by height</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Each term in <span
 class="math inline" data-term-auto="off">\(F(H)\)</span> equals <span
@@ -454,6 +492,9 @@ does not impose the positional-digit restriction <span
 class="math inline" data-term-auto="off">\(m_a&lt;b_a\)</span>; that restriction need not
 hold.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/DyadicAlphabetWhole.lean#L19">dyadic
+alphabet whole</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(x&lt;2^{a+1}\)</span>,
 the exponent of <span class="math inline" data-term-auto="off">\(2\)</span> in <span
@@ -496,6 +537,9 @@ integral, or <span
 class="math inline" data-term-auto="off">\(\operatorname{dist}(BX_a,\mathbb
 Z)\ge1/31\)</span> at arbitrarily large indices.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168">short
+actual orbit</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For each pair of exponents of <span
 class="math inline" data-term-auto="off">\(3\)</span> and <span
@@ -549,6 +593,9 @@ class="math inline" data-term-auto="off">\(a\ge a_0=u+1+2v+3w\)</span>, </em></p
 class="math display" data-term-auto="off">\[d_a=BX_a\in\mathbb Z_{&gt;0},\qquad
 d_{a+1}=b_ad_a-Bm_a,\qquad d_a\le90B(a+1)^2.\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80">short
+fixed split bridge</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For <span class="math inline" data-term-auto="off">\(a\ge1\)</span>, every
 <span class="math inline" data-term-auto="off">\(\operatorname{H}(x)\)</span> with <span
@@ -603,6 +650,13 @@ class="math inline" data-term-auto="off">\(2^a\ge\max(2^{u+1},3^v,5^w)\)</span>.
 such <span class="math inline" data-term-auto="off">\(a\)</span> can be found by integer
 comparisons, without logarithmic rounding.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L334">exact
+denominators and minimal clearing</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L309">scaled
+state is integer iff first clearing index le</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L166">clearing
+condition iff max</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> By <a class="math-ref" data-equation-ref="true" href="#eq:prefix-lattice">eq:prefix-lattice</a>, <span
 class="math inline" data-term-auto="off">\(BX_a\)</span> differs from <span
@@ -660,6 +714,9 @@ class="math inline" data-term-auto="off">\(d\equiv -BF\pmod W\)</span>, where <s
 class="math inline" data-term-auto="off">\(W\ge1\)</span>, then <span
 class="math inline" data-term-auto="off">\(\operatorname{lpr}_W(-BF)\le K\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138">paper
+finite endpoint obstruction</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every positive representative of the residue is at
 least its least positive representative, so <span
@@ -692,6 +749,9 @@ and only if </em></p>
 \end{gathered}
 \end{equation}\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L51">short
+window equivalence</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Assume <a class="math-ref" data-equation-ref="true" href="#eq:escape">eq:escape</a> and suppose <span
 class="math inline" data-term-auto="off">\(S\)</span> is rational. Theorem <a class="math-ref" href="#res:denominator-reduction">4.6</a> supplies

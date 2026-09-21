@@ -42,6 +42,17 @@ class="math inline" data-term-auto="off">\(\mathcal R_{\{p,q\}}\)</span> and <sp
 class="math inline" data-term-auto="off">\(\mathcal D_{\{p,q\}}\)</span> are
 transcendental.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L924">two
+prime transcendence</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L872">two
+prime sums transcendental</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L893">repeated
+sum comm</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L906">distinct
+sum comm</a>, and 1 further declaration. Conditional on the
+transcendence theorem of Bugeaud and Laurent; see the <a
+href="#long269:sec:coverage">coverage section</a>.</small></p>
 <p>Section <a class="math-ref" href="#long269:sec:two-prime">3</a> proves this
 by expressing both values as nonconstant polynomials over <span
 class="math inline" data-term-auto="off">\(\mathbb Q\)</span> in the same Hecke–Mahler
@@ -190,6 +201,9 @@ Let <span class="math inline" data-term-auto="off">\(p,q,r\)</span> be pairwise 
 primes and <span class="math inline" data-term-auto="off">\(x\ge1\)</span>. Then <span
 class="math inline" data-term-auto="off">\(\operatorname{L}(x)=\operatorname{H}(x)\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L49">running
+lcm real cutoff exact</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every smooth <span class="math inline" data-term-auto="off">\(n\le
 x\)</span> has exponents bounded by the corresponding integer
@@ -241,6 +255,16 @@ and similarly with <span class="math inline" data-term-auto="off">\(q\)</span> o
 class="math inline" data-term-auto="off">\(r\)</span> in place of <span
 class="math inline" data-term-auto="off">\(p\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L65">real
+prefix lcm eq of same log cell</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L87">real
+prefix lcm jump first</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L117">real
+prefix lcm jump second</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L129">real
+prefix lcm jump third</a>, and 1 further declaration in the <a
+href="#long269:sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Both parts are immediate from Theorem <a class="math-ref" href="#long269:res:lcm">2.1</a>: the height depends
 on <span class="math inline" data-term-auto="off">\(x\)</span> only through the three integer
@@ -259,6 +283,9 @@ class="math inline" data-term-auto="off">\(3n\)</span> elements, and adjoining t
 origin <span class="math inline" data-term-auto="off">\(1\)</span> gives exactly <span
 class="math inline" data-term-auto="off">\(3n+1\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L69">paper
+jump count</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For a fixed prime <span
 class="math inline" data-term-auto="off">\(b\)</span>, the powers <span
@@ -284,6 +311,9 @@ B}\operatorname{K}(i,j,k)=\sum_{H}\#F(H)/H,\]</span></div>
 ranging over the heights attained on <span
 class="math inline" data-term-auto="off">\(\mathcal B\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407">finite
+smooth kernel sum grouped by height</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Partition <span class="math inline" data-term-auto="off">\(\mathcal
 B\)</span> into the fibres of the height map. On <span
@@ -309,6 +339,9 @@ class="math inline" data-term-auto="off">\(b^{a&#39;}w\)</span> both lie in <spa
 class="math inline" data-term-auto="off">\([\lambda,\eta)\)</span> then <span
 class="math inline" data-term-auto="off">\(a=a&#39;\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBaseShortInterval.lean#L10">exponent
+unique real base short interval</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(a&lt;a&#39;\)</span>
 then <span class="math inline" data-term-auto="off">\(\eta\le b\,\lambda\le b^{a+1}w\le
@@ -335,6 +368,9 @@ moreover <span class="math inline" data-term-auto="off">\(\eta\le r\,\lambda\)</
 class="math inline" data-term-auto="off">\(h_p+h_q+h_r=j\)</span>, then <span
 class="math inline" data-term-auto="off">\(9\,\#\mathcal S\le(j+3)^{2}\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L285">real
+smooth exponent shell bounds</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Suppose <span class="math inline" data-term-auto="off">\(\eta\le
 r\,\lambda\)</span>. If two triples of <span
@@ -537,6 +573,9 @@ class="math display" data-term-auto="off">\[\operatorname{K}_2(i,j)
 every two-by-two minor of <span
 class="math inline" data-term-auto="off">\(\operatorname{K}_2\)</span> vanishes.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealTwoPrimeKernel.lean#L63">real
+two prime separation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Since <span class="math inline" data-term-auto="off">\(i\)</span> and
 <span class="math inline" data-term-auto="off">\(j\)</span> are integers, <span
@@ -571,6 +610,9 @@ class="math display" data-term-auto="off">\[\det\begin{pmatrix}
 =\det\begin{pmatrix}1&amp;1/6\\1/2&amp;1/60\end{pmatrix}
 =-\frac1{15}\ne0 .\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L102">paper
+two by two fixture</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The four values are computed from <span
 class="math inline" data-term-auto="off">\(\operatorname{H}(1)=1\)</span>, <span
@@ -599,6 +641,9 @@ class="math inline" data-term-auto="off">\(0\le\ell&lt;d\)</span>, satisfying <s
 class="math inline" data-term-auto="off">\(\operatorname{K}(i,j,k)=\sum_{\ell&lt;d}f_\ell(i)G_\ell(j,k)\)</span>
 for all <span class="math inline" data-term-auto="off">\(i,j,k\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22">paper
+uniform rank and nonseparation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(\alpha=\log_r
 p\)</span>, <span class="math inline" data-term-auto="off">\(\beta=\log_r q\)</span>, <span
@@ -724,6 +769,9 @@ is </em></p>
 <div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[|E|-\mathbf 1_{\{0,m\}\subseteq
 E}.\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182">rank
+cut matrix</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Write <span
 class="math inline" data-term-auto="off">\(E=\{h_1&lt;\cdots&lt;h_s\}\)</span>. The <span
@@ -845,6 +893,9 @@ over all matrices <span class="math inline" data-term-auto="off">\(A\)</span> of
 separated rank, and it is attained by the constant matrix of value <span
 class="math inline" data-term-auto="off">\((1+t)/2\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR8UniformRank.lean#L321">uniform
+rank complete</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every entry of <span class="math inline" data-term-auto="off">\(C\)</span>
 lies in <span class="math inline" data-term-auto="off">\(\{1,t\}\)</span>, and <span
@@ -993,6 +1044,16 @@ b_a=\frac{P_{a+1}}{P_a}=2\prod_{(p,e)\in I_a}p\in\{2,6,10,30\},
 \qquad\text{so}\qquad 2\le b_a\le30 .
 \end{equation}\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L751">dyadic
+block base235</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L669">dyadic
+internal power exponent unique</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L701">exists
+dyadic internal power iff log succ</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L734">log
+dyadic succ eq of no internal power</a>, and 4 further declarations in
+the <a href="#long269:sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> A power of <span class="math inline" data-term-auto="off">\(3\)</span> may
 occur and a power of <span class="math inline" data-term-auto="off">\(5\)</span> may occur,
@@ -1083,6 +1144,9 @@ X_{a+1}=b_aX_a-m_a,
 X_a=\sum_{j\ge a}\frac{m_j}{b_ab_{a+1}\cdots b_j} .
 \end{equation}\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L189">long
+actual orbit</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every exponent of <span
 class="math inline" data-term-auto="off">\(3\)</span> or <span
@@ -1165,6 +1229,9 @@ sequence is unbounded. These are integer numerators, not positional
 digits restricted to <span
 class="math inline" data-term-auto="off">\(\{0,\ldots,b_a-1\}\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/LiteralTriangleReal.lean#L193">literal
+triangle whole</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For each pair with <span
 class="math inline" data-term-auto="off">\(w_{j,k}&lt;a+1\)</span>, exactly one exponent
@@ -1207,6 +1274,9 @@ class="math inline" data-term-auto="off">\(a\ge a_0\)</span> with <span
 class="math inline" data-term-auto="off">\(|BX_a-z|\ge1/31\)</span> for every <span
 class="math inline" data-term-auto="off">\(z\in\Z\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean#L132">scaled
+integer or cofinal separation</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If the second alternative fails, there are <span
 class="math inline" data-term-auto="off">\(A\)</span> and integers <span
@@ -1286,6 +1356,9 @@ exponents at <span class="math inline" data-term-auto="off">\(2^{a}\)</span>.</p
 <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, <span
 class="math inline" data-term-auto="off">\(0&lt;X_a\le Q(n_a)\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR8RankMajorant.lean#L357">actual
+tail rank bound</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Partition the smooth integers <span
 class="math inline" data-term-auto="off">\(x\ge2^{a}\)</span> by their height vector</p>
@@ -1393,6 +1466,9 @@ class="math inline" data-term-auto="off">\(a\ge1\)</span>, and there are indices
 class="math inline" data-term-auto="off">\(1\le i&lt;j\le D+1\)</span> for which <span
 class="math inline" data-term-auto="off">\(X_i-X_j\in\Z\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/BoundedLatticeCollision.lean#L56">long
+all scale lattice exact</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> An empty window has mass zero. Otherwise <span
 class="math inline" data-term-auto="off">\(b\ge1\)</span>, and every integer <span
@@ -1430,6 +1506,11 @@ class="math inline" data-term-auto="off">\(d_a=BX_a\)</span> is a positive integ
 class="math display" data-term-auto="off">\[d_{a+1}=b_ad_a-Bm_a,\qquad 1\le d_a\le
 K(B,a)\le90B(a+1)^{2} .\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean#L37">long
+fixed split bridge r11</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean#L26">long
+paper cap le three square r11</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Let <span
 class="math inline" data-term-auto="off">\(M=2^{u}3^{v}5^{w}\)</span>. For <span
@@ -1490,6 +1571,16 @@ class="math inline" data-term-auto="off">\(a\ge a_*\)</span>. This onset is comp
 integer powers; it is not an estimate obtained by rounding
 logarithms.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L334">exact
+denominators and minimal clearing</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L309">scaled
+state is integer iff first clearing index le</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L166">clearing
+condition iff max</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L203">first
+clearing index spec</a>, and 2 further declarations in the <a
+href="#long269:sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> By Lemma <a class="math-ref" href="#long269:res:all-scale-lattice">6.2</a>,
 <span class="math inline" data-term-auto="off">\(X_a\)</span> differs from <span
@@ -1537,6 +1628,9 @@ class="math inline" data-term-auto="off">\((m_n/b_n,\;m_n/b_n+w(n)]\)</span> for
 class="math inline" data-term-auto="off">\(n\ge A\)</span>, then <span
 class="math inline" data-term-auto="off">\(y_A=X_A\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/EightScaleRigidity.lean#L77">paper
+pinning and eight scale rigidity</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The identity is the recurrence solved for <span
 class="math inline" data-term-auto="off">\(X_a\)</span>, and positivity holds because every
@@ -1591,6 +1685,9 @@ every <span class="math inline" data-term-auto="off">\(a\ge0\)</span>, </em></p>
 class="math display" data-term-auto="off">\[0&lt;X_a\le\widetilde Q(n_a)&lt;Q(n_a),\qquad
 \widetilde Q(n)=\frac{1210n^2+9130n+18847}{11979}.\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean#L339">actual
+sharp tail bound</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For a point <span
 class="math inline" data-term-auto="off">\(x\ge2^a\)</span>, let <span
@@ -1813,6 +1910,9 @@ class="math inline" data-term-auto="off">\(c\equiv N\pmod C\)</span> and <span
 class="math inline" data-term-auto="off">\(K&lt;\operatorname{lpr}_C(N)\)</span>, then the
 hypotheses are contradictory.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ResidueEscape.lean#L110">no
+bounded positive int state of least positive residue</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Every positive integer congruent to <span
 class="math inline" data-term-auto="off">\(N\)</span> is at least <span
@@ -1879,6 +1979,9 @@ automatically, since every least positive residue is at least <span
 class="math inline" data-term-auto="off">\(1\)</span>; its truth alone therefore provides no
 contradiction to an integral tail.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/OcticEscapeWhole.lean#L50">octic
+escape whole</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Suppose <span class="math inline" data-term-auto="off">\(\mathsf
 E(G)\)</span> and suppose <span class="math inline" data-term-auto="off">\(S=N/D\)</span>
@@ -1966,6 +2069,13 @@ class="math inline" data-term-auto="off">\(BX_\ell\)</span> is integral, then <s
 class="math inline" data-term-auto="off">\(R_h=BX_{\ell+h}\)</span> for all sufficiently
 large <span class="math inline" data-term-auto="off">\(h\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean#L172">eventually
+fixed start residue formula</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean#L205">fixed
+start residue ratio tendsto</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean#L231">eventually
+fixed start residue eq tail of integral</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The least positive residue is the modulus times the
 gap to the next strictly larger integer. Division with remainder gives</p>
@@ -2118,6 +2228,9 @@ class="math display" data-term-auto="off">\[W_{\ell,h}=2^{h}\,
 \qquad
 \frac{8^{h}}{15}&lt;W_{\ell,h}&lt;15\cdot8^{h} .\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L196">long
+window growth</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Telescoping <a class="math-ref" data-equation-ref="true" href="#long269:eq:dyadic-alphabet">long269:eq:dyadic-alphabet</a> gives
 <span class="math inline" data-term-auto="off">\(W_{\ell,h}=P_{\ell+h}/P_\ell\)</span>, and
@@ -2143,6 +2256,9 @@ class="math inline" data-term-auto="off">\(\ell\)</span> admit an escaping windo
 at most <span class="math inline" data-term-auto="off">\(H\)</span> against the bound <span
 class="math inline" data-term-auto="off">\(K\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L267">long
+no bounded length</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> A least positive residue never exceeds its modulus,
 so escape at <span class="math inline" data-term-auto="off">\((\ell,h)\)</span> requires
@@ -2442,6 +2558,9 @@ class="math inline" data-term-auto="off">\(A_r\ne0\)</span> whenever <span
 class="math inline" data-term-auto="off">\(\sum_{j&lt;J}|c_j|2^{-(J-j)r}&lt;|c_J|\)</span>;
 an empty sum is zero.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/WeightedShiftValue.lean#L216">weighted
+shift whole</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> The exponent of <span
 class="math inline" data-term-auto="off">\(2\)</span> in <span
@@ -2552,6 +2671,11 @@ T_{a+sr}}\omega_a(t_{j,k}).\]</span></div>
 cancels the common interior, but not necessarily the three boundary
 strips.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean#L132">actual
+weighted strip decomposition</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean#L172">actual
+cubic no crossing strips</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For each <span class="math inline" data-term-auto="off">\(p=3,5\)</span>,
 the exponent of <span class="math inline" data-term-auto="off">\(p\)</span> on either side of</p>
@@ -2735,6 +2859,9 @@ class="math inline" data-term-auto="off">\(30\mid q\)</span>; that direct recodi
 coefficients at least <span
 class="math inline" data-term-auto="off">\((q/8)^{a+1}\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/FixedBaseRecoding.lean#L154">fixed
+base recoding whole</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Each exponent in <span
 class="math inline" data-term-auto="off">\(P_n\)</span> is at most <span
@@ -2884,6 +3011,9 @@ to <span class="math inline" data-term-auto="off">\(30\)</span> and every <span
 class="math inline" data-term-auto="off">\(a\ge1\)</span>, is equivalent to irrationality of
 <span class="math inline" data-term-auto="off">\(S\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L214">all
+reduced tails nonintegral iff</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> If <span class="math inline" data-term-auto="off">\(BX_a\in\Z\)</span> for
 some such <span class="math inline" data-term-auto="off">\(B\)</span> and <span
@@ -3334,6 +3464,9 @@ class="math inline" data-term-auto="off">\(t\)</span>, </em></p>
 class="math display" data-term-auto="off">\[0&lt;c_n\le
 Dt\quad\Longleftrightarrow\quad0&lt;d_n\le Bt.\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBoundDenominatorReduction.lean#L25">conditional
+denominator reduction real bound</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Substitute <span
 class="math inline" data-term-auto="off">\(c_n=D_{\mathrm{sm}}d_n\)</span> and <span
@@ -3427,6 +3560,9 @@ class="math inline" data-term-auto="off">\(d_n&gt;0\)</span> and <span
 class="math inline" data-term-auto="off">\(|d_n|\le G(B,n)\)</span> for every <span
 class="math inline" data-term-auto="off">\(n\ge0\)</span>.</em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean#L645">no
+positive reduced carry of cofinal local window escape</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Choose one escaping window <span
 class="math inline" data-term-auto="off">\((\ell,h)\)</span>. The window identity gives <span

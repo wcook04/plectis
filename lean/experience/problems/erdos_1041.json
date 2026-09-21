@@ -185,7 +185,7 @@
     "subject": "Erdős #1041",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 30,
+    "pages": 32,
     "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and which hypotheses do they require?",
     "precis": "For a monic trinomial f(z)=z^n+a z^m+b, 1≤m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.",
     "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
@@ -207,19 +207,19 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 28,
-      "renderer_fingerprint": "1afa7218572522ac",
-      "source_sha256": "da8c08c91e45d7b8a71a9b82c019349837744f13cff97fa1dbdfc6cb4a010a8b",
+      "renderer_contract_version": 29,
+      "renderer_fingerprint": "815b27130b0e7a63",
+      "source_sha256": "ee640f2b65f49089e8ed10bd6cfacfa649071e0c1d9bc2191011f5aea54eb946",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 787,
+      "mathml_node_count": 788,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "a977be339ab627373e8444e3c92b46a7e852544b20f791488224a35b9825a5e1",
-      "html_exact_tex_sha256": "baed6d1e2f14dab03a3746d3da997d826dacb61c926cee01d13c0cfe14dc2960"
+      "html_mathml_sha256": "0deb46c014b4ea0f6fb12d2e5e731608655131788f2356960fef7fd20ad076c6",
+      "html_exact_tex_sha256": "0118b6b60fb7c9fd26892366a3800320bf47b44762df6037e69fdcf1a2326ac3"
     },
     "sections": [
       {
@@ -459,7 +459,7 @@
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 30,
+      "pages": 32,
       "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and which hypotheses do they require?",
       "precis": "For a monic trinomial f(z)=z^n+a z^m+b, 1≤m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.",
       "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
@@ -481,19 +481,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "da8c08c91e45d7b8a71a9b82c019349837744f13cff97fa1dbdfc6cb4a010a8b",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "ee640f2b65f49089e8ed10bd6cfacfa649071e0c1d9bc2191011f5aea54eb946",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 787,
+        "mathml_node_count": 788,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "a977be339ab627373e8444e3c92b46a7e852544b20f791488224a35b9825a5e1",
-        "html_exact_tex_sha256": "baed6d1e2f14dab03a3746d3da997d826dacb61c926cee01d13c0cfe14dc2960"
+        "html_mathml_sha256": "0deb46c014b4ea0f6fb12d2e5e731608655131788f2356960fef7fd20ad076c6",
+        "html_exact_tex_sha256": "0118b6b60fb7c9fd26892366a3800320bf47b44762df6037e69fdcf1a2326ac3"
       },
       "sections": [
         {
@@ -733,7 +733,7 @@
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 76,
+      "pages": 78,
       "question": "What path-length, critical-value, and coefficient-family results are proved for polynomial lemniscates, and what remains of the unrestricted length-2 problem?",
       "precis": "For a monic trinomial with roots in the open unit disc, any two distinct roots are joined inside {|f|<1} by a path of length less than 2. For any squarefree monic polynomial of degree n≥2, an area-growth argument gives such a path when the least critical-value modulus μ is at most 13/25; scaling gives length less than (5/2)μ^{1/n} inside {|f|<(25/13)μ}. The record develops this argument, an inverse-ray averaging estimate, and a construction using an isolated simple critical value, together with results for collinear roots and several coefficient families. A weighted Poisson identity gives a sharp mean bound on critical values; examples distinguish that bound from path-length control. The final sections examine inverse-sheet topology and refute an earlier spanning-tree estimate. These results do not prove the unrestricted length-2 assertion.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
@@ -755,9 +755,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 28,
-        "renderer_fingerprint": "1afa7218572522ac",
-        "source_sha256": "5b045bb3e96dc9da3c440b95f6c27dc21ac6b6d576b3d308ffb817369158440f",
+        "renderer_contract_version": 29,
+        "renderer_fingerprint": "815b27130b0e7a63",
+        "source_sha256": "ac7fc17d84644a4862571c19adfb14392d57ac26c9a830b813eb492b8ca4176b",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2553,
@@ -785,8 +785,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "87659aaf364c33142d6e5c751e500673a3f7abcc5e47bc88ab5fe42b72b7f874",
-        "html_exact_tex_sha256": "dde1a4408cd2c0655b4ccd4b2d2b42d503636efbd7c0e023193f56cf902a7132"
+        "html_mathml_sha256": "a4d4eeacabcb5edae6d8ea992f8c691eeb81de14ff8a3996d7c2be3150635db6",
+        "html_exact_tex_sha256": "82fd9018791c0e06b45af5e421180b31d1c61746dd7a1b7adf623b9bbfe87103"
       },
       "sections": [
         {

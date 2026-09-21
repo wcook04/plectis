@@ -20215,7 +20215,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "membership of 1/21 in the Mersenne achievement set",
-        "line": 1091
+        "line": 1100
       }
     },
     {
@@ -20251,7 +20251,7 @@
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 122
+        "line": 124
       }
     },
     {
@@ -20275,7 +20275,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "Erdős #243",
-        "line": 133
+        "line": 135
       }
     },
     {
@@ -20287,7 +20287,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "no reduced tail is an integer",
-        "line": 574
+        "line": 587
       }
     },
     {
@@ -20299,7 +20299,7 @@
         "source": "paper/269/erdos-269-three-prime-running-lcm.tex",
         "environment": "problem",
         "title": "residue inequalities after every starting index",
-        "line": 580
+        "line": 593
       }
     },
     {
@@ -20311,7 +20311,7 @@
         "source": "paper/269/erdos269-running-lcm-reasoning-surface.tex",
         "environment": "problem",
         "title": "an exact function representing the distinct-height sum",
-        "line": 2222
+        "line": 2253
       }
     },
     {
@@ -20323,7 +20323,7 @@
         "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
         "environment": "problem",
         "title": "growth of repeated denominator factors",
-        "line": 799
+        "line": 815
       }
     },
     {
@@ -20335,7 +20335,7 @@
         "source": "paper/249/erdos-249-binary-totient-series.tex",
         "environment": "problem",
         "title": "Four estimates for the first-harmonic sum",
-        "line": 709
+        "line": 717
       }
     },
     {
@@ -20347,7 +20347,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "bounded returns of the scaled remainder",
-        "line": 1107
+        "line": 1116
       }
     },
     {
@@ -20359,7 +20359,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "arithmetic tests for the greedy sequence",
-        "line": 1116
+        "line": 1125
       }
     },
     {
@@ -20371,7 +20371,7 @@
         "source": "paper/257/erdos-257-mersenne-support-subseries.tex",
         "environment": "problem",
         "title": "final-skip Diophantine exclusion",
-        "line": 1127
+        "line": 1136
       }
     }
   ],

@@ -143,6 +143,7 @@ Let $a>b\ge1$ be coprime integers with
 \]
 Then $F(a/b)$ is irrational.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{440}{printed_contour_short}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{461}{printed_mu}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{334}{zudilinJ_enclosure}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{383}{zudilinC0_enclosure}, and 7 further declarations in the \papersectionlink{erdos1049-rational-base-lambert-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \noindent The condition holds for every integer base, since $b=1$ gives
 $\log b/\log a=0$. For a fixed denominator $b>1$, it requires
@@ -373,6 +374,7 @@ The separation bound for a nonzero integral form at a rational target is
 \begin{corollary}\label{res:thirtyone-four}
 $F\bigl((31/4)^r\bigr)$ is irrational for every integer $r\ge1$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean}{117}{thirtyone_four_powers}.}
 \begin{proof}
 The exact inequalities $31^2<4^5$ and $4^{200}<31^{81}$ give
 $2/5<\log4/\log31<81/200$.
@@ -402,6 +404,7 @@ Here $\mu_{\rm irr}(\xi)$ is the supremum of the exponents $\nu$ for which
 $|\xi-p/q|<q^{-\nu}$ has infinitely many reduced rational solutions.
 In particular, $\mu_{\rm irr}(F((31/4)^r))<301$ for every $r\ge1$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean}{194}{rational_base_measure_uniform}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean}{205}{thirtyoneFour_power_measure_lt_301}, \lproof{ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean}{167}{rational_base_power_measure}, \lproof{ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean}{176}{thirtyone_four_power_measure_lt_301}.}
 \begin{proof}
 The passage from the forms to an exponent bound is the standard one that
 Zudilin uses at integer bases \cite[p.~162]{zudilin2004}; the estimates below
@@ -547,6 +550,7 @@ $d_n=\max(\deg U_n,\deg V_n)$, the homogenised forms
 $b^{d_n}\Lambda_n(a/b)$ tend to zero whenever
 $\log b/\log a<\sigma/(\sigma+\delta)$, and $\sigma/(\sigma+\delta)\le1/2$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperShortCapR9.lean}{162}{short_note_archimedean_cap}.}
 \end{sloppypar}
 
 \begin{proof}
@@ -639,6 +643,7 @@ and the coefficient of the first nonzero monomial is
    =\frac{(N!)^2(N+1)!}{2^N}.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/AllRow/Producer.lean}{173}{order_zudilinNormalizedHankelDet_all}, \lproof{ErdosProblems/Erdos1049/AllRow/Producer.lean}{199}{coeff_zudilinNormalizedHankelDet_all_rat}.}
 
 \begin{proof}
 To obtain moments at the nodes $q^k$, collect the dependence on $m$ into
@@ -785,6 +790,7 @@ $2^{\,N+1}\le B\,c(N+1)\,s^{\,N+1}$.
 \item If $s=1$, then $B\,c(N+1)\,s^{\,N+1}=B\,c(N+1)$.
 \end{enumerate}
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{186}{forcing_term}.}
 \begin{proof}
 In the first case, $2^{N+1}\le s^{N+1}\le Bc(N+1)s^{N+1}$.
 The second case follows by substituting $s=1$.
@@ -843,6 +849,7 @@ indicator vectors gives a nonzero coefficient vector in
 \]
 In particular, if \(R>0\) and \(4R+2S\le M\), such a collision exists.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{248}{fourJet_paper_statement}.}
 
 \begin{proof}
 Send each subset to the sum of the residue vectors of its members.
@@ -875,6 +882,7 @@ binary selectors $s,t\in\{0,1\}^{k}$ such that
 Thus $S+2R$ rows suffice, in place of the sufficient bound $2S+4R$
 from the ambient two-coordinate count.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{269}{plucker_paper_statement}.}
 
 \begin{proof}
 If $uA+vB=1$ and $AB'-BA'=0$, then
@@ -929,6 +937,7 @@ $\widetilde{E}_n-\widetilde{P}(n,k)=(n-k)(3n-k-1)$;
 is $\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)$.
 \end{enumerate}
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{201}{pade_summand_bound_and_gap}.}
 
 For the first inequality the gap is zero at $n=k=0$; otherwise both
 factors are nonnegative. Substituting $j=n-m-1$ gives the second
@@ -944,6 +953,7 @@ and its
 show that the added divisibility is accompanied by exactly the same
 factor in the real absolute value.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{59}{integer_scalar_content}.}
 
 For nonzero row contents $c_1,c_2$, write $r_i=c_ir_i^{\rm prim}$.
 Then $\det(r_1,r_2)=c_1c_2\det(r_1^{\rm prim},r_2^{\rm prim})$ and
@@ -1005,6 +1015,7 @@ If $|B||J|k<|A|$, then some distinct $x,y\in A$ satisfy
  f(x)=f(y),\qquad 0<|g(x)-g(y)|<\delta.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/QuantitativeSelectorEscape.lean}{79}{exists_small_real_escape_of_conditional_multiplicity}.}
 \begin{proof}
 Partition $A$ by $(f,\iota)$.  Some cell has more than $k$ elements, so its
 $g$-values cannot all agree.  Two unequal values in that cell have the same
