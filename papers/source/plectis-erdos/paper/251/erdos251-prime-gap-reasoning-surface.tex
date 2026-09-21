@@ -2234,6 +2234,85 @@ The finite certificates use the same polynomial bound to control the
 omitted terms.  The counterexamples concern other coefficient sequences,
 not a construction of new primes.  The complete link inventory is also retained in the TeX source.
 
+\subsection*{Formalisation coverage and remaining dependencies}
+\label{long251:sec:coverage}
+
+Every theorem, lemma, proposition and corollary of this record other than the
+four listed below has a Lean statement of the same assertion, with the same
+hypotheses, checked by the Lean kernel using only the axioms
+\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
+development at revision \texttt{181078b6b009}.
+
+Three of the exceptions share cited inputs.  The development verifies the
+reduction of Theorem~\ref{long251:res:sparse} to Schlage-Puchta's lemma that,
+for a fixed nonzero integer polynomial in a fixed block of consecutive prime
+gaps, the set of indices where it vanishes has density
+zero~\cite[Lemma~4, pp.~5--6]{schlagepuchta2011}, and the reduction of
+Corollary~\ref{long251:res:nonconc-primes} and
+Corollary~\ref{long251:res:jointcountermodel} to that lemma together with the
+prime number theorem in the form $p_n\sim n\log n$~\cite[Chapter~6]{mv2007}.
+Formal proofs of those two inputs are not included in the verified
+development, so these three endpoints remain conditional on them.  What each
+statement adds to them is checked, including the estimate that the corrected
+sequence of Corollary~\ref{long251:res:jointcountermodel} differs from the
+prime gaps at $O_\varepsilon(n/\log\log n)$ indices below $n$, which uses no
+information about the distribution of primes.
+
+Theorem~\ref{long251:res:cfexclusion} is a different case.  Its deduction from
+the four integer comparisons between the enclosure and its Farey neighbours is
+checked in general form, and the certificate those comparisons are applied to
+is too large for the Lean kernel to evaluate at present.  The exclusion
+therefore rests on the separate exact-arithmetic verifier described in its
+proof.
+
+A theorem whose own statement is conditional is formalised exactly as stated.
+The four results above are asserted unconditionally here, and their Lean
+counterparts either carry a named input or rest on a computation the kernel
+does not perform.
+
+% BEGIN GENERATED CONCORDANCE (claude_lane/build_concordance.py; do not edit by hand)
+\paragraph{Concordance of statements and Lean declarations.}
+Each result of this record that has a kernel-checked Lean statement of the same assertion is listed
+below with the declarations that jointly state it.  Each name links to its declaration at revision
+\texttt{181078b6b009}.  Where the Lean statement is stronger than the printed one and implies it by
+an immediate specialisation, the entry says so.
+
+\begingroup\small\raggedright
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:sparse-rationalisation}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean\#L269}{\nolinkurl{arbitrary_word_sparse_rationalisation_uniform}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/SparsePaperR11.lean\#L137}{\nolinkurl{polylogarithmic_word_interval_uniform}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseConstructionAudit.lean\#L8}{\nolinkurl{bounded_test_finite_coupling}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long251:res:local-targets}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/LocalTargetInterval.lean\#L38}{\nolinkurl{local_target_interval}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:abel}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L138}{\nolinkurl{dyadicPartialSumQ_eq_start_add_differences}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:parts}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L172}{\nolinkurl{prime0_dyadic_summation_by_parts}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:infinite}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L47}{\nolinkurl{infinite_prime_gap_identity}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long251:res:irr-equivalence}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L56}{\nolinkurl{irrationality_reformulation}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:block}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L76}{\nolinkurl{real_block_identity}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:escape-irrational}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L94}{\nolinkurl{rationality_classification}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long251:res:true-tail}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean\#L57}{\nolinkurl{real_dyadic_orbit_eq_true_tail_iff}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:freepair}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L189}{\nolinkurl{actual_free_pair_criterion}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:lcmdiagonal}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/OrderLatticeDiagonal.lean\#L153}{\nolinkurl{irrational_initial_iff_all_lcmDiagonal_nonintegral}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:smallpair}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L267}{\nolinkurl{rational_small_pair_bundle}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long251:res:smallpair-real}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L298}{\nolinkurl{real_small_pair_prime_endpoint}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:gap-nonperiodic}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L175}{\nolinkurl{prime_gaps_not_eventually_periodic}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:signedwindow}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L135}{\nolinkurl{real_signed_two_window}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:explicit-remainder}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean\#L211}{\nolinkurl{explicit_remainder_certificate}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:finite-smallpair}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean\#L111}{\nolinkurl{finite_small_pair}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:one-tail-certificate}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean\#L6}{\nolinkurl{one_tail_signed_certificate}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:denominatorfloor}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean\#L142}{\nolinkurl{denominator_floor_both}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean\#L137}{\nolinkurl{denominator_floor_decimal}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:boundedperturbation}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L200}{\nolinkurl{rational_bounded_perturbation}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:shiftedcount}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean\#L152}{\nolinkurl{shifted_count_bound}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:nonconcentration}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperNonconcentrationR7.lean\#L100}{\nolinkurl{finite_perturbation_stability}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:sparse-nonconcentration}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseNonconcentration.lean\#L80}{\nolinkurl{sparse_nonconcentration}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:polignacfail}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/LogarithmicCarryAsymptoticsR8.lean\#L368}{\nolinkurl{exists_logarithmic_recurring_values_countermodel}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:polynomialcountermodel}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L27}{\nolinkurl{polynomial_countermodel}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:telescope}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L1137}{\nolinkurl{carryPartialSum_eq}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:xr:totient}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean\#L877}{\nolinkurl{tailShift_integral_totient_of_odd_den}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:xr:propagate}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/RealPropagation.lean\#L27}{\nolinkurl{realTailShift_integral_add}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:xr:truncation} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean\#L261}{\nolinkurl{cofinal_escape_of_finite_truncation}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:res:complete-truncation}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean\#L25}{\nolinkurl{finite_separation_complete}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long251:xr:boundedpolignac} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperBoundedCarryR7.lean\#L179}{\nolinkurl{bounded_recurring_values_countermodel}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long251:res:affinecollapse}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean\#L241}{\nolinkurl{affine_circularity_bundle}}.
+\par\endgroup
+% END GENERATED CONCORDANCE
+
 \paragraph{Sparse construction.}
 The source index records \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean\#L217}{the interval theorem for an arbitrary sequence}, \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/SparsePaperR11.lean\#L53}{its rational-target consequence}, \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/SparsePaperR11.lean\#L78}{the polylogarithmic interval theorem}, \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean\#L139}{the block total-variation bound} and \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean\#L152}{the uniform bounded-test theorem} as \texttt{ci\_checked}.
 The formal construction chooses one coordinate at a time, rather than

@@ -2771,6 +2771,15 @@ translation, which preserves the denominator, its smooth factor and the
 clearing onset.  These comparisons use the attached sources; they are
 not a new build or verification of all historical link targets.
 
+Two displayed statements also have direct current-source counterparts.
+The threshold-column rank formula is
+\href{https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182}{finite cut rank};
+its range equality allows repeated columns and arbitrary ordering.  The
+uniform modular-minor statement is
+\href{https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133}{uniform modular minors};
+its row and column indices are chosen before the modulus and layer.  The
+two modules compiled under Lean~4.29.1 during this source migration.
+
 \begin{longtable}{@{}p{.35\linewidth}p{.59\linewidth}@{}}
 informal statement & linked Lean source\\
 \endhead
@@ -2897,6 +2906,8 @@ state gap bound & \lref{Erdos269/PurePowerIrrationality.lean}{74}{stateGap_lower
 small-form criterion & \lref{Erdos269/PurePowerIrrationality.lean}{94}{irrational_of_small_nonzero_forms}\\
 irrationality from clearing and small nonzero gaps & \lref{Erdos269/PurePowerIrrationality.lean}{156}{irrational_of_clearing_and_small_gaps}\\
 indices giving the threshold staircase & \lword{Shared/IrrationalRotationStaircase.lean}{271}{exists_staircase_indices}{staircase indices}\\
+finite threshold-column rank, including the extreme-column defect & \href{https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182}{finite cut rank}\\
+uniform admissible modular minors, with indices chosen before modulus and layer & \href{https://github.com/wcook04/plectis-erdos/blob/d11bd0b16f2c0b68d722777762ebbd4f96a12db8/lean/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133}{uniform modular minors}\\
 \end{longtable}
 % Part: family_catalogue
 \clearpage
@@ -2913,7 +2924,8 @@ Result & Dependency and limit\\\hline
 Height and cells & Prime-power divisibility and unique factorisation.
 Their geometry alone gives no irrationality statement.\\
 Two-prime values & Earlier factorisation plus the cited external
-Hecke--Mahler value theorem; not formalised here.\\
+Hecke--Mahler value theorem.  The reduction to that theorem is checked in
+Lean; the theorem itself is a cited input (Section~\ref{long269:sec:coverage}).\\
 Arbitrary-order rank & Diagonal rescaling, separate one-dimensional
 densities and a staircase determinant; selected supplied formal evidence.\\
 Tail recurrence & Counting the original multiplicities, normalising by
@@ -2936,7 +2948,82 @@ A source link identifies code; a build record reports what was run; an
 axiom audit concerns logical dependencies; and a finite computation checks
 its stated inputs.  None substitutes for a proof of the remaining
 irrationality assertion.
+
+\subsection*{Formalisation coverage and remaining dependencies}
+\label{long269:sec:coverage}
+
+Every theorem, lemma, proposition and corollary of this record other than the
+one named below has a Lean statement of the same assertion, with the same
+hypotheses, checked by the Lean kernel using only the axioms
+\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
+development at revision \texttt{181078b6b009}.
+
+The exception is Theorem~\ref{long269:res:lead-two-prime}.  The development
+verifies its reduction to the transcendence of the Hecke--Mahler boundary sum
+at an irrational $\theta\in(0,1)$ and nonzero algebraic $\beta,\alpha$ with
+$|\beta|<1$ and $|\beta||\alpha|^\theta<1$, which is Theorem~1.1 of Bugeaud
+and Laurent~\cite{bugeaudlaurent2023} in the case $\rho=0$, due to Loxton and
+van der Poorten~\cite[Theorem~8, p.~40]{loxtonvdp1977}.  A formal proof of that
+input is not included in the verified development, so this endpoint remains
+conditional on it.  Everything the proof adds is checked:
+the running least-common-multiple identity, the selection of the single power
+of $q$ between consecutive powers of $p$, the factorisation of the repeated
+sum, the identification of the distinct running values, the telescoping
+identity, the boundary
+identity~\eqref{long269:eq:hecke-mahler-boundary} expressing $A$ through the
+Hecke--Mahler sum, the irrationality of $\log p/\log q$, and each side
+condition verified before the value theorem is applied.  The two identities
+expressing $\mathcal D_{\{p,q\}}$ and $\mathcal R_{\{p,q\}}$ as polynomials in
+$A$ are unconditional and carry no additional input.
+
+A theorem whose own statement is conditional is formalised exactly as stated.
+Theorem~\ref{long269:res:lead-two-prime} is asserted unconditionally in this
+record, and its Lean counterpart carries the additional named input described
+here.
 % Part: back
+% BEGIN GENERATED CONCORDANCE (claude_lane/build_concordance.py; do not edit by hand)
+\paragraph{Concordance of statements and Lean declarations.}
+Each result of this record that has a kernel-checked Lean statement of the same assertion is listed
+below with the declarations that jointly state it.  Each name links to its declaration at revision
+\texttt{181078b6b009}.  Where the Lean statement is stronger than the printed one and implies it by
+an immediate specialisation, the entry says so.
+
+\begingroup\small\raggedright
+\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:lcm} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L49}{\nolinkurl{running_lcm_real_cutoff_exact}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:cell} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L65}{\nolinkurl{realPrefixLcm_eq_of_sameLogCell}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L87}{\nolinkurl{realPrefixLcm_jump_first}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L117}{\nolinkurl{realPrefixLcm_jump_second}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L129}{\nolinkurl{realPrefixLcm_jump_third}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L142}{\nolinkurl{threePrimeKernelQ_eq_of_sameRealLogCell}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:count}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean\#L69}{\nolinkurl{paper_jump_count}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:fibre}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L407}{\nolinkurl{finiteSmoothKernelSum_groupedByHeight}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long269:res:short} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBaseShortInterval.lean\#L10}{\nolinkurl{exponent_unique_real_base_short_interval}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:drop} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean\#L285}{\nolinkurl{realSmoothExponentShell_bounds}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:two-prime-rank} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealTwoPrimeKernel.lean\#L63}{\nolinkurl{real_two_prime_separation}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:rank}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean\#L102}{\nolinkurl{paper_two_by_two_fixture}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:infinite-rank} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean\#L22}{\nolinkurl{paper_uniform_rank_and_nonseparation}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:finite-cut-rank} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean\#L182}{\nolinkurl{rank_cutMatrix}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:uniform-rank} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR8UniformRank.lean\#L321}{\nolinkurl{uniform_rank_complete}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:dyadic-alphabet}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L751}{\nolinkurl{dyadicBlockBase235}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L669}{\nolinkurl{dyadicInternalPower_exponent_unique}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L701}{\nolinkurl{exists_dyadicInternalPower_iff_log_succ}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L734}{\nolinkurl{log_dyadic_succ_eq_of_no_internalPower}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L781}{\nolinkurl{threePrimeHeight_dyadicBlock_succ}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean\#L56}{\nolinkurl{radix_eq_height_ratio}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L762}{\nolinkurl{dyadicBlockBase235_cases}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean\#L774}{\nolinkurl{dyadicBlockBase235_mem_interval}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:actual-orbit}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean\#L189}{\nolinkurl{long_actual_orbit}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long269:res:literal-triangle} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/LiteralTriangleReal.lean\#L193}{\nolinkurl{literal_triangle_whole}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:actual-dichotomy} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7ActualOrbit.lean\#L132}{\nolinkurl{scaled_integer_or_cofinal_separation}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:actual-tail-bound} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR8RankMajorant.lean\#L357}{\nolinkurl{actual_tail_rank_bound}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long269:res:all-scale-lattice} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/BoundedLatticeCollision.lean\#L56}{\nolinkurl{long_all_scale_lattice_exact}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:actual-cancellation} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean\#L37}{\nolinkurl{long_fixed_split_bridgeR11}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/LongWindowCapR11.lean\#L26}{\nolinkurl{longPaperCap_le_three_squareR11}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:exact-denominator}: \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L334}{\nolinkurl{exact_denominators_and_minimal_clearing}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L309}{\nolinkurl{scaled_state_is_integer_iff_firstClearingIndex_le}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L166}{\nolinkurl{clearingCondition_iff_max}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L203}{\nolinkurl{firstClearingIndex_spec}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L208}{\nolinkurl{firstClearingIndex_minimal}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean\#L213}{\nolinkurl{firstClearingIndex_le_sufficient}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:pinning} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/EightScaleRigidity.lean\#L77}{\nolinkurl{paper_pinning_and_eight_scale_rigidity}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:jump-constrained-bound} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ActualSharpTailMajorantR10.lean\#L339}{\nolinkurl{actual_sharp_tail_bound}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:consumer} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/ResidueEscape.lean\#L110}{\nolinkurl{no_bounded_positive_int_state_of_leastPositiveResidue}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long269:res:actual-escape-endpoint} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/OcticEscapeWhole.lean\#L50}{\nolinkurl{octic_escape_whole}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:residue-limit} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean\#L172}{\nolinkurl{eventually_fixedStartResidue_formula}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean\#L205}{\nolinkurl{fixedStartResidue_ratio_tendsto}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperFixedStartResidueR14.lean\#L231}{\nolinkurl{eventually_fixedStartResidue_eq_tail_of_integral}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:window-growth} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean\#L196}{\nolinkurl{long_window_growth}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long269:res:no-bounded-length} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean\#L267}{\nolinkurl{long_no_bounded_length}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long269:res:weighted-shift-identity} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/WeightedShiftValue.lean\#L216}{\nolinkurl{weighted_shift_whole}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:strip-decomposition} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean\#L132}{\nolinkurl{actual_weighted_strip_decomposition}}, \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/PhaseStripDecomposition.lean\#L172}{\nolinkurl{actual_cubic_no_crossing_strips}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:fixed-base-recoding} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/FixedBaseRecoding.lean\#L154}{\nolinkurl{fixed_base_recoding_whole}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:res:tails-equivalence} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperR7RationalBridge.lean\#L214}{\nolinkurl{allReducedTailsNonintegral_iff}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:long:denominator-reduction} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealBoundDenominatorReduction.lean\#L25}{\nolinkurl{conditional_denominator_reduction_real_bound}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long269:long:windowconsumer} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean\#L645}{\nolinkurl{no_positive_reducedCarry_of_cofinalLocalWindowEscape}}.
+\par\endgroup
+% END GENERATED CONCORDANCE
+
 \begin{thebibliography}{99}
 \bibitem{erdosgraham1980} Paul Erd\H{o}s and Ronald L. Graham,
   \emph{Old and New Problems and Results in Combinatorial Number Theory}, Monographies de L'Enseignement Math\'{e}matique \textbf{28}, L'Enseignement Math\'{e}matique (1980),
@@ -3030,7 +3117,6 @@ irrationality assertion.
   Online 13 September 2026; locators here refer to the
   \href{https://faverjon.perso.math.cnrs.fr/AdamczewskiFaverjon_MahlerFiniteAutomata.pdf}{68-page author manuscript}.
 \end{thebibliography}
-
 % ---- part extended_record ----
 % ---- part family_catalogue ----
 % ---- part back ----

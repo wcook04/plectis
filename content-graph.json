@@ -131740,7 +131740,7 @@
             "page": "paper-module-navigation-hologram-route-plane.html"
           }
         ],
-        "total_occurrences": 2013
+        "total_occurrences": 2016
       },
       "visible_text_byte_count": 1174
     },
@@ -134978,7 +134978,7 @@
             "page": "paper-modules.html"
           },
           {
-            "count": 27,
+            "count": 29,
             "page": "papers.html"
           },
           {
@@ -134990,7 +134990,7 @@
             "page": "components.html"
           }
         ],
-        "total_occurrences": 1278
+        "total_occurrences": 1280
       },
       "visible_text_byte_count": 866
     },
@@ -135454,11 +135454,11 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 7,
+            "count": 9,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 7
+        "total_occurrences": 9
       },
       "visible_text_byte_count": 954
     },
@@ -135867,7 +135867,7 @@
             "page": "components.html"
           },
           {
-            "count": 30,
+            "count": 32,
             "page": "papers.html"
           },
           {
@@ -135875,7 +135875,7 @@
             "page": "paper-module-batch8-compliance-pipeline-capsule.html"
           }
         ],
-        "total_occurrences": 844
+        "total_occurrences": 846
       },
       "visible_text_byte_count": 770
     },
@@ -136937,7 +136937,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 2136
+        "total_occurrences": 2142
       },
       "visible_text_byte_count": 754
     },
@@ -137186,7 +137186,7 @@
             "page": "paper-module-doctrine-fact-claim-audit.html"
           }
         ],
-        "total_occurrences": 2096
+        "total_occurrences": 2102
       },
       "visible_text_byte_count": 853
     },
@@ -140710,7 +140710,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 4,
+            "count": 5,
             "page": "papers.html"
           },
           {
@@ -140718,7 +140718,7 @@
             "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
           }
         ],
-        "total_occurrences": 5
+        "total_occurrences": 6
       },
       "visible_text_byte_count": 704
     },
@@ -143120,7 +143120,7 @@
             "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
           },
           {
-            "count": 2,
+            "count": 3,
             "page": "papers.html"
           },
           {
@@ -143132,7 +143132,7 @@
             "page": "paper-module-batch7-secondary-runtime-capsule.html"
           }
         ],
-        "total_occurrences": 7
+        "total_occurrences": 8
       },
       "visible_text_byte_count": 799
     },
@@ -144406,10 +144406,15 @@
       "status": "active",
       "term_kind": "mathematical_concept",
       "used_in": {
-        "page_count": 0,
-        "top_page": null,
-        "top_pages": [],
-        "total_occurrences": 0
+        "page_count": 1,
+        "top_page": "papers.html",
+        "top_pages": [
+          {
+            "count": 1,
+            "page": "papers.html"
+          }
+        ],
+        "total_occurrences": 1
       },
       "visible_text_byte_count": 1189
     },
@@ -144602,7 +144607,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 67,
+            "count": 72,
             "page": "papers.html"
           },
           {
@@ -144626,7 +144631,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 104
+        "total_occurrences": 109
       },
       "visible_text_byte_count": 1002
     },
@@ -144899,7 +144904,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 5,
+            "count": 6,
             "page": "papers.html"
           },
           {
@@ -144907,7 +144912,7 @@
             "page": "open-questions.html"
           }
         ],
-        "total_occurrences": 6
+        "total_occurrences": 7
       },
       "visible_text_byte_count": 868
     },
@@ -145069,7 +145074,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 6,
+        "page_count": 7,
         "top_page": "paper-module-finite-erdos-denominator-certificate-strike.html",
         "top_pages": [
           {
@@ -145094,10 +145099,10 @@
           },
           {
             "count": 1,
-            "page": "rules-and-ideas.html"
+            "page": "papers.html"
           }
         ],
-        "total_occurrences": 12
+        "total_occurrences": 13
       },
       "visible_text_byte_count": 891
     },
@@ -145735,7 +145740,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 10,
+            "count": 11,
             "page": "papers.html"
           },
           {
@@ -145743,7 +145748,7 @@
             "page": "introduction.html"
           }
         ],
-        "total_occurrences": 12
+        "total_occurrences": 13
       },
       "visible_text_byte_count": 970
     },
@@ -145798,15 +145803,15 @@
             "page": "paper-module-cold-clone-probe.html"
           },
           {
-            "count": 1,
-            "page": "component-finite-erdos-denominator-certificate-strike.html"
+            "count": 2,
+            "page": "papers.html"
           },
           {
             "count": 1,
-            "page": "papers.html"
+            "page": "component-finite-erdos-denominator-certificate-strike.html"
           }
         ],
-        "total_occurrences": 10
+        "total_occurrences": 11
       },
       "visible_text_byte_count": 615
     },
@@ -147394,19 +147399,19 @@
             "page": "paper-module-formal-math-premise-retrieval.html"
           },
           {
-            "count": 1,
-            "page": "paper-modules.html"
+            "count": 2,
+            "page": "papers.html"
           },
           {
             "count": 1,
-            "page": "papers.html"
+            "page": "paper-modules.html"
           },
           {
             "count": 1,
             "page": "rules-and-ideas.html"
           }
         ],
-        "total_occurrences": 19
+        "total_occurrences": 20
       },
       "visible_text_byte_count": 775
     },
@@ -148464,10 +148469,15 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 0,
-        "top_page": null,
-        "top_pages": [],
-        "total_occurrences": 0
+        "page_count": 1,
+        "top_page": "papers.html",
+        "top_pages": [
+          {
+            "count": 2,
+            "page": "papers.html"
+          }
+        ],
+        "total_occurrences": 2
       },
       "visible_text_byte_count": 935
     },
@@ -150515,15 +150525,15 @@
       "term_kind": "mathematical_concept",
       "used_in": {
         "page_count": 7,
-        "top_page": "paper-module-finite-erdos-denominator-certificate-strike.html",
+        "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 5,
-            "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
+            "count": 7,
+            "page": "papers.html"
           },
           {
             "count": 5,
-            "page": "papers.html"
+            "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
           },
           {
             "count": 1,
@@ -150542,7 +150552,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 15
+        "total_occurrences": 17
       },
       "visible_text_byte_count": 791
     },
@@ -150765,7 +150775,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 14,
+            "count": 15,
             "page": "papers.html"
           },
           {
@@ -150789,7 +150799,7 @@
             "page": "paper-module-engine-room-derived-fact-provider-engine.html"
           }
         ],
-        "total_occurrences": 26
+        "total_occurrences": 27
       },
       "visible_text_byte_count": 739
     },
@@ -151243,11 +151253,11 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 28,
+            "count": 33,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 28
+        "total_occurrences": 33
       },
       "visible_text_byte_count": 784
     },
@@ -151628,7 +151638,7 @@
             "page": "paper-module-first-screen-composition-root.html"
           }
         ],
-        "total_occurrences": 1039
+        "total_occurrences": 1043
       },
       "visible_text_byte_count": 810
     },
@@ -151704,7 +151714,7 @@
             "page": "rules-and-ideas.html"
           },
           {
-            "count": 25,
+            "count": 27,
             "page": "papers.html"
           },
           {
@@ -151724,7 +151734,7 @@
             "page": "paper-module-verifier-lab-kernel.html"
           }
         ],
-        "total_occurrences": 251
+        "total_occurrences": 253
       },
       "visible_text_byte_count": 1017
     },
@@ -151923,10 +151933,15 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 0,
-        "top_page": null,
-        "top_pages": [],
-        "total_occurrences": 0
+        "page_count": 1,
+        "top_page": "papers.html",
+        "top_pages": [
+          {
+            "count": 3,
+            "page": "papers.html"
+          }
+        ],
+        "total_occurrences": 3
       },
       "visible_text_byte_count": 845
     },
@@ -152518,7 +152533,7 @@
             "page": "paper-module-formal-math-lean-proof-witness.html"
           }
         ],
-        "total_occurrences": 905
+        "total_occurrences": 908
       },
       "visible_text_byte_count": 839
     },
@@ -152768,7 +152783,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 10,
+        "page_count": 11,
         "top_page": "paper-module-lean-std-premise-index.html",
         "top_pages": [
           {
@@ -152796,7 +152811,7 @@
             "page": "component-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 24
+        "total_occurrences": 26
       },
       "visible_text_byte_count": 741
     },
@@ -153046,7 +153061,7 @@
             "page": "doctrine.html"
           },
           {
-            "count": 6,
+            "count": 8,
             "page": "papers.html"
           },
           {
@@ -153066,7 +153081,7 @@
             "page": "paper-module-mission-transaction-work-spine.html"
           }
         ],
-        "total_occurrences": 109
+        "total_occurrences": 111
       },
       "visible_text_byte_count": 858
     },
@@ -154082,10 +154097,10 @@
           },
           {
             "count": 8,
-            "page": "source.html"
+            "page": "papers.html"
           }
         ],
-        "total_occurrences": 353
+        "total_occurrences": 354
       },
       "visible_text_byte_count": 862
     },
@@ -154397,16 +154412,16 @@
             "page": "introduction.html"
           },
           {
+            "count": 7,
+            "page": "papers.html"
+          },
+          {
             "count": 3,
             "page": "coding-agents.html"
           },
           {
             "count": 3,
             "page": "paper-module-proof-diagnostic-evidence-spine.html"
-          },
-          {
-            "count": 3,
-            "page": "papers.html"
           },
           {
             "count": 2,
@@ -154417,7 +154432,7 @@
             "page": "tour.html"
           }
         ],
-        "total_occurrences": 28
+        "total_occurrences": 32
       },
       "visible_text_byte_count": 877
     },
@@ -157803,7 +157818,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 23,
+            "count": 21,
             "page": "papers.html"
           },
           {
@@ -157827,7 +157842,7 @@
             "page": "paper-module-lean-proof-search-lab-runtime.html"
           }
         ],
-        "total_occurrences": 32
+        "total_occurrences": 30
       },
       "visible_text_byte_count": 865
     },
@@ -158711,7 +158726,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 48,
+            "count": 51,
             "page": "papers.html"
           },
           {
@@ -158735,7 +158750,7 @@
             "page": "component-research-replication-rubric-artifact-replay.html"
           }
         ],
-        "total_occurrences": 275
+        "total_occurrences": 278
       },
       "visible_text_byte_count": 1057
     },
@@ -160797,7 +160812,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 103,
+        "page_count": 104,
         "top_page": "paper-module-bridge-campaign-dag-validation.html",
         "top_pages": [
           {
@@ -160825,7 +160840,7 @@
             "page": "paper-module-semantic-singleflight-dedup-runtime.html"
           }
         ],
-        "total_occurrences": 111
+        "total_occurrences": 112
       },
       "visible_text_byte_count": 919
     },
@@ -161563,7 +161578,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 1603
+        "total_occurrences": 1606
       },
       "visible_text_byte_count": 883
     },
@@ -162698,7 +162713,7 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 21,
+            "count": 26,
             "page": "papers.html"
           },
           {
@@ -162710,7 +162725,7 @@
             "page": "introduction.html"
           }
         ],
-        "total_occurrences": 25
+        "total_occurrences": 30
       },
       "visible_text_byte_count": 884
     },
@@ -163657,7 +163672,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 124,
+        "page_count": 125,
         "top_page": "rules-and-ideas.html",
         "top_pages": [
           {
@@ -163685,7 +163700,7 @@
             "page": "paper-module-engine-room-derived-fact-provider-engine.html"
           }
         ],
-        "total_occurrences": 725
+        "total_occurrences": 728
       },
       "visible_text_byte_count": 747
     },
@@ -164272,11 +164287,11 @@
             "page": "paper-module-mission-transaction-work-spine.html"
           },
           {
-            "count": 6,
-            "page": "coding-agents.html"
+            "count": 7,
+            "page": "papers.html"
           }
         ],
-        "total_occurrences": 176
+        "total_occurrences": 180
       },
       "visible_text_byte_count": 798
     },
@@ -167612,7 +167627,7 @@
             "page": "paper-module-world-model-projection-drift-control-room.html"
           }
         ],
-        "total_occurrences": 5351
+        "total_occurrences": 5358
       },
       "visible_text_byte_count": 1152
     },
@@ -168806,11 +168821,11 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 4,
+            "count": 5,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 4
+        "total_occurrences": 5
       },
       "visible_text_byte_count": 857
     },
@@ -168925,10 +168940,15 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 0,
-        "top_page": null,
-        "top_pages": [],
-        "total_occurrences": 0
+        "page_count": 1,
+        "top_page": "papers.html",
+        "top_pages": [
+          {
+            "count": 4,
+            "page": "papers.html"
+          }
+        ],
+        "total_occurrences": 4
       },
       "visible_text_byte_count": 865
     },
@@ -168980,12 +169000,12 @@
             "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
           },
           {
-            "count": 5,
-            "page": "paper-module-annex-knowledge-routing.html"
+            "count": 6,
+            "page": "papers.html"
           },
           {
             "count": 5,
-            "page": "papers.html"
+            "page": "paper-module-annex-knowledge-routing.html"
           },
           {
             "count": 3,
@@ -169000,7 +169020,7 @@
             "page": "paper-module-research-replication-rubric-artifact-replay.html"
           }
         ],
-        "total_occurrences": 34
+        "total_occurrences": 35
       },
       "visible_text_byte_count": 737
     },
@@ -169846,7 +169866,7 @@
             "page": "paper-module-lean-proof-search-lab-runtime.html"
           }
         ],
-        "total_occurrences": 290
+        "total_occurrences": 291
       },
       "visible_text_byte_count": 913
     },
@@ -170395,11 +170415,11 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 1,
+            "count": 2,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 1
+        "total_occurrences": 2
       },
       "visible_text_byte_count": 824
     },
@@ -172995,11 +173015,11 @@
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 8,
+            "count": 10,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 8
+        "total_occurrences": 10
       },
       "visible_text_byte_count": 1258
     },
@@ -273819,7 +273839,7 @@
         "paper-module-work-landing-control-spine.html": 9,
         "paper-module-world-model-projection-drift-control-room.html": 17,
         "paper-modules.html": 134,
-        "papers.html": 27,
+        "papers.html": 29,
         "quickstart.html": 3,
         "reference.html": 18,
         "rules-and-ideas.html": 203,
@@ -273827,7 +273847,7 @@
       },
       "page_count": 154,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1278
+      "total_occurrences": 1280
     },
     "authorization": {
       "by_page": {
@@ -274043,11 +274063,11 @@
     },
     "base": {
       "by_page": {
-        "papers.html": 7
+        "papers.html": 9
       },
       "page_count": 1,
       "top_page": "papers.html",
-      "total_occurrences": 7
+      "total_occurrences": 9
     },
     "basis": {
       "by_page": {
@@ -274307,13 +274327,13 @@
         "paper-module-voice-to-doctrine-self-improvement-loop.html": 4,
         "paper-module-world-model-projection-drift-control-room.html": 2,
         "paper-modules.html": 59,
-        "papers.html": 30,
+        "papers.html": 32,
         "reference.html": 8,
         "rules-and-ideas.html": 155
       },
       "page_count": 148,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 844
+      "total_occurrences": 846
     },
     "bridge": {
       "by_page": {
@@ -274866,7 +274886,7 @@
         "paper-module-work-landing-control-spine.html": 14,
         "paper-module-world-model-projection-drift-control-room.html": 12,
         "paper-modules.html": 69,
-        "papers.html": 24,
+        "papers.html": 30,
         "quickstart.html": 4,
         "rules-and-ideas.html": 74,
         "source.html": 3,
@@ -274875,7 +274895,7 @@
       },
       "page_count": 180,
       "top_page": "doctrine.html",
-      "total_occurrences": 2136
+      "total_occurrences": 2142
     },
     "checker": {
       "by_page": {
@@ -275207,7 +275227,7 @@
         "paper-module-work-landing-control-spine.html": 11,
         "paper-module-world-model-projection-drift-control-room.html": 6,
         "paper-modules.html": 119,
-        "papers.html": 27,
+        "papers.html": 33,
         "reference.html": 9,
         "rules-and-ideas.html": 166,
         "source.html": 1,
@@ -275215,7 +275235,7 @@
       },
       "page_count": 187,
       "top_page": "doctrine.html",
-      "total_occurrences": 2096
+      "total_occurrences": 2102
     },
     "client": {
       "by_page": {
@@ -276112,11 +276132,11 @@
     "coprime": {
       "by_page": {
         "paper-module-finite-erdos-denominator-certificate-strike.html": 1,
-        "papers.html": 4
+        "papers.html": 5
       },
       "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 5
+      "total_occurrences": 6
     },
     "corpus": {
       "by_page": {
@@ -276797,11 +276817,11 @@
         "doctrine.html": 1,
         "paper-module-batch7-secondary-runtime-capsule.html": 1,
         "paper-module-finite-erdos-denominator-certificate-strike.html": 3,
-        "papers.html": 2
+        "papers.html": 3
       },
       "page_count": 4,
       "top_page": "paper-module-finite-erdos-denominator-certificate-strike.html",
-      "total_occurrences": 7
+      "total_occurrences": 8
     },
     "divisor": {
       "by_page": {
@@ -277352,6 +277372,14 @@
       "top_page": "papers.html",
       "total_occurrences": 1
     },
+    "equidistribution": {
+      "by_page": {
+        "papers.html": 1
+      },
+      "page_count": 1,
+      "top_page": "papers.html",
+      "total_occurrences": 1
+    },
     "equivalence": {
       "by_page": {
         "area-agent-reliability.html": 3,
@@ -277471,13 +277499,13 @@
         "paper-module-certificate-kernel-execution-lab.html": 2,
         "paper-module-finite-erdos-denominator-certificate-strike.html": 6,
         "paper-modules.html": 4,
-        "papers.html": 67,
+        "papers.html": 72,
         "rules-and-ideas.html": 3,
         "source.html": 1
       },
       "page_count": 12,
       "top_page": "papers.html",
-      "total_occurrences": 104
+      "total_occurrences": 109
     },
     "evaluator": {
       "by_page": {
@@ -277521,11 +277549,11 @@
     "eventual_property": {
       "by_page": {
         "open-questions.html": 1,
-        "papers.html": 5
+        "papers.html": 6
       },
       "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 6
+      "total_occurrences": 7
     },
     "evidence": {
       "by_page": {
@@ -277867,11 +277895,12 @@
         "components.html": 1,
         "paper-module-finite-erdos-denominator-certificate-strike.html": 5,
         "paper-modules.html": 2,
+        "papers.html": 1,
         "rules-and-ideas.html": 1
       },
-      "page_count": 6,
+      "page_count": 7,
       "top_page": "paper-module-finite-erdos-denominator-certificate-strike.html",
-      "total_occurrences": 12
+      "total_occurrences": 13
     },
     "execution": {
       "by_page": {
@@ -278029,22 +278058,22 @@
     "exposition": {
       "by_page": {
         "introduction.html": 2,
-        "papers.html": 10
+        "papers.html": 11
       },
       "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 12
+      "total_occurrences": 13
     },
     "factor": {
       "by_page": {
         "component-finite-erdos-denominator-certificate-strike.html": 1,
         "paper-module-batch8-structural-theses-capsule.html": 5,
         "paper-module-cold-clone-probe.html": 3,
-        "papers.html": 1
+        "papers.html": 2
       },
       "page_count": 4,
       "top_page": "paper-module-batch8-structural-theses-capsule.html",
-      "total_occurrences": 10
+      "total_occurrences": 11
     },
     "factorial": {
       "by_page": {
@@ -278669,12 +278698,12 @@
         "paper-module-finite-erdos-denominator-certificate-strike.html": 12,
         "paper-module-formal-math-premise-retrieval.html": 2,
         "paper-modules.html": 1,
-        "papers.html": 1,
+        "papers.html": 2,
         "rules-and-ideas.html": 1
       },
       "page_count": 6,
       "top_page": "paper-module-finite-erdos-denominator-certificate-strike.html",
-      "total_occurrences": 19
+      "total_occurrences": 20
     },
     "fractional_part": {
       "by_page": {
@@ -278910,6 +278939,14 @@
       "page_count": 42,
       "top_page": "components.html",
       "total_occurrences": 103
+    },
+    "git_branch": {
+      "by_page": {
+        "papers.html": 2
+      },
+      "page_count": 1,
+      "top_page": "papers.html",
+      "total_occurrences": 2
     },
     "github": {
       "by_page": {
@@ -279766,12 +279803,12 @@
         "components.html": 1,
         "paper-module-finite-erdos-denominator-certificate-strike.html": 5,
         "paper-modules.html": 1,
-        "papers.html": 5,
+        "papers.html": 7,
         "rules-and-ideas.html": 1
       },
       "page_count": 7,
-      "top_page": "paper-module-finite-erdos-denominator-certificate-strike.html",
-      "total_occurrences": 15
+      "top_page": "papers.html",
+      "total_occurrences": 17
     },
     "inspection": {
       "by_page": {
@@ -279839,11 +279876,11 @@
         "paper-module-first-screen-composition-root.html": 1,
         "paper-module-formal-math-verifier-trace-repair-loop.html": 3,
         "paper-module-mathematical-strategy-atlas.html": 3,
-        "papers.html": 14
+        "papers.html": 15
       },
       "page_count": 8,
       "top_page": "papers.html",
-      "total_occurrences": 26
+      "total_occurrences": 27
     },
     "intelligent": {
       "by_page": {
@@ -279882,11 +279919,11 @@
     },
     "irrational": {
       "by_page": {
-        "papers.html": 28
+        "papers.html": 33
       },
       "page_count": 1,
       "top_page": "papers.html",
-      "total_occurrences": 28
+      "total_occurrences": 33
     },
     "irrationality_exponent": {
       "by_page": {
@@ -280117,7 +280154,7 @@
         "paper-module-work-landing-control-spine.html": 14,
         "paper-module-world-model-projection-drift-control-room.html": 10,
         "paper-modules.html": 14,
-        "papers.html": 2,
+        "papers.html": 6,
         "quickstart.html": 2,
         "reference.html": 2,
         "rules-and-ideas.html": 226,
@@ -280128,7 +280165,7 @@
       },
       "page_count": 218,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1039
+      "total_occurrences": 1043
     },
     "kernel": {
       "by_page": {
@@ -280178,13 +280215,13 @@
         "paper-module-verifier-lab-kernel.html": 12,
         "paper-module-work-landing-control-spine.html": 4,
         "paper-modules.html": 18,
-        "papers.html": 25,
+        "papers.html": 27,
         "reference.html": 9,
         "rules-and-ideas.html": 47
       },
       "page_count": 49,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 251
+      "total_occurrences": 253
     },
     "laboratory": {
       "by_page": {
@@ -280194,6 +280231,14 @@
       "page_count": 2,
       "top_page": "paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
       "total_occurrences": 9
+    },
+    "lambert_series": {
+      "by_page": {
+        "papers.html": 3
+      },
+      "page_count": 1,
+      "top_page": "papers.html",
+      "total_occurrences": 3
     },
     "large_language_model": {
       "by_page": {
@@ -280562,14 +280607,14 @@
         "paper-module-verifier-lab-execution-spine.html": 35,
         "paper-module-verifier-lab-kernel.html": 8,
         "paper-modules.html": 71,
-        "papers.html": 27,
+        "papers.html": 30,
         "reference.html": 17,
         "rules-and-ideas.html": 88,
         "tour.html": 4
       },
       "page_count": 75,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 905
+      "total_occurrences": 908
     },
     "lean_kernel": {
       "by_page": {
@@ -280601,11 +280646,12 @@
         "paper-module-formal-math-lean-proof-witness.html": 1,
         "paper-module-formal-math-premise-retrieval.html": 2,
         "paper-module-lean-std-premise-index.html": 5,
-        "paper-module-undeclared-library-prior-classifier.html": 3
+        "paper-module-undeclared-library-prior-classifier.html": 3,
+        "papers.html": 2
       },
-      "page_count": 10,
+      "page_count": 11,
       "top_page": "paper-module-lean-std-premise-index.html",
-      "total_occurrences": 24
+      "total_occurrences": 26
     },
     "lemniscate": {
       "by_page": {
@@ -280671,13 +280717,13 @@
         "paper-module-work-landing-control-spine.html": 3,
         "paper-module-world-model-projection-drift-control-room.html": 1,
         "paper-modules.html": 2,
-        "papers.html": 6,
+        "papers.html": 8,
         "quickstart.html": 1,
         "rules-and-ideas.html": 5
       },
       "page_count": 48,
       "top_page": "doctrine.html",
-      "total_occurrences": 109
+      "total_occurrences": 111
     },
     "limit_inferior": {
       "by_page": {
@@ -281143,14 +281189,14 @@
         "paper-module-voice-to-doctrine-self-improvement-loop.html": 3,
         "paper-module-world-model-projection-drift-control-room.html": 7,
         "paper-modules.html": 6,
-        "papers.html": 7,
+        "papers.html": 8,
         "reference.html": 5,
         "rules-and-ideas.html": 23,
         "source.html": 8
       },
       "page_count": 122,
       "top_page": "paper-module-cold-reader-route-map.html",
-      "total_occurrences": 353
+      "total_occurrences": 354
     },
     "mathematical_limit": {
       "by_page": {
@@ -281178,12 +281224,12 @@
         "introduction.html": 12,
         "paper-module-navigation-fitness-benchmark.html": 2,
         "paper-module-proof-diagnostic-evidence-spine.html": 3,
-        "papers.html": 3,
+        "papers.html": 7,
         "tour.html": 2
       },
       "page_count": 9,
       "top_page": "introduction.html",
-      "total_occurrences": 28
+      "total_occurrences": 32
     },
     "mathlib": {
       "by_page": {
@@ -282349,13 +282395,13 @@
         "paper-module-batch4-proof-authority-runtime.html": 2,
         "paper-module-lean-proof-search-lab-runtime.html": 1,
         "paper-modules.html": 1,
-        "papers.html": 23,
+        "papers.html": 21,
         "rules-and-ideas.html": 1,
         "source.html": 1
       },
       "page_count": 9,
       "top_page": "papers.html",
-      "total_occurrences": 32
+      "total_occurrences": 30
     },
     "open_world": {
       "by_page": {
@@ -282561,13 +282607,13 @@
         "paper-module-verifier-lab-kernel.html": 1,
         "paper-module-world-model-projection-drift-control-room.html": 3,
         "paper-modules.html": 9,
-        "papers.html": 48,
+        "papers.html": 51,
         "rules-and-ideas.html": 33,
         "tour.html": 6
       },
       "page_count": 72,
       "top_page": "papers.html",
-      "total_occurrences": 275
+      "total_occurrences": 278
     },
     "paper_module": {
       "by_page": {
@@ -283324,11 +283370,12 @@
         "paper-module-verifier-lab-kernel.html": 1,
         "paper-module-voice-to-doctrine-self-improvement-loop.html": 1,
         "paper-module-work-landing-control-spine.html": 1,
-        "paper-module-world-model-projection-drift-control-room.html": 1
+        "paper-module-world-model-projection-drift-control-room.html": 1,
+        "papers.html": 1
       },
-      "page_count": 103,
+      "page_count": 104,
       "top_page": "paper-module-bridge-campaign-dag-validation.html",
-      "total_occurrences": 111
+      "total_occurrences": 112
     },
     "privacy": {
       "by_page": {
@@ -283713,7 +283760,7 @@
         "paper-module-verifier-lab-execution-spine.html": 29,
         "paper-module-verifier-lab-kernel.html": 25,
         "paper-modules.html": 147,
-        "papers.html": 17,
+        "papers.html": 20,
         "reference.html": 24,
         "rules-and-ideas.html": 231,
         "source.html": 1,
@@ -283722,7 +283769,7 @@
       },
       "page_count": 121,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 1603
+      "total_occurrences": 1606
     },
     "proof_assistant": {
       "by_page": {
@@ -284286,11 +284333,11 @@
       "by_page": {
         "introduction.html": 1,
         "paper-module-finite-erdos-denominator-certificate-strike.html": 3,
-        "papers.html": 21
+        "papers.html": 26
       },
       "page_count": 3,
       "top_page": "papers.html",
-      "total_occurrences": 25
+      "total_occurrences": 30
     },
     "reader": {
       "by_page": {
@@ -284783,7 +284830,7 @@
         "paper-module-work-landing-control-spine.html": 10,
         "paper-module-world-model-projection-drift-control-room.html": 23,
         "paper-modules.html": 60,
-        "papers.html": 18,
+        "papers.html": 21,
         "quickstart.html": 3,
         "reference.html": 1,
         "rules-and-ideas.html": 288,
@@ -284794,7 +284841,7 @@
       },
       "page_count": 212,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 2013
+      "total_occurrences": 2016
     },
     "recurrence": {
       "by_page": {
@@ -285158,13 +285205,14 @@
         "paper-module-work-landing-control-spine.html": 2,
         "paper-module-world-model-projection-drift-control-room.html": 2,
         "paper-modules.html": 141,
+        "papers.html": 3,
         "reference.html": 7,
         "rules-and-ideas.html": 146,
         "tour.html": 1
       },
-      "page_count": 124,
+      "page_count": 125,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 725
+      "total_occurrences": 728
     },
     "regression": {
       "by_page": {
@@ -285440,7 +285488,7 @@
         "paper-module-semantic-singleflight-dedup-runtime.html": 2,
         "paper-module-work-landing-control-spine.html": 1,
         "paper-modules.html": 13,
-        "papers.html": 3,
+        "papers.html": 7,
         "quickstart.html": 4,
         "rules-and-ideas.html": 6,
         "source.html": 12,
@@ -285450,7 +285498,7 @@
       },
       "page_count": 60,
       "top_page": "paper-modules.html",
-      "total_occurrences": 176
+      "total_occurrences": 180
     },
     "reproducible": {
       "by_page": {
@@ -286774,7 +286822,7 @@
         "paper-module-work-landing-control-spine.html": 30,
         "paper-module-world-model-projection-drift-control-room.html": 67,
         "paper-modules.html": 527,
-        "papers.html": 20,
+        "papers.html": 27,
         "reference.html": 26,
         "rules-and-ideas.html": 639,
         "source.html": 15,
@@ -286784,7 +286832,7 @@
       },
       "page_count": 216,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 5351
+      "total_occurrences": 5358
     },
     "source_authority": {
       "by_page": {
@@ -287326,11 +287374,11 @@
     },
     "subseries": {
       "by_page": {
-        "papers.html": 4
+        "papers.html": 5
       },
       "page_count": 1,
       "top_page": "papers.html",
-      "total_occurrences": 4
+      "total_occurrences": 5
     },
     "subset": {
       "by_page": {
@@ -287343,6 +287391,14 @@
       "page_count": 5,
       "top_page": "paper-module-bridge-campaign-dag-validation.html",
       "total_occurrences": 6
+    },
+    "subsum": {
+      "by_page": {
+        "papers.html": 4
+      },
+      "page_count": 1,
+      "top_page": "papers.html",
+      "total_occurrences": 4
     },
     "sum": {
       "by_page": {
@@ -287357,11 +287413,11 @@
         "paper-module-mathematical-strategy-atlas.html": 1,
         "paper-module-research-replication-rubric-artifact-replay.html": 2,
         "paper-modules.html": 1,
-        "papers.html": 5
+        "papers.html": 6
       },
       "page_count": 12,
       "top_page": "paper-module-finite-erdos-denominator-certificate-strike.html",
-      "total_occurrences": 34
+      "total_occurrences": 35
     },
     "summability": {
       "by_page": {
@@ -287762,12 +287818,12 @@
         "paper-module-verifier-lab-execution-spine.html": 2,
         "paper-module-verifier-lab-kernel.html": 5,
         "paper-modules.html": 26,
-        "papers.html": 9,
+        "papers.html": 10,
         "rules-and-ideas.html": 17
       },
       "page_count": 50,
       "top_page": "components.html",
-      "total_occurrences": 290
+      "total_occurrences": 291
     },
     "threshold": {
       "by_page": {
@@ -287858,11 +287914,11 @@
     },
     "transcendental": {
       "by_page": {
-        "papers.html": 1
+        "papers.html": 2
       },
       "page_count": 1,
       "top_page": "papers.html",
-      "total_occurrences": 1
+      "total_occurrences": 2
     },
     "transcript": {
       "by_page": {
@@ -288707,11 +288763,11 @@
     },
     "working_record": {
       "by_page": {
-        "papers.html": 8
+        "papers.html": 10
       },
       "page_count": 1,
       "top_page": "papers.html",
-      "total_occurrences": 8
+      "total_occurrences": 10
     },
     "workingness": {
       "by_page": {
@@ -288724,5 +288780,5 @@
       "total_occurrences": 5
     }
   },
-  "term_occurrence_term_count": 382
+  "term_occurrence_term_count": 386
 }

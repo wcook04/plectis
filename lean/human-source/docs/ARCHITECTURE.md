@@ -3,7 +3,7 @@
 
 # How this repository works
 
-This is a public Lean project about eight unsolved problems in mathematics.
+This is a public Lean project about eight mathematical problem programmes.
 It keeps the proofs, papers, computations and research records together so
 another researcher can inspect the work and continue it. This guide explains
 how those files fit together and what the checks establish.
@@ -19,22 +19,26 @@ explain the mathematics, including ordinary arguments and results drawn from
 the literature. Source maps and query tools connect those explanations to
 their supporting records.
 
-The reviewed claim registry covers #249 and #257. The problem-owned expansion
-library also covers #68, #243, #251, #269, #1041 and #1049, with its own result
-records. Both Lean roots use the same proof checker, but adding a declaration
-to the expansion library does not add a reviewed claim to the registry.
+The reviewed claim registry covers #68, #243, #249, #251, #257, #269, #1041 and
+#1049. The two Lean roots reflect the development's history, not different
+standards of evidence. A declaration has the public status recorded for it in
+the registry; adding a file or compiling a library does not create that status.
 [Methodology](METHODOLOGY.md) explains the review and change rules.
 
-All eight mathematical problems remain open. The repository proves
-intermediate results, exact reformulations and bounded examples around them;
-it does not claim a solution to any of them. This is a self-contained public
-release: its use and its mathematical claims do not depend on private files.
+The degree-seven example refutes the total-variation formulation of Erdős
+#1041. The other seven target problems are not resolved here. Independent human
+review of correspondence with the historical curve-length formulation has not
+been recorded. Comparator checks only its selected exact statements, configured
+axioms and kernel acceptance; it does not assess novelty or historical
+correspondence. This is a self-contained public release: its use and its
+mathematical claims do not depend on private files.
 
 ## The architecture in one page
 
 A statement in a paper may have a formal proof, an ordinary mathematical
-argument, or a cited external theorem behind it. For a selected claim backed
-by Lean, the publication route is:
+argument, or a cited external theorem behind it. A correspondence audit starts
+from the current paper and asks what establishes each assertion, including its
+assumptions and full conclusion. Publication proceeds from checked evidence:
 
 ```text
 Lean source + review of its mathematical meaning
@@ -49,6 +53,23 @@ Lean source + review of its mathematical meaning
                       v
         generated indexes and source links
 ```
+
+These are two directions through the same records. Starting from a paper
+selects what needs checking; it does not make the paper proof authority. A
+stronger Lean theorem needs a checked implication to the printed statement.
+An unproved condition or a proof of only part of a statement stays explicit.
+
+For selected statements, [Comparator](EXTERNAL_VERIFICATION.md) compares the
+separately declared challenge with the solution under a configured axiom
+budget. Inspect the current configuration and available evidence with
+`python3 scripts/query_corpus.py --route comparator_assurance`.
+The [Palomar qualification route](verification/PALOMAR_QUALIFICATION.md),
+`python3 scripts/query_corpus.py --route palomar_qualification`, checks the
+repository's packaging requirements. The
+[eight per-problem repository units](https://github.com/wcook04/plectis-erdos-lean)
+have their own pinned source and replay checks. A local qualification decision
+does not establish a service submission, registration or acceptance, and a
+Comparator pass does not establish complete paper coverage.
 
 Lean and the release checks test different parts of that route:
 
@@ -72,13 +93,19 @@ project's authorship and current review position.
 | What review does a claim change require? | [docs/methodology.json](methodology.json), rendered as [methodology](METHODOLOGY.md) | The evidence and review required for each kind of change. |
 | Which papers are shipped? | [docs/publication_contract.json](publication_contract.json) | Manuscript roles, file identities and reading routes. |
 | Where is the evidence for one result? | [docs/SOURCE_MAP.md](SOURCE_MAP.md) | Routes between problems, claims, paper passages and Lean source. |
+| Which statement does Comparator compare? | [verification/comparator.json](../verification/comparator.json) and [external verification](EXTERNAL_VERIFICATION.md) | The selected challenge, solution, permitted axioms and replay boundary. |
+| What is ready for Palomar? | [docs/verification/PALOMAR_QUALIFICATION.md](verification/PALOMAR_QUALIFICATION.md) and [docs/PALOMAR_POLICY_RECONCILIATION.json](PALOMAR_POLICY_RECONCILIATION.json) | Repository qualification, with external actions and outcomes recorded separately. |
 | Which checks govern a release? | [scripts/check_release.py](../scripts/check_release.py) and [the GitHub workflow](../.github/workflows/lean.yml) | The local checks and the checks run on pushes and pull requests. |
 
-The papers and guides are authored explanations. The JSON records make
-selected relationships explicit so the tools can check them. Generated files
-such as [docs/ORIENTATION.md](ORIENTATION.md), the declaration atlas and the
-module index reorganise those records for browsing; their builders own their
-contents.
+Keep mathematical explanations and reviewed interpretations authored. Generate
+volatile facts—paper lists, source locations, selected interfaces and status
+summaries—from the records that own them. The programme card in the
+[agent guide](agents/AGENT_GUIDE.md) comes from the problem and claim owners;
+[Palomar qualification](verification/PALOMAR_QUALIFICATION.md) comes from its
+selection record. The [orientation](ORIENTATION.md), atlas and module index
+are generated too. `python3 scripts/refresh_projections.py` updates these
+surfaces; the release gate rejects stale copies. Dated development and campaign
+records live in [technical reference](reference/README.md).
 
 The eight individual problem papers are the active mathematical routes. The
 former combined manuscript,
@@ -90,11 +117,12 @@ is archived provenance only, not an active gateway.
 | Location | What it contains |
 |---|---|
 | [paper/](../paper/README.md) | Short papers, longer research records, manuscript sources and PDFs. |
-| [lean/Erdos249257.lean](../lean/Erdos249257.lean) and [lean/Erdos249257/](../lean/Erdos249257/) | The formal work behind the reviewed #249/#257 corpus. |
-| [lean/ErdosProblems.lean](../lean/ErdosProblems.lean) and [lean/ErdosProblems/](../lean/ErdosProblems/) | Formal work grouped by problem, including expansion work for #249/#257. |
+| [lean/Erdos249257.lean](../lean/Erdos249257.lean) and [lean/Erdos249257/](../lean/Erdos249257/) | The historical library for #249/#257 and machinery used by later work. |
+| [lean/ErdosProblems.lean](../lean/ErdosProblems.lean) and [lean/ErdosProblems/](../lean/ErdosProblems/) | Formal work grouped by problem; claim status is recorded separately. |
 | [research/examples/](../research/examples/Examples.lean) | A small downstream Lean user of the library. |
 | [docs/](README.md) | Reading guides, claim records and generated indexes. |
 | [scripts/](../scripts/) | Queries, builders, release checks and tests. |
+| [verification/](../verification/) | Comparator statements and configuration, replay tools and external-statement comparisons. |
 | [skills/](../skills/README.md) | Workflows for research, validation and contribution. |
 | [research/experiments/](../research/experiments/) | [Rerun the finite #251 computations and compare their outputs with saved results](../research/experiments/erdos251/README.md), or inspect [test changes used to exercise the release checker](../research/experiments/publication_mutations.json). |
 

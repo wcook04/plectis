@@ -5,7 +5,7 @@
   "title": "Reciprocal sums over infinite exponent supports",
   "status": "open",
   "question": "Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?",
-  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "authority_posture": "programme_only",
   "what_is_checked": [
     "That the strict Mersenne tail inequality is hereditary under deleting an arbitrary collection of future weights.",
     "That binary digit strings restricted to any chosen support retain unique Mersenne coding.",
@@ -358,7 +358,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "565c1568a67c3f4f49f41ab7751be383daf74d7139e9381a94a10eb6896fe469",
+    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -400,12 +400,12 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 26,
-      "renderer_fingerprint": "497e10530f97a71a",
-      "source_sha256": "04770c999a5148a01ca0908e8d9a24ce16df35ff39419a688865cc953b028d79",
+      "renderer_contract_version": 28,
+      "renderer_fingerprint": "1afa7218572522ac",
+      "source_sha256": "9851316d4cbc0d4d1904082f4ad1ab5ac43c1ac4c89f59d42e6204a8862c2ba6",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 715,
+      "mathml_node_count": 718,
       "raw_math_fallback_count": 1,
       "warnings": {
         "mathml": [
@@ -417,8 +417,8 @@
         ],
         "mathjax": []
       },
-      "html_mathml_sha256": "8e2edabdabd51a21640a81574a9381c5c82b8e89ea6e41ebd47e43362585acf8",
-      "html_exact_tex_sha256": "aea2a94c04a008502c21da10342b097b6d250592291c4edaa15a0083a15c4cfd"
+      "html_mathml_sha256": "bd0511bad0f0b8ead62a5dc6700b7fad0adad8f7aa8dc8b11a4f31fe252d5303",
+      "html_exact_tex_sha256": "83d55973229189b749deca863ffc9b8eac107d6185de071781154a88f050fb8e"
     },
     "sections": [
       {
@@ -675,12 +675,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 26,
-        "renderer_fingerprint": "497e10530f97a71a",
-        "source_sha256": "04770c999a5148a01ca0908e8d9a24ce16df35ff39419a688865cc953b028d79",
+        "renderer_contract_version": 28,
+        "renderer_fingerprint": "1afa7218572522ac",
+        "source_sha256": "9851316d4cbc0d4d1904082f4ad1ab5ac43c1ac4c89f59d42e6204a8862c2ba6",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 715,
+        "mathml_node_count": 718,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -692,8 +692,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "8e2edabdabd51a21640a81574a9381c5c82b8e89ea6e41ebd47e43362585acf8",
-        "html_exact_tex_sha256": "aea2a94c04a008502c21da10342b097b6d250592291c4edaa15a0083a15c4cfd"
+        "html_mathml_sha256": "bd0511bad0f0b8ead62a5dc6700b7fad0adad8f7aa8dc8b11a4f31fe252d5303",
+        "html_exact_tex_sha256": "83d55973229189b749deca863ffc9b8eac107d6185de071781154a88f050fb8e"
       },
       "sections": [
         {
@@ -928,7 +928,7 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 152,
+      "pages": 160,
       "question": "What weighted and cover criteria prove hereditary Mersenne irrationality for Erdős #257, and which targets remain open?",
       "precis": "A weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set P, every infinite A with ∑ h(a)/(a(b^{h(a)}−1)) finite has irrational ∑ (b^a−1)^{-1}. The base-two condition gives the conclusion at every integer base for every infinite subset, and permits an example with divergent reciprocal sum, while excluding full support and all odd exponents. The proof averages over a finite part of the support and over dyadic observation lengths. Erdős's weaker reciprocal-summable theorem is proved in full, and a common window extends both arguments to unions of weighted and positive-cover supports. Finite-denominator and achievement-set calculations formulate tests for the targets 1/2 and 1/21; those tests do not decide either target or the universal question. Prime support at base 2 and squarefree support at power-of-two bases are attributed as existing work.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
@@ -950,12 +950,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 26,
-        "renderer_fingerprint": "497e10530f97a71a",
-        "source_sha256": "7a58c3a9dee7e9b1396ccae99e64b8b031d64bfbfbfe9b5b826201531c2ba31b",
+        "renderer_contract_version": 28,
+        "renderer_fingerprint": "1afa7218572522ac",
+        "source_sha256": "2cd6f42dcf091827264f89d16bc6a0d0b2850343e73c4c51f3604d084f78a868",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 4473,
+        "mathml_node_count": 4495,
         "raw_math_fallback_count": 5,
         "warnings": {
           "mathml": [
@@ -992,8 +992,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "9b71aaea461d02ac087de08862b100a5ebbc603bb660298f20d7f0b5f6b3f4cc",
-        "html_exact_tex_sha256": "35f530925772e02e84e8055dafb393fa0e34eb9b7c3c803ae83eec1d652ebf0f"
+        "html_mathml_sha256": "62ca23f364ef5d86b55ddc9ceb068dd465caca90f8d0b9a56426f55c5a9a632f",
+        "html_exact_tex_sha256": "c269e6826bff54be14c7e88bd7bb189287b72b27cec3b0e24ef1b0520c52e146"
       },
       "sections": [
         {
@@ -1025,6 +1025,11 @@
           "level": 5,
           "anchor": "a-weighted-condition-on-the-support",
           "label": "A weighted condition on the support"
+        },
+        {
+          "level": 5,
+          "anchor": "sec:coverage",
+          "label": "Formalisation coverage and remaining dependencies"
         },
         {
           "level": 5,
@@ -1793,6 +1798,33 @@
   "source_map": {
     "nodes": [
       {
+        "id": "lean-module:Erdos249257.AdelicHeightObstruction",
+        "label": "Erdos249257.AdelicHeightObstruction",
+        "path": "lean/Erdos249257/AdelicHeightObstruction.lean",
+        "direct": false,
+        "content_digest": "sha256:f9ab0dad8ede98461b4aba94210f7abc3e986248440a428dacb597306ea7b3e5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/AdelicHeightObstruction.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.AllBaseReciprocalSupportIrrationality",
+        "label": "Erdos249257.AllBaseReciprocalSupportIrrationality",
+        "path": "lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean",
+        "direct": false,
+        "content_digest": "sha256:94e400fc2d849dd3f901dc571bddc9f550722c0a2848cb216fa04f29cf0e04d5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BinaryTailWindowTransfer",
+        "label": "Erdos249257.BinaryTailWindowTransfer",
+        "path": "lean/Erdos249257/BinaryTailWindowTransfer.lean",
+        "direct": false,
+        "content_digest": "sha256:a6c42b7a78b137ec50342563ca3bfeed0e6c1840f2868e82227e49953eed38a6",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BinaryTailWindowTransfer.lean",
+        "role": "Binary tail-window transfer interfaces"
+      },
+      {
         "id": "lean-module:Erdos249257.BooleanMobiusCarry",
         "label": "Erdos249257.BooleanMobiusCarry",
         "path": "lean/Erdos249257/BooleanMobiusCarry.lean",
@@ -1811,12 +1843,93 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal",
+        "label": "Erdos249257.BooleanMobiusCriticalCapacityCofinal",
+        "path": "lean/Erdos249257/BooleanMobiusCriticalCapacityCofinal.lean",
+        "direct": false,
+        "content_digest": "sha256:ced70f8d76f8657efb708977ae9214a7f77d99136be71fa3fddf98868adb664c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusCriticalCapacityCofinal.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityGeometric",
+        "label": "Erdos249257.BooleanMobiusCriticalCapacityGeometric",
+        "path": "lean/Erdos249257/BooleanMobiusCriticalCapacityGeometric.lean",
+        "direct": false,
+        "content_digest": "sha256:050d11c4d5041f13b67912d3ee5a79df0b072184c90e2ab8bd566e83a2cb38ae",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusCriticalCapacityGeometric.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusExactRowCrossing",
+        "label": "Erdos249257.BooleanMobiusExactRowCrossing",
+        "path": "lean/Erdos249257/BooleanMobiusExactRowCrossing.lean",
+        "direct": false,
+        "content_digest": "sha256:dd68769e257d37efaa124a36a16859577bc62ccfa860a8fd6ecdadbbd8964da8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusExactRowCrossing.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusExactRowDichotomy",
+        "label": "Erdos249257.BooleanMobiusExactRowDichotomy",
+        "path": "lean/Erdos249257/BooleanMobiusExactRowDichotomy.lean",
+        "direct": false,
+        "content_digest": "sha256:7d6f183ea398641cd12db3bf3077680c4aa6de017da6c6cdc15e5591a44d3548",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusExactRowDichotomy.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusExactRowDoubling",
+        "label": "Erdos249257.BooleanMobiusExactRowDoubling",
+        "path": "lean/Erdos249257/BooleanMobiusExactRowDoubling.lean",
+        "direct": false,
+        "content_digest": "sha256:1ece29ea3580d47b9b392481d2208e05f614d925e05fcafa4272438cc332460f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusExactRowDoubling.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusExactRowRankTwo",
+        "label": "Erdos249257.BooleanMobiusExactRowRankTwo",
+        "path": "lean/Erdos249257/BooleanMobiusExactRowRankTwo.lean",
+        "direct": false,
+        "content_digest": "sha256:425b44d91de45ee9f67f6721ba31c08d410688432ba02def704ac2cae542ed0e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusExactRowRankTwo.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusExactRowSeed",
+        "label": "Erdos249257.BooleanMobiusExactRowSeed",
+        "path": "lean/Erdos249257/BooleanMobiusExactRowSeed.lean",
+        "direct": false,
+        "content_digest": "sha256:9154acd95dd9979f829b0296cead39918c3cd1e2803913ac198620fb4face9ff",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusExactRowSeed.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusExactTransition",
+        "label": "Erdos249257.BooleanMobiusExactTransition",
+        "path": "lean/Erdos249257/BooleanMobiusExactTransition.lean",
+        "direct": false,
+        "content_digest": "sha256:b314741c1745ed6c8bbec5b99d64c41a10638d63109332cce6217a6d24cdd133",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusExactTransition.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:Erdos249257.BooleanMobiusGlobalRepair",
         "label": "Erdos249257.BooleanMobiusGlobalRepair",
         "path": "lean/Erdos249257/BooleanMobiusGlobalRepair.lean",
         "direct": false,
         "content_digest": "sha256:17c708c78aa16e2bdb893d11c453cada8955c5d494697c13b8c377521de3e318",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusGlobalRepair.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusGreedyReduction",
+        "label": "Erdos249257.BooleanMobiusGreedyReduction",
+        "path": "lean/Erdos249257/BooleanMobiusGreedyReduction.lean",
+        "direct": false,
+        "content_digest": "sha256:6814402e0d29017c64cba679c987bcf7324e2dee4aa7851a08f0934dccd78f13",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusGreedyReduction.lean",
         "role": "Lean proof module"
       },
       {
@@ -1844,6 +1957,15 @@
         "direct": true,
         "content_digest": "sha256:575467e41bf4268ea033df542ed6bdb4aae36d9a2a6900c5c0706f7ad5859539",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusSkipRowCofinal.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.BooleanMobiusSkippedCoreCriticalCapacity",
+        "label": "Erdos249257.BooleanMobiusSkippedCoreCriticalCapacity",
+        "path": "lean/Erdos249257/BooleanMobiusSkippedCoreCriticalCapacity.lean",
+        "direct": false,
+        "content_digest": "sha256:0bc5fde17e2c1d01ae36c2fed65a143d3ad99abf2fe200be2e00a397f0d7f605",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/BooleanMobiusSkippedCoreCriticalCapacity.lean",
         "role": "Lean proof module"
       },
       {
@@ -1883,6 +2005,15 @@
         "role": "Assembled theorem kernel and headline interfaces"
       },
       {
+        "id": "lean-module:Erdos249257.CofinalStripReturn",
+        "label": "Erdos249257.CofinalStripReturn",
+        "path": "lean/Erdos249257/CofinalStripReturn.lean",
+        "direct": false,
+        "content_digest": "sha256:657f9eeffff362d52b06fa3005d7cbe28491a18ebf4f48c5e72de80d0b27fccb",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CofinalStripReturn.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:Erdos249257.CompositeDilationDefect",
         "label": "Erdos249257.CompositeDilationDefect",
         "path": "lean/Erdos249257/CompositeDilationDefect.lean",
@@ -1890,6 +2021,42 @@
         "content_digest": "sha256:bc9dcf0d17886e68cf13100fd32857db5ee66b1871cc6e54629a305cb4150479",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CompositeDilationDefect.lean",
         "role": "Composite support-dilation defect identity"
+      },
+      {
+        "id": "lean-module:Erdos249257.CurvatureCarry",
+        "label": "Erdos249257.CurvatureCarry",
+        "path": "lean/Erdos249257/CurvatureCarry.lean",
+        "direct": false,
+        "content_digest": "sha256:2bb5a84499a9818c15076229afa62580b634ff51fce8a74e6c8f6e3cfee07010",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CurvatureCarry.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.CyclicTensorMobiusShadow",
+        "label": "Erdos249257.CyclicTensorMobiusShadow",
+        "path": "lean/Erdos249257/CyclicTensorMobiusShadow.lean",
+        "direct": false,
+        "content_digest": "sha256:5dd25885b3ad74a3131a77042a0469b930b09efb4a871ed8fe95ea51156b9504",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CyclicTensorMobiusShadow.lean",
+        "role": "Cyclic tensor identities for the Mobius shadow"
+      },
+      {
+        "id": "lean-module:Erdos249257.CyclotomicProjectionOfShadow",
+        "label": "Erdos249257.CyclotomicProjectionOfShadow",
+        "path": "lean/Erdos249257/CyclotomicProjectionOfShadow.lean",
+        "direct": false,
+        "content_digest": "sha256:fa4b2af756a32966150100ed54be686aa083264797f0629f384236785b0ae789",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/CyclotomicProjectionOfShadow.lean",
+        "role": "Cyclotomic projections of the Mobius shadow"
+      },
+      {
+        "id": "lean-module:Erdos249257.DiagonalPincerDecomposition",
+        "label": "Erdos249257.DiagonalPincerDecomposition",
+        "path": "lean/Erdos249257/DiagonalPincerDecomposition.lean",
+        "direct": false,
+        "content_digest": "sha256:536ed712ff55e54a4cc32d130ad0c41bd414b0a5614d1c7ec6fa92868192d7f7",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/DiagonalPincerDecomposition.lean",
+        "role": "Exact diagonal-pincer target decomposition"
       },
       {
         "id": "lean-module:Erdos249257.DyadicPrefixCompression",
@@ -1946,6 +2113,24 @@
         "role": "Greedy geometry and finite death certificates"
       },
       {
+        "id": "lean-module:Erdos249257.HalfCarryCeilParentContraction",
+        "label": "Erdos249257.HalfCarryCeilParentContraction",
+        "path": "lean/Erdos249257/HalfCarryCeilParentContraction.lean",
+        "direct": false,
+        "content_digest": "sha256:4643e17b862ca279b49b2edbe44ff4a154f35804c64d0fd377f610ae82308f58",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarryCeilParentContraction.lean",
+        "role": "Fixed-coefficient rewind contraction"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCarryProtectedSeamConsumer",
+        "label": "Erdos249257.HalfCarryProtectedSeamConsumer",
+        "path": "lean/Erdos249257/HalfCarryProtectedSeamConsumer.lean",
+        "direct": false,
+        "content_digest": "sha256:0fbd69dfd007f4959cf17475d5a4abd1c6c264831488c2857510f1b1eb29f6c0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarryProtectedSeamConsumer.lean",
+        "role": "Localized protected one-hole seam consumer"
+      },
+      {
         "id": "lean-module:Erdos249257.HalfCarryReachability",
         "label": "Erdos249257.HalfCarryReachability",
         "path": "lean/Erdos249257/HalfCarryReachability.lean",
@@ -1955,6 +2140,33 @@
         "role": "Half-carry reachability and compactness"
       },
       {
+        "id": "lean-module:Erdos249257.HalfCarryRewindPhase",
+        "label": "Erdos249257.HalfCarryRewindPhase",
+        "path": "lean/Erdos249257/HalfCarryRewindPhase.lean",
+        "direct": false,
+        "content_digest": "sha256:592c75d8469bdf3277e5ddd394c938030456db0731922bb5bf3a56ef7ad18edb",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarryRewindPhase.lean",
+        "role": "Realized fixed-coefficient rewind phase"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCarrySelectedWindow",
+        "label": "Erdos249257.HalfCarrySelectedWindow",
+        "path": "lean/Erdos249257/HalfCarrySelectedWindow.lean",
+        "direct": false,
+        "content_digest": "sha256:fb93ffae8cc93bc532b4f3bb4be00e80aef9171047a50307ebb42c11ba16845e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarrySelectedWindow.lean",
+        "role": "Selected protected half-carry windows"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCarrySelectedWindowBase",
+        "label": "Erdos249257.HalfCarrySelectedWindowBase",
+        "path": "lean/Erdos249257/HalfCarrySelectedWindowBase.lean",
+        "direct": false,
+        "content_digest": "sha256:c5509da5aa6266f61119f9a0a9a49549a3b3c5bec98bccc08c4caa38db78cc08",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCarrySelectedWindowBase.lean",
+        "role": "Computed depth-18 selected half-carry window base"
+      },
+      {
         "id": "lean-module:Erdos249257.HalfCutLocator",
         "label": "Erdos249257.HalfCutLocator",
         "path": "lean/Erdos249257/HalfCutLocator.lean",
@@ -1962,6 +2174,15 @@
         "content_digest": "sha256:51e598e2e76f29ea20c0396fe0e82b2f5745cc9f62ccbffd0ef6ee112fb4f0d0",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCutLocator.lean",
         "role": "Fatal-gap locator for the half target"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderBoundaryPulse",
+        "label": "Erdos249257.HalfCylinderBoundaryPulse",
+        "path": "lean/Erdos249257/HalfCylinderBoundaryPulse.lean",
+        "direct": false,
+        "content_digest": "sha256:93162f7c10b6063b809a0405a81598e53a12865fd28cadde020e9a753cbcdf65",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderBoundaryPulse.lean",
+        "role": "Boundary-pulse normalization at the largest-skip crossing"
       },
       {
         "id": "lean-module:Erdos249257.HalfCylinderConcreteSeamAdapter",
@@ -1991,6 +2212,24 @@
         "role": "Fatal-gap and eventual-right seam classification for the half target"
       },
       {
+        "id": "lean-module:Erdos249257.HalfCylinderFinalMiddleCellEscape",
+        "label": "Erdos249257.HalfCylinderFinalMiddleCellEscape",
+        "path": "lean/Erdos249257/HalfCylinderFinalMiddleCellEscape.lean",
+        "direct": false,
+        "content_digest": "sha256:b67d4b3f4f1a57d2af28aaaa6471f6af5a025104e80b13c7a1dfbf17bc76df2e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderFinalMiddleCellEscape.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderFinalMiddleTailSocket",
+        "label": "Erdos249257.HalfCylinderFinalMiddleTailSocket",
+        "path": "lean/Erdos249257/HalfCylinderFinalMiddleTailSocket.lean",
+        "direct": false,
+        "content_digest": "sha256:833ed030c231ed75412120da0f232bea8d2a021f2d10a7c1bf0197e10330a160",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderFinalMiddleTailSocket.lean",
+        "role": "Analytic tail socket for the final middle seam cells"
+      },
+      {
         "id": "lean-module:Erdos249257.HalfCylinderFiniteShadow",
         "label": "Erdos249257.HalfCylinderFiniteShadow",
         "path": "lean/Erdos249257/HalfCylinderFiniteShadow.lean",
@@ -1998,6 +2237,15 @@
         "content_digest": "sha256:35d1c3b0fea0c31acfedc9120096ebf3506b6d940e8613e77a45c07254b3f0f7",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderFiniteShadow.lean",
         "role": "Finite shadows of the half cylinder"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderFixedTailSocket",
+        "label": "Erdos249257.HalfCylinderFixedTailSocket",
+        "path": "lean/Erdos249257/HalfCylinderFixedTailSocket.lean",
+        "direct": false,
+        "content_digest": "sha256:2e00e41e294d9c985620ec769554f6f32965a55649ab0e6858aa27f869f7b496",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderFixedTailSocket.lean",
+        "role": "Fixed-tail survival classification for half-cylinder skips"
       },
       {
         "id": "lean-module:Erdos249257.HalfCylinderFloorErrorReset",
@@ -2036,6 +2284,69 @@
         "role": "Integer-greedy first-wrap seam reduction"
       },
       {
+        "id": "lean-module:Erdos249257.HalfCylinderLargestSkipGap",
+        "label": "Erdos249257.HalfCylinderLargestSkipGap",
+        "path": "lean/Erdos249257/HalfCylinderLargestSkipGap.lean",
+        "direct": false,
+        "content_digest": "sha256:1e420d173cfeb626d2de5335a749ee322b909a8fa09c324fe8e4913676b36d64",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderLargestSkipGap.lean",
+        "role": "Largest skipped-rank gap and successor propagation for the half seam"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderLargestSkipInduction",
+        "label": "Erdos249257.HalfCylinderLargestSkipInduction",
+        "path": "lean/Erdos249257/HalfCylinderLargestSkipInduction.lean",
+        "direct": false,
+        "content_digest": "sha256:abe43fcd7c65109babf51a759d958d9644926c133f9cf5ffdba53e661a5371f3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderLargestSkipInduction.lean",
+        "role": "Largest-skip induction from a first-crossing producer socket"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderLastProducerContradiction",
+        "label": "Erdos249257.HalfCylinderLastProducerContradiction",
+        "path": "lean/Erdos249257/HalfCylinderLastProducerContradiction.lean",
+        "direct": false,
+        "content_digest": "sha256:fd400097805abdaa5070a822668e1e17599ffc353b5e06d7c123b879fe6f5d4a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderLastProducerContradiction.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound",
+        "label": "Erdos249257.HalfCylinderMiddleCarryLowerBound",
+        "path": "lean/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean",
+        "direct": false,
+        "content_digest": "sha256:1421eacbe87be86cf7224a52f8cb4c10c33c2fb01c97a628c22538b355bcabff",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderProducerCarrySocket",
+        "label": "Erdos249257.HalfCylinderProducerCarrySocket",
+        "path": "lean/Erdos249257/HalfCylinderProducerCarrySocket.lean",
+        "direct": false,
+        "content_digest": "sha256:770362b26c35281eedca5cf62d15814bc9e4f2b5c4b57e4b2dd24207e81d7440",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderProducerCarrySocket.lean",
+        "role": "Producer-carry and future-tail comparison socket"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderProducerLowerBound",
+        "label": "Erdos249257.HalfCylinderProducerLowerBound",
+        "path": "lean/Erdos249257/HalfCylinderProducerLowerBound.lean",
+        "direct": false,
+        "content_digest": "sha256:3125806999eaed7c26057c691203f29498764d86b972e2bcf94325b2e1cf91ca",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderProducerLowerBound.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderResetDeficitEscape",
+        "label": "Erdos249257.HalfCylinderResetDeficitEscape",
+        "path": "lean/Erdos249257/HalfCylinderResetDeficitEscape.lean",
+        "direct": false,
+        "content_digest": "sha256:3e9a6434bc0cec912c5e642ee046eaf691ddbc4f1da9109ee1c4e17840ffc2c9",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderResetDeficitEscape.lean",
+        "role": "Reset-deficit escape geometry for the largest-skip crossing"
+      },
+      {
         "id": "lean-module:Erdos249257.HalfCylinderSeamLimit",
         "label": "Erdos249257.HalfCylinderSeamLimit",
         "path": "lean/Erdos249257/HalfCylinderSeamLimit.lean",
@@ -2043,6 +2354,15 @@
         "content_digest": "sha256:2a012214070cfff73fdb5d51e11cc89fba79056f7d0f5cb9ce9785c4a4c39b40",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderSeamLimit.lean",
         "role": "Seam-limit reduction for the half target"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfCylinderSeamProducerAlignment",
+        "label": "Erdos249257.HalfCylinderSeamProducerAlignment",
+        "path": "lean/Erdos249257/HalfCylinderSeamProducerAlignment.lean",
+        "direct": false,
+        "content_digest": "sha256:70a5fd7f35de3d5fdb99e4ed9e80bdd2528cc3440c85dfe68fd116f90e052d43",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderSeamProducerAlignment.lean",
+        "role": "Seam-to-producer carry alignment identity"
       },
       {
         "id": "lean-module:Erdos249257.HalfCylinderSkippedEndpointClassifier",
@@ -2063,12 +2383,66 @@
         "role": "Skipped-rank limit for the half seam"
       },
       {
+        "id": "lean-module:Erdos249257.HalfCylinderUpperResetBandCertificates",
+        "label": "Erdos249257.HalfCylinderUpperResetBandCertificates",
+        "path": "lean/Erdos249257/HalfCylinderUpperResetBandCertificates.lean",
+        "direct": false,
+        "content_digest": "sha256:4a3f0d5c18e8e176e334e07730d5a6556040ba19dc7c72ac3fbca7bb46c6b342",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfCylinderUpperResetBandCertificates.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfDivisorUnitDrop",
+        "label": "Erdos249257.HalfDivisorUnitDrop",
+        "path": "lean/Erdos249257/HalfDivisorUnitDrop.lean",
+        "direct": false,
+        "content_digest": "sha256:a675d72dc9c30f10a272f62c441c888c98d817247ab13a23815652a9b52f7168",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfDivisorUnitDrop.lean",
+        "role": "Half-divisor unit coefficient drop at the feedback row"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfGapMass",
+        "label": "Erdos249257.HalfGapMass",
+        "path": "lean/Erdos249257/HalfGapMass.lean",
+        "direct": false,
+        "content_digest": "sha256:16854808835be7d8fe6305eec6a2ad5dee6237acdfd5267d93631c2fa8e4adfe",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfGapMass.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfGreedyFatalGap",
+        "label": "Erdos249257.HalfGreedyFatalGap",
+        "path": "lean/Erdos249257/HalfGreedyFatalGap.lean",
+        "direct": false,
+        "content_digest": "sha256:b61dece94efb7692e05c44474575bc71ec976d2ab404965214e8c2ca54b7787c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfGreedyFatalGap.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:Erdos249257.HalfGreedyTwoThirdsBand",
         "label": "Erdos249257.HalfGreedyTwoThirdsBand",
         "path": "lean/Erdos249257/HalfGreedyTwoThirdsBand.lean",
         "direct": true,
         "content_digest": "sha256:7e132f8d14a77e30873ef2c5dd81f84f4fddd1485f9fc15a2daf8ad7de7370db",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfGreedyTwoThirdsBand.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfTrappingReturnCarry",
+        "label": "Erdos249257.HalfTrappingReturnCarry",
+        "path": "lean/Erdos249257/HalfTrappingReturnCarry.lean",
+        "direct": false,
+        "content_digest": "sha256:0c6c2d3bbbbdf067749bc683608b25289f25ff04b640afa93a240d2076c99845",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfTrappingReturnCarry.lean",
+        "role": "Half-trapping reverse-carry interface"
+      },
+      {
+        "id": "lean-module:Erdos249257.HalfUpperResetCriticalBand",
+        "label": "Erdos249257.HalfUpperResetCriticalBand",
+        "path": "lean/Erdos249257/HalfUpperResetCriticalBand.lean",
+        "direct": false,
+        "content_digest": "sha256:a7d25fddd26368eb482a1f0a5de1fea2bdb92cd09f2411da0c20a6f07a84b712",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/HalfUpperResetCriticalBand.lean",
         "role": "Lean proof module"
       },
       {
@@ -2099,6 +2473,15 @@
         "role": "One-parameter lcm-diagonal reduction"
       },
       {
+        "id": "lean-module:Erdos249257.MaximalOmegaLayer",
+        "label": "Erdos249257.MaximalOmegaLayer",
+        "path": "lean/Erdos249257/MaximalOmegaLayer.lean",
+        "direct": false,
+        "content_digest": "sha256:dc96ac9c193bb4e65c37cc0c3143c3ce40cec56d1a1c37e6e9aead5f0dd0c3c1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/MaximalOmegaLayer.lean",
+        "role": "Mixed prime-power support-layer identities"
+      },
+      {
         "id": "lean-module:Erdos249257.MersenneLambertLadder",
         "label": "Erdos249257.MersenneLambertLadder",
         "path": "lean/Erdos249257/MersenneLambertLadder.lean",
@@ -2106,6 +2489,24 @@
         "content_digest": "sha256:bfc03595228b61b5b5b4a7ff1e23723b827e21587277a67deb4879b9068429ed",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/MersenneLambertLadder.lean",
         "role": "Mersenne-Lambert identities"
+      },
+      {
+        "id": "lean-module:Erdos249257.MersenneShadowCyclotomicNoncollapse",
+        "label": "Erdos249257.MersenneShadowCyclotomicNoncollapse",
+        "path": "lean/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean",
+        "direct": false,
+        "content_digest": "sha256:f34c63c98f1009fb48bd91ed3c48adf4f252aa6f9783edc3a113fdadd7873441",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean",
+        "role": "Cyclotomic noncollapse in the Mersenne shadow"
+      },
+      {
+        "id": "lean-module:Erdos249257.MersenneShadowDenominatorGrowth",
+        "label": "Erdos249257.MersenneShadowDenominatorGrowth",
+        "path": "lean/Erdos249257/MersenneShadowDenominatorGrowth.lean",
+        "direct": false,
+        "content_digest": "sha256:b67ce3a622fae0c8c5c54a1f6f2ab0a1667438b5229adc1507ee8a8d1a2cfc28",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/MersenneShadowDenominatorGrowth.lean",
+        "role": "Exact denominator growth in the Mersenne shadow"
       },
       {
         "id": "lean-module:Erdos249257.MersenneTailAtoms",
@@ -2117,6 +2518,24 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:Erdos249257.MobiusSignSupportNoGo",
+        "label": "Erdos249257.MobiusSignSupportNoGo",
+        "path": "lean/Erdos249257/MobiusSignSupportNoGo.lean",
+        "direct": false,
+        "content_digest": "sha256:4b813a219ce17d57dad1704bf84b5583395cecc69982064e3caa99cd9a835d39",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/MobiusSignSupportNoGo.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.PrimePowerJumpDynamics",
+        "label": "Erdos249257.PrimePowerJumpDynamics",
+        "path": "lean/Erdos249257/PrimePowerJumpDynamics.lean",
+        "direct": false,
+        "content_digest": "sha256:37cdcb6470dc9dd77066753c0dcf72d168352d3f6ffd2f6dcb76bfba952896ce",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PrimePowerJumpDynamics.lean",
+        "role": "Prime-power jump dynamics"
+      },
+      {
         "id": "lean-module:Erdos249257.PrimitiveSupportBridge",
         "label": "Erdos249257.PrimitiveSupportBridge",
         "path": "lean/Erdos249257/PrimitiveSupportBridge.lean",
@@ -2124,6 +2543,24 @@
         "content_digest": "sha256:382171fe8b8a52912829f8d14dae7fa67307ae4741b873f0926265b2ad48e4e2",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/PrimitiveSupportBridge.lean",
         "role": "Conditional primitive-support bridge"
+      },
+      {
+        "id": "lean-module:Erdos249257.RadicalMobiusShadow",
+        "label": "Erdos249257.RadicalMobiusShadow",
+        "path": "lean/Erdos249257/RadicalMobiusShadow.lean",
+        "direct": false,
+        "content_digest": "sha256:0f1275051bc43aa875eea4dd8f189c73ba02121f20a65f02066517986e6df4e5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RadicalMobiusShadow.lean",
+        "role": "Radical structure of the Mobius shadow"
+      },
+      {
+        "id": "lean-module:Erdos249257.RationalDenominatorSurvival",
+        "label": "Erdos249257.RationalDenominatorSurvival",
+        "path": "lean/Erdos249257/RationalDenominatorSurvival.lean",
+        "direct": false,
+        "content_digest": "sha256:06a6173dddc6c93b9b85e0765e490809bcb80ec37cbe2619514ffa15abee0894",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RationalDenominatorSurvival.lean",
+        "role": "Rational denominator-survival identities"
       },
       {
         "id": "lean-module:Erdos249257.RationalSupportCarrySkeleton",
@@ -2135,6 +2572,60 @@
         "role": "Residue wraps, reciprocal mass, and unbounded carries"
       },
       {
+        "id": "lean-module:Erdos249257.ReciprocalSupportIrrationality",
+        "label": "Erdos249257.ReciprocalSupportIrrationality",
+        "path": "lean/Erdos249257/ReciprocalSupportIrrationality.lean",
+        "direct": false,
+        "content_digest": "sha256:c2e8b59c71ad5996caa8c42a45dad5fc76454533fe102b0fa49503c5495d77b5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/ReciprocalSupportIrrationality.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.RepunitMobiusNumerator",
+        "label": "Erdos249257.RepunitMobiusNumerator",
+        "path": "lean/Erdos249257/RepunitMobiusNumerator.lean",
+        "direct": false,
+        "content_digest": "sha256:7a9b4b4c19faca8da59b5f479ea212822d45ba97fbc6f97b1f475f41d7be3167",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RepunitMobiusNumerator.lean",
+        "role": "Repunit and Mobius-numerator identities"
+      },
+      {
+        "id": "lean-module:Erdos249257.RewindHalfDivisorAdapter",
+        "label": "Erdos249257.RewindHalfDivisorAdapter",
+        "path": "lean/Erdos249257/RewindHalfDivisorAdapter.lean",
+        "direct": false,
+        "content_digest": "sha256:37c7be717a146acdc5ea0c422e28d38c4c949e431ffccceff213c47a522f2661",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RewindHalfDivisorAdapter.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.RewindSeamOperationalBridge",
+        "label": "Erdos249257.RewindSeamOperationalBridge",
+        "path": "lean/Erdos249257/RewindSeamOperationalBridge.lean",
+        "direct": false,
+        "content_digest": "sha256:2b32227762803b685ad94d4e8c7b0ec7dadb72b7c5c0a0e93337c0d2cf93fda9",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/RewindSeamOperationalBridge.lean",
+        "role": "Operational bridge from rewind seams to protected next-row seams"
+      },
+      {
+        "id": "lean-module:Erdos249257.SelectedSuffixCylinder",
+        "label": "Erdos249257.SelectedSuffixCylinder",
+        "path": "lean/Erdos249257/SelectedSuffixCylinder.lean",
+        "direct": false,
+        "content_digest": "sha256:651d7842f9f5b3199a7db226a36620f14888cdcfb9d55ceac22929c4a64e5c74",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SelectedSuffixCylinder.lean",
+        "role": "Terminally indexed selected suffix-cylinder propagation"
+      },
+      {
+        "id": "lean-module:Erdos249257.SelectedSuffixCylinderPreFeedback",
+        "label": "Erdos249257.SelectedSuffixCylinderPreFeedback",
+        "path": "lean/Erdos249257/SelectedSuffixCylinderPreFeedback.lean",
+        "direct": false,
+        "content_digest": "sha256:fddf2ab209777b8a49338fdaafbd55d8444830e48ad889d51d7f6d6223e57c37",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SelectedSuffixCylinderPreFeedback.lean",
+        "role": "Selected suffix-cylinder run through the first feedback row"
+      },
+      {
         "id": "lean-module:Erdos249257.SternBrocotRunGeometry",
         "label": "Erdos249257.SternBrocotRunGeometry",
         "path": "lean/Erdos249257/SternBrocotRunGeometry.lean",
@@ -2142,6 +2633,132 @@
         "content_digest": "sha256:fcb72bd7eb8a4d0edbf068357e49dfdba9196ad0a897ceaa9d878f0b2bb58ff0",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SternBrocotRunGeometry.lean",
         "role": "Stern-Brocot run geometry"
+      },
+      {
+        "id": "lean-module:Erdos249257.SublogDivisorCoverage",
+        "label": "Erdos249257.SublogDivisorCoverage",
+        "path": "lean/Erdos249257/SublogDivisorCoverage.lean",
+        "direct": false,
+        "content_digest": "sha256:9d2444aa17b65e1c317d7c2a629a8b20479c5cc3bd7c5e7160de32ca053e812d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SublogDivisorCoverage.lean",
+        "role": "Sublogarithmic divisor-coverage constraint"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderBelow",
+        "label": "Erdos249257.SuffixCylinderBelow",
+        "path": "lean/Erdos249257/SuffixCylinderBelow.lean",
+        "direct": false,
+        "content_digest": "sha256:d943a639c236f790227d590c42952924be220b39d267c96daa4cf495ba3b8a93",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderBelow.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderFeedbackFanIn",
+        "label": "Erdos249257.SuffixCylinderFeedbackFanIn",
+        "path": "lean/Erdos249257/SuffixCylinderFeedbackFanIn.lean",
+        "direct": false,
+        "content_digest": "sha256:219b5038cec13ef44240e4818039f99595030abbfe0da3ffa4a7caeca29009c4",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderFeedbackFanIn.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderFiniteGap",
+        "label": "Erdos249257.SuffixCylinderFiniteGap",
+        "path": "lean/Erdos249257/SuffixCylinderFiniteGap.lean",
+        "direct": false,
+        "content_digest": "sha256:85fbf94073593f04d5971e9b93ffbdadfadb450852ff4ea91c9bf199f21c55a6",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderFiniteGap.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderGlobalProducer",
+        "label": "Erdos249257.SuffixCylinderGlobalProducer",
+        "path": "lean/Erdos249257/SuffixCylinderGlobalProducer.lean",
+        "direct": false,
+        "content_digest": "sha256:33ea96e4e6392416b44f8100deeb5c3c8f03eb443a73c4e314e54f20e2bd3973",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderGlobalProducer.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderInStrip",
+        "label": "Erdos249257.SuffixCylinderInStrip",
+        "path": "lean/Erdos249257/SuffixCylinderInStrip.lean",
+        "direct": false,
+        "content_digest": "sha256:46cb68266e0abd0166550ad67b59151ba18732ec79ca27cb18080864b1a81cec",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderInStrip.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderProfiledAdjacency",
+        "label": "Erdos249257.SuffixCylinderProfiledAdjacency",
+        "path": "lean/Erdos249257/SuffixCylinderProfiledAdjacency.lean",
+        "direct": false,
+        "content_digest": "sha256:f5e730676a88511b92d12b6783ec32631dac63bf7597db458817dd732573250f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderProfiledAdjacency.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderProfiledGap",
+        "label": "Erdos249257.SuffixCylinderProfiledGap",
+        "path": "lean/Erdos249257/SuffixCylinderProfiledGap.lean",
+        "direct": false,
+        "content_digest": "sha256:1c926533aac303b806f05be3e36b22774cc98728ffd9a89d4b6a5758934818bf",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderProfiledGap.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderProfiledSwallow",
+        "label": "Erdos249257.SuffixCylinderProfiledSwallow",
+        "path": "lean/Erdos249257/SuffixCylinderProfiledSwallow.lean",
+        "direct": false,
+        "content_digest": "sha256:63675be8ed455117e54886993513f95d440d8d0b545b15713f7e7215529dba96",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderProfiledSwallow.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderPromotion",
+        "label": "Erdos249257.SuffixCylinderPromotion",
+        "path": "lean/Erdos249257/SuffixCylinderPromotion.lean",
+        "direct": false,
+        "content_digest": "sha256:07a489b34d1f212245d775b0372adb04c408d87f8e0893f04f0c22a1e8822d0b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderPromotion.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderStage51",
+        "label": "Erdos249257.SuffixCylinderStage51",
+        "path": "lean/Erdos249257/SuffixCylinderStage51.lean",
+        "direct": false,
+        "content_digest": "sha256:ac87b38f5fd612f746417fba4850cafb80a36f653e04f88a1ce6c7bd51765eb1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderStage51.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge",
+        "label": "Erdos249257.SuffixCylinderTerminalOnlyBridge",
+        "path": "lean/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean",
+        "direct": false,
+        "content_digest": "sha256:3e692c68d7d9ec538e0dfc171d87e3d411a9cad0756b626a99a5c151e164b66b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderThreshold",
+        "label": "Erdos249257.SuffixCylinderThreshold",
+        "path": "lean/Erdos249257/SuffixCylinderThreshold.lean",
+        "direct": false,
+        "content_digest": "sha256:b29c7ae2d923b8ca8023ef103501eb0dfc2a4c130659d6ef665365f4e9fa0eff",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderThreshold.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.SuffixCylinderTwoSheet",
+        "label": "Erdos249257.SuffixCylinderTwoSheet",
+        "path": "lean/Erdos249257/SuffixCylinderTwoSheet.lean",
+        "direct": false,
+        "content_digest": "sha256:fbe7db74a19258ff6f5d07757b92d06b6c8f838399b89408b3f2e968d0380071",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/SuffixCylinderTwoSheet.lean",
+        "role": "Lean proof module"
       },
       {
         "id": "lean-module:Erdos249257.SupportDilationDifferences",
@@ -2189,6 +2806,78 @@
         "role": "Tail-period certificate reduction"
       },
       {
+        "id": "lean-module:Erdos249257.TropicalCurvatureCarry",
+        "label": "Erdos249257.TropicalCurvatureCarry",
+        "path": "lean/Erdos249257/TropicalCurvatureCarry.lean",
+        "direct": false,
+        "content_digest": "sha256:266c7b08342423dc43411ef6d66b774a0192a3693b4c16c31c468f599ad55ff9",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TropicalCurvatureCarry.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.TwentyOneQuotientCompactness",
+        "label": "Erdos249257.TwentyOneQuotientCompactness",
+        "path": "lean/Erdos249257/TwentyOneQuotientCompactness.lean",
+        "direct": false,
+        "content_digest": "sha256:731a63ae775efa049816b1ec19e11f0c2772e6fdcc192d798605850bf5ee5ab9",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TwentyOneQuotientCompactness.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:Erdos249257.TwentyOneQuotientGreedy",
+        "label": "Erdos249257.TwentyOneQuotientGreedy",
+        "path": "lean/Erdos249257/TwentyOneQuotientGreedy.lean",
+        "direct": false,
+        "content_digest": "sha256:ee97158b9b8be198a14264131d24483461f4d81158388a9551048b9463a80cb2",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/TwentyOneQuotientGreedy.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.BatchReturnSynthesis",
+        "label": "ErdosProblems.Erdos257.BatchReturnSynthesis",
+        "path": "lean/ErdosProblems/Erdos257/BatchReturnSynthesis.lean",
+        "direct": true,
+        "content_digest": "sha256:ea2b5abbabd164602b42c3ad69e187bf9bae7ea479bf55166861368a2f0cf5c2",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/BatchReturnSynthesis.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.CoverIndependentPeriodicMean",
+        "label": "ErdosProblems.Erdos257.CoverIndependentPeriodicMean",
+        "path": "lean/ErdosProblems/Erdos257/CoverIndependentPeriodicMean.lean",
+        "direct": true,
+        "content_digest": "sha256:9307f032842d3210b28ef6f403cc1b145e25c432594059bc37f37bc91de41c2f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/CoverIndependentPeriodicMean.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.DyadicShellSynchronisation",
+        "label": "ErdosProblems.Erdos257.DyadicShellSynchronisation",
+        "path": "lean/ErdosProblems/Erdos257/DyadicShellSynchronisation.lean",
+        "direct": true,
+        "content_digest": "sha256:b2eca48f75e5364e33389d0cfd16fb3db5eb44c02b08b800851bddbda6fb1ff4",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/DyadicShellSynchronisation.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.FourNinthsCofinalRepairConsumer",
+        "label": "ErdosProblems.Erdos257.FourNinthsCofinalRepairConsumer",
+        "path": "lean/ErdosProblems/Erdos257/FourNinthsCofinalRepairConsumer.lean",
+        "direct": true,
+        "content_digest": "sha256:0abc3ca41152b38a6a154e9c379eaea0c77bb793b39a6f9e300ad9c4c2759665",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/FourNinthsCofinalRepairConsumer.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.GreedyRepairCriterion",
+        "label": "ErdosProblems.Erdos257.GreedyRepairCriterion",
+        "path": "lean/ErdosProblems/Erdos257/GreedyRepairCriterion.lean",
+        "direct": true,
+        "content_digest": "sha256:8444bad2d451c4c6fb32a093b78a2bed42342b5bfcb630802c4a1322d0158374",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/GreedyRepairCriterion.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos257.HalfCounterexampleFrontier",
         "label": "ErdosProblems.Erdos257.HalfCounterexampleFrontier",
         "path": "lean/ErdosProblems/Erdos257/HalfCounterexampleFrontier.lean",
@@ -2207,6 +2896,915 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.AchievementGeometry",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.AchievementGeometry",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/AchievementGeometry.lean",
+        "direct": true,
+        "content_digest": "sha256:bf97c248990936744278ddaca1de37074ca8eb2fe62467dc7df55b5f58cab121",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/AchievementGeometry.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.CarryCollapseCorrespondence",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.CarryCollapseCorrespondence",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/CarryCollapseCorrespondence.lean",
+        "direct": true,
+        "content_digest": "sha256:b01e66ba46322a079a42924c73dbcf73989c3872f02088620a6a26c802b5364a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/CarryCollapseCorrespondence.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.CofinalCarryCollapse",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.CofinalCarryCollapse",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/CofinalCarryCollapse.lean",
+        "direct": true,
+        "content_digest": "sha256:58d851b67fce051ab8283845499f919cdc6860ee241d80fb7cff6724e38bf1e9",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/CofinalCarryCollapse.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.GeneralRepairCorrespondence",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.GeneralRepairCorrespondence",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/GeneralRepairCorrespondence.lean",
+        "direct": true,
+        "content_digest": "sha256:5142c9329007e907b3c835274d627e9f6a3f7000b89253a27593c5687ddeb395",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/GeneralRepairCorrespondence.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.GeneralTargetGap",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.GeneralTargetGap",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/GeneralTargetGap.lean",
+        "direct": true,
+        "content_digest": "sha256:a64025bf427c1a43dd364d298be39539d83b5beacc98b0f811bcfcdbbb206d8e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/GeneralTargetGap.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.MersenneConstantDecimal",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.MersenneConstantDecimal",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/MersenneConstantDecimal.lean",
+        "direct": true,
+        "content_digest": "sha256:a09d6d15ac23b4e498d4723c79dbd4b90f0a3333576753e2c6ba0cde04622456",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/MersenneConstantDecimal.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowIdentity",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowIdentity",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/QuotientRowIdentity.lean",
+        "direct": true,
+        "content_digest": "sha256:d976dc368722dc4a601e649d51d28347db0abb5b3becc93b16dbc8896be87d53",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/QuotientRowIdentity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowReal",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowReal",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/QuotientRowReal.lean",
+        "direct": true,
+        "content_digest": "sha256:97d17c569d7dfbd19c9bdbd9346f32c405b91638ff76eca81f65c2025c3b1bb3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/QuotientRowReal.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowRounding",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowRounding",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/QuotientRowRounding.lean",
+        "direct": true,
+        "content_digest": "sha256:493087b50c42a47f808904717b6023b84ad5c4ace1db345446135b80418ac227",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/QuotientRowRounding.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.SixMembershipConditions",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.SixMembershipConditions",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/SixMembershipConditions.lean",
+        "direct": true,
+        "content_digest": "sha256:c069cabc649945d59f42c13326566988f4d88a5e99551abee0e9d81e0afc6188",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/SixMembershipConditions.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.TerminalSetCorrespondence",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR20.TerminalSetCorrespondence",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR20/TerminalSetCorrespondence.lean",
+        "direct": true,
+        "content_digest": "sha256:8da154e3dafc2c7ae5bd8d46f436bbd56948cb30b0bf048a8a09ea448740e72e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR20/TerminalSetCorrespondence.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.AchievementSetTopologyAndFiniteHalf",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.AchievementSetTopologyAndFiniteHalf",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/AchievementSetTopologyAndFiniteHalf.lean",
+        "direct": true,
+        "content_digest": "sha256:6ff048c91741d3d73dea5584a29c0f9fbddd217d0456c01982889d644118cb02",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/AchievementSetTopologyAndFiniteHalf.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleAssembly",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleAssembly",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleAssembly.lean",
+        "direct": true,
+        "content_digest": "sha256:08063603cbb97222e01f58b60e32f6d245f6f3949fc4d6723f7d2978d982aeee",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleAssembly.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleChebyshev",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleChebyshev",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleChebyshev.lean",
+        "direct": true,
+        "content_digest": "sha256:4e36778efe2b2d0aeff64139dc9ecd638a648b252c652e562a9097b31e583c8d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleChebyshev.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleCrtCounts",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleCrtCounts",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleCrtCounts.lean",
+        "direct": true,
+        "content_digest": "sha256:1aefb0ee1b61d3c362fd774e913590e615ce24d3889831dc7778de0df2cf8b96",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleCrtCounts.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleEncoding",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleEncoding",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleEncoding.lean",
+        "direct": true,
+        "content_digest": "sha256:235be4df6ed4097524e3be07f98e81dd1adf05d22bb708b6ded0ab47804e406d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleEncoding.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleResidueCounts",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleResidueCounts",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleResidueCounts.lean",
+        "direct": true,
+        "content_digest": "sha256:8af4e822bf6477caaf949265310ba2f071130954bd3b02a62e2cceb2e8699a1f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleResidueCounts.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleSelection",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleSelection",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleSelection.lean",
+        "direct": true,
+        "content_digest": "sha256:6f353d319872e9ea59bcfea2b9e6074f87f611ccadb3755a5e4f39b241da9d6d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleSelection.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleTagFamily",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleTagFamily",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleTagFamily.lean",
+        "direct": true,
+        "content_digest": "sha256:8335f8585f8fd1f11bee5212de7491864311abcab25b3dcc336e05641450ee5b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCounterexampleTagFamily.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBound",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBound",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCoverLowerBound.lean",
+        "direct": true,
+        "content_digest": "sha256:7930a9da49df32d902440d3dc08fb26c85ec286e6f9eeaf15ff792075e4b140f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCoverLowerBound.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBoundPaperForm",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBoundPaperForm",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCoverLowerBoundPaperForm.lean",
+        "direct": true,
+        "content_digest": "sha256:ebc48b1ea3c1bd21c2c695c9c7d611765eae9a3634fdf09346f38efc6e7771f1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ArithmeticCoverLowerBoundPaperForm.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.BalancedPulseFanOutCount",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.BalancedPulseFanOutCount",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/BalancedPulseFanOutCount.lean",
+        "direct": true,
+        "content_digest": "sha256:9f2a200a65f406ea2494f27fe231e8e01c583c89741fe87563c8e8bfc05541e3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/BalancedPulseFanOutCount.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.BranchCellHorizonExclusions",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.BranchCellHorizonExclusions",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/BranchCellHorizonExclusions.lean",
+        "direct": true,
+        "content_digest": "sha256:cb28f3eb94754e1ca11f3cb18fcb05ba9e64f7695094eed5ed3dfe5bc3d781f0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/BranchCellHorizonExclusions.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.CentredCompletionAndDecisionBoundary",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.CentredCompletionAndDecisionBoundary",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/CentredCompletionAndDecisionBoundary.lean",
+        "direct": true,
+        "content_digest": "sha256:07c07a284af2858140686d868f1effd2d887b3dbc9e06690297aaea279888b6e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/CentredCompletionAndDecisionBoundary.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.CompatibleFiniteRowFamily",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.CompatibleFiniteRowFamily",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/CompatibleFiniteRowFamily.lean",
+        "direct": true,
+        "content_digest": "sha256:b4e599c9de9ab2d9ba48bee52caf3e284102686f1d1c86d64fa6baa23e77f178",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/CompatibleFiniteRowFamily.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.CriticalDyadicBandCollapse",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.CriticalDyadicBandCollapse",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/CriticalDyadicBandCollapse.lean",
+        "direct": true,
+        "content_digest": "sha256:a6e93b40ee5a31ba9b9505375dc833cf78696f953b45b813b61ceeae4dc9f184",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/CriticalDyadicBandCollapse.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.DenominatorBudget",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.DenominatorBudget",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/DenominatorBudget.lean",
+        "direct": true,
+        "content_digest": "sha256:e690dba80327b4290cbec58b9b0305aab33365396b753cae57f6b32d206c5543",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/DenominatorBudget.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.DyadicBandAndTwoSidedBounds",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.DyadicBandAndTwoSidedBounds",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/DyadicBandAndTwoSidedBounds.lean",
+        "direct": true,
+        "content_digest": "sha256:facb8270ca9c62216a09ee4986577ee6b4de78df4def22f20b9b09e5dafda501",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/DyadicBandAndTwoSidedBounds.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.EventualNonnegativeMargin",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.EventualNonnegativeMargin",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/EventualNonnegativeMargin.lean",
+        "direct": true,
+        "content_digest": "sha256:d48b13bfec477b493978a494670ed9dc0abf585df166da980b8f9c665c433387",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/EventualNonnegativeMargin.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ExactRowDichotomyCountermodels",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ExactRowDichotomyCountermodels",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ExactRowDichotomyCountermodels.lean",
+        "direct": true,
+        "content_digest": "sha256:d1f1db7258a71dadf0d0d90a9004948eb6e5057f97e263bea5a9dbffefc61ea0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ExactRowDichotomyCountermodels.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.FeedbackRowStripWitnessAllDepths",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.FeedbackRowStripWitnessAllDepths",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/FeedbackRowStripWitnessAllDepths.lean",
+        "direct": true,
+        "content_digest": "sha256:d544faa93483a7dacaacc3d3ac5ed435de95f67a50cd351b605b64349309793e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/FeedbackRowStripWitnessAllDepths.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.FiniteFamilyCoverCost",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.FiniteFamilyCoverCost",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/FiniteFamilyCoverCost.lean",
+        "direct": true,
+        "content_digest": "sha256:4d8e6ae94d7dd434443404f297c1ad9cf0e3e424b72a3bdd3eb79c2b5fe81f66",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/FiniteFamilyCoverCost.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.GreedyGapCriteria",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.GreedyGapCriteria",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/GreedyGapCriteria.lean",
+        "direct": true,
+        "content_digest": "sha256:d271285153fa4a6b46f464e88d42de43f6ccc9537669d0abe494d7de7e321671",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/GreedyGapCriteria.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.GreedyOrbitNoTies",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.GreedyOrbitNoTies",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/GreedyOrbitNoTies.lean",
+        "direct": true,
+        "content_digest": "sha256:fe2e1817bfba2fc19e36ab1b5a1fe54e4b599d5d05cc424e54352dfdff6c6ac3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/GreedyOrbitNoTies.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LinearChannelAndMiddleCellExclusion",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.LinearChannelAndMiddleCellExclusion",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/LinearChannelAndMiddleCellExclusion.lean",
+        "direct": true,
+        "content_digest": "sha256:3d36f743d83f505b10f30cce5c3265c301ff05a687cc68cc77a108798a3fee0f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/LinearChannelAndMiddleCellExclusion.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LogarithmicInitialInterval",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.LogarithmicInitialInterval",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/LogarithmicInitialInterval.lean",
+        "direct": true,
+        "content_digest": "sha256:6ebabf045a46469bc938a55ad050fd3f1eb5e8787bb83d5d992ac6ec3329b719",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/LogarithmicInitialInterval.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MersenneChannelSurvivalAllHeights",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.MersenneChannelSurvivalAllHeights",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/MersenneChannelSurvivalAllHeights.lean",
+        "direct": true,
+        "content_digest": "sha256:1f835144afbf744fc402f080345fe64cca4c22512122c64262e18e273daa5944",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/MersenneChannelSurvivalAllHeights.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MersenneQuotientRowRecurrences",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.MersenneQuotientRowRecurrences",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/MersenneQuotientRowRecurrences.lean",
+        "direct": true,
+        "content_digest": "sha256:6849d345fa0fe1d5eedc81988e989f01ef7ba06da61b6b951bad2d252b967e6e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/MersenneQuotientRowRecurrences.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MobiusSignAndFiniteCertificates",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.MobiusSignAndFiniteCertificates",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/MobiusSignAndFiniteCertificates.lean",
+        "direct": true,
+        "content_digest": "sha256:0decb740fb670ef1b005898d64331eebe769f495cf186c306a82c41e9f2f5645",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/MobiusSignAndFiniteCertificates.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.OddReciprocalDenominators",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.OddReciprocalDenominators",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/OddReciprocalDenominators.lean",
+        "direct": true,
+        "content_digest": "sha256:51a8ff79f0c2dd853909693bcadbe64adc627fcde183051e6554c350f528e39d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/OddReciprocalDenominators.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.OneSidedCertificateHierarchy",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.OneSidedCertificateHierarchy",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/OneSidedCertificateHierarchy.lean",
+        "direct": true,
+        "content_digest": "sha256:313de546b26077e9b897896a0210c9097660db1db973bcb303bb3847be1e9bf9",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/OneSidedCertificateHierarchy.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.PostTakeBandLocalisation",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.PostTakeBandLocalisation",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/PostTakeBandLocalisation.lean",
+        "direct": true,
+        "content_digest": "sha256:ffd3f3b2e07e48b2984439122bd5b801bb4822798a3520aef095c532252eaadf",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/PostTakeBandLocalisation.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ResetSqrtEscapeHalfMembership",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ResetSqrtEscapeHalfMembership",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ResetSqrtEscapeHalfMembership.lean",
+        "direct": true,
+        "content_digest": "sha256:379c13a65571232374ece7a956097b1c31adefe423cfcdc00550c88613764412",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ResetSqrtEscapeHalfMembership.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ResidueClassSupport",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ResidueClassSupport",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ResidueClassSupport.lean",
+        "direct": true,
+        "content_digest": "sha256:11969673eeb35e6627e5be92f3f0ee03608dbae5e642c7f908fc0517611e3451",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ResidueClassSupport.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ScalarLocalisationHeightObstruction",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ScalarLocalisationHeightObstruction",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ScalarLocalisationHeightObstruction.lean",
+        "direct": true,
+        "content_digest": "sha256:16dcad8ab55e1862dd4b21b63e9e1724703a2051475467ad0e032f650c0600e5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ScalarLocalisationHeightObstruction.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamEscapeAndTerminalStrip",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.SeamEscapeAndTerminalStrip",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/SeamEscapeAndTerminalStrip.lean",
+        "direct": true,
+        "content_digest": "sha256:293b98390d5b747ef4c1ba1fbe529ae42af6e775530b1ba36357ce4c58f8340d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/SeamEscapeAndTerminalStrip.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamPrefixStabilityLimit",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.SeamPrefixStabilityLimit",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/SeamPrefixStabilityLimit.lean",
+        "direct": true,
+        "content_digest": "sha256:b615ebaa7621ea45fc3e2a02982cf1dedbf7c3eb102dc89adba903db0f65367d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/SeamPrefixStabilityLimit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamQuotientDeficitLimit",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.SeamQuotientDeficitLimit",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/SeamQuotientDeficitLimit.lean",
+        "direct": true,
+        "content_digest": "sha256:2baffc82adb9949dfcbb1d4a78bc6030b4b7c93f8cfeef43c2c0cd11ca21f323",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/SeamQuotientDeficitLimit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamRowGapAndCarry",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.SeamRowGapAndCarry",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/SeamRowGapAndCarry.lean",
+        "direct": true,
+        "content_digest": "sha256:e65145be43f63d1d07d009f43911fcff25567274fed32c28591b13b88cd34ec1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/SeamRowGapAndCarry.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SharedPrefixFamiliesAndMeasureDichotomy",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.SharedPrefixFamiliesAndMeasureDichotomy",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/SharedPrefixFamiliesAndMeasureDichotomy.lean",
+        "direct": true,
+        "content_digest": "sha256:386eaa6832ac5fcc42ccd6e2d647bd45a88ad8af7a0e432ed40facfa224457ea",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/SharedPrefixFamiliesAndMeasureDichotomy.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ShortWindowDivisorPhase",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ShortWindowDivisorPhase",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ShortWindowDivisorPhase.lean",
+        "direct": true,
+        "content_digest": "sha256:eba350d3c752638be6f5b0cb00507268dcb398365ed9263cecaafc02d7e1a95e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ShortWindowDivisorPhase.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SkipSafetyAndDivisorZeroRuns",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.SkipSafetyAndDivisorZeroRuns",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/SkipSafetyAndDivisorZeroRuns.lean",
+        "direct": true,
+        "content_digest": "sha256:bbb86273a07fb35a332dbf8cbb476f0096c0f21b9173a5209785b4c7218fc2f7",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/SkipSafetyAndDivisorZeroRuns.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SquareDepthAndHalfMembershipEquivalences",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.SquareDepthAndHalfMembershipEquivalences",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/SquareDepthAndHalfMembershipEquivalences.lean",
+        "direct": true,
+        "content_digest": "sha256:faf17002e8c68b0c3ac939f4626e5f6138ed9c22b62a1fe1c17bbc90e8baac05",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/SquareDepthAndHalfMembershipEquivalences.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SquarefreeSupportEngineCeiling",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.SquarefreeSupportEngineCeiling",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/SquarefreeSupportEngineCeiling.lean",
+        "direct": true,
+        "content_digest": "sha256:9100b6355075886c50156506c456ad88ddc538ae851c0506c818d6f8c880c4dd",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/SquarefreeSupportEngineCeiling.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TerminalStripExactRowGap",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.TerminalStripExactRowGap",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/TerminalStripExactRowGap.lean",
+        "direct": true,
+        "content_digest": "sha256:cae245f1e9f89a0de092d34cead74c957c10f41730a9e5338a457535ea5c5f17",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/TerminalStripExactRowGap.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ThreeBranchRowDynamics",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.ThreeBranchRowDynamics",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/ThreeBranchRowDynamics.lean",
+        "direct": true,
+        "content_digest": "sha256:9a2d0eaef22e3b45c3ce04a781ee9c8cde5a1e52bcce06b50c8a78a4fecda4a7",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/ThreeBranchRowDynamics.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TotientPeriodCertificateSupply",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.TotientPeriodCertificateSupply",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/TotientPeriodCertificateSupply.lean",
+        "direct": true,
+        "content_digest": "sha256:6f967aaebd7f2e93c0b1473c286eb6e8eba3b84a7474efbc942976a994ba0b9d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/TotientPeriodCertificateSupply.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TruncatedRungGreedyDecision",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.TruncatedRungGreedyDecision",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/TruncatedRungGreedyDecision.lean",
+        "direct": true,
+        "content_digest": "sha256:aa5a853f081f889e48b7594ba879c69d93133d2c7cd049fc48989ec913c3669f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/TruncatedRungGreedyDecision.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TruncatedRungWitnessHorizon",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.TruncatedRungWitnessHorizon",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/TruncatedRungWitnessHorizon.lean",
+        "direct": true,
+        "content_digest": "sha256:6bb52836a8f479fe7f74394abb9e4d1aee4cbb9f8814aed4d23d2624a201a3ae",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/TruncatedRungWitnessHorizon.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.UpperResetBandCertificate",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR21.UpperResetBandCertificate",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR21/UpperResetBandCertificate.lean",
+        "direct": true,
+        "content_digest": "sha256:35e6899582a093569b6359a019a59fc6b8b450d8263b7b23a7916ad77bdc7b47",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR21/UpperResetBandCertificate.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.AnalyticTargets",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR7.AnalyticTargets",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR7/AnalyticTargets.lean",
+        "direct": true,
+        "content_digest": "sha256:d63816fe10d4edce59ba281800ebd991b467e14b40ab5439cbec7681e243e4f2",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR7/AnalyticTargets.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.CoverKernel",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR7.CoverKernel",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean",
+        "direct": true,
+        "content_digest": "sha256:0b4e29479766f5a6585e6a48c230b18e8e9f020ca9eb68ccbb8f54155d002a90",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR7/CoverKernel.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.Displacement",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR7.Displacement",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR7/Displacement.lean",
+        "direct": true,
+        "content_digest": "sha256:7404f6af19c2a8f4c5921957fa2732c54d44e4b8393ced5f79b269e46406725d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR7/Displacement.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.TailGluing",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR7.TailGluing",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR7/TailGluing.lean",
+        "direct": true,
+        "content_digest": "sha256:f661d3227e25b8a053c353b8c8ba6420df2770887844321d1a2642c8bb347581",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR7/TailGluing.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightMixedClaim",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightMixedClaim",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean",
+        "direct": true,
+        "content_digest": "sha256:178828f8466b63d675f421b473db13fe157bbae58b1d377edcf5901c00a6e6f8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightReturns",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightReturns",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightReturns.lean",
+        "direct": true,
+        "content_digest": "sha256:36a45f73c045c45459e63ccfbbb18dcd15127df09f417e4f2499d6fb5516ede7",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightReturns.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CommonScale",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.CommonScale",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/CommonScale.lean",
+        "direct": true,
+        "content_digest": "sha256:84e5a34cf610ee0ba8ff838b1908a4941492470ed284c7145782a5357f9c0a8b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/CommonScale.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableCoverLogBudget",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.CountableCoverLogBudget",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/CountableCoverLogBudget.lean",
+        "direct": true,
+        "content_digest": "sha256:20aa5edfaaa607264d0ccea96504c9bc66286896d8077dfc255955ea2d5a087d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/CountableCoverLogBudget.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableGaugeBudget",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.CountableGaugeBudget",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/CountableGaugeBudget.lean",
+        "direct": true,
+        "content_digest": "sha256:1051ff0f298f5f4f26a0596b2cc9c059c739aeda9e0b20f4ef79c6ce708eedee",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/CountableGaugeBudget.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableMeans",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.CountableMeans",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/CountableMeans.lean",
+        "direct": true,
+        "content_digest": "sha256:c885323ba42c79b086d6eb6ec8a277d791ff2bd15da9b58e771694f778c1f7f7",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/CountableMeans.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CoverPotentialBounds",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.CoverPotentialBounds",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/CoverPotentialBounds.lean",
+        "direct": true,
+        "content_digest": "sha256:640d9ad631f71243eda69cbd0162d984ddb8e47f3fe7eaa60a3e2fbe5164d9e4",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/CoverPotentialBounds.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CoverScalarGauge",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.CoverScalarGauge",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/CoverScalarGauge.lean",
+        "direct": true,
+        "content_digest": "sha256:09a06367842a3cf91babbfc32cdd42f5ad2b04ed0071531c5de54143a31d6c30",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/CoverScalarGauge.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.DyadicKernel",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.DyadicKernel",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/DyadicKernel.lean",
+        "direct": true,
+        "content_digest": "sha256:cb452fe9fcace03b9152e2cf4b1f7b351b9b0313647181e95c68754b48560bbf",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/DyadicKernel.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.FiniteCoverLogBudget",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.FiniteCoverLogBudget",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/FiniteCoverLogBudget.lean",
+        "direct": true,
+        "content_digest": "sha256:24a2705f7be923ae2a0b15bbef5734c1d0c106d1379a5f9b79ca1fa74fac3907",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/FiniteCoverLogBudget.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.FiniteMeans",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.FiniteMeans",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/FiniteMeans.lean",
+        "direct": true,
+        "content_digest": "sha256:70c6e09b7d8471640147d4e6c91306625f81c10e778a0a0fe46cf0110b58af34",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/FiniteMeans.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.KernelRecurrence",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.KernelRecurrence",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/KernelRecurrence.lean",
+        "direct": true,
+        "content_digest": "sha256:b3c2adba1bc0b80d59b76011ec9f3a724d0e9faeb82e2d889f30b3a2698880c6",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/KernelRecurrence.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.MixedGaugeConsumer",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.MixedGaugeConsumer",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/MixedGaugeConsumer.lean",
+        "direct": true,
+        "content_digest": "sha256:02016ada0d6d24d37a0474a7712f10275213636a5270d9dfdcb949ebeb5c60e5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/MixedGaugeConsumer.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.OptimizedCoverBudget",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.OptimizedCoverBudget",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/OptimizedCoverBudget.lean",
+        "direct": true,
+        "content_digest": "sha256:1bfa8ea9385c894b797006f14491889ec7852f9793b8eca232921ccbc7c59f33",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/OptimizedCoverBudget.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.OrbitBound",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.OrbitBound",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/OrbitBound.lean",
+        "direct": true,
+        "content_digest": "sha256:2be80cbefe1ccbe95efd9377ba85d5ab29c1607c95656d78d051ac92c6fef240",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/OrbitBound.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.PositiveCoverReturn",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.PositiveCoverReturn",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean",
+        "direct": true,
+        "content_digest": "sha256:aab1d9a4f17b0376e7a2a275f5b17cb4b704ef5ea19b4a191300744e3e40385a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedFiniteEstimates",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.WeightedFiniteEstimates",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedFiniteEstimates.lean",
+        "direct": true,
+        "content_digest": "sha256:b8d4e29b9a5855ad7343055c13923f9c03c884c273dff7d960b402d5f68a8673",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedFiniteEstimates.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedFiniteMean",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.WeightedFiniteMean",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedFiniteMean.lean",
+        "direct": true,
+        "content_digest": "sha256:f8979eff4ac05a395fe42042ad74711b4cd5724c1251da54d10bb92485200b04",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedFiniteMean.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedHereditaryClaim",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.WeightedHereditaryClaim",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedHereditaryClaim.lean",
+        "direct": true,
+        "content_digest": "sha256:3a22a6ca16724aa7430c3ebbe92d3bc0a2f599d43cab0452ef46376cd0132518",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedHereditaryClaim.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedInfiniteMean",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.WeightedInfiniteMean",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedInfiniteMean.lean",
+        "direct": true,
+        "content_digest": "sha256:58a5eed058877b00414d39e3a8585adfaf8a9e88b06a46fd387df3dd9a75d34e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedInfiniteMean.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedPrimeProfile",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.WeightedPrimeProfile",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedPrimeProfile.lean",
+        "direct": true,
+        "content_digest": "sha256:f590d75e14ee7335e64b09890f2526334874ada199550abc63bbeaa9c77cebcc",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedPrimeProfile.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedReturn",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.WeightedReturn",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean",
+        "direct": true,
+        "content_digest": "sha256:c00b39ee574aaec577de2cbc6971c12ca5865c8891f0c8fa88b9ba63335e92a0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedSchedule",
+        "label": "ErdosProblems.Erdos257.PaperCompleteR8.WeightedSchedule",
+        "path": "lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedSchedule.lean",
+        "direct": true,
+        "content_digest": "sha256:e7452a815c43877bb411e94832122d99384e7b28ea4653b654dee9ebff4ee45e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedSchedule.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAudit.lean",
+        "direct": true,
+        "content_digest": "sha256:bd3ff672aa3937576036078f46673ab0cd82dc0c5103b95524231d337ada4f00",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAudit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditive",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditive",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditive.lean",
+        "direct": true,
+        "content_digest": "sha256:1604204d8a7906a100c38457c2976e2527df603cffcd49ce031704f9499d4837",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditive.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave10",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave10",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave10.lean",
+        "direct": true,
+        "content_digest": "sha256:b3fa7a359d7a89a263f44b9e808d01b5856401c394923b8dcb9704b224de6194",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave10.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave11",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave11",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave11.lean",
+        "direct": true,
+        "content_digest": "sha256:4b852a9f1732ac6f5555f9132dacc1cfd3ef8daa007f7edd778e571c529c75e8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave11.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave12",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave12",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave12.lean",
+        "direct": true,
+        "content_digest": "sha256:8c83d69fa5d31f65a06698e1ef8ec4feefedb72340aaae62d07433dcd971a8d0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave12.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave2.lean",
+        "direct": true,
+        "content_digest": "sha256:c2d9ed00304c54a0b7162d05c8b69d4b2f39db9164c23ec8a5cdced571441637",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave2.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave3",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave3",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave3.lean",
+        "direct": true,
+        "content_digest": "sha256:244ece3436c279c18975aadaf930e3fd582cdfae522fdee10269f53ad1e55069",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave3.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave4",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave4",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave4.lean",
+        "direct": true,
+        "content_digest": "sha256:88e77dc6ce70343e3706a8d28d7ffbcf7d0c6b80aa2dad6f41dbb7bd433c8ae8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave4.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave5",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave5",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave5.lean",
+        "direct": true,
+        "content_digest": "sha256:901a48726ab7cd8af3bd27f7f1e36df53704efc57430d5e4ff0df9a12f1c5634",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave5.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave6",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave6",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave6.lean",
+        "direct": true,
+        "content_digest": "sha256:5f5b59d3b5d89946c33a7f1efe2d9f06e5ceb73d77d3fd25ed1407501557420e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave6.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave7",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave7",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave7.lean",
+        "direct": true,
+        "content_digest": "sha256:2d784f6393e5b5effc6e0352c5702d1c5aab1d2d2001e78e21dc869ceaba0075",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave7.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave8",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave8",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave8.lean",
+        "direct": true,
+        "content_digest": "sha256:5d9dc9b1ea6b7ea7b099ecd021ee6412ee1f48ce6a22121124c3ffaa12106b6d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave8.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave9",
+        "label": "ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave9",
+        "path": "lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave9.lean",
+        "direct": true,
+        "content_digest": "sha256:4574efa2f20800d9d029505630d1d94fcb0a43eae8b8a4c9f12cb02c5cf64a3a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/PaperCorrespondenceAuditAdditiveWave9.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.RadixCloseReturn",
+        "label": "ErdosProblems.Erdos257.RadixCloseReturn",
+        "path": "lean/ErdosProblems/Erdos257/RadixCloseReturn.lean",
+        "direct": true,
+        "content_digest": "sha256:19e8a552e4438b15a4681d082ae6fb00c210565145f8f83ac9bcc1e312905ed3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/RadixCloseReturn.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos257.SquarefreeSupportIncidence",
         "label": "ErdosProblems.Erdos257.SquarefreeSupportIncidence",
         "path": "lean/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean",
@@ -2214,9 +3812,30 @@
         "content_digest": "sha256:ef3c0443acad216f82faccc72173f98d8cc776db8f41cb9fa139f7be03aa0e51",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/SquarefreeSupportIncidence.lean",
         "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos257.WeightedSupportAveraging",
+        "label": "ErdosProblems.Erdos257.WeightedSupportAveraging",
+        "path": "lean/ErdosProblems/Erdos257/WeightedSupportAveraging.lean",
+        "direct": true,
+        "content_digest": "sha256:702affc5695e25d433c68d26e8e18605d3a43ebc679d01c9a19de19a2f76a213",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos257/WeightedSupportAveraging.lean",
+        "role": "Lean proof module"
       }
     ],
     "edges": [
+      {
+        "source": "lean-module:Erdos249257.AdelicHeightObstruction",
+        "target": "lean-module:Erdos249257.RationalDenominatorSurvival"
+      },
+      {
+        "source": "lean-module:Erdos249257.AllBaseReciprocalSupportIrrationality",
+        "target": "lean-module:Erdos249257.ReciprocalSupportIrrationality"
+      },
+      {
+        "source": "lean-module:Erdos249257.BinaryTailWindowTransfer",
+        "target": "lean-module:Erdos249257.GenericTailOrbitRigidity"
+      },
       {
         "source": "lean-module:Erdos249257.BooleanMobiusCarry",
         "target": "lean-module:Erdos249257.GenericTailOrbitRigidity"
@@ -2230,12 +3849,84 @@
         "target": "lean-module:Erdos249257.BooleanMobiusGlobalRepair"
       },
       {
+        "source": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactRowCrossing"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactRowDoubling"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactRowSeed"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactTransition"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkippedCoreCriticalCapacity"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal",
+        "target": "lean-module:Erdos249257.HalfCylinderFiniteShadow"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityGeometric",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkippedCoreCriticalCapacity"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusExactRowCrossing",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkipRow"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusExactRowCrossing",
+        "target": "lean-module:Erdos249257.HalfCutLocator"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusExactRowDichotomy",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactRowCrossing"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusExactRowDichotomy",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactRowDoubling"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusExactRowDichotomy",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactRowRankTwo"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusExactRowDoubling",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkipRow"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusExactRowRankTwo",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkipRow"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusExactRowSeed",
+        "target": "lean-module:Erdos249257.BooleanMobiusCofinalExactRows"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusExactTransition",
+        "target": "lean-module:Erdos249257.BooleanMobiusLocalRepair"
+      },
+      {
         "source": "lean-module:Erdos249257.BooleanMobiusGlobalRepair",
         "target": "lean-module:Erdos249257.BooleanMobiusLocalRepair"
       },
       {
         "source": "lean-module:Erdos249257.BooleanMobiusGlobalRepair",
         "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusGreedyReduction",
+        "target": "lean-module:Erdos249257.BooleanMobiusLocalRepair"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusGreedyReduction",
+        "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy"
       },
       {
         "source": "lean-module:Erdos249257.BooleanMobiusLocalRepair",
@@ -2260,6 +3951,10 @@
       {
         "source": "lean-module:Erdos249257.BooleanMobiusSkipRowCofinal",
         "target": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge"
+      },
+      {
+        "source": "lean-module:Erdos249257.BooleanMobiusSkippedCoreCriticalCapacity",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkippedCoreExactRow"
       },
       {
         "source": "lean-module:Erdos249257.BooleanMobiusSkippedCoreExactRow",
@@ -2318,12 +4013,40 @@
         "target": "lean-module:Erdos249257.TotientTailPeriodKiller"
       },
       {
+        "source": "lean-module:Erdos249257.CofinalStripReturn",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
         "source": "lean-module:Erdos249257.CompositeDilationDefect",
         "target": "lean-module:Erdos249257.SupportDilationDifferences"
       },
       {
         "source": "lean-module:Erdos249257.CompositeDilationDefect",
         "target": "lean-module:Erdos249257.SupportSunflowerDichotomy"
+      },
+      {
+        "source": "lean-module:Erdos249257.CurvatureCarry",
+        "target": "lean-module:Erdos249257.LcmConeFlatness"
+      },
+      {
+        "source": "lean-module:Erdos249257.CyclicTensorMobiusShadow",
+        "target": "lean-module:Erdos249257.PrimePowerJumpDynamics"
+      },
+      {
+        "source": "lean-module:Erdos249257.CyclotomicProjectionOfShadow",
+        "target": "lean-module:Erdos249257.RationalDenominatorSurvival"
+      },
+      {
+        "source": "lean-module:Erdos249257.CyclotomicProjectionOfShadow",
+        "target": "lean-module:Erdos249257.RepunitMobiusNumerator"
+      },
+      {
+        "source": "lean-module:Erdos249257.DiagonalPincerDecomposition",
+        "target": "lean-module:Erdos249257.LcmConeFlatness"
+      },
+      {
+        "source": "lean-module:Erdos249257.DiagonalPincerDecomposition",
+        "target": "lean-module:Erdos249257.MersenneShadowDenominatorGrowth"
       },
       {
         "source": "lean-module:Erdos249257.DyadicPrefixCompression",
@@ -2358,6 +4081,14 @@
         "target": "lean-module:Erdos249257.CertificateKernel"
       },
       {
+        "source": "lean-module:Erdos249257.HalfCarryCeilParentContraction",
+        "target": "lean-module:Erdos249257.HalfCylinderFiniteShadow"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCarryProtectedSeamConsumer",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
         "source": "lean-module:Erdos249257.HalfCarryReachability",
         "target": "lean-module:Erdos249257.BooleanMobiusCarry"
       },
@@ -2370,8 +4101,28 @@
         "target": "lean-module:Erdos249257.MersenneLambertLadder"
       },
       {
+        "source": "lean-module:Erdos249257.HalfCarryRewindPhase",
+        "target": "lean-module:Erdos249257.HalfCarrySelectedWindow"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCarrySelectedWindow",
+        "target": "lean-module:Erdos249257.HalfCarryCeilParentContraction"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCarrySelectedWindow",
+        "target": "lean-module:Erdos249257.HalfCylinderFiniteShadow"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCarrySelectedWindowBase",
+        "target": "lean-module:Erdos249257.HalfCarrySelectedWindow"
+      },
+      {
         "source": "lean-module:Erdos249257.HalfCutLocator",
         "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderBoundaryPulse",
+        "target": "lean-module:Erdos249257.HalfCylinderLargestSkipGap"
       },
       {
         "source": "lean-module:Erdos249257.HalfCylinderConcreteSeamAdapter",
@@ -2390,6 +4141,18 @@
         "target": "lean-module:Erdos249257.HalfCylinderFalseBitSupply"
       },
       {
+        "source": "lean-module:Erdos249257.HalfCylinderFinalMiddleCellEscape",
+        "target": "lean-module:Erdos249257.HalfCylinderFatalGapRightTail"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFinalMiddleCellEscape",
+        "target": "lean-module:Erdos249257.HalfCylinderProducerLowerBound"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFinalMiddleTailSocket",
+        "target": "lean-module:Erdos249257.HalfCylinderFinalMiddleCellEscape"
+      },
+      {
         "source": "lean-module:Erdos249257.HalfCylinderFiniteShadow",
         "target": "lean-module:Erdos249257.DyadicPrefixCompression"
       },
@@ -2400,6 +4163,10 @@
       {
         "source": "lean-module:Erdos249257.HalfCylinderFiniteShadow",
         "target": "lean-module:Erdos249257.PrimitiveSupportBridge"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderFixedTailSocket",
+        "target": "lean-module:Erdos249257.HalfCylinderHalfMembershipClassification"
       },
       {
         "source": "lean-module:Erdos249257.HalfCylinderFloorErrorReset",
@@ -2422,8 +4189,72 @@
         "target": "lean-module:Erdos249257.HalfCarryReachability"
       },
       {
+        "source": "lean-module:Erdos249257.HalfCylinderLargestSkipGap",
+        "target": "lean-module:Erdos249257.HalfCylinderHalfMembershipClassification"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderLargestSkipInduction",
+        "target": "lean-module:Erdos249257.HalfCylinderLargestSkipGap"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderLastProducerContradiction",
+        "target": "lean-module:Erdos249257.HalfCylinderFinalMiddleCellEscape"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderLastProducerContradiction",
+        "target": "lean-module:Erdos249257.HalfCylinderLargestSkipInduction"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderLastProducerContradiction",
+        "target": "lean-module:Erdos249257.HalfCylinderProducerLowerBound"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound",
+        "target": "lean-module:Erdos249257.HalfCylinderFinalMiddleTailSocket"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound",
+        "target": "lean-module:Erdos249257.HalfCylinderFiniteShadow"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound",
+        "target": "lean-module:Erdos249257.HalfCylinderLastProducerContradiction"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound",
+        "target": "lean-module:Erdos249257.HalfCylinderResetDeficitEscape"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderProducerCarrySocket",
+        "target": "lean-module:Erdos249257.BooleanMobiusCarry"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderProducerCarrySocket",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderProducerLowerBound",
+        "target": "lean-module:Erdos249257.HalfCylinderBoundaryPulse"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderProducerLowerBound",
+        "target": "lean-module:Erdos249257.HalfCylinderSeamProducerAlignment"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderResetDeficitEscape",
+        "target": "lean-module:Erdos249257.HalfCylinderLargestSkipGap"
+      },
+      {
         "source": "lean-module:Erdos249257.HalfCylinderSeamLimit",
         "target": "lean-module:Erdos249257.HalfCylinderFloorErrorReset"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderSeamProducerAlignment",
+        "target": "lean-module:Erdos249257.HalfCylinderFiniteShadow"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderSeamProducerAlignment",
+        "target": "lean-module:Erdos249257.HalfCylinderProducerCarrySocket"
       },
       {
         "source": "lean-module:Erdos249257.HalfCylinderSkippedEndpointClassifier",
@@ -2432,6 +4263,34 @@
       {
         "source": "lean-module:Erdos249257.HalfCylinderSkippedRankLimit",
         "target": "lean-module:Erdos249257.HalfCylinderSeamLimit"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfCylinderUpperResetBandCertificates",
+        "target": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfDivisorUnitDrop",
+        "target": "lean-module:Erdos249257.HalfCarrySelectedWindow"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfGapMass",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfGreedyFatalGap",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfTrappingReturnCarry",
+        "target": "lean-module:Erdos249257.AdelicHeightObstruction"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfTrappingReturnCarry",
+        "target": "lean-module:Erdos249257.BooleanMobiusCarry"
+      },
+      {
+        "source": "lean-module:Erdos249257.HalfUpperResetCriticalBand",
+        "target": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound"
       },
       {
         "source": "lean-module:Erdos249257.LcmConeFlatness",
@@ -2446,8 +4305,36 @@
         "target": "lean-module:Erdos249257.CarrySurvivorExtinction"
       },
       {
+        "source": "lean-module:Erdos249257.MaximalOmegaLayer",
+        "target": "lean-module:Erdos249257.SupportSunflowerDichotomy"
+      },
+      {
+        "source": "lean-module:Erdos249257.MersenneShadowCyclotomicNoncollapse",
+        "target": "lean-module:Erdos249257.CyclicTensorMobiusShadow"
+      },
+      {
+        "source": "lean-module:Erdos249257.MersenneShadowCyclotomicNoncollapse",
+        "target": "lean-module:Erdos249257.RationalDenominatorSurvival"
+      },
+      {
+        "source": "lean-module:Erdos249257.MersenneShadowDenominatorGrowth",
+        "target": "lean-module:Erdos249257.MersenneShadowCyclotomicNoncollapse"
+      },
+      {
         "source": "lean-module:Erdos249257.MersenneTailAtoms",
         "target": "lean-module:Erdos249257.MersenneLambertLadder"
+      },
+      {
+        "source": "lean-module:Erdos249257.MobiusSignSupportNoGo",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:Erdos249257.MobiusSignSupportNoGo",
+        "target": "lean-module:Erdos249257.MersenneLambertLadder"
+      },
+      {
+        "source": "lean-module:Erdos249257.PrimePowerJumpDynamics",
+        "target": "lean-module:Erdos249257.CyclotomicProjectionOfShadow"
       },
       {
         "source": "lean-module:Erdos249257.PrimitiveSupportBridge",
@@ -2458,8 +4345,140 @@
         "target": "lean-module:Erdos249257.BooleanMobiusCarry"
       },
       {
+        "source": "lean-module:Erdos249257.ReciprocalSupportIrrationality",
+        "target": "lean-module:Erdos249257.CarrySurvivorExtinction"
+      },
+      {
+        "source": "lean-module:Erdos249257.ReciprocalSupportIrrationality",
+        "target": "lean-module:Erdos249257.MersenneTailAtoms"
+      },
+      {
+        "source": "lean-module:Erdos249257.ReciprocalSupportIrrationality",
+        "target": "lean-module:Erdos249257.RationalSupportCarrySkeleton"
+      },
+      {
+        "source": "lean-module:Erdos249257.RepunitMobiusNumerator",
+        "target": "lean-module:Erdos249257.RadicalMobiusShadow"
+      },
+      {
+        "source": "lean-module:Erdos249257.RewindHalfDivisorAdapter",
+        "target": "lean-module:Erdos249257.HalfDivisorUnitDrop"
+      },
+      {
+        "source": "lean-module:Erdos249257.RewindHalfDivisorAdapter",
+        "target": "lean-module:Erdos249257.RewindSeamOperationalBridge"
+      },
+      {
+        "source": "lean-module:Erdos249257.RewindSeamOperationalBridge",
+        "target": "lean-module:Erdos249257.HalfCarryProtectedSeamConsumer"
+      },
+      {
+        "source": "lean-module:Erdos249257.RewindSeamOperationalBridge",
+        "target": "lean-module:Erdos249257.HalfCarrySelectedWindow"
+      },
+      {
+        "source": "lean-module:Erdos249257.SelectedSuffixCylinder",
+        "target": "lean-module:Erdos249257.HalfCarryRewindPhase"
+      },
+      {
+        "source": "lean-module:Erdos249257.SelectedSuffixCylinder",
+        "target": "lean-module:Erdos249257.HalfCarrySelectedWindowBase"
+      },
+      {
+        "source": "lean-module:Erdos249257.SelectedSuffixCylinderPreFeedback",
+        "target": "lean-module:Erdos249257.SelectedSuffixCylinder"
+      },
+      {
         "source": "lean-module:Erdos249257.SternBrocotRunGeometry",
         "target": "lean-module:Erdos249257.GcdMomentCalculus"
+      },
+      {
+        "source": "lean-module:Erdos249257.SublogDivisorCoverage",
+        "target": "lean-module:Erdos249257.BinaryTailWindowTransfer"
+      },
+      {
+        "source": "lean-module:Erdos249257.SublogDivisorCoverage",
+        "target": "lean-module:Erdos249257.RationalSupportCarrySkeleton"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderBelow",
+        "target": "lean-module:Erdos249257.SuffixCylinderGlobalProducer"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderFeedbackFanIn",
+        "target": "lean-module:Erdos249257.SuffixCylinderBelow"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderFeedbackFanIn",
+        "target": "lean-module:Erdos249257.SuffixCylinderTwoSheet"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderFiniteGap",
+        "target": "lean-module:Erdos249257.SuffixCylinderInStrip"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderGlobalProducer",
+        "target": "lean-module:Erdos249257.SuffixCylinderThreshold"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderInStrip",
+        "target": "lean-module:Erdos249257.SuffixCylinderFeedbackFanIn"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderProfiledAdjacency",
+        "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderProfiledAdjacency",
+        "target": "lean-module:Erdos249257.SuffixCylinderProfiledGap"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderProfiledGap",
+        "target": "lean-module:Erdos249257.SuffixCylinderFiniteGap"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderProfiledSwallow",
+        "target": "lean-module:Erdos249257.SuffixCylinderProfiledAdjacency"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderPromotion",
+        "target": "lean-module:Erdos249257.RewindHalfDivisorAdapter"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderPromotion",
+        "target": "lean-module:Erdos249257.SelectedSuffixCylinder"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderStage51",
+        "target": "lean-module:Erdos249257.SuffixCylinderThreshold"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge",
+        "target": "lean-module:Erdos249257.SuffixCylinderGlobalProducer"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge",
+        "target": "lean-module:Erdos249257.SuffixCylinderProfiledSwallow"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge",
+        "target": "lean-module:Erdos249257.SuffixCylinderStage51"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge",
+        "target": "lean-module:Erdos249257.TerminalOnlyCofinal"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderThreshold",
+        "target": "lean-module:Erdos249257.SelectedSuffixCylinderPreFeedback"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderThreshold",
+        "target": "lean-module:Erdos249257.SuffixCylinderPromotion"
+      },
+      {
+        "source": "lean-module:Erdos249257.SuffixCylinderTwoSheet",
+        "target": "lean-module:Erdos249257.SuffixCylinderGlobalProducer"
       },
       {
         "source": "lean-module:Erdos249257.SupportDilationDifferences",
@@ -2486,6 +4505,54 @@
         "target": "lean-module:Erdos249257.TerminalOnlyCofinal"
       },
       {
+        "source": "lean-module:Erdos249257.TropicalCurvatureCarry",
+        "target": "lean-module:Erdos249257.CurvatureCarry"
+      },
+      {
+        "source": "lean-module:Erdos249257.TwentyOneQuotientCompactness",
+        "target": "lean-module:Erdos249257.BooleanMobiusGlobalRepair"
+      },
+      {
+        "source": "lean-module:Erdos249257.TwentyOneQuotientGreedy",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactTransition"
+      },
+      {
+        "source": "lean-module:Erdos249257.TwentyOneQuotientGreedy",
+        "target": "lean-module:Erdos249257.BooleanMobiusGreedyReduction"
+      },
+      {
+        "source": "lean-module:Erdos249257.TwentyOneQuotientGreedy",
+        "target": "lean-module:Erdos249257.HalfCutLocator"
+      },
+      {
+        "source": "lean-module:Erdos249257.TwentyOneQuotientGreedy",
+        "target": "lean-module:Erdos249257.HalfGreedyFatalGap"
+      },
+      {
+        "source": "lean-module:Erdos249257.TwentyOneQuotientGreedy",
+        "target": "lean-module:Erdos249257.TwentyOneQuotientCompactness"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.BatchReturnSynthesis",
+        "target": "lean-module:ErdosProblems.Erdos257.FourNinthsCofinalRepairConsumer"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.BatchReturnSynthesis",
+        "target": "lean-module:ErdosProblems.Erdos257.RadixCloseReturn"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.FourNinthsCofinalRepairConsumer",
+        "target": "lean-module:Erdos249257.BooleanMobiusCarry"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.FourNinthsCofinalRepairConsumer",
+        "target": "lean-module:ErdosProblems.Erdos257.HalfCounterexampleFrontier"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.GreedyRepairCriterion",
+        "target": "lean-module:ErdosProblems.Erdos257.BatchReturnSynthesis"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos257.HalfCounterexampleFrontier",
         "target": "lean-module:Erdos249257.DyadicPrefixCompression"
       },
@@ -2498,8 +4565,860 @@
         "target": "lean-module:Erdos249257.GreedyAchievementSet"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.AchievementGeometry",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.CarryCollapseCorrespondence",
+        "target": "lean-module:Erdos249257.TerminalOnlyScaledVanishing"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.CofinalCarryCollapse",
+        "target": "lean-module:Erdos249257.TerminalOnlyScaledVanishing"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.GeneralRepairCorrespondence",
+        "target": "lean-module:ErdosProblems.Erdos257.GreedyRepairCriterion"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.GeneralTargetGap",
+        "target": "lean-module:Erdos249257.HalfCutLocator"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.MersenneConstantDecimal",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowIdentity",
+        "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowReal",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowIdentity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowReal",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowRounding"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowRounding",
+        "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.SixMembershipConditions",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkipRowCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.SixMembershipConditions",
+        "target": "lean-module:Erdos249257.CofinalStripReturn"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.SixMembershipConditions",
+        "target": "lean-module:Erdos249257.HalfCutLocator"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.SixMembershipConditions",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.CarryCollapseCorrespondence"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.TerminalSetCorrespondence",
+        "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.TerminalSetCorrespondence",
+        "target": "lean-module:Erdos249257.TerminalOnlyScaledVanishing"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.AchievementSetTopologyAndFiniteHalf",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.AchievementSetTopologyAndFiniteHalf",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleAssembly",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleChebyshev"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleAssembly",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleCrtCounts"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleAssembly",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleSelection"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleAssembly",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleTagFamily"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleAssembly",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBoundPaperForm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleChebyshev",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LogarithmicInitialInterval"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleCrtCounts",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LogarithmicInitialInterval"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleEncoding",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LogarithmicInitialInterval"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleResidueCounts",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LogarithmicInitialInterval"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleSelection",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LogarithmicInitialInterval"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleTagFamily",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCounterexampleEncoding"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBound",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CoverPotentialBounds"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBound",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.OptimizedCoverBudget"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBoundPaperForm",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBound"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ArithmeticCoverLowerBoundPaperForm",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.FiniteFamilyCoverCost"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.BalancedPulseFanOutCount",
+        "target": "lean-module:Erdos249257.GenericTailOrbitRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.BranchCellHorizonExclusions",
+        "target": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.CentredCompletionAndDecisionBoundary",
+        "target": "lean-module:Erdos249257.GenericTailOrbitRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.CentredCompletionAndDecisionBoundary",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.CentredCompletionAndDecisionBoundary",
+        "target": "lean-module:Erdos249257.TropicalCurvatureCarry"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.CompatibleFiniteRowFamily",
+        "target": "lean-module:Erdos249257.BooleanMobiusGlobalRepair"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.CriticalDyadicBandCollapse",
+        "target": "lean-module:Erdos249257.HalfUpperResetCriticalBand"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.DyadicBandAndTwoSidedBounds",
+        "target": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.DyadicBandAndTwoSidedBounds",
+        "target": "lean-module:Erdos249257.HalfUpperResetCriticalBand"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.EventualNonnegativeMargin",
+        "target": "lean-module:Erdos249257.DyadicPrefixCompression"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.EventualNonnegativeMargin",
+        "target": "lean-module:Erdos249257.HalfCylinderFiniteShadow"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.EventualNonnegativeMargin",
+        "target": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ExactRowDichotomyCountermodels",
+        "target": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ExactRowDichotomyCountermodels",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactRowDichotomy"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.FeedbackRowStripWitnessAllDepths",
+        "target": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.FeedbackRowStripWitnessAllDepths",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SharedPrefixFamiliesAndMeasureDichotomy"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.FiniteFamilyCoverCost",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.OptimizedCoverBudget"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.GreedyGapCriteria",
+        "target": "lean-module:Erdos249257.HalfGreedyFatalGap"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.GreedyGapCriteria",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.GeneralTargetGap"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.GreedyOrbitNoTies",
+        "target": "lean-module:Erdos249257.CertificateKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.GreedyOrbitNoTies",
+        "target": "lean-module:Erdos249257.DyadicPrefixCompression"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LinearChannelAndMiddleCellExclusion",
+        "target": "lean-module:Erdos249257.HalfCylinderFinalMiddleCellEscape"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LinearChannelAndMiddleCellExclusion",
+        "target": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LinearChannelAndMiddleCellExclusion",
+        "target": "lean-module:Erdos249257.HalfTrappingReturnCarry"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LogarithmicInitialInterval",
+        "target": "lean-module:ErdosProblems.Erdos257.CoverIndependentPeriodicMean"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.LogarithmicInitialInterval",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.KernelRecurrence"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MersenneChannelSurvivalAllHeights",
+        "target": "lean-module:Erdos249257.MersenneShadowCyclotomicNoncollapse"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MersenneChannelSurvivalAllHeights",
+        "target": "lean-module:Erdos249257.RepunitMobiusNumerator"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MersenneQuotientRowRecurrences",
+        "target": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityGeometric"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MersenneQuotientRowRecurrences",
+        "target": "lean-module:Erdos249257.BooleanMobiusExactTransition"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MersenneQuotientRowRecurrences",
+        "target": "lean-module:Erdos249257.BooleanMobiusGlobalRepair"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MersenneQuotientRowRecurrences",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkipRow"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MobiusSignAndFiniteCertificates",
+        "target": "lean-module:Erdos249257.DyadicPrefixCompression"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MobiusSignAndFiniteCertificates",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.MobiusSignAndFiniteCertificates",
+        "target": "lean-module:Erdos249257.MobiusSignSupportNoGo"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.OddReciprocalDenominators",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.OneSidedCertificateHierarchy",
+        "target": "lean-module:Erdos249257.HalfCutLocator"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.OneSidedCertificateHierarchy",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.GeneralTargetGap"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.PostTakeBandLocalisation",
+        "target": "lean-module:Erdos249257.HalfGreedyTwoThirdsBand"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ResetSqrtEscapeHalfMembership",
+        "target": "lean-module:Erdos249257.HalfCylinderLargestSkipInduction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ResetSqrtEscapeHalfMembership",
+        "target": "lean-module:Erdos249257.HalfCylinderLastProducerContradiction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ResetSqrtEscapeHalfMembership",
+        "target": "lean-module:Erdos249257.HalfCylinderResetDeficitEscape"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ResetSqrtEscapeHalfMembership",
+        "target": "lean-module:Erdos249257.HalfUpperResetCriticalBand"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ResidueClassSupport",
+        "target": "lean-module:Erdos249257.CertificateKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ScalarLocalisationHeightObstruction",
+        "target": "lean-module:Erdos249257.AdelicHeightObstruction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamEscapeAndTerminalStrip",
+        "target": "lean-module:Erdos249257.DyadicPrefixCompression"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamEscapeAndTerminalStrip",
+        "target": "lean-module:Erdos249257.HalfCylinderFiniteShadow"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamEscapeAndTerminalStrip",
+        "target": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamEscapeAndTerminalStrip",
+        "target": "lean-module:Erdos249257.TerminalOnlyCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamPrefixStabilityLimit",
+        "target": "lean-module:Erdos249257.HalfCylinderSeamLimit"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamPrefixStabilityLimit",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.GreedyOrbitNoTies"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamQuotientDeficitLimit",
+        "target": "lean-module:Erdos249257.HalfCylinderSeamLimit"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamRowGapAndCarry",
+        "target": "lean-module:Erdos249257.HalfCylinderHalfMembershipClassification"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamRowGapAndCarry",
+        "target": "lean-module:Erdos249257.HalfCylinderLargestSkipGap"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamRowGapAndCarry",
+        "target": "lean-module:Erdos249257.HalfTrappingReturnCarry"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SeamRowGapAndCarry",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.QuotientRowIdentity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SharedPrefixFamiliesAndMeasureDichotomy",
+        "target": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SharedPrefixFamiliesAndMeasureDichotomy",
+        "target": "lean-module:ErdosProblems.Erdos257.MersenneSubseriesRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SkipSafetyAndDivisorZeroRuns",
+        "target": "lean-module:Erdos249257.HalfGreedyFatalGap"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SkipSafetyAndDivisorZeroRuns",
+        "target": "lean-module:Erdos249257.SublogDivisorCoverage"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SquareDepthAndHalfMembershipEquivalences",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.SixMembershipConditions"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.SquarefreeSupportEngineCeiling",
+        "target": "lean-module:ErdosProblems.Erdos257.SquarefreeSupportIncidence"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TerminalStripExactRowGap",
+        "target": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TerminalStripExactRowGap",
+        "target": "lean-module:Erdos249257.DyadicPrefixCompression"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TerminalStripExactRowGap",
+        "target": "lean-module:Erdos249257.TerminalOnlyCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TerminalStripExactRowGap",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR20.SixMembershipConditions"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ThreeBranchRowDynamics",
+        "target": "lean-module:Erdos249257.BooleanMobiusLocalRepair"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.ThreeBranchRowDynamics",
+        "target": "lean-module:Erdos249257.HalfCylinderConcreteSeamAdapter"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TotientPeriodCertificateSupply",
+        "target": "lean-module:Erdos249257.CarrySurvivorExtinction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TruncatedRungGreedyDecision",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TruncatedRungWitnessHorizon",
+        "target": "lean-module:Erdos249257.DiagonalPincerDecomposition"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.TruncatedRungWitnessHorizon",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.UpperResetBandCertificate",
+        "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR21.UpperResetBandCertificate",
+        "target": "lean-module:Erdos249257.HalfCylinderUpperResetBandCertificates"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.AnalyticTargets",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.Displacement"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.Displacement",
+        "target": "lean-module:Erdos249257.AllBaseReciprocalSupportIrrationality"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.Displacement",
+        "target": "lean-module:ErdosProblems.Erdos257.RadixCloseReturn"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.TailGluing",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.TailGluing",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.Displacement"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightMixedClaim",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightReturns"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightMixedClaim",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedHereditaryClaim"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightReturns",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.TailGluing"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightReturns",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableGaugeBudget"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightReturns",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.PositiveCoverReturn"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CommonScale",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.AnalyticTargets"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CommonScale",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.DyadicKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableCoverLogBudget",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.FiniteCoverLogBudget"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableGaugeBudget",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableCoverLogBudget"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableGaugeBudget",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CoverScalarGauge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableGaugeBudget",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.OptimizedCoverBudget"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableMeans",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.DyadicKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CoverPotentialBounds",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.KernelRecurrence"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CoverScalarGauge",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.CoverKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.DyadicKernel",
+        "target": "lean-module:ErdosProblems.Erdos257.DyadicShellSynchronisation"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.DyadicKernel",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.OrbitBound"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.FiniteCoverLogBudget",
+        "target": "lean-module:ErdosProblems.Erdos257.CoverIndependentPeriodicMean"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.FiniteCoverLogBudget",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.CoverKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.FiniteMeans",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.CoverKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.KernelRecurrence",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.AnalyticTargets"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.KernelRecurrence",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR7.CoverKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.KernelRecurrence",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableMeans"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.MixedGaugeConsumer",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.PositiveCoverReturn"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.OptimizedCoverBudget",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CountableCoverLogBudget"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.OrbitBound",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.FiniteMeans"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.OrbitBound",
+        "target": "lean-module:ErdosProblems.Erdos257.WeightedSupportAveraging"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.PositiveCoverReturn",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CommonScale"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.PositiveCoverReturn",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.CoverPotentialBounds"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedFiniteEstimates",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedPrimeProfile"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedFiniteMean",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedFiniteEstimates"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedHereditaryClaim",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedReturn"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedInfiniteMean",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedSchedule"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedPrimeProfile",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.KernelRecurrence"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedReturn",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.MixedGaugeConsumer"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedReturn",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedInfiniteMean"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedSchedule",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedFiniteMean"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.AllBaseReciprocalSupportIrrationality"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.BooleanMobiusCarry"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.BooleanMobiusGreedyReduction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.CertificateKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.GenericTailOrbitRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.HalfCutLocator"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.HalfCylinderFatalGapRightTail"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.HalfCylinderFixedTailSocket"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.HalfCylinderHalfMembershipClassification"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.SuffixCylinderTerminalOnlyBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.TropicalCurvatureCarry"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:Erdos249257.TwentyOneQuotientGreedy"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos257.MersenneSubseriesRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.ArbitraryWeightMixedClaim"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.PositiveCoverReturn"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedHereditaryClaim"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos257.PaperCompleteR8.WeightedReturn"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditive",
+        "target": "lean-module:Erdos249257.CertificateKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditive",
+        "target": "lean-module:Erdos249257.DyadicPrefixCompression"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditive",
+        "target": "lean-module:Erdos249257.GenericTailOrbitRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditive",
+        "target": "lean-module:Erdos249257.MersenneLambertLadder"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditive",
+        "target": "lean-module:Erdos249257.MobiusSignSupportNoGo"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditive",
+        "target": "lean-module:Erdos249257.RationalDenominatorSurvival"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave10",
+        "target": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave10",
+        "target": "lean-module:Erdos249257.CofinalStripReturn"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave10",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave10",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave10",
+        "target": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave11",
+        "target": "lean-module:Erdos249257.BooleanMobiusCofinalExactRows"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave11",
+        "target": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave11",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkipRowCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave11",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave12",
+        "target": "lean-module:Erdos249257.BooleanMobiusCriticalCapacityCofinal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave12",
+        "target": "lean-module:Erdos249257.BooleanMobiusSkipRow"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "target": "lean-module:Erdos249257.AdelicHeightObstruction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "target": "lean-module:Erdos249257.CertificateKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "target": "lean-module:Erdos249257.HalfCylinderHalfMembershipClassification"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "target": "lean-module:Erdos249257.HalfCylinderIntegerGreedy"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "target": "lean-module:Erdos249257.HalfDivisorUnitDrop"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "target": "lean-module:Erdos249257.HalfGapMass"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "target": "lean-module:Erdos249257.HalfTrappingReturnCarry"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave2",
+        "target": "lean-module:Erdos249257.MaximalOmegaLayer"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave3",
+        "target": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave3",
+        "target": "lean-module:Erdos249257.HalfCylinderUpperResetBandCertificates"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave4",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave4",
+        "target": "lean-module:Erdos249257.HalfCylinderFinalMiddleCellEscape"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave5",
+        "target": "lean-module:Erdos249257.HalfCarryReachability"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave6",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave7",
+        "target": "lean-module:Erdos249257.GreedyAchievementSet"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave7",
+        "target": "lean-module:Erdos249257.HalfCylinderMiddleCarryLowerBound"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave7",
+        "target": "lean-module:Erdos249257.HalfUpperResetCriticalBand"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave8",
+        "target": "lean-module:Erdos249257.HalfCylinderFinalMiddleCellEscape"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave8",
+        "target": "lean-module:Erdos249257.HalfCylinderFullShellSeamBridge"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave8",
+        "target": "lean-module:Erdos249257.HalfCylinderSkippedEndpointClassifier"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave9",
+        "target": "lean-module:Erdos249257.HalfCylinderHalfMembershipClassification"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave9",
+        "target": "lean-module:Erdos249257.HalfCylinderLargestSkipInduction"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave9",
+        "target": "lean-module:Erdos249257.HalfUpperResetCriticalBand"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.PaperCorrespondenceAuditAdditiveWave9",
+        "target": "lean-module:Erdos249257.MersenneShadowDenominatorGrowth"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.RadixCloseReturn",
+        "target": "lean-module:Erdos249257.AllBaseReciprocalSupportIrrationality"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos257.SquarefreeSupportIncidence",
         "target": "lean-module:Erdos249257.CertificateKernel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos257.WeightedSupportAveraging",
+        "target": "lean-module:Erdos249257.ReciprocalSupportIrrationality"
       }
     ]
   },

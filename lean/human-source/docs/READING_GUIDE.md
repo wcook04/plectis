@@ -3,16 +3,19 @@
 
 # A reader's way in
 
-This repository follows eight unsolved problems of Paul Erdős. For each one it
-holds a short paper, a longer research record, Lean proofs of selected
-statements, finite computations, and a written account of the approaches that
-stopped and why. You do not need Lean to read the papers.
+This repository follows eight problem programmes associated with Paul Erdős.
+For each one it holds a short paper, a longer research record, Lean proofs of
+selected statements, finite computations, and a written account of the
+approaches that stopped and why. You do not need Lean to read the papers.
 
-All eight problems remain open. The work proves intermediate theorems, writes
-out proofs of results that were stated but not printed in the literature,
-checks exact finite cases, and records obstructions to tempting shortcuts.
-None of it becomes a solution because a proof assistant accepted it or because
-a computation reached a large number.
+The degree-seven example refutes the total-variation formulation of Erdős
+#1041. The other seven target problems are not resolved here. Independent human
+review of correspondence with the historical curve-length formulation has not
+been recorded. Comparator checks only its selected exact statements, configured
+axioms and kernel acceptance; it does not assess novelty or historical
+correspondence. The work also proves intermediate theorems, writes out proofs
+of results that were stated but not printed in the literature, checks exact
+finite cases, and records obstructions to tempting shortcuts.
 
 ## What is here
 

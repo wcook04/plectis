@@ -905,15 +905,14 @@ The supplied index records checked proofs of the bounded-negative theorem,
 its product and LCM consequences, the scalar convergence criterion and
 necessary conditions on a counterexample. The rational-tail construction
 has its own formalised estimates; it is not merely an interpretation of
-an abstract recurrence. The weighted criterion has a separate-release
-proof source outside the main build. The cubic and double-logarithmic
+an abstract recurrence. The \href{https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean\#L87}{weighted criterion is checked in both directions}, with the real cutoff used in Lemma~\ref{res:weights}. The cubic and double-logarithmic
 arguments have checked components, not assembled Lean proofs identified
 here; the companion supplies their written proofs, including the growth
 and modulus-counting arguments.
 
 The recorded main build is at \texttt{6b78209ab63a}; links retain their
-original pins, including \texttt{\commitshort}. No fresh Lean run or
-verification of the revised exposition is claimed. Finite certificates
+original pins, including \texttt{\commitshort}. The linked weighted criterion also has a fresh Lean check; this does not
+certify the remaining exposition as a whole. Finite certificates
 and unsuccessful extensions are retained in the companion, not counted
 as proofs of assembled arguments. The earlier Isabelle/HOL development
 of Koutsoukou-Argyraki and Li \cite{kouli2020} verifies older irrationality

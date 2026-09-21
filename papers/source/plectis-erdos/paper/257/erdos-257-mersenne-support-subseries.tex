@@ -215,7 +215,10 @@ Theorem~\ref{res:reciprocal-support} directly at every integer base.
 
 The order of limits is essential: the observation length tends to infinity
 with the modulus fixed, and only then does the modulus increase.
-Reciprocal summability controls both interchanges.
+Reciprocal summability controls both interchanges.  The exact all-base result,
+with hypotheses $b\ge2$, infinitude of $A$, and summability of $a\mapsto
+\mathbf1_A(a)/a$, is kernel-checked as
+\href{https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean#L395}{\texttt{irrational\_erdosSupportSeries\_of\_summable\_reciprocal}}.
 
 \section{Extensions beyond reciprocal summability}
 \label{sec:eight-return-extensions}
@@ -312,6 +315,10 @@ under rationality.  Finally
 $W_{b,P}(A)\le W_{2,P}(A)$ for $b\ge2$, and weighted mass decreases on taking
 subsets.
 \end{proof}
+
+The exact interface of Theorem~\ref{res:weighted-support}, including its
+fixed-base conclusion and hereditary all-base clause, is kernel-checked as
+\href{https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L99}{\texttt{divisibilityWeightedClaim}}.
 
 \subsection{An example beyond reciprocal summability}
 The hypothesis is genuinely weaker than reciprocal summability.  Let
@@ -1180,14 +1187,16 @@ positive-cover criterion.
 \appendix
 \section{Guide to the formal sources}\label{app:sources}
 
-The support criteria are proved above.  The fixed-revision links below are
-not fresh build or axiom-audit receipts: challenge statements are not
-proofs, and solution wrappers retain their hypotheses.
-The release at \texttt{52f29ad173b0} contains bodies for
-\href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean#L241}{the positive-cover conclusion}
-and \href{https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L98}{the weighted and mixed conclusions}.
-The ordinary proof for $A_\star$ is separate from the existential host
-wrapper, which does not verify that example.  No fresh Lean replay was run.
+The public proof closure at \texttt{065e09523286} was replayed under
+Lean~4.29.1.  Besides the reciprocal and weighted declarations cited above,
+the replay checked the exact strengthened positive-cover conclusion in
+\href{https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean#L241}{\texttt{strengthenedPositiveCoverClaim}}
+and the common-witness conclusion in
+\href{https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L105}{\texttt{mixedSupportClaim}}.
+The axiom audit for these endpoints reports only \texttt{propext},
+\texttt{Classical.choice}, and \texttt{Quot.sound}.  The ordinary proof for
+$A_\star$ remains separate from the existential host wrapper, which does not
+verify that named example.
 
 Erd\H{o}s's five-page paper was checked directly: p.~222 states the
 reciprocal-summable extension without proof, and p.~226 describes the

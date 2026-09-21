@@ -11,15 +11,15 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/WAVE_INDEX.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
+    "navigation_fingerprint": "a2cdc0fb56e55756a93b524133af82178f57966ad79392d2458fbb354f30f634",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "cb194d27bbd4fc58d3a9ea2a609672b7cbbcee5c8e0b7d70e63cc152fc662a36",
+    "source_sha256": "b2e614aba8a23c5ed2698e6424cf77186769a33f37d5439d07503fab8b02d512",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 26,
-    "renderer_fingerprint": "497e10530f97a71a",
+    "renderer_contract_version": 28,
+    "renderer_fingerprint": "1afa7218572522ac",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "8ee4194dad61fa9c3be8e657dbc6e67068a091e380308b4bb201c8ce3421ef75",
-    "html_exact_tex_sha256": "630fd381feec13f6a53b2de71e1a73c13ef5243336ad3ab7dd6b6dea2e811d3d"
+    "html_mathml_sha256": "50b522d9e3a65501031e59c910ab65cb2b2b1117a7904ebac635f5f2d8de6bff",
+    "html_exact_tex_sha256": "b52b83eeb6bbb1c17ddc12bfd10534950f10e62d8ad40f9fa40a17cf5151ebb5"
   },
   "sections": [
     {

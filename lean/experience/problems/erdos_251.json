@@ -5,7 +5,7 @@
   "title": "The prime-gap dyadic series",
   "status": "open",
   "question": "Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?",
-  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "authority_posture": "registered_declarations",
   "what_is_checked": [
     "The finite summation-by-parts identity relating the prime dyadic partial sums to the prime-gap dyadic partial sums, with an exact endpoint term and no convergence premise.",
     "The factor-of-two normalisation between the two displayed indexings, at every finite horizon.",
@@ -202,7 +202,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "565c1568a67c3f4f49f41ab7751be383daf74d7139e9381a94a10eb6896fe469",
+    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -244,8 +244,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 26,
-      "renderer_fingerprint": "497e10530f97a71a",
+      "renderer_contract_version": 28,
+      "renderer_fingerprint": "1afa7218572522ac",
       "source_sha256": "10c6cff02d746a305f99839db2ec3bfe30f1a2574e0d0a707c891920cfb7b4cb",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -388,8 +388,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 26,
-        "renderer_fingerprint": "497e10530f97a71a",
+        "renderer_contract_version": 28,
+        "renderer_fingerprint": "1afa7218572522ac",
         "source_sha256": "10c6cff02d746a305f99839db2ec3bfe30f1a2574e0d0a707c891920cfb7b4cb",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -510,7 +510,7 @@
       "subject": "Erdős #251",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 46,
+      "pages": 47,
       "question": "What exact tail criteria, sparse countermodels, and finite denominator bounds are proved for the prime-gap dyadic series, and why is irrationality still open?",
       "precis": "A convergent dyadic series with nonnegative integer coefficients can be made rational by sparse nonnegative corrections of upper Banach density zero, eventually bounded by any f(n)→∞, while preserving every fixed modulus and, for a logarithmic allowance, short-block empirical distributions. For prime gaps the cumulative positions remain asymptotic to n log n; no primality conclusion is asserted. Summation by parts reduces the prime series to the gap series, and the tails T_N=∑_{j≥1} g_{N+j} 2^{-j} satisfy T_{N+1}=2T_N−g_{N+1}. That recurrence characterises rationality and yields finite tests with explicit remainder bounds. An exact finite certificate shows that a rational value of the prime series would have denominator at least 2^{39998}>10^{12040}. The bound does not establish irrationality.",
       "owns": "the complete problem-specific reasoning surface for Erdős #251, including all registered result families and their boundaries",
@@ -532,12 +532,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 26,
-        "renderer_fingerprint": "497e10530f97a71a",
-        "source_sha256": "7e96053fc2dee7800f04e599ea7570cbbba024e7449e3da088f497fac42ce0e7",
+        "renderer_contract_version": 28,
+        "renderer_fingerprint": "1afa7218572522ac",
+        "source_sha256": "361e20f610a3b08c4f69f22ec09833dcccce14d23d9ea672e3903f1d091ddcb8",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1525,
+        "mathml_node_count": 1528,
         "raw_math_fallback_count": 7,
         "warnings": {
           "mathml": [
@@ -615,8 +615,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "f6554667dc772c6d584ce7bc73228c2618a286eea114047925756a8ee57400e6",
-        "html_exact_tex_sha256": "4936f3382566de315e22b8b5998da9d92cd9f8b481f138d4f0a59132612ff0dd"
+        "html_mathml_sha256": "32859a3b3c69c15558c3d881eff01ec3eb064463a9365d9391b20c24b06abf2e",
+        "html_exact_tex_sha256": "8cacbc8f6b29a17111490a51aae0aab4130d5debdfadc740c66a6daca5cc43bc"
       },
       "sections": [
         {
@@ -793,6 +793,16 @@
           "level": 2,
           "anchor": "long251:app:index",
           "label": "Guide to the formal sources"
+        },
+        {
+          "level": 3,
+          "anchor": "long251:sec:coverage",
+          "label": "Formalisation coverage and remaining dependencies"
+        },
+        {
+          "level": 5,
+          "anchor": "concordance-of-statements-and-lean-declarations.",
+          "label": "Concordance of statements and Lean declarations."
         },
         {
           "level": 5,
@@ -1058,11 +1068,20 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos251.GapDifferenceCountingR8",
+        "label": "ErdosProblems.Erdos251.GapDifferenceCountingR8",
+        "path": "lean/ErdosProblems/Erdos251/GapDifferenceCountingR8.lean",
+        "direct": true,
+        "content_digest": "sha256:864ee7de508d910e18c83bfbf04599fbe0926cef3b3eecf5a5845ab297cebbe8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/GapDifferenceCountingR8.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos251.GrowingBlocksR11",
         "label": "ErdosProblems.Erdos251.GrowingBlocksR11",
         "path": "lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean",
         "direct": true,
-        "content_digest": "sha256:2579e588364bea2bf0952585957d48309abfb4fd9f22f81971801f33e38c8374",
+        "content_digest": "sha256:7348e7a74ba45052fd6e3a117de46d86be2c9e99dbf5de1dcb73ef2c64eec663",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/GrowingBlocksR11.lean",
         "role": "Lean proof module"
       },
@@ -1130,6 +1149,105 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.ExactDenominator",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR20.ExactDenominator",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR20/ExactDenominator.lean",
+        "direct": true,
+        "content_digest": "sha256:0ff7782fdcb74df082c65bd9286726e241c5876e68a072fe422afa02cc33765e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR20/ExactDenominator.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.FiniteSeparation",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR20.FiniteSeparation",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean",
+        "direct": true,
+        "content_digest": "sha256:8cb677c42cd1938a1b60f306145466f9fe3d9d60ff2fc61dece6fa73a6a2551f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.LocalTargetInterval",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR20.LocalTargetInterval",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR20/LocalTargetInterval.lean",
+        "direct": true,
+        "content_digest": "sha256:03e5bc748e4b61fe03b0f26ff2ebf97a42ac07522cbe39f73447a27f6185868d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR20/LocalTargetInterval.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.RealPropagation",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR20.RealPropagation",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR20/RealPropagation.lean",
+        "direct": true,
+        "content_digest": "sha256:7b52e7db16037c9fe5eff1c2a6d657c7732f15f231bc44c9cb208843c0389878",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR20/RealPropagation.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.SignedWindow",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR20.SignedWindow",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean",
+        "direct": true,
+        "content_digest": "sha256:a7caf20d17a1125b0a33366f7dba692d73bfb2fca4c215ddb12f83c4d754a0ea",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR20/SignedWindow.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.SparseConstructionAudit",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR20.SparseConstructionAudit",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseConstructionAudit.lean",
+        "direct": true,
+        "content_digest": "sha256:4b8c798026f4009861d38e63e8836d3378e9bb818f2b79152a919e791c562e51",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseConstructionAudit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.SparseNonconcentration",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR20.SparseNonconcentration",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseNonconcentration.lean",
+        "direct": true,
+        "content_digest": "sha256:dc53398fc18a2c5253455f8effc2934a959e71051b5ca94cdc9e7c23f107385e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseNonconcentration.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.TrueTail",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR20.TrueTail",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean",
+        "direct": true,
+        "content_digest": "sha256:f8cce8d18b7e5641ea6cd7f3efb7835937e828f55e8dbd3a71921023a13d3d29",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR21.JointPrimeGapCountermodel",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR21.JointPrimeGapCountermodel",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean",
+        "direct": true,
+        "content_digest": "sha256:b9ded573e35ea048d6e1ceea7ef39db62151dcef14eb7e21f8885e4d25d38c9c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR21/JointPrimeGapCountermodel.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR21.PerturbedPrimePositions",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR21.PerturbedPrimePositions",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean",
+        "direct": true,
+        "content_digest": "sha256:daaaf7badb4a68b2d00b4a7cb2a8ded041f8477ae39dc89881a8d135c91358c2",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR21/PerturbedPrimePositions.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCompleteR21.TwoWindowSparsity",
+        "label": "ErdosProblems.Erdos251.PaperCompleteR21.TwoWindowSparsity",
+        "path": "lean/ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean",
+        "direct": true,
+        "content_digest": "sha256:c77c9195df30a12a200fb8d5bc76c0f0599c9a818bee22ddc9a65ad60000c6f8",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCompleteR21/TwoWindowSparsity.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos251.PaperCoreR7",
         "label": "ErdosProblems.Erdos251.PaperCoreR7",
         "path": "lean/ErdosProblems/Erdos251/PaperCoreR7.lean",
@@ -1139,12 +1257,30 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "label": "ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "path": "lean/ErdosProblems/Erdos251/PaperCorrespondenceAudit.lean",
+        "direct": true,
+        "content_digest": "sha256:008a0e962dbf091a883484aee64782661abdeb1c3caca59223a9477d321f6af7",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperCorrespondenceAudit.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos251.PaperFiniteCertificatesR7",
         "label": "ErdosProblems.Erdos251.PaperFiniteCertificatesR7",
         "path": "lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean",
         "direct": true,
         "content_digest": "sha256:8097fb6ef6213e41c84280a6847208c862afcc5fbe743d1b296c38826bc3125d",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos251.PaperNonconcentrationR7",
+        "label": "ErdosProblems.Erdos251.PaperNonconcentrationR7",
+        "path": "lean/ErdosProblems/Erdos251/PaperNonconcentrationR7.lean",
+        "direct": true,
+        "content_digest": "sha256:4ebf1fde93147d36228936f564f1e3926aff81660f0921a07772ae6ba29cd38c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/PaperNonconcentrationR7.lean",
         "role": "Lean proof module"
       },
       {
@@ -1229,11 +1365,20 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos251.ShiftedGapCountingR9",
+        "label": "ErdosProblems.Erdos251.ShiftedGapCountingR9",
+        "path": "lean/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean",
+        "direct": true,
+        "content_digest": "sha256:2c62446c120502b122510d8c005108710ede1c29834da5bc07c07523b57ba140",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos251.SparseAmbientR9",
         "label": "ErdosProblems.Erdos251.SparseAmbientR9",
         "path": "lean/ErdosProblems/Erdos251/SparseAmbientR9.lean",
         "direct": true,
-        "content_digest": "sha256:85fd761680c07e67060ee93c953952e42ed7a62319bddb7e080f9f392e64b672",
+        "content_digest": "sha256:871af010436c3040d5405a6f06153168d94a8a9f0140b77f0b9f5e951ffd731a",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean",
         "role": "Lean proof module"
       },
@@ -1251,7 +1396,7 @@
         "label": "ErdosProblems.Erdos251.SparsePaperR11",
         "path": "lean/ErdosProblems/Erdos251/SparsePaperR11.lean",
         "direct": true,
-        "content_digest": "sha256:e381386df512b895c9121f048736ee3b6116aa916486b65f049f4e99152f45c7",
+        "content_digest": "sha256:3fee7328b1f841c7f41576a9db7e6f3cfb84670f2895edeb8714870e7c0d69a2",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos251/SparsePaperR11.lean",
         "role": "Lean proof module"
       },
@@ -1342,6 +1487,10 @@
         "target": "lean-module:ErdosProblems.Erdos251.OrderLatticeDiagonal"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos251.GapDifferenceCountingR8",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperNonconcentrationR7"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos251.GrowingBlocksR11",
         "target": "lean-module:ErdosProblems.Erdos251.ReturnedSparseWindow"
       },
@@ -1382,6 +1531,54 @@
         "target": "lean-module:ErdosProblems.Erdos251.PaperCoreR7"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.ExactDenominator",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperCoreR7"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.FiniteSeparation",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.SignedWindow"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.LocalTargetInterval",
+        "target": "lean-module:ErdosProblems.Erdos251.SparsePaperR11"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.RealPropagation",
+        "target": "lean-module:ErdosProblems.Erdos251.RealPrimeGapTail"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.SparseConstructionAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.SparsePaperR11"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.SparseNonconcentration",
+        "target": "lean-module:ErdosProblems.Erdos251.NonconcentrationCoreR11"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR21.JointPrimeGapCountermodel",
+        "target": "lean-module:ErdosProblems.Erdos251.ActualPrimePaperR11"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR21.JointPrimeGapCountermodel",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperCompleteR20.SparseNonconcentration"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR21.PerturbedPrimePositions",
+        "target": "lean-module:ErdosProblems.Erdos251.BoundedPerturbationCountermodel"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR21.PerturbedPrimePositions",
+        "target": "lean-module:ErdosProblems.Erdos251.NonconcentrationCoreR11"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR21.TwoWindowSparsity",
+        "target": "lean-module:ErdosProblems.Erdos251.NonconcentrationConsequencesR11"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCompleteR21.TwoWindowSparsity",
+        "target": "lean-module:ErdosProblems.Erdos251.RealPrimeGapTail"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos251.PaperCoreR7",
         "target": "lean-module:ErdosProblems.Erdos251.AffineCylinderCollapse"
       },
@@ -1402,12 +1599,64 @@
         "target": "lean-module:ErdosProblems.Erdos251.RealPrimeGapTail"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.LogarithmicCarryAsymptoticsR8"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.OrderLatticeDiagonal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperBoundedCarryR7"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperCoreR7"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperFiniteCertificatesR7"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperNonconcentrationR7"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperTailBoundsR7"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.PrimeGapDyadicTail"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.RealPrimeGapTail"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.ShiftedGapCountingR9"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.SparseAmbientR9"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos251.SparsePaperR11"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos251.PaperFiniteCertificatesR7",
         "target": "lean-module:ErdosProblems.Erdos251.KernelDenominatorFloor"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos251.PaperFiniteCertificatesR7",
         "target": "lean-module:ErdosProblems.Erdos251.PaperTailBoundsR7"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.PaperNonconcentrationR7",
+        "target": "lean-module:ErdosProblems.Erdos251.PaperCoreR7"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos251.PaperTailBoundsR7",
@@ -1432,6 +1681,10 @@
       {
         "source": "lean-module:ErdosProblems.Erdos251.ReturnedSparseWindow",
         "target": "lean-module:ErdosProblems.Erdos251.PaperSparseCouplingR7"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos251.ShiftedGapCountingR9",
+        "target": "lean-module:ErdosProblems.Erdos251.GapDifferenceCountingR8"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos251.SparseAmbientR9",

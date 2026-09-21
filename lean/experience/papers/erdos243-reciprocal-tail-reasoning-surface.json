@@ -5,7 +5,7 @@
   "subject": "Erdős #243",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 59,
+  "pages": 61,
   "question": "Which growth hypotheses make a reciprocal sum irrational, and which sufficient conditions force the Sylvester recurrence without settling Erdős #243?",
   "precis": "An increasing sequence of positive integers satisfying a_n^2/a_{n+1}=1+3/n+o(n^{-3}) has an irrational reciprocal sum: rationality would force integer tail numerators to agree eventually with a cubic polynomial, which divisibility, a cubic-field calculation, and congruences modulo seven exclude. For rational reciprocal sums under a_{n+1}/a_n^2→1, the record also develops sufficient conditions for the eventual recurrence a_{n+1}=a_n^2−a_n+1, controlling either increases of an integer tail numerator or a convergent sum at steps setting new maxima. Examples separate numerical growth bounds from the exact recurrences. The cubic proof is distinguished from the theorems formalised in Lean. None of the additional bounds is derived for every rational reciprocal sum in Erdős #243.",
   "owns": "the complete problem-specific reasoning surface for Erdős #243, including all registered result families and their boundaries",
@@ -27,12 +27,12 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 26,
-    "renderer_fingerprint": "497e10530f97a71a",
-    "source_sha256": "8c50e2034e8d642a45576ad572c5be26f9ec3dc8b2874cba7efc8693220fe022",
+    "renderer_contract_version": 28,
+    "renderer_fingerprint": "1afa7218572522ac",
+    "source_sha256": "df3aad71e0d0df3a9ad2d3fa1515eb543f3b8cca65ec8171c3a7685c3268c948",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 2400,
+    "mathml_node_count": 2403,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -48,8 +48,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "0c7a6757fedf22698d611045a598f18971a43ced3cc12631948194f5d76c0875",
-    "html_exact_tex_sha256": "bb1b7fdd4477d4a61aec4fb2677691060f19e1dbe622c849538da5dd5a922bcb"
+    "html_mathml_sha256": "1c436f8ec0eecf494c682e3d1b362682839d132316c74e0802f2cc0acafb825d",
+    "html_exact_tex_sha256": "4e9a15b1933d6f2360c9d80aafc431c759d9cf9664ede4be6851ca06a48fb978"
   },
   "sections": [
     {
@@ -311,6 +311,16 @@
       "level": 2,
       "anchor": "long243:app:index",
       "label": "Guide to the formal sources"
+    },
+    {
+      "level": 3,
+      "anchor": "long243:sec:coverage",
+      "label": "Formalisation coverage and remaining dependencies"
+    },
+    {
+      "level": 5,
+      "anchor": "concordance-of-statements-and-lean-declarations.",
+      "label": "Concordance of statements and Lean declarations."
     },
     {
       "level": 2,

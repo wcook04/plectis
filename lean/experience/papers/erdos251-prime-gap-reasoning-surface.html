@@ -3668,6 +3668,122 @@ condition. The finite certificates use the same polynomial bound to
 control the omitted terms. The counterexamples concern other coefficient
 sequences, not a construction of new primes. The complete link inventory
 is also retained in the TeX source.</p>
+<section id="long251:sec:coverage" class="level3 unnumbered">
+<h3 class="unnumbered">Formalisation coverage and remaining
+dependencies</h3>
+<p>Every theorem, lemma, proposition and corollary of this record other
+than the four listed below has a Lean statement of the same assertion,
+with the same hypotheses, checked by the Lean kernel using only the
+axioms <code>propext</code>, <code>Classical.choice</code> and
+<code>Quot.sound</code>, in the development at revision
+<code>181078b6b009</code>.</p>
+<p>Three of the exceptions share cited inputs. The development verifies
+the reduction of Theorem  to Schlage-Puchta’s lemma that, for a fixed
+nonzero integer polynomial in a fixed block of consecutive prime gaps,
+the set of indices where it vanishes has density zero <span
+class="citation" data-cites="schlagepuchta2011"></span>, and the
+reduction of Corollary  and Corollary  to that lemma together with the
+prime number theorem in the form
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>∼</mo><mi>n</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">p_n\sim n\log n</annotation></semantics></math> <span
+class="citation" data-cites="mv2007"></span>. Formal proofs of those two
+inputs are not included in the verified development, so these three
+endpoints remain conditional on them. What each statement adds to them
+is checked, including the estimate that the corrected sequence of
+Corollary  differs from the prime gaps at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mi>ε</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_\varepsilon(n/\log\log n)</annotation></semantics></math>
+indices below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+which uses no information about the distribution of primes.</p>
+<p>Theorem  is a different case. Its deduction from the four integer
+comparisons between the enclosure and its Farey neighbours is checked in
+general form, and the certificate those comparisons are applied to is
+too large for the Lean kernel to evaluate at present. The exclusion
+therefore rests on the separate exact-arithmetic verifier described in
+its proof.</p>
+<p>A theorem whose own statement is conditional is formalised exactly as
+stated. The four results above are asserted unconditionally here, and
+their Lean counterparts either carry a named input or rest on a
+computation the kernel does not perform.</p>
+<section id="concordance-of-statements-and-lean-declarations."
+class="level5">
+<h5>Concordance of statements and Lean declarations.</h5>
+<p>Each result of this record that has a kernel-checked Lean statement
+of the same assertion is listed below with the declarations that jointly
+state it. Each name links to its declaration at revision
+<code>181078b6b009</code>. Where the Lean statement is stronger than the
+printed one and implies it by an immediate specialisation, the entry
+says so.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/SparseAmbientR9.lean#L269"><code>arbitrary_word_sparse_rationalisation_uniform</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/SparsePaperR11.lean#L137"><code>polylogarithmic_word_interval_uniform</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseConstructionAudit.lean#L8"><code>bounded_test_finite_coupling</code></a>.</p>
+<p> Corollary : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/LocalTargetInterval.lean#L38"><code>local_target_interval</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L138"><code>dyadicPartialSumQ_eq_start_add_differences</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L172"><code>prime0_dyadic_summation_by_parts</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L47"><code>infinite_prime_gap_identity</code></a>.</p>
+<p> Corollary : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L56"><code>irrationality_reformulation</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L76"><code>real_block_identity</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L94"><code>rationality_classification</code></a>.</p>
+<p> Lemma : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/TrueTail.lean#L57"><code>real_dyadic_orbit_eq_true_tail_iff</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L189"><code>actual_free_pair_criterion</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/OrderLatticeDiagonal.lean#L153"><code>irrational_initial_iff_all_lcmDiagonal_nonintegral</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L267"><code>rational_small_pair_bundle</code></a>.</p>
+<p> Corollary : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L298"><code>real_small_pair_prime_endpoint</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L175"><code>prime_gaps_not_eventually_periodic</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L135"><code>real_signed_two_window</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean#L211"><code>explicit_remainder_certificate</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean#L111"><code>finite_small_pair</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean#L6"><code>one_tail_signed_certificate</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean#L142"><code>denominator_floor_both</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperFiniteCertificatesR7.lean#L137"><code>denominator_floor_decimal</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L200"><code>rational_bounded_perturbation</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/ShiftedGapCountingR9.lean#L152"><code>shifted_count_bound</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperNonconcentrationR7.lean#L100"><code>finite_perturbation_stability</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/SparseNonconcentration.lean#L80"><code>sparse_nonconcentration</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/LogarithmicCarryAsymptoticsR8.lean#L368"><code>exists_logarithmic_recurring_values_countermodel</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L27"><code>polynomial_countermodel</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1137"><code>carryPartialSum_eq</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L877"><code>tailShift_integral_totient_of_odd_den</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/RealPropagation.lean#L27"><code>realTailShift_integral_add</code></a>.</p>
+<p> Proposition  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperTailBoundsR7.lean#L261"><code>cofinal_escape_of_finite_truncation</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCompleteR20/FiniteSeparation.lean#L25"><code>finite_separation_complete</code></a>.</p>
+<p> Proposition  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperBoundedCarryR7.lean#L179"><code>bounded_recurring_values_countermodel</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos251/PaperCoreR7.lean#L241"><code>affine_circularity_bundle</code></a>.</p>
+</section>
 <section id="sparse-construction." class="level5">
 <h5>Sparse construction.</h5>
 <p>The source index records <a
@@ -3829,6 +3945,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a1
 at every index for every positive length</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean#L1572">arbitrarily
 late nonintegrality for every positive length</a>.</p>
+</section>
 </section>
 </section>
 <section id="long251:sec:erdos-251-extended-record" class="level2">

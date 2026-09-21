@@ -5,7 +5,7 @@
   "title": "The factorial-denominator series",
   "status": "open",
   "question": "Is the series sum_{n >= 2} 1/(n! - 1) irrational?",
-  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "authority_posture": "registered_declarations",
   "what_is_checked": [
     "The exact integral normal form: the series is irrational if and only if the strict factorial successor Z_m misses divisibility by m cofinally.",
     "The equivalent carry form: rationality is equivalent to eventual unit carry, so cofinally many non-unit carries imply irrationality.",
@@ -53,7 +53,7 @@
       "line_count": 1008,
       "declaration_count": 36,
       "theorem_count": 31,
-      "content_digest": "sha256:2eb8e4e63d7282a58c84b83801b06cafe0d383044f5a8a2a8960e58cac28d94b",
+      "content_digest": "sha256:8572bdb53144be1aa35b33395db25e3708e717c4dc2e1fd4aa774a12061bcf2a",
       "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean"
     },
     {
@@ -80,10 +80,10 @@
       "module": "ErdosProblems.Erdos68.ChannelIntegralCongruence",
       "path": "lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean",
       "present": true,
-      "line_count": 1133,
-      "declaration_count": 55,
-      "theorem_count": 46,
-      "content_digest": "sha256:ea7c7f97d774c1cbb9021eb6708da60dcc09ecf6e3c872323aef312b6a026c97",
+      "line_count": 1198,
+      "declaration_count": 58,
+      "theorem_count": 49,
+      "content_digest": "sha256:7fbb70bcd1087d98b0a31cf36d82eb71e787bf00f41d25158848923bd9d09203",
       "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean"
     },
     {
@@ -100,10 +100,10 @@
       "module": "ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
       "path": "lean/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean",
       "present": true,
-      "line_count": 6674,
+      "line_count": 6675,
       "declaration_count": 223,
       "theorem_count": 183,
-      "content_digest": "sha256:e76dee594f84438f2d189e028e6507efdd162b2157ab60eccd5998174d27c026",
+      "content_digest": "sha256:5f999c8f50f693e12ecd059bcee5e6b47044f4f678e31b824f398931ae5224be",
       "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean"
     },
     {
@@ -130,10 +130,10 @@
       "module": "ErdosProblems.Erdos68.FactorialZeroPlateau",
       "path": "lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean",
       "present": true,
-      "line_count": 1756,
-      "declaration_count": 63,
-      "theorem_count": 57,
-      "content_digest": "sha256:00225da717d14e616b606a98dbca4469edd31e4bb83ae1504591e45e68755fbf",
+      "line_count": 37,
+      "declaration_count": 0,
+      "theorem_count": 0,
+      "content_digest": "sha256:6c91bdef6b22856b59952eed00003fb2617d3cc6dff9a14eac475c9b05db0c62",
       "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean"
     },
     {
@@ -265,7 +265,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "565c1568a67c3f4f49f41ab7751be383daf74d7139e9381a94a10eb6896fe469",
+    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -307,8 +307,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 26,
-      "renderer_fingerprint": "497e10530f97a71a",
+      "renderer_contract_version": 28,
+      "renderer_fingerprint": "1afa7218572522ac",
       "source_sha256": "24185ca24d344389ef0e77daf8481dbd9085344fa6cf001303052b0e9127cdbf",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -531,8 +531,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 26,
-        "renderer_fingerprint": "497e10530f97a71a",
+        "renderer_contract_version": 28,
+        "renderer_fingerprint": "1afa7218572522ac",
         "source_sha256": "24185ca24d344389ef0e77daf8481dbd9085344fa6cf001303052b0e9127cdbf",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -755,9 +755,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 26,
-        "renderer_fingerprint": "497e10530f97a71a",
-        "source_sha256": "28195f1a03eaab8ccaf598277ae2ee3deb7a38685a908dd0b851f7f82d92caf3",
+        "renderer_contract_version": 28,
+        "renderer_fingerprint": "1afa7218572522ac",
+        "source_sha256": "d2d0c98ce42f08ffa032f04ef17a62e345c5ca8dcb3b6254cc449834c65126d8",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1848,
@@ -773,8 +773,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "5ad168bc412d3987c57c901d834142ee5706621235adbe38f406e8edf3cfbf8b",
-        "html_exact_tex_sha256": "c732a9007829819f9b0e6fe50d2ef797267bcc4311deac8888601eb44783c30d"
+        "html_mathml_sha256": "1488e4cabcbeba0a480b3d6971874e0efa15fdda6fd0a6c26babaece24728df5",
+        "html_exact_tex_sha256": "531850233aec4145ddb1d3f7f2c68bcdacfdc1fe26fbcf923a3ef0ffc3bbbd61"
       },
       "sections": [
         {
@@ -911,6 +911,16 @@
           "level": 2,
           "anchor": "long68:app:sources",
           "label": "Guide to the formal sources"
+        },
+        {
+          "level": 3,
+          "anchor": "long68:sec:coverage",
+          "label": "Formalisation coverage and remaining dependencies"
+        },
+        {
+          "level": 5,
+          "anchor": "concordance-of-statements-and-lean-declarations.",
+          "label": "Concordance of statements and Lean declarations."
         },
         {
           "level": 2,
@@ -1068,7 +1078,7 @@
         "label": "ErdosProblems.Erdos68.ChannelIntegralCongruence",
         "path": "lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean",
         "direct": true,
-        "content_digest": "sha256:ea7c7f97d774c1cbb9021eb6708da60dcc09ecf6e3c872323aef312b6a026c97",
+        "content_digest": "sha256:7fbb70bcd1087d98b0a31cf36d82eb71e787bf00f41d25158848923bd9d09203",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean",
         "role": "Lean proof module"
       },
@@ -1079,6 +1089,15 @@
         "direct": true,
         "content_digest": "sha256:18d64c58660749777137a1ee8a2e81ecf8e6bc56af1173dbdbdf441d455ee7c3",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/CompanionConstantBridge.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.CompanionConstantCarryLaw",
+        "label": "ErdosProblems.Erdos68.CompanionConstantCarryLaw",
+        "path": "lean/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean",
+        "direct": true,
+        "content_digest": "sha256:10ea6625aaf544424acbf645812eaba3bd38e262c1ec4db06e1349d7697307d4",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/CompanionConstantCarryLaw.lean",
         "role": "Lean proof module"
       },
       {
@@ -1122,7 +1141,7 @@
         "label": "ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
         "path": "lean/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean",
         "direct": true,
-        "content_digest": "sha256:e76dee594f84438f2d189e028e6507efdd162b2157ab60eccd5998174d27c026",
+        "content_digest": "sha256:5f999c8f50f693e12ecd059bcee5e6b47044f4f678e31b824f398931ae5224be",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/EndpointWeightedPrivateSupport.lean",
         "role": "Lean proof module"
       },
@@ -1167,7 +1186,7 @@
         "label": "ErdosProblems.Erdos68.FactorialGapPlateauCore",
         "path": "lean/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean",
         "direct": true,
-        "content_digest": "sha256:2eb8e4e63d7282a58c84b83801b06cafe0d383044f5a8a2a8960e58cac28d94b",
+        "content_digest": "sha256:8572bdb53144be1aa35b33395db25e3708e717c4dc2e1fd4aa774a12061bcf2a",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean",
         "role": "Lean proof module"
       },
@@ -1185,7 +1204,7 @@
         "label": "ErdosProblems.Erdos68.FactorialZeroPlateau",
         "path": "lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean",
         "direct": true,
-        "content_digest": "sha256:00225da717d14e616b606a98dbca4469edd31e4bb83ae1504591e45e68755fbf",
+        "content_digest": "sha256:6c91bdef6b22856b59952eed00003fb2617d3cc6dff9a14eac475c9b05db0c62",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean",
         "role": "Lean proof module"
       },
@@ -1239,8 +1258,17 @@
         "label": "ErdosProblems.Erdos68.GapScalarNormalForm",
         "path": "lean/ErdosProblems/Erdos68/GapScalarNormalForm.lean",
         "direct": true,
-        "content_digest": "sha256:9dc4edcd1f0852d6a38667c8ccebd1ffd3acd23b883875c2b836b6f233689826",
+        "content_digest": "sha256:eeb392e6131a9e6f41bbd33ad90884dab1e6dfee66386e62e59e1bfa9408b528",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/GapScalarNormalForm.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.MultiplicativeSuccessorRigidity",
+        "label": "ErdosProblems.Erdos68.MultiplicativeSuccessorRigidity",
+        "path": "lean/ErdosProblems/Erdos68/MultiplicativeSuccessorRigidity.lean",
+        "direct": true,
+        "content_digest": "sha256:bb76746b11f172a1db80ba76bf5a925e44b10b57509e7a88e2af4f95a1e4af19",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/MultiplicativeSuccessorRigidity.lean",
         "role": "Lean proof module"
       },
       {
@@ -1275,7 +1303,7 @@
         "label": "ErdosProblems.Erdos68.PaperCompleteExisting",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean",
         "direct": true,
-        "content_digest": "sha256:a72a0e11a304cbd565b9d24d4c815ce27609e725130f6c9b20835f7346f561e1",
+        "content_digest": "sha256:b1446e097e0b9b1a174cfb704b0d5442710f0f43604358b53108c66dc41bc922",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean",
         "role": "Lean proof module"
       },
@@ -1379,6 +1407,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos68.PaperCompletePrimePole",
+        "label": "ErdosProblems.Erdos68.PaperCompletePrimePole",
+        "path": "lean/ErdosProblems/Erdos68/PaperCompletePrimePole.lean",
+        "direct": true,
+        "content_digest": "sha256:3c95754dff0a9218167c842b1e0e5decc7a3dfe4de57a123a4342d4a8f7c9bda",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompletePrimePole.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos68.PaperCompleteRadiusLimit",
         "label": "ErdosProblems.Erdos68.PaperCompleteRadiusLimit",
         "path": "lean/ErdosProblems/Erdos68/PaperCompleteRadiusLimit.lean",
@@ -1394,6 +1431,51 @@
         "direct": true,
         "content_digest": "sha256:611edfe9d578f408989be173ece9592367cfc5701316c4fbd4b94e06585b70e7",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.PaperCompleteSupplementary",
+        "label": "ErdosProblems.Erdos68.PaperCompleteSupplementary",
+        "path": "lean/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean",
+        "direct": true,
+        "content_digest": "sha256:ecf0e297c7086f86b9b16c2e4c2299a00015f307f425324898977dc31b6def9e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteSupplementary.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.PaperCompleteSupportedBands",
+        "label": "ErdosProblems.Erdos68.PaperCompleteSupportedBands",
+        "path": "lean/ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean",
+        "direct": true,
+        "content_digest": "sha256:611f43f6e9e5dd3caee345b2bf71abfdda67a3af88102ca4a8e2df0abb901119",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAudit",
+        "label": "ErdosProblems.Erdos68.PaperCorrespondenceAudit",
+        "path": "lean/ErdosProblems/Erdos68/PaperCorrespondenceAudit.lean",
+        "direct": true,
+        "content_digest": "sha256:17e77361c881d780fd04491a5923fb3c9327c565911997478d8c11dce2dbf13d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCorrespondenceAudit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAuditAdditive",
+        "label": "ErdosProblems.Erdos68.PaperCorrespondenceAuditAdditive",
+        "path": "lean/ErdosProblems/Erdos68/PaperCorrespondenceAuditAdditive.lean",
+        "direct": true,
+        "content_digest": "sha256:d93cac465746b4b563d67c8c8a25e51f2a2b0e5c2607d0f057ed99434cd4ff6f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PaperCorrespondenceAuditAdditive.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.PolynomialPerturbationLcm",
+        "label": "ErdosProblems.Erdos68.PolynomialPerturbationLcm",
+        "path": "lean/ErdosProblems/Erdos68/PolynomialPerturbationLcm.lean",
+        "direct": true,
+        "content_digest": "sha256:00f5e0cb821238dd4e8ebdf073a97e460c79d1d97191dcef870d472eb01beadd",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/PolynomialPerturbationLcm.lean",
         "role": "Lean proof module"
       },
       {
@@ -1467,6 +1549,15 @@
         "content_digest": "sha256:e03320c57d2ae0d42f52564023f4d62d92e805696bf010d6b48c66ecb053064b",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/StrictSuccessorArithmetic.lean",
         "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos68.TailIdealCertificate",
+        "label": "ErdosProblems.Erdos68.TailIdealCertificate",
+        "path": "lean/ErdosProblems/Erdos68/TailIdealCertificate.lean",
+        "direct": true,
+        "content_digest": "sha256:42ca63b4cabb3cf6db36e6f11c1669804fc5693999f953bb34be6daaf4804085",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/TailIdealCertificate.lean",
+        "role": "Lean proof module"
       }
     ],
     "edges": [
@@ -1493,6 +1584,14 @@
       {
         "source": "lean-module:ErdosProblems.Erdos68.CompanionConstantBridge",
         "target": "lean-module:ErdosProblems.Erdos68.GapScalarNormalForm"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.CompanionConstantCarryLaw",
+        "target": "lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.CompanionConstantCarryLaw",
+        "target": "lean-module:ErdosProblems.Erdos68.SecondLayerDigit"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.CompanionOrbitRationality",
@@ -1532,7 +1631,11 @@
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
-        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau"
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauCertificates"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.EndpointWeightedPrivateSupport",
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauSupplement"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.FactorialChannelCertificate",
@@ -1556,15 +1659,15 @@
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau",
-        "target": "lean-module:ErdosProblems.Erdos68.CanonicalFactorialDigits"
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau",
-        "target": "lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator"
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauCertificates"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau",
-        "target": "lean-module:ErdosProblems.Erdos68.StrictSuccessorArithmetic"
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauSupplement"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauCertificates",
@@ -1588,7 +1691,11 @@
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.GapScalarNormalForm",
-        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau"
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.MultiplicativeSuccessorRigidity",
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialGapPlateauCore"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.PaperCompleteAsymptotics",
@@ -1616,7 +1723,7 @@
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.PaperCompleteExisting",
-        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateau"
+        "target": "lean-module:ErdosProblems.Erdos68.FactorialZeroPlateauSupplement"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.PaperCompleteExisting",
@@ -1703,6 +1810,14 @@
         "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteMomentHorizon"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCompletePrimePole",
+        "target": "lean-module:ErdosProblems.Erdos68.PrimePoleCriterion"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCompletePrimePole",
+        "target": "lean-module:ErdosProblems.Erdos68.PrimePoleDenominator"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos68.PaperCompleteRadiusLimit",
         "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteAsymptotics"
       },
@@ -1713,6 +1828,54 @@
       {
         "source": "lean-module:ErdosProblems.Erdos68.PaperCompleteResidualIdentity",
         "target": "lean-module:ErdosProblems.Erdos68.PrimeUnitTranslator"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCompleteSupplementary",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteExisting"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCompleteSupplementary",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteSupportedBands"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCompleteSupportedBands",
+        "target": "lean-module:ErdosProblems.Erdos68.ChannelBreakpointRigidity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCompleteSupportedBands",
+        "target": "lean-module:ErdosProblems.Erdos68.DivisorChannelBasis"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteDivisorCoordinates"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteExisting"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteLiminf"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteMomentHorizon"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompletePrimePole"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteSupportedBands"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAuditAdditive",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteMomentIdeal"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos68.PaperCorrespondenceAuditAdditive",
+        "target": "lean-module:ErdosProblems.Erdos68.PaperCompleteResidualIdentity"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos68.PrimePoleCriterion",

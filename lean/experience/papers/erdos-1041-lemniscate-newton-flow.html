@@ -143,11 +143,18 @@ degree-four case by a close-pair chord or two radial segments through
 the centre of a smallest enclosing disc. That centre need not be a
 critical point. The results here concern specified polynomial families
 and sufficient conditions; no priority claim is made.</p>
-<p>A degree-seven counterexample to the unrestricted assertion has been
-reported to the author. Its proof is not reproduced or independently
-verified in this revision. We use Problem 1041 as the historical
-question, not as an assertion here that the unrestricted bound remains
-open.</p>
+<p> A degree-seven counterexample due to the <a
+href="https://www.erdosproblems.com/1041">erdosproblems.com contributor
+<code>ani</code></a> makes the unrestricted total-variation assertion
+false. For one explicit monic polynomial of degree seven whose roots are
+distinct and lie in the open unit disc, every continuous path in the
+strict unit lemniscate joining two distinct roots has total variation
+greater
+than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> Thus this polynomial has no
+continuous root-to-root parametrisation of total variation less
+than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</p>
 <p>The trinomial proof prescribes a path for every pair of distinct
 roots. The area-growth argument in Section  has a different conclusion:
 it selects some pair of roots, but requires no coefficient pattern or
@@ -266,7 +273,7 @@ criterion.</h5>
 <p>The contradiction has two steps. Failure of a short path forces roots
 to be separated in a conformal disc. Packing then forces enough roots in
 a component to make its area grow faster than Pólya’s inequality allows.
-<a href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#section.3">Section 3
+<a href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#section.3">Section 3
 of the companion record</a> gives the complete analytic estimates and
 the rational comparison; we describe their dependence here.</p>
 <p>Suppose no curve of length less than
@@ -627,14 +634,16 @@ Scaling by a containing radius
 gives the strict bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>R</mi><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2R&lt;2</annotation></semantics></math>.
 The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#two-nearest-root-distance">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#two-nearest-root-distance">companion’s
 full distance argument</a> derives the two displayed estimates without
 assuming
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|f(c)|\le1</annotation></semantics></math>.
 The source is <a
 href="https://github.com/wcook04/plectis-erdos/blob/a729f05c40398663fd586c9da487ad874d898639/research_corpus/Erdos1041/GlobalCriticalTwoNearestBudget.md">the
-proof for the two nearest roots</a>; Lean checks its real-inequality
-core, not the ordinary root-disc reduction. ◻</p>
+proof for the two nearest roots</a>; Lean now checks the <a
+href="https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos1041/PaperCompleteR20/TwoNearestPolynomial.lean#L31">strict
+distance bound from the critical polynomial</a>, including the root-disc
+reduction and the choice of the two nearest indices. ◻</p>
 </div>
 <p>The distance estimate alone does not prove containment of either
 segment. The next proposition gives counterexamples to both natural
@@ -1095,7 +1104,7 @@ Its inverse sends
 to a path between the two distinct points over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P=0</annotation></semantics></math>.</p>
 <p>The explicit disc map in <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#section.6">Section 6 of
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#section.6">Section 6 of
 the companion</a> takes that interval to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mi>q</mi><mo>,</mo><mi>q</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-q,q]</annotation></semantics></math>,
 where
@@ -1249,7 +1258,7 @@ by
 at each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>σ</mi><mo>&lt;</mo><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0&lt;\sigma&lt;\mu(f)</annotation></semantics></math>,
 where all branches are unramified. The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#perimeter-to-path">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#perimeter-to-path">companion’s
 geometric proof</a> then joins two distinct roots in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>μ</mi></msub><annotation encoding="application/x-tex">K_\mu</annotation></semantics></math>
 with length at most
@@ -1634,7 +1643,7 @@ descriptions of the same three-ended block do not repair the four-sector
 topology.</p>
 <p>Within a component, distinct critical-value arguments exclude finite
 Newton connections between its saddles by Corollary . The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#inverse-sheet-component">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#inverse-sheet-component">companion’s
 inverse-sheet theorem</a> supplies the corresponding component-wise
 construction. Its topology does not provide the missing length estimate
 or quantitative gluing.</p>
@@ -1730,7 +1739,7 @@ and the strict length bound. For
 the adjacent-root diameter is already a strict path of length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>r</mi><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2r&lt;2</annotation></semantics></math>.</p>
 <p>The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#binomial-chord-calculation">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#binomial-chord-calculation">companion’s
 binomial chord calculation</a> proves, for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>s</mi><mo>≤</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">0&lt;s\le r</annotation></semantics></math>,
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">max</mi><mrow><mi>z</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>s</mi><mo>,</mo><mi>s</mi><mi>ω</mi><mo stretchy="false" form="postfix">]</mo></mrow></munder><mo stretchy="false" form="prefix">|</mo><msup><mi>z</mi><mi>n</mi></msup><mo>−</mo><msup><mi>r</mi><mi>n</mi></msup><mo stretchy="false" form="prefix">|</mo><mo>=</mo><msup><mi>r</mi><mi>n</mi></msup><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mi>c</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\max_{z\in[s,s\omega]}|z^n-r^n|=r^n+(sc)^n.</annotation></semantics></math>
@@ -1876,7 +1885,7 @@ is the monic minimax polynomial on
 its critical values have modulus
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>n</mi></msub><annotation encoding="application/x-tex">C_n</annotation></semantics></math>.</p>
 <p>The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#collinear-source-comparison">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#collinear-source-comparison">companion’s
 collinear discussion</a> gives the full comparison with critical points
 on an extremal level curve <span class="citation"
 data-cites="eremenko-hayman"><a href="#ref-9">[9]</a></span> and with the derivative bound on
@@ -1975,7 +1984,7 @@ near zero. Grouping repeated points, any nonzero point gives a pole of
 nonzero positive total weight, a contradiction. All points zero give
 equality. Finally apply Cauchy–Schwarz and take equal weights for the
 linear consequence. The companion’s <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#weighted-poisson-proof">weighted
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#weighted-poisson-proof">weighted
 Poisson proof</a> gives the termwise integration and boundary passage,
 including zero weights. ◻</p>
 </div>
@@ -2271,7 +2280,7 @@ near-minimising curves of bounded length can be parametrised on
 with a common Lipschitz bound. Arzelà–Ascoli, convergence of root
 multisets and lower semicontinuity of length give a contained limiting
 curve, even if the two endpoint occurrences coalesce. <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#closed-class-limits">The
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#closed-class-limits">The
 fixed-degree limits subsection of the companion</a> gives the full
 argument, also recorded in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/GenericSufficiencyClosure.md">the
@@ -2395,7 +2404,7 @@ on powers of Blaschke products</a> gives fixed-degree tests of these
 limitations and separate asymptotic results for the shortest contained
 path. The family, certificate scope, centroid restriction and two
 distinct parameter regimes are given in <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#blaschke-product-examples">the
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#blaschke-product-examples">the
 Blaschke-product subsection of the companion</a>, after the compactness
 functional is defined. Neither a failed sufficient condition nor a
 fixed-degree certificate settles an asymptotic path estimate.</p>
@@ -2705,6 +2714,19 @@ revision bundle.</p></li>
 33–37; English translation, Math. Notes <strong>80</strong> (2006),
 no. 1, 31–35, doi:<a
 href="https://doi.org/10.1007/s11006-006-0105-8">10.1007/s11006-006-0105-8</a>.</p></li>
+</ol>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Lean checks this instance in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f70679d47178bf1174309cb29f5b31748609cc04/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean#L25"><code>erdos1041_ani_degree_seven</code></a>.
+The formal result concerns one polynomial; it does not formalise the
+reported small-parameter family or a Hausdorff-measure comparison, and
+its correspondence with the historical formulation has not received
+independent human review.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </div>

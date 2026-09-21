@@ -34,13 +34,13 @@
         "lean4export": "6f4e21dd70c3c11d7fbd07d39e3192792c657448",
         "landrun": "811cfff51ceaf3d9843708aa6d22e9b84ccac8b4"
       },
-      "boundary": "All eight covered Erdős problems remain open. Comparator checks exact Lean statements, configured axioms, and kernel acceptance; it does not assess novelty, significance, source fidelity, or whether any open problem is solved.",
+      "boundary": "The degree-seven example refutes the total-variation formulation of Erdős #1041. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence.",
       "review_status": "self-assessed and agent-checked; no human mathematical peer review is claimed"
     },
     {
       "id": "palomar",
       "role": "editorial_registry_review",
-      "status": "submitted_entries_awaiting_registry_review",
+      "status": "recorded_release_observation",
       "source": "https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md",
       "boundary": "A prepared review unit is not a submission, Comparator verdict, Palomar review, registration, acceptance, endorsement, novelty assessment, peer review, or solution of an open problem.",
       "release": {
@@ -53,8 +53,8 @@
         "submitted_entry_count_at_observed_at": null,
         "submission_counts_at_observed_at": {},
         "receipt": "docs/formal_math/palomar/palomar_release_receipt.json",
-        "reading_rule": "Palomar review is mechanical statement parity, never novelty or peer review.",
-        "count_contract": "Every count here is the state at observed_at. Submissions drain serially under a registry rate limit, so these counts rise over time. Read them with observed_at attached, never as a final tally."
+        "reading_rule": "The release record does not include a dated awaiting-review count. Preparation alone does not establish submission or acceptance.",
+        "count_contract": "Counts describe the recorded observation only. Outcomes can change; missing counts remain unknown and are not inferred from preparation."
       }
     }
   ]

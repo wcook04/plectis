@@ -32,7 +32,7 @@ sometimes settle it outright.
 
 ## Where the instrument came from
 
-This repository is a formalisation programme over eight open Erdős problems,
+This repository is a formalisation programme over eight Erdős problem programmes,
 and its output is structural: an exact carry normal form equivalent to
 irrationality for #68, a complete measure classification of the Mersenne
 achievement set for #257, the exact rank `2^e + 1` and an explicit odd-core

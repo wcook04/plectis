@@ -4,10 +4,10 @@
   "root_node_id": "universe:plectis-lean",
   "full_graph": "graph.json",
   "counts": {
-    "nodes": 260,
-    "edges": 328,
+    "nodes": 267,
+    "edges": 335,
     "deferred_node_kinds": {
-      "lean_module": 1341,
+      "lean_module": 1763,
       "mathematical_object": 105
     }
   },
@@ -66,6 +66,13 @@
       "kind": "public_claim",
       "label": "All-base totient-kernel reduction, spanning, and conditional rank",
       "status": "proved here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:ani_degree_seven_total_variation_counterexample",
+      "kind": "public_claim",
+      "label": "Degree-seven total-variation counterexample",
+      "status": "formalised here",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
@@ -335,6 +342,13 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:finite_prime_weighted_support",
+      "kind": "public_claim",
+      "label": "Finite-prime weighted support irrationality",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:first_harmonic_certificate_interface",
       "kind": "public_claim",
       "label": "First-harmonic gap implies a finite certificate",
@@ -531,6 +545,13 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:mixed_weighted_cover_support",
+      "kind": "public_claim",
+      "label": "Mixed weighted and positive-cover support irrationality",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:mobius_sign_support_no_go",
       "kind": "public_claim",
       "label": "Möbius-sign support one-half no-go",
@@ -678,6 +699,13 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:reciprocal_summable_support",
+      "kind": "public_claim",
+      "label": "Reciprocal-summable support irrationality at every integer base",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "claim:reset_deficit_escape_geometry",
       "kind": "public_claim",
       "label": "Exact right-branch window and reset-deficit escape law",
@@ -793,6 +821,13 @@
       "id": "claim:stern_brocot_run_fibonacci_stability",
       "kind": "public_claim",
       "label": "Fibonacci and continuant stability of Stern–Brocot runs",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:strengthened_positive_cover_support",
+      "kind": "public_claim",
+      "label": "Strengthened positive-cover support irrationality",
       "status": "formalised here",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
@@ -1000,6 +1035,20 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
     {
+      "id": "claim:zudilin_all_rank_hankel_order",
+      "kind": "public_claim",
+      "label": "All-rank normalized Hankel order and leading coefficient",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
+      "id": "claim:zudilin_rational_base_region",
+      "kind": "public_claim",
+      "label": "Zudilin rational-base irrationality and irrationality-exponent bound",
+      "status": "formalised here",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
+    },
+    {
       "id": "document:architecture",
       "kind": "human_document",
       "label": "Repository architecture",
@@ -1122,8 +1171,8 @@
     {
       "id": "document:truth-audit",
       "kind": "human_document",
-      "label": "Truth audit",
-      "role": "claim_audit",
+      "label": "Historical truth audit",
+      "role": "historical_claim_audit",
       "href": "documents/truth-audit.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/TRUTH_AUDIT.md"
     },
@@ -2807,6 +2856,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:ani_degree_seven_total_variation_counterexample"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:boolean_mobius_carry"
     },
     {
@@ -2997,6 +3051,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:finite_prime_weighted_support"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:first_harmonic_certificate_interface"
     },
     {
@@ -3137,6 +3196,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:mixed_weighted_cover_support"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:mobius_sign_support_no_go"
     },
     {
@@ -3242,6 +3306,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "publishes",
+      "target": "claim:reciprocal_summable_support"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
       "target": "claim:reset_deficit_escape_geometry"
     },
     {
@@ -3323,6 +3392,11 @@
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:stern_brocot_run_fibonacci_stability"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:strengthened_positive_cover_support"
     },
     {
       "source": "universe:plectis-lean",
@@ -3468,6 +3542,16 @@
       "source": "universe:plectis-lean",
       "relation": "publishes",
       "target": "claim:weighted_phase_carry_finite_observer"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:zudilin_all_rank_hankel_order"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "publishes",
+      "target": "claim:zudilin_rational_base_region"
     }
   ]
 }

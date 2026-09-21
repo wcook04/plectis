@@ -7,9 +7,9 @@ The [front page](../README.md) introduces the project. This index helps you
 choose what to read or do next, whether you want to understand a result, check
 its proof, continue the research, or inspect how the tools work.
 
-All eight original Erdős problems remain open. The papers report intermediate
-results and the approaches that stopped, with enough of the record preserved
-for somebody else to inspect the argument and continue from it.
+The degree-seven example refutes the total-variation formulation of Erdős #1041. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The papers report intermediate results and the approaches that
+stopped, with enough of the record preserved for somebody else to inspect the
+argument and continue from it.
 
 ## Choose a way in
 

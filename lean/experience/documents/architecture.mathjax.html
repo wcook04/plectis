@@ -8,8 +8,8 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section id="how-this-repository-works" class="level1">
 <h1>How this repository works</h1>
-<p>This is a public Lean project about eight unsolved problems in
-mathematics. It keeps the proofs, papers, computations and research
+<p>This is a public Lean project about eight mathematical problem
+programmes. It keeps the proofs, papers, computations and research
 records together so another researcher can inspect the work and continue
 it. This guide explains how those files fit together and what the checks
 establish.</p>
@@ -23,23 +23,28 @@ publish an account of it that a reader can check. Lean checks formal
 proofs. The papers explain the mathematics, including ordinary arguments
 and results drawn from the literature. Source maps and query tools
 connect those explanations to their supporting records.</p>
-<p>The reviewed claim registry covers #249 and #257. The problem-owned
-expansion library also covers #68, #243, #251, #269, #1041 and #1049,
-with its own result records. Both Lean roots use the same proof checker,
-but adding a declaration to the expansion library does not add a
-reviewed claim to the registry. <a href="methodology.mathjax.html">Methodology</a>
+<p>The reviewed claim registry covers #68, #243, #249, #251, #257, #269,
+#1041 and #1049. The two Lean roots reflect the development’s history,
+not different standards of evidence. A declaration has the public status
+recorded for it in the registry; adding a file or compiling a library
+does not create that status. <a href="methodology.mathjax.html">Methodology</a>
 explains the review and change rules.</p>
-<p>All eight mathematical problems remain open. The repository proves
-intermediate results, exact reformulations and bounded examples around
-them; it does not claim a solution to any of them. This is a
+<p>The degree-seven example refutes the total-variation formulation of
+Erdős #1041. The other seven target problems are not resolved here.
+Independent human review of correspondence with the historical
+curve-length formulation has not been recorded. Comparator checks only
+its selected exact statements, configured axioms and kernel acceptance;
+it does not assess novelty or historical correspondence. This is a
 self-contained public release: its use and its mathematical claims do
 not depend on private files.</p>
 </section>
 <section id="the-architecture-in-one-page" class="level2">
 <h2>The architecture in one page</h2>
 <p>A statement in a paper may have a formal proof, an ordinary
-mathematical argument, or a cited external theorem behind it. For a
-selected claim backed by Lean, the publication route is:</p>
+mathematical argument, or a cited external theorem behind it. A
+correspondence audit starts from the current paper and asks what
+establishes each assertion, including its assumptions and full
+conclusion. Publication proceeds from checked evidence:</p>
 <pre class="text"><code>Lean source + review of its mathematical meaning
                       |
                       v
@@ -51,6 +56,25 @@ selected claim backed by Lean, the publication route is:</p>
                       |
                       v
         generated indexes and source links</code></pre>
+<p>These are two directions through the same records. Starting from a
+paper selects what needs checking; it does not make the paper proof
+authority. A stronger Lean theorem needs a checked implication to the
+printed statement. An unproved condition or a proof of only part of a
+statement stays explicit.</p>
+<p>For selected statements, <a
+href="external-verification.mathjax.html">Comparator</a> compares the separately
+declared challenge with the solution under a configured axiom budget.
+Inspect the current configuration and available evidence with
+<code>python3 scripts/query_corpus.py --route comparator_assurance</code>.
+The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md">Palomar
+qualification route</a>,
+<code>python3 scripts/query_corpus.py --route palomar_qualification</code>,
+checks the repository’s packaging requirements. The <a
+href="https://github.com/wcook04/plectis-erdos-lean">eight per-problem
+repository units</a> have their own pinned source and replay checks. A
+local qualification decision does not establish a service submission,
+registration or acceptance, and a Comparator pass does not establish
+complete paper coverage.</p>
 <p>Lean and the release checks test different parts of that route:</p>
 <ul>
 <li>Lean decides whether a formal proof establishes its precise formal
@@ -115,6 +139,23 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/publication_contra
 source.</td>
 </tr>
 <tr>
+<td>Which statement does Comparator compare?</td>
+<td><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/verification/comparator.json">verification/comparator.json</a>
+and <a href="external-verification.mathjax.html">external verification</a></td>
+<td>The selected challenge, solution, permitted axioms and replay
+boundary.</td>
+</tr>
+<tr>
+<td>What is ready for Palomar?</td>
+<td><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md">docs/verification/PALOMAR_QUALIFICATION.md</a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_POLICY_RECONCILIATION.json">docs/PALOMAR_POLICY_RECONCILIATION.json</a></td>
+<td>Repository qualification, with external actions and outcomes
+recorded separately.</td>
+</tr>
+<tr>
 <td>Which checks govern a release?</td>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/scripts/check_release.py">scripts/check_release.py</a>
 and <a href="https://github.com/wcook04/plectis-erdos/blob/main/.github/workflows/lean.yml">the GitHub workflow</a></td>
@@ -123,12 +164,18 @@ requests.</td>
 </tr>
 </tbody>
 </table>
-<p>The papers and guides are authored explanations. The JSON records
-make selected relationships explicit so the tools can check them.
-Generated files such as <a
-href="orientation.mathjax.html">docs/ORIENTATION.md</a>, the declaration atlas and
-the module index reorganise those records for browsing; their builders
-own their contents.</p>
+<p>Keep mathematical explanations and reviewed interpretations authored.
+Generate volatile facts—paper lists, source locations, selected
+interfaces and status summaries—from the records that own them. The
+programme card in the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_GUIDE.md">agent guide</a>
+comes from the problem and claim owners; <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md">Palomar qualification</a>
+comes from its selection record. The <a
+href="orientation.mathjax.html">orientation</a>, atlas and module index are
+generated too. <code>python3 scripts/refresh_projections.py</code>
+updates these surfaces; the release gate rejects stale copies. Dated
+development and campaign records live in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/README.md">technical reference</a>.</p>
 <p>The eight individual problem papers are the active mathematical
 routes. The former combined manuscript, <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/archive/erdos249-257-main-paper.tex">paper/archive/erdos249-257-main-paper.tex</a>,
@@ -156,13 +203,14 @@ PDFs.</td>
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257.lean">lean/Erdos249257.lean</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257">lean/Erdos249257/</a></td>
-<td>The formal work behind the reviewed #249/#257 corpus.</td>
+<td>The historical library for #249/#257 and machinery used by later
+work.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems.lean">lean/ErdosProblems.lean</a> and
 <a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems">lean/ErdosProblems/</a></td>
-<td>Formal work grouped by problem, including expansion work for
-#249/#257.</td>
+<td>Formal work grouped by problem; claim status is recorded
+separately.</td>
 </tr>
 <tr>
 <td><a
@@ -176,6 +224,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/research/examples/Examp
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/scripts">scripts/</a></td>
 <td>Queries, builders, release checks and tests.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/verification">verification/</a></td>
+<td>Comparator statements and configuration, replay tools and
+external-statement comparisons.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/skills/README.md">skills/</a></td>
@@ -342,7 +395,7 @@ those responsibilities, and <a href="https://github.com/wcook04/plectis-erdos/bl
 verification</a> explains additional statement comparisons and their
 limits.</p>
 <p>The printable <a
-href="https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
+href="../../../papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
 Lean Worlds</a> explains the publication architecture in more depth. Its
 historical checker example is documented in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/publication_evidence.json">docs/publication_evidence.json</a>; it

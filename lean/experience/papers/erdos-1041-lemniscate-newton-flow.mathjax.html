@@ -117,11 +117,16 @@ degree-four case by a close-pair chord or two radial segments through
 the centre of a smallest enclosing disc. That centre need not be a
 critical point. The results here concern specified polynomial families
 and sufficient conditions; no priority claim is made.</p>
-<p>A degree-seven counterexample to the unrestricted assertion has been
-reported to the author. Its proof is not reproduced or independently
-verified in this revision. We use Problem 1041 as the historical
-question, not as an assertion here that the unrestricted bound remains
-open.</p>
+<p> A degree-seven counterexample due to the <a
+href="https://www.erdosproblems.com/1041">erdosproblems.com contributor
+<code>ani</code></a> makes the unrestricted total-variation assertion
+false. For one explicit monic polynomial of degree seven whose roots are
+distinct and lie in the open unit disc, every continuous path in the
+strict unit lemniscate joining two distinct roots has total variation
+greater than <span class="math inline" data-term-auto="off">\(2\)</span>.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+Thus this polynomial has no continuous root-to-root parametrisation of
+total variation less than <span class="math inline" data-term-auto="off">\(2\)</span>.</p>
 <p>The trinomial proof prescribes a path for every pair of distinct
 roots. The area-growth argument in Section <a class="math-ref" href="#sec:constant-factor">3</a> has a different
 conclusion: it selects some pair of roots, but requires no coefficient
@@ -209,7 +214,7 @@ criterion.</h5>
 <p>The contradiction has two steps. Failure of a short path forces roots
 to be separated in a conformal disc. Packing then forces enough roots in
 a component to make its area grow faster than Pólya’s inequality allows.
-<a href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#section.3">Section 3
+<a href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#section.3">Section 3
 of the companion record</a> gives the complete analytic estimates and
 the rational comparison; we describe their dependence here.</p>
 <p>Suppose no curve of length less than <span
@@ -515,13 +520,15 @@ class="math inline" data-term-auto="off">\((x-1)(x-(n-1))\le0\)</span> for <span
 class="math inline" data-term-auto="off">\(x=d_2/d_1\in[1,n-1]\)</span>. Scaling by a
 containing radius <span class="math inline" data-term-auto="off">\(0&lt;R&lt;1\)</span> gives
 the strict bound <span class="math inline" data-term-auto="off">\(2R&lt;2\)</span>. The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#two-nearest-root-distance">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#two-nearest-root-distance">companion’s
 full distance argument</a> derives the two displayed estimates without
 assuming <span class="math inline" data-term-auto="off">\(|f(c)|\le1\)</span>. The source is
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/a729f05c40398663fd586c9da487ad874d898639/research_corpus/Erdos1041/GlobalCriticalTwoNearestBudget.md">the
-proof for the two nearest roots</a>; Lean checks its real-inequality
-core, not the ordinary root-disc reduction. ◻</p>
+proof for the two nearest roots</a>; Lean now checks the <a
+href="https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos1041/PaperCompleteR20/TwoNearestPolynomial.lean#L31">strict
+distance bound from the critical polynomial</a>, including the root-disc
+reduction and the choice of the two nearest indices. ◻</p>
 </div>
 <p>The distance estimate alone does not prove containment of either
 segment. The next proposition gives counterexamples to both natural
@@ -864,7 +871,7 @@ class="math inline" data-term-auto="off">\(\{\xi:|\xi^2-(1-w_0)|&lt;S\}\)</span>
 sends <span class="math inline" data-term-auto="off">\([-1,1]\)</span> to a path between the
 two distinct points over <span class="math inline" data-term-auto="off">\(P=0\)</span>.</p>
 <p>The explicit disc map in <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#section.6">Section 6 of
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#section.6">Section 6 of
 the companion</a> takes that interval to <span
 class="math inline" data-term-auto="off">\([-q,q]\)</span>, where</p>
 <div class="math-display" data-term-auto="off"><span
@@ -997,7 +1004,7 @@ class="math inline" data-term-auto="off">\(n\ge2\)</span>, bounding every invers
 class="math inline" data-term-auto="off">\(\int_0^{2\pi}|\phi&#39;(e^{it})|\,dt\le\beta\sigma^{1/n}\)</span>
 at each <span class="math inline" data-term-auto="off">\(0&lt;\sigma&lt;\mu(f)\)</span>,
 where all branches are unramified. The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#perimeter-to-path">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#perimeter-to-path">companion’s
 geometric proof</a> then joins two distinct roots in <span
 class="math inline" data-term-auto="off">\(K_\mu\)</span> with length at most <span
 class="math inline" data-term-auto="off">\(\beta\mu^{1/n}\)</span>, using half of each of two
@@ -1300,7 +1307,7 @@ descriptions of the same three-ended block do not repair the four-sector
 topology.</p>
 <p>Within a component, distinct critical-value arguments exclude finite
 Newton connections between its saddles by Corollary <a class="math-ref" href="#res:ray">8.2</a>. The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#inverse-sheet-component">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#inverse-sheet-component">companion’s
 inverse-sheet theorem</a> supplies the corresponding component-wise
 construction. Its topology does not provide the missing length estimate
 or quantitative gluing.</p>
@@ -1372,7 +1379,7 @@ bound. For <span class="math inline" data-term-auto="off">\(n=2\)</span>, the ad
 diameter is already a strict path of length <span
 class="math inline" data-term-auto="off">\(2r&lt;2\)</span>.</p>
 <p>The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#binomial-chord-calculation">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#binomial-chord-calculation">companion’s
 binomial chord calculation</a> proves, for every <span
 class="math inline" data-term-auto="off">\(0&lt;s\le r\)</span>,</p>
 <div class="math-display" data-term-auto="off"><span
@@ -1486,7 +1493,7 @@ class="citation" data-cites="eremenko-yuditskii"></span>, and all its
 critical values have modulus <span
 class="math inline" data-term-auto="off">\(C_n\)</span>.</p>
 <p>The <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#collinear-source-comparison">companion’s
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#collinear-source-comparison">companion’s
 collinear discussion</a> gives the full comparison with critical points
 on an extremal level curve <span class="citation"
 data-cites="eremenko-hayman"><a href="#ref-9">[9]</a></span> and with the derivative bound on
@@ -1573,7 +1580,7 @@ near zero. Grouping repeated points, any nonzero point gives a pole of
 nonzero positive total weight, a contradiction. All points zero give
 equality. Finally apply Cauchy–Schwarz and take equal weights for the
 linear consequence. The companion’s <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#weighted-poisson-proof">weighted
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#weighted-poisson-proof">weighted
 Poisson proof</a> gives the termwise integration and boundary passage,
 including zero weights. ◻</p>
 </div>
@@ -1827,7 +1834,7 @@ class="math inline" data-term-auto="off">\([0,1]\)</span> with a common Lipschit
 Arzelà–Ascoli, convergence of root multisets and lower semicontinuity of
 length give a contained limiting curve, even if the two endpoint
 occurrences coalesce. <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#closed-class-limits">The
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#closed-class-limits">The
 fixed-degree limits subsection of the companion</a> gives the full
 argument, also recorded in <a
 href="https://github.com/wcook04/plectis-erdos/blob/f36a98bf3d3e6f65f1074e3b800e3293d5b8a51a/ErdosProblems/Erdos1041/GenericSufficiencyClosure.md">the
@@ -1928,7 +1935,7 @@ on powers of Blaschke products</a> gives fixed-degree tests of these
 limitations and separate asymptotic results for the shortest contained
 path. The family, certificate scope, centroid restriction and two
 distinct parameter regimes are given in <a
-href="https://wcook04.github.io/plectis/papers/erdos1041-lemniscate-reasoning-surface.pdf#blaschke-product-examples">the
+href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#blaschke-product-examples">the
 Blaschke-product subsection of the companion</a>, after the compactness
 functional is defined. Neither a failed sufficient condition nor a
 fixed-degree certificate settles an asymptotic path estimate.</p>
@@ -2250,6 +2257,19 @@ logarithmic capacities of continua</em>, Mat. Zametki
 <strong>80</strong> (2006), no. 1, 33–37; English translation, Math.
 Notes <strong>80</strong> (2006), no. 1, 31–35, doi:<a
 href="https://doi.org/10.1007/s11006-006-0105-8">10.1007/s11006-006-0105-8</a>.</p></li>
+</ol>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Lean checks this instance in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f70679d47178bf1174309cb29f5b31748609cc04/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean#L25"><code>erdos1041_ani_degree_seven</code></a>.
+The formal result concerns one polynomial; it does not formalise the
+reported small-parameter family or a Hausdorff-measure comparison, and
+its correspondence with the historical formulation has not received
+independent human review.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </div>

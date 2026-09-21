@@ -9,8 +9,8 @@ its argument and the question that remains. Use the longer record when you
 want to recover a detailed step, inspect a computation, or follow an approach
 that stopped. You do not need Lean or a coding agent to read either.
 
-All eight problems remain open. The papers report partial results, failed or
-equivalent routes, finite evidence, and the exact obligations that survive.
+The degree-seven example refutes the total-variation formulation of Erdős #1041. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The papers report partial results, failed or equivalent routes,
+finite evidence, and the exact obligations that survive.
 If the problem numbers or formalisation are unfamiliar, read
 [a reader's way in](../docs/READING_GUIDE.md) first. For the design of the tools
 and the research process, go to the [project papers](#project-papers).

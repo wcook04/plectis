@@ -27,9 +27,9 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 26,
-    "renderer_fingerprint": "497e10530f97a71a",
-    "source_sha256": "28195f1a03eaab8ccaf598277ae2ee3deb7a38685a908dd0b851f7f82d92caf3",
+    "renderer_contract_version": 28,
+    "renderer_fingerprint": "1afa7218572522ac",
+    "source_sha256": "d2d0c98ce42f08ffa032f04ef17a62e345c5ca8dcb3b6254cc449834c65126d8",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 1848,
@@ -45,8 +45,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "5ad168bc412d3987c57c901d834142ee5706621235adbe38f406e8edf3cfbf8b",
-    "html_exact_tex_sha256": "c732a9007829819f9b0e6fe50d2ef797267bcc4311deac8888601eb44783c30d"
+    "html_mathml_sha256": "1488e4cabcbeba0a480b3d6971874e0efa15fdda6fd0a6c26babaece24728df5",
+    "html_exact_tex_sha256": "531850233aec4145ddb1d3f7f2c68bcdacfdc1fe26fbcf923a3ef0ffc3bbbd61"
   },
   "sections": [
     {
@@ -183,6 +183,16 @@
       "level": 2,
       "anchor": "long68:app:sources",
       "label": "Guide to the formal sources"
+    },
+    {
+      "level": 3,
+      "anchor": "long68:sec:coverage",
+      "label": "Formalisation coverage and remaining dependencies"
+    },
+    {
+      "level": 5,
+      "anchor": "concordance-of-statements-and-lean-declarations.",
+      "label": "Concordance of statements and Lean declarations."
     },
     {
       "level": 2,

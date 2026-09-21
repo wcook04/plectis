@@ -133,6 +133,21 @@ body:has(.maths-layout) .glossary-hint--inline-ready {
   max-width: var(--measure-note);
   margin: 0 0 var(--space-3);
 }
+.maths-hero__starts {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-4);
+  max-width: var(--measure-note);
+  display: grid;
+  gap: var(--space-2);
+}
+.maths-hero__starts li {
+  color: var(--ink-soft);
+  line-height: var(--lh-body);
+}
+.maths-hero__starts strong {
+  color: var(--ink);
+}
 .maths-hero__boundary {
   color: var(--muted);
   max-width: var(--measure-note);

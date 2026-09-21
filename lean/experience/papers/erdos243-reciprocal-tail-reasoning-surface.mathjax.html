@@ -1281,21 +1281,23 @@ proof of Erdős #243.</p>
 </section>
 <section id="results-and-proof-status." class="level5">
 <h5>Results and proof status.</h5>
-<p>The cubic-rate theorem (Theorem <a class="math-ref" href="#long243:res:cubicrate">2.1</a>) is an
-ordinary irrationality proof with formalised components. The
-bounded-negative theorem (Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a>) and the scalar
+<p>The cubic-rate theorem (Theorem <a class="math-ref" href="#long243:res:cubicrate">2.1</a>) and the
+three results its proof passes through are checked in the development,
+with the input of Lemma <a class="math-ref" href="#long243:res:squarespec">2.6</a> as their
+only assumption; Section <a class="math-ref" href="#long243:sec:coverage">A</a> states that
+assumption in full. The bounded-negative theorem (Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a>) and the scalar
 summability theorem (Theorem <a class="math-ref" href="#long243:res:mass">13.1</a>) have checked
-declarations. The checked theorems using a product or a least common
-multiple include the estimates for rational tails. The complete
-weighted-record statement has a proof source in the separate release;
-that source is not part of the main-repository build documented here.
-For the further record criteria, each evidence paragraph identifies the
-ordinary argument and the checked lemma it uses. In particular,
-Lemma <a class="math-ref" href="#long243:res:oddpowersupply">7.7</a> below
-proves the existence of large odd prime powers on the page; its written
-proof is not included in the inherited Lean receipt. The static-model
-conclusions in Section <a class="math-ref" href="#long243:sec:open">14</a> are likewise
-ordinary results.</p>
+declarations. The checked theorems include the estimates for rational
+tails, proved from a product bound and from the least common multiple of
+the denominators. The complete weighted-record statement (Theorem <a class="math-ref" href="#long243:res:weightedrecord">6.2</a>) is
+kernel-checked in the main development, alongside its earlier proof
+source in the separate release. For the further record criteria, each
+evidence paragraph identifies the ordinary argument and the checked
+lemma it uses. In particular, Lemma <a class="math-ref" href="#long243:res:oddpowersupply">7.7</a> below
+proves that the reduced denominator supplies arbitrarily large odd prime
+powers, and that proof is kernel-checked in the main development. The
+static-model conclusions in Section <a class="math-ref" href="#long243:sec:open">14</a> are proved by
+ordinary arguments and are checked in the development as well.</p>
 <p>The additional bound or convergence assumption is not derived from
 the problem’s hypotheses. An equivalence between convergence and the
 desired recurrence does not prove either of them. In the stable-gcd case
@@ -5084,6 +5086,260 @@ bounded-negative statement lists strict centring and vanishing relative
 error separately; the latter implies the former eventually by taking
 <span class="math inline" data-term-auto="off">\(K=1\)</span>. Sections <a class="math-ref" href="#long243:sec:priorwork">3</a> and <a class="math-ref" href="#long243:sec:bounded">12</a> give the
 construction from a rational reciprocal sum.</p>
+<section id="long243:sec:coverage" class="level3 unnumbered">
+<h3 class="unnumbered">Formalisation coverage and remaining
+dependencies</h3>
+<p>Every theorem, lemma, proposition and corollary of this record other
+than the four listed below has a Lean statement of the same assertion,
+with the same hypotheses, checked by the Lean kernel using only the
+axioms <code>propext</code>, <code>Classical.choice</code> and
+<code>Quot.sound</code>, in the development at revision
+<code>181078b6b009</code>.</p>
+<p>The exceptions are one chain of results with one shared input. The
+development verifies the reduction of Lemma <a class="math-ref" href="#long243:res:squarespec">2.6</a>,
+Proposition <a class="math-ref" href="#long243:res:transportsquare">2.7</a>,
+Theorem <a class="math-ref" href="#long243:res:cubicexclusion">2.2</a> and
+Theorem <a class="math-ref" href="#long243:res:cubicrate">2.1</a>
+to the following input: for a finite Galois extension of <span
+class="math inline" data-term-auto="off">\(\Q\)</span>, a prescribed element <span
+class="math inline" data-term-auto="off">\(\sigma\)</span> of its Galois group and a nonzero
+algebraic integer of the extension, there are arbitrarily large rational
+primes at which <span class="math inline" data-term-auto="off">\(\sigma\)</span> is a
+Frobenius element and at which that integer has nonzero reduction. The
+first clause is the Chebotarev density theorem in the form cited in the
+proof of Lemma <a class="math-ref" href="#long243:res:squarespec">2.6</a> <span
+class="citation" data-cites="stevenhagenlenstra1996"></span>; the second
+is the elementary fact that a nonzero algebraic integer is divisible by
+only finitely many rational primes. A formal proof of that input is not
+included in the verified development; these four endpoints therefore
+remain conditional on it. Everything the chain adds to it is checked:
+the square forced modulo a prime dividing a middle numerator, the
+passage from that congruence to a square in the cubic field, the
+exclusion of the proposed cubic orbit, and the irrationality
+conclusion.</p>
+<p>A theorem whose own statement is conditional is formalised exactly as
+stated, with its hypothesis intact. The four results above are asserted
+unconditionally in this record, and their Lean counterparts carry the
+additional named input described here.</p>
+<section id="concordance-of-statements-and-lean-declarations."
+class="level5">
+<h5>Concordance of statements and Lean declarations.</h5>
+<p>Each result of this record that has a kernel-checked Lean statement
+of the same assertion is listed below with the declarations that jointly
+state it. Each name links to its declaration at revision
+<code>181078b6b009</code>. Where the Lean statement is stronger than the
+printed one and implies it by an immediate specialisation, the entry
+says so.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:periodicobstruction">2.3</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/DensityTransport.lean#L156"><code>fixed_offsets_periodic_lowerDensity</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:gcdshape">2.4</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/CubicProfileGcdShape.lean#L103"><code>cubic_profile_gcd_stabilisation_and_primitive_shape</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:reduciblecase">2.5</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/PrimitiveMultiplierSupply.lean#L244"><code>primitive_zero_density_paper_multiplier_lemma</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:scaletwelve">2.8</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR20/ScaleTwelve.lean#L36"><code>scale_twelve_of_square_in_rootField</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:modseven">2.9</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR20/TwoForbiddenWords.lean#L18"><code>plus_one_forbidden_word</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR20/TwoForbiddenWords.lean#L38"><code>minus_one_forbidden_word</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:extraction">2.10</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/RegularRateExtraction.lean#L874"><code>regular_rate_extraction</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/RegularRateExtraction.lean#L1151"><code>regular_rate_extraction_cubic</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:tailratio">2.11</a> (the Lean
+statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/QuantitativeTail.lean#L204"><code>canonical_tail_ratio_quantitative</code></a>.</p>
+<p> Proposition <a class="math-ref" href="#long243:res:update">4.1</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L57"><code>nextTailState_eq_sub_centered</code></a>.</p>
+<p> Proposition <a class="math-ref" href="#long243:res:scale">4.3</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L31"><code>state_scale</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:defect">5.1</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1775"><code>sylvesterDefect_mul_nextTailState</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:step">5.3</a>:
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1787"><code>sylvesterNext_eq_of_centered_zero</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:secondorder">5.4</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Arithmetic.lean#L42"><code>reduced_second_order_int</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:curvature">5.5</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/DynamicCancellation.lean#L309"><code>cancellationFree_curvature_square</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:oldmodulussaturation">5.6</a>:
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean#L39"><code>unit_word_saturates_old_modulus</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:eventual">5.7</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1805"><code>sylvesterNext_eventually_of_centered_zero</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:absorb">5.8</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2227"><code>centeredState_zero_absorbing</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:arithmeticrecord">6.1</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/ArithmeticWeightedRecord.lean#L264"><code>arithmetic_weighted_record_dichotomy</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:weightedrecord">6.2</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/CanonicalRecords.lean#L202"><code>canonical_weighted_record_excess</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:valuationtransition">7.1</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean#L244"><code>reduced_denominator_valuation_transition</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean#L262"><code>reduced_denominator_valuation_le_max</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedStepLocalArithmetic.lean#L279"><code>reduced_denominator_valuation_strict_loss</code></a>.</p>
+<p> Corollary <a class="math-ref" href="#long243:res:powerpersistence">7.2</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR20/PowerPersistence.lean#L27"><code>primePower_persists</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:recorddichotomy">7.3</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean#L340"><code>canonical_quantitative_record_dichotomy</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean#L308"><code>canonical_recordTheta_zero_or_gt_one</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean#L321"><code>canonical_recordTheta_eq_zero_iff</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L54"><code>canonical_recordTheta_gt_one</code></a>.</p>
+<p> Corollary <a class="math-ref" href="#long243:res:loglogboundary">7.4</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L129"><code>canonical_inclusive_logLog_criterion</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L108"><code>canonical_negativeError_limsup_gt_one</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:recordamplified">7.5</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L975"><code>recordAmplified</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L931"><code>amp_bddAbove_iff_sylvester</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L948"><code>Rdelta_bddAbove_iff_amp</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L587"><code>eventuallySylvester_of_amp_le</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L187"><code>coprimeMultiplier_cofinal</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L295"><code>largePrime_coprimeMultiplier</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L546"><code>primeBlock_supply</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L462"><code>canc_lt_of_amp_le</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L738"><code>delta_negPart_comparison</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L870"><code>R_delta_sub_amp_tendsto_zero</code></a>.</p>
+<p> Corollary <a class="math-ref" href="#long243:res:criticalrate">7.6</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L1033"><code>criticalRate</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L1197"><code>criticalRate_counterexample</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/AmplifiedRecordEquivalence.lean#L1016"><code>R_le_of_u_le</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:oddpowersupply">7.7</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean#L790"><code>oddPrimePower_supply</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean#L718"><code>oddPrimePower_supply_nat</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:unitrecord">7.8</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean#L846"><code>unitRecordIncrement_sylvesterNext</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ReducedDenominatorPrimePowers.lean#L950"><code>unitRecordIncrement_criterion</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:epochenergy">7.9</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ProtectedEpochBarrierCount.lean#L149"><code>epoch_energy_named_crossing_set</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ProtectedEpochBarrierCount.lean#L34"><code>mem_barrierIdx_iff</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:energycriterion">7.10</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean#L468"><code>energy_criterion</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean#L414"><code>energy_summable_iff</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean#L455"><code>energySqrt_summable_iff</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean#L161"><code>energy_le_two_energySqrt</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean#L263"><code>exists_late_energy_window</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/RecordJumpEnergySeries.lean#L84"><code>energy_window_real_bound</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:slownegative">7.11</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L559"><code>slowNegative_eventually_zero_and_sylvesterNext_unconditional</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L363"><code>exactOrbit_recordTheta_gt_one</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L522"><code>exactOrbit_one_le_recordTheta</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L288"><code>exactOrbit_unbounded_of_error_not_eventually_zero</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L145"><code>tail_multiplier_quadratic_lower</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L254"><code>tail_binaryTower_lower</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L218"><code>exists_multiplier_ge_four</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:strausbounded">7.12</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/ProductDefect.lean#L211"><code>original_coordinate_bounded_defect</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/SlowGrowthProductIncrements.lean#L155"><code>original_coordinate_slow_growth_defect</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/SlowGrowthProductIncrements.lean#L61"><code>recordTheta_le_of_slow_negative</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/SlowGrowthProductIncrements.lean#L111"><code>prefix_ratio_le_canonicalNumerator</code></a>.</p>
+<p> Corollary <a class="math-ref" href="#long243:res:onethreshold">7.13</a> (the Lean
+statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ProductDefectThresholds.lean#L92"><code>original_coordinate_strict_one</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean#L207"><code>original_coordinate_inclusive_one</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR20/InclusiveOne.lean#L225"><code>original_coordinate_inclusive_one_pointwise</code></a>.</p>
+<p> Proposition <a class="math-ref" href="#long243:res:classicalhalfspace">7.14</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L206"><code>overlapDebt_dvd_gcd</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L225"><code>canonicalError_div_overlapDebt</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L325"><code>growthDefect_eq_neg_relativeError_add_shiftedCorrection</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L415"><code>canonical_growthDefect_identity</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L459"><code>canonicalCorrection_pos_and_lt_three_div</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L380"><code>shiftedCorrectionTerm_pos_and_lt_three_div</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L527"><code>erdosStraus_lcm_includes_digit_not_denominator</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L543"><code>erdosStrausQuantity_ne_productDefect_ne_lcmShift</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L573"><code>erdosStrausQuantity_sign</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L351"><code>sylvesterTail_shiftedCorrection</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L135"><code>overlapDebt_mul_lcmClearedNumerator</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ClassicalHalfspaceSigns.lean#L82"><code>digitProductScale_eq_canonicalDenominator</code></a>.</p>
+<p> Proposition <a class="math-ref" href="#long243:res:coprimalitycap">7.15</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/WindowAvoidance.lean#L201"><code>exists_avoiding_in_window</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/WindowAvoidance.lean#L423"><code>exists_slow_rise_avoiding_sequence</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:descent">8.1</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L1843"><code>centeredState_eventually_zero</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:constant">9.2</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/NegativeMagnitudeExclusions.lean#L38"><code>no_constantNegative_shapeEquation</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/NegativeMagnitudeExclusions.lean#L52"><code>no_eventuallyConstantNegative_shapeEquation</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:periodic">10.1</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/NegativeMagnitudeExclusions.lean#L68"><code>no_periodicNegative_shapeEquation</code></a>.</p>
+<p> Lemma <a class="math-ref" href="#long243:res:crt">11.1</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ForbiddenBlockCrossing.lean#L26"><code>exists_shiftedBlock_consecutiveMultiples</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:barrier">11.3</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ForbiddenBlockCrossing.lean#L44"><code>no_boundedRise_coprimeToEarlierModuli</code></a>.</p>
+<p> Proposition <a class="math-ref" href="#long243:res:reduced">11.4</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean#L16"><code>persistent_coprimality</code></a>.</p>
+<p> Proposition <a class="math-ref" href="#long243:res:gcdstab">11.6</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Reduction.lean#L103"><code>gcd_stabilises_and_reduces</code></a>.</p>
+<p> Proposition <a class="math-ref" href="#long243:res:gcdsparse">11.7</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Limits.lean#L97"><code>sparse_gcd_changes</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:bounded">12.1</a> (the Lean
+statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2360"><code>eventuallyBoundedNegativePart_eventually_zero</code></a>.</p>
+<p> Corollary <a class="math-ref" href="#long243:res:cor">12.2</a>
+(the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L2412"><code>boundedNegativePart_sylvesterNext_eventually</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:mass">13.1</a>:
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L84"><code>finite_negative_mass_paper</code></a>.</p>
+<p> Proposition <a class="math-ref" href="#long243:res:frontier">14.1</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR7/Frontier.lean#L151"><code>canonical_frontier</code></a>.</p>
+<p> Proposition <a class="math-ref" href="#long243:res:variablerise">14.6</a> (the Lean
+statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/WindowAvoidance.lean#L862"><code>exists_sparse_prime_coprime_sequence</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:gapconstant">14.7</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/MaximalGapConstant.lean#L1041"><code>maximal_gap_limsup_eq_inv_sigma</code></a>.</p>
+<p> Theorem <a class="math-ref" href="#long243:res:residue">B.1</a>: <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/PaperCompleteR21/ForcedOrbitResidueHorizon.lean#L21"><code>forcedOrbit_survives_iff_of_factorial_modEq</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos243/FiniteHorizonResidue.lean#L134"><code>forcedSurvives_iff_of_modEq_factorial</code></a>.</p>
+</section>
+</section>
 </section>
 <section id="long243:app:residue" class="level2">
 <h2>A factorial residue reduction for forced orbits</h2>

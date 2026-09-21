@@ -1741,7 +1741,7 @@ The stronger bound
 from Corollary  removes the extra height term at each integer base.
 Within this family the rational-base threshold is therefore the
 reciprocal of the proved integer-base irrationality-exponent bound.
-Lemma  is an ordinary proof and is not kernel-checked.</p>
+Lemma  is kernel-checked in the Lean development.</p>
 </section>
 <section id="examples-of-rational-bases." class="level5">
 <h5>Examples of rational bases.</h5>
@@ -3036,8 +3036,14 @@ that every division has zero remainder, then substitutes
 and tests every coefficient. All
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>8824</mn><annotation encoding="application/x-tex">8824</annotation></semantics></math>
 coefficients in the sixteen polynomials are strictly positive. The full
-lists are in , and reproduces them. As a separate check of the
-normalisation, direct integer determinants at
+lists are in , computed by . An independent program, , evaluates each
+stored polynomial at more integer bases than its degree and compares the
+values with fraction-free determinants of the integer Hankel matrices,
+which identifies the stored list with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>N</mi><mo>,</mo><mi>h</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D_{N,h}(1+t)</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><mi>t</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbb{Z}[t]</annotation></semantics></math>.
+As a separate check of the normalisation, direct integer determinants at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">p=1,2,3,5,11</annotation></semantics></math>
 agree with evaluations of all sixteen polynomials. Those evaluations are
 checks, not the proof of polynomial positivity. This is a finite
@@ -6373,6 +6379,179 @@ of the results here.</p>
 </section>
 <section id="long1049:app:index" class="level2">
 <h2>Guide to the formal sources</h2>
+<section id="long1049:sec:coverage" class="level3 unnumbered">
+<h3 class="unnumbered">Formalisation coverage and remaining
+dependencies</h3>
+<p>Every theorem, lemma, proposition and corollary of this record other
+than the two listed below has a Lean statement of the same assertion,
+with the same hypotheses, checked by the Lean kernel using only the
+axioms <code>propext</code>, <code>Classical.choice</code> and
+<code>Quot.sound</code>, in the development at revision
+<code>181078b6b009</code>.</p>
+<p>The development verifies the reduction of Proposition  to the theorem
+of Adamczewski and Bell that a Laurent series over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>
+which is both
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-Mahler
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math>-Mahler
+for multiplicatively independent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>,</mo><mi>l</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k,l\ge2</annotation></semantics></math>
+is a rational function <span class="citation"
+data-cites="adamczewskibell2013"><a href="#ref-15">[15]</a></span>. A formal proof of that input
+is not included in the verified development, so this endpoint remains
+conditional on it. The rest of the proof is checked: the passage from a
+finite-dimensional stable space to a Mahler equation with nonvanishing
+unshifted coefficient, the persistence of that property under
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><msup><mi>z</mi><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">z\mapsto z^m</annotation></semantics></math>,
+and the functional nonrationality of the divisor generating series.</p>
+<p>Proposition  has no Lean statement of its own. The coefficient
+positivity of the eight unshifted determinants
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mrow><mi>k</mi><mo>,</mo><mn>0</mn></mrow></msub><annotation encoding="application/x-tex">D_{k,0}</annotation></semantics></math>
+is established by an exact integer computation with an independent
+checker in the repository’s computations directory, and that computation
+is not checked by the Lean kernel. Two further steps of its proof are
+also unformalised: the passage through the eigenvalues of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>A</mi><mi>N</mi><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msubsup><msub><mi>B</mi><mi>N</mi></msub><msubsup><mi>A</mi><mi>N</mi><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msubsup></mrow><annotation encoding="application/x-tex">A_N^{-1/2}B_NA_N^{-1/2}</annotation></semantics></math>,
+which gives the reality of the pencil roots and their position below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(p)</annotation></semantics></math>,
+and the interlacing of those roots. The algebra and inertia lemmas
+supporting the proposition are checked: the diagonal congruence between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>
+and the coefficient Hankel matrix, the symmetry of both matrices, the
+passage from a positive determinant certificate to positive
+definiteness, and the interlacing of the signature on nested coordinate
+subspaces.</p>
+<p>A theorem whose own statement is conditional is formalised exactly as
+stated. Proposition  is asserted unconditionally here and its Lean
+counterpart carries a named input. Proposition  is asserted
+unconditionally here and has no formal counterpart.</p>
+<section id="concordance-of-statements-and-lean-declarations."
+class="level5">
+<h5>Concordance of statements and Lean declarations.</h5>
+<p>Each result of this record that has a kernel-checked Lean statement
+of the same assertion is listed below with the declarations that jointly
+state it. Each name links to its declaration at revision
+<code>181078b6b009</code>. Where the Lean statement is stronger than the
+printed one and implies it by an immediate specialisation, the entry
+says so.</p>
+<p> Lemma : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean#L1297"><code>omega_indicator</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L418"><code>printed_contour</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L487"><code>contour_enclosure</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L334"><code>zudilinJ_enclosure</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L383"><code>zudilinC0_enclosure</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L96"><code>zudilin_rpow_lt_iff_contourRegion</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L109"><code>rational_base_threshold</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L116"><code>rational_base_threshold_log</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean#L118"><code>printed_log_ratio</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean#L195"><code>printed_bv_cutoff</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean#L218"><code>printed_bvMu</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean#L308"><code>printed_four_rpow_bvMu</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean#L212"><code>paperBvMu_eq</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L625"><code>printed_four_rpow_mu</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L658"><code>four_rpow_mu_lt_thirtyOne</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L125"><code>thirtyoneFour_irrational</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L129"><code>thirtyoneFour_pow_irrational</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L134"><code>thirtyoneFour_ratio_chain</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L153"><code>inv_bvMu_eq</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L169"><code>thirtyoneFour_between_rpow</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L182"><code>thirtyoneFour_outside_bv_inside_contour</code></a>.</p>
+<p> Corollary : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L194"><code>rational_base_measure_uniform</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L205"><code>thirtyoneFour_power_measure_lt_301</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L167"><code>rational_base_power_measure</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L176"><code>thirtyone_four_power_measure_lt_301</code></a>.</p>
+<p> Theorem  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperLongCapR9.lean#L411"><code>long_record_archcap</code></a>.</p>
+<p> Corollary  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperNoDecayR9.lean#L69"><code>cleared_below_square_not_tendsto_zero</code></a>.</p>
+<p> Lemma : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SourceCoefficientHeights.lean#L49"><code>exists_quadratic_source_height_bound</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SourceCoefficientHeights.lean#L40"><code>maxPairHeight_source_eq</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L24"><code>power_bracket</code></a>.</p>
+<p> Corollary : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L34"><code>height_and_hankel_deficits</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L44"><code>charge_ceilings</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173"><code>order_zudilinNormalizedHankelDet_all</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199"><code>coeff_zudilinNormalizedHankelDet_all_rat</code></a>.</p>
+<p> Lemma : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L213"><code>all_row_initial</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L242"><code>all_row_initial_reciprocal</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L255"><code>all_row_initial_dvd</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L116"><code>paperE_eq_rowExponent</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L165"><code>paperReciprocal_zero</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L171"><code>paperReciprocal_rec</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L73"><code>paperRatio_agree</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L59"><code>integer_scalar_content</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L74"><code>endpoint_residues</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L398"><code>commonMultiplier_not_two_not_three_of_endpoint_units</code></a>.</p>
+<p> Corollary : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L220"><code>endpoint_scalar_content_exclusion</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L302"><code>cyclotomicHomEval_isCoprime_mul</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L248"><code>fourJet_paper_statement</code></a>.</p>
+<p> Corollary : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L149"><code>rank_fortyone</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L1832"><code>exists_ne_map_eq_map_ne_of_card_mul_lt</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L269"><code>plucker_paper_statement</code></a>.</p>
+<p> Theorem  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L177"><code>scalar_margin</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L121"><code>coordinatewiseCorridor_implies_pow_lt_linear</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L142"><code>three_mul_lt_two_pow_succ</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155"><code>threeHalves_no_coordinatewiseCorridor</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187"><code>rationalBaseClearedTailQ_succ</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L186"><code>forcing_term</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83"><code>sevenHalves_archimedean_height_condition</code></a>.</p>
+<p> Proposition : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L201"><code>pade_summand_bound_and_gap</code></a>.</p>
+</section>
 <section id="the-lambert-identity-and-the-integer-case." class="level5">
 <h5>The Lambert identity and the integer case.</h5>
 <p>The cited file contains unproved declarations for the conjecture and
@@ -6435,6 +6614,7 @@ ordinary generalisation is not silently included in the scope of the
 checked unit-coordinate statements. Neither version establishes the
 required hypotheses for an actual all-tail approximation family, or
 proves nonzero analytic remainder for a selector difference.</p>
+</section>
 </section>
 </section>
 <section id="sec:erdos-1049-complete-family-map" class="level2">

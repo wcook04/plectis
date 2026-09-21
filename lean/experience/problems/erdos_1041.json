@@ -4,9 +4,10 @@
   "erdos_number": 1041,
   "title": "Short connections inside polynomial lemniscates",
   "status": "open",
-  "question": "For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate?",
-  "authority_posture": "not_registered; the claim registry does not carry these declarations and kernel checking them does not promote them into reviewed public claims",
+  "question": "For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate? The registry has not adjudicated whether the checked total-variation formulation exactly matches this historical curve-length question.",
+  "authority_posture": "registered_declarations",
   "what_is_checked": [
+    "An explicit monic degree-seven polynomial with distinct roots in the open unit disc has the property that every continuous path in its strict unit lemniscate joining distinct roots has extended total variation greater than two. This refutes the universal total-variation formulation.",
     "Along a trajectory tangent to the complex Newton vector field -f/f', the polynomial value satisfies w' = -w.",
     "The exponentially rescaled polynomial value is a first integral, so the value of a Newton trajectory remains on one oriented ray.",
     "A finite Newton-flow connection can only join endpoints whose polynomial values lie on the same positive ray; distinct critical-value arguments therefore exclude such a connection.",
@@ -15,36 +16,51 @@
     "An explicit root-retention estimate keeps roots of a sufficiently small constant perturbation inside the unit disc."
   ],
   "what_is_not_checked": [
-    "Erdos Problem 1041 in unrestricted degree.",
+    "A Hausdorff-measure comparison between the historical curve-length formulation and the checked extended-total-variation formulation.",
+    "Independent human review adjudicating whether the checked total-variation formulation exactly represents the historical question.",
     "The spanning-tree decomposition claimed in the March 2026 manuscript; its printed Proposition 12 proof uses an invalid three-ended local saddle block, and a Cassini example refutes the printed global tree budget.",
     "A repair of Proposition 12 that retains the printed 1/(2π) spanning-tree coefficient; any later argument must change the metric inequality.",
     "A perturbation theorem that first makes critical values injective while preserving the relevant lemniscate component, collars, and strict length slack.",
-    "The global planar decomposition and metric gluing needed to obtain a curve of length less than two."
+    "A corrected restricted-family or alternative-metric gluing theorem; universal sub-two total-variation gluing is ruled out by the degree-seven counterexample."
   ],
   "open_obligations": [
+    {
+      "id": "historical_curve_length_correspondence",
+      "statement": "Determine the precise correspondence between the historical curve-length question and the refuted total-variation formulation, including any required Hausdorff-measure comparison and independent human review."
+    },
     {
       "id": "repair_or_refute_saddle_block",
       "statement": "The printed 1/(2π) spanning-tree estimate of Proposition 12 is false. Any later argument must pay a positive attachment cost, select only one short pair, or use a different global metric inequality."
     },
     {
       "id": "compact_ray_cut_strip_decomposition",
-      "statement": "Build a compact strip or cell decomposition after cutting along critical-value rays, without presupposing the unproved local valence count."
+      "statement": "Construct and verify a compact ray-cut strip or cell decomposition under explicit local-valence hypotheses, as auxiliary structure for restricted families or a correspondence-adjusted historical formulation. It does not imply a universal sub-two total-variation connector."
     },
     {
-      "id": "metric_gluing_below_two",
-      "statement": "Glue the local pieces with strict quantitative slack while preserving the sharp one-over-two-pi length bookkeeping."
+      "id": "corrected_metric_gluing_for_restricted_families",
+      "statement": "The degree-seven counterexample rules out universal total-variation gluing below two. For a stated restricted family or different historical length notion, derive a metric gluing inequality with all positive attachment costs explicit; the false printed 1/(2π) coefficient may not be retained."
     },
     {
       "id": "two_stage_stable_perturbation",
-      "statement": "First separate critical values, then apply the checked small translation, while retaining roots, the selected component, collars, ray separation, and a strict length margin."
+      "statement": "Given a polynomial/component and an already selected connector with explicit strict slack, quantify a two-stage perturbation preserving roots, that component, collars, ray separation, and the stated slack. No universal existence or sub-two conclusion is asserted."
     },
     {
       "id": "relative_global_newton_flow_theorem",
-      "statement": "Prove the global relative Newton-flow theorem that turns the checked ray separation into the required root-to-root curve inside the original open lemniscate."
+      "statement": "Under explicit relative component, saddle, and corrected metric hypotheses, derive the corresponding root-to-root Newton-flow connector. The theorem must state its restricted hypotheses and cannot imply a sub-two total-variation connector for every polynomial."
     }
   ],
-  "finite_search": "A raster search samples named failure modes through degree ten and returns candidate upper bounds only. It is finite numerical evidence, not a topology proof or a counterexample certificate.",
+  "finite_search": "A raster search samples named failure modes through degree ten and returns candidate upper bounds only. It is finite numerical evidence and is separate from the exact degree-seven total-variation counterexample checked in Lean.",
   "modules": [
+    {
+      "module": "ErdosProblems.Erdos1041.Counterexample.CatalogueAdapter",
+      "path": "lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean",
+      "present": true,
+      "line_count": 90,
+      "declaration_count": 2,
+      "theorem_count": 2,
+      "content_digest": "sha256:1f807ef3e453c12f382d4ce7a4f422397e1e2dee33ba87d68323273a1860a600",
+      "github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean"
+    },
     {
       "module": "ErdosProblems.Erdos1041.NewtonFlowRaySeparation",
       "path": "lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean",
@@ -149,7 +165,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "565c1568a67c3f4f49f41ab7751be383daf74d7139e9381a94a10eb6896fe469",
+    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -170,10 +186,10 @@
     "subject_kind": "problem",
     "form": "Problem note",
     "pages": 30,
-    "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and why is the unrestricted length-2 assertion still open?",
+    "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and which hypotheses do they require?",
     "precis": "For a monic trinomial f(z)=z^n+a z^m+b, 1≤m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.",
     "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
-    "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
+    "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041 and the correspondence between its historical curve-length formulation and the checked total-variation formulation; those distinctions belong to docs/claims.json in the mathematics repository",
     "problem_id": "erdos_1041",
     "routes": {
       "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
@@ -191,19 +207,19 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 26,
-      "renderer_fingerprint": "497e10530f97a71a",
-      "source_sha256": "c945263aa1fae707f2713ad337567146a3b15f0b2f8a32cf348f9df662ae3ed7",
+      "renderer_contract_version": 28,
+      "renderer_fingerprint": "1afa7218572522ac",
+      "source_sha256": "da8c08c91e45d7b8a71a9b82c019349837744f13cff97fa1dbdfc6cb4a010a8b",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 785,
+      "mathml_node_count": 787,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "4c552cdc64ad7829be682ea0af3f34de5b89c6908331b3e8f694843c96f3233d",
-      "html_exact_tex_sha256": "6a3e1d52f0c71c7de8b01a625a9518b2ea40a3b3c8931d929534d1f8d9ca3efa"
+      "html_mathml_sha256": "a977be339ab627373e8444e3c92b46a7e852544b20f791488224a35b9825a5e1",
+      "html_exact_tex_sha256": "baed6d1e2f14dab03a3746d3da997d826dacb61c926cee01d13c0cfe14dc2960"
     },
     "sections": [
       {
@@ -444,10 +460,10 @@
       "subject_kind": "problem",
       "form": "Problem note",
       "pages": 30,
-      "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and why is the unrestricted length-2 assertion still open?",
+      "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and which hypotheses do they require?",
       "precis": "For a monic trinomial f(z)=z^n+a z^m+b, 1≤m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.",
       "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
-      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041 and the correspondence between its historical curve-length formulation and the checked total-variation formulation; those distinctions belong to docs/claims.json in the mathematics repository",
       "problem_id": "erdos_1041",
       "routes": {
         "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
@@ -465,19 +481,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 26,
-        "renderer_fingerprint": "497e10530f97a71a",
-        "source_sha256": "c945263aa1fae707f2713ad337567146a3b15f0b2f8a32cf348f9df662ae3ed7",
+        "renderer_contract_version": 28,
+        "renderer_fingerprint": "1afa7218572522ac",
+        "source_sha256": "da8c08c91e45d7b8a71a9b82c019349837744f13cff97fa1dbdfc6cb4a010a8b",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 785,
+        "mathml_node_count": 787,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "4c552cdc64ad7829be682ea0af3f34de5b89c6908331b3e8f694843c96f3233d",
-        "html_exact_tex_sha256": "6a3e1d52f0c71c7de8b01a625a9518b2ea40a3b3c8931d929534d1f8d9ca3efa"
+        "html_mathml_sha256": "a977be339ab627373e8444e3c92b46a7e852544b20f791488224a35b9825a5e1",
+        "html_exact_tex_sha256": "baed6d1e2f14dab03a3746d3da997d826dacb61c926cee01d13c0cfe14dc2960"
       },
       "sections": [
         {
@@ -717,11 +733,11 @@
       "subject": "Erdős #1041",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 75,
+      "pages": 76,
       "question": "What path-length, critical-value, and coefficient-family results are proved for polynomial lemniscates, and what remains of the unrestricted length-2 problem?",
       "precis": "For a monic trinomial with roots in the open unit disc, any two distinct roots are joined inside {|f|<1} by a path of length less than 2. For any squarefree monic polynomial of degree n≥2, an area-growth argument gives such a path when the least critical-value modulus μ is at most 13/25; scaling gives length less than (5/2)μ^{1/n} inside {|f|<(25/13)μ}. The record develops this argument, an inverse-ray averaging estimate, and a construction using an isolated simple critical value, together with results for collinear roots and several coefficient families. A weighted Poisson identity gives a sharp mean bound on critical values; examples distinguish that bound from path-length control. The final sections examine inverse-sheet topology and refute an earlier spanning-tree estimate. These results do not prove the unrestricted length-2 assertion.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
-      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or a solution to Erdős #1041, which remains open",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041 and the correspondence between its historical curve-length formulation and the checked total-variation formulation; those distinctions belong to docs/claims.json in the mathematics repository",
       "problem_id": "erdos_1041",
       "routes": {
         "html_mathml": "papers/erdos1041-lemniscate-reasoning-surface.html",
@@ -739,12 +755,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 26,
-        "renderer_fingerprint": "497e10530f97a71a",
-        "source_sha256": "5e90870b787f7c1df74ca995e3c09a2909c09f53c57fea7d13cd7b92f1d07caf",
+        "renderer_contract_version": 28,
+        "renderer_fingerprint": "1afa7218572522ac",
+        "source_sha256": "5b045bb3e96dc9da3c440b95f6c27dc21ac6b6d576b3d308ffb817369158440f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2546,
+        "mathml_node_count": 2553,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -769,8 +785,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "da622e9dfe372c402b35cf396d9dfa8a5cf7397ab8a3350de445ce52d0f6440f",
-        "html_exact_tex_sha256": "e7863966e84a415adce6ad50495faf1d667b1133c3959243931bf594e011559d"
+        "html_mathml_sha256": "87659aaf364c33142d6e5c751e500673a3f7abcc5e47bc88ab5fe42b72b7f874",
+        "html_exact_tex_sha256": "dde1a4408cd2c0655b4ccd4b2d2b42d503636efbd7c0e023193f56cf902a7132"
       },
       "sections": [
         {
@@ -1094,6 +1110,16 @@
           "label": "Guide to the formal sources"
         },
         {
+          "level": 3,
+          "anchor": "sec:coverage",
+          "label": "Formalisation coverage and remaining dependencies"
+        },
+        {
+          "level": 5,
+          "anchor": "concordance-of-statements-and-lean-declarations.",
+          "label": "Concordance of statements and Lean declarations."
+        },
+        {
           "level": 2,
           "anchor": "sec:record-circle-slice",
           "label": "Numerical estimates for the packing inequality"
@@ -1154,6 +1180,15 @@
   },
   "source_map": {
     "nodes": [
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.AbelControlPolygon",
+        "label": "ErdosProblems.Erdos1041.AbelControlPolygon",
+        "path": "lean/ErdosProblems/Erdos1041/AbelControlPolygon.lean",
+        "direct": true,
+        "content_digest": "sha256:0065c3ca91ed0d0ab79ea3e313af245959e3078451db8d6a617dd51b9208f78d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/AbelControlPolygon.lean",
+        "role": "Lean proof module"
+      },
       {
         "id": "lean-module:ErdosProblems.Erdos1041.AttachmentAwareReeb",
         "label": "ErdosProblems.Erdos1041.AttachmentAwareReeb",
@@ -1260,6 +1295,123 @@
         "direct": true,
         "content_digest": "sha256:304415f2f44fd7492b4710c7e7f834ec7bb3d1013caf8b7d0b581d5b4710e99d",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/ConnectorR18/SupplierReduction.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.Algebra",
+        "label": "ErdosProblems.Erdos1041.Counterexample.Algebra",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/Algebra.lean",
+        "direct": true,
+        "content_digest": "sha256:6f076389c15da2d289c350e8605acb64207cc77338974b8d70ddcc23f7fc2677",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/Algebra.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.Assembly",
+        "label": "ErdosProblems.Erdos1041.Counterexample.Assembly",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/Assembly.lean",
+        "direct": true,
+        "content_digest": "sha256:c6174888a3c59acf20f827b01a42bbffce05112eb7c7a3f30350dc1af0fb8f19",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/Assembly.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierAlgebra",
+        "label": "ErdosProblems.Erdos1041.Counterexample.BarrierAlgebra",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/BarrierAlgebra.lean",
+        "direct": true,
+        "content_digest": "sha256:3c051a2863e4da7c2a05e587f2b137d012ad5418ab7418c8f63969455fb0dc25",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/BarrierAlgebra.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierCertificates",
+        "label": "ErdosProblems.Erdos1041.Counterexample.BarrierCertificates",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/BarrierCertificates.lean",
+        "direct": true,
+        "content_digest": "sha256:bc0fbc8361822111f0468267b47f9a40f7ba8e8c126e41873c6a62044864721b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/BarrierCertificates.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierGraphs",
+        "label": "ErdosProblems.Erdos1041.Counterexample.BarrierGraphs",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/BarrierGraphs.lean",
+        "direct": true,
+        "content_digest": "sha256:8e3ee82a10ea78f41efa8839a5eb76f6a2e515e88a68adfef85bae68fbf14f91",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/BarrierGraphs.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierSigns",
+        "label": "ErdosProblems.Erdos1041.Counterexample.BarrierSigns",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/BarrierSigns.lean",
+        "direct": true,
+        "content_digest": "sha256:48d3a0e9375b0f060e06c71122309c442ffa4ff1eb02b9405c0100b62581886c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/BarrierSigns.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.Bottleneck",
+        "label": "ErdosProblems.Erdos1041.Counterexample.Bottleneck",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/Bottleneck.lean",
+        "direct": true,
+        "content_digest": "sha256:034cc62cb3769d7c9ff2f1aea4d1917534437f7adec3bf5537500e6b3d80976a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/Bottleneck.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.CatalogueAdapter",
+        "label": "ErdosProblems.Erdos1041.Counterexample.CatalogueAdapter",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean",
+        "direct": true,
+        "content_digest": "sha256:1f807ef3e453c12f382d4ce7a4f422397e1e2dee33ba87d68323273a1860a600",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.Components",
+        "label": "ErdosProblems.Erdos1041.Counterexample.Components",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/Components.lean",
+        "direct": true,
+        "content_digest": "sha256:dc8b8477222840b31b7eb8d4d4ff79e6d909b4b538646e5327bb4ca0029f8d6f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/Components.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.Defs",
+        "label": "ErdosProblems.Erdos1041.Counterexample.Defs",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/Defs.lean",
+        "direct": true,
+        "content_digest": "sha256:90d69df047b9252c3a19d538f6adfd6734b25d090c131421cbbbb061f8cadf22",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/Defs.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceBarriers",
+        "label": "ErdosProblems.Erdos1041.Counterexample.InstanceBarriers",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/InstanceBarriers.lean",
+        "direct": true,
+        "content_digest": "sha256:4f977e49ba5559eafb5248c4d1c1af0b0f2a08c7d28baf6790f50b39e9cb294d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/InstanceBarriers.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceConnectivity",
+        "label": "ErdosProblems.Erdos1041.Counterexample.InstanceConnectivity",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/InstanceConnectivity.lean",
+        "direct": true,
+        "content_digest": "sha256:fe8b1208dbce3fea8aafadc08a007f6b93e3170edf5c5ff32f3fa366bf5bfd96",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/InstanceConnectivity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceCritical",
+        "label": "ErdosProblems.Erdos1041.Counterexample.InstanceCritical",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/InstanceCritical.lean",
+        "direct": true,
+        "content_digest": "sha256:af8ca59a63e9048e034fbe6b5f8ecb966bde054688d7e2e12a9e159b708c4cbd",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/InstanceCritical.lean",
         "role": "Lean proof module"
       },
       {
@@ -1416,12 +1568,219 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos1041.NewtonFlowTrajectory",
+        "label": "ErdosProblems.Erdos1041.NewtonFlowTrajectory",
+        "path": "lean/ErdosProblems/Erdos1041/NewtonFlowTrajectory.lean",
+        "direct": true,
+        "content_digest": "sha256:9705948c0f4ac975445a30b339c9b6e2f42a10441cf5ab3504de3a5692d27024",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowTrajectory.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos1041.PaperAnalyticTargets",
         "label": "ErdosProblems.Erdos1041.PaperAnalyticTargets",
         "path": "lean/ErdosProblems/Erdos1041/PaperAnalyticTargets.lean",
         "direct": true,
         "content_digest": "sha256:31d8b92295c6a688a2e6ce98e907605906842cb41b58363ad5619e38424a5591",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperAnalyticTargets.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.CriticalMeanWhole",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR20.CriticalMeanWhole",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR20/CriticalMeanWhole.lean",
+        "direct": true,
+        "content_digest": "sha256:53d9177711c568417331cea8c4c5a8ef2136304c26da693ba24d22e0b21363b3",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR20/CriticalMeanWhole.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.NewtonRealTime",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR20.NewtonRealTime",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR20/NewtonRealTime.lean",
+        "direct": true,
+        "content_digest": "sha256:b9891e222dea8e800194882ed9d3677f786e8df1dab492a46cac3c7096793b74",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR20/NewtonRealTime.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.SexticSpokeWhole",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR20.SexticSpokeWhole",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR20/SexticSpokeWhole.lean",
+        "direct": true,
+        "content_digest": "sha256:3e116cc64b20ac34b95a217f2949be433d05fac02d5127c94d9b12583ce77b88",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR20/SexticSpokeWhole.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.TwoNearestPolynomial",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR20.TwoNearestPolynomial",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR20/TwoNearestPolynomial.lean",
+        "direct": true,
+        "content_digest": "sha256:f54c0a967b3e4ae689622b73784f7b01f75f34e2a87a500d43ff7d6bab9fd934",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR20/TwoNearestPolynomial.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.TwoNearestWhole",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR20.TwoNearestWhole",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR20/TwoNearestWhole.lean",
+        "direct": true,
+        "content_digest": "sha256:6dd1d8ceef2befc30adcd1773f9d89fab9b6226a6fc879e36ed5172f134d0965",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR20/TwoNearestWhole.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.BinomialChords",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.BinomialChords",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/BinomialChords.lean",
+        "direct": true,
+        "content_digest": "sha256:cdd33137e94fccb436b442cb50fa953ed47de03d4062eab89adfb4bd2746674b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/BinomialChords.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.CollinearDiameterWhole",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.CollinearDiameterWhole",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean",
+        "direct": true,
+        "content_digest": "sha256:f4fb644187da79046882400ad0ae2d409448232afddb76ec31aa63771808409a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.ConstantFactorAreaCriteria",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.ConstantFactorAreaCriteria",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean",
+        "direct": true,
+        "content_digest": "sha256:6b5f554cfc1a273fb92e549794c4074882d9ea70809a26a72ea6c6cd8800186b",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ConstantFactorAreaCriteria.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.CriticalValueSeparationTransport",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.CriticalValueSeparationTransport",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean",
+        "direct": true,
+        "content_digest": "sha256:9ac45921ce328868e15b2ab45f04f93f92cad33d51cae458d4e875fa6b2ae1a5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CriticalValueSeparationTransport.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.DiskFamilySeparationThreshold",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.DiskFamilySeparationThreshold",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/DiskFamilySeparationThreshold.lean",
+        "direct": true,
+        "content_digest": "sha256:9cf38b1000078091f1f9f3fd7f2aa14323c4edabf6c90bc47eceb7a6777ca0f1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/DiskFamilySeparationThreshold.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.HyperbolicCirclePacking",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.HyperbolicCirclePacking",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicCirclePacking.lean",
+        "direct": true,
+        "content_digest": "sha256:d1902ff57cc96bf77403c8549d69d5c14411b9d18cca48e7db9f819c45ef62b0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicCirclePacking.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.HyperbolicLawOfCosines",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.HyperbolicLawOfCosines",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean",
+        "direct": true,
+        "content_digest": "sha256:4cc52a56f3e327c067fdc10a516ff43ec10fe387c921b17a58ea807e7795b874",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.InverseSheetRayKernels",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.InverseSheetRayKernels",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/InverseSheetRayKernels.lean",
+        "direct": true,
+        "content_digest": "sha256:45c7a240105ac7f96d5158e58075a6721ff05efd196dcee118cb738f4337042e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/InverseSheetRayKernels.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LobeAndArity",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.LobeAndArity",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean",
+        "direct": true,
+        "content_digest": "sha256:299dfa93c130d1db09a2dbb167b31667923e5d8b49c9d9aa88eb481ca45313a2",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LowCriticalScaleTransport",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.LowCriticalScaleTransport",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/LowCriticalScaleTransport.lean",
+        "direct": true,
+        "content_digest": "sha256:696248074e1ba817d52802d5894aca7a09f63e8743057f08a9e685d84c9a2d1a",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/LowCriticalScaleTransport.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.MergerScaleOrlicz",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.MergerScaleOrlicz",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/MergerScaleOrlicz.lean",
+        "direct": true,
+        "content_digest": "sha256:618dde649bf10f7d00fe8c525aac52ca04076cb4e189e9f87b2a108cefb0ec3c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/MergerScaleOrlicz.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.PrimitiveQuinticClosedDisc",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.PrimitiveQuinticClosedDisc",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean",
+        "direct": true,
+        "content_digest": "sha256:370c99411709d7d27516959c25f1065837a258a0034ab68c2777bcffa1ff64f5",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.SeparationParent",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.SeparationParent",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/SeparationParent.lean",
+        "direct": true,
+        "content_digest": "sha256:11fa0103e451b548d107cd03124cd83cb2c838245d2f6a180abfa7387db79b6c",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/SeparationParent.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.StoppingTimeCertificate",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.StoppingTimeCertificate",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/StoppingTimeCertificate.lean",
+        "direct": true,
+        "content_digest": "sha256:ea2318d09ac732efc39abcf3b7952a5f965ebb429e21b4abd76fd1f9442f74d1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/StoppingTimeCertificate.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.SubcriticalPerimeterPath",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.SubcriticalPerimeterPath",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/SubcriticalPerimeterPath.lean",
+        "direct": true,
+        "content_digest": "sha256:a512b7a3160d91ba29ce97a2b7cc0a28357a61cc4e935cd5653752ce2c84ed9f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/SubcriticalPerimeterPath.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "label": "ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCorrespondenceAudit.lean",
+        "direct": true,
+        "content_digest": "sha256:11767e8c6fb7b81b9038f37f7a69ffbef237aa2185adad97a05a0a3500ded511",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCorrespondenceAudit.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCriticalConsequencesR10",
+        "label": "ErdosProblems.Erdos1041.PaperCriticalConsequencesR10",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCriticalConsequencesR10.lean",
+        "direct": true,
+        "content_digest": "sha256:93153693e09057ce2becc3a1d0be20b92060c8ca8444b8595bac9fbb0e7323b0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCriticalConsequencesR10.lean",
         "role": "Lean proof module"
       },
       {
@@ -1488,6 +1847,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperNewtonEndpoints",
+        "label": "ErdosProblems.Erdos1041.PaperNewtonEndpoints",
+        "path": "lean/ErdosProblems/Erdos1041/PaperNewtonEndpoints.lean",
+        "direct": true,
+        "content_digest": "sha256:743948d1fa97bc79e48c843bbad623eca0c6f9d556d27c62b8831f98025e7af6",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperNewtonEndpoints.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos1041.PaperPrimitiveCompletionR10",
         "label": "ErdosProblems.Erdos1041.PaperPrimitiveCompletionR10",
         "path": "lean/ErdosProblems/Erdos1041/PaperPrimitiveCompletionR10.lean",
@@ -1539,6 +1907,33 @@
         "direct": true,
         "content_digest": "sha256:e4c67e93509a9b2303044faa738cbd8e2fa6c7391a62e7b16be482c27f1d57cf",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperStraightObstructions.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperTrinomial",
+        "label": "ErdosProblems.Erdos1041.PaperTrinomial",
+        "path": "lean/ErdosProblems/Erdos1041/PaperTrinomial.lean",
+        "direct": true,
+        "content_digest": "sha256:d7f3dec00a2cc93d1088872ff752f7675840330573c2fd86023380f607df7dd0",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperTrinomial.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperTrinomialCoverageAuditR20",
+        "label": "ErdosProblems.Erdos1041.PaperTrinomialCoverageAuditR20",
+        "path": "lean/ErdosProblems/Erdos1041/PaperTrinomialCoverageAuditR20.lean",
+        "direct": true,
+        "content_digest": "sha256:456567d5953cddbafdf581f63d5f79629f201cd8ea0495f7ffec36a4673b7a47",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperTrinomialCoverageAuditR20.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperTrinomialWholeR21",
+        "label": "ErdosProblems.Erdos1041.PaperTrinomialWholeR21",
+        "path": "lean/ErdosProblems/Erdos1041/PaperTrinomialWholeR21.lean",
+        "direct": true,
+        "content_digest": "sha256:c5525368f247e6582ba7ddb63f0351b3812f64439946be3cba15992e1a113854",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperTrinomialWholeR21.lean",
         "role": "Lean proof module"
       },
       {
@@ -2037,6 +2432,78 @@
         "target": "lean-module:ErdosProblems.Erdos1041.ConnectorR18.FiniteAssembly"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.Algebra",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Defs"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.Assembly",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Bottleneck"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.Assembly",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Components"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.Assembly",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Defs"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.Assembly",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceBarriers"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.Assembly",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceConnectivity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.Assembly",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceCritical"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierAlgebra",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Defs"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierCertificates",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierAlgebra"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierGraphs",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierCertificates"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierSigns",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierGraphs"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.Bottleneck",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Components"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.CatalogueAdapter",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Assembly"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.Components",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Defs"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceBarriers",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierSigns"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceConnectivity",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Defs"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceConnectivity",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceCritical"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceCritical",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Defs"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos1041.CyclicFiberMeanSquare",
         "target": "lean-module:ErdosProblems.Erdos1041.TetranomialL2Selector"
       },
@@ -2073,8 +2540,136 @@
         "target": "lean-module:ErdosProblems.Erdos1041.LogKernelEnergy"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos1041.NewtonFlowTrajectory",
+        "target": "lean-module:ErdosProblems.Erdos1041.NewtonFlowRaySeparation"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos1041.PaperAnalyticTargets",
         "target": "lean-module:ErdosProblems.Erdos1041.PaperCurveAssembly"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.CriticalMeanWhole",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCriticalConsequencesR10"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.NewtonRealTime",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperNewtonEndpoints"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.SexticSpokeWhole",
+        "target": "lean-module:ErdosProblems.Erdos1041.AbelControlPolygon"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.TwoNearestPolynomial",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.TwoNearestWhole"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.TwoNearestWhole",
+        "target": "lean-module:ErdosProblems.Erdos1041.CriticalTwoRootProximity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.TwoNearestWhole",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperReflectedBoundary"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.BinomialChords",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCurveAssembly"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.CollinearDiameterWhole",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCurveAssembly"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.CollinearDiameterWhole",
+        "target": "lean-module:ErdosProblems.Erdos1041.SharpCollinearChebyshev"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.ConstantFactorAreaCriteria",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperAnalyticTargets"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.ConstantFactorAreaCriteria",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCurveAssembly"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LobeAndArity",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperAnalyticTargets"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LowCriticalScaleTransport",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperAnalyticTargets"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.PrimitiveQuinticClosedDisc",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperPrimitiveCompletionR10"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.SeparationParent",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperAnalyticTargets"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.SubcriticalPerimeterPath",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperAnalyticTargets"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.CatalogueAdapter"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.CriticalTwoRootProximity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.CubicQuotientFiberCase"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.NewtonFlowRaySeparation"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCriticalValueMeanR10"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCubicCompletion"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCubicFibres"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperPrimitiveCompletionR10"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperReflectedCompletion"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperSeparationCounterexample"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperStraightObstructions"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperWeightedRefinementsR10"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.PrimitiveQuinticInteriorTail"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCorrespondenceAudit",
+        "target": "lean-module:ErdosProblems.Erdos1041.SharpCollinearChebyshev"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCriticalConsequencesR10",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCriticalValueMeanR10"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos1041.PaperCriticalValueMeanR10",
@@ -2125,6 +2720,10 @@
         "target": "lean-module:ErdosProblems.Erdos1041.FreePointTorusPshReduction"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperNewtonEndpoints",
+        "target": "lean-module:ErdosProblems.Erdos1041.NewtonFlowTrajectory"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos1041.PaperPrimitiveCompletionR10",
         "target": "lean-module:ErdosProblems.Erdos1041.PaperPrimitivePath"
       },
@@ -2155,6 +2754,22 @@
       {
         "source": "lean-module:ErdosProblems.Erdos1041.PaperStraightObstructions",
         "target": "lean-module:ErdosProblems.Erdos1041.CriticalTwoRootProximity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperTrinomial",
+        "target": "lean-module:ErdosProblems.Erdos1041.AbelControlPolygon"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperTrinomial",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCurveAssembly"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperTrinomialCoverageAuditR20",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperTrinomialWholeR21"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperTrinomialWholeR21",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperTrinomial"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos1041.PaperWeightedRefinementsR10",

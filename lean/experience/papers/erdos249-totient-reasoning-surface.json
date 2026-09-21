@@ -5,7 +5,7 @@
   "subject": "Erdős #249",
   "subject_kind": "problem",
   "form": "Reasoning surface",
-  "pages": 146,
+  "pages": 155,
   "question": "What can the totient-kernel basis and residue tests say about Erdős #249, and which hypotheses still block irrationality?",
   "precis": "The dyadic totient sections through level e≥1 have an explicit rational basis of size 2^e+1. Truncating a scaled tail difference produces an integer whose residue certifies nonintegrality when its distances from both endpoints of the residue interval exceed an explicit error bound. The record develops the resulting finite denominator exclusions, equivalent residue criteria, and sufficient exponential-sum estimates. Rational comparison sequences identify the limitations of particular size, parity, rank, and finite-prefix arguments. The short paper supplies the all-base basis theorem; here each conditional result carries the arithmetic hypothesis still needed to apply it. Those hypotheses are not established in the form required to prove irrationality of S=∑ φ(n)2^{-n}.",
   "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -27,12 +27,12 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 26,
-    "renderer_fingerprint": "497e10530f97a71a",
-    "source_sha256": "4fc2de1ab813e566e69995b832fc1cd89b722c238230930182ed0de7becc8da2",
+    "renderer_contract_version": 28,
+    "renderer_fingerprint": "1afa7218572522ac",
+    "source_sha256": "6ece2228614e41b62e264cd890cdb26856f5b2fcb46e9e22d878859ff0c8eea7",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 4436,
+    "mathml_node_count": 4452,
     "raw_math_fallback_count": 2,
     "warnings": {
       "mathml": [
@@ -57,8 +57,8 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "2e0e10be964734a1046fd59997bd44e55cc26bbce155ce4a4c1db31614f6ef01",
-    "html_exact_tex_sha256": "204737db29c2df08f3292a2d7e25b32fa6b1761d1b66150f40e1884e1cc65bf0"
+    "html_mathml_sha256": "9e50ec56cbc5828d89dbea277d42cafd5bfa4aa7f62951428166cbd89bfdbd37",
+    "html_exact_tex_sha256": "ae76ab3c951e3412f58ed37bab85a200462c5cfbc5d89f97ef5e32754dc0494d"
   },
   "sections": [
     {
@@ -845,6 +845,16 @@
       "level": 5,
       "anchor": "sources-and-data.",
       "label": "Sources and data."
+    },
+    {
+      "level": 3,
+      "anchor": "sec:coverage",
+      "label": "Formalisation coverage and remaining dependencies"
+    },
+    {
+      "level": 5,
+      "anchor": "concordance-of-statements-and-lean-declarations.",
+      "label": "Concordance of statements and Lean declarations."
     },
     {
       "level": 5,

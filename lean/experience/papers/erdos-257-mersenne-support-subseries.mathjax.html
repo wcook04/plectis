@@ -234,7 +234,13 @@ proves Theorem <a class="math-ref" href="#res:reciprocal-support">1.2</a> direc
 every integer base.</p>
 <p>The order of limits is essential: the observation length tends to
 infinity with the modulus fixed, and only then does the modulus
-increase. Reciprocal summability controls both interchanges.</p>
+increase. Reciprocal summability controls both interchanges. The exact
+all-base result, with hypotheses <span
+class="math inline" data-term-auto="off">\(b\ge2\)</span>, infinitude of <span
+class="math inline" data-term-auto="off">\(A\)</span>, and summability of <span
+class="math inline" data-term-auto="off">\(a\mapsto
+\mathbf1_A(a)/a\)</span>, is kernel-checked as <a
+href="https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean#L395"><code>irrational_erdosSupportSeries_of_summable_reciprocal</code></a>.</p>
 </section>
 <section id="sec:eight-return-extensions" class="level2">
 <h2>Extensions beyond reciprocal summability</h2>
@@ -379,6 +385,10 @@ under rationality. Finally <span class="math inline" data-term-auto="off">\(W_{b
 W_{2,P}(A)\)</span> for <span class="math inline" data-term-auto="off">\(b\ge2\)</span>, and
 weighted mass decreases on taking subsets. ◻</p>
 </div>
+<p>The exact interface of Theorem <a class="math-ref" href="#res:weighted-support">1.1</a>, including its
+fixed-base conclusion and hereditary all-base clause, is kernel-checked
+as <a
+href="https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L99"><code>divisibilityWeightedClaim</code></a>.</p>
 </section>
 <section id="an-example-beyond-reciprocal-summability" class="level3">
 <h3>An example beyond reciprocal summability</h3>
@@ -1515,17 +1525,18 @@ positive-cover criterion.</p>
 </section>
 <section id="app:sources" class="level2">
 <h2>Guide to the formal sources</h2>
-<p>The support criteria are proved above. The fixed-revision links below
-are not fresh build or axiom-audit receipts: challenge statements are
-not proofs, and solution wrappers retain their hypotheses. The release
-at <code>52f29ad173b0</code> contains bodies for <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean#L241">the
-positive-cover conclusion</a> and <a
-href="https://github.com/wcook04/plectis-erdos-lean/blob/52f29ad173b04e3bac941b3663f2b9aebe5de0bb/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L98">the
-weighted and mixed conclusions</a>. The ordinary proof for <span
-class="math inline" data-term-auto="off">\(A_\star\)</span> is separate from the existential
-host wrapper, which does not verify that example. No fresh Lean replay
-was run.</p>
+<p>The public proof closure at <code>065e09523286</code> was replayed
+under Lean 4.29.1. Besides the reciprocal and weighted declarations
+cited above, the replay checked the exact strengthened positive-cover
+conclusion in <a
+href="https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean#L241"><code>strengthenedPositiveCoverClaim</code></a>
+and the common-witness conclusion in <a
+href="https://github.com/wcook04/plectis-erdos/blob/065e09523286894dfb57ba205e69666843817009/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L105"><code>mixedSupportClaim</code></a>.
+The axiom audit for these endpoints reports only <code>propext</code>,
+<code>Classical.choice</code>, and <code>Quot.sound</code>. The ordinary
+proof for <span class="math inline" data-term-auto="off">\(A_\star\)</span> remains separate
+from the existential host wrapper, which does not verify that named
+example.</p>
 <p>Erdős’s five-page paper was checked directly: p. 222 states the
 reciprocal-summable extension without proof, and p. 226 describes the
 fractional-part approach. The original Luca–Tachiya and Hornich articles

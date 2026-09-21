@@ -3,6 +3,12 @@
 This report records corrections made before public release.  It is written for
 a reader who has not seen the development history.
 
+The correction entries and hypothesis extraction are historical samples.
+They are not a current audit of all eight problem libraries or the current
+papers. In particular, a count of corrected descriptions is not a count of
+currently false theorems. The generated graph census below has a different
+population and does not revalidate the historical audit.
+
 The Lean declarations were not weakened or removed.  The corrections are to
 module descriptions, section headings, and theorem documentation that said
 more than the checked declarations establish.  Each edited Lean file was
@@ -54,21 +60,22 @@ At this checkpoint the semantic graph yields three diagnostic views across every
 | classical/prior-art formalisations | 0 | 1 | 36 | 0 | 23 | 0 | 0 | 1 | 0 | 40 | 101 |
 | bare open-problem equivalences | 0 | 0 | 15 | 0 | 15 | 0 | 0 | 0 | 0 | 2 | 32 |
 
-The graph contains 1,125 authored statement nodes above 8,184 exact source-structural families. The views overlap and are not a partition of either tier.
+The graph contains 1,125 authored statement nodes above 12,416 exact source-structural families. The views overlap and are not a partition of either tier.
 
 The internal adjudicated frontier shortlist contains 11 nodes; it is distinct from the 8-node public prior-art review queue. 231 nonrecurring candidates remain unassessed for prior art. The live authored open-antecedent surface has 52 clusters, of which 10 are marked endpoint-equivalent. None of these populations is a novelty census.
 
-Of 23 substantial Lean propositions extracted from hypotheses of conditional theorems, 17 are provably equivalent to an endpoint: 14 to #249 and 3 to the `1/2` membership test for #257. Equivalence here is kernel-checked against the extracted proposition, not a claim that either endpoint is settled.
+In the historical DemandLedger extraction, 23 hypotheses were classified as substantial and 17 were recorded as equivalent to an endpoint: 14 to #249 and 3 to the `1/2` membership test for #257. These counts describe that selected audit, not the current corpus or a measure of mathematical value. Regenerating this page does not re-extract hypotheses or rerun their Lean checks; the recorded equivalences do not settle either endpoint.
 <!-- END semantic_public_census -->
 
-The `17/23` count is a narrower kernel-checked audit. It starts from 259
-conditional declarations, extracts 101 distinct closed hypothesis Props, and
-classifies 23 as substantial; 17 of those 23 are endpoint-equivalent. The
-prose-level `open-antecedents` query currently lists 52 entries, 10 marked
-endpoint-equivalent. Repetition, refinement, and side-condition filtering
-explain why those populations have different denominators. The `17/23` result
-diagnoses conditional routes; it is not a summary of the repository's
-independent theorem content.
+The historical extraction and the current graph are separate populations.
+The extraction's identities and recorded equivalence classes are preserved in
+[`docs/semantic/frontier.json`](../semantic/frontier.json); the declarations
+remain inspectable through `DemandLedger`. They do not classify every current
+conditional theorem, paper assertion or research result. For the current
+registered results and open boundaries, use
+`python3 scripts/query_corpus.py --overview --format card`, followed by the
+selected problem route. Neither an equivalence count nor an import-edge count
+measures the mathematical value of those results.
 
 ## Retractions affecting the claimed mathematical status
 

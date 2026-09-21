@@ -79,10 +79,10 @@
       "erdos_number": 1041,
       "title": "Short connections inside polynomial lemniscates",
       "status": "open",
-      "question": "For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate?",
+      "question": "For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate? The registry has not adjudicated whether the checked total-variation formulation exactly matches this historical curve-length question.",
       "href": "problems/erdos_1041.json",
       "paper_id": "erdos-1041-lemniscate-newton-flow",
-      "module_count": 1,
+      "module_count": 2,
       "main_result_count": 2,
       "has_results_guide": true
     },

@@ -2,20 +2,20 @@
   "schema": "plectis_packet_identity_sidecar_v1",
   "describes": "plectis-ai-review-packet.json",
   "how_to_use": "Run sha256 over your downloaded file and compare it with exact_byte_sha256 below. Equal means you hold this build. Different means you hold another one, and its own numbers are the ones that apply to it -- not these.",
-  "exact_byte_sha256": "sha256:0dbaf5adf7d3375e955bb67a2d2688b4ba7c0981f66ce569b517a8ad078f70bd",
-  "byte_count": 17441681,
-  "payload_sha256_excluding_identity": "sha256:4608e0c544ed3e0c66f458fe6a9e5c909430db8aef6a31ef4a8fc0574232babe",
+  "exact_byte_sha256": "sha256:3b16363a08274b4d81a8b5f3d38be2b2499c4b35e72a8395f3d67b2f8cebebbd",
+  "byte_count": 18033725,
+  "payload_sha256_excluding_identity": "sha256:54b1b06d9854638d70ed7502c0775db1ad5380e943879643a7d7839c560bf898",
   "source_fingerprint": "b3cd770524cbb9159e9e9ab24fe554b1",
   "packet_schema": "microcosm_ai_review_packet_v2",
   "lean_release_version": "0.10.0",
-  "formal_source_ref": "beaf0866976c908539fba0a96075374dd658f44a",
-  "formal_source_public_tag": "formal-source-2026-09-16-r1",
+  "formal_source_ref": "181078b6b009d905809cf2e007ad309386a3d1e0",
+  "formal_source_public_tag": null,
   "repository_heads_at_build": {
     "plectis": "f38a1fc0f1efd6dc87493a11476c2d0e4c741029",
-    "plectis-erdos": "a9c17ee851a4b3559379d840b6109a58e45aaa42"
+    "plectis-erdos": "f436a7ec0f7bf035828a7eec37fd29ae74d17d84"
   },
   "source_integrity": null,
-  "suggested_local_filename": "plectis-ai-review-packet-0.10.0-r1-beaf086.json",
+  "suggested_local_filename": "plectis-ai-review-packet-0.10.0-181078b.json",
   "why_a_sidecar_and_not_a_second_copy": "Publishing the packet again under a versioned name would cost 14 MB to answer a question a digest answers in a kilobyte, and would put two large files on the host that must never drift apart. The versioned name is a convention for saving it locally, which is where copies actually get confused.",
   "stable_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json"
 }

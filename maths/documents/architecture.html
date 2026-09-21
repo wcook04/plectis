@@ -26,7 +26,7 @@
   <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <script src="../../assets/theme-init.js?v=283f6fa43e96"></script>
   <link rel="stylesheet" href="../../assets/style.css?v=9e2478ad8c09">
-  <link rel="stylesheet" href="../assets/maths.css?v=b574045230d5">
+  <link rel="stylesheet" href="../assets/maths.css?v=e6d5dc028a59">
   <template data-plectis-runtime="docs"><script src="../../assets/docs.js?v=fa54c39f3877"></script></template>
   <script defer src="../../assets/docs-loader.js?v=31d50cbd956f"></script>
   <script defer src="../assets/maths.js?v=b036dd6bc574"></script>
@@ -92,13 +92,13 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section class="level1 lean-doc-titled">
 <h2>How this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> works</h2>
-<p>This is a public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> project about eight <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">unsolved problems</a> in
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>. It keeps the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>, papers, computations and research
+<p>This is a public <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> project about eight mathematical problem
+programmes. It keeps the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proofs</a>, papers, computations and research
 records together so another researcher can inspect the work and continue
 it. This guide explains how those files fit together and what the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>
 establish.</p>
 <p>You do not need to know <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> or the project history to use this
-guide. To read the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> first, choose a <a
+guide. To read the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a> first, choose a <a
 href="paper-guide.html#problem-papers">problem paper</a>.</p>
 <section id="what-this-repository-is" class="level2">
 <h2>What this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> is</h2>
@@ -107,23 +107,28 @@ publish an account of it that a <a class="narrative-ref narrative-ref--term is-t
 proofs</a>. The papers explain the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-mathematics" data-term="mathematics" data-term-auto="1">mathematics</a>, including ordinary arguments
 and results drawn from the literature. Source maps and query tools
 connect those explanations to their supporting records.</p>
-<p>The reviewed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a> covers #249 and #257. The problem-owned
-expansion library also covers #68, #243, #251, #269, #1041 and #1049,
-with its own <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-result-record" data-term="result_record" data-term-auto="1">result records</a>. Both <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> roots use the same <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-proof-checker" data-term="proof_checker" data-term-auto="1">proof checker</a>,
-but adding a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> to the expansion library does not add a
-reviewed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> to the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a>. <a href="methodology.html">Methodology</a>
+<p>The reviewed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim-registry" data-term="claim_registry" data-term-auto="1">claim registry</a> covers #68, #243, #249, #251, #257, #269,
+#1041 and #1049. The two <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> roots reflect the development’s history,
+not different standards of <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>. A <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> has the public status
+recorded for it in the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-registry" data-term="registry" data-term-auto="1">registry</a>; adding a file or compiling a library
+does not create that status. <a href="methodology.html">Methodology</a>
 explains the review and change rules.</p>
-<p>All eight mathematical problems <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">remain open</a>. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a> proves
-intermediate results, exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reformulation" data-term="reformulation" data-term-auto="1">reformulations</a> and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> examples around
-them; it does not <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> a solution to any of them. This is a
-self-contained <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">public release</a>: its use and its mathematical <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> do
+<p>The degree-seven example refutes the total-variation formulation of
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #1041</a>. The other seven target problems are not resolved here.
+Independent human review of correspondence with the historical
+curve-length formulation has not been recorded. <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> only
+its selected exact statements, configured axioms and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-lean-kernel" data-term="lean_kernel" data-term-auto="1">kernel acceptance</a>;
+it does not assess novelty or historical correspondence. This is a
+self-contained <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">public release</a>: its use and its mathematical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a> do
 not depend on private files.</p>
 </section>
 <section id="the-architecture-in-one-page" class="level2">
 <h2>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> in one page</h2>
 <p>A statement in a paper may have a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a>, an ordinary
-mathematical argument, or a cited external <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> behind it. For a
-selected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> backed by <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, the publication route is:</p>
+mathematical argument, or a cited external <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> behind it. A
+correspondence <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a> starts from the current paper and asks what
+establishes each assertion, including its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumptions</a> and full
+conclusion. Publication proceeds from <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a>:</p>
 <pre class="text"><code>Lean source + review of its mathematical meaning
                       |
                       v
@@ -135,6 +140,25 @@ selected <a class="narrative-ref narrative-ref--term is-term-again" href="../../
                       |
                       v
         generated indexes and source links</code></pre>
+<p>These are two directions through the same records. Starting from a
+paper selects what needs checking; it does not make the paper <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authority</a>. A stronger <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a> needs a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checked</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> to the
+printed statement. An unproved condition or a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> of only part of a
+statement stays explicit.</p>
+<p>For selected statements, <a
+href="external-verification.html"><span data-term-preview-only data-term="comparator" data-term-auto="1">Comparator</span></a> compares the separately
+declared challenge with the solution under a configured axiom budget.
+Inspect the current <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-configuration" data-term="configuration" data-term-auto="1">configuration</a> and available <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> with
+<code>python3 scripts/query_corpus.py --route comparator_assurance</code>.
+The <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="palomar" data-term-auto="1">Palomar</span>
+qualification route</a>,
+<code>python3 scripts/query_corpus.py --route palomar_qualification</code>,
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s packaging requirements. The <a
+href="https://github.com/wcook04/plectis-erdos-lean">eight per-problem
+<span data-term-preview-only data-term="repository" data-term-auto="1">repository</span> units</a> have their own pinned source and <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a>. A
+local qualification decision does not establish a service submission,
+registration or acceptance, and a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> pass does not establish
+complete paper <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-coverage" data-term="coverage" data-term-auto="1">coverage</a>.</p>
 <p><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> and the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> test different parts of that route:</p>
 <ul>
 <li><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> decides whether a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal-proof" data-term="formal_proof" data-term-auto="1">formal proof</a> establishes its precise <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a>
@@ -151,7 +175,7 @@ guide</a> states the project’s authorship and current review
 position.</p>
 </section>
 <section id="which-file-is-authoritative-for-what" class="level2">
-<h2>Which file is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authoritative</a> for what</h2>
+<h2>Which file is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-authority" data-term="authority" data-term-auto="1">authoritative</a> for what</h2>
 <table>
 <colgroup>
 <col />
@@ -184,7 +208,7 @@ remaining open <a class="narrative-ref narrative-ref--term is-term-first" href="
 <td>What review does a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> change require?</td>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/methodology.json" data-link-kind="exogenous" rel="external noopener">docs/methodology.<span data-term-preview-only data-term="json_format" data-term-auto="1">json</span></a>, rendered as <a
 href="methodology.html">methodology</a></td>
-<td>The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> and review required for each kind of change.</td>
+<td>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evidence" data-term="evidence" data-term-auto="1">evidence</a> and review required for each kind of change.</td>
 </tr>
 <tr>
 <td>Which papers are shipped?</td>
@@ -199,6 +223,23 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/publication_contra
 source.</td>
 </tr>
 <tr>
+<td>Which statement does <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> compare?</td>
+<td><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/verification/comparator.json"><span data-term-preview-only data-term="verification" data-term-auto="1">verification</span>/<span data-term-preview-only data-term="comparator" data-term-auto="1">comparator</span>.<span data-term-preview-only data-term="json_format" data-term-auto="1">json</span></a>
+and <a href="external-verification.html">external <span data-term-preview-only data-term="verification" data-term-auto="1">verification</span></a></td>
+<td>The selected challenge, solution, permitted axioms and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a>
+boundary.</td>
+</tr>
+<tr>
+<td>What is <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-readiness" data-term="readiness" data-term-auto="1">ready</a> for <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-palomar" data-term="palomar" data-term-auto="1">Palomar</a>?</td>
+<td><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md">docs/<span data-term-preview-only data-term="verification" data-term-auto="1">verification</span>/PALOMAR_QUALIFICATION.md</a>
+and <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_POLICY_RECONCILIATION.json">docs/PALOMAR_POLICY_RECONCILIATION.<span data-term-preview-only data-term="json_format" data-term-auto="1">json</span></a></td>
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">Repository</a> qualification, with external actions and outcomes
+recorded separately.</td>
+</tr>
+<tr>
 <td>Which <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-govern" data-term="govern" data-term-auto="1">govern</a> a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a>?</td>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/scripts/check_release.py" data-link-kind="exogenous" rel="external noopener">scripts/check_release.py</a>
 and <a href="https://github.com/wcook04/plectis-erdos/blob/main/.github/workflows/lean.yml" data-link-kind="exogenous" rel="external noopener">the <span data-term-preview-only data-term="github" data-term-auto="1">GitHub</span> workflow</a></td>
@@ -207,12 +248,18 @@ requests</a>.</td>
 </tr>
 </tbody>
 </table>
-<p>The papers and guides are authored explanations. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-json-format" data-term="json_format" data-term-auto="1">JSON</a> records
-make selected relationships explicit so the tools can <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> them.
-Generated files such as <a
-href="orientation.html">docs/<span data-term-preview-only data-term="orientation" data-term-auto="1">ORIENTATION</span>.md</a>, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> atlas and
-the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> reorganise those records for browsing; their builders
-own their contents.</p>
+<p>Keep mathematical explanations and reviewed interpretations authored.
+Generate volatile facts—paper lists, source locations, selected
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-interface" data-term="interface" data-term-auto="1">interfaces</a> and status summaries—from the records that own them. The
+programme card in the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_GUIDE.md" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="agent" data-term-auto="1">agent</span> guide</a>
+comes from the problem and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> owners; <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/PALOMAR_QUALIFICATION.md"><span data-term-preview-only data-term="palomar" data-term-auto="1">Palomar</span> qualification</a>
+comes from its selection record. The <a
+href="orientation.html"><span data-term-preview-only data-term="orientation" data-term-auto="1">orientation</span></a>, atlas and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-module" data-term="module" data-term-auto="1">module</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">index</a> are
+generated too. <code>python3 scripts/refresh_projections.py</code>
+updates these surfaces; the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-gate" data-term="gate" data-term-auto="1">release gate</a> rejects stale copies. Dated
+development and campaign records live in <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/README.md">technical <span data-term-preview-only data-term="reference" data-term-auto="1">reference</span></a>.</p>
 <p>The eight individual problem papers are the active mathematical
 routes. The former combined manuscript, <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/paper/archive/erdos249-257-main-paper.tex">paper/archive/erdos249-257-main-paper.tex</a>,
@@ -240,13 +287,14 @@ PDFs.</td>
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257.lean" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="lean" data-term-auto="1">lean</span>/Erdos249257.<span data-term-preview-only data-term="lean" data-term-auto="1">lean</span></a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257"><span data-term-preview-only data-term="lean" data-term-auto="1">lean</span>/Erdos249257/</a></td>
-<td>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">formal</a> work behind the reviewed #249/#257 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>.</td>
+<td>The historical library for #249/#257 and machinery used by later
+work.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems.lean" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="lean" data-term-auto="1">lean</span>/ErdosProblems.<span data-term-preview-only data-term="lean" data-term-auto="1">lean</span></a> and
 <a href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="lean" data-term-auto="1">lean</span>/ErdosProblems/</a></td>
-<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> work grouped by problem, including expansion work for
-#249/#257.</td>
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> work grouped by problem; <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> status is recorded
+separately.</td>
 </tr>
 <tr>
 <td><a
@@ -260,6 +308,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/research/examples/Examp
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/scripts" data-link-kind="exogenous" rel="external noopener">scripts/</a></td>
 <td>Queries, builders, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> and tests.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/wcook04/plectis-erdos/blob/main/verification" data-link-kind="exogenous" rel="external noopener"><span data-term-preview-only data-term="verification" data-term-auto="1">verification</span>/</a></td>
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-comparator" data-term="comparator" data-term-auto="1">Comparator</a> statements and <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-configuration" data-term="configuration" data-term-auto="1">configuration</a>, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-replay" data-term="replay" data-term-auto="1">replay</a> tools and
+external-statement comparisons.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/skills/README.md" data-link-kind="exogenous" rel="external noopener">skills/</a></td>
@@ -315,7 +368,7 @@ supporting <a class="narrative-ref narrative-ref--term is-term-again" href="../.
 leverage.</p>
 <p>The phrase <em><a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-verification" data-term="verification" data-term-auto="1">verified</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> instance</em> is not a score or a
 project-specific milestone. It means only that <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-machine-checked" data-term="machine_checked" data-term-auto="1">Lean checked</a> a stated
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite set</a> of inputs. The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open problem</a> requires cases beyond every fixed
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite set</a> of inputs. The <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open problem</a> requires cases beyond every fixed
 cutoff, so the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-finite" data-term="finite" data-term-auto="1">finite</a> list does not settle it. The development also
 proves an exact <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalence</a>: a supply of cases beyond every fixed cutoff
 would settle the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open problem</a> itself. An edit that erased this boundary
@@ -332,7 +385,7 @@ question still open.</li>
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">readers</a>.</li>
 <li>Generated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-index" data-term="index" data-term-auto="1">indexes</a> provide links and source locations.</li>
 <li>The <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-release" data-term="release" data-term-auto="1">release</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-program" data-term="program" data-term-auto="1">program</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">checks</a> that the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declaration</a> names still exist,
-the recorded locations remain accurate, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> range is present,
+the recorded locations remain accurate, the <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> range is present,
 the public limitation has not disappeared, and the generated files are
 current.</li>
 </ol>
@@ -358,7 +411,7 @@ it.</p>
 <tbody>
 <tr>
 <td>A <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> statement or <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> changes</td>
-<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Check</a> the affected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, review its <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumptions</a> and meaning, then
+<td><a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">Check</a> the affected <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a>, review its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-hypothesis" data-term="hypothesis" data-term-auto="1">assumptions</a> and meaning, then
 update the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> and paper if their content changed.</td>
 </tr>
 <tr>
@@ -426,7 +479,7 @@ those responsibilities, and <a href="https://github.com/wcook04/plectis-erdos/bl
 <span data-term-preview-only data-term="verification" data-term-auto="1">verification</span></a> explains additional statement comparisons and their
 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>.</p>
 <p>The printable <a
-href="https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
+href="../../papers/claim-faithful-publication-systems-paper.pdf">Problem-Sized
 <span data-term-preview-only data-term="lean" data-term-auto="1">Lean</span> Worlds</a> explains the publication <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-architecture" data-term="architecture" data-term-auto="1">architecture</a> in more depth. Its
 historical <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-checker" data-term="checker" data-term-auto="1">checker</a> example is documented in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/publication_evidence.json">docs/publication_evidence.<span data-term-preview-only data-term="json_format" data-term-auto="1">json</span></a>; it
@@ -483,7 +536,7 @@ and specialist <a class="narrative-ref narrative-ref--term is-term-first" href="
 </article>
 
       </div>
-      <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="truth-audit.html"><span class="maths-pager__dir">Previous</span>Truth audit</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="residual-progress.html"><span class="maths-pager__dir">Next</span>Residual progress</a></nav>
+      <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="truth-audit.html"><span class="maths-pager__dir">Previous</span>Historical truth audit</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="residual-progress.html"><span class="maths-pager__dir">Next</span>Residual progress</a></nav>
       </div>
     </main>
       <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#what-this-repository-is">What this repository is</a><a class="toc-l2" href="#the-architecture-in-one-page">The architecture in one page</a><a class="toc-l2" href="#which-file-is-authoritative-for-what">Which file is authoritative for what</a><a class="toc-l2" href="#repository-map">Repository map</a><a class="toc-l2" href="#a-complete-example">A complete example</a><a class="toc-l2" href="#what-happens-when-a-change-is-made">What happens when a change is made</a><a class="toc-l2" href="#how-the-checks-run">How the checks run</a><a class="toc-l2" href="#what-the-checks-do-not-prove">What the checks do not prove</a><a class="toc-l2" href="#where-to-start">Where to start</a></aside>

@@ -11,15 +11,15 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "699ebe08fa484bb347fbfb2733ee08945d8f4fe2e27fef6988aba675172cd0e9",
+    "navigation_fingerprint": "a2cdc0fb56e55756a93b524133af82178f57966ad79392d2458fbb354f30f634",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "565c1568a67c3f4f49f41ab7751be383daf74d7139e9381a94a10eb6896fe469",
+    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 26,
-    "renderer_fingerprint": "497e10530f97a71a",
+    "renderer_contract_version": 28,
+    "renderer_fingerprint": "1afa7218572522ac",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "1ac158d05728bd85080bae1af304c5f4c375690e5f69bae9970c17c811dfc113",
-    "html_exact_tex_sha256": "c2af07a6ab434db7b8ff69cb7ad28b86c0ecc64aa89aabd76923c8002ff3b5da"
+    "html_mathml_sha256": "a2a379b21edd607a815769680ffefd17eb00a1537b304246e7ff7331ef854816",
+    "html_exact_tex_sha256": "d9428123d3423e2c3a6a187a5a824c4055739536e53334804f6fceaea4ef1f09"
   },
   "sections": [
     {
@@ -189,16 +189,6 @@
       "level": 2,
       "anchor": "problem-statements-verification-and-status",
       "label": "Problem statements, verification and status"
-    },
-    {
-      "level": 3,
-      "anchor": "problem-statements",
-      "label": "Problem statements"
-    },
-    {
-      "level": 3,
-      "anchor": "external-verification",
-      "label": "External verification"
     },
     {
       "level": 3,

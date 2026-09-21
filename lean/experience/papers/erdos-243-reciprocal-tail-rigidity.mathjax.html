@@ -1120,17 +1120,20 @@ identifies a separate release or older research note.</p>
 theorem, its product and LCM consequences, the scalar convergence
 criterion and necessary conditions on a counterexample. The
 rational-tail construction has its own formalised estimates; it is not
-merely an interpretation of an abstract recurrence. The weighted
-criterion has a separate-release proof source outside the main build.
-The cubic and double-logarithmic arguments have checked components, not
+merely an interpretation of an abstract recurrence. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean#L87">weighted
+criterion is checked in both directions</a>, with the real cutoff used
+in Lemma <a class="math-ref" href="#res:weights">8.3</a>. The
+cubic and double-logarithmic arguments have checked components, not
 assembled Lean proofs identified here; the companion supplies their
 written proofs, including the growth and modulus-counting arguments.</p>
 <p>The recorded main build is at <code>6b78209ab63a</code>; links retain
-their original pins, including <code>3d6d938d696f</code>. No fresh Lean
-run or verification of the revised exposition is claimed. Finite
-certificates and unsuccessful extensions are retained in the companion,
-not counted as proofs of assembled arguments. The earlier Isabelle/HOL
-development of Koutsoukou-Argyraki and Li <span class="citation"
+their original pins, including <code>3d6d938d696f</code>. The linked
+weighted criterion also has a fresh Lean check; this does not certify
+the remaining exposition as a whole. Finite certificates and
+unsuccessful extensions are retained in the companion, not counted as
+proofs of assembled arguments. The earlier Isabelle/HOL development of
+Koutsoukou-Argyraki and Li <span class="citation"
 data-cites="kouli2020"><a href="#ref-16">[16]</a></span> verifies older irrationality criteria,
 not Problem #243. None of these records supplies the missing increment
 bound or global record estimate.</p>

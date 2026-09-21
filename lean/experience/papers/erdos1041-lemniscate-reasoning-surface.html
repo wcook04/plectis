@@ -5,7 +5,7 @@
     <p class="lean-paper__subject">Erdős #1041</p>
   </header>
   <div class="lean-paper__body" data-source="../../../paper/1041/erdos1041-lemniscate-reasoning-surface.tex">
-<p>The <a href="https://wcook04.github.io/plectis/papers/erdos-1041-lemniscate-newton-flow.pdf">short note</a>
+<p>The <a href="../../../papers/erdos-1041-lemniscate-newton-flow.pdf">short note</a>
 centres on the trinomial identity in Section . That proof does not use
 Newton flow. The area-growth comparison is proved here in Section . The
 other constructions are independent of that proof. This record provides
@@ -91,11 +91,19 @@ counted as distinct occurrences, give a constant path; the substantive
 case is therefore squarefree.</p>
 <p>The problem numbering follows Bloom’s Erdős problem catalogue <span
 class="citation" data-cites="bloom"></span>. A degree-seven
-counterexample to the unrestricted assertion has been reported to the
-author. Its proof is not reproduced or independently verified in this
-revision. We therefore refer to the displayed assertion as the
-historical question, not as an assertion that the unrestricted bound
-remains open. The original source is Problem 5 on printed p. 139 of
+counterexample due to the <a
+href="https://www.erdosproblems.com/1041">erdosproblems.com contributor
+<code>ani</code></a> makes the unrestricted total-variation assertion
+false. For one explicit monic polynomial of degree seven whose roots are
+distinct and lie in the open unit disc, every continuous path in the
+strict unit lemniscate joining two distinct roots has total variation
+greater
+than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> Thus this polynomial has no
+continuous root-to-root parametrisation of total variation less
+than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.
+The original source is Problem 5 on printed p. 139 of
 Erdős–Herzog–Piranian <span class="citation"
 data-cites="ehp1958"><a href="#ref-4">[4]</a></span>; the preceding paragraph records the known
 input that one component of the lemniscate contains at least two
@@ -2020,8 +2028,12 @@ not the open sublevel. ◻</p>
 </div>
 <section id="bdry:constant-factor" class="level5">
 <h5>Sources and scope.</h5>
-<p>Theorem  is ordinary mathematics with no Lean-checked part. Its
-inputs are the capacity identity for polynomial preimages <span
+<p>Theorem  is ordinary mathematics. Its degenerate case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mu=0</annotation></semantics></math>,
+its degree-two case and every numerical constant in its statement are
+checked in Lean; the analytic construction for degree at least three is
+used there as a hypothesis (Section ). The inputs of that construction
+are the capacity identity for polynomial preimages <span
 class="citation" data-cites="crane"></span>, Pólya’s area inequality
 <span class="citation" data-cites="crane"><a href="#ref-2">[2]</a></span>, Cauchy–Schwarz, the
 Koebe distortion theorem for univalent maps, and averaging over adjacent
@@ -5272,9 +5284,10 @@ gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>1</mn></msub><mo>+</mo><msub><mi>d</mi><mn>2</mn></msub><mo>≤</mo><mn>2</mn><mi>R</mi><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d_1+d_2\le2R&lt;2</annotation></semantics></math>.
 This is the argument in <a
 href="https://github.com/wcook04/plectis-erdos/blob/a729f05c40398663fd586c9da487ad874d898639/research_corpus/Erdos1041/GlobalCriticalTwoNearestBudget.md">the
-proof for the two nearest roots</a>; Lean checks its real-inequality
-core. The root-disc reduction above is an ordinary complex-variable
-argument.</p>
+proof for the two nearest roots</a>; Lean now checks the <a
+href="https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos1041/PaperCompleteR20/TwoNearestPolynomial.lean#L31">strict
+distance bound from the critical polynomial</a>, including the root-disc
+reduction and the choice of the two nearest indices.</p>
 <p>This argument selects the two nearest roots but does not put their
 segments inside a polynomial sublevel set. The next calculation supplies
 that separate containment estimate under a bound on
@@ -6545,12 +6558,12 @@ certificate is attached to the numbers above. They are grid distances
 for the sampled configurations, and the apparent decrease with degree is
 a property of the sample, from which we draw no conjecture. Even a
 finite collection of proved instances would not establish the universal
-statement. These searches also cannot adjudicate a counterexample
-reported elsewhere. Useful stress tests for particular path
-constructions include near-degenerate saddles, thin necks,
-boundary-critical configurations, and almost-connected separatrices.
-They should report those diagnostics. Raster paths remain candidate
-finders, never continuous certificates.</p>
+statement. These searches do not test <code>ani</code>’s degree-seven
+counterexample. Useful stress tests for particular path constructions
+include near-degenerate saddles, thin necks, boundary-critical
+configurations, and almost-connected separatrices. They should report
+those diagnostics. Raster paths remain candidate finders, never
+continuous certificates.</p>
 </section>
 <section id="sec:open" class="level2">
 <h2>Further questions about topology, length and perturbation</h2>
@@ -7108,10 +7121,10 @@ component-sensitive estimates. The critical-value moment does not choose
 a contained pair. The ordinary generic slit-sheet topology has classical
 antecedents; the earlier proposed sufficient estimate concerned the
 lengths of particular inverse-ray curves. Their minimum need not equal
-the infimum over all contained curves. A reported counterexample to the
-unrestricted assertion would rule out the corresponding universal
-estimate for these particular curves too, without invalidating
-conditional estimates on smaller classes.</p>
+the infimum over all contained curves. The degree-seven counterexample
+above rules out the corresponding universal estimate for these
+particular curves too, without invalidating conditional estimates on
+smaller classes.</p>
 <section id="adjacent-inverse-map-methods." class="level5">
 <h5>Adjacent inverse-map methods.</h5>
 <p>Crane <span class="citation" data-cites="crane2007smale"><a href="#ref-22">[22]</a></span> uses
@@ -7188,6 +7201,152 @@ theorem.</p></li>
 these snapshot links. The original paper-wide commit macro is retained
 for legacy links; newer target links name their own snapshot
 explicitly.</p>
+<section id="sec:coverage" class="level3 unnumbered">
+<h3 class="unnumbered">Formalisation coverage and remaining
+dependencies</h3>
+<p>Every theorem, lemma, proposition and corollary of this record other
+than those listed below has a Lean statement of the same assertion, with
+the same hypotheses, checked by the Lean kernel using only the axioms
+<code>propext</code>, <code>Classical.choice</code> and
+<code>Quot.sound</code>, in the development at revision
+<code>181078b6b009</code>. This includes Lemma .</p>
+<p>Theorem  is checked in degree two, with no hypothesis on the
+positions of the roots, and the exact rational arithmetic of its
+stopping-time comparison is checked. The analytic argument in higher
+degrees is not yet formalised. Corollary  and Corollary  are verified as
+reductions to that theorem, which is itself in this list; the degree-two
+case of the second corollary is checked with no input at all.</p>
+<p>Theorem  and Corollary  are verified as reductions to a single named
+statement, which is what the analytic construction in the proof of
+Theorem  produces: for every normalised separation datum, a square-root
+connector of a given length together with a component area satisfying
+the two displayed bounds. That construction is not formalised. It uses
+the conformal bijection supplied by the Riemann mapping theorem, the
+Bergman segment inequality, the exterior Blaschke capacity gap and
+Pólya’s area–capacity inequality <span class="citation"
+data-cites="crane"><a href="#ref-2">[2]</a></span>. The first clause of Corollary , inequality
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n\ge3</annotation></semantics></math>,
+every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>0</mn></msub><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">w_0\in[0,1]</annotation></semantics></math>
+and every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>/</mi><mn>3</mn><mo>≤</mo><mi>S</mi><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">4/3\le S\le2</annotation></semantics></math>,
+is unconditional, and so is every numerical inequality entering the
+second clause.</p>
+<p>Theorem , Corollary  and Corollary  are verified as reductions to
+named statements, each of which is what the level and direction
+averaging in their own proofs produces. That construction is not
+formalised; its ingredients are Pólya’s area inequality <span
+class="citation" data-cites="crane"></span>, the Koebe distortion
+theorem and the coarea formula. The degenerate case
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mu=0</annotation></semantics></math>,
+the degree-two case and every numerical constant are checked. Theorem 
+is verified as a reduction to the two-component split at the first
+critical level, which its own proof constructs and which is not
+formalised; its ingredients are the component count in the proof of
+<span class="citation" data-cites="eks2010"><a href="#ref-8">[8]</a></span>, the boundary
+extension of the inverse branch and the Jordan curve theorem. The
+half-perimeter selection lemma is checked. Theorem  is verified as a
+reduction to , which its own proof derives from the standing failure
+hypothesis by the Blaschke factorisation of a Riemann map and Pólya’s
+area inequality; that derivation is not formalised. The hyperbolic law
+of cosines it uses is proved in the development. For Theorem  the
+development checks the ray-disjointness, level-separation and
+saddle-scale steps of its proof, and the Morse, monodromy and strip
+statements themselves are not yet formalised.</p>
+<p>Formal proofs of the named inputs are not included in the verified
+development, so the endpoints that carry one remain conditional on it.
+Theorem  and Theorem  carry no such input; for each of them part of the
+argument is formalised and the rest is not. A theorem whose own
+statement is conditional is formalised exactly as stated; the results
+listed here are asserted unconditionally.</p>
+<section id="concordance-of-statements-and-lean-declarations."
+class="level5">
+<h5>Concordance of statements and Lean declarations.</h5>
+<p>Each result of this record that has a kernel-checked Lean statement
+of the same assertion is listed below with the declarations that jointly
+state it. Each name links to its declaration at revision
+<code>181078b6b009</code>. Where the Lean statement is stronger than the
+printed one and implies it by an immediate specialisation, the entry
+says so.</p>
+<p> The statement at : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean#L25"><code>erdos1041_ani_degree_seven</code></a>.</p>
+<p> Theorem  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperTrinomial.lean#L26"><code>all_spokes</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperTrinomial.lean#L38"><code>complete_trinomial</code></a>.</p>
+<p> Lemma  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L563"><code>circle_slice_packing</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L141"><code>cosh_dist_polar</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L166"><code>dist_polar_I</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L177"><code>exists_polar</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L162"><code>polar_zero_zero</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicLawOfCosines.lean#L315"><code>circle_slice_packing_abstract</code></a>.</p>
+<p> Theorem  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCubicCompletion.lean#L297"><code>cubic_paper_complete</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/SharpCollinearChebyshev.lean#L133"><code>exists_peak_le_comparisonBound</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L367"><code>sharp_collinear_root_diameter</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L967"><code>sharp_collinear_root_diameter_monic</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L928"><code>exists_collinear_factorisation</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L212"><code>exists_gap_le_comparisonBound</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L836"><code>sharp_collinear_equality_attained</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L769"><code>chebyshev_configuration_attains</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L684"><code>monicScaledChebyshev_eq_prod</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L871"><code>collinearDiameterBound_sharpConstant</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L878"><code>sharpConstant_le_of_collinearDiameterBound</code></a>.</p>
+<p> Corollary : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L515"><code>collinear_erdos_1041</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L984"><code>collinear_erdos_1041_monic</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L928"><code>exists_collinear_factorisation</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/CollinearDiameterWhole.lean#L367"><code>sharp_collinear_root_diameter</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PrimitiveQuinticInteriorTail.lean#L272"><code>primitiveInterior_exists_two_tailEnergy_lt_one</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean#L260"><code>primitive_quintic_two_tail</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean#L313"><code>primitive_quintic_two_tail_of_polynomial</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean#L93"><code>two_tails_closedDisc_of_ne_zero</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean#L199"><code>tail_le_one_and_eq_iff_of_leading_zero</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PrimitiveQuinticClosedDisc.lean#L82"><code>tail_norm_of_leading_zero</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/CubicQuotientFiberCase.lean#L161"><code>cubic_has_safe_root_spoke</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCubicFibres.lean#L240"><code>complete_translated_cubic_quotient_fibres</code></a>.</p>
+<p> Theorem  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR20/CriticalMeanWhole.lean#L14"><code>critical_value_three_budgets</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR20/CriticalMeanWhole.lean#L36"><code>critical_value_three_budgets_sharp</code></a>.</p>
+<p> Lemma : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperReflectedCompletion.lean#L254"><code>reflected_critical_value</code></a>.</p>
+<p> Theorem  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR20/NewtonRealTime.lean#L52"><code>newton_real_value_whole</code></a>.</p>
+<p> Corollary  (the Lean statement is stronger): <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/PaperCompleteR20/NewtonRealTime.lean#L69"><code>newton_real_endpoint_whole</code></a>.</p>
+<p> Theorem : <a
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean#L107"><code>translated_samePositiveRay_parameterization</code></a>.</p>
+</section>
+</section>
 </section>
 <section id="sec:record-circle-slice" class="level2">
 <h2>Numerical estimates for the packing inequality</h2>
@@ -7656,6 +7815,19 @@ research note, Sections 1–3, with the earlier note preserved in the same
 revision bundle.</p></li>
 <li id="ref-27"><p>I. Schur, , Math. Z. <strong>1</strong> (1918), no. 4,
 377–402.</p></li>
+</ol>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Lean checks this instance in <a
+href="https://github.com/wcook04/plectis-erdos/blob/f70679d47178bf1174309cb29f5b31748609cc04/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean#L25"><code>erdos1041_ani_degree_seven</code></a>.
+The formal result concerns one polynomial; it does not formalise the
+reported small-parameter family or a Hausdorff-measure comparison, and
+its correspondence with the historical formulation has not received
+independent human review.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
   </div>

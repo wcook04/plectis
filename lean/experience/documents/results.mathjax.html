@@ -9,7 +9,7 @@
 <section id="results-and-limits" class="level1">
 <h1>Results and limits</h1>
 <p>This repository formalises finite results, reductions, equivalences,
-and obstructions related to eight open Erdős problems — <a
+and obstructions related to eight Erdős problem programmes — <a
 href="https://www.erdosproblems.com/68">#68</a>, <a
 href="https://www.erdosproblems.com/243">#243</a>, <a
 href="https://www.erdosproblems.com/249">#249</a>, <a
@@ -20,7 +20,10 @@ href="https://www.erdosproblems.com/1041">#1041</a>, and <a
 href="https://www.erdosproblems.com/1049">#1049</a>. Each problem has a
 short paper and a longer reasoning record; the retired combined
 #249/#257 manuscript is archive/provenance only, not a current gateway.
-Nothing here solves any of the eight.</p>
+The degree-seven example refutes the total-variation formulation of
+#1041; its correspondence with the historical curve-length problem has
+no recorded independent human review. The other seven targets remain
+open.</p>
 <p>Lean source checked by the pinned Lean kernel is proof authority. The
 audit log reports the headline declarations below with kernel
 assumptions <code>[propext, Classical.choice, Quot.sound]</code>. A
@@ -86,7 +89,9 @@ generic-topology theorems; its sharp critical-value mean is
 Lean-checked, as are supporting Newton-flow inputs. Problem 1049 has an
 ordinary irrationality region for rational bases, together with a
 Lean-checked rational-base tail recurrence, height region, and route
-exclusions. None closes its Erdős problem.</p>
+exclusions. These results leave their corresponding universal targets
+open; the #1041 total-variation counterexample is discussed separately
+below.</p>
 <section id="problem-by-problem-guide" class="level3">
 <h3>Problem-by-problem guide</h3>
 <p><strong><a href="https://www.erdosproblems.com/68">#68</a>.</strong>
@@ -213,7 +218,7 @@ largest divisor of <code>a</code> supported on <code>P</code>. For an
 infinite support <code>A</code> and an integer base <code>b ≥ 2</code>,
 finiteness of <code>∑_{a∈A} h(a)/(a(b^{h(a)}−1))</code> implies
 irrationality of <code>∑_{a∈A} 1/(b^a−1)</code>. The <a
-href="https://wcook04.github.io/plectis/papers/erdos257-mersenne-reasoning-surface.pdf">long paper
+href="../../../papers/erdos257-mersenne-reasoning-surface.pdf">long paper
 gives the complete ordinary proof</a>: average the residues along
 multiples of increasingly divisible moduli, then choose a finite range
 of averaging lengths to control the error uniformly. This is not a Lean
@@ -340,9 +345,16 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/AGENT_WORKB
 </section>
 <section id="technical-verdict" class="level2">
 <h2>Technical verdict</h2>
-<p>All eight Erdős problems remain open. The development is neither a
-partial solution nor an empty collection of restatements. For a first
-mathematical pass, the high-signal spine is:</p>
+<p>The degree-seven example refutes the total-variation formulation of
+Erdős #1041. The other seven target problems are not resolved here.
+Independent human review of correspondence with the historical
+curve-length formulation has not been recorded. Comparator checks only
+its selected exact statements, configured axioms and kernel acceptance;
+it does not assess novelty or historical correspondence. The development
+is neither an empty collection of restatements nor a claim to settle the
+seven unresolved targets or the unadjudicated historical #1041
+formulation. For a first mathematical pass, the high-signal spine
+is:</p>
 <ul>
 <li><strong>#257, a completed unconditional endpoint theorem in the
 full-support case.</strong> The checked divisor-block proof combines a
@@ -671,11 +683,11 @@ distinct from the 8-node public prior-art review queue. 231 nonrecurring
 candidates remain unassessed for prior art. The live authored
 open-antecedent surface has 52 clusters, of which 10 are marked
 endpoint-equivalent. None of these populations is a novelty census.</p>
-<p>Of 23 substantial Lean propositions extracted from hypotheses of
-conditional theorems, 17 are provably equivalent to an endpoint: 14 to
-#249 and 3 to the <code>1/2</code> membership test for #257. Equivalence
-here is kernel-checked against the extracted proposition, not a claim
-that either endpoint is settled. <!-- END semantic_public_census --></p>
+<p>The <a href="truth-audit.mathjax.html">historical hypothesis
+audit</a> describes a selected extraction, not the current corpus or a
+measure of mathematical value. Use the problem and theorem routes above
+to inspect the results and their exact boundaries.
+<!-- END semantic_public_census --></p>
 <p>The large #249 denominator exclusion is a direct, kernel-checked
 instantiation of the classical neighbouring-fraction/mediant method.
 That method supplies the displayed bound exactly (numerical delta
@@ -2350,12 +2362,9 @@ priority, significance, or the still-open Erdős endpoints.</p>
 </section>
 <section id="problem-statements-verification-and-status" class="level2">
 <h2>Problem statements, verification and status</h2>
-<p>The problem statements, the external-verification summary, and the
-status tables the front page points to follow.</p>
-<section id="problem-statements" class="level3">
-<h3>Problem statements</h3>
-<p><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/corpus.json"><code>docs/papers/corpus.json</code></a>
-is the machine-readable index of the papers.</p>
+<!-- BEGIN problem_programme_card -->
+<p><em>Questions generated from
+<code>docs/problem_index_source.json</code>.</em></p>
 <table>
 <colgroup>
 <col />
@@ -2364,92 +2373,82 @@ is the machine-readable index of the papers.</p>
 <thead>
 <tr>
 <th>Problem</th>
-<th>Mathematical statement</th>
+<th>Question</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>#68</strong></td>
-<td>Is <code>∑_{n≥2} 1/(n!−1)</code> irrational?</td>
+<td><a
+href="../../../papers/erdos-68-factorial-denominator-irrationality.pdf">#68</a></td>
+<td>Is the series sum_{n &gt;= 2} 1/(n! - 1) irrational?</td>
 </tr>
 <tr>
-<td><strong>#243</strong></td>
-<td>Does rationality of a rapidly growing integer sequence’s reciprocal
-sum force eventual Sylvester recurrence?</td>
+<td><a
+href="../../../papers/erdos-243-reciprocal-tail-rigidity.pdf">#243</a></td>
+<td>Under a rapid-growth hypothesis on an integer sequence, does
+rationality of its reciprocal sum force the sequence to satisfy the
+Sylvester recurrence eventually?</td>
 </tr>
 <tr>
-<td><strong>#249</strong></td>
-<td>Is <code>∑ φ(n)/2ⁿ</code> irrational?</td>
+<td><a
+href="../../../papers/erdos-249-binary-totient-series.pdf">#249</a></td>
+<td>Is the binary Lambert series sum phi(n)/2^n irrational?</td>
 </tr>
 <tr>
-<td><strong>#251</strong></td>
-<td>Is <code>∑ p_n/2ⁿ</code> irrational, equivalently the
-consecutive-prime-gap dyadic series?</td>
+<td><a
+href="../../../papers/erdos-251-prime-gap-dyadic-series.pdf">#251</a></td>
+<td>Is the dyadic series sum p_n/2^n over consecutive primes irrational?
+Equivalently, is the corresponding consecutive-prime-gap dyadic series
+irrational?</td>
 </tr>
 <tr>
-<td><strong>#257</strong></td>
-<td>Is <code>∑_{n∈A} 1/(2ⁿ-1)</code> irrational for every infinite
-<code>A ⊆ ℕ_{&gt;0}</code>?</td>
+<td><a
+href="../../../papers/erdos-257-mersenne-support-subseries.pdf">#257</a></td>
+<td>Is the sum of 1/(2^n-1) over every infinite set of positive
+exponents irrational?</td>
 </tr>
 <tr>
-<td><strong>#269</strong></td>
-<td>For at least two primes, is the reciprocal sum of running lcms of
-the smooth numbers irrational?</td>
+<td><a
+href="../../../papers/erdos-269-three-prime-running-lcm.pdf">#269</a></td>
+<td>For a finite set of at least two primes, is the sum of reciprocals
+of the running least common multiples of the smooth numbers irrational?
+This library treats the three-prime case.</td>
 </tr>
 <tr>
-<td><strong>#1041</strong></td>
-<td>Must two roots of a monic polynomial in the unit disc admit a curve
-of length <code>&lt;2</code> inside its open unit lemniscate?</td>
+<td><a
+href="../../../papers/erdos-1041-lemniscate-newton-flow.pdf">#1041</a></td>
+<td>For a monic polynomial whose roots lie in the open unit disc, must
+two roots be joinable by a curve of length less than two inside the open
+unit lemniscate? The registry has not adjudicated whether the checked
+total-variation formulation exactly matches this historical curve-length
+question.</td>
 </tr>
 <tr>
-<td><strong>#1049</strong></td>
-<td>For which rational bases is the corresponding Lambert-type series
-irrational, beginning with <code>3/2</code>?</td>
+<td><a
+href="../../../papers/erdos-1049-rational-base-lambert.pdf">#1049</a></td>
+<td>For which rational bases is the corresponding series irrational? The
+first resistant explicit base is three halves.</td>
 </tr>
 </tbody>
 </table>
-<p>The table is the complete problem inventory: no query is required to
-learn which problems exist or what they ask, and reading it does not
-require a private repository, a sibling checkout, a cache, or network
-access. It is navigation, not proof authority or a novelty claim.
-Drilldown is optional and uses only tracked public files; it needs no
-private checkout, sibling repository, cache, or network access.</p>
-</section>
-<section id="external-verification" class="level3">
-<h3>External verification</h3>
-<p>Nineteen selected Lean propositions are declared a second time,
-without proofs, in <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/verification/ExternalVerification/Statements.lean"><code>ExternalVerification/Statements.lean</code></a>.
-Comparator checks the proof-bearing module against those separate
-declarations and against a fixed axiom budget of <code>propext</code>,
-<code>Quot.sound</code>, and <code>Classical.choice</code>; an
-adversarial fixture alters one statement and must be rejected. <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/formalization.yaml"><code>formalization.yaml</code></a>
-records, per selected result, the contribution class, exact statement,
-source declaration, boundary, <code>sorry</code> count, and axioms.
-Manifest and <a href="external-verification.mathjax.html">verification packet</a>
-cover all eight problem programmes; <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/verification/EXTERNAL_VERIFICATION_REPLAY.md">replay</a> gives the
-reviewer-run Linux route. The same check runs in continuous integration
-against the reviewed source commit. Comparator checks propositions only:
-no paper deduction, cited theorem, external computation, intended
-meaning, novelty, or significance.</p>
-<p><a href="results.mathjax.html">RESULTS</a> gives each strongest checked result
-and its limit; <a href="prior-art.mathjax.html">prior art</a> records classical,
-subsuming, and earlier public work. The finite #249 result is the
-classical Farey/mediant bound (numerical delta <code>0</code>): Farey’s
-method supplies the number directly, exactly the Farey bound, not an
-improvement. Full-kernel infinite rank is Coons’s prior result, the
-all-base rank paper theorem uses Martin externally, and #269’s two-prime
-result is not first.</p>
-<p><code>v0.10.0</code> is the latest tagged release and citation
-anchor; <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>docs/claims.json</code></a> pins the
-exact formal-source checkpoint this release ships. Lean source checked
-by the pinned Lean kernel is proof authority; do not infer results from
-private or unreleased work.</p>
-</section>
+<!-- END problem_programme_card -->
+<p>The questions above are readable here: no query is required, and this
+page does not require a private repository. The <a
+href="paper-guide.mathjax.html#problem-papers">problem papers</a> explain the
+eight questions. <a href="scope.mathjax.html">Scope</a> records the public claim
+boundaries and status labels; <a
+href="external-verification.mathjax.html">external verification</a> lists the
+selected Comparator interfaces, axioms and replay limits. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json">claim registry</a> owns source identity and current
+status. These are generated from their owners.</p>
+<p>The claim registry pins the immutable formal-source checkpoint; this
+is not a new tagged release. Its release tag is the latest tagged
+release and citation anchor, kept separate from the source currently
+under validation.</p>
 <section id="what-the-formal-source-establishes" class="level3">
 <h3>What the formal source establishes</h3>
+<p>Farey’s method supplies the number directly; it is not an improvement
+on the classical bound.</p>
 <p>Labels are descriptions, not scores. <strong>Formalised here</strong>
 means a statement rendered and kernel-checked in Lean, which for a known
 theorem is a checked rendering and not a priority claim; <strong>proved
