@@ -42,8 +42,13 @@ construction, with auxiliary parameters $x=z=1$, we prove
 \]
 The order is the least exponent with nonzero coefficient; a unique
 least-order term in the moment expansion gives both formulas.
-The rational-base criterion does not include $3/2$; neither argument
-settles irrationality at that base.
+For fixed $0<q<1$ we prove that, as $N\to\infty$,
+$V_N^*(q)\sim K(q)C_Nq^{B_N}(q;q)_\infty^{2N}N^{-8F(1/q)}$, where $B_N$ and
+$C_N$ are the order and coefficient above and $K(q)>0$ is given by a
+convergent product. We also factor the moment weights into two finite
+$q$-multinomial sums.
+The rational-base criterion does not include $3/2$; neither the order, the
+asymptotic nor the factorisation settles irrationality at that base.
 \end{abstract}
 
 \section{Introduction}\label{sec:problem}
@@ -708,21 +713,70 @@ moment expansion above. It checks both identities at every rank as
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173}{the exact order} and
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199}{the leading coefficient}.
 
-\paragraph{What the order calculation does not imply.}
+\paragraph{From formal order to size at a fixed base.}
 Formal order alone does not bound the value at a fixed $q$: multiplication
 by $(1-q)^{N^3}$ leaves the first term unchanged but changes its logarithm
-by a cubic quantity. The long record, Section~3.1, separately proves
-$V_N^*(q)>0$ and
+by a cubic quantity. The long record, Section~3.1, proves separately that
+$V_N^*(q)>0$ and that $\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)$ for fixed
+$0<q<1$. The same positive-measure argument, carried further, settles the
+size within that band. The theorem below and its proof are ordinary
+mathematics; neither is formalised in Lean.
+
+\begin{theorem}[the size of $V_N^*$ at a fixed base]\label{res:sharp-fixed-base}
+Fix $0<q<1$ and write $P=(q;q)_\infty$, $B_N=N(N-1)(2N-1)/6$ and
+$C_N=(N!)^2(N+1)!/2^N$. There is a $K(q)>0$ with
 \[
- \log\!\left(
- \frac{V_N^*(q)}{\bigl((N!)^2(N+1)!/2^N\bigr)
- q^{N(N-1)(2N-1)/6}}\right)=O_q(N)
- \qquad(0<q<1\text{ fixed}).
+ V_N^*(q)\sim K(q)\,C_Nq^{B_N}P^{2N}N^{-8F(1/q)}
+ \qquad(N\to\infty).
 \]
-Neither assertion supplies the cyclotomic divisibility proved for a
-different recurrence in \cite[Prop.~4, pp.~14--15]{krvz2009}.
+\end{theorem}
+
+\begin{proof}[Outline; the full proof is in the long record]
+Collecting the moment dependence in $w=q^{m+1}$ as above writes
+$v_m^*=\sum_{k\ge0}a_kq^{(m+1)k}$ with $a_k=[w^k]P^4G_q(w)$. Two facts about
+these weights suffice. First, they factor exactly as
+\[
+ a_k=P^4\frac{R_k^{(2)}R_k^{(3)}}{(q;q)_k},
+ \qquad
+ R_k^{(r)}=\sum_{n_1+\cdots+n_r=k}\frac{(q;q)_k}{\prod_j(q;q)_{n_j}},
+\]
+which gives $P^5c_k\le a_k\le P^{-1}c_k$ and a polynomial bound on the ratios
+$a_{k+h}/a_k$. Second, $P^4(1-w)^4G_q(w)$ is analytic past the unit circle with
+value $3$ and derivative $2+8F(1/q)$ at $w=1$, so
+$a_k/c_k=1-8F(1/q)/(k+1)+O_q((k+1)^{-2})$ and
+$\prod_{k<N}a_k\sim\mathcal A(q)C_NN^{-8F(1/q)}$ for a convergent product
+$\mathcal A(q)$.
+
+In Heine's expansion of the determinant, write each increasing tuple as
+$k_i=i+\lambda_i$ and reverse the shifts to obtain a partition. The least tuple
+contributes $q^{B_N}\prod_{k<N}a_k$ times its own Vandermonde product
+$\Delta_N=\prod_{d<N}(1-q^d)^{2(N-d)}$; the first bound on the weights
+majorises every other tuple by a summand that is summable over partitions and
+independent of $N$. Dominated convergence then reduces the normalised sum to
+the case $a_k\equiv1$, where Cauchy's determinant evaluates it, and that sum
+tends to $\mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d}$. Separately
+$\Delta_N/P^{2N}\to\mathcal M(q)^2$. Writing $\mathcal A(q)$ for the
+convergent product above, the constant is
+$K(q)=\mathcal A(q)\mathcal M(q)^3$.
+\end{proof}
+
+One of those three factors of $\mathcal M(q)$ comes from the tuples other than
+the least one, and is therefore invisible to the order calculation; the other
+two come from comparing the least tuple's own Vandermonde product with
+$P^{2N}$. The long record proves both ingredients in full, including the degree
+$\lfloor k^2/4\rfloor+\lfloor k^2/3\rfloor$ and coefficient sum $6^k$ of the
+product $R_k^{(2)}R_k^{(3)}$.
+
+\paragraph{What neither calculation implies.}
+Theorem~\ref{res:sharp-fixed-base} replaces that band by explicit linear
+and logarithmic terms and a constant. It changes no cubic coefficient and no
+prime-power valuation, so it supplies no divisor for the 2004 polynomial forms.
+Against the two proposed degree savings of long Section~3, the shortfall at
+$3/2$ is exactly $N(74N^2-117N+41)/41>0$ for $N\ge2$, and the new estimate
+closes no part of it. Neither assertion supplies the cyclotomic divisibility proved
+for a different recurrence in \cite[Prop.~4, pp.~14--15]{krvz2009}.
 The separate coefficient and content calculations are in long
-Section~3.2; Appendix~\ref{app:index} records their sources and finite scope.
+Section~3.3; Appendix~\ref{app:index} records their sources and finite scope.
 
 \section{Supplementary arithmetic at \texorpdfstring{$3/2$}{3/2}}
 \label{sec:open}
@@ -1137,7 +1191,7 @@ section; they are not inputs to the rational specialisation in Section~2.
 \paragraph{Coefficient moments.}
 The coefficient polynomials in \cite[Sec.~3, p.~5]{zudilin2016} give a
 moment problem different from the remainder moments in Section~3.
-Long Section~3.2 checks the two leading Hankel families through rank eight,
+Long Section~3.3 checks the two leading Hankel families through rank eight,
 not the all-rank criterion in \cite[Lemma~2.1, p.~4]{wangzhu2016}.
 It proves a finite moment representation and discusses $(m!)^3$ at the
 endpoint \cite[Thm.~5.1]{berg2007}, formal continued fractions and finite

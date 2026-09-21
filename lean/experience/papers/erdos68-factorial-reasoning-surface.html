@@ -351,6 +351,23 @@ where
 is not a denominator of this series. The reflection identity is
 classical; see Stewart <span class="citation"
 data-cites="stewart2004"><a href="#ref-8">[8]</a></span>.</p>
+<p><em>Status.</em> The problem treated here is open, and this note does
+not close it. Every statement below marked as checked is a proposition
+that the pinned Lean kernel accepts from the sources this note links to,
+with no <code>sorry</code>, no added axiom, and no unchecked evaluation.
+That is a claim about the formal statement, not about its mathematical
+interest, its novelty, or the original problem. The unresolved
+obligations are named exactly, in their own section, and none of the
+finite computations, reductions, or no-go results here removes one of
+them.</p>
+<p><em>Companion system context.</em> The <a
+href="../../../papers/claim-faithful-publication-systems-paper.pdf#nameddest=systems-trust">claim
+and trust boundary</a>, <a
+href="../../../papers/cold-clone-to-proof-receipt.pdf#nameddest=cold-clone-authority">cold-clone
+route to proof authority</a>, and <a
+href="../../../papers/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol">public
+contribution protocol</a> are described in sibling papers. Those
+descriptions do not change the mathematical status of this note.</p>
 </section>
 </section>
 <section id="long68:sec:lcm" class="level2">
@@ -790,7 +807,7 @@ by
 \end{equation}</annotation></semantics></math></p>
 <p>Call
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_m=1</annotation></semantics></math>
-a . Put
+a <em>unit carry</em>. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>m</mi></msub><mo>=</mo><mi>m</mi><mi>!</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>−</mo><msub><mi>H</mi><mi>m</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E_m=m!(S-H_m)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ε</mi><mi>m</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>!</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\varepsilon_m=1/(m!-1)</annotation></semantics></math>.
@@ -5276,8 +5293,9 @@ mathematics of this paper.</p>
 <ol>
 <li id="ref-1"><p>Paul Erd<span>ő</span>s. <a
 href="https://doi.org/10.1017/CBO9780511897184.009">On the irrationality
-of certain series: problems and results</a>. In Alan Baker (ed.), ,
-Cambridge University Press (1988), pp. 102–109.</p></li>
+of certain series: problems and results</a>. In Alan Baker (ed.),
+<em>New Advances in Transcendence Theory</em>, Cambridge University
+Press (1988), pp. 102–109.</p></li>
 <li id="ref-2"><p>Thomas F. Bloom. <a
 href="https://www.erdosproblems.com/68">Erd<span>ő</span>s Problem
 <span>#68</span></a>. Online resource (2026). Historical access: 28 July
@@ -5285,7 +5303,8 @@ href="https://www.erdosproblems.com/68">Erd<span>ő</span>s Problem
 <li id="ref-3"><p>Paul Erd<span>ő</span>s. <a
 href="https://www.renyi.hu/~p_erdos/1976-44.pdf">Some problems and
 results on the irrationality of the sum of infinite series</a>.
-<strong>10</strong> (1975), 1–7.</p></li>
+<em>Journal of Mathematical Sciences</em> <strong>10</strong> (1975),
+1–7.</p></li>
 <li id="ref-4"><p>Joel Louwsma and Joseph Martino. <a
 href="https://arxiv.org/abs/2309.07280v1">Rational numbers with odd
 greedy expansion of fixed length</a>. Preprint (2023).
@@ -5301,24 +5320,28 @@ Springer (1976).</p></li>
 href="https://doi.org/10.1090/S0002-9947-04-03612-8">Character sums and
 congruences with
 <span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math></span></a>.
+<em>Transactions of the American Mathematical Society</em>
 <strong>356</strong> (12) (2004), 5089–5102.
 arXiv:math/0403422.</p></li>
 <li id="ref-8"><p>Cameron L. Stewart. <a
 href="https://doi.org/10.5486/PMD.2004.3190">On the greatest and least
 prime factors of
 <span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+1</annotation></semantics></math></span>,
-<span>II</span></a>. <strong>65</strong> (3–4) (2004), 461–480.</p></li>
+<span>II</span></a>. <em>Publicationes Mathematicae Debrecen</em>
+<strong>65</strong> (3–4) (2004), 461–480.</p></li>
 <li id="ref-9"><p>Wolfram Koepf and Dieter Schmersau. <a
 href="https://doi.org/10.1524/anly.2011.1094">Irrationality of certain
-infinite series <span>II</span></a>. <strong>31</strong> (2011),
-117–124.</p></li>
+infinite series <span>II</span></a>. <em>Analysis</em>
+<strong>31</strong> (2011), 117–124.</p></li>
 <li id="ref-10"><p>Daniel Duverney. <a
 href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf">Irrationality
-of fast converging series of rational numbers</a>. <strong>8</strong>
+of fast converging series of rational numbers</a>. <em>Journal of
+Mathematical Sciences, the University of Tokyo</em> <strong>8</strong>
 (2001), 275–316.</p></li>
 <li id="ref-11"><p>Jaroslav Han<span>č</span>l and Robert Tijdeman. <a
 href="https://doi.org/10.4064/aa118-4-5">On the irrationality of
-factorial series</a>. <strong>118</strong> (4) (2005), 383–401.</p></li>
+factorial series</a>. <em>Acta Arithmetica</em> <strong>118</strong> (4)
+(2005), 383–401.</p></li>
 <li id="ref-12"><p>Kevin Barreto, Jiwon Kang, Sang-hyun Kim, Vjekoslav
 Kova<span>č</span> and Shengtong Zhang. <a
 href="https://arxiv.org/abs/2601.21442v3">Irrationality of rapidly
@@ -5326,23 +5349,24 @@ converging series: a problem of <span>Erd<span>ő</span>s</span> and
 <span>Graham</span></a>. Preprint (2026). arXiv:2601.21442.</p></li>
 <li id="ref-13"><p>Florian Luca and Igor E. Shparlinski. <a
 href="https://doi.org/10.1112/S0024609305004923">Prime divisors of
-shifted factorials</a>. <strong>37</strong> (6) (2005),
-809–817.</p></li>
+shifted factorials</a>. <em>Bulletin of the London Mathematical
+Society</em> <strong>37</strong> (6) (2005), 809–817.</p></li>
 <li id="ref-14"><p>Li Lai. <a href="https://doi.org/10.1017/S0004972725100543">On
 the largest prime divisor of
 <span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+1</annotation></semantics></math></span></a>.
+<em>Bulletin of the Australian Mathematical Society</em>
 <strong>113</strong> (3) (2026), 390–403. arXiv:2103.14894.</p></li>
 <li id="ref-15"><p>Li Lai, Cezar Lupu and Johannes Sprang. <a
 href="https://doi.org/10.1007/s40687-025-00559-x">On the irrationality
 of certain
 <span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></span>-adic
-zeta values</a>. <strong>12</strong> (4) (2025), article 77.
-arXiv:2505.23088.</p></li>
+zeta values</a>. <em>Research in the Mathematical Sciences</em>
+<strong>12</strong> (4) (2025), article 77. arXiv:2505.23088.</p></li>
 <li id="ref-16"><p>Li Lai. <a href="https://doi.org/10.1142/S1793042125500113">On
 the irrationality of certain
 <span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math></span>-adic
-zeta values</a>. <strong>21</strong> (1) (2025), 207–235.
-arXiv:2304.00816.</p></li>
+zeta values</a>. <em>International Journal of Number Theory</em>
+<strong>21</strong> (1) (2025), 207–235. arXiv:2304.00816.</p></li>
 <li id="ref-17"><p><span>NIST Digital Library of Mathematical Functions</span>. <a
 href="https://dlmf.nist.gov/1.12">Continued fractions: convergents</a>.
 Online resource (2026).</p></li>
@@ -5350,7 +5374,8 @@ Online resource (2026).</p></li>
 href="https://doi.org/10.1112/jlms/s2-13.3.513">On the greatest and
 least prime factors of
 <span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+1</annotation></semantics></math></span></a>.
-<strong>13</strong> (3) (1976), 513–519.</p></li>
+<em>Journal of the London Mathematical Society</em> <strong>13</strong>
+(3) (1976), 513–519.</p></li>
 <li id="ref-19"><p>Florian Luca and Igor E. Shparlinski. <a
 href="https://doi.org/10.5802/jtnb.524">On the largest prime factor of
 <span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>+</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!+2^n-1</annotation></semantics></math></span></a>.
@@ -5359,21 +5384,24 @@ href="https://doi.org/10.5802/jtnb.524">On the largest prime factor of
 <li id="ref-20"><p>Moubariz Z. Garaev, Florian Luca and Igor E. Shparlinski. <a
 href="https://doi.org/10.1007/s00209-006-0939-5">Distribution of
 harmonic sums and <span>Bernoulli</span> polynomials modulo a prime</a>.
-<strong>253</strong> (2006), 855–865.</p></li>
+<em>Mathematische Zeitschrift</em> <strong>253</strong> (2006),
+855–865.</p></li>
 <li id="ref-21"><p>Jonathan Sondow. <a href="https://arxiv.org/abs/0704.1282v2">A
 geometric proof that
 <span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math></span>
-is irrational and a new measure of its irrationality</a>.
-<strong>113</strong> (7) (2006), 637–641. arXiv:0704.1282. Addendum:
+is irrational and a new measure of its irrationality</a>. <em>American
+Mathematical Monthly</em> <strong>113</strong> (7) (2006), 637–641.
+arXiv:0704.1282. Addendum: <em>Amer. Math. Monthly</em>
 <strong>114</strong> (2007), 659; reading copy v2.</p></li>
 <li id="ref-22"><p>Xiyu Hu. <a href="https://arxiv.org/abs/2608.01781v1">Factorial
 residues modulo a prime: beyond the square-root bound</a>. Preprint
 (2026). arXiv:2608.01781. Version 1, 3 August 2026.</p></li>
 <li id="ref-23"><p>Moubariz Z. Garaev and Julio C. Pardo. <a
 href="https://doi.org/10.1090/proc/17753">Additive congruences with
-factorials modulo a prime</a>. <strong>154</strong> (10) (2026),
-4179–4190. arXiv:2508.12127. Published online 1 July 2026; assigned
-October 2026 issue.</p></li>
+factorials modulo a prime</a>. <em>Proceedings of the American
+Mathematical Society</em> <strong>154</strong> (10) (2026), 4179–4190.
+arXiv:2508.12127. Published online 1 July 2026; assigned October 2026
+issue.</p></li>
 <li id="ref-24"><p>Xiyu Hu. <a href="https://arxiv.org/abs/2609.05652v1">Lower
 bounds for some value sets over finite fields: incidence geometry and
 <span>Bourgain</span>’s group expansion theorem</a>. Preprint (2026).
@@ -5383,35 +5411,39 @@ Stichtenoth. <a
 href="https://journals.tubitak.gov.tr/math/vol29/iss2/6/">On the Value
 Set of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math>
-Modulo a Prime</a>. <strong>29</strong> (2) (2005), 169–174.</p></li>
+Modulo a Prime</a>. <em>Turkish Journal of Mathematics</em>
+<strong>29</strong> (2) (2005), 169–174.</p></li>
 <li id="ref-26"><p>Oleksiy Klurman and Marc Munsch. <a
 href="https://doi.org/10.5802/jtnb.974">Distribution of factorials
 modulo
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></a>.
-<strong>29</strong> (1) (2017), 169–177.</p></li>
+<em>Journal de Théorie des Nombres de Bordeaux</em> <strong>29</strong>
+(1) (2017), 169–177.</p></li>
 <li id="ref-27"><p>Alexandr Grebennikov, Arsenii Sagdeev, Aliaksei Semchankau and
 Aliaksei Vasilevskii. <a href="https://doi.org/10.4171/RMI/1422">On the
 sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math>
 mod
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></a>.
-<strong>40</strong> (2) (2024), 637–648.</p></li>
+<em>Revista Matemática Iberoamericana</em> <strong>40</strong> (2)
+(2024), 637–648.</p></li>
 <li id="ref-28"><p>Sophie Stevens and Frank de Zeeuw. <a
 href="https://doi.org/10.1112/blms.12077">An improved point-line
-incidence bound over arbitrary fields</a>. <strong>49</strong> (5)
-(2017), 842–858. arXiv:1609.06284.</p></li>
+incidence bound over arbitrary fields</a>. <em>Bulletin of the London
+Mathematical Society</em> <strong>49</strong> (5) (2017), 842–858.
+arXiv:1609.06284.</p></li>
 <li id="ref-29"><p>R. A. Macleod and I. Barrodale. <a
 href="https://doi.org/10.4153/CMB-1970-052-8">On Equal Products of
-Consecutive Integers</a>. <strong>13</strong> (2) (1970),
-255–259.</p></li>
+Consecutive Integers</a>. <em>Canadian Mathematical Bulletin</em>
+<strong>13</strong> (2) (1970), 255–259.</p></li>
 <li id="ref-30"><p><span>Nguyen Xuan Tho</span>. <a
 href="https://doi.org/10.4171/EM/556">On equal products of consecutive
-integers</a>. <strong>81</strong> (3) (2026), 119–124. First published
-online 10 July 2025.</p></li>
+integers</a>. <em>Elemente der Mathematik</em> <strong>81</strong> (3)
+(2026), 119–124. First published online 10 July 2025.</p></li>
 <li id="ref-31"><p>Paul Erd<span>ő</span>s and John L. Selfridge. <a
 href="https://doi.org/10.1215/ijm/1256050816">The product of consecutive
-integers is never a power</a>. <strong>19</strong> (2) (1975),
-292–301.</p></li>
+integers is never a power</a>. <em>Illinois Journal of Mathematics</em>
+<strong>19</strong> (2) (1975), 292–301.</p></li>
 <li id="ref-32"><p><span>NIST Digital Library of Mathematical Functions</span>. <a
 href="https://dlmf.nist.gov/1.3.E13">Vandermonde determinant</a>,
 §1.3(ii), formula (1.3.13). Online resource, consulted 18 September

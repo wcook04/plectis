@@ -45,6 +45,13 @@
 \noteprovenance
 
 \begin{abstract}
+A degree-seven counterexample due to the erdosproblems.com contributor
+\href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{\texttt{ani}},
+formalised in Lean here, refutes the universal total-variation
+formulation: every continuous path inside the strict unit lemniscate joining
+two distinct roots has total variation greater than $2$.  Its correspondence
+with the historical curve-length question has not received independent human
+review.
 For a monic trinomial with roots in the open unit disc, the root equation
 bounds the polynomial along every root-to-origin segment. Any two distinct roots
 are therefore joined inside $\{|f|<1\}$ by a path of length less than $2$.
@@ -60,8 +67,8 @@ $\sum_{j=1}^{n-1}|f(c_j)|^{4/(n-1)}\le(n-1)R^{4n/(n-1)}$
 for roots in a closed disc of radius $R$, with critical points counted
 with multiplicity. Examples distinguish this bound from path-length control.
 The final sections examine inverse-sheet topology and refute an earlier
-spanning-tree estimate. These results do not prove the unrestricted
-length-$2$ assertion.
+spanning-tree estimate. The positive results retain their stated hypotheses
+and do not repair the refuted universal formulation.
 \end{abstract}
 
 The \href{erdos-1041-lemniscate-newton-flow.pdf}{short note} centres on
@@ -118,7 +125,7 @@ squarefree.
 \noindent The problem numbering follows Bloom's Erd\H{o}s problem catalogue
 \cite{bloom}.  \phantomsection\label{res:ani-degree-seven-counterexample-long}
 A degree-seven counterexample due to the
-\href{https://www.erdosproblems.com/1041}{erdosproblems.com contributor \texttt{ani}} makes the unrestricted total-variation assertion false.  For
+\href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{erdosproblems.com contributor \texttt{ani}} makes the unrestricted total-variation assertion false.  For
 one explicit monic polynomial of degree seven whose roots are distinct and
 lie in the open unit disc, every continuous path in the strict unit lemniscate
 joining two distinct roots has total variation greater than~$2$.\footnote{Lean
@@ -4835,7 +4842,6 @@ inequality do not supply the same conclusion.
   Gleichungen mit ganzzahligen Koeffizienten}, Math. Z. \textbf{1}
   (1918), no.~4, 377--402.
 \end{thebibliography}
-
 % ---- part extended_record ----
 % ---- part family_catalogue ----
 % ---- part back ----

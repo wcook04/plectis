@@ -5,7 +5,7 @@
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Agent navigation",
-  "pages": 11,
+  "pages": 12,
   "question": "How can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?",
   "precis": "A large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes. The audit was author-operated; no external contributor had completed the tour or documented return path by 31 August 2026.",
   "owns": "the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts",
@@ -27,9 +27,9 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 29,
-    "renderer_fingerprint": "815b27130b0e7a63",
-    "source_sha256": "67b05a5c3d4857022d8b79850b5c0d258db36c694bee74c4e5a13f0942f05f7d",
+    "renderer_contract_version": 30,
+    "renderer_fingerprint": "d383526533396f6a",
+    "source_sha256": "6244ff36801532c7a1acbcebc01ddb5b16a1e6288c1cf04bcaa56ba0d8c1e398",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "mathml_node_count": 0,
@@ -38,8 +38,8 @@
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "cc2328e9e97e0df3973e462888d0a8526ab71b638dfc2a2746cbf6f69840c050",
-    "html_exact_tex_sha256": "df91616c774c5d73a2f9deff4052d7b96c11b50a3f27edb747e8c54c3571b317"
+    "html_mathml_sha256": "d53e42a5da2bf7e8e9532431a103c84d2034243f69f88488f320792f14f24c12",
+    "html_exact_tex_sha256": "8e6ee275d70f247d812f08a6216880eb836267ce76ec9a4d8d49ffeb77fbcb28"
   },
   "sections": [
     {

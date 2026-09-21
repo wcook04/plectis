@@ -55,12 +55,17 @@ problem corpus; accepted architectural returns improve the process that
 turns future compute and insight into reviewable mathematics.  Provenance and
 role-specific credit remain attached when a contribution is assimilated.
 
-The implemented case is a public Lean repository organised around eight open
-Erd\H{o}s problems.  The problems were chosen as difficult research worlds,
+The implemented case is a public Lean repository organised around eight
+Erd\H{o}s problem programmes.  The problems were chosen as difficult research worlds,
 not because the present system was expected to solve them.  A fresh clone
 contains papers, formal source, explicit open boundaries, corpus queries,
-validation programs, and structured return paths.  All eight problems remain
-open.  The repository is therefore a proof of concept for cumulative research
+validation programs, and structured return paths. The degree-seven
+counterexample due to the erdosproblems.com contributor
+\href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{\texttt{ani}},
+formalised in Lean in this repository, refutes the total-variation formulation
+of Problem 1041; correspondence with its historical curve-length question
+remains unreviewed. The other seven
+targets remain unresolved here. The repository is a proof of concept for cumulative research
 infrastructure, not evidence that distributed agents already outperform
 mathematicians or that additional compute will solve a named problem. As of
 14 September 2026, the author had not recorded a completed external cold-clone use
@@ -83,8 +88,8 @@ mathematical direction, infrastructure, and review as independently useful
 inputs, while preserving evidence boundaries and role-specific credit.
 \textbf{Implementation.} One fresh clone contains eight problem worlds,
 formal source, explicit open obligations, validation programs, and structured
-return paths.  \textbf{Limit.} All eight problems remain open, and no external
-contribution has yet tested the proposed contributor experience.
+return paths. \textbf{Limit.} No external contribution had tested the proposed
+contributor experience by 14 September 2026.
 \end{paperresult}
 
 \section{The strategy}\label{sec:strategy}
@@ -133,6 +138,21 @@ delta plus the boundary that survived.  It may hand back a theorem, a narrower
 reduction, a killed route, a source correction, or a better next question.
 When the endpoint remains open, that is not a failed run.  Losing the state and
 paying to rediscover it would be.
+
+A listed endpoint is one way to begin.  The other is to read the corpus as a
+single body of mathematics and decide what is worth developing.  Eight
+programmes written side by side expose methods, obstructions and examples that
+no one programme sets out to study, and a good question is scarcer than the
+compute to attack it.  The commons therefore supports a run whose question,
+subject and eventual form emerge during the work.  The constraint that remains
+is source fidelity.  The recorded sources fix what may be claimed about
+existing results, and they place no limit on the question asked.  Such a run
+returns the same kind of object as any other: a stated idea, its evidence, the
+prior work found, its limits, and the next question it opens.  The public
+repository carries one such investigation in full, including the step at which
+it corrected its own first reading of its data
+(\repolink{research/experiments/choices_contraction/README.md}{choices,
+contraction and rational membership}).
 
 \subsection*{Two coupled goals, not one endless agent}
 \papersectiontarget{strategy-coupled-goals}
@@ -202,10 +222,17 @@ parts of one prototype rather than competing accounts of it.
 \subsection*{What one clone lets a contributor do}
 
 A contributor does not need to understand the whole repository before doing
-useful work.  From one clone, a person or agent can choose one of five first
-actions: mine a bounded problem route; contribute mathematical direction
+useful work.  From one clone, a person or agent can choose one of six first
+actions: read the corpus as one body of mathematics and decide what is worth
+developing; mine a bounded problem route; contribute mathematical direction
 without paying for the compute that follows it; formalise or review one claim;
 repair the research machinery; or propose another sourced problem world.  The
+first action has no target at the start.  Finding a question that deserves
+attention is part of the research, and a well-posed new question, a general
+theorem behind a recorded example, or a clearer account of an existing proof
+is a contribution in the same sense as a proof.  The
+\repolink{skills/explore-the-corpus/SKILL.md}{explore-the-corpus skill} owns
+that route and hands an emerged question to the workflows below.  The
 clone-local \repolink{skills/explain-public-system/SKILL.md}%
 {explain-public-system skill} lets an agent read the public corpus and companion
 papers on the newcomer's behalf, explain the claim boundaries at the requested
@@ -221,33 +248,33 @@ harness, and describe the present multi-stage process for adding a problem.
   action/.style={paper stage,text width=3.15cm,minimum height=15mm},
   arr/.style={paper arrow}
 ]
-\node[action,fill=MidnightBlue!5] (mine)
-  {{\scriptsize\sffamily\bfseries 1}\\[2pt]\textbf{Mine one route}\\[2pt]
+\node[action,fill=MidnightBlue!5] (read)
+  {{\scriptsize\sffamily\bfseries 1}\\[2pt]\textbf{Read the corpus}\\[2pt]
+   \scriptsize decide what is worth developing};
+\node[action,fill=MidnightBlue!5,right=6mm of read] (mine)
+  {{\scriptsize\sffamily\bfseries 2}\\[2pt]\textbf{Mine one route}\\[2pt]
    \scriptsize bounded theorem or obstruction};
 \node[action,fill=MidnightBlue!5,right=6mm of mine] (direct)
-  {{\scriptsize\sffamily\bfseries 2}\\[2pt]\textbf{Give direction}\\[2pt]
+  {{\scriptsize\sffamily\bfseries 3}\\[2pt]\textbf{Give direction}\\[2pt]
    \scriptsize hypothesis, example, or counterexample};
-\node[action,fill=TealBlue!5,right=6mm of direct] (formal)
-  {{\scriptsize\sffamily\bfseries 3}\\[2pt]\textbf{Check a claim}\\[2pt]
+\node[action,fill=TealBlue!5,below=6mm of read] (formal)
+  {{\scriptsize\sffamily\bfseries 4}\\[2pt]\textbf{Check a claim}\\[2pt]
    \scriptsize formalise or review};
-\node[action,fill=BurntOrange!6,below=6mm of $(mine.south)!0.5!(direct.south)$] (repair)
-  {{\scriptsize\sffamily\bfseries 4}\\[2pt]\textbf{Repair the machinery}\\[2pt]
+\node[action,fill=BurntOrange!6,below=6mm of mine] (repair)
+  {{\scriptsize\sffamily\bfseries 5}\\[2pt]\textbf{Repair the machinery}\\[2pt]
    \scriptsize navigation, validation, or exposition};
-\node[action,fill=BurntOrange!6,below=6mm of $(direct.south)!0.5!(formal.south)$] (add)
-  {{\scriptsize\sffamily\bfseries 5}\\[2pt]\textbf{Add a problem}\\[2pt]
+\node[action,fill=BurntOrange!6,below=6mm of direct] (add)
+  {{\scriptsize\sffamily\bfseries 6}\\[2pt]\textbf{Add a problem}\\[2pt]
    \scriptsize sourced world and boundary};
-\node[paper box,below=8mm of $(repair.south)!0.5!(add.south)$,
+\node[fit=(read)(direct)(formal)(add),inner sep=2.5mm] (actions) {};
+\node[paper box,below=9mm of actions,
       text width=10.8cm,fill=ForestGreen!6,align=center] (return)
       {{\scriptsize\sffamily\bfseries COMMON OUTPUT}\\[3pt]
        \textbf{Smallest inspectable delta}\\[2pt]
        \footnotesize source \(\cdot\) evidence \(\cdot\) limitation \(\cdot\) open statement};
-\draw[arr] (mine.south) -- (repair.north);
-\draw[arr] (direct.south) -- ($(repair.north)!0.5!(add.north)$);
-\draw[arr] (formal.south) -- (add.north);
-\draw[arr] (repair.south) -- (repair.south |- return.north);
-\draw[arr] (add.south) -- (add.south |- return.north);
+\draw[arr] (actions.south) -- (return.north);
 \end{tikzpicture}
-\caption{Five useful first actions.  None requires an endpoint solution, and
+\caption{Six useful first actions.  None requires an endpoint solution, and
 none receives a stronger status than the evidence returned with it.}
 \label{fig:first-actions}
 \end{figure}
@@ -509,7 +536,13 @@ An external runner begins at \repolink{AGENTS.md}{the compact agent
 entry}.  It can inspect all problem frontiers, choose a bounded question, read
 the relevant paper and source neighbourhood, run experiments or edit formal
 code, validate the result, and prepare a return.  None of these steps requires
-access to the private workbench.  A contributor is free to replace the agent,
+access to the private workbench.  A reader with no clone starts from the
+\repolink{docs/reading-edition/README.md}{reading edition}: one generated
+file that carries an introduction, the opening of each short paper, the
+evidence vocabulary, and the same research instruction that the clone gives
+its agents.  It is built from the sources of the papers, so it cannot drift
+from them, and its sizes are printed so that a reader knows what a model can
+load.  A contributor is free to replace the agent,
 the scheduler, or the entire search policy while retaining the public evidence
 boundary.
 
@@ -546,9 +579,12 @@ The complete protocol has nine steps.
 \item \textbf{Clone.}  Record the exact public commit and environment.
 \item \textbf{Orient.}  Read the claim boundary and the paper governing the
       selected problem or architecture area.
-\item \textbf{Select.}  Name one bounded frontier, expected evidence, and a
-      stop condition.  Working on all problems is allowed, but each returned
-      result remains independently scoped.
+\item \textbf{Select or discover.}  Name one bounded frontier, expected
+      evidence, and a stop condition.  Working on all problems is allowed, but
+      each returned result remains independently scoped.  A run may instead
+      begin from the corpus with no frontier named.  The question is then an
+      output of the reading, and it is stated with the same three items as
+      soon as it has emerged.
 \item \textbf{Work.}  Use any mixture of reasoning, source research,
       computation, Lean, and human mathematical judgement.  Preserve useful
       negative results instead of rewriting the run as a linear success.
@@ -604,7 +640,12 @@ formalisation, and reproducible failed routes.  The \emph{architecture track}
 accepts improvements to agent workflow, navigation, validation,
 reproducibility, public experience, governance, and tooling.  An architecture
 return never needs a fictitious problem number, and it cannot request
-promotion of a mathematical claim.
+promotion of a mathematical claim.  The same holds inside the mathematics
+track.  A return whose subject is wider than one problem, such as a general
+theorem, a mechanism shared by several programmes, or a new question with
+evidence for its value, names that subject in words and lists the related
+problems.  The list may be empty.  The credit record then shows the
+contribution under its subject and under each related problem.
 
 The distinction between a return and an adopted result is load-bearing.  A
 pull request is a proposed delta.  A review act records a decision.  A release
@@ -1070,9 +1111,9 @@ repository.
 The lowest-friction invitation should appear on the first screen of the
 README: clone the project, point a local agent at the compact entry file, and
 ask it to choose a bounded frontier that matches the available tools.  The
-same screen must say that all eight problems remain open, that a useful return
-need not solve one, and that architecture contributions receive first-class
-credit.
+same screen must state the checked results beside their exact remaining-open
+questions, explain that a useful return need not solve a problem, and give
+architecture contributions first-class credit.
 
 Publicity should follow a working contribution loop rather than precede it.
 A Hacker News launch, research talk, or model-community post can then make a
@@ -1340,8 +1381,10 @@ data.  Autonomous physical experimentation is not a present project goal.
 
 The present strategy has substantial limits.
 
-First, all eight endpoint problems remain open.  The repository contains
-intermediate mathematics and deep records of failed routes, but no evidence
+First, the selected total-variation refutation for Problem 1041 does not
+establish correspondence with the historical question, and the other seven
+targets remain unresolved here. The repository contains intermediate
+mathematics and deep records of failed routes, but no evidence
 that a distributed run will solve any problem.  The claim that infrastructure
 improves the conversion from compute to mathematics has not yet been measured
 in a controlled experiment.
@@ -1455,6 +1498,10 @@ How can an agent explain the system? &
 \repolink{skills/explain-public-system/SKILL.md}{explain-public-system skill} \\
 How can an agent run the coupled research lifecycle? &
 \repolink{skills/run-coupled-research-goals/SKILL.md}{coupled-goal skill} \\
+How can I read the mathematics with my own model, without a clone? &
+\repolink{docs/reading-edition/README.md}{reading edition} \\
+How can an agent read the corpus and decide what to develop? &
+\repolink{skills/explore-the-corpus/SKILL.md}{explore-the-corpus skill} \\
 How can an agent mine a frontier? &
 \repolink{skills/mine-open-problem/SKILL.md}{mine-open-problem skill} \\
 How is a bounded Lean change validated? &

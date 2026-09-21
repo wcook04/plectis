@@ -11,22 +11,23 @@
 publish: it contains personal records, credentials, live browser and
 account information, my working notes, and unfinished tools. I would
 still like strangers to be able to test some claims about it instead of
-accepting my say-so. I use in a deliberately local sense: a claim is
-answerable when a stranger can run a public test that bears on it, see
-how the result is judged, and locate a disagreement in a named input,
-rule, or output. This is not a new synonym for truth, reproducibility,
-verification, or independent review. For the rest of the paper I use the
-plainer phrase . The question is what conclusions such a test can
-support when the larger system and the unpublished pool from which the
-test was selected remain invisible.</p>
+accepting my say-so. I use <em>answerable</em> in a deliberately local
+sense: a claim is answerable when a stranger can run a public test that
+bears on it, see how the result is judged, and locate a disagreement in
+a named input, rule, or output. This is not a new synonym for truth,
+reproducibility, verification, or independent review. For the rest of
+the paper I use the plainer phrase <em>publicly testable claim</em>. The
+question is what conclusions such a test can support when the larger
+system and the unpublished pool from which the test was selected remain
+invisible.</p>
 <p>Plectis is my working answer: a public software repository, stored at
 <a
 href="https://github.com/wcook04/plectis"><code>github.com/wcook04/plectis</code></a>.
-A is an organised project folder, usually kept with its revision
-history; to a repository is to copy that folder and history to another
-computer. Everything this paper says a stranger can check is in that
-repository. This paper describes how its claims are exposed and where
-the evidence stops.</p>
+A <em>repository</em> is an organised project folder, usually kept with
+its revision history; to <em>clone</em> a repository is to copy that
+folder and history to another computer. Everything this paper says a
+stranger can check is in that repository. This paper describes how its
+claims are exposed and where the evidence stops.</p>
 <p>This paper examines the public software collection only. The
 companion mathematics repository is a separate public release containing
 formal mathematics on eight open Erdős problems and the workflows for
@@ -124,9 +125,10 @@ class="citation" data-cites="runeson2009"></span>. They also note that
 this boundary depends on the study context and research goals <span
 class="citation" data-cites="runeson2009"></span>. I borrow only those
 two terms: the named repository version is the single case, and each
-component is a (one item examined inside that case). This paper does not
-otherwise claim a full case-study design. No subset of the components is
-used to estimate performance or represent the private system.</p>
+component is a <em>unit of analysis</em> (one item examined inside that
+case). This paper does not otherwise claim a full case-study design. No
+subset of the components is used to estimate performance or represent
+the private system.</p>
 <p>Reading this paper requires no programming. Reproducing its runs
 requires basic command-line use, a terminal (a text window for
 commands), Git (for copying and versioning repositories), Python 3.11 or
@@ -172,22 +174,24 @@ record format.</p>
 </section>
 <section id="sec:contract" class="level2">
 <h2>The component contract</h2>
-<p>A in Plectis is one registered, testable part of the project. Its is
-a fixed sample input: in ordinary testing language, a test case. A is
-the saved record of a run. The repository supplies one from an earlier
-run; rerunning can write another. A is the program that applies a
+<p>A <em>component</em> in Plectis is one registered, testable part of
+the project. Its <em>fixture</em> is a fixed sample input: in ordinary
+testing language, a test case. A <em>receipt</em> is the saved record of
+a run. The repository supplies one from an earlier run; rerunning can
+write another. A <em>validator</em> is the program that applies a
 component’s pass and refusal rules. In testing terminology, the rule and
 expected result together act as the test oracle: they say what should
-count as correct for that case. A is a named, saved version of the
-repository. These are Plectis’s internal names for familiar objects—test
-case, test oracle, run record, and saved software version—and the paper
-uses the familiar terms whenever the internal filename is
-irrelevant.</p>
-<p>Here means the public input, procedure, output, and judgement rule
-offered in support of a claim. Calling them evidence does not establish
-their adequacy. means only that the claim, those materials, and a limit
-are stated together so readers can check their fit. Nothing in these
-labels grades the importance of what a component does.</p>
+count as correct for that case. A <em>commit</em> is a named, saved
+version of the repository. These are Plectis’s internal names for
+familiar objects—test case, test oracle, run record, and saved software
+version—and the paper uses the familiar terms whenever the internal
+filename is irrelevant.</p>
+<p>Here <em>evidence</em> means the public input, procedure, output, and
+judgement rule offered in support of a claim. Calling them evidence does
+not establish their adequacy. <em>Contract</em> means only that the
+claim, those materials, and a limit are stated together so readers can
+check their fit. Nothing in these labels grades the importance of what a
+component does.</p>
 <p>At commit <code>57ffb7f5830c</code> the registry, the component list
 read by the programs, contains 88 entries. Every entry is required to
 connect the same things: a claim stated in prose; a fixture; a command;
@@ -232,19 +236,20 @@ The worked example below refuses an input format it does not support.
 Components that depend on an external tool, such as the Lean proof
 checker (a program that verifies mathematical proofs), must record a
 refusal with a stated limit when the tool is absent, rather than
-reporting success. therefore means that the operation and its declared
-failure boundary are present in public form; it does not mean that every
-optional dependency exists on every machine. A refusal is informative
-only when it is declared in advance and distinguishable from a
-breakdown: a predeclared refusal marks the edge of what the component
-claims, while an unexpected crash is a defect. The two must not be read
-as the same kind of event. One honesty condition on refusals cannot be
-discharged from inside the repository at all: the public record shows
-each boundary as declared at the named commit, and it cannot show
-whether the boundary was drawn before or after an awkward case was first
-met. A boundary drawn afterwards turns a failure into a designed refusal
-in the telling. Saving the version before an outside evaluation begins,
-as Section  proposes, is what would make that ordering checkable.</p>
+reporting success. <em>Runnable</em> therefore means that the operation
+and its declared failure boundary are present in public form; it does
+not mean that every optional dependency exists on every machine. A
+refusal is informative only when it is declared in advance and
+distinguishable from a breakdown: a predeclared refusal marks the edge
+of what the component claims, while an unexpected crash is a defect. The
+two must not be read as the same kind of event. One honesty condition on
+refusals cannot be discharged from inside the repository at all: the
+public record shows each boundary as declared at the named commit, and
+it cannot show whether the boundary was drawn before or after an awkward
+case was first met. A boundary drawn afterwards turns a failure into a
+designed refusal in the telling. Saving the version before an outside
+evaluation begins, as Section  proposes, is what would make that
+ordering checkable.</p>
 <p>The idea does not depend on software. The contract needs a claim in
 words; a determinate public case; a procedure a stranger can cause to
 run; an observable result; a rule connecting result to claim; a declared
@@ -276,10 +281,11 @@ data-cites="nasem2019"><a href="#ref-2">[2]</a></span>. The report separately ca
 exact reproducibility does not guarantee computational correctness:
 undetected erroneous code can reproduce the same erroneous result <span
 class="citation" data-cites="nasem2019"></span>. In software testing, a
-is a procedure used to distinguish correct from incorrect behaviour. The
-challenge of making that distinction is called the test oracle problem
-<span class="citation" data-cites="barr2015"><a href="#ref-3">[3]</a></span>. Barr et
-al. distinguish a partial test oracle
+<em>test oracle</em> is a procedure used to distinguish correct from
+incorrect behaviour. The challenge of making that distinction is called
+the test oracle problem <span class="citation"
+data-cites="barr2015"><a href="#ref-3">[3]</a></span>. Barr et al. distinguish a partial test
+oracle
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
 from a conceptual ground-truth oracle that always gives the right
 answer, modelled as a total oracle
@@ -294,11 +300,12 @@ A passing validator therefore applies its published rule; it does not by
 itself establish that the rule is sound. The risk that a curated
 collection disproportionately exposes favourable cases is analogous to
 selective publication and the file-drawer problem <span class="citation"
-data-cites="rosenthal1979"><a href="#ref-4">[4]</a></span>. An links system claims to arguments
-and evidence. The Object Management Group’s Structured Assurance Case
-Metamodel (SACM), version 2.3, defines such a case as a collection of
-auditable claims, arguments, and evidence. It separately represents an
-artifact citation and the relationship said to connect that artifact to
+data-cites="rosenthal1979"><a href="#ref-4">[4]</a></span>. An <em>assurance case</em> links
+system claims to arguments and evidence. The Object Management Group’s
+Structured Assurance Case Metamodel (SACM), version 2.3, defines such a
+case as a collection of auditable claims, arguments, and evidence. It
+separately represents an artifact citation and the
+<em>AssertedEvidence</em> relationship said to connect that artifact to
 a claim; the relationship is itself an assertion by the case’s author.
 Representing an argument is therefore not the same as establishing its
 validity <span class="citation" data-cites="omgsacm2023"><a href="#ref-5">[5]</a></span>. The
@@ -311,20 +318,21 @@ standard or of GSN, and makes no claim that the private system is safe.
 Its validator applies a published rule and records a result; it neither
 models nor independently justifies the evidential link from that result
 to the prose claim. The Association for Computing Machinery (ACM) calls
-digital research materials such as code, scripts, and data . Its badge
+digital research materials such as code, scripts, and data
+<em>artifacts</em>. Its <em>Artifacts Evaluated—Functional</em> badge
 means those materials passed an independent audit for documentation,
 consistency, completeness, ability to run, and evidence of verification
 and validation. The NISO recommended practice separates object review,
 reproduction with the author’s objects, and replication by a new study
 <span class="citation" data-cites="nisobadging2021"><a href="#ref-7">[7]</a></span>. ACM’s
-harmonised current names are and ; its badges are independent, and
-results validation requires a peer-reviewed report <span
-class="citation" data-cites="acmartifact"></span>. Plectis claims
-neither status: its receipts are author-generated, not independent
-review or validation. These standards are comparison points, not
-statuses awarded here. This paper claims no new theory of assurance,
-testing, or reproducibility; it reads each public procedure against its
-claim and stated limit.</p>
+harmonised current names are <em>Results Reproduced</em> and <em>Results
+Replicated</em>; its badges are independent, and results validation
+requires a peer-reviewed report <span class="citation"
+data-cites="acmartifact"><a href="#ref-8">[8]</a></span>. Plectis claims neither status: its
+receipts are author-generated, not independent review or validation.
+These standards are comparison points, not statuses awarded here. This
+paper claims no new theory of assurance, testing, or reproducibility; it
+reads each public procedure against its claim and stated limit.</p>
 </section>
 <section id="sec:run" class="level2">
 <h2>One run, examined</h2>
@@ -415,10 +423,11 @@ command across lines):</p>
 </tbody>
 </table>
 </div>
-<p>Here means “refused as expected”; <code>pcm24</code> was not
-accepted. Because the inputs and the rule are both printed above, the
-first row can be checked without the repository or a computer: the
-squares of the four samples average to 0.00375, whose square root is
+<p>Here <em>pass</em> means “refused as expected”; <code>pcm24</code>
+was not accepted. Because the inputs and the rule are both printed
+above, the first row can be checked without the repository or a
+computer: the squares of the four samples average to 0.00375, whose
+square root is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.061237</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">0.061237\ldots</annotation></semantics></math>,
 and eight times that is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.489897</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">0.489897\ldots</annotation></semantics></math>.
@@ -528,11 +537,12 @@ treats these five gaps separately.</p>
 </section>
 <section id="sec:distinctions" class="level2">
 <h2>Five distinctions</h2>
-<p>Five labels organise the gaps in Figure : , where the material came
-from; , whether an answer is right; , whether a rule tests its claim; ,
-whether shown cases stand for unshown ones; and , what the declared
-checks may miss. These short labels correspond to familiar questions
-about provenance, test-oracle validity, claim–test fidelity,
+<p>Five labels organise the gaps in Figure : <em>origin</em>, where the
+material came from; <em>correctness</em>, whether an answer is right;
+<em>meaning</em>, whether a rule tests its claim; <em>reach</em>,
+whether shown cases stand for unshown ones; and <em>risk</em>, what the
+declared checks may miss. These short labels correspond to familiar
+questions about provenance, test-oracle validity, claim–test fidelity,
 representativeness, and residual risk. They are not five new kinds of
 evidence. Each subsection separates what the public run directly shows
 from the additional premise needed for a stronger conclusion.</p>
@@ -563,11 +573,11 @@ The same holds for the audio component’s named source file: the name is
 an entry I wrote. Origin claims could only be strengthened by something
 a public repository cannot supply about itself, such as commitments
 published before the fact, or a trusted person permitted to examine both
-sides. The term means an object’s origin and history. Here, that origin
-remains reported rather than publicly established. FIPS 180-4 itself
-similarly cautions that conformance to the standard does not assure that
-a particular implementation is secure <span class="citation"
-data-cites="nistfips1804"><a href="#ref-9">[9]</a></span>.</p>
+sides. The term <em>provenance</em> means an object’s origin and
+history. Here, that origin remains reported rather than publicly
+established. FIPS 180-4 itself similarly cautions that conformance to
+the standard does not assure that a particular implementation is secure
+<span class="citation" data-cites="nistfips1804"><a href="#ref-9">[9]</a></span>.</p>
 </section>
 <section id="repeatability-versus-correctness"
 class="level3 unnumbered">
@@ -772,10 +782,11 @@ of Section : each item became a small public test. The collection is
 organised by how claims are checked, not by a common scientific
 question.</p>
 <p>The registry also classifies what kind of evidence each component
-supplies. It calls this classification a . A route says whether the
-public component preserves source text, re-creates behaviour on fixed
-cases, records a run, or checks a declared rule. The four routes below
-cover all 88 entries. Each leaves a different question open:</p>
+supplies. It calls this classification a <em>route</em>. A route says
+whether the public component preserves source text, re-creates behaviour
+on fixed cases, records a run, or checks a declared rule. The four
+routes below cover all 88 entries. Each leaves a different question
+open:</p>
 <div class="center">
 <table>
 <colgroup>
@@ -938,42 +949,44 @@ that evaluation still cannot show. The evaluations are not cumulative
 stages. At the commit this paper describes, the repository records none,
 and I know of none.</figcaption>
 </figure>
-<p> means a person with no involvement in the project reruns the
-supplied commands in their own environment and publishes what happened,
-including failures. That would reduce dependence on my machine and test
-whether the published instructions suffice elsewhere. It would not by
-itself establish correctness.</p>
-<p> means the evaluator chooses components from the full registry,
-without substitution when one proves awkward, and original failures stay
-on the record even if I later repair them. The units themselves are open
-to the same challenge: an evaluator who finds that two entries are one
-dependent mechanism, or that a boundary excludes the difficult part of a
-task, is disputing the registry, not misusing it. That addresses
-curation within the public collection. It cannot address whether the
-collection represents the private system, because the private pool stays
-invisible.</p>
-<p> can move repeatability towards evidence bearing on correctness:
-inputs chosen after the version is saved, and expected results worked
-out by a method that does not pass through my code, whether independent
+<p><em>Independent repetition</em> means a person with no involvement in
+the project reruns the supplied commands in their own environment and
+publishes what happened, including failures. That would reduce
+dependence on my machine and test whether the published instructions
+suffice elsewhere. It would not by itself establish correctness.</p>
+<p><em>Evaluator-controlled selection</em> means the evaluator chooses
+components from the full registry, without substitution when one proves
+awkward, and original failures stay on the record even if I later repair
+them. The units themselves are open to the same challenge: an evaluator
+who finds that two entries are one dependent mechanism, or that a
+boundary excludes the difficult part of a task, is disputing the
+registry, not misusing it. That addresses curation within the public
+collection. It cannot address whether the collection represents the
+private system, because the private pool stays invisible.</p>
+<p><em>Fresh inputs with independently derived expectations</em> can
+move repeatability towards evidence bearing on correctness: inputs
+chosen after the version is saved, and expected results worked out by a
+method that does not pass through my code, whether independent
 calculation, a second implementation, or an external reference. The
 result would support claims about those cases only to the extent that
 the derivation is credible and independent and the cases are adequate;
 general correctness still would not follow.</p>
-<p> is what a claim of advantage over ordinary alternatives would need:
-someone bringing a task that was not designed around the project’s own
-categories and comparing the component against an ordinary alternative,
-which for several components would be a short conventional script.
-Nothing in this paper makes that comparison.</p>
-<p>, among the five evaluations shown here, bears most directly on the
-origin story: a trusted person examining selected private material
-against the public collection under confidentiality. Prior public
-commitments could provide another kind of provenance evidence. Even
-completed, this review would transfer trust rather than remove it:
-public readers would be relying on the reviewer’s access, competence,
-and report instead of on mine, and the review itself could not be
-published. The privacy cost may reasonably never be paid. If it is not,
-the origin story remains testimony, and this paper is written so that
-its argument does not depend on it.</p>
+<p><em>Comparison on outside tasks</em> is what a claim of advantage
+over ordinary alternatives would need: someone bringing a task that was
+not designed around the project’s own categories and comparing the
+component against an ordinary alternative, which for several components
+would be a short conventional script. Nothing in this paper makes that
+comparison.</p>
+<p><em>A provenance review</em>, among the five evaluations shown here,
+bears most directly on the origin story: a trusted person examining
+selected private material against the public collection under
+confidentiality. Prior public commitments could provide another kind of
+provenance evidence. Even completed, this review would transfer trust
+rather than remove it: public readers would be relying on the reviewer’s
+access, competence, and report instead of on mine, and the review itself
+could not be published. The privacy cost may reasonably never be paid.
+If it is not, the origin story remains testimony, and this paper is
+written so that its argument does not depend on it.</p>
 <section id="a-falsifiable-comparison" class="level3 unnumbered">
 <h3 class="unnumbered">A falsifiable comparison</h3>
 <p>The next study should compare two presentations of the same frozen
@@ -1003,15 +1016,16 @@ observation would matter. “Evaluate Plectis” transfers that framing
 work; a confident prediction can make the project’s own expectation look
 like evidence.</p>
 <p>The current repository, beyond the historical snapshot examined
-above, therefore includes a small, read-only format. A packet names one
-declared known gap and refuses to treat it as a complete inventory of
-unknown questions. It then names the current wall, a tentative leading
-hypothesis, evidence for it, evidence against or still missing, serious
-alternatives, and discriminators whose possible outcomes point to named
-hypotheses and have stated interpretations. It also names an exact
-expert return, decisive and route-only effects, repository-relative
-landing targets with validators, and the order by which a return could
-enter an authority record and public release. Run</p>
+above, therefore includes a small, read-only <em>hypothesis-handoff</em>
+format. A packet names one declared known gap and refuses to treat it as
+a complete inventory of unknown questions. It then names the current
+wall, a tentative leading hypothesis, evidence for it, evidence against
+or still missing, serious alternatives, and discriminators whose
+possible outcomes point to named hypotheses and have stated
+interpretations. It also names an exact expert return, decisive and
+route-only effects, repository-relative landing targets with validators,
+and the order by which a return could enter an authority record and
+public release. Run</p>
 <div class="center">
 <div class="minipage">
 <pre data-fontsize="\small"><code>plectis hypothesis-handoff --input packet.json --format text</code></pre>
@@ -1247,42 +1261,48 @@ and limits stated in this paper.</p>
 <h2 class="unnumbered">References</h2>
 <ol>
 <li id="ref-1"><p>Per Runeson and Martin Höst. “Guidelines for Conducting and
-Reporting Case Study Research in Software Engineering.” , 14(2):131–164,
-2009. <a
+Reporting Case Study Research in Software Engineering.” <em>Empirical
+Software Engineering</em>, 14(2):131–164, 2009. <a
 href="https://doi.org/10.1007/s10664-008-9102-8">doi:10.1007/s10664-008-9102-8</a>.</p></li>
-<li id="ref-2"><p>National Academies of Sciences, Engineering, and Medicine. .
-Washington, DC: The National Academies Press, 2019. <a
+<li id="ref-2"><p>National Academies of Sciences, Engineering, and Medicine.
+<em>Reproducibility and Replicability in Science</em>. Washington, DC:
+The National Academies Press, 2019. <a
 href="https://doi.org/10.17226/25303">doi:10.17226/25303</a>.</p></li>
 <li id="ref-3"><p>Earl T. Barr, Mark Harman, Phil McMinn, Muzammil Shahbaz, and
-Shin Yoo. “The Oracle Problem in Software Testing: A Survey.” ,
-41(5):507–525, 2015. <a
+Shin Yoo. “The Oracle Problem in Software Testing: A Survey.” <em>IEEE
+Transactions on Software Engineering</em>, 41(5):507–525, 2015. <a
 href="https://doi.org/10.1109/TSE.2014.2372785">doi:10.1109/TSE.2014.2372785</a>.</p></li>
 <li id="ref-4"><p>Robert Rosenthal. “The File Drawer Problem and Tolerance for Null
-Results.” , 86(3):638–641, 1979. <a
+Results.” <em>Psychological Bulletin</em>, 86(3):638–641, 1979. <a
 href="https://doi.org/10.1037/0033-2909.86.3.638">doi:10.1037/0033-2909.86.3.638</a>.</p></li>
 <li id="ref-5"><p>Object Management Group. <a
-href="https://www.omg.org/spec/SACM/2.3/PDF"></a>, 2.3, formal/23-05-08,
-October 2023.</p></li>
-<li id="ref-6"><p>SCSC Assurance Case Working Group (ACWG). . SCSC-141C, May 2021.
-<a href="https://scsc.uk/scsc-141c">SCSC-141C</a>.</p></li>
+href="https://www.omg.org/spec/SACM/2.3/PDF"><em>Structured Assurance
+Case Metamodel (SACM)</em></a>, 2.3, formal/23-05-08, October
+2023.</p></li>
+<li id="ref-6"><p>SCSC Assurance Case Working Group (ACWG). <em>Goal Structuring
+Notation Community Standard, Version 3</em>. SCSC-141C, May 2021. <a
+href="https://scsc.uk/scsc-141c">SCSC-141C</a>.</p></li>
 <li id="ref-7"><p>National Information Standards Organization. <a
-href="https://doi.org/10.3789/niso-rp-31-2021"></a>, NISO RP-31-2021,
-approved 15 Jan. 2021.</p></li>
+href="https://doi.org/10.3789/niso-rp-31-2021"><em>Reproducibility
+Badging and Definitions</em></a>, NISO RP-31-2021, approved 15 Jan.
+2021.</p></li>
 <li id="ref-8"><p>Association for Computing Machinery. <a
 href="https://www.acm.org/publications/policies/artifact-review-and-badging-current">“Artifact
 Review and Badging—Current,”</a> v1.1, 24 Aug. 2020; accessed 18 July
 2026.</p></li>
-<li id="ref-9"><p>National Institute of Standards and Technology. , FIPS PUB 180-4,
-2015. <a href="https://doi.org/10.6028/NIST.FIPS.180-4">NIST FIPS
+<li id="ref-9"><p>National Institute of Standards and Technology. <em>Secure Hash
+Standard</em>, FIPS PUB 180-4, 2015. <a
+href="https://doi.org/10.6028/NIST.FIPS.180-4">NIST FIPS
 180-4</a>.</p></li>
 <li id="ref-10"><p>National Institute of Standards and Technology. <a
 href="https://csrc.nist.gov/projects/hash-functions">“Hash
 Functions.”</a> Updated 9 September 2024. Accessed 18 July
 2026.</p></li>
-<li id="ref-11"><p>National Aeronautics and Space Administration. ,
-NASA-STD-8739.8B, Section 4.4.1.2, p. 48, 2022. <a
+<li id="ref-11"><p>National Aeronautics and Space Administration. <em>Software
+Assurance and Software Safety Standard</em>, NASA-STD-8739.8B, Section
+4.4.1.2, p. 48, 2022. <a
 href="https://standards.nasa.gov/standard/NASA/NASA-STD-87398">NASA-STD-8739.8B</a>.</p></li>
-<li id="ref-12"><p>Lean Project. sections <a
+<li id="ref-12"><p>Lean Project. <em>Lean Language Reference</em> sections <a
 href="https://lean-lang.org/doc/reference/latest/ValidatingProofs/">“Validating
 a Lean Proof”</a> and <a
 href="https://lean-lang.org/doc/reference/latest/Definitions/Recursive-Definitions/#partial-and-unsafe-definitions">“Partial

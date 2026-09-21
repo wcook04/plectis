@@ -52,17 +52,32 @@ hand back a theorem, a narrower reduction, a killed route, a source
 correction, or a better next question. When the endpoint remains open,
 that is not a failed run. Losing the state and paying to rediscover it
 would be.</p>
+<p>A listed endpoint is one way to begin. The other is to read the
+corpus as a single body of mathematics and decide what is worth
+developing. Eight programmes written side by side expose methods,
+obstructions and examples that no one programme sets out to study, and a
+good question is scarcer than the compute to attack it. The commons
+therefore supports a run whose question, subject and eventual form
+emerge during the work. The constraint that remains is source fidelity.
+The recorded sources fix what may be claimed about existing results, and
+they place no limit on the question asked. Such a run returns the same
+kind of object as any other: a stated idea, its evidence, the prior work
+found, its limits, and the next question it opens. The public repository
+carries one such investigation in full, including the step at which it
+corrected its own first reading of its data (<a
+href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/research/experiments/choices_contraction/README.md"><code>choices, contraction and rational membership</code></a>).</p>
 <section id="two-coupled-goals-not-one-endless-agent"
 class="level3 unnumbered">
 <h3 class="unnumbered">Two coupled goals, not one endless agent</h3>
-<p>The most useful public deployment has two persistent roles. A stays
-close to one mathematical frontier: it reads the corpus, compares
-attacks, uses computation to discriminate them, attempts ordinary and
-formal proofs, and returns the smallest stable theorem, counterexample,
-no-go, computation, or corrected boundary. A stays close to the corpus
-as a whole: it compares the new object with existing results, decides
-which declarations form one mathematical family, reconciles the paper
-and assurance surfaces, and returns the strongest next question to the
+<p>The most useful public deployment has two persistent roles. A
+<em>discovery goal</em> stays close to one mathematical frontier: it
+reads the corpus, compares attacks, uses computation to discriminate
+them, attempts ordinary and formal proofs, and returns the smallest
+stable theorem, counterexample, no-go, computation, or corrected
+boundary. A <em>stewardship goal</em> stays close to the corpus as a
+whole: it compares the new object with existing results, decides which
+declarations form one mathematical family, reconciles the paper and
+assurance surfaces, and returns the strongest next question to the
 discovery goal. The corresponding systems contract is stated in the
 <span>systems-coupled-goals</span><span>coupled-goals section of the
 systems paper</span>.</p>
@@ -117,10 +132,18 @@ class="level3 unnumbered">
 <h3 class="unnumbered">What one clone lets a contributor do</h3>
 <p>A contributor does not need to understand the whole repository before
 doing useful work. From one clone, a person or agent can choose one of
-five first actions: mine a bounded problem route; contribute
+six first actions: read the corpus as one body of mathematics and decide
+what is worth developing; mine a bounded problem route; contribute
 mathematical direction without paying for the compute that follows it;
 formalise or review one claim; repair the research machinery; or propose
-another sourced problem world. The clone-local <a
+another sourced problem world. The first action has no target at the
+start. Finding a question that deserves attention is part of the
+research, and a well-posed new question, a general theorem behind a
+recorded example, or a clearer account of an existing proof is a
+contribution in the same sense as a proof. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/explore-the-corpus/SKILL.md"><code>explore-the-corpus skill</code></a>
+owns that route and hands an emerged question to the workflows below.
+The clone-local <a
 href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/explain-public-system/SKILL.md"><code>explain-public-system skill</code></a>
 lets an agent read the public corpus and companion papers on the
 newcomer’s behalf, explain the claim boundaries at the requested level,
@@ -132,7 +155,7 @@ agent harness, and describe the present multi-stage process for adding a
 problem.</p>
 <figure id="fig:first-actions" data-latex-placement="H">
 
-<figcaption>Five useful first actions. None requires an endpoint
+<figcaption>Six useful first actions. None requires an endpoint
 solution, and none receives a stronger status than the evidence returned
 with it.</figcaption>
 </figure>
@@ -154,7 +177,7 @@ research knowledge, validation capacity, and review capacity. The rate
 of candidate generation may be written schematically as
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>t</mi></msub><mo>=</mo><mi>G</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>t</mi></msub><mo>,</mo><msub><mi>A</mi><mi>t</mi></msub><mo>,</mo><msub><mi>H</mi><mi>t</mi></msub><mo>,</mo><msub><mi>I</mi><mi>t</mi></msub><mo>,</mo><mi>P</mi><mo>,</mo><msub><mi>K</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">G_t=G(C_t,A_t,H_t,I_t,P,K_t).
 \tag{2.1}\label{eq:generation}</annotation></semantics></math> The rate
-of is a different quantity:
+of <em>reviewable mathematical progress</em> is a different quantity:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mi>t</mi></msub><mo>=</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>G</mi><mi>t</mi></msub><mo>,</mo><msub><mi>V</mi><mi>t</mi></msub><mo>,</mo><msub><mi>R</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">Y_t=Q(G_t,V_t,R_t),
 \tag{2.2}\label{eq:accepted}</annotation></semantics></math> where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
@@ -247,12 +270,12 @@ its limitation, not the prestige of the problem number.</p>
 </section>
 <section id="sec:object" class="level2">
 <h2>The public research object</h2>
-<p>The unit of participation is a . A problem world includes the
-endpoint question, current public status, principal theorems, formal
-source, experiments, known counterexamples, failed mechanisms, source
-literature, and exact open obligations. A bounded task is a
-neighbourhood in that world, not an invitation to read the repository
-indiscriminately.</p>
+<p>The unit of participation is a <em>problem world</em>. A problem
+world includes the endpoint question, current public status, principal
+theorems, formal source, experiments, known counterexamples, failed
+mechanisms, source literature, and exact open obligations. A bounded
+task is a neighbourhood in that world, not an invitation to read the
+repository indiscriminately.</p>
 <p>The research was initially developed inside a private workbench. The
 public release carries both the mathematical corpus and the workflows
 needed to inspect, validate, and return a contribution. A contributor
@@ -297,9 +320,16 @@ href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d7
 It can inspect all problem frontiers, choose a bounded question, read
 the relevant paper and source neighbourhood, run experiments or edit
 formal code, validate the result, and prepare a return. None of these
-steps requires access to the private workbench. A contributor is free to
-replace the agent, the scheduler, or the entire search policy while
-retaining the public evidence boundary.</p>
+steps requires access to the private workbench. A reader with no clone
+starts from the <a
+href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/reading-edition/README.md"><code>reading edition</code></a>:
+one generated file that carries an introduction, the opening of each
+short paper, the evidence vocabulary, and the same research instruction
+that the clone gives its agents. It is built from the sources of the
+papers, so it cannot drift from them, and its sizes are printed so that
+a reader knows what a model can load. A contributor is free to replace
+the agent, the scheduler, or the entire search policy while retaining
+the public evidence boundary.</p>
 </section>
 <section id="sec:protocol" class="level2">
 <h2>The contribution protocol</h2>
@@ -332,9 +362,12 @@ retrospectively rewrite the original contribution.</p>
 environment.</p></li>
 <li><p><strong>Orient.</strong> Read the claim boundary and the paper
 governing the selected problem or architecture area.</p></li>
-<li><p><strong>Select.</strong> Name one bounded frontier, expected
-evidence, and a stop condition. Working on all problems is allowed, but
-each returned result remains independently scoped.</p></li>
+<li><p><strong>Select or discover.</strong> Name one bounded frontier,
+expected evidence, and a stop condition. Working on all problems is
+allowed, but each returned result remains independently scoped. A run
+may instead begin from the corpus with no frontier named. The question
+is then an output of the reading, and it is stated with the same three
+items as soon as it has emerged.</p></li>
 <li><p><strong>Work.</strong> Use any mixture of reasoning, source
 research, computation, Lean, and human mathematical judgement. Preserve
 useful negative results instead of rewriting the run as a linear
@@ -385,13 +418,19 @@ second inspects the resulting statement, argument, prior art, and
 significance. One person may perform both roles, but the provenance
 record must not let an input certify its own output merely because it
 came from a mathematician.</p>
-<p>This protocol supports two first-class tracks. The accepts proofs,
-reductions, computations, counterexamples, corrections, formalisation,
-and reproducible failed routes. The accepts improvements to agent
-workflow, navigation, validation, reproducibility, public experience,
-governance, and tooling. An architecture return never needs a fictitious
-problem number, and it cannot request promotion of a mathematical
-claim.</p>
+<p>This protocol supports two first-class tracks. The <em>mathematics
+track</em> accepts proofs, reductions, computations, counterexamples,
+corrections, formalisation, and reproducible failed routes. The
+<em>architecture track</em> accepts improvements to agent workflow,
+navigation, validation, reproducibility, public experience, governance,
+and tooling. An architecture return never needs a fictitious problem
+number, and it cannot request promotion of a mathematical claim. The
+same holds inside the mathematics track. A return whose subject is wider
+than one problem, such as a general theorem, a mechanism shared by
+several programmes, or a new question with evidence for its value, names
+that subject in words and lists the related problems. The list may be
+empty. The credit record then shows the contribution under its subject
+and under each related problem.</p>
 <p>The distinction between a return and an adopted result is
 load-bearing. A pull request is a proposed delta. A review act records a
 decision. A release generation is an immutable public state. Keeping
@@ -566,12 +605,13 @@ class="level3 unnumbered">
 records who supplied which object, from which public state, under which
 role, with which evidence and limitation. It need not guess the
 contribution’s eventual importance. Later accepted work can add reviewed
-lineage edges such as , , , , , or . A consequence view can then show
-which later results, tools, or expositions depend on an earlier
-contribution. Prove2Me already implements the simplest such edge as a
-credit rule: a contributor earns credit when later proofs import a
-statement they proposed <span class="citation"
-data-cites="prove2me"><a href="#ref-13">[13]</a></span>.</p>
+lineage edges such as <em>uses</em>, <em>enables</em>, <em>repairs</em>,
+<em>formalises</em>, <em>refutes</em>, or <em>explains</em>. A
+consequence view can then show which later results, tools, or
+expositions depend on an earlier contribution. Prove2Me already
+implements the simplest such edge as a credit rule: a contributor earns
+credit when later proofs import a statement they proposed <span
+class="citation" data-cites="prove2me"></span>.</p>
 <p>This later view begins with an immediate obligation. Before a result
 is returned, the clone-local
 <code>propagate-research-consequences</code> skill gives every plausible
@@ -608,24 +648,25 @@ class="citation" data-cites="gimps"></span>.</p>
 <p>Agent-assisted research is less uniform than either example. Most
 tasks are not interchangeable work units with a predetermined verifier.
 A runner may change code, propose a conjecture, or misread the problem.
-The public system therefore distributes while keeping authority local to
-each evidence type. Mathematicians and formalisation contributors design
-or review the routes; volunteers may execute them with Claude Code,
-Codex, Cursor, Antigravity, another open or proprietary harness, or no
-agent at all. The runner is replaceable. Prove2Me takes the same
-position for a hosted platform: it accepts any shell-capable agent and
-reports missions closed on ordinary consumer subscriptions <span
-class="citation" data-cites="prove2me"></span>. The task packet,
-evidence boundary, and return record are the shared protocol. Returned
-code is untrusted until reviewed. Expensive or privileged
-continuous-integration jobs must not execute fork code with repository
-secrets. In particular, a GitHub <code>pull_request_target</code>
-workflow must not check out and execute an untrusted fork; GitHub
-documents that combination as a route to secret leakage and repository
-compromise <span class="citation" data-cites="githubsecurity"><a href="#ref-20">[20]</a></span>.
-Initial checks should run with read-only permissions, no secrets,
-bounded resources, and explicit artefact retention. Promotion to trusted
-infrastructure is a later review decision.</p>
+The public system therefore distributes <em>search</em> while keeping
+authority local to each evidence type. Mathematicians and formalisation
+contributors design or review the routes; volunteers may execute them
+with Claude Code, Codex, Cursor, Antigravity, another open or
+proprietary harness, or no agent at all. The runner is replaceable.
+Prove2Me takes the same position for a hosted platform: it accepts any
+shell-capable agent and reports missions closed on ordinary consumer
+subscriptions <span class="citation" data-cites="prove2me"><a href="#ref-13">[13]</a></span>. The
+task packet, evidence boundary, and return record are the shared
+protocol. Returned code is untrusted until reviewed. Expensive or
+privileged continuous-integration jobs must not execute fork code with
+repository secrets. In particular, a GitHub
+<code>pull_request_target</code> workflow must not check out and execute
+an untrusted fork; GitHub documents that combination as a route to
+secret leakage and repository compromise <span class="citation"
+data-cites="githubsecurity"><a href="#ref-20">[20]</a></span>. Initial checks should run with
+read-only permissions, no secrets, bounded resources, and explicit
+artefact retention. Promotion to trusted infrastructure is a later
+review decision.</p>
 <p>A useful compute return records at least the source commit, model and
 runner, tool disclosure, prompt or task packet, wall-clock time, human
 time, token or subscription use, and hardware budget where available,
@@ -891,9 +932,9 @@ recoverable understanding.</p></li>
 <p>The lowest-friction invitation should appear on the first screen of
 the README: clone the project, point a local agent at the compact entry
 file, and ask it to choose a bounded frontier that matches the available
-tools. The same screen must say that all eight problems remain open,
-that a useful return need not solve one, and that architecture
-contributions receive first-class credit.</p>
+tools. The same screen must state the checked results beside their exact
+remaining-open questions, explain that a useful return need not solve a
+problem, and give architecture contributions first-class credit.</p>
 <p>Publicity should follow a working contribution loop rather than
 precede it. A Hacker News launch, research talk, or model-community post
 can then make a specific claim: a stranger can clone the corpus, reach
@@ -1032,11 +1073,11 @@ formalisation, and adversarial review when their questions and evidence
 remain independent. The integrating agent must read and verify their
 returns, and each lane keeps its own starting state and stop condition.
 Parallel agents can multiply attempts. They do not multiply truth.</p>
-<p>The system calls learning a reusable lesson from a local run . A
-local lesson is not copied immediately into a universal
-mathematical-reasoning rule. It is first stated with its evidence,
-sibling cases, proposed scope, and over-generalisation guard. If the
-pattern survives review, it may improve a general skill or route.
+<p>The system calls learning a reusable lesson from a local run
+<em>up-propagation</em>. A local lesson is not copied immediately into a
+universal mathematical-reasoning rule. It is first stated with its
+evidence, sibling cases, proposed scope, and over-generalisation guard.
+If the pattern survives review, it may improve a general skill or route.
 Computational reasoning can likewise become a specialised skill with
 reusable experiment forms, but every new experiment still records its
 finite domain and interpretation.</p>
@@ -1117,14 +1158,15 @@ might define a simulation or experimental script whose variables are
 linked to a formal model and a semantic account of the hypothesis.
 Physical observations could then update the research graph and select
 the next experiment.</p>
-<p>Mathematics is only a proof of concept for the . It is not evidence
-that the current system can conduct physics, chemistry, or biology.
-Formal verification has a special strength in mathematics because the
-target objects and proof rules are digital. In an experimental domain,
-the instrument, calibration, sample, protocol, measurement uncertainty,
-physical environment, and causal interpretation become independent
-authorities. A formally verified control program does not validate the
-scientific hypothesis or make a laboratory safe.</p>
+<p>Mathematics is only a proof of concept for the <em>workflow
+shape</em>. It is not evidence that the current system can conduct
+physics, chemistry, or biology. Formal verification has a special
+strength in mathematics because the target objects and proof rules are
+digital. In an experimental domain, the instrument, calibration, sample,
+protocol, measurement uncertainty, physical environment, and causal
+interpretation become independent authorities. A formally verified
+control program does not validate the scientific hypothesis or make a
+laboratory safe.</p>
 <p>Any transfer would therefore require domain scientists, controlled
 physical infrastructure, ethics and safety review, material and
 environmental limits, and explicit human authority over experiment
@@ -1135,11 +1177,13 @@ is not a present project goal.</p>
 <section id="sec:limits" class="level2">
 <h2>Limits and governance</h2>
 <p>The present strategy has substantial limits.</p>
-<p>First, all eight endpoint problems remain open. The repository
-contains intermediate mathematics and deep records of failed routes, but
-no evidence that a distributed run will solve any problem. The claim
-that infrastructure improves the conversion from compute to mathematics
-has not yet been measured in a controlled experiment.</p>
+<p>First, the selected total-variation refutation for Problem 1041 does
+not establish correspondence with the historical question, and the other
+seven targets remain unresolved here. The repository contains
+intermediate mathematics and deep records of failed routes, but no
+evidence that a distributed run will solve any problem. The claim that
+infrastructure improves the conversion from compute to mathematics has
+not yet been measured in a controlled experiment.</p>
 <p>The prototype had no recorded external user or accepted outside
 contribution by 14 September 2026. Its clone instructions, agent skills,
 cross-paper links, pull-request path, and credit machinery may therefore
@@ -1270,6 +1314,18 @@ lifecycle?</td>
 href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/run-coupled-research-goals/SKILL.md"><code>coupled-goal skill</code></a></td>
 </tr>
 <tr>
+<td class="ta-l">How can I read the mathematics with my own
+model, without a clone?</td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/docs/reading-edition/README.md"><code>reading edition</code></a></td>
+</tr>
+<tr>
+<td class="ta-l">How can an agent read the corpus and
+decide what to develop?</td>
+<td class="ta-l"><a
+href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/explore-the-corpus/SKILL.md"><code>explore-the-corpus skill</code></a></td>
+</tr>
+<tr>
 <td class="ta-l">How can an agent mine a frontier?</td>
 <td class="ta-l"><a
 href="https://github.com/wcook04/plectis-erdos/blob/1d70482583cc9c662cd3b86f66d75c54bb405aa6/skills/mine-open-problem/SKILL.md"><code>mine-open-problem skill</code></a></td>
@@ -1366,64 +1422,76 @@ not authors, and supply no independent authority.</p>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <ol>
-<li id="ref-1"><p>T. Tao, , 2026, <a
+<li id="ref-1"><p>T. Tao, <em>Mathematics in the age of AI</em>, 2026, <a
 href="https://arxiv.org/abs/2608.16753">arXiv:2608.16753</a>.</p></li>
-<li id="ref-2"><p>D. P. Anderson, , Journal of Grid Computing 18 (2020), 99–122, <a
+<li id="ref-2"><p>D. P. Anderson, <em>BOINC: A Platform for Volunteer
+Computing</em>, Journal of Grid Computing 18 (2020), 99–122, <a
 href="https://doi.org/10.1007/s10723-019-09497-9">DOI</a>.</p></li>
-<li id="ref-3"><p>Great Internet Mersenne Prime Search, , project documentation and
-discovery-credit record, <a
+<li id="ref-3"><p>Great Internet Mersenne Prime Search, <em>GIMPS</em>, project
+documentation and discovery-credit record, <a
 href="https://www.mersenne.org/">mersenne.org</a>, accessed August
 2026.</p></li>
-<li id="ref-4"><p>Polymath Project, , <a
+<li id="ref-4"><p>Polymath Project, <em>General polymath rules</em>, <a
 href="https://polymathprojects.org/general-polymath-rules/">project
 rules</a>, accessed August 2026.</p></li>
-<li id="ref-5"><p>Lean community, , <a
+<li id="ref-5"><p>Lean community, <em>Contributing to mathlib</em>, <a
 href="https://leanprover-community.github.io/contribute/index.html">contributor
 guide</a>, accessed August 2026.</p></li>
-<li id="ref-6"><p>L. Becker et al., , 2025, <a
+<li id="ref-6"><p>L. Becker et al., <em>A Blueprint for the Formalization of
+Carleson’s Theorem on Convergence of Fourier Series</em>, 2025, <a
 href="https://arxiv.org/abs/2405.06423">arXiv:2405.06423</a>.</p></li>
 <li id="ref-7"><p>T. F. Bloom, <em>Erdős Problems</em>, problem database, sources,
 and forum, <a
 href="https://www.erdosproblems.com/">erdosproblems.com</a>, accessed
 August 2026.</p></li>
-<li id="ref-8"><p>L. de Moura and S. Ullrich, , Automated Deduction—CADE 28 (2021),
-625–635, <a
-href="https://doi.org/10.1007/978-3-030-79876-5_37">DOI</a>.</p></li>
-<li id="ref-9"><p>Google DeepMind, , <a
+<li id="ref-8"><p>L. de Moura and S. Ullrich, <em>The Lean 4 Theorem Prover and
+Programming Language</em>, Automated Deduction—CADE 28 (2021), 625–635,
+<a href="https://doi.org/10.1007/978-3-030-79876-5_37">DOI</a>.</p></li>
+<li id="ref-9"><p>Google DeepMind, <em>formal-conjectures</em>, <a
 href="https://github.com/google-deepmind/formal-conjectures">software
 repository</a>, accessed August 2026.</p></li>
-<li id="ref-10"><p>Palomar Registry, and , <a
-href="https://palomar-registry.org/about">registry documentation</a> and
-<a
+<li id="ref-10"><p>Palomar Registry, <em>About Palomar</em> and <em>Contribution
+policy</em>, <a href="https://palomar-registry.org/about">registry
+documentation</a> and <a
 href="https://github.com/PalomarRegistry/PalomarPolicy/blob/main/CONTRIBUTING.md">submission
 standard</a>, accessed August 2026.</p></li>
-<li id="ref-11"><p>C. E. Brown, C. Kaliszyk, and J. Urban, , 2026, <a
+<li id="ref-11"><p>C. E. Brown, C. Kaliszyk, and J. Urban, <em>Agent Hunt: Bounty
+Based Collaborative Autoformalization With LLM Agents</em>, 2026, <a
 href="https://arxiv.org/abs/2603.06737">arXiv:2603.06737</a>.</p></li>
-<li id="ref-12"><p>B. Yanahama and A. Sannai, , 2026, <a
+<li id="ref-12"><p>B. Yanahama and A. Sannai, <em>Lean Atlas: An Integrated Proof
+Environment for Scalable Human–AI Collaborative Formalization</em>,
+2026, <a
 href="https://arxiv.org/abs/2604.16347">arXiv:2604.16347</a>.</p></li>
-<li id="ref-13"><p>S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, , 2026, <a
+<li id="ref-13"><p>S. Chen, K. Marwaha, X. Lu, H. Yuen, and T. Peng, <em>Prove2Me:
+An Open Collaborative Platform for Scaling Math Formalization</em>,
+2026, <a
 href="https://arxiv.org/abs/2608.28433">arXiv:2608.28433</a>.</p></li>
 <li id="ref-14"><p>T. Feng, T. Trinh, G. Bingham, et al., <em>Semi-Autonomous
 Mathematics Discovery with Gemini: A Case Study on the Erdős
 Problems</em>, 2026, <a
 href="https://arxiv.org/abs/2601.22401">arXiv:2601.22401</a>.</p></li>
-<li id="ref-15"><p>T. Feng, T. H. Trinh, G. Bingham, et al., , 2026, <a
+<li id="ref-15"><p>T. Feng, T. H. Trinh, G. Bingham, et al., <em>Towards Autonomous
+Mathematics Research</em>, 2026, <a
 href="https://arxiv.org/abs/2602.10177">arXiv:2602.10177</a>.</p></li>
-<li id="ref-16"><p>J. Henkel, , 2025, <a
+<li id="ref-16"><p>J. Henkel, <em>The Mathematician’s Assistant: Integrating AI into
+Research Practice</em>, 2025, <a
 href="https://arxiv.org/abs/2508.20236">arXiv:2508.20236</a>.</p></li>
-<li id="ref-17"><p>J. Dekoninck et al., , 2025, <a
+<li id="ref-17"><p>J. Dekoninck et al., <em>The Open Proof Corpus: A Large-Scale
+Study of LLM-Generated Mathematical Proofs</em>, 2025, <a
 href="https://arxiv.org/abs/2506.21621">arXiv:2506.21621</a>.</p></li>
 <li id="ref-18"><p>T. Tao, <em>AI contributions to Erdős problems</em>, community
 wiki, <a
 href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems">GitHub
 wiki page</a>, accessed September 2026.</p></li>
-<li id="ref-19"><p>NISO, , <a
+<li id="ref-19"><p>NISO, <em>CRediT: Contributor Roles Taxonomy</em>, <a
 href="https://credit.niso.org/contributor-roles-defined/">role
 definitions</a>, accessed August 2026.</p></li>
-<li id="ref-20"><p>GitHub, , GitHub Actions security guidance, <a
+<li id="ref-20"><p>GitHub, <em>Preventing pwn requests</em>, GitHub Actions security
+guidance, <a
 href="https://docs.github.com/en/actions/reference/security/secure-use">documentation</a>,
 accessed August 2026.</p></li>
-<li id="ref-21"><p>M. Yuan et al., , 2023, <a
+<li id="ref-21"><p>M. Yuan et al., <em>End-to-End Testing of Open-Source Hardware
+Documentation Developed in Large Collaborations</em>, 2023, <a
 href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
 </ol>
 </section>

@@ -9,16 +9,22 @@
 <section id="plectis-research-on-eight-erdős-problem-programmes"
 class="level1">
 <h1>Plectis: research on eight Erdős problem programmes</h1>
-<p>Plectis is an open-source, AI-assisted research project. This
-repository contains the papers, Lean proofs, computations, failed
-approaches, and remaining questions, so another researcher can inspect
-the work and continue from it. <strong>The degree-seven example refutes
-the total-variation formulation of Erdős #1041. The other seven target
-problems are not resolved here. Independent human review of
-correspondence with the historical curve-length formulation has not been
-recorded. Comparator checks only its selected exact statements,
-configured axioms and kernel acceptance; it does not assess novelty or
-historical correspondence.</strong></p>
+<p>Plectis is an open-source, AI-assisted prototype for turning
+mathematical exposition into further research. Eight Erdős programmes
+each have a short expository paper, a longer research record and
+associated Lean source. The aim is to make results, methods and useful
+failures understandable enough for others to question, extend and reuse.
+<strong>The degree-seven counterexample found by the erdosproblems.com
+contributor ani refutes the total-variation formulation of Erdős #1041;
+this repository formalises it in Lean. The other seven target problems
+are not resolved here. Independent human review of correspondence with
+the historical curve-length formulation has not been recorded.
+Comparator checks only its selected exact statements, configured axioms
+and kernel acceptance; it does not assess novelty or historical
+correspondence.</strong></p>
+<p>The attribution is recorded in <a
+href="https://www.erdosproblems.com/forum/thread/1041#post-8861">ani’s 7
+September 2026 forum post</a>.</p>
 <p>This release does not solve Erdős #68, #243, #249, #251, #257, #269,
 or #1049. Those seven remain open.</p>
 <p><strong><a href="https://wcook04.github.io/plectis/maths/">Read the
@@ -34,12 +40,34 @@ continue</figcaption>
 </figure>
 <section id="where-to-start" class="level2">
 <h2>Where to start</h2>
-<p>Each programme has a short paper explaining its main argument and a
-longer record with details, computations and approaches that stopped.
-You can read both without Lean or a coding agent. <a
-href="reading-guide.html">A reader’s way in</a> introduces the
-questions; <a href="results.html">Results and limits</a> puts the
-results beside their remaining open questions.</p>
+<p><strong>Read the mathematics. Find what comes next.</strong> Use the
+papers, proofs and research records to continue an existing question, or
+to develop a new result, method or direction. Work with your own AI,
+directly in the repository, or without an AI. Work that returns becomes
+part of the shared account, with its sources, checks and credit kept
+visible.</p>
+<ul>
+<li><strong>Explore with your AI, no clone needed.</strong> Give your
+model the <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading edition</a>:
+one file with an introduction, a short research instruction and the
+opening of each paper. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/research/experiments/choices_contraction/README.md">One open
+investigation</a> shows the route and ends with five ways to continue
+it.</li>
+<li><strong>Work in the repository.</strong> The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/agents/README.md#start-with-current-public-work">agent
+quickstart</a> provides clone commands and a copyable prompt. Name a
+question, or ask your agent to read the corpus and decide what is worth
+developing.</li>
+</ul>
+<p>The short papers are the main exposition: the question, the strongest
+results, the ideas behind their proofs and what remains open. The longer
+records keep the details, computations and approaches that stopped. You
+can read both without Lean or a coding agent. The website brings these
+papers, their evidence and ways to contribute into one reading
+experience. <a href="reading-guide.html">A reader’s way in</a>
+introduces the questions; <a href="results.html">Results and
+limits</a> puts the results beside their remaining open questions.</p>
 <p>Read a <a href="#problem-papers">problem paper</a>, then use the <a
 href="source-map.html">source map</a> to follow a statement into
 Lean, the proof assistant that checks its formal proof. You can also use
@@ -76,11 +104,24 @@ significance still need human judgement.</p>
 </section>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
-<p>For a first look, start with <strong>#257</strong> for full-support
-irrationality and achievement-set measure, or <strong>#249</strong> for
-exact kernel rank, finite certificates, and recorded routes that
-stopped. Each paper distinguishes ordinary proofs, Lean-checked results
-and open questions.</p>
+<p>For a first look, start with <strong>#249</strong> for bases and
+exact ranks of totient kernels: the sequences obtained by restricting
+Euler’s totient to arithmetic progressions. Or start with
+<strong>#257</strong> for weighted conditions on the exponents that
+force reciprocal Mersenne subseries to be irrational, and for
+achievement-set measure. Each paper distinguishes ordinary proofs,
+Lean-checked results and open questions; the results guide covers all
+eight programmes.</p>
+<p><strong>Reading the eight together.</strong> The whole collection is
+also material for new mathematics: reusable constructions, connections
+between problems and questions that go beyond the original targets.
+Start with the <a
+href="../../../papers/optimal-sparse-perturbations.pdf">cross-problem
+paper, Reading Eight Erdős Problems Together</a>. It joins the capacity
+and congruence results, Lambert subsums, method limits and their
+research record. The <a href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md">synthesis
+guide</a> explains how to develop this work from the papers and Lean
+corpus, with each result’s evidence and limits intact.</p>
 <table>
 <colgroup>
 <col />
@@ -210,7 +251,20 @@ infer results from private or unreleased work.</p>
 <h2>Contribute</h2>
 <p>An idea, a correction, a counterexample, a failed route with a
 checkable reason, or a clearer explanation can help. You do not need to
-solve a problem. Infra suggestions also get credit!</p>
+solve a problem. Directions and infrastructure suggestions receive
+credit too.</p>
+<p>You can contribute an insight without writing Lean. Will can work
+with you to develop its argument and formalisation; the idea,
+explanation and proof work keep their respective attribution. A
+contribution may advance one problem or open a direction across the
+whole collection.</p>
+<p>Start with <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/CONTRIBUTE_BY_PAPER.md">a paper</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/README.md">develop a method</a>, or <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md">improve the
+machinery</a>. The same <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/CONTRIBUTING.md#return-what-you-learned">submission and credit
+process</a> serves all three, including contributions by email and work
+without a clone.</p>
 <ul>
 <li><strong>Ideas, corrections or review:</strong> use the <a
 href="https://github.com/wcook04/plectis-erdos/issues/new?template=research_progress.yml">research-progress
@@ -234,8 +288,10 @@ this repo or my intermediary progress helped, please cite this release
 and say how, so others find it and we make progress together instead of
 hoarding partial results out of fear of being scooped, or rebuilding the
 same infrastructure instead of improving one cumulatively.</p>
-<p><strong>Experts:</strong> email me any insight. I will do the work
-and fully credit you for the insight and whatever follows from it.</p>
+<p><strong>Experts:</strong> corrections, methods and directions are
+welcome. Accepted work gets a public receipt naming the contribution and
+its author; later work records how it used that contribution. See the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/research-commons/CREDIT_POLICY.md">credit policy</a>.</p>
 <p><a id="citation-and-prior-work"></a></p>
 </section>
 <section id="read-or-verify-locally" class="level2">
@@ -267,7 +323,7 @@ records in 33 contribution families, reaching Lean source through 463
 principal declaration links. <code>docs/SCOPE.md</code> gives its shape
 and <code>docs/RESULTS.md</code> gives the strongest checked result per
 problem. The website and the papers are the human reading path.</p>
-<p>The rest is engineering inventory. About 88% of the 162,526
+<p>The rest is engineering inventory. About 88% of the 162,543
 declarations (142,668 across 695 modules) are machine-emitted
 certificate shards: one integer checked prime, one position excluded.
 The remainder is not all hand-written either.</p>
@@ -281,11 +337,11 @@ The remainder is not all hand-written either.</p>
 <tbody>
 <tr>
 <td>Lean modules (the two library roots)</td>
-<td class="ta-r">1,765</td>
+<td class="ta-r">1,770</td>
 </tr>
 <tr>
 <td>Formal results and supporting lemmas</td>
-<td class="ta-r">158,822</td>
+<td class="ta-r">158,837</td>
 </tr>
 <tr>
 <td>Curated claim records</td>

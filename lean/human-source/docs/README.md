@@ -7,7 +7,7 @@ The [front page](../README.md) introduces the project. This index helps you
 choose what to read or do next, whether you want to understand a result, check
 its proof, continue the research, or inspect how the tools work.
 
-The degree-seven example refutes the total-variation formulation of Erdős #1041. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The papers report intermediate results and the approaches that
+The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in Lean. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The papers report intermediate results and the approaches that
 stopped, with enough of the record preserved for somebody else to inspect the
 argument and continue from it.
 
@@ -17,6 +17,7 @@ argument and continue from it.
 |---|---|---|
 | Understand the project without installing anything | [A reader's way in](READING_GUIDE.md) | The eight questions, what formalisation adds, and how to read the evidence. |
 | Read the mathematics | [The papers](../paper/README.md) | A short paper for each problem, then a longer record when you need the details. |
+| Read the comparison across problems | [The cross-problem paper](../paper/synthesis/optimal-sparse-perturbations.pdf) | Capacity and congruences, Lambert subsums, method obstructions and their full research record. |
 | Find what has been established and what is missing | [Results and limits](RESULTS.md) | The results beside their remaining open questions, with routes to the evidence. |
 | Check a result yourself | [Reproducibility](REPRODUCIBILITY.md) | Inspect one claim without Lean, then install the pinned environment if you want to rebuild proofs. |
 | Continue the work or send a correction | [Contributing](../CONTRIBUTING.md) | A plain-language issue or a focused pull request, with evidence and credit. |
@@ -106,3 +107,5 @@ matter, and check examples from the repository root. Keep mathematical
 hypotheses, evidence and open boundaries exact when changing the prose.
 For a generated page, change its source and run its owning builder;
 [Contributing](../CONTRIBUTING.md) explains how to return the improvement.
+
+[Work on a paper](CONTRIBUTE_BY_PAPER.md) joins the existing question, paper, source and return routes for every programme.

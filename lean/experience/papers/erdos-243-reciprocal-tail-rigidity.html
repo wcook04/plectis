@@ -13,8 +13,8 @@ the Sylvester recurrence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_{n+1}=a_n^2-a_n+1</annotation></semantics></math>
 gives the telescoping identity
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><msub><mi>a</mi><mi>n</mi></msub></mfrac><mo>+</mo><mfrac><mn>1</mn><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac1{a_n-1}=\frac1{a_n}+\frac1{a_{n+1}-1}.</annotation></semantics></math>
-We call a sequence that satisfies this recurrence eventually a . Its
-reciprocal sum from any index
+We call a sequence that satisfies this recurrence eventually a
+<em>Sylvester tail</em>. Its reciprocal sum from any index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
 in that tail onwards is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(a_n-1)</annotation></semantics></math>.
@@ -114,17 +114,17 @@ and
 <li><p><em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">E_n=D_n-(a_n-1)C_n</annotation></semantics></math>
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>;</em></p></li>
-<li><p><em>:
+<li><p><em><em>eventual strict centring</em>:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">|E_n|&lt;C_n</annotation></semantics></math>
 for all large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>;</em></p></li>
-<li><p><em>:
+<li><p><em><em>eventually bounded negative part</em>:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>B</mi><mo>≤</mo><msub><mi>E</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">-B\le E_n</annotation></semantics></math>
 for all large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
 for some integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">B\ge0</annotation></semantics></math>;</em></p></li>
-<li><p><em>: for every integer
+<li><p><em><em>vanishing relative error</em>: for every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K\ge1</annotation></semantics></math>
 there is an
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
@@ -228,7 +228,8 @@ Corollary  gives the recurrence. ◻</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mo>+</mo></msub><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z_+=\max(z,0)</annotation></semantics></math>
 and take empty products and least common multiples to be
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-An means sequences satisfying the two recurrences and the definition of
+An <em>exact state</em> means sequences satisfying the two recurrences
+and the definition of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>
 in Theorem ; positivity and bounds on the error are stated separately.
 Removing finitely many terms does not change convergence or rationality
@@ -1551,7 +1552,7 @@ and the shape equation
 where  reads
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D_n+1=(a_n-1)(n+1)</annotation></semantics></math>,
 each multiplier is determined by its predecessor; we call such an orbit
-. At index
+<em>forced</em>. At index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
 the numerator of the next multiplier is
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">num</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>a</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{num}(n,a)=(n+1)a^{2}-(n+2)a+(n+3),</annotation></semantics></math>
@@ -1681,30 +1682,44 @@ href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a1
 exclusion</a>, which concerns infinite natural-number orbits under its
 stated hypotheses. Example 9.1 of the companion gives the further search
 details.</p>
+<p><em>Companion system context.</em> The <a
+href="../../../papers/claim-faithful-publication-systems-paper.pdf#nameddest=systems-trust">claim
+and trust boundary</a>, <a
+href="../../../papers/cold-clone-to-proof-receipt.pdf#nameddest=cold-clone-authority">cold-clone
+route to proof authority</a>, and <a
+href="../../../papers/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol">public
+contribution protocol</a> are described in sibling papers. Those
+descriptions do not change the mathematical status of this note.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <ol>
 <li id="ref-1"><p>P. Erdős and E. G. Straus, <a
-href="https://users.renyi.hu/~p_erdos/1964-19.pdf"></a>, J. Indian Math.
-Soc. (N.S.) <strong>27</strong> (1964), 129–133. MR 175848.</p></li>
+href="https://users.renyi.hu/~p_erdos/1964-19.pdf"><em>On the
+irrationality of certain Ahmes series</em></a>, J. Indian Math. Soc.
+(N.S.) <strong>27</strong> (1964), 129–133. MR 175848.</p></li>
 <li id="ref-2"><p>D. Duverney, <a
-href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"></a>, J.
-Math. Sci. Univ. Tokyo <strong>8</strong> (2001), 275–316.
-MR 1837165.</p></li>
+href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"><em>Irrationality
+of fast converging series of rational numbers</em></a>, J. Math. Sci.
+Univ. Tokyo <strong>8</strong> (2001), 275–316. MR 1837165.</p></li>
 <li id="ref-3"><p>C. Badea, <a
-href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf"></a>, Acta
-Arith. <strong>63</strong> (1993), no. 4, 313–323, doi:<a
+href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf"><em>A
+theorem on irrationality of infinite series and applications</em></a>,
+Acta Arith. <strong>63</strong> (1993), no. 4, 313–323, doi:<a
 href="https://doi.org/10.4064/aa-63-4-313-323">10.4064/aa-63-4-313-323</a>.</p></li>
-<li id="ref-4"><p>R. Tijdeman and P. Yuan, , Indag. Math. (N.S.)
-<strong>13</strong> (2002), no. 3, 407–418, doi:<a
+<li id="ref-4"><p>R. Tijdeman and P. Yuan, <em>On the rationality of Cantor and
+Ahmes series</em>, Indag. Math. (N.S.) <strong>13</strong> (2002),
+no. 3, 407–418, doi:<a
 href="https://doi.org/10.1016/S0019-3577(02)80018-0">10.1016/S0019-3577(02)80018-0</a>.</p></li>
 <li id="ref-5"><p>P. Erdős and R. L. Graham, <a
-href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"></a>,
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
+and New Problems and Results in Combinatorial Number Theory</em></a>,
 Monogr. Enseign. Math. 28, Geneva, 1980, p. 64.</p></li>
 <li id="ref-6"><p>P. Erdős, <a
-href="https://users.renyi.hu/~p_erdos/1988-22.pdf"></a>, in A. Baker
-(ed.), , Cambridge UP, 1988, pp. 102–109, doi:<a
+href="https://users.renyi.hu/~p_erdos/1988-22.pdf"><em>On the
+irrationality of certain series: problems and results</em></a>, in
+A. Baker (ed.), <em>New Advances in Transcendence Theory</em>, Cambridge
+UP, 1988, pp. 102–109, doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
 <li id="ref-7"><p>I. O. Bado, <em>Prime-Support Rigidity and Primitive
 Pseudo-Greedy Dynamics: Partial Progress on Erdős Problem #243</em>,
@@ -1715,13 +1730,15 @@ href="https://erdosproblemaday.com/report/243"><em>Erdős #243: working
 report</em></a>, Erdős Problem a Day, page dated 12 August 2026.
 AI-assisted, unrefereed working report.</p></li>
 <li id="ref-9"><p>P. Stevenhagen and H. W. Lenstra, Jr., <a
-href="https://pub.math.leidenuniv.nl/~lenstrahw/PUBLICATIONS/1994c/art.pdf"></a>,
-Math. Intelligencer <strong>18</strong> (1996), no. 2, 26–37, doi:<a
+href="https://pub.math.leidenuniv.nl/~lenstrahw/PUBLICATIONS/1994c/art.pdf"><em>Chebotarëv
+and his density theorem</em></a>, Math. Intelligencer
+<strong>18</strong> (1996), no. 2, 26–37, doi:<a
 href="https://doi.org/10.1007/BF03027290">10.1007/BF03027290</a>. Page
 references are to the linked author version dated 23 March
 1995.</p></li>
 <li id="ref-10"><p>J. Koizumi, <a
-href="https://math.colgate.edu/~integers/aa28/aa28.pdf"></a>, Integers
+href="https://math.colgate.edu/~integers/aa28/aa28.pdf"><em>Irrationality
+of the reciprocal sum of doubly exponential sequences</em></a>, Integers
 <strong>26</strong> (2026), Paper No. A28, 17 pp., doi:<a
 href="https://doi.org/10.5281/zenodo.18714404">10.5281/zenodo.18714404</a>.
 Locators refer to this published version.</p></li>
@@ -1730,20 +1747,25 @@ href="https://www.erdosproblems.com/243"><em>Erdős Problem
 #243</em></a>, supplied snapshot of 28 July 2026; not a live status
 verification.</p></li>
 <li id="ref-12"><p>P. Erdős and E. G. Straus, <a
-href="https://msp.org/pjm/1974/55-1/pjm-v55-n1-p08-s.pdf"></a>, Pacific
-J. Math. <strong>55</strong> (1974), no. 1, 85–92.</p></li>
+href="https://msp.org/pjm/1974/55-1/pjm-v55-n1-p08-s.pdf"><em>On the
+irrationality of certain series</em></a>, Pacific J. Math.
+<strong>55</strong> (1974), no. 1, 85–92.</p></li>
 <li id="ref-13"><p>J. Hančl and R. Tijdeman, <a
-href="https://www.impan.pl/shop/en/publication/transaction/download/product/82186"></a>,
-Acta Arith. <strong>133</strong> (2008), no. 1, 37–52, doi:<a
+href="https://www.impan.pl/shop/en/publication/transaction/download/product/82186"><em>On
+the irrationality of polynomial Cantor series</em></a>, Acta Arith.
+<strong>133</strong> (2008), no. 1, 37–52, doi:<a
 href="https://doi.org/10.4064/aa133-1-3">10.4064/aa133-1-3</a>. Locators
 refer to the published version.</p></li>
 <li id="ref-14"><p>D. Duverney, T. Kurosawa and I. Shiokawa, <a
-href="https://danielduverney.fr/documents/theorie-des-nombres/Tsukuba.pdf"></a>,
-Tsukuba J. Math. <strong>44</strong> (2020), no. 2, 235–250, doi:<a
+href="https://danielduverney.fr/documents/theorie-des-nombres/Tsukuba.pdf"><em>Irrationality
+exponents of certain fast converging series of rational
+numbers</em></a>, Tsukuba J. Math. <strong>44</strong> (2020), no. 2,
+235–250, doi:<a
 href="https://doi.org/10.21099/tkbjm/20204402235">10.21099/tkbjm/20204402235</a>.
 Theorem locators follow the linked 14-page author version.</p></li>
 <li id="ref-15"><p>T. Crmarić and V. Kovač, <a
-href="https://arxiv.org/abs/2504.18712v1"></a>, Colloq. Math.
+href="https://arxiv.org/abs/2504.18712v1"><em>On the irrationality of
+certain super-polynomially decaying series</em></a>, Colloq. Math.
 <strong>179</strong> (2025), 55–68, doi:<a
 href="https://doi.org/10.4064/cm9628-5-2025">10.4064/cm9628-5-2025</a>.
 Theorem locators follow arXiv:2504.18712v1.</p></li>
@@ -1753,8 +1775,9 @@ Criteria for Series by Erdős and Straus</em></a>, Archive of Formal
 Proofs, 12 May 2020. An Isabelle/HOL formalisation; the archive entry
 identifies the results formalised.</p></li>
 <li id="ref-17"><p>National Institute of Standards and Technology, <a
-href="https://dlmf.nist.gov/5.11.E12">, §5.11(iii), formula 5.11.12</a>,
-accessed 16 September 2026.</p></li>
+href="https://dlmf.nist.gov/5.11.E12"><em>Digital Library of
+Mathematical Functions</em>, §5.11(iii), formula 5.11.12</a>, accessed
+16 September 2026.</p></li>
 </ol>
 </section>
   </div>

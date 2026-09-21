@@ -26,11 +26,11 @@
   xrightmargin=0.02\linewidth
 }
 % BEGIN generated_semantic_coverage_macros
-\newcommand{\SemanticAuthoredTheoremLike}{150,835}
-\newcommand{\SemanticAuthoredInterpreted}{139,817}
-\newcommand{\SemanticDirectEvidence}{3,329}
+\newcommand{\SemanticAuthoredTheoremLike}{150,850}
+\newcommand{\SemanticAuthoredInterpreted}{139,818}
+\newcommand{\SemanticDirectEvidence}{3,330}
 \newcommand{\SemanticContextual}{136,488}
-\newcommand{\SemanticStructuralOnly}{11,018}
+\newcommand{\SemanticStructuralOnly}{11,032}
 \newcommand{\SemanticAuthoredPercent}{92.7}
 % END generated_semantic_coverage_macros
 \emergencystretch=1.6em
@@ -114,11 +114,18 @@ paper, and proof edge into one prompt destroys the distinctions the extra
 context was meant to reveal. A useful first-contact surface must therefore be
 small, expandable, and honest about what it omits.
 
-The \href{\repobase}{development studied here} indexes eight open
-Erd\H{o}s problems. Problems 249 and 257 are the two principal reviewed
-programmes; Problems 68, 243, 251, 269, 1041, and 1049 are problem-owned
-expansion lanes with their own notes and explicit nonclaims. The corpus
-concentrates its depth around a small number of hard frontiers: exact
+The \href{\repobase}{development studied here} indexes eight Erd\H{o}s
+problem programmes. The claim registry now covers selected statements from
+all eight; a paper's inclusion does not give every statement in it formal
+status. The degree-seven counterexample due to the erdosproblems.com
+contributor
+\href{https://www.erdosproblems.com/forum/thread/1041\#post-8861}{\texttt{ani}},
+formalised in Lean in this repository, refutes the
+total-variation formulation of Problem 1041, while correspondence with its
+historical curve-length question remains unreviewed and the other seven
+targets remain unresolved here.
+The detailed navigation examples in this paper concentrate on Problems 249
+and 257: exact
 separation equivalences for Problem 249, a machine-checked rational
 countermodel agreeing with the totient's parity at every index, and
 quotient-greedy classifications for Problem 257, with obstruction theorems
@@ -144,6 +151,16 @@ paper, while the
 {strategy-protocol}{contribution protocol} specifies how an outsider returns a
 change. These links lead to named destinations in the sibling PDFs rather than
 to page numbers.
+
+The same proof-state compiler also supports bounded inspection of a selected
+elaborated proof. The existing feedback experiment uses that route to expose
+admissible construction choices and emits finite obligations for the same
+workbench to replay. Comparator can check the separately stated continuation
+contract through a named unit of its existing runner. The implementation,
+literature attribution and finite controls are described in the systems
+paper's discussion of executable construction choices. These operations
+extend the existing research route and do not automatically extract a new
+contract or establish an infinite claim from a finite run.
 
 \section{Four views of the mathematical library}\label{sec:layers}
 
@@ -507,6 +524,16 @@ the stable delta; classify its downstream consumers with
 with \texttt{erdos-research-return}; and prepare the proposed upstream change
 with \texttt{submit-pull-request}. Pushing a branch or opening the pull request
 still requires the contributor's authorisation.
+
+The router also has to serve a request that names no target.  The task
+``read the corpus and find something worth developing across the papers''
+matched no cue and fell through to the repository-explanation fallback, so an
+agent asked to think was handed a tour.  The repair followed the method of
+this paper: the observed request became a routing fixture, a lane for open
+reading was added, and the \texttt{explore-the-corpus} skill now hands an
+emerged question to \texttt{mine-open-problem} and the sequence above.  The
+same research instruction is published without a clone in the
+\href{\repobase/blob/main/docs/reading-edition/README.md}{reading edition}.
 
 The sequence is deliberately independent of the agent harness. A contributor
 may use Codex, Claude Code, Cursor, another runner, ordinary scripts, or no

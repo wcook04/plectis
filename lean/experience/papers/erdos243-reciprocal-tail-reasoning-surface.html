@@ -1635,9 +1635,10 @@ explains why decay alone need not force irrationality when the summands
 remain freely selectable. The present exact denominator recurrence
 imposes additional compatibility, so neither direction is an implication
 between their theorem and ours.</p>
-<p>The collection contains a mathematically equivalent unproved
-declaration, up to its zero-based indexing  <span class="citation"
-data-cites="formalconjectures243"><a href="#ref-14">[14]</a></span>. Its summand is
+<p>The <em>Formal Conjectures</em> collection contains a mathematically
+equivalent unproved declaration, up to its zero-based indexing  <span
+class="citation" data-cites="formalconjectures243"></span>. Its summand
+is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℚ</mi><annotation encoding="application/x-tex">\mathbb{Q}</annotation></semantics></math>-valued,
 so Lean’s <code>Summable</code> hypothesis asserts the existence of a
 sum in
@@ -1705,7 +1706,8 @@ href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a1
 update</a>, and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean#L49">error</a>.</p>
 <p>We also study these identities for arbitrary integer sequences,
-before constructing any reciprocal series. An means sequences
+before constructing any reciprocal series. An <em>exact orbit</em> means
+sequences
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>,</mo><msub><mi>C</mi><mi>n</mi></msub><mo>,</mo><msub><mi>D</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">a_n,C_n,D_n</annotation></semantics></math>
 satisfying the two displayed recurrences at every index;
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>
@@ -3121,8 +3123,9 @@ is coprime to the entire preceding denominator
 This supplies almost one new coprime modulus per step. The denominator
 growth then places the resulting CRT block at the required
 double-logarithmic height.</p>
-<p>We use the LCM factorisation from Section . In the present zero-based
-indexing, put
+<p><em>How often a multiplier is coprime to the preceding
+denominator.</em> We use the LCM factorisation from Section . In the
+present zero-based indexing, put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">lcm</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mn>0</mn></msub><mo>,</mo><msub><mi>a</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>M</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mi>/</mi><msub><mi>L</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>ρ</mi><mi>n</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>L</mi><mi>n</mi></msub><mo>,</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">L_n=\operatorname{lcm}(D_0,a_0,\ldots,a_{n-1}),\qquad
  M_n=D_n/L_n,\qquad \rho_n=\gcd(L_n,a_n).</annotation></semantics></math>
 The finite telescoping identity gives
@@ -3148,7 +3151,8 @@ This is the density-one coprimality argument of Bado <span
 class="citation" data-cites="bado2026"></span>, written with the
 exact-orbit hypotheses used here. Only the finite telescoping identity
 is needed; no estimate on record increments has entered this count.</p>
-<p>Absorption and vanishing relative error give
+<p><em>Choosing the moduli and controlling their product.</em>
+Absorption and vanishing relative error give
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">C_n\to\infty</annotation></semantics></math>,
 hence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>n</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">H_n\to\infty</annotation></semantics></math>.
@@ -3226,7 +3230,7 @@ for all sufficiently large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.
 Both comparisons are needed; existence of a distant CRT block alone
 would not control a height-dependent jump bound.</p>
-<p>Choose
+<p><em>Crossing the block.</em> Choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mo>,</mo><mn>2</mn><mi>P</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x\in[P,2P)</annotation></semantics></math>
 by the Chinese remainder theorem so that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>i</mi></msub><mo>∣</mo><mi>x</mi><mo>+</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">m_i\mid x+i</annotation></semantics></math>
@@ -3269,7 +3273,7 @@ Thus the bound with coefficient
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
 is not invariant under arbitrary clearing of denominators. The next step
 keeps track of the common factor rather than discarding it.</p>
-<p>For any fixed
+<p><em>The common gcd and the sharper coefficient.</em> For any fixed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
 divide the tail from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
@@ -4510,7 +4514,8 @@ so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mn>1</mn><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a_n^2/a_{n+1}-1=(a_n-1)/a_{n+1}=\Lambda_n&gt;0</annotation></semantics></math>. ◻</p>
 </div>
 <p>A nonpositive upper limit admits positive values tending to zero; it
-is not an eventual pointwise sign condition. For the quantity
+is not an eventual pointwise sign condition. For the <em>product</em>
+quantity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>P</mi><mi>n</mi></msub><mi>/</mi><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>γ</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">Q_n=(P_n/a_n)\gamma_n</annotation></semantics></math>,
 the identity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>+</mo><mi>q</mi><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E_n+qQ_n=o(1)</annotation></semantics></math>
@@ -4659,7 +4664,7 @@ although none is divisible by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>.
 Thus this proposition alone does not disprove a coprime-walk extension
 of Theorem . Proposition  below gives a separate counterexample using
-sparse moduli. Under the additional scale
+sparse <em>prime</em> moduli. Under the additional scale
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>j</mi><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ell(m_j)=j+O(1)</annotation></semantics></math>,
 Theorem  determines the exact maximal-gap coefficient for these
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>-free
@@ -4760,7 +4765,7 @@ at each step, so
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>=</mo><mi>c</mi><mo>+</mo><mi>n</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">C_n=c+nm</annotation></semantics></math>
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><msub><mi>C</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">c=C_0</annotation></semantics></math>,
-and the definition of the error becomes a
+and the definition of the error becomes a <em>shape equation</em>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>+</mo><mi>m</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>+</mo><mi>n</mi><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">D_n+m=(a_n-1)\,(c+nm) .
 \tag{5.1}\label{long243:eq:shape}</annotation></semantics></math>
 Together with
@@ -4843,7 +4848,11 @@ are coprime.</em> Assume first
 Every multiplier must share a prime with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>,
 but each such prime can occur in at most one multiplier.</p>
-<p> Suppose
+<p><em>Every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>j</mi></msub><annotation encoding="application/x-tex">a_j</annotation></semantics></math>
+shares a prime with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.</em>
+Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>j</mi></msub><mo>,</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(a_j,m)=1</annotation></semantics></math>.
 Then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
@@ -4875,7 +4884,11 @@ contradicting
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>j</mi></msub><mo>,</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(a_j,m)=1</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>j</mi></msub><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">a_j\ge2</annotation></semantics></math>.</p>
-<p> Suppose
+<p><em>A prime divisor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+occurs in at most one
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>j</mi></msub><annotation encoding="application/x-tex">a_j</annotation></semantics></math>.</em>
+Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">p\mid m</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∣</mo><msub><mi>a</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">p\mid a_j</annotation></semantics></math>.
@@ -4968,7 +4981,7 @@ meaning
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mrow><mi>n</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>e</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">e_{n+h}=e_n</annotation></semantics></math>
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
-and that the numerator gains a fixed
+and that the numerator gains a fixed <em>drift</em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">M&gt;0</annotation></semantics></math>
 over one period, meaning
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>n</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>C</mi><mi>n</mi></msub><mo>+</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">C_{n+h}=C_n+M</annotation></semantics></math>
@@ -5427,7 +5440,7 @@ explains the condition
 <p>The barrier applies once reduction removes no further common factor.
 Call
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math>
-a with multipliers
+a <em>reduced exact tail</em> with multipliers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
 when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">gcd</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mi>n</mi></msub><mo>,</mo><msub><mi>v</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(u_n,v_n)=1</annotation></semantics></math>
@@ -5591,9 +5604,9 @@ every later index. ◻</p>
 <p>Other negative errors may exceed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
 in magnitude. Gcd stabilisation uses the bounded witnesses, whereas the
-CRT application needs a bound on upward increment. The supplied
-declaration proves stabilisation; division by the stable gcd gives the
-reduced tail.</p>
+CRT application needs a bound on <em>every</em> upward increment. The
+supplied declaration proves stabilisation; division by the stable gcd
+gives the reduced tail.</p>
 <p>Vanishing relative error also gives sparsity of the strict gcd
 increases. The next proposition asserts long finite intervals of
 constancy, not constancy on an infinite tail. For an exact orbit of
@@ -5704,17 +5717,17 @@ and
 <li><p><em><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><msub><mi>D</mi><mi>n</mi></msub><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">E_n=D_n-(a_n-1)C_n</annotation></semantics></math>
 for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>;</em></p></li>
-<li><p><em>:
+<li><p><em><em>eventual strict centring</em>:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>E</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>C</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">|E_n|&lt;C_n</annotation></semantics></math>
 for all large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>;</em></p></li>
-<li><p><em>:
+<li><p><em><em>eventually bounded negative part</em>:
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>B</mi><mo>≤</mo><msub><mi>E</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">-B\le E_n</annotation></semantics></math>
 for all large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
 for some integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">B\ge0</annotation></semantics></math>;</em></p></li>
-<li><p><em>: for every integer
+<li><p><em><em>vanishing relative error</em>: for every integer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K\ge1</annotation></semantics></math>
 there is an
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
@@ -6688,12 +6701,12 @@ data-cites="erdosproblems"><a href="#ref-13">[13]</a></span>.</p>
 other links specify their repository and revision. The supplied source
 index records a main-repository build at <code>6b78209ab63a</code> and
 sixty theorem-specific Comparator checks in the separate release. The
-label distinguishes the repositories and build records; it does not deny
-those sixty checks. The principal state theorem is in
-<code>ReciprocalTailRigidity.lean</code>. The scalar convergence theorem
-is in <code>SparseResetRecovery.lean</code>, and the bounds on cancelled
-factors are in <code>RepairEntropy.lean</code>. The rational-tail
-estimates are separate checked declarations in
+label <em>release only</em> distinguishes the repositories and build
+records; it does not deny those sixty checks. The principal state
+theorem is in <code>ReciprocalTailRigidity.lean</code>. The scalar
+convergence theorem is in <code>SparseResetRecovery.lean</code>, and the
+bounds on cancelled factors are in <code>RepairEntropy.lean</code>. The
+rational-tail estimates are separate checked declarations in
 <code>PaperCompleteR7</code>, not consequences of the abstract state
 module alone. The checked periodic statement assumes
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>&lt;</mo><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">e_n&lt;a_n</annotation></semantics></math>;
@@ -6956,7 +6969,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad
 of Section , where the shape equation  reads
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">D_n+1=(a_n-1)(n+1)</annotation></semantics></math>,
 each multiplier is determined by its predecessor; we call such an orbit
-. At index
+<em>forced</em>. At index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
 the numerator of the next multiplier is
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">num</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>a</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\operatorname{num}(n,a)=(n+1)a^{2}-(n+2)a+(n+3),</annotation></semantics></math>
@@ -7172,28 +7185,35 @@ neither.</p>
 <h2 class="unnumbered">References</h2>
 <ol>
 <li id="ref-1"><p>P. Erdős and E. G. Straus, <a
-href="https://users.renyi.hu/~p_erdos/1964-19.pdf"></a>, J. Indian Math.
-Soc. (N.S.) <strong>27</strong> (1964), 129–133. MR 175848.</p></li>
+href="https://users.renyi.hu/~p_erdos/1964-19.pdf"><em>On the
+irrationality of certain Ahmes series</em></a>, J. Indian Math. Soc.
+(N.S.) <strong>27</strong> (1964), 129–133. MR 175848.</p></li>
 <li id="ref-2"><p>D. Duverney, <a
-href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"></a>, J.
-Math. Sci. Univ. Tokyo <strong>8</strong> (2001), 275–316.
-MR 1837165.</p></li>
+href="https://www.ms.u-tokyo.ac.jp/journal/pdf/jms080206.pdf"><em>Irrationality
+of fast converging series of rational numbers</em></a>, J. Math. Sci.
+Univ. Tokyo <strong>8</strong> (2001), 275–316. MR 1837165.</p></li>
 <li id="ref-3"><p>C. Badea, <a
-href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf"></a>, Acta
-Arith. <strong>63</strong> (1993), no. 4, 313–323, doi:<a
+href="https://matwbn.icm.edu.pl/ksiazki/aa/aa63/aa6342.pdf"><em>A
+theorem on irrationality of infinite series and applications</em></a>,
+Acta Arith. <strong>63</strong> (1993), no. 4, 313–323, doi:<a
 href="https://doi.org/10.4064/aa-63-4-313-323">10.4064/aa-63-4-313-323</a>.</p></li>
-<li id="ref-4"><p>R. Tijdeman and P. Yuan, , Indag. Math. (N.S.)
-<strong>13</strong> (2002), no. 3, 407–418, doi:<a
+<li id="ref-4"><p>R. Tijdeman and P. Yuan, <em>On the rationality of Cantor and
+Ahmes series</em>, Indag. Math. (N.S.) <strong>13</strong> (2002),
+no. 3, 407–418, doi:<a
 href="https://doi.org/10.1016/S0019-3577(02)80018-0">10.1016/S0019-3577(02)80018-0</a>.</p></li>
 <li id="ref-5"><p>P. Erdős and R. L. Graham, <a
-href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"></a>,
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
+and New Problems and Results in Combinatorial Number Theory</em></a>,
 Monogr. Enseign. Math. 28, Geneva, 1980, p. 64.</p></li>
 <li id="ref-6"><p>P. Erdős, <a
-href="https://users.renyi.hu/~p_erdos/1988-22.pdf"></a>, in A. Baker
-(ed.), , Cambridge UP, 1988, pp. 102–109, doi:<a
+href="https://users.renyi.hu/~p_erdos/1988-22.pdf"><em>On the
+irrationality of certain series: problems and results</em></a>, in
+A. Baker (ed.), <em>New Advances in Transcendence Theory</em>, Cambridge
+UP, 1988, pp. 102–109, doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
 <li id="ref-7"><p>V. Kovač and T. Tao, <a
-href="https://arxiv.org/abs/2406.17593v4"></a>, Acta Math. Hungar.
+href="https://arxiv.org/abs/2406.17593v4"><em>On several irrationality
+problems for Ahmes series</em></a>, Acta Math. Hungar.
 <strong>175</strong> (2025), no. 2, 572–608, doi:<a
 href="https://doi.org/10.1007/s10474-025-01528-0">10.1007/s10474-025-01528-0</a>;
 arXiv:<a href="https://arxiv.org/abs/2406.17593v4">2406.17593v4</a>.
@@ -7207,8 +7227,9 @@ href="https://erdosproblemaday.com/report/243"><em>Erdős #243: working
 report</em></a>, Erdős Problem a Day, page dated 12 August 2026.
 AI-assisted, unrefereed working report.</p></li>
 <li id="ref-10"><p>P. Stevenhagen and H. W. Lenstra, Jr., <a
-href="https://pub.math.leidenuniv.nl/~lenstrahw/PUBLICATIONS/1994c/art.pdf"></a>,
-Math. Intelligencer <strong>18</strong> (1996), no. 2, 26–37, doi:<a
+href="https://pub.math.leidenuniv.nl/~lenstrahw/PUBLICATIONS/1994c/art.pdf"><em>Chebotarëv
+and his density theorem</em></a>, Math. Intelligencer
+<strong>18</strong> (1996), no. 2, 26–37, doi:<a
 href="https://doi.org/10.1007/BF03027290">10.1007/BF03027290</a>. Page
 references are to the linked author version dated 23 March
 1995.</p></li>
@@ -7217,7 +7238,8 @@ href="https://arxiv.org/abs/2603.28636"><em>Optimal bounds for an Erdős
 problem on matching integers to distinct multiples</em></a>, preprint
 arXiv:2603.28636v1, 2026.</p></li>
 <li id="ref-12"><p>J. Koizumi, <a
-href="https://math.colgate.edu/~integers/aa28/aa28.pdf"></a>, Integers
+href="https://math.colgate.edu/~integers/aa28/aa28.pdf"><em>Irrationality
+of the reciprocal sum of doubly exponential sequences</em></a>, Integers
 <strong>26</strong> (2026), Paper No. A28, 17 pp., doi:<a
 href="https://doi.org/10.5281/zenodo.18714404">10.5281/zenodo.18714404</a>.
 Locators refer to this published version.</p></li>
@@ -7230,20 +7252,25 @@ href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b
 Lean source at commit <code>f776d2f</code>, 2025. Formal problem
 statement, not a proof.</p></li>
 <li id="ref-15"><p>P. Erdős and E. G. Straus, <a
-href="https://msp.org/pjm/1974/55-1/pjm-v55-n1-p08-s.pdf"></a>, Pacific
-J. Math. <strong>55</strong> (1974), no. 1, 85–92.</p></li>
+href="https://msp.org/pjm/1974/55-1/pjm-v55-n1-p08-s.pdf"><em>On the
+irrationality of certain series</em></a>, Pacific J. Math.
+<strong>55</strong> (1974), no. 1, 85–92.</p></li>
 <li id="ref-16"><p>J. Hančl and R. Tijdeman, <a
-href="https://www.impan.pl/shop/en/publication/transaction/download/product/82186"></a>,
-Acta Arith. <strong>133</strong> (2008), no. 1, 37–52, doi:<a
+href="https://www.impan.pl/shop/en/publication/transaction/download/product/82186"><em>On
+the irrationality of polynomial Cantor series</em></a>, Acta Arith.
+<strong>133</strong> (2008), no. 1, 37–52, doi:<a
 href="https://doi.org/10.4064/aa133-1-3">10.4064/aa133-1-3</a>. Locators
 refer to the published version.</p></li>
 <li id="ref-17"><p>D. Duverney, T. Kurosawa and I. Shiokawa, <a
-href="https://danielduverney.fr/documents/theorie-des-nombres/Tsukuba.pdf"></a>,
-Tsukuba J. Math. <strong>44</strong> (2020), no. 2, 235–250, doi:<a
+href="https://danielduverney.fr/documents/theorie-des-nombres/Tsukuba.pdf"><em>Irrationality
+exponents of certain fast converging series of rational
+numbers</em></a>, Tsukuba J. Math. <strong>44</strong> (2020), no. 2,
+235–250, doi:<a
 href="https://doi.org/10.21099/tkbjm/20204402235">10.21099/tkbjm/20204402235</a>.
 Theorem locators follow the linked 14-page author version.</p></li>
 <li id="ref-18"><p>T. Crmarić and V. Kovač, <a
-href="https://arxiv.org/abs/2504.18712v1"></a>, Colloq. Math.
+href="https://arxiv.org/abs/2504.18712v1"><em>On the irrationality of
+certain super-polynomially decaying series</em></a>, Colloq. Math.
 <strong>179</strong> (2025), 55–68, doi:<a
 href="https://doi.org/10.4064/cm9628-5-2025">10.4064/cm9628-5-2025</a>.
 Theorem locators follow arXiv:2504.18712v1.</p></li>
@@ -7253,10 +7280,14 @@ Criteria for Series by Erdős and Straus</em></a>, Archive of Formal
 Proofs, 12 May 2020. An Isabelle/HOL formalisation; the archive entry
 identifies the results formalised.</p></li>
 <li id="ref-20"><p>National Institute of Standards and Technology, <a
-href="https://dlmf.nist.gov/5.11.E12">, §5.11(iii), formula 5.11.12</a>,
-accessed 16 September 2026.</p></li>
-<li id="ref-21"><p>E. H. el Abdalaoui, M. Lemańczyk and T. de la Rue, , Int. Math.
-Res. Not. IMRN (2015), no. 16, 7258–7286, doi:<a
+href="https://dlmf.nist.gov/5.11.E12"><em>Digital Library of
+Mathematical Functions</em>, §5.11(iii), formula 5.11.12</a>, accessed
+16 September 2026.</p></li>
+<li id="ref-21"><p>E. H. el Abdalaoui, M. Lemańczyk and T. de la Rue, <em>A
+dynamical point of view on the set of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>-free
+integers</em>, Int. Math. Res. Not. IMRN (2015), no. 16, 7258–7286,
+doi:<a
 href="https://doi.org/10.1093/imrn/rnu164">10.1093/imrn/rnu164</a>. The
 cited definition is also in §1.2 of arXiv:<a
 href="https://arxiv.org/abs/1311.3752v3">1311.3752v3</a>.</p></li>

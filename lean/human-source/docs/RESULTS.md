@@ -30,13 +30,13 @@ The repository's clearest completed mathematics is concentrated in restricted
 forms of Problem 257. Lean checks the classical full-support theorem for every
 integer base `b ≥ 2`, a pairwise-coprime support theorem under explicit
 summability hypotheses, and irrationality for nonnegative rational
-eventually-periodic coefficients with a positive periodic tail. An ordinary
-averaging proof gives a weaker weighted summability criterion that also covers
-some supports with divergent reciprocal sum. The reciprocal-summable corollary
+eventually-periodic coefficients with a positive periodic tail. A formalised finite-prime
+weighted summability criterion also covers some supports with divergent
+reciprocal sum; the papers explain its averaging proof. The reciprocal-summable corollary
 was stated by Erdős without a printed proof. The same finite averaging window
 also combines weighted supports with positive divisor covers, preserving
 irrationality for every infinite subset of their union at all integer bases.
-This combination has an ordinary proof. The achievement-set
+Lean checks this combination as `mixedSupportClaim`. The achievement-set
 development adds exact topological and measure statements. Universal Problem
 257, which quantifies over every infinite support, remains open.
 
@@ -56,7 +56,7 @@ unconstructed.
 
 The other programmes have substantive but sharply bounded outcomes. For
 Problem 68, every positive rational denominator misses `299999!` and satisfies
-`q ≥ 2^{39990}`; an ordinary proof gives a `3/2` lower growth exponent for the
+`q ≥ 2^{39990}`; Lean also checks the `3/2` lower growth exponent for the
 uncleared common denominator, while Lean gives exact carry equivalences and
 finite channel obstructions. Problem 243 has a checked signed recovery theorem: exact
 centered-state dynamics, strict centering, a uniform lower bound on the signed
@@ -75,7 +75,7 @@ interfaces. Problem 1041 has ordinary all-degree trinomial containment, a low-cr
 connector of length less than `2` whenever `μ≤13/25`, a scaled connector of
 length less than `(5/2)μ^{1/n}` in `{|f|<(25/13)μ}`, separated-critical-value
 connectors, bounded-radius concyclic, and generic-topology theorems; its sharp
-critical-value mean is Lean-checked, as are supporting Newton-flow inputs. Problem 1049 has an ordinary irrationality
+critical-value mean is Lean-checked, as are supporting Newton-flow inputs. Problem 1049 has a Lean-checked irrationality
 region for rational bases, together with a Lean-checked rational-base tail
 recurrence, height region, and route exclusions. These results leave their corresponding universal targets open; the
 #1041 total-variation counterexample is discussed separately below.
@@ -91,7 +91,7 @@ divisibility constraint from a fresh exact GMP carry census through
 retained certificate, while an
 independent replay through `4000` reproduces the unit-carry prefix. The second
 is an independent continued-fraction size bound. Neither implication yields
-the other, and neither proves irrationality. An ordinary proof gives
+the other, and neither proves irrationality. The paper and Lean proof give
 `liminf log L_N/(N^(3/2) log N) ≥ 2√2/3`. This is a common-denominator theorem:
 it shows why clearing every summand separately cannot make the positive tail
 small, but says nothing by itself about the denominator after cancellation.
@@ -120,8 +120,8 @@ tail by `qP_n`. The resulting integer error is minus `q` times the scaled
 defect, up to a term tending to zero. This
 cancellation turns the upper bound in the original sequence into the lower
 bound on the integer error used below.
-The analytic transfer to this corollary is ordinary mathematics; Lean checks
-the following signed bounded-negative theorem. Let `a,C,D : ℕ → ℕ` and
+The proof passes through a signed bounded-negative theorem. Lean checks
+that theorem and the canonical tail transfer described below. Let `a,C,D : ℕ → ℕ` and
 `E : ℕ → ℤ`. Assume
 `a(n)>1`, `C(n)>0`, the exact recurrences
 `C(n+1)+D(n)=a(n)C(n)` and `D(n+1)=a(n)D(n)`, and that `E(n)` is the exact
@@ -175,9 +175,11 @@ Independently, a sparse perturbation of the prime gaps can have a rational
 dyadic sum while retaining the prime growth scale, every fixed eventual
 congruence, and asymptotically the same short-block statistics. The later
 positions are not asserted to be prime. This is complementary to Land's
-conditional result, not a refutation. Lean checks the finite pair, buffer, and
-filling identities; the infinite schedule and block-law transfer are ordinary
-mathematics in the short paper. This obstruction shows that those coarse
+conditional result, not a refutation. Lean checks the sparse rational-target
+construction and the polylogarithmic schedule with growing-block transfer in
+`SparsePaperR11.lean`. The printed construction additionally gives congruence
+cutoffs uniform in the target; the linked Lean statement quantifies those
+cutoffs after the target. The prime-growth corollary uses cited analytic results. This obstruction shows that those coarse
 statistics alone do not force irrationality. The exact prime-gap
 summation-by-parts equivalence still proves neither the prime-gap series nor
 the original series irrational; a prime-specific sieve or tail bridge remains
@@ -188,16 +190,19 @@ primes `P` and let `h(a)` be the largest divisor of `a` supported on `P`.
 For an infinite support `A` and an integer base `b ≥ 2`, finiteness of
 `∑_{a∈A} h(a)/(a(b^{h(a)}−1))` implies irrationality of
 `∑_{a∈A} 1/(b^a−1)`. The
-[long paper gives the complete ordinary proof](../paper/257/erdos257-mersenne-reasoning-surface.pdf):
+[long paper explains the proof](../paper/257/erdos257-mersenne-reasoning-surface.pdf):
 average the residues along multiples of increasingly divisible moduli, then
 choose a finite range of averaging lengths to control the error uniformly.
-This is not a Lean theorem. The short paper gives a shorter proof and an
+Lean proves this as `divisibilityWeightedClaim` in
+[`WeightedReturn.lean`](../lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean).
+The short paper gives a shorter proof and an
 explicit support with divergent reciprocal sum satisfying the criterion.
 At base two, the weighted condition can also be combined with the positive
 divisor-cover criterion: the long paper proves that a common finite averaging
 window makes both displacements small. Every infinite subset of their union
-then has irrational subseries at every integer base. This ordinary combination
-does not establish the separately proposed hosts separating the two classes.
+then has irrational subseries at every integer base. Lean proves this as
+`mixedSupportClaim` in the same module. Neither theorem establishes the
+separately proposed hosts separating the two classes.
 Every infinite reciprocal-summable support satisfies it, yielding the
 coprimality-free extension stated by Erdős. Full-support
 irrationality at every integer base is classical (Erdős 1948) and
@@ -262,7 +267,11 @@ On the generic stratum where simple nonzero critical values have pairwise
 distinct arguments and moduli, an ordinary slit-sheet theorem identifies the
 inverse-ray root-connection tree but gives no uniform length bound. Lean checks
 Newton-flow decay, ray-separating translations, and perturbative root
-retention. The unrestricted connector problem remains open.
+retention. A degree-seven counterexample due to the erdosproblems.com
+contributor [`ani`](https://www.erdosproblems.com/forum/thread/1041#post-8861),
+formalised in Lean here, refutes the universal
+total-variation formulation; correspondence with the historical curve-length
+question remains unreviewed.
 
 **[#1049](https://www.erdosproblems.com/1049).** The short paper gives an
 ordinary proof that `F(a/b)` is irrational for coprime integers `a>b≥1` when
@@ -300,7 +309,7 @@ operational procedures live in the [agent workbench](agents/AGENT_WORKBENCH.md).
 
 ## Technical verdict
 
-The degree-seven example refutes the total-variation formulation of Erdős #1041. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The development is neither an empty collection of restatements nor
+The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in Lean. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The development is neither an empty collection of restatements nor
 a claim to settle the seven unresolved targets or the unadjudicated historical
 #1041 formulation. For a first mathematical pass, the high-signal spine is:
 
@@ -431,15 +440,23 @@ Only after those theorem-level facts comes the corpus census. The current semant
 
 | View | #68 | #243 | #249 | #251 | #257 | #269 | #1041 | #1049 | both | shared | total |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| mechanically nonrecurring candidates | 0 | 3 | 90 | 0 | 168 | 0 | 0 | 5 | 0 | 20 | 286 |
+| mechanically nonrecurring candidates | 0 | 3 | 90 | 0 | 169 | 0 | 0 | 5 | 0 | 20 | 287 |
 | classical/prior-art formalisations | 0 | 1 | 36 | 0 | 23 | 0 | 0 | 1 | 0 | 40 | 101 |
 | bare open-problem equivalences | 0 | 0 | 15 | 0 | 15 | 0 | 0 | 0 | 0 | 2 | 32 |
 
-The nonrecurring view contains 184 unconditional object theorems, 56 scoped barriers, and 46 reductions or transports after aliases, open antecedents, bare equivalences, finite/generated instances, infrastructure, classical results, and routine corollaries are removed.
+The nonrecurring view contains 185 unconditional object theorems, 56 scoped barriers, and 46 reductions or transports after aliases, open antecedents, bare equivalences, finite/generated instances, infrastructure, classical results, and routine corollaries are removed.
 
-The internal adjudicated frontier shortlist contains 11 nodes; it is distinct from the 8-node public prior-art review queue. 231 nonrecurring candidates remain unassessed for prior art. The live authored open-antecedent surface has 52 clusters, of which 10 are marked endpoint-equivalent. None of these populations is a novelty census.
+The internal adjudicated frontier shortlist contains 11 nodes; it is distinct from the 7-node public prior-art review queue. 232 nonrecurring candidates remain unassessed for prior art. The live authored open-antecedent surface has 52 clusters, of which 10 are marked endpoint-equivalent. None of these populations is a novelty census.
 
-The [historical hypothesis audit](reference/TRUTH_AUDIT.md) describes a selected extraction, not the current corpus or a measure of mathematical value. Use the problem and theorem routes above to inspect the results and their exact boundaries.
+Agents use the live owners rather than a frozen restatement sample:
+
+- `python3 scripts/query_corpus.py --overview --format card` for reviewed claim status and exact registered Lean interfaces;
+- `python3 scripts/query_corpus.py --route <route_id> --format card` for one problem programme and its open boundary;
+- `python3 scripts/query_semantic.py node <node_id>` and `family-relations <family_id>` for cross-paper statement and relation navigation;
+- `docs/PALOMAR_RESULT_SHOWCASE.json` for the current candidate universe and screening dispositions; and
+- `scripts/residual_evaluator.py` for a kernel-backed comparison of one proposed reduction with its target.
+
+The claim registry covers selected registered claims, not every sentence in every paper. Semantic relations and Palomar screening are navigation and review surfaces; neither is proof, novelty, significance or peer review.
 <!-- END semantic_public_census -->
 
 The large #249 denominator exclusion is a direct, kernel-checked instantiation
@@ -501,8 +518,10 @@ boundaries kept together.
   `ErdosProblems/Erdos243/ReciprocalTailRigidity.lean:897`. Checked theorem;
   reusable obstruction; claims registry: `bounded_rise_fresh_modulus_barrier`
   (`res:barrier`).
-- Given normalised vanishing — supplied for the canonical orbit by Koizumi
-  (Integers 26 (2026), A28; cited, prose bridge) — a bounded negative part or
+- Normalised vanishing for the canonical orbit is derived in
+  `PaperCompleteR7/CanonicalState.lean` from the original growth and rationality
+  hypotheses. The paper credits Koizumi (Integers 26 (2026), A28). With this
+  vanishing, a bounded negative part or
   finite normalised negative mass forces the error to vanish and the
   Sylvester recurrence to begin
   (`ErdosProblems/Erdos243/ReciprocalTailRigidity.lean:2177`,
@@ -823,11 +842,13 @@ boundaries kept together.
 - A sparse congruence-preserving perturbation of the actual prime gaps can
   make the dyadic sum rational while retaining the prime growth scale,
   eventual fixed-modulus congruences, and short-block statistics at the
-  stated scale. Lean checks the elementary pair identities, buffer, and
-  abstract filling core (`SparseRationalisationCore.lean`), and checks
-  Proposition 1.1 of the short paper end to end, including the upper Banach
-  density, a rational target and the block-law transfer
-  (`SparseAmbientR9.lean`, `SparsePaperR11.lean`, `GrowingBlocksR11.lean`).
+  stated scale. Lean checks the finite core, the sparse rational-target
+  construction, and the growing-block transfer (`SparseAmbientR9.lean`,
+  `SparsePaperR11.lean`, `GrowingBlocksR11.lean`). The support, interval and
+  support-count bound precede the target; the formal congruence cutoffs
+  follow it. The paper proves common congruence cutoffs for its different
+  triple construction. Keep that quantifier distinction when citing
+  Proposition 1.1; the source links do not verify every printed strengthening.
   The proposition has no Comparator entry, and there is no separately
   published `SparseRationalisation.md`. The later positions are
   not asserted to be prime, and the construction does not refute Land.
@@ -1054,14 +1075,19 @@ core)**
   Erdős #1041. The source-only frontier still records hub selection on the
   ray-separated locus as an open parent carrier
   (`research_corpus/Erdos1041/FRONTIER.md`).
-- Open: unrestricted connectors; the problem remains open. A reported
-  degree-seven counterexample announcement is a separate external claim.
+- Current boundary: a degree-seven counterexample due to the erdosproblems.com
+  contributor [`ani`](https://www.erdosproblems.com/forum/thread/1041#post-8861),
+  formalised in Lean here, refutes the universal
+  total-variation connector formulation. What remains open here is the precise
+  correspondence with the historical curve-length question, including any
+  required Hausdorff-measure comparison and independent human review.
 
 - Current-source boundary: the committed [`research_corpus/Erdos1041/FRONTIER.md`](../research_corpus/Erdos1041/FRONTIER.md)
   is the dated route for later source-only research evidence. Read it before
   the generated `STRONGEST_RESULTS.json`: it records certified refutations of
-  several proposed strategies, surviving carriers, and exact open gaps while
-  leaving the unrestricted endpoint open. These rows are not reviewed claim
+  several proposed strategies, surviving carriers, and the gaps open at that
+  snapshot. It predates the checked total-variation counterexample and is not
+  the owner of the current #1041 status. These rows are not reviewed claim
   entries, peer review, priority, novelty, or significance findings; the
   frontier itself flags priority/novelty as unchecked for named new rows.
 
@@ -1156,9 +1182,11 @@ coprime supports with summable reciprocals. The relevant declarations include:
 - `irrational_erdosSupportSeries_eventuallyPeriodic`; and
 - `irrational_erdosSupportSeries_pairwise_coprime`.
 
-These declarations are in `Erdos249257/CertificateKernel.lean`. The prime and
-prime-power supports are literature results cited by the repository, not
-formalised here.
+These declarations are in `Erdos249257/CertificateKernel.lean`. The later
+reciprocal-summable, finite-prime weighted and mixed-support theorems remove
+some of these restrictions; their exact hypotheses appear in the
+[programme summary](#problem-by-problem-guide). Cited prime and prime-power
+results retain their literature attribution.
 
 A distinct second-layer rationality normal form is now a typed public
 consumer: `exists_normalized_support_fraction_iff_exists_booleanMobiusCarry`
@@ -1310,10 +1338,10 @@ at arbitrarily large scales. The theorem says nothing at `t = 83`.
 
 ### Finite off-diagonal certificates
 
-The historical audit selects 125 verified log rows at positions not constrained
+The source-bound roster records 125 verified rows at positions not constrained
 to equal `periodLcm t`. Two pairs of rows repeat the same `(h,N,L)` triple, so
 the roster contains 123 distinct certificates matched to 123 public Lean
-theorems across 122 files. The largest position in that audited set is:
+theorems across 122 files. Its largest recorded position is:
 
 ```text
 freeKill_64OneHundredFifteenDI :
@@ -1475,100 +1503,30 @@ Their registry identifiers lead to the declarations and current source
 coordinates; operational lookup details live in the
 [agent workbench](agents/AGENT_WORKBENCH.md).
 
-### Demand ledger
+### Current relation and residual routes
 
-A demand is an unproved hypothesis extracted from a conditional theorem and
-stored as a named Lean proposition. `ErdosProblems/DemandLedger/Basic.lean`
-contains 101 named closed propositions; 23 are labelled substantive and the
-rest are side conditions. The current prose frontier contains 52 entries.
+Cross-paper conjectures and reductions are not assigned a score from a frozen
+#249/#257 sample. Use `python3 scripts/query_semantic.py node <node_id>` for one
+current statement, `python3 scripts/query_semantic.py family-relations
+<family_id>` for its registered family relationships, and
+`scripts/residual_evaluator.py` when a proposed reduction needs a kernel-backed
+comparison with its target. Public claim status and exact registered Lean
+interfaces remain owned by `docs/claims.json` and
+`python3 scripts/query_corpus.py --claim <claim_id>`.
 
-The extraction snapshot in the audit log records 144 proved implication edges
-among the 23 substantive demands, producing seven equivalence classes.
-Seventeen substantive demands collapse to restatements of an open target rather
-than smaller subproblems. For example:
+## Finite evidence policy
 
-- `G103_iff_erdos249` in
-  `ErdosProblems/DemandLedger/edges/Discharge3_G103.lean` proves that the
-  general lcm-window supply `G103` is equivalent to Problem 249 itself.
-- `G103_iff_G097` in the same file identifies two supply formulations.
-- `e_G083_G084` in `edges/ClusterE.lean` records one implication in the
-  Problem 257 chain.
+A finite measurement belongs on this page only when the release preserves its
+sample identities, executable owner and rerunnable validation route. Historical
+scans without that chain are omitted; a prose summary is not a substitute for
+the missing evidence. Current registered finite-evidence claims are reached
+through `python3 scripts/query_corpus.py --overview --format card` and their
+emitted source and receipt handles.
 
-The ledger classifies obligations. It does not discharge an obligation merely
-by naming it or proving it equivalent to the target.
+## Historical corrections retained in source
 
-## What is measured, not proved
-
-Only measurements with an explicit tested range and explicit exception set are
-listed here. Counts without preserved sample identities are not promoted to
-release results.
-
-| Measurement | Exact range | Exact failures or mismatches | Status |
-|---|---|---|---|
-| `Recon257.seamExcess s = 2` | `s = 5,…,102` (two overlapping scans, `5…64` and `58…102`) | No occurrence. | MEASURED. This makes the audited uses at `s=D+1`, `D≥60`, unobserved. |
-| Three-row `hcof` on the seven audited survivor values | `D = {101,122,164,314,545,629,1112}` | Fails at all seven values. | MEASURED; every audited case satisfying `hcof` already died by depth 3. |
-| Residual invariant | `s = 6,…,3000`, `d = 2,…,s-1` | Exactly `(s,d)=(13,7)`; residual `524419`, bound `524288`. | The exception is also PROVED by `Three/T1.not_residualInvariant`. |
-| `hlow` and `hhigh` at late pairs | all late pairs with `s = 5,…,600` | `hlow` fails exactly at `(7,5)`; `hhigh` fails exactly at `(5,4)`. | The `hlow` exception is PROVED in `Decl/D4` and `Hlow/H1`. |
-| Remainder-hit/greedy-support correspondence | `s = 5,…,900` | Zero mismatches. | MEASURED. It does not prove infinitely many hits. |
-| `UnboundedLargestSkipLate` row event | `s = 5,…,1500` | Fails exactly at `s = 5,11,12,13`. | MEASURED. A finite interval does not prove eventual or unbounded behaviour. |
-| Residual invariant on adjacent control rows | every rank of rows `s=12` and `s=14` | No failures. | MEASURED anti-vacuity check for the isolated `(13,7)` counterexample. |
-| Diophantine height at one scale | `d=1000` | Denominator bit length `253815`; comparison value `d²/4=250000`. | MEASURED single-scale size check, not an asymptotic theorem. |
-| Relative-margin scan | `d = 2,…,2000` | Record low `1.13×10^-4` at `d=1136`; no danger-zone instance. | MEASURED. It does not establish a positive lower bound. |
-
-For the residual invariant, the maximum ratio away from the exception was
-`0.9999807` at `(606,602)`.
-
-The rows above are carried from a dated audit log whose raw run logs and
-executable scan owners are not preserved in this release. Their stated finite
-domains and exception sets are therefore historical measurement records, not
-independently reproducible artifacts. A reported late-bit scan of about 14,000
-ranks over `s=14,…,400` is omitted from the table because neither its exact
-sample count nor its sample identities were preserved.
-
-The audit also records a selection-biased certificate sample: at depth excess
-`c=2`, 15 of 154 samples failed; at `c=3`, 601 of 5987 failed. The sample
-identities are not preserved in the log, so these counts are not independently
-reconstructible from the release and are not evidence for an equidistribution
-law.
-
-The remaining two measurements are source-backed and reproducible from this
-release.
-
-### Exact endpoint-certificate probe
-
-Exact range: all `960` pairs `1≤N≤120`, `1≤h≤8`, searching `1≤L≤400`;
-additional `h=1` probes at `N=200,500,1000,2000,5000`; exact LCM-diagonal pairs
-`(N,h)=(lcm(1,…,t),lcm(1,…,t))` for `1≤t≤16`.
-
-Exact failures or mismatches: no failures. Relative to the least arithmetically
-admissible depth `L₀=min{L≥1:2ᴸ>2(N+h+L+2)}`, the rectangle's first
-certificates have excess `0…11` (median `1`, mean `727/480`); the 16 indexed
-diagonal rows have excess `0…4` (median `1`, mean `5/4`), and the 11 distinct
-diagonal scales have mean `14/11`.
-
-Status: MEASURED by exact integer arithmetic. Raw depth must grow with scale
-because the certificate interval is empty below `L₀`; the finite excess
-distributions prove no asymptotic law, equidistribution, bounded-excess
-theorem, or cofinal supply. The exact probe remains available as operational
-evidence through the agent workbench.
-
-### Source-backed checked diagonal depths
-
-Exact range: all 33 distinct `periodLcm` scales covering positive `t≤82`.
-
-Exact failures or mismatches: every checked working depth has excess `0…4` over
-`L₀` (median `1`, mean `40/33`). Five rows have proved least depths, with exact
-excess `0…3`; the other 28 values are upper bounds on least-depth excess.
-
-Status: FINITE SOURCE EXTRACTION from explicit Lean theorem signatures. It
-establishes no bounded-excess law at untested scales and no cofinal supply.
-The checked roster remains available as operational evidence through the agent
-workbench.
-
-## What was retracted
-
-The detailed file-by-file record is in
-[`TRUTH_AUDIT.md`](reference/TRUTH_AUDIT.md). The main corrections are:
+The current Lean module headers and declarations retain the operative
+boundaries. The principal corrections were:
 
 - `Lift/AngleB2.lean` no longer says that the survivor set is empty. Its theorem
   is conditional on a false `hcof` instance at each surviving class and on an
@@ -1757,13 +1715,16 @@ positiveMersenneSupportValue_eq_erdosSupportSeries
 
 The repository cannot certify its own human legibility. It therefore exposes a
 second `OPEN` question: can an independent reader, starting from a fresh clone,
-recover the calibrated verdict in at most ten minutes? The request is exact,
-including the response schema, its consumer, payoff, and boundary:
+recover the current eight-problem scope, authority and #1041 credit boundary in
+at most ten minutes? The request is exact, including the response schema, its
+consumer, payoff, and boundary.
 
-The low-confidence working guess is that a reader will recover both open
-boundaries and the zero Farey delta, but may still underweight the concrete
-non-restatement results. The protocol distinguishes that failure from the
-opposite error—mistaking finite or conditional results for a near-solution.
+The reader replays the current overview, #1041 and semantic-relation routes;
+reports that the total-variation formulation is refuted by ani's degree-seven
+counterexample while the historical curve-length correspondence remains
+unreviewed; identifies the claim registry as selected rather than exhaustive;
+and summarises checked results from at least three distinct problems. This
+replaces the retired protocol built around a frozen #249/#257 binder sample.
 
 A structurally accepted response from an identified independent reader returns
 an explicit rubric for its result summaries, evidence paths and verdict. A
@@ -1839,7 +1800,7 @@ _Questions generated from `docs/problem_index_source.json`._
 | [#68](../paper/68/erdos-68-factorial-denominator-irrationality.pdf) | Is the series sum_{n >= 2} 1/(n! - 1) irrational? |
 | [#243](../paper/243/erdos-243-reciprocal-tail-rigidity.pdf) | Under a rapid-growth hypothesis on an integer sequence, does rationality of its reciprocal sum force the sequence to satisfy the Sylvester recurrence eventually? |
 | [#249](../paper/249/erdos-249-binary-totient-series.pdf) | Is the binary Lambert series sum phi(n)/2^n irrational? |
-| [#251](../paper/251/erdos-251-prime-gap-dyadic-series.pdf) | Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational? |
+| [#251](../paper/251/erdos-251-prime-gap-dyadic-series.pdf) | Is the dyadic series of consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational? |
 | [#257](../paper/257/erdos-257-mersenne-support-subseries.pdf) | Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational? |
 | [#269](../paper/269/erdos-269-three-prime-running-lcm.pdf) | For a finite set of at least two primes, is the sum of reciprocals of the running least common multiples of the smooth numbers irrational? This library treats the three-prime case. |
 | [#1041](../paper/1041/erdos-1041-lemniscate-newton-flow.pdf) | For a monic polynomial whose roots lie in the open unit disc, must two roots be joinable by a curve of length less than two inside the open unit lemniscate? The registry has not adjudicated whether the checked total-variation formulation exactly matches this historical curve-length question. |

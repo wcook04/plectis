@@ -44,8 +44,12 @@ producer or bridge remains explicit.
 
 ## #1041 / source-current frontier
 
-Problem #1041 has a second, source-only navigation route in addition to the
-Lean-backed Newton-flow note. Start with the dated [frontier delta](../research_corpus/Erdos1041/FRONTIER.md),
+The current #1041 paper covers the registered total-variation counterexample
+and Newton-flow results. Its [CatalogueAdapter](../lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean)
+is the source entry for `ani_degree_seven_total_variation_counterexample`;
+`docs/claims.json` records the exact statement, attribution and unreviewed
+correspondence with the historical curve-length question. For the separate
+source-only research corpus, start with the dated [frontier delta](../research_corpus/Erdos1041/FRONTIER.md),
 then use the [strongest-result map](../research_corpus/Erdos1041/STRONGEST_RESULTS.json)
 and the [corpus manifest](../research_corpus/Erdos1041/CORPUS_MANIFEST.json).
 The frontier delta is the authority for rows refuted after the activation map
@@ -71,9 +75,8 @@ The high-signal reading routes are:
   read their explicit hypotheses and refutations before treating either as a
   parent route.
 
-The [earlier paper note](papers/full-text/erdos-1041-lemniscate-newton-flow.md)
-remains the paper-facing route to the checked declarations in
-`ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean`. The research corpus is
+The [current paper](papers/full-text/erdos-1041-lemniscate-newton-flow.md)
+links its statements to their Lean declarations. The separate research corpus is
 not part of `docs/claims.json`'s reviewed claim authority: its files preserve
 source-level premises, computations, no-go results, and open boundaries.
 Nothing in this route settles #1041; the exact continuation boundary is in
@@ -81,28 +84,30 @@ Nothing in this route settles #1041; the exact continuation boundary is in
 
 ## Complete eight-problem return matrix
 
-The per-problem [machine index](problems.json) is the source for the complete
-module, paper, and open-obligation inventories. Expand each row's
-`what_is_checked` and `what_is_not_checked` fields before treating its strongest
-checked source as the whole result inventory: they are the evidence ceiling,
+The per-problem [machine index](problems.json) lists module entry points,
+papers and open obligations. The [problem library](problem_library.json)
+expands each programme into its papers and transitive Lean source map. Expand each row's
+`what_is_checked` and `what_is_not_checked` fields before treating one source
+entry as the whole result inventory: they are the evidence ceiling,
 not additional claims. This single matrix makes the same route bidirectional:
-start at a public problem id, reach the strongest checked source and paper
+start at a public problem id, reach source entry points and the paper
 record, then use the exact index handles to resume the open boundary; a paper
 or source reader can return with the `--route` command in the second column.
-The checked sources under `ErdosProblems.lean` are exact Lean propositions,
-not reviewed claim-registry entries. For #249 and #257, the reviewed route is
-an additional registered claim spine, not a replacement for the problem-owned
-index route.
+Use `claim_registration.registered_claim_ids` to reach each registered
+statement's status and declarations in `docs/claims.json`. The module or
+library containing a statement does not determine its review status. Unlisted
+declarations acquire no public claim status from their neighbours. For #249
+and #257, follow the reviewed core routes as well as the problem-owned index.
 
-| Problem | Problem return / source back-route | Strongest checked source | Paper and source record |
+| Problem | Problem return / source back-route | Source entry points | Paper and source record |
 |---|---|---|---|
-| #68 | `python3 scripts/query_corpus.py --route erdos_68` | [`FactorialZeroPlateau.lean`](../lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean) | [paper note](papers/full-text/erdos-68-factorial-denominator-irrationality.md) · [TeX source](../paper/68/erdos-68-factorial-denominator-irrationality.tex) |
+| #68 | `python3 scripts/query_corpus.py --route erdos_68` | [`FactorialGapPlateauCore.lean`](../lean/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean) · [`FactorialZeroPlateau.lean`](../lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean) | [paper note](papers/full-text/erdos-68-factorial-denominator-irrationality.md) · [TeX source](../paper/68/erdos-68-factorial-denominator-irrationality.tex) |
 | #243 | `python3 scripts/query_corpus.py --route erdos_243` | [`ReciprocalTailRigidity.lean`](../lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean) | [paper note](papers/full-text/erdos-243-reciprocal-tail-rigidity.md) · [TeX source](../paper/243/erdos-243-reciprocal-tail-rigidity.tex) |
 | #249 | `python3 scripts/query_corpus.py --route erdos_249` · reviewed return: `python3 scripts/query_corpus.py --route erdos249_certificate_story` · family return: `python3 scripts/query_corpus.py --route probabilistic_gcd_geometry` | [`TotientStrictPrimeEscape.lean`](../lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean) · [`GcdMomentCalculus.lean`](../lean/Erdos249257/GcdMomentCalculus.lean#L235) · [`SternBrocotRunGeometry.lean`](../lean/Erdos249257/SternBrocotRunGeometry.lean#L343) | [paper note](papers/full-text/erdos-249-binary-totient-series.md) · [TeX source](../paper/249/erdos-249-binary-totient-series.tex) · [probability/cylinder explanation](papers/full-text/erdos-249-binary-totient-series.md#exact-identities-and-representations.) |
 | #251 | `python3 scripts/query_corpus.py --route erdos_251`<br>Palomar family spine (run `python3 scripts/query_semantic.py family-relations <family_id>`): `prime_gap_reformulation` → `small_mismatch_criterion` → `dyadic_tail_integrality_classification` → `integral_shift_classification` → `totient_shift_propagation` → `coefficient_only_no_go` | [`PrimeGapDyadicTail.lean`](../lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean) | [paper note](papers/full-text/erdos-251-prime-gap-dyadic-series.md) · [TeX source](../paper/251/erdos-251-prime-gap-dyadic-series.tex) |
 | #257 | `python3 scripts/query_corpus.py --route erdos_257` · reviewed return: `python3 scripts/query_corpus.py --route erdos257_half_story` | [`MersenneSubseriesRigidity.lean`](../lean/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean) | [paper note](papers/full-text/erdos-257-mersenne-support-subseries.md) · [TeX source](../paper/257/erdos-257-mersenne-support-subseries.tex) |
 | #269 | `python3 scripts/query_corpus.py --route erdos_269`<br>Palomar family spine (run `python3 scripts/query_semantic.py family-relations <family_id>`): `conditional_carry_escape` → `weighted_phase_carry_observer` → `rank_two_kernel_no_go` → `height_fibre_and_shell` → `dyadic_block_alphabet` → `three_prime_lcm_cells` | [`RestrictedFloorSum.lean`](../lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean) · [`WeightedPhaseCarry.lean`](../lean/ErdosProblems/Erdos269/WeightedPhaseCarry.lean) · [`ThreePrimeRunningLcm.lean`](../lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean) | [paper note](papers/full-text/erdos-269-three-prime-running-lcm.md) · [TeX source](../paper/269/erdos-269-three-prime-running-lcm.tex) |
-| #1041 | `python3 scripts/query_corpus.py --route erdos_1041` | [`NewtonFlowRaySeparation.lean`](../lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean) | [dated frontier](../research_corpus/Erdos1041/FRONTIER.md) → [paper note](papers/full-text/erdos-1041-lemniscate-newton-flow.md) · [TeX source](../paper/1041/erdos-1041-lemniscate-newton-flow.tex) |
+| #1041 | `python3 scripts/query_corpus.py --route erdos_1041` | [`CatalogueAdapter.lean`](../lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean) · [`NewtonFlowRaySeparation.lean`](../lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean) | [dated frontier](../research_corpus/Erdos1041/FRONTIER.md) → [paper note](papers/full-text/erdos-1041-lemniscate-newton-flow.md) · [TeX source](../paper/1041/erdos-1041-lemniscate-newton-flow.tex) |
 | #1049 | `python3 scripts/query_corpus.py --route erdos_1049` | [`RationalBaseLambert.lean`](../lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean) | [paper note](papers/full-text/erdos-1049-rational-base-lambert.md) · [TeX source](../paper/1049/erdos-1049-rational-base-lambert.tex) |
 
 The exact open boundary each row stops at, as machine handles. A five-column

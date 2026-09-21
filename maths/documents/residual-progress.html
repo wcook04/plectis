@@ -148,83 +148,51 @@ pretty-print and reparse: the extracted <a class="narrative-ref narrative-ref--t
 or elaboration fails. An unresolved mathematical demand, which
 previously existed only in binder position, becomes an object that can
 be named, compared and proved about.</p>
-<p>Applied to the 259 <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conditional-theorem" data-term="conditional_theorem" data-term-auto="1">conditional</a>-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> in this
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>, it yields 101 distinct closed <code>Prop</code>s, of which 23
-are substantial statements rather than side conditions. The finding,
-recorded in <code>docs/semantic/zones/Z18.json</code>, is blunt:</p>
-<blockquote>
-<p>Fourteen of the substantial open antecedents of #249 — the pointwise,
-ray, <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-multiple" data-term="multiple" data-term-auto="1">multiple</a>, diagonal, cone, jump, window, survivor, rank-two,
-cone-nonflat, <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-prime" data-term="prime" data-term-auto="1">prime</a>-jump and nonintegrality supplies — are mutually
-implied, and the class is <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalent to</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #249</a> itself. … These are
-therefore not antecedents of the problem in any useful sense; they are
-the problem restated.</p>
-</blockquote>
-<p>That is not a stylistic judgement about the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reformulation" data-term="reformulation" data-term-auto="1">reformulations</a>. It is a
-proved mutual-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implication</a> class, and the reverse direction rests on a
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> completeness <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>. Fourteen apparent <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reductions</a> of an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open
-problem</a> were, under the kernel, the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open problem</a>.</p>
-<p>The exact boundary is <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/DemandLedger/edges/Discharge3_G103.lean#L58"><code>G103_iff_erdos249</code></a>,
-whose reverse direction uses <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/lean/Erdos249257/LcmConeFlatness.lean#L399"><code>irrational_totient_series_iff_pointwise_certificates</code></a>.
-Those <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorems</a> identify an <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-endpoint" data-term="endpoint" data-term-auto="1">endpoint</a>-equivalent supply <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-normal-form" data-term="normal_form" data-term-auto="1">normal form</a>; they
-do not prove <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős #249</a>. The public problem route
-(<code>python3 scripts/query_corpus.py --route erdos_249</code>) remains
-the source for the open status and continuation <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a>, while the <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/semantic/frontier.json"><code>semantic frontier</code></a> is
-the route for the fourteen-member <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalence</a> class.</p>
-<p><code>Basic.lean</code> names those 101 demands and nothing more; the
-relations between them were proved once, by hand, for this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>. The
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a> below is that <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-audit" data-term="audit" data-term-auto="1">audit</a> turned into an instrument: the same
-question — does this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">remaining obligation</a> differ from the target — asked
-per sketch, on demand, against a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> budget.</p>
+<p>The mechanism is intentionally local. A submitted target and its
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">remaining obligations</a> are compared as exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>, one sketch at
+a time, against a <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> budget. It does not infer a live <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>
+census from historical binder extraction, and it does not turn an
+authored relation label into a kernel verdict. Current registered
+relations are navigated through
+<code>python3 scripts/query_semantic.py</code>; current problem status
+and continuation <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligations</a> remain owned by
+<code>python3 scripts/query_corpus.py</code> and
+<code>docs/claims.json</code>.</p>
 </section>
-<section id="restatement-is-also-a-population-effect" class="level2">
-<h2>Restatement is also a population effect</h2>
-<p>The fourteen are one class inside one problem. The wider question —
-whether a <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-reformulation" data-term="reformulation" data-term-auto="1">reformulation</a> that restates its target is
-<em>systematically</em> less useful than one that does not — needs a
-<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> deep enough for the same problem to have been reformulated
-hundreds of times.</p>
-<p><code>docs/reformulation_productivity.json</code> records what this
-one has: 3,693 authored <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-theorem" data-term="theorem" data-term-auto="1">theorem</a>-like <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> over two problems,
-roughly 1,846 each, against 3.7 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> statements per <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-erdos-problem" data-term="erdos_problem" data-term-auto="1">Erdős problem</a> in
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> — a density ratio of 499. Generated <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-certificate" data-term="certificate" data-term-auto="1">certificate</a>
-shards are excluded from the count; they are emitted in bulk and would
-swamp it.</p>
-<p>Over the 654 measured <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-statement-node" data-term="statement_node" data-term-auto="1">statement nodes</a>, split by whether a node
-restates its <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open problem</a>:</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>n</th>
-<th>mean fan-in</th>
-<th>never cited</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>restates the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-problem" data-term="open_problem" data-term-auto="1">open problem</a></td>
-<td>48</td>
-<td>1.21</td>
-<td>18.8%</td>
-</tr>
-<tr>
-<td>does not restate</td>
-<td>606</td>
-<td>1.66</td>
-<td>10.9%</td>
-</tr>
-</tbody>
-</table>
-<p>Restatements are cited less and die more often. The file states its
-own proxy <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-limit" data-term="limit" data-term-auto="1">limits</a>, and they are real: later reuse inside one <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a> is
-not mathematical importance, and the author chose which routes to
-pursue, so this is a correlation over an unbalanced sample rather than a
-controlled comparison. It is offered as the measurement that exists, not
-as the one that would settle the question.</p>
+<section id="restatement-and-reuse-use-the-integrated-corpus"
+class="level2">
+<h2>Restatement and reuse use the integrated <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a></h2>
+<p>The retired two-problem productivity report counted textual
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reference" data-term="reference" data-term-auto="1">references</a> between <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-declaration" data-term="declaration" data-term-auto="1">declarations</a> and divided a historical sample by
+an authored <code>is_restatement</code> label. That was neither a kernel
+restatement <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-check" data-term="check" data-term-auto="1">check</a> nor a current measurement of the eight public
+programmes. Textual fan-in also does not establish mathematical
+importance, novelty or significance, so the report and its standalone
+builder are no longer public infrastructure.</p>
+<p>The current system keeps each responsibility with its existing
+owner:</p>
+<ul>
+<li><a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json" data-link-kind="exogenous" rel="external noopener"><code>docs/claims.json</code></a> records
+reviewed public status and exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> addresses for the selected
+registered <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claims</a>; it does not assert that every mathematical statement
+in every paper is registered.</li>
+<li><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/semantic_corpus.json.gz"><code>docs/semantic_corpus.json.gz</code></a>,
+queried with <code>python3 scripts/query_semantic.py</code>, owns
+cross-paper statement and relation navigation across the current <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-corpus" data-term="corpus" data-term-auto="1">corpus</a>.
+Relation labels are navigation and do not themselves certify
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-equivalence" data-term="equivalence" data-term-auto="1">equivalence</a>, novelty or value.</li>
+<li><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>docs/PALOMAR_RESULT_SHOWCASE.json</code></a>
+owns the current candidate universe, screening dispositions and
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reader" data-term="reader" data-term-auto="1">reader</a>-facing signal order without turning that screening into <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proof" data-term="proof" data-term-auto="1">proof</a> or
+<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-peer-review" data-term="peer_review" data-term-auto="1">peer review</a>.</li>
+<li><code>scripts/residual_evaluator.py</code> remains the exact <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-bound" data-term="bound" data-term-auto="1">bounded</a>
+route for asking whether a particular proposed <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-reduction" data-term="reduction" data-term-auto="1">reduction</a> leaves its
+target, an equivalent residual or an explicitly stronger <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-open-obligation" data-term="open_obligation" data-term-auto="1">obligation</a>. Its
+answer is about the submitted <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">propositions</a>, not an aggregate score
+over an old sample.</li>
+</ul>
 </section>
 <section id="what-the-evaluator-decides" class="level2">
 <h2>What the <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a> decides</h2>
@@ -278,7 +246,7 @@ separation.</td>
 <p>Two details matter more than they look.</p>
 <p><strong>Restatement is tested per residual and in both
 directions.</strong> Testing <code>P → ⋀Rᵢ</code> instead is wrong: a
-target <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> every legitimate consequence, so that criterion convicts
+target <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-implication" data-term="implication" data-term-auto="1">implies</a> every legitimate consequence, so that criterion convicts
 every correct decomposition. An earlier version of this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-evaluator" data-term="evaluator" data-term-auto="1">evaluator</a> did
 exactly that and flagged a textbook base-plus-step <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathematical-induction" data-term="mathematical_induction" data-term-auto="1">induction</a> split as
 the failure it is the opposite of.</p>
@@ -363,7 +331,7 @@ survives. <code>docs/residualbench_report.json</code> is the run: every
 <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-proposition" data-term="proposition" data-term-auto="1">proposition</a> put to <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-lean" data-term="lean" data-term-auto="1">Lean</a>, the tactic that discharged it, and its axiom
 budget. It records this <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-repository" data-term="repository" data-term-auto="1">repository</a>’s pinned <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-mathlib" data-term="mathlib" data-term-auto="1">Mathlib</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-environment" data-term="environment" data-term-auto="1">environment</a> only; no
 cross-pin <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-receipt" data-term="receipt" data-term-auto="1">receipt</a> is registered here, so this note makes no portability
-<a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> about the older <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> pins or other library
+<a class="narrative-ref narrative-ref--term is-term-again" href="../../docs/glossary.html#glossary-claim" data-term="claim" data-term-auto="1">claim</a> about the older <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-formal" data-term="formal" data-term-auto="1">Formal</a> <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-conjecture" data-term="conjecture" data-term-auto="1">Conjectures</a> pins or other library
 versions.</p>
 <p>Two rows disagree with their labels on budget <a class="narrative-ref narrative-ref--term is-term-first" href="../../docs/glossary.html#glossary-grounding" data-term="grounding" data-term-auto="1">grounds</a> and are left
 that way. <code>B_reassociation</code> is an equivalent range reindexing
@@ -421,7 +389,7 @@ decided by the kernel rather than estimated.</p>
       <nav class="maths-pager" aria-label="Page navigation" data-term-auto="off"><a class="maths-pager__link maths-pager__link--prev" rel="prev" href="architecture.html"><span class="maths-pager__dir">Previous</span>Repository architecture</a><a class="maths-pager__link maths-pager__link--next" rel="next" href="wave-index.html"><span class="maths-pager__dir">Next</span>Development index</a></nav>
       </div>
     </main>
-      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#the-reported-failure">The reported failure</a><a class="toc-l2" href="#where-the-instrument-came-from">Where the instrument came from</a><a class="toc-l2" href="#restatement-is-also-a-population-effect">Restatement is also a population effect</a><a class="toc-l2" href="#what-the-evaluator-decides">What the evaluator decides</a><a class="toc-l2" href="#residualbench">ResidualBench</a><a class="toc-l2" href="#running-it">Running it</a><a class="toc-l2" href="#what-this-does-not-establish">What this does not establish</a></aside>
+      <aside class="docs-toc" aria-label="On this page" data-term-auto="off"><p class="docs-toc__title">On this page</p><a class="toc-l2" href="#the-reported-failure">The reported failure</a><a class="toc-l2" href="#where-the-instrument-came-from">Where the instrument came from</a><a class="toc-l2" href="#restatement-and-reuse-use-the-integrated-corpus">Restatement and reuse use the integrated corpus</a><a class="toc-l2" href="#what-the-evaluator-decides">What the evaluator decides</a><a class="toc-l2" href="#residualbench">ResidualBench</a><a class="toc-l2" href="#running-it">Running it</a><a class="toc-l2" href="#what-this-does-not-establish">What this does not establish</a></aside>
   </div>
 </body>
 </html>

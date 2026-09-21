@@ -11,15 +11,15 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "a2cdc0fb56e55756a93b524133af82178f57966ad79392d2458fbb354f30f634",
+    "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
+    "source_sha256": "21debfecb574c15dfa553c1415ea1df903b43dade6a693d5322ffb0d62db1560",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 29,
-    "renderer_fingerprint": "815b27130b0e7a63",
+    "renderer_contract_version": 30,
+    "renderer_fingerprint": "d383526533396f6a",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "a2a379b21edd607a815769680ffefd17eb00a1537b304246e7ff7331ef854816",
-    "html_exact_tex_sha256": "d9428123d3423e2c3a6a187a5a824c4055739536e53334804f6fceaea4ef1f09"
+    "html_mathml_sha256": "fc76b045e9a7bad15c770f406e1f7f0dc04bf6e4a0bda042502ef4767ad2ddc4",
+    "html_exact_tex_sha256": "200d7a4d7a1afd9ba12ae248a0ab8a29202cf7a8e18f7a001421845636d0b0a5"
   },
   "sections": [
     {
@@ -107,28 +107,18 @@
     },
     {
       "level": 3,
-      "anchor": "demand-ledger",
-      "label": "Demand ledger"
+      "anchor": "current-relation-and-residual-routes",
+      "label": "Current relation and residual routes"
     },
     {
       "level": 2,
-      "anchor": "what-is-measured-not-proved",
-      "label": "What is measured, not proved"
-    },
-    {
-      "level": 3,
-      "anchor": "exact-endpoint-certificate-probe",
-      "label": "Exact endpoint-certificate probe"
-    },
-    {
-      "level": 3,
-      "anchor": "source-backed-checked-diagonal-depths",
-      "label": "Source-backed checked diagonal depths"
+      "anchor": "finite-evidence-policy",
+      "label": "Finite evidence policy"
     },
     {
       "level": 2,
-      "anchor": "what-was-retracted",
-      "label": "What was retracted"
+      "anchor": "historical-corrections-retained-in-source",
+      "label": "Historical corrections retained in source"
     },
     {
       "level": 2,

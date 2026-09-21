@@ -17,11 +17,12 @@
     "That a reduced exact tail has pairwise coprime multipliers which its numerator permanently avoids, so no such tail has a divergent numerator with bounded rise.",
     "That the tail gcd stabilises under cofinally bounded negative magnitudes.",
     "Conditionally: exact dynamics, eventual strict centring, an eventually bounded negative part, and normalised vanishing together force the centred state to vanish eventually.",
-    "That survival through a fixed number of forced updates depends only on the initial state modulo a factorial of the horizon."
+    "That survival through a fixed number of forced updates depends only on the initial state modulo a factorial of the horizon.",
+    "From a strictly increasing positive integer sequence, a rational reciprocal sum and a_(n+1)/a_n^2 tending to one, canonical_integer_tail_normalized derives eventual strict centring and normalised vanishing of the exact integer tail."
   ],
   "what_is_not_checked": [
     "The unrestricted problem.",
-    "That eventual strict centring and normalised vanishing follow from the growth hypothesis and rationality. Both are assumed by the final theorem and neither is derived, so that theorem constrains the state system rather than the original sequence.",
+    "A uniform lower bound on the centred error for every sequence in the original problem; the canonical tail transfer does not supply this additional hypothesis.",
     "Any exclusion of negative excursions whose magnitudes are unbounded along a cofinal set.",
     "The criterion of Erdos and Straus and Duverney's conditional characterisation, which are cited rather than formalised and are both stronger than anything checked here."
   ],
@@ -247,7 +248,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
+    "source_sha256": "21debfecb574c15dfa553c1415ea1df903b43dade6a693d5322ffb0d62db1560",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -289,8 +290,8 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 29,
-      "renderer_fingerprint": "815b27130b0e7a63",
+      "renderer_contract_version": 30,
+      "renderer_fingerprint": "d383526533396f6a",
       "source_sha256": "64608f5ddf5a21c732995811596fba56fff3027aba0b5298dccb804c71cf4dc7",
       "source_manifest_match": true,
       "publication_manifest_match": true,
@@ -300,8 +301,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "b7fa43725ef6e87323c7e9ccd84417e49faeebc8f05976ae1572d1d19f2404ab",
-      "html_exact_tex_sha256": "1a68d0fb09bc02166f6e20e766e057f89e1ace6151ffe2d846daddb84214c0da"
+      "html_mathml_sha256": "71e31d5159485b3d3df36e262437967d09cade2ffa7f1cafd1afee63f904596d",
+      "html_exact_tex_sha256": "bd9313547e6bf1c631fed8a871cc45f4aa8f7decd33c53380347a69ceefbf69d"
     },
     "sections": [
       {
@@ -468,8 +469,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "64608f5ddf5a21c732995811596fba56fff3027aba0b5298dccb804c71cf4dc7",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -479,8 +480,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "b7fa43725ef6e87323c7e9ccd84417e49faeebc8f05976ae1572d1d19f2404ab",
-        "html_exact_tex_sha256": "1a68d0fb09bc02166f6e20e766e057f89e1ace6151ffe2d846daddb84214c0da"
+        "html_mathml_sha256": "71e31d5159485b3d3df36e262437967d09cade2ffa7f1cafd1afee63f904596d",
+        "html_exact_tex_sha256": "bd9313547e6bf1c631fed8a871cc45f4aa8f7decd33c53380347a69ceefbf69d"
       },
       "sections": [
         {
@@ -647,12 +648,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "7ead244efb0f153c2d1ed1bffbe9f98c866ee8aec713ffb5c7bc4ba70cdb18d4",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2403,
+        "mathml_node_count": 2408,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -668,7 +669,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "98ca2b4acf222ee231ac37ded1fdbe9e1eb7dde34636b02792299fa32787992d",
+        "html_mathml_sha256": "2ac2c4382c390712f66db9cd3537e11c8259caf2dee7346e9675b424e87146ca",
         "html_exact_tex_sha256": "66a89a1a2aa95cc7b1bc69d4a19f2042cd8abfba50f214b63a0376b88f4cc871"
       },
       "sections": [

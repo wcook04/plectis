@@ -52,64 +52,40 @@ and reparse: the extracted proposition is the binder type or elaboration fails.
 An unresolved mathematical demand, which previously existed only in binder
 position, becomes an object that can be named, compared and proved about.
 
-Applied to the 259 conditional-implication declarations in this corpus, it
-yields 101 distinct closed `Prop`s, of which 23 are substantial statements
-rather than side conditions.  The finding, recorded in
-`docs/semantic/zones/Z18.json`, is blunt:
+The mechanism is intentionally local. A submitted target and its remaining
+obligations are compared as exact propositions, one sketch at a time, against a
+bounded proof budget. It does not infer a live corpus census from historical
+binder extraction, and it does not turn an authored relation label into a
+kernel verdict. Current registered relations are navigated through
+`python3 scripts/query_semantic.py`; current problem status and continuation
+obligations remain owned by `python3 scripts/query_corpus.py` and
+`docs/claims.json`.
 
-> Fourteen of the substantial open antecedents of #249 — the pointwise, ray,
-> multiple, diagonal, cone, jump, window, survivor, rank-two, cone-nonflat,
-> prime-jump and nonintegrality supplies — are mutually implied, and the class
-> is equivalent to Erdős #249 itself. … These are therefore not antecedents of
-> the problem in any useful sense; they are the problem restated.
+## Restatement and reuse use the integrated corpus
 
-That is not a stylistic judgement about the reformulations.  It is a proved
-mutual-implication class, and the reverse direction rests on a corpus
-completeness theorem.  Fourteen apparent reductions of an open problem were,
-under the kernel, the open problem.
+The retired two-problem productivity report counted textual references between
+Lean declarations and divided a historical sample by an authored
+``is_restatement`` label.  That was neither a kernel restatement check nor a
+current measurement of the eight public programmes.  Textual fan-in also does
+not establish mathematical importance, novelty or significance, so the report
+and its standalone builder are no longer public infrastructure.
 
-The exact boundary is [`G103_iff_erdos249`](../../lean/ErdosProblems/DemandLedger/edges/Discharge3_G103.lean#L58), whose reverse direction uses
-[`irrational_totient_series_iff_pointwise_certificates`](../../lean/Erdos249257/LcmConeFlatness.lean#L399).
-Those theorems identify an endpoint-equivalent supply normal form; they do not
-prove Erdős #249.  The public problem route
-(`python3 scripts/query_corpus.py --route erdos_249`) remains the source for
-the open status and continuation obligation, while the
-[`semantic frontier`](../semantic/frontier.json) is the route for the
-fourteen-member equivalence class.
+The current system keeps each responsibility with its existing owner:
 
-`Basic.lean` names those 101 demands and nothing more; the relations between
-them were proved once, by hand, for this corpus.  The evaluator below is that
-audit turned into an instrument: the same question — does this remaining
-obligation differ from the target — asked per sketch, on demand, against a
-bounded proof budget.
-
-## Restatement is also a population effect
-
-The fourteen are one class inside one problem.  The wider question — whether a
-reformulation that restates its target is *systematically* less useful than one
-that does not — needs a corpus deep enough for the same problem to have been
-reformulated hundreds of times.
-
-`docs/reformulation_productivity.json` records what this one has:
-3,693 authored theorem-like declarations over two problems, roughly 1,846 each,
-against 3.7 Lean statements per Erdős problem in Formal Conjectures — a density
-ratio of 499.  Generated certificate shards are excluded from the count; they
-are emitted in bulk and would swamp it.
-
-Over the 654 measured statement nodes, split by whether a node restates its open
-problem:
-
-| | n | mean fan-in | never cited |
-|---|---|---|---|
-| restates the open problem | 48 | 1.21 | 18.8% |
-| does not restate | 606 | 1.66 | 10.9% |
-
-Restatements are cited less and die more often.  The file states its own proxy
-limits, and they are real: later reuse inside one corpus is not mathematical
-importance, and the author chose which routes to pursue, so this is a
-correlation over an unbalanced sample rather than a controlled comparison.  It
-is offered as the measurement that exists, not as the one that would settle the
-question.
+- [`docs/claims.json`](../claims.json) records reviewed public status and exact
+  Lean addresses for the selected registered claims; it does not assert that
+  every mathematical statement in every paper is registered.
+- [`docs/semantic_corpus.json.gz`](../semantic_corpus.json.gz), queried with
+  `python3 scripts/query_semantic.py`, owns cross-paper statement and relation
+  navigation across the current corpus.  Relation labels are navigation and
+  do not themselves certify equivalence, novelty or value.
+- [`docs/PALOMAR_RESULT_SHOWCASE.json`](../PALOMAR_RESULT_SHOWCASE.json) owns the
+  current candidate universe, screening dispositions and reader-facing signal
+  order without turning that screening into proof or peer review.
+- `scripts/residual_evaluator.py` remains the exact bounded route for asking
+  whether a particular proposed reduction leaves its target, an equivalent
+  residual or an explicitly stronger obligation.  Its answer is about the
+  submitted Lean propositions, not an aggregate score over an old sample.
 
 ## What the evaluator decides
 

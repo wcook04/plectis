@@ -11,15 +11,15 @@
     "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/READING_GUIDE.md"
   },
   "render_contract": {
-    "navigation_fingerprint": "a2cdc0fb56e55756a93b524133af82178f57966ad79392d2458fbb354f30f634",
+    "navigation_fingerprint": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
     "preferred": "html_mathml",
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "2c4538f9afa8dcf0925be9b14c6c6bd1363a5413a53ef258d83d5be16a789d3c",
+    "source_sha256": "8f339883c496cc924ba9ee428656cc1f7acd6efeb0b42d0dd0106fce3ebf1485",
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 29,
-    "renderer_fingerprint": "815b27130b0e7a63",
+    "renderer_contract_version": 30,
+    "renderer_fingerprint": "d383526533396f6a",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -31,10 +31,15 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "347ed054067a6457d730af78c7849909c2ed2f7802a44040971517471ad5a433",
-    "html_exact_tex_sha256": "3e4e2ca8a7492eb0387387bd4d6485a1243cfe89e82a9a877afbb81f48e23cd0"
+    "html_mathml_sha256": "d743bef93ee3028ddc972745eda9293fc39d41c82cdbe7e6af79f4cd0b482baf",
+    "html_exact_tex_sha256": "4bf991cab63d883b1a8e3ab0e7fd6d96deb5f72e63bf8177bd3816c5614f5edf"
   },
   "sections": [
+    {
+      "level": 2,
+      "anchor": "two-ways-to-begin",
+      "label": "Two ways to begin"
+    },
     {
       "level": 2,
       "anchor": "what-is-here",

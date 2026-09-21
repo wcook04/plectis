@@ -3,15 +3,15 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 2135,
-    "edges": 5773,
+    "nodes": 2140,
+    "edges": 5786,
     "node_kinds": {
       "comparator_review_family": 70,
-      "human_document": 17,
+      "human_document": 16,
       "integration_surface": 2,
-      "lean_module": 1763,
+      "lean_module": 1768,
       "mathematical_object": 105,
-      "paper": 20,
+      "paper": 21,
       "problem": 8,
       "public_claim": 148,
       "registry_review_unit": 1,
@@ -20,16 +20,16 @@
     "relations": {
       "advances_open_target": 40,
       "builds_on": 64,
-      "contains": 1771,
+      "contains": 1776,
       "corollary_of": 1,
       "eliminates_case": 1,
-      "explained_by": 20,
+      "explained_by": 21,
       "formalized_in": 42,
       "has_registry_review_unit": 1,
       "has_review_family": 70,
-      "imports": 3337,
+      "imports": 3345,
       "instantiates": 2,
-      "interpreted_by": 17,
+      "interpreted_by": 16,
       "makes_exact": 1,
       "may_review": 1,
       "positions": 3,
@@ -420,7 +420,7 @@
       "id": "claim:finite_prime_weighted_support",
       "kind": "public_claim",
       "label": "Finite-prime weighted support irrationality",
-      "statement": "For every integer base b >= 2, every infinite positive support A with finite weighted mass for some finite nonempty prime set P has irrational support series. If a positive host H has finite base-two weighted mass, then every infinite subset A of H has irrational support series at every integer base b >= 2. This is a sufficient support criterion, not the universal statement.",
+      "statement": "For every integer base b >= 2, every infinite positive support A with finite weighted mass for some finite nonempty prime set P has irrational support series. If a host H of positive integers has finite base-two weighted mass, then every infinite subset A of H has irrational support series at every integer base b >= 2. This is a sufficient support criterion, not the universal statement.",
       "status": "formalised here",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"
     },
@@ -1343,14 +1343,6 @@
       "role": "proof_and_exposition_crosswalk",
       "href": "documents/source-map.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SOURCE_MAP.md"
-    },
-    {
-      "id": "document:truth-audit",
-      "kind": "human_document",
-      "label": "Historical truth audit",
-      "role": "historical_claim_audit",
-      "href": "documents/truth-audit.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/TRUTH_AUDIT.md"
     },
     {
       "id": "document:wave-index",
@@ -17253,6 +17245,51 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Skip/verify/V9.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Synthesis",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Synthesis",
+      "path": "lean/ErdosProblems/Synthesis.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Synthesis.CongruenceInterpolation",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Synthesis.CongruenceInterpolation",
+      "path": "lean/ErdosProblems/Synthesis/CongruenceInterpolation.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis/CongruenceInterpolation.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis/CongruenceInterpolation.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Synthesis.DyadicShiftEscape",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Synthesis.DyadicShiftEscape",
+      "path": "lean/ErdosProblems/Synthesis/DyadicShiftEscape.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis/DyadicShiftEscape.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis/DyadicShiftEscape.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Synthesis.FactorialJet",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Synthesis.FactorialJet",
+      "path": "lean/ErdosProblems/Synthesis/FactorialJet.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis/FactorialJet.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis/FactorialJet.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Synthesis.FeedbackContinuation",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Synthesis.FeedbackContinuation",
+      "path": "lean/ErdosProblems/Synthesis/FeedbackContinuation.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis/FeedbackContinuation.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Synthesis/FeedbackContinuation.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Three.T1",
       "kind": "lean_module",
       "label": "ErdosProblems.Three.T1",
@@ -18126,6 +18163,15 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex"
     },
     {
+      "id": "paper:optimal-sparse-perturbations",
+      "kind": "paper",
+      "label": "Reading Eight Erdős Problems Together",
+      "subject": "Eight Erdős problems read together",
+      "form": "Cross-problem paper",
+      "href": "papers/optimal-sparse-perturbations.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.tex"
+    },
+    {
       "id": "paper:plectis-public-system",
       "kind": "paper",
       "label": "Plectis: What a Stranger Can Check",
@@ -18179,7 +18225,7 @@
       "kind": "problem",
       "label": "The prime-gap dyadic series",
       "status": "open",
-      "question": "Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?",
+      "question": "Is the dyadic series of consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?",
       "href": "problems/erdos_251.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json",
       "source_directory_github": "https://github.com/wcook04/plectis-erdos/tree/main/lean/ErdosProblems/Erdos251"
@@ -37188,6 +37234,46 @@
       "target": "lean-module:ErdosProblems.Skip.Wire3"
     },
     {
+      "source": "lean-module:ErdosProblems.Synthesis",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Synthesis.CongruenceInterpolation"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Synthesis",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Synthesis.DyadicShiftEscape"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Synthesis",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Synthesis.FactorialJet"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Synthesis",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Synthesis.FeedbackContinuation"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Synthesis.CongruenceInterpolation",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos251.ResidueFeedbackCore"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Synthesis.DyadicShiftEscape",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos251.PrimeGapDyadicTail"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Synthesis.DyadicShiftEscape",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos269.BoundedRadixTailEscape"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Synthesis.FeedbackContinuation",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos251.ResidueFeedbackCore"
+    },
+    {
       "source": "lean-module:ErdosProblems.Three.T1",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Rem.C6"
@@ -47230,6 +47316,31 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Synthesis"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Synthesis.CongruenceInterpolation"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Synthesis.DyadicShiftEscape"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Synthesis.FactorialJet"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Synthesis.FeedbackContinuation"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Three.T1"
     },
     {
@@ -47365,6 +47476,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "explained_by",
+      "target": "paper:optimal-sparse-perturbations"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
       "target": "paper:plectis-public-system"
     },
     {
@@ -47441,11 +47557,6 @@
       "source": "universe:plectis-lean",
       "relation": "interpreted_by",
       "target": "document:source-map"
-    },
-    {
-      "source": "universe:plectis-lean",
-      "relation": "interpreted_by",
-      "target": "document:truth-audit"
     },
     {
       "source": "universe:plectis-lean",

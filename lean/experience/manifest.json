@@ -2,7 +2,7 @@
   "schema": "plectis_lean_experience_manifest_v1",
   "experience_version": "plectis_lean_experience_v1",
   "generated_by": "tools/meta/dissemination/build_plectis_lean_experience.py",
-  "source_fingerprint": "0bf1a46329d69e9817552ae3d5c01c3d6866700e267368111fcd0473671a1237",
+  "source_fingerprint": "ce45fb93050df10f366135f0558d0ce79b84fa2a8bb7df4c4b31bc1e60f2c045",
   "publication_state": "published_source",
   "public_parity": true,
   "authority_model": {
@@ -29,18 +29,18 @@
   },
   "counts": {
     "problems": 8,
-    "papers": 20,
-    "human_documents": 17,
-    "graph_nodes": 2135,
-    "graph_edges": 5773
+    "papers": 21,
+    "human_documents": 16,
+    "graph_nodes": 2140,
+    "graph_edges": 5786
   },
   "source_identity": {
-    "human_document_navigation": "a2cdc0fb56e55756a93b524133af82178f57966ad79392d2458fbb354f30f634",
-    "lean_manifest": "861ab642ee19e46f252dc3db8e8913b7879d5ffdb6d5ac2d4dc61684b3837fc2",
-    "paper_manifest": "3d299481b6a9f325a316181a8a630c20fbcb488d2d42b9e800c72564c5fc9ed5",
-    "claims": "2eb289d87879a8adc037bc833baec124fab0a9497d5cd4678259b1d334bae9a0",
-    "problems": "a2a102817ebb093da7164fb5381049c1b560d7cae72ec260f486fc7bf0f3b7b4",
-    "problem_library": "2712542e0aae2a8b388c9a62a1cfe2683bb5a790127407e68783f07d806b9e87",
+    "human_document_navigation": "ed47e8ea45ec54531dcdfb69b633d5a498839738afdbdfb41ad5268831d3e060",
+    "lean_manifest": "39f416060c430db0aa5643dd8108f63d2e9316d0516d4f4c49940492b02e89aa",
+    "paper_manifest": "14f3a192cf23cec9b04ad1eac8e725e2ed3de94b20c933068652d94f4c9a8181",
+    "claims": "f8145283ea9dc1eaa3082169d83b93b2ce1353cb8f17c7636dbe061ffd933c95",
+    "problems": "5c27ccfa55071a847c83a1feb245601dbac8f52a2fe21a95010352a8492e8dc2",
+    "problem_library": "5f5cc109e172680361439dc8e218e32ac00b3791a17e66c0a1d025da1b23178e",
     "comparator_palomar_route_map": "4925dc5378edcaecc1e3b21b03eca61c3d0c3ff64fae8cc64e4ec1c02efde965"
   },
   "frontend_handoff": {
@@ -58,7 +58,7 @@
       "first_screen": "graph/index.json",
       "complete_universe": "graph.json",
       "first_screen_nodes": 267,
-      "complete_nodes": 2135
+      "complete_nodes": 2140
     }
   }
 }

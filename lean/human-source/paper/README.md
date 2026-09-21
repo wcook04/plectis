@@ -9,7 +9,7 @@ its argument and the question that remains. Use the longer record when you
 want to recover a detailed step, inspect a computation, or follow an approach
 that stopped. You do not need Lean or a coding agent to read either.
 
-The degree-seven example refutes the total-variation formulation of Erdős #1041. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The papers report partial results, failed or equivalent routes,
+The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in Lean. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence. The papers report partial results, failed or equivalent routes,
 finite evidence, and the exact obligations that survive.
 If the problem numbers or formalisation are unfamiliar, read
 [a reader's way in](../docs/READING_GUIDE.md) first. For the design of the tools
@@ -27,6 +27,16 @@ and the research process, go to the [project papers](#project-papers).
 | #269 | [No Finite Separable Representation at Three Prime Generators](269/erdos-269-three-prime-running-lcm.pdf) ([source](269/erdos-269-three-prime-running-lcm.tex)) | [The Three-Prime Running LCM: Kernel Rank and Tail Arithmetic](269/erdos269-running-lcm-reasoning-surface.pdf) ([source](269/erdos269-running-lcm-reasoning-surface.tex)) |
 | #1041 | [Paths in Polynomial Lemniscates: Trinomials and Critical-Value Bounds](1041/erdos-1041-lemniscate-newton-flow.pdf) ([source](1041/erdos-1041-lemniscate-newton-flow.tex)) | [Paths in Polynomial Lemniscates: Proofs and Examples](1041/erdos1041-lemniscate-reasoning-surface.pdf) ([source](1041/erdos1041-lemniscate-reasoning-surface.tex)) |
 | #1049 | [Zudilin's Forms at Rational Bases and the Exact Normalised Hankel Order](1049/erdos-1049-rational-base-lambert.pdf) ([source](1049/erdos-1049-rational-base-lambert.tex)) | [Zudilin's Forms at Rational Bases: Proofs and Research Record](1049/erdos1049-rational-base-lambert-reasoning-surface.pdf) ([source](1049/erdos1049-rational-base-lambert-reasoning-surface.tex)) |
+
+## Reading the eight together
+
+One cross-problem paper develops the mathematics that arises from reading the
+programmes together. It contains the capacity and congruence criterion,
+Lambert-subsum results, full proofs, exact computations, method limits and
+unsuccessful approaches.
+
+[Reading Eight Erdős Problems Together](synthesis/optimal-sparse-perturbations.pdf)
+([source](synthesis/optimal-sparse-perturbations.tex)).
 
 ## Follow the argument into its evidence
 
@@ -74,11 +84,10 @@ CC-BY-4.0; see [`REUSE.toml`](../REUSE.toml) at the repository root.
 <details>
 <summary>Source note for the #251 sparse construction</summary>
 
-For #251, the elementary pair identities live in
-`SparseRationalisationCore.lean`; the ordinary schedule sketch is Proposition
-1.1 of the short paper. There is no separately published
-`SparseRationalisation.md`. Lean checks the proposition end to end in
-`SparseAmbientR9.lean`, `SparsePaperR11.lean` and `GrowingBlocksR11.lean`.
+For #251, [the results guide](../docs/RESULTS.md#strongest-checked-results-by-problem)
+identifies the formal sparse construction and the differences in quantifier
+order between it and the printed proof. The short paper's attribution section
+explains those differences before its source index.
 
 </details>
 

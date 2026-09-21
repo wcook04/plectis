@@ -1,7 +1,7 @@
 {
   "schema": "plectis_lean_paper_index_v1",
   "reading_rule": "Choose a question or problem, then read the HTML paper; use PDF for fixed layout and LaTeX for exact source.",
-  "paper_count": 20,
+  "paper_count": 21,
   "papers": [
     {
       "schema": "plectis_lean_paper_v1",
@@ -32,8 +32,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "7a9b37c07700cdf95a6614c2e98d9b6a01e62eeec14d39b03a3fd623fa900f81",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -43,8 +43,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "98083041bcf0478af35cc9579f31c19e06ffc8887357e68989a7e80cf4b17e6e",
-        "html_exact_tex_sha256": "cff390d0da0170a322adaddc8bf2516c4b1dd3fcdd1125abbdbee4394c8efd2c"
+        "html_mathml_sha256": "b3c59e51f00d22be2b3fc8a1fd5bd6e72b82f8ac44629196b372a86b79ba65dc",
+        "html_exact_tex_sha256": "4f8ee453f9b4073eb1e2baeaec4af2d7eb4f25698a796fb81679a4cb6fd4e20b"
       },
       "sections": [
         {
@@ -249,8 +249,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "1efee070dc9bacff9025c9acd5502823a3e6f146eef29653b39a5f84f285a277",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -267,8 +267,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "f24ea0bcdee9149fc78b59f290a92b184385325fd14d5f5336591940de6594cf",
-        "html_exact_tex_sha256": "6e79f734f5b0fb9a4c9c56ade4ad82a7f4aac6ea5883be56276718cf051a590a"
+        "html_mathml_sha256": "5f66248208610a85e37242784780d2921c42de4e4a5cda8ec1ff52d343786044",
+        "html_exact_tex_sha256": "c278d3af8a8e3414e4c15e7f95a5270d3602f848129e2a2d4e8c9a4217c3d1db"
       },
       "sections": [
         {
@@ -533,8 +533,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "64608f5ddf5a21c732995811596fba56fff3027aba0b5298dccb804c71cf4dc7",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -544,8 +544,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "b7fa43725ef6e87323c7e9ccd84417e49faeebc8f05976ae1572d1d19f2404ab",
-        "html_exact_tex_sha256": "1a68d0fb09bc02166f6e20e766e057f89e1ace6151ffe2d846daddb84214c0da"
+        "html_mathml_sha256": "71e31d5159485b3d3df36e262437967d09cade2ffa7f1cafd1afee63f904596d",
+        "html_exact_tex_sha256": "bd9313547e6bf1c631fed8a871cc45f4aa8f7decd33c53380347a69ceefbf69d"
       },
       "sections": [
         {
@@ -705,12 +705,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "7ead244efb0f153c2d1ed1bffbe9f98c866ee8aec713ffb5c7bc4ba70cdb18d4",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2403,
+        "mathml_node_count": 2408,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -726,7 +726,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "98ca2b4acf222ee231ac37ded1fdbe9e1eb7dde34636b02792299fa32787992d",
+        "html_mathml_sha256": "2ac2c4382c390712f66db9cd3537e11c8259caf2dee7346e9675b424e87146ca",
         "html_exact_tex_sha256": "66a89a1a2aa95cc7b1bc69d4a19f2042cd8abfba50f214b63a0376b88f4cc871"
       },
       "sections": [
@@ -1102,19 +1102,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "833cb57cc394f07ae36e58dec6ce7587bc82b6054065d8fec406848b4c36bd03",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 538,
+        "mathml_node_count": 540,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "778425ba3305a12819c50765fb5b8bb73d71c9575d97e4fe2d343bba4e6380db",
-        "html_exact_tex_sha256": "296a2ca7409198efdc8cc4831df41d760ca5f641557e51aabc163cc140018dc7"
+        "html_mathml_sha256": "70c88a5f825a929499cd6cd80dfef4c31e7bf87ab45fbd18513392c1a914bf0a",
+        "html_exact_tex_sha256": "620c55cc1d476685d708ed1a2660b2e63425dc97c095d448ca8a8fd8008e4708"
       },
       "sections": [
         {
@@ -1264,12 +1264,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "21de183af43e966b5d66ca3a9c7633e6c17ea4756623b560c76f7819ad530ced",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 4452,
+        "mathml_node_count": 4462,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -1294,7 +1294,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "36dce85aa914975d963e22e9aadb912db10c091aaab5a964bcd272dc1fc21935",
+        "html_mathml_sha256": "92f8c74d7b9af3d54b0988fbb9cedab0d4df13dfb6df505224aab1a58bf30c18",
         "html_exact_tex_sha256": "507b7c00bcb0a35cd0f25d5073d80f0472f0f9385f1143f59860ecbd7101929f"
       },
       "sections": [
@@ -2170,19 +2170,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "ddc51a73fab16e533cf890e113f01cfa34658f1197ac85de3940da066cbdd41c",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 380,
+        "mathml_node_count": 382,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "f9776c9776642c8e7075815aca11086a520993ad18739f36155611074252cc8d",
-        "html_exact_tex_sha256": "3d394433ac47bcae3b38dc78a8a4cf4391f359b01d2115ef68eb215dc456934b"
+        "html_mathml_sha256": "0346efd592c258809a5a06a238b765c7edacfa30cc7f25a25a21284481bd5146",
+        "html_exact_tex_sha256": "b643f6a5adb33bf3b67570c2f85a9942ed5399bb9a61be52ef02036f71796d18"
       },
       "sections": [
         {
@@ -2307,12 +2307,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "56bc6951eac088ab304ee841d2fdf2ed8a722205e78b2fd4306eb74681998196",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1528,
+        "mathml_node_count": 1531,
         "raw_math_fallback_count": 7,
         "warnings": {
           "mathml": [
@@ -2390,7 +2390,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "341debc5bff529dbf843c222e22a141a4153a8eac1b883a39d8de6ff9630a62e",
+        "html_mathml_sha256": "98c4a942b52ad3401c8ba93af600f9a9f4393e562a893ba45a7e4f7524e67082",
         "html_exact_tex_sha256": "b91c83a2ea8eb4992f87549926bf3ebb3194b0aea17dec202ea4661e640471a8"
       },
       "sections": [
@@ -2781,12 +2781,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "fc88570d017fbc97be2553c27cb3c6ed218ddc46b0fa311860814914537808e8",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 718,
+        "mathml_node_count": 720,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -2798,8 +2798,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "76f798da936e03a09638055ded0285efa10ac992e315d5731065618c80940641",
-        "html_exact_tex_sha256": "d20adde14aba15620702ab1467c1ef52a43fa9d4b8bb00babb1152aad9a5cef3"
+        "html_mathml_sha256": "aa8a1fecfaa642e0b69a1de4e968f945e309af1596eb3e6d53568d5278de4856",
+        "html_exact_tex_sha256": "b5ede687cd2a9fdd09a9a1630bc79366aed81a4933fc3beccd2689e60591f343"
       },
       "sections": [
         {
@@ -3049,12 +3049,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "a80d26ec3674d64b2c1100dc38d6d2591deeeb3babdcaeb543875c1252111201",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "f497a0adf6a7046d6c0287365824f5c74cf9cc86391c466cb3d853a11ad8c8df",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 4495,
+        "mathml_node_count": 4500,
         "raw_math_fallback_count": 5,
         "warnings": {
           "mathml": [
@@ -3091,8 +3091,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "8f42ac92a236f4da9241725442140457ced863c5d00cfcd0b33549a76f7d6add",
-        "html_exact_tex_sha256": "66c3c216ee8f0cea95916fc4bbd97327ecaf577a191090e1a6e0bf66af1de465"
+        "html_mathml_sha256": "8782f5efa6e989d4c5395f6d6bd48704f25e1fa27d74c339ad30c6caca5efce0",
+        "html_exact_tex_sha256": "e7f47265ef2eff8b1517f979884dbea393e73fbec21f913007a414a8d5035fc9"
       },
       "sections": [
         {
@@ -3907,12 +3907,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "f79f7a4b6d2a58db332c82fe9c85f165ce2958f2e24f7a2a32777f99038644c3",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1719,
+        "mathml_node_count": 1721,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -3927,8 +3927,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "1885e99ce46aadfb3471ef6d076af089c2f92f83aed7a3d14588bf4f652f3805",
-        "html_exact_tex_sha256": "76573ef4d50dfa38571f975189e94a03e6b3f4b8cb1a3cb4415bc6ca5730e40a"
+        "html_mathml_sha256": "9133a4091cb36b701c92d1afeba549553a52a287e5eb422afa4e4e8e74261703",
+        "html_exact_tex_sha256": "a629cdc6c6917110a9f2a586b373a56706b86bc7b7bdf282663835d8853a6753"
       },
       "sections": [
         {
@@ -4218,8 +4218,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "bc1d183a2accf273b46c64c014c1f9f0b3c5f0d009a7548d0dec6632094d6726",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -4229,8 +4229,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "2cf7771de68f943ccf260f98c04f99abf60a64c874872207548c00fe3b0011d8",
-        "html_exact_tex_sha256": "f3c312f8d94ce3b981593702891a0e2913218e35332fdf6ead16d089248b458e"
+        "html_mathml_sha256": "fffdc9643bad293a9a3c5ad58a964e9c2ddb25c1f394e902811d57ebba04c4d8",
+        "html_exact_tex_sha256": "f177514070c36b974069aa1ef0bf4417fbc1c78bb7c51da9e834d47b28c41f8d"
       },
       "sections": [
         {
@@ -4370,9 +4370,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "ee640f2b65f49089e8ed10bd6cfacfa649071e0c1d9bc2191011f5aea54eb946",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "5efa47dffa36b2733bbf14057e6e72b56faa10d603c6dc480af95017165f174a",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 788,
@@ -4381,8 +4381,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "0deb46c014b4ea0f6fb12d2e5e731608655131788f2356960fef7fd20ad076c6",
-        "html_exact_tex_sha256": "0118b6b60fb7c9fd26892366a3800320bf47b44762df6037e69fdcf1a2326ac3"
+        "html_mathml_sha256": "8ef40cf9c686ccf326fce94debd7452cb965daf70739c22757bbc49d54d9224a",
+        "html_exact_tex_sha256": "29bc180d79ffa955fcb85ad98241293287a032e3d4a6f4f6827b87a0f48fd32d"
       },
       "sections": [
         {
@@ -4637,9 +4637,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "ac7fc17d84644a4862571c19adfb14392d57ac26c9a830b813eb492b8ca4176b",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "e7eb1e6a980e9b4c57a55ee68089d2382ffea85e90a0b84afa6d889321e65390",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2553,
@@ -4667,8 +4667,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "a4d4eeacabcb5edae6d8ea992f8c691eeb81de14ff8a3996d7c2be3150635db6",
-        "html_exact_tex_sha256": "82fd9018791c0e06b45af5e421180b31d1c61746dd7a1b7adf623b9bbfe87103"
+        "html_mathml_sha256": "0b7b256b4d438e2c3c0b9224881105b813d955f112357f145495c66b8457cfa3",
+        "html_exact_tex_sha256": "60ed5ad4a4d2cff8130a85511e58218d079d9384f9ba29491c1bb42a49db847b"
       },
       "sections": [
         {
@@ -5051,7 +5051,7 @@
       "subject": "Erdős #1049",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 20,
+      "pages": 21,
       "question": "For Erdős #1049, which rational bases make F(a/b) irrational, what exact Hankel order is computed, and why does 3/2 remain open?",
       "precis": "For coprime integers a>b≥1, F(a/b)=∑_{n≥1}((a/b)^n−1)^{-1} is irrational when log b / log a is less than the explicit cutoff 0.4056830213840605…. This includes every positive integral power of 31/4, with irrationality exponent less than 301. The argument uses Zudilin's 2004 forms and constants, cancels common cyclotomic factors before rational evaluation, and computes the remaining denominator cost. For the distinct normalised Hankel determinants V_N^* in his 2016 construction with x=z=1, the q-order is N(N−1)(2N−1)/6 and the leading coefficient is (N!)^2(N+1)!/2^N. The rational-base criterion does not include 3/2; neither argument settles irrationality at that base.",
       "owns": "the problem-specific exposition for Erdős #1049: the ordinary rational-base irrationality theorem and uniform exponent bound for the (31/4)^r family, the exact normalised Hankel order and leading coefficient, the content and endpoint obstructions, and the remaining approximant and remainder construction at 3/2",
@@ -5073,19 +5073,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "d89d61ecb860ccb505fc369f9a8b0162e5160533bc19e86cb1da824b28d6029a",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "51ddecfefc0e7e9b4111e2acaa3729702c29ba822b6cb6761a0a74bed7630c89",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 680,
+        "mathml_node_count": 727,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "5418107198595a590cf56c19aef4dc360b913247f3e6c8a97a53fa7e5c17dcc9",
-        "html_exact_tex_sha256": "20bce142aef7430c2cb333ccc2b77d7b7cf27a259eb3350fb312204548c6e785"
+        "html_mathml_sha256": "29f815fb578dcac54b9b4ed41c0681f5232ca8399cce58bcd05e0e6e8cfc9f3f",
+        "html_exact_tex_sha256": "e309b60ca25723ebdd2d2d73d911f426f24cfb9e1d6166ae4775ea4b279f13c3"
       },
       "sections": [
         {
@@ -5145,8 +5145,13 @@
         },
         {
           "level": 5,
-          "anchor": "what-the-order-calculation-does-not-imply.",
-          "label": "What the order calculation does not imply."
+          "anchor": "from-formal-order-to-size-at-a-fixed-base.",
+          "label": "From formal order to size at a fixed base."
+        },
+        {
+          "level": 5,
+          "anchor": "what-neither-calculation-implies.",
+          "label": "What neither calculation implies."
         },
         {
           "level": 2,
@@ -5298,7 +5303,7 @@
       "subject": "Erdős #1049",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 66,
+      "pages": 72,
       "question": "What all-rank Zudilin specialisations and Hankel formulae are proved at rational bases, and which clearing arguments still fail at 3/2?",
       "precis": "Specialising Zudilin's 2004 linear forms shows F(a/b) irrational for coprime a>b≥1 when θ=log b / log a is less than θ^*=0.4056830213840605…, with irrationality-exponent bound (1−θ)/(θ^*−θ) for every positive integral power. In particular the bound is less than 301 for every positive integral power of 31/4. The constants are Zudilin's; the proof cancels common cyclotomic factors before rational specialisation. For the 2016 Hankel construction with x=z=1, the first nonzero term of the normalised determinant is computed at every rank. A separate positive-measure argument proves positivity and a size estimate for each fixed real 0<q<1. The final sections explain the limits of the stated clearing and congruence arguments at 3/2: no small nonzero sequence of divided remainders is constructed there, and the full rational-base conjecture remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
@@ -5320,12 +5325,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "8ee2a5e9ab502f29ace661910d0d2292af1d43b5fa19ef21f2248a6fc2625802",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "fd1f19b88559d08fd4a17e5446d8e5c7d1c56e9338144ace71367e645564975f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2342,
+        "mathml_node_count": 2635,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -5350,8 +5355,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "50449b2b6c5ad04472fa547567dafd53d27b4c8bc8f3ae261ef6095257376612",
-        "html_exact_tex_sha256": "d0e360acc6b8b581ed6ccfb3ecc496cd59be3aaca4065fd68541a0d2718c3d7c"
+        "html_mathml_sha256": "ed11dc714acd145da1681d306ea9fef18dfe24640240fa7ba02f84110d7fd428",
+        "html_exact_tex_sha256": "abec42438af15e6b60ac1dd7aa79283720b1f679584f96759a985a0d90ca1fde"
       },
       "sections": [
         {
@@ -5466,6 +5471,16 @@
         },
         {
           "level": 3,
+          "anchor": "long1049:sec:sharp-fixed-base",
+          "label": "The size of VN*V_N^* at a fixed base"
+        },
+        {
+          "level": 5,
+          "anchor": "what-the-sharp-estimate-settles-and-what-it-leaves.",
+          "label": "What the sharp estimate settles, and what it leaves."
+        },
+        {
+          "level": 3,
           "anchor": "long1049:sec:coefficient-questions",
           "label": "Coefficient moments and cyclotomic content"
         },
@@ -5563,6 +5578,11 @@
           "level": 5,
           "anchor": "the-lattice-after-evaluation.",
           "label": "The lattice after evaluation."
+        },
+        {
+          "level": 5,
+          "anchor": "the-lattice-spanned-by-the-actual-tails.",
+          "label": "The lattice spanned by the actual tails."
         },
         {
           "level": 3,
@@ -5684,12 +5704,226 @@
     },
     {
       "schema": "plectis_lean_paper_v1",
+      "paper_id": "optimal-sparse-perturbations",
+      "title": "Reading Eight Erdős Problems Together",
+      "subject": "Eight Erdős problems read together",
+      "subject_kind": "synthesis",
+      "form": "Cross-problem paper",
+      "pages": 22,
+      "question": "When do choices of digits and supports fill intervals or force irrationality, and what do the resulting constructions reveal about methods used across the Erdős programmes?",
+      "precis": "One account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial support-gap threshold, rational and irrational Lambert subsums across bases, and the limits of finite greedy tests and other irrationality methods. Full arguments, exact counterexamples, unsuccessful routes and attribution are retained together. The principal proofs are ordinary mathematics; cited Lean ingredients have their own stated scope. Historical novelty and independent expert review are not established.",
+      "owns": "the synthesis exposition and ordinary proofs across the covered problems: capacity and congruence constructions, Lambert subsums, rational-point counts, method limits and their research record",
+      "not_authority_for": "a solution to any original Erdős target, historical novelty, independent expert review, or a full Lean proof of the analytic capacity criterion or Lambert-chain theorem",
+      "problem_id": null,
+      "routes": {
+        "html_mathml": "papers/optimal-sparse-perturbations.html",
+        "html_exact_tex": "papers/optimal-sparse-perturbations.mathjax.html",
+        "pdf": "../../papers/optimal-sparse-perturbations.pdf",
+        "latex": "../../papers/source/plectis-erdos/paper/synthesis/optimal-sparse-perturbations.tex",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.tex",
+        "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/synthesis/optimal-sparse-perturbations.tex"
+      },
+      "render_contract": {
+        "preferred": "html_exact_tex",
+        "fallback": "html_mathml",
+        "fallback_renderer": "native MathML",
+        "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+        "fragment_not_document": true,
+        "executable_scripts_embedded": false,
+        "pandoc": "pandoc 3.9.0.2",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "1c34dc599349794d24826815537ad2dcf74bb38b20479c1856b9516350666ebd",
+        "source_manifest_match": true,
+        "publication_manifest_match": true,
+        "mathml_node_count": 803,
+        "raw_math_fallback_count": 1,
+        "warnings": {
+          "mathml": [
+            "[WARNING] Could not convert TeX math q\\mid e_n,\\qquad q\\mid\\sum_{k<n}e_k",
+            "\\tag{4}\\label{capacity:eq:both}, rendering as TeX:",
+            "\\tag{4}\\label{capacity:eq:both}",
+            "^",
+            "unexpected control sequence \\tag",
+            "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+          ],
+          "mathjax": []
+        },
+        "html_mathml_sha256": "08a89f131e48d8e261f2f543d98d08976b89d9d8c3c9d3dbfdfdac112d3ab468",
+        "html_exact_tex_sha256": "38ed8704e37cb8a1ec276f02964c2dd6c549d0b48675f8a7444db8e4f5378ef3"
+      },
+      "sections": [
+        {
+          "level": 2,
+          "anchor": "sec:map",
+          "label": "From individual problems to reusable questions"
+        },
+        {
+          "level": 2,
+          "anchor": "capacity:sec:criterion",
+          "label": "An exact capacity criterion"
+        },
+        {
+          "level": 3,
+          "anchor": "the-sharp-support-threshold",
+          "label": "The sharp support threshold"
+        },
+        {
+          "level": 3,
+          "anchor": "capacity:sec:capacity-proof",
+          "label": "Proof of the capacity criterion"
+        },
+        {
+          "level": 4,
+          "anchor": "bounded-capacity-along-a-subsequence",
+          "label": "Bounded capacity along a subsequence"
+        },
+        {
+          "level": 4,
+          "anchor": "one-continuation-interval-for-every-cumulative-residue",
+          "label": "One continuation interval for every cumulative residue"
+        },
+        {
+          "level": 4,
+          "anchor": "from-one-interval-to-every-nonnegative-target",
+          "label": "From one interval to every nonnegative target"
+        },
+        {
+          "level": 3,
+          "anchor": "capacity:sec:negative",
+          "label": "Why a large gap prevents interval filling"
+        },
+        {
+          "level": 3,
+          "anchor": "a-digit-that-also-corrects-the-cumulative-residue",
+          "label": "A digit that also corrects the cumulative residue"
+        },
+        {
+          "level": 3,
+          "anchor": "the-positive-direction-and-the-arithmetic-cost",
+          "label": "The positive direction and the arithmetic cost"
+        },
+        {
+          "level": 3,
+          "anchor": "capacity:sec:carry",
+          "label": "A common-divisor test for irrationality"
+        },
+        {
+          "level": 3,
+          "anchor": "why-a-small-allowance-along-a-subsequence-is-insufficient",
+          "label": "Why a small allowance along a subsequence is insufficient"
+        },
+        {
+          "level": 2,
+          "anchor": "sec:results",
+          "label": "Lambert subsums across bases"
+        },
+        {
+          "level": 5,
+          "anchor": "evidence.",
+          "label": "Evidence."
+        },
+        {
+          "level": 3,
+          "anchor": "sec:dichotomy",
+          "label": "Choices against contraction"
+        },
+        {
+          "level": 3,
+          "anchor": "sec:bases",
+          "label": "The subseries across bases"
+        },
+        {
+          "level": 3,
+          "anchor": "sec:base2",
+          "label": "Base two"
+        },
+        {
+          "level": 4,
+          "anchor": "sec:lemmas",
+          "label": "Removed intervals and finite translations"
+        },
+        {
+          "level": 4,
+          "anchor": "fixed-depth-rational-counts",
+          "label": "Fixed-depth rational counts"
+        },
+        {
+          "level": 2,
+          "anchor": "sec:second",
+          "label": "Limits on methods"
+        },
+        {
+          "level": 2,
+          "anchor": "sec:misread",
+          "label": "The computation and its limits"
+        },
+        {
+          "level": 2,
+          "anchor": "sec:eliminated",
+          "label": "Eliminated ideas"
+        },
+        {
+          "level": 2,
+          "anchor": "sec:known",
+          "label": "What was already known"
+        },
+        {
+          "level": 2,
+          "anchor": "capacity:sec:sources",
+          "label": "Sources and formal correspondence"
+        },
+        {
+          "level": 2,
+          "anchor": "sec:questions",
+          "label": "Further questions"
+        },
+        {
+          "level": 2,
+          "anchor": "declaration-of-generative-ai-use",
+          "label": "Declaration of generative AI use"
+        },
+        {
+          "level": 2,
+          "anchor": "references",
+          "label": "References"
+        }
+      ],
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection for this guide",
+        "sections": [
+          {
+            "id": "sec:map",
+            "title": "From individual problems to reusable questions",
+            "level": 2
+          },
+          {
+            "id": "capacity:sec:criterion",
+            "title": "An exact capacity criterion",
+            "level": 2
+          },
+          {
+            "id": "sec:results",
+            "title": "Lambert subsums across bases",
+            "level": 2
+          },
+          {
+            "id": "sec:questions",
+            "title": "Further questions",
+            "level": 2
+          }
+        ]
+      }
+    },
+    {
+      "schema": "plectis_lean_paper_v1",
       "paper_id": "claim-faithful-publication-systems",
       "title": "Problem-Sized Lean Worlds",
       "subject": "Systems paper",
       "subject_kind": "system",
       "form": "Research architecture",
-      "pages": 20,
+      "pages": 21,
       "question": "How does a research system turn agent work into inspectable mathematical claims?",
       "precis": "Problem-sized worlds bring together proofs, experiments, literature, failed approaches and remaining questions. The architecture separates reasoning, changes to shared files, validation, evidence, public claims and reviewer attention. A public Lean repository demonstrates the workflow; it does not establish external adoption or solve any of the eight original problems.",
       "owns": "the research architecture and its evidence and authority boundaries",
@@ -5711,19 +5945,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "8f38a10e7ef2ec9fe571f0df1062658d12f4dd346c19eeb99a940369abe81959",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "9fec309258f31f1ea0834f28f5243a799904e6b170e032b812b91e58fde51b0b",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 7,
+        "mathml_node_count": 12,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "6d8ac752f565e30de5ed960302187a7287a756f9791ed472a70fcb05da2856f9",
-        "html_exact_tex_sha256": "549fdea3ad0876440de4004ef31ba53b5a80523fc61b6809807fa12299fc28a1"
+        "html_mathml_sha256": "ba3aea9718e790db9ab4cab44e62ee5deb3b5bfaf7add9725522a1ccb2f63ee8",
+        "html_exact_tex_sha256": "6a78799b588224dc2c41807b0a75fb27f14c485637caeb8b6ee5bee31896e1f3"
       },
       "sections": [
         {
@@ -5902,6 +6136,11 @@
           "label": "An experimental agenda"
         },
         {
+          "level": 3,
+          "anchor": "sec:admissible-constructions",
+          "label": "Executable construction choices"
+        },
+        {
           "level": 2,
           "anchor": "sec:related",
           "label": "Relation to other approaches"
@@ -6006,7 +6245,7 @@
       "subject": "Systems paper",
       "subject_kind": "system",
       "form": "Agent navigation",
-      "pages": 11,
+      "pages": 12,
       "question": "How can a reasoning agent comprehend a large Lean corpus before compiling, then cross into replayable proof authority and incremental validation?",
       "precis": "A large formal library can be mechanically exact and still be practically unreadable to the next reader or reasoning agent. At the audited revision a cold clone exposes a bounded six-line tour over 1,019 Lean modules and 153,238 declarations, a map of ten programmes, 101 curated claims, and an elaborated reference graph, none of which requires a build. 503 of those modules and 8,171 of those declarations are marked machine-generated certificate shards, counted as source and never as claims, and that marking is a classification floor rather than the true generated share, since earlier emitted families predate the markers. Navigation receives no proof authority: probe verdicts come from the pinned Lean process and cannot be authored by the agent, and a claim must cite an accepted probe that replay reruns from stored bytes. The audit was author-operated; no external contributor had completed the tour or documented return path by 31 August 2026.",
       "owns": "the agent-navigation architecture: layered corpus projections, bounded intent routing, kernel-authored session receipts, focused builds, and exact dependency-index cache receipts",
@@ -6028,9 +6267,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "67b05a5c3d4857022d8b79850b5c0d258db36c694bee74c4e5a13f0942f05f7d",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "6244ff36801532c7a1acbcebc01ddb5b16a1e6288c1cf04bcaa56ba0d8c1e398",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
@@ -6039,8 +6278,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "cc2328e9e97e0df3973e462888d0a8526ab71b638dfc2a2746cbf6f69840c050",
-        "html_exact_tex_sha256": "df91616c774c5d73a2f9deff4052d7b96c11b50a3f27edb747e8c54c3571b317"
+        "html_mathml_sha256": "d53e42a5da2bf7e8e9532431a103c84d2034243f69f88488f320792f14f24c12",
+        "html_exact_tex_sha256": "8e6ee275d70f247d812f08a6216880eb836267ce76ec9a4d8d49ffeb77fbcb28"
       },
       "sections": [
         {
@@ -6183,7 +6422,7 @@
       "subject": "Systems paper",
       "subject_kind": "system",
       "form": "Open-source research strategy",
-      "pages": 21,
+      "pages": 22,
       "question": "How can outsiders contribute compute, mathematical direction, architecture, or review without receiving authority to declare a proof?",
       "precis": "A public Lean repository can serve as a shared conversion layer between compute, agent capability, human mathematical direction, infrastructure quality, and review. The paper defines role-bounded work packets, two first-class contribution tracks, provenance and credit, safe untrusted returns, and a candidate-to-attention funnel. Formal verification strengthens one evidence layer; human meaning, novelty, significance, and broad mathematical adoption remain separate. The eight Erdős problems are hard test worlds and all remain open. This is a working prototype; no completed external cold clone or landed outside contribution was recorded by 31 August 2026.",
       "owns": "the open-source strategy: how outside compute, mathematics, architecture improvements, review, and credit enter one bounded commons",
@@ -6205,9 +6444,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "13f7aade865f32012ac747a38866d074f8331835579fe38ed7bc33cfd1f27271",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "3548d9c753a2ccf2d61166fee710d72a50fc4df86937a96f40694df0c79e0f12",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 7,
@@ -6233,8 +6472,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "e60de8538e5eb483bbb90687652a83f9750df21a8fdd6322139ed9b6a8a62748",
-        "html_exact_tex_sha256": "055642a638808a4afb939503b458e1fab0a8911b4bdc204e5c7a211682e71197"
+        "html_mathml_sha256": "87755c54fbd53391cc287a944c6cb4c190f2b171ebc8e3ebde09ddd806832f49",
+        "html_exact_tex_sha256": "41d46a0787950329764bb51d7d92c7b5c5921ceb41c430fc5182c6bc1d0e5ab6"
       },
       "sections": [
         {
@@ -6459,8 +6698,8 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "3a8a7dc855c974a161ada83ecc836cb512a08bfa1522eada95ab2c7ba72348ac",
         "source_manifest_match": true,
         "publication_manifest_match": true,
@@ -6470,7 +6709,7 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "018a44ac42a6f8e9d7edfbb51d9ed7afe7d82047f3eb51e487f4eeff579d7685",
+        "html_mathml_sha256": "03c069db79d007c97e76f0d61a8129ab94c5d22b10440e14f9433b4f3a825a22",
         "html_exact_tex_sha256": "abb908b410161f79f1c094532600380ff346a249a683657a6897dfdf662a05b0"
       },
       "sections": [

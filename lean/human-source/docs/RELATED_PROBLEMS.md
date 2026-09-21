@@ -98,4 +98,4 @@ records an `advances_open_target` edge.
 - **#258** — not addressed here; the monotone φ/σ sequel is the sibling
   territory of #249.
 
-The one-line summary: formalised settled special cases, exact structural reductions and scoped no-go theorems across eight indexed open problems, and finite certificates whose quantifiers are stated explicitly. None of the eight open problems is solved here.
+The one-line summary: formalised settled special cases, exact structural reductions and scoped no-go theorems across eight indexed open problems, and finite certificates whose quantifiers are stated explicitly. The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of #1041 and is formalised here; the other seven problems are not resolved here.

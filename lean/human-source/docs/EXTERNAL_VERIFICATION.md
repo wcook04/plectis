@@ -2,7 +2,7 @@
 # Plectis verification: eight Erdős problem programmes
 
 > [!IMPORTANT]
-> **Status boundary:** The degree-seven example refutes the total-variation formulation of Erdős #1041. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence.
+> **Status boundary:** The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in Lean. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence.
 > **Review posture:** Self-assessed and agent-checked; no human mathematical peer review is claimed.
 
 **What this is.** Plectis is an AI-assisted research system. This public surface shows one checked frontier for each of eight Erdős problem programmes. For each programme, read the question, the exact checked object, and the remaining open step before opening the technical registry.
@@ -685,7 +685,7 @@ Exact registry keys and Comparator routing are listed separately.
 <a id="programme-251"></a>
 ## #251: Prime-gap dyadic series
 
-**Question.** Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?
+**Question.** Is the dyadic series of consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?
 
 **Checked frontier.** The finite summation-by-parts identity relating the prime dyadic partial sums to the prime-gap dyadic partial sums, with an exact endpoint term and no convergence premise.
 
@@ -807,9 +807,9 @@ Exact registry keys and Comparator routing are listed separately.
 
 **Question.** Is the sum of 1/(2^n-1) over every infinite set of positive exponents irrational?
 
-**Checked frontier.** That the strict Mersenne tail inequality is hereditary under deleting an arbitrary collection of future weights.
+**Checked frontier.** Irrationality at every integer base for the classical full support, reciprocal-summable supports, and the finite-prime weighted supports in divisibilityWeightedClaim.
 
-**Open boundary.** The universal irrationality problem, or irrationality for any new infinite support.
+**Open boundary.** Universal irrationality over all infinite supports, or the proposed rational values 1/2 and 1/21.
 
 **Read.** [Programme paper](../paper/257/erdos-257-mersenne-support-subseries.pdf) · [Lean source](../lean/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean)
 

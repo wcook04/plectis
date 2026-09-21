@@ -21,13 +21,10 @@ scope?</p></li>
 <li><p>Has anyone outside the producing system reviewed, accepted, or
 absorbed the result?</p></li>
 </ol>
-<p>No single test answers all six. A numerical experiment can expose a
-false conjecture without proving a universal one. Lean can certify a
-theorem while remaining silent about the prose around it. A release
-checker can preserve a reviewed sentence without making the review
-correct. External attention can signal interest without validating a
-proof. The architecture exists to keep these questions separate while
-allowing work to move between them.</p>
+<p>The architecture keeps these questions separate. A numerical
+experiment can refute a conjecture; Lean can check a formal theorem; a
+release checker can preserve reviewed wording. None establishes all six
+answers.</p>
 <p>The gap between these questions has been measured on the same problem
 family. Feng et al. ran an agent built on Gemini Deep Think over 700
 open Erdős problems and had humans grade 200 candidate solutions: 63
@@ -41,27 +38,24 @@ findings predate this paper and motivate the separation it
 implements.</p>
 <p>The <a href="https://github.com/wcook04/plectis-erdos">public
 repository studied here</a> contains Lean source, papers, and release
-machinery around eight open Erdős problems. At this revision all eight
-problems remain open. The repository contains substantial intermediate
-theorems, exact reformulations, conditional reductions, finite
-certificates, and no-go results. The surrounding private workbench is
-broader: it supports research, agent coordination, computational
-experiments, formalisation, exposition, and controlled public
-projection. Private machinery explains how the work was produced; it
-supplies no hidden proof authority to the public clone.</p>
+machinery around eight Erdős problem programmes. The degree-seven
+counterexample due to <a
+href="https://www.erdosproblems.com/forum/thread/1041#post-8861"><code>ani</code></a>
+is formalised in Lean here and refutes the total-variation formulation
+of Problem 1041. Its correspondence with the historical curve-length
+question has not had independent human review; the other seven target
+problems remain unresolved here. The repository also contains
+intermediate theorems, exact reformulations, conditional reductions,
+finite certificates, and no-go results. Private development explains the
+provenance; public claims rely only on the published evidence.</p>
 <section id="the-novelty-claim-and-its-ceiling." class="level5">
 <h5>The novelty claim and its ceiling.</h5>
-<p>This paper does not claim to have invented agents, queues, file
-locks, theorem graphs, Lean checking, pull requests, or credit records.
-Its candidate contribution is an executable <em>claim-transition
-architecture</em>. It models reasoning, mutation, validation,
-interpretation, publication, and review as separately scarce and
-separately authorised operations. The operations are recombined only at
-explicit fan-in gates. The same machinery carries proofs,
-counterexamples, no-gos, and unresolved obligations while preserving
-their different evidence classes. Crucially, a local failure may alter
-the next agent’s route, context, lease, experiment, or validator, but
-never the truth status of a mathematical statement.</p>
+<p>The candidate contribution is an executable <em>claim-transition
+architecture</em>, combining existing agents, queues, locks, theorem
+graphs, proof checking and credit records. Reasoning, mutation,
+validation, interpretation, publication and review meet at explicit
+gates. An operational failure may change a later route, experiment or
+validator, but cannot change mathematical truth status.</p>
 <p>Four status words are used deliberately. <em>Implemented</em> means
 source and an executable check or receipt exist. <em>Projection</em>
 means a generated view over more authoritative records.
@@ -79,16 +73,12 @@ hypotheses.</p>
 <section id="a-problem-is-a-mathematical-world-not-a-folder."
 class="level5">
 <h5>A problem is a mathematical world, not a folder.</h5>
-<p>For an agent, the useful unit is neither the repository nor one
-theorem. It is a bounded neighbourhood inside a problem-sized world. The
-neighbourhood begins with the exact endpoint and current claim ceiling,
-then selects established premises, nearby declarations, open producers,
-consumers, alternative coordinates, executable experiments, scoped
-falsifiers and no-gos, source literature, and public boundaries. Every
-returned edge says why it exists and what authority it lacks; the packet
-says what it omitted and where to expand. This makes deep corpora
-navigable without converting file proximity, lexical similarity, or
-model interpretation into proof.</p>
+<p>An agent receives a bounded neighbourhood inside a problem-sized
+world: the endpoint and claim ceiling, established premises, nearby
+declarations, open obligations, alternatives, experiments, obstructions
+and literature. Each edge states its authority; each packet states its
+omissions and expansion routes. Proximity and model interpretation do
+not become proof.</p>
 </section>
 <section id="authority-is-separated-before-it-is-recombined."
 class="level5">
@@ -156,26 +146,21 @@ outcome</td>
 </tbody>
 </table>
 </div>
-<p>There are consequently two coupled graphs with a guarded crossing.
-Mathematical evidence changes the mathematical graph: theorem,
-counterexample, no-go, or bounded experiment, each with its own class.
-Operational evidence changes the control graph: a route miss, stale
-view, repeated workaround, validation failure, or resource conflict may
-justify a new router, skill, check, or standard after a generalisation
-guard. Reviewed claim and publication artefacts connect the two. Neither
-graph may rewrite the other by implication.</p>
+<p>There are two coupled graphs with a guarded crossing. The
+mathematical graph records evidence as theorems, counterexamples, no-gos
+or bounded experiments. The control graph records justified changes to
+routes, checks and working methods. Reviewed claim and publication
+artefacts connect them. Neither graph may rewrite the other by
+implication.</p>
 </section>
 </section>
 </section>
 <section id="sec:lifecycle" class="level2">
 <h2>The whole lifecycle in one picture</h2>
 <p>Figure <a class="math-ref" href="#fig:lifecycle">fig:lifecycle</a> shows
-the main path. It is a loop rather than a one-way publishing pipeline:
-failed proofs, reviewer objections, and public drift can all return a
-precise lesson to an earlier stage. What may move backward is
-information about an error or a better method. What may not move
-backward is authority: a paper cannot make an unproved statement true,
-and an external review route cannot alter what Lean checked.</p>
+the loop. Failed proofs, reviewer objections and publication drift
+return information to earlier stages; they do not confer proof
+authority.</p>
 <figure id="fig:lifecycle" data-latex-placement="!t">
 
 <figcaption>The end-to-end architecture. The dashed vertical line marks
@@ -1286,6 +1271,42 @@ increasingly rich map of what works and what cannot work makes future
 reasoning more efficient and more original, or merely makes the system
 more confident about the territory it already knows.</p>
 </section>
+<section id="sec:admissible-constructions" class="level3">
+<h3>Executable construction choices</h3>
+<p>A feedback digit with cumulative sum <span
+class="math inline" data-term-auto="off">\(C_n\)</span> and remainder <span
+class="math inline" data-term-auto="off">\(r_n\)</span> must satisfy</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[0\le d\le A_n,\quad M_n\mid C_n+d,\quad
+\ell_{n+1}\le r_n-dw_n\le u_{n+1}.\]</span></div>
+<p>The generalised Lean theorem
+preserves the prescribed sum for every such sequence when <span
+class="math inline" data-term-auto="off">\(w_n,\ell_n\ge0\)</span> and <span
+class="math inline" data-term-auto="off">\(u_n\to0\)</span>; nested cofinal moduli give
+eventual congruences. The finite compiler intersects rational intervals
+and residue classes, and can require Boolean divisor-support witnesses.
+Separate satisfiability does not imply a common witness or infinite
+continuation.</p>
+<p>Authored contract extraction draws on proof generalisation <span
+class="citation" data-cites="proofgeneralisation"></span>; relation
+compilation and fusion on <span class="citation"
+data-cites="computingcorrectly palamedes mergingrelations"><a href="#ref-28">[28]</a><a href="#ref-27">[27]</a><a href="#ref-29">[29]</a></span>;
+enumeration, random, targeted and shrinking runners on <span
+class="citation" data-cites="programmablepbt"></span>; reusable
+choice-policy evolution on <span class="citation"
+data-cites="alphaevolve dreamprover"><a href="#ref-31">[31]</a><a href="#ref-25">[25]</a></span>. These are corpus-specific
+adaptations. The existing proof-state compiler inspects elaborated
+expressions, the workbench replays finite Lean certificates, and
+Comparator compares an independently expanded continuation statement
+with positive and negative controls. Local Lean builds do not supply the
+isolated Comparator verdict.</p>
+<p>The eight-step control has 1,393 traces. Compiled and filtered
+enumeration agree, using 2,376 and 8,856 proposals. This measures finite
+behaviour, not research gain. Prospective evaluation must include all
+costs and a capable agent given the same mathematics as prose and
+lemmas. Requests, policies, measurements and source attribution are
+retained in the existing feedback experiment.</p>
+</section>
 </section>
 <section id="sec:related" class="level2">
 <h2>Relation to other approaches</h2>
@@ -1437,7 +1458,7 @@ evidence, assumptions, and purpose-sensitive arguments <span
 class="citation" data-cites="symposium"></span>. EurekAgent treats
 permissions, artefacts, budgets, and human supervision as first-class
 parts of an agent environment <span class="citation"
-data-cites="eurekagent"><a href="#ref-28">[28]</a></span>. Persistent records and environment
+data-cites="eurekagent"><a href="#ref-34">[34]</a></span>. Persistent records and environment
 design are therefore not unique to this system. The narrower distinction
 here is between authorities that must not be collapsed: experimental
 evidence, kernel acceptance, reviewed interpretation, exact-statement
@@ -1534,10 +1555,10 @@ by the card.</p>
 <p>At the semantic review’s snapshot, taken before the eight-problem
 consolidation of 2026-08-02 enlarged the corpus to 153,238 declarations,
 all 151,761 then-live declarations were inventoried and routed, and all
-150,835 author-written theorem-like declarations had an exact node link.
-Of those, 139,817 (92.7%) participated in authored mathematical
-interpretations: 3,329 as exact proposition evidence and 136,488 as
-bounded certificate- or module-family context. The remaining 11,018 were
+150,850 author-written theorem-like declarations had an exact node link.
+Of those, 139,818 (92.7%) participated in authored mathematical
+interpretations: 3,330 as exact proposition evidence and 136,488 as
+bounded certificate- or module-family context. The remaining 11,032 were
 linked only through exact source-module and normalised-signature
 families, not authored mathematical paraphrases. Every declaration
 selected for a public claim had an authored route. The command
@@ -1642,13 +1663,34 @@ href="https://doi.org/10.48550/arXiv.2603.06737">arXiv</a>.</p></li>
 <li id="ref-25"><p>Y. Zhang et al., <em>DreamProver: Evolving Transferable Lemma
 Libraries via a Wake–Sleep Theorem-Proving Agent</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2604.26311">arXiv</a>.</p></li>
-<li id="ref-26"><p>I. Takahara and T. Mizoguchi, <em>Toward Auditable AI Scientists:
+<li id="ref-26"><p>A. Gandhi, A. R. Tadipatri, and T. Gowers, <em>Automatically
+Generalizing Proofs and Statements</em>, ITP 2025, <a
+href="https://doi.org/10.4230/LIPIcs.ITP.2025.12">LIPIcs 352, Article
+12</a>, Section 4.</p></li>
+<li id="ref-27"><p>H. Goldstein, H. Peleg, C. Torczon, D. Sainati, L. Lampropoulos,
+and B. C. Pierce, <em>The Search for Constrained Random Generators</em>,
+PLDI 2026, Sections 3–5, <a
+href="https://arxiv.org/abs/2511.12253v2">arXiv:2511.12253v2</a>.</p></li>
+<li id="ref-28"><p>Z. Paraskevopoulou, A. Eline, and L. Lampropoulos, <em>Computing
+Correctly with Inductive Relations</em>, PLDI 2022, <a
+href="https://lemonidas.github.io/pdf/ComputingCorrectly.pdf">author
+manuscript</a>.</p></li>
+<li id="ref-29"><p>J. Prinz and L. Lampropoulos, <em>Merging Inductive
+Relations</em>, PACMPL 7, PLDI (2023), Article 178, <a
+href="https://doi.org/10.1145/3591292">doi:10.1145/3591292</a>.</p></li>
+<li id="ref-30"><p>A. Keles, J. Frank, C. Mert, H. Goldstein, and L. Lampropoulos,
+<em>Programmable Property-Based Testing</em>, 2026, Sections 2 and 6, <a
+href="https://arxiv.org/abs/2602.18545v1">arXiv:2602.18545v1</a>.</p></li>
+<li id="ref-31"><p>A. Novikov et al., <em>AlphaEvolve: A coding agent for scientific
+and algorithmic discovery</em>, 2025, Section 2, <a
+href="https://arxiv.org/abs/2506.13131v1">arXiv:2506.13131v1</a>.</p></li>
+<li id="ref-32"><p>I. Takahara and T. Mizoguchi, <em>Toward Auditable AI Scientists:
 A Hypothesis Evolution Protocol for LLM Agents</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2607.09195">arXiv</a>.</p></li>
-<li id="ref-27"><p>D. Pratt, <em>Symposium: Trust via Auditable Records for
+<li id="ref-33"><p>D. Pratt, <em>Symposium: Trust via Auditable Records for
 Communities of AI Scientist Agents</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2608.19511">arXiv</a>.</p></li>
-<li id="ref-28"><p>A. Xin et al., <em>EurekAgent: Agent Environment Engineering is
+<li id="ref-34"><p>A. Xin et al., <em>EurekAgent: Agent Environment Engineering is
 All You Need for Autonomous Scientific Discovery</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2606.13662">arXiv</a>.</p></li>
 </ol>

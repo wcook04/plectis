@@ -14,17 +14,19 @@ the result, its argument and the question that remains. Use the longer
 record when you want to recover a detailed step, inspect a computation,
 or follow an approach that stopped. You do not need Lean or a coding
 agent to read either.</p>
-<p>The degree-seven example refutes the total-variation formulation of
-Erdős #1041. The other seven target problems are not resolved here.
-Independent human review of correspondence with the historical
-curve-length formulation has not been recorded. Comparator checks only
-its selected exact statements, configured axioms and kernel acceptance;
-it does not assess novelty or historical correspondence. The papers
-report partial results, failed or equivalent routes, finite evidence,
-and the exact obligations that survive. If the problem numbers or
-formalisation are unfamiliar, read <a href="reading-guide.html">a
-reader’s way in</a> first. For the design of the tools and the research
-process, go to the <a href="#project-papers">project papers</a>.</p>
+<p>The degree-seven counterexample found by the erdosproblems.com
+contributor ani refutes the total-variation formulation of Erdős #1041;
+this repository formalises it in Lean. The other seven target problems
+are not resolved here. Independent human review of correspondence with
+the historical curve-length formulation has not been recorded.
+Comparator checks only its selected exact statements, configured axioms
+and kernel acceptance; it does not assess novelty or historical
+correspondence. The papers report partial results, failed or equivalent
+routes, finite evidence, and the exact obligations that survive. If the
+problem numbers or formalisation are unfamiliar, read <a
+href="reading-guide.html">a reader’s way in</a> first. For the
+design of the tools and the research process, go to the <a
+href="#project-papers">project papers</a>.</p>
 <section id="problem-papers" class="level2">
 <h2>Problem papers</h2>
 <table>
@@ -118,6 +120,16 @@ href="https://github.com/wcook04/plectis-erdos/blob/main/paper/1049/erdos1049-ra
 </tbody>
 </table>
 </section>
+<section id="reading-the-eight-together" class="level2">
+<h2>Reading the eight together</h2>
+<p>One cross-problem paper develops the mathematics that arises from
+reading the programmes together. It contains the capacity and congruence
+criterion, Lambert-subsum results, full proofs, exact computations,
+method limits and unsuccessful approaches.</p>
+<p><a href="../../../papers/optimal-sparse-perturbations.pdf">Reading Eight
+Erdős Problems Together</a> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.tex">source</a>).</p>
+</section>
 <section id="follow-the-argument-into-its-evidence" class="level2">
 <h2>Follow the argument into its evidence</h2>
 <p>Read the assumptions of the result you want to use, then the proof.
@@ -198,13 +210,12 @@ root.</p>
 <summary>
 Source note for the #251 sparse construction
 </summary>
-<p>For #251, the elementary pair identities live in
-<code>SparseRationalisationCore.lean</code>; the ordinary schedule
-sketch is Proposition 1.1 of the short paper. There is no separately
-published <code>SparseRationalisation.md</code>. Lean checks the
-proposition end to end in <code>SparseAmbientR9.lean</code>,
-<code>SparsePaperR11.lean</code> and
-<code>GrowingBlocksR11.lean</code>.</p>
+<p>For #251, <a
+href="results.html#strongest-checked-results-by-problem">the
+results guide</a> identifies the formal sparse construction and the
+differences in quantifier order between it and the printed proof. The
+short paper’s attribution section explains those differences before its
+source index.</p>
 </details>
 <details>
 <summary>

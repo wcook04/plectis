@@ -165,7 +165,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
+    "source_sha256": "21debfecb574c15dfa553c1415ea1df903b43dade6a693d5322ffb0d62db1560",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -207,9 +207,9 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 29,
-      "renderer_fingerprint": "815b27130b0e7a63",
-      "source_sha256": "ee640f2b65f49089e8ed10bd6cfacfa649071e0c1d9bc2191011f5aea54eb946",
+      "renderer_contract_version": 30,
+      "renderer_fingerprint": "d383526533396f6a",
+      "source_sha256": "5efa47dffa36b2733bbf14057e6e72b56faa10d603c6dc480af95017165f174a",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 788,
@@ -218,8 +218,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "0deb46c014b4ea0f6fb12d2e5e731608655131788f2356960fef7fd20ad076c6",
-      "html_exact_tex_sha256": "0118b6b60fb7c9fd26892366a3800320bf47b44762df6037e69fdcf1a2326ac3"
+      "html_mathml_sha256": "8ef40cf9c686ccf326fce94debd7452cb965daf70739c22757bbc49d54d9224a",
+      "html_exact_tex_sha256": "29bc180d79ffa955fcb85ad98241293287a032e3d4a6f4f6827b87a0f48fd32d"
     },
     "sections": [
       {
@@ -481,9 +481,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "ee640f2b65f49089e8ed10bd6cfacfa649071e0c1d9bc2191011f5aea54eb946",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "5efa47dffa36b2733bbf14057e6e72b56faa10d603c6dc480af95017165f174a",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 788,
@@ -492,8 +492,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "0deb46c014b4ea0f6fb12d2e5e731608655131788f2356960fef7fd20ad076c6",
-        "html_exact_tex_sha256": "0118b6b60fb7c9fd26892366a3800320bf47b44762df6037e69fdcf1a2326ac3"
+        "html_mathml_sha256": "8ef40cf9c686ccf326fce94debd7452cb965daf70739c22757bbc49d54d9224a",
+        "html_exact_tex_sha256": "29bc180d79ffa955fcb85ad98241293287a032e3d4a6f4f6827b87a0f48fd32d"
       },
       "sections": [
         {
@@ -755,9 +755,9 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "ac7fc17d84644a4862571c19adfb14392d57ac26c9a830b813eb492b8ca4176b",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "e7eb1e6a980e9b4c57a55ee68089d2382ffea85e90a0b84afa6d889321e65390",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2553,
@@ -785,8 +785,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "a4d4eeacabcb5edae6d8ea992f8c691eeb81de14ff8a3996d7c2be3150635db6",
-        "html_exact_tex_sha256": "82fd9018791c0e06b45af5e421180b31d1c61746dd7a1b7adf623b9bbfe87103"
+        "html_mathml_sha256": "0b7b256b4d438e2c3c0b9224881105b813d955f112357f145495c66b8457cfa3",
+        "html_exact_tex_sha256": "60ed5ad4a4d2cff8130a85511e58218d079d9384f9ba29491c1bb42a49db847b"
       },
       "sections": [
         {
@@ -1419,7 +1419,7 @@
         "label": "ErdosProblems.Erdos1041.CriticalTwoRootProximity",
         "path": "lean/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean",
         "direct": true,
-        "content_digest": "sha256:e62da6357daf11741dc8176c1f4566145d2de2baee76efc98008ab8b898105e1",
+        "content_digest": "sha256:379ad7b345f0e0b262c0684628ddbc8d55066ee8d4981daa2a5c8830c593cc2e",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean",
         "role": "Lean proof module"
       },

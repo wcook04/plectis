@@ -55,8 +55,14 @@ remains explicit.</p>
 </section>
 <section id="source-current-frontier" class="level2">
 <h2>#1041 / source-current frontier</h2>
-<p>Problem #1041 has a second, source-only navigation route in addition
-to the Lean-backed Newton-flow note. Start with the dated <a
+<p>The current #1041 paper covers the registered total-variation
+counterexample and Newton-flow results. Its <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean">CatalogueAdapter</a>
+is the source entry for
+<code>ani_degree_seven_total_variation_counterexample</code>;
+<code>docs/claims.json</code> records the exact statement, attribution
+and unreviewed correspondence with the historical curve-length question.
+For the separate source-only research corpus, start with the dated <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/FRONTIER.md">frontier delta</a>, then
 use the <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/STRONGEST_RESULTS.json">strongest-result
@@ -92,10 +98,8 @@ aggregate reduction</a>: read their explicit hypotheses and refutations
 before treating either as a parent route.</li>
 </ul>
 <p>The <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md">earlier
-paper note</a> remains the paper-facing route to the checked
-declarations in
-<code>ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean</code>. The
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-1041-lemniscate-newton-flow.md">current
+paper</a> links its statements to their Lean declarations. The separate
 research corpus is not part of <code>docs/claims.json</code>’s reviewed
 claim authority: its files preserve source-level premises, computations,
 no-go results, and open boundaries. Nothing in this route settles #1041;
@@ -104,20 +108,23 @@ be read before any new proof search.</p>
 </section>
 <section id="complete-eight-problem-return-matrix" class="level2">
 <h2>Complete eight-problem return matrix</h2>
-<p>The per-problem <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json">machine index</a> is the
-source for the complete module, paper, and open-obligation inventories.
-Expand each row’s <code>what_is_checked</code> and
-<code>what_is_not_checked</code> fields before treating its strongest
-checked source as the whole result inventory: they are the evidence
-ceiling, not additional claims. This single matrix makes the same route
-bidirectional: start at a public problem id, reach the strongest checked
-source and paper record, then use the exact index handles to resume the
-open boundary; a paper or source reader can return with the
-<code>--route</code> command in the second column. The checked sources
-under <code>ErdosProblems.lean</code> are exact Lean propositions, not
-reviewed claim-registry entries. For #249 and #257, the reviewed route
-is an additional registered claim spine, not a replacement for the
-problem-owned index route.</p>
+<p>The per-problem <a href="https://github.com/wcook04/plectis-erdos/blob/main/docs/problems.json">machine index</a> lists
+module entry points, papers and open obligations. The <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json">problem library</a> expands each programme
+into its papers and transitive Lean source map. Expand each row’s
+<code>what_is_checked</code> and <code>what_is_not_checked</code> fields
+before treating one source entry as the whole result inventory: they are
+the evidence ceiling, not additional claims. This single matrix makes
+the same route bidirectional: start at a public problem id, reach source
+entry points and the paper record, then use the exact index handles to
+resume the open boundary; a paper or source reader can return with the
+<code>--route</code> command in the second column. Use
+<code>claim_registration.registered_claim_ids</code> to reach each
+registered statement’s status and declarations in
+<code>docs/claims.json</code>. The module or library containing a
+statement does not determine its review status. Unlisted declarations
+acquire no public claim status from their neighbours. For #249 and #257,
+follow the reviewed core routes as well as the problem-owned index.</p>
 <table>
 <colgroup>
 <col />
@@ -129,7 +136,7 @@ problem-owned index route.</p>
 <tr>
 <th>Problem</th>
 <th>Problem return / source back-route</th>
-<th>Strongest checked source</th>
+<th>Source entry points</th>
 <th>Paper and source record</th>
 </tr>
 </thead>
@@ -138,6 +145,8 @@ problem-owned index route.</p>
 <td>#68</td>
 <td><code>python3 scripts/query_corpus.py --route erdos_68</code></td>
 <td><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialGapPlateauCore.lean"><code>FactorialGapPlateauCore.lean</code></a>
+· <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos68/FactorialZeroPlateau.lean"><code>FactorialZeroPlateau.lean</code></a></td>
 <td><a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/papers/full-text/erdos-68-factorial-denominator-irrationality.md">paper
@@ -234,6 +243,8 @@ source</a></td>
 <td>#1041</td>
 <td><code>python3 scripts/query_corpus.py --route erdos_1041</code></td>
 <td><a
+href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean"><code>CatalogueAdapter.lean</code></a>
+· <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean"><code>NewtonFlowRaySeparation.lean</code></a></td>
 <td><a href="https://github.com/wcook04/plectis-erdos/blob/main/research_corpus/Erdos1041/FRONTIER.md">dated
 frontier</a> → <a

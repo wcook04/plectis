@@ -1,0 +1,214 @@
+{
+  "schema": "plectis_lean_paper_v1",
+  "paper_id": "optimal-sparse-perturbations",
+  "title": "Reading Eight Erdős Problems Together",
+  "subject": "Eight Erdős problems read together",
+  "subject_kind": "synthesis",
+  "form": "Cross-problem paper",
+  "pages": 22,
+  "question": "When do choices of digits and supports fill intervals or force irrationality, and what do the resulting constructions reveal about methods used across the Erdős programmes?",
+  "precis": "One account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial support-gap threshold, rational and irrational Lambert subsums across bases, and the limits of finite greedy tests and other irrationality methods. Full arguments, exact counterexamples, unsuccessful routes and attribution are retained together. The principal proofs are ordinary mathematics; cited Lean ingredients have their own stated scope. Historical novelty and independent expert review are not established.",
+  "owns": "the synthesis exposition and ordinary proofs across the covered problems: capacity and congruence constructions, Lambert subsums, rational-point counts, method limits and their research record",
+  "not_authority_for": "a solution to any original Erdős target, historical novelty, independent expert review, or a full Lean proof of the analytic capacity criterion or Lambert-chain theorem",
+  "problem_id": null,
+  "routes": {
+    "html_mathml": "papers/optimal-sparse-perturbations.html",
+    "html_exact_tex": "papers/optimal-sparse-perturbations.mathjax.html",
+    "pdf": "../../papers/optimal-sparse-perturbations.pdf",
+    "latex": "../../papers/source/plectis-erdos/paper/synthesis/optimal-sparse-perturbations.tex",
+    "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.tex",
+    "source_raw": "https://raw.githubusercontent.com/wcook04/plectis-erdos/main/paper/synthesis/optimal-sparse-perturbations.tex"
+  },
+  "render_contract": {
+    "preferred": "html_exact_tex",
+    "fallback": "html_mathml",
+    "fallback_renderer": "native MathML",
+    "frontend_math_dependency": "MathJax or a TeX-compatible KaTeX configuration",
+    "fragment_not_document": true,
+    "executable_scripts_embedded": false,
+    "pandoc": "pandoc 3.9.0.2",
+    "renderer_contract_version": 30,
+    "renderer_fingerprint": "d383526533396f6a",
+    "source_sha256": "1c34dc599349794d24826815537ad2dcf74bb38b20479c1856b9516350666ebd",
+    "source_manifest_match": true,
+    "publication_manifest_match": true,
+    "mathml_node_count": 803,
+    "raw_math_fallback_count": 1,
+    "warnings": {
+      "mathml": [
+        "[WARNING] Could not convert TeX math q\\mid e_n,\\qquad q\\mid\\sum_{k<n}e_k",
+        "\\tag{4}\\label{capacity:eq:both}, rendering as TeX:",
+        "\\tag{4}\\label{capacity:eq:both}",
+        "^",
+        "unexpected control sequence \\tag",
+        "expecting \"%\", \"\\\\label\", \"\\\\tag\", \"\\\\nonumber\", whitespace or \"\\\\allowbreak\""
+      ],
+      "mathjax": []
+    },
+    "html_mathml_sha256": "08a89f131e48d8e261f2f543d98d08976b89d9d8c3c9d3dbfdfdac112d3ab468",
+    "html_exact_tex_sha256": "38ed8704e37cb8a1ec276f02964c2dd6c549d0b48675f8a7444db8e4f5378ef3"
+  },
+  "sections": [
+    {
+      "level": 2,
+      "anchor": "sec:map",
+      "label": "From individual problems to reusable questions"
+    },
+    {
+      "level": 2,
+      "anchor": "capacity:sec:criterion",
+      "label": "An exact capacity criterion"
+    },
+    {
+      "level": 3,
+      "anchor": "the-sharp-support-threshold",
+      "label": "The sharp support threshold"
+    },
+    {
+      "level": 3,
+      "anchor": "capacity:sec:capacity-proof",
+      "label": "Proof of the capacity criterion"
+    },
+    {
+      "level": 4,
+      "anchor": "bounded-capacity-along-a-subsequence",
+      "label": "Bounded capacity along a subsequence"
+    },
+    {
+      "level": 4,
+      "anchor": "one-continuation-interval-for-every-cumulative-residue",
+      "label": "One continuation interval for every cumulative residue"
+    },
+    {
+      "level": 4,
+      "anchor": "from-one-interval-to-every-nonnegative-target",
+      "label": "From one interval to every nonnegative target"
+    },
+    {
+      "level": 3,
+      "anchor": "capacity:sec:negative",
+      "label": "Why a large gap prevents interval filling"
+    },
+    {
+      "level": 3,
+      "anchor": "a-digit-that-also-corrects-the-cumulative-residue",
+      "label": "A digit that also corrects the cumulative residue"
+    },
+    {
+      "level": 3,
+      "anchor": "the-positive-direction-and-the-arithmetic-cost",
+      "label": "The positive direction and the arithmetic cost"
+    },
+    {
+      "level": 3,
+      "anchor": "capacity:sec:carry",
+      "label": "A common-divisor test for irrationality"
+    },
+    {
+      "level": 3,
+      "anchor": "why-a-small-allowance-along-a-subsequence-is-insufficient",
+      "label": "Why a small allowance along a subsequence is insufficient"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:results",
+      "label": "Lambert subsums across bases"
+    },
+    {
+      "level": 5,
+      "anchor": "evidence.",
+      "label": "Evidence."
+    },
+    {
+      "level": 3,
+      "anchor": "sec:dichotomy",
+      "label": "Choices against contraction"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:bases",
+      "label": "The subseries across bases"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:base2",
+      "label": "Base two"
+    },
+    {
+      "level": 4,
+      "anchor": "sec:lemmas",
+      "label": "Removed intervals and finite translations"
+    },
+    {
+      "level": 4,
+      "anchor": "fixed-depth-rational-counts",
+      "label": "Fixed-depth rational counts"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:second",
+      "label": "Limits on methods"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:misread",
+      "label": "The computation and its limits"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:eliminated",
+      "label": "Eliminated ideas"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:known",
+      "label": "What was already known"
+    },
+    {
+      "level": 2,
+      "anchor": "capacity:sec:sources",
+      "label": "Sources and formal correspondence"
+    },
+    {
+      "level": 2,
+      "anchor": "sec:questions",
+      "label": "Further questions"
+    },
+    {
+      "level": 2,
+      "anchor": "declaration-of-generative-ai-use",
+      "label": "Declaration of generative AI use"
+    },
+    {
+      "level": 2,
+      "anchor": "references",
+      "label": "References"
+    }
+  ],
+  "first_pass": {
+    "stated_by_the_paper": false,
+    "provenance": "editorial selection for this guide",
+    "sections": [
+      {
+        "id": "sec:map",
+        "title": "From individual problems to reusable questions",
+        "level": 2
+      },
+      {
+        "id": "capacity:sec:criterion",
+        "title": "An exact capacity criterion",
+        "level": 2
+      },
+      {
+        "id": "sec:results",
+        "title": "Lambert subsums across bases",
+        "level": 2
+      },
+      {
+        "id": "sec:questions",
+        "title": "Further questions",
+        "level": 2
+      }
+    ]
+  }
+}

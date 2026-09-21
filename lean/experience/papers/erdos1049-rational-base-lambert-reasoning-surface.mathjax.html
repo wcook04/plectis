@@ -93,8 +93,9 @@ polynomials to this determinant.</p>
 <p>The shorter companion, <em>Zudilin’s Forms at Rational Bases and the
 Exact Normalised Hankel Order</em>, gives the principal proofs in
 Sections 2 and 3; neither uses its supplementary Section 4. Here
-Section 3.2 contains separate coefficient-moment and spectral
-calculations, not inputs to the order formula. Sections <a class="math-ref" href="#long1049:sec:primitive">4</a>–<a class="math-ref" href="#long1049:sec:endpoints">5</a> compare
+Section <a class="math-ref" href="#long1049:sec:coefficient-questions">3.3</a>
+contains separate coefficient-moment and spectral calculations, not
+inputs to the order formula. Sections <a class="math-ref" href="#long1049:sec:primitive">4</a>–<a class="math-ref" href="#long1049:sec:endpoints">5</a> compare
 rescaling integer rows with imposing congruences by addition;
 Sections <a class="math-ref" href="#long1049:sec:corridor">6</a>–<a class="math-ref" href="#long1049:sec:tail">7</a> examine partial
 sums. Sections <a class="math-ref" href="#long1049:sec:sevenhalves">8</a>–<a class="math-ref" href="#long1049:sec:pade">9</a> treat <span
@@ -1029,7 +1030,7 @@ interval bounds, <span class="math inline" data-term-auto="off">\(U_n,V_n\)</spa
 class="math inline" data-term-auto="off">\(1\le n\le4\)</span>, the sixteen
 coefficient-positivity tests through rank eight, and the finite
 parameter box. The five complete polynomial contents and seventy-six
-residue certificates are described in Section <a class="math-ref" href="#long1049:sec:coefficient-questions">3.2</a>.
+residue certificates are described in Section <a class="math-ref" href="#long1049:sec:coefficient-questions">3.3</a>.
 The historical high-precision real remainder evaluations are separate
 numerical reports, not reproduced by these exact computations. None of
 these finite computations is needed for the proof of Theorem <a class="math-ref" href="#long1049:res:region">2.2</a>. Theorem <a class="math-ref" href="#long1049:res:region">2.2</a> is checked in
@@ -2368,7 +2369,11 @@ calculation instead fixes <span class="math inline" data-term-auto="off">\(N\)</
 expands at <span class="math inline" data-term-auto="off">\(q=0\)</span>. No joint uniform
 limit is asserted. The measure depends on <span
 class="math inline" data-term-auto="off">\(q\)</span>, not on the moment index or rank, and
-supplies no denominator factor for the 2004 polynomial forms.</p>
+supplies no denominator factor for the 2004 polynomial forms.
+Section <a class="math-ref" href="#long1049:sec:sharp-fixed-base">3.2</a>
+replaces the band <span class="math inline" data-term-auto="off">\(O_q(N)\)</span> by an
+exact asymptotic with an explicit positive constant, using the same
+weights.</p>
 </section>
 <section id="formal-verification-and-computations.-1" class="level5">
 <h5>Formal verification and computations.</h5>
@@ -2412,6 +2417,419 @@ href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df
 first nonzero term of each transformed row</a>. Nothing in this
 subsection decides the arithmetic nature of <span
 class="math inline" data-term-auto="off">\(F(3/2)\)</span>.</p>
+</section>
+</section>
+<section id="long1049:sec:sharp-fixed-base" class="level3">
+<h3>The size of <span class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed
+base</h3>
+<p>The positive-measure argument traps <span
+class="math inline" data-term-auto="off">\(\log(V_N^*(q)/(C_Nq^{B_N}))\)</span> between two
+multiples of <span class="math inline" data-term-auto="off">\(N\)</span>. It leaves the
+exponential rate inside that band undetermined, and says nothing about
+the correction below it. Both are determined here. Throughout this
+subsection <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span> is fixed and</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[P=(q;q)_\infty,\qquad
+\mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d},\qquad
+L=F(1/q)=\sum_{r\ge1}\frac{q^r}{1-q^r},\]</span></div>
+<p class="display-continue">with <span
+class="math inline" data-term-auto="off">\(B_N=\sum_{j&lt;N}j^2\)</span> and <span
+class="math inline" data-term-auto="off">\(C_N=\prod_{k&lt;N}c_k=(N!)^2(N+1)!/2^N\)</span> as
+above. Both products converge to positive finite values, and the
+abbreviation <span class="math inline" data-term-auto="off">\(L\)</span> is used only in this
+subsection; it is the value at <span class="math inline" data-term-auto="off">\(q\)</span> of
+the divisor series <span class="math inline" data-term-auto="off">\(\mathcal L\)</span> of
+Section <a class="math-ref" href="#long1049:sec:open">10</a>.
+Everything in this subsection is an ordinary proof. None of it is
+formalised in Lean, and none of it changes a denominator valuation or
+supplies a divisor for the 2004 polynomial forms.</p>
+<p>The first step isolates what a Hankel determinant needs from its
+weights. The hypotheses are two ratio conditions on the weights, so the
+theorem covers other moment families of the same geometric shape as
+well.</p>
+<div class="theorem" id="long1049:thm:geometric-universality">
+<p><strong>Theorem 3.6</strong> (determinants of geometric moments). <em>
+Let <span class="math inline" data-term-auto="off">\(a_k&gt;0\)</span> satisfy, for fixed
+constants <span class="math inline" data-term-auto="off">\(C\)</span> and <span
+class="math inline" data-term-auto="off">\(\kappa\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{a_{k+h}}{a_k}\longrightarrow1\quad(k\to\infty)
+\text{ for each fixed }h\ge0,
+\qquad
+\frac{a_{k+h}}{a_k}\le C(1+h)^\kappa\quad(k,h\ge0).\]</span></div>
+<p><em> Put <span
+class="math inline" data-term-auto="off">\(M_m=\sum_{k\ge0}a_kq^{(m+1)k}\)</span> and <span
+class="math inline" data-term-auto="off">\(D_N=\det(M_{i+j})_{0\le i,j&lt;N}\)</span>. Then
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[D_N\sim\mathcal
+M(q)^3\,q^{B_N}P^{2N}\prod_{k=0}^{N-1}a_k
+\qquad(N\to\infty).\]</span></div>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Taking <span class="math inline" data-term-auto="off">\(k=0\)</span> in
+the ratio bound gives <span class="math inline" data-term-auto="off">\(a_h\le
+Ca_0(1+h)^\kappa\)</span>, so every moment converges. Heine’s expansion,
+as in Section <a class="math-ref" href="#long1049:sec:sharp">3</a>, writes</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[D_N=\sum_{k_0&lt;\cdots&lt;k_{N-1}}
+\prod_{i&lt;N}\bigl(a_{k_i}q^{k_i}\bigr)
+\prod_{i&lt;j&lt;N}(q^{k_i}-q^{k_j})^2,\]</span></div>
+<p class="display-continue">a sum of positive
+terms. Write <span class="math inline" data-term-auto="off">\(k_i=i+\lambda_i\)</span> with
+<span
+class="math inline" data-term-auto="off">\(0\le\lambda_0\le\cdots\le\lambda_{N-1}\)</span>.
+The tuple <span class="math inline" data-term-auto="off">\(\lambda=0\)</span> contributes</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[q^{B_N}\prod_{i&lt;N}a_i\cdot\Delta_N,
+\qquad
+\Delta_N=\prod_{d=1}^{N-1}(1-q^d)^{2(N-d)}.\]</span></div>
+<p>Reverse the shifts
+by setting <span class="math inline" data-term-auto="off">\(\mu_j=\lambda_{N-j}\)</span> for
+<span class="math inline" data-term-auto="off">\(1\le j\le N\)</span>, so that <span
+class="math inline" data-term-auto="off">\(\mu_1\ge\mu_2\ge\cdots\ge\mu_N\ge0\)</span> is a
+partition. Dividing the general summand by the displayed contribution
+leaves</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[W_N(\mu)=
+q^{\sum_{j\le N}(2j-1)\mu_j}
+\prod_{j\le N}\frac{a_{N-j+\mu_j}}{a_{N-j}}
+\prod_{1\le j&lt;k\le N}
+\left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2,\]</span></div>
+<p class="display-continue">because
+the summand indexed by <span class="math inline" data-term-auto="off">\((k_i)\)</span> has
+<span class="math inline" data-term-auto="off">\(q\)</span>-exponent <span
+class="math inline" data-term-auto="off">\(B_N+\sum_i(2N-1-2i)\lambda_i\)</span> and the
+weight <span class="math inline" data-term-auto="off">\(2N-1-2i\)</span> becomes <span
+class="math inline" data-term-auto="off">\(2j-1\)</span> under <span
+class="math inline" data-term-auto="off">\(i=N-j\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(D_N/(q^{B_N}\Delta_N\prod_{i&lt;N}a_i)=\sum_\mu
+W_N(\mu)\)</span>.</p>
+<p>Let <span class="math inline" data-term-auto="off">\(\ell\)</span> be the length of <span
+class="math inline" data-term-auto="off">\(\mu\)</span>, that is, the number of positive
+parts. Only the indices <span class="math inline" data-term-auto="off">\(j\le\ell\)</span>
+contribute a ratio different from <span
+class="math inline" data-term-auto="off">\(1\)</span>. For fixed <span
+class="math inline" data-term-auto="off">\(j\le\ell\)</span> the partition is decreasing, so
+<span class="math inline" data-term-auto="off">\(k-j+\mu_j-\mu_k\ge k-j\)</span> for every
+<span class="math inline" data-term-auto="off">\(k&gt;j\)</span>; the numerators are at most
+<span class="math inline" data-term-auto="off">\(1\)</span> and the denominators multiply to
+at least <span class="math inline" data-term-auto="off">\(P\)</span>. Each of the <span
+class="math inline" data-term-auto="off">\(\ell\)</span> squared factors is therefore at most
+<span class="math inline" data-term-auto="off">\(P^{-2}\)</span>, and the weight ratios
+contribute at most <span
+class="math inline" data-term-auto="off">\(\prod_{j\le\ell}C(1+\mu_j)^\kappa\)</span>. Hence</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[W_N(\mu)\le(CP^{-2})^{\ell}
+\prod_{j=1}^{\ell}(1+\mu_j)^\kappa q^{(2j-1)\mu_j}
+\qquad\text{for every }N.\]</span></div>
+<p>Summing this majorant over all
+partitions of length exactly <span class="math inline" data-term-auto="off">\(\ell\)</span>,
+after dropping the ordering constraint on the positive parts, factorises
+it into</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[(CP^{-2})^{\ell}\prod_{j=1}^{\ell}
+\sum_{u\ge1}(1+u)^\kappa q^{(2j-1)u}
+\le C_q^{\ell}q^{\ell^2},
+\qquad
+C_q=CP^{-2}\sum_{u\ge1}(1+u)^\kappa q^{u-1},\]</span></div>
+<p class="display-continue">using <span
+class="math inline" data-term-auto="off">\(q^{(2j-1)u}\le q^{2j-1}q^{u-1}\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum_{j\le\ell}(2j-1)=\ell^2\)</span>. The
+resulting bound is summable in <span
+class="math inline" data-term-auto="off">\(\ell\)</span>, and it does not depend on <span
+class="math inline" data-term-auto="off">\(N\)</span>.</p>
+<p>For each fixed partition <span class="math inline" data-term-auto="off">\(\mu\)</span>,
+the weight ratios tend to <span class="math inline" data-term-auto="off">\(1\)</span> as
+<span class="math inline" data-term-auto="off">\(N\to\infty\)</span> by the first hypothesis,
+and the Vandermonde quotient converges to the corresponding infinite
+product. The limit of <span class="math inline" data-term-auto="off">\(W_N(\mu)\)</span> is
+therefore the same function of <span class="math inline" data-term-auto="off">\(\mu\)</span>
+that the weights <span class="math inline" data-term-auto="off">\(a_k\equiv1\)</span>
+produce, since those weights give ratio <span
+class="math inline" data-term-auto="off">\(1\)</span> identically and leave the Vandermonde
+quotient unchanged. Dominated convergence over partitions now identifies
+<span class="math inline" data-term-auto="off">\(\lim_N\sum_\mu W_N(\mu)\)</span> with the
+corresponding limit in the unit-weight case.</p>
+<p>For <span class="math inline" data-term-auto="off">\(a_k\equiv1\)</span> the moments are
+<span class="math inline" data-term-auto="off">\(M_m=(1-q^{m+1})^{-1}\)</span>, and Cauchy’s
+determinant evaluates</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[D_N=\frac{q^{B_N}\Delta_N}{\prod_{0\le
+i,j&lt;N}(1-q^{i+j+1})}.\]</span></div>
+<p>The exponent of <span
+class="math inline" data-term-auto="off">\(1-q^m\)</span> in that denominator is <span
+class="math inline" data-term-auto="off">\(\min(m,N,2N-m)\)</span>, which increases to <span
+class="math inline" data-term-auto="off">\(m\)</span>, so the denominator tends to <span
+class="math inline" data-term-auto="off">\(\mathcal M(q)^{-1}\)</span> and the quotient <span
+class="math inline" data-term-auto="off">\(\sum_\mu W_N(\mu)\)</span> tends to <span
+class="math inline" data-term-auto="off">\(\mathcal M(q)\)</span>. Finally</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{\Delta_N}{P^{2N}}
+=\prod_{d&lt;N}(1-q^d)^{-2d}\prod_{d\ge N}(1-q^d)^{-2N}
+\longrightarrow\mathcal M(q)^2,\]</span></div>
+<p class="display-continue">because the logarithm of the
+second product is <span class="math inline" data-term-auto="off">\(O_q(Nq^N)\)</span>.
+Multiplying the two limits proves the theorem. ◻</p>
+</div>
+<p>The hypotheses hold for the actual weights <span
+class="math inline" data-term-auto="off">\(a_k=P^4\gamma_k\)</span>, and the reason is an
+exact algebraic identity. It also sharpens the comparison <span
+class="math inline" data-term-auto="off">\((Q/3)c_k\le\gamma_k\le
+T(P^{-4}+P^{-6})c_k\)</span> of the previous subsection to two explicit
+powers of <span class="math inline" data-term-auto="off">\(P\)</span>.</p>
+<div class="proposition" id="long1049:prop:rogers-factorisation">
+<p><strong>Proposition 3.7</strong> (the moment weights as a product of
+two finite sums). <em> For <span class="math inline" data-term-auto="off">\(r\ge1\)</span>
+and <span class="math inline" data-term-auto="off">\(k\ge0\)</span> set </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[R_k^{(r)}(q)=\sum_{n_1+\cdots+n_r=k}
+\frac{(q;q)_k}{\prod_{j\le r}(q;q)_{n_j}},\]</span></div>
+<p class="display-continue"><em> the sum being over
+compositions into <span class="math inline" data-term-auto="off">\(r\)</span> nonnegative
+parts, so that <span class="math inline" data-term-auto="off">\(R_k^{(r)}\)</span> is the sum
+of all <span class="math inline" data-term-auto="off">\(q\)</span>-multinomial coefficients
+of degree <span class="math inline" data-term-auto="off">\(k\)</span> and length <span
+class="math inline" data-term-auto="off">\(r\)</span>, equivalently the multivariate
+Rogers–Szegő polynomial at unit arguments <span class="citation"
+data-cites="vinroot2010"><a href="#ref-40">[40]</a></span>. These are polynomial identities in the
+indeterminate <span class="math inline" data-term-auto="off">\(q\)</span>; at a prime power,
+<span class="math inline" data-term-auto="off">\(r=2\)</span> gives the Galois number
+counting the subspaces of a <span
+class="math inline" data-term-auto="off">\(k\)</span>-dimensional space over the field of
+that order, and <span class="math inline" data-term-auto="off">\(r=3\)</span> counts the
+flags <span class="math inline" data-term-auto="off">\(V_1\subseteq V_2\)</span> in that
+space. The source is cited for those identifications; the factorisation
+below is proved here. Then </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\gamma_k(q)=\frac{R_k^{(2)}(q)R_k^{(3)}(q)}{(q;q)_k}.\]</span></div>
+<p><em>
+The product <span class="math inline" data-term-auto="off">\(R_k^{(2)}R_k^{(3)}\)</span> lies
+in <span class="math inline" data-term-auto="off">\(\Z_{\ge0}[q]\)</span>, has degree <span
+class="math inline" data-term-auto="off">\(\lfloor k^2/4\rfloor+\lfloor
+k^2/3\rfloor\)</span>, and has coefficient sum <span
+class="math inline" data-term-auto="off">\(6^k\)</span>. Consequently <span
+class="math inline" data-term-auto="off">\((q;q)_k\gamma_k\in\Z[q]\)</span>, and the weights
+<span class="math inline" data-term-auto="off">\(a_k=P^4\gamma_k\)</span> satisfy </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[P^5c_k\le a_k\le P^{-1}c_k
+\qquad(k\ge0),\]</span></div>
+<p class="display-continue"><em> together with <span
+class="math inline" data-term-auto="off">\(a_{k+h}/a_k\le P^{-6}(1+h)^3\)</span>, so the
+hypotheses of Theorem <a class="math-ref" href="#long1049:thm:geometric-universality">3.6</a>
+hold with <span class="math inline" data-term-auto="off">\(\kappa=3\)</span>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Write <span class="math inline" data-term-auto="off">\(\mathcal
+E(z)=(z;q)_\infty^{-1}\)</span> and <span
+class="math inline" data-term-auto="off">\(\partial_qf(z)=(f(z)-f(qz))/z\)</span>, so that
+<span class="math inline" data-term-auto="off">\(\partial_q\mathcal E=\mathcal E\)</span> and
+<span class="math inline" data-term-auto="off">\(\mathcal
+E(z)^r=\sum_{n\ge0}R_n^{(r)}z^n/(q;q)_n\)</span> by Euler’s expansion.
+The <span class="math inline" data-term-auto="off">\(q\)</span>-Leibniz rule, which follows
+by induction from the product rule, is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\partial_q^n(fg)(z)=\sum_{j=0}^n\genfrac{[}{]}{0pt}{}{n}{j}_q
+(\partial_q^jf)(q^{n-j}z)\,(\partial_q^{n-j}g)(z).\]</span></div>
+<p>Write <span
+class="math inline" data-term-auto="off">\(h_k(z)=\sum_{j=0}^k\genfrac{[}{]}{0pt}{}{k}{j}_q(z;q)_j\)</span>.
+Applying the rule to <span class="math inline" data-term-auto="off">\(\mathcal E\cdot\mathcal
+E\)</span> and using <span class="math inline" data-term-auto="off">\(\mathcal
+E(q^mz)=(z;q)_m\mathcal E(z)\)</span> gives <span
+class="math inline" data-term-auto="off">\(\partial_q^k\mathcal E(z)^2=\mathcal
+E(z)^2h_k(z)\)</span>; at <span class="math inline" data-term-auto="off">\(k=1\)</span> both
+sides are <span class="math inline" data-term-auto="off">\(\mathcal E(z)^2(2-z)\)</span>.
+Applying it once more, to <span class="math inline" data-term-auto="off">\(\mathcal
+E\cdot\mathcal E^2\)</span>, gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\partial_q^n\mathcal E(z)^3
+=\mathcal
+E(z)^3\sum_{k=0}^n\genfrac{[}{]}{0pt}{}{n}{k}_q(z;q)_kh_k(z),\]</span></div>
+<p class="display-continue">the power of <span class="math inline" data-term-auto="off">\(\mathcal E\)</span> being <span
+class="math inline" data-term-auto="off">\(3\)</span> and not <span
+class="math inline" data-term-auto="off">\(2\)</span> here. Hence</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{n\ge0}\frac{w^n}{(q;q)_n}\partial_q^n\mathcal
+E(z)^3
+=\mathcal E(w)\mathcal E(z)^3
+  \sum_{k\ge0}\frac{w^k(z;q)_k}{(q;q)_k}h_k(z).\]</span></div>
+<p>Put <span
+class="math inline" data-term-auto="off">\(z=w\)</span>. On the left the coefficient of <span
+class="math inline" data-term-auto="off">\(w^n\)</span> is <span
+class="math inline" data-term-auto="off">\(R_n^{(3)}\sum_{j\le
+n}\bigl((q;q)_j(q;q)_{n-j}\bigr)^{-1}
+=R_n^{(2)}R_n^{(3)}/(q;q)_n\)</span>. On the right, expand <span
+class="math inline" data-term-auto="off">\(h_k\)</span> and set <span
+class="math inline" data-term-auto="off">\(k=j+t\)</span>; the inner sum is evaluated by the
+<span class="math inline" data-term-auto="off">\(q\)</span>-binomial theorem as</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{t\ge0}\frac{(wq^j;q)_t}{(q;q)_t}w^t
+=\frac{(w^2q^j;q)_\infty}{(w;q)_\infty},\]</span></div>
+<p class="display-continue">and the result is
+exactly <span class="math inline" data-term-auto="off">\(G_q(w)\)</span>. Every step holds
+coefficientwise, and absolutely for <span
+class="math inline" data-term-auto="off">\(|w|\)</span> small.</p>
+<p>A <span class="math inline" data-term-auto="off">\(q\)</span>-multinomial coefficient has
+nonnegative integral coefficients, degree <span
+class="math inline" data-term-auto="off">\(\sum_{i&lt;j}n_in_j\)</span>, and value <span
+class="math inline" data-term-auto="off">\(1\)</span> at <span
+class="math inline" data-term-auto="off">\(q=1\)</span> after division by the corresponding
+multinomial. Summing over compositions gives coefficient sum <span
+class="math inline" data-term-auto="off">\(r^k\)</span> for <span
+class="math inline" data-term-auto="off">\(R_k^{(r)}\)</span> and hence <span
+class="math inline" data-term-auto="off">\(6^k\)</span> for the product. The degree is
+maximised by balanced parts, which gives <span
+class="math inline" data-term-auto="off">\(\lfloor k^2/4\rfloor\)</span> for <span
+class="math inline" data-term-auto="off">\(r=2\)</span> and <span
+class="math inline" data-term-auto="off">\(\lfloor k^2/3\rfloor\)</span> for <span
+class="math inline" data-term-auto="off">\(r=3\)</span>; no leading cancellation occurs
+because all coefficients are nonnegative.</p>
+<p>For the bounds, write <span
+class="math inline" data-term-auto="off">\(b_k^{(r)}=[z^k](z;q)_\infty^{-r}\)</span>, so that
+<span class="math inline" data-term-auto="off">\(R_k^{(r)}=(q;q)_kb_k^{(r)}\)</span> and
+<span class="math inline" data-term-auto="off">\(\gamma_k=(q;q)_kb_k^{(2)}b_k^{(3)}\)</span>.
+Euler’s expansion exhibits <span
+class="math inline" data-term-auto="off">\(b_k^{(r)}\)</span> as an <span
+class="math inline" data-term-auto="off">\(r\)</span>-fold convolution of the sequence <span
+class="math inline" data-term-auto="off">\(1/(q;q)_n\)</span>, whose terms lie in <span
+class="math inline" data-term-auto="off">\([1,P^{-1}]\)</span>; the number of compositions of
+<span class="math inline" data-term-auto="off">\(k\)</span> into <span
+class="math inline" data-term-auto="off">\(r\)</span> nonnegative parts is <span
+class="math inline" data-term-auto="off">\(\binom{k+r-1}{r-1}\)</span>, so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\binom{k+r-1}{r-1}\le b_k^{(r)}\le
+P^{-r}\binom{k+r-1}{r-1}.\]</span></div>
+<p>Combining these at <span
+class="math inline" data-term-auto="off">\(r=2,3\)</span> with <span
+class="math inline" data-term-auto="off">\(P\le(q;q)_k\le1\)</span> and <span
+class="math inline" data-term-auto="off">\(c_k=(k+1)\binom{k+2}2\)</span> gives <span
+class="math inline" data-term-auto="off">\(P^5c_k\le a_k\le P^{-1}c_k\)</span>. The shift
+bound follows from <span
+class="math inline" data-term-auto="off">\(c_{k+h}/c_k\le(1+h)^3\)</span>. ◻</p>
+</div>
+<p>Only one analytic input is still missing, namely the behaviour of
+<span class="math inline" data-term-auto="off">\(a_k/c_k\)</span> to second order. It is
+supplied by the two leading coefficients of <span
+class="math inline" data-term-auto="off">\(G_q\)</span> at its singularity <span
+class="math inline" data-term-auto="off">\(w=1\)</span>.</p>
+<div class="theorem" id="long1049:thm:sharp-fixed-base">
+<p><strong>Theorem 3.8</strong> (the size of <span
+class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed base). <em> Let <span
+class="math inline" data-term-auto="off">\(\gamma_{\!E}\)</span> be Euler’s constant. The
+product </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\mathcal A(q)=e^{-8\gamma_{\!E}L}
+\prod_{k\ge0}\left(\frac{a_k}{c_k}\,e^{8L/(k+1)}\right)\]</span></div>
+<p class="display-continue"><em>
+converges to a positive finite value. With <span
+class="math inline" data-term-auto="off">\(K(q)=\mathcal A(q)\mathcal M(q)^3\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[V_N^*(q)\sim
+K(q)\,C_Nq^{B_N}P^{2N}N^{-8L},\]</span></div>
+<p class="display-continue"><em> equivalently </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\log V_N^*(q)=B_N\log q+\log C_N+2N\log P-8L\log
+N+\log K(q)+o(1).\]</span></div>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Write <span
+class="math inline" data-term-auto="off">\(\Pi(w)=(qw;q)_\infty\)</span>, so that <span
+class="math inline" data-term-auto="off">\((w;q)_\infty=(1-w)\Pi(w)\)</span>, and for <span
+class="math inline" data-term-auto="off">\(t\ge1\)</span> put</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[f_t(w)=\frac{(q^tw^2;q)_\infty}{(q;q)_t(q^tw;q)_\infty^2},
+\qquad
+\mathcal S(w)=\sum_{t\ge1}w^t\bigl(f_t(w)-P^{-1}\bigr).\]</span></div>
+<p>On each
+compact subset of <span class="math inline" data-term-auto="off">\(|w|&lt;q^{-1}\)</span> the
+bracket is <span class="math inline" data-term-auto="off">\(O_q(q^t)\)</span> uniformly, so
+<span class="math inline" data-term-auto="off">\(\mathcal S\)</span> is analytic there.
+Separating the summand <span class="math inline" data-term-auto="off">\(t=0\)</span>, whose
+denominator carries the factor <span
+class="math inline" data-term-auto="off">\((1-w)^2\)</span>, and subtracting the constant
+part of the remaining summands gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathcal D(w):=P^4(1-w)^4G_q(w)
+=\frac{P^4}{\Pi(w)^3}
+\left((1+w)\frac{(qw^2;q)_\infty}{\Pi(w)^2}+\frac wP
+       +(1-w)\mathcal S(w)\right).\]</span></div>
+<p>Hence <span
+class="math inline" data-term-auto="off">\(\mathcal D\)</span> is analytic on a disc of
+radius greater than <span class="math inline" data-term-auto="off">\(1\)</span>.</p>
+<p>At <span class="math inline" data-term-auto="off">\(w=1\)</span> one has <span
+class="math inline" data-term-auto="off">\(\Pi(1)=P\)</span> and <span
+class="math inline" data-term-auto="off">\(\Pi&#39;(1)/\Pi(1)=-L\)</span>, since <span
+class="math inline" data-term-auto="off">\(\Pi&#39;/\Pi=-\sum_{j\ge1}q^j/(1-q^jw)\)</span>.
+Also <span class="math inline" data-term-auto="off">\((qw^2;q)_\infty\)</span> equals <span
+class="math inline" data-term-auto="off">\(P\)</span> at <span
+class="math inline" data-term-auto="off">\(w=1\)</span>, and the logarithmic derivative of
+<span class="math inline" data-term-auto="off">\((qw^2;q)_\infty/\Pi(w)^2\)</span> at <span
+class="math inline" data-term-auto="off">\(w=1\)</span> is <span
+class="math inline" data-term-auto="off">\(-2L+2L=0\)</span>. Therefore the bracket has value
+<span class="math inline" data-term-auto="off">\(3/P\)</span> and derivative <span
+class="math inline" data-term-auto="off">\((2-L)/P\)</span> at <span
+class="math inline" data-term-auto="off">\(w=1\)</span>; here <span
+class="math inline" data-term-auto="off">\(\mathcal S(1)=L/P\)</span>, because <span
+class="math inline" data-term-auto="off">\(f_t(1)=\bigl(P(1-q^t)\bigr)^{-1}\)</span> and
+<span
+class="math inline" data-term-auto="off">\(\sum_{t\ge1}\bigl((1-q^t)^{-1}-1\bigr)=L\)</span>.
+Combining with the factor <span
+class="math inline" data-term-auto="off">\(P^4\Pi^{-3}\)</span>, whose logarithmic derivative
+at <span class="math inline" data-term-auto="off">\(1\)</span> is <span
+class="math inline" data-term-auto="off">\(3L\)</span>, gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\mathcal D(1)=3,\qquad
+\mathcal D&#39;(1)=3\left(3L+\frac{2-L}3\right)=2+8L.\]</span></div>
+<p>Subtracting the principal part of <span class="math inline" data-term-auto="off">\(\mathcal
+D(w)(1-w)^{-4}\)</span> at <span class="math inline" data-term-auto="off">\(w=1\)</span>
+leaves a function analytic on a larger disc, so</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[a_k=3\binom{k+3}3-(2+8L)\binom{k+2}2+O_q(k),
+\qquad
+\frac{a_k}{c_k}=1-\frac{8L}{k+1}+O_q\bigl((k+1)^{-2}\bigr),\]</span></div>
+<p class="display-continue">the
+second line because <span
+class="math inline" data-term-auto="off">\(3\binom{k+3}3=c_k(k+3)/(k+1)\)</span> and <span
+class="math inline" data-term-auto="off">\(\binom{k+2}2=c_k/(k+1)\)</span>.</p>
+<p>Consequently <span
+class="math inline" data-term-auto="off">\(\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})\)</span>,
+which is summable, so <span class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span>
+converges; it is positive because every factor is. Since <span
+class="math inline" data-term-auto="off">\(\sum_{k&lt;N}(k+1)^{-1}=\log
+N+\gamma_{\!E}+o(1)\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\prod_{k&lt;N}a_k\sim\mathcal
+A(q)\,C_NN^{-8L}.\]</span></div>
+<p>Proposition <a class="math-ref" href="#long1049:prop:rogers-factorisation">3.7</a>
+supplies the uniform shift bound and the last expansion supplies the
+fixed-shift limit, so Theorem <a class="math-ref" href="#long1049:thm:geometric-universality">3.6</a>
+applies to <span class="math inline" data-term-auto="off">\((a_k)\)</span> and gives <span
+class="math inline" data-term-auto="off">\(V_N^*\sim\mathcal
+M(q)^3q^{B_N}P^{2N}\prod_{k&lt;N}a_k\)</span>. Substituting the product
+asymptotic proves both displays. ◻</p>
+</div>
+<section id="what-the-sharp-estimate-settles-and-what-it-leaves."
+class="level5">
+<h5>What the sharp estimate settles, and what it leaves.</h5>
+<p>The positive-measure argument of the previous subsection had recorded
+this shape as a candidate without its constant. The proof, the limiting
+Gram factor <span class="math inline" data-term-auto="off">\(\mathcal M(q)^3\)</span> and the
+convergent expression for the constant are supplied here. The estimate
+replaces the band <span class="math inline" data-term-auto="off">\(O_q(N)\)</span> by the
+explicit terms <span class="math inline" data-term-auto="off">\(2N\log P\)</span>, <span
+class="math inline" data-term-auto="off">\(-8F(1/q)\log N\)</span> and the constant <span
+class="math inline" data-term-auto="off">\(\log K(q)\)</span>, with an <span
+class="math inline" data-term-auto="off">\(o(1)\)</span> error, and the weights now have an
+exact finite description rather than an infinite-product representation
+alone.</p>
+<p>The cubic exponent of <span class="math inline" data-term-auto="off">\(q\)</span> is
+untouched, and so is every prime-power valuation. At <span
+class="math inline" data-term-auto="off">\(3/2\)</span> the deficit is unchanged and is
+exactly</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{39}{41}\bigl(4N^3-3N^2\bigr)-\bigl(2N^3-N\bigr)
+=\frac{N(74N^2-117N+41)}{41}&gt;0\qquad(N\ge2),\]</span></div>
+<p class="display-continue">the positivity
+being immediate from <span
+class="math inline" data-term-auto="off">\(74N^2-117N+41=74(N-2)^2+179(N-2)+103\)</span>. Its
+leading size is <span class="math inline" data-term-auto="off">\((74/41)N^3\)</span>, so no
+estimate that leaves the cubic coefficient alone can close it. The
+finite factorisation describes the same weights in a new way; it does
+not license substituting their denominator for the denominator of a
+cleared linear form.</p>
 </section>
 </section>
 <section id="long1049:sec:coefficient-questions" class="level3">
@@ -2606,7 +3024,7 @@ diagonal congruence. The remainder representation already proves <span
 class="math inline" data-term-auto="off">\(F(p)A_N-B_N=(v^*_{i+j})&gt;0\)</span> at every
 rank.</p>
 <div class="proposition" id="long1049:res:finite-pencil">
-<p><strong>Proposition 3.6</strong> (finite coefficient positivity and
+<p><strong>Proposition 3.9</strong> (finite coefficient positivity and
 pencil roots). <em> For every real <span
 class="math inline" data-term-auto="off">\(p&gt;1\)</span> and <span
 class="math inline" data-term-auto="off">\(1\le N\le8\)</span>, <span
@@ -2639,7 +3057,7 @@ non-strict interlacing. These are subspaces for the original pencils;
 the separately conjugated symmetric matrices need not be principal
 submatrices of one another. ◻</p>
 </div>
-<p>Proposition <a class="math-ref" href="#long1049:res:finite-pencil">3.6</a> uses
+<p>Proposition <a class="math-ref" href="#long1049:res:finite-pencil">3.9</a> uses
 only the eight unshifted certificates <span
 class="math inline" data-term-auto="off">\(D_{k,0}\)</span>, not an all-rank coefficient
 measure. The shifted certificates <span
@@ -4690,6 +5108,104 @@ class="math inline" data-term-auto="off">\(d_i\Z\)</span>. Polynomial coefficien
 alone does not determine either integer Smith invariant after
 specialisation.</p>
 </section>
+<section id="the-lattice-spanned-by-the-actual-tails." class="level5">
+<h5>The lattice spanned by the actual tails.</h5>
+<p>The formulas above apply to any rank-two lattice. For the rows that
+the approximation problem actually supplies, the invariant can be
+computed outright, and it is the smallest one compatible with the base.
+Let <span class="math inline" data-term-auto="off">\(a&gt;b\ge1\)</span> be coprime, write
+the partial sum <span class="math inline" data-term-auto="off">\(S_m(b/a)=\sum_{r\le
+m}(b/a)^r/(1-(b/a)^r)\)</span> in lowest terms as <span
+class="math inline" data-term-auto="off">\(P_m/Q_m\)</span> with <span
+class="math inline" data-term-auto="off">\(Q_m&gt;0\)</span>, and set <span
+class="math inline" data-term-auto="off">\(P_0=0\)</span>, <span
+class="math inline" data-term-auto="off">\(Q_0=1\)</span>. The primitive integer row of the
+<span class="math inline" data-term-auto="off">\(m\)</span>th tail is <span
+class="math inline" data-term-auto="off">\((Q_m,P_m)\)</span>, which represents <span
+class="math inline" data-term-auto="off">\(Q_mF(a/b)-P_m\)</span>.</p>
+<div class="proposition" id="long1049:res:tail-lattice">
+<p><strong>Proposition 10.3</strong> (the prefix lattice of the tails).
+<em> Every <span class="math inline" data-term-auto="off">\(Q_m\)</span> is coprime to <span
+class="math inline" data-term-auto="off">\(ab\)</span>, and <span
+class="math inline" data-term-auto="off">\(b\)</span> divides every <span
+class="math inline" data-term-auto="off">\(P_m\)</span>. For every prefix containing <span
+class="math inline" data-term-auto="off">\(m=0\)</span> and <span
+class="math inline" data-term-auto="off">\(m=1\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\operatorname{span}_{\Z}\{(Q_m,P_m):0\le
+m&lt;M\}=\Z\times b\Z
+\qquad(M\ge2),\]</span></div>
+<p class="display-continue"><em> so the Smith invariants are <span
+class="math inline" data-term-auto="off">\(1,b\)</span>, the gcd of the <span
+class="math inline" data-term-auto="off">\(2\times2\)</span> minors is <span
+class="math inline" data-term-auto="off">\(b\)</span>, and the image modulo <span
+class="math inline" data-term-auto="off">\(D\)</span> has cardinality <span
+class="math inline" data-term-auto="off">\(D^2/\gcd(b,D)\)</span>. Multiplying an individual
+tail by a nonzero rational weight leaves its primitive row unchanged up
+to sign.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> A common denominator of <span
+class="math inline" data-term-auto="off">\(S_m(b/a)\)</span> is a product of the integers
+<span class="math inline" data-term-auto="off">\(a^r-b^r\)</span> for <span
+class="math inline" data-term-auto="off">\(r\le m\)</span>, each coprime to <span
+class="math inline" data-term-auto="off">\(ab\)</span>; over that denominator every summand
+has numerator divisible by <span class="math inline" data-term-auto="off">\(b^r\)</span>.
+Reduction to lowest terms removes no prime factor of <span
+class="math inline" data-term-auto="off">\(b\)</span>, which gives the first two assertions.
+The rows at <span class="math inline" data-term-auto="off">\(m=0,1\)</span> are <span
+class="math inline" data-term-auto="off">\((1,0)\)</span> and <span
+class="math inline" data-term-auto="off">\((a-b,b)\)</span>, and subtracting <span
+class="math inline" data-term-auto="off">\(a-b\)</span> copies of the first from the second
+gives <span class="math inline" data-term-auto="off">\((0,b)\)</span>; every later row
+already lies in <span class="math inline" data-term-auto="off">\(\Z\times b\Z\)</span> by the
+first assertions. The Smith and image statements are the specialisation
+of the formulas above at <span class="math inline" data-term-auto="off">\(g=b\)</span>.
+Finally the rational line through a primitive pair meets <span
+class="math inline" data-term-auto="off">\(\Z^2\)</span> in exactly the multiples of that
+pair, so clearing denominators in a nonzero rational multiple and
+dividing by the coordinate gcd returns the same pair up to sign. ◻</p>
+</div>
+<p>At <span class="math inline" data-term-auto="off">\(3/2\)</span> the first three partial
+sums are <span class="math inline" data-term-auto="off">\(0\)</span>, <span
+class="math inline" data-term-auto="off">\(2\)</span> and <span
+class="math inline" data-term-auto="off">\(14/5\)</span>, with rows <span
+class="math inline" data-term-auto="off">\((1,0)\)</span>, <span
+class="math inline" data-term-auto="off">\((1,2)\)</span> and <span
+class="math inline" data-term-auto="off">\((5,14)\)</span>. Their span is already <span
+class="math inline" data-term-auto="off">\(\Z\times2\Z\)</span>. There is no three-adic
+collapse, and the only local saving is the single factor of two that the
+image formula displays. For a window beginning at <span
+class="math inline" data-term-auto="off">\(m=s\)</span> the corresponding statement is that
+every pairwise minor is divisible by <span
+class="math inline" data-term-auto="off">\(b^{s+1}\)</span>, with the valuation of the gcd
+equal to <span class="math inline" data-term-auto="off">\((s+1)v_p(b)\)</span> at each prime
+<span class="math inline" data-term-auto="off">\(p\mid b\)</span> and equal to zero at each
+prime <span class="math inline" data-term-auto="off">\(p\mid a\)</span>. The adjacent-row
+identity</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[Q_sP_{s+1}-P_sQ_{s+1}
+=\frac{Q_sQ_{s+1}b^{s+1}}{a^{s+1}-b^{s+1}}\]</span></div>
+<p class="display-continue">attains both, since
+its denominator is a unit at every prime dividing <span
+class="math inline" data-term-auto="off">\(ab\)</span>.</p>
+<p>The consequence for the construction problem is a restriction on one
+operation, and only on that one. Rescaling the individual tails and then
+taking integer combinations stays inside <span
+class="math inline" data-term-auto="off">\(\Z\times b\Z\)</span>, so it leaves the minor gcd
+and the endpoint valuations exactly as above. Rational combinations are
+a different matter and do leave that lattice: at <span
+class="math inline" data-term-auto="off">\(3/2\)</span> the half-sum of the rows <span
+class="math inline" data-term-auto="off">\((1,0)\)</span> and <span
+class="math inline" data-term-auto="off">\((1,2)\)</span> is the primitive row <span
+class="math inline" data-term-auto="off">\((1,1)\)</span>, whose minor against <span
+class="math inline" data-term-auto="off">\((1,0)\)</span> is <span
+class="math inline" data-term-auto="off">\(1\)</span>. What such a combination costs is a
+denominator in the coefficients, which the proposition does not measure,
+so escaping the lattice this way is not by itself a saving. A genuinely
+improved system needs primitive rows of a different provenance, whose
+minors carry extra valuation and whose divided remainders are still
+nonzero and small.</p>
+</section>
 </section>
 <section id="estimating-the-divided-remainder" class="level3">
 <h3>Estimating the divided remainder</h3>
@@ -4712,7 +5228,7 @@ class="math inline" data-term-auto="off">\(H_n\ge1\)</span>. Allowing an arbitra
 positive <span class="math inline" data-term-auto="off">\(H_n\)</span> would lose that
 implication.</p>
 <div class="problem">
-<p><strong>Problem 10.3</strong> (an additional height and remainder
+<p><strong>Problem 10.4</strong> (an additional height and remainder
 estimate). <em>Prove the explicit estimate </em></p>
 <div class="math-display" id="long1049:eq:negative-margin" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\begin{equation}
@@ -4777,7 +5293,7 @@ class="math inline" data-term-auto="off">\(z\)</span> sends each member of the s
 into that subspace; this substitution is not a <span
 class="math inline" data-term-auto="off">\(\Q(z)\)</span>-linear map.</p>
 <div class="proposition" id="long1049:res:nomahler">
-<p><strong>Proposition 10.4</strong> (no finite simultaneous <span
+<p><strong>Proposition 10.5</strong> (no finite simultaneous <span
 class="math inline" data-term-auto="off">\(2/3\)</span>-system). <em> Let </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\mathcal
@@ -4845,7 +5361,7 @@ periodic-coefficient corollary <span class="citation"
 data-cites="rivin2026"><a href="#ref-23">[23]</a></span> gives the same nonrationality
 conclusion. ◻</p>
 </div>
-<p>Proposition <a class="math-ref" href="#long1049:res:nomahler">10.4</a> uses no
+<p>Proposition <a class="math-ref" href="#long1049:res:nomahler">10.5</a> uses no
 property of the point <span class="math inline" data-term-auto="off">\(2/3\)</span>: the
 obstruction is functional and appears before regularity at a particular
 point is considered. For this scalar function, Bell and Smertnig’s
@@ -4979,7 +5495,7 @@ primitive directions with <span
 class="math inline" data-term-auto="off">\(C_0(\alpha)&gt;0\)</span> and <span
 class="math inline" data-term-auto="off">\(C_1(\alpha)&gt;0\)</span>.</p>
 <div class="problem">
-<p><strong>Problem 10.5</strong> (optimising the published parameter
+<p><strong>Problem 10.6</strong> (optimising the published parameter
 directions). <em>Determine </em></p>
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[\sup_{\alpha\in\mathcal
@@ -5263,7 +5779,7 @@ with the same hypotheses, checked by the Lean kernel using only the
 axioms <code>propext</code>, <code>Classical.choice</code> and
 <code>Quot.sound</code>, in the development at revision
 <code>181078b6b009</code>.</p>
-<p>The development verifies the reduction of Proposition <a class="math-ref" href="#long1049:res:nomahler">10.4</a> to the
+<p>The development verifies the reduction of Proposition <a class="math-ref" href="#long1049:res:nomahler">10.5</a> to the
 theorem of Adamczewski and Bell that a Laurent series over <span
 class="math inline" data-term-auto="off">\(\Q\)</span> which is both <span
 class="math inline" data-term-auto="off">\(k\)</span>-Mahler and <span
@@ -5277,7 +5793,7 @@ finite-dimensional stable space to a Mahler equation with nonvanishing
 unshifted coefficient, the persistence of that property under <span
 class="math inline" data-term-auto="off">\(z\mapsto z^m\)</span>, and the functional
 nonrationality of the divisor generating series.</p>
-<p>Proposition <a class="math-ref" href="#long1049:res:finite-pencil">3.6</a> has no
+<p>Proposition <a class="math-ref" href="#long1049:res:finite-pencil">3.9</a> has no
 Lean statement of its own. The coefficient positivity of the eight
 unshifted determinants <span class="math inline" data-term-auto="off">\(D_{k,0}\)</span> is
 established by an exact integer computation with an independent checker
@@ -5294,9 +5810,9 @@ passage from a positive determinant certificate to positive
 definiteness, and the interlacing of the signature on nested coordinate
 subspaces.</p>
 <p>A theorem whose own statement is conditional is formalised exactly as
-stated. Proposition <a class="math-ref" href="#long1049:res:nomahler">10.4</a> is asserted
+stated. Proposition <a class="math-ref" href="#long1049:res:nomahler">10.5</a> is asserted
 unconditionally here and its Lean counterpart carries a named input.
-Proposition <a class="math-ref" href="#long1049:res:finite-pencil">3.6</a> is
+Proposition <a class="math-ref" href="#long1049:res:finite-pencil">3.9</a> is
 asserted unconditionally here and has no formal counterpart.</p>
 <section id="concordance-of-statements-and-lean-declarations."
 class="level5">
@@ -5469,7 +5985,7 @@ principles and specified exponent models. The ordinary theorem for
 unimodular rows must be distinguished from the checked version requiring
 an invertible coordinate in every row. The supplied scripts reproduce
 the source-polynomial checks in Section <a class="math-ref" href="#long1049:sec:receipts">2.7</a> and the
-finite coefficient-moment tests in Section <a class="math-ref" href="#long1049:sec:coefficient-questions">3.2</a>.
+finite coefficient-moment tests in Section <a class="math-ref" href="#long1049:sec:coefficient-questions">3.3</a>.
 The five complete polynomial contents and seventy-six cyclotomic residue
 witnesses are also supplied with exact reproduction scripts and direct
 polynomial determinant checks. None of these computations is a Lean
@@ -5750,6 +6266,15 @@ Section and theorem references use the preprint.</p></li>
 Rules</em>, Math. Comp. <strong>23</strong> (1969), no. 106, 221–230,
 doi:<a
 href="https://doi.org/10.1090/S0025-5718-69-99647-1">10.1090/S0025-5718-69-99647-1</a>.</p></li>
+<li id="ref-40"><p>C. R. Vinroot, <a
+href="https://arxiv.org/abs/1011.0984"><em>Multivariate Rogers–Szegő
+polynomials and flags in finite vector spaces</em></a>,
+arXiv:1011.0984v1, 3 November 2010, abstract accessed 20 September 2026.
+Cited for the identification of the sum of all <span
+class="math inline" data-term-auto="off">\(q\)</span>-multinomial coefficients of fixed
+degree and length with a flag count, and for its recursion generalising
+the Galois numbers. The factorisation of the moment weights is proved
+here.</p></li>
 </ol>
 </section>
   </div>

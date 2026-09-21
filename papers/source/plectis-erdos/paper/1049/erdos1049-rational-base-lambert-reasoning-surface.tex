@@ -128,7 +128,8 @@ of the 2004 polynomials to this determinant.
 The shorter companion, \emph{Zudilin's Forms at Rational Bases and
 the Exact Normalised Hankel Order}, gives the principal proofs in
 Sections~2 and~3; neither uses its supplementary Section~4. Here
-Section~3.2 contains separate coefficient-moment and spectral calculations,
+Section~\ref{long1049:sec:coefficient-questions} contains separate
+coefficient-moment and spectral calculations,
 not inputs to the order formula. Sections~\ref{long1049:sec:primitive}--\ref{long1049:sec:endpoints}
 compare rescaling integer rows with imposing congruences by addition;
 Sections~\ref{long1049:sec:corridor}--\ref{long1049:sec:tail} examine partial sums.
@@ -1795,6 +1796,8 @@ $q\uparrow1$. The formal-order calculation instead fixes $N$ and expands
 at $q=0$. No joint uniform limit is asserted. The measure depends on $q$,
 not on the moment index or rank, and supplies no denominator factor for
 the 2004 polynomial forms.
+Section~\ref{long1049:sec:sharp-fixed-base} replaces the band $O_q(N)$ by an
+exact asymptotic with an explicit positive constant, using the same weights.
 
 \paragraph{Formal verification and computations.}
 The positive-measure argument, including its generating-function
@@ -1822,6 +1825,314 @@ Lemma~\ref{long1049:res:allrowinitial} and~\eqref{long1049:eq:row-initial}
 give that row calculation, which is formalised in
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L143}{the first nonzero term of each transformed row}.  Nothing in
 this subsection decides the arithmetic nature of $F(3/2)$.
+
+
+\subsection{The size of $V_N^*$ at a fixed base}
+\label{long1049:sec:sharp-fixed-base}
+
+The positive-measure argument traps $\log(V_N^*(q)/(C_Nq^{B_N}))$ between two
+multiples of $N$. It leaves the exponential rate inside that band undetermined,
+and says nothing about the correction below it. Both are determined here.
+Throughout this subsection $0<q<1$ is fixed and
+\[
+ P=(q;q)_\infty,\qquad
+ \mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d},\qquad
+ L=F(1/q)=\sum_{r\ge1}\frac{q^r}{1-q^r},
+\]
+with $B_N=\sum_{j<N}j^2$ and $C_N=\prod_{k<N}c_k=(N!)^2(N+1)!/2^N$ as above.
+Both products converge to positive finite values, and the abbreviation $L$ is
+used only in this subsection; it is the value at $q$ of the divisor series
+$\mathcal L$ of Section~\ref{long1049:sec:open}. Everything in this subsection
+is an ordinary proof. None of it is formalised in Lean, and none of it changes
+a denominator valuation or supplies a divisor for the 2004 polynomial forms.
+
+The first step isolates what a Hankel determinant needs from its weights. The
+hypotheses are two ratio conditions on the weights, so the theorem covers
+other moment families of the same geometric shape as well.
+
+\begin{theorem}[determinants of geometric moments]
+\label{long1049:thm:geometric-universality}
+Let $a_k>0$ satisfy, for fixed constants $C$ and $\kappa$,
+\[
+ \frac{a_{k+h}}{a_k}\longrightarrow1\quad(k\to\infty)
+ \text{ for each fixed }h\ge0,
+ \qquad
+ \frac{a_{k+h}}{a_k}\le C(1+h)^\kappa\quad(k,h\ge0).
+\]
+Put $M_m=\sum_{k\ge0}a_kq^{(m+1)k}$ and $D_N=\det(M_{i+j})_{0\le i,j<N}$. Then
+\[
+ D_N\sim\mathcal M(q)^3\,q^{B_N}P^{2N}\prod_{k=0}^{N-1}a_k
+ \qquad(N\to\infty).
+\]
+\end{theorem}
+
+\begin{proof}
+Taking $k=0$ in the ratio bound gives $a_h\le Ca_0(1+h)^\kappa$, so every moment
+converges. Heine's expansion, as in
+Section~\ref{long1049:sec:sharp}, writes
+\[
+ D_N=\sum_{k_0<\cdots<k_{N-1}}
+ \prod_{i<N}\bigl(a_{k_i}q^{k_i}\bigr)
+ \prod_{i<j<N}(q^{k_i}-q^{k_j})^2,
+\]
+a sum of positive terms. Write $k_i=i+\lambda_i$ with
+$0\le\lambda_0\le\cdots\le\lambda_{N-1}$. The tuple $\lambda=0$ contributes
+\[
+ q^{B_N}\prod_{i<N}a_i\cdot\Delta_N,
+ \qquad
+ \Delta_N=\prod_{d=1}^{N-1}(1-q^d)^{2(N-d)}.
+\]
+Reverse the shifts by setting $\mu_j=\lambda_{N-j}$ for $1\le j\le N$, so that
+$\mu_1\ge\mu_2\ge\cdots\ge\mu_N\ge0$ is a partition. Dividing the general
+summand by the displayed contribution leaves
+\[
+ W_N(\mu)=
+ q^{\sum_{j\le N}(2j-1)\mu_j}
+ \prod_{j\le N}\frac{a_{N-j+\mu_j}}{a_{N-j}}
+ \prod_{1\le j<k\le N}
+ \left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2,
+\]
+because the summand indexed by $(k_i)$ has $q$-exponent
+$B_N+\sum_i(2N-1-2i)\lambda_i$ and the weight $2N-1-2i$ becomes $2j-1$ under
+$i=N-j$. Thus $D_N/(q^{B_N}\Delta_N\prod_{i<N}a_i)=\sum_\mu W_N(\mu)$.
+
+Let $\ell$ be the length of $\mu$, that is, the number of positive parts. Only
+the indices $j\le\ell$ contribute a ratio different from $1$. For fixed
+$j\le\ell$ the partition is decreasing, so $k-j+\mu_j-\mu_k\ge k-j$ for every
+$k>j$; the numerators are at most $1$ and the denominators multiply to at least
+$P$. Each of the $\ell$ squared factors is therefore at most $P^{-2}$, and the
+weight ratios contribute at most $\prod_{j\le\ell}C(1+\mu_j)^\kappa$. Hence
+\[
+ W_N(\mu)\le(CP^{-2})^{\ell}
+ \prod_{j=1}^{\ell}(1+\mu_j)^\kappa q^{(2j-1)\mu_j}
+ \qquad\text{for every }N.
+\]
+Summing this majorant over all partitions of length exactly $\ell$, after
+dropping the ordering constraint on the positive parts, factorises it into
+\[
+ (CP^{-2})^{\ell}\prod_{j=1}^{\ell}
+ \sum_{u\ge1}(1+u)^\kappa q^{(2j-1)u}
+ \le C_q^{\ell}q^{\ell^2},
+ \qquad
+ C_q=CP^{-2}\sum_{u\ge1}(1+u)^\kappa q^{u-1},
+\]
+using $q^{(2j-1)u}\le q^{2j-1}q^{u-1}$ and $\sum_{j\le\ell}(2j-1)=\ell^2$. The
+resulting bound is summable in $\ell$, and it does not depend on $N$.
+
+For each fixed partition $\mu$, the weight ratios tend to $1$ as $N\to\infty$
+by the first hypothesis, and the Vandermonde quotient converges to the
+corresponding infinite product. The limit of $W_N(\mu)$ is therefore the same
+function of $\mu$ that the weights $a_k\equiv1$ produce, since those weights
+give ratio $1$ identically and leave the Vandermonde quotient unchanged.
+Dominated convergence over partitions now identifies
+$\lim_N\sum_\mu W_N(\mu)$ with the corresponding limit in the unit-weight case.
+
+For $a_k\equiv1$ the moments are $M_m=(1-q^{m+1})^{-1}$, and Cauchy's
+determinant evaluates
+\[
+ D_N=\frac{q^{B_N}\Delta_N}{\prod_{0\le i,j<N}(1-q^{i+j+1})}.
+\]
+The exponent of $1-q^m$ in that denominator is $\min(m,N,2N-m)$, which
+increases to $m$, so the denominator tends to $\mathcal M(q)^{-1}$ and the
+quotient $\sum_\mu W_N(\mu)$ tends to $\mathcal M(q)$. Finally
+\[
+ \frac{\Delta_N}{P^{2N}}
+ =\prod_{d<N}(1-q^d)^{-2d}\prod_{d\ge N}(1-q^d)^{-2N}
+ \longrightarrow\mathcal M(q)^2,
+\]
+because the logarithm of the second product is $O_q(Nq^N)$. Multiplying the two
+limits proves the theorem.
+\end{proof}
+
+The hypotheses hold for the actual weights $a_k=P^4\gamma_k$, and the reason is
+an exact algebraic identity. It also sharpens the comparison
+$(Q/3)c_k\le\gamma_k\le T(P^{-4}+P^{-6})c_k$ of the previous subsection to two
+explicit powers of $P$.
+
+\begin{proposition}[the moment weights as a product of two finite sums]
+\label{long1049:prop:rogers-factorisation}
+For $r\ge1$ and $k\ge0$ set
+\[
+ R_k^{(r)}(q)=\sum_{n_1+\cdots+n_r=k}
+ \frac{(q;q)_k}{\prod_{j\le r}(q;q)_{n_j}},
+\]
+the sum being over compositions into $r$ nonnegative parts, so that
+$R_k^{(r)}$ is the sum of all $q$-multinomial coefficients of degree $k$ and
+length $r$, equivalently the multivariate Rogers--Szeg\H{o} polynomial at unit
+arguments~\cite{vinroot2010}. These are polynomial identities in the
+indeterminate $q$; at a prime power, $r=2$ gives the Galois number counting
+the subspaces of a $k$-dimensional space over the field of that order, and
+$r=3$ counts the flags $V_1\subseteq V_2$ in that space. The source is cited
+for those identifications; the factorisation below is proved here. Then
+\[
+ \gamma_k(q)=\frac{R_k^{(2)}(q)R_k^{(3)}(q)}{(q;q)_k}.
+\]
+The product $R_k^{(2)}R_k^{(3)}$ lies in $\Z_{\ge0}[q]$, has degree
+$\lfloor k^2/4\rfloor+\lfloor k^2/3\rfloor$, and has coefficient sum $6^k$.
+Consequently $(q;q)_k\gamma_k\in\Z[q]$, and the weights
+$a_k=P^4\gamma_k$ satisfy
+\[
+ P^5c_k\le a_k\le P^{-1}c_k
+ \qquad(k\ge0),
+\]
+together with $a_{k+h}/a_k\le P^{-6}(1+h)^3$, so the hypotheses of
+Theorem~\ref{long1049:thm:geometric-universality} hold with $\kappa=3$.
+\end{proposition}
+
+\begin{proof}
+Write $\mathcal E(z)=(z;q)_\infty^{-1}$ and
+$\partial_qf(z)=(f(z)-f(qz))/z$, so that $\partial_q\mathcal E=\mathcal E$ and
+$\mathcal E(z)^r=\sum_{n\ge0}R_n^{(r)}z^n/(q;q)_n$ by Euler's expansion. The
+$q$-Leibniz rule, which follows by induction from the product rule, is
+\[
+ \partial_q^n(fg)(z)=\sum_{j=0}^n\genfrac{[}{]}{0pt}{}{n}{j}_q
+ (\partial_q^jf)(q^{n-j}z)\,(\partial_q^{n-j}g)(z).
+\]
+Write $h_k(z)=\sum_{j=0}^k\genfrac{[}{]}{0pt}{}{k}{j}_q(z;q)_j$. Applying the
+rule to $\mathcal E\cdot\mathcal E$ and using
+$\mathcal E(q^mz)=(z;q)_m\mathcal E(z)$ gives
+$\partial_q^k\mathcal E(z)^2=\mathcal E(z)^2h_k(z)$; at $k=1$ both sides are
+$\mathcal E(z)^2(2-z)$. Applying it once more, to
+$\mathcal E\cdot\mathcal E^2$, gives
+\[
+ \partial_q^n\mathcal E(z)^3
+ =\mathcal E(z)^3\sum_{k=0}^n\genfrac{[}{]}{0pt}{}{n}{k}_q(z;q)_kh_k(z),
+\]
+the power of $\mathcal E$ being $3$ and not $2$ here. Hence
+\[
+ \sum_{n\ge0}\frac{w^n}{(q;q)_n}\partial_q^n\mathcal E(z)^3
+ =\mathcal E(w)\mathcal E(z)^3
+  \sum_{k\ge0}\frac{w^k(z;q)_k}{(q;q)_k}h_k(z).
+\]
+Put $z=w$. On the left the coefficient of $w^n$ is
+$R_n^{(3)}\sum_{j\le n}\bigl((q;q)_j(q;q)_{n-j}\bigr)^{-1}
+=R_n^{(2)}R_n^{(3)}/(q;q)_n$. On the right, expand $h_k$ and set $k=j+t$; the
+inner sum is evaluated by the $q$-binomial theorem as
+\[
+ \sum_{t\ge0}\frac{(wq^j;q)_t}{(q;q)_t}w^t
+ =\frac{(w^2q^j;q)_\infty}{(w;q)_\infty},
+\]
+and the result is exactly $G_q(w)$. Every step holds coefficientwise, and
+absolutely for $|w|$ small.
+
+A $q$-multinomial coefficient has nonnegative integral coefficients, degree
+$\sum_{i<j}n_in_j$, and value $1$ at $q=1$ after division by the corresponding
+multinomial. Summing over compositions gives coefficient sum $r^k$ for
+$R_k^{(r)}$ and hence $6^k$ for the product. The degree is maximised by
+balanced parts, which gives $\lfloor k^2/4\rfloor$ for $r=2$ and
+$\lfloor k^2/3\rfloor$ for $r=3$; no leading cancellation occurs because all
+coefficients are nonnegative.
+
+For the bounds, write $b_k^{(r)}=[z^k](z;q)_\infty^{-r}$, so that
+$R_k^{(r)}=(q;q)_kb_k^{(r)}$ and
+$\gamma_k=(q;q)_kb_k^{(2)}b_k^{(3)}$. Euler's expansion exhibits $b_k^{(r)}$ as
+an $r$-fold convolution of the sequence $1/(q;q)_n$, whose terms lie in
+$[1,P^{-1}]$; the number of compositions of $k$ into $r$ nonnegative parts is
+$\binom{k+r-1}{r-1}$, so
+\[
+ \binom{k+r-1}{r-1}\le b_k^{(r)}\le P^{-r}\binom{k+r-1}{r-1}.
+\]
+Combining these at $r=2,3$ with $P\le(q;q)_k\le1$ and
+$c_k=(k+1)\binom{k+2}2$ gives $P^5c_k\le a_k\le P^{-1}c_k$. The shift bound
+follows from $c_{k+h}/c_k\le(1+h)^3$.
+\end{proof}
+
+Only one analytic input is still missing, namely the behaviour of $a_k/c_k$ to
+second order. It is supplied by the two leading coefficients of $G_q$ at its
+singularity $w=1$.
+
+\begin{theorem}[the size of $V_N^*$ at a fixed base]
+\label{long1049:thm:sharp-fixed-base}
+Let $\gamma_{\!E}$ be Euler's constant. The product
+\[
+ \mathcal A(q)=e^{-8\gamma_{\!E}L}
+ \prod_{k\ge0}\left(\frac{a_k}{c_k}\,e^{8L/(k+1)}\right)
+\]
+converges to a positive finite value. With $K(q)=\mathcal A(q)\mathcal M(q)^3$,
+\[
+ V_N^*(q)\sim K(q)\,C_Nq^{B_N}P^{2N}N^{-8L},
+\]
+equivalently
+\[
+ \log V_N^*(q)=B_N\log q+\log C_N+2N\log P-8L\log N+\log K(q)+o(1).
+\]
+\end{theorem}
+
+\begin{proof}
+Write $\Pi(w)=(qw;q)_\infty$, so that $(w;q)_\infty=(1-w)\Pi(w)$, and for
+$t\ge1$ put
+\[
+ f_t(w)=\frac{(q^tw^2;q)_\infty}{(q;q)_t(q^tw;q)_\infty^2},
+ \qquad
+ \mathcal S(w)=\sum_{t\ge1}w^t\bigl(f_t(w)-P^{-1}\bigr).
+\]
+On each compact subset of $|w|<q^{-1}$ the bracket is $O_q(q^t)$ uniformly, so
+$\mathcal S$ is analytic there. Separating the summand $t=0$, whose
+denominator carries the factor $(1-w)^2$, and subtracting the constant part of
+the remaining summands gives
+\[
+ \mathcal D(w):=P^4(1-w)^4G_q(w)
+ =\frac{P^4}{\Pi(w)^3}
+ \left((1+w)\frac{(qw^2;q)_\infty}{\Pi(w)^2}+\frac wP
+       +(1-w)\mathcal S(w)\right).
+\]
+Hence $\mathcal D$ is analytic on a disc of radius greater than $1$.
+
+At $w=1$ one has $\Pi(1)=P$ and $\Pi'(1)/\Pi(1)=-L$, since
+$\Pi'/\Pi=-\sum_{j\ge1}q^j/(1-q^jw)$. Also $(qw^2;q)_\infty$ equals $P$ at
+$w=1$, and the logarithmic derivative of $(qw^2;q)_\infty/\Pi(w)^2$ at $w=1$ is
+$-2L+2L=0$. Therefore the bracket has value $3/P$ and derivative $(2-L)/P$
+at $w=1$; here $\mathcal S(1)=L/P$, because
+$f_t(1)=\bigl(P(1-q^t)\bigr)^{-1}$ and
+$\sum_{t\ge1}\bigl((1-q^t)^{-1}-1\bigr)=L$. Combining with the factor
+$P^4\Pi^{-3}$, whose logarithmic derivative at $1$ is $3L$, gives
+\[
+ \mathcal D(1)=3,\qquad
+ \mathcal D'(1)=3\left(3L+\frac{2-L}3\right)=2+8L.
+\]
+Subtracting the principal part of $\mathcal D(w)(1-w)^{-4}$ at $w=1$ leaves a
+function analytic on a larger disc, so
+\[
+ a_k=3\binom{k+3}3-(2+8L)\binom{k+2}2+O_q(k),
+ \qquad
+ \frac{a_k}{c_k}=1-\frac{8L}{k+1}+O_q\bigl((k+1)^{-2}\bigr),
+\]
+the second line because $3\binom{k+3}3=c_k(k+3)/(k+1)$ and
+$\binom{k+2}2=c_k/(k+1)$.
+
+Consequently $\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})$, which is summable, so
+$\mathcal A(q)$ converges; it is positive because every factor is. Since
+$\sum_{k<N}(k+1)^{-1}=\log N+\gamma_{\!E}+o(1)$,
+\[
+ \prod_{k<N}a_k\sim\mathcal A(q)\,C_NN^{-8L}.
+\]
+Proposition~\ref{long1049:prop:rogers-factorisation} supplies the uniform shift
+bound and the last expansion supplies the fixed-shift limit, so
+Theorem~\ref{long1049:thm:geometric-universality} applies to $(a_k)$ and gives
+$V_N^*\sim\mathcal M(q)^3q^{B_N}P^{2N}\prod_{k<N}a_k$. Substituting the product
+asymptotic proves both displays.
+\end{proof}
+
+\paragraph{What the sharp estimate settles, and what it leaves.}
+The positive-measure argument of the previous subsection had recorded this
+shape as a candidate without its constant. The proof, the limiting Gram factor
+$\mathcal M(q)^3$ and the convergent expression for the constant are supplied
+here. The estimate replaces the band $O_q(N)$ by the explicit terms
+$2N\log P$, $-8F(1/q)\log N$ and the constant $\log K(q)$, with an $o(1)$
+error, and the weights now have an exact finite description rather than an
+infinite-product representation alone.
+
+The cubic exponent of $q$ is untouched, and so is every prime-power valuation.
+At $3/2$ the deficit is unchanged and is exactly
+\[
+ \frac{39}{41}\bigl(4N^3-3N^2\bigr)-\bigl(2N^3-N\bigr)
+ =\frac{N(74N^2-117N+41)}{41}>0\qquad(N\ge2),
+\]
+the positivity being immediate from
+$74N^2-117N+41=74(N-2)^2+179(N-2)+103$. Its leading size is $(74/41)N^3$, so no
+estimate that leaves the cubic coefficient alone can close it. The finite
+factorisation describes the same weights in a new way; it does not license
+substituting their denominator for the denominator of a cleared linear form.
 
 
 \subsection{Coefficient moments and cyclotomic content}
@@ -3560,6 +3871,69 @@ They follow by applying the one-dimensional calculation to each summand
 $d_i\Z$. Polynomial coefficient content alone does not determine either
 integer Smith invariant after specialisation.
 
+\paragraph{The lattice spanned by the actual tails.}
+The formulas above apply to any rank-two lattice. For the rows that the
+approximation problem actually supplies, the invariant can be computed
+outright, and it is the smallest one compatible with the base. Let $a>b\ge1$ be
+coprime, write the partial sum $S_m(b/a)=\sum_{r\le m}(b/a)^r/(1-(b/a)^r)$ in
+lowest terms as $P_m/Q_m$ with $Q_m>0$, and set $P_0=0$, $Q_0=1$. The primitive
+integer row of the $m$th tail is $(Q_m,P_m)$, which represents
+$Q_mF(a/b)-P_m$.
+
+\begin{proposition}[the prefix lattice of the tails]
+\label{long1049:res:tail-lattice}
+Every $Q_m$ is coprime to $ab$, and $b$ divides every $P_m$. For every prefix
+containing $m=0$ and $m=1$,
+\[
+ \operatorname{span}_{\Z}\{(Q_m,P_m):0\le m<M\}=\Z\times b\Z
+ \qquad(M\ge2),
+\]
+so the Smith invariants are $1,b$, the gcd of the $2\times2$ minors is $b$, and
+the image modulo $D$ has cardinality $D^2/\gcd(b,D)$. Multiplying an individual
+tail by a nonzero rational weight leaves its primitive row unchanged up to
+sign.
+\end{proposition}
+
+\begin{proof}
+A common denominator of $S_m(b/a)$ is a product of the integers $a^r-b^r$ for
+$r\le m$, each coprime to $ab$; over that denominator every summand has
+numerator divisible by $b^r$. Reduction to lowest terms removes no prime factor
+of $b$, which gives the first two assertions. The rows at $m=0,1$ are $(1,0)$
+and $(a-b,b)$, and subtracting $a-b$ copies of the first from the second gives
+$(0,b)$; every later row already lies in $\Z\times b\Z$ by the first
+assertions. The Smith and image statements are the specialisation of the
+formulas above at $g=b$. Finally the rational line through a primitive pair
+meets $\Z^2$ in exactly the multiples of that pair, so clearing denominators in
+a nonzero rational multiple and dividing by the coordinate gcd returns the same
+pair up to sign.
+\end{proof}
+
+At $3/2$ the first three partial sums are $0$, $2$ and $14/5$, with rows
+$(1,0)$, $(1,2)$ and $(5,14)$. Their span is already $\Z\times2\Z$. There is no
+three-adic collapse, and the only local saving is the single factor of two that
+the image formula displays. For a window beginning at $m=s$ the corresponding
+statement is that every pairwise minor is divisible by $b^{s+1}$, with the
+valuation of the gcd equal to $(s+1)v_p(b)$ at each prime $p\mid b$ and equal
+to zero at each prime $p\mid a$. The adjacent-row identity
+\[
+ Q_sP_{s+1}-P_sQ_{s+1}
+ =\frac{Q_sQ_{s+1}b^{s+1}}{a^{s+1}-b^{s+1}}
+\]
+attains both, since its denominator is a unit at every prime dividing $ab$.
+
+The consequence for the construction problem is a restriction on one
+operation, and only on that one. Rescaling the individual tails and then taking
+integer combinations stays inside $\Z\times b\Z$, so it leaves the minor gcd
+and the endpoint valuations exactly as above. Rational combinations are a
+different matter and do leave that lattice: at $3/2$ the half-sum of the rows
+$(1,0)$ and $(1,2)$ is the primitive row $(1,1)$, whose minor against $(1,0)$
+is $1$. What such a combination costs is a denominator in the coefficients,
+which the proposition does not measure, so escaping the lattice this way is not
+by itself a saving. A genuinely improved system needs primitive rows of a
+different provenance, whose minors carry extra valuation and whose divided
+remainders are still nonzero and small.
+
+
 
 \subsection{Estimating the divided remainder}
 
@@ -4370,8 +4744,14 @@ separately. The introduction locates the principal arguments.
   \emph{Calculation of Gauss Quadrature Rules}, Math. Comp. \textbf{23}
   (1969), no.~106, 221--230,
   doi:\href{https://doi.org/10.1090/S0025-5718-69-99647-1}{10.1090/S0025-5718-69-99647-1}.
+\bibitem{vinroot2010} C.~R. Vinroot,
+  \href{https://arxiv.org/abs/1011.0984}{\emph{Multivariate Rogers--Szeg\H{o}
+  polynomials and flags in finite vector spaces}}, arXiv:1011.0984v1,
+  3 November 2010, abstract accessed 20 September 2026.  Cited for the
+  identification of the sum of all $q$-multinomial coefficients of fixed
+  degree and length with a flag count, and for its recursion generalising the
+  Galois numbers.  The factorisation of the moment weights is proved here.
 \end{thebibliography}
-
 % ---- part family_catalogue ----
 % ---- part back ----
 \end{document}

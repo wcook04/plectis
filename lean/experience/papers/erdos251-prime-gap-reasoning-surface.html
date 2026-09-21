@@ -67,22 +67,26 @@ in lowest terms. The notation
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">dist</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{dist}(x,\mathbb{Z})</annotation></semantics></math>
 means the distance from
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
-to the nearest integer. A rational or real number is when it belongs to
+to the nearest integer. A rational or real number is <em>integral</em>
+when it belongs to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>.
 A sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_n)</annotation></semantics></math>
-is when
+is <em>eventually periodic with period
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h\ge1</annotation></semantics></math></em>
+when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>=</mo><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">a_{n+h}=a_n</annotation></semantics></math>
 for every sufficiently large
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
 A set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mi mathvariant="double-struck">ℕ</mi></mrow><annotation encoding="application/x-tex">A\subseteq\mathbb{N}</annotation></semantics></math>
-has when
+has <em>density zero</em> when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>A</mi><mo>∩</mo><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>,</mo><mi>x</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|A\cap[1,x]|=o(x)</annotation></semantics></math>,
-and a property holds for indices when its exceptional set has density
-zero. A sum over an empty range of indices is zero. A property holds
-when it holds at arbitrarily large indices; this does not imply that
-those indices have positive density.</p>
+and a property holds for <em>almost all</em> indices when its
+exceptional set has density zero. A sum over an empty range of indices
+is zero. A property holds <em>cofinally</em> when it holds at
+arbitrarily large indices; this does not imply that those indices have
+positive density.</p>
 </section>
 </section>
 <section id="long251:sec:paired-corrections" class="level2">
@@ -248,7 +252,7 @@ two successive powers of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>.
 Those differences will telescope in the interval argument. All these
 parameters will be chosen before the target.</p>
-<p>Let
+<p><em>Preserving the congruences.</em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>j</mi></msub><annotation encoding="application/x-tex">C_j</annotation></semantics></math>
 denote the cumulative correction before the triple at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>j</mi></msub><annotation encoding="application/x-tex">n_j</annotation></semantics></math>.
@@ -320,8 +324,9 @@ The first residue correction need not itself be divisible by
 and its coordinate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>J</mi></msub><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_J-1</annotation></semantics></math>
 is deliberately outside this eventual range.</p>
-<p>The factorial modulus must grow to include every divisor, and the
-spacing must grow to make the support sparse. Since
+<p><em>Keeping the corrections small and sparse.</em> The factorial
+modulus must grow to include every divisor, and the spacing must grow to
+make the support sparse. Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 need not be monotone, we first replace it by a nondecreasing lower
 bound. Define
@@ -387,8 +392,9 @@ take the supremum over interval positions, then let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">L\to\infty</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">H\to\infty</annotation></semantics></math>.</p>
-<p>The preceding choices satisfy the size and congruence requirements.
-We now show that their weighted sums have no gaps. Put
+<p><em>Filling an interval.</em> The preceding choices satisfy the size
+and congruence requirements. We now show that their weighted sums have
+no gaps. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub><mo>=</mo><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>j</mi></msub><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">w_j=M_j2^{-n_j-2}</annotation></semantics></math>
 and
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>j</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>≥</mo><mi>j</mi></mrow></munder><msub><mi>D</mi><mi>i</mi></msub><msub><mi>w</mi><mi>i</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><mi>β</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>0</mn></mrow></munder><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>c</mi><mi>j</mi></msub><msup><mn>2</mn><mrow><mi>−</mi><msub><mi>n</mi><mi>j</mi></msub></mrow></msup><mo>+</mo><msub><mi>D</mi><mi>j</mi></msub><msub><mi>w</mi><mi>j</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">F_j=\sum_{i\ge j}D_iw_i,\qquad
@@ -463,8 +469,8 @@ is used. Equation  therefore realises every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
 in the fixed interval
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>+</mo><mi>β</mi><mo>,</mo><mi>A</mi><mo>+</mo><mi>β</mi><mo>+</mo><msub><mi>F</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>⊂</mo><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I=(A+\beta,A+\beta+F_0)\subset(A,\infty)</annotation></semantics></math>.</p>
-<p>The spacing controls how many coordinates are changed, whereas the
-product
+<p><em>Preserving growing blocks.</em> The spacing controls how many
+coordinates are changed, whereas the product
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>j</mi></msub><msup><mn>2</mn><msub><mi>s</mi><mi>j</mi></msub></msup></mrow><annotation encoding="application/x-tex">M_j2^{s_j}</annotation></semantics></math>
 controls their size. For a prescribed
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon&gt;0</annotation></semantics></math>,
@@ -942,7 +948,7 @@ consecutive gaps used by our tail criteria. We do not infer the required
 estimates for growing blocks from these results or from a
 fixed-dimensional limit theorem.</p>
 <p>At the cited revision, Problem #251 appears as an unproved statement
-in the repository <span class="citation"
+in the <em>Formal Conjectures</em> repository <span class="citation"
 data-cites="formalconjectures251"><a href="#ref-25">[25]</a></span>. Its zero-based Lean sum
 starts with the zeroth prime over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>0</mn></msup><annotation encoding="application/x-tex">2^0</annotation></semantics></math>,
@@ -962,9 +968,9 @@ be nonperiodic and have a rational dyadic sum, as Proposition 
 illustrates. A different classical approach uses the growth of
 denominators in series of unit fractions. Erdős and Straus named a sum
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>k</mi></msub><mn>1</mn><mi>/</mi><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\sum_k 1/a_k</annotation></semantics></math>
-over a strictly increasing sequence of positive integers an  <span
-class="citation" data-cites="erdosstraus1963"></span>; for such a series
-the condition
+over a strictly increasing sequence of positive integers an <em>Ahmes
+series</em> <span class="citation" data-cites="erdosstraus1963"><a href="#ref-6">[6]</a></span>;
+for such a series the condition
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>k</mi><mrow><mn>1</mn><mi>/</mi><msup><mn>2</mn><mi>k</mi></msup></mrow></msubsup><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">a_k^{1/2^k}\to\infty</annotation></semantics></math>
 is sufficient for irrationality. Its growth scale is sharp: replacing
 divergence by a sufficiently large fixed lower threshold does not
@@ -1191,7 +1197,7 @@ or
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="double-struck">ℕ</mi><mo>→</mo><mi mathvariant="double-struck">ℝ</mi></mrow><annotation encoding="application/x-tex">T:\mathbb{N}\to\mathbb{R}</annotation></semantics></math>.
 Say
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
-satisfies the with
+satisfies the <em>dyadic tail recurrence</em> with <em>coefficients</em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
 when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>T</mi><mi>N</mi></msub><mo>−</mo><msub><mi>g</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">T_{N+1}=2T_N-g_{N+1}</annotation></semantics></math>
@@ -1199,11 +1205,11 @@ for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
 Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>T</mi><mrow><mi>N</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>−</mo><msub><mi>T</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_h(N)=T_{N+h}-T_N</annotation></semantics></math>
-for the of length
+for the <em>shift</em> of length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
 at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
-and call a real number when it belongs to
+and call a real number <em>integral</em> when it belongs to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="double-struck">ℤ</mi><annotation encoding="application/x-tex">\mathbb{Z}</annotation></semantics></math>.</em></p>
 </div>
 <p>For a complete-tail example, take
@@ -2285,7 +2291,8 @@ for almost all
 class="citation" data-cites="schlagepuchta2011"></span>. Say that an
 integer sequence
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
-has when it satisfies that conclusion for every
+has <em>fixed-block nonconcentration</em> when it satisfies that
+conclusion for every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k\ge0</annotation></semantics></math>
 and every nonzero
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo stretchy="false" form="prefix">[</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>x</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">F\in\mathbb{Z}[x_0,\ldots,x_k]</annotation></semantics></math>.
@@ -2900,7 +2907,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>b</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">b_{n+1}-b_{n-1}\le2</annotation></semantics></math>.
 Call an index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-when
+<em>special</em> when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>k</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n=k!</annotation></semantics></math>
 or
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mspace width="0.167em"></mspace><mi>k</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n=2\,k!</annotation></semantics></math>
@@ -4992,50 +4999,65 @@ exclusions do not establish that conclusion.</p>
 <h2 class="unnumbered">References</h2>
 <ol>
 <li id="ref-1"><p>Paul Erdős, <a
-href="https://users.renyi.hu/~p_erdos/1958-19.pdf"></a>. L’Enseignement
-Mathématique <strong>4</strong> (1958), 93–100, doi:<a
+href="https://users.renyi.hu/~p_erdos/1958-19.pdf"><em>Sur certaines
+séries à valeur irrationnelle</em></a>. L’Enseignement Mathématique
+<strong>4</strong> (1958), 93–100, doi:<a
 href="https://doi.org/10.5169/seals-34629">10.5169/seals-34629</a>.</p></li>
 <li id="ref-2"><p>Paul Erdős and Ronald L. Graham, <a
-href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"></a>.
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
+and New Problems and Results in Combinatorial Number Theory</em></a>.
 Monographies de L’Enseignement Mathématique, L’Enseignement
 Mathématique, 1980.</p></li>
 <li id="ref-3"><p>Paul Erdős and Carl Pomerance, <a
-href="https://doi.org/10.1007/BF01818569"></a>. Aequationes Mathematicae
-<strong>17</strong> (1978), 311–321, doi:<a
+href="https://doi.org/10.1007/BF01818569"><em>On the largest prime
+factors of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n+1</annotation></semantics></math></em></a>.
+Aequationes Mathematicae <strong>17</strong> (1978), 311–321, doi:<a
 href="https://doi.org/10.1007/BF01818569">10.1007/BF01818569</a>.</p></li>
 <li id="ref-4"><p>Paul Erdős, <a
-href="https://doi.org/10.1017/CBO9780511897184.009"></a>. New Advances
-in Transcendence Theory, Cambridge University Press, 1988, pp. 102–109,
-doi:<a
+href="https://doi.org/10.1017/CBO9780511897184.009"><em>On the
+irrationality of certain series: problems and results</em></a>. New
+Advances in Transcendence Theory, Cambridge University Press, 1988,
+pp. 102–109, doi:<a
 href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
 <li id="ref-5"><p>Paul Erdős, <a
-href="https://users.renyi.hu/~p_erdos/1932-01.pdf"></a>. Acta Litterarum
-ac Scientiarum Szeged <strong>5</strong> (1932), 194–198.</p></li>
-<li id="ref-6"><p>Paul Erdős and Ernst G. Straus, . Journal of the Indian
-Mathematical Society (N.S.) <strong>27</strong> (1964), 129–133.
-MR0175848.</p></li>
+href="https://users.renyi.hu/~p_erdos/1932-01.pdf"><em>Beweis eines
+Satzes von Tschebyschef</em></a>. Acta Litterarum ac Scientiarum Szeged
+<strong>5</strong> (1932), 194–198.</p></li>
+<li id="ref-6"><p>Paul Erdős and Ernst G. Straus, <em>On the irrationality of
+certain Ahmes series</em>. Journal of the Indian Mathematical Society
+(N.S.) <strong>27</strong> (1964), 129–133. MR0175848.</p></li>
 <li id="ref-7"><p>Paul Erdős and Ernst G. Straus, <a
-href="https://doi.org/10.2140/pjm.1974.55.85"></a>. Pacific Journal of
-Mathematics <strong>55</strong> (1974), no. 1, 85–92, doi:<a
+href="https://doi.org/10.2140/pjm.1974.55.85"><em>On the irrationality
+of certain series</em></a>. Pacific Journal of Mathematics
+<strong>55</strong> (1974), no. 1, 85–92, doi:<a
 href="https://doi.org/10.2140/pjm.1974.55.85">10.2140/pjm.1974.55.85</a>.</p></li>
 <li id="ref-8"><p>Kevin Ford, Ben Green, Sergei Konyagin, James Maynard and Terence
-Tao, <a href="https://arxiv.org/abs/1412.5029v3"></a>. Journal of the
-American Mathematical Society <strong>31</strong> (2018), 65–105, doi:<a
+Tao, <a href="https://arxiv.org/abs/1412.5029v3"><em>Long gaps between
+primes</em></a>. Journal of the American Mathematical Society
+<strong>31</strong> (2018), 65–105, doi:<a
 href="https://doi.org/10.1090/jams/876">10.1090/jams/876</a>; arXiv:<a
 href="https://arxiv.org/abs/1412.5029v3">1412.5029v3</a>.</p></li>
 <li id="ref-9"><p>John A. Fridy, <a
-href="https://www.fq.math.ca/Scanned/4-3/fridy.pdf"></a>. The Fibonacci
-Quarterly <strong>4</strong> (1966), no. 3, 193–201.</p></li>
-<li id="ref-10"><p>A. Ya. Khinchin, . University of Chicago Press, 1964.</p></li>
+href="https://www.fq.math.ca/Scanned/4-3/fridy.pdf"><em>Generalized
+bases for the real numbers</em></a>. The Fibonacci Quarterly
+<strong>4</strong> (1966), no. 3, 193–201.</p></li>
+<li id="ref-10"><p>A. Ya. Khinchin, <em>Continued Fractions</em>. University of
+Chicago Press, 1964.</p></li>
 <li id="ref-11"><p>Vjekoslav Kovač and Terence Tao, <a
-href="https://arxiv.org/abs/2406.17593v4"></a>. Acta Mathematica
-Hungarica <strong>175</strong> (2025), 572–608, doi:<a
+href="https://arxiv.org/abs/2406.17593v4"><em>On several irrationality
+problems for Ahmes series</em></a>. Acta Mathematica Hungarica
+<strong>175</strong> (2025), 572–608, doi:<a
 href="https://doi.org/10.1007/s10474-025-01528-0">10.1007/s10474-025-01528-0</a>;
 arXiv:<a href="https://arxiv.org/abs/2406.17593v4">2406.17593v4</a>.
 Statement and section numbers refer to arXiv version 4.</p></li>
 <li id="ref-12"><p>Vivian Kuperberg, <a
-href="https://arxiv.org/abs/2210.09775v2"></a>. The Quarterly Journal of
-Mathematics <strong>74</strong> (2023), no. 4, 1457–1479, doi:<a
+href="https://arxiv.org/abs/2210.09775v2"><em>Sums of singular series
+with large sets and the tail of the distribution of primes</em></a>. The
+Quarterly Journal of Mathematics <strong>74</strong> (2023), no. 4,
+1457–1479, doi:<a
 href="https://doi.org/10.1093/qmath/haad030">10.1093/qmath/haad030</a>;
 arXiv:<a href="https://arxiv.org/abs/2210.09775v2">2210.09775v2</a>.
 Statement numbers refer to arXiv version 2, 15 June 2023.</p></li>
@@ -5047,33 +5069,39 @@ under a uniform Hardy–Littlewood prime-tuples conjecture</em></a>.
 Research draft, 5 September 2026. Formalisation material accompanies the
 draft.</p></li>
 <li id="ref-14"><p>Leonardo de Moura and Sebastian Ullrich, <a
-href="https://doi.org/10.1007/978-3-030-79876-5_37"></a>. Automated
-Deduction – CADE 28, Lecture Notes in Computer Science, Springer, 2021,
-pp. 625–635, doi:<a
+href="https://doi.org/10.1007/978-3-030-79876-5_37"><em>The Lean 4
+theorem prover and programming language</em></a>. Automated Deduction –
+CADE 28, Lecture Notes in Computer Science, Springer, 2021, pp. 625–635,
+doi:<a
 href="https://doi.org/10.1007/978-3-030-79876-5_37">10.1007/978-3-030-79876-5_37</a>.</p></li>
 <li id="ref-15"><p><span>The mathlib Community</span>, <a
-href="https://doi.org/10.1145/3372885.3373824"></a>. Proceedings of the
-9th ACM SIGPLAN International Conference on Certified Programs and
-Proofs, ACM, 2020, pp. 367–381, doi:<a
+href="https://doi.org/10.1145/3372885.3373824"><em>The Lean mathematical
+library</em></a>. Proceedings of the 9th ACM SIGPLAN International
+Conference on Certified Programs and Proofs, ACM, 2020, pp. 367–381,
+doi:<a
 href="https://doi.org/10.1145/3372885.3373824">10.1145/3372885.3373824</a>.
 Describes a Lean 3-era snapshot; the repository lock identifies the
 library used by the present Lean 4 sources.</p></li>
 <li id="ref-16"><p>James Maynard, <a
-href="https://doi.org/10.4007/annals.2015.181.1.7"></a>. Annals of
-Mathematics <strong>181</strong> (2015), 383–413, doi:<a
+href="https://doi.org/10.4007/annals.2015.181.1.7"><em>Small gaps
+between primes</em></a>. Annals of Mathematics <strong>181</strong>
+(2015), 383–413, doi:<a
 href="https://doi.org/10.4007/annals.2015.181.1.7">10.4007/annals.2015.181.1.7</a>.</p></li>
 <li id="ref-17"><p>Hugh L. Montgomery and Robert C. Vaughan, <a
-href="https://doi.org/10.1017/CBO9780511618314"></a>. Cambridge Studies
-in Advanced Mathematics, Cambridge University Press, 2007, doi:<a
+href="https://doi.org/10.1017/CBO9780511618314"><em>Multiplicative
+Number Theory I: Classical Theory</em></a>. Cambridge Studies in
+Advanced Mathematics, Cambridge University Press, 2007, doi:<a
 href="https://doi.org/10.1017/CBO9780511618314">10.1017/CBO9780511618314</a>.</p></li>
 <li id="ref-18"><p>Jan-Christoph Schlage-Puchta, <a
-href="https://arxiv.org/abs/1105.1451v1"></a>. Acta Arithmetica
+href="https://arxiv.org/abs/1105.1451v1"><em>The irrationality of some
+number theoretical series</em></a>. Acta Arithmetica
 <strong>126</strong> (2007), no. 4, 295–303, doi:<a
 href="https://doi.org/10.4064/aa126-4-1">10.4064/aa126-4-1</a>; arXiv:<a
 href="https://arxiv.org/abs/1105.1451v1">1105.1451v1</a>. Published in
 2007; arXiv upload is from 2011. Lemma and preprint page locators refer
 to arXiv version 1.</p></li>
-<li id="ref-19"><p>Ian Short, <a href="https://arxiv.org/abs/0912.1997v1"></a>. The
+<li id="ref-19"><p>Ian Short, <a href="https://arxiv.org/abs/0912.1997v1"><em>Ford
+Circles, Continued Fractions, and Rational Approximation</em></a>. The
 American Mathematical Monthly <strong>118</strong> (2011), no. 2,
 130–135, doi:<a
 href="https://doi.org/10.4169/amer.math.monthly.118.02.130">10.4169/amer.math.monthly.118.02.130</a>;
@@ -5082,14 +5110,16 @@ Preprint title: Ford circles, continued fractions, and best
 approximation of the second kind. Preprint theorem locators refer to
 arXiv version 1.</p></li>
 <li id="ref-20"><p>Wouter van Doorn and Vjekoslav Kovač, <a
-href="https://arxiv.org/abs/2509.24971v3"></a>. Acta Arithmetica
-<strong>223</strong> (2026), 275–295, doi:<a
+href="https://arxiv.org/abs/2509.24971v3"><em>Lacunary sequences whose
+reciprocal sums represent all rational numbers in an interval</em></a>.
+Acta Arithmetica <strong>223</strong> (2026), 275–295, doi:<a
 href="https://doi.org/10.4064/aa251001-13-1">10.4064/aa251001-13-1</a>;
 arXiv:<a href="https://arxiv.org/abs/2509.24971v3">2509.24971v3</a>.
 Statement numbers refer to arXiv version 3.</p></li>
 <li id="ref-21"><p>Yitang Zhang, <a
-href="https://doi.org/10.4007/annals.2014.179.3.7"></a>. Annals of
-Mathematics <strong>179</strong> (2014), 1121–1174, doi:<a
+href="https://doi.org/10.4007/annals.2014.179.3.7"><em>Bounded gaps
+between primes</em></a>. Annals of Mathematics <strong>179</strong>
+(2014), 1121–1174, doi:<a
 href="https://doi.org/10.4007/annals.2014.179.3.7">10.4007/annals.2014.179.3.7</a>.</p></li>
 <li id="ref-22"><p>Thomas F. Bloom, <a
 href="https://www.erdosproblems.com/251"><em>Erdős Problem
@@ -5106,7 +5136,7 @@ the Erdős problem #251</em></a>. Unpublished note, Department of
 Mathematics, University of Zagreb, 2026. Accessed 6 September
 2026.</p></li>
 <li id="ref-25"><p><span>The Formal Conjectures Authors</span>, <a
-href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/251.lean"></a>.
+href="https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/251.lean"><em>FormalConjectures.ErdosProblems.251</em></a>.
 2025. Pinned statement source, not a proof of Problem 251; accessed 28
 July 2026.</p></li>
 <li id="ref-26"><p>Stefan Ringer, <a
@@ -5117,85 +5147,100 @@ main-branch TeX consulted 16 September 2026; the cited conditional
 statements were rechecked 18 September 2026. Formalisation material
 accompanies the draft.</p></li>
 <li id="ref-27"><p>Tonći Crmarić and Vjekoslav Kovač, <a
-href="https://arxiv.org/abs/2504.18712v1"></a>. Colloquium Mathematicum
-<strong>179</strong> (2025), 55–68, doi:<a
+href="https://arxiv.org/abs/2504.18712v1"><em>On the irrationality of
+certain super-polynomially decaying series</em></a>. Colloquium
+Mathematicum <strong>179</strong> (2025), 55–68, doi:<a
 href="https://doi.org/10.4064/cm9628-5-2025">10.4064/cm9628-5-2025</a>;
 arXiv:<a href="https://arxiv.org/abs/2504.18712v1">2504.18712v1</a>.
 Lemma 4 is cited using arXiv version 1.</p></li>
 <li id="ref-28"><p>Boris Adamczewski, Michael Drmota and Clemens Müllner, <a
-href="https://arxiv.org/abs/2009.14773v2"></a>. Transactions of the
-American Mathematical Society <strong>375</strong> (2022), no. 1,
+href="https://arxiv.org/abs/2009.14773v2"><em>(Logarithmic) densities
+for automatic sequences along primes and squares</em></a>. Transactions
+of the American Mathematical Society <strong>375</strong> (2022), no. 1,
 455–499, doi:<a
 href="https://doi.org/10.1090/tran/8476">10.1090/tran/8476</a>; arXiv:<a
 href="https://arxiv.org/abs/2009.14773v2">2009.14773v2</a>. Theorems 1.2
 and 1.4 refer to arXiv version 2, 13 April 2021; journal publication is
 2022.</p></li>
 <li id="ref-29"><p>Wouter van Doorn, <a
-href="https://arxiv.org/abs/2502.02200v2"></a>. 2025; arXiv:<a
+href="https://arxiv.org/abs/2502.02200v2"><em>Partitions with prescribed
+sum of reciprocals: asymptotic bounds</em></a>. 2025; arXiv:<a
 href="https://arxiv.org/abs/2502.02200v2">2502.02200v2</a>. Version 2,
 23 July 2025.</p></li>
 <li id="ref-30"><p>Szymon G<span>ł</span>ąb and Franciszek Prus-Wiśniowski, <a
-href="https://arxiv.org/abs/2512.17285v1"></a>. Real Analysis Exchange
-(2026), doi:<a
+href="https://arxiv.org/abs/2512.17285v1"><em>Achievement sets – current
+results and open problems</em></a>. Real Analysis Exchange (2026),
+doi:<a
 href="https://doi.org/10.14321/realanalexch.1766383782">10.14321/realanalexch.1766383782</a>;
 arXiv:<a href="https://arxiv.org/abs/2512.17285v1">2512.17285v1</a>.
 Advance publication, first available in Project Euclid 8 June 2026.
 Consulted text remains arXiv:2512.17285v1 (19 December 2025).</p></li>
 <li id="ref-31"><p>Franciszek Prus-Wiśniowski and Jolanta Ptak, <a
-href="https://arxiv.org/abs/2412.08768v1"></a>. 2024; arXiv:<a
+href="https://arxiv.org/abs/2412.08768v1"><em>Achievable Cantorvals
+almost without reversed Kakeya conditions</em></a>. 2024; arXiv:<a
 href="https://arxiv.org/abs/2412.08768v1">2412.08768v1</a>. Version 1
 submitted 11 December 2024. The sparse indices satisfy the overlap
 inequality, not its strict term-dominating reverse.</p></li>
 <li id="ref-32"><p>Artur Bartoszewicz, Ma<span>ł</span>gorzata Filipczak and Emilia
-Szymonik, <a href="https://arxiv.org/abs/1304.4218v2"></a>. Central
-European Journal of Mathematics <strong>12</strong> (2014), no. 7,
-1000–1007, doi:<a
+Szymonik, <a href="https://arxiv.org/abs/1304.4218v2"><em>Multigeometric
+sequences and Cantorvals</em></a>. Central European Journal of
+Mathematics <strong>12</strong> (2014), no. 7, 1000–1007, doi:<a
 href="https://doi.org/10.2478/s11533-013-0396-4">10.2478/s11533-013-0396-4</a>;
 arXiv:<a
 href="https://arxiv.org/abs/1304.4218v2">1304.4218v2</a>.</p></li>
 <li id="ref-33"><p>Vivian Kuperberg, <a
-href="https://arxiv.org/abs/2301.06095v1"></a>. International Journal of
-Number Theory <strong>21</strong> (2025), no. 1, 53–74, doi:<a
+href="https://arxiv.org/abs/2301.06095v1"><em>Sums of singular series
+along arithmetic progressions and with smooth weights</em></a>.
+International Journal of Number Theory <strong>21</strong> (2025),
+no. 1, 53–74, doi:<a
 href="https://doi.org/10.1142/S1793042125500046">10.1142/S1793042125500046</a>;
 arXiv:<a href="https://arxiv.org/abs/2301.06095v1">2301.06095v1</a>.
 Preprint uploaded 15 January 2023; journal publication is 2025.</p></li>
-<li id="ref-34"><p>Abhishek Jha, <a href="https://arxiv.org/abs/2605.23014v2"></a>.
-2026; arXiv:<a
+<li id="ref-34"><p>Abhishek Jha, <a
+href="https://arxiv.org/abs/2605.23014v2"><em>The Poisson Tail
+Conjecture for primes in short intervals</em></a>. 2026; arXiv:<a
 href="https://arxiv.org/abs/2605.23014v2">2605.23014v2</a>.
 Substantially revised version 2, 12 September 2026, 31 pages.
 Conditional statements must retain their strong Hardy–Littlewood
 hypotheses.</p></li>
 <li id="ref-35"><p><span>D. H. J. Polymath</span>, <a
-href="https://arxiv.org/abs/1407.4897v4"></a>. Research in the
-Mathematical Sciences <strong>1</strong> (2014), article 12, doi:<a
+href="https://arxiv.org/abs/1407.4897v4"><em>Variants of the Selberg
+sieve, and bounded intervals containing many primes</em></a>. Research
+in the Mathematical Sciences <strong>1</strong> (2014), article 12,
+doi:<a
 href="https://doi.org/10.1186/s40687-014-0012-7">10.1186/s40687-014-0012-7</a>;
 arXiv:<a href="https://arxiv.org/abs/1407.4897v4">1407.4897v4</a>.
 Theorem 1.4(i) refers to arXiv version 4 (22 December 2014); the journal
 numbers it Theorem 4(i). An erratum is recorded at
 doi:10.1186/s40687-015-0033-x.</p></li>
 <li id="ref-36"><p>Zbigniew Nitecki, <a
-href="https://arxiv.org/abs/1106.3779v2"></a>. The American Mathematical
-Monthly <strong>122</strong> (2015), no. 9, 862–870, doi:<a
+href="https://arxiv.org/abs/1106.3779v2"><em>Cantorvals and Subsum Sets
+of Null Sequences</em></a>. The American Mathematical Monthly
+<strong>122</strong> (2015), no. 9, 862–870, doi:<a
 href="https://doi.org/10.4169/amer.math.monthly.122.9.862">10.4169/amer.math.monthly.122.9.862</a>;
 arXiv:<a href="https://arxiv.org/abs/1106.3779v2">1106.3779v2</a>.
 Consulted preprint: Subsum Sets: Intervals, Cantor Sets, and Cantorvals,
 version 2 (8 July 2013). Theorem 14 is attributed there to
 Guthrie–Nymann; its locator is not journal pagination.</p></li>
 <li id="ref-37"><p>Piotr Miska, Franciszek Prus-Wiśniowski and Jolanta Ptak, <a
-href="https://ruj.uj.edu.pl/server/api/core/bitstreams/d6630f7b-e6ee-4de8-8a1b-81c7b4c59d2e/content"></a>.
-Results in Mathematics <strong>78</strong> (2023), article 113, doi:<a
+href="https://ruj.uj.edu.pl/server/api/core/bitstreams/d6630f7b-e6ee-4de8-8a1b-81c7b4c59d2e/content"><em>More
+on Kakeya Conditions for Achievement Sets</em></a>. Results in
+Mathematics <strong>78</strong> (2023), article 113, doi:<a
 href="https://doi.org/10.1007/s00025-023-01890-x">10.1007/s00025-023-01890-x</a>.
 Repairs an estimate in the 2021 proof, preserving its uniqueness
 conclusion, and gives a simpler proof of a weaker theorem without that
 conclusion.</p></li>
 <li id="ref-38"><p>Jacek Marchwicki and Piotr Miska, <a
-href="https://link.springer.com/article/10.1007/s00025-021-01479-2"></a>.
-Results in Mathematics <strong>76</strong> (2021), article 181, doi:<a
+href="https://link.springer.com/article/10.1007/s00025-021-01479-2"><em>On
+Kakeya Conditions for Achievement Sets</em></a>. Results in Mathematics
+<strong>76</strong> (2021), article 181, doi:<a
 href="https://doi.org/10.1007/s00025-021-01479-2">10.1007/s00025-021-01479-2</a>.
 Theorem 2.1 is to be read with the proof repair in
 Miska–Prus-Wiśniowski–Ptak (2023).</p></li>
 <li id="ref-39"><p>Piotr Nowakowski, <a
-href="https://arxiv.org/abs/2512.17761v1"></a>. 2025; arXiv:<a
+href="https://arxiv.org/abs/2512.17761v1"><em>On a new condition
+implying that an achievement set is a Cantorval and its
+applications</em></a>. 2025; arXiv:<a
 href="https://arxiv.org/abs/2512.17761v1">2512.17761v1</a>. Version 1,
 19 December 2025. Theorem 3.1 requires the Star Procedure of Definition
 2 never to break; no application to the present factorial weights is

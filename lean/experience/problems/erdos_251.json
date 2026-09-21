@@ -4,12 +4,12 @@
   "erdos_number": 251,
   "title": "The prime-gap dyadic series",
   "status": "open",
-  "question": "Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?",
+  "question": "Is the dyadic series of consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?",
   "authority_posture": "registered_declarations",
   "what_is_checked": [
     "The finite summation-by-parts identity relating the prime dyadic partial sums to the prime-gap dyadic partial sums, with an exact endpoint term and no convergence premise.",
     "The factor-of-two normalisation between the two displayed indexings, at every finite horizon.",
-    "Conditional on summability of the prime dyadic series, the exact infinite prime-gap identity and the equivalence of irrationality of the prime and prime-gap series.",
+    "The unconditional prime-to-gap identity, using an elementary polynomial bound on primes to prove summability; irrationality of the prime series is equivalent to irrationality of the prime-gap series.",
     "For an abstract integer-digit dyadic tail recurrence: the exact block identity, and that a shift of fixed length is integral exactly when an explicit scaled state is.",
     "That one integral shift propagates to every later index.",
     "That repeated doubling removes the power-of-two denominator, so every rational-valued dyadic recurrence has one fixed positive shift integral at all sufficiently late indices.",
@@ -21,7 +21,7 @@
   ],
   "what_is_not_checked": [
     "The target irrationality.",
-    "The definition and recurrence of the concrete prime-gap tail as Lean infinite sums; the note supplies these at paper level. Summability of the concrete prime series is Lean-checked unconditionally via an elementary polynomial prime bound.",
+    "A cofinal nonintegrality theorem for the concrete prime-gap tails; defining the series and proving its recurrence do not supply this.",
     "A theorem supplying cofinally many adjacent actual-prime-gap tail shifts in the open unit interval with the required gap mismatch.",
     "Any theorem forcing periodicity or automaticity of the prime gaps from rationality; the free-carry identity disconfirms that route."
   ],
@@ -202,7 +202,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
+    "source_sha256": "21debfecb574c15dfa553c1415ea1df903b43dade6a693d5322ffb0d62db1560",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -244,19 +244,19 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 29,
-      "renderer_fingerprint": "815b27130b0e7a63",
+      "renderer_contract_version": 30,
+      "renderer_fingerprint": "d383526533396f6a",
       "source_sha256": "ddc51a73fab16e533cf890e113f01cfa34658f1197ac85de3940da066cbdd41c",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 380,
+      "mathml_node_count": 382,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "f9776c9776642c8e7075815aca11086a520993ad18739f36155611074252cc8d",
-      "html_exact_tex_sha256": "3d394433ac47bcae3b38dc78a8a4cf4391f359b01d2115ef68eb215dc456934b"
+      "html_mathml_sha256": "0346efd592c258809a5a06a238b765c7edacfa30cc7f25a25a21284481bd5146",
+      "html_exact_tex_sha256": "b643f6a5adb33bf3b67570c2f85a9942ed5399bb9a61be52ef02036f71796d18"
     },
     "sections": [
       {
@@ -388,19 +388,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "ddc51a73fab16e533cf890e113f01cfa34658f1197ac85de3940da066cbdd41c",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 380,
+        "mathml_node_count": 382,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "f9776c9776642c8e7075815aca11086a520993ad18739f36155611074252cc8d",
-        "html_exact_tex_sha256": "3d394433ac47bcae3b38dc78a8a4cf4391f359b01d2115ef68eb215dc456934b"
+        "html_mathml_sha256": "0346efd592c258809a5a06a238b765c7edacfa30cc7f25a25a21284481bd5146",
+        "html_exact_tex_sha256": "b643f6a5adb33bf3b67570c2f85a9942ed5399bb9a61be52ef02036f71796d18"
       },
       "sections": [
         {
@@ -532,12 +532,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
         "source_sha256": "56bc6951eac088ab304ee841d2fdf2ed8a722205e78b2fd4306eb74681998196",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 1528,
+        "mathml_node_count": 1531,
         "raw_math_fallback_count": 7,
         "warnings": {
           "mathml": [
@@ -615,7 +615,7 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "341debc5bff529dbf843c222e22a141a4153a8eac1b883a39d8de6ff9630a62e",
+        "html_mathml_sha256": "98c4a942b52ad3401c8ba93af600f9a9f4393e562a893ba45a7e4f7524e67082",
         "html_exact_tex_sha256": "b91c83a2ea8eb4992f87549926bf3ebb3194b0aea17dec202ea4661e640471a8"
       },
       "sections": [

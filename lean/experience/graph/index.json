@@ -7,7 +7,7 @@
     "nodes": 267,
     "edges": 335,
     "deferred_node_kinds": {
-      "lean_module": 1763,
+      "lean_module": 1768,
       "mathematical_object": 105
     }
   },
@@ -1169,14 +1169,6 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/SOURCE_MAP.md"
     },
     {
-      "id": "document:truth-audit",
-      "kind": "human_document",
-      "label": "Historical truth audit",
-      "role": "historical_claim_audit",
-      "href": "documents/truth-audit.json",
-      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/TRUTH_AUDIT.md"
-    },
-    {
       "id": "document:wave-index",
       "kind": "human_document",
       "label": "Development index",
@@ -1367,6 +1359,15 @@
       "form": "Open-source research strategy",
       "href": "papers/open-source-mathematics-strategy.json",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/systems/open-source-mathematics-strategy.tex"
+    },
+    {
+      "id": "paper:optimal-sparse-perturbations",
+      "kind": "paper",
+      "label": "Reading Eight Erdős Problems Together",
+      "subject": "Eight Erdős problems read together",
+      "form": "Cross-problem paper",
+      "href": "papers/optimal-sparse-perturbations.json",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/paper/synthesis/optimal-sparse-perturbations.tex"
     },
     {
       "id": "paper:plectis-public-system",
@@ -2726,6 +2727,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "explained_by",
+      "target": "paper:optimal-sparse-perturbations"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "explained_by",
       "target": "paper:plectis-public-system"
     },
     {
@@ -2802,11 +2808,6 @@
       "source": "universe:plectis-lean",
       "relation": "interpreted_by",
       "target": "document:source-map"
-    },
-    {
-      "source": "universe:plectis-lean",
-      "relation": "interpreted_by",
-      "target": "document:truth-audit"
     },
     {
       "source": "universe:plectis-lean",

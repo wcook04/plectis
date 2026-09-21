@@ -213,7 +213,7 @@
     "title": "Results and open boundaries",
     "role": "mathematical_results_map",
     "source_path": "docs/RESULTS.md",
-    "source_sha256": "7e17119c055f1e433ae1ffab84971c03d17033483984bdab08f5d10e99e6f87f",
+    "source_sha256": "21debfecb574c15dfa553c1415ea1df903b43dade6a693d5322ffb0d62db1560",
     "source_manifest_match": true,
     "publication_manifest_match": true,
     "publication_state": "published_source",
@@ -233,7 +233,7 @@
     "subject": "Erdős #1049",
     "subject_kind": "problem",
     "form": "Problem note",
-    "pages": 20,
+    "pages": 21,
     "question": "For Erdős #1049, which rational bases make F(a/b) irrational, what exact Hankel order is computed, and why does 3/2 remain open?",
     "precis": "For coprime integers a>b≥1, F(a/b)=∑_{n≥1}((a/b)^n−1)^{-1} is irrational when log b / log a is less than the explicit cutoff 0.4056830213840605…. This includes every positive integral power of 31/4, with irrationality exponent less than 301. The argument uses Zudilin's 2004 forms and constants, cancels common cyclotomic factors before rational evaluation, and computes the remaining denominator cost. For the distinct normalised Hankel determinants V_N^* in his 2016 construction with x=z=1, the q-order is N(N−1)(2N−1)/6 and the leading coefficient is (N!)^2(N+1)!/2^N. The rational-base criterion does not include 3/2; neither argument settles irrationality at that base.",
     "owns": "the problem-specific exposition for Erdős #1049: the ordinary rational-base irrationality theorem and uniform exponent bound for the (31/4)^r family, the exact normalised Hankel order and leading coefficient, the content and endpoint obstructions, and the remaining approximant and remainder construction at 3/2",
@@ -255,19 +255,19 @@
       "fragment_not_document": true,
       "executable_scripts_embedded": false,
       "pandoc": "pandoc 3.9.0.2",
-      "renderer_contract_version": 29,
-      "renderer_fingerprint": "815b27130b0e7a63",
-      "source_sha256": "d89d61ecb860ccb505fc369f9a8b0162e5160533bc19e86cb1da824b28d6029a",
+      "renderer_contract_version": 30,
+      "renderer_fingerprint": "d383526533396f6a",
+      "source_sha256": "51ddecfefc0e7e9b4111e2acaa3729702c29ba822b6cb6761a0a74bed7630c89",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 680,
+      "mathml_node_count": 727,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "5418107198595a590cf56c19aef4dc360b913247f3e6c8a97a53fa7e5c17dcc9",
-      "html_exact_tex_sha256": "20bce142aef7430c2cb333ccc2b77d7b7cf27a259eb3350fb312204548c6e785"
+      "html_mathml_sha256": "29f815fb578dcac54b9b4ed41c0681f5232ca8399cce58bcd05e0e6e8cfc9f3f",
+      "html_exact_tex_sha256": "e309b60ca25723ebdd2d2d73d911f426f24cfb9e1d6166ae4775ea4b279f13c3"
     },
     "sections": [
       {
@@ -327,8 +327,13 @@
       },
       {
         "level": 5,
-        "anchor": "what-the-order-calculation-does-not-imply.",
-        "label": "What the order calculation does not imply."
+        "anchor": "from-formal-order-to-size-at-a-fixed-base.",
+        "label": "From formal order to size at a fixed base."
+      },
+      {
+        "level": 5,
+        "anchor": "what-neither-calculation-implies.",
+        "label": "What neither calculation implies."
       },
       {
         "level": 2,
@@ -487,7 +492,7 @@
       "subject": "Erdős #1049",
       "subject_kind": "problem",
       "form": "Problem note",
-      "pages": 20,
+      "pages": 21,
       "question": "For Erdős #1049, which rational bases make F(a/b) irrational, what exact Hankel order is computed, and why does 3/2 remain open?",
       "precis": "For coprime integers a>b≥1, F(a/b)=∑_{n≥1}((a/b)^n−1)^{-1} is irrational when log b / log a is less than the explicit cutoff 0.4056830213840605…. This includes every positive integral power of 31/4, with irrationality exponent less than 301. The argument uses Zudilin's 2004 forms and constants, cancels common cyclotomic factors before rational evaluation, and computes the remaining denominator cost. For the distinct normalised Hankel determinants V_N^* in his 2016 construction with x=z=1, the q-order is N(N−1)(2N−1)/6 and the leading coefficient is (N!)^2(N+1)!/2^N. The rational-base criterion does not include 3/2; neither argument settles irrationality at that base.",
       "owns": "the problem-specific exposition for Erdős #1049: the ordinary rational-base irrationality theorem and uniform exponent bound for the (31/4)^r family, the exact normalised Hankel order and leading coefficient, the content and endpoint obstructions, and the remaining approximant and remainder construction at 3/2",
@@ -509,19 +514,19 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "d89d61ecb860ccb505fc369f9a8b0162e5160533bc19e86cb1da824b28d6029a",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "51ddecfefc0e7e9b4111e2acaa3729702c29ba822b6cb6761a0a74bed7630c89",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 680,
+        "mathml_node_count": 727,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "5418107198595a590cf56c19aef4dc360b913247f3e6c8a97a53fa7e5c17dcc9",
-        "html_exact_tex_sha256": "20bce142aef7430c2cb333ccc2b77d7b7cf27a259eb3350fb312204548c6e785"
+        "html_mathml_sha256": "29f815fb578dcac54b9b4ed41c0681f5232ca8399cce58bcd05e0e6e8cfc9f3f",
+        "html_exact_tex_sha256": "e309b60ca25723ebdd2d2d73d911f426f24cfb9e1d6166ae4775ea4b279f13c3"
       },
       "sections": [
         {
@@ -581,8 +586,13 @@
         },
         {
           "level": 5,
-          "anchor": "what-the-order-calculation-does-not-imply.",
-          "label": "What the order calculation does not imply."
+          "anchor": "from-formal-order-to-size-at-a-fixed-base.",
+          "label": "From formal order to size at a fixed base."
+        },
+        {
+          "level": 5,
+          "anchor": "what-neither-calculation-implies.",
+          "label": "What neither calculation implies."
         },
         {
           "level": 2,
@@ -741,7 +751,7 @@
       "subject": "Erdős #1049",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 66,
+      "pages": 72,
       "question": "What all-rank Zudilin specialisations and Hankel formulae are proved at rational bases, and which clearing arguments still fail at 3/2?",
       "precis": "Specialising Zudilin's 2004 linear forms shows F(a/b) irrational for coprime a>b≥1 when θ=log b / log a is less than θ^*=0.4056830213840605…, with irrationality-exponent bound (1−θ)/(θ^*−θ) for every positive integral power. In particular the bound is less than 301 for every positive integral power of 31/4. The constants are Zudilin's; the proof cancels common cyclotomic factors before rational specialisation. For the 2016 Hankel construction with x=z=1, the first nonzero term of the normalised determinant is computed at every rank. A separate positive-measure argument proves positivity and a size estimate for each fixed real 0<q<1. The final sections explain the limits of the stated clearing and congruence arguments at 3/2: no small nonzero sequence of divided remainders is constructed there, and the full rational-base conjecture remains open.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1049, including all registered result families and their boundaries",
@@ -763,12 +773,12 @@
         "fragment_not_document": true,
         "executable_scripts_embedded": false,
         "pandoc": "pandoc 3.9.0.2",
-        "renderer_contract_version": 29,
-        "renderer_fingerprint": "815b27130b0e7a63",
-        "source_sha256": "8ee2a5e9ab502f29ace661910d0d2292af1d43b5fa19ef21f2248a6fc2625802",
+        "renderer_contract_version": 30,
+        "renderer_fingerprint": "d383526533396f6a",
+        "source_sha256": "fd1f19b88559d08fd4a17e5446d8e5c7d1c56e9338144ace71367e645564975f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2342,
+        "mathml_node_count": 2635,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -793,8 +803,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "50449b2b6c5ad04472fa547567dafd53d27b4c8bc8f3ae261ef6095257376612",
-        "html_exact_tex_sha256": "d0e360acc6b8b581ed6ccfb3ecc496cd59be3aaca4065fd68541a0d2718c3d7c"
+        "html_mathml_sha256": "ed11dc714acd145da1681d306ea9fef18dfe24640240fa7ba02f84110d7fd428",
+        "html_exact_tex_sha256": "abec42438af15e6b60ac1dd7aa79283720b1f679584f96759a985a0d90ca1fde"
       },
       "sections": [
         {
@@ -909,6 +919,16 @@
         },
         {
           "level": 3,
+          "anchor": "long1049:sec:sharp-fixed-base",
+          "label": "The size of VN*V_N^* at a fixed base"
+        },
+        {
+          "level": 5,
+          "anchor": "what-the-sharp-estimate-settles-and-what-it-leaves.",
+          "label": "What the sharp estimate settles, and what it leaves."
+        },
+        {
+          "level": 3,
           "anchor": "long1049:sec:coefficient-questions",
           "label": "Coefficient moments and cyclotomic content"
         },
@@ -1006,6 +1026,11 @@
           "level": 5,
           "anchor": "the-lattice-after-evaluation.",
           "label": "The lattice after evaluation."
+        },
+        {
+          "level": 5,
+          "anchor": "the-lattice-spanned-by-the-actual-tails.",
+          "label": "The lattice spanned by the actual tails."
         },
         {
           "level": 3,

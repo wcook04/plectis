@@ -1,0 +1,1844 @@
+<article class="lean-paper" data-paper-id="optimal-sparse-perturbations" data-math-mode="mathjax">
+  <header class="lean-paper__header">
+    <p class="lean-paper__eyebrow">Cross-problem paper</p>
+    <h1>Reading Eight Erdős Problems Together</h1>
+    <p class="lean-paper__subject">Eight Erdős problems read together</p>
+  </header>
+  <div class="lean-paper__body" data-source="../../../paper/synthesis/optimal-sparse-perturbations.tex">
+<section id="sec:map" class="level2">
+<h2>From individual problems to reusable questions</h2>
+<p>Seven of the eight programmes ask whether a series is irrational:
+<span class="math inline" data-term-auto="off">\(\sum(n!-1)^{-1}\)</span> in #68, reciprocal
+sums of near-Sylvester sequences in #243, <span
+class="math inline" data-term-auto="off">\(\sum\varphi(n)2^{-n}\)</span> in #249, <span
+class="math inline" data-term-auto="off">\(\sum p_n2^{-n}\)</span> in #251, <span
+class="math inline" data-term-auto="off">\(\sum_{n\in S}(2^n-1)^{-1}\)</span> in #257,
+reciprocal running least common multiples in #269, and <span
+class="math inline" data-term-auto="off">\(\sum(t^n-1)^{-1}\)</span> at rational <span
+class="math inline" data-term-auto="off">\(t\)</span> in #1049 <span class="citation"
+data-cites="erdosgraham1980 erdos1988"><a href="#ref-1">[1]</a><a href="#ref-2">[2]</a></span>. The eighth, #1041,
+concerns polynomial lemniscates. It supplies no premise for the series
+arguments below.</p>
+<p>What can the freedom to choose digits preserve, and when does
+arithmetic remove that freedom? Sparse corrections in the #251 paper
+motivate the capacity criterion of Section <a class="math-ref" href="#capacity:sec:criterion">2</a>. Its proof
+makes one interval of possible continuations work for every cumulative
+residue. The factorial examples show that the arithmetic restrictions
+change a sharp support-gap threshold. Factorial denominators <span
+class="math inline" data-term-auto="off">\(n!\)</span> in this construction are not the
+denominators <span class="math inline" data-term-auto="off">\(n!-1\)</span> in #68.</p>
+<p>The common Lambert series in #257 and #1049 gives a second comparison
+in Section <a class="math-ref" href="#sec:results">3</a>: a
+base below two permits rational subsums, while nested denominators force
+irrationality on certain thin supports. Neither interval filling nor a
+measure estimate decides whether one specified rational is a subsum at
+base two. Sections <a class="math-ref" href="#sec:base2">3.3</a>
+and <a class="math-ref" href="#sec:misread">5</a> explain that
+obstruction, including the exact computation that disproved a proposed
+stopping rule. Section <a class="math-ref" href="#sec:second">4</a> retains the other method
+limits without claiming that they have one common cause.</p>
+<p>The proofs presented here are ordinary mathematical arguments. Cited
+Lean results establish specified ingredients and quoted results, not the
+complete capacity classification or Lambert-chain theorem. The sources
+and originating review are credited in Section <a class="math-ref" href="#capacity:sec:sources">8</a>. Historical
+novelty and independent expert review are not established.</p>
+</section>
+<section id="capacity:sec:criterion" class="level2">
+<h2>An exact capacity criterion</h2>
+<p>A factorial expansion usually permits a digit of size about <span
+class="math inline" data-term-auto="off">\(n\)</span> at position <span
+class="math inline" data-term-auto="off">\(n\)</span>. If more digits are allowed, can most
+positions be discarded? What changes if each fixed integer must
+eventually divide every digit?</p>
+<p>Let <span class="math inline" data-term-auto="off">\(Q_n\)</span> be positive integers,
+<span class="math inline" data-term-auto="off">\(n\ge1\)</span>, such that <span
+class="math inline" data-term-auto="off">\(Q_n\mid Q_{n+1}\)</span> and <span
+class="math inline" data-term-auto="off">\(Q_{n+1}\ge2Q_n\)</span>. Let <span
+class="math inline" data-term-auto="off">\(F_n\in\Z_{\ge0}\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(\sum_nF_n/Q_n&lt;\infty\)</span>, and put</p>
+<div class="math-display" id="capacity:eq:capacity" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[U_N=Q_N\sum_{n&gt;N}\frac{F_n}{Q_n}.
+\tag{C}\label{capacity:eq:capacity}\]</span></div>
+<p>Define <span
+class="math inline" data-term-auto="off">\(E_Q(F)\)</span> to be the set of sums <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge1}e_n/Q_n\)</span>, allowing nonnegative
+integer digits <span class="math inline" data-term-auto="off">\(e_n\le F_n\)</span>
+eventually and requiring, for each fixed <span
+class="math inline" data-term-auto="off">\(q\ge1\)</span>, that <span
+class="math inline" data-term-auto="off">\(q\mid e_n\)</span> eventually. The cutoffs and
+finite initial digits may depend on the represented value.</p>
+<div class="theorem" id="capacity:thm:capacity">
+<p><strong>Theorem 2.1</strong>. <em> If <span
+class="math inline" data-term-auto="off">\(U_N\to\infty\)</span>, then <span
+class="math inline" data-term-auto="off">\(E_Q(F)=[0,\infty)\)</span>; otherwise <span
+class="math inline" data-term-auto="off">\(E_Q(F)\)</span> is null and meagre. In particular
+interval filling is equivalent to <span
+class="math inline" data-term-auto="off">\(U_N\to\infty\)</span>. In the positive case, every
+nonnegative target may be represented with <span
+class="math inline" data-term-auto="off">\(e_n=0\)</span> before any prescribed cutoff, at
+most one exception to <span class="math inline" data-term-auto="off">\(e_n\le F_n\)</span>,
+and </em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[q\mid e_n,\qquad q\mid\sum_{k&lt;n}e_k
+\quad\text{for all sufficiently large }n,\]</span></div>
+<p class="display-continue"><em> with congruence
+cutoffs depending on <span class="math inline" data-term-auto="off">\(q\)</span> but
+independent of the target. If the allowance must hold at every position,
+a nondegenerate interval is still represented with both congruences and
+a common cutoff for each <span
+class="math inline" data-term-auto="off">\(q\)</span>.</em></p>
+</div>
+<p>The criterion compares <em>all</em> future capacity with the prefix
+lattice. It requires no monotonicity, regular variation or gap bound on
+the allowances, and no upper bound on the denominator ratios. It does
+not require the <span class="math inline" data-term-auto="off">\(Q_n\)</span> to clear every
+rational denominator. Section <a class="math-ref" href="#capacity:sec:capacity-proof">2.2</a> proves
+the theorem using the same residue-feedback mechanism already present in
+the public Lean repository. The capacity estimates and complete
+criterion are ordinary proofs; the abstract feedback endpoint is
+kernel-checked separately. Both geometric and factorial denominators
+satisfy the hypotheses.</p>
+<section id="the-sharp-support-threshold" class="level3">
+<h3>The sharp support threshold</h3>
+<p>Let <span class="math inline" data-term-auto="off">\(S\subseteq\N_{\!&gt;0}\)</span> and
+<span class="math inline" data-term-auto="off">\(c&gt;0\)</span>. Define <span
+class="math inline" data-term-auto="off">\(E(S,c)\)</span> to be the set of sums</p>
+<div class="math-display" id="capacity:eq:class" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[x=\sum_{n\ge1}\frac{e_n}{n!},\qquad
+e_n\in\Z_{\ge0},\quad
+e_n=0\ (n\notin S),\quad e_n\le n^c\text{ eventually},
+\tag{1}\label{capacity:eq:class}\]</span></div>
+<p class="display-continue">subject to</p>
+<div class="math-display" id="capacity:eq:congruence" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\text{for every }q\ge1,\qquad q\mid e_n\text{ for
+all sufficiently large }n.
+\tag{2}\label{capacity:eq:congruence}\]</span></div>
+<p>The cutoffs and the
+finite initial digits in this definition may depend on <span
+class="math inline" data-term-auto="off">\(x\)</span>. All series converge, since finitely
+many unrestricted digits do not affect convergence. A permitted position
+need not carry a nonzero digit.</p>
+<div class="theorem" id="capacity:thm:main">
+<p><strong>Theorem 2.2</strong>. <em> If <span
+class="math inline" data-term-auto="off">\(S\)</span> is finite, <span
+class="math inline" data-term-auto="off">\(E(S,c)\)</span> is countable. If <span
+class="math inline" data-term-auto="off">\(S\)</span> is infinite, enumerate it as <span
+class="math inline" data-term-auto="off">\(n_0&lt;n_1&lt;\cdots\)</span>.</em></p>
+<ol>
+<li><p><em>For <span class="math inline" data-term-auto="off">\(0&lt;c\le1\)</span>, <span
+class="math inline" data-term-auto="off">\(E(S,c)\)</span> is null and meagre.</em></p></li>
+<li><p><em>For <span class="math inline" data-term-auto="off">\(c&gt;1\)</span>, <span
+class="math inline" data-term-auto="off">\(E(S,c)\)</span> contains a nondegenerate interval
+if and only if </em></p>
+<div class="math-display" id="capacity:eq:gaps" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[n_j-n_{j-1}&lt;c\qquad\text{for all sufficiently
+large }j.
+\tag{3}\label{capacity:eq:gaps}\]</span></div>
+<p><em> If this condition fails, <span
+class="math inline" data-term-auto="off">\(E(S,c)\)</span> is null and meagre.</em></p></li>
+</ol>
+<p><em>When <a class="math-ref" data-equation-ref="true" href="#capacity:eq:gaps">capacity:eq:gaps</a> holds, one may
+require <span class="math inline" data-term-auto="off">\(e_n=0\)</span> before any prescribed
+cutoff and impose both </em></p>
+<div class="math-display" id="capacity:eq:both" data-term-auto="off"><span class="math display" data-term-auto="off">\[q\mid e_n,\qquad
+q\mid\sum_{k&lt;n}e_k
+\tag{4}\label{capacity:eq:both}\]</span></div>
+<p class="display-continue"><em> for all sufficiently large
+<span class="math inline" data-term-auto="off">\(n\)</span>, with cutoffs depending on <span
+class="math inline" data-term-auto="off">\(q\)</span> but independent of <span
+class="math inline" data-term-auto="off">\(x\)</span> throughout the constructed
+interval.</em></p>
+</div>
+<p>The theorem is an ordinary mathematical proof. The associated formal
+sources check the general digit-feedback construction and, separately,
+the common-divisor carry obstruction of Section <a class="math-ref" href="#capacity:sec:carry">2.6</a>; they do not
+formalise this gap classification or its measure argument. The source
+and attribution account is in Section <a class="math-ref" href="#capacity:sec:sources">8</a>.</p>
+<p>For example, with allowance <span class="math inline" data-term-auto="off">\(n^2\)</span>,
+every second position suffices without congruences. Under <a class="math-ref" data-equation-ref="true" href="#capacity:eq:congruence">capacity:eq:congruence</a>,
+infinitely many omitted positions already force a null set. With
+allowance <span class="math inline" data-term-auto="off">\(n^{2.01}\)</span>, every second
+position again suffices, even under <a class="math-ref" data-equation-ref="true" href="#capacity:eq:both">capacity:eq:both</a>. Thus the strict
+inequality in <a class="math-ref" data-equation-ref="true" href="#capacity:eq:gaps">capacity:eq:gaps</a> is
+essential.</p>
+<div class="corollary" id="capacity:cor:density">
+<p><strong>Corollary 2.3</strong>. <em> For <span
+class="math inline" data-term-auto="off">\(c&gt;1\)</span>, the least possible asymptotic
+density of a fixed permitted support that fills an interval under <a class="math-ref" data-equation-ref="true" href="#capacity:eq:congruence">capacity:eq:congruence</a> is <span
+class="math inline" data-term-auto="off">\(1/(\lceil c\rceil-1)\)</span>. Every such support
+has lower density at least this value, and an arithmetic progression
+attains it. A density bound alone is not sufficient: even rare gaps of
+length <span class="math inline" data-term-auto="off">\(\lceil c\rceil\)</span> prevent
+interval filling if they occur infinitely often.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(d=\lceil
+c\rceil-1\)</span>. Eventual gaps at most <span
+class="math inline" data-term-auto="off">\(d\)</span> give <span
+class="math inline" data-term-auto="off">\(\liminf_{N\to\infty}|S\cap[1,N]|/N\ge1/d\)</span>.
+An arithmetic progression of step <span class="math inline" data-term-auto="off">\(d\)</span>
+satisfies the theorem. ◻</p>
+</div>
+</section>
+<section id="capacity:sec:capacity-proof" class="level3">
+<h3>Proof of the capacity criterion</h3>
+<p>The necessity and sufficiency use different parts of the expansion.
+Prefixes supply an arithmetic obstruction; a common interval of possible
+future remainders makes the residue choices compatible with exact
+representation.</p>
+<section id="bounded-capacity-along-a-subsequence" class="level4">
+<h4>Bounded capacity along a subsequence</h4>
+<p>If <span class="math inline" data-term-auto="off">\(U_N\)</span> does not tend to
+infinity, there are a constant <span
+class="math inline" data-term-auto="off">\(B&gt;0\)</span> and arbitrarily large <span
+class="math inline" data-term-auto="off">\(N\)</span> with <span class="math inline" data-term-auto="off">\(U_N\le
+B\)</span>. Choose one integer <span
+class="math inline" data-term-auto="off">\(q&gt;B\)</span>. Fix a cutoff <span
+class="math inline" data-term-auto="off">\(K\)</span> after which the allowance and
+divisibility by <span class="math inline" data-term-auto="off">\(q\)</span> hold, and fix the
+finite prefix, of value <span class="math inline" data-term-auto="off">\(y_0\)</span>. The
+set <span class="math inline" data-term-auto="off">\(V\)</span> of resulting sums is compact
+by summability and the finite choices at each remaining position. For
+every such <span class="math inline" data-term-auto="off">\(N&gt;K\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[V\subseteq y_0+\frac q{Q_N}\Z+[0,B/Q_N].\]</span></div>
+<p>Indeed the scaled prefix after <span class="math inline" data-term-auto="off">\(K\)</span> is
+a multiple of <span class="math inline" data-term-auto="off">\(q\)</span> and the remaining
+tail is at most <span class="math inline" data-term-auto="off">\(U_N/Q_N\)</span>. These
+grids leave holes inside every fixed open interval for all sufficiently
+large selected <span class="math inline" data-term-auto="off">\(N\)</span>, so <span
+class="math inline" data-term-auto="off">\(V\)</span> is nowhere dense. For a bounded
+interval <span class="math inline" data-term-auto="off">\(J\)</span> they also give <span
+class="math inline" data-term-auto="off">\(|V\cap J|\le(B/q)|J|+2B/Q_N\)</span>. Passing to
+the subsequence and covering <span class="math inline" data-term-auto="off">\(V\)</span> by
+finitely many intervals with total length at most <span
+class="math inline" data-term-auto="off">\(|V|+\varepsilon\)</span> gives <span
+class="math inline" data-term-auto="off">\(|V|\le(B/q)(|V|+\varepsilon)\)</span>, hence <span
+class="math inline" data-term-auto="off">\(|V|=0\)</span>. A countable union over the cutoffs
+and integer prefixes covers <span
+class="math inline" data-term-auto="off">\(E_Q(F)\)</span>.</p>
+</section>
+<section id="one-continuation-interval-for-every-cumulative-residue"
+class="level4">
+<h4>One continuation interval for every cumulative residue</h4>
+<p>Suppose <span class="math inline" data-term-auto="off">\(U_N\to\infty\)</span> and put
+<span class="math inline" data-term-auto="off">\(h_N=\inf_{k\ge N}U_k\)</span>. For
+sufficiently large <span class="math inline" data-term-auto="off">\(n\)</span>, let <span
+class="math inline" data-term-auto="off">\(M_n\)</span> be the largest factorial at most
+<span class="math inline" data-term-auto="off">\(\min\{n,\sqrt{h_{\lfloor
+n/2\rfloor}}\}\)</span>, and set the finitely many earlier moduli equal
+to one. These positive integers are nested under divisibility, tend to
+infinity, and are eventually divisible by each fixed integer. The
+delayed lower envelope controls the whole future cost of rounding, even
+when the denominator ratios are unbounded. Indeed, <span
+class="math inline" data-term-auto="off">\(Q_N/Q_k\le2^{N-k}\)</span>, so for sufficiently
+large <span class="math inline" data-term-auto="off">\(N\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{aligned}
+C_N:=Q_N\sum_{k&gt;N}\frac{M_k}{Q_k}
+&amp;\le\sqrt{h_N}\sum_{k=N+1}^{2N}2^{N-k}
+       +\sum_{k&gt;2N}k\,2^{N-k}\\
+&amp;\le\sqrt{h_N}+(2N+2)2^{-N}.
+\end{aligned}\]</span></div>
+<p>The first bound uses <span
+class="math inline" data-term-auto="off">\(\lfloor k/2\rfloor\le N\)</span> when <span
+class="math inline" data-term-auto="off">\(k\le2N\)</span>; the second uses <span
+class="math inline" data-term-auto="off">\(M_k\le k\)</span>. Since <span
+class="math inline" data-term-auto="off">\(U_N\ge h_N\to\infty\)</span> and <span
+class="math inline" data-term-auto="off">\(M_N\le\sqrt{h_N}\)</span>, this proves <span
+class="math inline" data-term-auto="off">\(U_N-2C_N\ge M_N\)</span> for every sufficiently
+large <span class="math inline" data-term-auto="off">\(N\)</span>. Start beyond this point
+and any prescribed cutoff.</p>
+<p>Keep only the active positions <span
+class="math inline" data-term-auto="off">\(S=\{n:F_n\ge2M_n\}\)</span> after this cutoff.
+Define two common tail bounds</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\alpha_N=\sum_{\substack{n&gt;N\\n\in
+S}}\frac{M_n}{Q_n},\qquad
+\beta_N=\sum_{\substack{n&gt;N\\n\in S}}\frac{F_n-M_n}{Q_n}.\]</span></div>
+<p>Both are nonnegative and tend to zero. Discarding an inactive position
+loses less than <span class="math inline" data-term-auto="off">\(2M_n\)</span>; reserving
+both margins at an active position loses exactly <span
+class="math inline" data-term-auto="off">\(2M_n\)</span>. Thus the preceding estimate gives
+the decisive overlap inequality</p>
+<div class="math-display" id="capacity:eq:overlap" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[Q_N(\beta_N-\alpha_N)\ge U_N-2C_N\ge M_N.
+\tag{O}\label{capacity:eq:overlap}\]</span></div>
+<p>In particular the active set
+is infinite and each continuation interval has positive width.</p>
+<p>Choose a target in <span
+class="math inline" data-term-auto="off">\([\alpha_{N_0},\beta_{N_0}]\)</span> and set all
+preceding digits to zero. Suppose the current unweighted cumulative sum
+is <span class="math inline" data-term-auto="off">\(C\)</span> and the remaining target
+before position <span class="math inline" data-term-auto="off">\(n\)</span> lies in <span
+class="math inline" data-term-auto="off">\([\alpha_{n-1},\beta_{n-1}]\)</span>. At an
+inactive position choose zero. At an active position, the permitted
+digits in the residue class <span
+class="math inline" data-term-auto="off">\(e\equiv-C\pmod{M_n}\)</span>, <span
+class="math inline" data-term-auto="off">\(0\le e\le F_n\)</span>, form a nonempty arithmetic
+progression of step <span class="math inline" data-term-auto="off">\(M_n\)</span>. Its least
+digit is less than <span class="math inline" data-term-auto="off">\(M_n\)</span> and its
+greatest digit exceeds <span class="math inline" data-term-auto="off">\(F_n-M_n\)</span>. By
+(O), the intervals</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac
+e{Q_n}+[\alpha_n,\beta_n]\]</span></div>
+<p class="display-continue">for these digits overlap. Their union
+contains</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\left[\frac{M_n}{Q_n}+\alpha_n,
+       \frac{F_n-M_n}{Q_n}+\beta_n\right]
+   =[\alpha_{n-1},\beta_{n-1}].\]</span></div>
+<p>Choose a digit whose interval
+contains the remaining target. The next remainder stays between <span
+class="math inline" data-term-auto="off">\(\alpha_n\)</span> and <span
+class="math inline" data-term-auto="off">\(\beta_n\)</span>, and these bounds tend to zero,
+proving exact representation. This is precisely the common-interval
+feedback construction; no target-independent ordinary block sum is
+required.</p>
+<p>After an active position <span class="math inline" data-term-auto="off">\(n\)</span>, the
+cumulative sum is divisible by <span class="math inline" data-term-auto="off">\(M_n\)</span>.
+Each later active digit is divisible by the previous active modulus,
+because both adjacent cumulative sums are; the moduli are nested. For a
+fixed <span class="math inline" data-term-auto="off">\(q\)</span>, take one active position
+with <span class="math inline" data-term-auto="off">\(q\mid M_n\)</span>. After that
+position, all individual digits and all preceding cumulative sums are
+divisible by <span class="math inline" data-term-auto="off">\(q\)</span>. This cutoff is
+common to all targets in the interval.</p>
+</section>
+<section id="from-one-interval-to-every-nonnegative-target"
+class="level4">
+<h4>From one interval to every nonnegative target</h4>
+<p>The finite-exception convention in <span
+class="math inline" data-term-auto="off">\(E_Q(F)\)</span> strengthens the conclusion. Given
+<span class="math inline" data-term-auto="off">\(y&gt;0\)</span>, choose <span
+class="math inline" data-term-auto="off">\(N\)</span> arbitrarily late with <span
+class="math inline" data-term-auto="off">\(\alpha_N&lt;y\)</span> and put</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[p=M_N\left\lfloor\frac{Q_N(y-\alpha_N)}{M_N}\right\rfloor.\]</span></div>
+<p>Then <span class="math inline" data-term-auto="off">\(p\ge0\)</span>, <span
+class="math inline" data-term-auto="off">\(M_N\mid p\)</span>, and (O) gives <span
+class="math inline" data-term-auto="off">\(y-p/Q_N\in[\alpha_N,\beta_N]\)</span>. Set <span
+class="math inline" data-term-auto="off">\(e_N=p\)</span> and all earlier digits to zero. Run
+the same continuation construction after <span
+class="math inline" data-term-auto="off">\(N\)</span>, with initial cumulative sum <span
+class="math inline" data-term-auto="off">\(C=p\)</span>; its interval covering worked for
+every <span class="math inline" data-term-auto="off">\(C\)</span>. All later digits obey
+their allowances. The zero target uses zero digits.</p>
+<p>The congruence cutoffs can also be common to all <span
+class="math inline" data-term-auto="off">\(y\)</span>. For fixed <span
+class="math inline" data-term-auto="off">\(q\)</span>, choose an active position <span
+class="math inline" data-term-auto="off">\(j\)</span> with <span class="math inline" data-term-auto="off">\(q\mid
+M_j\)</span>. If the target’s exceptional index <span
+class="math inline" data-term-auto="off">\(N\)</span> precedes <span
+class="math inline" data-term-auto="off">\(j\)</span>, the repair at <span
+class="math inline" data-term-auto="off">\(j\)</span> gives the required divisibilities after
+<span class="math inline" data-term-auto="off">\(j\)</span>. If <span
+class="math inline" data-term-auto="off">\(N\ge j\)</span>, all preceding digits are zero,
+<span class="math inline" data-term-auto="off">\(q\mid M_N\mid p\)</span>, and all subsequent
+repairs preserve divisibility by <span class="math inline" data-term-auto="off">\(q\)</span>.
+Thus <span class="math inline" data-term-auto="off">\(j+1\)</span> is a valid cutoff for
+every target. The allowance-exception index itself may depend on the
+target. This completes Theorem <a class="math-ref" href="#capacity:thm:capacity">2.1</a>.</p>
+<p>The growth hypothesis has content. If repeated denominators are
+allowed, take <span class="math inline" data-term-auto="off">\(Q_n=2^{\lfloor\sqrt
+n\rfloor}\)</span> and <span class="math inline" data-term-auto="off">\(F_n=1\)</span>. The
+allowance series converges, while <span
+class="math inline" data-term-auto="off">\(U_N\ge\lfloor\sqrt N\rfloor\)</span> by counting
+the next complete denominator block. Yet eventual divisibility by two
+forces all sufficiently late digits to vanish, so the attainable set is
+countable. Imposing all cumulative congruences as well leaves only zero.
+Thus nestedness alone does not justify the criterion.</p>
+</section>
+</section>
+<section id="capacity:sec:negative" class="level3">
+<h3>Why a large gap prevents interval filling</h3>
+<p>The decisive obstruction is local. At a position <span
+class="math inline" data-term-auto="off">\(N\)</span>, the whole preceding factorial sum lies
+on a lattice of spacing <span class="math inline" data-term-auto="off">\(1/N!\)</span>.
+Eventual divisibility widens that spacing to <span
+class="math inline" data-term-auto="off">\(q/N!\)</span>, up to a fixed translation. After a
+sufficiently long gap, all remaining permitted digits reach only a
+bounded multiple of <span class="math inline" data-term-auto="off">\(1/N!\)</span>. Choosing
+one fixed <span class="math inline" data-term-auto="off">\(q\)</span> larger than that bound
+leaves holes at arbitrarily small scales.</p>
+<p>Here are the details, including the target-dependent cutoffs in
+(1)–(2). Put <span class="math inline" data-term-auto="off">\(r=\lceil c\rceil\)</span>.
+Suppose infinitely many successive <span
+class="math inline" data-term-auto="off">\(S\)</span>-gaps have length at least <span
+class="math inline" data-term-auto="off">\(r\)</span>, and let <span
+class="math inline" data-term-auto="off">\(N\)</span> run through the positions immediately
+before these gaps. For large <span class="math inline" data-term-auto="off">\(k\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\frac{(k+1)^c/(k+1)!}{k^c/k!}
+=\frac{(1+1/k)^c}{k+1}\le\frac12.\]</span></div>
+<p>Consequently, for
+sufficiently large such <span class="math inline" data-term-auto="off">\(N\)</span>,</p>
+<div class="math-display" id="capacity:eq:tailbound" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\begin{align}
+N!\sum_{\substack{k&gt;N\\k\in S}}\frac{k^c}{k!}
+&amp;\le 2N!\frac{(N+r)^c}{(N+r)!}\\
+&amp;\le 2^{c+1}N^{c-r}\le B,\qquad B=2^{c+1}.
+\tag{5}\label{capacity:eq:tailbound}
+\end{align}\]</span></div>
+<p>In the second inequality we used <span
+class="math inline" data-term-auto="off">\(N\ge r\)</span> and <span
+class="math inline" data-term-auto="off">\((N+1)\cdots(N+r)\ge N^r\)</span>.</p>
+<p>The bounded capacity along this subsequence invokes the necessity
+argument of Theorem <a class="math-ref" href="#capacity:thm:capacity">2.1</a>, with
+allowances <span class="math inline" data-term-auto="off">\(F_n=\lfloor n^c\rfloor\)</span>
+on <span class="math inline" data-term-auto="off">\(S\)</span> and zero elsewhere. It gives
+nullity and meagreness even with target-dependent congruence and
+allowance cutoffs.</p>
+<p>If <span class="math inline" data-term-auto="off">\(c\le1\)</span>, every support gap is
+at least <span class="math inline" data-term-auto="off">\(r=1\)</span>, so this proves the
+first part of Theorem <a class="math-ref" href="#capacity:thm:main">2.2</a>. If <span
+class="math inline" data-term-auto="off">\(c&gt;1\)</span> and (3) fails, it proves the
+negative part. Notice that infrequent large gaps are enough; average
+digit counts do not detect this obstruction.</p>
+</section>
+<section id="a-digit-that-also-corrects-the-cumulative-residue"
+class="level3">
+<h3>A digit that also corrects the cumulative residue</h3>
+<p>The following construction supplies the positive direction. It is
+useful beyond factorial weights.</p>
+<div class="lemma" id="capacity:lem:feedback">
+<p><strong>Lemma 2.4</strong>. <em> Let <span
+class="math inline" data-term-auto="off">\(w_j&gt;0\)</span>, let positive integers <span
+class="math inline" data-term-auto="off">\(M_j\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(M_{j-1}\mid M_j\)</span>, and let <span
+class="math inline" data-term-auto="off">\(F_j\ge0\)</span>. Suppose <span
+class="math inline" data-term-auto="off">\(M_jw_j\to0\)</span> and, for <span
+class="math inline" data-term-auto="off">\(j\ge1\)</span>, </em></p>
+<div class="math-display" id="capacity:eq:step" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[2M_j\le M_{j-1}\frac{w_{j-1}}{w_j},\qquad
+2M_{j-1}\frac{w_{j-1}}{w_j}\le F_j.
+\tag{7}\label{capacity:eq:step}\]</span></div>
+<p><em> Every <span
+class="math inline" data-term-auto="off">\(y\in[M_0w_0,2M_0w_0]\)</span> has a representation
+<span class="math inline" data-term-auto="off">\(y=\sum_{j\ge1}b_jw_j\)</span> with integers
+<span class="math inline" data-term-auto="off">\(0\le b_j\le F_j\)</span> such that </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[M_j\mid\sum_{i\le j}b_i,\qquad M_{j-1}\mid
+b_j.\]</span></div>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Start with residual <span
+class="math inline" data-term-auto="off">\(R_0=y\)</span> and cumulative sum <span
+class="math inline" data-term-auto="off">\(C_0=0\)</span>. Suppose <span
+class="math inline" data-term-auto="off">\(M_{j-1}w_{j-1}\le
+R_{j-1}\le2M_{j-1}w_{j-1}\)</span> and <span
+class="math inline" data-term-auto="off">\(M_{j-1}\mid C_{j-1}\)</span>. Put <span
+class="math inline" data-term-auto="off">\(u=R_{j-1}/w_j\)</span> and let <span
+class="math inline" data-term-auto="off">\(v\)</span> be the least nonnegative residue of
+<span class="math inline" data-term-auto="off">\(-C_{j-1}\)</span> modulo <span
+class="math inline" data-term-auto="off">\(M_j\)</span>. Choose</p>
+<div class="math-display" id="capacity:eq:selector" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[b_j=v+M_j\left\lfloor\frac{u-M_j-v}{M_j}\right\rfloor.
+\tag{8}\label{capacity:eq:selector}\]</span></div>
+<p>Since <span
+class="math inline" data-term-auto="off">\(u\ge2M_j\)</span> and <span
+class="math inline" data-term-auto="off">\(0\le v&lt;M_j\)</span>, this integer is
+nonnegative. The floor identity gives <span class="math inline" data-term-auto="off">\(M_j\le
+u-b_j&lt;2M_j\)</span>; also <span class="math inline" data-term-auto="off">\(b_j\le u\le
+F_j\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(R_j=R_{j-1}-b_jw_j\)</span> lies in <span
+class="math inline" data-term-auto="off">\([M_jw_j,2M_jw_j)\)</span>, while <span
+class="math inline" data-term-auto="off">\(C_j=C_{j-1}+b_j\)</span> is divisible by <span
+class="math inline" data-term-auto="off">\(M_j\)</span>. The incoming modulus divides both
+<span class="math inline" data-term-auto="off">\(C_{j-1}\)</span> and <span
+class="math inline" data-term-auto="off">\(M_j\)</span>, hence also <span
+class="math inline" data-term-auto="off">\(b_j\)</span>. Finally <span
+class="math inline" data-term-auto="off">\(R_j\to0\)</span>, so the partial sums converge to
+<span class="math inline" data-term-auto="off">\(y\)</span>. ◻</p>
+</div>
+<p>The residue in (8) may depend on <span
+class="math inline" data-term-auto="off">\(y\)</span>. Only the schedule of moduli needs to
+be common to all targets. Requiring target-independent ordinary block
+sums would impose an unnecessary restriction on the construction.</p>
+</section>
+<section id="the-positive-direction-and-the-arithmetic-cost"
+class="level3">
+<h3>The positive direction and the arithmetic cost</h3>
+<p>Suppose <span class="math inline" data-term-auto="off">\(c&gt;1\)</span> and the support
+gaps are eventually at most <span class="math inline" data-term-auto="off">\(d=\lceil
+c\rceil-1\)</span>. Discard a finite prefix and write</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[r_j=\frac{n_j!}{n_{j-1}!},\qquad F_j=n_j^c,\qquad
+w_j=\frac1{n_j!}.\]</span></div>
+<p>Then <span class="math inline" data-term-auto="off">\(r_j\ge
+n_j\to\infty\)</span>, while <span class="math inline" data-term-auto="off">\(r_j\le
+n_j^d\)</span> and therefore <span class="math inline" data-term-auto="off">\(F_j/r_j\ge
+n_j^{c-d}\to\infty\)</span>. Define</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[h_j=\inf_{k\ge j}\min\left\{\frac{\sqrt{r_k}}2,
+                                  \frac{F_k}{2r_k}\right\}.\]</span></div>
+<p>This lower envelope is nondecreasing and tends to infinity. Begin
+sufficiently late that <span class="math inline" data-term-auto="off">\(h_1\ge1\)</span>, set
+<span class="math inline" data-term-auto="off">\(M_0=1\)</span>, and let <span
+class="math inline" data-term-auto="off">\(M_j\)</span> be the largest factorial at most
+<span class="math inline" data-term-auto="off">\(h_j\)</span>. These moduli are nested and
+eventually divisible by every fixed integer. Moreover,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[2M_j\le\sqrt{r_j}\le r_jM_{j-1},\qquad
+2r_jM_{j-1}\le F_j.\]</span></div>
+<p>The second inequality uses <span
+class="math inline" data-term-auto="off">\(M_{j-1}\le h_j\)</span>, also valid for <span
+class="math inline" data-term-auto="off">\(j=1\)</span>. Finally, <span
+class="math inline" data-term-auto="off">\(M_j/n_j!\le\sqrt{r_j}/(2n_j!)\le1/(2\sqrt{n_j!})\to0\)</span>.
+Lemma <a class="math-ref" href="#capacity:lem:feedback">2.4</a>
+fills <span class="math inline" data-term-auto="off">\([1/n_0!,2/n_0!]\)</span> using the
+positions <span class="math inline" data-term-auto="off">\(n_j\)</span>, <span
+class="math inline" data-term-auto="off">\(j\ge1\)</span>. Put zero digits elsewhere. Once
+<span class="math inline" data-term-auto="off">\(q\mid M_J\)</span>, all later digits and
+cumulative sums at the original integer indices have the divisibilities
+in (4). This proves the positive direction, including common
+cutoffs.</p>
+<p>For comparison, remove condition (2) and call the resulting
+attainable set <span class="math inline" data-term-auto="off">\(E_0(S,c)\)</span>.</p>
+<div class="proposition" id="capacity:prop:unrestricted">
+<p><strong>Proposition 2.5</strong>. <em> For an infinite support and
+<span class="math inline" data-term-auto="off">\(c\ge1\)</span>, <span
+class="math inline" data-term-auto="off">\(E_0(S,c)\)</span> contains an interval exactly
+when its successive gaps are eventually at most <span
+class="math inline" data-term-auto="off">\(\lfloor c\rfloor\)</span>. Otherwise it is null
+and meagre. For <span class="math inline" data-term-auto="off">\(0&lt;c&lt;1\)</span> it is
+always null and meagre.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> For necessity repeat Section <a class="math-ref" href="#capacity:sec:negative">2.3</a> with <span
+class="math inline" data-term-auto="off">\(r=\lfloor c\rfloor+1\)</span>. The bound in (5)
+now tends to zero. With lattice spacing <span
+class="math inline" data-term-auto="off">\(1/N!\)</span>, it is eventually bounded by <span
+class="math inline" data-term-auto="off">\(1/(2N!)\)</span>, so the same compact-set argument
+applies with <span class="math inline" data-term-auto="off">\(q=1\)</span>, <span
+class="math inline" data-term-auto="off">\(B=1/2\)</span>. For sufficiency, <span
+class="math inline" data-term-auto="off">\(r_j\le n_j^c\)</span> along the support. The
+ordinary mixed-radix expansion using digits <span
+class="math inline" data-term-auto="off">\(0\le b_j&lt;r_j\)</span> fills <span
+class="math inline" data-term-auto="off">\([0,1/n_0!]\)</span>. To see this directly, the
+maximum tail after <span class="math inline" data-term-auto="off">\(n_j\)</span> is <span
+class="math inline" data-term-auto="off">\(1/n_j!\)</span>, since <span
+class="math inline" data-term-auto="off">\((r_k-1)/n_k!=1/n_{k-1}!-1/n_k!\)</span>. The
+adjacent digit intervals therefore meet, and their lengths tend to
+zero. ◻</p>
+</div>
+<p>Thus the difference between the two gap thresholds occurs exactly at
+integer <span class="math inline" data-term-auto="off">\(c\)</span>. At <span
+class="math inline" data-term-auto="off">\(c=m\ge2\)</span>, imposing eventual congruences
+raises the least support density from <span
+class="math inline" data-term-auto="off">\(1/m\)</span> to <span
+class="math inline" data-term-auto="off">\(1/(m-1)\)</span>. At <span
+class="math inline" data-term-auto="off">\(c=1\)</span> it destroys interval filling
+entirely. With quadratic allowances, deleting only the positions <span
+class="math inline" data-term-auto="off">\(2^k\)</span> destroys interval filling, although
+the permitted support still has density one. This is the simplest
+example of why support density loses decisive information. These
+statements concern intervals of values on a common permitted support;
+they are not lower bounds for representing one specially chosen
+value.</p>
+</section>
+<section id="capacity:sec:carry" class="level3">
+<h3>A common-divisor test for irrationality</h3>
+<p>The distinction between small and large allowances also appears
+directly in rationality. Let <span
+class="math inline" data-term-auto="off">\(b_n\ge2\)</span> be integers, put <span
+class="math inline" data-term-auto="off">\(Q_0=1\)</span> and <span
+class="math inline" data-term-auto="off">\(Q_n=b_1\cdots b_n\)</span>, and consider a Cantor
+series.</p>
+<div class="theorem" id="capacity:thm:gcd">
+<p><strong>Theorem 2.6</strong>. <em> Suppose <span
+class="math inline" data-term-auto="off">\(0\le a_n\le A\)</span> and <span
+class="math inline" data-term-auto="off">\(e_n\ge0\)</span> are integers, <span
+class="math inline" data-term-auto="off">\(e_n\le Cb_n\)</span> eventually, and <span
+class="math inline" data-term-auto="off">\(a_n+e_n\)</span> is nonzero infinitely often. If
+</em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\limsup_{n\to\infty}\gcd(b_n,e_n)=\infty,\]</span></div>
+<p class="display-continue"><em>
+then <span class="math inline" data-term-auto="off">\(\sum_{n\ge1}(a_n+e_n)/Q_n\)</span> is
+irrational.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> For large <span class="math inline" data-term-auto="off">\(n\)</span>, the
+scaled tail satisfies</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[0&lt;Q_n\sum_{k&gt;n}\frac{a_k+e_k}{Q_k}\le
+A+2C.\]</span></div>
+<p>Indeed, the bounded <span
+class="math inline" data-term-auto="off">\(a_k\)</span> contribute at most <span
+class="math inline" data-term-auto="off">\(A\sum_{j\ge1}2^{-j}=A\)</span>, and <span
+class="math inline" data-term-auto="off">\(e_k\le Cb_k\)</span> contributes at most <span
+class="math inline" data-term-auto="off">\(C\sum_{j\ge1}2^{-(j-1)}=2C\)</span>. If the total
+were <span class="math inline" data-term-auto="off">\(p/D\)</span>, the numbers</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[T_n=DQ_n\left(\frac pD-\sum_{k\le
+n}\frac{a_k+e_k}{Q_k}\right)\]</span></div>
+<p class="display-continue">would be positive integers
+eventually bounded by <span class="math inline" data-term-auto="off">\(D(A+2C)\)</span>. No
+hypothesis that <span class="math inline" data-term-auto="off">\(D\mid Q_n\)</span> is
+needed: the extra factor <span class="math inline" data-term-auto="off">\(D\)</span> clears
+it. The recurrence</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[b_nT_{n-1}=D(a_n+e_n)+T_n\]</span></div>
+<p class="display-continue">implies <span
+class="math inline" data-term-auto="off">\(\gcd(b_n,e_n)\mid Da_n+T_n\)</span>. The integer
+on the right is positive and eventually at most <span
+class="math inline" data-term-auto="off">\(D(2A+2C)\)</span>, contradicting the unbounded
+gcd. ◻</p>
+</div>
+<p>For factorial denominators, <span
+class="math inline" data-term-auto="off">\(b_n=n\)</span>, and eventual divisibility of <span
+class="math inline" data-term-auto="off">\(e_n\)</span> by each fixed integer makes <span
+class="math inline" data-term-auto="off">\(\gcd(n,e_n)\)</span> arbitrarily large arbitrarily
+late: choose a late multiple of that integer. Hence bounded nonnegative
+digits that are nonzero infinitely often cannot be rationalised by
+nonnegative <span class="math inline" data-term-auto="off">\(O(n)\)</span> corrections
+satisfying (2). Conversely any allowance <span
+class="math inline" data-term-auto="off">\(F(n)\)</span> with <span
+class="math inline" data-term-auto="off">\(F(n)/n\to\infty\)</span> permits interval filling
+under (4): apply the positive construction with <span
+class="math inline" data-term-auto="off">\(r_n=n\)</span>, replacing <span
+class="math inline" data-term-auto="off">\(n^c\)</span> by <span
+class="math inline" data-term-auto="off">\(F(n)\)</span>.</p>
+<p>The arithmetic hypothesis cannot be replaced by <span
+class="math inline" data-term-auto="off">\(b_n\to\infty\)</span>, even if both congruences
+(4) are retained. Set <span class="math inline" data-term-auto="off">\(a_n=1\)</span>, <span
+class="math inline" data-term-auto="off">\(e_1=2\)</span>, and <span
+class="math inline" data-term-auto="off">\(e_n=(n+1)!-n!\)</span> for <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span>, and let <span
+class="math inline" data-term-auto="off">\(b_n=e_n+2\)</span>. Then <span
+class="math inline" data-term-auto="off">\(\sum_{k\le n}e_k=(n+1)!\)</span>, so (4) holds,
+and <span class="math inline" data-term-auto="off">\(e_n&lt;b_n\)</span>. Nevertheless</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_{n\ge1}\frac{a_n+e_n}{Q_n}
+=\sum_{n\ge1}\frac{b_n-1}{Q_n}=1.\]</span></div>
+<p>Here <span
+class="math inline" data-term-auto="off">\(\gcd(b_n,e_n)\le2\)</span>. This example separates
+rapid denominator growth from the arithmetic obstruction used in
+Theorem <a class="math-ref" href="#capacity:thm:gcd">2.6</a>.</p>
+</section>
+<section id="why-a-small-allowance-along-a-subsequence-is-insufficient"
+class="level3">
+<h3>Why a small allowance along a subsequence is insufficient</h3>
+<p>Without eventual congruences, the allowance <span
+class="math inline" data-term-auto="off">\(F(n)=n-1\)</span> for <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span> gives the full interval <span
+class="math inline" data-term-auto="off">\([0,1]\)</span>, whereas <span
+class="math inline" data-term-auto="off">\(F(n)=o(n)\)</span> as <span
+class="math inline" data-term-auto="off">\(n\to\infty\)</span> gives a null attainable set.
+The latter conclusion does not follow from small allowances merely along
+a subsequence, as the example below shows.</p>
+<p>For the nullity assertion, eventually <span
+class="math inline" data-term-auto="off">\(F(n)+1\le n/2\)</span> and <span
+class="math inline" data-term-auto="off">\(F(n)\le n\)</span>. Thus the number of prefixes
+through <span class="math inline" data-term-auto="off">\(N\)</span> is at most <span
+class="math inline" data-term-auto="off">\(C2^{-N}N!\)</span> for a fixed <span
+class="math inline" data-term-auto="off">\(C\)</span>, while the capacity after <span
+class="math inline" data-term-auto="off">\(N\)</span> is at most <span
+class="math inline" data-term-auto="off">\(\sum_{n&gt;N}n/n!\le2/N!\)</span>. The covering
+bound of Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(i), allowing
+zero-capacity levels to be omitted, tends to zero.</p>
+<p>For the subsequence counterexample put <span
+class="math inline" data-term-auto="off">\(F(2k)=0\)</span> and <span
+class="math inline" data-term-auto="off">\(F(2k+1)=(2k)(2k+1)-1\)</span> for <span
+class="math inline" data-term-auto="off">\(k\ge1\)</span>, with <span
+class="math inline" data-term-auto="off">\(F(1)=0\)</span>. Then</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{F(2k+1)}{(2k+1)!}
+=\frac1{(2k-1)!}-\frac1{(2k+1)!}.\]</span></div>
+<p>The total capacity is <span
+class="math inline" data-term-auto="off">\(1\)</span>, and the capacity after each permitted
+index <span class="math inline" data-term-auto="off">\(2k+1\)</span> is exactly <span
+class="math inline" data-term-auto="off">\(1/(2k+1)!\)</span>, equal to the spacing between
+its choices. The interval criterion therefore gives every value in <span
+class="math inline" data-term-auto="off">\([0,1]\)</span>, even though <span
+class="math inline" data-term-auto="off">\(F(n)/n=0\)</span> at every even index. The exact
+telescoping identities and sample greedy expansions are reproduced by
+the script cited in Section <a class="math-ref" href="#sec:misread">5</a>; the interval
+conclusion follows from this argument, not from the samples.</p>
+</section>
+</section>
+<section id="sec:results" class="level2">
+<h2>Lambert subsums across bases</h2>
+<p>For real <span class="math inline" data-term-auto="off">\(t&gt;1\)</span> and a set <span
+class="math inline" data-term-auto="off">\(S\)</span> of positive integers put</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[X_S(t)=\sum_{n\in S}\frac{1}{t^n-1},\qquad
+w_n=\frac{1}{t^n-1},\qquad R_N=\sum_{n&gt;N}w_n .\]</span></div>
+<p>Problem #257
+asks whether <span class="math inline" data-term-auto="off">\(X_S(t)\)</span> is irrational
+for every infinite <span class="math inline" data-term-auto="off">\(S\)</span> at every
+integer <span class="math inline" data-term-auto="off">\(t\ge2\)</span> <span
+class="citation" data-cites="erdosgraham1980"></span>; Problem #1049
+asks about <span class="math inline" data-term-auto="off">\(X_{\N_{&gt;0}}(t)\)</span> at
+rational <span class="math inline" data-term-auto="off">\(t\)</span>.</p>
+<p>The comparison behind everything is stated for weights with
+multiplicities. Let <span class="math inline" data-term-auto="off">\(u_n&gt;0\)</span> and
+integers <span class="math inline" data-term-auto="off">\(D_n\ge1\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(\sum_nD_nu_n&lt;\infty\)</span>, and put</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[V=\Bigl\{\sum_{n\ge1}\varepsilon_nu_n:\
+\varepsilon_n\in\{0,1,\dots,D_n\}\Bigr\},
+\qquad C_N=\sum_{n&gt;N}D_nu_n .\]</span></div>
+<div class="theorem" id="thm:dichotomy">
+<p><strong>Theorem 3.1</strong> (choices against contraction). <em> <span
+class="upright">(i)</span> For every <span
+class="math inline" data-term-auto="off">\(N\)</span>, the Lebesgue measure of <span
+class="math inline" data-term-auto="off">\(V\)</span> is at most <span
+class="math inline" data-term-auto="off">\(C_N\prod_{n\le N}(D_n+1)\)</span>. If <span
+class="math inline" data-term-auto="off">\(\liminf_NC_N\prod_{n\le N}(D_n+1)=0\)</span> then
+<span class="math inline" data-term-auto="off">\(V\)</span> is null.</em></p>
+<p><em><span class="upright">(ii)</span> If <span
+class="math inline" data-term-auto="off">\(u_n\le C_n\)</span> for every <span
+class="math inline" data-term-auto="off">\(n&gt;N_0\)</span>, then for each choice of <span
+class="math inline" data-term-auto="off">\(\varepsilon_1,\dots,\varepsilon_{N_0}\)</span> the
+set <span class="math inline" data-term-auto="off">\(V\)</span> contains the interval <span
+class="math inline" data-term-auto="off">\([\mu,\mu+C_{N_0}]\)</span>, where <span
+class="math inline" data-term-auto="off">\(\mu=\sum_{n\le
+N_0}\varepsilon_nu_n\)</span>.</em></p>
+<p><em><span class="upright">(iii)</span> For <span
+class="math inline" data-term-auto="off">\(u_n=\beta^{-n}\)</span> with real <span
+class="math inline" data-term-auto="off">\(\beta&gt;1\)</span> and <span
+class="math inline" data-term-auto="off">\(D_n=D\)</span>, the bound in <span
+class="upright">(i)</span> tends to <span
+class="math inline" data-term-auto="off">\(0\)</span> exactly when <span
+class="math inline" data-term-auto="off">\(D+1&lt;\beta\)</span>, and the hypothesis of <span
+class="upright">(ii)</span> holds exactly when <span
+class="math inline" data-term-auto="off">\(D+1\ge\beta\)</span>.</em></p>
+</div>
+<p>Part (ii) is Kakeya’s covering argument and part (i) is the standard
+covering bound; both are classical <span class="citation"
+data-cites="hornich1941 nitecki2013 fridy1966"><a href="#ref-4">[4]</a><a href="#ref-5">[5]</a><a href="#ref-6">[6]</a></span>, and Kovač and
+Tao give a scalar reciprocal-choice covering lemma <span
+class="citation" data-cites="kovactao2024"></span>; their
+higher-dimensional approximation lemma is Lemma 7.2 of the same paper.
+We claim no novelty for Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>. Its use here is to
+say which side each problem lies on.</p>
+<div class="theorem" id="thm:bases">
+<p><strong>Theorem 3.2</strong> (the subseries across bases). <em> Let
+<span class="math inline" data-term-auto="off">\(t&gt;1\)</span> be real.</em></p>
+<p><em><span class="upright">(a)</span> If <span
+class="math inline" data-term-auto="off">\(t&lt;2\)</span>, let <span
+class="math inline" data-term-auto="off">\(N_0\ge0\)</span> be least with <span
+class="math inline" data-term-auto="off">\(t^{-n}\le2-t\)</span> for all <span
+class="math inline" data-term-auto="off">\(n&gt;N_0\)</span>. Then the set of values <span
+class="math inline" data-term-auto="off">\(X_S(t)\)</span> is the union of the intervals
+<span class="math inline" data-term-auto="off">\([X_F(t),X_F(t)+R_{N_0}]\)</span> over <span
+class="math inline" data-term-auto="off">\(F\subseteq\{1,\dots,N_0\}\)</span>, where <span
+class="math inline" data-term-auto="off">\(X_F(t)=\sum_{n\in F}w_n\)</span>; in particular it
+contains <span class="math inline" data-term-auto="off">\([0,R_{N_0}]\)</span>. If moreover
+<span class="math inline" data-term-auto="off">\(t=a/b\)</span> in lowest terms, then every
+rational in <span class="math inline" data-term-auto="off">\([0,R_{N_0}]\)</span> whose
+reduced denominator shares a prime factor with <span
+class="math inline" data-term-auto="off">\(ab\)</span> equals <span
+class="math inline" data-term-auto="off">\(X_S(t)\)</span> for some <span
+class="math inline" data-term-auto="off">\(S\)</span>, and every such <span
+class="math inline" data-term-auto="off">\(S\)</span> is infinite. There is an infinite <span
+class="math inline" data-term-auto="off">\(S\subseteq\{2,3,\dots\}\)</span> with <span
+class="math inline" data-term-auto="off">\(X_S(3/2)=1/2\)</span>.</em></p>
+<p><em><span class="upright">(b)</span> If <span
+class="math inline" data-term-auto="off">\(t=2\)</span>, every value has exactly one <span
+class="math inline" data-term-auto="off">\(S\)</span>, and the set of values is a Cantor set
+of Lebesgue measure <span class="math inline" data-term-auto="off">\(1\)</span> inside <span
+class="math inline" data-term-auto="off">\([0,E]\)</span>, where <span
+class="math inline" data-term-auto="off">\(E=\sum_{n\ge1}(2^n-1)^{-1}=1.6066951524\ldots\)</span>.</em></p>
+<p><em><span class="upright">(c)</span> If <span
+class="math inline" data-term-auto="off">\(t&gt;2\)</span>, the set of values is
+null.</em></p>
+</div>
+<p>Part (b) is proved in the companion note on #257, Section 7, from
+Hornich’s theorem as proved by Nitecki <span class="citation"
+data-cites="plectis257 hornich1941 nitecki2013"><a href="#ref-22">[22]</a><a href="#ref-4">[4]</a><a href="#ref-5">[5]</a></span>; Kovač and Tao
+record the strict inequality <span
+class="math inline" data-term-auto="off">\(w_N&gt;R_N\)</span> and the Cantor-set conclusion
+for every fixed base <span class="math inline" data-term-auto="off">\(t\ge2\)</span> <span
+class="citation" data-cites="kovactao2024"></span>. Parts (a) and (c)
+follow from Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a> in a few lines. We
+have not found part (a) stated for non-integer bases and it may be
+known. It shows that the statement asked in #257 is false at every
+rational base below <span class="math inline" data-term-auto="off">\(2\)</span>, so any proof
+at base <span class="math inline" data-term-auto="off">\(2\)</span> must use more than the
+shape of the series.</p>
+<div class="theorem" id="thm:chains">
+<p><strong>Theorem 3.3</strong> (divisibility chains). <em> Let <span
+class="math inline" data-term-auto="off">\(t=a/b&gt;1\)</span> in lowest terms and let <span
+class="math inline" data-term-auto="off">\(S=\{n_1&lt;n_2&lt;\cdots\}\)</span> be infinite
+with <span class="math inline" data-term-auto="off">\(n_j\mid n_{j+1}\)</span> for every
+<span class="math inline" data-term-auto="off">\(j\)</span>.</em></p>
+<p><em><span class="upright">(a)</span> If <span
+class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span>, then <span
+class="math inline" data-term-auto="off">\(X_S(t)\)</span> is irrational.</em></p>
+<p><em><span class="upright">(b)</span> If <span
+class="math inline" data-term-auto="off">\(n_{j+1}=2n_j\)</span> for all large <span
+class="math inline" data-term-auto="off">\(j\)</span>, then <span
+class="math inline" data-term-auto="off">\(X_S(t)\)</span> is transcendental, with no
+condition on <span class="math inline" data-term-auto="off">\(a\)</span> and <span
+class="math inline" data-term-auto="off">\(b\)</span>.</em></p>
+</div>
+<p>The hypothesis <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> says
+<span class="math inline" data-term-auto="off">\(\log b/\log a&lt;2/3\)</span>. It holds for
+every integer base, for <span class="math inline" data-term-auto="off">\(3/2\)</span>, <span
+class="math inline" data-term-auto="off">\(5/2\)</span> and <span
+class="math inline" data-term-auto="off">\(7/3\)</span>, and fails for <span
+class="math inline" data-term-auto="off">\(4/3\)</span> and <span
+class="math inline" data-term-auto="off">\(5/4\)</span>. At integer bases part (a) is
+contained in the theorem of Erdős on supports with <span
+class="math inline" data-term-auto="off">\(\sum_{n\in S}1/n&lt;\infty\)</span> <span
+class="citation" data-cites="erdos1968"></span>, proved in full in <span
+class="citation" data-cites="plectis257"></span>. At base <span
+class="math inline" data-term-auto="off">\(3/2\)</span> it sits inside the regime of
+Theorem <a class="math-ref" href="#thm:bases">3.2</a>(a):
+rational values occur there, and exact divisibility still forces
+irrationality. For comparison, the companion note on #1049 proves the
+irrationality of the full sum <span
+class="math inline" data-term-auto="off">\(X_{\N_{&gt;0}}(a/b)\)</span> when <span
+class="math inline" data-term-auto="off">\(\log b/\log
+a&lt;0.4056830213840605\ldots\)</span>, using Zudilin’s linear forms
+<span class="citation" data-cites="plectis1049"><a href="#ref-24">[24]</a></span>, <span
+class="citation" data-cites="zudilin2004"></span>, and proves that the
+sufficient cutoff supplied by one integer-polynomial family with common
+leading degree, coefficient-height and decay bounds at every fixed real
+base <span class="math inline" data-term-auto="off">\(x&gt;1\)</span> is at most <span
+class="math inline" data-term-auto="off">\(1/2\)</span> <span class="citation"
+data-cites="plectis1049"><a href="#ref-24">[24]</a></span>. This restriction does not exclude
+stronger estimates at a particular base or a different choice of family
+there. Thin supports reach further than the full sum because the
+denominators divide one another.</p>
+<p>At base <span class="math inline" data-term-auto="off">\(2\)</span> the greedy rule
+characterises membership and supplies finite certificates of
+nonmembership: starting from <span class="math inline" data-term-auto="off">\(r_0=x\)</span>,
+take index <span class="math inline" data-term-auto="off">\(n\)</span> when <span
+class="math inline" data-term-auto="off">\(r_{n-1}\ge w_n\)</span> and subtract. Since <span
+class="math inline" data-term-auto="off">\(w_n&gt;R_n\)</span>, a real <span
+class="math inline" data-term-auto="off">\(x\in[0,E]\)</span> is a subsum if and only if no
+remainder falls strictly between <span
+class="math inline" data-term-auto="off">\(R_n\)</span> and <span
+class="math inline" data-term-auto="off">\(w_n\)</span>; we say <span
+class="math inline" data-term-auto="off">\(x\)</span> is <em>rejected at step <span
+class="math inline" data-term-auto="off">\(n\)</span></em> when that happens first at index
+<span class="math inline" data-term-auto="off">\(n\)</span>.</p>
+<div class="theorem" id="thm:forced">
+<p><strong>Theorem 3.4</strong> (the fixed-depth rational count). <em>
+Fix <span class="math inline" data-term-auto="off">\(N\ge1\)</span>. Among the reduced
+fractions <span class="math inline" data-term-auto="off">\(p/q\in(0,E]\)</span> with <span
+class="math inline" data-term-auto="off">\(q\le Q\)</span>, the proportion not rejected in
+the first <span class="math inline" data-term-auto="off">\(N\)</span> steps tends to <span
+class="math inline" data-term-auto="off">\(2^NR_N/E\)</span> as <span
+class="math inline" data-term-auto="off">\(Q\to\infty\)</span>, with error <span
+class="math inline" data-term-auto="off">\(O(2^N\log Q/Q)\)</span>. Consequently the upper
+limit of the proportion that are subsums is at most <span
+class="math inline" data-term-auto="off">\(1/E=0.62239\ldots\)</span>.</em></p>
+</div>
+<p>The limit <span class="math inline" data-term-auto="off">\(2^NR_N/E\)</span> does not
+depend on whether #257 is true. Agreement with this fixed-depth limiting
+proportion therefore does not establish membership. An exact computation
+in <span class="citation" data-cites="plectisinvestigation"><a href="#ref-25">[25]</a></span>
+first read a surviving share near <span
+class="math inline" data-term-auto="off">\(62\%\)</span> as evidence that most such fractions
+are subsums; Theorem <a class="math-ref" href="#thm:forced">3.4</a> is the correction.
+Section <a class="math-ref" href="#sec:base2">3.3</a> states what
+remains.</p>
+<section id="evidence." class="level5">
+<h5>Evidence.</h5>
+<p>The proofs of Theorems <a class="math-ref" href="#thm:dichotomy">3.1</a>–<a class="math-ref" href="#thm:forced">3.4</a> are ordinary proofs.
+Theorem <a class="math-ref" href="#thm:chains">3.3</a> uses
+Nishioka’s theorem for Mahler systems as an external premise in the
+eventually doubling case, hence in both parts. Results quoted from the
+problem papers retain the evidence class given at each use.</p>
+</section>
+<section id="sec:dichotomy" class="level3">
+<h3>Choices against contraction</h3>
+<div class="proof">
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>.</em> (i) A choice of
+<span class="math inline" data-term-auto="off">\(\varepsilon_1,\dots,\varepsilon_N\)</span>
+fixes <span class="math inline" data-term-auto="off">\(\sum_{n\le
+N}\varepsilon_nu_n\)</span>, and the rest of the sum lies in <span
+class="math inline" data-term-auto="off">\([0,C_N]\)</span>. So <span
+class="math inline" data-term-auto="off">\(V\)</span> is covered by at most <span
+class="math inline" data-term-auto="off">\(\prod_{n\le N}(D_n+1)\)</span> intervals of length
+<span class="math inline" data-term-auto="off">\(C_N\)</span>.</p>
+<p>(ii) Subtracting <span class="math inline" data-term-auto="off">\(\mu\)</span>, it
+suffices to reach every <span
+class="math inline" data-term-auto="off">\(y\in[0,C_{N_0}]\)</span> with the levels <span
+class="math inline" data-term-auto="off">\(n&gt;N_0\)</span>. Put <span
+class="math inline" data-term-auto="off">\(y_{N_0}=y\)</span> and, for <span
+class="math inline" data-term-auto="off">\(n&gt;N_0\)</span>, let <span
+class="math inline" data-term-auto="off">\(\varepsilon_n=\min(D_n,\lfloor
+y_{n-1}/u_n\rfloor)\)</span> and <span
+class="math inline" data-term-auto="off">\(y_n=y_{n-1}-\varepsilon_nu_n\)</span>. If <span
+class="math inline" data-term-auto="off">\(0\le y_{n-1}\le C_{n-1}=D_nu_n+C_n\)</span> then
+<span class="math inline" data-term-auto="off">\(0\le y_n\le C_n\)</span>: when <span
+class="math inline" data-term-auto="off">\(\varepsilon_n=D_n\)</span> this is a subtraction,
+and when <span class="math inline" data-term-auto="off">\(\varepsilon_n&lt;D_n\)</span> it
+holds because <span class="math inline" data-term-auto="off">\(y_n&lt;u_n\le C_n\)</span>.
+Since <span class="math inline" data-term-auto="off">\(C_n\to0\)</span>, the sum of the <span
+class="math inline" data-term-auto="off">\(\varepsilon_nu_n\)</span> is <span
+class="math inline" data-term-auto="off">\(y\)</span>.</p>
+<p>(iii) Here <span
+class="math inline" data-term-auto="off">\(C_n=D\beta^{-n}/(\beta-1)\)</span>. The product in
+(i) is a constant multiple of <span
+class="math inline" data-term-auto="off">\(((D+1)/\beta)^N\)</span>, and <span
+class="math inline" data-term-auto="off">\(u_n\le C_n\)</span> says <span
+class="math inline" data-term-auto="off">\(\beta-1\le D\)</span>. ◻</p>
+</div>
+<p>The reading that matters for irrationality is immediate. Suppose a
+family of series has values <span
+class="math inline" data-term-auto="off">\(x_0+\sum\varepsilon_nu_n\)</span> with the <span
+class="math inline" data-term-auto="off">\(\varepsilon_n\)</span> free as in (ii). The values
+then fill an interval, which contains rationals and irrationals, so a
+property that all members of the family share implies neither. A proof
+of irrationality for one member has to use something that distinguishes
+it inside the family. Two constructions in the companion notes are
+families of this kind.</p>
+<p><em>Problem #251.</em> Proposition 1 of <span class="citation"
+data-cites="plectis251"><a href="#ref-21">[21]</a></span> (ordinary proof), applied in its
+Corollary 2 to the prime gaps, changes the gaps on a set of upper Banach
+density zero, by nonnegative integers below any prescribed function
+tending to infinity, keeping every congruence modulo every fixed <span
+class="math inline" data-term-auto="off">\(q\)</span> from some point on, and reaches every
+real in an interval. The resulting positions <span
+class="math inline" data-term-auto="off">\(P_n\)</span> satisfy <span
+class="math inline" data-term-auto="off">\(P_n\sim n\log n\)</span> and are not asserted to
+be prime. In the notation above the <span
+class="math inline" data-term-auto="off">\(j\)</span>-th block has <span
+class="math inline" data-term-auto="off">\(u_j=M_j2^{-n_j-2}\)</span> and <span
+class="math inline" data-term-auto="off">\(D_j=2^{s_j}-1\)</span>, and the inequality
+verified there is <span class="math inline" data-term-auto="off">\(u_j\le C_j\)</span>. The
+lemma is credited there to <span class="citation"
+data-cites="fridy1966"><a href="#ref-6">[6]</a></span>, <span class="citation"
+data-cites="crmarickovac2025"><a href="#ref-7">[7]</a></span> and <span class="citation"
+data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>. The note also proves that a bounded
+allowance is impossible under the stated congruences. Thus every
+allowance tending to infinity suffices, while no bounded allowance does.
+The specified growth, eventual fixed-modulus congruences and empirical
+distributions of unnormalised blocks therefore do not suffice to prove
+<span class="math inline" data-term-auto="off">\(\sum p_n2^{-n}\)</span> irrational; neither
+primality nor every quantitative correlation is preserved.</p>
+<p><em>Problem #249.</em> Section 5 of <span class="citation"
+data-cites="plectis249"><a href="#ref-20">[20]</a></span> gives an integer sequence <span
+class="math inline" data-term-auto="off">\(c\)</span> with <span
+class="math inline" data-term-auto="off">\(c(n)=\varphi(n)\)</span> for odd <span
+class="math inline" data-term-auto="off">\(n\)</span>, <span
+class="math inline" data-term-auto="off">\(|c(n)-\varphi(n)|\le2\)</span> for even <span
+class="math inline" data-term-auto="off">\(n\)</span>, <span class="math inline" data-term-auto="off">\(0\le
+c(n)\le n\)</span> and <span class="math inline" data-term-auto="off">\(\sum
+c(n)2^{-n}=5/4\)</span> (Lean-checked there). Changing even indices by
+at most <span class="math inline" data-term-auto="off">\(2\)</span> is the case <span
+class="math inline" data-term-auto="off">\(u_n=2^{-n}\)</span> for even <span
+class="math inline" data-term-auto="off">\(n\)</span>, <span
+class="math inline" data-term-auto="off">\(D_n=4\)</span>, where <span
+class="math inline" data-term-auto="off">\(C_n\ge\tfrac43 2^{-n}&gt;u_n\)</span>.</p>
+<p>The same comparison appears in Kovač and Tao’s theorem that for
+integers <span class="math inline" data-term-auto="off">\(2\le t_1&lt;\dots&lt;t_m\)</span>
+with <span class="math inline" data-term-auto="off">\(\sum1/(t_k-1)&gt;1\)</span> there are
+sets <span class="math inline" data-term-auto="off">\(S_k\)</span>, one of them infinite,
+with <span class="math inline" data-term-auto="off">\(\sum_kX_{S_k}(t_k)\)</span> rational
+<span class="citation" data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>: merging the
+weights of the <span class="math inline" data-term-auto="off">\(m\)</span> bases, the sum of
+all weights below a given weight <span class="math inline" data-term-auto="off">\(u\)</span>
+is at least <span
+class="math inline" data-term-auto="off">\((1-O(u))\,u\sum1/(t_k-1)\)</span>, which exceeds
+<span class="math inline" data-term-auto="off">\(u\)</span> once <span
+class="math inline" data-term-auto="off">\(u\)</span> is small.</p>
+</section>
+<section id="sec:bases" class="level3">
+<h3>The subseries across bases</h3>
+<div class="proof">
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:bases">3.2</a>.</em> (a) Since <span
+class="math inline" data-term-auto="off">\(R_n\ge\sum_{k&gt;n}t^{-k}=t^{-n}/(t-1)\)</span>
+and <span class="math inline" data-term-auto="off">\(w_n=t^{-n}/(1-t^{-n})\)</span>, the
+inequality <span class="math inline" data-term-auto="off">\(w_n\le R_n\)</span> holds as soon
+as <span class="math inline" data-term-auto="off">\(t^{-n}\le2-t\)</span>. Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(ii) with <span
+class="math inline" data-term-auto="off">\(D_n=1\)</span> gives, for each <span
+class="math inline" data-term-auto="off">\(F\subseteq\{1,\dots,N_0\}\)</span>, the interval
+<span class="math inline" data-term-auto="off">\([X_F(t),X_F(t)+R_{N_0}]\)</span>, and every
+value <span class="math inline" data-term-auto="off">\(X_S(t)\)</span> lies in the one with
+<span class="math inline" data-term-auto="off">\(F=S\cap[1,N_0]\)</span>. For <span
+class="math inline" data-term-auto="off">\(t=a/b\)</span> a finite subsum is <span
+class="math inline" data-term-auto="off">\(\sum_{n\in F}b^n/(a^n-b^n)\)</span>, whose
+denominator divides <span class="math inline" data-term-auto="off">\(\prod(a^n-b^n)\)</span>
+and is coprime to <span class="math inline" data-term-auto="off">\(ab\)</span>. A rational
+whose denominator is not coprime to <span
+class="math inline" data-term-auto="off">\(ab\)</span> is therefore never a finite subsum,
+and inside the interval it is a subsum. At <span
+class="math inline" data-term-auto="off">\(t=3/2\)</span> the inequality <span
+class="math inline" data-term-auto="off">\(t^{-n}\le1/2\)</span> holds for <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span> and <span
+class="math inline" data-term-auto="off">\(R_1&gt;1/2\)</span>.</p>
+<p>(c) For <span class="math inline" data-term-auto="off">\(t&gt;2\)</span>, <span
+class="math inline" data-term-auto="off">\(2^NR_N\le2^Nt^{-N}/((t-1)(1-t^{-1}))\to0\)</span>,
+and Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(i)
+applies. ◻</p>
+</div>
+<div class="proof">
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:chains">3.3</a>.</em> Write <span
+class="math inline" data-term-auto="off">\(\rho=b/a\)</span>, <span
+class="math inline" data-term-auto="off">\(D_j=a^{n_j}-b^{n_j}\)</span> and <span
+class="math inline" data-term-auto="off">\(S_j=\sum_{i\le
+j}b^{n_i}/(a^{n_i}-b^{n_i})\)</span>. Because <span
+class="math inline" data-term-auto="off">\(n_i\mid n_j\)</span> for <span
+class="math inline" data-term-auto="off">\(i\le j\)</span>, each <span
+class="math inline" data-term-auto="off">\(a^{n_i}-b^{n_i}\)</span> divides <span
+class="math inline" data-term-auto="off">\(D_j\)</span>, so <span
+class="math inline" data-term-auto="off">\(D_jS_j\)</span> is an integer. The tail satisfies</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[0&lt;X_S(t)-S_j\le\sum_{n\ge
+n_{j+1}}\frac{\rho^n}{1-\rho^n}
+\le\frac{\rho^{\,n_{j+1}}}{(1-\rho)^2}.\]</span></div>
+<p>Each ratio <span
+class="math inline" data-term-auto="off">\(n_{j+1}/n_j\)</span> is an integer at least <span
+class="math inline" data-term-auto="off">\(2\)</span>.</p>
+<p>Suppose the ratio is at least <span class="math inline" data-term-auto="off">\(3\)</span>
+for infinitely many <span class="math inline" data-term-auto="off">\(j\)</span>. For those
+<span class="math inline" data-term-auto="off">\(j\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[0&lt;D_j\bigl(X_S(t)-S_j\bigr)\le\frac{a^{n_j}\rho^{3n_j}}{(1-\rho)^2}
+=\frac{1}{(1-\rho)^2}\Bigl(\frac{b^3}{a^2}\Bigr)^{n_j}\longrightarrow0\]</span></div>
+<p class="display-continue">when <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span>. If <span
+class="math inline" data-term-auto="off">\(X_S(t)=p/q\)</span>, then <span
+class="math inline" data-term-auto="off">\(qD_j(X_S(t)-S_j)\)</span> is a positive integer
+for every <span class="math inline" data-term-auto="off">\(j\)</span>, a contradiction.</p>
+<p>Otherwise the ratio is <span class="math inline" data-term-auto="off">\(2\)</span> from
+some index on, which is the case of part (b), and <span
+class="math inline" data-term-auto="off">\(S\)</span> is a finite set together with <span
+class="math inline" data-term-auto="off">\(\{d,2d,4d,\dots\}\)</span>. With <span
+class="math inline" data-term-auto="off">\(z=t^{-d}\)</span> the infinite part contributes
+<span class="math inline" data-term-auto="off">\(g(z)\)</span>, where</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[g(z)=\sum_{k\ge0}\frac{z^{2^k}}{1-z^{2^k}},\qquad
+g(z^2)=g(z)-\frac{z}{1-z}.\]</span></div>
+<p>We use Nishioka’s value theorem for
+Mahler systems <span class="citation" data-cites="nishioka1996"><a href="#ref-14">[14]</a></span>,
+in the precise form quoted by Adamczewski and Faverjon <span
+class="citation" data-cites="adamczewskifaverjon2016"></span>. At an
+algebraic regular point it equates the transcendence degree of the
+function values with that of the functions over <span
+class="math inline" data-term-auto="off">\(\overline{\Q}(z)\)</span>. Here the system is</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{pmatrix}g(z)\\1\end{pmatrix}
+=\begin{pmatrix}1&amp;z/(1-z)\\0&amp;1\end{pmatrix}
+  \begin{pmatrix}g(z^2)\\1\end{pmatrix}.\]</span></div>
+<p>The matrix and its
+inverse have no poles at any iterate <span
+class="math inline" data-term-auto="off">\(\rho^{\,d2^k}\in(0,1)\)</span>, so <span
+class="math inline" data-term-auto="off">\(\rho^d\)</span> is regular. The function <span
+class="math inline" data-term-auto="off">\(g\)</span> is transcendental: at a root of unity
+<span class="math inline" data-term-auto="off">\(\zeta\)</span> of order <span
+class="math inline" data-term-auto="off">\(2^j\)</span> the terms with <span
+class="math inline" data-term-auto="off">\(k\ge j\)</span> are positive on the ray <span
+class="math inline" data-term-auto="off">\(r\zeta\)</span> and diverge as <span
+class="math inline" data-term-auto="off">\(r\to1\)</span>, while the earlier terms stay
+bounded, so <span class="math inline" data-term-auto="off">\(g\)</span> has infinitely many
+singularities on the unit circle. An algebraic function over <span
+class="math inline" data-term-auto="off">\(\mathbb{C}(z)\)</span> has only finitely many
+singular points, so <span class="math inline" data-term-auto="off">\(g\)</span> is
+transcendental over <span class="math inline" data-term-auto="off">\(\mathbb{C}(z)\)</span>.
+Hence <span class="math inline" data-term-auto="off">\(g(\rho^{\,d})\)</span> is
+transcendental, and adding the rational finite part proves (b) and
+completes (a). ◻</p>
+</div>
+<p>We do not know whether <span
+class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> is necessary in (a). The first
+open case is base <span class="math inline" data-term-auto="off">\(4/3\)</span> with a chain
+whose ratios are <span class="math inline" data-term-auto="off">\(2\)</span> except for
+infinitely many <span class="math inline" data-term-auto="off">\(3\)</span>s.</p>
+</section>
+<section id="sec:base2" class="level3">
+<h3>Base two</h3>
+<section id="sec:lemmas" class="level4">
+<h4>Removed intervals and finite translations</h4>
+<p>For the remainder of this subsection, take <span
+class="math inline" data-term-auto="off">\(t=2\)</span>: <span
+class="math inline" data-term-auto="off">\(w_n=(2^n-1)^{-1}\)</span>, <span
+class="math inline" data-term-auto="off">\(R_N=\sum_{n&gt;N}w_n\)</span>, <span
+class="math inline" data-term-auto="off">\(g_n=w_n-R_n&gt;0\)</span>, <span
+class="math inline" data-term-auto="off">\(X_F=\sum_{n\in F}w_n\)</span> for finite <span
+class="math inline" data-term-auto="off">\(F\)</span>, and <span
+class="math inline" data-term-auto="off">\(\mathcal A\)</span> is the set of all subsums.</p>
+<div class="lemma" id="lem:gaps">
+<p><strong>Lemma 3.5</strong> (the removed intervals). <em> <span
+class="math inline" data-term-auto="off">\([0,E]\smallsetminus\mathcal A\)</span> is the
+disjoint union, over finite nonempty <span
+class="math inline" data-term-auto="off">\(F\)</span>, of the open intervals <span
+class="math inline" data-term-auto="off">\((X_F-g_{\max F},\,X_F)\)</span>. Their total
+length is <span class="math inline" data-term-auto="off">\(\sum_n2^{n-1}g_n=E-1\)</span>, and
+<span
+class="math inline" data-term-auto="off">\(g_n=\sum_{j\ge2}\frac{2^j-2}{2^j-1}2^{-jn}=\tfrac23
+4^{-n}+\tfrac67 8^{-n}+\cdots\)</span>.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Fix the digits <span
+class="math inline" data-term-auto="off">\(\varepsilon_1,\dots,\varepsilon_{n-1}\)</span> and
+let <span
+class="math inline" data-term-auto="off">\(s=\sum_{i&lt;n}\varepsilon_iw_i\)</span>. The
+values with these digits lie in <span
+class="math inline" data-term-auto="off">\([s,s+R_{n-1}]\)</span>, and they split into <span
+class="math inline" data-term-auto="off">\([s,s+R_n]\)</span> and <span
+class="math inline" data-term-auto="off">\([s+w_n,s+w_n+R_n]\)</span>. The interval between
+them is <span class="math inline" data-term-auto="off">\((s+R_n,s+w_n)\)</span>. Its right
+end is <span class="math inline" data-term-auto="off">\(X_F\)</span> with <span
+class="math inline" data-term-auto="off">\(F=\{i&lt;n:\varepsilon_i=1\}\cup\{n\}\)</span> and
+its length is <span class="math inline" data-term-auto="off">\(g_n\)</span>. Every finite
+nonempty <span class="math inline" data-term-auto="off">\(F\)</span> arises once. The total
+length is <span class="math inline" data-term-auto="off">\(E\)</span> minus the measure of
+<span class="math inline" data-term-auto="off">\(\mathcal A\)</span>, which is <span
+class="math inline" data-term-auto="off">\(1\)</span> <span class="citation"
+data-cites="plectis257"><a href="#ref-22">[22]</a></span>. The series for <span
+class="math inline" data-term-auto="off">\(g_n\)</span> follows from <span
+class="math inline" data-term-auto="off">\(w_n=\sum_{j\ge1}2^{-jn}\)</span> and <span
+class="math inline" data-term-auto="off">\(R_n=\sum_{j\ge1}2^{-jn}/(2^j-1)\)</span>. ◻</p>
+</div>
+<div class="lemma" id="lem:translate">
+<p><strong>Lemma 3.6</strong> (translation by a finite subsum). <em> Let
+<span class="math inline" data-term-auto="off">\(F\)</span> be finite with largest element
+<span class="math inline" data-term-auto="off">\(n\)</span> and let <span
+class="math inline" data-term-auto="off">\(0\le x\le R_n\)</span>. The greedy rule applied to
+<span class="math inline" data-term-auto="off">\(X_F+x\)</span> selects exactly <span
+class="math inline" data-term-auto="off">\(F\)</span> among the indices up to <span
+class="math inline" data-term-auto="off">\(n\)</span> and then agrees with the greedy rule
+applied to <span class="math inline" data-term-auto="off">\(x\)</span>. In particular <span
+class="math inline" data-term-auto="off">\(X_F+x\in\mathcal A\)</span> if and only if <span
+class="math inline" data-term-auto="off">\(x\in\mathcal A\)</span>, and <span
+class="math inline" data-term-auto="off">\(X_F+x\)</span> is rejected at a step <span
+class="math inline" data-term-auto="off">\(m&gt;n\)</span> exactly when <span
+class="math inline" data-term-auto="off">\(x\)</span> is.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> At an index <span class="math inline" data-term-auto="off">\(i\le
+n\)</span> the remainder is <span
+class="math inline" data-term-auto="off">\(X_{F\cap[i,n]}+x\)</span>. If <span
+class="math inline" data-term-auto="off">\(i\in F\)</span> it is at least <span
+class="math inline" data-term-auto="off">\(w_i\)</span> and the index is taken. If <span
+class="math inline" data-term-auto="off">\(i\notin F\)</span> it is at most <span
+class="math inline" data-term-auto="off">\(R_i-R_n+x\le R_i&lt;w_i\)</span>, so the index is
+skipped and nothing is rejected. After index <span
+class="math inline" data-term-auto="off">\(n\)</span> the remainder is <span
+class="math inline" data-term-auto="off">\(x\)</span>. ◻</p>
+</div>
+<p>Two consequences. The map <span class="math inline" data-term-auto="off">\(x\mapsto
+x+1\)</span> preserves reduced denominators, so at every step <span
+class="math inline" data-term-auto="off">\(n\ge2\)</span> the number of fractions of height
+at most <span class="math inline" data-term-auto="off">\(Q\)</span> rejected at that step is
+even; every saved table has this property. The condition is <span
+class="math inline" data-term-auto="off">\(x\le R_{\max F}\)</span>. It is not enough that
+<span class="math inline" data-term-auto="off">\(X_F+x\le E\)</span>: <span
+class="math inline" data-term-auto="off">\(x=1/2\)</span> is not rejected through step <span
+class="math inline" data-term-auto="off">\(160\)</span>, while <span
+class="math inline" data-term-auto="off">\(1/2+1/3=5/6\)</span> lies in <span
+class="math inline" data-term-auto="off">\((R_1,1)\)</span> and is rejected at step <span
+class="math inline" data-term-auto="off">\(1\)</span>. Counts of rejections should therefore
+be taken modulo these translations. At height <span
+class="math inline" data-term-auto="off">\(200\)</span> the four fractions rejected at step
+<span class="math inline" data-term-auto="off">\(12\)</span> are <span
+class="math inline" data-term-auto="off">\(46/183\)</span> and its translates by <span
+class="math inline" data-term-auto="off">\(1/3\)</span>, <span
+class="math inline" data-term-auto="off">\(1\)</span> and <span
+class="math inline" data-term-auto="off">\(4/3\)</span>, one event.</p>
+<p>A finite subsum has odd denominator, since <span
+class="math inline" data-term-auto="off">\(\prod_{n\in F}(2^n-1)\)</span> is odd. So a
+rational with even denominator is never a finite subsum, and if it is a
+subsum at all its set <span class="math inline" data-term-auto="off">\(S\)</span> is
+infinite.</p>
+</section>
+<section id="fixed-depth-rational-counts" class="level4">
+<h4>Fixed-depth rational counts</h4>
+<div class="proof">
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:forced">3.4</a>.</em> Fixing the first
+<span class="math inline" data-term-auto="off">\(N\)</span> digits gives <span
+class="math inline" data-term-auto="off">\(2^N\)</span> closed intervals of length <span
+class="math inline" data-term-auto="off">\(R_N\)</span>. They are pairwise disjoint because
+<span class="math inline" data-term-auto="off">\(w_n&gt;R_n\)</span>, and a real in <span
+class="math inline" data-term-auto="off">\([0,E]\)</span> is not rejected in the first <span
+class="math inline" data-term-auto="off">\(N\)</span> steps exactly when it lies in their
+union <span class="math inline" data-term-auto="off">\(K_N\)</span>, which has measure <span
+class="math inline" data-term-auto="off">\(2^NR_N\)</span>. For an interval <span
+class="math inline" data-term-auto="off">\(I\)</span> of length <span
+class="math inline" data-term-auto="off">\(\ell\)</span>, the number of integers <span
+class="math inline" data-term-auto="off">\(p\)</span> coprime to <span
+class="math inline" data-term-auto="off">\(q\)</span> with <span class="math inline" data-term-auto="off">\(p/q\in
+I\)</span> is <span
+class="math inline" data-term-auto="off">\(\varphi(q)\ell+O(2^{\omega(q)})\)</span> by
+inclusion and exclusion. Summing over <span class="math inline" data-term-auto="off">\(q\le
+Q\)</span> with <span class="math inline" data-term-auto="off">\(\sum_{q\le
+Q}\varphi(q)=3Q^2/\pi^2+O(Q\log Q)\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum_{q\le Q}2^{\omega(q)}=O(Q\log Q)\)</span>
+gives <span class="math inline" data-term-auto="off">\(3Q^2\ell/\pi^2+O(Q\log Q)\)</span>.
+Apply this to the <span class="math inline" data-term-auto="off">\(2^N\)</span> intervals of
+<span class="math inline" data-term-auto="off">\(K_N\)</span> and to <span
+class="math inline" data-term-auto="off">\((0,E]\)</span> and divide. The second statement
+follows because every subsum lies in every <span
+class="math inline" data-term-auto="off">\(K_N\)</span> and <span
+class="math inline" data-term-auto="off">\(2^NR_N\to1\)</span>. ◻</p>
+</div>
+<p>The intervals removed at step <span class="math inline" data-term-auto="off">\(n\)</span>
+are explicit. Put <span class="math inline" data-term-auto="off">\(g_n=w_n-R_n\)</span>, so
+that <span class="math inline" data-term-auto="off">\(g_n=\tfrac23 4^{-n}+O(8^{-n})\)</span>.
+For a finite nonempty <span class="math inline" data-term-auto="off">\(F\)</span> with
+largest element <span class="math inline" data-term-auto="off">\(n\)</span>, the interval
+<span class="math inline" data-term-auto="off">\((X_F(2)-g_n,\,X_F(2))\)</span> is removed at
+step <span class="math inline" data-term-auto="off">\(n\)</span>, and</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[[0,E]\smallsetminus\mathcal
+A=\bigsqcup_{F\ne\varnothing}\bigl(X_F(2)-g_{\max F},\,X_F(2)\bigr),
+\qquad\sum_{n\ge1}2^{n-1}g_n=E-1,\]</span></div>
+<p class="display-continue">where <span
+class="math inline" data-term-auto="off">\(\mathcal A\)</span> is the set of subsums. By
+Theorem <a class="math-ref" href="#thm:bases">3.2</a>(b) a
+rational with an infinite <span class="math inline" data-term-auto="off">\(S\)</span> is
+exactly a counterexample to #257 at base <span
+class="math inline" data-term-auto="off">\(2\)</span>. So #257 at base <span
+class="math inline" data-term-auto="off">\(2\)</span> holds if and only if every rational in
+<span class="math inline" data-term-auto="off">\([0,E]\)</span> that is not a finite subsum
+lies strictly between <span class="math inline" data-term-auto="off">\(X_F(2)-g_{\max
+F}\)</span> and <span class="math inline" data-term-auto="off">\(X_F(2)\)</span> for some
+finite nonempty <span class="math inline" data-term-auto="off">\(F\)</span>. This is a
+one-sided question of approximation by the countable set of finite
+subsums, with an error that shrinks like <span
+class="math inline" data-term-auto="off">\(4^{-\max F}\)</span>.</p>
+<p>Under #257 the only fractions of height at most <span
+class="math inline" data-term-auto="off">\(Q\)</span> that are subsums are the finite
+subsums, <span class="math inline" data-term-auto="off">\(40\)</span> of the <span
+class="math inline" data-term-auto="off">\(19{,}653\)</span> fractions with <span
+class="math inline" data-term-auto="off">\(2\le q\le200\)</span>. A model that treats later
+remainders as equidistributed gives the opposite extreme, a proportion
+tending to <span class="math inline" data-term-auto="off">\(1/E\)</span>, because the shares
+<span class="math inline" data-term-auto="off">\(2^{n-1}g_n/E\)</span> of the removed
+intervals are summable. That model asserts that #257 fails for a
+positive proportion of all rationals. The fixed-depth limiting
+proportion does not distinguish this claim from its negation. An
+arithmetic argument, or a count with separately justified estimates as
+both depth and height grow, is needed. Measure does not decide either.
+Boes, Darst and Erdős construct symmetric Cantor sets of every measure
+in <span class="math inline" data-term-auto="off">\([0,1)\)</span> that contain essentially
+no rationals <span class="citation"
+data-cites="boesdarsterdos1981"><a href="#ref-15">[15]</a></span>.</p>
+<p>The exact computation in <span class="citation"
+data-cites="plectisinvestigation"><a href="#ref-25">[25]</a></span> agrees with Theorem <a class="math-ref" href="#thm:forced">3.4</a> step by step. Among the
+<span class="math inline" data-term-auto="off">\(19{,}653\)</span> reduced fractions with
+<span class="math inline" data-term-auto="off">\(2\le q\le200\)</span>, the numbers rejected
+at steps <span class="math inline" data-term-auto="off">\(1\)</span>, <span
+class="math inline" data-term-auto="off">\(2\)</span> and <span
+class="math inline" data-term-auto="off">\(7\)</span> are <span
+class="math inline" data-term-auto="off">\(4809\)</span>, <span
+class="math inline" data-term-auto="off">\(1470\)</span> and <span
+class="math inline" data-term-auto="off">\(32\)</span>, against <span
+class="math inline" data-term-auto="off">\(4811\)</span>, <span
+class="math inline" data-term-auto="off">\(1467\)</span> and <span
+class="math inline" data-term-auto="off">\(32\)</span> from the measures of the removed
+intervals. The measure-based main term for the number rejected at step
+<span class="math inline" data-term-auto="off">\(n\)</span> is <span
+class="math inline" data-term-auto="off">\(2^{n-1}g_n\sum_{2\le q\le Q}\varphi(q)\)</span>,
+asymptotically <span
+class="math inline" data-term-auto="off">\((3Q^2/\pi^2)2^{n-1}g_n\)</span>, which falls below
+<span class="math inline" data-term-auto="off">\(1\)</span> near <span
+class="math inline" data-term-auto="off">\(n=2\log_2Q-2\log_2\pi\)</span>. This is not a
+deterministic cutoff: the error in Theorem <a class="math-ref" href="#thm:forced">3.4</a> does not justify such an
+extrapolation. For example, <span class="math inline" data-term-auto="off">\(189/388\)</span>
+is first rejected at step <span class="math inline" data-term-auto="off">\(17\)</span>,
+beyond this scale for <span class="math inline" data-term-auto="off">\(Q=388\)</span>. Its
+selected indices before rejection are <span
+class="math inline" data-term-auto="off">\(F=\{2,3,7,9,10,14,15,16\}\)</span>, and exact
+arithmetic gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[R_{17}\le\frac{196609}{25769803776}
+&lt;\frac{189}{388}-X_F(2)
+=\frac{9291822600689}{1217890317075045460}
+&lt;\frac1{131071}=w_{17}.\]</span></div>
+<p>Section <a class="math-ref" href="#sec:misread">5</a> supplies the
+earlier-step checks. Deeper computation can therefore produce new
+exclusion certificates; absence of a later rejection still does not
+prove membership. No rational is known to have an infinite <span
+class="math inline" data-term-auto="off">\(S\)</span> at base <span
+class="math inline" data-term-auto="off">\(2\)</span>.</p>
+<div class="problem" id="prob:membership">
+<p><strong>Problem 3.7</strong>. <em> Decide whether <span
+class="math inline" data-term-auto="off">\(1/2\)</span> is a subsum of <span
+class="math inline" data-term-auto="off">\(\sum(2^n-1)^{-1}\)</span>. By <span
+class="citation" data-cites="plectis257"></span> this holds if and only
+if the integer remainders of the greedy rule fail to increase at
+infinitely many steps.</em></p>
+</div>
+<p>The rational-point counting papers examined here concern null Cantor
+sets such as the middle-third set <span class="citation"
+data-cites="rstw2019 chowvarjuyu2024"><a href="#ref-16">[16]</a><a href="#ref-17">[17]</a></span>. We did not locate a
+theorem settling the present positive-measure subsum problem.
+Problem <a class="math-ref" href="#prob:membership">3.7</a> asks
+about one explicit rational point.</p>
+</section>
+</section>
+</section>
+<section id="sec:second" class="level2">
+<h2>Limits on methods</h2>
+<p></p>
+<p>Status is as stated in each note: L for checked in Lean there, O for
+an ordinary proof there, C for cited there.</p>
+<table>
+<colgroup>
+<col />
+<col />
+<col />
+<col />
+</colgroup>
+<thead>
+<tr>
+<th class="ta-l">Note</th>
+<th class="ta-l">Location</th>
+<th class="ta-l">Statement</th>
+<th class="ta-l"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="ta-l">#68 <span class="citation"
+data-cites="plectis68"><a href="#ref-18">[18]</a></span></td>
+<td class="ta-l">Section 6</td>
+<td class="ta-l">Under the displayed cancellation
+hypotheses, the integer-gap comparison fails at cutoffs <span
+class="math inline" data-term-auto="off">\(N=D+O(1)\)</span> as the cancellation cutoff <span
+class="math inline" data-term-auto="off">\(D\to\infty\)</span>. Small tails alone do not give
+the strict comparison.</td>
+<td class="ta-l">O</td>
+</tr>
+<tr>
+<td class="ta-l">#243 <span class="citation"
+data-cites="plectis243"><a href="#ref-19">[19]</a></span></td>
+<td class="ta-l">Proposition 17</td>
+<td class="ta-l">A counterexample has errors that are
+eventually nonzero, relatively small, with unbounded negative parts.
+This necessary profile is formalised; the comparison with scalar
+profiles and the need for denominator compatibility are ordinary
+discussion.</td>
+<td class="ta-l">L, O</td>
+</tr>
+<tr>
+<td class="ta-l">#249 <span class="citation"
+data-cites="plectis249"><a href="#ref-20">[20]</a></span></td>
+<td class="ta-l">Section 5</td>
+<td class="ta-l">A rational series with the totient’s
+values at odd indices, within <span class="math inline" data-term-auto="off">\(2\)</span> at
+even indices, and sum <span class="math inline" data-term-auto="off">\(5/4\)</span>. Positive
+tail differences need not be nonintegral.</td>
+<td class="ta-l">L</td>
+</tr>
+<tr>
+<td class="ta-l">#249 <span class="citation"
+data-cites="plectis249"><a href="#ref-20">[20]</a></span></td>
+<td class="ta-l">Theorem 9</td>
+<td class="ta-l">Every admissible rank-one quotient stays
+more than <span class="math inline" data-term-auto="off">\(21/320\)</span> from its
+target.</td>
+<td class="ta-l">L</td>
+</tr>
+<tr>
+<td class="ta-l">#251 <span class="citation"
+data-cites="plectis251"><a href="#ref-21">[21]</a></span></td>
+<td class="ta-l">Proposition 1, Corollary 2</td>
+<td class="ta-l">For every allowance <span
+class="math inline" data-term-auto="off">\(f(n)\to\infty\)</span>, sparse nonnegative
+corrections reach every real in an interval while every fixed modulus
+eventually divides both the corrections and their cumulative sums. A
+bounded allowance is impossible under these congruences. Sources: <span
+class="citation" data-cites="fridy1966"></span>, <span class="citation"
+data-cites="crmarickovac2025"><a href="#ref-7">[7]</a></span>, <span class="citation"
+data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>, <span class="citation"
+data-cites="vandoornkovac2025"><a href="#ref-27">[27]</a></span>.</td>
+<td class="ta-l">O</td>
+</tr>
+<tr>
+<td class="ta-l">#257 <span class="citation"
+data-cites="plectis257"><a href="#ref-22">[22]</a></span></td>
+<td class="ta-l">Section 6</td>
+<td class="ta-l">The small-displacement quantity stays
+above <span class="math inline" data-term-auto="off">\(1/2\)</span> at full support, where
+the value is irrational <span class="citation"
+data-cites="erdos1948"><a href="#ref-26">[26]</a></span>. No proof covering full support can rest
+on it.</td>
+<td class="ta-l">L, O</td>
+</tr>
+<tr>
+<td class="ta-l">#257 <span class="citation"
+data-cites="plectis257"><a href="#ref-22">[22]</a></span></td>
+<td class="ta-l">Section 3</td>
+<td class="ta-l">Every positive divisor cover costs at
+least <span class="math inline" data-term-auto="off">\(e\)</span> times the mean of <span
+class="math inline" data-term-auto="off">\(\log^+\)</span> of its multiplicity. The averaging
+method cannot reach the prime support, where irrationality is known at
+base <span class="math inline" data-term-auto="off">\(2\)</span> <span class="citation"
+data-cites="taoteravainen2025"><a href="#ref-10">[10]</a></span>.</td>
+<td class="ta-l">O</td>
+</tr>
+<tr>
+<td class="ta-l">#269 <span class="citation"
+data-cites="plectis269"><a href="#ref-23">[23]</a></span></td>
+<td class="ta-l">Theorem 1</td>
+<td class="ta-l">Nonsingular minors of every order: no
+finite sum of products separates one exponent from the other two. Fan
+posted the two-prime separation <span class="citation"
+data-cites="fan2026comment"><a href="#ref-11">[11]</a></span>; the three-prime statement is the
+note’s.</td>
+<td class="ta-l">L</td>
+</tr>
+<tr>
+<td class="ta-l">#1049 <span class="citation"
+data-cites="plectis1049"><a href="#ref-24">[24]</a></span></td>
+<td class="ta-l">Theorem 5</td>
+<td class="ta-l">One family of nonzero integer-polynomial
+linear forms with common leading degree, coefficient-height and decay
+bounds at every fixed real <span class="math inline" data-term-auto="off">\(x&gt;1\)</span>
+has <span class="math inline" data-term-auto="off">\(\sigma\le\delta\)</span>; the sufficient
+cutoff <span class="math inline" data-term-auto="off">\(\sigma/(\sigma+\delta)\)</span>
+supplied by those estimates is at most <span
+class="math inline" data-term-auto="off">\(1/2\)</span>. Ordinary proof, with the
+contradiction step and the comparison with <span
+class="math inline" data-term-auto="off">\(1/2\)</span> checked in Lean.</td>
+<td class="ta-l">O, L</td>
+</tr>
+<tr>
+<td class="ta-l">#1049 <span class="citation"
+data-cites="plectis1049"><a href="#ref-24">[24]</a></span></td>
+<td class="ta-l">Theorem 7</td>
+<td class="ta-l">The stated clearing conditions cannot be
+met at base <span class="math inline" data-term-auto="off">\(3/2\)</span>.</td>
+<td class="ta-l">L</td>
+</tr>
+</tbody>
+</table>
+<p>Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(ii)
+explains interval filling in the #251 construction. The #249
+countermodel is a separate explicit construction with its own preserved
+identities. The #1049 restriction does not exclude stronger
+base-specific estimates, different families at different bases, or forms
+involving several target values. The others bound a method. We tried to
+state one inequality that covers #1049 Theorem 5 and the cover cost of
+#257, a cost of clearing denominators against the decay gained, and did
+not find a formulation that survives both sets of hypotheses. We do not
+claim the rows share a cause.</p>
+</section>
+<section id="sec:misread" class="level2">
+<h2>The computation and its limits</h2>
+<p>The computation <span class="citation"
+data-cites="plectisinvestigation"><a href="#ref-25">[25]</a></span> runs the greedy rule in exact
+arithmetic on every reduced fraction in <span
+class="math inline" data-term-auto="off">\((0,E]\)</span> with <span
+class="math inline" data-term-auto="off">\(2\le q\le Q\)</span>.</p>
+<p><em>First reading.</em> At <span class="math inline" data-term-auto="off">\(Q=36\)</span>,
+<span class="math inline" data-term-auto="off">\(382\)</span> of <span
+class="math inline" data-term-auto="off">\(633\)</span> fractions are not rejected through
+step <span class="math inline" data-term-auto="off">\(160\)</span> and <span
+class="math inline" data-term-auto="off">\(14\)</span> are finite subsums, a share <span
+class="math inline" data-term-auto="off">\((382+14)/633=0.6256\)</span> close to <span
+class="math inline" data-term-auto="off">\(1/E=0.6224\)</span>. This was read as evidence
+that about <span class="math inline" data-term-auto="off">\(62\%\)</span> of rationals are
+subsums, hence that #257 is false. The reading is wrong. By
+Theorem <a class="math-ref" href="#thm:forced">3.4</a> above the
+share at any fixed depth tends to <span
+class="math inline" data-term-auto="off">\(2^NR_N/E\)</span> whatever the truth of #257,
+because fractions equidistribute over the <span
+class="math inline" data-term-auto="off">\(2^N\)</span> intervals that survive <span
+class="math inline" data-term-auto="off">\(N\)</span> steps.</p>
+<p><em>An incorrect stopping rule.</em> A subsequent interpretation went
+too far in the opposite direction, asserting that survival after about
+<span class="math inline" data-term-auto="off">\(2\log_2Q-3.3\)</span> steps was forced. The
+measure-based main term for the number rejected at step <span
+class="math inline" data-term-auto="off">\(n\)</span> is <span
+class="math inline" data-term-auto="off">\(2^{n-1}g_n\sum_{2\le q\le Q}\varphi(q)\)</span>,
+asymptotically <span
+class="math inline" data-term-auto="off">\((3Q^2/\pi^2)2^{n-1}g_n\)</span>, which is below
+<span class="math inline" data-term-auto="off">\(1\)</span> for <span
+class="math inline" data-term-auto="off">\(n&gt;2\log_2Q-2\log_2\pi\)</span>, about step
+<span class="math inline" data-term-auto="off">\(12\)</span> at <span
+class="math inline" data-term-auto="off">\(Q=200\)</span>. A main term below <span
+class="math inline" data-term-auto="off">\(1\)</span> does not make the actual count zero.
+Theorem <a class="math-ref" href="#thm:forced">3.4</a> is a
+fixed-depth asymptotic, and its error <span
+class="math inline" data-term-auto="off">\(O(2^N\log Q/Q)\)</span> does not justify an
+extrapolation to <span class="math inline" data-term-auto="off">\(N\sim2\log_2Q\)</span>.
+Late rejections remain exact nonmembership certificates; the <span
+class="math inline" data-term-auto="off">\(12{,}218\)</span> fractions not rejected through
+step <span class="math inline" data-term-auto="off">\(60\)</span> have only that finite-depth
+status. At <span class="math inline" data-term-auto="off">\(N=12\)</span> the observed share
+is <span class="math inline" data-term-auto="off">\(0.62372\)</span> against <span
+class="math inline" data-term-auto="off">\(2^{12}R_{12}/E=0.62245\)</span>.</p>
+<p><em>An exact rejection at step <span
+class="math inline" data-term-auto="off">\(17\)</span>.</em> The witness <span
+class="math inline" data-term-auto="off">\(189/388\)</span>, recorded in the earlier
+investigation’s Desk B report, contradicts the proposed stopping rule:
+<span class="math inline" data-term-auto="off">\(2\log_2 388-2\log_2\pi\)</span> is about
+<span class="math inline" data-term-auto="off">\(13.9\)</span>. The selected indices through
+step <span class="math inline" data-term-auto="off">\(16\)</span> are <span
+class="math inline" data-term-auto="off">\(F=\{2,3,7,9,10,14,15,16\}\)</span>. At each
+skipped earlier index <span class="math inline" data-term-auto="off">\(n\)</span>, exact
+rational arithmetic gives a remainder at most <span
+class="math inline" data-term-auto="off">\(2^{-n}&lt;R_n\)</span>, so no rejection has yet
+occurred. The remaining value is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[r=\frac{189}{388}-X_F
+  =\frac{9291822600689}{1217890317075045460}.\]</span></div>
+<p>Since <span
+class="math inline" data-term-auto="off">\(1/(2^k-1)=2^{-k}+4^{-k}/(1-2^{-k})\)</span> and
+<span class="math inline" data-term-auto="off">\(1/(1-2^{-k})\le2\)</span> for <span
+class="math inline" data-term-auto="off">\(k\ge1\)</span>, summing gives</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[R_n\le2^{-n}+\frac{2}{3\cdot4^n}.\]</span></div>
+<p>At
+<span class="math inline" data-term-auto="off">\(n=17\)</span>, the exact comparison is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[R_{17}\le\frac{196609}{25769803776}&lt;r&lt;\frac1{131071}=w_{17}.\]</span></div>
+<p>The same rejection occurs for <span
+class="math inline" data-term-auto="off">\(577/388=1+189/388\)</span> by Lemma <a class="math-ref" href="#lem:translate">3.6</a>. The independent
+reproduction, including every earlier skipped step, is in . This
+certificate shows that deeper computation can add exclusions. It does
+not convert survival to any finite depth into a membership
+certificate.</p>
+<p>What survives is the agreement itself. At <span
+class="math inline" data-term-auto="off">\(Q=200\)</span> the counts at steps <span
+class="math inline" data-term-auto="off">\(1\)</span> to <span
+class="math inline" data-term-auto="off">\(9\)</span> are <span
+class="math inline" data-term-auto="off">\(4809\)</span>, <span
+class="math inline" data-term-auto="off">\(1470\)</span>, <span
+class="math inline" data-term-auto="off">\(600\)</span>, <span
+class="math inline" data-term-auto="off">\(268\)</span>, <span
+class="math inline" data-term-auto="off">\(132\)</span>, <span
+class="math inline" data-term-auto="off">\(66\)</span>, <span
+class="math inline" data-term-auto="off">\(32\)</span>, <span
+class="math inline" data-term-auto="off">\(8\)</span>, <span
+class="math inline" data-term-auto="off">\(6\)</span>, against <span
+class="math inline" data-term-auto="off">\(4811\)</span>, <span
+class="math inline" data-term-auto="off">\(1467\)</span>, <span
+class="math inline" data-term-auto="off">\(604\)</span>, <span
+class="math inline" data-term-auto="off">\(277\)</span>, <span
+class="math inline" data-term-auto="off">\(133\)</span>, <span
+class="math inline" data-term-auto="off">\(65\)</span>, <span
+class="math inline" data-term-auto="off">\(32\)</span>, <span
+class="math inline" data-term-auto="off">\(16\)</span>, <span
+class="math inline" data-term-auto="off">\(8\)</span> from the measures of Lemma <a class="math-ref" href="#lem:gaps">3.5</a>; steps <span
+class="math inline" data-term-auto="off">\(10\)</span> and <span
+class="math inline" data-term-auto="off">\(11\)</span> have none against <span
+class="math inline" data-term-auto="off">\(4\)</span> and <span
+class="math inline" data-term-auto="off">\(2\)</span>, and step <span
+class="math inline" data-term-auto="off">\(12\)</span> has <span
+class="math inline" data-term-auto="off">\(4\)</span> against <span
+class="math inline" data-term-auto="off">\(1\)</span>. The late counts fluctuate more than
+independent events would, because rejections arrive in the families of
+Lemma <a class="math-ref" href="#lem:translate">3.6</a>.</p>
+</section>
+<section id="sec:eliminated" class="level2">
+<h2>Eliminated ideas</h2>
+<ol>
+<li><p><em>If the reachable values form a null set, no rational value is
+reachable.</em> False. Take the binary series with digit <span
+class="math inline" data-term-auto="off">\(1\)</span> everywhere except digit <span
+class="math inline" data-term-auto="off">\(0\)</span> at positions <span
+class="math inline" data-term-auto="off">\(n_1&lt;n_2&lt;\cdots\)</span>, and allow each of
+those digits to be changed to <span class="math inline" data-term-auto="off">\(1\)</span>.
+The reachable values form a null set when the positions are sparse, by
+Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(i), yet
+changing all of them gives <span
+class="math inline" data-term-auto="off">\(\sum2^{-n}=1\)</span>. So no count of choices
+against contraction, and no depth depending only on sparsity, excludes a
+particular rational.</p></li>
+<li><p><em>Every infinite subset of a host with null subsum set has an
+irrational sum.</em> A host is a set <span
+class="math inline" data-term-auto="off">\(B\)</span> of allowed indices, and its subsum set
+is <span class="math inline" data-term-auto="off">\(\{X_S(2):S\subseteq B\}\)</span>. For
+hosts chosen without reference to the target this is open and is a form
+of #257 itself. As a universal statement it cannot be a route: the
+support of any rational subsum with infinite <span
+class="math inline" data-term-auto="off">\(S\)</span> would be such a host. The subsum set of
+a host <span class="math inline" data-term-auto="off">\(B\)</span> has positive measure
+exactly when the complement of <span class="math inline" data-term-auto="off">\(B\)</span> is
+finite, by Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(i) and the measure at
+full support.</p></li>
+<li><p><em>The share of surviving fractions as evidence.</em>
+Section <a class="math-ref" href="#sec:misread">5</a>.</p></li>
+<li><p><em>A wrong locator.</em> A draft of Theorem <a class="math-ref" href="#thm:chains">3.3</a>(b) cited Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a> of <span
+class="citation" data-cites="adamczewskifaverjon2026"></span> as
+Nishioka’s theorem. That theorem says a value of a Mahler function at an
+algebraic point is rational or transcendental, which cannot prove
+irrationality. The proof in Section <a class="math-ref" href="#sec:bases">3.2</a> uses Nishioka’s value
+theorem as quoted in <span class="citation"
+data-cites="adamczewskifaverjon2016"><a href="#ref-13">[13]</a></span>, applied there to the
+two-dimensional system for <span class="math inline" data-term-auto="off">\((g,1)\)</span>
+with regular points in <span
+class="math inline" data-term-auto="off">\((0,1)\)</span>.</p></li>
+<li><p><em>Algebraic independence for #1049.</em> With <span
+class="math inline" data-term-auto="off">\(g\)</span> as in Section <a class="math-ref" href="#sec:bases">3.2</a>, <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge1}(t^n-1)^{-1}=\sum_{m\
+\mathrm{odd}}g(t^{-m})\)</span>, and each <span
+class="math inline" data-term-auto="off">\(g(t^{-m})\)</span> is transcendental for rational
+<span class="math inline" data-term-auto="off">\(t&gt;1\)</span>. This gives nothing for the
+infinite sum: limits of transcendental numbers take every value. No
+applicable value theorem for this decomposition is supplied
+here.</p></li>
+</ol>
+</section>
+<section id="sec:known" class="level2">
+<h2>What was already known</h2>
+<ul>
+<li><p>The covering argument of Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(ii) goes back to
+Kakeya; see <span class="citation"
+data-cites="hornich1941 nitecki2013 fridy1966"><a href="#ref-4">[4]</a><a href="#ref-5">[5]</a><a href="#ref-6">[6]</a></span>. Its use to build
+rational series inside a class defined by soft data is the method of
+Kovač and Tao <span class="citation" data-cites="kovactao2024"><a href="#ref-8">[8]</a></span>,
+of Crmarić and Kovač <span class="citation"
+data-cites="crmarickovac2025"><a href="#ref-7">[7]</a></span> and of van Doorn and Kovač <span
+class="citation" data-cites="vandoornkovac2025"></span>.</p></li>
+<li><p>That the subsums of <span
+class="math inline" data-term-auto="off">\(\sum(t^n-1)^{-1}\)</span> form a Cantor set at
+fixed <span class="math inline" data-term-auto="off">\(t\ge2\)</span> is <span
+class="citation" data-cites="kovactao2024"></span>.</p></li>
+<li><p>A closed set of positive measure can contain essentially no
+rationals <span class="citation"
+data-cites="boesdarsterdos1981"><a href="#ref-15">[15]</a></span>, so the heuristic of
+Section <a class="math-ref" href="#sec:base2">3.3</a> cannot be a
+consequence of measure.</p></li>
+<li><p>The rational-point counting papers examined here concern null
+Cantor sets <span class="citation"
+data-cites="rstw2019 chowvarjuyu2024"><a href="#ref-16">[16]</a><a href="#ref-17">[17]</a></span>. We did not locate a
+theorem settling the present positive-measure subsum problem. The
+searches were made on 20 September 2026 and are listed in the repository
+record.</p></li>
+<li><p>One identity with a consequence. Since <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge1}\mu(n)/(b^n-1)=1/b\)</span>, the sums
+of <span class="math inline" data-term-auto="off">\((b^n-1)^{-1}\)</span> over squarefree
+<span class="math inline" data-term-auto="off">\(n\)</span> with an even, respectively odd,
+number of prime factors are <span
+class="math inline" data-term-auto="off">\(\tfrac12(X_{\mathrm{sf}}(b)\pm1/b)\)</span>.
+Duverney and Tachiya prove that <span
+class="math inline" data-term-auto="off">\(X_{\mathrm{sf}}(2^j)\)</span> is irrational <span
+class="citation" data-cites="duverneytachiya"></span>, as quoted in
+<span class="citation" data-cites="plectis257"><a href="#ref-22">[22]</a></span>, so both sums are
+irrational at every base <span class="math inline" data-term-auto="off">\(2^j\)</span>. Both
+supports have divergent reciprocal sums. The identity at base <span
+class="math inline" data-term-auto="off">\(2\)</span> is derived in <span class="citation"
+data-cites="plectis249"><a href="#ref-20">[20]</a></span>; the corollary may be known.</p></li>
+</ul>
+</section>
+<section id="capacity:sec:sources" class="level2">
+<h2>Sources and formal correspondence</h2>
+<p>The starting point is the sparse perturbation construction
+accompanying Erdős Problem #251 in this repository, especially its <a
+href="../../../papers/erdos-251-prime-gap-dyadic-series.pdf">short paper</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/8d6596fbde2c4aacf946adec4b0226ba1a97545d/lean/ErdosProblems/Erdos251/ResidueFeedbackCore.lean"><code>ResidueFeedbackCore.lean</code></a>.
+The latter already proves residue-dependent selection and an abstract
+infinite sum endpoint. An operator-supplied review supplied the form of
+Lemma <a class="math-ref" href="#capacity:lem:feedback">2.4</a>,
+the sharp exponential support constants, and the linear/superlinear
+factorial contrast. Those ingredients are credited to that review, not
+presented as discoveries of this paper. The extensions developed here
+are the exact capacity criterion on arbitrary strict integer
+divisibility chains, the factorial support classification and its
+integer-exponent comparison, and the common-divisor formulation.</p>
+<p>Airey, Mance and Vandehey already use digit sets eventually divisible
+by every fixed integer while retaining asymptotically full digit entropy
+<span class="citation" data-cites="amv2015"><a href="#ref-30">[30]</a></span>. Their theorem
+concerns normality and Hausdorff dimension for chosen Cantor bases. Here
+a fixed divisibility chain and arbitrary summable allowances are given,
+and the conclusion distinguishes interval filling from nullity and
+meagreness. These are elementary arguments in the classical theory of
+Cantor series and achievement sets; historical novelty of the exact
+classification is not established. Classical interval covering is
+background, rather than a contribution claimed here. A literature
+comparison and the reproducible checks are recorded in <a
+href="https://github.com/wcook04/plectis-erdos/blob/8d6596fbde2c4aacf946adec4b0226ba1a97545d/research/experiments/sparse_interpolation/README.md">the
+accompanying research record</a>. The work was developed with AI
+assistance and mathematical cross-checking by separate agent passes;
+that does not constitute independent expert review.</p>
+<p>The formal module <a
+href="https://github.com/wcook04/plectis-erdos/blob/8d6596fbde2c4aacf946adec4b0226ba1a97545d/lean/ErdosProblems/Synthesis/CongruenceInterpolation.lean"><code>CongruenceInterpolation.lean</code></a>
+uses the existing feedback module and states the common-divisor
+obstruction for a real carry recurrence. The analytic identification of
+that recurrence with the Cantor series, and the capacity and support
+classifications, are the ordinary proofs above. The module <a
+href="https://github.com/wcook04/plectis-erdos/blob/8d6596fbde2c4aacf946adec4b0226ba1a97545d/lean/ErdosProblems/Synthesis/FeedbackContinuation.lean"><code>FeedbackContinuation.lean</code></a>
+reuses the existing interval-feedback endpoint and proves eventual
+individual and cumulative divisibility from nested cofinal moduli;
+choosing the moduli and continuation intervals remains part of the
+ordinary proof. See the research record for the exact build status and
+source revision. No claim about any of the eight Erdős programmes
+changes; in particular factorial denominators <span
+class="math inline" data-term-auto="off">\(n!\)</span> here are not <span
+class="math inline" data-term-auto="off">\(n!-1\)</span> from #68.</p>
+</section>
+<section id="sec:questions" class="level2">
+<h2>Further questions</h2>
+<ol>
+<li><p>Is <span class="math inline" data-term-auto="off">\(1/2\)</span> a subsum of <span
+class="math inline" data-term-auto="off">\(\sum(2^n-1)^{-1}\)</span>? The exact obligation is
+in <span class="citation" data-cites="plectis257"><a href="#ref-22">[22]</a></span>. By
+Lemma <a class="math-ref" href="#lem:gaps">3.5</a> the general
+question is one-sided approximation of a rational by finite subsums
+<span class="math inline" data-term-auto="off">\(X_F\)</span> to within <span
+class="math inline" data-term-auto="off">\(g_{\max F}\)</span>.</p></li>
+<li><p>Does the count of fractions of height at most <span
+class="math inline" data-term-auto="off">\(Q\)</span> rejected at step <span
+class="math inline" data-term-auto="off">\(n\)</span> stay close to <span
+class="math inline" data-term-auto="off">\((3Q^2/\pi^2)2^{n-1}g_n\)</span> in the joint range
+<span class="math inline" data-term-auto="off">\(n\le(2-\varepsilon)\log_2Q\)</span>, counted
+modulo the translations of Lemma <a class="math-ref" href="#lem:translate">3.6</a>? A persistent excess
+would be the first sign of an arithmetic mechanism for #257.</p></li>
+<li><p>Is <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> necessary in
+Theorem <a class="math-ref" href="#thm:chains">3.3</a>(a)? First
+case: base <span class="math inline" data-term-auto="off">\(4/3\)</span>, a chain with ratios
+<span class="math inline" data-term-auto="off">\(2\)</span> and infinitely many ratios <span
+class="math inline" data-term-auto="off">\(3\)</span>.</p></li>
+<li><p>Is there one inequality behind #1049 Theorem 5 and the cover cost
+of #257?</p></li>
+</ol>
+<p>The capacity criterion already covers non-power and oscillating
+allowances. For factorial gaps of fixed length <span
+class="math inline" data-term-auto="off">\(m\)</span>, a bounded multiple of <span
+class="math inline" data-term-auto="off">\(n^m\)</span> still gives the lattice obstruction,
+whereas <span class="math inline" data-term-auto="off">\(n^mL(n)\)</span> with <span
+class="math inline" data-term-auto="off">\(L(n)\to\infty\)</span> permits interval filling. A
+further question concerns the null case: what finer tail data determine
+its Hausdorff dimension? The criterion itself does not separate
+dimension zero from full-dimensional null sets. Outside integer
+divisibility chains the prefix lattice changes, so no corresponding
+necessity is asserted here.</p>
+</section>
+<section id="declaration-of-generative-ai-use"
+class="level2 unnumbered">
+<h2 class="unnumbered">Declaration of generative AI use</h2>
+<p>The mathematics and text were developed with large language model
+agents under Will Cook’s direction. The first-page disclosure states his
+review boundary. The earlier synthesis record reports separate agent
+proof checks, independent reruns of the exact computations, and source
+checks on 20 September 2026; the failed citation is retained in
+Section <a class="math-ref" href="#sec:eliminated">6</a>. This
+consolidation preserves those arguments and their evidence classes. It
+is not an independent mathematical review.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<ol>
+<li id="ref-1"><p>P. Erdős and R. L. Graham, <a
+href="https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf"><em>Old
+and New Problems and Results in Combinatorial Number Theory</em></a>,
+Monogr. Enseign. Math. 28, Geneva, 1980.</p></li>
+<li id="ref-2"><p>P. Erdős, <em>On the irrationality of certain series: problems
+and results</em>, in A. Baker (ed.), <em>New Advances in Transcendence
+Theory</em>, Cambridge UP, 1988, pp. 102–109, doi:<a
+href="https://doi.org/10.1017/CBO9780511897184.009">10.1017/CBO9780511897184.009</a>.</p></li>
+<li id="ref-3"><p>P. Erdős, <a
+href="https://users.renyi.hu/~p_erdos/1969-09.pdf"><em>On the
+irrationality of certain series</em></a>, Math. Student 36 (1968),
+222–226 (issued 1969).</p></li>
+<li id="ref-4"><p>H. Hornich, <em>Über beliebige Teilsummen absolut konvergenter
+Reihen</em>, Monatshefte für Mathematik und Physik <strong>49</strong>
+(1941), 316–320. <a
+href="https://doi.org/10.1007/BF01707309">doi:10.1007/BF01707309</a>.</p></li>
+<li id="ref-5"><p>Z. Nitecki, <a
+href="https://arxiv.org/abs/1106.3779v2"><em>Subsum sets: intervals,
+Cantor sets, and Cantorvals</em></a>, arXiv:1106.3779v2 (2013).</p></li>
+<li id="ref-6"><p>John A. Fridy, <a
+href="https://www.fq.math.ca/Scanned/4-3/fridy.pdf"><em>Generalized
+bases for the real numbers</em></a>. The Fibonacci Quarterly
+<strong>4</strong> (1966), no. 3, 193–201.</p></li>
+<li id="ref-7"><p>T. Crmarić and V. Kovač, <a
+href="https://arxiv.org/abs/2504.18712v1"><em>On the irrationality of
+certain super-polynomially decaying series</em></a>, Colloq. Math.
+<strong>179</strong> (2025), 55–68, doi:<a
+href="https://doi.org/10.4064/cm9628-5-2025">10.4064/cm9628-5-2025</a>.
+Theorem locators follow arXiv:2504.18712v1.</p></li>
+<li id="ref-8"><p>Vjekoslav Kovač and Terence Tao, <a
+href="https://arxiv.org/abs/2406.17593v4"><em>On several irrationality
+problems for Ahmes series</em></a>. Acta Mathematica Hungarica
+<strong>175</strong> (2025), 572–608, doi:<a
+href="https://doi.org/10.1007/s10474-025-01528-0">10.1007/s10474-025-01528-0</a>;
+arXiv:<a href="https://arxiv.org/abs/2406.17593v4">2406.17593v4</a>.
+Statement and section numbers refer to arXiv version 4.</p></li>
+<li id="ref-9"><p>W. Zudilin, <a
+href="https://geodesic.mathdoc.fr/articles/10.4064/aa111-2-4/"><em>Heine’s
+basic transform and a permutation group for <span
+class="math inline" data-term-auto="off">\(q\)</span>-harmonic series</em></a>, Acta Arith.
+<strong>111</strong> (2004), no. 2, 153–164, doi:<a
+href="https://doi.org/10.4064/aa111-2-4">10.4064/aa111-2-4</a>.</p></li>
+<li id="ref-10"><p>T. Tao and J. Teräväinen, <a
+href="https://arxiv.org/abs/2512.01739v2"><em>Quantitative correlations
+and some problems on prime factors of consecutive integers</em></a>,
+arXiv:2512.01739v2 (submitted December 2025, revised April
+2026).</p></li>
+<li id="ref-11"><p>Steve Fan, <em>Comment on Erdős Problem #269, thread 269, post
+7218</em> (2026), <a
+href="https://www.erdosproblems.com/forum/thread/269#post-7218">source</a>.
+26 June 2026.</p></li>
+<li id="ref-12"><p>K. Mahler, <em>Arithmetische Eigenschaften der Lösungen einer
+Klasse von Funktionalgleichungen</em>, Math. Ann. <strong>101</strong>
+(1929), 342–367.</p></li>
+<li id="ref-13"><p>B. Adamczewski and C. Faverjon, <a
+href="https://arxiv.org/abs/1508.07158v2"><em>Méthode de Mahler :
+relations linéaires, transcendance et applications aux nombres
+automatiques</em></a>, arXiv:1508.07158v2 (2016), Theorem 1.1,
+p. 3.</p></li>
+<li id="ref-14"><p>Ku. Nishioka, <em>Mahler Functions and Transcendence</em>,
+Lecture Notes in Math. 1631, Springer, Berlin, 1996.</p></li>
+<li id="ref-15"><p>D. Boes, R. Darst and P. Erdős, <a
+href="https://www.tandfonline.com/doi/abs/10.1080/00029890.1981.11995266"><em>Fat,
+symmetric, irrational Cantor sets</em></a>, Amer. Math. Monthly
+<strong>88</strong> (1981), 340–341.</p></li>
+<li id="ref-16"><p>A. Rahm, N. Solomon, T. Trauthwein and B. Weiss, <a
+href="https://arxiv.org/abs/1909.01198"><em>The distribution of rational
+numbers on Cantor’s middle thirds set</em></a>,
+arXiv:1909.01198.</p></li>
+<li id="ref-17"><p>S. Chow, P. Varjú and H. Yu, <a
+href="https://arxiv.org/abs/2402.18395"><em>Counting rationals and
+diophantine approximation in missing-digit Cantor sets</em></a>,
+arXiv:2402.18395.</p></li>
+<li id="ref-18"><p>W. Cook, <a
+href="../../../papers/erdos-68-factorial-denominator-irrationality.pdf"><em>Two
+incomparable denominator exclusions for <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge2}(n!-1)^{-1}\)</span></em></a>, Erdős
+Problem Notes, 2026.</p></li>
+<li id="ref-19"><p>W. Cook, <a
+href="../../../papers/erdos-243-reciprocal-tail-rigidity.pdf"><em>Bounded increments and
+rational reciprocal sums</em></a>, Erdős Problem Notes, 2026.</p></li>
+<li id="ref-20"><p>W. Cook, <a href="../../../papers/erdos-249-binary-totient-series.pdf"><em>Bases
+and integral relations for the <span
+class="math inline" data-term-auto="off">\(k\)</span>-kernel of Euler’s totient</em></a>,
+Erdős Problem Notes, 2026.</p></li>
+<li id="ref-21"><p>W. Cook, <a
+href="../../../papers/erdos-251-prime-gap-dyadic-series.pdf"><em>Sparse
+congruence-preserving perturbations of dyadic series</em></a>, Erdős
+Problem Notes, 2026.</p></li>
+<li id="ref-22"><p>W. Cook, <a
+href="../../../papers/erdos-257-mersenne-support-subseries.pdf"><em>Weighted support
+criteria for reciprocal Mersenne subseries</em></a>, Erdős Problem
+Notes, 2026.</p></li>
+<li id="ref-23"><p>W. Cook, <a href="../../../papers/erdos-269-three-prime-running-lcm.pdf"><em>No
+finite separable representation at three prime generators</em></a>,
+Erdős Problem Notes, 2026.</p></li>
+<li id="ref-24"><p>W. Cook, <a
+href="../../../papers/erdos-1049-rational-base-lambert.pdf"><em>Zudilin’s forms at
+rational bases and the exact normalised Hankel order</em></a>, Erdős
+Problem Notes, 2026.</p></li>
+<li id="ref-25"><p>W. Cook, <em>Choices, contraction and rational membership</em>,
+exact computation with saved outputs in
+<code>research/experiments/choices_contraction/</code> of the
+repository, 2026.</p></li>
+<li id="ref-26"><p>P. Erdős, <em>On arithmetical properties of Lambert series</em>,
+J. Indian Math. Soc. 12 (1948), 63–66.</p></li>
+<li id="ref-27"><p>Wouter van Doorn and Vjekoslav Kovač, <a
+href="https://arxiv.org/abs/2509.24971v3"><em>Lacunary sequences whose
+reciprocal sums represent all rational numbers in an interval</em></a>.
+Acta Arithmetica <strong>223</strong> (2026), 275–295, doi:<a
+href="https://doi.org/10.4064/aa251001-13-1">10.4064/aa251001-13-1</a>;
+arXiv:<a href="https://arxiv.org/abs/2509.24971v3">2509.24971v3</a>.
+Statement numbers refer to arXiv version 3.</p></li>
+<li id="ref-28"><p>D. Duverney and Y. Tachiya, <a
+href="https://danielduverney.fr/documents/theorie-des-nombres/DuverneyTachiya190522.pdf"><em>Refinement
+of the Chowla–Erdős method and linear independence of certain Lambert
+series</em></a>, Forum Math. 31 (2019), no. 6, 1557–1566, <a
+href="https://doi.org/10.1515/forum-2018-0299">DOI</a>. Page numbers
+refer to the linked author preprint.</p></li>
+<li id="ref-29"><p>Boris Adamczewski and Colin Faverjon, <em>Mahler’s method in
+several variables and finite automata</em>, Annals of Mathematics
+<strong>204</strong>, no. 2 (2026), 455–533, <a
+href="https://doi.org/10.4007/annals.2026.204.2.1">doi:<code>10.4007/annals.2026.204.2.1</code></a>.
+Locators refer to the <a
+href="https://faverjon.perso.math.cnrs.fr/AdamczewskiFaverjon_MahlerFiniteAutomata.pdf">68-page
+author manuscript</a>.</p></li>
+<li id="ref-30"><p>D. Airey, B. Mance and J. Vandehey, <em>Normality preserving
+operations for Cantor series expansions and associated fractals.
+II</em>, New York J. Math. <strong>21</strong> (2015), 1311–1326. <a
+href="https://nyjm.albany.edu/j/2015/21-60v.pdf"
+class="uri">https://nyjm.albany.edu/j/2015/21-60v.pdf</a>.</p></li>
+</ol>
+</section>
+  </div>
+</article>

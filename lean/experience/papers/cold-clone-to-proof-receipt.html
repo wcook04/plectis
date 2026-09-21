@@ -25,17 +25,22 @@ into one prompt destroys the distinctions the extra context was meant to
 reveal. A useful first-contact surface must therefore be small,
 expandable, and honest about what it omits.</p>
 <p>The <a href="https://github.com/wcook04/plectis-erdos">development
-studied here</a> indexes eight open Erdős problems. Problems 249 and 257
-are the two principal reviewed programmes; Problems 68, 243, 251, 269,
-1041, and 1049 are problem-owned expansion lanes with their own notes
-and explicit nonclaims. The corpus concentrates its depth around a small
-number of hard frontiers: exact separation equivalences for Problem 249,
-a machine-checked rational countermodel agreeing with the totient’s
-parity at every index, and quotient-greedy classifications for Problem
-257, with obstruction theorems recorded beside the routes they close.
-The generated certificate shards named in the abstract sit underneath
-these results as checked finite evidence, not beside them as further
-claims. The design goal is not to replace reasoning with a fixed
+studied here</a> indexes eight Erdős problem programmes. The claim
+registry now covers selected statements from all eight; a paper’s
+inclusion does not give every statement in it formal status. The
+degree-seven counterexample due to the erdosproblems.com contributor <a
+href="https://www.erdosproblems.com/forum/thread/1041#post-8861"><code>ani</code></a>,
+formalised in Lean in this repository, refutes the total-variation
+formulation of Problem 1041, while correspondence with its historical
+curve-length question remains unreviewed and the other seven targets
+remain unresolved here. The detailed navigation examples in this paper
+concentrate on Problems 249 and 257: exact separation equivalences for
+Problem 249, a machine-checked rational countermodel agreeing with the
+totient’s parity at every index, and quotient-greedy classifications for
+Problem 257, with obstruction theorems recorded beside the routes they
+close. The generated certificate shards named in the abstract sit
+underneath these results as checked finite evidence, not beside them as
+further claims. The design goal is not to replace reasoning with a fixed
 pipeline. It is to let a capable reader see enough structure to reason
 well, while reserving mathematical authority for the pinned proof
 kernel.</p>
@@ -51,6 +56,16 @@ described in the systems paper, while the
 <span>strategy-protocol</span><span>contribution protocol</span>
 specifies how an outsider returns a change. These links lead to named
 destinations in the sibling PDFs rather than to page numbers.</p>
+<p>The same proof-state compiler also supports bounded inspection of a
+selected elaborated proof. The existing feedback experiment uses that
+route to expose admissible construction choices and emits finite
+obligations for the same workbench to replay. Comparator can check the
+separately stated continuation contract through a named unit of its
+existing runner. The implementation, literature attribution and finite
+controls are described in the systems paper’s discussion of executable
+construction choices. These operations extend the existing research
+route and do not automatically extract a new contract or establish an
+infinite claim from a finite run.</p>
 </section>
 <section id="sec:layers" class="level2">
 <h2>Four views of the mathematical library</h2>
@@ -84,10 +99,10 @@ a transitive proof explanation.</p>
 <h5>Authored mathematical interpretation.</h5>
 <p>The semantic graph contains authored statement nodes, typed
 relations, and an exact source-structural floor. At the audited revision
-all 150,835 authored theorem-like declarations are linked. Of these,
-139,817 (92.7%) participate in authored mathematical interpretations:
-3,329 are exact proposition evidence and 136,488 are bounded contextual
-links to digest- or module-verified families. The remaining 11,018 are
+all 150,850 authored theorem-like declarations are linked. Of these,
+139,818 (92.7%) participate in authored mathematical interpretations:
+3,330 are exact proposition evidence and 136,488 are bounded contextual
+links to digest- or module-verified families. The remaining 11,032 are
 grouped only by exact source module and normalised Lean proposition
 signature. That lower tier is useful navigation, not a mathematical
 paraphrase. Keeping the tiers visible prevents exhaustive linkage or
@@ -324,12 +339,13 @@ declarations, elaborated dependencies, authored mathematical
 interpretations, and claim-status boundaries so that a reader can
 inspect the route before an LLM explains it.</p>
 <p>Large-library maintenance supplies the relevant compilation lesson.
-describes performance-aware library design, deprecation, semantic
-linters, benchmarks, review tooling, and explicit technical-debt
-management <span class="citation" data-cites="growingmathlib"><a href="#ref-10">[10]</a></span>.
-The changed-cone planner and receipt cache apply a smaller-scale version
-of that maintenance posture. The local measurements do not transfer
-Mathlib’s scale or social evidence.</p>
+<em>Growing Mathlib</em> describes performance-aware library design,
+deprecation, semantic linters, benchmarks, review tooling, and explicit
+technical-debt management <span class="citation"
+data-cites="growingmathlib"><a href="#ref-10">[10]</a></span>. The changed-cone planner and
+receipt cache apply a smaller-scale version of that maintenance posture.
+The local measurements do not transfer Mathlib’s scale or social
+evidence.</p>
 <p>Lean Atlas narrows the declarations whose meaning can affect selected
 theorem statements and leaves semantic verification to people <span
 class="citation" data-cites="leanatlas"></span>. That is close to the
@@ -352,6 +368,17 @@ provenance with <code>erdos-research-return</code>; and prepare the
 proposed upstream change with <code>submit-pull-request</code>. Pushing
 a branch or opening the pull request still requires the contributor’s
 authorisation.</p>
+<p>The router also has to serve a request that names no target. The task
+“read the corpus and find something worth developing across the papers”
+matched no cue and fell through to the repository-explanation fallback,
+so an agent asked to think was handed a tour. The repair followed the
+method of this paper: the observed request became a routing fixture, a
+lane for open reading was added, and the <code>explore-the-corpus</code>
+skill now hands an emerged question to <code>mine-open-problem</code>
+and the sequence above. The same research instruction is published
+without a clone in the <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/reading-edition/README.md">reading
+edition</a>.</p>
 <p>The sequence is deliberately independent of the agent harness. A
 contributor may use Codex, Claude Code, Cursor, another runner, ordinary
 scripts, or no agent. The shared contract is the starting commit,
@@ -457,40 +484,59 @@ status.</p>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <ol>
-<li id="ref-1"><p>P. Massot, , plasTeX plugin for Lean formalisation blueprints,
-2020, <a href="https://github.com/PatrickMassot/leanblueprint">software
+<li id="ref-1"><p>P. Massot, <em>leanblueprint</em>, plasTeX plugin for Lean
+formalisation blueprints, 2020, <a
+href="https://github.com/PatrickMassot/leanblueprint">software
 repository</a>, accessed 28 July 2026.</p></li>
-<li id="ref-2"><p>T. Zhu, P. Monticone, S. Welleck, and J. Avigad, , in , LIPIcs
-382, 2026, pp. 25:1–25:16, <a
+<li id="ref-2"><p>T. Zhu, P. Monticone, S. Welleck, and J. Avigad,
+<em>LeanArchitect: Automating Blueprint Generation for Humans and
+AI</em>, in <em>17th International Conference on Interactive Theorem
+Proving</em>, LIPIcs 382, 2026, pp. 25:1–25:16, <a
 href="https://doi.org/10.4230/LIPIcs.ITP.2026.25">DOI</a>.</p></li>
-<li id="ref-3"><p>L. Becker et al., , 2025, <a
+<li id="ref-3"><p>L. Becker et al., <em>A Blueprint for the Formalization of
+Carleson’s Theorem on Convergence of Fourier Series</em>, 2025, <a
 href="https://doi.org/10.48550/arXiv.2405.06423">arXiv:2405.06423</a>.</p></li>
 <li id="ref-4"><p>K. Yang, A. M. Swope, A. Gu, R. Chalamala, P. Song, S. Yu,
-S. Godil, R. Prenger, and A. Anandkumar, , in , 2023, <a
+S. Godil, R. Prenger, and A. Anandkumar, <em>LeanDojo: Theorem Proving
+with Retrieval-Augmented Language Models</em>, in <em>Advances in Neural
+Information Processing Systems 36</em>, 2023, <a
 href="https://doi.org/10.48550/arXiv.2306.15626">arXiv:2306.15626</a>.</p></li>
-<li id="ref-5"><p>L. Aniva, C. Sun, B. Miranda, C. Barrett, and S. Koyejo, , in ,
-2025, pp. 116–137, <a
+<li id="ref-5"><p>L. Aniva, C. Sun, B. Miranda, C. Barrett, and S. Koyejo,
+<em>Pantograph: A Machine-to-Machine Interaction Interface for Advanced
+Theorem Proving, High Level Reasoning, and Data Extraction in Lean
+4</em>, in <em>Tools and Algorithms for the Construction and Analysis of
+Systems</em>, 2025, pp. 116–137, <a
 href="https://doi.org/10.1007/978-3-031-90643-5_6">DOI</a>.</p></li>
-<li id="ref-6"><p>S. Kurgan et al., , 2026, <a
+<li id="ref-6"><p>S. Kurgan et al., <em>TheoremGraph: Bridging Formal and Informal
+Mathematics</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2606.25363">arXiv:2606.25363</a>.</p></li>
-<li id="ref-7"><p>X. Li, N. Peng, S. Severini, and P. Shafto, , 2026, <a
+<li id="ref-7"><p>X. Li, N. Peng, S. Severini, and P. Shafto, <em>The Network
+Structure of Mathlib</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2604.24797">arXiv:2604.24797</a>.</p></li>
-<li id="ref-8"><p>J. Asher, , 2025, <a
+<li id="ref-8"><p>J. Asher, <em>LeanExplore: A Search Engine for Lean 4
+Declarations</em>, 2025, <a
 href="https://doi.org/10.48550/arXiv.2506.11085">arXiv:2506.11085</a>.</p></li>
-<li id="ref-9"><p>G. Gao et al., , 2026, <a
+<li id="ref-9"><p>G. Gao et al., <em>LeanSearch v2: Global Premise Retrieval for
+Lean 4 Theorem Proving</em>, 2026, <a
 href="https://doi.org/10.48550/arXiv.2605.13137">arXiv:2605.13137</a>.</p></li>
 <li id="ref-10"><p>A. Baanen, M. R. Ballard, J. Commelin, B. Gin-ge Chen,
-M. Rothgang, and D. Testa, , in , 2025, <a
+M. Rothgang, and D. Testa, <em>Growing Mathlib: Maintenance of a Large
+Scale Mathematical Library</em>, in <em>Intelligent Computer
+Mathematics</em>, 2025, <a
 href="https://doi.org/10.48550/arXiv.2508.21593">arXiv:2508.21593</a>.</p></li>
-<li id="ref-11"><p>B. Yanahama and A. Sannai, , 2026, <a
+<li id="ref-11"><p>B. Yanahama and A. Sannai, <em>Lean Atlas: An Integrated Proof
+Environment for Scalable Human–AI Collaborative Formalization</em>,
+2026, <a
 href="https://doi.org/10.48550/arXiv.2604.16347">arXiv:2604.16347</a>.</p></li>
 <li id="ref-12"><p>R. Souza, T. Poteet, B. Etz, D. Rosendo, A. Gueroudji, W. Shin,
-P. Balaprakash, and R. Ferreira da Silva, , WORKS at the ACM/IEEE
-International Conference for High Performance Computing, Networking,
-Storage and Analysis, 2025, <a
+P. Balaprakash, and R. Ferreira da Silva, <em>LLM Agents for Interactive
+Workflow Provenance: Reference Architecture and Evaluation
+Methodology</em>, WORKS at the ACM/IEEE International Conference for
+High Performance Computing, Networking, Storage and Analysis, 2025, <a
 href="https://doi.org/10.1145/3731599.3767582">DOI</a>.</p></li>
-<li id="ref-13"><p>S. Abedu, S. Khatoonabadi, and E. Shihab, , 2024, revised 2025,
-<a
+<li id="ref-13"><p>S. Abedu, S. Khatoonabadi, and E. Shihab, <em>Synergizing LLMs
+and Knowledge Graphs: A Novel Approach to Software Repository-Related
+Question Answering</em>, 2024, revised 2025, <a
 href="https://arxiv.org/abs/2412.03815">arXiv:2412.03815</a>.</p></li>
 </ol>
 </section>

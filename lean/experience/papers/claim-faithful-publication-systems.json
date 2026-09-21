@@ -5,7 +5,7 @@
   "subject": "Systems paper",
   "subject_kind": "system",
   "form": "Research architecture",
-  "pages": 20,
+  "pages": 21,
   "question": "How does a research system turn agent work into inspectable mathematical claims?",
   "precis": "Problem-sized worlds bring together proofs, experiments, literature, failed approaches and remaining questions. The architecture separates reasoning, changes to shared files, validation, evidence, public claims and reviewer attention. A public Lean repository demonstrates the workflow; it does not establish external adoption or solve any of the eight original problems.",
   "owns": "the research architecture and its evidence and authority boundaries",
@@ -27,19 +27,19 @@
     "fragment_not_document": true,
     "executable_scripts_embedded": false,
     "pandoc": "pandoc 3.9.0.2",
-    "renderer_contract_version": 29,
-    "renderer_fingerprint": "815b27130b0e7a63",
-    "source_sha256": "8f38a10e7ef2ec9fe571f0df1062658d12f4dd346c19eeb99a940369abe81959",
+    "renderer_contract_version": 30,
+    "renderer_fingerprint": "d383526533396f6a",
+    "source_sha256": "9fec309258f31f1ea0834f28f5243a799904e6b170e032b812b91e58fde51b0b",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 7,
+    "mathml_node_count": 12,
     "raw_math_fallback_count": 0,
     "warnings": {
       "mathml": [],
       "mathjax": []
     },
-    "html_mathml_sha256": "6d8ac752f565e30de5ed960302187a7287a756f9791ed472a70fcb05da2856f9",
-    "html_exact_tex_sha256": "549fdea3ad0876440de4004ef31ba53b5a80523fc61b6809807fa12299fc28a1"
+    "html_mathml_sha256": "ba3aea9718e790db9ab4cab44e62ee5deb3b5bfaf7add9725522a1ccb2f63ee8",
+    "html_exact_tex_sha256": "6a78799b588224dc2c41807b0a75fb27f14c485637caeb8b6ee5bee31896e1f3"
   },
   "sections": [
     {
@@ -216,6 +216,11 @@
       "level": 3,
       "anchor": "an-experimental-agenda",
       "label": "An experimental agenda"
+    },
+    {
+      "level": 3,
+      "anchor": "sec:admissible-constructions",
+      "label": "Executable construction choices"
     },
     {
       "level": 2,

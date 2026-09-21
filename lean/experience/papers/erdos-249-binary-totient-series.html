@@ -753,7 +753,7 @@ depth amplification</a>.</small></p>
 the hypothesis is just one nonintegral tail difference; it does not
 assert irrationality of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
-Requiring it for
+Requiring it for <em>every</em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>,</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">d,N</annotation></semantics></math>
 is as strong as the original problem. The conclusion sets the truncation
 depth equal to the shift,
@@ -956,12 +956,12 @@ strictly between
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>K</mi></msup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><msub><mi>H</mi><mi>a</mi></msub><mo>+</mo><mi>J</mi><mo>+</mo><mi>K</mi><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2^K-(2H_a+J+K+2)</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>K</mi></msup><annotation encoding="application/x-tex">2^K</annotation></semantics></math>.
-The later tail difference is a positive integer; its is the
-representative near zero. Thus positivity determines which endpoint
-contains the residue, but does not exclude an integral tail difference.
-Both displayed bounds on
+The later tail difference is a positive integer; its <em>negative</em>
+is the representative near zero. Thus positivity determines which
+endpoint contains the residue, but does not exclude an integral tail
+difference. Both displayed bounds on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
-are required for this conclusion. <span> <a
+are required for this conclusion. <span><em>Checked:</em> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L39">positive
 tail differences</a>, <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TotientActualLcmOrbitSign.lean#L172">negative
@@ -990,7 +990,7 @@ along entire arithmetic progressions. These properties alone do not
 force a contradiction: the comparison need not consist of actual totient
 differences. The theorem concerns linear combinations of shifts, not
 nonlinear operations, and does not supply certificates at arbitrarily
-large scales. <span> <a
+large scales. <span><em>Checked:</em> <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/LcmFactorIdealPulseObstruction.lean#L798">obstruction
 for finite integer combinations of shifts</a>.</span></p></li>
 </ol>
@@ -1267,8 +1267,8 @@ four bounds hold?</em></p>
 <p>The long record gives the same decomposition, and the <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L543">four
 simultaneous inequalities</a> are defined in the linked source. All four
-bounds must hold on the block with the same parameters. The permitted
-blocks need only be arbitrarily large, but
+bounds must hold on the <em>same</em> block with the same parameters.
+The permitted blocks need only be arbitrarily large, but
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
 must also make the truncation error small enough for the residue test.
 The long record proves the unassigned and excluded-cofactor bounds at
@@ -1902,31 +1902,45 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 four inequalities on a common block</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/FirstHarmonicPivot.lean#L549">the
 first-harmonic bound from those four inequalities</a>.</p>
+<p><em>Companion system context.</em> The <a
+href="../../../papers/claim-faithful-publication-systems-paper.pdf#nameddest=systems-trust">claim
+and trust boundary</a>, <a
+href="../../../papers/cold-clone-to-proof-receipt.pdf#nameddest=cold-clone-authority">cold-clone
+route to proof authority</a>, and <a
+href="../../../papers/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol">public
+contribution protocol</a> are described in sibling papers. Those
+descriptions do not change the mathematical status of this note.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <ol>
-<li id="ref-1"><p>J.-P. Allouche and J. Shallit, ,
-Theoret. Comput. Sci. <strong>98</strong> (1992), no. 2, 163–197, doi:<a
+<li id="ref-1"><p>J.-P. Allouche and J. Shallit, <em>The ring of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-regular
+sequences</em>, Theoret. Comput. Sci. <strong>98</strong> (1992), no. 2,
+163–197, doi:<a
 href="https://doi.org/10.1016/0304-3975(92)90001-V">10.1016/0304-3975(92)90001-V</a>.</p></li>
-<li id="ref-2"><p>M. Coons, , J. Théor. Nombres Bordeaux <strong>22</strong>
-(2010), no. 2, 339–352, doi:<a
+<li id="ref-2"><p>M. Coons, <em>(Non)Automaticity of number theoretic
+functions</em>, J. Théor. Nombres Bordeaux <strong>22</strong> (2010),
+no. 2, 339–352, doi:<a
 href="https://doi.org/10.5802/jtnb.718">10.5802/jtnb.718</a>.
 Theorem 3.2, p. 348.</p></li>
-<li id="ref-3"><p>M. Coons, , Internat. J. Found. Comput. Sci. <strong>28</strong>
+<li id="ref-3"><p>M. Coons, <em>Regular sequences and the joint spectral
+radius</em>, Internat. J. Found. Comput. Sci. <strong>28</strong>
 (2017), no. 2, 135–140, doi:<a
 href="https://doi.org/10.1142/S0129054117500095">10.1142/S0129054117500095</a>;
 arXiv:<a href="https://arxiv.org/abs/1511.07535v1">1511.07535v1</a>.
 Theorem 1, Proposition 4, Corollary 7 and Appendix A are cited with the
 arXiv v1 numbering.</p></li>
-<li id="ref-4"><p>G. Martin, , arXiv:<a
+<li id="ref-4"><p>G. Martin, <em>Simultaneous inequalities among values of the
+Euler phi-function</em>, arXiv:<a
 href="https://arxiv.org/abs/math/0603053v1">math/0603053v1</a>, 2006.
 Theorem 1, pp. 1–2.</p></li>
 <li id="ref-5"><p>Erick Wong, <a
-href="https://math.stackexchange.com/a/1211557">answer 1211557</a> to ,
-Mathematics Stack Exchange, 29 March 2015, accessed 15 September
-2026.</p></li>
+href="https://math.stackexchange.com/a/1211557">answer 1211557</a> to
+<em>An infinite sum based on the mod-parity of Euler’s totient
+function</em>, Mathematics Stack Exchange, 29 March 2015, accessed 15
+September 2026.</p></li>
 <li id="ref-6"><p>A. Eldar, comment and formula added to OEIS A256936 (revisions 28
 and 31), 15 March 2026, <a href="https://oeis.org/history?seq=A256936"
 class="uri">https://oeis.org/history?seq=A256936</a>, accessed 16
@@ -1934,33 +1948,41 @@ September 2026.</p></li>
 <li id="ref-7"><p>S. Fan, comment on Erdős Problem #249, 16 May 2026, 19:01, <a
 href="https://www.erdosproblems.com/forum/thread/249">Erdős Problems
 discussion thread</a>, accessed 16 September 2026.</p></li>
-<li id="ref-8"><p>P. Erdős and R. L. Graham, , Monographies de L’Enseignement
+<li id="ref-8"><p>P. Erdős and R. L. Graham, <em>Old and New Problems and Results
+in Combinatorial Number Theory</em>, Monographies de L’Enseignement
 Mathématique <strong>28</strong>, 1980, p. 61.</p></li>
-<li id="ref-9"><p>R. Balasubramanian, S. Giri and P. Srivastav, , J. Number Theory
+<li id="ref-9"><p>R. Balasubramanian, S. Giri and P. Srivastav, <em>On correlations
+of certain multiplicative functions</em>, J. Number Theory
 <strong>174</strong> (2017), 221–238, doi:<a
 href="https://doi.org/10.1016/j.jnt.2016.10.001">10.1016/j.jnt.2016.10.001</a>;
 arXiv:<a href="https://arxiv.org/abs/1511.02221v3">1511.02221v3</a>.
 Theorem 2.2 is cited with the arXiv v3 pagination, p. 2.</p></li>
-<li id="ref-10"><p>S. Yazdani, , J. Théor. Nombres Bordeaux <strong>13</strong>
-(2001), no. 2, 651–658, <a
+<li id="ref-10"><p>S. Yazdani, <em>Multiplicative functions and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-automatic
+sequences</em>, J. Théor. Nombres Bordeaux <strong>13</strong> (2001),
+no. 2, 651–658, <a
 href="https://www.numdam.org/item/JTNB_2001__13_2_651_0/"
 class="uri">https://www.numdam.org/item/JTNB_2001__13_2_651_0/</a>.
 Theorem 2 and its proof, pp. 652–653; Corollary 4, p. 654.</p></li>
-<li id="ref-11"><p>J.-P. Allouche, J. Shallit and R. Yassawi, ,
-Exposition. Math. <strong>40</strong> (2022), no. 1, 1–22, doi:<a
+<li id="ref-11"><p>J.-P. Allouche, J. Shallit and R. Yassawi, <em>How to prove that
+a sequence is not automatic</em>, Exposition. Math. <strong>40</strong>
+(2022), no. 1, 1–22, doi:<a
 href="https://doi.org/10.1016/j.exmath.2021.08.001">10.1016/j.exmath.2021.08.001</a>;
 arXiv:<a href="https://arxiv.org/abs/2104.13072v1">2104.13072v1</a>.
 Theorem and example numbering follows the arXiv v1 (2021).</p></li>
-<li id="ref-12"><p>J. Bell and D. Smertnig, , arXiv:<a
+<li id="ref-12"><p>J. Bell and D. Smertnig, <em>Mahler series with multiplicative
+coefficient sequences</em>, arXiv:<a
 href="https://arxiv.org/abs/2603.23456v1">2603.23456v1</a>, 24 March
 2026, preprint. Theorem 1.3, p. 2; Lemma 3.3, p. 9.</p></li>
-<li id="ref-13"><p>J. P. Bell, N. Bruin and M. Coons, ,
+<li id="ref-13"><p>J. P. Bell, N. Bruin and M. Coons, <em>Transcendence of
+generating functions whose coefficients are multiplicative</em>,
 Trans. Amer. Math. Soc. <strong>364</strong> (2012), no. 2, 933–959,
 doi:<a
 href="https://doi.org/10.1090/S0002-9947-2011-05479-6">10.1090/S0002-9947-2011-05479-6</a>;
 arXiv:<a href="https://arxiv.org/abs/1003.2221v2">1003.2221v2</a>.
 Theorems 1.5–1.6 are cited with the arXiv v2 pagination, p. 2.</p></li>
-<li id="ref-14"><p>B. Adamczewski, J. Bell and D. Smertnig, ,
+<li id="ref-14"><p>B. Adamczewski, J. Bell and D. Smertnig, <em>A height gap theorem
+for coefficients of Mahler functions</em>,
 J. Eur. Math. Soc. <strong>25</strong> (2023), no. 7, 2525–2571, doi:<a
 href="https://doi.org/10.4171/JEMS/1244">10.4171/JEMS/1244</a>.
 Theorem 1.2(b), p. 2528; logarithmic height in Section 1.1.1,

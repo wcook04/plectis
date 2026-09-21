@@ -883,23 +883,95 @@ href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df
 exact order</a> and <a
 href="https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199">the
 leading coefficient</a>.</p>
-<section id="what-the-order-calculation-does-not-imply." class="level5">
-<h5>What the order calculation does not imply.</h5>
+<section id="from-formal-order-to-size-at-a-fixed-base." class="level5">
+<h5>From formal order to size at a fixed base.</h5>
 <p>Formal order alone does not bound the value at a fixed <span
 class="math inline" data-term-auto="off">\(q\)</span>: multiplication by <span
 class="math inline" data-term-auto="off">\((1-q)^{N^3}\)</span> leaves the first term
 unchanged but changes its logarithm by a cubic quantity. The long
-record, Section 3.1, separately proves <span
-class="math inline" data-term-auto="off">\(V_N^*(q)&gt;0\)</span> and</p>
+record, Section 3.1, proves separately that <span
+class="math inline" data-term-auto="off">\(V_N^*(q)&gt;0\)</span> and that <span
+class="math inline" data-term-auto="off">\(\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)\)</span> for
+fixed <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. The same
+positive-measure argument, carried further, settles the size within that
+band. The theorem below and its proof are ordinary mathematics; neither
+is formalised in Lean.</p>
+<div class="theorem" id="res:sharp-fixed-base">
+<p><strong>Theorem 3.2</strong> (the size of <span
+class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed base). <em> Fix <span
+class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span> and write <span
+class="math inline" data-term-auto="off">\(P=(q;q)_\infty\)</span>, <span
+class="math inline" data-term-auto="off">\(B_N=N(N-1)(2N-1)/6\)</span> and <span
+class="math inline" data-term-auto="off">\(C_N=(N!)^2(N+1)!/2^N\)</span>. There is a <span
+class="math inline" data-term-auto="off">\(K(q)&gt;0\)</span> with </em></p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\log\!\left(
-\frac{V_N^*(q)}{\bigl((N!)^2(N+1)!/2^N\bigr)
-q^{N(N-1)(2N-1)/6}}\right)=O_q(N)
-\qquad(0&lt;q&lt;1\text{ fixed}).\]</span></div>
-<p>Neither assertion supplies
-the cyclotomic divisibility proved for a different recurrence in <span
-class="citation" data-cites="krvz2009"></span>. The separate coefficient
-and content calculations are in long Section 3.2; Appendix <a class="math-ref" href="#app:index">A</a> records their sources and
+class="math display" data-term-auto="off">\[V_N^*(q)\sim K(q)\,C_Nq^{B_N}P^{2N}N^{-8F(1/q)}
+\qquad(N\to\infty).\]</span></div>
+</div>
+<div class="proof">
+<p><em>Outline; the full proof is in the long record.</em> Collecting
+the moment dependence in <span class="math inline" data-term-auto="off">\(w=q^{m+1}\)</span>
+as above writes <span
+class="math inline" data-term-auto="off">\(v_m^*=\sum_{k\ge0}a_kq^{(m+1)k}\)</span> with
+<span class="math inline" data-term-auto="off">\(a_k=[w^k]P^4G_q(w)\)</span>. Two facts about
+these weights suffice. First, they factor exactly as</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[a_k=P^4\frac{R_k^{(2)}R_k^{(3)}}{(q;q)_k},
+\qquad
+R_k^{(r)}=\sum_{n_1+\cdots+n_r=k}\frac{(q;q)_k}{\prod_j(q;q)_{n_j}},\]</span></div>
+<p class="display-continue">which gives <span class="math inline" data-term-auto="off">\(P^5c_k\le a_k\le
+P^{-1}c_k\)</span> and a polynomial bound on the ratios <span
+class="math inline" data-term-auto="off">\(a_{k+h}/a_k\)</span>. Second, <span
+class="math inline" data-term-auto="off">\(P^4(1-w)^4G_q(w)\)</span> is analytic past the
+unit circle with value <span class="math inline" data-term-auto="off">\(3\)</span> and
+derivative <span class="math inline" data-term-auto="off">\(2+8F(1/q)\)</span> at <span
+class="math inline" data-term-auto="off">\(w=1\)</span>, so <span
+class="math inline" data-term-auto="off">\(a_k/c_k=1-8F(1/q)/(k+1)+O_q((k+1)^{-2})\)</span>
+and <span class="math inline" data-term-auto="off">\(\prod_{k&lt;N}a_k\sim\mathcal
+A(q)C_NN^{-8F(1/q)}\)</span> for a convergent product <span
+class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span>.</p>
+<p>In Heine’s expansion of the determinant, write each increasing tuple
+as <span class="math inline" data-term-auto="off">\(k_i=i+\lambda_i\)</span> and reverse the
+shifts to obtain a partition. The least tuple contributes <span
+class="math inline" data-term-auto="off">\(q^{B_N}\prod_{k&lt;N}a_k\)</span> times its own
+Vandermonde product <span
+class="math inline" data-term-auto="off">\(\Delta_N=\prod_{d&lt;N}(1-q^d)^{2(N-d)}\)</span>;
+the first bound on the weights majorises every other tuple by a summand
+that is summable over partitions and independent of <span
+class="math inline" data-term-auto="off">\(N\)</span>. Dominated convergence then reduces the
+normalised sum to the case <span
+class="math inline" data-term-auto="off">\(a_k\equiv1\)</span>, where Cauchy’s determinant
+evaluates it, and that sum tends to <span class="math inline" data-term-auto="off">\(\mathcal
+M(q)=\prod_{d\ge1}(1-q^d)^{-d}\)</span>. Separately <span
+class="math inline" data-term-auto="off">\(\Delta_N/P^{2N}\to\mathcal M(q)^2\)</span>.
+Writing <span class="math inline" data-term-auto="off">\(\mathcal A(q)\)</span> for the
+convergent product above, the constant is <span
+class="math inline" data-term-auto="off">\(K(q)=\mathcal A(q)\mathcal M(q)^3\)</span>. ◻</p>
+</div>
+<p>One of those three factors of <span class="math inline" data-term-auto="off">\(\mathcal
+M(q)\)</span> comes from the tuples other than the least one, and is
+therefore invisible to the order calculation; the other two come from
+comparing the least tuple’s own Vandermonde product with <span
+class="math inline" data-term-auto="off">\(P^{2N}\)</span>. The long record proves both
+ingredients in full, including the degree <span
+class="math inline" data-term-auto="off">\(\lfloor k^2/4\rfloor+\lfloor k^2/3\rfloor\)</span>
+and coefficient sum <span class="math inline" data-term-auto="off">\(6^k\)</span> of the
+product <span class="math inline" data-term-auto="off">\(R_k^{(2)}R_k^{(3)}\)</span>.</p>
+</section>
+<section id="what-neither-calculation-implies." class="level5">
+<h5>What neither calculation implies.</h5>
+<p>Theorem <a class="math-ref" href="#res:sharp-fixed-base">3.2</a> replaces that
+band by explicit linear and logarithmic terms and a constant. It changes
+no cubic coefficient and no prime-power valuation, so it supplies no
+divisor for the 2004 polynomial forms. Against the two proposed degree
+savings of long Section 3, the shortfall at <span
+class="math inline" data-term-auto="off">\(3/2\)</span> is exactly <span
+class="math inline" data-term-auto="off">\(N(74N^2-117N+41)/41&gt;0\)</span> for <span
+class="math inline" data-term-auto="off">\(N\ge2\)</span>, and the new estimate closes no
+part of it. Neither assertion supplies the cyclotomic divisibility
+proved for a different recurrence in <span class="citation"
+data-cites="krvz2009"><a href="#ref-14">[14]</a></span>. The separate coefficient and content
+calculations are in long Section 3.3; Appendix <a class="math-ref" href="#app:index">A</a> records their sources and
 finite scope.</p>
 </section>
 </section>
@@ -1442,7 +1514,7 @@ not inputs to the rational specialisation in Section 2.</p>
 <h5>Coefficient moments.</h5>
 <p>The coefficient polynomials in <span class="citation"
 data-cites="zudilin2016"><a href="#ref-5">[5]</a></span> give a moment problem different from
-the remainder moments in Section 3. Long Section 3.2 checks the two
+the remainder moments in Section 3. Long Section 3.3 checks the two
 leading Hankel families through rank eight, not the all-rank criterion
 in <span class="citation" data-cites="wangzhu2016"><a href="#ref-15">[15]</a></span>. It proves a
 finite moment representation and discusses <span
@@ -1616,6 +1688,14 @@ href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50b
 for the rectangular exponent expression</a>; <a
 href="https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L126">equality
 case for that bound</a>.</p>
+<p><em>Companion system context.</em> The <a
+href="../../../papers/claim-faithful-publication-systems-paper.pdf#nameddest=systems-trust">claim
+and trust boundary</a>, <a
+href="../../../papers/cold-clone-to-proof-receipt.pdf#nameddest=cold-clone-authority">cold-clone
+route to proof authority</a>, and <a
+href="../../../papers/open-source-mathematics-strategy.pdf#nameddest=strategy-protocol">public
+contribution protocol</a> are described in sibling papers. Those
+descriptions do not change the mathematical status of this note.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">

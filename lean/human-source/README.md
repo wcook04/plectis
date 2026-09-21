@@ -3,15 +3,20 @@
 
 # Plectis: research on eight Erdős problem programmes
 
-Plectis is an open-source, AI-assisted research project. This repository contains
-the papers, Lean proofs, computations, failed approaches, and remaining
-questions, so another researcher can inspect the work and continue from it.
-**The degree-seven example refutes the total-variation formulation of
-Erdős #1041. The other seven target problems are not resolved here. Independent
+Plectis is an open-source, AI-assisted prototype for turning mathematical
+exposition into further research. Eight Erdős programmes each have a short
+expository paper, a longer research record and associated Lean source. The aim
+is to make results, methods and useful failures understandable enough for
+others to question, extend and reuse.
+**The degree-seven counterexample found by the erdosproblems.com contributor
+ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in
+Lean. The other seven target problems are not resolved here. Independent
 human review of correspondence with the historical curve-length formulation
 has not been recorded. Comparator checks only its selected exact statements,
 configured axioms and kernel acceptance; it does not assess novelty or
 historical correspondence.**
+
+The attribution is recorded in [ani's 7 September 2026 forum post](https://www.erdosproblems.com/forum/thread/1041#post-8861).
 
 This release does not solve Erdős #68, #243, #249, #251, #257, #269, or #1049.
 Those seven remain open.
@@ -25,9 +30,27 @@ Those seven remain open.
 
 ## Where to start
 
-Each programme has a short paper explaining its main argument and a longer
-record with details, computations and approaches that stopped. You can read
-both without Lean or a coding agent. [A reader's way in](docs/READING_GUIDE.md)
+**Read the mathematics. Find what comes next.** Use the papers, proofs and
+research records to continue an existing question, or to develop a new result,
+method or direction. Work with your own AI, directly in the repository, or
+without an AI. Work that returns becomes part of the shared account, with its
+sources, checks and credit kept visible.
+
+- **Explore with your AI, no clone needed.** Give your model the
+  [reading edition](docs/reading-edition/README.md): one file with an
+  introduction, a short research instruction and the opening of each paper.
+  [One open investigation](research/experiments/choices_contraction/README.md)
+  shows the route and ends with five ways to continue it.
+- **Work in the repository.** The
+  [agent quickstart](docs/agents/README.md#start-with-current-public-work)
+  provides clone commands and a copyable prompt. Name a question, or ask your
+  agent to read the corpus and decide what is worth developing.
+
+The short papers are the main exposition: the question, the strongest results,
+the ideas behind their proofs and what remains open. The longer records keep
+the details, computations and approaches that stopped. You can read both
+without Lean or a coding agent. The website brings these papers, their evidence
+and ways to contribute into one reading experience. [A reader's way in](docs/READING_GUIDE.md)
 introduces the questions; [Results and limits](docs/RESULTS.md) puts the results
 beside their remaining open questions.
 
@@ -61,10 +84,20 @@ need human judgement.
 
 ## Problem papers
 
-For a first look, start with **#257** for full-support irrationality and
-achievement-set measure, or **#249** for exact kernel rank, finite certificates,
-and recorded routes that stopped. Each paper distinguishes ordinary proofs,
-Lean-checked results and open questions.
+For a first look, start with **#249** for bases and exact ranks of totient
+kernels: the sequences obtained by restricting Euler's totient to arithmetic
+progressions. Or start with **#257** for weighted conditions on the exponents
+that force reciprocal Mersenne subseries to be irrational, and for
+achievement-set measure. Each paper distinguishes ordinary proofs,
+Lean-checked results and open questions; the results guide covers all eight
+programmes.
+
+**Reading the eight together.** The whole collection is also material for new
+mathematics: reusable constructions, connections between problems and questions
+that go beyond the original targets. Start with the
+[cross-problem paper, Reading Eight Erdős Problems Together](paper/synthesis/optimal-sparse-perturbations.pdf). It joins the capacity and congruence results, Lambert subsums, method limits and their research record.
+The [synthesis guide](paper/synthesis/README.md) explains how to develop this work
+from the papers and Lean corpus, with each result's evidence and limits intact.
 
 | Problem | Topic | Papers |
 |---|---|---|
@@ -107,7 +140,18 @@ unreleased work.
 
 An idea, a correction, a counterexample, a failed route with a checkable
 reason, or a clearer explanation can help. You do not need to solve a problem.
-Infra suggestions also get credit!
+Directions and infrastructure suggestions receive credit too.
+
+You can contribute an insight without writing Lean. Will can work with you to
+develop its argument and formalisation; the idea, explanation and proof work
+keep their respective attribution. A contribution may advance one problem or
+open a direction across the whole collection.
+
+Start with [a paper](docs/CONTRIBUTE_BY_PAPER.md),
+[develop a method](paper/synthesis/README.md), or
+[improve the machinery](docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md).
+The same [submission and credit process](CONTRIBUTING.md#return-what-you-learned)
+serves all three, including contributions by email and work without a clone.
 
 - **Ideas, corrections or review:** use the
   [research-progress form](https://github.com/wcook04/plectis-erdos/issues/new?template=research_progress.yml)
@@ -128,8 +172,10 @@ others find it and we make progress together instead of hoarding partial
 results out of fear of being scooped, or rebuilding the same infrastructure
 instead of improving one cumulatively.
 
-**Experts:** email me any insight. I will do the work and fully credit you
-for the insight and whatever follows from it.
+**Experts:** corrections, methods and directions are welcome. Accepted work
+gets a public receipt naming the contribution and its author; later work
+records how it used that contribution. See the
+[credit policy](docs/research-commons/CREDIT_POLICY.md).
 
 <a id="citation-and-prior-work"></a>
 
@@ -156,12 +202,12 @@ explains that design.
 
 The reviewed layer a mathematician should judge: 148 curated claim records in 33 contribution families, reaching Lean source through 463 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
 
-The rest is engineering inventory. About 88% of the 162,526 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
+The rest is engineering inventory. About 88% of the 162,543 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
 
 | Engineering inventory | Current size |
 |---|---:|
-| Lean modules (the two library roots) | 1,765 |
-| Formal results and supporting lemmas | 158,822 |
+| Lean modules (the two library roots) | 1,770 |
+| Formal results and supporting lemmas | 158,837 |
 | Curated claim records | 148 |
 | Contribution families | 33 |
 

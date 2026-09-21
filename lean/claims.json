@@ -1096,6 +1096,54 @@
           "rendered": "paper/269/erdos269-running-lcm-reasoning-surface.pdf",
           "role": "Historical full reasoning record for Erdős #269.",
           "formal_source_ref": "ee650b32b8b2cb98b94e5500df5370d85f7403b8"
+        },
+        {
+          "title": "Reading Eight Erdős Problems Together",
+          "source": "paper/synthesis/optimal-sparse-perturbations.tex",
+          "rendered": "paper/synthesis/optimal-sparse-perturbations.pdf",
+          "role": "One cross-problem paper: capacity and congruence constructions, Lambert subsums across bases, rational-point counts, method obstructions, exact computations and unsuccessful approaches. Principal arguments are ordinary proofs. Cited Lean ingredients retain their exact scope; no original problem status or historical novelty is promoted.",
+          "anchor_label_allowlist": [
+            "sec:map",
+            "capacity:sec:criterion",
+            "capacity:eq:capacity",
+            "capacity:thm:capacity",
+            "capacity:eq:class",
+            "capacity:eq:congruence",
+            "capacity:thm:main",
+            "capacity:eq:gaps",
+            "capacity:eq:both",
+            "capacity:cor:density",
+            "capacity:sec:capacity-proof",
+            "capacity:eq:overlap",
+            "capacity:sec:negative",
+            "capacity:eq:tailbound",
+            "capacity:lem:feedback",
+            "capacity:eq:step",
+            "capacity:eq:selector",
+            "capacity:prop:unrestricted",
+            "capacity:sec:carry",
+            "capacity:thm:gcd",
+            "sec:results",
+            "thm:dichotomy",
+            "thm:bases",
+            "thm:chains",
+            "thm:forced",
+            "sec:dichotomy",
+            "sec:bases",
+            "sec:base2",
+            "sec:lemmas",
+            "lem:gaps",
+            "lem:translate",
+            "prob:membership",
+            "sec:second",
+            "sec:inventory",
+            "sec:misread",
+            "sec:eliminated",
+            "sec:known",
+            "capacity:sec:sources",
+            "sec:questions"
+          ],
+          "formal_source_ref": "8d6596fbde2c4aacf946adec4b0226ba1a97545d"
         }
       ]
     },
@@ -1163,13 +1211,13 @@
             "id": "erdos_68_note",
             "source": "paper/68/erdos-68-factorial-denominator-irrationality.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "The Core carry equivalences (FactorialGapPlateauCore isolation pin; FactorialZeroPlateau is the default-root duplicate), two incomparable finite denominator exclusions (GMP m = 300000 and continued-fraction q ≥ 2^39990), and the still-open cofinal-carry producer."
+            "thesis": "The factorial-series carry equivalences, two incomparable finite denominator exclusions, and the still-open cofinal-carry producer. FactorialGapPlateauCore owns the carry definitions; FactorialZeroPlateau retains compatibility imports."
           },
           {
             "id": "erdos_243_note",
             "source": "paper/243/erdos-243-reciprocal-tail-rigidity.tex",
             "decision": "retain_as_problem_owned_note",
-            "thesis": "The integer-state bounded-negative theorem under explicit centring, bounded-negative, and normalised-vanishing hypotheses (Lean); the original-coordinate corollary is an ordinary transfer. Mixed-sign unbounded negative mass remains open."
+            "thesis": "The integer-state bounded-negative theorem and its original-coordinate transfer, with the signed-error lower-bound obligation kept explicit. The original-coordinate transfer derives centring and normalised vanishing from the sequence and sum hypotheses; it does not discharge that lower bound."
           },
           {
             "id": "erdos_249_note",
@@ -1214,6 +1262,16 @@
             "source": "paper/erdos249-transport-curvature-companion-note.tex",
             "decision": "retired_one_sided_companion",
             "thesis": "The former one-sided Erdős Problem 249 specialist note is not an active mathematical paper; its archived predecessor is historical evidence only, and the registered Lean claims remain queryable from the claim registry."
+          },
+          {
+            "source": "paper/synthesis/erdos-synthesis-subsums-across-bases.tex",
+            "decision": "consolidated_into_one_cross_problem_paper",
+            "thesis": "Content retained in paper/synthesis/optimal-sparse-perturbations.tex; prior versions remain in Git history."
+          },
+          {
+            "source": "paper/synthesis/erdos-synthesis-reading-together-record.tex",
+            "decision": "consolidated_into_one_cross_problem_paper",
+            "thesis": "Content retained in paper/synthesis/optimal-sparse-perturbations.tex; prior versions remain in Git history."
           }
         ],
         "architecture_guides": [
@@ -1243,6 +1301,16 @@
             "id": "additional_erdos249_companion",
             "decision": "do_not_create",
             "reason": "The certificate and diagonal-pincer material is the mathematical centre of the gateway; the retained transport paper already owns the distinct specialist #249 thesis."
+          },
+          {
+            "id": "erdos_synthesis_note",
+            "decision": "consolidated_into_one_cross_problem_paper",
+            "reason": "The results and research record now belong to optimal-sparse-perturbations; do not publish a separate companion."
+          },
+          {
+            "id": "erdos_synthesis_record",
+            "decision": "consolidated_into_one_cross_problem_paper",
+            "reason": "The results and research record now belong to optimal-sparse-perturbations; do not publish a separate companion."
           }
         ]
       },
@@ -17662,6 +17730,48 @@
           ]
         },
         {
+          "id": "ErdosProblems.Synthesis.CongruenceInterpolation",
+          "path": "lean/ErdosProblems/Synthesis/CongruenceInterpolation.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos251.ResidueFeedbackCore"
+          ]
+        },
+        {
+          "id": "ErdosProblems.Synthesis.DyadicShiftEscape",
+          "path": "lean/ErdosProblems/Synthesis/DyadicShiftEscape.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos251.PrimeGapDyadicTail",
+            "ErdosProblems.Erdos269.BoundedRadixTailEscape"
+          ]
+        },
+        {
+          "id": "ErdosProblems.Synthesis.FactorialJet",
+          "path": "lean/ErdosProblems/Synthesis/FactorialJet.lean",
+          "role": "Lean proof module",
+          "imports": []
+        },
+        {
+          "id": "ErdosProblems.Synthesis.FeedbackContinuation",
+          "path": "lean/ErdosProblems/Synthesis/FeedbackContinuation.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos251.ResidueFeedbackCore"
+          ]
+        },
+        {
+          "id": "ErdosProblems.Synthesis",
+          "path": "lean/ErdosProblems/Synthesis.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Synthesis.CongruenceInterpolation",
+            "ErdosProblems.Synthesis.DyadicShiftEscape",
+            "ErdosProblems.Synthesis.FeedbackContinuation",
+            "ErdosProblems.Synthesis.FactorialJet"
+          ]
+        },
+        {
           "id": "ErdosProblems.Three.T1",
           "path": "lean/ErdosProblems/Three/T1.lean",
           "role": "Lean proof module",
@@ -18615,7 +18725,7 @@
     "lean_toolchain": "leanprover/lean4:v4.29.1",
     "repository": "https://github.com/wcook04/plectis-erdos",
     "formal_source": {
-      "ref": "181078b6b009d905809cf2e007ad309386a3d1e0",
+      "ref": "b55efae3c053cf507c8b489e0f0f25b9136fe8f5",
       "ref_kind": "commit",
       "publication_state": "committed_checkpoint_pending_remote_publication",
       "relationship_to_last_tag": "post_tag_checkpoint",
@@ -18647,7 +18757,7 @@
     "schema": "erdos-external-verification-packet/1",
     "scope": "all_eight_public_problem_programmes",
     "purpose": "Disclose the checked frontier for each of the eight public problem programmes, and isolate a small Comparator-executable review unit with a separately declared statement and axiom budget.",
-    "boundary": "The degree-seven example refutes the total-variation formulation of Erdős #1041. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence.",
+    "boundary": "The degree-seven counterexample found by the erdosproblems.com contributor ani refutes the total-variation formulation of Erdős #1041; this repository formalises it in Lean. The other seven target problems are not resolved here. Independent human review of correspondence with the historical curve-length formulation has not been recorded. Comparator checks only its selected exact statements, configured axioms and kernel acceptance; it does not assess novelty or historical correspondence.",
     "review_status": "self-assessed and agent-checked; no human mathematical peer review is claimed",
     "automation": {
       "posture": "Substantial language-model and agent assistance was used in formalisation, proof engineering, checking, and exposition.",
@@ -20251,19 +20361,19 @@
         "source": "paper/1041/erdos-1041-lemniscate-newton-flow.tex",
         "environment": "problem",
         "title": "Erdős #1041",
-        "line": 124
+        "line": 131
       }
     },
     {
       "id": "remaining_open.erdos_1049_irrationality",
       "status": "open",
       "open_target_claim": "erdos_1049",
-      "statement": "Determine whether F(t) = ∑_{n≥1} 1/(tⁿ − 1) is irrational for every rational t > 1. F(31/4) is an ordinary Zudilin specialization, not a Lean theorem; the 3/2 approximant with remainder control and the universal assertion remain open.",
+      "statement": "Determine whether F(t) = ∑_{n≥1} 1/(tⁿ − 1) is irrational for every rational t > 1. Irrationality of F((31/4)^r) for every positive integer r is a Lean-checked Zudilin specialization; the 3/2 approximant with remainder control and the universal assertion remain open.",
       "paper_anchor": {
         "source": "paper/1049/erdos-1049-rational-base-lambert.tex",
         "environment": "section",
         "title": "Introduction",
-        "line": 49
+        "line": 54
       }
     },
     {
@@ -24445,7 +24555,7 @@
       "remaining_open_proposition_ids": [
         "remaining_open.universal_257_all_infinite_supports"
       ],
-      "statement": "For every integer base b >= 2, every infinite positive support A with finite weighted mass for some finite nonempty prime set P has irrational support series. If a positive host H has finite base-two weighted mass, then every infinite subset A of H has irrational support series at every integer base b >= 2. This is a sufficient support criterion, not the universal statement.",
+      "statement": "For every integer base b >= 2, every infinite positive support A with finite weighted mass for some finite nonempty prime set P has irrational support series. If a host H of positive integers has finite base-two weighted mass, then every infinite subset A of H has irrational support series at every integer base b >= 2. This is a sufficient support criterion, not the universal statement.",
       "status": "formalised here"
     },
     {

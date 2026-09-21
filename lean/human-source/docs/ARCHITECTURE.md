@@ -25,8 +25,9 @@ standards of evidence. A declaration has the public status recorded for it in
 the registry; adding a file or compiling a library does not create that status.
 [Methodology](METHODOLOGY.md) explains the review and change rules.
 
-The degree-seven example refutes the total-variation formulation of Erdős
-#1041. The other seven target problems are not resolved here. Independent human
+The degree-seven counterexample found by the erdosproblems.com contributor ani
+refutes the total-variation formulation of Erdős #1041; this repository
+formalises it in Lean. The other seven target problems are not resolved here. Independent human
 review of correspondence with the historical curve-length formulation has not
 been recorded. Comparator checks only its selected exact statements, configured
 axioms and kernel acceptance; it does not assess novelty or historical

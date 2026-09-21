@@ -43,7 +43,7 @@
       "erdos_number": 251,
       "title": "The prime-gap dyadic series",
       "status": "open",
-      "question": "Is the dyadic series sum p_n/2^n over consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?",
+      "question": "Is the dyadic series of consecutive primes irrational? Equivalently, is the corresponding consecutive-prime-gap dyadic series irrational?",
       "href": "problems/erdos_251.json",
       "paper_id": "erdos-251-prime-gap-dyadic-series",
       "module_count": 1,
