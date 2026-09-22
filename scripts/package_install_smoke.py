@@ -302,6 +302,14 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
             "(a PYTHONPATH or cwd shadow defeats the install proof)"
         )
 
+    handoff_input = (
+        venv_dir
+        / "share/plectis/examples/hypothesis_handoff/independent_evaluation.json"
+    )
+    if not handoff_input.is_file():
+        raise SystemExit("installed package lacks the hypothesis-handoff example")
+    handoff_input_before = handoff_input.read_bytes()
+
     checks: list[tuple[str, list[str], str]] = [
         ("version", [str(plectis), "--version"], "text"),
         ("hello", [str(plectis), "hello", str(project_dir)], "text"),
@@ -334,10 +342,22 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
             [str(plectis), "comprehension-assay", "--first-action"],
             "text",
         ),
+        (
+            "hypothesis-handoff",
+            [
+                str(plectis),
+                "hypothesis-handoff",
+                "--input",
+                str(handoff_input),
+                "--format",
+                "json",
+            ],
+            "handoff",
+        ),
     ]
 
     for name, argv, kind in checks:
-        suffix = "json" if kind in ("json", "contract") else "txt"
+        suffix = "json" if kind in ("json", "contract", "handoff") else "txt"
         out_path = output_dir / f"{name}.{suffix}"
         _run(argv, cwd=project_dir, env=env, stdout_path=out_path)
         out_path.write_text(
@@ -345,8 +365,14 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
             encoding="utf-8",
         )
         _assert_no_private_markers(out_path, label=name)
-        if kind == "json":
-            _assert_status_pass(_json_payload(out_path, label=name), label=name)
+        if kind in ("json", "handoff"):
+            payload = _json_payload(out_path, label=name)
+            _assert_status_pass(payload, label=name)
+            if kind == "handoff" and payload.get("ready_for_expert") is not True:
+                raise SystemExit("installed hypothesis handoff is not ready for expert review")
+
+    if handoff_input.read_bytes() != handoff_input_before:
+        raise SystemExit("installed hypothesis handoff modified its input")
 
     version_text = (output_dir / "version.txt").read_text(encoding="utf-8").strip()
     if not version_text.startswith("plectis "):
@@ -416,6 +442,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     print(
         "checks: version, hello, first-screen, tour, status, authority, "
         "workingness, legibility, first-action, first-action-assay, "
+        "hypothesis-handoff, "
         "prompt-injection execution, voice-to-doctrine execution, finance execution"
     )
 
