@@ -10,6 +10,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from microcosm_core import comprehension as C
 
 
@@ -1080,11 +1082,15 @@ def test_first_action_route_bundle_dispatch_uses_live_agent_entry_route() -> Non
     assert "cold-reader-route-map run-route-map-bundle" in pack["first_action"]["command"]
 
 
-def test_first_action_contract_for_improvement_goal(tmp_path: Path) -> None:
+@pytest.mark.parametrize("goal", [
+    "what should I work on for the Microcosm release?",
+    "what should we work on for the Plectis release?",
+])
+def test_first_action_contract_for_improvement_goal(tmp_path: Path, goal: str) -> None:
     _write_fixture(tmp_path)
     pack = C.comprehend(
         root=tmp_path, mode="first_action",
-        target="what should I work on for the Microcosm release?",
+        target=goal,
     )
     assert pack["routing"]["basis"] == "improvement_goal"
     assert pack["first_action"]["action_kind"] == "inspect_mutation_target"
@@ -1095,6 +1101,21 @@ def test_first_action_contract_for_improvement_goal(tmp_path: Path) -> None:
     assert pack["owner"]["claim_paths"] == pack["first_action"]["claim_paths"]
     assert pack["proof_path"]["validation_commands"]
     assert "not release approval" in pack["do_not_claim"]
+
+
+@pytest.mark.parametrize("goal", [
+    "release Plectis now",
+    "what should I work on to publish the release?",
+    "what should we work on to deploy the release?",
+    "is the release ready?",
+])
+def test_release_planning_does_not_bypass_publication_boundary(
+    tmp_path: Path, goal: str,
+) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="first_action", target=goal)
+    assert pack["routing"]["basis"] == "out_of_scope_authority_boundary"
+    assert pack["first_action"]["action_kind"] == "open_packet"
 
 
 def test_first_action_preserves_path_reference_goal(tmp_path: Path) -> None:

@@ -996,10 +996,10 @@ def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
 
 def _organ_concept_refs(atlas_row: dict[str, Any]) -> list[str]:
     """
-    Return organ concept refs for the comprehension flow.
+    Collect the resolved doctrine references carried by an organ.
 
-    Inputs are `atlas_row`; notable helpers are `get`, `extend`, `append`, `_resolved_refs`,
-    and 1 more.
+    - Teleology: give the organ read pack references for doctrine drilldown.
+    - Guarantee: returns unique concept, axiom, principle, and paper-module refs.
     """
     refs: list[str] = []
     for key in ("concept_refs", "axiom_refs", "principle_refs"):
@@ -1013,10 +1013,10 @@ def _organ_concept_refs(atlas_row: dict[str, Any]) -> list[str]:
 
 def _organ_specificity_risk(join_node: dict[str, Any]) -> dict[str, Any]:
     """
-    Serialize `microcosm_core.comprehension._organ_specificity_risk` into the payload shape
-    expected by comprehension.
+    Explain the source-custody limit on an organ's self-description.
 
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    - Teleology: distinguish owned source from exact-copy imported runners.
+    - Guarantee: returns the declared custody basis, specificity, and reading note.
     """
     basis = join_node.get("runner_custody_basis")
     note = (
@@ -1036,9 +1036,11 @@ def _organ_source_spans(
     atlas_row: dict[str, Any], join_node: dict[str, Any]
 ) -> list[dict[str, Any]]:
     """
-    Produce the organ source spans value used by `microcosm_core.comprehension`.
+    Collect source pointers for a later mutation or proof inspection.
 
-    Inputs are `atlas_row` and `join_node`; notable helpers are `get` and `append`.
+    - Teleology: identify exact code loci while keeping ordinary packs source-free.
+    - Guarantee: returns paths and at most twelve symbol names per atlas locus.
+    - Non-goal: does not include any source bodies.
     """
     spans: list[dict[str, Any]] = []
     loci = atlas_row.get("code_loci") or []
@@ -1410,13 +1412,18 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
 
 
 # --- atom_value_membrane_v1: bounded, custody-gated local excerpt extraction -------
+# The labelled docstring values below are executable input to this reader and its
+# hard assay. Preserve them when revising prose; presence-only packs omit them.
 
 def _atom_value(docstring: str, atom: str, vocab: tuple[str, ...]) -> str:
     """
-    Return atom value for the comprehension flow.
+    Extract one bounded labelled value from a docstring.
 
-    Inputs are `docstring`, `atom`, and `vocab`; notable helpers are `splitlines`, `strip`,
-    `append`, `startswith`, and 3 more.
+    - Teleology: expose an authored contract value without opening the source body.
+    - Guarantee: joins continuation lines, stops at a blank or next atom, and caps
+      the returned value at MAX_ATOM_CHARS.
+    - Fails: returns an empty string when the label is absent.
+    - Non-goal: never returns the whole docstring or function body.
     """
     stop_markers = tuple(f"{a}:" for a in vocab)
     collected: list[str] = []
@@ -1439,10 +1446,10 @@ def _atom_value(docstring: str, atom: str, vocab: tuple[str, ...]) -> str:
 
 def _excerpt_fingerprint(symbol_name: str, atom_values: dict[str, str]) -> str:
     """
-    Return excerpt fingerprint for the comprehension flow.
+    Fingerprint a symbol's emitted contract values.
 
-    Inputs are `symbol_name` and `atom_values`; notable helpers are `dumps`, `hexdigest`,
-    `sha256`, and `encode`.
+    - Teleology: bind an excerpt to its symbol name and actual emitted values.
+    - Guarantee: returns twelve hexadecimal SHA-256 characters over sorted values.
     """
     blob = symbol_name + "|" + json.dumps(atom_values, sort_keys=True, ensure_ascii=True)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:12]
@@ -1450,10 +1457,13 @@ def _excerpt_fingerprint(symbol_name: str, atom_values: dict[str, str]) -> str:
 
 def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
     """
-    Derive extract atom excerpts without touching module import state.
+    Read bounded contract values from one owned source file.
 
-    Inputs are `root` and `rel_path`; notable helpers are `lstrip`,
-    `_load_manifest_custody_paths`, `_custody_basis`, `walk`, and 12 more.
+    - Teleology: make authored symbol contracts available in a local read pack.
+    - Guarantee: applies custody, private-path, secret-shape, symbol-count, and byte
+      limits before returning any values.
+    - Fails: returns eligible=False for non-owned, unreadable, or invalid Python files.
+    - Non-goal: does not export source bodies or write a public cache.
     """
     from . import project_substrate as ps
 
@@ -1538,10 +1548,12 @@ def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
 
 def compile_path_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
     """
-    Compute compile path excerpts from `root` and `rel_path`.
+    Compile one owned file's authored contracts into a local read pack.
 
-    Inputs are `root` and `rel_path`; notable helpers are `extract_atom_excerpts`,
-    `_pack_skeleton`, `default_root`, and `get`.
+    - Teleology: let a reader inspect symbol contracts before opening source code.
+    - Guarantee: returns bounded semantic excerpts, source pointers, and guard counts.
+    - Fails: returns found=False when the selected path is not excerpt-eligible.
+    - Non-goal: does not turn local excerpts into public presence-only cache data.
     """
     base = root or default_root()
     excerpts = extract_atom_excerpts(base, rel_path)
@@ -1598,10 +1610,11 @@ def _attach_organ_excerpts(
     pack: dict[str, Any], root: Path | None, organ_id: str, inputs: dict[str, Any]
 ) -> dict[str, Any]:
     """
-    Compute attach organ excerpts from `pack`, `root`, `organ_id`, and `inputs`.
+    Attach bounded local excerpts for an organ's declared code loci.
 
-    Inputs are `pack`, `root`, `organ_id`, and `inputs`; notable helpers are `get`,
-    `extract_atom_excerpts`, and `append`.
+    - Teleology: connect organ metadata to its owned source contracts.
+    - Guarantee: attaches eligible excerpts and records custody notes for other loci.
+    - Non-goal: does not bypass extract_atom_excerpts custody or leak guards.
     """
     atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
     loci = atlas_row.get("code_loci") or []
@@ -2566,12 +2579,22 @@ def _public_authority_boundary_goal(text: str) -> bool:
         "providers",
         "private",
         "production",
-        "release",
         "deploy",
         "publication",
         "published",
         "publish",
     }:
+        return True
+    # A release-planning question selects local inspection work; it does not ask
+    # to publish. Keep every other authority token and imperative guarded above.
+    release_planning = any(
+        phrase in text for phrase in (
+            "what should i work on", "what should we work on",
+            "where should i work", "what to improve", "next improvement",
+            "release comprehension", "release prep",
+        )
+    )
+    if "release" in tokens and not release_planning:
         return True
     phrases = (
         "network call",
@@ -4768,20 +4791,23 @@ def run_comprehension_assay(
 
 def _symbols_expose_atom(symbols: list[dict[str, Any]], atom: str) -> bool:
     """
-    Return whether symbols expose atom holds for the comprehension flow.
+    Check whether an emitted symbol carries the requested contract value.
 
-    The result is derived from `symbols` and `atom` with `get`; failing evidence is returned
-    or raised exactly where the body says so.
+    - Teleology: make the hard assay check value presence, not symbol names alone.
+    - Guarantee: returns True exactly when an atom_values mapping contains the atom.
     """
     return any(atom in (s.get("atom_values") or {}) for s in symbols)
 
 
 def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
     """
-    Serialize `microcosm_core.comprehension.run_hard_comprehension_assay` into the payload
-    shape expected by comprehension.
+    Measure authored contract-value coverage and excerpt guard behavior.
 
-    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    - Teleology: exercise the local excerpt reader against its real owned source.
+    - Guarantee: computes atom coverage, leaked-value counts, and custody violations
+      from emitted excerpts rather than asserting passing metrics.
+    - Fails: a leaking join index can raise ValueError through load_inputs.
+    - Non-goal: value presence is not a proof of the authored contract's correctness.
     """
     base = root or default_root()
     owned_target = "src/microcosm_core/comprehension.py"
