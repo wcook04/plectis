@@ -21,27 +21,131 @@ concerns polynomial lemniscates. It supplies no premise for the series
 arguments below.</p>
 <p>What can the freedom to choose digits preserve, and when does
 arithmetic remove that freedom? Sparse corrections in the #251 paper
-motivate the capacity criterion of Section <a class="math-ref" href="#capacity:sec:criterion">2</a>. Its proof
+motivate the capacity criterion of Section <a class="math-ref" href="#capacity:sec:criterion">3</a>. Its proof
 makes one interval of possible continuations work for every cumulative
 residue. The factorial examples show that the arithmetic restrictions
 change a sharp support-gap threshold. Factorial denominators <span
 class="math inline" data-term-auto="off">\(n!\)</span> in this construction are not the
 denominators <span class="math inline" data-term-auto="off">\(n!-1\)</span> in #68.</p>
+<p>Section <a class="math-ref" href="#capacity:sec:jets-intro">2</a> asks
+whether a single factorial digit sequence can prescribe several
+derivatives independently. Theorems <a class="math-ref" href="#capacity:thm:jets">2.1</a> and <a class="math-ref" href="#capacity:thm:rational-jets">2.2</a> give the
+sharp threshold and the dimension of the attainable vectors. The proof
+uses the scalar capacity theorem first, then a carry that preserves
+lower derivatives; Sections <a class="math-ref" href="#capacity:sec:jets-proof">4</a> and <a class="math-ref" href="#capacity:sec:rational-jets">5</a> give the
+argument and the rationality obstruction.</p>
 <p>The common Lambert series in #257 and #1049 gives a second comparison
-in Section <a class="math-ref" href="#sec:results">3</a>: a
+in Section <a class="math-ref" href="#sec:results">6</a>: a
 base below two permits rational subsums, while nested denominators force
 irrationality on certain thin supports. Neither interval filling nor a
 measure estimate decides whether one specified rational is a subsum at
-base two. Sections <a class="math-ref" href="#sec:base2">3.3</a>
-and <a class="math-ref" href="#sec:misread">5</a> explain that
+base two. Sections <a class="math-ref" href="#sec:base2">6.3</a>
+and <a class="math-ref" href="#sec:misread">8</a> explain that
 obstruction, including the exact computation that disproved a proposed
-stopping rule. Section <a class="math-ref" href="#sec:second">4</a> retains the other method
+stopping rule. Section <a class="math-ref" href="#sec:second">7</a> retains the other method
 limits without claiming that they have one common cause.</p>
 <p>The proofs presented here are ordinary mathematical arguments. Cited
 Lean results establish specified ingredients and quoted results, not the
 complete capacity classification or Lambert-chain theorem. The sources
-and originating review are credited in Section <a class="math-ref" href="#capacity:sec:sources">8</a>. Historical
+and originating review are credited in Section <a class="math-ref" href="#capacity:sec:sources">11</a>. Historical
 novelty and independent expert review are not established.</p>
+</section>
+<section id="capacity:sec:jets-intro" class="level2">
+<h2>Prescribing a value and its derivatives</h2>
+<p>An integer factorial expansion can represent a real number while its
+digits eventually vanish modulo every fixed integer. Can the same digits
+prescribe several real quantities independently? Consider their
+exponential generating function. Its derivatives at <span
+class="math inline" data-term-auto="off">\(1\)</span> are different weighted sums of the same
+digits, so this is simultaneous prescription, not several independent
+expansions.</p>
+<p>For <span class="math inline" data-term-auto="off">\(c&gt;0\)</span>, let <span
+class="math inline" data-term-auto="off">\(\mathcal H_c\)</span> consist of the entire
+functions</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\begin{gathered}
+f(z)=\sum_{n\ge1}e_n\frac{z^n}{n!},\qquad e_n\in\Z_{\ge0},\\
+e_n\le n^c\ \hbox{eventually},\qquad
+(\forall q\ge1)\ q\mid e_n\ \hbox{eventually}.
+\end{gathered}\]</span></div>
+<p>Polynomial coefficient growth implies locally
+uniform convergence of every derivative. Put <span
+class="math inline" data-term-auto="off">\(J_d(f)=(f(1),f&#39;(1),\ldots,f^{(d-1)}(1))\)</span>
+and <span class="math inline" data-term-auto="off">\(\mathcal J_{d,c}=\{J_d(f):f\in\mathcal
+H_c\}\subseteq\R^d\)</span>. These are Hurwitz functions: all
+derivatives at <span class="math inline" data-term-auto="off">\(0\)</span> are integers. Our
+restrictions concern those integers; the prescribed derivatives are at
+<span class="math inline" data-term-auto="off">\(1\)</span>.</p>
+<div class="theorem" id="capacity:thm:jets">
+<p><strong>Theorem 2.1</strong> (Dimension and the sharp interpolation
+threshold). <em> For every <span class="math inline" data-term-auto="off">\(c&gt;0\)</span>
+and integer <span class="math inline" data-term-auto="off">\(d\ge1\)</span>, </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\dim_{\mathrm H}\mathcal
+J_{d,c}=\min(c,d).\]</span></div>
+<p><em> If <span
+class="math inline" data-term-auto="off">\(c&gt;d\)</span>, this set contains a nonempty open
+subset of <span class="math inline" data-term-auto="off">\(\R^d\)</span>. If <span
+class="math inline" data-term-auto="off">\(c\le d\)</span>, it has <span
+class="math inline" data-term-auto="off">\(d\)</span>-dimensional Lebesgue measure zero and
+is meagre; these conclusions already follow from eventual evenness of
+the coefficients. The dimension lower bound and the open-set conclusion
+can both be realised with <span class="math inline" data-term-auto="off">\(e_n\le
+n^c\)</span> at every position, an arbitrarily long initial zero
+segment, and congruence cutoffs common to the constructed family. The
+open set can be realised using only functions with eventually positive
+coefficients.</em></p>
+</div>
+<div class="theorem" id="capacity:thm:rational-jets">
+<p><strong>Theorem 2.2</strong> (Rational derivatives force
+polynomiality). <em> Let <span class="math inline" data-term-auto="off">\(d\ge1\)</span>, and
+let </em></p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[f(z)=\sum_{n\ge0}a_n\frac{z^n}{n!},\qquad
+a_n\in\Z,\quad |a_n|=O(n^d).\]</span></div>
+<p><em> Assume that, for each <span
+class="math inline" data-term-auto="off">\(q\ge1\)</span>, <span class="math inline" data-term-auto="off">\(q\mid
+a_n\)</span> eventually. If <span
+class="math inline" data-term-auto="off">\(f(1),f&#39;(1),\ldots,f^{(d-1)}(1)\)</span> are
+all rational, then <span class="math inline" data-term-auto="off">\(f\)</span> is a
+polynomial. Consequently, a nonpolynomial member of <span
+class="math inline" data-term-auto="off">\(\mathcal H_c\)</span> with all these derivatives
+rational exists if and only if <span
+class="math inline" data-term-auto="off">\(c&gt;d\)</span>.</em></p>
+</div>
+<p>Thus if a nonpolynomial <span class="math inline" data-term-auto="off">\(f\in\mathcal
+H_2\)</span> has rational <span class="math inline" data-term-auto="off">\(f(1)\)</span>, its
+derivative <span class="math inline" data-term-auto="off">\(f&#39;(1)\)</span> is irrational.
+Increasing the allowance to <span
+class="math inline" data-term-auto="off">\(n^{2+\varepsilon}\)</span> permits both to be
+rational, for every <span
+class="math inline" data-term-auto="off">\(\varepsilon&gt;0\)</span>. At <span
+class="math inline" data-term-auto="off">\(c=2\)</span>, the attainable pairs nevertheless
+form a full-dimensional null set. We do not assert that every vector is
+attained: nonnegative coefficients impose inequalities such as <span
+class="math inline" data-term-auto="off">\(f&#39;(1)\ge f(1)\)</span>.</p>
+<p>The identity behind the construction is</p>
+<div class="math-display" id="capacity:eq:jet-carry" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[(z-1)\sum_{n\ge0}b_n\frac{z^n}{n!}
+=-b_0+\sum_{n\ge1}(n b_{n-1}-b_n)\frac{z^n}{n!}.
+\tag{J}\label{capacity:eq:jet-carry}\]</span></div>
+<p>Adding the left-hand side
+to a function leaves its value at <span class="math inline" data-term-auto="off">\(1\)</span>
+unchanged and changes its derivative there by <span
+class="math inline" data-term-auto="off">\(\sum b_n/n!\)</span>. Multiplication by <span
+class="math inline" data-term-auto="off">\((z-1)^k\)</span> leaves the first <span
+class="math inline" data-term-auto="off">\(k\)</span> entries of the derivative vector
+unchanged, at a cost of <span class="math inline" data-term-auto="off">\(k\)</span> powers of
+<span class="math inline" data-term-auto="off">\(n\)</span> in the coefficient allowance. The
+scalar construction of Theorem <a class="math-ref" href="#capacity:thm:capacity">3.1</a> supplies the
+free quantity. For necessity, eventual evenness reduces the number of
+prefixes by an exponential factor, which forces measure zero even at
+<span class="math inline" data-term-auto="off">\(c=d\)</span>. Section <a class="math-ref" href="#capacity:sec:jets-proof">4</a> proves the
+theorem, including its dimension statement at the critical exponent. In
+the reverse direction, division by <span
+class="math inline" data-term-auto="off">\((z-1)^d\)</span> converts vanishing derivatives
+into bounded integer coefficients. Eventual divisibility then forces
+them to vanish; this proves Theorem <a class="math-ref" href="#capacity:thm:rational-jets">2.2</a> in
+Section <a class="math-ref" href="#capacity:sec:rational-jets">5</a>.</p>
 </section>
 <section id="capacity:sec:criterion" class="level2">
 <h2>An exact capacity criterion</h2>
@@ -68,7 +172,7 @@ class="math inline" data-term-auto="off">\(q\ge1\)</span>, that <span
 class="math inline" data-term-auto="off">\(q\mid e_n\)</span> eventually. The cutoffs and
 finite initial digits may depend on the represented value.</p>
 <div class="theorem" id="capacity:thm:capacity">
-<p><strong>Theorem 2.1</strong>. <em> If <span
+<p><strong>Theorem 3.1</strong>. <em> If <span
 class="math inline" data-term-auto="off">\(U_N\to\infty\)</span>, then <span
 class="math inline" data-term-auto="off">\(E_Q(F)=[0,\infty)\)</span>; otherwise <span
 class="math inline" data-term-auto="off">\(E_Q(F)\)</span> is null and meagre. In particular
@@ -91,7 +195,7 @@ class="math inline" data-term-auto="off">\(q\)</span>.</em></p>
 lattice. It requires no monotonicity, regular variation or gap bound on
 the allowances, and no upper bound on the denominator ratios. It does
 not require the <span class="math inline" data-term-auto="off">\(Q_n\)</span> to clear every
-rational denominator. Section <a class="math-ref" href="#capacity:sec:capacity-proof">2.2</a> proves
+rational denominator. Section <a class="math-ref" href="#capacity:sec:capacity-proof">3.2</a> proves
 the theorem using the same residue-feedback mechanism already present in
 the public Lean repository. The capacity estimates and complete
 criterion are ordinary proofs; the abstract feedback endpoint is
@@ -118,7 +222,7 @@ class="math inline" data-term-auto="off">\(x\)</span>. All series converge, sinc
 many unrestricted digits do not affect convergence. A permitted position
 need not carry a nonzero digit.</p>
 <div class="theorem" id="capacity:thm:main">
-<p><strong>Theorem 2.2</strong>. <em> If <span
+<p><strong>Theorem 3.2</strong>. <em> If <span
 class="math inline" data-term-auto="off">\(S\)</span> is finite, <span
 class="math inline" data-term-auto="off">\(E(S,c)\)</span> is countable. If <span
 class="math inline" data-term-auto="off">\(S\)</span> is infinite, enumerate it as <span
@@ -150,9 +254,9 @@ interval.</em></p>
 </div>
 <p>The theorem is an ordinary mathematical proof. The associated formal
 sources check the general digit-feedback construction and, separately,
-the common-divisor carry obstruction of Section <a class="math-ref" href="#capacity:sec:carry">2.6</a>; they do not
+the common-divisor carry obstruction of Section <a class="math-ref" href="#capacity:sec:carry">3.6</a>; they do not
 formalise this gap classification or its measure argument. The source
-and attribution account is in Section <a class="math-ref" href="#capacity:sec:sources">8</a>.</p>
+and attribution account is in Section <a class="math-ref" href="#capacity:sec:sources">11</a>.</p>
 <p>For example, with allowance <span class="math inline" data-term-auto="off">\(n^2\)</span>,
 every second position suffices without congruences. Under <a class="math-ref" data-equation-ref="true" href="#capacity:eq:congruence">capacity:eq:congruence</a>,
 infinitely many omitted positions already force a null set. With
@@ -161,7 +265,7 @@ position again suffices, even under <a class="math-ref" data-equation-ref="true"
 inequality in <a class="math-ref" data-equation-ref="true" href="#capacity:eq:gaps">capacity:eq:gaps</a> is
 essential.</p>
 <div class="corollary" id="capacity:cor:density">
-<p><strong>Corollary 2.3</strong>. <em> For <span
+<p><strong>Corollary 3.3</strong>. <em> For <span
 class="math inline" data-term-auto="off">\(c&gt;1\)</span>, the least possible asymptotic
 density of a fixed permitted support that fills an interval under <a class="math-ref" data-equation-ref="true" href="#capacity:eq:congruence">capacity:eq:congruence</a> is <span
 class="math inline" data-term-auto="off">\(1/(\lceil c\rceil-1)\)</span>. Every such support
@@ -336,7 +440,7 @@ class="math inline" data-term-auto="off">\(N\ge j\)</span>, all preceding digits
 repairs preserve divisibility by <span class="math inline" data-term-auto="off">\(q\)</span>.
 Thus <span class="math inline" data-term-auto="off">\(j+1\)</span> is a valid cutoff for
 every target. The allowance-exception index itself may depend on the
-target. This completes Theorem <a class="math-ref" href="#capacity:thm:capacity">2.1</a>.</p>
+target. This completes Theorem <a class="math-ref" href="#capacity:thm:capacity">3.1</a>.</p>
 <p>The growth hypothesis has content. If repeated denominators are
 allowed, take <span class="math inline" data-term-auto="off">\(Q_n=2^{\lfloor\sqrt
 n\rfloor}\)</span> and <span class="math inline" data-term-auto="off">\(F_n=1\)</span>. The
@@ -381,14 +485,14 @@ N!\sum_{\substack{k&gt;N\\k\in S}}\frac{k^c}{k!}
 class="math inline" data-term-auto="off">\(N\ge r\)</span> and <span
 class="math inline" data-term-auto="off">\((N+1)\cdots(N+r)\ge N^r\)</span>.</p>
 <p>The bounded capacity along this subsequence invokes the necessity
-argument of Theorem <a class="math-ref" href="#capacity:thm:capacity">2.1</a>, with
+argument of Theorem <a class="math-ref" href="#capacity:thm:capacity">3.1</a>, with
 allowances <span class="math inline" data-term-auto="off">\(F_n=\lfloor n^c\rfloor\)</span>
 on <span class="math inline" data-term-auto="off">\(S\)</span> and zero elsewhere. It gives
 nullity and meagreness even with target-dependent congruence and
 allowance cutoffs.</p>
 <p>If <span class="math inline" data-term-auto="off">\(c\le1\)</span>, every support gap is
 at least <span class="math inline" data-term-auto="off">\(r=1\)</span>, so this proves the
-first part of Theorem <a class="math-ref" href="#capacity:thm:main">2.2</a>. If <span
+first part of Theorem <a class="math-ref" href="#capacity:thm:main">3.2</a>. If <span
 class="math inline" data-term-auto="off">\(c&gt;1\)</span> and (3) fails, it proves the
 negative part. Notice that infrequent large gaps are enough; average
 digit counts do not detect this obstruction.</p>
@@ -399,7 +503,7 @@ class="level3">
 <p>The following construction supplies the positive direction. It is
 useful beyond factorial weights.</p>
 <div class="lemma" id="capacity:lem:feedback">
-<p><strong>Lemma 2.4</strong>. <em> Let <span
+<p><strong>Lemma 3.4</strong>. <em> Let <span
 class="math inline" data-term-auto="off">\(w_j&gt;0\)</span>, let positive integers <span
 class="math inline" data-term-auto="off">\(M_j\)</span> satisfy <span
 class="math inline" data-term-auto="off">\(M_{j-1}\mid M_j\)</span>, and let <span
@@ -482,7 +586,7 @@ class="math display" data-term-auto="off">\[2M_j\le\sqrt{r_j}\le r_jM_{j-1},\qqu
 class="math inline" data-term-auto="off">\(M_{j-1}\le h_j\)</span>, also valid for <span
 class="math inline" data-term-auto="off">\(j=1\)</span>. Finally, <span
 class="math inline" data-term-auto="off">\(M_j/n_j!\le\sqrt{r_j}/(2n_j!)\le1/(2\sqrt{n_j!})\to0\)</span>.
-Lemma <a class="math-ref" href="#capacity:lem:feedback">2.4</a>
+Lemma <a class="math-ref" href="#capacity:lem:feedback">3.4</a>
 fills <span class="math inline" data-term-auto="off">\([1/n_0!,2/n_0!]\)</span> using the
 positions <span class="math inline" data-term-auto="off">\(n_j\)</span>, <span
 class="math inline" data-term-auto="off">\(j\ge1\)</span>. Put zero digits elsewhere. Once
@@ -493,7 +597,7 @@ cutoffs.</p>
 <p>For comparison, remove condition (2) and call the resulting
 attainable set <span class="math inline" data-term-auto="off">\(E_0(S,c)\)</span>.</p>
 <div class="proposition" id="capacity:prop:unrestricted">
-<p><strong>Proposition 2.5</strong>. <em> For an infinite support and
+<p><strong>Proposition 3.5</strong>. <em> For an infinite support and
 <span class="math inline" data-term-auto="off">\(c\ge1\)</span>, <span
 class="math inline" data-term-auto="off">\(E_0(S,c)\)</span> contains an interval exactly
 when its successive gaps are eventually at most <span
@@ -502,7 +606,7 @@ and meagre. For <span class="math inline" data-term-auto="off">\(0&lt;c&lt;1\)</
 always null and meagre.</em></p>
 </div>
 <div class="proof">
-<p><em>Proof.</em> For necessity repeat Section <a class="math-ref" href="#capacity:sec:negative">2.3</a> with <span
+<p><em>Proof.</em> For necessity repeat Section <a class="math-ref" href="#capacity:sec:negative">3.3</a> with <span
 class="math inline" data-term-auto="off">\(r=\lfloor c\rfloor+1\)</span>. The bound in (5)
 now tends to zero. With lattice spacing <span
 class="math inline" data-term-auto="off">\(1/N!\)</span>, it is eventually bounded by <span
@@ -543,7 +647,7 @@ class="math inline" data-term-auto="off">\(Q_0=1\)</span> and <span
 class="math inline" data-term-auto="off">\(Q_n=b_1\cdots b_n\)</span>, and consider a Cantor
 series.</p>
 <div class="theorem" id="capacity:thm:gcd">
-<p><strong>Theorem 2.6</strong>. <em> Suppose <span
+<p><strong>Theorem 3.6</strong>. <em> Suppose <span
 class="math inline" data-term-auto="off">\(0\le a_n\le A\)</span> and <span
 class="math inline" data-term-auto="off">\(e_n\ge0\)</span> are integers, <span
 class="math inline" data-term-auto="off">\(e_n\le Cb_n\)</span> eventually, and <span
@@ -612,7 +716,7 @@ class="math display" data-term-auto="off">\[\sum_{n\ge1}\frac{a_n+e_n}{Q_n}
 <p>Here <span
 class="math inline" data-term-auto="off">\(\gcd(b_n,e_n)\le2\)</span>. This example separates
 rapid denominator growth from the arithmetic obstruction used in
-Theorem <a class="math-ref" href="#capacity:thm:gcd">2.6</a>.</p>
+Theorem <a class="math-ref" href="#capacity:thm:gcd">3.6</a>.</p>
 </section>
 <section id="why-a-small-allowance-along-a-subsequence-is-insufficient"
 class="level3">
@@ -633,7 +737,7 @@ class="math inline" data-term-auto="off">\(C2^{-N}N!\)</span> for a fixed <span
 class="math inline" data-term-auto="off">\(C\)</span>, while the capacity after <span
 class="math inline" data-term-auto="off">\(N\)</span> is at most <span
 class="math inline" data-term-auto="off">\(\sum_{n&gt;N}n/n!\le2/N!\)</span>. The covering
-bound of Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(i), allowing
+bound of Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>(i), allowing
 zero-capacity levels to be omitted, tends to zero.</p>
 <p>For the subsequence counterexample put <span
 class="math inline" data-term-auto="off">\(F(2k)=0\)</span> and <span
@@ -651,9 +755,340 @@ its choices. The interval criterion therefore gives every value in <span
 class="math inline" data-term-auto="off">\([0,1]\)</span>, even though <span
 class="math inline" data-term-auto="off">\(F(n)/n=0\)</span> at every even index. The exact
 telescoping identities and sample greedy expansions are reproduced by
-the script cited in Section <a class="math-ref" href="#sec:misread">5</a>; the interval
+the script cited in Section <a class="math-ref" href="#sec:misread">8</a>; the interval
 conclusion follows from this argument, not from the samples.</p>
 </section>
+</section>
+<section id="capacity:sec:jets-proof" class="level2">
+<h2>Proof of the derivative interpolation theorem</h2>
+<p>Write <span class="math inline" data-term-auto="off">\((n)_r=n(n-1)\cdots(n-r+1)\)</span>,
+with <span class="math inline" data-term-auto="off">\((n)_0=1\)</span> and <span
+class="math inline" data-term-auto="off">\((n)_r=0\)</span> for <span
+class="math inline" data-term-auto="off">\(r&gt;n\)</span>. Then <span
+class="math inline" data-term-auto="off">\(f^{(r)}(1)=\sum_n(n)_r e_n/n!\)</span>.</p>
+<section id="nullity-at-and-below-the-critical-exponent" class="level3">
+<h3>Nullity at and below the critical exponent</h3>
+<p>Here only eventual evenness is needed. Fix a cutoff <span
+class="math inline" data-term-auto="off">\(K\)</span> and a prefix before <span
+class="math inline" data-term-auto="off">\(K\)</span>, and allow every continuation with
+<span class="math inline" data-term-auto="off">\(0\le e_n\le n^c\)</span> and <span
+class="math inline" data-term-auto="off">\(2\mid e_n\)</span> for <span
+class="math inline" data-term-auto="off">\(n\ge K\)</span>. The derivative vectors form a
+compact set <span class="math inline" data-term-auto="off">\(V\)</span>. For all sufficiently
+large <span class="math inline" data-term-auto="off">\(n\)</span>, there are at most</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\lfloor n^c/2\rfloor+1\le(3/4)n^c\]</span></div>
+<p class="display-continue">choices at position <span class="math inline" data-term-auto="off">\(n\)</span>. Thus the
+number of prefixes through <span class="math inline" data-term-auto="off">\(N\)</span> is at
+most <span class="math inline" data-term-auto="off">\(C(3/4)^N(N!)^c\)</span>. Every
+remaining derivative tail has norm at most <span
+class="math inline" data-term-auto="off">\(C_{c,d}N^{c+d-1}/(N+1)!\)</span>, by comparison
+with its first term. Balls of this radius, one for each prefix, cover
+<span class="math inline" data-term-auto="off">\(V\)</span> with total <span
+class="math inline" data-term-auto="off">\(d\)</span>-dimensional volume at most</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[C&#39;(3/4)^N(N!)^{c-d}N^{d(c+d-1)}.\]</span></div>
+<p>For
+<span class="math inline" data-term-auto="off">\(c\le d\)</span> this tends to zero. Hence
+<span class="math inline" data-term-auto="off">\(V\)</span> is null and, being compact,
+nowhere dense. Countably many cutoffs and integer prefixes cover the
+attainable set. This proves both conclusions, including the critical
+case.</p>
+</section>
+<section id="lifting-a-scalar-interval-to-an-open-set" class="level3">
+<h3>Lifting a scalar interval to an open set</h3>
+<p>First allow signed integer coefficients. For every <span
+class="math inline" data-term-auto="off">\(\eta&gt;0\)</span> and cutoff <span
+class="math inline" data-term-auto="off">\(N\ge1\)</span>, consider series supported on <span
+class="math inline" data-term-auto="off">\(n\ge N\)</span> with <span
+class="math inline" data-term-auto="off">\(|e_n|\le\eta n^c\)</span> and the same eventual
+divisibilities. We prove by induction on <span
+class="math inline" data-term-auto="off">\(d\)</span> that their derivative vectors contain
+an open set whenever <span class="math inline" data-term-auto="off">\(c&gt;d\)</span>. For
+<span class="math inline" data-term-auto="off">\(d=1\)</span>, apply Theorem <a class="math-ref" href="#capacity:thm:capacity">3.1</a> to <span
+class="math inline" data-term-auto="off">\(F_n=\lfloor\eta n^c\rfloor\)</span> and <span
+class="math inline" data-term-auto="off">\(Q_n=n!\)</span>, starting after <span
+class="math inline" data-term-auto="off">\(N\)</span>. The first tail term makes <span
+class="math inline" data-term-auto="off">\(U_N\to\infty\)</span> when <span
+class="math inline" data-term-auto="off">\(c&gt;1\)</span>; the all-position version gives an
+interval with common congruence cutoffs.</p>
+<p>For the induction step, use dimension <span
+class="math inline" data-term-auto="off">\(d-1\)</span> and exponent <span
+class="math inline" data-term-auto="off">\(c-1\)</span> for <span
+class="math inline" data-term-auto="off">\(B(z)=\sum b_nz^n/n!\)</span> with <span
+class="math inline" data-term-auto="off">\(|b_n|\le(\eta/4)n^{c-1}\)</span> and <span
+class="math inline" data-term-auto="off">\(b_n=0\)</span> before <span
+class="math inline" data-term-auto="off">\(N\)</span>. The higher derivative coordinates of
+<span class="math inline" data-term-auto="off">\((z-1)B\)</span> form an open set <span
+class="math inline" data-term-auto="off">\(W\subseteq\R^{d-1}\)</span>, because</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[((z-1)B)^{(r)}(1)=rB^{(r-1)}(1),\qquad
+r\ge1.\]</span></div>
+<p>Choose <span
+class="math inline" data-term-auto="off">\(y_0+[-2\rho,2\rho]^{d-1}\subset W\)</span>. Choose
+a later cutoff <span class="math inline" data-term-auto="off">\(M\)</span> so that every
+<span class="math inline" data-term-auto="off">\(A\)</span> supported on <span
+class="math inline" data-term-auto="off">\(n\ge M\)</span> with <span
+class="math inline" data-term-auto="off">\(0\le a_n\le(\eta/2)n^c\)</span> has <span
+class="math inline" data-term-auto="off">\(|A^{(r)}(1)|&lt;\rho\)</span> for <span
+class="math inline" data-term-auto="off">\(1\le r&lt;d\)</span>. This follows uniformly from
+the convergent derivative tails. The scalar theorem gives a
+nondegenerate interval <span class="math inline" data-term-auto="off">\(I\)</span> of values
+<span class="math inline" data-term-auto="off">\(A(1)\)</span>. For each <span
+class="math inline" data-term-auto="off">\(x\in I\)</span> choose one such <span
+class="math inline" data-term-auto="off">\(A\)</span>. For every <span
+class="math inline" data-term-auto="off">\(y\in y_0+(-\rho,\rho)^{d-1}\)</span>, a suitable
+<span class="math inline" data-term-auto="off">\(B\)</span> cancels the higher coordinates of
+<span class="math inline" data-term-auto="off">\(A\)</span> and gives <span
+class="math inline" data-term-auto="off">\(y\)</span>. Hence the attainable vectors contain</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[I^\circ\times\bigl(y_0+(-\rho,\rho)^{d-1}\bigr).\]</span></div>
+<p>No continuous choice of <span class="math inline" data-term-auto="off">\(A\)</span> is
+assumed: uniform smallness of all its higher derivatives makes the same
+cube work for every <span class="math inline" data-term-auto="off">\(x\)</span>. The
+coefficients of <span class="math inline" data-term-auto="off">\(A+(z-1)B\)</span> obey the
+bound, since <span
+class="math inline" data-term-auto="off">\(n|b_{n-1}|+|b_n|\le(\eta/2)n^c\)</span>;
+divisibility holds term by term. The finitely many families in the
+induction have common cutoffs for each <span
+class="math inline" data-term-auto="off">\(q\)</span>.</p>
+<p>To restore nonnegativity, choose nested positive integers <span
+class="math inline" data-term-auto="off">\(m_n\to\infty\)</span> such that every fixed
+integer eventually divides <span class="math inline" data-term-auto="off">\(m_n\)</span> and
+<span class="math inline" data-term-auto="off">\(\log m_n=o(\log n)\)</span>. One choice is
+the largest factorial at most <span
+class="math inline" data-term-auto="off">\(\log(n+3)\)</span>. For large <span
+class="math inline" data-term-auto="off">\(n\)</span>,</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[h_n=m_n\left\lfloor\frac{n^c}{2m_n}\right\rfloor,
+\qquad n^c/3\le h_n\le n^c/2.\]</span></div>
+<p>Set earlier <span
+class="math inline" data-term-auto="off">\(h_n\)</span> to zero and start the signed
+construction after that point. Take <span
+class="math inline" data-term-auto="off">\(\eta=1/4\)</span>. Adding <span
+class="math inline" data-term-auto="off">\(\sum h_nz^n/n!\)</span> translates the open set
+and puts every sufficiently late coefficient between <span
+class="math inline" data-term-auto="off">\(n^c/12\)</span> and <span
+class="math inline" data-term-auto="off">\(3n^c/4\)</span>. All coefficients lie between
+<span class="math inline" data-term-auto="off">\(0\)</span> and <span
+class="math inline" data-term-auto="off">\(n^c\)</span>, and each function is
+nonpolynomial.</p>
+</section>
+<section id="the-upper-bound-for-hausdorff-dimension" class="level3">
+<h3>The upper bound for Hausdorff dimension</h3>
+<p>Fix a finite prefix and an allowance cutoff. Through index <span
+class="math inline" data-term-auto="off">\(N\)</span> there are at most <span
+class="math inline" data-term-auto="off">\(\prod_{n\le N}(\lfloor n^c\rfloor+1)\)</span>
+continuations, whose logarithm is <span
+class="math inline" data-term-auto="off">\(c\log(N!)+O(N)\)</span>. Each derivative tail has
+norm at most <span
+class="math inline" data-term-auto="off">\(O_{c,d}(N^{c+d-1}/(N+1)!)\)</span>. For any <span
+class="math inline" data-term-auto="off">\(s&gt;c\)</span>, the sum of the <span
+class="math inline" data-term-auto="off">\(s\)</span>-th powers of the diameters of these
+covering balls tends to zero. Countably many prefixes and cutoffs
+preserve this bound; the ambient bound is <span
+class="math inline" data-term-auto="off">\(d\)</span>.</p>
+</section>
+<section id="a-separated-construction-attaining-the-dimension"
+class="level3">
+<h3>A separated construction attaining the dimension</h3>
+<p>For <span class="math inline" data-term-auto="off">\(0\le k&lt;d\)</span> with <span
+class="math inline" data-term-auto="off">\(k&lt;c\)</span>, set <span
+class="math inline" data-term-auto="off">\(\alpha_k=\min(1,c-k)\)</span>. Use only these
+indices. Their sum is <span class="math inline" data-term-auto="off">\(s=\min(c,d)\)</span>.
+Let <span class="math inline" data-term-auto="off">\(\varepsilon=2^{-d-6}\)</span> and use
+the same <span class="math inline" data-term-auto="off">\(m_n\)</span>. Independently for
+every <span class="math inline" data-term-auto="off">\(n\)</span> and <span
+class="math inline" data-term-auto="off">\(k\)</span>, choose</p>
+<div class="math-display" id="capacity:eq:jet-digits" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[b_n^{(k)}\in\left\{0,m_n,2m_n,\ldots,
+m_n\left\lfloor\frac{\varepsilon
+n^{\alpha_k}}{m_n}\right\rfloor\right\}.
+\tag{D}\label{capacity:eq:jet-digits}\]</span></div>
+<p>All digits vanish before
+a large cutoff. Put</p>
+<div class="math-display" id="capacity:eq:jet-code" data-term-auto="off"><span class="math display" data-term-auto="off">\[f(z)=\sum_n
+h_n\frac{z^n}{n!}
+       +\sum_k(z-1)^k\sum_n b_n^{(k)}\frac{z^n}{n!}.
+\tag{F}\label{capacity:eq:jet-code}\]</span></div>
+<p>The coefficient added at
+position <span class="math inline" data-term-auto="off">\(n\)</span> is</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\sum_k\sum_{j=0}^k(-1)^{k-j}\binom{k}{j}(n)_j
+b_{n-j}^{(k)},\]</span></div>
+<p class="display-continue">with negative indices interpreted as zero. Its
+absolute value is at most <span
+class="math inline" data-term-auto="off">\(\varepsilon\sum_{k&lt;d}2^k n^c&lt;n^c/4\)</span>,
+since <span class="math inline" data-term-auto="off">\(j+\alpha_k\le c\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(f\in\mathcal H_c\)</span>, with the allowance
+everywhere and common congruence cutoffs. Local uniform convergence
+makes the image of this product of finite digit sets compact.</p>
+<p>The crucial step is to rule out cancellation between different codes.
+Suppose two codes first differ at index <span
+class="math inline" data-term-auto="off">\(n\)</span>, and let <span
+class="math inline" data-term-auto="off">\(g\)</span> be their difference. For <span
+class="math inline" data-term-auto="off">\(0\le r&lt;d\)</span>, take the Taylor coefficients
+of <span class="math inline" data-term-auto="off">\(z^{-n}g(z)\)</span> at <span
+class="math inline" data-term-auto="off">\(1\)</span>:</p>
+<div class="math-display" id="capacity:eq:moving-taylor" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[[u^r](1+u)^{-n}g(1+u)
+=\frac{\Delta b_n^{(r)}}{n!}
+   +\sum_{m&gt;n}\sum_{k\le r}
+       \frac{\Delta b_m^{(k)}}{m!}\binom{m-n}{r-k}.
+\tag{T}\label{capacity:eq:moving-taylor}\]</span></div>
+<p>Unused coordinates are
+zero. The binomial coefficient now depends on <span
+class="math inline" data-term-auto="off">\(m-n\)</span>, not on <span
+class="math inline" data-term-auto="off">\(m\)</span>. Since <span
+class="math inline" data-term-auto="off">\(|\Delta b_m^{(k)}|\le\varepsilon m\)</span>, the
+absolute tail, multiplied by <span class="math inline" data-term-auto="off">\(n!\)</span>, is
+at most</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\varepsilon\sum_{t\ge1}\frac{2^t}{(t-1)!}
+=2e^2\varepsilon&lt;18\varepsilon&lt;\frac12.\]</span></div>
+<p>Here <span
+class="math inline" data-term-auto="off">\(n!/(n+t-1)!\le1/(t-1)!\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum_{k\le r}\binom{t}{r-k}\le2^t\)</span>. Some
+<span class="math inline" data-term-auto="off">\(\Delta b_n^{(r)}\)</span> is a nonzero
+integer. Therefore one coordinate on the left of <a class="math-ref" data-equation-ref="true" href="#capacity:eq:moving-taylor">capacity:eq:moving-taylor</a> has
+absolute value at least <span class="math inline" data-term-auto="off">\(1/(2n!)\)</span>.
+The linear map from <span class="math inline" data-term-auto="off">\(J_d(g)\)</span> to those
+coordinates has norm at most <span
+class="math inline" data-term-auto="off">\(C_dn^{d-1}\)</span>: its entries are <span
+class="math inline" data-term-auto="off">\((-1)^j\binom{n+j-1}{j}/(r-j)!\)</span>, <span
+class="math inline" data-term-auto="off">\(0\le j\le r&lt;d\)</span>. Distinct codes first
+differing at <span class="math inline" data-term-auto="off">\(n\)</span> consequently have
+separation at least</p>
+<div class="math-display" id="capacity:eq:jet-separation" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\delta_n=\frac{1}{2C_dn^{d-1}n!}
+\tag{S}\label{capacity:eq:jet-separation}\]</span></div>
+<p class="display-continue">in the supremum norm
+of <span class="math inline" data-term-auto="off">\(\R^d\)</span>.</p>
+<p>Give all choices in <a class="math-ref" data-equation-ref="true" href="#capacity:eq:jet-digits">capacity:eq:jet-digits</a> uniform
+independent probabilities. If <span class="math inline" data-term-auto="off">\(A_N\)</span>
+counts prefixes through <span class="math inline" data-term-auto="off">\(N\)</span>, then</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[\log A_N=s\log(N!)+o(N\log N),\]</span></div>
+<p class="display-continue">because <span class="math inline" data-term-auto="off">\(\log m_n=o(\log n)\)</span> and each
+used <span class="math inline" data-term-auto="off">\(\alpha_k\)</span> is positive. The
+separation makes the coding injective. A ball of radius less than <span
+class="math inline" data-term-auto="off">\(\delta_N/2\)</span> meets at most one length-<span
+class="math inline" data-term-auto="off">\(N\)</span> cylinder and has measure at most <span
+class="math inline" data-term-auto="off">\(A_N^{-1}\)</span>. For a small radius <span
+class="math inline" data-term-auto="off">\(r\)</span>, choose <span
+class="math inline" data-term-auto="off">\(N\)</span> with <span
+class="math inline" data-term-auto="off">\(\delta_{N+1}/2\le r&lt;\delta_N/2\)</span>. Since
+<span class="math inline" data-term-auto="off">\(\log(1/\delta_{N+1})/\log(N!)\to1\)</span>,
+for every <span class="math inline" data-term-auto="off">\(t&lt;s\)</span> this implies <span
+class="math inline" data-term-auto="off">\(\mu(B(x,r))\le C_t r^t\)</span>. Summing this
+inequality over any ball cover gives positive <span
+class="math inline" data-term-auto="off">\(t\)</span>-dimensional Hausdorff content. The
+dimension is at least <span class="math inline" data-term-auto="off">\(s\)</span>, completing
+Theorem <a class="math-ref" href="#capacity:thm:jets">2.1</a>.</p>
+</section>
+</section>
+<section id="capacity:sec:rational-jets" class="level2">
+<h2>The arithmetic threshold for rational derivatives</h2>
+<p>We prove Theorem <a class="math-ref" href="#capacity:thm:rational-jets">2.2</a>. The
+coefficient estimate and the divisibilities are both needed, including
+at the critical exponent.</p>
+<p>Suppose the first <span class="math inline" data-term-auto="off">\(d\)</span> derivatives
+at <span class="math inline" data-term-auto="off">\(1\)</span>, starting with the value, are
+rational. Subtract their Taylor polynomial</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[P(z)=\sum_{r=0}^{d-1}\frac{f^{(r)}(1)}{r!}(z-1)^r\]</span></div>
+<p class="display-continue">and choose a positive integer <span class="math inline" data-term-auto="off">\(D\)</span>
+clearing its coefficient denominators. Then <span
+class="math inline" data-term-auto="off">\(g=D(f-P)=\sum_{k\ge0}g_kz^k/k!\)</span> has
+integer coefficients, <span class="math inline" data-term-auto="off">\(|g_k|=O(k^d)\)</span>,
+and the same eventual divisibilities. Moreover <span
+class="math inline" data-term-auto="off">\(g^{(r)}(1)=0\)</span> for <span
+class="math inline" data-term-auto="off">\(0\le r&lt;d\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(B(z)=g(z)/(z-1)^d\)</span> is entire. Expansion at
+zero gives</p>
+<div class="math-display" id="capacity:eq:quotient-prefix" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[B(z)=\sum_{n\ge0}b_n\frac{z^n}{n!},\qquad
+b_n=(-1)^d\sum_{k=0}^n\binom{n-k+d-1}{d-1}\frac{n!}{k!}g_k.
+\tag{Q}\label{capacity:eq:quotient-prefix}\]</span></div>
+<p>In particular <span
+class="math inline" data-term-auto="off">\(b_n\)</span> is an integer. Fix <span
+class="math inline" data-term-auto="off">\(q\)</span>, and choose <span
+class="math inline" data-term-auto="off">\(K\)</span> so that <span
+class="math inline" data-term-auto="off">\(q\mid g_k\)</span> for <span
+class="math inline" data-term-auto="off">\(k\ge K\)</span>. Those terms in <a class="math-ref" data-equation-ref="true" href="#capacity:eq:quotient-prefix">capacity:eq:quotient-prefix</a> are
+divisible by <span class="math inline" data-term-auto="off">\(q\)</span>. For each of the
+finitely many <span class="math inline" data-term-auto="off">\(k&lt;K\)</span>, the factor
+<span class="math inline" data-term-auto="off">\(n!/k!\)</span> is divisible by <span
+class="math inline" data-term-auto="off">\(q\)</span> once <span
+class="math inline" data-term-auto="off">\(n\)</span> is sufficiently large. Hence <span
+class="math inline" data-term-auto="off">\(q\mid b_n\)</span> eventually as well.</p>
+<p>The vanishing derivatives imply <span
+class="math inline" data-term-auto="off">\(\sum_{k\ge0}R(k)g_k/k!=0\)</span> for every
+polynomial <span class="math inline" data-term-auto="off">\(R\)</span> of degree less than
+<span class="math inline" data-term-auto="off">\(d\)</span>, because the falling factorials
+of orders <span class="math inline" data-term-auto="off">\(0,\ldots,d-1\)</span> form a
+basis. Apply this to <span
+class="math inline" data-term-auto="off">\(R(k)=\binom{n-k+d-1}{d-1}\)</span>, interpreted as
+a polynomial. Its values at <span
+class="math inline" data-term-auto="off">\(k=n+1,\ldots,n+d-1\)</span> vanish, and at <span
+class="math inline" data-term-auto="off">\(k=n+j\)</span>, <span class="math inline" data-term-auto="off">\(j\ge
+d\)</span>, they equal <span
+class="math inline" data-term-auto="off">\((-1)^{d-1}\binom{j-1}{d-1}\)</span>. The
+complementary tail of <a class="math-ref" data-equation-ref="true" href="#capacity:eq:quotient-prefix">capacity:eq:quotient-prefix</a>
+therefore gives</p>
+<div class="math-display" id="capacity:eq:quotient-tail" data-term-auto="off"><span class="math display" data-term-auto="off">\[b_n=n!\sum_{j\ge
+d}\binom{j-1}{d-1}\frac{g_{n+j}}{(n+j)!}.
+\tag{R}\label{capacity:eq:quotient-tail}\]</span></div>
+<p>All series here
+converge absolutely. For large <span class="math inline" data-term-auto="off">\(n\)</span>,
+the absolute value is bounded by <span class="math inline" data-term-auto="off">\(C\)</span>
+times the sum of</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[v_j=\binom{j-1}{d-1}\frac{n!(n+j)^d}{(n+j)!},\qquad
+j\ge d.\]</span></div>
+<p>Their successive ratios satisfy</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[\frac{v_{j+1}}{v_j}
+=\frac{j}{j-d+1}\left(\frac{n+j+1}{n+j}\right)^d\frac1{n+j+1}
+\le\frac{d2^d}{n+1}.\]</span></div>
+<p>For sufficiently large <span
+class="math inline" data-term-auto="off">\(n\)</span> this is at most <span
+class="math inline" data-term-auto="off">\(1/2\)</span>, whereas <span
+class="math inline" data-term-auto="off">\(v_d=n!(n+d)^d/(n+d)!\)</span> is bounded. Thus
+<span class="math inline" data-term-auto="off">\((b_n)\)</span> is bounded. Choose an integer
+<span class="math inline" data-term-auto="off">\(q\)</span> larger than its eventual absolute
+bound. Eventual divisibility by this <span
+class="math inline" data-term-auto="off">\(q\)</span> forces <span
+class="math inline" data-term-auto="off">\(b_n=0\)</span> eventually. It follows that <span
+class="math inline" data-term-auto="off">\(B\)</span>, <span class="math inline" data-term-auto="off">\(g\)</span>
+and <span class="math inline" data-term-auto="off">\(f\)</span> are polynomials.</p>
+<p>For the converse, when <span class="math inline" data-term-auto="off">\(c&gt;d\)</span>,
+Theorem <a class="math-ref" href="#capacity:thm:jets">2.1</a>
+gives an open set of vectors realised by nonpolynomial members of <span
+class="math inline" data-term-auto="off">\(\mathcal H_c\)</span>. Every nonempty open subset
+of <span class="math inline" data-term-auto="off">\(\R^d\)</span> meets <span
+class="math inline" data-term-auto="off">\(\mathbb Q^d\)</span>. This completes the proof of
+the sharp threshold.</p>
+<div class="remark">
+<p><strong>Remark</strong> (Why the congruences cannot be omitted).
+<em>The function <span class="math inline" data-term-auto="off">\((z-1)^de^z\)</span> has its
+first <span class="math inline" data-term-auto="off">\(d\)</span> derivatives zero at <span
+class="math inline" data-term-auto="off">\(1\)</span>. Its integer factorial coefficients are
+</em></p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[p_d(n)=\sum_{j=0}^d(-1)^{d-j}\binom dj(n)_j
+       =n^d-\frac{d(d+1)}2n^{d-1}+O_d(n^{d-2})\]</span></div>
+<p class="display-continue"><em> for <span
+class="math inline" data-term-auto="off">\(d\ge2\)</span>; for <span
+class="math inline" data-term-auto="off">\(d=1\)</span> they are <span
+class="math inline" data-term-auto="off">\(n-1\)</span>. Thus <span
+class="math inline" data-term-auto="off">\(0\le p_d(n)\le n^d\)</span> eventually. Replacing
+the finitely many earlier coefficients, including the constant
+coefficient, by zero adds a rational polynomial. The resulting
+nonpolynomial function has nonnegative integer coefficients bounded by
+<span class="math inline" data-term-auto="off">\(n^d\)</span> everywhere and all the
+specified derivatives rational. It fails the eventual divisibility
+assumption. Full dimension and even the growth bound alone therefore do
+not supply the arithmetic conclusion.</em></p>
+</div>
 </section>
 <section id="sec:results" class="level2">
 <h2>Lambert subsums across bases</h2>
@@ -678,7 +1113,7 @@ class="math display" data-term-auto="off">\[V=\Bigl\{\sum_{n\ge1}\varepsilon_nu_
 \varepsilon_n\in\{0,1,\dots,D_n\}\Bigr\},
 \qquad C_N=\sum_{n&gt;N}D_nu_n .\]</span></div>
 <div class="theorem" id="thm:dichotomy">
-<p><strong>Theorem 3.1</strong> (choices against contraction). <em> <span
+<p><strong>Theorem 6.1</strong> (choices against contraction). <em> <span
 class="upright">(i)</span> For every <span
 class="math inline" data-term-auto="off">\(N\)</span>, the Lebesgue measure of <span
 class="math inline" data-term-auto="off">\(V\)</span> is at most <span
@@ -709,10 +1144,10 @@ data-cites="hornich1941 nitecki2013 fridy1966"><a href="#ref-4">[4]</a><a href="
 Tao give a scalar reciprocal-choice covering lemma <span
 class="citation" data-cites="kovactao2024"></span>; their
 higher-dimensional approximation lemma is Lemma 7.2 of the same paper.
-We claim no novelty for Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>. Its use here is to
+We claim no novelty for Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>. Its use here is to
 say which side each problem lies on.</p>
 <div class="theorem" id="thm:bases">
-<p><strong>Theorem 3.2</strong> (the subseries across bases). <em> Let
+<p><strong>Theorem 6.2</strong> (the subseries across bases). <em> Let
 <span class="math inline" data-term-auto="off">\(t&gt;1\)</span> be real.</em></p>
 <p><em><span class="upright">(a)</span> If <span
 class="math inline" data-term-auto="off">\(t&lt;2\)</span>, let <span
@@ -750,14 +1185,14 @@ record the strict inequality <span
 class="math inline" data-term-auto="off">\(w_N&gt;R_N\)</span> and the Cantor-set conclusion
 for every fixed base <span class="math inline" data-term-auto="off">\(t\ge2\)</span> <span
 class="citation" data-cites="kovactao2024"></span>. Parts (a) and (c)
-follow from Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a> in a few lines. We
+follow from Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a> in a few lines. We
 have not found part (a) stated for non-integer bases and it may be
 known. It shows that the statement asked in #257 is false at every
 rational base below <span class="math inline" data-term-auto="off">\(2\)</span>, so any proof
 at base <span class="math inline" data-term-auto="off">\(2\)</span> must use more than the
 shape of the series.</p>
 <div class="theorem" id="thm:chains">
-<p><strong>Theorem 3.3</strong> (divisibility chains). <em> Let <span
+<p><strong>Theorem 6.3</strong> (divisibility chains). <em> Let <span
 class="math inline" data-term-auto="off">\(t=a/b&gt;1\)</span> in lowest terms and let <span
 class="math inline" data-term-auto="off">\(S=\{n_1&lt;n_2&lt;\cdots\}\)</span> be infinite
 with <span class="math inline" data-term-auto="off">\(n_j\mid n_{j+1}\)</span> for every
@@ -784,7 +1219,7 @@ class="math inline" data-term-auto="off">\(\sum_{n\in S}1/n&lt;\infty\)</span> <
 class="citation" data-cites="erdos1968"></span>, proved in full in <span
 class="citation" data-cites="plectis257"></span>. At base <span
 class="math inline" data-term-auto="off">\(3/2\)</span> it sits inside the regime of
-Theorem <a class="math-ref" href="#thm:bases">3.2</a>(a):
+Theorem <a class="math-ref" href="#thm:bases">6.2</a>(a):
 rational values occur there, and exact divisibility still forces
 irrationality. For comparison, the companion note on #1049 proves the
 irrationality of the full sum <span
@@ -815,7 +1250,7 @@ class="math inline" data-term-auto="off">\(x\)</span> is <em>rejected at step <s
 class="math inline" data-term-auto="off">\(n\)</span></em> when that happens first at index
 <span class="math inline" data-term-auto="off">\(n\)</span>.</p>
 <div class="theorem" id="thm:forced">
-<p><strong>Theorem 3.4</strong> (the fixed-depth rational count). <em>
+<p><strong>Theorem 6.4</strong> (the fixed-depth rational count). <em>
 Fix <span class="math inline" data-term-auto="off">\(N\ge1\)</span>. Among the reduced
 fractions <span class="math inline" data-term-auto="off">\(p/q\in(0,E]\)</span> with <span
 class="math inline" data-term-auto="off">\(q\le Q\)</span>, the proportion not rejected in
@@ -832,13 +1267,13 @@ proportion therefore does not establish membership. An exact computation
 in <span class="citation" data-cites="plectisinvestigation"><a href="#ref-25">[25]</a></span>
 first read a surviving share near <span
 class="math inline" data-term-auto="off">\(62\%\)</span> as evidence that most such fractions
-are subsums; Theorem <a class="math-ref" href="#thm:forced">3.4</a> is the correction.
-Section <a class="math-ref" href="#sec:base2">3.3</a> states what
+are subsums; Theorem <a class="math-ref" href="#thm:forced">6.4</a> is the correction.
+Section <a class="math-ref" href="#sec:base2">6.3</a> states what
 remains.</p>
 <section id="evidence." class="level5">
 <h5>Evidence.</h5>
-<p>The proofs of Theorems <a class="math-ref" href="#thm:dichotomy">3.1</a>–<a class="math-ref" href="#thm:forced">3.4</a> are ordinary proofs.
-Theorem <a class="math-ref" href="#thm:chains">3.3</a> uses
+<p>The proofs of Theorems <a class="math-ref" href="#thm:dichotomy">6.1</a>–<a class="math-ref" href="#thm:forced">6.4</a> are ordinary proofs.
+Theorem <a class="math-ref" href="#thm:chains">6.3</a> uses
 Nishioka’s theorem for Mahler systems as an external premise in the
 eventually doubling case, hence in both parts. Results quoted from the
 problem papers retain the evidence class given at each use.</p>
@@ -846,7 +1281,7 @@ problem papers retain the evidence class given at each use.</p>
 <section id="sec:dichotomy" class="level3">
 <h3>Choices against contraction</h3>
 <div class="proof">
-<p><em>Proof of Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>.</em> (i) A choice of
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>.</em> (i) A choice of
 <span class="math inline" data-term-auto="off">\(\varepsilon_1,\dots,\varepsilon_N\)</span>
 fixes <span class="math inline" data-term-auto="off">\(\sum_{n\le
 N}\varepsilon_nu_n\)</span>, and the rest of the sum lies in <span
@@ -941,11 +1376,11 @@ class="math inline" data-term-auto="off">\(u\)</span> is small.</p>
 <section id="sec:bases" class="level3">
 <h3>The subseries across bases</h3>
 <div class="proof">
-<p><em>Proof of Theorem <a class="math-ref" href="#thm:bases">3.2</a>.</em> (a) Since <span
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:bases">6.2</a>.</em> (a) Since <span
 class="math inline" data-term-auto="off">\(R_n\ge\sum_{k&gt;n}t^{-k}=t^{-n}/(t-1)\)</span>
 and <span class="math inline" data-term-auto="off">\(w_n=t^{-n}/(1-t^{-n})\)</span>, the
 inequality <span class="math inline" data-term-auto="off">\(w_n\le R_n\)</span> holds as soon
-as <span class="math inline" data-term-auto="off">\(t^{-n}\le2-t\)</span>. Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(ii) with <span
+as <span class="math inline" data-term-auto="off">\(t^{-n}\le2-t\)</span>. Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>(ii) with <span
 class="math inline" data-term-auto="off">\(D_n=1\)</span> gives, for each <span
 class="math inline" data-term-auto="off">\(F\subseteq\{1,\dots,N_0\}\)</span>, the interval
 <span class="math inline" data-term-auto="off">\([X_F(t),X_F(t)+R_{N_0}]\)</span>, and every
@@ -964,11 +1399,11 @@ class="math inline" data-term-auto="off">\(n\ge2\)</span> and <span
 class="math inline" data-term-auto="off">\(R_1&gt;1/2\)</span>.</p>
 <p>(c) For <span class="math inline" data-term-auto="off">\(t&gt;2\)</span>, <span
 class="math inline" data-term-auto="off">\(2^NR_N\le2^Nt^{-N}/((t-1)(1-t^{-1}))\to0\)</span>,
-and Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(i)
+and Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>(i)
 applies. ◻</p>
 </div>
 <div class="proof">
-<p><em>Proof of Theorem <a class="math-ref" href="#thm:chains">3.3</a>.</em> Write <span
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:chains">6.3</a>.</em> Write <span
 class="math inline" data-term-auto="off">\(\rho=b/a\)</span>, <span
 class="math inline" data-term-auto="off">\(D_j=a^{n_j}-b^{n_j}\)</span> and <span
 class="math inline" data-term-auto="off">\(S_j=\sum_{i\le
@@ -1051,7 +1486,7 @@ class="math inline" data-term-auto="off">\(X_F=\sum_{n\in F}w_n\)</span> for fin
 class="math inline" data-term-auto="off">\(F\)</span>, and <span
 class="math inline" data-term-auto="off">\(\mathcal A\)</span> is the set of all subsums.</p>
 <div class="lemma" id="lem:gaps">
-<p><strong>Lemma 3.5</strong> (the removed intervals). <em> <span
+<p><strong>Lemma 6.5</strong> (the removed intervals). <em> <span
 class="math inline" data-term-auto="off">\([0,E]\smallsetminus\mathcal A\)</span> is the
 disjoint union, over finite nonempty <span
 class="math inline" data-term-auto="off">\(F\)</span>, of the open intervals <span
@@ -1084,7 +1519,7 @@ class="math inline" data-term-auto="off">\(w_n=\sum_{j\ge1}2^{-jn}\)</span> and 
 class="math inline" data-term-auto="off">\(R_n=\sum_{j\ge1}2^{-jn}/(2^j-1)\)</span>. ◻</p>
 </div>
 <div class="lemma" id="lem:translate">
-<p><strong>Lemma 3.6</strong> (translation by a finite subsum). <em> Let
+<p><strong>Lemma 6.6</strong> (translation by a finite subsum). <em> Let
 <span class="math inline" data-term-auto="off">\(F\)</span> be finite with largest element
 <span class="math inline" data-term-auto="off">\(n\)</span> and let <span
 class="math inline" data-term-auto="off">\(0\le x\le R_n\)</span>. The greedy rule applied to
@@ -1138,7 +1573,7 @@ infinite.</p>
 <section id="fixed-depth-rational-counts" class="level4">
 <h4>Fixed-depth rational counts</h4>
 <div class="proof">
-<p><em>Proof of Theorem <a class="math-ref" href="#thm:forced">3.4</a>.</em> Fixing the first
+<p><em>Proof of Theorem <a class="math-ref" href="#thm:forced">6.4</a>.</em> Fixing the first
 <span class="math inline" data-term-auto="off">\(N\)</span> digits gives <span
 class="math inline" data-term-auto="off">\(2^N\)</span> closed intervals of length <span
 class="math inline" data-term-auto="off">\(R_N\)</span>. They are pairwise disjoint because
@@ -1178,7 +1613,7 @@ A=\bigsqcup_{F\ne\varnothing}\bigl(X_F(2)-g_{\max F},\,X_F(2)\bigr),
 \qquad\sum_{n\ge1}2^{n-1}g_n=E-1,\]</span></div>
 <p class="display-continue">where <span
 class="math inline" data-term-auto="off">\(\mathcal A\)</span> is the set of subsums. By
-Theorem <a class="math-ref" href="#thm:bases">3.2</a>(b) a
+Theorem <a class="math-ref" href="#thm:bases">6.2</a>(b) a
 rational with an infinite <span class="math inline" data-term-auto="off">\(S\)</span> is
 exactly a counterexample to #257 at base <span
 class="math inline" data-term-auto="off">\(2\)</span>. So #257 at base <span
@@ -1208,7 +1643,7 @@ in <span class="math inline" data-term-auto="off">\([0,1)\)</span> that contain 
 no rationals <span class="citation"
 data-cites="boesdarsterdos1981"><a href="#ref-15">[15]</a></span>.</p>
 <p>The exact computation in <span class="citation"
-data-cites="plectisinvestigation"><a href="#ref-25">[25]</a></span> agrees with Theorem <a class="math-ref" href="#thm:forced">3.4</a> step by step. Among the
+data-cites="plectisinvestigation"><a href="#ref-25">[25]</a></span> agrees with Theorem <a class="math-ref" href="#thm:forced">6.4</a> step by step. Among the
 <span class="math inline" data-term-auto="off">\(19{,}653\)</span> reduced fractions with
 <span class="math inline" data-term-auto="off">\(2\le q\le200\)</span>, the numbers rejected
 at steps <span class="math inline" data-term-auto="off">\(1\)</span>, <span
@@ -1227,7 +1662,7 @@ asymptotically <span
 class="math inline" data-term-auto="off">\((3Q^2/\pi^2)2^{n-1}g_n\)</span>, which falls below
 <span class="math inline" data-term-auto="off">\(1\)</span> near <span
 class="math inline" data-term-auto="off">\(n=2\log_2Q-2\log_2\pi\)</span>. This is not a
-deterministic cutoff: the error in Theorem <a class="math-ref" href="#thm:forced">3.4</a> does not justify such an
+deterministic cutoff: the error in Theorem <a class="math-ref" href="#thm:forced">6.4</a> does not justify such an
 extrapolation. For example, <span class="math inline" data-term-auto="off">\(189/388\)</span>
 is first rejected at step <span class="math inline" data-term-auto="off">\(17\)</span>,
 beyond this scale for <span class="math inline" data-term-auto="off">\(Q=388\)</span>. Its
@@ -1239,14 +1674,14 @@ class="math display" data-term-auto="off">\[R_{17}\le\frac{196609}{25769803776}
 &lt;\frac{189}{388}-X_F(2)
 =\frac{9291822600689}{1217890317075045460}
 &lt;\frac1{131071}=w_{17}.\]</span></div>
-<p>Section <a class="math-ref" href="#sec:misread">5</a> supplies the
+<p>Section <a class="math-ref" href="#sec:misread">8</a> supplies the
 earlier-step checks. Deeper computation can therefore produce new
 exclusion certificates; absence of a later rejection still does not
 prove membership. No rational is known to have an infinite <span
 class="math inline" data-term-auto="off">\(S\)</span> at base <span
 class="math inline" data-term-auto="off">\(2\)</span>.</p>
 <div class="problem" id="prob:membership">
-<p><strong>Problem 3.7</strong>. <em> Decide whether <span
+<p><strong>Problem 6.7</strong>. <em> Decide whether <span
 class="math inline" data-term-auto="off">\(1/2\)</span> is a subsum of <span
 class="math inline" data-term-auto="off">\(\sum(2^n-1)^{-1}\)</span>. By <span
 class="citation" data-cites="plectis257"></span> this holds if and only
@@ -1257,7 +1692,7 @@ infinitely many steps.</em></p>
 sets such as the middle-third set <span class="citation"
 data-cites="rstw2019 chowvarjuyu2024"><a href="#ref-16">[16]</a><a href="#ref-17">[17]</a></span>. We did not locate a
 theorem settling the present positive-measure subsum problem.
-Problem <a class="math-ref" href="#prob:membership">3.7</a> asks
+Problem <a class="math-ref" href="#prob:membership">6.7</a> asks
 about one explicit rational point.</p>
 </section>
 </section>
@@ -1398,7 +1833,7 @@ met at base <span class="math inline" data-term-auto="off">\(3/2\)</span>.</td>
 </tr>
 </tbody>
 </table>
-<p>Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(ii)
+<p>Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>(ii)
 explains interval filling in the #251 construction. The #249
 countermodel is a separate explicit construction with its own preserved
 identities. The #1049 restriction does not exclude stronger
@@ -1425,7 +1860,7 @@ class="math inline" data-term-auto="off">\((382+14)/633=0.6256\)</span> close to
 class="math inline" data-term-auto="off">\(1/E=0.6224\)</span>. This was read as evidence
 that about <span class="math inline" data-term-auto="off">\(62\%\)</span> of rationals are
 subsums, hence that #257 is false. The reading is wrong. By
-Theorem <a class="math-ref" href="#thm:forced">3.4</a> above the
+Theorem <a class="math-ref" href="#thm:forced">6.4</a> above the
 share at any fixed depth tends to <span
 class="math inline" data-term-auto="off">\(2^NR_N/E\)</span> whatever the truth of #257,
 because fractions equidistribute over the <span
@@ -1444,7 +1879,7 @@ class="math inline" data-term-auto="off">\(n&gt;2\log_2Q-2\log_2\pi\)</span>, ab
 <span class="math inline" data-term-auto="off">\(12\)</span> at <span
 class="math inline" data-term-auto="off">\(Q=200\)</span>. A main term below <span
 class="math inline" data-term-auto="off">\(1\)</span> does not make the actual count zero.
-Theorem <a class="math-ref" href="#thm:forced">3.4</a> is a
+Theorem <a class="math-ref" href="#thm:forced">6.4</a> is a
 fixed-depth asymptotic, and its error <span
 class="math inline" data-term-auto="off">\(O(2^N\log Q/Q)\)</span> does not justify an
 extrapolation to <span class="math inline" data-term-auto="off">\(N\sim2\log_2Q\)</span>.
@@ -1480,7 +1915,7 @@ class="math display" data-term-auto="off">\[R_n\le2^{-n}+\frac{2}{3\cdot4^n}.\]<
 <div class="math-display" data-term-auto="off"><span
 class="math display" data-term-auto="off">\[R_{17}\le\frac{196609}{25769803776}&lt;r&lt;\frac1{131071}=w_{17}.\]</span></div>
 <p>The same rejection occurs for <span
-class="math inline" data-term-auto="off">\(577/388=1+189/388\)</span> by Lemma <a class="math-ref" href="#lem:translate">3.6</a>. The independent
+class="math inline" data-term-auto="off">\(577/388=1+189/388\)</span> by Lemma <a class="math-ref" href="#lem:translate">6.6</a>. The independent
 reproduction, including every earlier skipped step, is in . This
 certificate shows that deeper computation can add exclusions. It does
 not convert survival to any finite depth into a membership
@@ -1506,7 +1941,7 @@ class="math inline" data-term-auto="off">\(133\)</span>, <span
 class="math inline" data-term-auto="off">\(65\)</span>, <span
 class="math inline" data-term-auto="off">\(32\)</span>, <span
 class="math inline" data-term-auto="off">\(16\)</span>, <span
-class="math inline" data-term-auto="off">\(8\)</span> from the measures of Lemma <a class="math-ref" href="#lem:gaps">3.5</a>; steps <span
+class="math inline" data-term-auto="off">\(8\)</span> from the measures of Lemma <a class="math-ref" href="#lem:gaps">6.5</a>; steps <span
 class="math inline" data-term-auto="off">\(10\)</span> and <span
 class="math inline" data-term-auto="off">\(11\)</span> have none against <span
 class="math inline" data-term-auto="off">\(4\)</span> and <span
@@ -1515,7 +1950,7 @@ class="math inline" data-term-auto="off">\(12\)</span> has <span
 class="math inline" data-term-auto="off">\(4\)</span> against <span
 class="math inline" data-term-auto="off">\(1\)</span>. The late counts fluctuate more than
 independent events would, because rejections arrive in the families of
-Lemma <a class="math-ref" href="#lem:translate">3.6</a>.</p>
+Lemma <a class="math-ref" href="#lem:translate">6.6</a>.</p>
 </section>
 <section id="sec:eliminated" class="level2">
 <h2>Eliminated ideas</h2>
@@ -1527,7 +1962,7 @@ class="math inline" data-term-auto="off">\(0\)</span> at positions <span
 class="math inline" data-term-auto="off">\(n_1&lt;n_2&lt;\cdots\)</span>, and allow each of
 those digits to be changed to <span class="math inline" data-term-auto="off">\(1\)</span>.
 The reachable values form a null set when the positions are sparse, by
-Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(i), yet
+Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>(i), yet
 changing all of them gives <span
 class="math inline" data-term-auto="off">\(\sum2^{-n}=1\)</span>. So no count of choices
 against contraction, and no depth depending only on sparsity, excludes a
@@ -1542,22 +1977,22 @@ support of any rational subsum with infinite <span
 class="math inline" data-term-auto="off">\(S\)</span> would be such a host. The subsum set of
 a host <span class="math inline" data-term-auto="off">\(B\)</span> has positive measure
 exactly when the complement of <span class="math inline" data-term-auto="off">\(B\)</span> is
-finite, by Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(i) and the measure at
+finite, by Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>(i) and the measure at
 full support.</p></li>
 <li><p><em>The share of surviving fractions as evidence.</em>
-Section <a class="math-ref" href="#sec:misread">5</a>.</p></li>
-<li><p><em>A wrong locator.</em> A draft of Theorem <a class="math-ref" href="#thm:chains">3.3</a>(b) cited Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a> of <span
+Section <a class="math-ref" href="#sec:misread">8</a>.</p></li>
+<li><p><em>A wrong locator.</em> A draft of Theorem <a class="math-ref" href="#thm:chains">6.3</a>(b) cited Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a> of <span
 class="citation" data-cites="adamczewskifaverjon2026"></span> as
 Nishioka’s theorem. That theorem says a value of a Mahler function at an
 algebraic point is rational or transcendental, which cannot prove
-irrationality. The proof in Section <a class="math-ref" href="#sec:bases">3.2</a> uses Nishioka’s value
+irrationality. The proof in Section <a class="math-ref" href="#sec:bases">6.2</a> uses Nishioka’s value
 theorem as quoted in <span class="citation"
 data-cites="adamczewskifaverjon2016"><a href="#ref-13">[13]</a></span>, applied there to the
 two-dimensional system for <span class="math inline" data-term-auto="off">\((g,1)\)</span>
 with regular points in <span
 class="math inline" data-term-auto="off">\((0,1)\)</span>.</p></li>
 <li><p><em>Algebraic independence for #1049.</em> With <span
-class="math inline" data-term-auto="off">\(g\)</span> as in Section <a class="math-ref" href="#sec:bases">3.2</a>, <span
+class="math inline" data-term-auto="off">\(g\)</span> as in Section <a class="math-ref" href="#sec:bases">6.2</a>, <span
 class="math inline" data-term-auto="off">\(\sum_{n\ge1}(t^n-1)^{-1}=\sum_{m\
 \mathrm{odd}}g(t^{-m})\)</span>, and each <span
 class="math inline" data-term-auto="off">\(g(t^{-m})\)</span> is transcendental for rational
@@ -1570,7 +2005,7 @@ here.</p></li>
 <section id="sec:known" class="level2">
 <h2>What was already known</h2>
 <ul>
-<li><p>The covering argument of Theorem <a class="math-ref" href="#thm:dichotomy">3.1</a>(ii) goes back to
+<li><p>The covering argument of Theorem <a class="math-ref" href="#thm:dichotomy">6.1</a>(ii) goes back to
 Kakeya; see <span class="citation"
 data-cites="hornich1941 nitecki2013 fridy1966"><a href="#ref-4">[4]</a><a href="#ref-5">[5]</a><a href="#ref-6">[6]</a></span>. Its use to build
 rational series inside a class defined by soft data is the method of
@@ -1585,7 +2020,7 @@ class="citation" data-cites="kovactao2024"></span>.</p></li>
 <li><p>A closed set of positive measure can contain essentially no
 rationals <span class="citation"
 data-cites="boesdarsterdos1981"><a href="#ref-15">[15]</a></span>, so the heuristic of
-Section <a class="math-ref" href="#sec:base2">3.3</a> cannot be a
+Section <a class="math-ref" href="#sec:base2">6.3</a> cannot be a
 consequence of measure.</p></li>
 <li><p>The rational-point counting papers examined here concern null
 Cantor sets <span class="citation"
@@ -1617,13 +2052,44 @@ href="../../../papers/erdos-251-prime-gap-dyadic-series.pdf">short paper</a> and
 href="https://github.com/wcook04/plectis-erdos/blob/8d6596fbde2c4aacf946adec4b0226ba1a97545d/lean/ErdosProblems/Erdos251/ResidueFeedbackCore.lean"><code>ResidueFeedbackCore.lean</code></a>.
 The latter already proves residue-dependent selection and an abstract
 infinite sum endpoint. An operator-supplied review supplied the form of
-Lemma <a class="math-ref" href="#capacity:lem:feedback">2.4</a>,
+Lemma <a class="math-ref" href="#capacity:lem:feedback">3.4</a>,
 the sharp exponential support constants, and the linear/superlinear
 factorial contrast. Those ingredients are credited to that review, not
 presented as discoveries of this paper. The extensions developed here
 are the exact capacity criterion on arbitrary strict integer
 divisibility chains, the factorial support classification and its
-integer-exponent comparison, and the common-divisor formulation.</p>
+integer-exponent comparison, the common-divisor formulation, and the
+derivative dimension and rationality thresholds proved above.</p>
+<p>The derivative theorem combines residue feedback from #251 with the
+treatment of factorial carries in #68. Identity <a class="math-ref" data-equation-ref="true" href="#capacity:eq:jet-carry">capacity:eq:jet-carry</a> interprets
+a carry as multiplication by a polynomial vanishing at the evaluation
+point. This produces the independent higher derivative instead of
+assuming its availability. The moving coordinates in <a class="math-ref" data-equation-ref="true" href="#capacity:eq:moving-taylor">capacity:eq:moving-taylor</a> make
+the full-dimensional critical construction possible; the counting
+obstruction proves its measure is zero. Conversely, division by the same
+vanishing polynomial preserves integer factorial coefficients and
+eventual divisibility. The complementary tail formula then proves
+rational-derivative rigidity at precisely the same threshold. These are
+explicit transfers between representations, not evidence for a general
+improvement in automated discovery. The other programmes motivated
+comparison of rank, arithmetic and analytic obstructions; their
+endpoints are not premises here.</p>
+<p>Hurwitz functions and interpolation by vanishing polynomials are
+classical. Waldschmidt’s survey <span class="citation"
+data-cites="waldschmidt2022"><a href="#ref-31">[31]</a></span> describes growth and multipoint
+derivative questions. Here we fix a polynomial bound on the integer
+Taylor coefficients and study the dimension and interior of a finite
+real derivative image, as well as rationality of finitely many
+derivatives under eventual coefficient divisibility. This last
+hypothesis is restrictive: it is not an unrestricted rational-value
+theorem for Hurwitz functions. For the classical scalar dimension
+formula, see Wegmann <span class="citation"
+data-cites="wegmann1968"><a href="#ref-32">[32]</a></span>, who credits Šalát. Our additional task
+is to separate a joint derivative image after several carry
+constructions have been added. Neither the definition of a Hurwitz
+function nor the mass-distribution argument is new. The precise
+dimension formula and the two sharp thresholds are proved here;
+historical priority remains unestablished.</p>
 <p>Airey, Mance and Vandehey already use digit sets eventually divisible
 by every fixed integer while retaining asymptotically full digit entropy
 <span class="citation" data-cites="amv2015"><a href="#ref-30">[30]</a></span>. Their theorem
@@ -1654,6 +2120,19 @@ source revision. No claim about any of the eight Erdős programmes
 changes; in particular factorial denominators <span
 class="math inline" data-term-auto="off">\(n!\)</span> here are not <span
 class="math inline" data-term-auto="off">\(n!-1\)</span> from #68.</p>
+<p>The accompanying module <a
+href="https://github.com/wcook04/plectis-erdos/blob/2bd14835b940b3c695a9cc8828c7e2967d65c053/lean/ErdosProblems/Synthesis/FactorialJet.lean"><code>FactorialJet.lean</code></a>
+checks the finite factorial-carry identity and its first weighted
+version, including endpoint terms, and preservation of divisibility. It
+does not formalise Theorems <a class="math-ref" href="#capacity:thm:jets">2.1</a> and <a class="math-ref" href="#capacity:thm:rational-jets">2.2</a>, their
+limits or dimension proof. The exact-arithmetic script
+<code>jets.py</code> checks the formulas at specified finite degrees,
+both quotient formulas, and independently checks the uniform tail
+majorant in <a class="math-ref" data-equation-ref="true" href="#capacity:eq:moving-taylor">capacity:eq:moving-taylor</a>. These
+finite degree tests are not the proof for every <span
+class="math inline" data-term-auto="off">\(d\)</span>.</p>
+<p>The capacity criterion already covers non-power and oscillating
+allowances.</p>
 </section>
 <section id="sec:questions" class="level2">
 <h2>Further questions</h2>
@@ -1661,7 +2140,7 @@ class="math inline" data-term-auto="off">\(n!-1\)</span> from #68.</p>
 <li><p>Is <span class="math inline" data-term-auto="off">\(1/2\)</span> a subsum of <span
 class="math inline" data-term-auto="off">\(\sum(2^n-1)^{-1}\)</span>? The exact obligation is
 in <span class="citation" data-cites="plectis257"><a href="#ref-22">[22]</a></span>. By
-Lemma <a class="math-ref" href="#lem:gaps">3.5</a> the general
+Lemma <a class="math-ref" href="#lem:gaps">6.5</a> the general
 question is one-sided approximation of a rational by finite subsums
 <span class="math inline" data-term-auto="off">\(X_F\)</span> to within <span
 class="math inline" data-term-auto="off">\(g_{\max F}\)</span>.</p></li>
@@ -1670,10 +2149,10 @@ class="math inline" data-term-auto="off">\(Q\)</span> rejected at step <span
 class="math inline" data-term-auto="off">\(n\)</span> stay close to <span
 class="math inline" data-term-auto="off">\((3Q^2/\pi^2)2^{n-1}g_n\)</span> in the joint range
 <span class="math inline" data-term-auto="off">\(n\le(2-\varepsilon)\log_2Q\)</span>, counted
-modulo the translations of Lemma <a class="math-ref" href="#lem:translate">3.6</a>? A persistent excess
+modulo the translations of Lemma <a class="math-ref" href="#lem:translate">6.6</a>? A persistent excess
 would be the first sign of an arithmetic mechanism for #257.</p></li>
 <li><p>Is <span class="math inline" data-term-auto="off">\(a^2&gt;b^3\)</span> necessary in
-Theorem <a class="math-ref" href="#thm:chains">3.3</a>(a)? First
+Theorem <a class="math-ref" href="#thm:chains">6.3</a>(a)? First
 case: base <span class="math inline" data-term-auto="off">\(4/3\)</span>, a chain with ratios
 <span class="math inline" data-term-auto="off">\(2\)</span> and infinitely many ratios <span
 class="math inline" data-term-auto="off">\(3\)</span>.</p></li>
@@ -1700,7 +2179,7 @@ agents under Will Cook’s direction. The first-page disclosure states his
 review boundary. The earlier synthesis record reports separate agent
 proof checks, independent reruns of the exact computations, and source
 checks on 20 September 2026; the failed citation is retained in
-Section <a class="math-ref" href="#sec:eliminated">6</a>. This
+Section <a class="math-ref" href="#sec:eliminated">9</a>. This
 consolidation preserves those arguments and their evidence classes. It
 is not an independent mathematical review.</p>
 </section>
@@ -1838,6 +2317,17 @@ operations for Cantor series expansions and associated fractals.
 II</em>, New York J. Math. <strong>21</strong> (2015), 1311–1326. <a
 href="https://nyjm.albany.edu/j/2015/21-60v.pdf"
 class="uri">https://nyjm.albany.edu/j/2015/21-60v.pdf</a>.</p></li>
+<li id="ref-31"><p>M. Waldschmidt, <em>Integer-valued functions, Hurwitz functions,
+and related topics: a survey</em>, in K. Kurşungöz and A. Zeytin (eds.),
+<em>Number Theory: Proceedings of the Journées Arithmétiques 2019</em>,
+De Gruyter, 2022, pp. 61–82. <a
+href="https://doi.org/10.1515/9783110761115-005"
+class="uri">https://doi.org/10.1515/9783110761115-005</a>.</p></li>
+<li id="ref-32"><p>H. Wegmann, <em>Die Hausdorffsche Dimension von Mengen reeller
+Zahlen, die durch Zifferneigenschaften einer Cantorentwicklung
+charakterisiert sind</em>, Czechoslovak Math. J. <strong>18</strong>
+(1968), 622–632. <a href="https://dml.cz/handle/10338.dmlcz/100861"
+class="uri">https://dml.cz/handle/10338.dmlcz/100861</a>.</p></li>
 </ol>
 </section>
   </div>

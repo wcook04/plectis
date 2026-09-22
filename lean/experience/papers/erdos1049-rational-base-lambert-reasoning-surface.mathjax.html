@@ -5822,9 +5822,17 @@ of the same assertion is listed below with the declarations that jointly
 state it. Each name links to its declaration at revision
 <code>181078b6b009</code>. Where the Lean statement is stronger than the
 printed one and implies it by an immediate specialisation, the entry
-says so.</p>
+says so. An entry marked <em>compared</em> was also checked
+independently: a restatement of the same declarations against Mathlib
+alone, together with its proof, was verified by Comparator
+(<code>leanprover/comparator</code>) in a clean continuous integration
+environment, in the run named by its number. Comparator trusts the
+restated statement, so the correspondence between the printed result and
+that statement is the one this concordance records.</p>
 <p> Lemma <a class="math-ref" href="#long1049:res:omega-indicator">2.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean#L1297"><code>omega_indicator</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean#L1297"><code>omega_indicator</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171"><code>35624228171</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:region">2.2</a>: <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L418"><code>printed_contour</code></a>,
 <a
@@ -5838,7 +5846,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L109"><code>rational_base_threshold</code></a>,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L116"><code>rational_base_threshold_log</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L116"><code>rational_base_threshold_log</code></a>.
+<em>Compared</em>, runs <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171"><code>35624228171</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:31over4">2.3</a>: <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean#L118"><code>printed_log_ratio</code></a>,
 <a
@@ -5864,7 +5876,11 @@ href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L169"><code>thirtyoneFour_between_rpow</code></a>,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L182"><code>thirtyoneFour_outside_bv_inside_contour</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L182"><code>thirtyoneFour_outside_bv_inside_contour</code></a>.
+<em>Compared</em>, runs <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171"><code>35624228171</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Corollary <a class="math-ref" href="#long1049:cor:rational-base-measure">2.4</a>:
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L194"><code>rational_base_measure_uniform</code></a>,
@@ -5873,28 +5889,46 @@ href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L167"><code>rational_base_power_measure</code></a>,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L176"><code>thirtyone_four_power_measure_lt_301</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L176"><code>thirtyone_four_power_measure_lt_301</code></a>.
+<em>Compared</em>, runs <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:archcap">2.5</a> (the Lean
 statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperLongCapR9.lean#L411"><code>long_record_archcap</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperLongCapR9.lean#L411"><code>long_record_archcap</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Corollary <a class="math-ref" href="#long1049:cor:no-decay-below-square">2.6</a>
 (the Lean statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperNoDecayR9.lean#L69"><code>cleared_below_square_not_tendsto_zero</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperNoDecayR9.lean#L69"><code>cleared_below_square_not_tendsto_zero</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>.</p>
 <p> Lemma <a class="math-ref" href="#long1049:res:sourceheight">2.7</a>: <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SourceCoefficientHeights.lean#L49"><code>exists_quadratic_source_height_bound</code></a>,
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SourceCoefficientHeights.lean#L40"><code>maxPairHeight_source_eq</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:powerbracket">3.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L24"><code>power_bracket</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L24"><code>power_bracket</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Corollary <a class="math-ref" href="#long1049:res:sharpgaps">3.2</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L34"><code>height_and_hankel_deficits</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L34"><code>height_and_hankel_deficits</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:chargeceilings">3.3</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L44"><code>charge_ceilings</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L44"><code>charge_ceilings</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:zudilin-sharp-qorder">3.4</a>:
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173"><code>order_zudilinNormalizedHankelDet_all</code></a>,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199"><code>coeff_zudilinNormalizedHankelDet_all_rat</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199"><code>coeff_zudilinNormalizedHankelDet_all_rat</code></a>.
+<em>Compared</em>, runs <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Lemma <a class="math-ref" href="#long1049:res:allrowinitial">3.5</a>: <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L213"><code>all_row_initial</code></a>,
 <a
@@ -5908,42 +5942,78 @@ href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad
 <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L171"><code>paperReciprocal_rec</code></a>,
 <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L73"><code>paperRatio_agree</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean#L73"><code>paperRatio_agree</code></a>.
+<em>Compared</em>, runs <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171"><code>35624228171</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:content">4.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L59"><code>integer_scalar_content</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L59"><code>integer_scalar_content</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:endpoints">5.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L74"><code>endpoint_residues</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L74"><code>endpoint_residues</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Proposition <a class="math-ref" href="#long1049:res:commonmult">5.3</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L398"><code>commonMultiplier_not_two_not_three_of_endpoint_units</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L398"><code>commonMultiplier_not_two_not_three_of_endpoint_units</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Corollary <a class="math-ref" href="#long1049:res:nomult">5.5</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L220"><code>endpoint_scalar_content_exclusion</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L220"><code>endpoint_scalar_content_exclusion</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Proposition <a class="math-ref" href="#long1049:res:cyclounit">5.6</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L302"><code>cyclotomicHomEval_isCoprime_mul</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L302"><code>cyclotomicHomEval_isCoprime_mul</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:jetkernel">5.7</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L248"><code>fourJet_paper_statement</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L248"><code>fourJet_paper_statement</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Corollary <a class="math-ref" href="#long1049:res:rankfortyone">5.8</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L149"><code>rank_fortyone</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L149"><code>rank_fortyone</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:boundedfibre">5.9</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L1832"><code>exists_ne_map_eq_map_ne_of_card_mul_lt</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/AdelicHeightBridge.lean#L1832"><code>exists_ne_map_eq_map_ne_of_card_mul_lt</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:plucker-collapse">5.10</a>: <a
 href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L269"><code>plucker_paper_statement</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:scalar">5.12</a> (the Lean
 statement is stronger): <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L177"><code>scalar_margin</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L177"><code>scalar_margin</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:corridorbound">6.2</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L121"><code>coordinatewiseCorridor_implies_pow_lt_linear</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L121"><code>coordinatewiseCorridor_implies_pow_lt_linear</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171"><code>35624228171</code></a>.</p>
 <p> Proposition <a class="math-ref" href="#long1049:res:exp">6.4</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L142"><code>three_mul_lt_two_pow_succ</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L142"><code>three_mul_lt_two_pow_succ</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171"><code>35624228171</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:nocorridor">6.5</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155"><code>threeHalves_no_coordinatewiseCorridor</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155"><code>threeHalves_no_coordinatewiseCorridor</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:tailrec">7.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187"><code>rationalBaseClearedTailQ_succ</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187"><code>rationalBaseClearedTailQ_succ</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144"><code>35544127144</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:forcing">7.2</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L186"><code>forcing_term</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L186"><code>forcing_term</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 <p> Theorem <a class="math-ref" href="#long1049:res:sevenhalves">8.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83"><code>sevenHalves_archimedean_height_condition</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83"><code>sevenHalves_archimedean_height_condition</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171"><code>35624228171</code></a>.</p>
 <p> Proposition <a class="math-ref" href="#long1049:res:pade">9.1</a>: <a
-href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L201"><code>pade_summand_bound_and_gap</code></a>.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/181078b6b009d905809cf2e007ad309386a3d1e0/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L201"><code>pade_summand_bound_and_gap</code></a>.
+<em>Compared</em>, run <a
+href="https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595"><code>35674034595</code></a>.</p>
 </section>
 <section id="the-lambert-identity-and-the-integer-case." class="level5">
 <h5>The Lambert identity and the integer case.</h5>

@@ -33,6 +33,12 @@ sharp support-gap threshold. Factorial denominators
 in this construction are not the denominators
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
 in #68.</p>
+<p>Section  asks whether a single factorial digit sequence can prescribe
+several derivatives independently. Theorems and  give the sharp
+threshold and the dimension of the attainable vectors. The proof uses
+the scalar capacity theorem first, then a carry that preserves lower
+derivatives; Sections  and  give the argument and the rationality
+obstruction.</p>
 <p>The common Lambert series in #257 and #1049 gives a second comparison
 in Section : a base below two permits rational subsums, while nested
 denominators force irrationality on certain thin supports. Neither
@@ -46,6 +52,120 @@ Lean results establish specified ingredients and quoted results, not the
 complete capacity classification or Lambert-chain theorem. The sources
 and originating review are credited in Section . Historical novelty and
 independent expert review are not established.</p>
+</section>
+<section id="capacity:sec:jets-intro" class="level2">
+<h2>Prescribing a value and its derivatives</h2>
+<p>An integer factorial expansion can represent a real number while its
+digits eventually vanish modulo every fixed integer. Can the same digits
+prescribe several real quantities independently? Consider their
+exponential generating function. Its derivatives at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+are different weighted sums of the same digits, so this is simultaneous
+prescription, not several independent expansions.</p>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c&gt;0</annotation></semantics></math>,
+let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℋ</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\mathcal H_c</annotation></semantics></math>
+consist of the entire functions
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="center" class="ta-c"><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><msub><mi>e</mi><mi>n</mi></msub><mfrac><msup><mi>z</mi><mi>n</mi></msup><mrow><mi>n</mi><mi>!</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>e</mi><mi>n</mi></msub><mo>∈</mo><msub><mi mathvariant="double-struck">ℤ</mi><mrow><mo>≥</mo><mn>0</mn></mrow></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="center" class="ta-c"><msub><mi>e</mi><mi>n</mi></msub><mo>≤</mo><msup><mi>n</mi><mi>c</mi></msup><mspace width="0.222em"></mspace><mtext mathvariant="normal">eventually</mtext><mo>,</mo><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mo>∀</mo><mi>q</mi><mo>≥</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mi>q</mi><mo>∣</mo><msub><mi>e</mi><mi>n</mi></msub><mspace width="0.222em"></mspace><mtext mathvariant="normal">eventually</mtext><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{gathered}
+ f(z)=\sum_{n\ge1}e_n\frac{z^n}{n!},\qquad e_n\in\mathbb{Z}_{\ge0},\\
+ e_n\le n^c\ \text{eventually},\qquad
+ (\forall q\ge1)\ q\mid e_n\ \text{eventually}.
+ \end{gathered}</annotation></semantics></math> Polynomial coefficient
+growth implies locally uniform convergence of every derivative. Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi><mo>,</mo><msup><mi>f</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J_d(f)=(f(1),f&#39;(1),\ldots,f^{(d-1)}(1))</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">𝒥</mi><mrow><mi>d</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>J</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>f</mi><mo>∈</mo><msub><mi mathvariant="script">ℋ</mi><mi>c</mi></msub><mo stretchy="false" form="postfix">}</mo><mo>⊆</mo><msup><mi mathvariant="double-struck">ℝ</mi><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">\mathcal J_{d,c}=\{J_d(f):f\in\mathcal H_c\}\subseteq\mathbb{R}^d</annotation></semantics></math>.
+These are Hurwitz functions: all derivatives at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+are integers. Our restrictions concern those integers; the prescribed
+derivatives are at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.</p>
+<div class="theorem">
+<p><strong>Theorem 2.1</strong> (Dimension and the sharp interpolation
+threshold). <em> For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c&gt;0</annotation></semantics></math>
+and integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d\ge1</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">dim</mi><mo>&#8289;</mo></mrow><mi mathvariant="normal">H</mi></msub><msub><mi mathvariant="script">𝒥</mi><mrow><mi>d</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>,</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\dim_{\mathrm H}\mathcal J_{d,c}=\min(c,d).</annotation></semantics></math>
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c&gt;d</annotation></semantics></math>,
+this set contains a nonempty open subset of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℝ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^d</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≤</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c\le d</annotation></semantics></math>,
+it has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-dimensional
+Lebesgue measure zero and is meagre; these conclusions already follow
+from eventual evenness of the coefficients. The dimension lower bound
+and the open-set conclusion can both be realised with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>≤</mo><msup><mi>n</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">e_n\le n^c</annotation></semantics></math>
+at every position, an arbitrarily long initial zero segment, and
+congruence cutoffs common to the constructed family. The open set can be
+realised using only functions with eventually positive
+coefficients.</em></p>
+</div>
+<div class="theorem">
+<p><strong>Theorem 2.2</strong> (Rational derivatives force
+polynomiality). <em> Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d\ge1</annotation></semantics></math>,
+and let
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></munder><msub><mi>a</mi><mi>n</mi></msub><mfrac><msup><mi>z</mi><mi>n</mi></msup><mrow><mi>n</mi><mi>!</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>a</mi><mi>n</mi></msub><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi><mo>,</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">|</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mi>d</mi></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">f(z)=\sum_{n\ge0}a_n\frac{z^n}{n!},\qquad a_n\in\mathbb{Z},\quad |a_n|=O(n^d).</annotation></semantics></math>
+Assume that, for each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q\ge1</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">q\mid a_n</annotation></semantics></math>
+eventually. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>…</mi><mo>,</mo><msup><mi>f</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(1),f&#39;(1),\ldots,f^{(d-1)}(1)</annotation></semantics></math>
+are all rational, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+is a polynomial. Consequently, a nonpolynomial member of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℋ</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\mathcal H_c</annotation></semantics></math>
+with all these derivatives rational exists if and only if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c&gt;d</annotation></semantics></math>.</em></p>
+</div>
+<p>Thus if a nonpolynomial
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∈</mo><msub><mi mathvariant="script">ℋ</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">f\in\mathcal H_2</annotation></semantics></math>
+has rational
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(1)</annotation></semantics></math>,
+its derivative
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f&#39;(1)</annotation></semantics></math>
+is irrational. Increasing the allowance to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mrow><mn>2</mn><mo>+</mo><mi>ε</mi></mrow></msup><annotation encoding="application/x-tex">n^{2+\varepsilon}</annotation></semantics></math>
+permits both to be rational, for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon&gt;0</annotation></semantics></math>.
+At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">c=2</annotation></semantics></math>,
+the attainable pairs nevertheless form a full-dimensional null set. We
+do not assert that every vector is attained: nonnegative coefficients
+impose inequalities such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f&#39;(1)\ge f(1)</annotation></semantics></math>.</p>
+<p>The identity behind the construction is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></munder><msub><mi>b</mi><mi>n</mi></msub><mfrac><msup><mi>z</mi><mi>n</mi></msup><mrow><mi>n</mi><mi>!</mi></mrow></mfrac><mo>=</mo><mi>−</mi><msub><mi>b</mi><mn>0</mn></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mi>b</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>b</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mfrac><msup><mi>z</mi><mi>n</mi></msup><mrow><mi>n</mi><mi>!</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">(z-1)\sum_{n\ge0}b_n\frac{z^n}{n!}
+ =-b_0+\sum_{n\ge1}(n b_{n-1}-b_n)\frac{z^n}{n!}.
+ \tag{J}\label{capacity:eq:jet-carry}</annotation></semantics></math>
+Adding the left-hand side to a function leaves its value at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+unchanged and changes its derivative there by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>b</mi><mi>n</mi></msub><mi>/</mi><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">\sum b_n/n!</annotation></semantics></math>.
+Multiplication by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">(z-1)^k</annotation></semantics></math>
+leaves the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+entries of the derivative vector unchanged, at a cost of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+powers of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+in the coefficient allowance. The scalar construction of Theorem 
+supplies the free quantity. For necessity, eventual evenness reduces the
+number of prefixes by an exponential factor, which forces measure zero
+even at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c=d</annotation></semantics></math>.
+Section  proves the theorem, including its dimension statement at the
+critical exponent. In the reverse direction, division by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">(z-1)^d</annotation></semantics></math>
+converts vanishing derivatives into bounded integer coefficients.
+Eventual divisibility then forces them to vanish; this proves Theorem 
+in Section .</p>
 </section>
 <section id="capacity:sec:criterion" class="level2">
 <h2>An exact capacity criterion</h2>
@@ -83,7 +203,7 @@ that
 eventually. The cutoffs and finite initial digits may depend on the
 represented value.</p>
 <div class="theorem">
-<p><strong>Theorem 2.1</strong>. <em> If
+<p><strong>Theorem 3.1</strong>. <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>N</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">U_N\to\infty</annotation></semantics></math>,
 then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>Q</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E_Q(F)=[0,\infty)</annotation></semantics></math>;
@@ -137,7 +257,7 @@ All series converge, since finitely many unrestricted digits do not
 affect convergence. A permitted position need not carry a nonzero
 digit.</p>
 <div class="theorem">
-<p><strong>Theorem 2.2</strong>. <em> If
+<p><strong>Theorem 3.2</strong>. <em> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 is finite,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E(S,c)</annotation></semantics></math>
@@ -185,7 +305,7 @@ many omitted positions already force a null set. With allowance
 every second position again suffices, even under . Thus the strict
 inequality in is essential.</p>
 <div class="corollary">
-<p><strong>Corollary 2.3</strong>. <em> For
+<p><strong>Corollary 3.3</strong>. <em> For
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c&gt;1</annotation></semantics></math>,
 the least possible asymptotic density of a fixed permitted support that
 fills an interval under is
@@ -499,7 +619,7 @@ class="level3">
 <p>The following construction supplies the positive direction. It is
 useful beyond factorial weights.</p>
 <div class="lemma">
-<p><strong>Lemma 2.4</strong>. <em> Let
+<p><strong>Lemma 3.4</strong>. <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>j</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">w_j&gt;0</annotation></semantics></math>,
 let positive integers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>j</mi></msub><annotation encoding="application/x-tex">M_j</annotation></semantics></math>
@@ -626,7 +746,7 @@ including common cutoffs.</p>
 attainable set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E_0(S,c)</annotation></semantics></math>.</p>
 <div class="proposition">
-<p><strong>Proposition 2.5</strong>. <em> For an infinite support and
+<p><strong>Proposition 3.5</strong>. <em> For an infinite support and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c\ge1</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">E_0(S,c)</annotation></semantics></math>
 contains an interval exactly when its successive gaps are eventually at
@@ -692,7 +812,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><msub><mi>b</mi><mn>1</mn></msub><mi>⋯</mi><msub><mi>b</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">Q_n=b_1\cdots b_n</annotation></semantics></math>,
 and consider a Cantor series.</p>
 <div class="theorem">
-<p><strong>Theorem 2.6</strong>. <em> Suppose
+<p><strong>Theorem 3.6</strong>. <em> Suppose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>a</mi><mi>n</mi></msub><mo>≤</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">0\le a_n\le A</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>n</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e_n\ge0</annotation></semantics></math>
@@ -838,6 +958,461 @@ expansions are reproduced by the script cited in Section ; the interval
 conclusion follows from this argument, not from the samples.</p>
 </section>
 </section>
+<section id="capacity:sec:jets-proof" class="level2">
+<h2>Proof of the derivative interpolation theorem</h2>
+<p>Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>r</mi></msub><mo>=</mo><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>⋯</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(n)_r=n(n-1)\cdots(n-r+1)</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mo stretchy="false" form="postfix">)</mo><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(n)_0=1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>r</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(n)_r=0</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>&gt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">r&gt;n</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>r</mi></msub><msub><mi>e</mi><mi>n</mi></msub><mi>/</mi><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">f^{(r)}(1)=\sum_n(n)_r e_n/n!</annotation></semantics></math>.</p>
+<section id="nullity-at-and-below-the-critical-exponent" class="level3">
+<h3>Nullity at and below the critical exponent</h3>
+<p>Here only eventual evenness is needed. Fix a cutoff
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+and a prefix before
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
+and allow every continuation with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>e</mi><mi>n</mi></msub><mo>≤</mo><msup><mi>n</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">0\le e_n\le n^c</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>∣</mo><msub><mi>e</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">2\mid e_n</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">n\ge K</annotation></semantics></math>.
+The derivative vectors form a compact set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.
+For all sufficiently large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+there are at most
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><msup><mi>n</mi><mi>c</mi></msup><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>n</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">\lfloor n^c/2\rfloor+1\le(3/4)n^c</annotation></semantics></math>
+choices at position
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+Thus the number of prefixes through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>4</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>N</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">C(3/4)^N(N!)^c</annotation></semantics></math>.
+Every remaining derivative tail has norm at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>c</mi><mo>,</mo><mi>d</mi></mrow></msub><msup><mi>N</mi><mrow><mi>c</mi><mo>+</mo><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">C_{c,d}N^{c+d-1}/(N+1)!</annotation></semantics></math>,
+by comparison with its first term. Balls of this radius, one for each
+prefix, cover
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+with total
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-dimensional
+volume at most
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>C</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mi>/</mi><mn>4</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>N</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>c</mi><mo>−</mo><mi>d</mi></mrow></msup><msup><mi>N</mi><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>+</mo><mi>d</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">C&#39;(3/4)^N(N!)^{c-d}N^{d(c+d-1)}.</annotation></semantics></math>
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≤</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c\le d</annotation></semantics></math>
+this tends to zero. Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+is null and, being compact, nowhere dense. Countably many cutoffs and
+integer prefixes cover the attainable set. This proves both conclusions,
+including the critical case.</p>
+</section>
+<section id="lifting-a-scalar-interval-to-an-open-set" class="level3">
+<h3>Lifting a scalar interval to an open set</h3>
+<p>First allow signed integer coefficients. For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\eta&gt;0</annotation></semantics></math>
+and cutoff
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>,
+consider series supported on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">n\ge N</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>e</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>η</mi><msup><mi>n</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">|e_n|\le\eta n^c</annotation></semantics></math>
+and the same eventual divisibilities. We prove by induction on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+that their derivative vectors contain an open set whenever
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c&gt;d</annotation></semantics></math>.
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d=1</annotation></semantics></math>,
+apply Theorem  to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">⌊</mo><mi>η</mi><msup><mi>n</mi><mi>c</mi></msup><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">F_n=\lfloor\eta n^c\rfloor</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">Q_n=n!</annotation></semantics></math>,
+starting after
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+The first tail term makes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>N</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">U_N\to\infty</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c&gt;1</annotation></semantics></math>;
+the all-position version gives an interval with common congruence
+cutoffs.</p>
+<p>For the induction step, use dimension
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d-1</annotation></semantics></math>
+and exponent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">c-1</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo>∑</mo><msub><mi>b</mi><mi>n</mi></msub><msup><mi>z</mi><mi>n</mi></msup><mi>/</mi><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">B(z)=\sum b_nz^n/n!</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>b</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mi>/</mi><mn>4</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>n</mi><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">|b_n|\le(\eta/4)n^{c-1}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">b_n=0</annotation></semantics></math>
+before
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.
+The higher derivative coordinates of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">(z-1)B</annotation></semantics></math>
+form an open set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>⊆</mo><msup><mi mathvariant="double-struck">ℝ</mi><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">W\subseteq\mathbb{R}^{d-1}</annotation></semantics></math>,
+because
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>B</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>r</mi><msup><mi>B</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>r</mi><mo>≥</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">((z-1)B)^{(r)}(1)=rB^{(r-1)}(1),\qquad r\ge1.</annotation></semantics></math>
+Choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>2</mn><mi>ρ</mi><mo>,</mo><mn>2</mn><mi>ρ</mi><msup><mo stretchy="false" form="postfix">]</mo><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>⊂</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">y_0+[-2\rho,2\rho]^{d-1}\subset W</annotation></semantics></math>.
+Choose a later cutoff
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+so that every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+supported on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">n\ge M</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>a</mi><mi>n</mi></msub><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>n</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">0\le a_n\le(\eta/2)n^c</annotation></semantics></math>
+has
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>A</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>ρ</mi></mrow><annotation encoding="application/x-tex">|A^{(r)}(1)|&lt;\rho</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">1\le r&lt;d</annotation></semantics></math>.
+This follows uniformly from the convergent derivative tails. The scalar
+theorem gives a nondegenerate interval
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+of values
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A(1)</annotation></semantics></math>.
+For each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">x\in I</annotation></semantics></math>
+choose one such
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.
+For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>∈</mo><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>ρ</mi><mo>,</mo><mi>ρ</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">y\in y_0+(-\rho,\rho)^{d-1}</annotation></semantics></math>,
+a suitable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+cancels the higher coordinates of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.
+Hence the attainable vectors contain
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>I</mi><mo>∘</mo></msup><mo>×</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>ρ</mi><mo>,</mo><mi>ρ</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">I^\circ\times\bigl(y_0+(-\rho,\rho)^{d-1}\bigr).</annotation></semantics></math>
+No continuous choice of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+is assumed: uniform smallness of all its higher derivatives makes the
+same cube work for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.
+The coefficients of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A+(z-1)B</annotation></semantics></math>
+obey the bound, since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>b</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>+</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>b</mi><mi>n</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mo stretchy="false" form="prefix">(</mo><mi>η</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><msup><mi>n</mi><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">n|b_{n-1}|+|b_n|\le(\eta/2)n^c</annotation></semantics></math>;
+divisibility holds term by term. The finitely many families in the
+induction have common cutoffs for each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.</p>
+<p>To restore nonnegativity, choose nested positive integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>n</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">m_n\to\infty</annotation></semantics></math>
+such that every fixed integer eventually divides
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>n</mi></msub><annotation encoding="application/x-tex">m_n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>m</mi><mi>n</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log m_n=o(\log n)</annotation></semantics></math>.
+One choice is the largest factorial at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(n+3)</annotation></semantics></math>.
+For large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>n</mi></msub><mo>=</mo><msub><mi>m</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><msup><mi>n</mi><mi>c</mi></msup><mrow><mn>2</mn><msub><mi>m</mi><mi>n</mi></msub></mrow></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msup><mi>n</mi><mi>c</mi></msup><mi>/</mi><mn>3</mn><mo>≤</mo><msub><mi>h</mi><mi>n</mi></msub><mo>≤</mo><msup><mi>n</mi><mi>c</mi></msup><mi>/</mi><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">h_n=m_n\left\lfloor\frac{n^c}{2m_n}\right\rfloor,
+ \qquad n^c/3\le h_n\le n^c/2.</annotation></semantics></math> Set
+earlier
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>n</mi></msub><annotation encoding="application/x-tex">h_n</annotation></semantics></math>
+to zero and start the signed construction after that point. Take
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">\eta=1/4</annotation></semantics></math>.
+Adding
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>h</mi><mi>n</mi></msub><msup><mi>z</mi><mi>n</mi></msup><mi>/</mi><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">\sum h_nz^n/n!</annotation></semantics></math>
+translates the open set and puts every sufficiently late coefficient
+between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>n</mi><mi>c</mi></msup><mi>/</mi><mn>12</mn></mrow><annotation encoding="application/x-tex">n^c/12</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><msup><mi>n</mi><mi>c</mi></msup><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">3n^c/4</annotation></semantics></math>.
+All coefficients lie between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mi>c</mi></msup><annotation encoding="application/x-tex">n^c</annotation></semantics></math>,
+and each function is nonpolynomial.</p>
+</section>
+<section id="the-upper-bound-for-hausdorff-dimension" class="level3">
+<h3>The upper bound for Hausdorff dimension</h3>
+<p>Fix a finite prefix and an allowance cutoff. Through index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+there are at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∏</mo><mrow><mi>n</mi><mo>≤</mo><mi>N</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">⌊</mo><msup><mi>n</mi><mi>c</mi></msup><mo stretchy="false" form="postfix">⌋</mo><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\prod_{n\le N}(\lfloor n^c\rfloor+1)</annotation></semantics></math>
+continuations, whose logarithm is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c\log(N!)+O(N)</annotation></semantics></math>.
+Each derivative tail has norm at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>O</mi><mrow><mi>c</mi><mo>,</mo><mi>d</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mrow><mi>c</mi><mo>+</mo><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O_{c,d}(N^{c+d-1}/(N+1)!)</annotation></semantics></math>.
+For any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>&gt;</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">s&gt;c</annotation></semantics></math>,
+the sum of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>-th
+powers of the diameters of these covering balls tends to zero. Countably
+many prefixes and cutoffs preserve this bound; the ambient bound is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.</p>
+</section>
+<section id="a-separated-construction-attaining-the-dimension"
+class="level3">
+<h3>A separated construction attaining the dimension</h3>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>k</mi><mo>&lt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">0\le k&lt;d</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&lt;</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">k&lt;c</annotation></semantics></math>,
+set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>k</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>c</mi><mo>−</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_k=\min(1,c-k)</annotation></semantics></math>.
+Use only these indices. Their sum is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>,</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">s=\min(c,d)</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>=</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>d</mi><mo>−</mo><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\varepsilon=2^{-d-6}</annotation></semantics></math>
+and use the same
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>n</mi></msub><annotation encoding="application/x-tex">m_n</annotation></semantics></math>.
+Independently for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+choose
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>b</mi><mi>n</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>∈</mo><mrow><mo stretchy="true" form="prefix">{</mo><mn>0</mn><mo>,</mo><msub><mi>m</mi><mi>n</mi></msub><mo>,</mo><mn>2</mn><msub><mi>m</mi><mi>n</mi></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>m</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">⌊</mo><mfrac><mrow><mi>ε</mi><msup><mi>n</mi><msub><mi>α</mi><mi>k</mi></msub></msup></mrow><msub><mi>m</mi><mi>n</mi></msub></mfrac><mo stretchy="true" form="postfix">⌋</mo></mrow><mo stretchy="true" form="postfix">}</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">b_n^{(k)}\in\left\{0,m_n,2m_n,\ldots,
+ m_n\left\lfloor\frac{\varepsilon n^{\alpha_k}}{m_n}\right\rfloor\right\}.
+ \tag{D}\label{capacity:eq:jet-digits}</annotation></semantics></math>
+All digits vanish before a large cutoff. Put
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mi>n</mi></munder><msub><mi>h</mi><mi>n</mi></msub><mfrac><msup><mi>z</mi><mi>n</mi></msup><mrow><mi>n</mi><mi>!</mi></mrow></mfrac><mo>+</mo><munder><mo>∑</mo><mi>k</mi></munder><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msup><munder><mo>∑</mo><mi>n</mi></munder><msubsup><mi>b</mi><mi>n</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mfrac><msup><mi>z</mi><mi>n</mi></msup><mrow><mi>n</mi><mi>!</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">f(z)=\sum_n h_n\frac{z^n}{n!}
+       +\sum_k(z-1)^k\sum_n b_n^{(k)}\frac{z^n}{n!}.
+ \tag{F}\label{capacity:eq:jet-code}</annotation></semantics></math> The
+coefficient added at position
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mi>k</mi></munder><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>k</mi></munderover><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>k</mi><mo>−</mo><mi>j</mi></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>k</mi><mi>j</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>j</mi></msub><msubsup><mi>b</mi><mrow><mi>n</mi><mo>−</mo><mi>j</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>,</mo></mrow><annotation encoding="application/x-tex">\sum_k\sum_{j=0}^k(-1)^{k-j}\binom{k}{j}(n)_j b_{n-j}^{(k)},</annotation></semantics></math>
+with negative indices interpreted as zero. Its absolute value is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><msub><mo>∑</mo><mrow><mi>k</mi><mo>&lt;</mo><mi>d</mi></mrow></msub><msup><mn>2</mn><mi>k</mi></msup><msup><mi>n</mi><mi>c</mi></msup><mo>&lt;</mo><msup><mi>n</mi><mi>c</mi></msup><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">\varepsilon\sum_{k&lt;d}2^k n^c&lt;n^c/4</annotation></semantics></math>,
+since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>+</mo><msub><mi>α</mi><mi>k</mi></msub><mo>≤</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">j+\alpha_k\le c</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∈</mo><msub><mi mathvariant="script">ℋ</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">f\in\mathcal H_c</annotation></semantics></math>,
+with the allowance everywhere and common congruence cutoffs. Local
+uniform convergence makes the image of this product of finite digit sets
+compact.</p>
+<p>The crucial step is to rule out cancellation between different codes.
+Suppose two codes first differ at index
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+be their difference. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">0\le r&lt;d</annotation></semantics></math>,
+take the Taylor coefficients of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>z</mi><mrow><mi>−</mi><mi>n</mi></mrow></msup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">z^{-n}g(z)</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msup><mi>u</mi><mi>r</mi></msup><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>u</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mi>n</mi></mrow></msup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi mathvariant="normal">Δ</mi><msubsup><mi>b</mi><mi>n</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup></mrow><mrow><mi>n</mi><mi>!</mi></mrow></mfrac><mo>+</mo><munder><mo>∑</mo><mrow><mi>m</mi><mo>&gt;</mo><mi>n</mi></mrow></munder><munder><mo>∑</mo><mrow><mi>k</mi><mo>≤</mo><mi>r</mi></mrow></munder><mfrac><mrow><mi mathvariant="normal">Δ</mi><msubsup><mi>b</mi><mi>m</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup></mrow><mrow><mi>m</mi><mi>!</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow><mrow><mi>r</mi><mo>−</mo><mi>k</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">[u^r](1+u)^{-n}g(1+u)
+ =\frac{\Delta b_n^{(r)}}{n!}
+   +\sum_{m&gt;n}\sum_{k\le r}
+       \frac{\Delta b_m^{(k)}}{m!}\binom{m-n}{r-k}.
+ \tag{T}\label{capacity:eq:moving-taylor}</annotation></semantics></math>
+Unused coordinates are zero. The binomial coefficient now depends on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m-n</annotation></semantics></math>,
+not on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Δ</mi><msubsup><mi>b</mi><mi>m</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>ε</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">|\Delta b_m^{(k)}|\le\varepsilon m</annotation></semantics></math>,
+the absolute tail, multiplied by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math>,
+is at most
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><munder><mo>∑</mo><mrow><mi>t</mi><mo>≥</mo><mn>1</mn></mrow></munder><mfrac><msup><mn>2</mn><mi>t</mi></msup><mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow></mfrac><mo>=</mo><mn>2</mn><msup><mi>e</mi><mn>2</mn></msup><mi>ε</mi><mo>&lt;</mo><mn>18</mn><mi>ε</mi><mo>&lt;</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\varepsilon\sum_{t\ge1}\frac{2^t}{(t-1)!}
+ =2e^2\varepsilon&lt;18\varepsilon&lt;\frac12.</annotation></semantics></math>
+Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">n!/(n+t-1)!\le1/(t-1)!</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>k</mi><mo>≤</mo><mi>r</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>t</mi><mrow><mi>r</mi><mo>−</mo><mi>k</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><msup><mn>2</mn><mi>t</mi></msup></mrow><annotation encoding="application/x-tex">\sum_{k\le r}\binom{t}{r-k}\le2^t</annotation></semantics></math>.
+Some
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msubsup><mi>b</mi><mi>n</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">\Delta b_n^{(r)}</annotation></semantics></math>
+is a nonzero integer. Therefore one coordinate on the left of has
+absolute value at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(2n!)</annotation></semantics></math>.
+The linear map from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>g</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J_d(g)</annotation></semantics></math>
+to those coordinates has norm at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>d</mi></msub><msup><mi>n</mi><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">C_dn^{d-1}</annotation></semantics></math>:
+its entries are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>j</mi></msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>n</mi><mo>+</mo><mi>j</mi><mo>−</mo><mn>1</mn></mrow><mi>j</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>−</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">(-1)^j\binom{n+j-1}{j}/(r-j)!</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>j</mi><mo>≤</mo><mi>r</mi><mo>&lt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">0\le j\le r&lt;d</annotation></semantics></math>.
+Distinct codes first differing at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+consequently have separation at least
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>n</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><msub><mi>C</mi><mi>d</mi></msub><msup><mi>n</mi><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup><mi>n</mi><mi>!</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\delta_n=\frac{1}{2C_dn^{d-1}n!}
+ \tag{S}\label{capacity:eq:jet-separation}</annotation></semantics></math>
+in the supremum norm of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℝ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^d</annotation></semantics></math>.</p>
+<p>Give all choices in uniform independent probabilities. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>N</mi></msub><annotation encoding="application/x-tex">A_N</annotation></semantics></math>
+counts prefixes through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>A</mi><mi>N</mi></msub><mo>=</mo><mi>s</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\log A_N=s\log(N!)+o(N\log N),</annotation></semantics></math>
+because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>m</mi><mi>n</mi></msub><mo>=</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log m_n=o(\log n)</annotation></semantics></math>
+and each used
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\alpha_k</annotation></semantics></math>
+is positive. The separation makes the coding injective. A ball of radius
+less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>N</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\delta_N/2</annotation></semantics></math>
+meets at most one
+length-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+cylinder and has measure at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>A</mi><mi>N</mi><mrow><mi>−</mi><mn>1</mn></mrow></msubsup><annotation encoding="application/x-tex">A_N^{-1}</annotation></semantics></math>.
+For a small radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>,
+choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>/</mi><mn>2</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><msub><mi>δ</mi><mi>N</mi></msub><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\delta_{N+1}/2\le r&lt;\delta_N/2</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>δ</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mi>!</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\log(1/\delta_{N+1})/\log(N!)\to1</annotation></semantics></math>,
+for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&lt;</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">t&lt;s</annotation></semantics></math>
+this implies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msub><mi>C</mi><mi>t</mi></msub><msup><mi>r</mi><mi>t</mi></msup></mrow><annotation encoding="application/x-tex">\mu(B(x,r))\le C_t r^t</annotation></semantics></math>.
+Summing this inequality over any ball cover gives positive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>-dimensional
+Hausdorff content. The dimension is at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>,
+completing Theorem .</p>
+</section>
+</section>
+<section id="capacity:sec:rational-jets" class="level2">
+<h2>The arithmetic threshold for rational derivatives</h2>
+<p>We prove Theorem . The coefficient estimate and the divisibilities
+are both needed, including at the critical exponent.</p>
+<p>Suppose the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+derivatives at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
+starting with the value, are rational. Subtract their Taylor polynomial
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>r</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></munderover><mfrac><mrow><msup><mi>f</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>r</mi><mi>!</mi></mrow></mfrac><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>r</mi></msup></mrow><annotation encoding="application/x-tex">P(z)=\sum_{r=0}^{d-1}\frac{f^{(r)}(1)}{r!}(z-1)^r</annotation></semantics></math>
+and choose a positive integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+clearing its coefficient denominators. Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo>−</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow></msub><msub><mi>g</mi><mi>k</mi></msub><msup><mi>z</mi><mi>k</mi></msup><mi>/</mi><mi>k</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">g=D(f-P)=\sum_{k\ge0}g_kz^k/k!</annotation></semantics></math>
+has integer coefficients,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>g</mi><mi>k</mi></msub><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>k</mi><mi>d</mi></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">|g_k|=O(k^d)</annotation></semantics></math>,
+and the same eventual divisibilities. Moreover
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>g</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">g^{(r)}(1)=0</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>r</mi><mo>&lt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">0\le r&lt;d</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">B(z)=g(z)/(z-1)^d</annotation></semantics></math>
+is entire. Expansion at zero gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></munder><msub><mi>b</mi><mi>n</mi></msub><mfrac><msup><mi>z</mi><mi>n</mi></msup><mrow><mi>n</mi><mi>!</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>b</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>d</mi></msup><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mi>n</mi></munderover><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>n</mi><mo>−</mo><mi>k</mi><mo>+</mo><mi>d</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mrow><mi>n</mi><mi>!</mi></mrow><mrow><mi>k</mi><mi>!</mi></mrow></mfrac><msub><mi>g</mi><mi>k</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">B(z)=\sum_{n\ge0}b_n\frac{z^n}{n!},\qquad
+ b_n=(-1)^d\sum_{k=0}^n\binom{n-k+d-1}{d-1}\frac{n!}{k!}g_k.
+ \tag{Q}\label{capacity:eq:quotient-prefix}</annotation></semantics></math>
+In particular
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>b</mi><mi>n</mi></msub><annotation encoding="application/x-tex">b_n</annotation></semantics></math>
+is an integer. Fix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>,
+and choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+so that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><msub><mi>g</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">q\mid g_k</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k\ge K</annotation></semantics></math>.
+Those terms in are divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>.
+For each of the finitely many
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&lt;</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k&lt;K</annotation></semantics></math>,
+the factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mi>/</mi><mi>k</mi><mi>!</mi></mrow><annotation encoding="application/x-tex">n!/k!</annotation></semantics></math>
+is divisible by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+once
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is sufficiently large. Hence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>∣</mo><msub><mi>b</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">q\mid b_n</annotation></semantics></math>
+eventually as well.</p>
+<p>The vanishing derivatives imply
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>k</mi><mo>≥</mo><mn>0</mn></mrow></msub><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>g</mi><mi>k</mi></msub><mi>/</mi><mi>k</mi><mi>!</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum_{k\ge0}R(k)g_k/k!=0</annotation></semantics></math>
+for every polynomial
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+of degree less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+because the falling factorials of orders
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>d</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0,\ldots,d-1</annotation></semantics></math>
+form a basis. Apply this to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>n</mi><mo>−</mo><mi>k</mi><mo>+</mo><mi>d</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">R(k)=\binom{n-k+d-1}{d-1}</annotation></semantics></math>,
+interpreted as a polynomial. Its values at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo>+</mo><mi>d</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=n+1,\ldots,n+d-1</annotation></semantics></math>
+vanish, and at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>n</mi><mo>+</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">k=n+j</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≥</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">j\ge d</annotation></semantics></math>,
+they equal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">(-1)^{d-1}\binom{j-1}{d-1}</annotation></semantics></math>.
+The complementary tail of therefore gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><munder><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mi>d</mi></mrow></munder><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><msub><mi>g</mi><mrow><mi>n</mi><mo>+</mo><mi>j</mi></mrow></msub><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">b_n=n!\sum_{j\ge d}\binom{j-1}{d-1}\frac{g_{n+j}}{(n+j)!}.
+ \tag{R}\label{capacity:eq:quotient-tail}</annotation></semantics></math>
+All series here converge absolutely. For large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+the absolute value is bounded by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+times the sum of
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>j</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mrow><mi>n</mi><mi>!</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>j</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>d</mi></msup></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>j</mi><mo>≥</mo><mi>d</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">v_j=\binom{j-1}{d-1}\frac{n!(n+j)^d}{(n+j)!},\qquad j\ge d.</annotation></semantics></math>
+Their successive ratios satisfy
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>v</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>v</mi><mi>j</mi></msub></mfrac><mo>=</mo><mfrac><mi>j</mi><mrow><mi>j</mi><mo>−</mo><mi>d</mi><mo>+</mo><mn>1</mn></mrow></mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>n</mi><mo>+</mo><mi>j</mi><mo>+</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>+</mo><mi>j</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>d</mi></msup><mfrac><mn>1</mn><mrow><mi>n</mi><mo>+</mo><mi>j</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mo>≤</mo><mfrac><mrow><mi>d</mi><msup><mn>2</mn><mi>d</mi></msup></mrow><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{v_{j+1}}{v_j}
+ =\frac{j}{j-d+1}\left(\frac{n+j+1}{n+j}\right)^d\frac1{n+j+1}
+ \le\frac{d2^d}{n+1}.</annotation></semantics></math> For sufficiently
+large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+this is at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>,
+whereas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>d</mi></msub><mo>=</mo><mi>n</mi><mi>!</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>d</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>d</mi></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mi>d</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow><annotation encoding="application/x-tex">v_d=n!(n+d)^d/(n+d)!</annotation></semantics></math>
+is bounded. Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(b_n)</annotation></semantics></math>
+is bounded. Choose an integer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+larger than its eventual absolute bound. Eventual divisibility by this
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+forces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">b_n=0</annotation></semantics></math>
+eventually. It follows that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+are polynomials.</p>
+<p>For the converse, when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">c&gt;d</annotation></semantics></math>,
+Theorem  gives an open set of vectors realised by nonpolynomial members
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℋ</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\mathcal H_c</annotation></semantics></math>.
+Every nonempty open subset of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℝ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^d</annotation></semantics></math>
+meets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="double-struck">ℚ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb Q^d</annotation></semantics></math>.
+This completes the proof of the sharp threshold.</p>
+<div class="remark">
+<p><strong>Remark</strong> (Why the congruences cannot be omitted).
+<em>The function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mi>d</mi></msup><msup><mi>e</mi><mi>z</mi></msup></mrow><annotation encoding="application/x-tex">(z-1)^de^z</annotation></semantics></math>
+has its first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+derivatives zero at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
+Its integer factorial coefficients are
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>d</mi></munderover><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>d</mi><mo>−</mo><mi>j</mi></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>d</mi><mi>j</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>j</mi></msub><mo>=</mo><msup><mi>n</mi><mi>d</mi></msup><mo>−</mo><mfrac><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mn>2</mn></mfrac><msup><mi>n</mi><mrow><mi>d</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><msub><mi>O</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mrow><mi>d</mi><mo>−</mo><mn>2</mn></mrow></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p_d(n)=\sum_{j=0}^d(-1)^{d-j}\binom dj(n)_j
+       =n^d-\frac{d(d+1)}2n^{d-1}+O_d(n^{d-2})</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d\ge2</annotation></semantics></math>;
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">d=1</annotation></semantics></math>
+they are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><msub><mi>p</mi><mi>d</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>n</mi><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">0\le p_d(n)\le n^d</annotation></semantics></math>
+eventually. Replacing the finitely many earlier coefficients, including
+the constant coefficient, by zero adds a rational polynomial. The
+resulting nonpolynomial function has nonnegative integer coefficients
+bounded by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mi>d</mi></msup><annotation encoding="application/x-tex">n^d</annotation></semantics></math>
+everywhere and all the specified derivatives rational. It fails the
+eventual divisibility assumption. Full dimension and even the growth
+bound alone therefore do not supply the arithmetic conclusion.</em></p>
+</div>
+</section>
 <section id="sec:results" class="level2">
 <h2>Lambert subsums across bases</h2>
 <p>For real
@@ -869,7 +1444,7 @@ and put
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">{</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>1</mn></mrow></munder><msub><mi>ε</mi><mi>n</mi></msub><msub><mi>u</mi><mi>n</mi></msub><mo>:</mo><mspace width="0.222em"></mspace><msub><mi>ε</mi><mi>n</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>D</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">}</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>C</mi><mi>N</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>n</mi><mo>&gt;</mo><mi>N</mi></mrow></munder><msub><mi>D</mi><mi>n</mi></msub><msub><mi>u</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">V=\Bigl\{\sum_{n\ge1}\varepsilon_nu_n:\ \varepsilon_n\in\{0,1,\dots,D_n\}\Bigr\},
  \qquad C_N=\sum_{n&gt;N}D_nu_n .</annotation></semantics></math></p>
 <div class="theorem">
-<p><strong>Theorem 3.1</strong> (choices against contraction). <em> <span
+<p><strong>Theorem 6.1</strong> (choices against contraction). <em> <span
 class="upright">(i)</span> For every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
 the Lebesgue measure of
@@ -916,7 +1491,7 @@ higher-dimensional approximation lemma is Lemma 7.2 of the same paper.
 We claim no novelty for Theorem . Its use here is to say which side each
 problem lies on.</p>
 <div class="theorem">
-<p><strong>Theorem 3.2</strong> (the subseries across bases). <em> Let
+<p><strong>Theorem 6.2</strong> (the subseries across bases). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t&gt;1</annotation></semantics></math>
 be real.</em></p>
 <p><em><span class="upright">(a)</span> If
@@ -983,7 +1558,7 @@ so any proof at base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
 must use more than the shape of the series.</p>
 <div class="theorem">
-<p><strong>Theorem 3.3</strong> (divisibility chains). <em> Let
+<p><strong>Theorem 6.3</strong> (divisibility chains). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>b</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t=a/b&gt;1</annotation></semantics></math>
 in lowest terms and let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>n</mi><mn>1</mn></msub><mo>&lt;</mo><msub><mi>n</mi><mn>2</mn></msub><mo>&lt;</mo><mi>⋯</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">S=\{n_1&lt;n_2&lt;\cdots\}</annotation></semantics></math>
@@ -1068,7 +1643,7 @@ is <em>rejected at step
 when that happens first at index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</p>
 <div class="theorem">
-<p><strong>Theorem 3.4</strong> (the fixed-depth rational count). <em>
+<p><strong>Theorem 6.4</strong> (the fixed-depth rational count). <em>
 Fix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\ge1</annotation></semantics></math>.
 Among the reduced fractions
@@ -1406,7 +1981,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒜</mi><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math>
 is the set of all subsums.</p>
 <div class="lemma">
-<p><strong>Lemma 3.5</strong> (the removed intervals). <em>
+<p><strong>Lemma 6.5</strong> (the removed intervals). <em>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>E</mi><mo stretchy="false" form="postfix">]</mo><mo>∖</mo><mi mathvariant="script">𝒜</mi></mrow><annotation encoding="application/x-tex">[0,E]\smallsetminus\mathcal A</annotation></semantics></math>
 is the disjoint union, over finite nonempty
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>,
@@ -1452,7 +2027,7 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>n</mi></msub><mo>=</mo><msub><mo>∑</mo><mrow><mi>j</mi><mo>≥</mo><mn>1</mn></mrow></msub><msup><mn>2</mn><mrow><mi>−</mi><mi>j</mi><mi>n</mi></mrow></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>j</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_n=\sum_{j\ge1}2^{-jn}/(2^j-1)</annotation></semantics></math>. ◻</p>
 </div>
 <div class="lemma">
-<p><strong>Lemma 3.6</strong> (translation by a finite subsum). <em> Let
+<p><strong>Lemma 6.6</strong> (translation by a finite subsum). <em> Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
 be finite with largest element
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
@@ -1698,7 +2273,7 @@ does not prove membership. No rational is known to have an infinite
 at base
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</p>
 <div class="problem">
-<p><strong>Problem 3.7</strong>. <em> Decide whether
+<p><strong>Problem 6.7</strong>. <em> Decide whether
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>
 is a subsum of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sum(2^n-1)^{-1}</annotation></semantics></math>.
@@ -2138,7 +2713,37 @@ linear/superlinear factorial contrast. Those ingredients are credited to
 that review, not presented as discoveries of this paper. The extensions
 developed here are the exact capacity criterion on arbitrary strict
 integer divisibility chains, the factorial support classification and
-its integer-exponent comparison, and the common-divisor formulation.</p>
+its integer-exponent comparison, the common-divisor formulation, and the
+derivative dimension and rationality thresholds proved above.</p>
+<p>The derivative theorem combines residue feedback from #251 with the
+treatment of factorial carries in #68. Identity  interprets a carry as
+multiplication by a polynomial vanishing at the evaluation point. This
+produces the independent higher derivative instead of assuming its
+availability. The moving coordinates in make the full-dimensional
+critical construction possible; the counting obstruction proves its
+measure is zero. Conversely, division by the same vanishing polynomial
+preserves integer factorial coefficients and eventual divisibility. The
+complementary tail formula then proves rational-derivative rigidity at
+precisely the same threshold. These are explicit transfers between
+representations, not evidence for a general improvement in automated
+discovery. The other programmes motivated comparison of rank, arithmetic
+and analytic obstructions; their endpoints are not premises here.</p>
+<p>Hurwitz functions and interpolation by vanishing polynomials are
+classical. Waldschmidt’s survey <span class="citation"
+data-cites="waldschmidt2022"><a href="#ref-31">[31]</a></span> describes growth and multipoint
+derivative questions. Here we fix a polynomial bound on the integer
+Taylor coefficients and study the dimension and interior of a finite
+real derivative image, as well as rationality of finitely many
+derivatives under eventual coefficient divisibility. This last
+hypothesis is restrictive: it is not an unrestricted rational-value
+theorem for Hurwitz functions. For the classical scalar dimension
+formula, see Wegmann <span class="citation"
+data-cites="wegmann1968"><a href="#ref-32">[32]</a></span>, who credits Šalát. Our additional task
+is to separate a joint derivative image after several carry
+constructions have been added. Neither the definition of a Hurwitz
+function nor the mass-distribution argument is new. The precise
+dimension formula and the two sharp thresholds are proved here;
+historical priority remains unestablished.</p>
 <p>Airey, Mance and Vandehey already use digit sets eventually divisible
 by every fixed integer while retaining asymptotically full digit entropy
 <span class="citation" data-cites="amv2015"><a href="#ref-30">[30]</a></span>. Their theorem
@@ -2171,6 +2776,18 @@ changes; in particular factorial denominators
 here are not
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>!</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n!-1</annotation></semantics></math>
 from #68.</p>
+<p>The accompanying module <a
+href="https://github.com/wcook04/plectis-erdos/blob/2bd14835b940b3c695a9cc8828c7e2967d65c053/lean/ErdosProblems/Synthesis/FactorialJet.lean"><code>FactorialJet.lean</code></a>
+checks the finite factorial-carry identity and its first weighted
+version, including endpoint terms, and preservation of divisibility. It
+does not formalise Theorems  and , their limits or dimension proof. The
+exact-arithmetic script <code>jets.py</code> checks the formulas at
+specified finite degrees, both quotient formulas, and independently
+checks the uniform tail majorant in . These finite degree tests are not
+the proof for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.</p>
+<p>The capacity criterion already covers non-power and oscillating
+allowances.</p>
 </section>
 <section id="sec:questions" class="level2">
 <h2>Further questions</h2>
@@ -2367,6 +2984,17 @@ operations for Cantor series expansions and associated fractals.
 II</em>, New York J. Math. <strong>21</strong> (2015), 1311–1326. <a
 href="https://nyjm.albany.edu/j/2015/21-60v.pdf"
 class="uri">https://nyjm.albany.edu/j/2015/21-60v.pdf</a>.</p></li>
+<li id="ref-31"><p>M. Waldschmidt, <em>Integer-valued functions, Hurwitz functions,
+and related topics: a survey</em>, in K. Kurşungöz and A. Zeytin (eds.),
+<em>Number Theory: Proceedings of the Journées Arithmétiques 2019</em>,
+De Gruyter, 2022, pp. 61–82. <a
+href="https://doi.org/10.1515/9783110761115-005"
+class="uri">https://doi.org/10.1515/9783110761115-005</a>.</p></li>
+<li id="ref-32"><p>H. Wegmann, <em>Die Hausdorffsche Dimension von Mengen reeller
+Zahlen, die durch Zifferneigenschaften einer Cantorentwicklung
+charakterisiert sind</em>, Czechoslovak Math. J. <strong>18</strong>
+(1968), 622–632. <a href="https://dml.cz/handle/10338.dmlcz/100861"
+class="uri">https://dml.cz/handle/10338.dmlcz/100861</a>.</p></li>
 </ol>
 </section>
   </div>

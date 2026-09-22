@@ -928,7 +928,7 @@
       "subject": "Erdős #257",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 165,
+      "pages": 166,
       "question": "What weighted and cover criteria prove hereditary Mersenne irrationality for Erdős #257, and which targets remain open?",
       "precis": "A weighted summability criterion proves irrationality of reciprocal Mersenne subseries: if h is the part of a supported on a finite nonempty prime set P, every infinite A with ∑ h(a)/(a(b^{h(a)}−1)) finite has irrational ∑ (b^a−1)^{-1}. The base-two condition gives the conclusion at every integer base for every infinite subset, and permits an example with divergent reciprocal sum, while excluding full support and all odd exponents. The proof averages over a finite part of the support and over dyadic observation lengths. Erdős's weaker reciprocal-summable theorem is proved in full, and a common window extends both arguments to unions of weighted and positive-cover supports. Finite-denominator and achievement-set calculations formulate tests for the targets 1/2 and 1/21; those tests do not decide either target or the universal question. Prime support at base 2 and squarefree support at power-of-two bases are attributed as existing work.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #257: selected checked premises, finite computations, closed routes, surviving obligations, and their exact evidence bands",
@@ -952,7 +952,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "f497a0adf6a7046d6c0287365824f5c74cf9cc86391c466cb3d853a11ad8c8df",
+        "source_sha256": "b64addecfcbd27c6d00acb23bbba92f282140eb6dbf56f55f2319a3ee76cc2ae",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 4500,
@@ -992,8 +992,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "8782f5efa6e989d4c5395f6d6bd48704f25e1fa27d74c339ad30c6caca5efce0",
-        "html_exact_tex_sha256": "e7f47265ef2eff8b1517f979884dbea393e73fbec21f913007a414a8d5035fc9"
+        "html_mathml_sha256": "ccfbd3246e66ef39c6e64d279efa9d50f6d00f6078fb7c6ad0358de719ba85b9",
+        "html_exact_tex_sha256": "903695b6dbbb3f363452f55600b7fcdec4b195cc748bc0e3a8de12a1880f69c2"
       },
       "sections": [
         {

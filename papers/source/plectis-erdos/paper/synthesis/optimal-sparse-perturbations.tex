@@ -7,7 +7,7 @@
 \usepackage{xurl}
 \hypersetup{
   pdftitle={Reading eight Erdős problems together},
-  pdfsubject={Subsum sets, congruences and limits of irrationality methods},
+  pdfsubject={Derivative interpolation, congruences and limits of irrationality methods},
   pdfkeywords={irrationality, Lambert series, subsum sets, achievement sets, Mahler's method, Farey fractions},
 }
 
@@ -19,13 +19,21 @@
 \title{Reading Eight Erd\H{o}s Problems Together}
 \subtitle{Subsum sets, congruences and limits of irrationality methods}
 \author{Will Cook}
-\date{21 September 2026}
+\date{22 September 2026}
 
 \begin{document}
 \maketitle
 \noteprovenance
 \begin{abstract}
-We study series values under restrictions on digits, supports and congruences,
+Let $c>0$ and let $d\ge1$ be an integer. For entire functions
+$f(z)=\sum_{n\ge1}e_nz^n/n!$ with nonnegative integer
+coefficients $e_n\le n^c$ eventually, each eventually divisible by every fixed
+integer, the vectors $(f(1),\ldots,f^{(d-1)}(1))$ have Hausdorff dimension
+$\min(c,d)$. They contain an open set exactly when $c>d$; at $c=d$ they are
+full-dimensional, null and meagre. A nonpolynomial such function with all
+these derivatives rational exists exactly when $c>d$. Multiplication and
+division by powers of $z-1$ give the matching construction and obstruction.
+We also study series values under restrictions on supports and congruences,
 using questions from seven irrationality problems of Erd\H{o}s. Let $Q_n$ be
 positive integers with $Q_n\mid Q_{n+1}$ and $Q_{n+1}\ge2Q_n$, and let integer
 allowances $F_n\ge0$ satisfy $\sum F_n/Q_n<\infty$. Nonnegative integer digits
@@ -64,6 +72,14 @@ The factorial examples show that the arithmetic restrictions change a sharp
 support-gap threshold. Factorial denominators $n!$ in this construction are
 not the denominators $n!-1$ in \#68.
 
+Section~\ref{capacity:sec:jets-intro} asks whether a single factorial digit
+sequence can prescribe several derivatives independently. Theorems
+\ref{capacity:thm:jets} and~\ref{capacity:thm:rational-jets} give the sharp
+threshold and the dimension of the attainable vectors. The proof uses the
+scalar capacity theorem first, then a carry that preserves lower derivatives;
+Sections~\ref{capacity:sec:jets-proof} and~\ref{capacity:sec:rational-jets}
+give the argument and the rationality obstruction.
+
 The common Lambert series in \#257 and \#1049 gives a second comparison in
 Section~\ref{sec:results}: a base below two permits rational subsums, while
 nested denominators force irrationality on certain thin supports. Neither
@@ -78,6 +94,83 @@ results establish specified ingredients and quoted results, not the complete
 capacity classification or Lambert-chain theorem. The sources and originating
 review are credited in Section~\ref{capacity:sec:sources}. Historical novelty
 and independent expert review are not established.
+
+\section{Prescribing a value and its derivatives}\label{capacity:sec:jets-intro}
+An integer factorial expansion can represent a real number while its digits
+eventually vanish modulo every fixed integer. Can the same digits prescribe
+several real quantities independently? Consider their exponential generating
+function. Its derivatives at $1$ are different weighted sums of the same
+digits, so this is simultaneous prescription, not several independent expansions.
+
+For $c>0$, let $\mathcal H_c$ consist of the entire functions
+\[
+ \begin{gathered}
+ f(z)=\sum_{n\ge1}e_n\frac{z^n}{n!},\qquad e_n\in\Z_{\ge0},\\
+ e_n\le n^c\ \hbox{eventually},\qquad
+ (\forall q\ge1)\ q\mid e_n\ \hbox{eventually}.
+ \end{gathered}
+\]
+Polynomial coefficient growth implies locally uniform convergence of every
+derivative. Put $J_d(f)=(f(1),f'(1),\ldots,f^{(d-1)}(1))$ and
+$\mathcal J_{d,c}=\{J_d(f):f\in\mathcal H_c\}\subseteq\R^d$.
+These are Hurwitz functions: all derivatives at $0$ are integers. Our
+restrictions concern those integers; the prescribed derivatives are at $1$.
+
+\begin{theorem}[Dimension and the sharp interpolation threshold]
+\label{capacity:thm:jets}
+For every $c>0$ and integer $d\ge1$,
+\[
+ \dim_{\mathrm H}\mathcal J_{d,c}=\min(c,d).
+\]
+If $c>d$, this set contains a nonempty open subset of $\R^d$.
+If $c\le d$, it has $d$-dimensional Lebesgue measure zero and is meagre;
+these conclusions already follow from eventual evenness of the coefficients.
+The dimension lower bound and the open-set conclusion can both be realised
+with $e_n\le n^c$ at every position, an arbitrarily long initial zero segment,
+and congruence cutoffs common to the constructed family. The open set can
+be realised using only functions with eventually positive coefficients.
+\end{theorem}
+
+\begin{theorem}[Rational derivatives force polynomiality]
+\label{capacity:thm:rational-jets}
+Let $d\ge1$, and let
+\[
+ f(z)=\sum_{n\ge0}a_n\frac{z^n}{n!},\qquad a_n\in\Z,\quad |a_n|=O(n^d).
+\]
+Assume that, for each $q\ge1$, $q\mid a_n$ eventually.
+If $f(1),f'(1),\ldots,f^{(d-1)}(1)$ are all rational, then $f$ is a polynomial.
+Consequently, a nonpolynomial member of $\mathcal H_c$ with all these
+derivatives rational exists if and only if $c>d$.
+\end{theorem}
+
+Thus if a nonpolynomial $f\in\mathcal H_2$ has rational $f(1)$, its derivative
+$f'(1)$ is irrational. Increasing the allowance to $n^{2+\varepsilon}$
+permits both to be rational, for every $\varepsilon>0$. At $c=2$, the
+attainable pairs nevertheless form a full-dimensional null set.
+We do not assert that every vector is attained:
+nonnegative coefficients impose inequalities such as $f'(1)\ge f(1)$.
+
+The identity behind the construction is
+\[
+ (z-1)\sum_{n\ge0}b_n\frac{z^n}{n!}
+ =-b_0+\sum_{n\ge1}(n b_{n-1}-b_n)\frac{z^n}{n!}.
+ \tag{J}\label{capacity:eq:jet-carry}
+\]
+Adding the left-hand side to a function leaves its value at $1$ unchanged
+and changes its derivative there by
+$\sum b_n/n!$. Multiplication by $(z-1)^k$ leaves the first $k$ entries of
+the derivative vector unchanged, at a cost of $k$ powers of $n$ in the
+coefficient allowance. The scalar construction of
+Theorem~\ref{capacity:thm:capacity} supplies the free quantity.
+For necessity, eventual evenness reduces the number of prefixes by an
+exponential factor, which forces measure zero even at $c=d$.
+Section~\ref{capacity:sec:jets-proof} proves the theorem, including its
+dimension statement at the critical exponent. In the reverse direction,
+division by $(z-1)^d$ converts vanishing derivatives into bounded integer
+coefficients. Eventual divisibility then forces them to vanish; this proves
+Theorem~\ref{capacity:thm:rational-jets} in
+Section~\ref{capacity:sec:rational-jets}.
+
 
 \section{An exact capacity criterion}\label{capacity:sec:criterion}
 A factorial expansion usually permits a digit of size about $n$ at position
@@ -507,6 +600,233 @@ $F(n)/n=0$ at every even index.  The exact telescoping identities and sample
 greedy expansions are reproduced by the script cited in
 Section~\ref{sec:misread}; the interval conclusion follows from this argument,
 not from the samples.
+
+
+\section{Proof of the derivative interpolation theorem}\label{capacity:sec:jets-proof}
+Write $(n)_r=n(n-1)\cdots(n-r+1)$, with $(n)_0=1$ and $(n)_r=0$ for
+$r>n$. Then $f^{(r)}(1)=\sum_n(n)_r e_n/n!$.
+
+\subsection{Nullity at and below the critical exponent}
+Here only eventual evenness is needed. Fix a cutoff $K$ and a prefix before
+$K$, and allow every continuation with $0\le e_n\le n^c$ and $2\mid e_n$
+for $n\ge K$. The derivative vectors form a compact set $V$.
+For all sufficiently large $n$, there are at most
+\[
+ \lfloor n^c/2\rfloor+1\le(3/4)n^c
+\]
+choices at position $n$. Thus the number of prefixes through $N$ is at most
+$C(3/4)^N(N!)^c$. Every remaining derivative tail has norm at most
+$C_{c,d}N^{c+d-1}/(N+1)!$, by comparison with its first term. Balls of this
+radius, one for each prefix, cover $V$ with total $d$-dimensional volume
+at most
+\[
+ C'(3/4)^N(N!)^{c-d}N^{d(c+d-1)}.
+\]
+For $c\le d$ this tends to zero. Hence $V$ is null and, being compact,
+nowhere dense. Countably many cutoffs and integer prefixes cover the
+attainable set. This proves both conclusions, including the critical case.
+
+\subsection{Lifting a scalar interval to an open set}
+First allow signed integer coefficients. For every $\eta>0$ and cutoff
+$N\ge1$, consider series supported on $n\ge N$ with $|e_n|\le\eta n^c$
+and the same eventual divisibilities. We prove by induction on $d$ that
+their derivative vectors contain an open set whenever $c>d$.
+For $d=1$, apply Theorem~\ref{capacity:thm:capacity} to
+$F_n=\lfloor\eta n^c\rfloor$ and $Q_n=n!$, starting after $N$.
+The first tail term makes $U_N\to\infty$ when $c>1$; the all-position
+version gives an interval with common congruence cutoffs.
+
+For the induction step, use dimension $d-1$ and exponent $c-1$ for
+$B(z)=\sum b_nz^n/n!$ with $|b_n|\le(\eta/4)n^{c-1}$ and $b_n=0$
+before $N$. The higher derivative coordinates of $(z-1)B$ form an open
+set $W\subseteq\R^{d-1}$, because
+\[
+ ((z-1)B)^{(r)}(1)=rB^{(r-1)}(1),\qquad r\ge1.
+\]
+Choose $y_0+[-2\rho,2\rho]^{d-1}\subset W$. Choose a later cutoff $M$
+so that every $A$ supported on $n\ge M$ with
+$0\le a_n\le(\eta/2)n^c$ has $|A^{(r)}(1)|<\rho$ for $1\le r<d$.
+This follows uniformly from the convergent derivative tails. The scalar
+theorem gives a nondegenerate interval $I$ of values $A(1)$.
+For each $x\in I$ choose one such $A$. For every
+$y\in y_0+(-\rho,\rho)^{d-1}$, a suitable $B$ cancels the higher
+coordinates of $A$ and gives $y$. Hence the attainable vectors contain
+\[
+ I^\circ\times\bigl(y_0+(-\rho,\rho)^{d-1}\bigr).
+\]
+No continuous choice of $A$ is assumed: uniform smallness of all its higher
+derivatives makes the same cube work for every $x$.
+The coefficients of $A+(z-1)B$ obey the bound, since
+$n|b_{n-1}|+|b_n|\le(\eta/2)n^c$; divisibility holds term by term.
+The finitely many families in the induction have common cutoffs for each $q$.
+
+To restore nonnegativity, choose nested positive integers $m_n\to\infty$
+such that every fixed integer eventually divides $m_n$ and
+$\log m_n=o(\log n)$. One choice is the largest factorial at most
+$\log(n+3)$. For large $n$,
+\[
+ h_n=m_n\left\lfloor\frac{n^c}{2m_n}\right\rfloor,
+ \qquad n^c/3\le h_n\le n^c/2.
+\]
+Set earlier $h_n$ to zero and start the signed construction after that point.
+Take $\eta=1/4$. Adding $\sum h_nz^n/n!$ translates the open set and
+puts every sufficiently late coefficient between $n^c/12$ and $3n^c/4$.
+All coefficients lie between $0$ and $n^c$, and each function is nonpolynomial.
+
+\subsection{The upper bound for Hausdorff dimension}
+Fix a finite prefix and an allowance cutoff. Through index $N$ there are
+at most $\prod_{n\le N}(\lfloor n^c\rfloor+1)$ continuations, whose
+logarithm is $c\log(N!)+O(N)$. Each derivative tail has norm at most
+$O_{c,d}(N^{c+d-1}/(N+1)!)$. For any $s>c$, the sum of the $s$-th powers
+of the diameters of these covering balls tends to zero. Countably many
+prefixes and cutoffs preserve this bound; the ambient bound is $d$.
+
+\subsection{A separated construction attaining the dimension}
+For $0\le k<d$ with $k<c$, set $\alpha_k=\min(1,c-k)$. Use only these
+indices. Their sum is $s=\min(c,d)$. Let $\varepsilon=2^{-d-6}$ and use
+the same $m_n$. Independently for every $n$ and $k$, choose
+\[
+ b_n^{(k)}\in\left\{0,m_n,2m_n,\ldots,
+ m_n\left\lfloor\frac{\varepsilon n^{\alpha_k}}{m_n}\right\rfloor\right\}.
+ \tag{D}\label{capacity:eq:jet-digits}
+\]
+All digits vanish before a large cutoff. Put
+\[
+ f(z)=\sum_n h_n\frac{z^n}{n!}
+       +\sum_k(z-1)^k\sum_n b_n^{(k)}\frac{z^n}{n!}.
+ \tag{F}\label{capacity:eq:jet-code}
+\]
+The coefficient added at position $n$ is
+\[
+ \sum_k\sum_{j=0}^k(-1)^{k-j}\binom{k}{j}(n)_j b_{n-j}^{(k)},
+\]
+with negative indices interpreted as zero. Its absolute value is at most
+$\varepsilon\sum_{k<d}2^k n^c<n^c/4$, since $j+\alpha_k\le c$.
+Thus $f\in\mathcal H_c$, with the allowance everywhere and common
+congruence cutoffs. Local uniform convergence makes the image of this
+product of finite digit sets compact.
+
+The crucial step is to rule out cancellation between different codes.
+Suppose two codes first differ at index $n$, and let $g$ be their difference.
+For $0\le r<d$, take the Taylor coefficients of $z^{-n}g(z)$ at $1$:
+\[
+ [u^r](1+u)^{-n}g(1+u)
+ =\frac{\Delta b_n^{(r)}}{n!}
+   +\sum_{m>n}\sum_{k\le r}
+       \frac{\Delta b_m^{(k)}}{m!}\binom{m-n}{r-k}.
+ \tag{T}\label{capacity:eq:moving-taylor}
+\]
+Unused coordinates are zero. The binomial coefficient now depends on
+$m-n$, not on $m$. Since $|\Delta b_m^{(k)}|\le\varepsilon m$, the
+absolute tail, multiplied by $n!$, is at most
+\[
+ \varepsilon\sum_{t\ge1}\frac{2^t}{(t-1)!}
+ =2e^2\varepsilon<18\varepsilon<\frac12.
+\]
+Here $n!/(n+t-1)!\le1/(t-1)!$ and
+$\sum_{k\le r}\binom{t}{r-k}\le2^t$. Some $\Delta b_n^{(r)}$ is a
+nonzero integer. Therefore one coordinate on the left of
+\eqref{capacity:eq:moving-taylor} has absolute value at least $1/(2n!)$.
+The linear map from $J_d(g)$ to those coordinates has norm at most
+$C_dn^{d-1}$: its entries are
+$(-1)^j\binom{n+j-1}{j}/(r-j)!$, $0\le j\le r<d$.
+Distinct codes first differing at $n$ consequently have separation at least
+\[
+ \delta_n=\frac{1}{2C_dn^{d-1}n!}
+ \tag{S}\label{capacity:eq:jet-separation}
+\]
+in the supremum norm of $\R^d$.
+
+Give all choices in \eqref{capacity:eq:jet-digits} uniform independent
+probabilities. If $A_N$ counts prefixes through $N$, then
+\[
+ \log A_N=s\log(N!)+o(N\log N),
+\]
+because $\log m_n=o(\log n)$ and each used $\alpha_k$ is positive.
+The separation makes the coding injective. A ball of radius less than
+$\delta_N/2$ meets at most one length-$N$ cylinder and has measure at most
+$A_N^{-1}$. For a small radius $r$, choose $N$ with
+$\delta_{N+1}/2\le r<\delta_N/2$. Since
+$\log(1/\delta_{N+1})/\log(N!)\to1$, for every $t<s$ this implies
+$\mu(B(x,r))\le C_t r^t$. Summing this inequality over any ball cover
+gives positive $t$-dimensional Hausdorff content. The dimension is at least
+$s$, completing Theorem~\ref{capacity:thm:jets}.
+
+\section{The arithmetic threshold for rational derivatives}
+\label{capacity:sec:rational-jets}
+We prove Theorem~\ref{capacity:thm:rational-jets}. The coefficient estimate
+and the divisibilities are both needed, including at the critical exponent.
+
+Suppose the first $d$ derivatives at $1$, starting with the value, are rational.
+Subtract their Taylor polynomial
+\[
+ P(z)=\sum_{r=0}^{d-1}\frac{f^{(r)}(1)}{r!}(z-1)^r
+\]
+and choose a positive integer $D$ clearing its coefficient denominators.
+Then $g=D(f-P)=\sum_{k\ge0}g_kz^k/k!$ has integer coefficients,
+$|g_k|=O(k^d)$, and the same eventual divisibilities. Moreover
+$g^{(r)}(1)=0$ for $0\le r<d$. Thus $B(z)=g(z)/(z-1)^d$ is entire.
+Expansion at zero gives
+\[
+ B(z)=\sum_{n\ge0}b_n\frac{z^n}{n!},\qquad
+ b_n=(-1)^d\sum_{k=0}^n\binom{n-k+d-1}{d-1}\frac{n!}{k!}g_k.
+ \tag{Q}\label{capacity:eq:quotient-prefix}
+\]
+In particular $b_n$ is an integer. Fix $q$, and choose $K$ so that
+$q\mid g_k$ for $k\ge K$. Those terms in \eqref{capacity:eq:quotient-prefix}
+are divisible by $q$. For each of the finitely many $k<K$, the factor
+$n!/k!$ is divisible by $q$ once $n$ is sufficiently large. Hence
+$q\mid b_n$ eventually as well.
+
+The vanishing derivatives imply
+$\sum_{k\ge0}R(k)g_k/k!=0$ for every polynomial $R$ of degree less than
+$d$, because the falling factorials of orders $0,\ldots,d-1$ form a basis.
+Apply this to $R(k)=\binom{n-k+d-1}{d-1}$, interpreted as a polynomial.
+Its values at $k=n+1,\ldots,n+d-1$ vanish, and at $k=n+j$, $j\ge d$,
+they equal $(-1)^{d-1}\binom{j-1}{d-1}$. The complementary tail of
+\eqref{capacity:eq:quotient-prefix} therefore gives
+\[
+ b_n=n!\sum_{j\ge d}\binom{j-1}{d-1}\frac{g_{n+j}}{(n+j)!}.
+ \tag{R}\label{capacity:eq:quotient-tail}
+\]
+All series here converge absolutely. For large $n$, the absolute value is
+bounded by $C$ times the sum of
+\[
+ v_j=\binom{j-1}{d-1}\frac{n!(n+j)^d}{(n+j)!},\qquad j\ge d.
+\]
+Their successive ratios satisfy
+\[
+ \frac{v_{j+1}}{v_j}
+ =\frac{j}{j-d+1}\left(\frac{n+j+1}{n+j}\right)^d\frac1{n+j+1}
+ \le\frac{d2^d}{n+1}.
+\]
+For sufficiently large $n$ this is at most $1/2$, whereas
+$v_d=n!(n+d)^d/(n+d)!$ is bounded. Thus $(b_n)$ is bounded.
+Choose an integer $q$ larger than its eventual absolute bound. Eventual
+divisibility by this $q$ forces $b_n=0$ eventually. It follows that $B$,
+$g$ and $f$ are polynomials.
+
+For the converse, when $c>d$, Theorem~\ref{capacity:thm:jets} gives an open
+set of vectors realised by nonpolynomial members of $\mathcal H_c$.
+Every nonempty open subset of $\R^d$ meets $\mathbb Q^d$. This completes
+the proof of the sharp threshold.
+
+\begin{remark}[Why the congruences cannot be omitted]
+The function $(z-1)^de^z$ has its first $d$ derivatives zero at $1$.
+Its integer factorial coefficients are
+\[
+ p_d(n)=\sum_{j=0}^d(-1)^{d-j}\binom dj(n)_j
+       =n^d-\frac{d(d+1)}2n^{d-1}+O_d(n^{d-2})
+\]
+for $d\ge2$; for $d=1$ they are $n-1$.
+Thus $0\le p_d(n)\le n^d$ eventually. Replacing the finitely many earlier
+coefficients, including the constant coefficient, by zero adds a rational
+polynomial. The resulting nonpolynomial function has nonnegative integer
+coefficients bounded by $n^d$ everywhere and all the specified derivatives
+rational. It fails the eventual divisibility assumption. Full dimension
+and even the growth bound alone therefore do not supply the arithmetic
+conclusion.
+\end{remark}
 
 
 \section{Lambert subsums across bases}\label{sec:results}
@@ -1057,7 +1377,38 @@ Lemma~\ref{capacity:lem:feedback}, the sharp exponential support constants, and 
 linear/superlinear factorial contrast. Those ingredients are credited to that
 review, not presented as discoveries of this paper. The extensions developed here are the exact capacity criterion on arbitrary
 strict integer divisibility chains, the factorial support classification and
-its integer-exponent comparison, and the common-divisor formulation.
+its integer-exponent comparison, the common-divisor formulation, and the
+derivative dimension and rationality thresholds proved above.
+
+The derivative theorem combines residue feedback from \#251 with the
+treatment of factorial carries in \#68. Identity~\eqref{capacity:eq:jet-carry}
+interprets a carry as multiplication by a polynomial vanishing at the
+evaluation point. This produces the independent higher derivative instead of
+assuming its availability. The moving coordinates in
+\eqref{capacity:eq:moving-taylor} make the full-dimensional critical
+construction possible; the counting obstruction proves its measure is zero.
+Conversely, division by the same vanishing polynomial preserves integer
+factorial coefficients and eventual divisibility. The complementary tail
+formula then proves rational-derivative rigidity at precisely the same
+threshold. These are explicit
+transfers between representations, not evidence for a general improvement in
+automated discovery. The other programmes motivated comparison of rank,
+arithmetic and analytic obstructions; their endpoints are not premises here.
+
+Hurwitz functions and interpolation by vanishing polynomials are classical.
+Waldschmidt's survey \cite[Sections 2--3]{waldschmidt2022} describes growth
+and multipoint derivative questions. Here we fix a polynomial bound on the
+integer Taylor coefficients and study the dimension and interior of a finite
+real derivative image, as well as rationality of finitely many derivatives
+under eventual coefficient divisibility. This last hypothesis is restrictive:
+it is not an unrestricted rational-value theorem for Hurwitz functions.
+For the classical scalar dimension formula, see
+Wegmann \cite[Satz 4, p.~625]{wegmann1968}, who credits \v{S}al\'at.
+Our additional task is to separate a joint derivative image after several
+carry constructions have been added. Neither the definition of a Hurwitz
+function nor the mass-distribution argument is new. The precise dimension
+formula and the two sharp thresholds are proved here; historical priority
+remains unestablished.
 
 Airey, Mance and Vandehey already use digit sets eventually divisible by every
 fixed integer while retaining asymptotically full digit entropy
@@ -1086,6 +1437,19 @@ revision. No claim about any of the eight Erd\H{o}s programmes changes;
 in particular factorial denominators $n!$ here are not $n!-1$ from \#68.
 
 
+The accompanying module
+\href{https://github.com/wcook04/plectis-erdos/blob/2bd14835b940b3c695a9cc8828c7e2967d65c053/lean/ErdosProblems/Synthesis/FactorialJet.lean}{\texttt{FactorialJet.lean}}
+checks the finite
+factorial-carry identity and its first weighted version, including endpoint
+terms, and preservation of divisibility. It does not formalise
+Theorems~\ref{capacity:thm:jets} and~\ref{capacity:thm:rational-jets}, their
+limits or dimension proof. The
+exact-arithmetic script \texttt{jets.py} checks the formulas at specified
+finite degrees, both quotient formulas, and independently checks the uniform tail majorant in
+\eqref{capacity:eq:moving-taylor}. These finite degree tests are not the
+proof for every $d$.
+
+The capacity criterion already covers non-power and oscillating allowances.
 \section{Further questions}\label{sec:questions}
 
 
@@ -1255,6 +1619,16 @@ Monatshefte f\"ur Mathematik und Physik \textbf{49} (1941), 316--320.
 \emph{Normality preserving operations for Cantor series expansions and
 associated fractals. II}, New York J. Math. \textbf{21} (2015), 1311--1326.
 \url{https://nyjm.albany.edu/j/2015/21-60v.pdf}.
+\bibitem{waldschmidt2022} M.~Waldschmidt,
+\emph{Integer-valued functions, Hurwitz functions, and related topics: a survey},
+in K.~Kur\c{s}ung\"oz and A.~Zeytin (eds.), \emph{Number Theory: Proceedings
+of the Journ\'ees Arithm\'etiques 2019}, De Gruyter, 2022, pp.~61--82.
+\url{https://doi.org/10.1515/9783110761115-005}.
+\bibitem{wegmann1968} H.~Wegmann,
+\emph{Die Hausdorffsche Dimension von Mengen reeller Zahlen, die durch
+Zifferneigenschaften einer Cantorentwicklung charakterisiert sind},
+Czechoslovak Math. J. \textbf{18} (1968), 622--632.
+\url{https://dml.cz/handle/10338.dmlcz/100861}.
 \end{thebibliography}
 
 \section*{Declaration of generative AI use}

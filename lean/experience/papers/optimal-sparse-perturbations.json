@@ -5,7 +5,7 @@
   "subject": "Eight Erdős problems read together",
   "subject_kind": "synthesis",
   "form": "Cross-problem paper",
-  "pages": 22,
+  "pages": 28,
   "question": "When do choices of digits and supports fill intervals or force irrationality, and what do the resulting constructions reveal about methods used across the Erdős programmes?",
   "precis": "One account of the mathematics developed across the programmes: an exact tail-capacity criterion under eventual congruences, its sharp factorial support-gap threshold, rational and irrational Lambert subsums across bases, and the limits of finite greedy tests and other irrationality methods. Full arguments, exact counterexamples, unsuccessful routes and attribution are retained together. The principal proofs are ordinary mathematics; cited Lean ingredients have their own stated scope. Historical novelty and independent expert review are not established.",
   "owns": "the synthesis exposition and ordinary proofs across the covered problems: capacity and congruence constructions, Lambert subsums, rational-point counts, method limits and their research record",
@@ -29,10 +29,10 @@
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 30,
     "renderer_fingerprint": "d383526533396f6a",
-    "source_sha256": "1c34dc599349794d24826815537ad2dcf74bb38b20479c1856b9516350666ebd",
+    "source_sha256": "15e5174aa5a2cf6268cd28f0fc353e212ba2fff64561c230325d36d56f90e34d",
     "source_manifest_match": true,
     "publication_manifest_match": true,
-    "mathml_node_count": 803,
+    "mathml_node_count": 1039,
     "raw_math_fallback_count": 1,
     "warnings": {
       "mathml": [
@@ -45,14 +45,19 @@
       ],
       "mathjax": []
     },
-    "html_mathml_sha256": "08a89f131e48d8e261f2f543d98d08976b89d9d8c3c9d3dbfdfdac112d3ab468",
-    "html_exact_tex_sha256": "38ed8704e37cb8a1ec276f02964c2dd6c549d0b48675f8a7444db8e4f5378ef3"
+    "html_mathml_sha256": "d3d03b7a6063833db09a77b4fd53e2767643eb8cccdba35f35d519cea7b16b02",
+    "html_exact_tex_sha256": "f8c8091d32dc741cd65f16e79e1d0ab25589378fa23e37853b7bec267fddcea8"
   },
   "sections": [
     {
       "level": 2,
       "anchor": "sec:map",
       "label": "From individual problems to reusable questions"
+    },
+    {
+      "level": 2,
+      "anchor": "capacity:sec:jets-intro",
+      "label": "Prescribing a value and its derivatives"
     },
     {
       "level": 2,
@@ -108,6 +113,36 @@
       "level": 3,
       "anchor": "why-a-small-allowance-along-a-subsequence-is-insufficient",
       "label": "Why a small allowance along a subsequence is insufficient"
+    },
+    {
+      "level": 2,
+      "anchor": "capacity:sec:jets-proof",
+      "label": "Proof of the derivative interpolation theorem"
+    },
+    {
+      "level": 3,
+      "anchor": "nullity-at-and-below-the-critical-exponent",
+      "label": "Nullity at and below the critical exponent"
+    },
+    {
+      "level": 3,
+      "anchor": "lifting-a-scalar-interval-to-an-open-set",
+      "label": "Lifting a scalar interval to an open set"
+    },
+    {
+      "level": 3,
+      "anchor": "the-upper-bound-for-hausdorff-dimension",
+      "label": "The upper bound for Hausdorff dimension"
+    },
+    {
+      "level": 3,
+      "anchor": "a-separated-construction-attaining-the-dimension",
+      "label": "A separated construction attaining the dimension"
+    },
+    {
+      "level": 2,
+      "anchor": "capacity:sec:rational-jets",
+      "label": "The arithmetic threshold for rational derivatives"
     },
     {
       "level": 2,

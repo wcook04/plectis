@@ -951,6 +951,15 @@ the project reruns the supplied commands in their own environment and
 publishes what happened, including failures. That would reduce
 dependence on my machine and test whether the published instructions
 suffice elsewhere. It would not by itself establish correctness.</p>
+<p>Yuan et al. report a related end-to-end exercise in which two student
+teams worked from public documentation for scientific hardware designed
+more than a decade earlier <span class="citation"
+data-cites="yuan2023"><a href="#ref-12">[12]</a></span>. Their case concerns hardware
+documentation in large collaborations, not software-claim contracts, and
+supplies no evidence about Plectis. It is a precedent for treating an
+outsider’s attempt to complete the documented task as evidence about
+accessibility, including the failures and ambiguities that the project’s
+authors did not anticipate.</p>
 <p><em>Evaluator-controlled selection</em> means the evaluator chooses
 components from the full registry, without substitution when one proves
 awkward, and original failures stay on the record even if I later repair
@@ -1123,7 +1132,8 @@ disagree, not stronger evidence that the project is right.</p>
 <p>Use the appendix’s no-install block and select the version analysed
 here. The tour describes the checkout but does not choose a component
 claim. Ask the repository to find the audio example with</p>
-<p></p>
+<pre data-fontsize="\small"><code>PYTHONPATH=src python3 -m plectis comprehend \
+  --first-action &quot;audio level calculation&quot; --format text</code></pre>
 <p>The response identifies the audio component, but do not run its first
 suggested command: it writes to the repository’s saved receipt paths.
 Run the paper’s exact no-install command near the start of Section <a class="math-ref" href="#sec:run">4</a> instead; it writes only to
@@ -1213,7 +1223,7 @@ unfoldable in proofs); <code>unsafe</code> definitions (barred from
 theorems); and removed computation limits. No pattern appeared. The scan
 does not show whether files compile, proofs are valid, or statements
 express their authors’ intent <span class="citation"
-data-cites="leanvalidation"><a href="#ref-12">[12]</a></span>. Separate components run Lean on
+data-cites="leanvalidation"><a href="#ref-13">[13]</a></span>. Separate components run Lean on
 small test projects; their results apply only to those projects.
 Registry and trust checks passed; the 58 files are distinct from the 20
 mathematics components. The limited <code>make test</code> run covered
@@ -1301,7 +1311,10 @@ Functions.”</a> Updated 9 September 2024. Accessed 18 July
 Assurance and Software Safety Standard</em>, NASA-STD-8739.8B, Section
 4.4.1.2, p. 48, 2022. <a
 href="https://standards.nasa.gov/standard/NASA/NASA-STD-87398">NASA-STD-8739.8B</a>.</p></li>
-<li id="ref-12"><p>Lean Project. <em>Lean Language Reference</em> sections <a
+<li id="ref-12"><p>Melinda Yuan et al. “End-to-End Testing of Open-Source Hardware
+Documentation Developed in Large Collaborations.” 2023. <a
+href="https://arxiv.org/abs/2309.05942">arXiv:2309.05942</a>.</p></li>
+<li id="ref-13"><p>Lean Project. <em>Lean Language Reference</em> sections <a
 href="https://lean-lang.org/doc/reference/latest/ValidatingProofs/">“Validating
 a Lean Proof”</a> and <a
 href="https://lean-lang.org/doc/reference/latest/Definitions/Recursive-Definitions/#partial-and-unsafe-definitions">“Partial
