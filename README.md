@@ -361,8 +361,8 @@ the broader test suite runs.
 - [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
   how the authors compare the claims in the papers with the statements
   proved in Lean, and record which source version they used.
-- [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/ba9e7b27349712b1f0a703febf244ef33a245ee9):
-  the recorded public source snapshot contains 1,274 Lean modules and 153,502
+- [**Browse the Lean source**](https://github.com/wcook04/plectis-erdos/tree/d26363e8737156078eebf0a94a81b067454b030a):
+  the recorded public source snapshot contains 1,770 Lean modules and 158,837
   theorem-like declarations, checked by the pinned kernel; start from
   `docs/ORIENTATION.md`. These counts include library declarations; they do
   not count solutions to Erdős problems. `v0.10.0` remains the version to cite.
