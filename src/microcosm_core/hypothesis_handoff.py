@@ -8,7 +8,7 @@ of them into a claim, probability, proof, or automatic status change.
 from __future__ import annotations
 
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any
 
 
@@ -36,8 +36,14 @@ def _nonempty_text(value: Any) -> bool:
 def _safe_relative_path(value: Any) -> bool:
     if not _nonempty_text(value):
         return False
-    path = Path(value)
-    return not path.is_absolute() and ".." not in path.parts
+    # Landing targets may be copied between POSIX and Windows checkouts. Do
+    # not let the current host reinterpret a drive, backslash traversal, or
+    # alternate data stream as an ordinary repository filename.
+    if any(character in value for character in ("\\", ":", "\x00")):
+        return False
+    path = PurePosixPath(value)
+    return bool(path.parts) and not path.is_absolute() and ".." not in path.parts \
+        and not PureWindowsPath(value).drive
 
 
 def _require_text(
@@ -271,9 +277,9 @@ def validate_packet(packet: Any) -> list[str]:
                         errors.append(
                             f"{context}.path must be a safe repository-relative path"
                         )
-                    elif target_path in seen_paths:
+                    elif str(PurePosixPath(target_path)) in seen_paths:
                         errors.append(f"{context}.path is duplicated: {target_path}")
-                    seen_paths.add(target_path)
+                    seen_paths.add(str(PurePosixPath(target_path)))
         required_validation = expert_return.get("required_validation")
         if (
             not isinstance(required_validation, list)

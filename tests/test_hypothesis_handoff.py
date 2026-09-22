@@ -116,6 +116,25 @@ def test_validator_rejects_authority_and_discrimination_gaps(
     assert any(expected_error in error for error in validate_packet(packet))
 
 
+@pytest.mark.parametrize(
+    "unsafe_path",
+    ["..\\private\\evidence.json", "C:\\private\\evidence.json",
+     "C:/private/evidence.json", "\\\\server\\share\\evidence.json",
+     "docs/file.json:stream", "."],
+)
+def test_landing_target_paths_are_safe_across_hosts(unsafe_path: str) -> None:
+    packet = example_packet()
+    packet["expert_return"]["landing_targets"][0]["path"] = unsafe_path
+    assert any("safe repository-relative path" in error for error in validate_packet(packet))
+
+
+def test_landing_target_paths_reject_canonical_duplicates() -> None:
+    packet = example_packet()
+    targets = packet["expert_return"]["landing_targets"]
+    targets[1]["path"] = "./" + targets[0]["path"]
+    assert any("path is duplicated" in error for error in validate_packet(packet))
+
+
 def test_cli_json_and_text_are_read_only(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
