@@ -158,9 +158,11 @@ def test_cli_json_and_text_are_read_only(
     assert "[supports: hypothesis.independent_cases_find_more_failures]" in text
     assert "Decisive returns if verified:" in text
     assert "Useful but route-only returns:" in text
-    assert "Checked landing targets:" in text
-    assert "Checked landing order:" in text
+    assert "Proposed landing targets:" in text
+    assert "Prescribed landing order:" in text
     assert "Required validation:" in text
+    assert "  - make ci" in text
+    assert "  - python -m pytest\n" not in text
     assert "No claim status changes" in text
     assert EXAMPLE.read_bytes() == before
 

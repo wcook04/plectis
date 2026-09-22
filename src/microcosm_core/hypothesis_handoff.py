@@ -418,13 +418,13 @@ def render_text(card: dict[str, Any]) -> str:
     for row in expert_return["route_only_returns"]:
         lines.append(f"  - {row['requested_input']} -> {row['effect_if_verified']}")
         lines.append(f"      ceiling: {row['claim_ceiling']}")
-    lines.append("Checked landing targets:")
+    lines.append("Proposed landing targets:")
     lines.extend(
         f"  - {row['path']} ({row['role']}): {row['purpose']} "
         f"[validate: {row['validator']}]"
         for row in expert_return["landing_targets"]
     )
-    lines.append("Checked landing order:")
+    lines.append("Prescribed landing order:")
     lines.extend(
         f"  {index}. {step}"
         for index, step in enumerate(expert_return["landing_order"], start=1)

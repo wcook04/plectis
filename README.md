@@ -342,8 +342,12 @@ separate repository containing the Lean proof source and mathematical papers:
 
 [**plectis-erdos**](https://github.com/wcook04/plectis-erdos)
 contains Lean 4 work on Erdős Problems **#68, #243, #249, #251, #257, #269,
-#1041, and #1049**. All eight remain open. Its README gives the statement, partial results
-and remaining unsolved question for each problem. Lean verifies the proofs
+#1041, and #1049**. The degree-seven counterexample found by ani refutes the
+total-variation formulation of #1041 and is formalised there; independent
+human review of its correspondence with the historical curve-length formulation
+has not been recorded. The other seven target problems are not resolved there.
+Its README gives each problem's statement, results and remaining questions.
+Lean verifies the proofs
 against their formal statements; the claim records and papers explain how
 those statements relate to the original problems. Running a software example
 here does not rerun the companion repository's Lean proofs.
@@ -354,7 +358,7 @@ the broader test suite runs.
 
 - [**Read the proven partial results, problem by problem**](https://github.com/wcook04/plectis-erdos/blob/main/docs/RESULTS.md):
   one entry per problem, with links to the Lean declarations, an explanation
-  of what each result proves, and the part of the problem that remains open. All eight problems remain open.
+  of what each result proves, and its limits or remaining questions.
 - [**Choose a problem paper**](https://github.com/wcook04/plectis-erdos#problem-papers):
   the companion README lists one short paper for each covered problem and
   states the partial results beside it.
