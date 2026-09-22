@@ -7400,11 +7400,11 @@
         "year": "2026",
         "title": "Plectis: What a Stranger Can Check",
         "repository": "plectis",
-        "canonical_source_commit": "155d0879318654d544c45d3ad8b786eb163d2415",
-        "canonical_source_url": "https://github.com/wcook04/plectis/blob/155d0879318654d544c45d3ad8b786eb163d2415/paper/plectis-public-system.tex",
+        "canonical_source_commit": null,
+        "canonical_source_url": null,
         "licence": "CC-BY-4.0",
-        "identifier_kind": "commit_pinned_source",
-        "text": "Will Cook (2026). Plectis: What a Stranger Can Check. plectis, commit 155d0879318654d544c45d3ad8b786eb163d2415. CC-BY-4.0. https://github.com/wcook04/plectis/blob/155d0879318654d544c45d3ad8b786eb163d2415/paper/plectis-public-system.tex",
+        "identifier_kind": "unversioned_source",
+        "text": "Will Cook (2026). Plectis: What a Stranger Can Check. plectis. CC-BY-4.0.",
         "derived_from": [
           "docs/papers/corpus.json: title, copyright, home_repository, canonical_source_commit, canonical_source_url, licence"
         ]
@@ -7415,12 +7415,12 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
-      "source_sha256": "sha256:eee3b04d7b98c8aceaa5c1af8a2773c4de8b31b91d66f33dca05eb35715e0615",
-      "canonical_source_commit": "155d0879318654d544c45d3ad8b786eb163d2415",
-      "canonical_source_pin_status": "immutable_commit",
-      "canonical_source_url": "https://github.com/wcook04/plectis/blob/155d0879318654d544c45d3ad8b786eb163d2415/paper/plectis-public-system.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/155d0879318654d544c45d3ad8b786eb163d2415/paper/plectis-public-system.tex",
-      "section_count": 31,
+      "source_sha256": "sha256:9f79ee8c5edb9d8cbea4404afa83412dd90c3e8541f9112a445dc9233c495752",
+      "canonical_source_commit": null,
+      "canonical_source_pin_status": "local_unpublished",
+      "canonical_source_url": null,
+      "canonical_source_raw_url": null,
+      "section_count": 32,
       "sections": [
         {
           "level": 1,
@@ -7550,69 +7550,75 @@
         },
         {
           "level": 4,
+          "id": "later-public-entry-check.",
+          "title": "Later public-entry check.",
+          "line": 368
+        },
+        {
+          "level": 4,
           "id": "a-first-review.",
           "title": "A first review.",
-          "line": 370
+          "line": 374
         },
         {
           "level": 4,
           "id": "names.",
           "title": "Names.",
-          "line": 397
+          "line": 401
         },
         {
           "level": 4,
           "id": "getting-the-code-and-running-without-installing.",
           "title": "Getting the code and running without installing.",
-          "line": 403
+          "line": 407
         },
         {
           "level": 4,
           "id": "installing.",
           "title": "Installing.",
-          "line": 418
+          "line": 422
         },
         {
           "level": 4,
           "id": "the-worked-example.",
           "title": "The worked example.",
-          "line": 429
+          "line": 433
         },
         {
           "level": 4,
           "id": "a-second-python-version.",
           "title": "A second Python version.",
-          "line": 435
+          "line": 439
         },
         {
           "level": 4,
           "id": "project-wide-checks.",
           "title": "Project-wide checks.",
-          "line": 441
+          "line": 445
         },
         {
           "level": 1,
           "id": "statements-and-declarations",
           "title": "Statements and declarations",
-          "line": 447
+          "line": 451
         },
         {
           "level": 4,
           "id": "declaration-of-generative-ai-use.",
           "title": "Declaration of generative AI use.",
-          "line": 451
+          "line": 455
         },
         {
           "level": 4,
           "id": "authority-boundary.",
           "title": "Authority boundary.",
-          "line": 457
+          "line": 461
         }
       ],
       "citations_rendered": 20,
       "local_pdf": "plectis-public-system.pdf",
-      "pdf_sha256": "sha256:1b1418e3612bd45345ff34feda4f69ed7103879149f4cdf5c2daf9d76d8f2478",
-      "pdf_byte_count": 127739,
+      "pdf_sha256": "sha256:edc2c9d1b743ba3cd20e2e30c8efec07caa83c732c8419984ba0a27ba09870e9",
+      "pdf_byte_count": 128994,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",
@@ -7639,6 +7645,11 @@
           }
         ],
         "unresolved_count": 0
+      },
+      "previous_published_source": {
+        "canonical_source_commit": "155d0879318654d544c45d3ad8b786eb163d2415",
+        "canonical_source_url": "https://github.com/wcook04/plectis/blob/155d0879318654d544c45d3ad8b786eb163d2415/paper/plectis-public-system.tex",
+        "source_sha256": "sha256:eee3b04d7b98c8aceaa5c1af8a2773c4de8b31b91d66f33dca05eb35715e0615"
       }
     }
   ]

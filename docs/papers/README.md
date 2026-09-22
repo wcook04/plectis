@@ -184,7 +184,7 @@ Start here (selected for this guide): [The strategy](full-text/open-source-mathe
 
 **Plectis: What a Stranger Can Check**
 
-[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](../../paper/plectis-public-system.tex) · 31 sections · `plectis-public-system` · native to this repository
+[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](../../paper/plectis-public-system.tex) · 32 sections · `plectis-public-system` · native to this repository
 
 Start here (selected for this guide): [The problem](full-text/plectis-public-system.md#sec:problem), [One public test before the general design](full-text/plectis-public-system.md#sec:early-example), [Five distinctions](full-text/plectis-public-system.md#sec:distinctions), [What stronger evidence would look like](full-text/plectis-public-system.md#sec:stronger).
 
