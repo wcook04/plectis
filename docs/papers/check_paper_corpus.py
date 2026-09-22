@@ -4,9 +4,8 @@
 Generated file. This script is copied verbatim into each public repository by
 ``export_paper_corpus.py`` in the private system repository; edit it there.
 
-The corpus under ``docs/papers/`` is exported by a tool that needs pandoc and a
-checkout of both public repositories. Neither is available here, so this check
-does not regenerate anything. It verifies what can be verified locally and
+Native text can be regenerated with ``refresh_paper_corpus.py`` and Pandoc.
+This inexpensive check does not regenerate anything. It verifies locally that
 cheaply: every manuscript and every shipped PDF recorded in ``corpus.json``
 still hashes to the value the corpus was built from, and every recommended
 starting section resolves in the exported text at its recorded line.
@@ -212,8 +211,9 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  {row}", file=sys.stderr)
         print(
             "\nThe generated text under docs/papers/ no longer describes these "
-            "manuscripts.\nRe-export it from the private system repository:\n"
-            "    ./repo-python tools/meta/dissemination/export_paper_corpus.py --write",
+            "manuscripts.\nRefresh native papers with Pandoc installed:\n"
+            "    python3 docs/papers/refresh_paper_corpus.py --write\n"
+            "Companion changes require a new export from their owning repository.",
             file=sys.stderr,
         )
         return 1
@@ -223,8 +223,9 @@ def main(argv: list[str] | None = None) -> int:
         for row in incomplete:
             print(f"  {row}", file=sys.stderr)
         print(
-            "\nRe-export it from the private system repository:\n"
-            "    ./repo-python tools/meta/dissemination/export_paper_corpus.py --write",
+            "\nRestore the missing paper or reading route before refreshing.\n"
+            "Native text: python3 docs/papers/refresh_paper_corpus.py --write\n"
+            "A missing companion requires a new export from its owning repository.",
             file=sys.stderr,
         )
         return 1

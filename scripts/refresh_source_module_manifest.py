@@ -388,6 +388,16 @@ def refresh_manifest(
         raise ValueError("source module manifest must be a JSON object")
     public_root = _public_root_for_path(manifest_path)
     rows = [row for row in manifest.get("modules", []) if isinstance(row, dict)]
+    known_ids = [str(row.get("module_id") or "") for row in rows]
+    missing_ids = module_ids.difference(known_ids)
+    duplicate_ids = {value for value in known_ids if value and known_ids.count(value) > 1}
+    if missing_ids or duplicate_ids:
+        return {
+            "schema_version": "source_module_manifest_refresh_result_v1",
+            "status": "blocked", "write_applied": False, "refreshed_count": 0, "rows": [],
+            "findings": [{"missing_module_ids": sorted(missing_ids),
+                          "duplicate_module_ids": sorted(duplicate_ids)}],
+        }
     if target_metadata_only:
         refreshed_rows: list[dict[str, Any]] = []
         findings: list[dict[str, Any]] = []
@@ -401,6 +411,8 @@ def refresh_manifest(
                 row_findings.append("body_copied_not_true")
             if not target.is_file():
                 row_findings.append("target_missing_or_not_file")
+            if target.resolve() != target.absolute() or not target.resolve().is_relative_to(public_root):
+                row_findings.append("target_escapes_public_root")
             if row_findings:
                 findings.append(
                     {
@@ -430,8 +442,10 @@ def refresh_manifest(
                     prefixed=str(row.get("sha256") or "").startswith("sha256:"),
                 )
                 row["target_sha256"] = target_digest
-                if "sha256_match" in row:
-                    row["sha256_match"] = True
+                # Target-only refresh cannot establish source correspondence.
+                for field in ("sha256_match", "source_target_sha256_match"):
+                    if field in row:
+                        row[field] = None
                 if "target_expected_digest_match" in row:
                     row["target_expected_digest_match"] = True
             refreshed_rows.append(
@@ -448,6 +462,8 @@ def refresh_manifest(
         status = PASS if refreshed_rows and not findings else "blocked"
         if write and status == PASS:
             write_json_atomic(Path(manifest_path), manifest)
+        for row in refreshed_rows:
+            row["write_applied"] = write and status == PASS
         return {
             "schema_version": "source_module_manifest_refresh_result_v1",
             "status": status,
@@ -460,7 +476,7 @@ def refresh_manifest(
                     "authority are not checked."
                 ),
             },
-            "write_applied": write,
+            "write_applied": write and status == PASS,
             "requested_module_ids": sorted(module_ids),
             "public_safe_normalize": False,
             "target_metadata_only": True,
@@ -486,6 +502,13 @@ def refresh_manifest(
     # rows remain untouched in the written manifest; the boundary still checks
     # every declared module and all of its source/target refs.
     boundary_manifest.pop("release_substitution_omissions", None)
+    if module_ids:
+        # A scoped refresh reads these source bodies only. Other rows and
+        # historical provenance are preserved, not recertified or imported.
+        boundary_manifest = {
+            "manifest_id": manifest.get("manifest_id"),
+            "modules": [row for row in rows if row.get("module_id") in module_ids],
+        }
     boundary = evaluate_source_module_boundary(
         [(str(Path(manifest_path)), boundary_manifest)],
     )
@@ -501,8 +524,8 @@ def refresh_manifest(
 
     bundle_manifest_transform = _bundle_manifest_source_root_transform(
         manifest_path,
-        write=write,
-        public_safe_normalize=public_safe_normalize,
+        write=False,
+        public_safe_normalize=public_safe_normalize and (not module_ids or set(known_ids) == module_ids),
     )
     digest_style = {
         "sha256": _uses_prefixed_digest_style(rows, "sha256"),
@@ -511,6 +534,7 @@ def refresh_manifest(
     }
     refreshed_rows: list[dict[str, Any]] = []
     findings: list[dict[str, Any]] = []
+    pending_targets: list[tuple[Path, bytes]] = []
     if bundle_manifest_transform["status"] == "blocked":
         findings.append(
             {
@@ -534,14 +558,20 @@ def refresh_manifest(
         row_findings: list[str] = []
         if not source.is_file():
             row_findings.append("source_missing")
+        if source.resolve() != source.absolute():
+            row_findings.append("source_symlink_not_allowed")
         if target.exists() and not target.is_file():
             row_findings.append("target_not_file")
+        if target.resolve() != target.absolute() or not target.resolve().is_relative_to(public_root):
+            row_findings.append("target_escapes_public_root")
         relation = str(row.get("source_to_target_relation") or "")
         if public_safe_normalize:
             if relation not in PUBLIC_SAFE_NORMALIZABLE_RELATIONS:
                 row_findings.append("source_to_target_relation_not_public_safe_normalizable")
-        elif relation != "exact_copy":
-            row_findings.append("source_to_target_relation_not_exact_copy")
+        elif relation not in {"exact_copy", "public_replacement_source_body"}:
+            row_findings.append("source_to_target_relation_not_refreshable")
+        if relation == "public_replacement_source_body" and not target.is_file():
+            row_findings.append("public_replacement_target_missing")
         if row_findings:
             findings.append(
                 {
@@ -554,7 +584,14 @@ def refresh_manifest(
             continue
 
         source_bytes = source.read_bytes()
-        expected_target_bytes = source_bytes
+        # A public replacement is authored independently. Refresh its identities
+        # while preserving its body; equality is neither required nor implied.
+        expected_target_bytes = (
+            target.read_bytes() if relation == "public_replacement_source_body" else source_bytes
+        )
+        if relation == "public_replacement_source_body" and expected_target_bytes == source_bytes:
+            findings.append({"module_id": module_id, "findings": ["replacement_matches_source"]})
+            continue
         target_relation = relation
         public_safe_transform: dict[str, Any] = {}
         public_safe_source_ref = source_ref
@@ -642,14 +679,13 @@ def refresh_manifest(
                 public_safe_transform = {}
 
         if write:
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_bytes(expected_target_bytes)
+            pending_targets.append((target, expected_target_bytes))
 
         source_digest_hex = _sha256_hex_bytes(source_bytes)
         expected_target_digest_hex = _sha256_hex_bytes(expected_target_bytes)
-        target_digest_hex = _sha256_hex(target) if target.is_file() else ""
+        target_digest_hex = expected_target_digest_hex if write else (_sha256_hex(target) if target.is_file() else "")
         if target_line_count is None:
-            target_line_count = _line_count(target) if target.is_file() else None
+            target_line_count = _line_count_text(expected_target_bytes.decode("utf-8")) if write else (_line_count(target) if target.is_file() else None)
         source_target_digest_match = bool(
             target_digest_hex and source_digest_hex == target_digest_hex
         )
@@ -685,7 +721,10 @@ def refresh_manifest(
             )
             row["source_sha256"] = source_digest
             row["target_sha256"] = target_digest
-            row["sha256_match"] = target_expected_digest_match
+            row["sha256_match"] = (
+                source_target_digest_match if relation == "public_replacement_source_body"
+                else target_expected_digest_match
+            )
             row["source_target_sha256_match"] = source_target_digest_match
             row["target_expected_digest_match"] = target_expected_digest_match
             row["source_to_target_relation"] = target_relation
@@ -734,12 +773,21 @@ def refresh_manifest(
         and bundle_manifest_transform["status"] != "blocked"
         and (
             bundle_manifest_transform["status"] != "transformed"
-            or bundle_manifest_transform.get("write_applied")
+            or write
         )
         else "blocked"
     )
     if write and status == PASS:
+        for target, data in pending_targets:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+        bundle_manifest_transform = _bundle_manifest_source_root_transform(
+            manifest_path, write=True,
+            public_safe_normalize=public_safe_normalize and (not module_ids or set(known_ids) == module_ids),
+        )
         write_json_atomic(Path(manifest_path), manifest)
+    for row in refreshed_rows:
+        row["write_applied"] = write and status == PASS
     return {
         "schema_version": "source_module_manifest_refresh_result_v1",
         "status": status,
@@ -748,11 +796,12 @@ def refresh_manifest(
             "status": boundary["status"],
             "safe_ref_count": boundary["safe_ref_count"],
             "blocked_ref_count": boundary["blocked_ref_count"],
+            "scope": "selected_module_rows" if module_ids else "declared_imports",
             "declared_release_substitution_omission_count": len(
                 declared_omissions
             ),
         },
-        "write_applied": write,
+        "write_applied": write and status == PASS,
         "requested_module_ids": sorted(module_ids),
         "public_safe_normalize": public_safe_normalize,
         "bundle_manifest_public_safe_transform": bundle_manifest_transform,
@@ -761,7 +810,9 @@ def refresh_manifest(
         "findings": findings,
         "rows": refreshed_rows,
         "anti_claim": (
-            "This helper only refreshes declared exact-copy source-module files "
+            "This helper refreshes declared exact copies or the recorded "
+            "identities of already-public replacements, without certifying "
+            "the replacements' semantic correspondence. It reads "
             "from relative public macro refs and normalizes sibling bundle manifest "
             "source-root provenance after source-module boundary checks. "
             "It does not authorize private source export, source mutation outside "

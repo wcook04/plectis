@@ -3,11 +3,13 @@
 Reading this as a person? The human map is [README.md](README.md); this file
 is the agent entry contract.
 
-Plectis is a local Python command-line tool plus 88 runnable reference
+Plectis is a local Python command-line tool plus 88 reference
 components spanning formal proof, agent reliability and safety, research and
 forecasting, projection-drift control, validation, work landing, and continuity.
 Each one names the code that runs, the evidence it uses, the receipt it writes,
-and the limit of what a passing result proves.
+and the limit of what a passing result proves. Read each replay's execution
+availability: inclusion in the catalogue does not establish that its required
+source and dependencies are available in this clone.
 
 Read it in that order — mechanisms, then evidence discipline, then the local
 runtime. The receipts are how a component is held to its claim; they are not the

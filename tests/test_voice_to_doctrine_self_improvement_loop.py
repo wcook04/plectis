@@ -6,17 +6,19 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.validators.source_module_boundary import exported_copy_matches
+
 from microcosm_core.organs.voice_to_doctrine_self_improvement_loop import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
     main,
+    _source_module_result,
     run,
     run_voice_to_doctrine_bundle,
 )
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input"
@@ -51,8 +53,24 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _copy_public_dependencies(public_root: Path) -> None:
+    # An independent fixture must include the public evidence it cites.
+    for rel in (
+        "paper_modules/voice_to_doctrine_self_improvement_loop.md",
+        "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+        "tests/test_voice_to_doctrine_self_improvement_loop.py",
+        "src/microcosm_core/runtime_shell.py", "tests/test_runtime_shell.py",
+        "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json",
+        "receipts/runtime_shell/public_compression_profile_option_surface_lens.json",
+    ):
+        target = public_root / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(MICROCOSM_ROOT / rel, target)
+
+
 def _copy_fixture(public_root: Path) -> Path:
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     fixture = (
         public_root
         / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
@@ -121,6 +139,7 @@ def test_voice_to_doctrine_receipts_are_public_relative_and_body_free(
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop",
         public_root / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop",
@@ -184,26 +203,26 @@ def test_voice_to_doctrine_exported_bundle_validates_runtime_shape(
     )
     assert (
         result["source_open_body_imports"]["source_refs_live_checked"]
-        is True
+        is False
     )
     assert (
         result["source_open_body_imports"]["source_target_exact_copy_count"]
-        == 7
+        == 0
     )
     assert (
         result["source_open_body_imports"][
             "source_target_verified_light_edit_count"
         ]
-        == 1
+        == 0
     )
     task_ledger_import = next(
         row
         for row in result["source_module_imports"]
         if row["module_id"] == "task_ledger_skill_body"
     )
-    assert task_ledger_import["source_hash_matches"] is True
-    assert task_ledger_import["source_target_exact_copy"] is False
-    assert task_ledger_import["source_target_verified_light_edit"] is True
+    assert task_ledger_import["source_hash_matches"] is None
+    assert task_ledger_import["source_target_exact_copy"] is None
+    assert task_ledger_import["source_target_verified_light_edit"] is None
     assert (
         task_ledger_import["source_to_target_relation"]
         == "source_faithful_public_light_edit"
@@ -265,6 +284,7 @@ def test_voice_to_doctrine_rejects_source_module_digest_mismatch(
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     bundle = (
         public_root
         / "examples/voice_to_doctrine_self_improvement_loop/"
@@ -290,7 +310,7 @@ def test_voice_to_doctrine_rejects_source_module_digest_mismatch(
 
     assert result["status"] == "fail"
     assert result["source_module_manifest_status"] == "fail"
-    assert result["verified_source_module_count"] == 7
+    assert result["verified_source_module_count"] == 0
     assert result["source_open_body_imports"]["status"] == "fail"
     assert "VOICE_DOCTRINE_SOURCE_MODULE_HASH_MISMATCH" in result["error_codes"]
     assert "VOICE_DOCTRINE_SOURCE_MODULE_HASH_MISMATCH" in result[
@@ -303,6 +323,7 @@ def test_voice_to_doctrine_rejects_rehashed_source_module_body_tamper(
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     bundle = (
         public_root
         / "examples/voice_to_doctrine_self_improvement_loop/"
@@ -338,19 +359,16 @@ def test_voice_to_doctrine_rejects_rehashed_source_module_body_tamper(
 
     assert result["status"] == "fail"
     assert result["source_module_manifest_status"] == "fail"
-    assert result["verified_source_module_count"] == 7
+    assert result["verified_source_module_count"] == 0
     assert result["source_open_body_imports"]["status"] == "fail"
     assert "VOICE_DOCTRINE_SOURCE_MODULE_HASH_MISMATCH" not in result["error_codes"]
-    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_HASH_MISMATCH" in result[
-        "blocking_error_codes"
-    ]
-    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_TARGET_COPY_MISMATCH" in result[
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_EXPORTED_IDENTITY_MISMATCH" in result[
         "blocking_error_codes"
     ]
     changed_import = result["source_module_imports"][0]
-    assert changed_import["source_path_exists"] is True
-    assert changed_import["source_hash_matches"] is False
-    assert changed_import["source_target_exact_copy"] is False
+    assert changed_import["source_path_exists"] is None
+    assert changed_import["source_hash_matches"] is None
+    assert changed_import["source_target_exact_copy"] is None
     assert changed_import["required_anchors_present"] is True
 
 
@@ -359,6 +377,7 @@ def test_voice_to_doctrine_rejects_source_module_source_ref_mismatch(
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     bundle = (
         public_root
         / "examples/voice_to_doctrine_self_improvement_loop/"
@@ -379,23 +398,21 @@ def test_voice_to_doctrine_rejects_source_module_source_ref_mismatch(
     )
 
     assert result["status"] == "fail"
-    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_HASH_MISMATCH" in result[
-        "blocking_error_codes"
-    ]
-    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_TARGET_COPY_MISMATCH" in result[
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_EXPORTED_IDENTITY_MISMATCH" in result[
         "blocking_error_codes"
     ]
     changed_import = result["source_module_imports"][0]
-    assert changed_import["source_path_exists"] is True
-    assert changed_import["source_hash_matches"] is False
-    assert changed_import["source_target_exact_copy"] is False
+    assert changed_import["source_path_exists"] is None
+    assert changed_import["source_hash_matches"] is None
+    assert changed_import["source_target_exact_copy"] is None
 
 
-def test_voice_to_doctrine_rejects_source_module_missing_live_source_ref(
+def test_voice_to_doctrine_rejects_changed_exported_source_ref(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     bundle = (
         public_root
         / "examples/voice_to_doctrine_self_improvement_loop/"
@@ -416,10 +433,10 @@ def test_voice_to_doctrine_rejects_source_module_missing_live_source_ref(
     )
 
     assert result["status"] == "fail"
-    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_MISSING" in result[
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_EXPORTED_IDENTITY_MISMATCH" in result[
         "blocking_error_codes"
     ]
-    assert result["source_module_imports"][0]["source_path_exists"] is False
+    assert result["source_module_imports"][0]["source_path_exists"] is None
 
 
 def test_voice_to_doctrine_rejects_dead_lesson_surface_ref(
@@ -427,6 +444,7 @@ def test_voice_to_doctrine_rejects_dead_lesson_surface_ref(
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     fixture = (
         public_root
         / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
@@ -554,6 +572,7 @@ def test_voice_to_doctrine_rejects_mutated_lesson_ref_anchors(
     for field_name, mutated_ref in ref_cases:
         public_root = tmp_path / field_name / "microcosm-substrate"
         shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+        _copy_public_dependencies(public_root)
         fixture = (
             public_root
             / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
@@ -595,6 +614,7 @@ def test_voice_to_doctrine_rejects_json_pointer_when_anchor_text_is_absent(
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     fixture = (
         public_root
         / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
@@ -643,6 +663,7 @@ def test_voice_to_doctrine_rejects_non_public_lesson_ref_paths(
         public_root = tmp_path / ref.replace("/", "_").replace(":", "_")
         public_root = public_root / "microcosm-substrate"
         shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+        _copy_public_dependencies(public_root)
         fixture = (
             public_root
             / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
@@ -683,6 +704,7 @@ def test_voice_to_doctrine_baked_expected_labels_cannot_override_unresolved_refs
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     fixture = (
         public_root
         / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
@@ -724,6 +746,7 @@ def test_voice_to_doctrine_status_counts_ignore_baked_expected_labels(
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    _copy_public_dependencies(public_root)
     fixture = (
         public_root
         / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
@@ -785,6 +808,7 @@ def test_voice_to_doctrine_exported_bundle_rejects_lesson_ref_mutations(
     for field_name, mutated_ref in ref_cases:
         public_root = tmp_path / field_name / "microcosm-substrate"
         shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+        _copy_public_dependencies(public_root)
         bundle = (
             public_root
             / "examples/voice_to_doctrine_self_improvement_loop/"
@@ -822,7 +846,7 @@ def test_voice_to_doctrine_exported_bundle_rejects_lesson_ref_mutations(
         )
 
 
-def test_voice_to_doctrine_source_modules_are_verified_macro_body_imports() -> None:
+def test_voice_to_doctrine_source_modules_match_the_recorded_public_export() -> None:
     manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
     fixture_manifest = json.loads(FIXTURE_MANIFEST.read_text(encoding="utf-8"))
 
@@ -836,7 +860,6 @@ def test_voice_to_doctrine_source_modules_are_verified_macro_body_imports() -> N
     ]
     light_edit_row_count = 0
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = MICROCOSM_ROOT / row["target_ref"]
         text = target.read_text(encoding="utf-8")
         light_edit = (
@@ -844,9 +867,8 @@ def test_voice_to_doctrine_source_modules_are_verified_macro_body_imports() -> N
             == "source_faithful_public_light_edit"
         )
 
-        assert source.is_file()
+        assert exported_copy_matches(MICROCOSM_ROOT, SOURCE_MODULE_MANIFEST, target)
         assert target.is_file()
-        assert _sha256(source) == row["source_sha256"]
         assert _sha256(target) == row["target_sha256"]
         assert row["required_anchors_present"] is True
         for anchor in row["required_anchors"]:
@@ -857,11 +879,9 @@ def test_voice_to_doctrine_source_modules_are_verified_macro_body_imports() -> N
             assert row["public_safe_mode"] == "verified_public_macro_body_light_edit"
             assert row["source_sha256"] != row["target_sha256"]
             assert row["sha256_match"] is False
-            assert source.read_bytes() != target.read_bytes()
             assert "The operator's gesture" not in text
             assert "can you create for me a ledger" not in text
         else:
-            assert source.read_bytes() == target.read_bytes()
             assert row["source_sha256"] == row["target_sha256"]
             assert row["sha256_match"] is True
     assert light_edit_row_count == 1
@@ -958,3 +978,21 @@ def test_voice_to_doctrine_fixture_card_honors_acceptance_out(
     assert card["negative_case_coverage"]["missing_negative_cases"] == []
     assert card["no_export_guards"]["private_bodies_exported"] is False
     assert card["no_export_guards"]["provider_payloads_exported"] is False
+
+
+def test_public_body_verification_is_independent_of_private_parent(tmp_path: Path) -> None:
+    root = tmp_path / "microcosm-substrate"
+    bundle = root / BUNDLE_INPUT.relative_to(MICROCOSM_ROOT)
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    manifest = json.loads((bundle / "source_module_manifest.json").read_text())
+    before = _source_module_result(manifest, input_dir=bundle, public_root=root, require_manifest=True)
+    (tmp_path / "AGENTS.override.md").write_text("unrelated private checkout")
+    for row in manifest["modules"]:
+        target = tmp_path / row["source_ref"]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text("different private source; must not influence public replay")
+    after = _source_module_result(manifest, input_dir=bundle, public_root=root, require_manifest=True)
+    assert before == after
+    assert after["status"] == "pass"
+    assert after["source_open_body_imports"]["source_refs_live_checked"] is False
+    assert all(row["upstream_currentness"] == "not_assessed" for row in after["source_module_imports"])

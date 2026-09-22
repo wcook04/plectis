@@ -1707,3 +1707,19 @@ def test_mission_transaction_work_spine_receipts_consume_public_work_landing_ref
     assert result["body_import_verification"]["source_faithful_controller_action_count"] == len(
         SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS
     )
+
+
+def test_public_omitted_runtime_reports_unavailable_without_execution(tmp_path: Path) -> None:
+    from microcosm_core.organs.mission_transaction_work_spine import validate_real_active_claims_snapshot
+    input_dir = _copy_bundle_input(tmp_path)
+    public_root = input_dir.parents[2]
+    result = validate_real_active_claims_snapshot(
+        _read_json(input_dir / REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME), input_dir, public_root,
+    )
+    assert result["status"] == "unavailable"
+    assert result["realness_evidence"]["verdict_rederived_from_runtime_evidence"] is False
+    assert result["observed_negative_cases"] == {}
+    assert result["real_good_input_passed"] is False
+    bundle = run_mission_transaction_bundle(input_dir, public_root / "receipts/test")
+    assert bundle["status"] == "blocked"
+    assert bundle["real_active_claims_snapshot_status"] == "unavailable"

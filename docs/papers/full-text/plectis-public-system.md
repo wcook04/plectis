@@ -295,6 +295,8 @@ Five forms of independent evaluation could add evidence that the public reposito
 
 *Independent repetition* means a person with no involvement in the project reruns the supplied commands in their own environment and publishes what happened, including failures. That would reduce dependence on my machine and test whether the published instructions suffice elsewhere. It would not by itself establish correctness.
 
+Yuan et al. report a related end-to-end exercise in which two student teams worked from public documentation for scientific hardware designed more than a decade earlier \[yuan2023\]. Their case concerns hardware documentation in large collaborations, not software-claim contracts, and supplies no evidence about Plectis. It is a precedent for treating an outsider’s attempt to complete the documented task as evidence about accessibility, including the failures and ambiguities that the project’s authors did not anticipate.
+
 *Evaluator-controlled selection* means the evaluator chooses components from the full registry, without substitution when one proves awkward, and original failures stay on the record even if I later repair them. The units themselves are open to the same challenge: an evaluator who finds that two entries are one dependent mechanism, or that a boundary excludes the difficult part of a task, is disputing the registry, not misusing it. That addresses curation within the public collection. It cannot address whether the collection represents the private system, because the private pool stays invisible.
 
 *Fresh inputs with independently derived expectations* can move repeatability towards evidence bearing on correctness: inputs chosen after the version is saved, and expected results worked out by a method that does not pass through my code, whether independent calculation, a second implementation, or an external reference. The result would support claims about those cases only to the extent that the derivation is credible and independent and the cases are adequate; general correctness still would not follow.
@@ -370,6 +372,11 @@ A typed hypothesis handoff makes the next outside contribution more specific: it
 #### A first review.
 
 Use the appendix’s no-install block and select the version analysed here. The tour describes the checkout but does not choose a component claim. Ask the repository to find the audio example with
+
+```
+PYTHONPATH=src python3 -m plectis comprehend \
+  --first-action "audio level calculation" --format text
+```
 
 The response identifies the audio component, but do not run its first suggested command: it writes to the repository’s saved receipt paths. Run the paper’s exact no-install command near the start of Section <a href="#sec:run" data-reference-type="ref" data-reference="sec:run">4</a> instead; it writes only to `/tmp` and leaves the checkout unchanged. Under `/tmp/plectis-audio-rms/`, open `batch8_audio_level_rms_port_result.json`; JSON is a plain-text field-and-value format. Open `exercise`. In each `reference_cases` item, compare `expected_level` with `observed_level`. The top-level `anti_claim` says what a pass does not establish; `claim_ceiling` inside `exercise` gives the project’s strongest conclusion. The project wrote both cautions; no independent reviewer checked their limits. To challenge rather than repeat the supplied case, make a disposable copy of the fixture input:
 
@@ -455,7 +462,7 @@ The account of private production is testimony about origin, not independent evi
 
 <div class="thebibliography">
 
-12
+13
 
 Per Runeson and Martin Höst. “Guidelines for Conducting and Reporting Case Study Research in Software Engineering.” *Empirical Software Engineering*, 14(2):131–164, 2009. [doi:10.1007/s10664-008-9102-8](https://doi.org/10.1007/s10664-008-9102-8).
 
@@ -478,6 +485,8 @@ National Institute of Standards and Technology. *Secure Hash Standard*, FIPS PUB
 National Institute of Standards and Technology. [“Hash Functions.”](https://csrc.nist.gov/projects/hash-functions) Updated 9 September 2024. Accessed 18 July 2026.
 
 National Aeronautics and Space Administration. *Software Assurance and Software Safety Standard*, NASA-STD-8739.8B, Section 4.4.1.2, p. 48, 2022. [NASA-STD-8739.8B](https://standards.nasa.gov/standard/NASA/NASA-STD-87398).
+
+Melinda Yuan et al. “End-to-End Testing of Open-Source Hardware Documentation Developed in Large Collaborations.” 2023. [arXiv:2309.05942](https://arxiv.org/abs/2309.05942).
 
 Lean Project. *Lean Language Reference* sections [“Validating a Lean Proof”](https://lean-lang.org/doc/reference/latest/ValidatingProofs/) and [“Partial and Unsafe Definitions.”](https://lean-lang.org/doc/reference/latest/Definitions/Recursive-Definitions/#partial-and-unsafe-definitions) Accessed 18 July 2026.
 

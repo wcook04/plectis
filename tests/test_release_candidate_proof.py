@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import re
+import shlex
 import subprocess
 import sys
 import tomllib
@@ -1140,8 +1141,28 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
     (source_root / ".venv/bin").mkdir(parents=True)
     (source_root / "src/microcosm_core/__init__.py").write_text("", encoding="utf-8")
 
-    work_dir = tmp_path / "work"
+    work_dir = tmp_path / "work with spaces"
     calls: list[tuple[list[str], dict[str, str] | None, Path | None]] = []
+    executed_actions: list[str] = []
+
+    def first_action(goal: str) -> dict[str, object]:
+        action_name = {
+            "prompt injection": "prompt-injection",
+            "voice to doctrine": "voice-to-doctrine",
+        }.get(goal, "finance")
+        return {
+            "found": True,
+            "first_action": {
+                "command": shlex.join([
+                    str(work_dir / "venv/bin/python"),
+                    "-m", "microcosm_core", action_name,
+                    "--out", f"results/{action_name}",
+                ]),
+            },
+            "proof_path": {"runnable_validator": "ok"},
+            "reading_boundary": {"stop_condition": "ok"},
+            "do_not_claim": "ok",
+        }
 
     def fake_run(
         argv: list[str],
@@ -1150,7 +1171,6 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
         env: dict[str, str] | None = None,
         stdout_path: Path | None = None,
     ) -> subprocess.CompletedProcess[str]:
-        del cwd
         calls.append((argv, env, stdout_path))
         stdout = ""
         if "-c" in argv:
@@ -1158,6 +1178,16 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
                 work_dir
                 / "venv/lib/python/site-packages/microcosm_core/__init__.py"
             )
+        if "--first-action" in argv:
+            stdout = json.dumps(first_action(argv[-1]))
+        if "--out" in argv:
+            assert cwd == work_dir / "project"
+            assert env is not None and "PYTHONPATH" not in env
+            executed_actions.append(argv[3])
+            result_dir = cwd / argv[argv.index("--out") + 1]
+            result_dir.mkdir(parents=True)
+            stdout = json.dumps({"status": "pass"})
+            (result_dir / "fixture_result.json").write_text(stdout, encoding="utf-8")
         if stdout_path is not None:
             if stdout_path.suffix == ".json":
                 payload: dict[str, object] = {"status": "pass"}
@@ -1166,20 +1196,7 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
                 if stdout_path.name == "workingness.json":
                     payload["card_status"] = "clear"
                 if stdout_path.name == "first-action.json":
-                    payload.update(
-                        {
-                            "found": True,
-                            "first_action": {
-                                "command": (
-                                    "PYTHONPATH=src python3 -m microcosm_core "
-                                    "comprehend --first-action goal"
-                                )
-                            },
-                            "proof_path": {"runnable_validator": "ok"},
-                            "reading_boundary": {"stop_condition": "ok"},
-                            "do_not_claim": "ok",
-                        }
-                    )
+                    payload.update(first_action(argv[-1]))
                 stdout_path.parent.mkdir(parents=True, exist_ok=True)
                 stdout_path.write_text(json.dumps(payload), encoding="utf-8")
             else:
@@ -1196,8 +1213,9 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
 
     smoke.run_package_smoke(source_root, work_dir, sys.executable)
 
-    staged_source = work_dir / "source"
+    staged_source = work_dir / "source-after-install"
     assert staged_source.is_dir()
+    assert not (work_dir / "source").exists()
     assert (staged_source / "pyproject.toml").is_file()
     assert not (staged_source / "build").exists()
     assert not (staged_source / ".microcosm/private.json").exists()
@@ -1211,12 +1229,13 @@ def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
         if argv_env[0][1:4] == ["-m", "pip", "install"]
     )
     pip_argv, pip_env, _ = pip_call
-    assert pip_argv[-1] == str(staged_source)
+    assert pip_argv[-1] == str(work_dir / "source")
     assert str(source_root) not in pip_argv
     assert pip_env is not None
     assert pip_env["PIP_CACHE_DIR"] == str(work_dir / "pip-cache")
     assert pip_env["PYTHONPYCACHEPREFIX"] == str(work_dir / "pycache")
     assert pip_env["TMPDIR"] == str(work_dir / "tmp")
+    assert executed_actions == ["prompt-injection", "voice-to-doctrine", "finance"]
 
 
 def test_package_install_smoke_normalizes_work_refs_before_marker_assert() -> None:

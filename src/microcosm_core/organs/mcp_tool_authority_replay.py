@@ -18,6 +18,12 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.validators.source_module_boundary import (
+    copied_source_identity,
+    exported_copy_matches,
+    export_identity_input_paths,
+)
+
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_mcp_tool_authority_trace,
 )
@@ -410,12 +416,19 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
         return []
-    paths = [manifest_path]
+    paths = [manifest_path, *export_identity_input_paths(public_root)]
     try:
         manifest = read_json_strict(manifest_path)
     except Exception:
         return paths
     for row in _rows(manifest, "modules"):
+        source_ref = str(row.get("source_ref") or "")
+        if source_ref:
+            for root in _candidate_source_roots(public_root):
+                source = root / source_ref
+                if source.is_file():
+                    paths.append(source)
+                    break
         target_ref = str(row.get("target_ref") or row.get("path") or "")
         if target_ref:
             paths.append(
@@ -745,6 +758,7 @@ def _source_module_manifest_result(
             )
 
     verified_count = 0
+    source_identity_checks: list[dict[str, Any]] = []
     for row in modules:
         module_id = str(row.get("module_id") or "source_module")
         module_ids.append(module_id)
@@ -822,31 +836,19 @@ def _source_module_manifest_result(
                 )
             )
         source_ref = str(row.get("source_ref") or "")
-        source_bytes = (
-            _source_ref_bytes(public_root, source_ref) if source_ref else None
+        identity = copied_source_identity(
+            row, target.read_bytes(),
+            _source_ref_bytes(public_root, source_ref) if source_ref else None,
+            exported_identity_matches=exported_copy_matches(public_root, manifest_path, target),
         )
-        if source_bytes is None:
-            findings.append(
-                _finding(
-                    "MCP_TOOL_SOURCE_MODULE_SOURCE_REF_MISSING",
-                    "Source module rows must resolve a live source_ref authority body.",
-                    case_id="source_module_manifest_floor",
-                    subject_id=source_ref or module_id,
-                    subject_kind="source_ref",
-                )
-            )
-        else:
-            live_source_digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
-            if actual != live_source_digest or expected_digests["source_sha256"] != live_source_digest:
-                findings.append(
-                    _finding(
-                        "MCP_TOOL_SOURCE_MODULE_SOURCE_REF_MISMATCH",
-                        "Copied source module bodies must still match the live source_ref body; rehashing a modified bundle-local copy is not sufficient authority.",
-                        case_id="source_module_manifest_floor",
-                        subject_id=module_id,
-                        subject_kind="source_module",
-                    )
-                )
+        source_identity_checks.append({"module_id": module_id, **identity})
+        if identity["status"] != PASS:
+            findings.append(_finding(
+                "MCP_TOOL_SOURCE_MODULE_SOURCE_REF_MISMATCH",
+                "The shipped copy must match its recorded source digest and any available upstream bytes.",
+                case_id="source_module_manifest_floor", subject_id=module_id,
+                subject_kind="source_module",
+            ))
         text = target.read_text(encoding="utf-8")
         missing_anchors = [
             anchor for anchor in _strings(row.get("required_anchors")) if anchor not in text
@@ -876,6 +878,7 @@ def _source_module_manifest_result(
         ),
         "source_module_manifest_ref": manifest_ref,
         "module_count": len(modules),
+        "source_identity_checks": source_identity_checks,
         "verified_module_count": verified_count,
         "module_ids": module_ids,
         "material_classes": sorted(material_class_counts),

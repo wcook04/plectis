@@ -80,6 +80,8 @@ SPEC = CrownJewelSpec(
         )
     },
     bundle_input_mode="exported_agent_closeout_faithfulness_audit_bundle",
+    # The evaluator runs its own public Git/pytest witness in a temporary clone.
+    public_refactor_when_source_omitted=True,
 )
 
 

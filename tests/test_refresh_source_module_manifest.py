@@ -7,6 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 from types import ModuleType
+import pytest
 
 
 SUBSTRATE_ROOT = Path(__file__).resolve().parents[1]
@@ -71,6 +72,57 @@ def test_refresh_source_module_manifest_cli_is_standalone_runnable() -> None:
     assert completed.returncode == 0
     assert "--manifest" in completed.stdout
     assert "ModuleNotFoundError" not in completed.stderr
+
+
+@pytest.mark.parametrize("case", ["selected", "missing_id", "missing_source", "escape", "whole_manifest"])
+def test_scoped_refresh_preserves_history_and_preflights_every_target(tmp_path: Path, case: str) -> None:
+    refresh = _load_refresh_module()
+    root = tmp_path / "microcosm-substrate"
+    source = root / "src/microcosm_core/organs/demo.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("current public source\n")
+    target_ref = "examples/demo/source_modules/demo.py"
+    target = root / target_ref
+    target.parent.mkdir(parents=True)
+    target.write_text("old public copy\n")
+    manifest_path = _write_manifest(root, module_id="public", source_ref=source.relative_to(root).as_posix(),
+                                    target_ref=target_ref)
+    manifest = json.loads(manifest_path.read_text())
+    history = {**manifest["modules"][0], "module_id": "history", "source_ref": "state/private-history.json",
+               "target_ref": "examples/demo/source_modules/history.json"}
+    manifest["modules"].append(history)
+    manifest["source_run_ref"] = "state/historical-observation.json"
+    selected = {"public"}
+    if case == "missing_id":
+        selected.add("absent")
+    elif case == "missing_source":
+        manifest["modules"].append({**manifest["modules"][0], "module_id": "second",
+                                    "source_ref": "src/microcosm_core/organs/absent.py",
+                                    "target_ref": "examples/demo/source_modules/second.py"})
+        selected.add("second")
+    elif case == "escape":
+        outside = tmp_path / "outside.py"
+        outside.write_text("outside source\n")
+        target.unlink()
+        target.symlink_to(outside)
+    elif case == "whole_manifest":
+        selected = set()
+    manifest_path.write_text(json.dumps(manifest))
+    before_manifest, before_target = manifest_path.read_bytes(), target.read_bytes()
+    result = refresh.refresh_manifest(manifest_path, module_ids=selected, write=True)
+    if case == "selected":
+        assert result["status"] == "pass" and result["write_applied"]
+        assert result["boundary"]["scope"] == "selected_module_rows"
+        after = json.loads(manifest_path.read_text())
+        assert after["modules"][1] == history
+        assert after["source_run_ref"] == manifest["source_run_ref"]
+        assert target.read_bytes() == source.read_bytes()
+    else:
+        assert result["status"] == "blocked"
+        assert not result.get("write_applied", False)
+        assert manifest_path.read_bytes() == before_manifest
+        assert target.read_bytes() == before_target
+        assert not (root / "examples/demo/source_modules/second.py").exists()
 
 
 def test_refresh_manifest_updates_declared_source_and_target_sizes(
@@ -260,6 +312,7 @@ def test_target_metadata_only_refreshes_public_copy_without_source_claim(
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     row = manifest["modules"][0]
     row["source_sha256"] = "sha256:historical-source-digest"
+    row["sha256_match"] = True
     row["line_count"] = 1
     row["byte_count"] = 1
     manifest_path.write_text(
@@ -281,7 +334,40 @@ def test_target_metadata_only_refreshes_public_copy_without_source_claim(
     assert refreshed["line_count"] == 3
     assert refreshed["byte_count"] == target_path.stat().st_size
     assert refreshed["source_sha256"] == "sha256:historical-source-digest"
+    assert refreshed["sha256_match"] is None
     assert "source correspondence" in result["anti_claim"]
+
+
+@pytest.mark.parametrize("case", ["replacement", "missing", "identical"])
+def test_refresh_public_replacement_preserves_authored_target(tmp_path: Path, case: str) -> None:
+    refresh = _load_refresh_module()
+    root = tmp_path / "microcosm-substrate"
+    source = root / "fixtures/demo/source.json"
+    source.parent.mkdir(parents=True)
+    source.write_text('{"original": true}\n')
+    target = root / "examples/demo/replacement.json"
+    target.parent.mkdir(parents=True)
+    target.write_text(source.read_text() if case == "identical" else '{"public_replacement": true}\n')
+    manifest_path = _write_manifest(root, module_id="replacement", source_ref=source.relative_to(root).as_posix(),
+                                    target_ref=target.relative_to(root).as_posix())
+    manifest = json.loads(manifest_path.read_text())
+    manifest["modules"][0]["source_to_target_relation"] = "public_replacement_source_body"
+    manifest_path.write_text(json.dumps(manifest))
+    before_manifest, before_target = manifest_path.read_bytes(), target.read_bytes()
+    if case == "missing":
+        target.unlink()
+    result = refresh.refresh_manifest(manifest_path, module_ids={"replacement"}, write=True)
+    if case == "replacement":
+        assert result["status"] == "pass"
+        row = json.loads(manifest_path.read_text())["modules"][0]
+        assert row["source_sha256"] == hashlib.sha256(source.read_bytes()).hexdigest()
+        assert row["target_sha256"] == hashlib.sha256(before_target).hexdigest()
+        assert row["sha256_match"] is False
+        assert target.read_bytes() == before_target
+    else:
+        assert result["status"] == "blocked" and not result["write_applied"]
+        assert manifest_path.read_bytes() == before_manifest
+        assert not target.exists() if case == "missing" else target.read_bytes() == before_target
 
 
 def test_refresh_manifest_public_safe_normalize_writes_transformed_target(tmp_path: Path) -> None:

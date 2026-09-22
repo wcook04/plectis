@@ -32,7 +32,8 @@ from microcosm_core.runtime_shell import (
     VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF,
     VERIFIER_EXECUTION_RECEIPT_REF,
 )
-from runtime_fixture_tree import copy_microcosm_runtime_root
+from runtime_fixture_tree import copy_microcosm_runtime_root, copytree_fixture
+from microcosm_core.release_export import DEFAULT_INCLUDE_REFS
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -110,6 +111,14 @@ def _expected_organ_evidence_classes(
 ) -> dict[str, str]:
     return {
         str(row["organ_id"]): str(row["evidence_class"])
+        for row in _adapter_registry_rows(root)
+    }
+
+
+def _assert_registry_classifications(rows: list[dict], root: Path = MICROCOSM_ROOT) -> None:
+    fields = ("evidence_class", "truth_accounting_bucket", "counts_as_real_substrate_progress")
+    assert {row["organ_id"]: {key: row[key] for key in fields} for row in rows} == {
+        row["organ_id"]: {key: row[key] for key in fields}
         for row in _adapter_registry_rows(root)
     }
 
@@ -272,7 +281,7 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
     return copy_microcosm_runtime_root(
         tmp_path,
         MICROCOSM_ROOT,
-        static_refs=("examples", "fixtures", "src", "standards"),
+        static_refs=("examples", "fixtures", "src", "standards", "atlas"),
         mutable_refs=(
             "core",
             "receipts/acceptance",
@@ -282,6 +291,26 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
             "receipts/preflight",
         ),
     )
+
+
+def _copy_complete_public_runtime_root(tmp_path: Path) -> Path:
+    """Exercise the actual shipped surface, without depending on a macro checkout."""
+    root = tmp_path / "microcosm-substrate"
+    root.mkdir()
+    refs = [Path(ref) for ref in DEFAULT_INCLUDE_REFS]
+    for ref in refs:
+        if any(parent in refs for parent in ref.parents if parent != Path(".")):
+            continue
+        source = MICROCOSM_ROOT / ref
+        if not source.exists():
+            continue
+        destination = root / ref
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        if source.is_dir():
+            copytree_fixture(source, destination, prefer_hardlinks=ref.parts[0] not in {"core", "receipts"})
+        else:
+            shutil.copy2(source, destination)
+    return root
 
 
 def _copy_runtime_demo_drilldown_root(tmp_path: Path) -> Path:
@@ -450,48 +479,23 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "body_text_in_receipt": False,
         "verification_mode": "exact_source_digest_match",
     }
-    assert source_families["exported_agent_trace_route_repair_bundle"] == {
-        "family_id": "exported_agent_trace_route_repair_bundle",
-        "status": "pass",
-        "manifest_ref": (
-            "examples/agent_route_observability_runtime/"
-            "exported_agent_trace_route_repair_bundle/source_module_manifest.json"
-        ),
-        "module_count": 3,
-        "source_refs": [
-            "system/lib/navigation_route_intervention.py",
-            "system/lib/agent_execution_trace.py",
-            "system/lib/strict_json.py",
-        ],
-        "material_ids": [
-            "route_repair_suggestion_source_body_import",
-            "agent_execution_trace_source_body_import",
-            "strict_json_source_body_import",
-        ],
-        "validation_refs": [
-            (
-                "tests/test_agent_route_observability_runtime.py::"
-                "test_agent_trace_route_repair_bundle_validates_runtime_shape"
-            ),
-            (
-                "tests/test_agent_route_observability_runtime.py::"
-                "test_agent_trace_route_repair_receipt_is_public_safe"
-            ),
-            (
-                "tests/test_agent_route_observability_runtime.py::"
-                "test_agent_trace_route_repair_imports_public_macro_body_refactor"
-            ),
-        ],
-        "body_text_in_receipt": False,
-        "verification_mode": "exact_source_digest_match",
-    }
+    # This public bundle retains the standard, while three source bodies are
+    # explicit release substitutions. They must not appear as verified bodies.
+    trace_manifest = json.loads((MICROCOSM_ROOT / (
+        "examples/agent_route_observability_runtime/"
+        "exported_agent_trace_route_repair_bundle/source_module_manifest.json"
+    )).read_text())
+    assert trace_manifest["release_substitution_omissions"]
+    assert all(row["material_class"] == "public_standard_body"
+               for row in trace_manifest["modules"])
+    assert "exported_agent_trace_route_repair_bundle" not in source_families
     assert status["product_path_demoted_organ_count"] == _demoted_organ_count()
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
     assert status["front_door"]["schema_version"] == (
         "microcosm_cold_reader_first_screen_v1"
     )
-    assert status["front_door"]["primary_command"] == "microcosm tour --card <project>"
+    assert status["front_door"]["primary_command"] == "plectis tour --card <project>"
     assert status["front_door"]["local_first_screen_route"] == {
         "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
         "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
@@ -499,7 +503,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     }
     assert status["front_door"]["selected_route_id"] is None
     assert status["front_door"]["route_explanation_command"] == (
-        "microcosm explain <project> <route_id>"
+        "plectis explain <project> <route_id>"
     )
     assert "selected_route_id" in status["front_door"]["route_selection_rule"]
     assert status["front_door"]["generated_state"]["state_dir"] == ".microcosm"
@@ -510,19 +514,19 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "event_log_ref": ".microcosm/events.jsonl",
         "evidence_dir_ref": ".microcosm/evidence/",
         "graph_ref": ".microcosm/graph.json",
-        "project_observe_command": "microcosm observe --card <project>",
-        "project_observe_full_command": "microcosm observe <project>",
+        "project_observe_command": "plectis observe --card <project>",
+        "project_observe_full_command": "plectis observe <project>",
         "project_observe_endpoint": "/project/observe",
         "observatory_command": (
-            "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+            "plectis serve <project> --host 127.0.0.1 --port 8765 "
             "--max-requests 7"
         ),
         "observatory_bounded_validation_command": (
-            "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+            "plectis serve <project> --host 127.0.0.1 --port 8765 "
             "--max-requests 7"
         ),
         "observatory_interactive_command": (
-            "microcosm serve <project> --host 127.0.0.1 --port 8765"
+            "plectis serve <project> --host 127.0.0.1 --port 8765"
         ),
     }
     behavior_contract = status["front_door"]["behavior_surfaces_contract"]
@@ -575,182 +579,182 @@ def test_runtime_shell_status_is_product_centered() -> None:
         ]
         == 1.0
     )
-    assert "microcosm init <project>" in status["runtime_surface"]["commands"]
-    assert "microcosm compile <project>" in status["runtime_surface"]["commands"]
-    assert "microcosm python-lens <project>" in status["runtime_surface"]["commands"]
-    assert "microcosm route <project>" in status["runtime_surface"]["commands"]
-    assert "microcosm explain <project> <route_id>" in status["runtime_surface"]["commands"]
-    assert "microcosm evidence list <project> --limit 25" in status["runtime_surface"]["commands"]
-    assert "microcosm tour --card <project>" in status["runtime_surface"]["commands"]
-    assert "microcosm tour <project>" in status["runtime_surface"]["commands"]
-    assert "microcosm status --card" in status["runtime_surface"]["commands"]
-    assert "microcosm spine" in status["runtime_surface"]["commands"]
-    assert "microcosm authority" in status["runtime_surface"]["commands"]
-    assert "microcosm prediction-lens" in status["runtime_surface"]["commands"]
-    assert "microcosm market-boundary" in status["runtime_surface"]["commands"]
-    assert "microcosm corpus-lens" in status["runtime_surface"]["commands"]
-    assert "microcosm trace-lens" in status["runtime_surface"]["commands"]
-    assert "microcosm repair-loop" in status["runtime_surface"]["commands"]
-    assert "microcosm evidence-cells" in status["runtime_surface"]["commands"]
-    assert "microcosm proof-loop-depth" in status["runtime_surface"]["commands"]
-    assert "microcosm landing-replay" in status["runtime_surface"]["commands"]
-    assert "microcosm view-quality" in status["runtime_surface"]["commands"]
-    assert "microcosm projection-safety" in status["runtime_surface"]["commands"]
-    assert "microcosm drift-control" in status["runtime_surface"]["commands"]
-    assert "microcosm route-cleanup" in status["runtime_surface"]["commands"]
-    assert "microcosm projection-import-map" in status["runtime_surface"]["commands"]
-    assert "microcosm import-projector" in status["runtime_surface"]["commands"]
-    assert "microcosm stripping-guard" in status["runtime_surface"]["commands"]
-    assert "microcosm standards-control" in status["runtime_surface"]["commands"]
-    assert "microcosm hook-coverage" in status["runtime_surface"]["commands"]
-    assert "microcosm replay-gauntlet" in status["runtime_surface"]["commands"]
-    assert "microcosm benchmark-lab" in status["runtime_surface"]["commands"]
-    assert "microcosm legibility-scorecard" in status["runtime_surface"]["commands"]
-    assert "microcosm intake" in status["runtime_surface"]["commands"]
-    assert "microcosm reveal" in status["runtime_surface"]["commands"]
+    assert "plectis init <project>" in status["runtime_surface"]["commands"]
+    assert "plectis compile <project>" in status["runtime_surface"]["commands"]
+    assert "plectis python-lens <project>" in status["runtime_surface"]["commands"]
+    assert "plectis route <project>" in status["runtime_surface"]["commands"]
+    assert "plectis explain <project> <route_id>" in status["runtime_surface"]["commands"]
+    assert "plectis evidence list <project> --limit 25" in status["runtime_surface"]["commands"]
+    assert "plectis tour --card <project>" in status["runtime_surface"]["commands"]
+    assert "plectis tour <project>" in status["runtime_surface"]["commands"]
+    assert "plectis status --card" in status["runtime_surface"]["commands"]
+    assert "plectis spine" in status["runtime_surface"]["commands"]
+    assert "plectis authority" in status["runtime_surface"]["commands"]
+    assert "plectis prediction-lens" in status["runtime_surface"]["commands"]
+    assert "plectis market-boundary" in status["runtime_surface"]["commands"]
+    assert "plectis corpus-lens" in status["runtime_surface"]["commands"]
+    assert "plectis trace-lens" in status["runtime_surface"]["commands"]
+    assert "plectis repair-loop" in status["runtime_surface"]["commands"]
+    assert "plectis evidence-cells" in status["runtime_surface"]["commands"]
+    assert "plectis proof-loop-depth" in status["runtime_surface"]["commands"]
+    assert "plectis landing-replay" in status["runtime_surface"]["commands"]
+    assert "plectis view-quality" in status["runtime_surface"]["commands"]
+    assert "plectis projection-safety" in status["runtime_surface"]["commands"]
+    assert "plectis drift-control" in status["runtime_surface"]["commands"]
+    assert "plectis route-cleanup" in status["runtime_surface"]["commands"]
+    assert "plectis projection-import-map" in status["runtime_surface"]["commands"]
+    assert "plectis import-projector" in status["runtime_surface"]["commands"]
+    assert "plectis stripping-guard" in status["runtime_surface"]["commands"]
+    assert "plectis standards-control" in status["runtime_surface"]["commands"]
+    assert "plectis hook-coverage" in status["runtime_surface"]["commands"]
+    assert "plectis replay-gauntlet" in status["runtime_surface"]["commands"]
+    assert "plectis benchmark-lab" in status["runtime_surface"]["commands"]
+    assert "plectis legibility-scorecard" in status["runtime_surface"]["commands"]
+    assert "plectis intake" in status["runtime_surface"]["commands"]
+    assert "plectis reveal" in status["runtime_surface"]["commands"]
     assert (
-        "microcosm mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle"
+        "plectis mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle"
         not in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-benchmark-integrity-anti-gaming-replay "
+        "plectis agent-benchmark-integrity-anti-gaming-replay "
         "run-benchmark-integrity-bundle"
         not in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-monitor-redteam-falsification-replay "
+        "plectis agent-monitor-redteam-falsification-replay "
         "run-monitor-bundle"
         not in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle"
+        "plectis agent-sabotage-scheming-monitor-replay run-sabotage-bundle"
         not in status["runtime_surface"]["commands"]
     )
     assert status["runtime_surface"]["demoted_drilldown_commands"] == [
         (
-            "microcosm agent-benchmark-integrity-anti-gaming-replay "
+            "plectis agent-benchmark-integrity-anti-gaming-replay "
             "run-benchmark-integrity-bundle"
         ),
         (
-            "microcosm agent-monitor-redteam-falsification-replay "
+            "plectis agent-monitor-redteam-falsification-replay "
             "run-monitor-bundle"
         ),
-        "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle",
-        "microcosm mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle"
+        "plectis agent-sabotage-scheming-monitor-replay run-sabotage-bundle",
+        "plectis mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle"
     ]
     assert (
-        "microcosm tactic-portfolio-availability-probe run-availability-bundle"
+        "plectis tactic-portfolio-availability-probe run-availability-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm target-shape-tactic-routing-gate run-routing-bundle"
+        "plectis target-shape-tactic-routing-gate run-routing-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm provider-context-recipe-budget-policy run-budget-bundle"
+        "plectis provider-context-recipe-budget-policy run-budget-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm ring2-premise-retrieval-precision-recall-harness "
+        "plectis ring2-premise-retrieval-precision-recall-harness "
         "run-precision-recall-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle"
+        "plectis formal-math-verifier-trace-repair-loop run-loop-bundle"
         in status["runtime_surface"]["commands"]
     )
-    assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in status[
+    assert "plectis proof-lab --out /tmp/microcosm-proof-lab" in status[
         "runtime_surface"
     ]["commands"]
     assert (
-        "microcosm verifier-lab-execution-spine run-execution-bundle"
+        "plectis verifier-lab-execution-spine run-execution-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle"
+        "plectis formal-evidence-cell-anchor-resolver run-anchor-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm undeclared-library-prior-symbol-classifier run-symbol-bundle"
+        "plectis undeclared-library-prior-symbol-classifier run-symbol-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm standards-meta-diagnostics run-diagnostics-bundle"
+        "plectis standards-meta-diagnostics run-diagnostics-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm cold-reader-route-map run-route-map-bundle"
+        "plectis cold-reader-route-map run-route-map-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-memory-temporal-conflict-replay run-memory-bundle"
+        "plectis agent-memory-temporal-conflict-replay run-memory-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm sleeper-memory-poisoning-quarantine-replay "
+        "plectis sleeper-memory-poisoning-quarantine-replay "
         "run-quarantine-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm mcp-tool-authority-replay "
+        "plectis mcp-tool-authority-replay "
         "run-tool-authority-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-sandbox-policy-escape-replay "
+        "plectis agent-sandbox-policy-escape-replay "
         "run-sandbox-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm indirect-prompt-injection-information-flow-policy-replay "
+        "plectis indirect-prompt-injection-information-flow-policy-replay "
         "run-prompt-injection-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-route-observability-runtime "
+        "plectis agent-route-observability-runtime "
         "validate-computer-use-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-route-observability-runtime "
+        "plectis agent-route-observability-runtime "
         "validate-session-attribution-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-route-observability-runtime "
+        "plectis agent-route-observability-runtime "
         "validate-harness-configuration-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-route-observability-runtime "
+        "plectis agent-route-observability-runtime "
         "validate-multi-agent-fanin-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm agent-route-observability-runtime "
+        "plectis agent-route-observability-runtime "
         "validate-agent-trace-route-repair-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm research-replication-rubric-artifact-replay run-replication-bundle"
+        "plectis research-replication-rubric-artifact-replay run-replication-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm world-model-projection-drift-control-room run-drift-control-bundle"
+        "plectis world-model-projection-drift-control-room run-drift-control-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert (
-        "microcosm spatial-world-model-counterfactual-simulation-replay "
+        "plectis spatial-world-model-counterfactual-simulation-replay "
         "run-simulation-bundle"
         in status["runtime_surface"]["commands"]
     )
-    assert "microcosm spatial-simulation" in status["runtime_surface"]["commands"]
+    assert "plectis spatial-simulation" in status["runtime_surface"]["commands"]
     assert (
-        "microcosm lean-std-premise-index run-index-bundle"
+        "plectis lean-std-premise-index run-index-bundle"
         in status["runtime_surface"]["commands"]
     )
     assert status["runtime_surface"]["receipts_are_drilldown_evidence"] is True
-    assert "run microcosm status --card" in status["next_actions"]
+    assert "run plectis status --card" in status["next_actions"]
     assert status["posture"] == "executable_research_prototype"
     assert status["kernel_primitive_count"] >= 10
 
@@ -767,23 +771,23 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert len(json.dumps(card, sort_keys=True)) < 12000
     assert card["schema_version"] == "microcosm_runtime_status_card_v1"
     assert card["status"] == "pass"
-    assert card["card_command"] == "microcosm status --card"
-    assert card["full_status_command"] == "microcosm status"
-    assert card["front_door"]["primary_command"] == "microcosm tour --card <project>"
+    assert card["card_command"] == "plectis status --card"
+    assert card["full_status_command"] == "plectis status"
+    assert card["front_door"]["primary_command"] == "plectis tour --card <project>"
     assert card["front_door"]["local_first_screen_route"] == {
         "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
         "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
         "surface_id": LOCAL_FIRST_SCREEN_SURFACE_ID,
     }
     assert card["front_door"]["tour_front_door_status_ref"] == (
-        "microcosm tour <project>::front_door_status"
+        "plectis tour <project>::front_door_status"
     )
     assert card["front_door"]["tour_warning_drilldowns"] == [
         "authority",
         "intake",
     ]
     assert card["front_door"]["front_door_status_ref"] == (
-        "microcosm status --card::front_door_status"
+        "plectis status --card::front_door_status"
     )
     front_door_status = card["front_door_status"]
     assert front_door_status["schema_version"] == (
@@ -838,11 +842,11 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         ],
     }
     assert body_floor_front_door["summary_ref"] == (
-        "microcosm status --card::macro_body_import_floor"
+        "plectis status --card::macro_body_import_floor"
     )
     assert (
         body_floor_front_door["full_status_ref"]
-        == "microcosm status::macro_body_import_floor"
+        == "plectis status::macro_body_import_floor"
     )
     assert body_floor_front_door["public_safe_body_material_count"] == status[
         "copied_non_secret_macro_body_material_count"
@@ -854,7 +858,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         ]
     )
     assert body_floor_front_door["direct_source_module_manifest_count"] >= 30
-    assert body_floor_front_door["direct_source_module_manifest_material_count"] >= 170
+    assert body_floor_front_door["direct_source_module_manifest_material_count"] == status["macro_body_import_floor"]["direct_source_module_manifest_material_count"]
     assert body_floor_front_door["verified_source_module_family_count"] >= 20
     assert body_floor_front_door["latest_source_refs"]
     latest_family_ids = body_floor_front_door[
@@ -873,14 +877,12 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         for spotlight in source_module_spotlights
         if spotlight["spotlight_id"] == "agent_route_observability_runtime"
     )
-    assert route_observability_spotlight["family_count"] >= 9
-    assert route_observability_spotlight["module_count"] >= 16
-    assert "exported_agent_observability_store_bundle" in (
-        route_observability_spotlight["notable_family_ids"]
+    source_spotlight = next(
+        row for row in status["macro_body_import_floor"]["source_body_import_lens"]["source_module_family_spotlights"]
+        if row["spotlight_id"] == "agent_route_observability_runtime"
     )
-    assert "exported_route_compliance_audit_bundle" in (
-        route_observability_spotlight["notable_family_ids"]
-    )
+    for field in ("family_count", "module_count", "notable_family_ids"):
+        assert route_observability_spotlight[field] == source_spotlight[field]
     assert "validation_refs" not in json.dumps(
         route_observability_spotlight, sort_keys=True
     )
@@ -932,7 +934,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     }
     assert card["macro_body_import_floor"]["validation_command_count"] == 3
     assert card["macro_body_import_floor"]["validation_commands_ref"] == (
-        "microcosm status::macro_body_import_floor.validation_hooks"
+        "plectis status::macro_body_import_floor.validation_hooks"
     )
     source_body_card = card["macro_body_import_floor"]["source_body_imports"]
     assert source_body_card["status"] == "pass"
@@ -958,7 +960,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         == "status describes bounded failure-envelope debt; "
         "map_generation_status describes whether the workingness map ran"
     )
-    assert card["workingness"]["command"] == "microcosm workingness --card"
+    assert card["workingness"]["command"] == "plectis workingness --card"
     assert card["workingness"]["endpoint"] == "/workingness-card"
     assert card["workingness"]["full_endpoint"] == "/workingness"
     assert card["workingness"]["completeness_status"] == "complete_failure_modes"
@@ -975,14 +977,14 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     gap_preview = card["workingness"]["gap_preview"]
     assert gap_preview["status"] == "clear"
     assert gap_preview["limit"] == 3
-    assert gap_preview["drilldown_command"] == "microcosm workingness"
+    assert gap_preview["drilldown_command"] == "plectis workingness"
     assert gap_preview["rows"] == []
     assert card["workingness"]["accepted_status_is_not_evidence_strength"] is True
     assert card["workingness"]["not_a_scorecard"] is True
     assert card["next_commands"][0] == card["front_door"]["primary_command"]
-    assert "microcosm compile <project>" in card["next_commands"]
-    assert "microcosm workingness --card" in card["next_commands"]
-    assert "microcosm workingness" not in card["next_commands"]
+    assert "plectis compile <project>" in card["next_commands"]
+    assert "plectis workingness --card" in card["next_commands"]
+    assert "plectis workingness" not in card["next_commands"]
     assert card["authority_ceiling"]["release_authorized"] is False
     assert card["authority_ceiling"]["provider_calls_authorized"] is False
     assert card["authority_ceiling"]["source_mutation_authorized"] is False
@@ -1033,10 +1035,10 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
     card_json = json.dumps(card, sort_keys=True)
 
     assert len(card_json.replace(project_ref, "<project>")) < 14000
-    assert card["card_command"] == f"microcosm status --card {project_ref}"
+    assert card["card_command"] == f"plectis status --card {project_ref}"
     assert card["project_ref"] == project_ref
     assert card["front_door"]["primary_command"] == (
-        f"microcosm tour --card {project_ref}"
+        f"plectis tour --card {project_ref}"
     )
     assert project_state["schema_version"] == (
         "microcosm_project_status_overlay_summary_v1"
@@ -1065,15 +1067,15 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
     )
     assert state_write_proof["status"] == "pass"
     assert state_write_proof["state_write_result_ref"] == (
-        f"microcosm tour --card {project_ref}::state_write_result"
+        f"plectis tour --card {project_ref}::state_write_result"
     )
     assert state_write_proof["state_write_status_ref"] == (
-        f"microcosm tour --card {project_ref}::front_door_status."
+        f"plectis tour --card {project_ref}::front_door_status."
         "surface_statuses.state_write"
     )
     assert state_write_proof["project_state_ref"] == "front_door.project_state"
     assert state_write_proof["observe_ref"] == (
-        f"microcosm observe {project_ref}::state_write_proof"
+        f"plectis observe {project_ref}::state_write_proof"
     )
     assert state_write_proof["observe_writes_microcosm_state"] is False
     assert state_write_proof["status_card_writes_microcosm_state"] is False
@@ -1120,21 +1122,21 @@ def test_runtime_shell_project_status_card_before_tour_recovery_is_unambiguous(
     ]
     assert card["front_door"]["project_state_status"] == "missing_state"
     assert card["next_commands"] == [
-        f"microcosm tour --card {project_ref}",
-        f"microcosm status --card {project_ref}",
-        f"microcosm compile {project_ref}",
+        f"plectis tour --card {project_ref}",
+        f"plectis status --card {project_ref}",
+        f"plectis compile {project_ref}",
     ]
 
     project_detail = details["project_state"]
     state_write_detail = details["state_write_proof"]
     assert project_detail["primary_recovery_command"] == (
-        f"microcosm tour --card {project_ref}"
+        f"plectis tour --card {project_ref}"
     )
     assert state_write_detail["primary_recovery_command"] == (
-        f"microcosm tour --card {project_ref}"
+        f"plectis tour --card {project_ref}"
     )
     assert state_write_detail["status_after_recovery_command"] == (
-        f"microcosm status --card {project_ref}"
+        f"plectis status --card {project_ref}"
     )
     assert state_write_detail["recovery_ref"] == "front_door.project_state.recovery"
     assert state_write_detail["recovery"] == project_detail["recovery"]
@@ -1155,7 +1157,7 @@ def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
             "posture": "executable_research_prototype",
             "front_door": {
                 "status": "pass",
-                "primary_command": "microcosm tour --card <project>",
+                "primary_command": "plectis tour --card <project>",
                 "generated_state": {"state_dir": ".microcosm"},
                 "behavior_surfaces": {
                     "route_state_ref": ".microcosm/routes.json",
@@ -1164,15 +1166,15 @@ def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
                     "evidence_dir_ref": ".microcosm/evidence/",
                     "graph_ref": ".microcosm/graph.json",
                     "observatory_command": (
-                        "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+                        "plectis serve <project> --host 127.0.0.1 --port 8765 "
                         "--max-requests 7"
                     ),
                     "observatory_bounded_validation_command": (
-                        "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+                        "plectis serve <project> --host 127.0.0.1 --port 8765 "
                         "--max-requests 7"
                     ),
                     "observatory_interactive_command": (
-                        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+                        "plectis serve <project> --host 127.0.0.1 --port 8765"
                     ),
                 },
                 "authority_ceiling": {
@@ -1279,7 +1281,7 @@ def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
     ]
     assert macro_detail["defect_count"] == 1
     assert macro_detail["full_defects_ref"] == (
-        "microcosm status::macro_body_import_floor.defects"
+        "plectis status::macro_body_import_floor.defects"
     )
     assert macro_detail["defect_preview"] == [
         {
@@ -1518,7 +1520,6 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "certificate_kernel_lean_body_import",
         "generated_certificates_lean_body_import",
         "generated_certificate_shard_b10_l6_a11_body_import",
-        "operator_thread_memory_test_body_import",
         "execution_spine_root_lean_body_import",
         "execution_spine_basic_lean_body_import",
     ]
@@ -1534,160 +1535,16 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         _expected_organ_evidence_classes()
     )
     assert spine["evidence_class_counts"] == _expected_adapter_evidence_class_counts()
-    assert rows_by_id["proof_diagnostic_evidence_spine"]["evidence_class"] == (
-        "algorithmic_projection"
-    )
-    assert rows_by_id["durable_agent_work_landing_replay"]["evidence_class"] == (
-        "semantic_validator"
-    )
-    assert rows_by_id["proof_derived_governed_mutation_authorization"]["evidence_class"] == (
-        "semantic_validator"
-    )
-    assert rows_by_id["world_model_projection_drift_control_room"]["evidence_class"] == (
-        "semantic_validator"
-    )
-    assert (
-        rows_by_id["world_model_projection_drift_control_room"][
-            "counts_as_real_substrate_progress"
-        ]
-        is True
-    )
-    assert rows_by_id["world_model_projection_drift_control_room"][
-        "truth_accounting_bucket"
-    ] == "real_import_validation"
-    assert rows_by_id["spatial_world_model_counterfactual_simulation_replay"][
-        "evidence_class"
-    ] == "semantic_validator"
-    assert (
-        rows_by_id["spatial_world_model_counterfactual_simulation_replay"][
-            "counts_as_real_substrate_progress"
-        ]
-        is True
-    )
-    assert rows_by_id["spatial_world_model_counterfactual_simulation_replay"][
-        "truth_accounting_bucket"
-    ] == "real_import_validation"
-    assert rows_by_id["mechanistic_interpretability_circuit_attribution_replay"][
-        "evidence_class"
-    ] == "semantic_validator"
-    assert (
-        rows_by_id["mechanistic_interpretability_circuit_attribution_replay"][
-            "counts_as_real_substrate_progress"
-        ]
-        is True
-    )
-    assert rows_by_id["mechanistic_interpretability_circuit_attribution_replay"][
-        "truth_accounting_bucket"
-    ] == "real_import_validation"
-    assert rows_by_id["research_replication_rubric_artifact_replay"]["evidence_class"] == (
-        "algorithmic_projection"
-    )
-    assert (
-        rows_by_id["research_replication_rubric_artifact_replay"][
-            "counts_as_real_substrate_progress"
-        ]
-        is True
-    )
-    assert rows_by_id["research_replication_rubric_artifact_replay"][
-        "truth_accounting_bucket"
-    ] == "source_faithful_refactor"
-    assert rows_by_id["pattern_binding_contract"]["truth_accounting_bucket"] == (
-        "real_import_validation"
-    )
-    assert rows_by_id["formal_math_lean_proof_witness"]["truth_accounting_bucket"] == (
-        "real_runtime_receipt"
-    )
-    assert rows_by_id["proof_diagnostic_evidence_spine"]["truth_accounting_bucket"] == (
-        "source_faithful_refactor"
-    )
-    assert rows_by_id["agentic_vulnerability_discovery_patch_proof_replay"][
-        "evidence_class"
-    ] == "algorithmic_projection"
-    assert (
-        rows_by_id["agentic_vulnerability_discovery_patch_proof_replay"][
-            "counts_as_real_substrate_progress"
-        ]
-        is True
-    )
-    assert rows_by_id["agentic_vulnerability_discovery_patch_proof_replay"][
-        "truth_accounting_bucket"
-    ] == "source_faithful_refactor"
-    assert spine["demoted_drilldown_surfaces"] == [
-        {
-            "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
-            "runtime_mode": "drilldown_only",
-            "product_path_role": "drilldown_regression_not_runtime_spine",
-            "demotion_reason": (
-                "strategy-atlas overlap projection remains runnable as a regression "
-                "drilldown, but scoring/projection rows are not product-spine substrate."
-            ),
-            "input_mode": "exported_mathematical_strategy_atlas_bundle",
-            "example_ref": (
-                "examples/mathematical_strategy_atlas_hypothesis_scorer/"
-                "exported_mathematical_strategy_atlas_bundle"
-            ),
-            "evidence_class": "algorithmic_projection",
-            "claim_ceiling": "projection mechanics only, not domain correctness",
-        },
-        {
-            "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
-            "runtime_mode": "drilldown_only",
-            "product_path_role": "drilldown_regression_not_runtime_spine",
-            "demotion_reason": (
-                "benchmark-integrity replay remains runnable as a body-free regression drilldown, "
-                "but fixture-supplied benchmark verdict rows are not product-spine substrate or benchmark-performance evidence."
-            ),
-            "input_mode": "exported_benchmark_integrity_bundle",
-            "example_ref": (
-                "examples/agent_benchmark_integrity_anti_gaming_replay/"
-                "exported_benchmark_integrity_bundle"
-            ),
-            "evidence_class": "fixture_echo_smoke",
-            "claim_ceiling": (
-                "smoke/projection demo only, not behavioral validation, not safety "
-                "validation, not benchmark scores, and not product progress evidence"
-            ),
-        },
-        {
-            "organ_id": "agent_monitor_redteam_falsification_replay",
-            "runtime_mode": "drilldown_only",
-            "product_path_role": "drilldown_regression_not_runtime_spine",
-            "demotion_reason": (
-                "monitor-redteam replay remains runnable as a regression drilldown, "
-                "but synthetic monitor verdict rows and body-omission refs are not product-spine substrate."
-            ),
-            "input_mode": "exported_monitor_redteam_bundle",
-            "example_ref": (
-                "examples/agent_monitor_redteam_falsification_replay/"
-                "exported_monitor_redteam_bundle"
-            ),
-            "evidence_class": "fixture_echo_smoke",
-            "claim_ceiling": (
-                "smoke/projection demo only, not behavioral validation, not safety "
-                "validation, not benchmark scores, and not product progress evidence"
-            ),
-        },
-        {
-            "organ_id": "agent_sabotage_scheming_monitor_replay",
-            "runtime_mode": "drilldown_only",
-            "product_path_role": "drilldown_regression_not_runtime_spine",
-            "demotion_reason": (
-                "sabotage-monitor replay remains runnable as a regression drilldown, "
-                "but synthetic scheming episodes, monitor scores, and body-free "
-                "regression fixture refs are not product-spine substrate."
-            ),
-            "input_mode": "exported_sabotage_monitor_bundle",
-            "example_ref": (
-                "examples/agent_sabotage_scheming_monitor_replay/"
-                "exported_sabotage_monitor_bundle"
-            ),
-            "evidence_class": "fixture_echo_smoke",
-            "claim_ceiling": (
-                "smoke/projection demo only, not behavioral validation, not safety "
-                "validation, not benchmark scores, and not product progress evidence"
-            ),
-        }
-    ]
+    _assert_registry_classifications(list(rows_by_id.values()))
+    demoted = spine["demoted_drilldown_surfaces"]
+    assert {row["organ_id"] for row in demoted} == set(runtime_shell.PRODUCT_PATH_DEMOTED_ORGAN_IDS)
+    registry = {row["organ_id"]: row for row in _accepted_registry_rows()}
+    for row in demoted:
+        assert row["runtime_mode"] == "drilldown_only"
+        assert row["product_path_role"] == "drilldown_regression_not_runtime_spine"
+        assert row["demotion_reason"]
+        assert row["evidence_class"] == registry[row["organ_id"]]["evidence_class"]
+        assert (MICROCOSM_ROOT / row["example_ref"]).is_dir()
     assert all(row["evidence_strength_disclosed"] is True for row in spine["accepted_runtime_spine"])
     assert spine["evidence_policy"]["accepted_status_is_not_evidence_strength"] is True
     assert spine["evidence_policy"]["unclassified_organs_block_authority_projection"] is True
@@ -1695,70 +1552,70 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     _assert_commands_in_order(
         spine["first_run_path"],
         [
-            "microcosm tour --card <project>",
-            "microcosm python-lens <project>",
-            "microcosm spine",
-            "microcosm authority",
-            "microcosm prediction-lens",
-            "microcosm market-boundary",
-            "microcosm corpus-lens",
-            "microcosm trace-lens",
-            "microcosm repair-loop",
-            "microcosm evidence-cells",
-            "microcosm proof-loop-depth",
+            "plectis tour --card <project>",
+            "plectis python-lens <project>",
+            "plectis spine",
+            "plectis authority",
+            "plectis prediction-lens",
+            "plectis market-boundary",
+            "plectis corpus-lens",
+            "plectis trace-lens",
+            "plectis repair-loop",
+            "plectis evidence-cells",
+            "plectis proof-loop-depth",
             PROOF_LAB_FIRST_SCREEN_COMMAND,
             VERIFIER_EXECUTION_LENS_COMMAND,
         ],
     )
     expected_step_commands = {
-        "run_compact_tour_card": "microcosm tour --card <project>",
-        "inspect_python_lens": "microcosm python-lens <project>",
-        "inspect_public_spine": "microcosm spine",
-        "inspect_authority_map": "microcosm authority",
-        "inspect_prediction_lens": "microcosm prediction-lens",
-        "inspect_market_prediction_boundary": "microcosm market-boundary",
-        "inspect_corpus_lens": "microcosm corpus-lens",
-        "inspect_verifier_trace_repair_lens": "microcosm trace-lens",
-        "inspect_verifier_repair_loop": "microcosm repair-loop",
-        "inspect_formal_evidence_cells": "microcosm evidence-cells",
-        "inspect_proof_loop_depth": "microcosm proof-loop-depth",
+        "run_compact_tour_card": "plectis tour --card <project>",
+        "inspect_python_lens": "plectis python-lens <project>",
+        "inspect_public_spine": "plectis spine",
+        "inspect_authority_map": "plectis authority",
+        "inspect_prediction_lens": "plectis prediction-lens",
+        "inspect_market_prediction_boundary": "plectis market-boundary",
+        "inspect_corpus_lens": "plectis corpus-lens",
+        "inspect_verifier_trace_repair_lens": "plectis trace-lens",
+        "inspect_verifier_repair_loop": "plectis repair-loop",
+        "inspect_formal_evidence_cells": "plectis evidence-cells",
+        "inspect_proof_loop_depth": "plectis proof-loop-depth",
         "inspect_verifier_lab_kernel": PROOF_LAB_FIRST_SCREEN_COMMAND,
         "inspect_verifier_lab_execution_spine": VERIFIER_EXECUTION_LENS_COMMAND,
-        "inspect_work_landing_replay": "microcosm landing-replay",
-        "inspect_view_quality_action_map": "microcosm view-quality",
-        "inspect_projection_safety_audit": "microcosm projection-safety",
-        "inspect_projection_drift_control": "microcosm drift-control",
-        "inspect_route_cleanup_contract": "microcosm route-cleanup",
-        "inspect_projection_import_map": "microcosm projection-import-map",
-        "inspect_import_projector_contract": "microcosm import-projector",
-        "inspect_compression_profile_option_surface": "microcosm option-surface-lens",
-        "inspect_public_private_stripping_guard": "microcosm stripping-guard",
-        "inspect_standards_control": "microcosm standards-control",
-        "inspect_hook_intervention_coverage": "microcosm hook-coverage",
-        "inspect_agent_reliability_replay_gauntlet": "microcosm replay-gauntlet",
-        "inspect_repository_benchmark_transaction_lab": "microcosm benchmark-lab",
-        "inspect_public_legibility_scorecard": "microcosm legibility-scorecard",
-        "open_import_bridge": "microcosm intake",
-        "open_reveal_board": "microcosm reveal",
-        "inspect_cold_reader_route_map": "microcosm cold-reader-route-map run-route-map-bundle",
+        "inspect_work_landing_replay": "plectis landing-replay",
+        "inspect_view_quality_action_map": "plectis view-quality",
+        "inspect_projection_safety_audit": "plectis projection-safety",
+        "inspect_projection_drift_control": "plectis drift-control",
+        "inspect_route_cleanup_contract": "plectis route-cleanup",
+        "inspect_projection_import_map": "plectis projection-import-map",
+        "inspect_import_projector_contract": "plectis import-projector",
+        "inspect_compression_profile_option_surface": "plectis option-surface-lens",
+        "inspect_public_private_stripping_guard": "plectis stripping-guard",
+        "inspect_standards_control": "plectis standards-control",
+        "inspect_hook_intervention_coverage": "plectis hook-coverage",
+        "inspect_agent_reliability_replay_gauntlet": "plectis replay-gauntlet",
+        "inspect_repository_benchmark_transaction_lab": "plectis benchmark-lab",
+        "inspect_public_legibility_scorecard": "plectis legibility-scorecard",
+        "open_import_bridge": "plectis intake",
+        "open_reveal_board": "plectis reveal",
+        "inspect_cold_reader_route_map": "plectis cold-reader-route-map run-route-map-bundle",
     }
     for step_id, command in expected_step_commands.items():
         _assert_step_command(first_run_by_step, step_id, command)
     expected_prefix_commands = {
-        "inspect_durable_agent_work_landing_replay": "microcosm durable-agent-work-landing-replay",
-        "inspect_research_replication_rubric_artifact_replay": "microcosm research-replication-rubric-artifact-replay",
-        "inspect_world_model_projection_drift_control_room": "microcosm world-model-projection-drift-control-room",
-        "inspect_spatial_world_model_counterfactual_simulation_replay": "microcosm spatial-world-model-counterfactual-simulation-replay",
-        "inspect_mechanistic_interpretability_circuit_attribution_replay": "microcosm mechanistic-interpretability-circuit-attribution-replay",
-        "inspect_agent_memory_temporal_conflict_replay": "microcosm agent-memory-temporal-conflict-replay",
-        "inspect_sleeper_memory_poisoning_quarantine_replay": "microcosm sleeper-memory-poisoning-quarantine-replay",
-        "inspect_mcp_tool_authority_replay": "microcosm mcp-tool-authority-replay",
-        "inspect_proof_derived_governed_mutation_authorization": "microcosm proof-derived-governed-mutation-authorization",
-        "inspect_belief_state_process_reward_replay": "microcosm belief-state-process-reward-replay",
-        "inspect_agent_sandbox_policy_escape_replay": "microcosm agent-sandbox-policy-escape-replay",
-        "inspect_indirect_prompt_injection_information_flow_policy_replay": "microcosm indirect-prompt-injection-information-flow-policy-replay",
-        "inspect_agentic_vulnerability_discovery_patch_proof_replay": "microcosm agentic-vulnerability-discovery-patch-proof-replay",
-        "inspect_certificate_kernel_execution_lab": "microcosm certificate-kernel-execution-lab",
+        "inspect_durable_agent_work_landing_replay": "plectis durable-agent-work-landing-replay",
+        "inspect_research_replication_rubric_artifact_replay": "plectis research-replication-rubric-artifact-replay",
+        "inspect_world_model_projection_drift_control_room": "plectis world-model-projection-drift-control-room",
+        "inspect_spatial_world_model_counterfactual_simulation_replay": "plectis spatial-world-model-counterfactual-simulation-replay",
+        "inspect_mechanistic_interpretability_circuit_attribution_replay": "plectis mechanistic-interpretability-circuit-attribution-replay",
+        "inspect_agent_memory_temporal_conflict_replay": "plectis agent-memory-temporal-conflict-replay",
+        "inspect_sleeper_memory_poisoning_quarantine_replay": "plectis sleeper-memory-poisoning-quarantine-replay",
+        "inspect_mcp_tool_authority_replay": "plectis mcp-tool-authority-replay",
+        "inspect_proof_derived_governed_mutation_authorization": "plectis proof-derived-governed-mutation-authorization",
+        "inspect_belief_state_process_reward_replay": "plectis belief-state-process-reward-replay",
+        "inspect_agent_sandbox_policy_escape_replay": "plectis agent-sandbox-policy-escape-replay",
+        "inspect_indirect_prompt_injection_information_flow_policy_replay": "plectis indirect-prompt-injection-information-flow-policy-replay",
+        "inspect_agentic_vulnerability_discovery_patch_proof_replay": "plectis agentic-vulnerability-discovery-patch-proof-replay",
+        "inspect_certificate_kernel_execution_lab": "plectis certificate-kernel-execution-lab",
     }
     for step_id, command_prefix in expected_prefix_commands.items():
         _assert_step_command_prefix(first_run_by_step, step_id, command_prefix)
@@ -1803,8 +1660,8 @@ def test_runtime_shell_spine_card_is_compact_first_screen_lens() -> None:
     assert len(json.dumps(card, sort_keys=True)) < 10000
     assert card["status"] == "pass"
     assert card["schema_version"] == "microcosm_public_runtime_spine_card_v1"
-    assert card["command"] == "microcosm spine --card"
-    assert card["full_command"] == "microcosm spine"
+    assert card["command"] == "plectis spine --card"
+    assert card["full_command"] == "plectis spine"
     assert card["endpoint"] == "/spine-card"
     assert card["full_endpoint"] == "/spine"
     assert (
@@ -1844,8 +1701,8 @@ def test_runtime_shell_authority_card_is_compact_first_screen_lens() -> None:
     assert len(json.dumps(card, sort_keys=True)) < 12000
     assert card["status"] == "pass"
     assert card["schema_version"] == "microcosm_public_authority_card_v1"
-    assert card["command"] == "microcosm authority --card"
-    assert card["full_command"] == "microcosm authority"
+    assert card["command"] == "plectis authority --card"
+    assert card["full_command"] == "plectis authority"
     assert card["endpoint"] == "/authority-card"
     assert card["full_endpoint"] == "/authority"
     assert card["release_authorized"] is False
@@ -1881,15 +1738,15 @@ def test_runtime_shell_authority_card_is_compact_first_screen_lens() -> None:
     preview_endpoints = {
         row["surface_id"]: row["endpoint"] for row in card["surface_authority_preview"]
     }
-    assert preview_commands["runtime_status"] == "microcosm status --card <project>"
+    assert preview_commands["runtime_status"] == "plectis status --card <project>"
     assert preview_endpoints["runtime_status"] == "/project/status"
     assert (
         preview_commands["runtime_reveal_import_bridge"]
-        == "microcosm intake --card"
+        == "plectis intake --card"
     )
     assert preview_endpoints["runtime_reveal_import_bridge"] == "/intake-card"
-    assert "microcosm status" not in preview_commands.values()
-    assert "microcosm intake" not in preview_commands.values()
+    assert "plectis status" not in preview_commands.values()
+    assert "plectis intake" not in preview_commands.values()
     assert card["payload_boundary"]["omits_full_surface_authority"] is True
     assert card["payload_boundary"]["omits_full_organ_authority"] is True
     assert card["payload_boundary"]["omits_full_projection_cells"] is True
@@ -1947,7 +1804,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
         "bounded missing-standard or missing-failure-mode debt"
     )
     assert workingness["completeness_status"] == "complete_failure_modes"
-    assert workingness["command"] == "microcosm workingness"
+    assert workingness["command"] == "plectis workingness"
     assert workingness["endpoint"] == "/workingness"
     assert workingness["map_policy"]["not_a_scorecard"] is True
     assert workingness["map_policy"]["failure_modes_come_from_owning_standards"] is True
@@ -1980,7 +1837,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["accepted_status_is_not_evidence_strength"] is True
     assert workingness["not_a_scorecard"] is True
     assert workingness["gap_preview"]["status"] == "clear"
-    assert workingness["gap_preview"]["drilldown_command"] == "microcosm workingness"
+    assert workingness["gap_preview"]["drilldown_command"] == "plectis workingness"
     assert "top-level counts" in workingness["reader_action"]
     assert workingness["surface_counts"]["mapped_organ_count"] == _accepted_organ_count()
     assert workingness["surface_counts"]["adapter_backed_organ_count"] == (
@@ -2110,7 +1967,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
 
     monitor = rows_by_id["agent_monitor_redteam_falsification_replay"]
     assert monitor["workingness_state"] == "demoted_regression_drilldown"
-    assert monitor["observed_workingness"]["evidence_class"] == "bounded_runtime_computation"
+    assert monitor["observed_workingness"]["evidence_class"] == "algorithmic_projection"
     assert monitor["observed_workingness"]["counts_as_real_substrate_progress"] is True
     assert monitor["evaluation_comparison"]["gap_class"] == (
         "kept_out_of_product_path_until_evidence_strengthens"
@@ -2134,9 +1991,9 @@ def test_runtime_shell_workingness_card_omits_full_failure_map() -> None:
     assert card["schema_version"] == "microcosm_workingness_command_speed_card_v1"
     assert card["status"] == "pass"
     assert card["card_status"] == "clear"
-    assert card["command"] == "microcosm workingness --card"
-    assert card["source_command"] == "microcosm workingness"
-    assert card["drilldown_command"] == "microcosm workingness"
+    assert card["command"] == "plectis workingness --card"
+    assert card["source_command"] == "plectis workingness"
+    assert card["drilldown_command"] == "plectis workingness"
     assert card["endpoint"] == "/workingness-card"
     assert card["full_endpoint"] == "/workingness"
     assert card["drilldown_endpoint"] == "/workingness"
@@ -2149,7 +2006,7 @@ def test_runtime_shell_workingness_card_omits_full_failure_map() -> None:
         card["surface_counts"]["source_open_body_material_count"]
     )
     assert count_scope["canonical_aggregate_floor_ref"] == (
-        "microcosm status --card::front_door.source_open_body_import_floor"
+        "plectis status --card::front_door.source_open_body_import_floor"
     )
     assert count_scope["body_text_exported"] is False
     assert card["surface_counts"]["rows_with_failure_modes"] == _accepted_organ_count()
@@ -2178,7 +2035,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
 
     assert authority["status"] == "pass"
     assert authority["schema_version"] == "microcosm_public_authority_map_v2"
-    assert authority["command"] == "microcosm authority"
+    assert authority["command"] == "plectis authority"
     assert authority["endpoint"] == "/authority"
     assert authority["release_authorized"] is False
     assert authority["projection_not_authority"] is True
@@ -2259,6 +2116,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert authority["evidence_class_counts"] == (
         _expected_adapter_evidence_class_counts(public_root)
     )
+    _assert_registry_classifications(authority["organ_authority"], public_root)
     organ_authority_by_id = {row["organ_id"]: row for row in authority["organ_authority"]}
     assert {organ_id: row["evidence_class"] for organ_id, row in organ_authority_by_id.items()} == (
         _expected_organ_evidence_classes(public_root)
@@ -2273,61 +2131,6 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert verifier_authority["source_open_body_imports"]["body_material_count"] == 5
     assert verifier_authority["source_open_body_material_count"] == 5
     assert verifier_authority["substrate_real_body_count"] == 2
-    assert (
-        organ_authority_by_id["proof_diagnostic_evidence_spine"]["evidence_class"]
-        == "algorithmic_projection"
-    )
-    assert (
-        organ_authority_by_id["durable_agent_work_landing_replay"]["evidence_class"]
-        == "semantic_validator"
-    )
-    assert (
-        organ_authority_by_id["proof_derived_governed_mutation_authorization"][
-            "evidence_class"
-        ]
-        == "semantic_validator"
-    )
-    assert (
-        organ_authority_by_id["world_model_projection_drift_control_room"]["evidence_class"]
-        == "semantic_validator"
-    )
-    assert (
-        organ_authority_by_id["world_model_projection_drift_control_room"][
-            "counts_as_real_substrate_progress"
-        ]
-        is True
-    )
-    assert organ_authority_by_id["world_model_projection_drift_control_room"][
-        "truth_accounting_bucket"
-    ] == "real_import_validation"
-    assert (
-        organ_authority_by_id[
-            "mechanistic_interpretability_circuit_attribution_replay"
-        ]["evidence_class"]
-        == "semantic_validator"
-    )
-    assert (
-        organ_authority_by_id[
-            "mechanistic_interpretability_circuit_attribution_replay"
-        ]["truth_accounting_bucket"]
-        == "real_import_validation"
-    )
-    assert (
-        organ_authority_by_id["research_replication_rubric_artifact_replay"]["evidence_class"]
-        == "algorithmic_projection"
-    )
-    assert (
-        organ_authority_by_id["research_replication_rubric_artifact_replay"][
-            "counts_as_real_substrate_progress"
-        ]
-        is True
-    )
-    assert organ_authority_by_id["research_replication_rubric_artifact_replay"][
-        "truth_accounting_bucket"
-    ] == "source_faithful_refactor"
-    assert organ_authority_by_id["pattern_binding_contract"]["truth_accounting_bucket"] == (
-        "real_import_validation"
-    )
     assert all(row["evidence_strength_disclosed"] is True for row in authority["organ_authority"])
     assert any(row["surface_id"] == "project_python_lens" for row in authority["surface_authority"])
     assert any(row["surface_id"] == "public_authority_map" for row in authority["surface_authority"])
@@ -2489,7 +2292,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
 
     assert tour["status"] == "pass"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
-    assert tour["command"] == "microcosm tour <project>"
+    assert tour["command"] == "plectis tour <project>"
     assert tour["endpoint"] == "/tour"
     assert tour["time_budget_minutes"] == 10
     assert tour["front_door_status"]["status_scope"] == (
@@ -2599,7 +2402,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "microcosm_cold_reader_first_screen_v1"
     )
     assert tour["first_screen"]["status"] == "pass"
-    assert tour["first_screen"]["primary_command"] == "microcosm tour --card <project>"
+    assert tour["first_screen"]["primary_command"] == "plectis tour --card <project>"
     assert tour["first_screen"]["minimal_command_path"][0]["command"] == (
         tour["first_screen"]["primary_command"]
     )
@@ -2614,10 +2417,10 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "available_project_route_ids"
     ]
     assert tour["first_screen"]["route_explanation"]["command"] == (
-        f"microcosm explain <project> {tour['first_screen']['selected_route_id']}"
+        f"plectis explain <project> {tour['first_screen']['selected_route_id']}"
     )
     assert tour["first_screen"]["route_explanation"]["route_id_source"] == (
-        "microcosm tour --card/tour/compile selected_route_id"
+        "plectis tour --card/tour/compile selected_route_id"
     )
     assert [row["step_id"] for row in tour["first_screen"]["minimal_command_path"]] == [
         "inspect_first_screen",
@@ -2641,16 +2444,16 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "/project/observe"
     )
     assert minimal_path_by_id["inspect_project_observe"]["command"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
     assert minimal_path_by_id["inspect_project_observe"]["full_drilldown"] == (
-        "microcosm observe <project>"
+        "plectis observe <project>"
     )
     assert minimal_path_by_id["open_observatory"]["expanded_endpoint"] == (
         "/project/observatory"
     )
     assert minimal_path_by_id["open_observatory"]["interactive_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert tour["first_screen"]["generated_state"]["state_dir"] == ".microcosm"
     assert ".microcosm/catalog.json" in tour["first_screen"]["generated_state"]["refs"]
@@ -2659,18 +2462,18 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         ".microcosm/routes.json"
     )
     assert tour["first_screen"]["behavior_surfaces"]["observatory_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert tour["first_screen"]["behavior_surfaces"][
         "observatory_interactive_command"
     ] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert tour["first_screen"]["behavior_surfaces"]["project_observe_command"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
     assert tour["first_screen"]["behavior_surfaces"]["project_observe_full_command"] == (
-        "microcosm observe <project>"
+        "plectis observe <project>"
     )
     assert tour["first_screen"]["behavior_surfaces_contract"]["required_keys"] == list(
         tour["first_screen"]["behavior_surfaces"]
@@ -2737,10 +2540,10 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "/workingness"
     )
     assert route_cards_by_id["status_and_workingness"]["status_card_command"] == (
-        "microcosm status --card"
+        "plectis status --card"
     )
     assert route_cards_by_id["status_and_workingness"]["workingness_command"] == (
-        "microcosm workingness --card"
+        "plectis workingness --card"
     )
     assert route_cards_by_id["status_and_workingness"]["workingness_summary"][
         "missing_failure_modes_count"
@@ -2780,7 +2583,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "workingness_summary"
     ]["gap_preview"]
     assert tour_gap_preview["status"] == "clear"
-    assert tour_gap_preview["drilldown_command"] == "microcosm workingness"
+    assert tour_gap_preview["drilldown_command"] == "plectis workingness"
     assert tour_gap_preview["rows"] == []
     assert route_cards_by_id["status_and_workingness"]["authority_ceiling"][
         "release_authorized"
@@ -2810,29 +2613,29 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert "/replay-gauntlet" in tour["endpoint_path"]
     assert "/benchmark-lab" in tour["endpoint_path"]
     assert "/legibility-scorecard" in tour["endpoint_path"]
-    assert "microcosm trace-lens" in tour["command_path"]
-    assert "microcosm repair-loop" in tour["command_path"]
-    assert "microcosm evidence-cells" in tour["command_path"]
-    assert "microcosm proof-loop-depth" in tour["command_path"]
+    assert "plectis trace-lens" in tour["command_path"]
+    assert "plectis repair-loop" in tour["command_path"]
+    assert "plectis evidence-cells" in tour["command_path"]
+    assert "plectis proof-loop-depth" in tour["command_path"]
     assert VERIFIER_EXECUTION_LENS_COMMAND in tour["command_path"]
-    assert "microcosm landing-replay" in tour["command_path"]
-    assert "microcosm view-quality" in tour["command_path"]
-    assert "microcosm projection-safety" in tour["command_path"]
-    assert "microcosm market-boundary" in tour["command_path"]
-    assert "microcosm drift-control" in tour["command_path"]
-    assert "microcosm circuit-attribution" in tour["command_path"]
-    assert "microcosm route-cleanup" in tour["command_path"]
-    assert "microcosm projection-import-map" in tour["command_path"]
-    assert "microcosm import-projector" in tour["command_path"]
-    assert "microcosm option-surface-lens" in tour["command_path"]
-    assert "microcosm stripping-guard" in tour["command_path"]
-    assert "microcosm standards-control" in tour["command_path"]
-    assert "microcosm hook-coverage" in tour["command_path"]
-    assert "microcosm replay-gauntlet" in tour["command_path"]
-    assert "microcosm benchmark-lab" in tour["command_path"]
-    assert "microcosm legibility-scorecard" in tour["command_path"]
-    assert "microcosm status --card" in tour["command_path"]
-    assert "microcosm workingness" in tour["command_path"]
+    assert "plectis landing-replay" in tour["command_path"]
+    assert "plectis view-quality" in tour["command_path"]
+    assert "plectis projection-safety" in tour["command_path"]
+    assert "plectis market-boundary" in tour["command_path"]
+    assert "plectis drift-control" in tour["command_path"]
+    assert "plectis circuit-attribution" in tour["command_path"]
+    assert "plectis route-cleanup" in tour["command_path"]
+    assert "plectis projection-import-map" in tour["command_path"]
+    assert "plectis import-projector" in tour["command_path"]
+    assert "plectis option-surface-lens" in tour["command_path"]
+    assert "plectis stripping-guard" in tour["command_path"]
+    assert "plectis standards-control" in tour["command_path"]
+    assert "plectis hook-coverage" in tour["command_path"]
+    assert "plectis replay-gauntlet" in tour["command_path"]
+    assert "plectis benchmark-lab" in tour["command_path"]
+    assert "plectis legibility-scorecard" in tour["command_path"]
+    assert "plectis status --card" in tour["command_path"]
+    assert "plectis workingness" in tour["command_path"]
     assert (
         route_cards_by_id["prediction_and_corpus"]["endpoint"]
         == "/prediction + /corpus + /trace + /repair-loop + /evidence-cells + /proof-loop-depth + /landing-replay + /view-quality + /projection-safety + /market-boundary + /drift-control + /spatial-simulation + /circuit-attribution + /route-cleanup + /projection-import-map + /import-projector + /option-surface-lens + /stripping-guard + /standards-control + /hook-coverage + /replay-gauntlet + /benchmark-lab + /legibility-scorecard"
@@ -2866,7 +2669,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["runtime_summary"]["standards_control_negative_case_count"] == 8
     assert tour["runtime_summary"]["workingness_mapped_organ_count"] >= 1
     assert tour["runtime_summary"]["workingness_missing_failure_modes_count"] == 0
-    assert "microcosm evidence inspect <receipt>" in tour["command_path"]
+    assert "plectis evidence inspect <receipt>" in tour["command_path"]
     assert tour["authority_ceiling"]["release_authorized"] is False
     assert tour["safe_to_show"]["body_in_receipt"] is False
     assert tour["safe_to_show"]["receipt_refs_only_until_drilldown"] is True
@@ -3160,10 +2963,10 @@ def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
         "type_a_agent",
     }
     assert reader_routes["public_github_visitor"]["next_command"] == (
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
     )
     assert reader_routes["peer_developer"]["next_command"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
     assert reader_routes["domain_specialist"]["next_command"] == (
         "ORGANS.md#find-your-specialty"
@@ -3172,16 +2975,16 @@ def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
         "anti_misread"
     ]
     assert reader_routes["safety_evals_engineer"]["next_command"] == (
-        "microcosm authority --card"
+        "plectis authority --card"
     )
     assert reader_routes["safety_evals_engineer"]["followup_command"] == (
-        "microcosm workingness --card"
+        "plectis workingness --card"
     )
     assert "maturity scores" in reader_routes["safety_evals_engineer"][
         "anti_misread"
     ]
     assert reader_routes["type_a_agent"]["next_command"] == (
-        "microcosm organ-surface-contract --card --root ."
+        "plectis organ-surface-contract --card --root ."
     )
     assert reader_routes["type_a_agent"]["followup_command"] == (
         "AGENTS.md::Concept And Mechanism Entry"
@@ -3190,14 +2993,14 @@ def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
     assert "readme_onboarding_route" not in first_screen["available_project_route_ids"]
     assert first_screen["selected_route_id"] == "package_runtime_route"
     assert first_screen["route_explanation"]["command"] == (
-        "microcosm explain <project> package_runtime_route"
+        "plectis explain <project> package_runtime_route"
     )
     route_step = next(
         row
         for row in first_screen["minimal_command_path"]
         if row["step_id"] == "inspect_route_causal_chain"
     )
-    assert route_step["command"] == "microcosm explain <project> package_runtime_route"
+    assert route_step["command"] == "plectis explain <project> package_runtime_route"
     assert route_step["selected_route_id"] == "package_runtime_route"
 
 
@@ -3209,7 +3012,7 @@ def test_runtime_shell_trace_lens_uses_payload_boundary(tmp_path: Path) -> None:
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_verifier_trace_repair_lens_v1"
-    assert lens["command"] == "microcosm trace-lens"
+    assert lens["command"] == "plectis trace-lens"
     assert lens["endpoint"] == "/trace"
     assert lens["lens_id"] == "public_verifier_trace_repair_lens"
     assert [row["verifier_failure_class"] for row in lens["trace_rows"]] == [
@@ -3270,7 +3073,7 @@ def test_runtime_shell_repair_loop_lens_uses_payload_boundary(tmp_path: Path) ->
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_verifier_repair_loop_lens_v1"
-    assert lens["command"] == "microcosm repair-loop"
+    assert lens["command"] == "plectis repair-loop"
     assert lens["endpoint"] == "/repair-loop"
     assert lens["lens_id"] == "public_verifier_repair_loop_lens"
     assert lens["selected_pattern_id"] == "formal_math_verifier_trace_repair_loop_compound"
@@ -3336,7 +3139,7 @@ def test_runtime_shell_evidence_cell_lens_uses_payload_boundary(tmp_path: Path) 
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_formal_evidence_cell_lens_v1"
-    assert lens["command"] == "microcosm evidence-cells"
+    assert lens["command"] == "plectis evidence-cells"
     assert lens["endpoint"] == "/evidence-cells"
     assert lens["lens_id"] == "public_formal_evidence_cell_lens"
     assert [row["resolver_status"] for row in lens["evidence_cells"]] == [
@@ -3390,7 +3193,7 @@ def test_runtime_shell_proof_loop_depth_lens_uses_payload_boundary(tmp_path: Pat
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_proof_loop_depth_lens_v1"
-    assert lens["command"] == "microcosm proof-loop-depth"
+    assert lens["command"] == "plectis proof-loop-depth"
     assert lens["endpoint"] == "/proof-loop-depth"
     assert lens["lens_id"] == "public_proof_loop_depth_lens"
     assert [row["gate_id"] for row in lens["gate_rows"]] == [
@@ -3574,7 +3377,7 @@ def test_runtime_shell_landing_replay_lens_is_public_safe(tmp_path: Path) -> Non
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_work_landing_replay_lens_v1"
-    assert lens["command"] == "microcosm landing-replay"
+    assert lens["command"] == "plectis landing-replay"
     assert lens["endpoint"] == "/landing-replay"
     assert lens["lens_id"] == "public_work_landing_replay_lens"
     assert [row["lane_id"] for row in lens["lane_decision_table"]] == [
@@ -3634,7 +3437,7 @@ def test_runtime_shell_view_quality_lens_is_public_safe(tmp_path: Path) -> None:
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_view_quality_action_map_lens_v1"
-    assert lens["command"] == "microcosm view-quality"
+    assert lens["command"] == "plectis view-quality"
     assert lens["endpoint"] == "/view-quality"
     assert lens["lens_id"] == "public_view_quality_action_map_lens"
     assert lens["selected_pattern_id"] == "view_quality_all_view_action_map"
@@ -3703,7 +3506,7 @@ def test_runtime_shell_projection_safety_lens_is_public_safe(tmp_path: Path) -> 
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_projection_safety_audit_lens_v1"
-    assert lens["command"] == "microcosm projection-safety"
+    assert lens["command"] == "plectis projection-safety"
     assert lens["endpoint"] == "/projection-safety"
     assert lens["lens_id"] == "public_projection_safety_audit_lens"
     assert lens["selected_pattern_id"] == "omission_receipt_reversible_projection_boundary"
@@ -3791,7 +3594,7 @@ def test_runtime_shell_projection_drift_control_lens_uses_payload_boundary(tmp_p
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_projection_drift_control_lens_v1"
-    assert lens["command"] == "microcosm drift-control"
+    assert lens["command"] == "plectis drift-control"
     assert lens["endpoint"] == "/drift-control"
     assert lens["lens_id"] == "public_projection_drift_control_lens"
     assert lens["selected_route_id"] == "world_model_projection_drift_control_room"
@@ -3853,7 +3656,7 @@ def test_runtime_shell_spatial_simulation_lens_is_public_safe(tmp_path: Path) ->
         lens["schema_version"]
         == "microcosm_public_spatial_world_model_counterfactual_simulation_replay_lens_v1"
     )
-    assert lens["command"] == "microcosm spatial-simulation"
+    assert lens["command"] == "plectis spatial-simulation"
     assert lens["endpoint"] == "/spatial-simulation"
     assert (
         lens["lens_id"]
@@ -3910,7 +3713,7 @@ def test_runtime_shell_route_cleanup_contract_lens_uses_payload_boundary(tmp_pat
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_route_cleanup_contract_lens_v1"
-    assert lens["command"] == "microcosm route-cleanup"
+    assert lens["command"] == "plectis route-cleanup"
     assert lens["endpoint"] == "/route-cleanup"
     assert lens["lens_id"] == "public_route_cleanup_contract_lens"
     assert lens["selected_route_id"] == "route_cleanup_contract_plane"
@@ -3970,12 +3773,14 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_projection_import_map_lens_v1"
-    assert lens["command"] == "microcosm projection-import-map"
+    assert lens["command"] == "plectis projection-import-map"
     assert lens["endpoint"] == "/projection-import-map"
     assert lens["lens_id"] == "public_projection_import_map_lens"
-    assert lens["map_summary"]["row_count"] == 8
+    assert lens["map_summary"]["row_count"] == len(lens["import_rows"])
     assert lens["map_summary"]["stage_count"] == 6
-    assert lens["map_summary"]["validation_ref_count"] == 16
+    assert lens["map_summary"]["validation_ref_count"] == len({
+        ref for row in lens["import_rows"] for ref in row["validation_refs"]
+    })
     assert lens["map_summary"]["private_body_export_count"] == 0
     assert lens["map_summary"]["provider_payload_export_count"] == 0
     assert lens["map_summary"]["automated_import_guarantee"] is False
@@ -3983,10 +3788,10 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
     floor = shell._macro_projection_body_import_floor()
     assert handoff["status"] == "pass"
     assert handoff["source_ref"] == (
-        "microcosm status --card <project>::"
+        "plectis status --card <project>::"
         "front_door.source_open_body_import_floor"
     )
-    assert handoff["full_status_ref"] == "microcosm status::macro_body_import_floor"
+    assert handoff["full_status_ref"] == "plectis status::macro_body_import_floor"
     assert handoff["projection_map_role"] == "aggregate_handoff_not_body_text"
     assert handoff["public_safe_body_material_count"] == floor[
         "public_safe_body_material_count"
@@ -4217,7 +4022,7 @@ def test_runtime_shell_import_projector_contract_lens_is_public_safe(tmp_path: P
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_import_projector_contract_lens_v1"
-    assert lens["command"] == "microcosm import-projector"
+    assert lens["command"] == "plectis import-projector"
     assert lens["endpoint"] == "/import-projector"
     assert lens["lens_id"] == "public_import_projector_contract_lens"
     assert lens["projector_summary"]["row_count"] == 9
@@ -4275,7 +4080,7 @@ def test_runtime_shell_option_surface_lens_is_public_safe(tmp_path: Path) -> Non
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_compression_profile_option_surface_lens_v1"
-    assert lens["command"] == "microcosm option-surface-lens"
+    assert lens["command"] == "plectis option-surface-lens"
     assert lens["endpoint"] == "/option-surface-lens"
     assert lens["lens_id"] == "public_compression_profile_option_surface_lens"
     assert lens["option_surface_summary"]["row_count"] == 6
@@ -4321,7 +4126,7 @@ def test_runtime_shell_option_surface_lens_is_public_safe(tmp_path: Path) -> Non
     assert boundary_normalization["omitted_payload_schema_terms_exported"] is False
     assert (
         boundary_normalization["source_open_payload_boundary_ref"]
-        == "microcosm option-surface-lens::payload_boundary"
+        == "plectis option-surface-lens::payload_boundary"
     )
     assert boundary_normalization["public_contract_fields"] == [
         "source_open_body_policy",
@@ -4353,7 +4158,7 @@ def test_runtime_shell_stripping_guard_lens_is_public_safe(tmp_path: Path) -> No
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_private_stripping_guard_lens_v1"
-    assert lens["command"] == "microcosm stripping-guard"
+    assert lens["command"] == "plectis stripping-guard"
     assert lens["endpoint"] == "/stripping-guard"
     assert lens["lens_id"] == "public_stripping_guard_lens"
     assert lens["guard_summary"]["guard_row_count"] == 8
@@ -4416,7 +4221,7 @@ def test_runtime_shell_standards_control_lens_is_public_safe(tmp_path: Path) -> 
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_standards_control_lens_v1"
-    assert lens["command"] == "microcosm standards-control"
+    assert lens["command"] == "plectis standards-control"
     assert lens["endpoint"] == "/standards-control"
     assert lens["lens_id"] == "public_standards_control_lens"
     assert lens["standards_summary"]["standards_control_row_count"] == 8
@@ -4488,7 +4293,7 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_hook_intervention_coverage_lens_v1"
-    assert lens["command"] == "microcosm hook-coverage"
+    assert lens["command"] == "plectis hook-coverage"
     assert lens["endpoint"] == "/hook-coverage"
     assert lens["lens_id"] == "public_hook_intervention_coverage_lens"
     assert lens["selected_pattern_id"] == "runtime_hook_shadow_intervention_coverage"
@@ -4558,7 +4363,7 @@ def test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary(tmp_path: Path
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_agent_reliability_replay_gauntlet_lens_v1"
-    assert lens["command"] == "microcosm replay-gauntlet"
+    assert lens["command"] == "plectis replay-gauntlet"
     assert lens["endpoint"] == "/replay-gauntlet"
     assert lens["lens_id"] == "public_agent_reliability_replay_gauntlet_lens"
     assert lens["selected_route_id"] == "agent_reliability_synthetic_replay_gauntlet"
@@ -4599,7 +4404,7 @@ def test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary(tmp_path: Path
         for command in generated_receipt_commands
     )
     assert (
-        "microcosm agent-monitor-redteam-falsification-replay "
+        "plectis agent-monitor-redteam-falsification-replay "
         "run-monitor-bundle --input "
         "examples/agent_monitor_redteam_falsification_replay/"
         "exported_monitor_redteam_bundle --out "
@@ -4626,7 +4431,7 @@ def test_runtime_shell_benchmark_lab_lens_uses_payload_boundary(tmp_path: Path) 
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_repository_benchmark_transaction_lab_lens_v1"
-    assert lens["command"] == "microcosm benchmark-lab"
+    assert lens["command"] == "plectis benchmark-lab"
     assert lens["endpoint"] == "/benchmark-lab"
     assert lens["lens_id"] == "public_repository_benchmark_transaction_lab_lens"
     assert lens["scorecard"]["task_count"] == 2
@@ -4675,7 +4480,7 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_cold_reader_legibility_scorecard_lens_v1"
-    assert lens["command"] == "microcosm legibility-scorecard"
+    assert lens["command"] == "plectis legibility-scorecard"
     assert lens["endpoint"] == "/legibility-scorecard"
     assert lens["lens_id"] == "public_cold_reader_legibility_scorecard_lens"
     assert lens["scorecard"]["checkpoint_count"] == 6
@@ -4684,7 +4489,7 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert lens["scorecard"]["blocking_gap_count"] == 0
     assert lens["scorecard"]["not_score_based_progress"] is True
     bounded_observatory_command = (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+        "plectis serve <project> --host 127.0.0.1 --port 8765 "
         "--max-requests 7"
     )
     pre_install_probe = lens["card_first_entry_path"]["pre_install_probe"]
@@ -4712,11 +4517,11 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert repo_checkpoint["pre_install_probe_receipt"] == (
         ".microcosm/cold_clone_probe.json"
     )
-    assert checkpoint_commands["weird_substrate_visible"] == "microcosm trace-lens"
+    assert checkpoint_commands["weird_substrate_visible"] == "plectis trace-lens"
     assert checkpoint_command_sequences["weird_substrate_visible"] == [
-        "microcosm trace-lens",
-        "microcosm replay-gauntlet",
-        "microcosm benchmark-lab",
+        "plectis trace-lens",
+        "plectis replay-gauntlet",
+        "plectis benchmark-lab",
     ]
     assert all("&&" not in row["command"] for row in lens["checkpoint_rows"])
     assert all(
@@ -4736,13 +4541,13 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
         row["question_id"]: row["proof_command_sequence"]
         for row in lens["reader_question_rows"]
     }
-    assert reader_proof_commands["first_run"] == "microcosm hello <project>"
+    assert reader_proof_commands["first_run"] == "plectis hello <project>"
     assert {
         row["question_id"]: row for row in lens["reader_question_rows"]
     }["first_run"]["pre_install_probe_command"] == "./bootstrap.sh"
     assert reader_proof_sequences["first_run"] == [
-        "microcosm hello <project>",
-        "microcosm tour --card <project>",
+        "plectis hello <project>",
+        "plectis tour --card <project>",
     ]
     assert all("&&" not in row["proof_command"] for row in lens["reader_question_rows"])
     assert all(
@@ -4754,7 +4559,7 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
         for row in lens["reader_question_rows"]
         for command in row["proof_command_sequence"]
     )
-    assert "microcosm serve <project>" not in lens["required_commands"]
+    assert "plectis serve <project>" not in lens["required_commands"]
     assert "release_readiness_verdict" not in lens
     assert "recording_companion_card" not in lens
     assert "recording_companion_boundary" not in lens
@@ -4808,7 +4613,7 @@ def test_runtime_shell_corpus_lens_is_public_safe(tmp_path: Path) -> None:
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_corpus_readiness_lens_v1"
-    assert lens["command"] == "microcosm corpus-lens"
+    assert lens["command"] == "plectis corpus-lens"
     assert lens["endpoint"] == "/corpus"
     assert lens["organ_id"] == "corpus_readiness_mathlib_absence_gate"
     assert lens["source_pattern_count"] == 1
@@ -4886,7 +4691,7 @@ def test_runtime_shell_prediction_lens_uses_payload_boundary(tmp_path: Path) -> 
 
     assert lens["status"] == "pass"
     assert lens["schema_version"] == "microcosm_public_prediction_lens_v1"
-    assert lens["command"] == "microcosm prediction-lens"
+    assert lens["command"] == "plectis prediction-lens"
     assert lens["endpoint"] == "/prediction"
     assert lens["organ_id"] == "prediction_oracle_reconciliation"
     assert lens["source_pattern_count"] == 6
@@ -4897,11 +4702,12 @@ def test_runtime_shell_prediction_lens_uses_payload_boundary(tmp_path: Path) -> 
         "oracle_diff_grading",
         "bounded_dossier_mutation",
     ]
-    assert lens["mechanics"][0]["count"] == 2
-    assert lens["mechanics"][2]["count"] == 2
-    assert lens["mechanics"][3]["graded_count"] == 2
-    assert lens["mechanics"][3]["hit_count"] == 1
-    assert set(lens["negative_case_ids"]) == {
+    board = json.loads((public_root / "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json").read_text())
+    assert lens["mechanics"][0]["count"] == len(board["valid_prediction_targets"])
+    assert lens["mechanics"][2]["count"] == board["cp2_prediction_count"]
+    assert lens["mechanics"][3]["graded_count"] == board["oracle_diff_graded_count"]
+    assert lens["mechanics"][3]["hit_count"] == board["oracle_diff_hit_count"]
+    assert set(lens["negative_case_ids"]) >= {
         "invalid_cp2_target",
         "missing_bifurcation_resolution",
         "post_t_evidence_ref",
@@ -4948,7 +4754,7 @@ def test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary(
         lens["schema_version"]
         == "microcosm_public_market_prediction_evidence_boundary_lens_v1"
     )
-    assert lens["command"] == "microcosm market-boundary"
+    assert lens["command"] == "plectis market-boundary"
     assert lens["endpoint"] == "/market-boundary"
     assert lens["lens_id"] == "public_market_prediction_evidence_boundary_lens"
     assert lens["selected_route_id"] == "market_prediction_evidence_boundary"
@@ -5019,7 +4825,7 @@ def test_runtime_shell_run_demo_card_is_compact(
 
     def fake_run_demo(project: str, *, command: str | None = None) -> dict[str, object]:
         assert project == "examples/runtime_shell/demo_project"
-        assert command == "microcosm run --card examples/runtime_shell/demo_project"
+        assert command == "plectis run --card examples/runtime_shell/demo_project"
         return {
             "schema_version": "microcosm_runtime_demo_result_v1",
             "project_id": "demo_project",
@@ -5033,7 +4839,7 @@ def test_runtime_shell_run_demo_card_is_compact(
                 "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/result.json",
             ],
             "trace_ref": "receipts/runtime_shell/demo_project/demo_project_trace.json",
-            "next_actions": ["microcosm route list", "microcosm serve"],
+            "next_actions": ["plectis route list", "plectis serve"],
             "authority_ceiling": {"release_authorized": False},
             "anti_claim": "public runtime demo only",
         }
@@ -5044,7 +4850,7 @@ def test_runtime_shell_run_demo_card_is_compact(
     encoded = json.dumps(card, sort_keys=True)
 
     assert card["schema_version"] == "microcosm_runtime_demo_card_v1"
-    assert card["command"] == "microcosm run --card examples/runtime_shell/demo_project"
+    assert card["command"] == "plectis run --card examples/runtime_shell/demo_project"
     assert card["status"] == "pass"
     assert card["cache_status"] == "live_replay_result"
     assert card["event_count"] == 2
@@ -5056,19 +4862,19 @@ def test_runtime_shell_run_demo_card_is_compact(
     )
     assert card["evidence_ref_count"] == 2
     assert card["next_actions"] == [
-        "microcosm status --card examples/runtime_shell/demo_project",
-        "microcosm observe examples/runtime_shell/demo_project",
-        "microcosm evidence list --limit 8",
+        "plectis status --card examples/runtime_shell/demo_project",
+        "plectis observe examples/runtime_shell/demo_project",
+        "plectis evidence list --limit 8",
         (
-            "microcosm serve examples/runtime_shell/demo_project "
+            "plectis serve examples/runtime_shell/demo_project "
             "--host 127.0.0.1 --port 8765 --max-requests 7"
         ),
     ]
-    assert "microcosm route list" not in card["next_actions"]
-    assert "microcosm serve" not in card["next_actions"]
+    assert "plectis route list" not in card["next_actions"]
+    assert "plectis serve" not in card["next_actions"]
     assert card["body_in_receipt"] is False
     assert card["output_economy"] == {
-        "full_payload_drilldown": "microcosm run examples/runtime_shell/demo_project",
+        "full_payload_drilldown": "plectis run examples/runtime_shell/demo_project",
         "full_result_ref": "receipts/runtime_shell/demo_project/demo_project_result.json",
         "cached_result_ref": None,
         "events_exported": False,
@@ -5082,7 +4888,7 @@ def test_runtime_shell_run_demo_card_is_compact(
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_run_demo_card_reads_cached_result_without_replay(
+def test_runtime_shell_run_demo_card_reads_unbound_history_without_replay(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -5093,9 +4899,10 @@ def test_runtime_shell_run_demo_card_reads_cached_result_without_replay(
     )
     cached_result = json.loads(cached_result_path.read_text(encoding="utf-8"))
     expected_event_count = _adapter_backed_organ_count(public_root)
+    cached_result.pop("input_binding", None)
     cached_result["events"] = [
-        {"organ_id": f"organ_{index}", "status": "pass"}
-        for index in range(expected_event_count)
+        {"organ_id": step.organ_id, "status": "pass"}
+        for step in runtime_shell._product_runtime_steps()
     ]
     cached_result["evidence_refs"] = [
         f"receipts/runtime_shell/demo_project/organs/organ_{index}/result.json"
@@ -5112,11 +4919,11 @@ def test_runtime_shell_run_demo_card_reads_cached_result_without_replay(
     encoded = json.dumps(card, sort_keys=True)
 
     assert card["schema_version"] == "microcosm_runtime_demo_card_v1"
-    assert card["command"] == "microcosm run --card examples/runtime_shell/demo_project"
-    assert card["status"] == cached_result["status"]
-    assert card["cache_status"] == "cached_result_read"
+    assert card["command"] == "plectis run --card examples/runtime_shell/demo_project"
+    assert card["status"] == "stale_cached_result"
+    assert card["cache_status"] == "stale_cached_result"
     assert card["cache_freshness"] == {
-        "status": "current",
+        "status": "stale_unbound_inputs",
         "cached_event_count": expected_event_count,
         "expected_event_count": expected_event_count,
     }
@@ -5170,23 +4977,38 @@ def test_runtime_shell_run_demo_card_marks_stale_cache_without_replay(
     assert card["event_count"] == expected_event_count - 1
 
 
-def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+def test_runtime_shell_reports_demo_results_against_exported_bundles(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("MICROCOSM_RUNTIME_RECEIPT_WRITES", "1")
+    public_root = _copy_complete_public_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
     result = shell.run_demo("examples/runtime_shell/demo_project")
 
-    assert result["status"] == "pass"
-    assert len(result["events"]) == _adapter_backed_organ_count()
-    assert [event["status"] for event in result["events"]] == ["pass"] * (
-        _adapter_backed_organ_count()
-    )
+    # This shell test checks real execution and truthful aggregation. Individual
+    # component validators own mathematical/semantic correctness. The public
+    # export deliberately omits private dependencies for some selected steps.
+    events = {event["organ_id"]: event for event in result["events"]}
+    assert list(events) == [step.organ_id for step in runtime_shell._product_runtime_steps()]
+    assert all(event["status"] in {"pass", "blocked", "fail", "unavailable"}
+               for event in events.values())
+    passed = sum(event["status"] == "pass" for event in events.values())
+    assert result["status"] == ("pass" if passed == len(events) else "blocked")
+    assert result["input_binding"]["status"] == "bound"
+    for organ_id in (
+        "pattern_binding_contract", "navigation_hologram_route_plane",
+        "standards_meta_diagnostics", "mcp_tool_authority_replay",
+        "belief_state_process_reward_replay", "batch12_release_claim_language_gate",
+    ):
+        assert events[organ_id]["status"] == "pass", events[organ_id]
+    missing_runtime = events["mission_transaction_work_spine"]
+    assert missing_runtime["execution_status"] == "unavailable"
+    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" in missing_runtime["error_codes"]
     assert result["next_actions"] == [
-        "microcosm status --card examples/runtime_shell/demo_project",
-        "microcosm observe examples/runtime_shell/demo_project",
-        "microcosm evidence list --limit 8",
+        "plectis status --card examples/runtime_shell/demo_project",
+        "plectis observe examples/runtime_shell/demo_project",
+        "plectis evidence list --limit 8",
         (
-            "microcosm serve examples/runtime_shell/demo_project "
+            "plectis serve examples/runtime_shell/demo_project "
             "--host 127.0.0.1 --port 8765 --max-requests 7"
         ),
     ]
@@ -5201,11 +5023,13 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
         assert (public_root / ref).is_file()
 
     trace = json.loads((public_root / result["trace_ref"]).read_text(encoding="utf-8"))
-    assert trace["status"] == "pass"
+    assert trace["status"] == result["status"]
     assert trace["otel_shape"]["span_count"] == _adapter_backed_organ_count()
-    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == (
-        _adapter_backed_organ_count()
-    )
+    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == passed
+    for event in events.values():
+        receipt = json.loads((public_root / event["evidence_ref"]).read_text())
+        assert event["status"] == receipt["status"]
+        assert event["error_codes"] == receipt.get("error_codes", [])
     output_text = (public_root / "receipts/runtime_shell/demo_project/demo_project_result.json").read_text(
         encoding="utf-8"
     )
@@ -5232,7 +5056,9 @@ def test_runtime_shell_route_and_evidence_drilldowns(tmp_path: Path) -> None:
     assert evidence["body_in_receipt"] is False
     assert evidence["evidence_contract"]["real_runtime_receipt"] is True
     assert evidence["evidence_contract"]["synthetic_receipt_is_product_evidence"] is False
-    assert work_demo["status"] == "pass"
+    assert work_demo["status"] == "blocked"
+    assert work_demo["real_active_claims_snapshot_status"] == "unavailable"
+    assert "REAL_ACTIVE_CLAIMS_RUNTIME_UNAVAILABLE" in work_demo["error_codes"]
     assert work_demo["evidence_ref"].startswith("receipts/runtime_shell/work_demo/")
     assert work_demo["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
 
@@ -5367,9 +5193,9 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Quick public entry is served from compact cards" in html
     assert "One-Screen Entry" in html
     assert "Human first command" in html
-    assert "microcosm hello &lt;project&gt;" in html
+    assert "plectis hello &lt;project&gt;" in html
     assert "Behavior proof" in html
-    assert "microcosm tour --card &lt;project&gt;" in html
+    assert "plectis tour --card &lt;project&gt;" in html
     assert "Shared first command" not in html
     assert "readme_onboarding_route" in html
     assert "Front-door status" in html
@@ -5389,14 +5215,14 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Body " + "red" + "acted" not in html
     assert first_screen["schema_version"] == "microcosm_first_screen_compact_card_v1"
     assert first_screen["output_policy"]["full_contract_command"] == (
-        "microcosm first-screen --full <project>"
+        "plectis first-screen --full <project>"
     )
     assert first_screen["reader_route_menu"]["machine_card_command"] == (
-        "microcosm first-screen --card <project>"
+        "plectis first-screen --card <project>"
     )
     assert "video_storyboard_packet" not in first_screen
     assert first_screen["status"] == "pass"
-    assert first_screen["shared_first_command"] == "microcosm tour --card <project>"
+    assert first_screen["shared_first_command"] == "plectis tour --card <project>"
     assert first_screen_full["schema_version"] == (
         "microcosm_first_screen_composition_card_v1"
     )
@@ -5453,7 +5279,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "/Users/" not in project_status_json
     assert "src/ai_workflow" not in project_status_json
     assert project_status_card["card_command"] == (
-        f"microcosm status --card {project_status_ref}"
+        f"plectis status --card {project_status_ref}"
     )
     assert project_status_card["project_ref"] == project_status_ref
     assert project_status_card["front_door"]["project_state_status"] == "pass"
@@ -5482,23 +5308,23 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     ]
     assert project_status_state_write["status"] == "pass"
     assert project_status_state_write["state_write_result_ref"] == (
-        f"microcosm tour --card {project_status_ref}::state_write_result"
+        f"plectis tour --card {project_status_ref}::state_write_result"
     )
     assert project_status_state_write["observe_ref"] == (
-        f"microcosm observe {project_status_ref}::state_write_proof"
+        f"plectis observe {project_status_ref}::state_write_proof"
     )
     assert project_status_state_write["status_card_writes_microcosm_state"] is False
     assert project_status_card["front_door"]["observatory"][
         "compact_endpoint"
     ] == "/project/observatory-card"
     assert project_status_card["front_door"]["observatory"]["command"] == (
-        f"microcosm serve {project_status_ref} "
+        f"plectis serve {project_status_ref} "
         "--host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert project_status_card["front_door"]["observatory"][
         "interactive_command"
     ] == (
-        f"microcosm serve {project_status_ref} "
+        f"plectis serve {project_status_ref} "
         "--host 127.0.0.1 --port 8765"
     )
     assert (
@@ -5541,7 +5367,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert tour["status"] == "pass"
     assert tour["front_door_status"]["status"] == "pass"
     assert tour["front_door_status"]["blocking_surface_ids"] == []
-    assert tour["drilldown_command"] == "microcosm tour <project>"
+    assert tour["drilldown_command"] == "plectis tour <project>"
     assert tour["output_economy"]["full_route_cards_exported"] is False
     assert observatory["tour_payload_policy"]["embedded_tour_payload"] == "compact_card"
     assert authority["schema_version"] == "microcosm_public_authority_map_v2"
@@ -5598,7 +5424,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert route_cleanup["authority_ceiling"]["route_deletion_authorized"] is False
     assert route_cleanup["authority_ceiling"]["generated_region_hand_edit_authorized"] is False
     assert projection_import_map["schema_version"] == "microcosm_public_projection_import_map_lens_v1"
-    assert projection_import_map["map_summary"]["row_count"] == 8
+    assert projection_import_map["map_summary"]["row_count"] == len(projection_import_map["import_rows"])
     assert projection_import_map["authority_ceiling"]["automated_import_guarantee"] is False
     assert import_projector["schema_version"] == "microcosm_public_import_projector_contract_lens_v1"
     assert import_projector["projector_summary"]["row_count"] == 9
@@ -5649,7 +5475,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert python_lens["unsafe_payload_bodies_in_receipt"] is False
     assert python_lens["payload_boundary"]["boundary_id"] == "project_python_lens_read_model"
     assert python_lens["payload_boundary"]["input_payload_schema_normalized"] is False
-    assert python_lens["full_lens_command"] == "microcosm python-lens --full <project>"
+    assert python_lens["full_lens_command"] == "plectis python-lens --full <project>"
     assert python_lens["safe_to_show"]["full_source_span_graph_deferred"] is True
     assert python_lens["safe_to_show"]["python_lens_rows_are_public_payload_boundary_rows"] is True
     assert python_lens["navigation_assay"]["assay_id"] == "std_python_microcosm_navigation_assay"
@@ -5709,7 +5535,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "type_a_agent",
     ]
     assert observatory_card["first_screen_composition"]["shared_first_command"] == (
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
     )
     assert observatory_card["surface_status_refs"]["status_card"] == (
         "/project/status"
@@ -5728,7 +5554,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "authority/intake warning blockers"
     )
     assert observatory_card["surface_status_refs"]["front_door_status"] == (
-        "microcosm status --card <project>::front_door_status"
+        "plectis status --card <project>::front_door_status"
     )
     assert observatory_card["surface_statuses"]["state_inspection"] in {
         "pass",
@@ -5739,7 +5565,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     )
     assert observatory_card["surface_statuses"]["state_write_proof"] == "pass"
     assert observatory_card["surface_status_refs"]["state_write_proof"] == (
-        "microcosm observe <project>::state_write_proof"
+        "plectis observe <project>::state_write_proof"
     )
     assert observatory_card["state_inspection"]["status"] == "pass"
     assert observatory_card["state_inspection"]["state_dir"] == ".microcosm"
@@ -5747,10 +5573,10 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     state_write_proof = observatory_card["state_write_proof"]
     assert state_write_proof["status"] == "pass"
     assert state_write_proof["state_write_result_ref"] == (
-        f"microcosm tour --card {project_status_ref}::state_write_result"
+        f"plectis tour --card {project_status_ref}::state_write_result"
     )
     assert state_write_proof["state_write_status_ref"] == (
-        f"microcosm tour --card {project_status_ref}::front_door_status."
+        f"plectis tour --card {project_status_ref}::front_door_status."
         "surface_statuses.state_write"
     )
     assert state_write_proof["observe_writes_microcosm_state"] is False
@@ -5780,16 +5606,16 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert route_proof["compile_selected_route_id"] == "readme_onboarding_route"
     assert route_proof["route_proof_ids_match"] is True
     assert route_proof["route_id_source"] == (
-        "microcosm tour --card <project>::selected_route_id or "
-        "microcosm tour <project>::selected_route_id or "
-        "microcosm tour <project>::first_screen.selected_route_id or "
-        "microcosm compile <project>::selected_route_id"
+        "plectis tour --card <project>::selected_route_id or "
+        "plectis tour <project>::selected_route_id or "
+        "plectis tour <project>::first_screen.selected_route_id or "
+        "plectis compile <project>::selected_route_id"
     )
     assert route_proof["route_explanation_endpoint"] == (
         "/project/explain/readme_onboarding_route"
     )
     assert route_proof["route_explanation_command"] == (
-        "microcosm explain <project> readme_onboarding_route"
+        "plectis explain <project> readme_onboarding_route"
     )
     assert route_proof["blocking_surface_ids"] == []
     assert route_proof["source_files_mutated"] is False
@@ -5946,7 +5772,7 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
     assert reveal["command_count"] >= 4
     assert reveal["evidence_ref_count"] >= 4
     assert reveal["reveal_board"]["release_authorized"] is False
-    assert reveal["evidence_strength_policy"]["next_command"] == "microcosm authority --card"
+    assert reveal["evidence_strength_policy"]["next_command"] == "plectis authority --card"
     assert reveal["evidence_strength_policy"]["source_ref"] == "core/organ_evidence_classes.json"
     assert (
         reveal["evidence_strength_policy"]["accepted_status_is_not_evidence_strength"]
@@ -5975,11 +5801,11 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert intake["projection_cell_count"] == len(intake["cell_status"])
     assert intake["projection_cell_count"] >= 15
     assert [step["command"] for step in intake["first_run_bridge"]] == [
-        "microcosm compile <project>",
-        "microcosm spine",
-        "microcosm intake",
-        "microcosm reveal",
-        "microcosm evidence inspect <receipt>",
+        "plectis compile <project>",
+        "plectis spine",
+        "plectis intake",
+        "plectis reveal",
+        "plectis evidence inspect <receipt>",
     ]
     by_cell = {row["cell_id"]: row for row in intake["cell_status"]}
     required_first_screen_cells = {
@@ -6104,8 +5930,8 @@ def test_runtime_shell_intake_card_compacts_reveal_import_bridge(tmp_path: Path)
     assert card["status"] == "pass"
     assert card["schema_version"] == "microcosm_runtime_reveal_import_bridge_card_v1"
     assert card["card_id"] == "runtime_reveal_import_bridge"
-    assert card["command"] == "microcosm intake --card"
-    assert card["full_command"] == "microcosm intake"
+    assert card["command"] == "plectis intake --card"
+    assert card["full_command"] == "plectis intake"
     assert card["endpoint"] == "/intake-card"
     assert card["surface_counts"]["projection_cell_count"] >= 15
     assert card["surface_counts"]["open_actionable_cell_count"] == 0

@@ -87,6 +87,45 @@ rules. It does not mean an AI model resisted an attack: no model read a web
 page or used an account during this command. To evaluate a deployed agent,
 you would also need to observe the actions that agent actually took.
 
+Try changing one field in a disposable copy. Before running this, predict what
+the checker should say if an untrusted web page is given authority to issue
+instructions.
+
+```bash
+exercise_dir=$(mktemp -d /tmp/plectis-prompt-injection.XXXXXX)
+git archive HEAD | tar -x -C "$exercise_dir"
+cd "$exercise_dir"
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+path = Path(
+    "examples/indirect_prompt_injection_information_flow_policy_replay/"
+    "exported_prompt_injection_flow_bundle/source_documents.json"
+)
+data = json.loads(path.read_text())
+source = next(
+    row
+    for row in data["source_documents"]
+    if row["source_id"] == "src_web_page_injection"
+)
+source["instruction_authority"] = True
+path.write_text(json.dumps(data, indent=2) + "\n")
+PY
+PYTHONPATH=src python3 -m plectis indirect-prompt-injection-information-flow-policy-replay \
+  run-prompt-injection-bundle \
+  --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle \
+  --out "$exercise_dir/output"
+```
+
+The command should exit with status 1 and print `blocked`. In
+`output/exported_prompt_injection_flow_bundle_validation_result.json`, the
+finding `PROMPT_INJECTION_UNTRUSTED_SOURCE_AUTHORITY` should name
+`src_web_page_injection`. That result checks one stated invariant: text labelled
+as untrusted cannot carry instruction authority in this bundle. It still says
+nothing about whether a live agent would recognise or resist every prompt
+injection attack.
+
 ## The terms used in the repository
 
 The source keeps some names from the system in which this work developed.

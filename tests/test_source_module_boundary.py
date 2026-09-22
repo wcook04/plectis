@@ -571,3 +571,71 @@ def test_cli_check_returns_nonzero_for_blocked_manifest(tmp_path, capsys) -> Non
         output["blocked_refs"][0]["coordination_action"]
         == "exclude_ref_or_replace_with_public_non_secret_source_module"
     )
+
+
+def test_copy_digest_identity_keeps_upstream_currentness_separate() -> None:
+    import hashlib
+    from microcosm_core.validators.source_module_boundary import copied_source_identity
+    body = b"def run():\n    return 1\n"
+    digest = "sha256:" + hashlib.sha256(body).hexdigest()
+    row = {"source_ref": "upstream/module.py", "sha256": digest,
+           "source_sha256": digest, "target_sha256": digest}
+    public = copied_source_identity(row, body, exported_identity_matches=True)
+    assert copied_source_identity(row, body)["status"] == BLOCKED
+    assert public["status"] == PASS
+    assert public["upstream_currentness"] == "not_assessed"
+    assert public["upstream_source_checked"] is False
+    assert public["runtime_execution_checked"] is False
+    assert copied_source_identity(row, body, body)["upstream_currentness"] == "match"
+    assert copied_source_identity(row, body, body + b"# changed\n")["status"] == BLOCKED
+    assert copied_source_identity(row, body + b"# changed\n")["status"] == BLOCKED
+    for field in ("source_ref", "sha256", "source_sha256", "target_sha256"):
+        assert copied_source_identity({**row, field: ""}, body)["status"] == BLOCKED
+    stub = b"PUBLIC_MICROCOSM_STUB = True\n"
+    stub_hash = hashlib.sha256(stub).hexdigest()
+    stub_row = {**row, **{key: stub_hash for key in ("sha256", "source_sha256", "target_sha256")}}
+    assert copied_source_identity(stub_row, stub)["status"] == BLOCKED
+
+
+def test_public_source_consumers_bind_export_identity_and_reject_rehashed_swaps(tmp_path) -> None:
+    import hashlib
+    import inspect
+    import shutil
+    from pathlib import Path
+    from microcosm_core.organs import (
+        standards_meta_diagnostics, mcp_tool_authority_replay,
+        belief_state_process_reward_replay,
+    )
+    source_root = Path(__file__).resolve().parents[1]
+    consumers = [
+        (standards_meta_diagnostics, "standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle"),
+        (mcp_tool_authority_replay, "mcp_tool_authority_replay/exported_mcp_tool_authority_bundle"),
+        (belief_state_process_reward_replay, "belief_state_process_reward_replay/exported_belief_state_process_reward_bundle"),
+    ]
+    for index, (module, ref) in enumerate(consumers):
+        root = tmp_path / str(index) / "public-clone"
+        bundle = root / "examples" / ref
+        shutil.copytree(source_root / "examples" / ref, bundle)
+        receipt = Path("receipts/release/release_export_receipt.json")
+        (root / receipt).parent.mkdir(parents=True)
+        shutil.copy2(source_root / receipt, root / receipt)
+        validate = module._source_module_manifest_result
+        kwargs = {"public_root": root}
+        if "require_manifest" in inspect.signature(validate).parameters:
+            kwargs["require_manifest"] = True
+        result = validate(bundle, **kwargs)
+        assert result["status"] == PASS
+        assert result["verified_module_count"] == result["module_count"]
+        assert all(row["upstream_currentness"] == "not_assessed"
+                   for row in result["source_identity_checks"])
+        manifest = bundle / "source_module_manifest.json"
+        data = json.loads(manifest.read_text())
+        row = data["modules"][0]
+        ref = row.get("target_ref") or row["path"]
+        ref = ref.removeprefix("microcosm-substrate/")
+        target = bundle / ref if ref.startswith("source_modules/") else root / ref
+        target.write_bytes(target.read_bytes() + b"\n# rehashed unreviewed copy\n")
+        digest = "sha256:" + hashlib.sha256(target.read_bytes()).hexdigest()
+        row.update({key: digest for key in ("sha256", "source_sha256", "target_sha256")})
+        manifest.write_text(json.dumps(data))
+        assert validate(bundle, **kwargs)["status"] == BLOCKED

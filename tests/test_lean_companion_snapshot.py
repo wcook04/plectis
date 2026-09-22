@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 from pathlib import Path
 
@@ -16,12 +17,13 @@ from microcosm_core.validators.lean_companion_snapshot import (
 PLECTIS_ROOT = Path(__file__).resolve().parents[1]
 
 def _companion_checkout() -> Path:
-    parent = PLECTIS_ROOT.parent
-    for name in ("plectis-erdos", "plectis-lean-erdos249-257"):
-        candidate = parent / name
-        if (candidate / ".git").exists():
-            return candidate
-    return parent / "plectis-erdos"
+    """Live upstream comparison is explicit; ordinary CI is clone-local."""
+    checkout = os.environ.get("PLECTIS_LEAN_UPSTREAM_CHECKOUT")
+    if not checkout:
+        pytest.skip("set PLECTIS_LEAN_UPSTREAM_CHECKOUT for the live upstream integration check")
+    root = Path(checkout).expanduser().resolve()
+    assert (root / ".git").exists(), f"not a Git checkout: {root}"
+    return root
 
 
 
@@ -56,8 +58,6 @@ def test_real_lean_companion_snapshot_is_bound_to_readme() -> None:
 
 def test_upstream_checkout_matches_recorded_public_commit() -> None:
     upstream_root = _companion_checkout()
-    if not (upstream_root / ".git").exists():
-        return
     receipt = validate_lean_companion_snapshot(
         PLECTIS_ROOT,
         upstream_root=upstream_root,
