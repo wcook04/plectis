@@ -4,7 +4,14 @@
   <id>https://wcook04.github.io/plectis/updates.xml</id>
   <link href="https://wcook04.github.io/plectis/updates.xml" rel="self" type="application/atom+xml"/>
   <link href="https://wcook04.github.io/plectis/docs/updates.html" rel="alternate" type="text/html"/>
-  <updated>2026-06-22T00:00:00+00:00</updated>
+  <updated>2026-09-23T00:00:00+00:00</updated>
+  <entry>
+    <title>Erdős #257: a checked weighted theorem and an open question</title>
+    <id>https://wcook04.github.io/plectis/updates/erdos257-weighted-release-2026-09-23</id>
+    <link href="https://wcook04.github.io/plectis/maths/problems/erdos_257.html" rel="alternate" type="text/html"/>
+    <updated>2026-09-23T00:00:00+00:00</updated>
+    <summary>A Lean-checked finite-prime weighted condition proves irrationality for every infinite subset of a qualifying exponent set at every integer base. The paper constructs a set beyond reciprocal summability. The unrestricted #257 question remains open. The site links the short and long papers, a cross-problem synthesis, and routes for proof experiments and software changes.</summary>
+  </entry>
   <entry>
     <title>Tour introduction and example instructions revised</title>
     <id>https://wcook04.github.io/plectis/updates/substrate-like-record-layer-2026-06-22</id>
