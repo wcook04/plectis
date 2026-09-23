@@ -15,8 +15,8 @@
       "source_ref": "main",
       "source_path": "docs/claims.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json",
-      "source_sha256": "d86f22de137bd071e457aa746341041fb979f24ed6f7df4e4a155d7c0dd60741",
-      "bytes": 1189252
+      "source_sha256": "4f7ee907f9ffc15c360ad3329c68ab749afe259ac08aed8a8250e7f0083746bf",
+      "bytes": 1190635
     },
     {
       "hosted_path": "lean/problems.json",
@@ -33,8 +33,8 @@
       "source_ref": "main",
       "source_path": "docs/problem_library.json",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/problem_library.json",
-      "source_sha256": "d8bedfb3b285ab967bb2e00efc36f3b83bf8f72a73388ade4646cb86c2ff2137",
-      "bytes": 1220957
+      "source_sha256": "7676de64cc5edd92e743f6f29cfc8c71fdbc70c381da08f11972db263aaff231",
+      "bytes": 1232991
     },
     {
       "hosted_path": "lean/RESULTS.md",
@@ -51,7 +51,7 @@
       "source_ref": "main",
       "source_path": "README.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/README.md",
-      "source_sha256": "2aed8c3d09bc632814c5dc601b22103f0c5c77b520cea24dff6f118bce4b1d19",
+      "source_sha256": "fca6177c17382c1628ec152d6bc21d085ac53cb1a121d754d4bd18cdbbc893f6",
       "bytes": 15819
     },
     {
@@ -96,7 +96,7 @@
       "source_ref": "main",
       "source_path": "docs/ORIENTATION.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/ORIENTATION.md",
-      "source_sha256": "171f4529b1301a47146d0e5ee94421e6a3b39b5a3b2df1922144c89333d242a1",
+      "source_sha256": "4e758d2bbaa00e2e00d5550e31cfbb2b91113e9a34a554050af7c1aa0486d73c",
       "bytes": 21446
     },
     {
@@ -186,7 +186,7 @@
       "source_ref": "main",
       "source_path": "docs/reference/WAVE_INDEX.md",
       "source_url": "https://github.com/wcook04/plectis-erdos/blob/main/docs/reference/WAVE_INDEX.md",
-      "source_sha256": "b4cb578d60ba4db47b9cf77baab2743aa6d68602f1c03088084ea32c3c75af67",
+      "source_sha256": "ab418273873ccf9599001c53458cfd5789a13f112548eb3079ab4865c183d98c",
       "bytes": 21698
     }
   ]

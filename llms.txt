@@ -84,7 +84,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos243-reciprocal-tail-reasoning-surface (Reasoning surface, 65 pp.)](maths/papers/erdos243-reciprocal-tail-reasoning-surface.html)
 - [Erdős #249](maths/problems/erdos_249.html)
 - [erdos-249-binary-totient-series (Problem note, 17 pp.)](maths/papers/erdos-249-binary-totient-series.html)
-- [erdos249-totient-reasoning-surface (Reasoning surface, 165 pp.)](maths/papers/erdos249-totient-reasoning-surface.html)
+- [erdos249-totient-reasoning-surface (Reasoning surface, 164 pp.)](maths/papers/erdos249-totient-reasoning-surface.html)
 - [Erdős #251](maths/problems/erdos_251.html)
 - [erdos-251-prime-gap-dyadic-series (Problem note, 15 pp.)](maths/papers/erdos-251-prime-gap-dyadic-series.html)
 - [erdos251-prime-gap-reasoning-surface (Reasoning surface, 48 pp.)](maths/papers/erdos251-prime-gap-reasoning-surface.html)

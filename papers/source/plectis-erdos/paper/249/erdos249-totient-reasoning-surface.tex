@@ -8195,7 +8195,7 @@ required. It supplies only the excluded-cofactor bound: the mean and
 mean-subtracted estimates must still hold for this same $\eta$, and do
 not follow from making $\eta$ smaller.
 \end{prop}
-\leannote{Not formalised: the counting function of indices with excluded cofactor is carried by the development, and neither Schoenberg's density theorem nor the partial summation over the cofactors is formalised. See the \hyperref[sec:coverage]{coverage section}.}
+\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean\#L654}{\nolinkurl{prop_badcof}}. Conditional on the prime number theorem; see the \hyperref[sec:coverage]{coverage section}.}
 
 \begin{proof}
 For a fixed cofactor $m\le\sqrt X/2$, each assigned index gives a prime
@@ -8240,6 +8240,11 @@ $D(\eta)\le3/1000<1/200$, an explicit sufficient choice for the
 excluded-cofactor budget. This does not establish either weighted phase
 estimate for that choice, and it is not claimed to be an optimal cutoff.
 \ev{Math}
+Lean checks the estimate $\#(B(\eta)\cap[1,x])<3\eta x$ with no further input
+(\href{https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorDensity.lean\#L361}{\nolinkurl{card_excludedCofactorSet_lt}})
+and, with the prime number theorem as its only input, the excluded-cofactor
+budget at $\eta=1/1000$
+(\href{https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean\#L681}{\nolinkurl{excluded_budget_one_thousandth}}).
 
 The first element of $B(1/5)$ is
 $30030=2\cdot3\cdot5\cdot7\cdot11\cdot13$, and
@@ -9571,17 +9576,17 @@ Nesterenko's theorem on the algebraic independence of the three Eisenstein
 values at an algebraic point of the punctured unit
 disc~\cite[Cor.~2, p.~1320]{nesterenko1996}.
 
-Proposition~\ref{prop:badcof} is incomplete in a different way: part of its
-proof is formalised and a named later step is not. The development carries
-the counting function of indices with excluded cofactor, and neither
-Schoenberg's theorem nor the partial summation over $m\le\sqrt X/2$ is
-formalised.
+Proposition~\ref{prop:badcof} is checked in Lean with the prime number theorem
+as its one input
+(\href{https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean\#L654}{\nolinkurl{prop_badcof}},
+revision \texttt{76f44c5329c0}). Its density $D(\eta)$ enters as the premise
+that $B(\eta)$ has a natural density, which the statement takes from
+Schoenberg's theorem.
 
 A theorem whose own statement is conditional is formalised exactly as stated.
 Propositions~\ref{prop:zetaq}, \ref{catalogue:mob:a4}, \ref{prop:D7-inv}
-and~\ref{prop:badcof} are asserted unconditionally in this record; the first
-three have Lean counterparts carrying a named input, and for the last only
-part of the argument is formalised.
+and~\ref{prop:badcof} are asserted unconditionally in this record, and all
+four have Lean counterparts carrying a named input.
 
 % BEGIN GENERATED CONCORDANCE (generated from the coverage ledger; do not edit by hand)
 \paragraph{Concordance of statements and Lean declarations.}

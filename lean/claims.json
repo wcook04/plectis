@@ -8767,6 +8767,7 @@
             "ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisation",
             "ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic",
             "ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+            "ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBaseShort",
             "ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystem",
             "ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystemUnconditional",
             "ErdosProblems.Erdos1049.PaperCompleteR21.SourceCoefficientHeights",
@@ -8809,6 +8810,8 @@
             "ErdosProblems.Erdos249.PaperCompleteR21.DoublingOrbitTransferAndFullDepthPhase",
             "ErdosProblems.Erdos249.PaperCompleteR21.DyadicPrefixTailBound",
             "ErdosProblems.Erdos249.PaperCompleteR21.DyadicSectionBasisAndRationalCarry",
+            "ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorDensity",
+            "ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorEstimate",
             "ErdosProblems.Erdos249.PaperCompleteR21.ExtremalOrderDirectedAndPulse",
             "ErdosProblems.Erdos249.PaperCompleteR21.FareyDenominatorFloorExtension",
             "ErdosProblems.Erdos249.PaperCompleteR21.FareyExactRangeAndDenominatorExclusion",
@@ -10526,6 +10529,15 @@
             "ErdosProblems.Erdos1049.ActualPositiveMeasureR16",
             "ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic",
             "ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality"
+          ]
+        },
+        {
+          "id": "ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBaseShort",
+          "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBaseShort.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos1049.PaperR16.LambertBasic",
+            "ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase"
           ]
         },
         {
@@ -12795,6 +12807,22 @@
           "imports": [
             "Erdos249257.TotientTailCarryPeriod",
             "ErdosProblems.Erdos249.ParityPerturbedRationalControl"
+          ]
+        },
+        {
+          "id": "ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorDensity",
+          "path": "lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorDensity.lean",
+          "role": "Lean proof module",
+          "imports": []
+        },
+        {
+          "id": "ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorEstimate",
+          "path": "lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorDensity",
+            "ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCount",
+            "ErdosProblems.Erdos251.ActualPrimePaperR11"
           ]
         },
         {
@@ -19143,7 +19171,7 @@
     "lean_toolchain": "leanprover/lean4:v4.29.1",
     "repository": "https://github.com/wcook04/plectis-erdos",
     "formal_source": {
-      "ref": "035c414b25fda09ae0d2e56358b8716d321ebd99",
+      "ref": "76f44c5329c0e207f5376062c7d79125485fbceb",
       "ref_kind": "commit",
       "publication_state": "committed_checkpoint_pending_remote_publication",
       "relationship_to_last_tag": "post_tag_checkpoint",

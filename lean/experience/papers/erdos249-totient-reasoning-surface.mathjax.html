@@ -11624,11 +11624,10 @@ still hold for this same <span class="math inline" data-term-auto="off">\(\eta\)
 do not follow from making <span class="math inline" data-term-auto="off">\(\eta\)</span>
 smaller.</em></p>
 </div>
-<p class="lean-note"><small>Not formalised: the counting function of
-indices with excluded cofactor is carried by the development, and
-neither Schoenberg’s density theorem nor the partial summation over the
-cofactors is formalised. See the <a href="#sec:coverage">coverage
-section</a>.</small></p>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean#L654"><code>prop_badcof</code></a>.
+Conditional on the prime number theorem; see the <a
+href="#sec:coverage">coverage section</a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> For a fixed cofactor <span
 class="math inline" data-term-auto="off">\(m\le\sqrt X/2\)</span>, each assigned index gives
@@ -11677,7 +11676,14 @@ class="math inline" data-term-auto="off">\(D(\eta)\le3/1000&lt;1/200\)</span>, a
 sufficient choice for the excluded-cofactor budget. This does not
 establish either weighted phase estimate for that choice, and it is not
 claimed to be an optimal cutoff. <span><span
-class="sans-serif">[Math]</span></span></p>
+class="sans-serif">[Math]</span></span> Lean checks the estimate <span
+class="math inline" data-term-auto="off">\(\#(B(\eta)\cap[1,x])&lt;3\eta x\)</span> with no
+further input (<a
+href="https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorDensity.lean#L361"><code>card_excludedCofactorSet_lt</code></a>)
+and, with the prime number theorem as its only input, the
+excluded-cofactor budget at <span
+class="math inline" data-term-auto="off">\(\eta=1/1000\)</span> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean#L681"><code>excluded_budget_one_thousandth</code></a>).</p>
 <p>The first element of <span class="math inline" data-term-auto="off">\(B(1/5)\)</span> is
 <span
 class="math inline" data-term-auto="off">\(30030=2\cdot3\cdot5\cdot7\cdot11\cdot13\)</span>,
@@ -13420,16 +13426,16 @@ of that value to Nesterenko’s theorem on the algebraic independence of
 the three Eisenstein values at an algebraic point of the punctured unit
 disc <span class="citation" data-cites="nesterenko1996"><a href="#ref-11">[11]</a></span>.</p>
 <p>Proposition <a class="math-ref" href="#prop:badcof">12.8</a> is
-incomplete in a different way: part of its proof is formalised and a
-named later step is not. The development carries the counting function
-of indices with excluded cofactor, and neither Schoenberg’s theorem nor
-the partial summation over <span class="math inline" data-term-auto="off">\(m\le\sqrt
-X/2\)</span> is formalised.</p>
+checked in Lean with the prime number theorem as its one input (<a
+href="https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean#L654"><code>prop_badcof</code></a>,
+revision <code>76f44c5329c0</code>). Its density <span
+class="math inline" data-term-auto="off">\(D(\eta)\)</span> enters as the premise that <span
+class="math inline" data-term-auto="off">\(B(\eta)\)</span> has a natural density, which the
+statement takes from Schoenberg’s theorem.</p>
 <p>A theorem whose own statement is conditional is formalised exactly as
 stated. Propositions <a class="math-ref" href="#prop:zetaq">5.17</a>, <a class="math-ref" href="#catalogue:mob:a4">6.30</a>, <a class="math-ref" href="#prop:D7-inv">6.102</a> and <a class="math-ref" href="#prop:badcof">12.8</a> are asserted
-unconditionally in this record; the first three have Lean counterparts
-carrying a named input, and for the last only part of the argument is
-formalised.</p>
+unconditionally in this record, and all four have Lean counterparts
+carrying a named input.</p>
 <section id="concordance-of-statements-and-lean-declarations."
 class="level5">
 <h5>Concordance of statements and Lean declarations.</h5>

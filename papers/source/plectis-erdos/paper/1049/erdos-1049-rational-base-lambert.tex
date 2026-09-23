@@ -727,9 +727,10 @@ by a cubic quantity. The long record, Section~3.1, proves separately that
 $V_N^*(q)>0$ and that $\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)$ for fixed
 $0<q<1$. The same positive-measure argument, carried further, settles the
 size within that band. The theorem below is a
-\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean\#L990}{Lean theorem},
-proved there with the explicit constant $K(q)=\mathcal A(q)\mathcal M(q)^3$
-of the long record. Its Lean proof uses the
+\href{https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBaseShort.lean\#L53}{Lean theorem},
+derived there from the long record's
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean\#L990}{form}
+with the explicit constant $K(q)=\mathcal A(q)\mathcal M(q)^3$. That proof uses the
 \href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{exact factorisation}
 of the moment weights, from which it also obtains the second-order
 behaviour of $a_k/c_k$, and the
@@ -744,6 +745,7 @@ $C_N=(N!)^2(N+1)!/2^N$. There is a $K(q)>0$ with
  \qquad(N\to\infty).
 \]
 \end{theorem}
+\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBaseShort.lean\#L53}{\nolinkurl{sharp_fixed_base_exists}}.}
 
 \begin{proof}[Outline; the full proof is in the long record]
 Collecting the moment dependence in $w=q^{m+1}$ as above writes

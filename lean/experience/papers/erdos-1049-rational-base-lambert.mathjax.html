@@ -895,10 +895,11 @@ class="math inline" data-term-auto="off">\(\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)\)<
 fixed <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. The same
 positive-measure argument, carried further, settles the size within that
 band. The theorem below is a <a
-href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990">Lean
-theorem</a>, proved there with the explicit constant <span
-class="math inline" data-term-auto="off">\(K(q)=\mathcal A(q)\mathcal M(q)^3\)</span> of the
-long record. Its Lean proof uses the <a
+href="https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBaseShort.lean#L53">Lean
+theorem</a>, derived there from the long record’s <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990">form</a>
+with the explicit constant <span class="math inline" data-term-auto="off">\(K(q)=\mathcal
+A(q)\mathcal M(q)^3\)</span>. That proof uses the <a
 href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">exact
 factorisation</a> of the moment weights, from which it also obtains the
 second-order behaviour of <span class="math inline" data-term-auto="off">\(a_k/c_k\)</span>,
@@ -917,6 +918,8 @@ class="math inline" data-term-auto="off">\(K(q)&gt;0\)</span> with </em></p>
 class="math display" data-term-auto="off">\[V_N^*(q)\sim K(q)\,C_Nq^{B_N}P^{2N}N^{-8F(1/q)}
 \qquad(N\to\infty).\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/76f44c5329c0e207f5376062c7d79125485fbceb/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBaseShort.lean#L53"><code>sharp_fixed_base_exists</code></a>.</small></p>
 <div class="proof">
 <p><em>Outline; the full proof is in the long record.</em> Collecting
 the moment dependence in <span class="math inline" data-term-auto="off">\(w=q^{m+1}\)</span>

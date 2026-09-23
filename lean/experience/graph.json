@@ -3,13 +3,13 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 2191,
-    "edges": 5930,
+    "nodes": 2194,
+    "edges": 5941,
     "node_kinds": {
       "comparator_review_family": 71,
       "human_document": 16,
       "integration_surface": 2,
-      "lean_module": 1816,
+      "lean_module": 1819,
       "mathematical_object": 105,
       "paper": 21,
       "problem": 8,
@@ -20,14 +20,14 @@
     "relations": {
       "advances_open_target": 40,
       "builds_on": 64,
-      "contains": 1824,
+      "contains": 1827,
       "corollary_of": 1,
       "eliminates_case": 1,
       "explained_by": 21,
       "formalized_in": 43,
       "has_registry_review_unit": 1,
       "has_review_family": 71,
-      "imports": 3433,
+      "imports": 3441,
       "instantiates": 2,
       "interpreted_by": 16,
       "makes_exact": 1,
@@ -9535,6 +9535,15 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBaseShort",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBaseShort",
+      "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBaseShort.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBaseShort.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBaseShort.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystem",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystem",
@@ -11993,6 +12002,24 @@
       "role": "Lean proof module",
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorDensity",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorDensity",
+      "path": "lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorDensity.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorDensity.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorDensity.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorEstimate",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorEstimate",
+      "path": "lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExcludedCofactorEstimate.lean"
     },
     {
       "id": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExtremalOrderDirectedAndPulse",
@@ -28248,6 +28275,11 @@
     {
       "source": "lean-module:ErdosProblems.EightPaperR21Audit",
       "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBaseShort"
+    },
+    {
+      "source": "lean-module:ErdosProblems.EightPaperR21Audit",
+      "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystem"
     },
     {
@@ -28454,6 +28486,16 @@
       "source": "lean-module:ErdosProblems.EightPaperR21Audit",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.DyadicSectionBasisAndRationalCarry"
+    },
+    {
+      "source": "lean-module:ErdosProblems.EightPaperR21Audit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorDensity"
+    },
+    {
+      "source": "lean-module:ErdosProblems.EightPaperR21Audit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorEstimate"
     },
     {
       "source": "lean-module:ErdosProblems.EightPaperR21Audit",
@@ -31121,6 +31163,16 @@
       "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic"
     },
     {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBaseShort",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBaseShort",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperR16.LambertBasic"
+    },
+    {
       "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystemUnconditional",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystem"
@@ -33174,6 +33226,21 @@
       "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.DyadicSectionBasisAndRationalCarry",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos249.ParityPerturbedRationalControl"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorEstimate",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorDensity"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorEstimate",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCount"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorEstimate",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos251.ActualPrimePaperR11"
     },
     {
       "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExtremalOrderDirectedAndPulse",
@@ -44003,6 +44070,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBaseShort"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystem"
     },
     {
@@ -45349,6 +45421,16 @@
       "source": "universe:plectis-lean",
       "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.DyadicSectionBasisAndRationalCarry"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorDensity"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.ExcludedCofactorEstimate"
     },
     {
       "source": "universe:plectis-lean",

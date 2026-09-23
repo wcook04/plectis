@@ -1242,7 +1242,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 165,
+      "pages": 164,
       "question": "What can the totient-kernel basis and residue tests say about Erdős #249, and which hypotheses still block irrationality?",
       "precis": "The dyadic totient sections through level e≥1 have an explicit rational basis of size 2^e+1. Truncating a scaled tail difference produces an integer whose residue certifies nonintegrality when its distances from both endpoints of the residue interval exceed an explicit error bound. The record develops the resulting finite denominator exclusions, equivalent residue criteria, and sufficient exponential-sum estimates. Rational comparison sequences identify the limitations of particular size, parity, rank, and finite-prefix arguments. The short paper supplies the all-base basis theorem; here each conditional result carries the arithmetic hypothesis still needed to apply it. Those hypotheses are not established in the form required to prove irrationality of S=∑ φ(n)2^{-n}.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -1266,10 +1266,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 32,
         "renderer_fingerprint": "f255c6c37cc97729",
-        "source_sha256": "8e35779332d1eb61f6f745b9c7d49613ceb654f2dc92262d62563941c683b7bc",
+        "source_sha256": "a41cadf3bd613595b734b9e9cde71d438081da5cdff23039e7938dd31a4a7711",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 4468,
+        "mathml_node_count": 4471,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -1294,8 +1294,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "32b366a0a2810d9295cb13eb2c194e37a55a192702cd14d55760cb423bb94e81",
-        "html_exact_tex_sha256": "a23f3abe3191f95811f81e21b8910f43bc4cf16134866ec675b3ec3a2e0c59e6"
+        "html_mathml_sha256": "5986bc39690f2a662307f95a8dd1fe7ff3773c5f35ee5ad6c0a0eaca621b01ac",
+        "html_exact_tex_sha256": "05ad8d25295dd56b101c9212ddf20af6f52ecd6695c85f9e5d8e3ce73f53d503"
       },
       "sections": [
         {
@@ -5075,7 +5075,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 32,
         "renderer_fingerprint": "f255c6c37cc97729",
-        "source_sha256": "28e8ae284ed1067bd088f8c8e229186f51cd3f5fc78e57b2e6d117f0f5162320",
+        "source_sha256": "9ae7976d9bf5b1ccdcb8b00b524e2478f2b7ab1aa7b35d702702bd836fd12431",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 740,
@@ -5084,8 +5084,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "d9d4fae646d5492c845a96fcdf130bc067d25f8a929fc5b49a231257ac3fa537",
-        "html_exact_tex_sha256": "99d68239e1e3296c560b0196c45b5794579addf38e3eee96cc6c9ffe3cff4870"
+        "html_mathml_sha256": "4c0aa0c71e8c8252655b2acc4a2f8b167aa889c4840feb481fed6ad409b1ea95",
+        "html_exact_tex_sha256": "efc34834ebdcc8e92e94dc9b38965bfae79b3055f011dc252597ad7b686453e4"
       },
       "sections": [
         {
@@ -5982,7 +5982,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 32,
         "renderer_fingerprint": "f255c6c37cc97729",
-        "source_sha256": "ee368113f5db7d18cc0814ee1afc44adf8f45bb198b8b795ba6f99f33d9cea5e",
+        "source_sha256": "ca080090b44d030a7795db8c78c62e65d11b76f98db76ea617f835f10e547171",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 24,
@@ -5991,8 +5991,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "c36e0cb70ea895c6cf095b7f31970db16496acdcd363ca20433a71ad151fa61c",
-        "html_exact_tex_sha256": "920beae1a884f5ee836d48bb9311e759c072cbf0aa8aa44188c348b3538c5198"
+        "html_mathml_sha256": "db10cbff2842401fbb5c397c7e6097ca760b9aa3fc7bf3a2f161881ed4fc6a72",
+        "html_exact_tex_sha256": "942a0e34e7aa20cb2e9786ac96635649b6cfca6ecb7b415469cb2ec7d642f5b4"
       },
       "sections": [
         {
@@ -6304,7 +6304,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 32,
         "renderer_fingerprint": "f255c6c37cc97729",
-        "source_sha256": "d13cb06f9f1a97af6e702f2b629961283f34c519c1330d7dc170f91614d53fd5",
+        "source_sha256": "9179c5617f1eb0f17299fdb1655b4f00984cb6edf6140dc713d705cbbf195034",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 0,
@@ -6313,8 +6313,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "1ec1a58bde5a13b2ad5642404719d9ce7ab5bf67203f6dc8d55d7502da9579b4",
-        "html_exact_tex_sha256": "65582b8f7ac2acb3fa87e0a47984f5afe669fa856d03cea7db5bfb82792148fe"
+        "html_mathml_sha256": "40edeffe845f0b0208482eaac42dab12fa669ccd141709695ef003045f4bb34c",
+        "html_exact_tex_sha256": "84cf67d0054d827ba2f0653533e2bc2781f50d6225598c6681e01a2cbfa08999"
       },
       "sections": [
         {
