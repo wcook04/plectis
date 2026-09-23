@@ -7415,7 +7415,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
-      "source_sha256": "sha256:3433401ec2845f7c1278a6e57ed9b31751a1f2279a73e85e6c883cf78906d4ea",
+      "source_sha256": "sha256:87609af9991c90a62db3c8788ef9d6f72f057441d37f7e27d6eb651652a60dd1",
       "canonical_source_commit": null,
       "canonical_source_pin_status": "local_unpublished",
       "canonical_source_url": null,
@@ -7438,187 +7438,187 @@
           "level": 4,
           "id": "who-made-the-decisions.",
           "title": "Who made the decisions.",
-          "line": 27
+          "line": 29
         },
         {
           "level": 4,
           "id": "what-i-examined.",
           "title": "What I examined.",
-          "line": 45
+          "line": 47
         },
         {
           "level": 1,
           "id": "sec:early-example",
           "title": "One public test before the general design",
-          "line": 55
+          "line": 57
         },
         {
           "level": 1,
           "id": "sec:contract",
           "title": "The component contract",
-          "line": 83
+          "line": 85
         },
         {
           "level": 1,
           "id": "sec:run",
           "title": "One run, examined",
-          "line": 108
+          "line": 110
         },
         {
           "level": 1,
           "id": "sec:distinctions",
           "title": "Five distinctions",
-          "line": 168
+          "line": 170
         },
         {
           "level": 2,
           "id": "public-execution-versus-where-the-code-came-from",
           "title": "Public execution versus where the code came from",
-          "line": 174
+          "line": 176
         },
         {
           "level": 2,
           "id": "repeatability-versus-correctness",
           "title": "Repeatability versus correctness",
-          "line": 180
+          "line": 182
         },
         {
           "level": 2,
           "id": "a-validators-rule-versus-the-stated-claim",
           "title": "A validator\u2019s rule versus the stated claim",
-          "line": 186
+          "line": 188
         },
         {
           "level": 2,
           "id": "selected-cases-versus-general-behaviour",
           "title": "Selected cases versus general behaviour",
-          "line": 192
+          "line": 194
         },
         {
           "level": 2,
           "id": "risk-reduction-versus-guarantee",
           "title": "Risk reduction versus guarantee",
-          "line": 211
+          "line": 213
         },
         {
           "level": 1,
           "id": "sec:collection",
           "title": "What the collection contains",
-          "line": 226
+          "line": 228
         },
         {
           "level": 1,
           "id": "sec:hand",
           "title": "The author\u2019s hand",
-          "line": 269
+          "line": 271
         },
         {
           "level": 1,
           "id": "sec:stronger",
           "title": "What stronger evidence would look like",
-          "line": 283
+          "line": 285
         },
         {
           "level": 2,
           "id": "a-falsifiable-comparison",
           "title": "A falsifiable comparison",
-          "line": 308
+          "line": 310
         },
         {
           "level": 2,
           "id": "sec:hypothesis-handoff",
           "title": "From an open question to a falsifiable handoff",
-          "line": 316
+          "line": 318
         },
         {
           "level": 2,
           "id": "how-the-record-should-age",
           "title": "How the record should age",
-          "line": 344
+          "line": 346
         },
         {
           "level": 1,
           "id": "sec:conclusion",
           "title": "Conclusion",
-          "line": 352
+          "line": 354
         },
         {
           "level": 1,
           "id": "sec:appendix",
           "title": "Dated reproduction record",
-          "line": 362
+          "line": 364
         },
         {
           "level": 4,
           "id": "later-public-entry-check.",
           "title": "Later public-entry check.",
-          "line": 368
+          "line": 370
         },
         {
           "level": 4,
           "id": "a-first-review.",
           "title": "A first review.",
-          "line": 374
+          "line": 376
         },
         {
           "level": 4,
           "id": "names.",
           "title": "Names.",
-          "line": 401
+          "line": 403
         },
         {
           "level": 4,
           "id": "getting-the-code-and-running-without-installing.",
           "title": "Getting the code and running without installing.",
-          "line": 407
+          "line": 409
         },
         {
           "level": 4,
           "id": "installing.",
           "title": "Installing.",
-          "line": 422
+          "line": 424
         },
         {
           "level": 4,
           "id": "the-worked-example.",
           "title": "The worked example.",
-          "line": 433
+          "line": 435
         },
         {
           "level": 4,
           "id": "a-second-python-version.",
           "title": "A second Python version.",
-          "line": 439
+          "line": 441
         },
         {
           "level": 4,
           "id": "project-wide-checks.",
           "title": "Project-wide checks.",
-          "line": 445
+          "line": 447
         },
         {
           "level": 1,
           "id": "statements-and-declarations",
           "title": "Statements and declarations",
-          "line": 451
+          "line": 453
         },
         {
           "level": 4,
           "id": "declaration-of-generative-ai-use.",
           "title": "Declaration of generative AI use.",
-          "line": 455
+          "line": 457
         },
         {
           "level": 4,
           "id": "authority-boundary.",
           "title": "Authority boundary.",
-          "line": 461
+          "line": 463
         }
       ],
       "citations_rendered": 20,
       "local_pdf": "plectis-public-system.pdf",
-      "pdf_sha256": "sha256:8774f6d123f11348782febdfc6c386dad5d1639bd03178eb898946f6f6d29d43",
-      "pdf_byte_count": 129487,
+      "pdf_sha256": "sha256:2f8fd229de6940680ab5e45f9aa85f4f2d0f8a049beaa9b9cbdb85917aa968a4",
+      "pdf_byte_count": 131243,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",
@@ -7631,17 +7631,17 @@
           {
             "id": "sec:early-example",
             "title": "One public test before the general design",
-            "line": 55
+            "line": 57
           },
           {
             "id": "sec:distinctions",
             "title": "Five distinctions",
-            "line": 168
+            "line": 170
           },
           {
             "id": "sec:stronger",
             "title": "What stronger evidence would look like",
-            "line": 283
+            "line": 285
           }
         ],
         "unresolved_count": 0
