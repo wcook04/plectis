@@ -97,6 +97,8 @@ This is obtained from a classical Stern–Brocot gap lemma () applied at window 
 
 </div>
 
+Lean: [`certifiedKill_diagonal_all_imported_through_t64`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967), [`certifiedKill_diagonal_t64`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/DiagonalPincerCertificatesT64.lean#L1928), [`certifiedKill_all_upto_sixteen`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CarrySurvivorExtinction.lean#L574), [`certifiedKill_67_300`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L471), and 8 further declarations in the [coverage section](#sec:coverage).
+
 <div id="prop:sign" class="prop">
 
 **Proposition 5** (Positivity does not exclude an integer). *Put $`H_a=\operatorname{lcm}(1,\ldots,2^a)`$. For every $`a\ge8`$ and $`J\ge0`$ with $`J+(a+6)<2\cdot2^a`$,
@@ -115,6 +117,8 @@ D(H_a,H_a+J,K)\bmod2^K
 lies strictly between $`2^K-(2H_a+J+K+2)`$ and $`2^K`$ (). The later tail difference is a positive integer. Its negative, not the carry itself, is the representative near zero. Thus positivity locates the residue near the upper endpoint; it does not establish the central-residue inequalities. Both restrictions on $`K`$ are part of this conclusion. <span class="sans-serif">\[cofinal\]</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
+
+Lean: [`actualLcmTailDiff_shift_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientActualLcmOrbitSign.lean#L39), [`actualLcm_integral_forces_topEdgeResidue`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientActualLcmOrbitSign.lean#L211), [`carryOrbit_eq_tail_diff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CarrySurvivorExtinction.lean#L393).
 
 For the next two propositions, a rational value $`S=a/v`$, with integers $`a`$ and $`v\ge1`$, would give the integer carry
 ``` math
@@ -149,11 +153,15 @@ also gives equivalent quantified conditions, including its restriction to $`h=N=
 
 </div>
 
+Lean: [`periodMultipleKillSupply_iff_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L432), [`irrational_totient_series_iff_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L412), [`irrational_totient_series_iff_lcm_diagonal_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L426), [`irrational_totientSeries_iff_cofinalDirectedLcmCertificateSupply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailCarryPeriod.lean#L875), and 1 further declaration in the [coverage section](#sec:coverage).
+
 <div id="prop:parity" class="prop">
 
 **Proposition 9** (A rational sequence preserving size bounds, parity and aperiodicity). *There is $`c : \mathbb{N}\to \mathbb{N}`$ with $`c(n) \le 6`$ and $`c(n) \le n`$ for all $`n`$, $`c(n) \equiv \varphi(n) \pmod 2`$ for *every* $`n`$, and $`c`$ not eventually periodic; indeed for every $`N, G, K`$ there are $`K`$ explicit carry pulses beyond $`N`$, pairwise separated by more than $`G`$; and yet $`\sum_n c(n)/2^{n} = 3/2 \in \mathbb{Q}`$ (; sum at `:359`, aperiodicity at `:487`, parity match at `:194`; `#print axioms` clean). <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
+
+Lean: [`exists_totientParity_arbitrarilyManySeparatedCarry_rational_countermodel`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L637), [`tsum_parityCoboundaryWeight_eq_three_halves`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L359).
 
 These propositions separate several logical obligations. Positivity leaves an upper-endpoint condition; a large rational carry rank is not a contradiction; and exact equivalences still require a quantified certificate condition. The stated size bounds, parity and aperiodicity also hold for a rational control. Each conclusion concerns its stated hypotheses, not all possible arithmetic information about $`\varphi`$.
 
@@ -169,7 +177,7 @@ The countermodels distinguish information that determines a finite calculation f
 
 The comparison sequences below preserve different parts of the totient data. Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">13</a> preserves an arbitrary fixed prefix. Proposition <a href="#prop:parity" data-reference-type="ref" data-reference="prop:parity">9</a> preserves parity at every index, together with size bounds and aperiodicity. Propositions <a href="#prop:b5" data-reference-type="ref" data-reference="prop:b5">22</a> and <a href="#prop:b6" data-reference-type="ref" data-reference="prop:b6">23</a> address particular carry descriptions and linear constructions, not every finite-state or finite-dimensional argument.
 
-Two other limitations do not require a rational comparison sequence. A congruence construction can increase the index so much that its tail error exceeds the residue it produces (Proposition <a href="#prop:b4" data-reference-type="ref" data-reference="prop:b4">20</a>). An exact reformulation or a finite list of examples still needs the quantified arithmetic assertion (Propositions <a href="#prop:b2" data-reference-type="ref" data-reference="prop:b2">16</a> and <a href="#prop:b3" data-reference-type="ref" data-reference="prop:b3">18</a>).
+Two other limitations do not require a rational comparison sequence. A congruence construction can increase the index so much that its tail error exceeds the residue it produces (Proposition <a href="#prop:b4" data-reference-type="ref" data-reference="prop:b4">20</a>). An exact reformulation or a finite list of examples still needs the quantified arithmetic assertion (Proposition <a href="#prop:b2" data-reference-type="ref" data-reference="prop:b2">16</a> and Remark <a href="#prop:b3" data-reference-type="ref" data-reference="prop:b3">18</a>).
 
 The finite certificates in Proposition <a href="#prop:deposits" data-reference-type="ref" data-reference="prop:deposits">4</a> and the $`K=240`$ Farey calculation in Theorem <a href="#thm:denom" data-reference-type="ref" data-reference="thm:denom">3</a> have bounded ranges. Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">13</a> excludes an inference from one such fixed range uniformly over the whole coefficient class. It does not exclude a proof using the arithmetic of $`\varphi`$ at arbitrarily large horizons. Likewise, the cofinal positivity theorem does not by itself separate the residue from the top edge: that is the additional information identified by Proposition <a href="#prop:sign" data-reference-type="ref" data-reference="prop:sign">5</a>.
 
@@ -181,9 +189,11 @@ A finite prefix leaves the remaining coefficients free. We construct a rational 
 
 <div id="lem:gsound" class="lem">
 
-**Lemma 10** (A residue certificate excludes an integral tail difference). *Let $`c:\mathbb{N}\to\mathbb{N}`$ satisfy $`c(n)\le n`$ for all $`n`$. For $`h,N,L\in\mathbb{N}`$, $`\mathcal C_c(h,N,L) \Rightarrow R^{c}_{N+h} - R^{c}_{N} \notin \mathbb{Z}`$. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Math\]</span>*
+**Lemma 10** (A residue certificate excludes an integral tail difference). *Let $`c:\mathbb{N}\to\mathbb{N}`$ satisfy $`c(n)\le n`$ for all $`n`$. For $`h,N,L\in\mathbb{N}`$, $`\mathcal C_c(h,N,L) \Rightarrow R^{c}_{N+h} - R^{c}_{N} \notin \mathbb{Z}`$. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
+
+Lean: [`certificate_sound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L66), [`scaled_difference`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L48), [`truncation_error_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L55).
 
 <div class="proof">
 
@@ -198,9 +208,11 @@ Both tails on the right are nonnegative, and $`R^c_M\le\sum_{j\ge1}(M+j)2^{-j}=M
 
 <div id="lem:gperiod" class="lem">
 
-**Lemma 11** (Generic tail-period law). *Let $`c:\mathbb{N}\to\mathbb{N}`$ satisfy $`c(n)\le n`$ for all $`n`$. If $`T_c = p/(2^{e}m)`$ with $`p\in\mathbb{Z}`$, $`e\ge0`$ and $`m`$ a positive odd integer, and if $`h\ge1`$ satisfies $`m\mid 2^h-1`$, then $`R^{c}_{N+h} - R^{c}_{N} \in \mathbb{Z}`$ for every $`N \ge e`$. <span class="sans-serif">\[cofinal\]</span> <span class="sans-serif">\[Math\]</span>*
+**Lemma 11** (Generic tail-period law). *Let $`c:\mathbb{N}\to\mathbb{N}`$ satisfy $`c(n)\le n`$ for all $`n`$. If $`T_c = p/(2^{e}m)`$ with $`p\in\mathbb{Z}`$, $`e\ge0`$ and $`m`$ a positive odd integer, and if $`h\ge1`$ satisfies $`m\mid 2^h-1`$, then $`R^{c}_{N+h} - R^{c}_{N} \in \mathbb{Z}`$ for every $`N \ge e`$. <span class="sans-serif">\[cofinal\]</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
+
+Lean: [`generic_tail_period`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L98), [`scaled_tail_split`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L33).
 
 <div class="proof">
 
@@ -214,7 +226,7 @@ The right side is integral because $`2^e\mid2^N`$ and $`m\mid2^h-1`$. ◻
 
 <div class="rem">
 
-*Remark 12*. Lemmas <a href="#lem:gsound" data-reference-type="ref" data-reference="lem:gsound">10</a> and <a href="#lem:gperiod" data-reference-type="ref" data-reference="lem:gperiod">11</a> are proved above in ordinary mathematics. The linked sources contain their totient instances and the generic rationality-to-tail-orbit implication. The composition used in the next proof is presented as an ordinary argument, not as a newly checked generic Lean theorem.
+*Remark 12*. Lemmas <a href="#lem:gsound" data-reference-type="ref" data-reference="lem:gsound">10</a> and <a href="#lem:gperiod" data-reference-type="ref" data-reference="lem:gperiod">11</a> are also checked for every coefficient sequence satisfying $`c(n)\le n`$. The formal proofs use the true-tail recurrence and the bound $`0\le R^c_N\le N+2`$; the residue certificate keeps the full finite discrepancy. The tail-period proof uses $`m\mid2^h-1`$ directly, so oddness of $`m`$ is only needed when choosing a period from the denominator. The following rational continuation and its finite-prefix consequence are also checked.
 
 </div>
 
@@ -236,9 +248,11 @@ Then:*
 
 4.  *$`\mathrm{Sep}_\gamma`$ is false; indeed it fails already at $`h = P`$.*
 
-*Hence for every $`B`$ there is a coefficient sequence in the same class, agreeing with $`\varphi`$ on all of $`[1,B]`$, whose quantified condition is false. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Math\]</span>*
+*Hence for every $`B`$ there is a coefficient sequence in the same class, agreeing with $`\varphi`$ on all of $`[1,B]`$, whose quantified condition is false. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
+
+Lean: [`gamma_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean#L15), [`gamma_prefix`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean#L21), [`discrepancy_prefix`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean#L24), [`exact_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean#L108), and 4 further declarations in the [coverage section](#sec:coverage).
 
 <div class="proof">
 
@@ -249,7 +263,7 @@ T_\gamma
     - \sum_{k \ge 1} 2^{-kP}
   = 2 - \sum_{n \le B}\frac{n-\varphi(n)}{2^{n}} - \frac{1}{2^{P}-1}.
 ```
-The first two terms have denominator dividing $`2^B`$. On putting the expression over $`2^B(2^P-1)`$, its numerator is congruent to $`-2^B`$ modulo $`2^P-1`$. Since $`\gcd(2^B,2^P-1)=1`$, no odd factor cancels. Thus the reduced denominator has odd part exactly $`2^P-1`$ and its power-of-two part divides $`2^B`$. For (iv), apply Lemma <a href="#lem:gperiod" data-reference-type="ref" data-reference="lem:gperiod">11</a> with $`h=P`$: $`R^{\gamma}_{N+P} - R^{\gamma}_{N} \in \mathbb{Z}`$ for every $`N \ge B`$, so by Lemma <a href="#lem:gsound" data-reference-type="ref" data-reference="lem:gsound">10</a> no $`\mathcal C_\gamma(P,N,L)`$ holds for any $`N \ge B`$ and any $`L`$. Taking $`N_0 = B`$ refutes the inner existential of $`\mathrm{Sep}_\gamma`$ at $`h = P`$. ◻
+The first two terms have denominator dividing $`2^B`$. On putting the expression over $`2^B(2^P-1)`$, its numerator is congruent to $`-2^B`$ modulo $`2^P-1`$. Since $`\gcd(2^B,2^P-1)=1`$, no odd factor cancels. Thus the reduced denominator has odd part exactly $`2^P-1`$ and its power-of-two part divides $`2^B`$. For (iv), apply Lemma <a href="#lem:gperiod" data-reference-type="ref" data-reference="lem:gperiod">11</a> with $`h=P`$: $`R^{\gamma}_{N+P} - R^{\gamma}_{N} \in \mathbb{Z}`$ for every $`N \ge B`$, so by Lemma <a href="#lem:gsound" data-reference-type="ref" data-reference="lem:gsound">10</a> no $`\mathcal C_\gamma(P,N,L)`$ holds for any $`N \ge B`$ and any $`L`$. Taking $`N_0 = B`$ refutes the inner existential of $`\mathrm{Sep}_\gamma`$ at $`h = P`$. The formalisation checks the series value, the exact reduced denominator, and the failure of the separation condition for this same $`\gamma`$. ◻
 
 </div>
 
@@ -258,6 +272,8 @@ The first two terms have denominator dividing $`2^B`$. On putting the expression
 **Corollary 14** (The limit of a finite-prefix argument). *No proof rule uniform over all $`c:\mathbb{N}\to\mathbb{N}`$ with $`c(n)\le n`$ can establish $`\mathrm{Sep}`$ from a single fixed prefix $`\{c(n):n\le B\}`$: Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">13</a> supplies a rational countermodel with that same prefix. This does *not* invalidate an argument that uses the fixed arithmetic sequence $`\varphi`$ together with compatible information at arbitrarily large horizons; the theorem gives a different $`\gamma_B`$ for each $`B`$, not one sequence agreeing with $`\varphi`$ at every $`B`$.*
 
 </div>
+
+Lean: [`no_uniform_prefix_rule`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean#L74), [`gamma_not_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean#L69).
 
 <div id="rem:b1-scope" class="rem">
 
@@ -298,6 +314,8 @@ The following results concern specified assumptions, not all possible proof meth
 
 </div>
 
+Lean: [`three_particular_equivalences`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ThreeParticularEquivalences.lean#L33), [`two_point_sample_numerical_requirement`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ThreeParticularEquivalences.lean#L55).
+
 <div class="rem">
 
 *Remark 17*. Second-difference certificates need not occur at a smaller depth than first-difference certificates. At $`(h,N)=(1,8)`$, the first-difference test holds at depth $`8`$, whereas no second-difference certificate exists at a depth at most $`8`$ (certificate kernel source:18762, <span class="sans-serif">\[Lean\]</span>). This one example refutes a uniform claim that second differences always save depth; it does not give a uniform ordering in the opposite direction.
@@ -306,9 +324,9 @@ Separately, unbounded growth of the denominator exclusions produced by the Farey
 
 </div>
 
-<div id="prop:b3" class="prop">
+<div id="prop:b3" class="rem">
 
-**Proposition 18** (A finite audit of proposed extensions). *This is a report of a finite audit, not a theorem. The audit listed $`56`$ candidate deductions for four stated goals and examined $`18`$ proposed extensions. Its recorded verdict was $`16`$ not accepted as routine extensions and $`2`$ accepted only as restatements for a wider target family. One of the $`16`$, labelled NM-12 in the audit, was not verified because the endpoint proofs were not read. Thus it is not correct to say that all $`18`$ proof bodies were checked or that all $`16`$ negative verdicts were proved. The recorded categories were hypothesis strength ($`6`$), parameter range ($`5`$), representation ($`4`$), and multiple issues ($`3`$). Neither accepted extension supplied the arithmetic assertion needed for irrationality. No conclusion about arguments outside this finite audit follows. <span class="sans-serif">\[n/a\]</span> <span class="sans-serif">\[Cert\]</span>*
+*Remark 18* (A finite audit of proposed extensions). This is a report of a finite audit. The audit listed $`56`$ candidate deductions for four stated goals and examined $`18`$ proposed extensions. Its recorded verdict was $`16`$ not accepted as routine extensions and $`2`$ accepted only as restatements for a wider target family. One of the $`16`$, labelled NM-12 in the audit, was not verified because the endpoint proofs were not read. Thus it is not correct to say that all $`18`$ proof bodies were checked or that all $`16`$ negative verdicts were proved. The recorded categories were hypothesis strength ($`6`$), parameter range ($`5`$), representation ($`4`$), and multiple issues ($`3`$). Neither accepted extension supplied the arithmetic assertion needed for irrationality. No conclusion about arguments outside this finite audit follows. <span class="sans-serif">\[n/a\]</span> <span class="sans-serif">\[Cert\]</span>
 
 </div>
 
@@ -323,6 +341,8 @@ Separately, unbounded growth of the denominator exclusions produced by the Farey
 **Proposition 20** (Failure of a specified two-adic congruence construction). *A certificate requires the residue to lie farther than $`N+h+L+2`$ from either endpoint modulo $`2^L`$. In the specific construction below, a pulse places the residue at $`2^{K-1}`$ modulo $`2^K`$, but the defining congruence is $`p\equiv1+2^{K-1}\pmod{2^K}`$. Hence $`p\ge1+2^{K-1}`$. At $`N=p-K`$, $`h=H`$, and $`L=K`$, the error bound is $`p+H+2>2^{K-1}`$, so the residue does not satisfy the certificate inequalities. This calculation defeats this construction at every depth. It does not prove a corresponding statement for every use of the Chinese Remainder Theorem or every prescribed totient pattern. <span class="sans-serif">\[cofinal\]</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
+
+Lean: [`twoAdic_pulse_construction_never_certifies`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseCertificateFailure.lean#L29), [`twoAdic_pulse_defining_congruence`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseCertificateFailure.lean#L60), [`twoAdic_pulse_error_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseCertificateFailure.lean#L85).
 
 <div id="rem:b4" class="rem">
 
@@ -353,6 +373,8 @@ Formal sources:
 
 </div>
 
+Lean: [`balancedPulse_common_history`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L93), [`balancedPulse_tail_at`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L30), [`balancedPulse_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L76), [`balancedPulse_label_lower_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L114), and 3 further declarations in the [coverage section](#sec:coverage).
+
 <div id="prop:b6" class="prop">
 
 **Proposition 23** (Four limits of particular linear constructions). *The following four constructions have different limitations. They must not be read as a claim that every finite family of totient sections is independent: the full family has the explicit relations described in the short paper.*
@@ -381,11 +403,15 @@ The proof bounds each infinite sum $`\sum_{d\ge1}\mu(d)/(2^d-1)^r`$, $`r\ge3`$, 
 
 </div>
 
+Lean: [`b6_retained_dyadic_sections_independent`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L72), [`b6_compressed_adjoint_identity_impossible`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L80), [`b6_mobius_incidence_unimodular_and_injective`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L101), [`b6_adjugate_tail_cost_floor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L129), and 6 further declarations in the [coverage section](#sec:coverage).
+
 <div id="prop:b7" class="prop">
 
 **Proposition 24** (The coefficient properties of the rational example). *The rational sequence in Proposition <a href="#prop:parity" data-reference-type="ref" data-reference="prop:parity">9</a> satisfies uniform boundedness, $`c(n)\le n`$, agreement with $`\varphi(n)`$ modulo $`2`$ at every index, and the stated separated-carry form of aperiodicity. Consequently, those properties alone cannot imply irrationality of a dyadic series. The example does not exclude arguments using further totient identities, including its multiplicative relations. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
+
+Lean: [`exists_rational_parityComparison`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalParityCountermodelProperties.lean#L28), [`parityComparisonProperties_do_not_imply_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalParityCountermodelProperties.lean#L37).
 
 <a id="what-the-counterexamples-establish"></a>
 
@@ -680,6 +706,8 @@ This bound is *sharp*: $`q = Q_0+1 = 79\,639\,646\,646\,701\,375\,323\,355\,774\
 
 </div>
 
+Lean: [`totient_carry_residue_window_1_240_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18310), [`gap_check_window_1_240_le_79639646646701375323355774875831053`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GapFareyBound.lean#L176), [`gap_check_window_1_240_first_failure`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GapFareyBound.lean#L225).
+
 <div id="thm:denom-record" class="thm">
 
 **Theorem 37** (Denominator exclusion). *For every $`p\in\mathbb{Q}`$ whose reduced denominator is at most $`Q_0`$,
@@ -725,6 +753,8 @@ Equivalently, on the visible lattice: summing $`2^{-(a+b)}`$ over the half-open 
 
 </div>
 
+Lean: [`tsum_gcd_layer_pos_coprime_half_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GeometricCoprimality.lean#L480), [`tsum_pos_pair_both_dvd_half_eq_inv_mersenne_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L266).
+
 <div id="thm:denomcoprime" class="thm">
 
 **Theorem 42** (Denominator exclusion for the coprimality-probability form). *Let
@@ -760,6 +790,8 @@ S \;=\; \sum_{n\ge1}\frac{\varphi(n)}{2^n} \;=\; \frac12 \;+\; \sum_{d\ge1}\frac
 where $`\mu`$ is the Möbius function, so $`\mu(d)\in\{-1,0,1\}`$ for every $`d`$. Consequently *Erdős \#249 $`\iff`$ $`T:=\sum_{d\ge1}\mu(d)/(2^d-1)^2 \notin \mathbb{Q}`$*, since adding a rational number does not change irrationality. <span class="sans-serif">\[n/a\]</span> <span class="sans-serif">\[Lean\]</span>*
 
 </div>
+
+Lean: [`mobius_square_reduction`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/MobiusSquareReduction.lean#L10), [`irrational_totient_iff_mobius_square`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/MobiusSquareReduction.lean#L17), [`moebius_three_values`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/MobiusSquareReduction.lean#L25).
 
 <div class="rem">
 
@@ -804,6 +836,8 @@ where $`\sigma`$ is the sum-of-divisors function and $`\tau`$ the number-of-divi
 
 </div>
 
+Lean: [`divisor_sum_identity`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean#L36), [`qZeta`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean#L17), [`qZeta_half_two_sub_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean#L81), [`irrational_qZeta_half_difference_of_linearIndependent`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean#L143), and 1 further declaration. Conditional on the linear independence theorem of Postelmans and Van Assche; see the [coverage section](#sec:coverage).
+
 <div id="prop:pillai" class="prop">
 
 **Proposition 49** (The gcd-moment identity).
@@ -813,6 +847,8 @@ where $`\sigma`$ is the sum-of-divisors function and $`\tau`$ the number-of-divi
 where $`P(n) := \sum_{e\mid n}\varphi(e)\cdot(n/e) = (\varphi * \mathrm{Id})(n)`$ is Pillai’s gcd-sum function $`P(n)=\sum_{k\le n}\gcd(k,n)`$ \[toth-gcd, §1, (1)–(2)\] and $`X,Y`$ are the independent fair-coin waiting times of Proposition <a href="#prop:coprime" data-reference-type="ref" data-reference="prop:coprime">40</a>. The identity itself is machine-checked (<span class="sans-serif">\[Lean\]</span>); irrationality of $`\mathbb{E}[\gcd(X,Y)]`$ is not proved here. This is a different series from $`S`$. <span class="sans-serif">\[n/a\]</span>*
 
 </div>
+
+Lean: [`gcd_moment_identity_three_members`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L334), [`tsum_pos_pair_gcd_half_eq_totient_div_mersenne_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L307), [`sum_gcd_Icc_eq_pillaiP`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L77), [`pillaiP_eq_totient_mul_id`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L67), and 1 further declaration in the [coverage section](#sec:coverage).
 
 <div class="rem">
 
@@ -890,6 +926,8 @@ Euler’s theorem gives $`v\mid2^h-1`$, and the prefix-tail identity then makes 
 
 </div>
 
+Lean: [`specified_euler_tail_period`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SpecifiedTailPeriod.lean#L44).
+
 <div id="catalogue:cert:d5" class="thm">
 
 **Theorem 53** (Rationality forces unbounded carry rank). *If $`S\in\mathbb Q`$, there are an integer $`v>0`$ and an integer sequence $`u`$ such that
@@ -918,6 +956,8 @@ is linearly independent over $`\mathbb Q`$ and has $`2^e+1`$ members. At $`e=0`$
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`displayed_canonical_and_full_dyadic`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR8/FullKernelAssemblies.lean#L177).
 
 <div id="catalogue:cert:a8" class="prop">
 
@@ -953,6 +993,8 @@ Here $`\Phi_r`$ is the $`r`$-th cyclotomic polynomial. Proposition <a href="#ca
 
 </div>
 
+Lean: [`mobiusNumeratorPolynomial_eval_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/RepunitMobiusNumerator.lean#L445), [`mobiusNumerator_gcd_cyclotomicValue`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L350), [`cyclotomicValue_dvd_baseMobiusShadow_den`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L389).
+
 <div id="catalogue:mob:b6" class="prop">
 
 **Proposition 57** (Primes in the upper half remain after cancellation). *For $`t\ge5`$ the whole product
@@ -965,6 +1007,8 @@ remains after cancellation. More generally, the source gives the same product-di
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`lcmHeight_upperHalf_product_dvd_den`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean#L983), [`upperHalfChannel_product_dvd_den_of_coprime_scale`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean#L795), [`upperHalfChannel_product_dvd_den_of_scale_primeFactors_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean#L809).
 
 The restriction $`t\ge5`$ belongs to the sufficient prime-factor condition, not just to the LCM example. At $`t=3`$, one has $`r_t=6`$, $`b_6=298/63`$ and $`\mathcal P_3=\{2,3\}`$. The multiplier $`9`$ has only prime factors at most $`3`$, but $`\operatorname{den}(9b_6)=7`$ is not divisible by $`(2^2-1)(2^3-1)=21`$. Thus the prime-factor condition alone does not imply survival of the product at every scale. This is a denominator statement about a finite rational contribution, not a nonintegrality assertion about a real tail.
 
@@ -982,6 +1026,8 @@ Bertrand’s postulate supplies a prime in $`\mathcal P_t`$; its factor is at le
 
 </div>
 
+Lean: [`upper_half_product_denominator_bounds`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/DenominatorBounds.lean#L10).
+
 <div id="catalogue:mob:b7b" class="prop">
 
 **Proposition 59** (The exact reduced denominator). *At every integer scale $`t\ge0`$,
@@ -998,6 +1044,8 @@ The product is $`1`$ when there is no odd prime divisor. This gives the exact ca
 
 </div>
 
+Lean: [`lcmHeight_scaledMobiusShadow_den_exact`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowDenominatorGrowth.lean#L147), [`lcmHeight_five_scaledMobiusShadow_den_exact`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowDenominatorGrowth.lean#L187).
+
 <div id="catalogue:mob:d3" class="prop">
 
 **Proposition 60** (Nonvanishing of a signed dyadic sum). *Let $`I`$ be finite, let $`u_i\in\mathbb Z`$ and $`e_i\in\mathbb N`$, and suppose that $`m\in I`$ is the unique index with maximal exponent $`e_m`$. If $`u_m`$ is odd, then
@@ -1011,6 +1059,8 @@ Indeed, every summand other than $`u_m`$ is even. The sum is therefore nonzero. 
 
 </div>
 
+Lean: [`signed_dyadic_clearing`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean#L8), [`signed_dyadic_sum_ne_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean#L28), [`scaled_dyadic_sum_odd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/SignedQMomentObstruction.lean#L78).
+
 <div id="catalogue:cert:a11" class="prop">
 
 **Proposition 61** (Small certificates). *For each integer $`1\le h\le8`$, the finite test $`\mathcal C(h,12,16)`$ holds. Each discrepancy uses two 16-term windows. Across all eight shifts, only the 24 distinct totient values at $`13\le n\le36`$ are needed, since the windows overlap. The source verifies the eight integer residue inequalities by exact computation.*
@@ -1021,6 +1071,8 @@ Indeed, every summand other than $`u_m`$ is even. The sum is therefore nonzero. 
 
 </div>
 
+Lean: [`small_certificate_windows`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L33), [`small_certificates_and_exclusions`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L45).
+
 <div id="catalogue:cert:a12" class="prop">
 
 **Proposition 62** (A common certificate for sixteen shifts). *For each integer $`1\le h\le16`$, one has $`\mathcal C(h,14,9)`$. The common basepoint is $`14`$ and the depth is $`9`$; these parameters have different roles. The two windows for each shift use only the 25 distinct totient values at $`15\le n\le39`$ across the whole family. Thus $`S\ne a/b`$ for every reduced fraction with $`b>0`$ such that $`b\mid2^{14}(2^h-1)`$ for at least one $`1\le h\le16`$.*
@@ -1028,6 +1080,8 @@ Indeed, every summand other than $`u_m`$ is even. The sum is therefore nonzero. 
 *<span class="sans-serif">\[fixed\]</span>*
 
 </div>
+
+Lean: [`sixteen_certificate_windows`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L39), [`sixteen_certificates_and_exclusions`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L51).
 
 <div id="catalogue:cert:b11" class="prop">
 
@@ -1048,6 +1102,8 @@ the corresponding depths begin $`6,5,7,7,9,14,15,14,21,22,23,26,\ldots`$. Each e
 *<span class="sans-serif">\[bounded\]</span>*
 
 </div>
+
+Lean: [`historical_table_size_and_initial_depths`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L57), [`historical_table_and_complete_band`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L64).
 
 <a id="definitions-and-elementary-identities"></a>
 
@@ -1105,6 +1161,8 @@ Thus $`R_N`$ and $`2^NS`$ have the same fractional part. Subtracting the identit
 
 </div>
 
+Lean: [`prefix_fractional_part`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L8), [`two_pow_mul_totient_series_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L150), [`tail_diff_mem_int_iff_scaled_series_mem_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L327).
+
 <div id="catalogue:cert:a5" class="lem">
 
 **Lemma 68** (The necessary depth inequality). *For $`h,N,L\in\mathbb{N}`$, the condition $`\mathcal C(h,N,L)`$ implies
@@ -1117,6 +1175,8 @@ Indeed, its lower residue bound must be smaller than its upper bound. Thus $`L>1
 
 </div>
 
+Lean: [`certificate_logarithmic_depth`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L20), [`fixed_depth_bounds_indices`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L30), [`certifiedKill_depth_floor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L79).
+
 <div id="catalogue:cert:a6" class="prop">
 
 **Proposition 69** (A certificate implies nonintegrality). *For all $`h,N,L\in\mathbb N`$,
@@ -1128,6 +1188,8 @@ The scaled truncation error satisfies $`|2^L(R_{N+h}-R_N)-D(h,N,L)|\le N+h+L+2`$
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`totient_scaled_truncation_error`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L13), [`tail_diff_notMem_int_of_certifiedKill`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L262).
 
 <div id="catalogue:cert:a7" class="thm">
 
@@ -1188,6 +1250,8 @@ Then $`\xi`$ is irrational: if $`\xi=a/b`$ with $`b\ge1`$, every nonzero such di
 
 </div>
 
+Lean: [`irrational_of_int_mul_near_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L6120), [`irrational_of_pow_mul_near_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L6149), [`irrational_of_near_integer_multiples`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NearIntegerIrrationalityCriterion.lean#L16), [`irrational_of_near_integer_base_powers`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NearIntegerIrrationalityCriterion.lean#L25), and 16 further declarations in the [coverage section](#sec:coverage).
+
 <div id="catalogue:cert:d3" class="prop">
 
 **Proposition 75** (A nonzero evaluation minor gives independence). *Let $`I`$ be a finite index set and let $`f_j:\mathbb N\to\mathbb Q`$ for $`j\in I`$. If there are evaluation points $`n_i\in\mathbb N`$ such that
@@ -1212,6 +1276,8 @@ The numerator $`bc-ad`$ is a positive integer. Thus an upper bound on a positive
 
 </div>
 
+Lean: [`rational_difference_exact`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/RationalSpacingCorrespondence.lean#L6), [`rational_cross_numerator_positive`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/RationalSpacingCorrespondence.lean#L17), [`rational_error_denominator_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/RationalSpacingCorrespondence.lean#L27), [`positive_rational_difference_lower_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/PrimitiveRationalGapSupply.lean#L31).
+
 <div id="catalogue:mob:a1a" class="prop">
 
 **Proposition 77** (The Möbius identity for $`S`$). *The absolutely convergent series satisfy
@@ -1226,6 +1292,8 @@ For the first rearrangement use $`\varphi(n)=\sum_{d\mid n}\mu(d)n/d`$. For the 
 
 </div>
 
+Lean: [`tsum_moebius_lambert_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneLambertLadder.lean#L491), [`totient_series_eq_half_add_moebius_mersenne_square`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18454).
+
 <div id="catalogue:mob:a1b" class="cor">
 
 **Corollary 78** (An equivalent irrationality question). *Subtracting the rational number $`1/2`$ gives
@@ -1239,6 +1307,8 @@ This is the same irrationality question in a different series representation. Th
 *<span class="sans-serif">\[n/a\]</span>*
 
 </div>
+
+Lean: [`irrational_totient_iff_moebius_square`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR7/ArithmeticAssemblies.lean#L40).
 
 <div id="catalogue:mob:a2" class="prop">
 
@@ -1273,6 +1343,8 @@ The equality follows from Proposition <a href="#catalogue:mob:a1a" data-referen
 
 </div>
 
+Lean: [`divisor_sum_identity`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean#L36), [`qZeta`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean#L17), [`qZeta_half_two_sub_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean#L81), [`irrational_qZeta_half_difference_of_linearIndependent`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/QZetaAnchor.lean#L143), and 1 further declaration. Conditional on the linear independence theorem of Postelmans and Van Assche; see the [coverage section](#sec:coverage).
+
 <div id="catalogue:mob:a5" class="prop">
 
 **Proposition 82** (Totient weight and gcd moments). *$`\sum_{d:\mathbb{N}^+}' \varphi(d)/(2^d-1)^2 = \sum_{n:\mathbb{N}^+}' (P(n)-n)\cdot(1/2)^n`$, where $`P = \varphi * \mathrm{Id}`$ (Pillai’s gcd-sum function). It also equals $`\mathbb E[\gcd(X,Y)]`$ when $`X,Y`$ are independent and $`\mathbb P(X=n)=\mathbb P(Y=n)=2^{-n}`$ for $`n\ge1`$; see Proposition <a href="#prop:pillai" data-reference-type="ref" data-reference="prop:pillai">49</a>. This is a different weighted series. Its rationality is not settled by the identities proved here.*
@@ -1280,6 +1352,8 @@ The equality follows from Proposition <a href="#catalogue:mob:a1a" data-referen
 *<span class="sans-serif">\[n/a\]</span>*
 
 </div>
+
+Lean: [`gcd_moment_identity_three_members`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L334), [`tsum_pos_pair_gcd_half_eq_totient_div_mersenne_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L307), [`pillaiP_eq_totient_mul_id`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L67), [`sum_gcd_Icc_eq_pillaiP`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L77), and 1 further declaration in the [coverage section](#sec:coverage).
 
 <div id="catalogue:mob:a6" class="obs">
 
@@ -1310,6 +1384,8 @@ This follows by multiplying the two geometric sums $`\sum_{k\ge1}2^{-dk}=1/(2^d-
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`pair_divisibility_mass`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean#L62), [`tsum_geometric_multiples`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean#L79), [`tsum_pos_pair_both_dvd_half_eq_inv_mersenne_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L266).
 
 <div id="catalogue:mob:a8" class="prop">
 
@@ -1348,6 +1424,8 @@ They sum to one. The stopping probability is at least $`1/3`$, which gives the n
 
 </div>
 
+Lean: [`divisibility_mass`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L42), [`cylinderMass_eq_divisibility_mass_mul`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L86), [`cylinder_mediant_split`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L95), [`cylinder_root_values`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L103), and 3 further declarations in the [coverage section](#sec:coverage).
+
 <div id="catalogue:mob:a9b" class="prop">
 
 **Proposition 87** (Convergence with an explicit error). *In the splitting identity of Proposition <a href="#catalogue:mob:a9a" data-reference-type="ref" data-reference="catalogue:mob:a9a">86</a>, the sum of the two child terms is at most $`2/3`$ of the parent term. If $`M_d(a,b)`$ is the sum of the contributions removed during the first $`d`$ levels, then
@@ -1359,6 +1437,8 @@ In particular, $`M_d(a,b)\to M(a,b)`$. This convergence statement is separate fr
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`cylinderMass_children_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L514), [`sternBrocotDepthMass_error`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L525), [`tendsto_sternBrocotDepthMass`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L560).
 
 <div id="catalogue:mob:b1" class="prop">
 
@@ -1389,6 +1469,8 @@ Each quotient is an integer because $`d\mid r`$. The formal definition sums over
 
 </div>
 
+Lean: [`mobiusNumeratorPolynomial_eval_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/RepunitMobiusNumerator.lean#L445), [`numerator_eval_two_divisors`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/NumeratorEvaluation.lean#L32).
+
 <div id="catalogue:mob:b3" class="prop">
 
 **Proposition 90** (Decomposition by the radical). *For $`H\ge1`$ and $`r\ge1`$,
@@ -1403,6 +1485,8 @@ The first equality follows from the definition of $`\beta_H`$; the second is ord
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`radical_decomposition`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/RadicalDecomposition.lean#L50).
 
 The constant in Proposition <a href="#catalogue:mob:b4" data-reference-type="ref" data-reference="catalogue:mob:b4">91</a> is the value of $`P_r`$ at a primitive $`m`$-th root of unity. Since the $`X^k`$ coefficient of $`P_r`$ depends only on $`\gcd(k,r)`$, the value is a discrete Fourier coefficient of a function of the greatest common divisor, which Schramm expresses through Ramanujan sums \[schramm-gcd, Theorem and (2), p. 2\]; Proposition <a href="#catalogue:mob:b4" data-reference-type="ref" data-reference="catalogue:mob:b4">91</a> specialises this to the present numerator polynomial and proves the integral cyclotomic consequence.
 
@@ -1420,6 +1504,8 @@ where $`J_2(n)=n^2\prod_{p\mid n}(1-p^{-2})`$ is the second Jordan totient. Eval
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`cyclotomic_dvd_mobiusNumeratorPolynomial_sub`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L299), [`mobiusNumerator_mod_cyclotomicEval`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L310), [`jordanTotientTwo_eq_prod_primeFactors`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L67).
 
 <div class="proof">
 
@@ -1483,6 +1569,8 @@ In particular, if $`\alpha=\varphi*\mu`$, then $`\alpha*1=\varphi`$ and $`L(\alp
 
 </div>
 
+Lean: [`lambertValue_eq_divisor_sum_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertDivisorTransform.lean#L42), [`alpha_divisor_sum_eq_totient`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertDivisorTransform.lean#L101), [`lambertValue_alpha_eq_totientSeries`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertDivisorTransform.lean#L109).
+
 | Weight $`f`$ | Value $`L(f)`$ | Status |
 |:---|:---|:---|
 | $`\mu`$ | $`L(\mu) = 1/2`$ | rational, trivial |
@@ -1535,6 +1623,8 @@ is sufficient for this four-tail combination to be nonintegral. The bound is der
 
 </div>
 
+Lean: [`transportResidueKernel_eq_mobiusTermKernel`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L28), [`mobiusTermKernel_affine_in_multiplier`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L47), [`joint35ConeWindow_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L99), [`totientTail_enclosure`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L119), and 5 further declarations in the [coverage section](#sec:coverage).
+
 <div id="catalogue:mob:f1" class="prop">
 
 **Proposition 97** (The error under composite dilation). *For $`A\subseteq\mathbb N`$ and $`n\ge1`$, let $`d_A(n)=\#\{d\ge1:d\mid n,\ d\in A\}`$. If $`a\in A`$ and $`a,x\ge1`$, then
@@ -1554,6 +1644,8 @@ For the totient series the required divisor-convolution weight is instead $`\alp
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`composite_dilation_divisor_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L27), [`composite_dilation_defect_eq_zero_of_prime_support`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L36), [`composite_dilation_divisor_count_prime_support`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L42), [`composite_dilation_defect_univ_six_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L49), and 8 further declarations in the [coverage section](#sec:coverage).
 
 <a id="iterated-prime-dilations-of-divisor-counts."></a>
 
@@ -1597,6 +1689,8 @@ Each statement in this block relates a quantified certificate condition to irrat
 
 </div>
 
+Lean: [`irrational_of_period_multiple_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L25), [`period_multiple_certificate_at_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L33), [`rational_forces_period_multiple_integrality`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L55), [`period_multiple_certificate_supply_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L41).
+
 <div id="catalogue:cert:b3" class="thm">
 
 **Theorem 100** (The diagonal condition is equivalent to irrationality). *$`\big(\forall t_0:\mathbb{N},\ \exists t\ge t_0,\ \exists L,\ \mathcal{C}({H}(t), {H}(t), L)\big) \leftrightarrow S\notin\mathbb Q`$. For a fixed hypothetical rational value, sufficiently large $`t`$ makes both its dyadic denominator and its odd-part period admissible at $`N=h={H}(t)`$. Conversely, irrationality and pointwise completeness supply a witness for every prescribed $`t`$. This is an equivalent condition with one scale parameter; the verified cases $`t\le82`$ do not establish it at arbitrarily large scales.*
@@ -1626,6 +1720,8 @@ The two factors in $`qH(t)+j=j\bigl(q(H(t)/j)+1\bigr)`$ are coprime: the second 
 
 </div>
 
+Lean: [`clean_lcm_ray_factorisation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L67), [`unclean_lcm_ray_counterexample`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L76).
+
 <div id="catalogue:cert:b6" class="thm">
 
 **Theorem 103** (Rationality forces tail integrality on an LCM grid). *If $`S\in\mathbb Q`$, there is $`t_1\in\mathbb N`$ such that for all $`t\ge t_1`$, $`q\ge1`$ and $`m\ge0`$,
@@ -1637,6 +1733,8 @@ Thus all tails at positive multiples of $`H(t)`$ have the same fractional part o
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`lcm_grid_flatness`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L8), [`lcm_grid_fractional_parts`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L15), [`certificate_denominator_exclusion`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L27), [`lcm_grid_supply_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L40).
 
 <div id="catalogue:cert:b7" class="thm">
 
@@ -1652,6 +1750,8 @@ Then $`S\notin\mathbb Q`$. Rationality would make the corresponding tail differe
 
 </div>
 
+Lean: [`lcm_grid_supply_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L40), [`lcm_grid_multiplier_positive`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L50).
+
 <div id="catalogue:cert:b8" class="cor">
 
 **Corollary 105** (Equivalent conditions stated without certificates). *The series $`S`$ is irrational if and only if
@@ -1664,6 +1764,8 @@ Equivalently, for arbitrarily large $`t`$ there are integers $`q\ge1`$ and $`m\g
 *(implication proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">\[cofinal\]</span>*
 
 </div>
+
+Lean: [`irrational_totient_series_iff_all_tail_diffs_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L386), [`periodLcm_diagonal_kill_iff_tail_diff_notMem_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L439), [`irrational_totient_series_of_lcm_diagonal_nonintegrality_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L451), [`irrational_totient_series_of_lcm_cone_nonintegrality_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L462).
 
 <div id="catalogue:cert:b9a" class="prop">
 
@@ -1680,6 +1782,8 @@ then $`R_{N+2h}-2R_{N+h}+R_N\notin\mathbb Z`$. The numerator is the second diffe
 *<span class="sans-serif">\[uniform\]</span> (the certified $`(1,8)`$ comparison: ).*
 
 </div>
+
+Lean: [`abs_tail_diff_scaled_sub_window_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L65), [`second_difference_error_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L104), [`second_difference_certificate_sound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L121), [`second_difference_cell_one_eight`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L136).
 
 For $`H,L\in\mathbb N`$ and a finite set $`Q`$ of multipliers, put
 ``` math
@@ -1700,6 +1804,8 @@ Then $`R_{q_jH}-R_{q_iH}\notin\mathbb Z`$ for some $`q_i,q_j\in Q`$.*
 *<span class="sans-serif">\[uniform\]</span>*
 
 </div>
+
+Lean: [`paperGridNumerator_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L12), [`finite_grid_nonintegral_pair`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L36).
 
 <div class="proof">
 
@@ -1736,6 +1842,8 @@ The size hypothesis is $`2^L>\max_{q\in Q}B_q`$. In contrast, the symmetric test
 
 </div>
 
+Lean: [`paperGridNumerator_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L12), [`finite_grid_supply_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L49).
+
 <div id="catalogue:cert:b12" class="prop">
 
 **Proposition 109** (A finite carry test implies nonintegrality). *For each integer $`z`$ with $`|z|\le N+h+1`$, define
@@ -1753,6 +1861,8 @@ Then $`R_{N+h}-R_N\notin\mathbb Z`$. Indeed, an integral value of the tail diffe
 
 </div>
 
+Lean: [`finite_carry_test_sound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L8), [`finite_carry_candidate_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L22), [`finite_carry_true_orbit`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L27).
+
 <div id="catalogue:mob:e1" class="thm">
 
 **Theorem 110** (The block norm condition implies irrationality). *Suppose that for every integer $`h\ge1`$ and every threshold $`X_0\in\mathbb{N}`$ there are $`X,L\in\mathbb{N}`$ with
@@ -1768,6 +1878,8 @@ Then $`S\notin\mathbb Q`$. Indeed, the norm bound implies the real-part bound $`
 *(conditional theorem proved; hypothesis <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">\[cofinal\]</span>*
 
 </div>
+
+Lean: [`irrational_of_first_harmonic_norm_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L71), [`first_harmonic_re_bound_of_norm_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L40), [`exists_certificate_of_first_harmonic_real_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L54), [`exists_certificate_of_first_harmonic_norm_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L61), and 1 further declaration in the [coverage section](#sec:coverage).
 
 <div id="catalogue:mob:e2" class="thm">
 
@@ -1798,6 +1910,8 @@ Each parenthesis is nonnegative and at most $`B(H,p,L)`$, by $`0\le R_n\le n+2`$
 *(conditional theorem + <span class="sans-serif">\[Cert\]</span> witness; supply <span class="sans-serif">\[Open\]</span>) <span class="sans-serif">\[cofinal\]</span>*
 
 </div>
+
+Lean: [`four_tail_combination_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L103), [`four_tail_window_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L93), [`windowDiscrepancy_diagonal_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L81), [`four_tail_error_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L113), and 5 further declarations in the [coverage section](#sec:coverage).
 
 <a id="consequences"></a>
 
@@ -1846,6 +1960,8 @@ This is an exact reformulation of irrationality, not a weaker theorem about a fi
 
 </div>
 
+Lean: [`irrational_iff_diagonal_orbit_nonintegrality`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L29).
+
 <div id="prop:AR-07" class="prop">
 
 **Proposition 113** (A sufficient short-window condition). *Suppose that for every $`a_0\in\mathbb N`$ there are $`a\ge a_0`$ and $`L<2\cdot2^a`$ with $`\mathcal C(H_{2^a},H_{2^a},L)`$. Then $`S\notin\mathbb Q`$. Writing out the certificate, the required inequality is
@@ -1860,6 +1976,8 @@ It places the residue away from both endpoints of the modulus interval. The exam
 
 </div>
 
+Lean: [`irrational_of_short_window_diagonal_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L56), [`diagonal_certificate_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L40), [`pointwise_completeness_supplies_some_depth`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L68).
+
 <div id="prop:SEP-03" class="prop">
 
 **Proposition 114** (A sufficient approximation condition). *Use the prescribed index $`q_a`$ and the error $`\varepsilon_{a,q_a}`$ defined above. Suppose
@@ -1872,6 +1990,8 @@ Then $`S\notin\mathbb Q`$. The estimate $`|\Omega_a-\rho_{a,q_a}|<\varepsilon_{a
 *<span class="sans-serif">\[cofinal\]</span> <span class="sans-serif">\[Open\]</span> \*
 
 </div>
+
+Lean: [`irrational_of_diagonal_orbit_separation_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L145), [`oddGuarded_depth_eq_prescribed`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L80), [`abs_orbit_sub_rawApprox_lt`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L98), [`rawApprox_separation_of_orbit_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L112).
 
 <div id="prop:TE-04" class="prop">
 
@@ -1895,6 +2015,8 @@ Then $`\mathcal G_a(J,K,m)`$ implies $`R_{2H+J}-R_{H+J}\notin\mathbb Z`$. In par
 
 </div>
 
+Lean: [`upper_endpoint_condition_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L29), [`upper_endpoint_gap_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L38), [`integral_tail_forces_upper_endpoint_residue`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L50), [`irrational_of_upper_endpoint_gap_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L66).
+
 <div id="prop:TE-05" class="prop">
 
 **Proposition 116** (Relations among the sufficient conditions). *The sufficient conditions do not form a single linear chain. The proved implications are
@@ -1914,6 +2036,8 @@ There is also a separate sufficient argument: terminal dominance and flexible ce
 *(implications; hypotheses <span class="sans-serif">\[Open\]</span>)*
 
 </div>
+
+Lean: [`te_chain_relations`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L80).
 
 <div id="prop:TE-06" class="prop">
 
@@ -1936,6 +2060,8 @@ is sufficient for $`\Omega_a\notin\mathbb Z`$. Under integrality the recurrence 
 
 </div>
 
+Lean: [`endpoint_identity`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L142), [`integral_carry_strictly_between`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L158), [`endpoint_criterion_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L187), [`oddHalfCenteredLift_spec`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L116), and 1 further declaration in the [coverage section](#sec:coverage).
+
 <div id="prop:SK-02" class="prop">
 
 **Proposition 118** (A sufficient extension of the examples through exponent 6). *The supplied finite result is
@@ -1949,6 +2075,8 @@ The witnesses at $`(a,L)=(4,23)`$ and $`(6,93)`$ give this bounded family. A wit
 *<span class="sans-serif">\[bounded\]</span> <span class="sans-serif">\[Lean (finite prefix only)\]</span> \*
 
 </div>
+
+Lean: [`short_window_diagonal_through_six`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L161), [`short_window_diagonal_witnesses`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L169).
 
 <div id="prop:FR-01" class="prop">
 
@@ -1966,6 +2094,8 @@ If instead the middle value is strictly larger than both outer values, the displ
 
 </div>
 
+Lean: [`extremal_order_curvature_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L27), [`extremal_order_curvature_neg`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L36), [`extremal_order_curvature_ne_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L45).
+
 <div id="prop:CP-06" class="prop">
 
 **Proposition 120** (A directed certificate condition). *For fixed $`h,N\in\mathbb{N}`$, a depth $`L\in\mathbb{N}`$ satisfying
@@ -1976,6 +2106,8 @@ N+L+2\ \le\ D(h,N,L)\bmod2^L
 exists if and only if $`R_{N+h}-R_N\notin\mathbb Z`$. The endpoint inequalities are non-strict.*
 
 </div>
+
+Lean: [`directed_certificate_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L59), [`directed_certificate_example`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L71).
 
 <div class="proof">
 
@@ -2002,6 +2134,8 @@ Then $`S\notin\mathbb Q`$. Under a hypothetical eventual period $`h`$, the prove
 *<span class="sans-serif">\[cofinal\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`irrational_of_modFour_pulse_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L105), [`rational_forces_pulse_class_integrality`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L88).
 
 <div id="prop:A10" class="prop">
 
@@ -2050,6 +2184,8 @@ then $`R_{q_jH}-R_{q_iH}\notin\mathbb Z`$ for some $`q_i,q_j\in Q`$. Such a test
 
 </div>
 
+Lean: [`paperGridNumerator_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L12), [`finite_grid_nonintegral_pair`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L36), [`finite_grid_supply_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L49).
+
 <div id="prop:C2sup" class="prop">
 
 **Proposition 126** (Unbounded Farey bounds imply irrationality). *The Farey-gap denominator bound at window $`K`$ is currently $`\sim 7.96\times10^{34}`$ at $`K=240`$ (Prop. <a href="#prop:C2-inv" data-reference-type="ref" data-reference="prop:C2-inv">150</a>). If
@@ -2060,11 +2196,15 @@ then $`R_{q_jH}-R_{q_iH}\notin\mathbb Z`$ for some $`q_i,q_j\in Q`$. Such a test
 
 </div>
 
+Lean: [`gapCertificate_window_1_240`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyGapDenominatorExclusion.lean#L41), [`irrational_totientSeries_of_fareyGapExclusionUnbounded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyGapDenominatorExclusion.lean#L29), [`gapFareyBound_window_1_240`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyGapDenominatorExclusion.lean#L51).
+
 <div id="prop:D5cons" class="prop">
 
 **Proposition 127** (The lower bound and a false proposed upper bound). *By Prop. <a href="#prop:D4-inv" data-reference-type="ref" data-reference="prop:D4-inv">149</a>, the canonical dyadic totient-kernel family is unconditionally $`(2^e+1)`$-dimensional at every level $`e\ge1`$. Rationality of $`S`$ forces an associated tempered carry orbit with $`\mathbb Q`$-rank $`\ge 2^e-1`$ at every level (Prop. <a href="#prop:CP-02" data-reference-type="ref" data-reference="prop:CP-02">141</a>). An upper bound independent of $`e`$ for these same carry ranks would contradict the lower bound. More generally, a bound $`g(e)`$ with $`g(e)<2^e-1`$ at some level $`e\ge1`$ would suffice, provided it applies to the actual carry under the hypothetical rationality of $`S`$. A bound that merely grows with $`e`$ need not contradict anything. The generic assertion for arbitrary rational coefficient series is false: the $`5/4`$ comparison sequence in Section <a href="#sec:mahler-defect" data-reference-type="ref" data-reference="sec:mahler-defect">10.8</a> has an integer carry satisfying the growth condition and the same rank lower bound. The incompatible integer identity and the finite-shift counterexample (Observation <a href="#prop:B4b-kill" data-reference-type="ref" data-reference="prop:B4b-kill">166</a>) remain separate counterexample results. None is a generic rationality-driven rank ceiling. The evidence label below applies to the proved rank floor and counterexample results, not to the counterfactual upper bound. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`rank_floor_and_false_proposed_carryRank_ceiling`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GenericCarryRankCeilingCounterexample.lean#L143), [`fiveQuarter_comparison_rational_with_carryRank_floor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GenericCarryRankCeilingCounterexample.lean#L64), [`no_generic_rationality_carryRank_ceiling`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GenericCarryRankCeilingCounterexample.lean#L100).
 
 <div id="prop:B12cons" class="prop">
 
@@ -2077,6 +2217,8 @@ then $`R_{N+h}-R_N\notin\mathbb Z`$. An integral tail difference would give one 
 *<span class="sans-serif">\[n/a\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`finite_carry_test_sound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L8), [`finite_carry_candidate_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L22), [`finite_carry_true_orbit`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L27).
 
 <a id="further-exact-identities"></a>
 
@@ -2102,6 +2244,8 @@ Here $`j\ge1`$ because $`H>0`$, so both denominators are nonzero. The identity f
 
 </div>
 
+Lean: [`lcmRayArithmeticLetter_eq_totient_difference`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L56), [`totient_mul_eq_totient_mul_gcd_div_totient_gcd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L70), [`lcmRay_divisor_denominators_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L86), [`lcmRay_divisor_product_formula`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L104), and 3 further declarations in the [coverage section](#sec:coverage).
+
 <div id="prop:AR-03-inv" class="prop">
 
 **Proposition 130** (A lower bound for the totient of a rough integer). *Let $`a\ge8`$, set $`t=2^a`$, and let $`n>0`$ be an integer all of whose prime factors exceed $`t`$. If $`n<2^{2t}`$, then $`n`$ has fewer than $`t/4`$ distinct prime factors and
@@ -2113,6 +2257,8 @@ If $`n`$ has $`r`$ distinct prime factors, then $`n\ge t^r=2^{ar}`$, so $`ar<2t`
 *<span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`rough_integer_prime_count_and_totient_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L215).
 
 <div id="prop:AR-05-inv" class="prop">
 
@@ -2126,6 +2272,8 @@ The proof treats divisor offsets and the exceptional prime-power offsets separat
 
 </div>
 
+Lean: [`shortWindow_totient_difference_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L229).
+
 <div id="prop:AR-06-inv" class="prop">
 
 **Proposition 132** (The accumulated sum is the discrepancy). *For all $`t,L\in\mathbb N`$, the weighted diagonal sum is exactly
@@ -2138,6 +2286,8 @@ Thus its two-sided residue inequality is precisely $`\mathcal C(H(t),H(t),L)`$. 
 
 </div>
 
+Lean: [`weighted_shortWindow_sum_eq_windowDiscrepancy`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L241), [`weighted_shortWindow_band_iff_certifiedKill`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L262).
+
 <div id="prop:SEP-01-inv" class="prop">
 
 **Proposition 133** (A global-to-local identity).
@@ -2147,6 +2297,8 @@ Thus its two-sided residue inequality is precisely $`\mathcal C(H(t),H(t),L)`$. 
 Thus a separation estimate for $`\Omega_a`$ is an estimate for this integer translate of a multiple of $`S`$. The identity does not require other rational-approximation arguments to use this particular translate. <span class="sans-serif">\[n/a\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`actualLcmTailOrbit_global_to_local`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L24).
 
 <div id="prop:SEP-02-inv" class="prop">
 
@@ -2159,6 +2311,8 @@ The triangle inequality transfers a separation estimate between the real tail an
 
 </div>
 
+Lean: [`abs_actualLcmTailOrbit_sub_rawApprox_lt_explicit`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L39), [`tendsto_actualLcmRawErrorRadius_atTop_nhds_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L49).
+
 <div id="prop:SGN-01" class="prop">
 
 **Proposition 135** (Unconditional positivity). *For $`a\ge8`$, $`J+(a+6)<2\cdot2^a`$:
@@ -2168,6 +2322,8 @@ The triangle inequality transfers a separation estimate between the real tail an
 with no irrationality hypothesis; the true, infinite, real translated tail difference is strictly positive throughout almost the entire short window, proved unconditionally from Prop. <a href="#prop:AR-05-inv" data-reference-type="ref" data-reference="prop:AR-05-inv">131</a> plus a directed one-sided tail bound. Any argument about the sign of the actual orbit (not merely its residue mod $`2^L`$) must agree with this; specialised at $`J=0`$ this gives $`0<\Omega_a`$. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`actualLcm_tailDiff_shift_pos_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L82), [`actualLcmTailOrbit_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L89).
 
 <div id="prop:SGN-03" class="prop">
 
@@ -2189,6 +2345,8 @@ The later tail difference is a positive integer. Its negative is the representat
 
 </div>
 
+Lean: [`actualLcm_integral_forces_topEdgeResidue_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L105).
+
 <div id="prop:TE-02-inv" class="prop">
 
 **Proposition 137** (The penultimate term of a partial divisibility pattern). *Let $`a,J,K,m\in\mathbb N`$, $`a\ge8`$, $`H=H_{2^a}`$ and $`B=2H+J+K+2`$. Suppose that
@@ -2208,6 +2366,8 @@ Indeed, $`B\ge4`$ and $`B<2^m`$ force $`m\ge3`$. The penultimate divisibility, p
 
 </div>
 
+Lean: [`penultimate_shortWindow_difference_eq_half`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L37), [`dyadicScale_unique_in_open_interval`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L80).
+
 <div id="prop:TE-03-inv" class="prop">
 
 **Proposition 138** (An equivalent test using two residue bits). *For every $`h,N\in\mathbb N`$, existence of a certificate at some depth is equivalent to the following explicit condition:
@@ -2222,6 +2382,8 @@ Indeed, $`B\ge4`$ and $`B<2^m`$ force $`m\ge3`$. The penultimate divisibility, p
 The last interval says that the two leading bits are $`01`$ or $`10`$. The proof uses the first successful certificate of depth $`L`$ and may take $`b=\lfloor\log_2(N+h+L+2)\rfloor+1`$. Since $`b`$ depends on that unknown $`L`$, the equivalence is not an a priori bound on the search depth. The proof uses the finite tail recurrence and its size bound; it supplies no totient-specific assertion that a witness exists. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`exists_certifiedKill_iff_twoBitResidueTest`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L129), [`dyadicMixedGuard_iff_twoBitBand`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L104).
 
 <div id="prop:FR-02-inv" class="prop">
 
@@ -2238,6 +2400,8 @@ Also $`2j\le2^a`$, so $`2j\mid H_a`$ and $`A\ge2`$ is even. The three arguments 
 
 </div>
 
+Lean: [`two_mul_totient_dvd_totient_second_difference`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L219), [`fixedRank_cleanWindow_structure`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L169).
+
 <div id="prop:CP-01-inv" class="prop">
 
 **Proposition 140** (Carry displacement and tail integrality). *For a positive integer $`v`$ and a tempered integral totient carry $`u`$,
@@ -2248,11 +2412,15 @@ Indeed, temperedness identifies $`u(N)=vR_N`$, so the displacement is $`v(R_{N+k
 
 </div>
 
+Lean: [`carryShift_dvd_iff_tailDiff_integral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TailCarryPeriodAndRankFloor.lean#L31), [`temperedCarry_eq_scaledTail_and_shift`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TailCarryPeriodAndRankFloor.lean#L20).
+
 <div id="prop:CP-02" class="prop">
 
 **Proposition 141** (A consequence of rationality and its limitation). *If $`S\in\mathbb Q`$, there are a positive integer $`v`$ and a tempered integer carry orbit $`u`$ such that its retained sections through every level $`e`$ have rational rank at least $`2^e-1`$. At the same time, those sections are uniformly eventually periodic modulo $`v`$. Periodicity after reduction modulo $`v`$ is a statement in a finite quotient; it is not a rank upper bound over $`\mathbb Q`$. Proposition <a href="#prop:D5cons" data-reference-type="ref" data-reference="prop:D5cons">127</a> gives the lower bound, while the rational comparison sequence explains why a general rank upper bound cannot be deduced from these recurrence assumptions alone. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`rationality_forces_mod_period_and_unbounded_rank`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TailCarryPeriodAndRankFloor.lean#L46).
 
 <div id="prop:CP-05-inv" class="prop">
 
@@ -2265,6 +2433,8 @@ To construct $`p`$, set $`H=4h`$, choose a prime $`r>H`$ with $`r\equiv1\pmod4`$
 *<span class="sans-serif">\[cofinal\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`exists_prime_totient_shift_four_mul_congr_two_mod_four`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L28).
 
 <div id="prop:TA-inv" class="prop">
 
@@ -2294,6 +2464,8 @@ The initial integer is multiplied by $`2^K`$ and disappears only after reduction
 
 </div>
 
+Lean: [`exists_prime_twoAdic_pulse_block`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L81), [`pulse_delta_of_divisor_data`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L41), [`exists_prime_integral_tailDiff_half_pulse`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L100).
+
 <div id="prop:MP-01-inv" class="prop">
 
 **Proposition 144** (A Möbius-inversion formula for the tail).
@@ -2309,6 +2481,8 @@ Indeed, substitute $`\varphi(n)=\sum_{d\mid n}\mu(d)n/d`$ and group by $`d`$. It
 
 </div>
 
+Lean: [`forwardMultiple_spec`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L114), [`forwardMultipleShift_least`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L125), [`forwardMultiple_enumeration`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L139), [`totientTail_eq_tsum_mobius_inversion`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L151).
+
 <div id="prop:SK-01-inv" class="prop">
 
 **Proposition 145** (Explicit finite examples). *The finite certificates $`\mathcal C(H_{16},H_{16},23)`$ and $`\mathcal C(H_{64},H_{64},93)`$ imply $`\Omega_4,\Omega_6\notin\mathbb Z`$. Both satisfy the short-window restriction, since $`23<32`$ and $`93<128`$. They use the pre-existing certificates /. These are two explicit instances of the desired condition, not the start of a proved induction or a claim that no other finite instances can be checked.*
@@ -2316,6 +2490,8 @@ Indeed, substitute $`\varphi(n)=\sum_{d\mid n}\mu(d)n/d`$ and group by $`d`$. It
 *<span class="sans-serif">\[fixed\]</span> <span class="sans-serif">\[Cert\]</span> \*
 
 </div>
+
+Lean: [`shortWindow_certificates_kill_omega_four_and_six`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L36), [`shortWindow_inequalities`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L49), [`actualLcmTailOrbit_eq_tail_difference`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L27).
 
 <div id="prop:A5-inv" class="prop">
 
@@ -2329,6 +2505,8 @@ The two endpoint margins must fit inside an interval of length $`2^L`$. In parti
 
 </div>
 
+Lean: [`certificate_logarithmic_depth`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L20), [`fixed_depth_bounds_indices`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L30), [`certifiedKill_depth_floor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L79).
+
 <div id="prop:A9-inv" class="prop">
 
 **Proposition 147** (Rationality gives an eventual tail period). *Suppose $`S=a/(2^c v)`$ in lowest terms, where $`a\in\mathbb Z`$, $`c\ge0`$ and $`v\ge1`$ is odd. Take $`h=\varphi(v)`$, including $`h=1`$ when $`v=1`$. Euler’s theorem gives $`v\mid2^h-1`$, so
@@ -2338,6 +2516,8 @@ The two endpoint margins must fit inside an interval of length $`2^L`$. In parti
 The identity relating $`S`$ to its scaled tails therefore gives $`R_{N+h}-R_N\in\mathbb Z`$ for every $`N\ge c`$. These are explicit witnesses for the eventual period asserted in Proposition <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">122</a>. To use the finite residue test against a hypothetical rational value, one must obtain a nonintegral difference for its period at an index beyond its preperiod. Soundness proves that the quantified certificate condition rules out rationality. Conversely, the prefix-tail identity makes every positive-shift tail difference nonintegral when $`S`$ is irrational, and pointwise completeness (Theorem <a href="#catalogue:cert:a7" data-reference-type="ref" data-reference="catalogue:cert:a7">70</a>) then supplies a depth. Proposition <a href="#prop:AR-06-inv" data-reference-type="ref" data-reference="prop:AR-06-inv">132</a> only identifies the weighted diagonal sum with $`D`$; it is not the completeness argument and supplies no depth bound. <span class="sans-serif">\[uniform\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`rational_tail_period_explicit_witnesses`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L65), [`totient_one_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L56), [`eventual_tail_period_of_not_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L111), [`irrational_of_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L119), and 2 further declarations in the [coverage section](#sec:coverage).
 
 <div id="prop:B6-inv" class="prop">
 
@@ -2351,6 +2531,8 @@ The threshold may depend on the hypothetical rational value. A certificate at on
 
 </div>
 
+Lean: [`lcm_grid_flatness`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L8), [`certificate_denominator_exclusion`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L27), [`lcm_grid_supply_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L40).
+
 <div id="prop:D4-inv" class="prop">
 
 **Proposition 149** (Independence of the retained dyadic family). *For every $`e\ge0`$, the auxiliary canonical dyadic family has $`2^e+1`$ indexed sections, and these sections are linearly independent over $`\mathbb Q`$. The CRT–Dirichlet argument is explained in Section <a href="#sec:mahler-defect" data-reference-type="ref" data-reference="sec:mahler-defect">10.8</a>; the declaration below counts its index set. For $`e\ge1`$ the family is a basis for all sections through level $`e`$. At $`e=0`$ the auxiliary family still contains both $`\varphi(n)`$ and $`\varphi(2n)`$, so it is not the actual level-zero truncation, whose dimension is one. No rationality hypothesis on $`S`$ is used.*
@@ -2358,6 +2540,8 @@ The threshold may depend on the hypothetical rational value. A certificate at on
 *<span class="sans-serif">\[n/a\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`card_canonical_dyadic_index`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean#L21), [`linearIndependent_canonical_dyadic_family`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean#L26), [`canonical_family_basis_through_level`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean#L33), [`canonical_level_zero_channels`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean#L46), and 1 further declaration in the [coverage section](#sec:coverage).
 
 <div id="prop:C2-inv" class="prop">
 
@@ -2377,6 +2561,8 @@ obtained from the stated Farey mediant. Thus the range is exact for this particu
 
 </div>
 
+Lean: [`farey_window_1_240_exact_range`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean#L26), [`farey_window_1_240_range_magnitude`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean#L39).
+
 <div id="prop:C3-inv" class="prop">
 
 **Proposition 151** (The resulting denominator exclusion). *For every reduced fraction $`a/q`$, with $`a\in\mathbb Z`$ and $`q\ge1`$,
@@ -2387,6 +2573,8 @@ q\le79639646646701375323355774875831053
 This is an unconditional finite denominator exclusion. It does not assume certificates at arbitrarily large scales, as required by Proposition <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">122</a>. Conversely, excluding this finite range does not rule out rational values with larger reduced denominators. <span class="sans-serif">\[fixed\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`totient_series_ne_reduced_fraction_of_small_denominator`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean#L49), [`totient_series_ne_int_div_of_small_denominator`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean#L57).
 
 <div id="prop:D1D2-inv" class="prop">
 
@@ -2402,11 +2590,15 @@ Indeed, if $`x=a/b`$ is reduced with $`b>0`$, every nonzero error in the first c
 
 </div>
 
+Lean: [`irrational_of_den_mul_abs_sub_tendsto_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5371), [`one_div_den_mul_den_le_abs_sub`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5342), [`irrational_of_int_mul_near_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L6120), [`irrational_of_pow_mul_near_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L6149), and 8 further declarations in the [coverage section](#sec:coverage).
+
 <div id="prop:D7-inv" class="prop">
 
 **Proposition 153** (Lambert identities involving $`S`$). *For $`L(f)=\sum_{n\ge1}f(n)/(2^n-1)`$, the identities are $`L(\mu)=1/2`$, $`L(\varphi)=2`$, $`L(1)=E`$ and $`L(\varphi*\mu)=S`$. The last identity rewrites the same unknown value; it does not deduce its irrationality from that of $`E`$. The value $`L(\mathrm{Id})=\sum_{m\ge1}\sigma(m)/2^m`$ is transcendental by Nesterenko \[nesterenko1996, Cor. 2, p. 1320\] (cited, not formalised). These examples show that Lambert-series form alone does not determine arithmetic status. The accompanying source reference checks the equality between the two indexing conventions for $`S`$, not every status claim in this paragraph; the individual comparisons are in Proposition <a href="#catalogue:cert:d7" data-reference-type="ref" data-reference="catalogue:cert:d7">94</a> and its table. <span class="sans-serif">\[n/a\]</span> <span class="sans-serif">\[Lean, Cited\]</span> \*
 
 </div>
+
+Lean: [`lambert_ladder_four_values`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertSigmaRungAndNesterenko.lean#L38), [`primWeight_is_totient_conv_moebius`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertSigmaRungAndNesterenko.lean#L53), [`totient_series_index_bridge’`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertSigmaRungAndNesterenko.lean#L58), [`lambert_id_rung_eq_sigma_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertSigmaRungAndNesterenko.lean#L80), and 2 further declarations. Conditional on Nesterenko’s algebraic independence theorem; see the [coverage section](#sec:coverage).
 
 <div id="prop:D9-inv" class="prop">
 
@@ -2422,6 +2614,8 @@ These lower bounds tend to infinity precisely when $`q_N\varepsilon_N\to0`$; a s
 
 </div>
 
+Lean: [`rational_gap_lower_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L138), [`den_lower_bound_of_positive_error`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L146), [`denominator_bound_tendsto_atTop_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L164), [`irrational_of_den_mul_error_product_tendsto_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L189), and 4 further declarations in the [coverage section](#sec:coverage).
+
 <div id="prop:B11-inv" class="prop">
 
 **Proposition 155** (Diagonal certificates through $`82`$). *The current aggregate establishes
@@ -2432,6 +2626,8 @@ where $`P\,t`$ is the diagonal certificate predicate in Proposition <a href="#p
 
 </div>
 
+Lean: [`historical_table_size_and_initial_depths`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L57), [`historical_table_and_complete_band`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L64).
+
 <div id="prop:C1-inv" class="prop">
 
 **Proposition 156** (A coprime-pair expression for $`S`$). *For $`n\ge0`$, the number of integer pairs $`a\ge1`$, $`b\ge0`$ with $`a+b=n`$ and $`\gcd(a,b)=1`$ is $`\varphi(n)`$, with $`\varphi(0)=0`$. Indeed, $`b=n-a`$ and $`\gcd(a,n-a)=\gcd(a,n)`$. The boundary case $`n=1`$ contributes $`(a,b)=(1,0)`$; it disappears when both coordinates are required to be positive. Consequently,
@@ -2441,6 +2637,8 @@ where $`P\,t`$ is the diagonal certificate predicate in Proposition <a href="#p
 For independent random variables $`X,Y`$ with $`\Pr(X=n)=\Pr(Y=n)=2^{-n}`$, $`n\ge1`$, the left side is $`\Pr(\gcd(X,Y)=1)`$. Thus $`S-1/2`$ has a coprimality-probability interpretation. This identity does not supply an estimate for the binary digits or tail residues used elsewhere in the paper. <span class="sans-serif">\[n/a\]</span> <span class="sans-serif">\[Lean\]</span> \*
 
 </div>
+
+Lean: [`card_visible_antidiagonal`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L218), [`totient_zero_eq_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L225), [`visible_antidiagonal_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L228), [`positive_antidiagonal_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L234), and 2 further declarations in the [coverage section](#sec:coverage).
 
 <a id="counterexamples-and-limitations"></a>
 
@@ -2676,6 +2874,8 @@ The first two summands isolate the dominant contribution. The remaining absolute
 
 </div>
 
+Lean: [`mobiusMersenneTheta_one_and_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L23).
+
 The second equality is the Möbius-square identity credited in §<a href="#ssec:coprime" data-reference-type="ref" data-reference="ssec:coprime">5.4</a>; whether $`\Theta_2`$ is rational is \#249 itself.
 
 <div class="thm">
@@ -2683,6 +2883,8 @@ The second equality is the Möbius-square identity credited in §<a href="#ssec:
 **Theorem 173** (The first two summands give a positive Hankel gap). *$`(1-3^{-(r+1)})^2 - (1-3^{-r})(1-3^{-(r+2)}) = 4/3^{r+2}`$, so the rational sequence $`1-3^{-r}`$ is strictly log-concave for every integer $`r\ge1`$. .*
 
 </div>
+
+Lean: [`twoAtom_hankel_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L35), [`twoAtom_strict_logConcave`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L43).
 
 <div class="thm">
 
@@ -2694,6 +2896,8 @@ Equivalently, the determinant of $`\left(\begin{smallmatrix}\Theta_r&\Theta_{r+1
 \Theta_{r+1}&\Theta_{r+2}\end{smallmatrix}\right)`$ is negative. The two-summand comparison gives an elementary proof, detailed below; the linked declarations prove the same strict inequality. .*
 
 </div>
+
+Lean: [`theta_strict_logConcave`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L52), [`theta_hankel_det_neg`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L58), [`theta_hankel_two_neg`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L66).
 
 <div class="proof">
 
@@ -2764,6 +2968,8 @@ Without the boundary condition, any integer $`u(0)`$ gives an integer solution o
 
 </div>
 
+Lean: [`doubling_tempered_sequence_eq_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L28).
+
 <div class="obs">
 
 *Observation 178* (The specified finite-state decoder is impossible). Fix $`m\ge2`$, put $`R=\lfloor(m+1)/2\rfloor`$, and for $`0\le r\le R`$ define
@@ -2807,6 +3013,8 @@ This follows by substituting the squared-denominator identity for $`S`$ into $`R
 
 </div>
 
+Lean: [`tailDifference_sub_rationalApproximation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L118), [`tailDifference_eq_coefficient_mul_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L88), [`totientSeries_pnat_form`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L99), [`totientSeries_eq_half_add_moebius_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L106).
+
 <div class="prop">
 
 **Proposition 180** (A geometric tail bound). *For every integer $`D\ge0`$,
@@ -2817,6 +3025,8 @@ This follows by substituting the squared-denominator identity for $`S`$ into $`R
 Indeed, $`|\mu(d)|\le1`$ and $`2^{D+1+j}-1\ge2^j(2^{D+1}-1)`$ for $`j\ge0`$. The sum of the resulting geometric majorant is $`\sum_{j\ge0}4^{-j}=4/3`$. .*
 
 </div>
+
+Lean: [`abs_mobiusSquareTail_le_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L155), [`abs_moebius_cast_le_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L138), [`mersenne_geometric_shift`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L144), [`tsum_quarter_geometric`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L149).
 
 <div class="obs">
 
@@ -2851,6 +3061,8 @@ This is the standard identity $`\sum_{d\mid g}\mu(d)/d=\varphi(g)/g`$ at $`g=\gc
 
 </div>
 
+Lean: [`sum_divisorIndices_mobius`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L68), [`sum_divisors_moebius_div_eq_totient_div`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L98), [`sum_divisorIndices_radical_form`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L121), [`squarefreeKernel_eq_prod_primeFactors`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L117).
+
 <div class="prop">
 
 **Proposition 183** (The divisor sum and its complement). *For integers $`H>0`$ and $`s\ge0`$,
@@ -2867,6 +3079,8 @@ Here $`\mathbf1`$ is the indicator of the stated divisibility condition. The ide
 
 </div>
 
+Lean: [`totientDifference_eq_divisorPart_add_complement`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L217), [`totient_eq_mobius_divisor_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L134), [`divisorIndex_endpoint_behaviour`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L141), [`complementSummand_eq_phaseTerm`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L159).
+
 <div class="thm">
 
 **Theorem 184** (Doubling the full totient difference). *For nonnegative integers $`H,r`$ with $`H`$ even,
@@ -2880,6 +3094,8 @@ Here $`\mathbf1`$ is the indicator of the stated divisibility condition. The ide
 This applies to the full difference, not just its divisor contribution. It follows from $`\varphi(2n)=2\varphi(n)`$ for even $`n`$ and $`\varphi(2n)=\varphi(n)`$ for odd $`n`$. .*
 
 </div>
+
+Lean: [`totientDifference_doubling_seam`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L262), [`totient_two_mul_even`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L250), [`totient_two_mul_odd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L255).
 
 <div class="obs">
 
@@ -2899,6 +3115,8 @@ For the second expression, $`d\mid2H+2s`$ and $`d\nmid H+2s`$; otherwise $`d`$ w
 
 </div>
 
+Lean: [`complementSummand_low_double_echo`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L289).
+
 <a id="repunit-gcd-word"></a>
 
 ### A numerator polynomial with explicit positive coefficients
@@ -2915,6 +3133,8 @@ Every coefficient for $`0\le k<r`$ is positive, and the higher coefficients are 
 
 </div>
 
+Lean: [`paperNumerator_eq_gcdWordForm`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L67), [`paperNumerator_coeff_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L82), [`paperNumerator_coeff_eq_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L88), [`paperNumerator_coeff_eq_gcd_divisor_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L94), and 1 further declaration in the [coverage section](#sec:coverage).
+
 <div class="cor">
 
 **Corollary 188**. *For the same squarefree $`r`$, evaluation at $`X=2`$ gives the integer
@@ -2924,6 +3144,8 @@ Every coefficient for $`0\le k<r`$ is positive, and the higher coefficients are 
 Each quotient is an integer because $`d\mid r`$. .*
 
 </div>
+
+Lean: [`paperNumerator_eval_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L111), [`mersenne_dvd_of_dvd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L106), [`paperNumerator_eval_two_primeSubsetForm`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L145).
 
 <a id="exact-dyadic-comparisons-and-tail-bounds"></a>
 
@@ -2958,6 +3180,8 @@ Indeed, $`1-2^{-n}\ge3/4`$. Summing over $`n>m`$, for an integer $`m\ge1`$, give
 
 </div>
 
+Lean: [`mersenneRemainder_identity_and_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L166), [`one_sub_half_pow_ge`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L156), [`mersenneRemainderTail_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L208), [`tsum_eighth_pow_tail`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L182), and 1 further declaration in the [coverage section](#sec:coverage).
+
 <a id="squared-distances-between-complex-phases"></a>
 
 ### Squared distances between complex phases
@@ -2977,6 +3201,8 @@ For a finite set of unit complex phases, distance from $`1`$ is related exactly 
 
 </div>
 
+Lean: [`sum_sq_dist_from_phase_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L31).
+
 <div class="lem">
 
 **Lemma 192** (Squared-distance bound for separated pairs). *For a finite family $`z:T\to\mathbb{C}`$, a real number $`\delta\ge0`$, and any set of pairs $`P\subseteq
@@ -2984,6 +3210,8 @@ T\times T`$ each separated by $`\ge\delta`$, $`|P|\cdot\delta^2 \le
 \sum_{i,j\in T}\|z_i-z_j\|^2`$. .*
 
 </div>
+
+Lean: [`card_mul_sq_le_pairwise_energy`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L40).
 
 <a id="sec:nondivisor-enclosure"></a>
 
@@ -3014,6 +3242,8 @@ For $`d\mid H`$, both $`a_d(H)`$ and $`a_d(2H)`$ equal $`d`$. Hence $`\kappa_d(2
 
 </div>
 
+Lean: [`divisorChannels_sum_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L69), [`residueOffset_of_dvd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L50), [`residueKernel_increment_of_dvd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L58), [`scaleExplicitShadow_eq_divisorChannels`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L84).
+
 For $`H>0`$ and an integer cutoff $`D\ge0`$, set
 ``` math
 \begin{aligned}
@@ -3036,6 +3266,8 @@ Here $`A_H`$ includes *all* divisor indices, even when $`D<H`$. The following im
 Then $`R_{2H}-R_H\notin\mathbb{Z}`$. .*
 
 </div>
+
+Lean: [`tailDifference_not_integral_of_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L119), [`projectedForeignDefect_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L103), [`foreignComplementBound_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L110).
 
 <div class="proof">
 
@@ -3086,6 +3318,8 @@ Counting coprime pairs gives another expression for the totient series. The adja
 
 </div>
 
+Lean: [`card_coprime_antidiagonal`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L147), [`boundary_pair_at_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L154).
+
 <div class="prop">
 
 **Proposition 196** (Two lattice sums). *For $`0\le r<1`$, the two choices of boundary give
@@ -3106,12 +3340,16 @@ This total is $`1`$ exactly when $`r=1/2`$. .*
 
 </div>
 
+Lean: [`tsum_totient_pow_shift`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L27), [`coprimeLattice_halfOpen_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L38), [`coprimeLattice_positive_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L46), [`coprimeLattice_removed_pair`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L53), and 2 further declarations in the [coverage section](#sec:coverage).
+
 <div class="thm">
 
 **Theorem 197** (The classical coprime-pair Lambert identity). *For every $`0\le r<1`$, $`\sum_{(a,b)\ \mathrm{coprime},\, a,b\ge 1}
 \dfrac{r^{a+b}}{1-r^{a+b}} = \Bigl(\dfrac{r}{1-r}\Bigr)^2`$, an elementary rational function of $`r`$, hence rational at every rational $`r`$ including $`r=1/2`$. This is the classical visible-point identity, and the Lean declaration is a formalisation of it rather than a new result: writing each pair $`(A,B)`$ of positive integers uniquely as $`g\cdot(a,b)`$ with $`\gcd(a,b)=1`$ converts the quadrant sum $`\sum_{A,B\ge1}r^{A+B}=(r/(1-r))^2`$ into the displayed sum over visible points. With the plain weight $`r^{a+b}`$, the same strictly positive index set instead sums to $`\sum_{n\ge1}\varphi(n)r^n-r`$. Thus at $`r=1/2`$ the Lambert-weighted sum is $`1`$, whereas the plain-weight sum is $`S-1/2`$, not $`S`$. Adding the boundary pair $`(1,0)`$ recovers $`S`$ in the plain-weight sum. .*
 
 </div>
+
+Lean: [`coprimeLattice_lambert_identity`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L106), [`coprimeLattice_lambert_rational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L114), [`coprimeLattice_lambert_half_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L127), [`coprimeLattice_positive_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L46), and 2 further declarations in the [coverage section](#sec:coverage).
 
 <div class="obs">
 
@@ -3143,6 +3381,8 @@ Indeed, the second factor’s argument is coprime to $`j`$, so totient multiplic
 
 </div>
 
+Lean: [`short_lcm_window_nondivisor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L57), [`clean_lcm_ray_factorisation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L67), [`unclean_lcm_ray_counterexample`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L76), [`dvd_periodLcm`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CarrySurvivorExtinction.lean#L525).
+
 <div class="obs">
 
 *Observation 201* (Finite diagonal examples). The cited file proves $`\mathcal C(H_t,H_t,L)`$ at the following depths:
@@ -3169,11 +3409,15 @@ For the polynomial $`X-2`$, elementary order arguments give unbounded prime supp
 
 </div>
 
+Lean: [`mersenneLayer_prime_divisor_order`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L33), [`mersenneLayer_unbounded_prime_support`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L63).
+
 <div class="thm">
 
 **Theorem 203** (A prime satisfying the stated cyclotomic conditions). *For every period $`h>0`$ and threshold $`N_0`$, there exist a prime $`q`$ and a prime factor $`p`$ of $`|\Phi_{hq}(2)|`$ (the binary cyclotomic layer) with $`p`$ coprime to $`hq`$, $`hq\mid p-1`$, and $`p-1\ge N_0`$. The characteristic-prime exceptional case in the cyclotomic order decomposition is eliminated directly, by choosing $`q>2^h`$ (rules out $`p=q`$) and $`q>h`$ (rules out $`p\mid h`$). .*
 
 </div>
+
+Lean: [`exists_clean_cyclotomic_anchor_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L73), [`cyclotomic_layer_prime_order_decomposition_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L84).
 
 <div class="obs">
 
@@ -3207,6 +3451,8 @@ The divisibility forces $`\gcd(p,mq)=1`$. For such $`p`$, existence of $`k`$ in 
 
 </div>
 
+Lean: [`boundedDegreeOrderConsumer_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L94), [`coprime_of_dvd_pow_sub_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L101), [`dvd_pow_sub_one_iff_orderOf_dvd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L113), [`boundedOrder_witness_iff_orderOf_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L136), and 8 further declarations in the [coverage section](#sec:coverage).
+
 <a id="rank-one-subrank"></a>
 
 ### The lower bound for rank-one quotients
@@ -3227,6 +3473,8 @@ For every $`e\ge1`$ and $`Y\ge4`$,
 Here $`\Theta_2=S-1/2`$. For $`r\ge3`$, the proof uses $`1429/1512\le\Theta_r<1`$ and $`|t(Y,r)-\Theta_r|\le1/3584`$ when $`Y\ge4`$. In particular, these inequalities make the denominator positive. .*
 
 </div>
+
+Lean: [`rankOneSubrankQuotient_sub_theta_two_gt`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L238), [`mobiusMersenneTheta_ge_alpha`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L163), [`mobiusMersenneTheta_lt_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L196), [`abs_mobiusMersenneTheta_sub_prefix_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L73), and 2 further declarations in the [coverage section](#sec:coverage).
 
 <div class="prop">
 
@@ -3261,6 +3509,8 @@ In particular, $`Q_{2h,N}=2^hQ_{h,N}+Q_{h,N+h}`$. The corresponding cyclotomic i
 *The order-three factor is different: $`\Phi_3(2^h)=2^{2h}+2^h+1`$ comes from tripling the period. It is not generally part of the doubling sequence. For example, $`\Phi_3(2)=7`$ divides none of $`2^{2^j}-1`$, because the order of $`2`$ modulo $`7`$ is $`3`$, which does not divide $`2^j`$. Thus the block identities relate specified period multiples; they do not put all the order-two, order-three and order-four factors into one doubling chain. .*
 
 </div>
+
+Lean: [`totientBlock_eq_paper_indexed_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L23), [`totientBlock_concatenation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L41), [`totientBlock_doubling`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L46), [`cyclotomic_four_eval`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L53), and 5 further declarations in the [coverage section](#sec:coverage).
 
 <div class="obs">
 
@@ -4416,6 +4666,8 @@ then $`\exists N\in[X,2X)`$ with $`\mathcal{C}\ h\ N\ L`$.*
 
 </div>
 
+Lean: [`windowFirstCos_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L23), [`exists_certifiedKill_of_block_real_part_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L34).
+
 <div id="thm:hgap-subset" class="thm">
 
 **Theorem 217** (The same implication for a nonempty subset). *. <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">\[uniform\]</span>. . For any nonempty finite $`T\subseteq\mathbb N`$ with $`T\subset[0,2X)`$ and the same room condition, if
@@ -4425,6 +4677,8 @@ then $`\exists N\in[X,2X)`$ with $`\mathcal{C}\ h\ N\ L`$.*
 then $`\exists N\in T`$ with $`\mathcal{C}\ h\ N\ L`$. This generalises Theorem <a href="#thm:hgap-real" data-reference-type="ref" data-reference="thm:hgap-real">216</a>: $`T`$ can be *any* explicitly chosen nonempty finite subset of the dyadic block, not the whole block, and the proof (an averaging pigeonhole, §below) never uses that $`T`$ has positive density or comes from a partition.*
 
 </div>
+
+Lean: [`exists_certifiedKill_of_subset_real_part_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L50), [`block_real_part_bound_of_subset_form`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L65).
 
 <div id="thm:hgap-norm" class="thm">
 
@@ -4444,6 +4698,8 @@ then $`\exists N\in T`$ with $`\mathcal{C}\ h\ N\ L`$. This generalises Theorem�
 proved in full, with no further gap, by chaining Theorem <a href="#thm:hgap-norm" data-reference-type="ref" data-reference="thm:hgap-norm">218</a>$`\to`$Theorem <a href="#thm:hgap-real" data-reference-type="ref" data-reference="thm:hgap-real">216</a>$`\to`$ .*
 
 </div>
+
+Lean: [`blockNormCondition_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L86), [`real_part_bound_of_norm_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L97), [`exists_certifiedKill_of_block_norm_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L110), [`irrational_of_blockNormCondition`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L118).
 
 <div id="obs:no-instance" class="obs">
 
@@ -4488,6 +4744,8 @@ Hence $`0 < \Omega_a`$ for every $`a\ge 8`$. The proof is genuinely uniform in $
 
 </div>
 
+Lean: [`actualLcm_corridor_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L39), [`corridor_letter_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L49), [`corridor_height_lt_letter`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L56).
+
 <div class="rem">
 
 *Remark 223* (Which endpoint interval must be excluded). Under the hypotheses of Proposition <a href="#prop:SGN-03" data-reference-type="ref" data-reference="prop:SGN-03">136</a>, integrality would force the residue to be $`2^K-e`$, where $`e=R_{2H+J+K}-R_{H+J+K}`$ is a positive integer smaller than $`2H+J+K+2`$. Thus the residue lies near the upper endpoint, not near zero in its least nonnegative representation. The representative $`-e`$ is negative; the carry $`e`$ is positive.
@@ -4509,6 +4767,8 @@ The sign estimate permits a one-sided residue test under the bounds below. This 
 **Theorem 224** (The proved implications). *, , . <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">\[uniform\]</span>. For every $`a\ge 8`$ and every $`J,K,m`$ inside the sign corridor ($`J{+}K{+}(a{+}6) < 2\cdot 2^a`$), a one-sided residue gap at precision $`m\le K`$; room $`2H{+}J{+}K{+}2 < 2^m`$ and $`D(H,H+J,K)\bmod 2^m \le 2^m - (2H{+}J{+}K{+}2)`$; already forces $`{R}(2H{+}J) - {R}(H{+}J)\notin\mathbb Z`$. No lower margin at all is demanded. The proof chain is complete: the theorem holds for every $`a\ge 8`$, and *$`\text{cofinal upper-endpoint condition}`$ $`\Rightarrow`$ Irrational $`S`$* is proved.*
 
 </div>
+
+Lean: [`topEdgeResidueGap_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L64), [`topEdgeResidueGap_forces_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L75), [`topEdgeResidueGap_orbit_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L83), [`irrational_of_topEdgeResidueGapSupply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L92).
 
 <div class="defn">
 
@@ -4551,6 +4811,8 @@ No unconditional statement anywhere in the record locates the residue of the dia
 
 </div>
 
+Lean: [`paperTeChain_item_one_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L56), [`teChain_item_two_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L113), [`teChain_item_three_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L124), [`teChain_item_four_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L133), and 11 further declarations in the [coverage section](#sec:coverage).
+
 <a id="a-bound-on-the-last-totient-difference"></a>
 
 ### A bound on the last totient difference
@@ -4576,6 +4838,8 @@ The next condition compares one totient difference with a centred residue. Its u
 
 </div>
 
+Lean: [`terminalDominance_orbit_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L217), [`irrational_of_terminalDominanceSupply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L228).
+
 <div id="obs:staircase-tension" class="obs">
 
 *Observation 229* (How the sign and size bounds enter the contradiction). Use the hypotheses and notation of Proposition <a href="#prop:TE-06" data-reference-type="ref" data-reference="prop:TE-06">117</a>. Under the assumption $`z=\Omega_a\in\mathbb Z`$, the exact identity is
@@ -4598,6 +4862,8 @@ These bounds do not eliminate either approach: they hold under the integrality a
 
 </div>
 
+Lean: [`irrational_of_lower_escape_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L236), [`corridor_escape_and_irrational_of_magnitude`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L252), [`teChain_item_four_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L133).
+
 <a id="separation-of-a-rational-approximation"></a>
 
 ### Separation of a rational approximation
@@ -4612,6 +4878,8 @@ These bounds do not eliminate either approach: they hold under the integrality a
 where $`\rho_{a,q}`$ is an explicit finite computable rational block. For fixed $`a`$, the error tends to zero as $`q`$ grows. In the quantified condition below, however, the depth is prescribed, so increasing $`q`$ is not a free way to satisfy the separation hypothesis.*
 
 </div>
+
+Lean: [`abs_actualLcmTailOrbit_sub_rawApprox_lt_paper_form`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L276), [`two_pow_odd_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L266), [`actualLcmRawApprox_isRat`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L312), [`actualLcmRawErrorRadius_tendsto_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L294), and 1 further declaration in the [coverage section](#sec:coverage).
 
 <div class="rem">
 
@@ -4648,6 +4916,8 @@ The single witness $`(a,L)=(6,93)`$ works for every threshold $`a_0\le6`$. Its c
 
 </div>
 
+Lean: [`shortWindowSupply_through_six_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L29), [`shortWindowSupply_single_witness_six_ninetyThree`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L38), [`shortWindowSupply_witness_eq_t64_certificate`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L47).
+
 <div class="defn">
 
 **Definition 235** (The additional hypothesis). $`\text{cofinal short-window condition}`$: <span class="sans-serif">\[Open\]</span>, <span class="sans-serif">\[cofinal\]</span>.
@@ -4676,6 +4946,8 @@ at depths $`\{6,5,7,7,9,14,15,14,21,22,23,26\}`$ respectively, extended by the s
 
 </div>
 
+Lean: [`diagonalPincerCertificateScales_list`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DiagonalCertificateTableScales.lean#L22), [`diagonalPincerKillDepth_list`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DiagonalCertificateTableScales.lean#L26), [`certifiedKill_diagonal_table`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DiagonalCertificateTableScales.lean#L33), [`exists_diagonalKill_on_table`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DiagonalCertificateTableScales.lean#L40), and 3 further declarations in the [coverage section](#sec:coverage).
+
 <div class="rem">
 
 *Remark 237* (The observed depths are finite data). forces $`2(2H_t{+}L{+}2)<2^L`$, i.e. $`L \gtrsim \log_2(4\cdot{H}\ t)`$ at any certified depth. Comparing that floor against $`\mathtt{diagonalPincerKillDepth}`$ shows every proved certificate fires within a small additive constant of the theoretical minimum depth, at every tested scale; a numerically supported (<span class="sans-serif">\[Cert\]</span>, not <span class="sans-serif">\[Math\]</span>) separation observation, not a theorem.
@@ -4693,6 +4965,8 @@ This asks for a certificate within a fixed additive constant of the necessary lo
 
 </div>
 
+Lean: [`irrational_of_logarithmicDepth_diagonal_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L58), [`irrational_of_restrictedDepth_diagonal_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L72).
+
 <a id="one-common-certificate-for-sixteen-shifts"></a>
 
 ### One common certificate for sixteen shifts
@@ -4706,6 +4980,8 @@ This asks for a certificate within a fixed additive constant of the necessary lo
 The basepoint $`14`$ and depth $`9`$ are common to all sixteen shifts. Consequently, $`S\ne r`$ whenever $`r\in\mathbb Q`$ and $`\operatorname{den}(r)\mid2^{14}(2^h-1)`$ for some integer $`h`$ with $`1\le h\le16`$. The exact computation uses two nine-term windows for each shift and reduces their discrepancy modulo $`2^9`$. The earlier eight-shift computation uses basepoint $`12`$ and depth $`16`$.*
 
 </div>
+
+Lean: [`commonCertificate_sixteen_shifts_basepoint_fourteen`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L85), [`totientSeries_ne_rat_of_den_dvd_two_pow_fourteen_mul_mersenne`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L91), [`commonCertificate_eight_shifts_basepoint_twelve`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L98).
 
 <div class="rem">
 
@@ -4723,6 +4999,8 @@ The basepoint $`14`$ and depth $`9`$ are common to all sixteen shifts. Consequen
 is equivalent to irrationality of $`S`$. Under irrationality, one can take $`f(N)=N+1`$, and every $`N`$ has a suitable depth. <span class="sans-serif">\[Math\]</span>*
 
 </div>
+
+Lean: [`exists_growingShift_simultaneous_certificate_iff_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SimultaneousShiftCertificateDepth.lean#L131), [`exists_simultaneous_depth_succ_of_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SimultaneousShiftCertificateDepth.lean#L122), [`exists_simultaneous_depth_of_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SimultaneousShiftCertificateDepth.lean#L89).
 
 <div class="proof">
 
@@ -4755,6 +5033,8 @@ This proof gives no quantitative lower bound for the finite minimum as the basep
 
 </div>
 
+Lean: [`totientSeries_rational_den_gt_fareyBound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean#L23), [`farey_gap_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean#L31), [`gapCheck_window_1_240_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean#L39), [`gapCheck_window_1_240_first_failure_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean#L48).
+
 <div class="rem">
 
 *Remark 243* (What a larger Farey bound requires). Unbounded valid denominator exclusions would imply $`S\notin\mathbb{Q}`$. For the single window $`K=240`$, however, proves that the residue inequality fails at the mediant denominator $`b+d=Q_0+1`$. This exact first failure prevents a larger cutoff from that same inequality at that same window. It is not an obstruction to other windows or to other tests using the finite data.
@@ -4775,6 +5055,8 @@ The existing proofs for individual windows use explicit totient residues and rat
 
 </div>
 
+Lean: [`irrational_of_unbounded_window_one_gapCheck`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean#L68), [`gapCheck_window_one_excludes`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean#L58).
+
 <a id="a-two-adic-congruence-that-does-not-give-a-certificate"></a>
 
 ### A two-adic congruence that does not give a certificate
@@ -4789,6 +5071,8 @@ Under eventual integrality this transfers to an integer $`z`$ with $`(z:\mathbb 
 {R}(p{+}H) - R_{p}`$ and $`z\equiv 2^{K-1}\pmod{2^K}`$.*
 
 </div>
+
+Lean: [`exists_prime_twoAdic_half_pulse_window`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean#L26), [`eventual_integral_tailDiff_twoAdic_half_pulse`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean#L41).
 
 <div class="rem">
 
@@ -4808,6 +5092,8 @@ Then $`S\notin\mathbb Q`$: these two inequalities imply $`\mathcal C(h,N,L)`$, a
 
 </div>
 
+Lean: [`irrational_of_accumulated_halfModulus_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean#L77), [`certifiedKill_of_halfModulus_residue`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean#L53).
+
 <a id="the-residue-margin-at-an-lcm-jump"></a>
 
 ### The residue margin at an LCM jump
@@ -4817,6 +5103,8 @@ Then $`S\notin\mathbb Q`$: these two inequalities imply $`\mathcal C(h,N,L)`$, a
 **Theorem 249** (Arbitrarily large prime-power LCM jumps). *. <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">\[cofinal\]</span> (proved): for every $`t_0\in\mathbb N`$ there is $`t\ge t_0`$ with $`H(t)<H(t+1)`$. One may take $`t=p-1`$ for any prime $`p>t_0`$. The positions $`t=2^a-1`$ are also strict LCM jumps for $`a\ge1`$: $`2^a`$ is the next required power of $`2`$. The restriction excludes $`a=0`$, since $`H(0)=H(1)=1`$. The condition asks for the additional residue margin along this explicit sequence. Knowing these jump positions does not establish that margin.*
 
 </div>
+
+Lean: [`exists_periodLcm_strict_jump_ge_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L26), [`periodLcm_strict_jump_at_prime_pred`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L31), [`periodLcm_strict_jump_at_powerTwo_pred`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L46), [`periodLcm_zero_and_one_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L59).
 
 <div class="defn">
 
@@ -4846,6 +5134,8 @@ The first unproved condition asks for every $`t_0`$ for an index $`t\ge\max(3,t_
 
 </div>
 
+Lean: [`irrational_of_powerTwo_postJump_slack_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L90), [`canonicalAdjacentSuffixCentralSlack_paper_formula`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L68).
+
 <a id="a-certificate-for-a-four-tail-combination"></a>
 
 ### A certificate for a four-tail combination
@@ -4861,6 +5151,8 @@ The bound $`B(H,p,L)=3pH+(p+1)(L+2)`$ follows by grouping the nonnegative remain
 
 </div>
 
+Lean: [`primeJumpTailCommutator_notMem_int_of_central_window`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L36), [`primeJumpSharpRadius_formula`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L31), [`primeJumpSharpRadius_saves_pH`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L45), [`primeJumpSharpRadius_lt_twoCellRadius`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L52).
+
 <div class="thm">
 
 **Theorem 254** (One explicit witness). *. <span class="sans-serif">\[Cert\]</span>. <span class="sans-serif">\[fixed\]</span>. For $`H=H(4)=12`$, $`p=5`$ and $`L=15`$, direct integer evaluation gives
@@ -4871,6 +5163,8 @@ W(12,5,15)=149906,\qquad
 Thus $`282<18834<32486`$, and $`J(12,5)\notin\mathbb Z`$. This is the one instance singled out by the cited declaration, not a claim of uniqueness or of the smallest possible height. The implication from a quantified family is .*
 
 </div>
+
+Lean: [`periodLcm_four_eq_twelve`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L62), [`primeJump_witness_twelve_five_values`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L68), [`primeJumpTailCommutator_twelve_five_notMem_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L76), [`irrational_of_primeJumpSharp_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L81).
 
 <div class="rem">
 
@@ -4901,6 +5195,8 @@ Indeed, Bertrand’s postulate makes $`\mathcal P_t`$ nonempty. Its members sati
 
 </div>
 
+Lean: [`upperHalfMersenneProduct_between_bounds`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L110), [`exists_upperHalf_channel_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L123), [`upperHalfPrimes_nonempty_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L98), [`upperHalfPrimes_member_bounds`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L103), and 2 further declarations in the [coverage section](#sec:coverage).
+
 <div class="rem">
 
 *Remark 257* (Growth of these denominators does not give approximation of $`S`$). The number $`H_t\beta_{H_t}`$ is the finite rational contribution to a totient-tail decomposition. Its complementary term can still cancel its fractional part. The stated denominator bound supplies neither an error estimate for approximation of $`S`$ nor nonintegrality of $`R_{2H_t}-R_{H_t}`$.
@@ -4922,6 +5218,8 @@ This is the rational-separation criterion in : if $`S=a/b`$ were reduced, every 
 
 </div>
 
+Lean: [`irrational_totientSeries_of_rational_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L137), [`den_mul_abs_sub_ge_one_div_den`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L149).
+
 <a id="rationality-and-carry-rank"></a>
 
 ### Rationality and carry rank
@@ -4934,6 +5232,8 @@ The next two theorems concern the totient sections and, under rationality, the s
 
 </div>
 
+Lean: [`retainedSections_basis_and_rank`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L79), [`completeLevelZeroTruncation_is_totient_and_rank_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L93), [`canonicalTotientKernelFamily_entries`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L33).
+
 <div class="thm">
 
 **Theorem 260**. *. <span class="sans-serif">\[Lean\]</span>. <span class="sans-serif">\[uniform\]</span>. If $`S\in\mathbb{Q}`$, choose an integer $`v>0`$ with $`vS\in\mathbb{Z}`$ and put $`u_N=vR_N`$. Then $`u_N\in\mathbb{Z}`$, $`u_{N+1}=2u_N-v\varphi(N+1)`$, and $`0\le u_N\le v(N+2)`$. For every $`e\ge0`$,
@@ -4944,6 +5244,8 @@ The next two theorems concern the totient sections and, under rationality, the s
 The proof is given in Section <a href="#sec:mahler-defect" data-reference-type="ref" data-reference="sec:mahler-defect">10.8</a>.*
 
 </div>
+
+Lean: [`rationalValue_integral_carry_and_rank_floor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L129).
 
 <div class="rem">
 
@@ -4956,6 +5258,8 @@ The proof is given in Section <a href="#sec:mahler-defect" data-reference-type=
 **Proposition 262** (An additional hypothesis for a totient-specific rank argument). *A rank bound that contradicts the lower bound $`2^e-1`$ would have to use additional arithmetic of the actual totient coefficients. The generic proposal that every rational coefficient series has bounded tempered-carry rank is ruled out by the rational control recorded in the short paper: its carry rank is at least $`2^e-1`$ at every level. It is therefore not a remaining general lemma from which totient irrationality follows. The conditional theorem in the totient tail carry period source, line 224, records eventual periodicity modulo $`v`$ together with unbounded rational rank. Periodicity of the residue sequences concerns values in a finite quotient; it does not bound the rational span of the integer-valued sections. The $`5/4`$ comparison shows that this distinction persists for a rational coefficient series.*
 
 </div>
+
+Lean: [`rationalControl_periodic_with_unbounded_carry_rank`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L238), [`rationality_gives_mod_period_and_unbounded_rank`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L256).
 
 <a id="what-the-preceding-comparisons-show"></a>
 
@@ -4979,7 +5283,7 @@ The following examples disprove particular deductions proposed for $`S=\sum_{n\g
 
 **(a) Proposed argument.** The quantified residue condition requires certificates beyond every starting index. A finite computation can check many instances, but one fixed inspection bound cannot establish these quantifiers. The following comparison explains this limitation without making any claim about all possible irrationality arguments.
 
-**(b) Counterexample.** The manuscript’s own remark (<span class="sans-serif">\[Math\]</span>, prose-only, not formalised in Lean: *§5.4, “finite inspection cannot establish the supply”*) gives an explicit splice construction. Choose an integer $`P>B`$, set $`\gamma(n)=\varphi(n)`$ for $`n\le B`$, and $`\gamma(n)=n-\mathbf 1_{P\mid n}`$ for $`n>B`$. Then $`0\le\gamma(n)\le n`$, and the binary series $`\sum\gamma(n)/2^n`$ is *rational*: it is a finite rational prefix, plus the tail of $`\sum_n n2^{-n}`$, minus a geometric sum over the multiples of $`P`$ beyond $`B`$. Because $`\gamma`$ agrees with $`\varphi`$ on every index $`\le B`$, $`\gamma`$ passes every finite certificate that only inspects indices $`\le B`$; in particular it passes or fails every instance of $`\mathcal{C}(h,N,L)`$ with $`N+h+L\le B`$ exactly as $`\varphi`$ does. Yet $`\sum\gamma(n)/2^n\in\mathbb Q`$ by construction.
+**(b) Counterexample.** Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">13</a> gives an explicit splice construction; its series value, exact reduced denominator and failure of the separation condition are checked in Lean (<span class="sans-serif">\[Lean\]</span>). Choose an integer $`P>B`$, set $`\gamma(n)=\varphi(n)`$ for $`n\le B`$, and $`\gamma(n)=n-\mathbf 1_{P\mid n}`$ for $`n>B`$. Then $`0\le\gamma(n)\le n`$, and the binary series $`\sum\gamma(n)/2^n`$ is *rational*: it is a finite rational prefix, plus the tail of $`\sum_n n2^{-n}`$, minus a geometric sum over the multiples of $`P`$ beyond $`B`$. Because $`\gamma`$ agrees with $`\varphi`$ on every index $`\le B`$, $`\gamma`$ passes every finite certificate that only inspects indices $`\le B`$; in particular it passes or fails every instance of $`\mathcal{C}(h,N,L)`$ with $`N+h+L\le B`$ exactly as $`\varphi`$ does. Yet $`\sum\gamma(n)/2^n\in\mathbb Q`$ by construction.
 
 **(c) Scope.** For each fixed bound $`B`$, a different rational comparison sequence can agree with $`\varphi`$ on all inspected coefficients. This rules out a deduction from that finite prefix alone. It does not rule out a proof that establishes the required instances for arbitrarily large $`B`$ with the correct quantifiers. Such a proof would no longer be a single finite inspection. The comparison also does not preserve multiplicativity or every other arithmetic property of $`\varphi`$.
 
@@ -5010,6 +5314,8 @@ Each replacement leaves the binary sum unchanged because $`2\cdot2^{-m}-4\cdot2^
 **Proposition 263** (A rational series preserving totient parity and the stated separation properties). *There exists $`c:\mathbb N\to\mathbb N`$ such that: $`c(n)\le6`$ for all $`n`$; $`c(n)\le n`$; $`c(n)\equiv\varphi(n)\pmod2`$ for every $`n`$; for every $`N,G,K`$ there is a block of $`K`$ explicit $`(6,0)`$ carry-pulse pairs beyond $`N`$, each pair separated by more than $`G`$; and $`\sum_n c(n)/2^n = 3/2`$.*
 
 </div>
+
+Lean: [`parityCoboundaryWeight_le_six`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L227), [`parityCoboundaryWeight_le_self`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L155), [`parityCoboundaryWeight_mod_two_eq_totient`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L194), [`exists_later_arbitrarily_many_separated_parityCoboundaryWeight_carry_pairs`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L457), and 1 further declaration in the [coverage section](#sec:coverage).
 
 (sum computation ; non-periodicity ; exact parity match ). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">\[cofinal\]</span> .
 
@@ -5051,6 +5357,8 @@ b/H\mid c.
 ```*
 
 </div>
+
+Lean: [`complementDenominator_dvd_scalar`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ScalarLocalisationAndInversePhaseGauge.lean#L29).
 
 . Indeed, the hypothesis makes $`Hcx=Hca/b`$ integral. Since $`\gcd(a,b)=1`$, it follows that $`b\mid Hc`$, hence $`b/H\mid c`$. Writing $`c=(b/H)t`$ also gives $`Hcx=ta`$; this equality is recorded in . If $`c\ne0`$, the divisibility implies $`|c|\ge b/H`$. The nonzero hypothesis is essential for this size bound: $`c=0`$ has reduced denominator one and satisfies the divisibility, but has no positive size cost. The lemma is about multiplication of one rational value, not arbitrary cancellations among several values.
 
@@ -5094,6 +5402,8 @@ In particular, the sum is nonzero.*
 
 </div>
 
+Lean: [`signed_dyadic_clearing`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean#L8), [`signed_dyadic_sum_ne_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean#L28), [`scaled_dyadic_sum_odd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/SignedQMomentObstruction.lean#L78).
+
 Every term except $`u_m`$ is even, which proves the assertion. For example, $`1/2-1/8=3/8`$ has odd cleared numerator. Uniqueness is necessary for this argument: two odd contributions with the same largest exponent can cancel. The formal statement is .
 
 The same file gives a separate determinant expansion from the Leibniz formula , together with the truncated signed moments $`\sum_{N=1}^Y a_N2^{-N(k+1)}`$ and their Hankel determinants ( and ). The parity lemma is not derived from that determinant identity. A determinant application must first identify a sum to which the parity hypotheses apply. <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">\[uniform\]</span> .
@@ -5123,6 +5433,8 @@ Thus a nonzero determinant remains nonzero while row $`i_0`$ becomes constant. I
 
 </div>
 
+Lean: [`inversePhaseGauge_locks_row_and_preserves_minor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ScalarLocalisationAndInversePhaseGauge.lean#L51).
+
 The entry formula and the determinant of a product prove the statement (, ). If row-dependent weights are allowed, the choice $`W_{ij}=z_j^i/z_j^{e_i}`$ gives $`W_{ij}P_{ij}=z_j^i`$ and makes row zero constant. It produces the ordinary Vandermonde matrix, which is nonsingular when the $`z_j`$ are pairwise distinct (, ). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">\[uniform\]</span> .
 
 These are statements about complex matrices, not arithmetic properties of the totient sequence. In particular, determinant nonvanishing, even with unit-modulus weights, does not by itself exclude complete alignment in the indicated row. An application of the first-harmonic criterion () needs additional information that excludes such weights or controls the resulting weighted sum. The example does not require that information to take the form of an identity coupling different rows, and it does not rule out determinant arguments that use appropriate additional hypotheses.
@@ -5145,6 +5457,8 @@ These are statements about complex matrices, not arithmetic properties of the to
 
 </div>
 
+Lean: [`lcm_grid_flatness`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L8).
+
 (body lcm cone flatness source). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">\[uniform\]</span> (for all sufficiently large $`t`$, *given* rationality) . Rationality makes the fractional parts of $`R_{kH_t}`$ equal for all $`k\ge1`$ at each scale $`t\ge t_1`$. The corresponding implication shows that a certificate $`\mathcal C(mH_t,qH_t,L)`$ with $`q\ge1`$ at arbitrarily large $`t`$ implies $`S\notin\mathbb Q`$.
 
 **(b$`'`$) A finite test on the grid.**
@@ -5159,6 +5473,8 @@ These are statements about complex matrices, not arithmetic properties of the to
 Then $`R_{q_jH}-R_{q_iH}\notin\mathbb Z`$ for some $`q_i,q_j\in Q`$. The proof and a four-point example are given in Theorem <a href="#catalogue:cert:b10a" data-reference-type="ref" data-reference="catalogue:cert:b10a">107</a>.*
 
 </div>
+
+Lean: [`paperGridNumerator_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L12), [`finite_grid_nonintegral_pair`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L36).
 
 (quantified assertion ). <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">\[bounded\]</span> (proved for each finite set satisfying the hypotheses; the required family at arbitrarily large $`t`$ is not established) .
 
@@ -5188,6 +5504,8 @@ The implication from rationality to grid flatness () should not be confused with
 is linearly independent over $`\mathbb{Q}`$. It contains $`2^e+1`$ sequences () and spans the sections through level $`e`$ by the zero- and even-residue reductions.*
 
 </div>
+
+Lean: [`canonicalTotientKernelFamily_entries`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L33), [`canonicalTotientKernelFamily_independent_card_and_span`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L53).
 
 The forms $`n`$ and $`2n`$ are proportional, so their coefficients need a separate argument. Restrict a proposed relation to $`n=2m+1`$, where $`\varphi(2n)=\varphi(n)`$. The odd-residue sections and $`\varphi(n)`$ then correspond to pairwise nonproportional forms. CRT and Dirichlet’s theorem separate them by an evaluation matrix: make the primitive part of one form prime and force suitable prime divisors into the others. This kills the positive-residue coefficients and gives $`A+B=0`$ for the two remaining coefficients. Evaluating their relation at $`n=2`$ gives $`A+2B=0`$. Hence both vanish. This gives the dyadic specialization of the proof in the short note. The formal independence statement is ; consequently the full infinite family spans an infinite-dimensional $`\mathbb Q`$-space, . A separate elementary observation concerns a proposed integer identity. There are no $`Q,v\in\mathbb{N}_{>0}`$ and $`A,b\in\mathbb{Z}`$ with $`QvA=b`$, $`A\ne0`$, and $`|b|<Qv`$: the identity forces $`|b|=Qv|A|\ge Qv`$. The source packages these incompatible requirements as one structure, . <span class="sans-serif">\[Lean\]</span> <span class="sans-serif">\[uniform\]</span> (holds for every $`e\ge1`$; existence side is unconditional, via Mathlib’s CRT + primes-in-AP machinery) (dyadic totient-kernel; *not* the Möbius coordinate).
 
@@ -5381,6 +5699,8 @@ Hence, for fixed $`h`$, the phases $`\{\,R_{N+h}-R_N \bmod 1\,\}_{N\ge 0}`$ are 
 
 </div>
 
+Lean: [`orbit_tail_recurrence`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L26), [`orbit_tail_diff_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L32), [`orbit_tail_diff_sub_scaled_is_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L41), [`orbit_tail_diff_firstChar_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L53), and 2 further declarations in the [coverage section](#sec:coverage).
+
 The second identity and the character form are proved: and . The recurrence $`R_{N+1}=2R_N-\varphi(N+1)`$ is one line from the definition and is used below only for intuition <span class="sans-serif">\[Math\]</span>.
 
 These identities express the phases as a lacunary exponential sum in one real variable. The next proposition transfers an estimate for that orbit to the truncated phases, accounting for the truncation error. The identities themselves are already in the cited sources.
@@ -5395,6 +5715,8 @@ These identities express the phases as a lacunary exponential sum in one real va
 This hypothesis implies that $`S`$ is irrational.*
 
 </div>
+
+Lean: [`irrational_totientSeries_of_block_cosine_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L92).
 
 <div class="proof">
 
@@ -5411,6 +5733,8 @@ This hypothesis implies that $`S`$ is irrational.*
 **Corollary 273** (A digit version of the analytic condition). *Let $`\rho_h(X)`$ denote the proportion of $`N\in[X,2X)`$ with $`\|2^N\alpha_h\|_{\mathbb{R}/\mathbb{Z}}\ge 1/4`$. If for every $`h\ge 1`$ there are cofinally many $`X`$ with $`\rho_h(X)\ge 11/100`$, then $`S`$ is irrational. For nondyadic $`\alpha_h`$, the condition counted by $`\rho_h(X)`$ is exactly a change between binary digits $`N+1`$ and $`N+2`$. Thus the same sufficient hypothesis asks for at least $`11X/100`$ such changes, counted with $`X\le N<2X`$, on arbitrarily large blocks for every $`h`$.*
 
 </div>
+
+Lean: [`irrational_totientSeries_of_quarterFarPhase_proportion`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L121), [`quarterFarFromInt_iff_binaryDigitAt_change`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L146), [`irrational_totientSeries_of_digitChange_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L233), [`irrational_totientSeries_of_quarterFarPhase_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L95), and 3 further declarations in the [coverage section](#sec:coverage).
 
 <div class="proof">
 
@@ -5529,6 +5853,8 @@ Consequently the block norm condition fails for $`\beta`$ at every sufficiently 
 
 </div>
 
+Lean: [`lacCoef_bounds`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L68), [`lacBeta_eq_factorial_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L88), [`irrational_lacBeta`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L121), [`lacunary_block_cos_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L333), and 2 further declarations in the [coverage section](#sec:coverage).
+
 <div class="proof">
 
 *Proof.* The binary expansion of $`\beta`$ has infinitely many ones separated by unbounded strings of zeros. It is not eventually periodic, so $`\beta`$ is irrational. Write $`\gamma=(2^h-1)\beta`$, and let $`k!`$ be the least factorial greater than $`N`$. The earlier terms become integers after multiplication by $`2^N`$, so
@@ -5596,6 +5922,8 @@ for all sufficiently large $`X`$. Here $`\Psi(x,y)`$ counts the positive integer
 
 </div>
 
+Lean: [`prop_dickman`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/UnassignedSmoothCount.lean#L556).
+
 <div class="proof">
 
 *Proof.* Let $`p=P(n)`$ and $`m=n/p`$. Since $`n>1`$, failure of the assignment condition means either $`p\le2\lfloor\sqrt X\rfloor`$ or $`m>\lfloor\sqrt X/2\rfloor`$. In the second case $`m>\sqrt X/2`$, so
@@ -5612,7 +5940,14 @@ Monotonicity in $`y`$ bounds $`\Psi(x,y_X)/x`$ between quantities tending to $`\
 
 </div>
 
-<span class="sans-serif">\[Math\]</span> for this deduction. The cited inputs are the fixed-$`u`$ asymptotic \[granville-smooth, (1.1), p. 268\] and the value $`\rho(u)=1-\log u`$ on $`[1,2]`$ \[granville-smooth, (1.3), p. 268\]. No effective crossover scale or exact density for the unassigned indices is asserted. The estimate uses the minimal admissible depth; it does not supply either of the two remaining correlation bounds at that depth.
+<span class="sans-serif">\[Lean\]</span> for the whole proposition, . The Lean proof uses no smooth-number asymptotic. For large $`X`$, $`y_X^2>2X+t-1`$, so an integer in $`(X+t-1,2X+t-1]`$ that is not $`y_X`$-smooth has exactly one prime factor above $`y_X`$, and
+``` math
+\Psi(2X+t-1,y_X)-\Psi(X+t-1,y_X)
+ =X-\sum_{y_X<p\le2X+t-1}
+ \left(\left\lfloor\frac{2X+t-1}{p}\right\rfloor
+      -\left\lfloor\frac{X+t-1}{p}\right\rfloor\right).
+```
+Mertens’ theorems, proved in the development with explicit constants, then give $`(1-\log2)X+O(X/\log X)`$. The written proof above cites instead the fixed-$`u`$ asymptotic \[granville-smooth, (1.1), p. 268\] and the value $`\rho(u)=1-\log u`$ on $`[1,2]`$ \[granville-smooth, (1.3), p. 268\]. No effective crossover scale or exact density for the unassigned indices is asserted. The estimate uses the minimal admissible depth; it does not supply either of the two remaining correlation bounds at that depth.
 
 <div id="prop:badcof" class="prop">
 
@@ -5624,6 +5959,8 @@ Monotonicity in $`y`$ bounds $`\Psi(x,y_X)/x`$ between quantities tending to $`\
 so a single choice of $`\eta`$ with $`D(\eta)<1/200`$ meets the $`\tfrac{1}{100}X`$ budget for all large $`X`$. This choice fixes $`\eta`$ before $`X_0`$, as required. It supplies only the excluded-cofactor bound: the mean and mean-subtracted estimates must still hold for this same $`\eta`$, and do not follow from making $`\eta`$ smaller.*
 
 </div>
+
+Not formalised: the counting function of indices with excluded cofactor is carried by the development, and neither Schoenberg’s density theorem nor the partial summation over the cofactors is formalised. See the [coverage section](#sec:coverage).
 
 <div class="proof">
 
@@ -5805,6 +6142,8 @@ Writing $`h=td`$ and using $`D(h,N,L)/2^{L}=(R_{N+h}-R_N)-(R_{N+L+h}-R_{N+L})/2^
 **Proposition 279**. *$`\mathcal{C}(h,N,h)`$ holds whenever $`\bigl\|2^{N+h}S-2^{N}S\bigr\|_{\mathbb{R}/\mathbb{Z}}>2(N+2h+2)/2^{h}`$.*
 
 </div>
+
+Lean: [`certifiedKill_of_fullDepth_phase_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L130), [`bracket_of_two_sided_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L119).
 
 <div class="proof">
 
@@ -6464,6 +6803,388 @@ Automatic prime-sampling theorems address a different issue. Adamczewski, Drmota
 #### Sources and data.
 
 The linked Lean declarations, fixed toolchain, and library manifest are published in the companion repository. The ordinary arguments in these papers explain the mathematics; the pinned declarations record the corresponding formal statements. Their hypotheses must be checked separately when an implication is applied.
+
+<a id="sec:coverage"></a>
+
+## Formalisation coverage and remaining dependencies
+
+<div id="coverage">
+
+</div>
+
+Every theorem, lemma, proposition and corollary of this record other than the five listed below has a Lean statement of the same assertion, with the same hypotheses, checked by the Lean kernel using only the axioms `propext`, `Classical.choice` and `Quot.sound`, in the development at revision `181078b6b009`.
+
+Proposition <a href="#prop:dickman" data-reference-type="ref" data-reference="prop:dickman">276</a>, one of the five, was proved later. It has a Lean statement of the same assertion, checked by the Lean kernel using only those three axioms, at revision `e4ba6841dfdb`; the paragraph after its proof describes the Lean argument.
+
+Propositions <a href="#prop:zetaq" data-reference-type="ref" data-reference="prop:zetaq">48</a> and <a href="#catalogue:mob:a4" data-reference-type="ref" data-reference="catalogue:mob:a4">81</a> share one input. The displayed three-term identity is unconditional and checked in both. The development verifies the reduction of the irrationality clause to the theorem of Postelmans and Van Assche that $`1`$, $`\zeta_q(1)`$ and $`\zeta_q(2)`$ are linearly independent over $`\mathbb{Q}`$ for $`q=1/p`$ with an integer $`p\ge2`$ \[postelmans-vanassche, Theorem 1.3, p. 3\]. A formal proof of that input is not included in the verified development, so those two endpoints remain conditional on it. Proposition <a href="#prop:D7-inv" data-reference-type="ref" data-reference="prop:D7-inv">153</a> is the same situation with a different input. Its four Lambert identities and the identification of $`L(\mathrm{Id})`$ with $`\sum_{m\ge1}\sigma(m)/2^m`$ are checked, and the development verifies the reduction of the transcendence of that value to Nesterenko’s theorem on the algebraic independence of the three Eisenstein values at an algebraic point of the punctured unit disc \[nesterenko1996, Cor. 2, p. 1320\].
+
+Proposition <a href="#prop:badcof" data-reference-type="ref" data-reference="prop:badcof">277</a> is incomplete in a different way: part of its proof is formalised and a named later step is not. The development carries the counting function of indices with excluded cofactor, and neither Schoenberg’s theorem nor the partial summation over $`m\le\sqrt X/2`$ is formalised.
+
+A theorem whose own statement is conditional is formalised exactly as stated. Propositions <a href="#prop:zetaq" data-reference-type="ref" data-reference="prop:zetaq">48</a>, <a href="#catalogue:mob:a4" data-reference-type="ref" data-reference="catalogue:mob:a4">81</a>, <a href="#prop:D7-inv" data-reference-type="ref" data-reference="prop:D7-inv">153</a> and <a href="#prop:badcof" data-reference-type="ref" data-reference="prop:badcof">277</a> are asserted unconditionally in this record; the first three have Lean counterparts carrying a named input, and for the last only part of the argument is formalised.
+
+<a id="concordance-of-statements-and-lean-declarations."></a>
+
+#### Concordance of statements and Lean declarations.
+
+Each result of this record that has a kernel-checked Lean statement of the same assertion is listed below with the declarations that jointly state it. Each name links to its declaration at revision `a25cb360bef8`. Where the Lean statement is stronger than the printed one and implies it by an immediate specialisation, the entry says so. An entry marked *compared* was also checked independently: a restatement of the same declarations against Mathlib alone, together with its proof, was verified by Comparator (`leanprover/comparator`) in a clean continuous integration environment, in the run named by its number. Comparator trusts the restated statement, so the correspondence between the printed result and that statement is the one this concordance records.
+
+Theorem <a href="#thm:denom" data-reference-type="ref" data-reference="thm:denom">3</a>: [`tsum_totient_div_pow_two_ne_ratCast_of_den_le_79639646646701375323355774875831053`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18384), [`gap_check_window_1_240_first_failure`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GapFareyBound.lean#L225). *Compared*, runs [`35544127144`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144), [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Proposition <a href="#prop:deposits" data-reference-type="ref" data-reference="prop:deposits">4</a>: [`certifiedKill_diagonal_all_imported_through_t64`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967), [`certifiedKill_diagonal_t64`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/DiagonalPincerCertificatesT64.lean#L1928), [`certifiedKill_all_upto_sixteen`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CarrySurvivorExtinction.lean#L574), [`certifiedKill_67_300`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L471), [`certifiedKill_81_300`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L474), [`certifiedKill_97_300`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L477), [`certifiedKill_101_300`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L480), [`certifiedKill_121_300`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L483), [`certifiedKill_125_300`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L486), [`certifiedKill_127_300`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L490), [`certifiedKill_128_300`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L493), [`exists_diagonalKill_le_82`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Skip/LadderT67.lean#L71264). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595), [`35682858662`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35682858662).
+
+Proposition <a href="#prop:sign" data-reference-type="ref" data-reference="prop:sign">5</a>: [`actualLcmTailDiff_shift_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientActualLcmOrbitSign.lean#L39), [`actualLcm_integral_forces_topEdgeResidue`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientActualLcmOrbitSign.lean#L211), [`carryOrbit_eq_tail_diff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CarrySurvivorExtinction.lean#L393). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:rank" data-reference-type="ref" data-reference="prop:rank">6</a>: [`not_irrational_totientSeries_implies_unbounded_carryRank_unconditional`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientCarryKernelRigidity.lean#L300). *Compared*, run [`35544127144`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144).
+
+Proposition <a href="#prop:period-not-rank" data-reference-type="ref" data-reference="prop:period-not-rank">7</a>: [`not_irrational_totientSeries_implies_mod_period_and_unbounded_rank`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailCarryPeriod.lean#L224). *Compared*, run [`35544127144`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144).
+
+Proposition <a href="#prop:iffs" data-reference-type="ref" data-reference="prop:iffs">8</a>: [`periodMultipleKillSupply_iff_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PeriodMultipleEscape.lean#L432), [`irrational_totient_series_iff_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L412), [`irrational_totient_series_iff_lcm_diagonal_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L426), [`irrational_totientSeries_iff_cofinalDirectedLcmCertificateSupply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailCarryPeriod.lean#L875), [`dtwWindowSeparatedPairs_iff_irrational_totient_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/PivotAntiReconstruction.lean#L1765). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:parity" data-reference-type="ref" data-reference="prop:parity">9</a>: [`exists_totientParity_arbitrarilyManySeparatedCarry_rational_countermodel`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L637), [`tsum_parityCoboundaryWeight_eq_three_halves`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L359). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Lemma <a href="#lem:gsound" data-reference-type="ref" data-reference="lem:gsound">10</a>: [`certificate_sound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L66), [`scaled_difference`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L48), [`truncation_error_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L55). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Lemma <a href="#lem:gperiod" data-reference-type="ref" data-reference="lem:gperiod">11</a>: [`generic_tail_period`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L98), [`scaled_tail_split`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/GenericTailCertificates.lean#L33). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem <a href="#thm:gamma" data-reference-type="ref" data-reference="thm:gamma">13</a>: [`gamma_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean#L15), [`gamma_prefix`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean#L21), [`discrepancy_prefix`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean#L24), [`exact_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodel.lean#L108), [`value_cast`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean#L31), [`exact_denominator`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean#L39), [`no_certificate_after_prefix`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean#L51), [`gamma_not_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean#L69). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Corollary <a href="#cor:b1" data-reference-type="ref" data-reference="cor:b1">14</a>: [`no_uniform_prefix_rule`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean#L74), [`gamma_not_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FinitePrefixCountermodelEndpoint.lean#L69). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:b2" data-reference-type="ref" data-reference="prop:b2">16</a>: [`three_particular_equivalences`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ThreeParticularEquivalences.lean#L33), [`two_point_sample_numerical_requirement`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ThreeParticularEquivalences.lean#L55). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:b4" data-reference-type="ref" data-reference="prop:b4">20</a>: [`twoAdic_pulse_construction_never_certifies`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseCertificateFailure.lean#L29), [`twoAdic_pulse_defining_congruence`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseCertificateFailure.lean#L60), [`twoAdic_pulse_error_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseCertificateFailure.lean#L85). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:b5" data-reference-type="ref" data-reference="prop:b5">22</a>: [`balancedPulse_common_history`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L93), [`balancedPulse_tail_at`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L30), [`balancedPulse_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L76), [`balancedPulse_label_lower_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L114), [`balancedPulse_no_decoder_from_common_state`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L122), [`affineBinaryOrbit_difference_and_reset`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L134), [`fixed_precision_carry_completion`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CarryDescriptionInformationLoss.lean#L146).
+
+Proposition <a href="#prop:b6" data-reference-type="ref" data-reference="prop:b6">23</a> (the Lean statement is stronger): [`b6_retained_dyadic_sections_independent`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L72), [`b6_compressed_adjoint_identity_impossible`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L80), [`b6_mobius_incidence_unimodular_and_injective`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L101), [`b6_adjugate_tail_cost_floor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L129), [`b6_synthetic_sequence_prescribed_differences`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L165), [`b6_synthetic_shift_combinations_same_form`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L199), [`b6_mobiusMersennePrefix_eq_icc_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L236), [`b6_mobiusMersenne_rung_estimates`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L253), [`b6_mobiusMersenneTheta_two_eq_totientSeries_sub_half`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L262), [`b6_rankOneSubrankQuotient_sub_totientSeries_offset_gt`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FourLinearConstructionLimits.lean#L270). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:b7" data-reference-type="ref" data-reference="prop:b7">24</a>: [`exists_rational_parityComparison`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalParityCountermodelProperties.lean#L28), [`parityComparisonProperties_do_not_imply_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalParityCountermodelProperties.lean#L37). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:shift" data-reference-type="ref" data-reference="prop:shift">34</a>: [`two_pow_mul_totient_series_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L150). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Lemma <a href="#lem:farey" data-reference-type="ref" data-reference="lem:farey">35</a>: [`farey_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GapFareyBound.lean#L51). *Compared*, run [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Proposition <a href="#prop:gapwindow" data-reference-type="ref" data-reference="prop:gapwindow">36</a>: [`totient_carry_residue_window_1_240_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18310), [`gap_check_window_1_240_le_79639646646701375323355774875831053`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GapFareyBound.lean#L176), [`gap_check_window_1_240_first_failure`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GapFareyBound.lean#L225). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Theorem <a href="#thm:denom-record" data-reference-type="ref" data-reference="thm:denom-record">37</a>: [`tsum_totient_div_pow_two_ne_ratCast_of_den_le_79639646646701375323355774875831053`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18384). *Compared*, run [`35544127144`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144).
+
+Proposition <a href="#prop:coprime" data-reference-type="ref" data-reference="prop:coprime">40</a>: [`tsum_visible_coprime_pairs_eq_totient_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18544), [`totient_series_eq_half_add_visible_coprime_pairs`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18557). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#prop:gcdlayer" data-reference-type="ref" data-reference="prop:gcdlayer">41</a>: [`tsum_gcd_layer_pos_coprime_half_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GeometricCoprimality.lean#L480), [`tsum_pos_pair_both_dvd_half_eq_inv_mersenne_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L266). *Compared*, run [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Theorem <a href="#thm:denomcoprime" data-reference-type="ref" data-reference="thm:denomcoprime">42</a>: [`tsum_visible_coprime_pairs_ne_int_div_of_den_le_39819823323350687661677887437915526`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18572). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Theorem <a href="#thm:denommobsq" data-reference-type="ref" data-reference="thm:denommobsq">43</a>: [`tsum_moebius_div_two_pow_sub_one_sq_ne_int_div_of_den_le_39819823323350687661677887437915526`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18487). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#prop:mobsq" data-reference-type="ref" data-reference="prop:mobsq">45</a>: [`mobius_square_reduction`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/MobiusSquareReduction.lean#L10), [`irrational_totient_iff_mobius_square`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/MobiusSquareReduction.lean#L17), [`moebius_three_values`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/MobiusSquareReduction.lean#L25). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:lambertengine" data-reference-type="ref" data-reference="prop:lambertengine">47</a>: [`tsum_lambert_linear_weight_sq_pure`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L105). *Compared*, run [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Proposition <a href="#prop:pillai" data-reference-type="ref" data-reference="prop:pillai">49</a>: [`gcd_moment_identity_three_members`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L334), [`tsum_pos_pair_gcd_half_eq_totient_div_mersenne_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L307), [`sum_gcd_Icc_eq_pillaiP`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L77), [`pillaiP_eq_totient_mul_id`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L67), [`tsum_totient_div_mersenne_sq_eq_gcd_moment_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L235). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Theorem <a href="#catalogue:cert:a9" data-reference-type="ref" data-reference="catalogue:cert:a9">52</a>: [`specified_euler_tail_period`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SpecifiedTailPeriod.lean#L44). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#catalogue:cert:d5" data-reference-type="ref" data-reference="catalogue:cert:d5">53</a>: [`not_irrational_totientSeries_implies_unbounded_carryRank_unconditional`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientCarryKernelRigidity.lean#L300). *Compared*, run [`35544127144`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144).
+
+Theorem <a href="#catalogue:cert:d4" data-reference-type="ref" data-reference="catalogue:cert:d4">54</a>: [`displayed_canonical_and_full_dyadic`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR8/FullKernelAssemblies.lean#L177). *Compared*, run [`35605146048`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35605146048).
+
+Proposition <a href="#catalogue:cert:a8" data-reference-type="ref" data-reference="catalogue:cert:a8">55</a>: [`tail_diff_int_of_den_dvd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L327). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:mob:b5" data-reference-type="ref" data-reference="catalogue:mob:b5">56</a>: [`mobiusNumeratorPolynomial_eval_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/RepunitMobiusNumerator.lean#L445), [`mobiusNumerator_gcd_cyclotomicValue`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L350), [`cyclotomicValue_dvd_baseMobiusShadow_den`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L389). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#catalogue:mob:b6" data-reference-type="ref" data-reference="catalogue:mob:b6">57</a>: [`lcmHeight_upperHalf_product_dvd_den`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean#L983), [`upperHalfChannel_product_dvd_den_of_coprime_scale`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean#L795), [`upperHalfChannel_product_dvd_den_of_scale_primeFactors_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowCyclotomicNoncollapse.lean#L809). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:mob:b7a" data-reference-type="ref" data-reference="catalogue:mob:b7a">58</a>: [`upper_half_product_denominator_bounds`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/DenominatorBounds.lean#L10). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:mob:b7b" data-reference-type="ref" data-reference="catalogue:mob:b7b">59</a>: [`lcmHeight_scaledMobiusShadow_den_exact`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowDenominatorGrowth.lean#L147), [`lcmHeight_five_scaledMobiusShadow_den_exact`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneShadowDenominatorGrowth.lean#L187). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:mob:d3" data-reference-type="ref" data-reference="catalogue:mob:d3">60</a>: [`signed_dyadic_clearing`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean#L8), [`signed_dyadic_sum_ne_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean#L28), [`scaled_dyadic_sum_odd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/SignedQMomentObstruction.lean#L78). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:cert:a11" data-reference-type="ref" data-reference="catalogue:cert:a11">61</a>: [`small_certificate_windows`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L33), [`small_certificates_and_exclusions`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L45). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#catalogue:cert:a12" data-reference-type="ref" data-reference="catalogue:cert:a12">62</a>: [`sixteen_certificate_windows`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L39), [`sixteen_certificates_and_exclusions`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L51). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#catalogue:cert:b11" data-reference-type="ref" data-reference="catalogue:cert:b11">63</a>: [`historical_table_size_and_initial_depths`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L57), [`historical_table_and_complete_band`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L64). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#catalogue:cert:a2" data-reference-type="ref" data-reference="catalogue:cert:a2">67</a>: [`prefix_fractional_part`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L8), [`two_pow_mul_totient_series_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L150), [`tail_diff_mem_int_iff_scaled_series_mem_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L327). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Lemma <a href="#catalogue:cert:a5" data-reference-type="ref" data-reference="catalogue:cert:a5">68</a>: [`certificate_logarithmic_depth`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L20), [`fixed_depth_bounds_indices`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L30), [`certifiedKill_depth_floor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L79). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#catalogue:cert:a6" data-reference-type="ref" data-reference="catalogue:cert:a6">69</a>: [`totient_scaled_truncation_error`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L13), [`tail_diff_notMem_int_of_certifiedKill`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L262). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#catalogue:cert:a7" data-reference-type="ref" data-reference="catalogue:cert:a7">70</a>: [`exists_certifiedKill_iff_tail_diff_notMem_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L316). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:cert:c1" data-reference-type="ref" data-reference="catalogue:cert:c1">72</a>: [`farey_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GapFareyBound.lean#L51). *Compared*, run [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Proposition <a href="#catalogue:cert:d1" data-reference-type="ref" data-reference="catalogue:cert:d1">73</a>: [`irrational_of_den_mul_abs_sub_tendsto_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5371). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#catalogue:cert:d2" data-reference-type="ref" data-reference="catalogue:cert:d2">74</a> (the Lean statement is stronger): [`irrational_of_int_mul_near_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L6120), [`irrational_of_pow_mul_near_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L6149), [`irrational_of_near_integer_multiples`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NearIntegerIrrationalityCriterion.lean#L16), [`irrational_of_near_integer_base_powers`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NearIntegerIrrationalityCriterion.lean#L25), [`one_div_den_le_abs_int_combination`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L33), [`digit_block`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L393), [`not_eventually_periodic`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L424), [`irrational_xi`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L476), [`no_three_consecutive_equal`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L408), [`fract_two_pow_mul_xi_mem_Icc`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L480), [`fract_mem_Icc_of_no_three_equal`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L235), [`one_div_eight_le_dist_xi`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L486), [`not_approaches_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L492), [`not_near_integer_along_powers_of_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L502), [`exists_irrational_basePower_bounded_away`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L515), [`strict_lower_bound_needed`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L550), [`upper_bound_needed_for_every_q`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L566), [`tail_mem_Icc`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L123), [`irrational_tail_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L269), [`one_div_eight_le_abs_sub_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L243). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:cert:d3" data-reference-type="ref" data-reference="catalogue:cert:d3">75</a>: [`linearIndependent_of_separatedMinorCertificate`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientMahlerDefect.lean#L91). *Compared*, run [`35682858662`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35682858662).
+
+Proposition <a href="#catalogue:cert:d9" data-reference-type="ref" data-reference="catalogue:cert:d9">76</a>: [`rational_difference_exact`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/RationalSpacingCorrespondence.lean#L6), [`rational_cross_numerator_positive`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/RationalSpacingCorrespondence.lean#L17), [`rational_error_denominator_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/RationalSpacingCorrespondence.lean#L27), [`positive_rational_difference_lower_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/PrimitiveRationalGapSupply.lean#L31). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:mob:a1a" data-reference-type="ref" data-reference="catalogue:mob:a1a">77</a>: [`tsum_moebius_lambert_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/MersenneLambertLadder.lean#L491), [`totient_series_eq_half_add_moebius_mersenne_square`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L18454). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Corollary <a href="#catalogue:mob:a1b" data-reference-type="ref" data-reference="catalogue:mob:a1b">78</a>: [`irrational_totient_iff_moebius_square`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR7/ArithmeticAssemblies.lean#L40). *Compared*, run [`35682858662`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35682858662).
+
+Proposition <a href="#catalogue:mob:a2" data-reference-type="ref" data-reference="catalogue:mob:a2">79</a>: [`tsum_lambert_linear_weight_sq_pure`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L105). *Compared*, run [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Proposition <a href="#catalogue:mob:a5" data-reference-type="ref" data-reference="catalogue:mob:a5">82</a>: [`gcd_moment_identity_three_members`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L334), [`tsum_pos_pair_gcd_half_eq_totient_div_mersenne_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L307), [`pillaiP_eq_totient_mul_id`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L67), [`sum_gcd_Icc_eq_pillaiP`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PillaiGcdExpectation.lean#L77), [`tsum_totient_div_mersenne_sq_eq_gcd_moment_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L235). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Proposition <a href="#catalogue:mob:a7" data-reference-type="ref" data-reference="catalogue:mob:a7">84</a>: [`pair_divisibility_mass`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean#L62), [`tsum_geometric_multiples`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquaredMersenneDivisorIdentities.lean#L79), [`tsum_pos_pair_both_dvd_half_eq_inv_mersenne_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L266). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Proposition <a href="#catalogue:mob:a8" data-reference-type="ref" data-reference="catalogue:mob:a8">85</a>: [`tsum_pos_coprime_inv_mersenne_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L349). *Compared*, run [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Proposition <a href="#catalogue:mob:a9a" data-reference-type="ref" data-reference="catalogue:mob:a9a">86</a>: [`divisibility_mass`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L42), [`cylinderMass_eq_divisibility_mass_mul`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L86), [`cylinder_mediant_split`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L95), [`cylinder_root_values`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L103), [`normalised_split_probabilities`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L117), [`stopping_transition_probabilities_sum_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L147), [`stopping_probability_ge_third`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SternBrocotStoppingRecursion.lean#L162). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:mob:a9b" data-reference-type="ref" data-reference="catalogue:mob:a9b">87</a>: [`cylinderMass_children_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L514), [`sternBrocotDepthMass_error`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L525), [`tendsto_sternBrocotDepthMass`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GcdMomentCalculus.lean#L560). *Compared*, run [`35715779405`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35715779405).
+
+Proposition <a href="#catalogue:mob:b1" data-reference-type="ref" data-reference="catalogue:mob:b1">88</a>: [`mobiusNumeratorPolynomial_coeff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/RepunitMobiusNumerator.lean#L217), [`mobiusNumeratorPolynomial_coeff_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/RepunitMobiusNumerator.lean#L234). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#catalogue:mob:b2" data-reference-type="ref" data-reference="catalogue:mob:b2">89</a>: [`mobiusNumeratorPolynomial_eval_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/RepunitMobiusNumerator.lean#L445), [`numerator_eval_two_divisors`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/NumeratorEvaluation.lean#L32). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#catalogue:mob:b3" data-reference-type="ref" data-reference="catalogue:mob:b3">90</a>: [`radical_decomposition`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/RadicalDecomposition.lean#L50). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#catalogue:mob:b4" data-reference-type="ref" data-reference="catalogue:mob:b4">91</a>: [`cyclotomic_dvd_mobiusNumeratorPolynomial_sub`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L299), [`mobiusNumerator_mod_cyclotomicEval`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L310), [`jordanTotientTwo_eq_prod_primeFactors`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CyclotomicProjectionOfShadow.lean#L67). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#catalogue:mob:b8a" data-reference-type="ref" data-reference="catalogue:mob:b8a">92</a>: [`cyclotomic_dvd_primeJump_new_fibre`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/PrimePowerJumpDynamics.lean#L281). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#catalogue:mob:b8b" data-reference-type="ref" data-reference="catalogue:mob:b8b">93</a>: [`cyclotomic_dvd_primeJump_old_fibre`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/PrimePowerJumpDynamics.lean#L310). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#catalogue:cert:d7" data-reference-type="ref" data-reference="catalogue:cert:d7">94</a>: [`lambertValue_eq_divisor_sum_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertDivisorTransform.lean#L42), [`alpha_divisor_sum_eq_totient`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertDivisorTransform.lean#L101), [`lambertValue_alpha_eq_totientSeries`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LambertDivisorTransform.lean#L109). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#catalogue:mob:e3" data-reference-type="ref" data-reference="catalogue:mob:e3">96</a>: [`transportResidueKernel_eq_mobiusTermKernel`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L28), [`mobiusTermKernel_affine_in_multiplier`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L47), [`joint35ConeWindow_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L99), [`totientTail_enclosure`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L119), [`mobiusTermKernel_moment_annihilation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L58), [`joint35_mobiusTermKernel_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L76), [`joint35_coefficient_moments`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L87), [`joint35_truncation_error`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L132), [`joint35_nonintegral_of_separated_window`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/AffineDivisorAnnihilation.lean#L183). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#catalogue:mob:f1" data-reference-type="ref" data-reference="catalogue:mob:f1">97</a>: [`composite_dilation_divisor_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L27), [`composite_dilation_defect_eq_zero_of_prime_support`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L36), [`composite_dilation_divisor_count_prime_support`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L42), [`composite_dilation_defect_univ_six_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L49), [`composite_dilation_defect_univ_six_one_card`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L72), [`lambert_support_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L83), [`lambert_support_series_restricted`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L92), [`totient_convolution_weight_mul_zeta`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L108), [`sum_divisors_totient_ne_totient`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L114), [`totient_convolution_weight_prime`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L120), [`totient_convolution_weight_unbounded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L125), [`totient_convolution_weight_not_periodic`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CompositeDilationIdentity.lean#L131). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem <a href="#catalogue:cert:a10" data-reference-type="ref" data-reference="catalogue:cert:a10">98</a>: [`irrational_totient_series_iff_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L412). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem <a href="#catalogue:cert:b2" data-reference-type="ref" data-reference="catalogue:cert:b2">99</a>: [`irrational_of_period_multiple_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L25), [`period_multiple_certificate_at_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L33), [`rational_forces_period_multiple_integrality`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L55), [`period_multiple_certificate_supply_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L41). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#catalogue:cert:b3" data-reference-type="ref" data-reference="catalogue:cert:b3">100</a>: [`irrational_totient_series_iff_lcm_diagonal_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L426). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Lemma <a href="#catalogue:cert:b4" data-reference-type="ref" data-reference="catalogue:cert:b4">101</a>: [`eq_prime_pow_of_not_dvd_periodLcm`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmDiagonalReduction.lean#L137). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#catalogue:cert:b5" data-reference-type="ref" data-reference="catalogue:cert:b5">102</a>: [`clean_lcm_ray_factorisation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L67), [`unclean_lcm_ray_counterexample`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L76). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#catalogue:cert:b6" data-reference-type="ref" data-reference="catalogue:cert:b6">103</a>: [`lcm_grid_flatness`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L8), [`lcm_grid_fractional_parts`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L15), [`certificate_denominator_exclusion`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L27), [`lcm_grid_supply_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L40). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#catalogue:cert:b7" data-reference-type="ref" data-reference="catalogue:cert:b7">104</a>: [`lcm_grid_supply_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L40), [`lcm_grid_multiplier_positive`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L50). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Corollary <a href="#catalogue:cert:b8" data-reference-type="ref" data-reference="catalogue:cert:b8">105</a>: [`irrational_totient_series_iff_all_tail_diffs_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L386), [`periodLcm_diagonal_kill_iff_tail_diff_notMem_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L439), [`irrational_totient_series_of_lcm_diagonal_nonintegrality_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L451), [`irrational_totient_series_of_lcm_cone_nonintegrality_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L462). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#catalogue:cert:b9a" data-reference-type="ref" data-reference="catalogue:cert:b9a">106</a>: [`abs_tail_diff_scaled_sub_window_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L65), [`second_difference_error_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L104), [`second_difference_certificate_sound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L121), [`second_difference_cell_one_eight`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PeriodMultipleAndSecondDifference.lean#L136). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#catalogue:cert:b10a" data-reference-type="ref" data-reference="catalogue:cert:b10a">107</a>: [`paperGridNumerator_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L12), [`finite_grid_nonintegral_pair`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L36). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#catalogue:cert:b10b" data-reference-type="ref" data-reference="catalogue:cert:b10b">108</a>: [`paperGridNumerator_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L12), [`finite_grid_supply_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L49). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#catalogue:cert:b12" data-reference-type="ref" data-reference="catalogue:cert:b12">109</a>: [`finite_carry_test_sound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L8), [`finite_carry_candidate_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L22), [`finite_carry_true_orbit`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L27). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#catalogue:mob:e1" data-reference-type="ref" data-reference="catalogue:mob:e1">110</a>: [`irrational_of_first_harmonic_norm_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L71), [`first_harmonic_re_bound_of_norm_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L40), [`exists_certificate_of_first_harmonic_real_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L54), [`exists_certificate_of_first_harmonic_norm_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L61), [`nine_tenths_lt_cos_pi_div_eight`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L28). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#catalogue:mob:e2" data-reference-type="ref" data-reference="catalogue:mob:e2">111</a>: [`four_tail_combination_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L103), [`four_tail_window_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L93), [`windowDiscrepancy_diagonal_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L81), [`four_tail_error_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L113), [`totientTail_bounds`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L129), [`four_tail_criterion_sound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L152), [`irrational_of_four_tail_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L169), [`rational_forces_four_tail_diagonals_integral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L135), [`four_tail_checked_instance`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/HarmonicGapAndFourTail.lean#L187). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:NI-01" data-reference-type="ref" data-reference="prop:NI-01">112</a>: [`irrational_iff_diagonal_orbit_nonintegrality`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L29). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:AR-07" data-reference-type="ref" data-reference="prop:AR-07">113</a>: [`irrational_of_short_window_diagonal_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L56), [`diagonal_certificate_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L40), [`pointwise_completeness_supplies_some_depth`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L68). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:SEP-03" data-reference-type="ref" data-reference="prop:SEP-03">114</a>: [`irrational_of_diagonal_orbit_separation_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L145), [`oddGuarded_depth_eq_prescribed`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L80), [`abs_orbit_sub_rawApprox_lt`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L98), [`rawApprox_separation_of_orbit_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L112). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:TE-04" data-reference-type="ref" data-reference="prop:TE-04">115</a>: [`upper_endpoint_condition_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L29), [`upper_endpoint_gap_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L38), [`integral_tail_forces_upper_endpoint_residue`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L50), [`irrational_of_upper_endpoint_gap_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L66). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:TE-05" data-reference-type="ref" data-reference="prop:TE-05">116</a>: [`te_chain_relations`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L80). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:TE-06" data-reference-type="ref" data-reference="prop:TE-06">117</a>: [`endpoint_identity`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L142), [`integral_carry_strictly_between`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L158), [`endpoint_criterion_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L187), [`oddHalfCenteredLift_spec`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L116), [`centeredLift_range`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeStaircaseConditions.lean#L106). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:SK-02" data-reference-type="ref" data-reference="prop:SK-02">118</a>: [`short_window_diagonal_through_six`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L161), [`short_window_diagonal_witnesses`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmDiagonalConditions.lean#L169). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:FR-01" data-reference-type="ref" data-reference="prop:FR-01">119</a>: [`extremal_order_curvature_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L27), [`extremal_order_curvature_neg`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L36), [`extremal_order_curvature_ne_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L45). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:CP-06" data-reference-type="ref" data-reference="prop:CP-06">120</a>: [`directed_certificate_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L59), [`directed_certificate_example`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L71). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:CP-07" data-reference-type="ref" data-reference="prop:CP-07">121</a>: [`irrational_of_modFour_pulse_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L105), [`rational_forces_pulse_class_integrality`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ExtremalOrderDirectedAndPulse.lean#L88). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:A10" data-reference-type="ref" data-reference="prop:A10">122</a>: [`irrational_totient_series_iff_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L412). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:B3" data-reference-type="ref" data-reference="prop:B3">123</a>: [`irrational_totient_series_iff_lcm_diagonal_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/LcmConeFlatness.lean#L426). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:B7" data-reference-type="ref" data-reference="prop:B7">124</a>: [`irrational_totient_series_of_lcm_cone_window_kill_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L19014). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:B10" data-reference-type="ref" data-reference="prop:B10">125</a>: [`paperGridNumerator_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L12), [`finite_grid_nonintegral_pair`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L36), [`finite_grid_supply_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L49). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:C2sup" data-reference-type="ref" data-reference="prop:C2sup">126</a>: [`gapCertificate_window_1_240`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyGapDenominatorExclusion.lean#L41), [`irrational_totientSeries_of_fareyGapExclusionUnbounded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyGapDenominatorExclusion.lean#L29), [`gapFareyBound_window_1_240`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyGapDenominatorExclusion.lean#L51). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:D5cons" data-reference-type="ref" data-reference="prop:D5cons">127</a>: [`rank_floor_and_false_proposed_carryRank_ceiling`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GenericCarryRankCeilingCounterexample.lean#L143), [`fiveQuarter_comparison_rational_with_carryRank_floor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GenericCarryRankCeilingCounterexample.lean#L64), [`no_generic_rationality_carryRank_ceiling`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GenericCarryRankCeilingCounterexample.lean#L100). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:B12cons" data-reference-type="ref" data-reference="prop:B12cons">128</a>: [`finite_carry_test_sound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L8), [`finite_carry_candidate_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L22), [`finite_carry_true_orbit`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCarryCorrespondence.lean#L27). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:AR-04-inv" data-reference-type="ref" data-reference="prop:AR-04-inv">129</a>: [`lcmRayArithmeticLetter_eq_totient_difference`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L56), [`totient_mul_eq_totient_mul_gcd_div_totient_gcd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L70), [`lcmRay_divisor_denominators_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L86), [`lcmRay_divisor_product_formula`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L104), [`lcmRay_divisor_clean_formula`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L156), [`lcmRay_nondivisor_literal`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L144), [`lcmRay_divisor_gcd_example`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L180). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:AR-03-inv" data-reference-type="ref" data-reference="prop:AR-03-inv">130</a>: [`rough_integer_prime_count_and_totient_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L215). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:AR-05-inv" data-reference-type="ref" data-reference="prop:AR-05-inv">131</a>: [`shortWindow_totient_difference_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L229). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:AR-06-inv" data-reference-type="ref" data-reference="prop:AR-06-inv">132</a>: [`weighted_shortWindow_sum_eq_windowDiscrepancy`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L241), [`weighted_shortWindow_band_iff_certifiedKill`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmShortWindowArithmetic.lean#L262). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:SEP-01-inv" data-reference-type="ref" data-reference="prop:SEP-01-inv">133</a>: [`actualLcmTailOrbit_global_to_local`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L24). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:SEP-02-inv" data-reference-type="ref" data-reference="prop:SEP-02-inv">134</a>: [`abs_actualLcmTailOrbit_sub_rawApprox_lt_explicit`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L39), [`tendsto_actualLcmRawErrorRadius_atTop_nhds_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L49). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:SGN-01" data-reference-type="ref" data-reference="prop:SGN-01">135</a>: [`actualLcm_tailDiff_shift_pos_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L82), [`actualLcmTailOrbit_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L89). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:SGN-03" data-reference-type="ref" data-reference="prop:SGN-03">136</a>: [`actualLcm_integral_forces_topEdgeResidue_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ActualLcmSeparationAndSign.lean#L105). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:TE-02-inv" data-reference-type="ref" data-reference="prop:TE-02-inv">137</a>: [`penultimate_shortWindow_difference_eq_half`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L37), [`dyadicScale_unique_in_open_interval`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L80). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:TE-03-inv" data-reference-type="ref" data-reference="prop:TE-03-inv">138</a>: [`exists_certifiedKill_iff_twoBitResidueTest`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L129), [`dyadicMixedGuard_iff_twoBitBand`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L104). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:FR-02-inv" data-reference-type="ref" data-reference="prop:FR-02-inv">139</a>: [`two_mul_totient_dvd_totient_second_difference`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L219), [`fixedRank_cleanWindow_structure`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PenultimateStaircaseAndRankCurvature.lean#L169). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:CP-01-inv" data-reference-type="ref" data-reference="prop:CP-01-inv">140</a>: [`carryShift_dvd_iff_tailDiff_integral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TailCarryPeriodAndRankFloor.lean#L31), [`temperedCarry_eq_scaledTail_and_shift`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TailCarryPeriodAndRankFloor.lean#L20). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#prop:CP-02" data-reference-type="ref" data-reference="prop:CP-02">141</a>: [`rationality_forces_mod_period_and_unbounded_rank`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TailCarryPeriodAndRankFloor.lean#L46). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#prop:CP-05-inv" data-reference-type="ref" data-reference="prop:CP-05-inv">142</a>: [`exists_prime_totient_shift_four_mul_congr_two_mod_four`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L28). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:TA-inv" data-reference-type="ref" data-reference="prop:TA-inv">143</a>: [`exists_prime_twoAdic_pulse_block`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L81), [`pulse_delta_of_divisor_data`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L41), [`exists_prime_integral_tailDiff_half_pulse`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L100). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:MP-01-inv" data-reference-type="ref" data-reference="prop:MP-01-inv">144</a>: [`forwardMultiple_spec`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L114), [`forwardMultipleShift_least`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L125), [`forwardMultiple_enumeration`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L139), [`totientTail_eq_tsum_mobius_inversion`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicPulseBlockAndMobiusInversion.lean#L151). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#prop:SK-01-inv" data-reference-type="ref" data-reference="prop:SK-01-inv">145</a>: [`shortWindow_certificates_kill_omega_four_and_six`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L36), [`shortWindow_inequalities`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L49), [`actualLcmTailOrbit_eq_tail_difference`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L27). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:A5-inv" data-reference-type="ref" data-reference="prop:A5-inv">146</a>: [`certificate_logarithmic_depth`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L20), [`fixed_depth_bounds_indices`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/TailDepthCorrespondence.lean#L30), [`certifiedKill_depth_floor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientTailPeriodKiller.lean#L79). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:A9-inv" data-reference-type="ref" data-reference="prop:A9-inv">147</a>: [`rational_tail_period_explicit_witnesses`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L65), [`totient_one_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L56), [`eventual_tail_period_of_not_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L111), [`irrational_of_certificate_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L119), [`tail_diff_notMem_int_of_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L126), [`exists_certifiedKill_iff_tail_diff_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/RationalTailPeriodWitnesses.lean#L163). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:B6-inv" data-reference-type="ref" data-reference="prop:B6-inv">148</a>: [`lcm_grid_flatness`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L8), [`certificate_denominator_exclusion`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L27), [`lcm_grid_supply_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L40). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:D4-inv" data-reference-type="ref" data-reference="prop:D4-inv">149</a>: [`card_canonical_dyadic_index`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean#L21), [`linearIndependent_canonical_dyadic_family`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean#L26), [`canonical_family_basis_through_level`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean#L33), [`canonical_level_zero_channels`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean#L46), [`finrank_throughLevel_zero_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CanonicalDyadicSectionRank.lean#L59). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#prop:C2-inv" data-reference-type="ref" data-reference="prop:C2-inv">150</a>: [`farey_window_1_240_exact_range`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean#L26), [`farey_window_1_240_range_magnitude`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean#L39). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:C3-inv" data-reference-type="ref" data-reference="prop:C3-inv">151</a>: [`totient_series_ne_reduced_fraction_of_small_denominator`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean#L49), [`totient_series_ne_int_div_of_small_denominator`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyExactRangeAndDenominatorExclusion.lean#L57). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:D1D2-inv" data-reference-type="ref" data-reference="prop:D1D2-inv">152</a> (the Lean statement is stronger): [`irrational_of_den_mul_abs_sub_tendsto_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5371), [`one_div_den_mul_den_le_abs_sub`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5342), [`irrational_of_int_mul_near_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L6120), [`irrational_of_pow_mul_near_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L6149), [`irrational_of_den_mul_error_tendsto_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L66), [`irrational_of_dirichlet_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L75), [`one_div_den_mul_den_le_abs_diff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L27), [`one_div_den_le_abs_int_combination`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L33), [`irrational_of_basePower_dilation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L92), [`basePower_dilation_not_universal`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L529), [`irrational_xi`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L476), [`one_div_eight_le_dist_xi`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SquareBlockBinaryDilationCountermodel.lean#L486). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition <a href="#prop:D9-inv" data-reference-type="ref" data-reference="prop:D9-inv">154</a>: [`rational_gap_lower_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L138), [`den_lower_bound_of_positive_error`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L146), [`denominator_bound_tendsto_atTop_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L164), [`irrational_of_den_mul_error_product_tendsto_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L189), [`dyadic_prefix_denominator_bound_vacuous`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L201), [`dyadic_prefix_den_dvd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicPrefixTailBound.lean#L14), [`totientTail_le_add_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicPrefixTailBound.lean#L22), [`dyadic_prefix_tail_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicPrefixTailBound.lean#L28). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:B11-inv" data-reference-type="ref" data-reference="prop:B11-inv">155</a>: [`historical_table_size_and_initial_depths`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L57), [`historical_table_and_complete_band`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteCertificateBatch.lean#L64). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:C1-inv" data-reference-type="ref" data-reference="prop:C1-inv">156</a>: [`card_visible_antidiagonal`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L218), [`totient_zero_eq_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L225), [`visible_antidiagonal_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L228), [`positive_antidiagonal_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L234), [`tsum_pos_coprime_pairs_eq_series_sub_half`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L241), [`tsum_pos_coprime_pairs_product_form`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/GeneralIrrationalityCriteriaAndGapBounds.lean#L266). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (The values at exponents one and two): [`mobiusMersenneTheta_one_and_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L23). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (The first two summands give a positive Hankel gap): [`twoAtom_hankel_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L35), [`twoAtom_strict_logConcave`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L43). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (Strict log-concavity for all integer $`r\ge1`$): [`theta_strict_logConcave`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L52), [`theta_hankel_det_neg`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L58), [`theta_hankel_two_neg`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MobiusMersenneLadderLogConcavity.lean#L66). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem <a href="#thm:binary-carry-criterion" data-reference-type="ref" data-reference="thm:binary-carry-criterion">176</a>: [`binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GenericTailOrbitRigidity.lean#L426), [`temperedBinaryOrbit_eq_scaledTail`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/GenericTailOrbitRigidity.lean#L339). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (Uniqueness under the growth condition): [`doubling_tempered_sequence_eq_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L28). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (An exact rational approximation formula): [`tailDifference_sub_rationalApproximation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L118), [`tailDifference_eq_coefficient_mul_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L88), [`totientSeries_pnat_form`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L99), [`totientSeries_eq_half_add_moebius_sq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L106). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition (A geometric tail bound): [`abs_mobiusSquareTail_le_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L155), [`abs_moebius_cast_le_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L138), [`mersenne_geometric_shift`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L144), [`tsum_quarter_geometric`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TemperedOrbitAndSquaredMersenneTail.lean#L149). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (The sum over divisor indices): [`sum_divisorIndices_mobius`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L68), [`sum_divisors_moebius_div_eq_totient_div`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L98), [`sum_divisorIndices_radical_form`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L121), [`squarefreeKernel_eq_prod_primeFactors`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L117). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (The divisor sum and its complement): [`totientDifference_eq_divisorPart_add_complement`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L217), [`totient_eq_mobius_divisor_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L134), [`divisorIndex_endpoint_behaviour`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L141), [`complementSummand_eq_phaseTerm`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L159). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (Doubling the full totient difference): [`totientDifference_doubling_seam`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L262), [`totient_two_mul_even`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L250), [`totient_two_mul_odd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L255). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (A doubling identity for two portions of the sum): [`complementSummand_low_double_echo`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DivisorChannelSplitAndSeamDoubling.lean#L289). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (Positive coefficients of the numerator polynomial): [`paperNumerator_eq_gcdWordForm`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L67), [`paperNumerator_coeff_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L82), [`paperNumerator_coeff_eq_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L88), [`paperNumerator_coeff_eq_gcd_divisor_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L94), [`paperNumeratorPolynomial_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L57). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition (The geometric remainder bound): [`mersenneRemainder_identity_and_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L166), [`one_sub_half_pow_ge`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L156), [`mersenneRemainderTail_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L208), [`tsum_eighth_pow_tail`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L182), [`four_thirds_tsum_eighth_pow_tail`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/NumeratorPolynomialAndMersenneRemainder.lean#L200). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition (Squared distance from the phase one): [`sum_sq_dist_from_phase_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L31). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Lemma (Squared-distance bound for separated pairs): [`card_mul_sq_le_pairwise_energy`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L40). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (The finite divisor sum): [`divisorChannels_sum_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L69), [`residueOffset_of_dvd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L50), [`residueKernel_increment_of_dvd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L58), [`scaleExplicitShadow_eq_divisorChannels`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L84). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (Separation larger than the error implies exclusion): [`tailDifference_not_integral_of_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L119), [`projectedForeignDefect_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L103), [`foreignComplementBound_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L110). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (Coprime-pair counting and the totient): [`card_coprime_antidiagonal`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L147), [`boundary_pair_at_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PhaseEnergyAndForeignResidueProjection.lean#L154). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (Two lattice sums): [`tsum_totient_pow_shift`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L27), [`coprimeLattice_halfOpen_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L38), [`coprimeLattice_positive_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L46), [`coprimeLattice_removed_pair`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L53), [`coprimeLattice_gcd_layer_total`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L77), [`coprimeLattice_gcd_layer_total_eq_one_iff`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L84). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (The classical coprime-pair Lambert identity): [`coprimeLattice_lambert_identity`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L106), [`coprimeLattice_lambert_rational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L114), [`coprimeLattice_lambert_half_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L127), [`coprimeLattice_positive_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L46), [`coprimeLattice_plain_half_eq_series_sub_half`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L136), [`coprimeLattice_halfOpen_half_eq_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/CoprimeLatticeSumsAndLambert.lean#L155). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (Nondivisors in a short LCM window): [`short_lcm_window_nondivisor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L57), [`clean_lcm_ray_factorisation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L67), [`unclean_lcm_ray_counterexample`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L76), [`dvd_periodLcm`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CarrySurvivorExtinction.lean#L525). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem (Unbounded prime support in Mersenne factors): [`mersenneLayer_prime_divisor_order`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L33), [`mersenneLayer_unbounded_prime_support`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L63). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (A prime satisfying the stated cyclotomic conditions): [`exists_clean_cyclotomic_anchor_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L73), [`cyclotomic_layer_prime_order_decomposition_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L84). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (A sufficient order hypothesis for unbounded prime support): [`boundedDegreeOrderConsumer_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L94), [`coprime_of_dvd_pow_sub_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L101), [`dvd_pow_sub_one_iff_orderOf_dvd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L113), [`boundedOrder_witness_iff_orderOf_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L136), [`orderConsumer_index_lt_pow`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L160), [`orderConsumer_finite_prime_escape`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L168), [`orderConsumer_unbounded_prime_divisors`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L178), [`unbounded_prime_divisors_of_escape_of_nontrivial`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L190), [`mersenneLayer_orderConsumer_instance`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L212), [`eventual_orderConsumer_conclusions`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L232), [`binaryCyclotomicLayer_eventual_instance`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L241), [`binaryCyclotomic_allPrime_form_fails`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/MersennePrimeSupportAnchors.lean#L247). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (A uniform positive gap for rank-one quotients): [`rankOneSubrankQuotient_sub_theta_two_gt`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L238), [`mobiusMersenneTheta_ge_alpha`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L163), [`mobiusMersenneTheta_lt_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L196), [`abs_mobiusMersenneTheta_sub_prefix_le`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L73), [`mobiusMersenneTheta_two_eq_totient_offset`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/SignedQMomentObstruction.lean#L214), [`rankOne_denominator_pos`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR7/ShortNoteAssemblies.lean#L58). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition (The bound is preserved by positive normalised averaging) (the Lean statement is stronger): [`positive_direct_sum_sub_theta_two_gt`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L300), [`primitive_form_abs_gt`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/RankOneSubrankObstruction.lean#L341). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Theorem (Concatenation and specified period multiples): [`totientBlock_eq_paper_indexed_sum`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L23), [`totientBlock_concatenation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L41), [`totientBlock_doubling`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L46), [`cyclotomic_four_eval`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L53), [`cyclotomic_four_two_pow_eq_cyclotomic_two`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L64), [`cyclotomic_three_two_pow`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L73), [`orderOf_two_mod_seven`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L83), [`three_not_dvd_two_pow`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L92), [`cyclotomic_three_eval_two_not_dvd_doubling_chain`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TotientBlockConcatenation.lean#L100). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#thm:hgap-real" data-reference-type="ref" data-reference="thm:hgap-real">216</a>: [`windowFirstCos_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L23), [`exists_certifiedKill_of_block_real_part_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L34). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#thm:hgap-subset" data-reference-type="ref" data-reference="thm:hgap-subset">217</a>: [`exists_certifiedKill_of_subset_real_part_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L50), [`block_real_part_bound_of_subset_form`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L65). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem <a href="#thm:hgap-norm" data-reference-type="ref" data-reference="thm:hgap-norm">218</a>: [`blockNormCondition_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L86), [`real_part_bound_of_norm_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L97), [`exists_certifiedKill_of_block_norm_bound`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L110), [`irrational_of_blockNormCondition`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FirstHarmonicBlockCriteria.lean#L118). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem (The proved implications): [`topEdgeResidueGap_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L64), [`topEdgeResidueGap_forces_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L75), [`topEdgeResidueGap_orbit_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L83), [`irrational_of_topEdgeResidueGapSupply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L92). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:te-chain" data-reference-type="ref" data-reference="prop:te-chain">226</a>: [`paperTeChain_item_one_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L56), [`teChain_item_two_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L113), [`teChain_item_three_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L124), [`teChain_item_four_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L133), [`teChain_item_five_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L142), [`paperTeChain_five_sufficient_for_irrationality`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L214), [`paperTeChain_first_four_imply_topEdgeSupply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L233), [`paperTeChain_fifth_gives_nonintegrality`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L271), [`paperTeChain_relations`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L254), [`topEdgeResidueGap_or_of_paperAdjacentSuffixMidband`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L87), [`powerTwoActualLcmTopEdgeResidueGapSupply_of_paperAdjacentSuffixMidband`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L179), [`irrational_of_paperAdjacentSuffixMidbandSupply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L190), [`paperAdjacentSuffixMidbandSupply_of_oddGuardTopEdgeHalfWordBand`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L197), [`paperAdjacentSuffixMidbandSupply_of_flexibleActualTopEdgeMagnitude`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L204), [`paperAdjacentSuffixMidbandSupply_of_adjacentSuffixMidband`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeChainPaperBand.lean#L69). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem (The proved implication): [`terminalDominance_orbit_nonintegral`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L217), [`irrational_of_terminalDominanceSupply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L228). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition (A sufficient extension): [`irrational_of_lower_escape_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L236), [`corridor_escape_and_irrational_of_magnitude`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L252), [`teChain_item_four_unfolded`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TopEdgeCorridorAndSeparation.lean#L133). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition (A sufficient extension): [`irrational_of_logarithmicDepth_diagonal_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L58), [`irrational_of_restrictedDepth_diagonal_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ShortWindowSupplyAndSixteenShifts.lean#L72). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition (Simultaneous certificates with unrestricted depth): [`exists_growingShift_simultaneous_certificate_iff_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SimultaneousShiftCertificateDepth.lean#L131), [`exists_simultaneous_depth_succ_of_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SimultaneousShiftCertificateDepth.lean#L122), [`exists_simultaneous_depth_of_irrational`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/SimultaneousShiftCertificateDepth.lean#L89). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition (A sufficient extension): [`irrational_of_unbounded_window_one_gapCheck`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean#L68), [`gapCheck_window_one_excludes`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/FareyDenominatorFloorExtension.lean#L58). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (A sufficient accumulated-residue condition): [`irrational_of_accumulated_halfModulus_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean#L77), [`certifiedKill_of_halfModulus_residue`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/TwoAdicHalfPulseAndAccumulatedResidue.lean#L53). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem (Arbitrarily large prime-power LCM jumps): [`exists_periodLcm_strict_jump_ge_paper`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L26), [`periodLcm_strict_jump_at_prime_pred`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L31), [`periodLcm_strict_jump_at_powerTwo_pred`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L46), [`periodLcm_zero_and_one_eq_one`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L59). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition (A sufficient inequality): [`irrational_of_powerTwo_postJump_slack_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L90), [`canonicalAdjacentSuffixCentralSlack_paper_formula`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LcmJumpPositionsAndCentralSlack.lean#L68). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem (One explicit witness): [`periodLcm_four_eq_twelve`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L62), [`primeJump_witness_twelve_five_values`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L68), [`primeJumpTailCommutator_twelve_five_notMem_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L76), [`irrational_of_primeJumpSharp_supply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L81). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition (The additional approximation hypothesis): [`irrational_totientSeries_of_rational_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L137), [`den_mul_abs_sub_ge_one_div_den`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/PrimeJumpWitnessAndMersenneChannels.lean#L149). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (An additional hypothesis for a totient-specific rank argument) (the Lean statement is stronger): [`rationalControl_periodic_with_unbounded_carry_rank`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L238), [`rationality_gives_mod_period_and_unbounded_rank`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L256). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition (A rational series preserving totient parity and the stated separation properties): [`parityCoboundaryWeight_le_six`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L227), [`parityCoboundaryWeight_le_self`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L155), [`parityCoboundaryWeight_mod_two_eq_totient`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L194), [`exists_later_arbitrarily_many_separated_parityCoboundaryWeight_carry_pairs`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L457), [`tsum_parityCoboundaryWeight_eq_three_halves`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TotientParityCoboundaryCountermodel.lean#L359). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Lemma (Complement divisibility after multiplication): [`complementDenominator_dvd_scalar`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ScalarLocalisationAndInversePhaseGauge.lean#L29). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Lemma (Nonvanishing from a unique largest denominator exponent): [`signed_dyadic_clearing`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean#L8), [`signed_dyadic_sum_ne_zero`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/SignedDyadicClearing.lean#L28), [`scaled_dyadic_sum_odd`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/SignedQMomentObstruction.lean#L78). *Compared*, runs [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171), [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Proposition (A nonzero minor survives inverse-phase column weights): [`inversePhaseGauge_locks_row_and_preserves_minor`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/ScalarLocalisationAndInversePhaseGauge.lean#L51). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition (Tail integrality on an LCM grid): [`lcm_grid_flatness`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/LcmGridCorrespondence.lean#L8). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition (A finite-grid certificate gives a nonintegral pair): [`paperGridNumerator_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L12), [`finite_grid_nonintegral_pair`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR20/FiniteGridCorrespondence.lean#L36). *Compared*, run [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Theorem (Exact dyadic rank and infinite-dimensionality): [`canonicalTotientKernelFamily_entries`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L33), [`canonicalTotientKernelFamily_independent_card_and_span`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DyadicSectionBasisAndRationalCarry.lean#L53). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Lemma <a href="#lem:orbit" data-reference-type="ref" data-reference="lem:orbit">271</a> (the Lean statement is stronger): [`orbit_tail_recurrence`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L26), [`orbit_tail_diff_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L32), [`orbit_tail_diff_sub_scaled_is_int`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L41), [`orbit_tail_diff_firstChar_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L53), [`orbit_tail_diff_fract_eq_doubling_orbit`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L75), [`doublingMap_iterate_apply`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L64). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
+
+Proposition <a href="#prop:transfer" data-reference-type="ref" data-reference="prop:transfer">272</a>: [`irrational_totientSeries_of_block_cosine_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L92). *Compared*, run [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458).
+
+Corollary <a href="#cor:digitform" data-reference-type="ref" data-reference="cor:digitform">273</a>: [`irrational_totientSeries_of_quarterFarPhase_proportion`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L121), [`quarterFarFromInt_iff_binaryDigitAt_change`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L146), [`irrational_totientSeries_of_digitChange_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L233), [`irrational_totientSeries_of_quarterFarPhase_count`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L95), [`quarterFarFromInt_iff_floor_bounds`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L45), [`cos_nonpos_of_quarterFarFromInt`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L70), [`tailOrbitFirstExp_re_eq`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/BinaryDigitChangeDensity.lean#L81). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Theorem <a href="#thm:lacunary" data-reference-type="ref" data-reference="thm:lacunary">275</a> (the Lean statement is stronger): [`lacCoef_bounds`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L68), [`lacBeta_eq_factorial_series`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L88), [`irrational_lacBeta`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L121), [`lacunary_block_cos_gap`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L333), [`lacunary_block_norm_fails`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L587), [`cos_pi_div_eight_gt`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/LacunaryFactorialBlockNorm.lean#L317). *Compared*, run [`35624228171`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171).
+
+Proposition <a href="#prop:dickman" data-reference-type="ref" data-reference="prop:dickman">276</a> (the Lean statement is stronger): [`prop_dickman`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/UnassignedSmoothCount.lean#L556).
+
+Proposition <a href="#prop:route4" data-reference-type="ref" data-reference="prop:route4">279</a>: [`certifiedKill_of_fullDepth_phase_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L130), [`bracket_of_two_sided_separation`](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos249/PaperCompleteR21/DoublingOrbitTransferAndFullDepthPhase.lean#L119). *Compared*, runs [`35643815458`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35643815458), [`35674034595`](https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595).
 
 <a id="verification-scope."></a>
 

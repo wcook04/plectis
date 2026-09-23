@@ -132,6 +132,7 @@ Then, with inverses in $\mathbb F_p$,
  \sum_{n\in J}u_n^{-1}\ne0\quad\hbox{in }\mathbb F_p.
 \end{equation}
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompletePrimePole.lean}{117}{maximal_prime_power_survival}.}
 
 \begin{proof}
 Write $\Lc_M=p^eW$ with $p\nmid W$.  If $v_p(d_n)<e$, then $p\mid\Lc_M/d_n$.
@@ -225,6 +226,7 @@ in every larger block.
 For every integer $B\ge0$ there are a prime $q$ and an integer $m>B$ with
 $m<q$, $q\mid m!-1$ and $\gcd(q,k!-1)=1$ for every $k$ with $2\le k<m$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{180}{cofinal_first_prime_occurrences}.}
 
 \begin{proof}
 Choose a prime $q\ge B!+5$.  Wilson's theorem gives $(q-2)!\equiv1\pmod q$,
@@ -260,6 +262,7 @@ For positive integers $x_1,\ldots,x_k$,
  \prod_{i=1}^{k}x_i\ \Big|\ \lcm(x_1,\ldots,x_k)\prod_{i<j}\gcd(x_i,x_j).
 \]
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{189}{product_lcm_pairwise_gcd}.}
 
 \begin{proof}
 Fix a prime $r$ and relabel so that $a_1\le\cdots\le a_k$, where
@@ -286,6 +289,7 @@ importing the prime-factor estimates of those papers.
 For $2\le i<j$, the integer $g=\gcd(i!-1,j!-1)$ divides $j!/i!-1$, and
 $g\le j!/i!-1<j^{\,j-i}$.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/ChannelIntegralCongruence.lean}{288}{factorial_gap_gcd_exact}.}
 
 \begin{proof}
 Both $i!$ and $j!$ are congruent to $1$ modulo $g$.  The quotient
@@ -304,6 +308,7 @@ For $2\le k\le N-1$,
 
 
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/ChannelIntegralCongruence.lean}{566}{factorialGapSegment_log_sum_le_channelLCM_add_choose}.}
 
 \begin{proof}
 Apply Lemma~\ref{long68:res:product-lcm} to $x_n=d_n$ for $N-k+1\le n\le N$.  Their
@@ -322,6 +327,7 @@ Taking logarithms of the resulting divisibility gives \eqref{long68:eq:segment}.
  \ \ge\ \frac{2\sqrt2}{3}.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteLiminf.lean}{42}{common_denominator_growth_liminf}.}
 
 \begin{proof}
 A terminal block keeps every factorial near $N!$, but increasing its
@@ -528,6 +534,7 @@ Moreover
 If $\Ser=a/q$ with $a\in\Z$, $q\ge1$ and $b_m\ne1$, then $q\nmid(m-1)!$ and
 $q\ge m$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{77}{strict_successor_characterisation}.}
 
 \begin{proof}
 From $m!H_m=mZ_{m-1}-m\Delta_m+1+\varepsilon_m$ one gets
@@ -616,6 +623,7 @@ expansions whose digits are not eventually maximal
  \quad\hbox{for all sufficiently large }m.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{38}{companion_orbit}.}
 
 \begin{proof}
 Put $J_m=\sum_{k=0}^{m}m!/k!$.  Then $J_m$ is an integer, every summand with
@@ -668,6 +676,7 @@ For $m\ge3$ the finite condition
 implies the escape inequality in \eqref{long68:eq:lower-escape}.  Cofinally many
 instances of \eqref{long68:eq:finite-escape} therefore imply $\Ser\notin\Q$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{102}{lower_interval_criterion}.}
 
 \begin{proof}
 If $\Ser$ is rational, the remainders $\theta_{m-1}$ vanish eventually while
@@ -771,6 +780,7 @@ missed cofinally.  The member $t=-1$ is $\Ser$, and the member $t=0$ is
 $e-2$, for which the scaled correction is always $0$ and hence misses the residue class
 at every $m\ge3$, proving the irrationality of $e$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{123}{uniform_family_boundary}, \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{134}{uniform_family_members}.}
 
 \begin{proof}
 Put $Y=-tC_t$, so that $\Ser_t=Y+e-2$.  The proof of
@@ -865,6 +875,7 @@ $p>B$, $R_p>1$, and
 \end{equation}
 Then $\Ser$ is irrational.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{169}{global_complementary_criterion_prime}.}
 
 \begin{proof}
 Suppose $\Ser=a/q$ with $q\ge1$, and choose a parameter in the hypothesis
@@ -986,6 +997,7 @@ $i!=(d!)^{\lfloor i/d\rfloor}W_{d,i}$ and $d!\equiv1\pmod{d!-1}$,
 For every finite integer support and every $d\ge2$ there is an integer $k$
 with $\chn dc=M(c)+(d!-1)k$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean}{17}{supported_integral_normal_form}.}
 
 \begin{proof}
 By \eqref{long68:eq:channel-congruence}, $d!-1$ divides
@@ -1015,6 +1027,7 @@ on the interval $d\le i<2d$ forces $M(c)=0$; and if every supported index
 is at least $d$ while $M(c)\ne0$ and $\chn dc=0$, then some supported index
 is at least $2d$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean}{24}{supported_quotient_band}, \lproof{ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean}{42}{supported_first_band_cancellation}, \lproof{ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean}{51}{supported_breakpoint_escape}.}
 
 \begin{proof}
 On this interval the quotient $\lfloor i/d\rfloor$ is the constant $k$, so
@@ -1122,6 +1135,7 @@ weighted sums $2,\ldots,D$ are exactly $\mu_D\Z$.  The integer $\mu_D$ is positi
 is independent of the eligible prime $p$, and is attained by a vector of
 coefficients with gcd one, that is, by a primitive vector.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteMomentIdeal.lean}{242}{exact_moment_ideal_with_primitive_attainment}, \lproof{ErdosProblems/Erdos68/PaperCompleteMomentIdeal.lean}{321}{minimumMoment_independent_prime}.}
 
 \begin{proof}
 By \eqref{long68:eq:finite-horizon}, $G_D>0$ is the gcd of the whole tail
@@ -1188,6 +1202,7 @@ The residual series converges for every finite vector supported away from
 index zero.  A zero-moment vector has integral residual, and any two finite
 vectors with the same factorial moment have residuals differing by an integer.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean}{116}{residual_transparency}, \lproof{ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean}{166}{summable_fullResidual}, \lproof{ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean}{185}{zero_moment_residual_integral}, \lproof{ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean}{195}{equal_moment_residual_integer_difference}.}
 
 \begin{proof}
 For $d>D$, we have $V_d(K_D)=L_D$ and
@@ -1275,6 +1290,7 @@ all sufficiently large $t$ has $(R(t)+1)/t^3\le3/2$ eventually, and none has
 $R(t)=o(t^3)$.
 
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{234}{square_subsequence_radius}, \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{258}{radius_no_eventual_ratio_upper}, \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{277}{radius_not_littleO}.}
 
 \begin{proof}
 Put $D=2t^2$, $k=2t$ and $u=D-k+1=2t^2-2t+1$.  Lemma~\ref{long68:res:segment} at
@@ -1324,6 +1340,7 @@ $M(t)<(R(t)+1)!-1$ for all sufficiently large $t$.  Then
  \liminf_{t\to\infty}\frac{R(t)+1}{t^3}\ \ge\ \frac{16}{9}.
 \]
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteLiminf.lean}{54}{asymptotic_radius_constant_liminf}.}
 
 \begin{proof}
 Put $r=R(t)+1$, so $\Lc_{2t^2}\le M(t)<r!$ and $\log \Lc_{2t^2}<r\log r$.
@@ -1372,6 +1389,7 @@ Let $p\ge3$ be prime and let $c_{p-1}=p$, $c_p=-1$, with every other coefficient
 zero.  Then $M(c)=0$, $\chn pc=p!-1$, and $\chn dc=0$ for every $d\ge2$ with
 $d\ne p$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{299}{prime_channel_corrector}.}
 
 \begin{proof}
 Since $p\ge3$, both indices $p-1$ and $p$ lie in the prescribed coefficient
@@ -1976,11 +1994,12 @@ packet. The same outside-build qualification applies to the candidate
 finite-size certificate.
 
 The build receipt refers to a successful Lean build at an earlier commit;
-the Lean build step at the supplied public pin was skipped. No Lean build
-or axiom audit was run for this prose revision. A source declaration, a
-recorded proof-checking result, and a numerical computation are different
-kinds of evidence. Descriptions below of checked statements refer to the
-supplied records, not to a new compilation.  Theorem~\ref{long68:res:lcm-growth} and
+the Lean build step at the supplied public pin was skipped. The kernel
+checks and axioms stated in the coverage subsection of
+Appendix~\ref{long68:app:sources} belong to the revisions named there. A
+source declaration, a recorded proof-checking result, and a numerical
+computation are different kinds of evidence. Descriptions in this section
+of checked statements refer to the supplied records.  Theorem~\ref{long68:res:lcm-growth} and
 Corollary~\ref{long68:res:radius-constant} are ordinary proofs given in full above,
 with corresponding Lean source statements
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean#L42}{the liminf bound for the common denominator} and
@@ -2089,7 +2108,9 @@ congruence statement. In the supplied public snapshot,
 \nolinkurl{exists_channelCorrection} (line 127). The former states
 $(d!-1)\mid M(c)-V_d(c)$; negating the integer quotient gives the sign
 convention of Theorem~\ref{long68:res:normalform}. These are source
-correspondences, not a fresh build or axiom audit.
+correspondences. The kernel checks and axioms stated in the coverage
+subsection of Appendix~\ref{long68:app:sources} belong to the revisions
+named there.
 
 Attribution.  Wilson's theorem and the Wilson reflection identity are
 classical, the latter recorded by Stewart \cite[p.~462, (4)]{stewart2004}.
@@ -2129,6 +2150,17 @@ lemmas. Each preserves the original file, declaration, and line reference.
 The evidence qualifications in the preceding section apply throughout;
 in particular, source presence alone does not establish inclusion in a
 checked build.
+
+\subsection*{Formalisation coverage and remaining dependencies}
+\label{long68:sec:coverage}
+\papersectiontarget{coverage}
+Every theorem, lemma, proposition and corollary of this record has a Lean
+statement of the same assertion, with the same hypotheses, checked by the
+Lean kernel using only the axioms \texttt{propext}, \texttt{Classical.choice}
+and \texttt{Quot.sound}, in the development at revision
+\texttt{181078b6b009}.  No result of this record depends on an input that is
+absent from that development.  The concordance after the list below gives
+the declarations for each result.
 
 \begin{itemize}[leftmargin=*]
 \item \lword{Erdos68/CanonicalFactorialDigits.lean}{47}{facFloor_rat_eq_cleared}{the factorial-scaled floor of a rational number}
@@ -2190,6 +2222,40 @@ checked build.
 % Everything here was in the short note before the September 2026 revision and
 % is kept because the complete record owns the subsidiary arguments, the
 % superseded deductions, and the failed routes with their exact boundaries.
+
+% BEGIN GENERATED CONCORDANCE (generated from the coverage ledger; do not edit by hand)
+\paragraph{Concordance of statements and Lean declarations.}
+Each result of this record that has a kernel-checked Lean statement of the same assertion is listed
+below with the declarations that jointly state it.  Each name links to its declaration at revision
+\texttt{a25cb360bef8}.  Where the Lean statement is stronger than the printed one and implies it by
+an immediate specialisation, the entry says so.  An entry marked \emph{compared} was also checked
+independently: a restatement of the same declarations against Mathlib alone, together with its
+proof, was verified by Comparator (\texttt{leanprover/comparator}) in a clean continuous
+integration environment, in the run named by its number.  Comparator trusts the restated
+statement, so the correspondence between the printed result and that statement is the one this
+concordance records.
+
+\begingroup\small\raggedright
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:prime-pole}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompletePrimePole.lean\#L117}{\nolinkurl{maximal_prime_power_survival}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long68:res:wilson-cofinality}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L180}{\nolinkurl{cofinal_first_prime_occurrences}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long68:res:product-lcm}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L189}{\nolinkurl{product_lcm_pairwise_gcd}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long68:res:gap-gcd}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean\#L288}{\nolinkurl{factorial_gap_gcd_exact}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long68:res:segment} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/ChannelIntegralCongruence.lean\#L566}{\nolinkurl{factorialGapSegment_log_sum_le_channelLCM_add_choose}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:lcm-growth}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean\#L42}{\nolinkurl{common_denominator_growth_liminf}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:carry-equivalence}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L77}{\nolinkurl{strict_successor_characterisation}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long68:res:companion-orbit}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L38}{\nolinkurl{companion_orbit}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long68:res:lower-escape}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L102}{\nolinkurl{lower_interval_criterion}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:shift-family}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L123}{\nolinkurl{uniform_family_boundary}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L134}{\nolinkurl{uniform_family_members}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:global-residue}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L169}{\nolinkurl{global_complementary_criterion_prime}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:normalform}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean\#L17}{\nolinkurl{supported_integral_normal_form}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:bandbreakpoint}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean\#L24}{\nolinkurl{supported_quotient_band}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean\#L42}{\nolinkurl{supported_first_band_cancellation}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean\#L51}{\nolinkurl{supported_breakpoint_escape}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:moment-ideal}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteMomentIdeal.lean\#L242}{\nolinkurl{exact_moment_ideal_with_primitive_attainment}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteMomentIdeal.lean\#L321}{\nolinkurl{minimumMoment_independent_prime}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:residual-transparency}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean\#L116}{\nolinkurl{residual_transparency}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean\#L166}{\nolinkurl{summable_fullResidual}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean\#L185}{\nolinkurl{zero_moment_residual_integral}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteResidualIdentity.lean\#L195}{\nolinkurl{equal_moment_residual_integer_difference}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:channel-radius}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L234}{\nolinkurl{square_subsequence_radius}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L258}{\nolinkurl{radius_no_eventual_ratio_upper}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L277}{\nolinkurl{radius_not_littleO}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long68:res:radius-constant}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteLiminf.lean\#L54}{\nolinkurl{asymptotic_radius_constant_liminf}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long68:res:translator}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos68/PaperCompleteExisting.lean\#L299}{\nolinkurl{prime_channel_corrector}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35597093480}{\texttt{35597093480}}.
+\par\endgroup
+% END GENERATED CONCORDANCE
 
 \section{Further deductions and limitations}\label{long68:sec:extended-record}
 

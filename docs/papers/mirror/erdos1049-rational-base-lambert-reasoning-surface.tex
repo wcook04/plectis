@@ -6,8 +6,12 @@
 % This flat manuscript is generated from reviewable parts below.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-\renewcommand{\commit}{92b88dc1bbe099aa73bcc900c3c405e9ba5c2334}
-\renewcommand{\commitshort}{92b88dc1bbe0}
+\renewcommand{\commit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
+\renewcommand{\commitshort}{7380b7871687}
+\renewcommand{\PX}{lean/ErdosProblems}
+% Exact proof links in this record resolve at the same formal-source checkpoint.
+\newcommand{\latecommit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
+\newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Zudilin forms at rational bases: proofs and research record for Erdos Problem 1049},
   pdfsubject={Erdős Problem Notes: Problem 1049},
@@ -53,7 +57,8 @@ the first nonzero term of the normalised determinant at every rank:
 A separate positive-measure argument proves positivity and a size
 estimate for each fixed real $0<q<1$. We give the full proofs,
 compare the two constructions with earlier work, and distinguish
-these all-rank results from finite computations about coefficient
+these all-rank results from the kernel-checked rank-eight coefficient
+pencil and the separate finite computations about shifted coefficient
 matrices and common factors. The final sections explain the limits
 of the stated clearing and congruence arguments at $3/2$. No small
 nonzero sequence of divided remainders is constructed at that base,
@@ -128,7 +133,8 @@ of the 2004 polynomials to this determinant.
 The shorter companion, \emph{Zudilin's Forms at Rational Bases and
 the Exact Normalised Hankel Order}, gives the principal proofs in
 Sections~2 and~3; neither uses its supplementary Section~4. Here
-Section~3.2 contains separate coefficient-moment and spectral calculations,
+Section~\ref{long1049:sec:coefficient-questions} contains separate
+coefficient-moment and spectral calculations,
 not inputs to the order formula. Sections~\ref{long1049:sec:primitive}--\ref{long1049:sec:endpoints}
 compare rescaling integer rows with imposing congruences by addition;
 Sections~\ref{long1049:sec:corridor}--\ref{long1049:sec:tail} examine partial sums.
@@ -207,6 +213,7 @@ needed for the cyclotomic exponents.
 On $[0,1)$ the function $\omega$ takes only the values $0$ and $1$, and
 $\omega=1$ exactly on the union of the thirteen half-open intervals listed above.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean}{1297}{omega_indicator}.}
 
 \begin{proof}
 Each of the three expressions inside the maximum is constant on every interval
@@ -248,6 +255,7 @@ Let $a>b\ge1$ be coprime integers with
 \]
 Then $F(a/b)=\sum_{m\ge1}(( a/b)^{m}-1)^{-1}$ is irrational.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{418}{printed_contour}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{487}{contour_enclosure}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{334}{zudilinJ_enclosure}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{383}{zudilinC0_enclosure}, and 3 further declarations in the \hyperref[long1049:sec:coverage]{coverage section}.}
 
 The proof has three steps. We cancel the common polynomial factors
 using Zudilin's integrality argument \cite[pp.~156--161]{zudilin2004}.
@@ -594,6 +602,7 @@ outside the region $\log b/\log a<1/2-1/\pi^{2}=0.3986788163576622\ldots$ of
 \cite[Thm.~2, p.~177]{bv1994} and inside the region of
 Theorem~\ref{long1049:res:region}.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean}{118}{printed_log_ratio}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean}{195}{printed_bv_cutoff}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean}{218}{printed_bvMu}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean}{308}{printed_four_rpow_bvMu}, and 9 further declarations in the \hyperref[long1049:sec:coverage]{coverage section}.}
 \end{sloppypar}
 
 \begin{proof}
@@ -629,6 +638,7 @@ Here $\mu_{\rm irr}(\xi)$ is the supremum of the exponents $\nu$ for which
 $|\xi-p/q|<q^{-\nu}$ has infinitely many reduced rational solutions.
 In particular, $\mu_{\rm irr}(F((31/4)^r))<301$ for every $r\ge1$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean}{194}{rational_base_measure_uniform}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean}{205}{thirtyoneFour_power_measure_lt_301}, \lproof{ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean}{167}{rational_base_power_measure}, \lproof{ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean}{176}{thirtyone_four_power_measure_lt_301}.}
 \begin{proof}
 The coefficient $A_n$ in~\eqref{long1049:eq:A-explicit} is a sum of
 $O(n)$ Laurent monomials times two Gaussian binomial polynomials.
@@ -949,6 +959,7 @@ forms tend to zero below $\log b/\log a=\sigma/(\sigma+d)$ and their absolute
 values tend to infinity above it, so the exact-degree case has no decaying
 homogenised forms at $3/2$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperLongCapR9.lean}{411}{long_record_archcap}.}
 
 \begin{proof}
 The coefficient-height bound controls evaluation at an integer base.
@@ -999,6 +1010,7 @@ Under the hypotheses of Theorem~\ref{long1049:res:archcap}, for positive integer
 $a,b$ with $b<a<b^2$, the undivided forms $b^{d_n}\Lambda_n(a/b)$ do not
 tend to zero.  No limit of $d_n/n^2$ is assumed.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperNoDecayR9.lean}{69}{cleared_below_square_not_tendsto_zero}.}
 \begin{proof}
 Write $x=a/b$ and suppose $C_n=b^{d_n}\Lambda_n(x)\to0$.
 Eventual nonvanishing gives
@@ -1072,6 +1084,7 @@ There is a constant $h$ with
 $\log\max\bigl(H(U_n),H(V_n)\bigr)\le hn^{2}$ for every $n\ge1$, where $U_n$ and
 $V_n$ are the polynomials of~\eqref{long1049:eq:integer-polynomial-pair}.
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/SourceCoefficientHeights.lean}{49}{exists_quadratic_source_height_bound}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/SourceCoefficientHeights.lean}{40}{maxPairHeight_source_eq}.}
 
 \begin{proof}
 For a polynomial or Laurent polynomial $P$, write $\|P\|$ for the sum
@@ -1123,7 +1136,7 @@ Corollary~\ref{long1049:cor:rational-base-measure} removes the extra height
 term at each integer base. Within this family the rational-base
 threshold is therefore the reciprocal of the proved integer-base
 irrationality-exponent bound.
-Lemma~\ref{long1049:res:sourceheight} is an ordinary proof and is not kernel-checked.
+Lemma~\ref{long1049:res:sourceheight} is kernel-checked in the Lean development.
 
 \paragraph{Examples of rational bases.}
 Among reduced $a/b$ with $1\le b<a\le60$, the region of
@@ -1333,6 +1346,7 @@ Consequently
  \frac{\log3}{\log2}<\frac{65}{41}.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{24}{power_bracket}.}
 
 \begin{proof}
 Direct evaluation gives
@@ -1349,9 +1363,9 @@ gives the two stated logarithmic bounds; both divisors are positive.
 \end{proof}
 
 \noindent The integer sides are checked as
-\lword{Erdos1049/AdelicHeightBridge.lean}{42}{threePow_fortyOne_lt_twoPow_sixtyFive}{the upper certificate}
+\lword{Erdos1049/AdelicHeightBridge.lean}{61}{threePow_fortyOne_lt_twoPow_sixtyFive}{the upper certificate}
 and
-\lword{Erdos1049/AdelicHeightBridge.lean}{45}{twoPow_sixtyFour_lt_threePow_fortyOne}{the sharp lower certificate}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{64}{twoPow_sixtyFour_lt_threePow_fortyOne}{the sharp lower certificate}.
 
 The upper power bound gives $\log2/\log3>41/65$, a sharper lower
 bound than $81/200$. In particular,
@@ -1380,6 +1394,7 @@ where $\Theta_{\mathrm{HP}}$ is the rectangular exponent threshold.  Moreover
  \frac{\log3/\log2-1}{3}<\frac8{41}.
 \]
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{34}{height_and_hankel_deficits}.}
 
 \begin{proof}
 The first inequality follows from
@@ -1392,9 +1407,9 @@ rearrangement of $\log3/\log2<65/41$.
 \end{proof}
 
 \noindent Separate formal statements check the
-\lword{Erdos1049/AdelicHeightBridge.lean}{86}{threeHalves_rectangular_hp_gap_gt_threeThirteenths}{bound for the rectangular expression}
+\lword{Erdos1049/AdelicHeightBridge.lean}{103}{threeHalves_rectangular_hp_gap_gt_threeThirteenths}{bound for the rectangular expression}
 and the
-\lword{Erdos1049/AdelicHeightBridge.lean}{97}{threeHalves_hankelChargeThreshold_lt_eightFortyOne}{logarithmic bound $8/41$}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{114}{threeHalves_hankelChargeThreshold_lt_eightFortyOne}{logarithmic bound $8/41$}.
 
 The next inequalities compare two proposed savings in the denominator
 exponent with the exponent $4N^3-3N^2$ before division. Here $E$ denotes
@@ -1415,6 +1430,7 @@ For every integer $N\ge2$,
 Hence the same strict inequalities hold with the left side replaced by
 $41E$ whenever, respectively, $E\le N^3-N$ or $E\le2N^3-N$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{44}{charge_ceilings}.}
 
 \begin{proof}
 After subtraction, the first inequality is
@@ -1431,9 +1447,9 @@ $N\ge2$. The assertions for $E$ follow by monotonicity.
 \end{proof}
 
 \noindent The inequalities under an upper bound on the saving are
-\lword{Erdos1049/AdelicHeightBridge.lean}{123}{zudilinScalarContent_cannot_meet_required_charge}{the first degree bound}
+\lword{Erdos1049/AdelicHeightBridge.lean}{140}{zudilinScalarContent_cannot_meet_required_charge}{the first degree bound}
 and
-\lword{Erdos1049/AdelicHeightBridge.lean}{153}{zudilinScalarPlusBorder_cannot_meet_required_charge}{the second degree bound}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{170}{zudilinScalarPlusBorder_cannot_meet_required_charge}{the second degree bound}.
 
 Lean checks the displayed integer and real inequalities in
 Theorem~\ref{long1049:res:powerbracket},
@@ -1482,6 +1498,7 @@ For every rank $N$, the normalised Hankel determinant $V_N^{*}$ of
  \text{leading coefficient}\quad\frac{(N!)^{2}(N+1)!}{2^{N}} .
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/AllRow/Producer.lean}{173}{order_zudilinNormalizedHankelDet_all}, \lproof{ErdosProblems/Erdos1049/AllRow/Producer.lean}{199}{coeff_zudilinNormalizedHankelDet_all_rat}.}
 
 \noindent The source proves the order inequality and also gives
 $|V_N^*(q)|\le |q|^{N^3/3}\exp(O(N^2))$, referring to additional estimates
@@ -1528,6 +1545,7 @@ For $m\ge j\ge0$ one has $D_jW_m(t)\in q^{E(m,j)}A$ and
  \bigl[q^{E(m,j)}\bigr]D_jW_m(t)=(-1)^{j}h_{j-t}.
 \]
 \end{lemma}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean}{213}{all_row_initial}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean}{242}{all_row_initial_reciprocal}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean}{255}{all_row_initial_dvd}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean}{116}{paperE_eq_rowExponent}, and 3 further declarations in the \hyperref[long1049:sec:coverage]{coverage section}.}
 
 \begin{proof}
 Let $e_u$ denote a formal basis vector indexed by $u\ge0$, and suppress
@@ -1783,12 +1801,14 @@ $q\uparrow1$. The formal-order calculation instead fixes $N$ and expands
 at $q=0$. No joint uniform limit is asserted. The measure depends on $q$,
 not on the moment index or rank, and supplies no denominator factor for
 the 2004 polynomial forms.
+Section~\ref{long1049:sec:sharp-fixed-base} replaces the band $O_q(N)$ by an
+exact asymptotic with an explicit positive constant, using the same weights.
 
 \paragraph{Formal verification and computations.}
 The positive-measure argument, including its generating-function
 identification and infinite determinant expansion, is an ordinary proof,
 not a Lean result. The separate formal-series argument has a checked
-\lword{Erdos1049/AdelicHeightBridge.lean}{183}{hankelAssociatedCoeff_eq_reciprocal}{recurrence for the leading coefficients}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{200}{hankelAssociatedCoeff_eq_reciprocal}{recurrence for the leading coefficients}.
 The constructed determinant also has all-rank formal proofs of its
 order and leading coefficient, recorded together in
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L163}{the exact-order theorem},
@@ -1810,6 +1830,314 @@ Lemma~\ref{long1049:res:allrowinitial} and~\eqref{long1049:eq:row-initial}
 give that row calculation, which is formalised in
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L143}{the first nonzero term of each transformed row}.  Nothing in
 this subsection decides the arithmetic nature of $F(3/2)$.
+
+
+\subsection{The size of $V_N^*$ at a fixed base}
+\label{long1049:sec:sharp-fixed-base}
+
+The positive-measure argument traps $\log(V_N^*(q)/(C_Nq^{B_N}))$ between two
+multiples of $N$. It leaves the exponential rate inside that band undetermined,
+and says nothing about the correction below it. Both are determined here.
+Throughout this subsection $0<q<1$ is fixed and
+\[
+ P=(q;q)_\infty,\qquad
+ \mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d},\qquad
+ L=F(1/q)=\sum_{r\ge1}\frac{q^r}{1-q^r},
+\]
+with $B_N=\sum_{j<N}j^2$ and $C_N=\prod_{k<N}c_k=(N!)^2(N+1)!/2^N$ as above.
+Both products converge to positive finite values, and the abbreviation $L$ is
+used only in this subsection; it is the value at $q$ of the divisor series
+$\mathcal L$ of Section~\ref{long1049:sec:open}. Everything in this subsection
+is an ordinary proof. None of it is formalised in Lean, and none of it changes
+a denominator valuation or supplies a divisor for the 2004 polynomial forms.
+
+The first step isolates what a Hankel determinant needs from its weights. The
+hypotheses are two ratio conditions on the weights, so the theorem covers
+other moment families of the same geometric shape as well.
+
+\begin{theorem}[determinants of geometric moments]
+\label{long1049:thm:geometric-universality}
+Let $a_k>0$ satisfy, for fixed constants $C$ and $\kappa$,
+\[
+ \frac{a_{k+h}}{a_k}\longrightarrow1\quad(k\to\infty)
+ \text{ for each fixed }h\ge0,
+ \qquad
+ \frac{a_{k+h}}{a_k}\le C(1+h)^\kappa\quad(k,h\ge0).
+\]
+Put $M_m=\sum_{k\ge0}a_kq^{(m+1)k}$ and $D_N=\det(M_{i+j})_{0\le i,j<N}$. Then
+\[
+ D_N\sim\mathcal M(q)^3\,q^{B_N}P^{2N}\prod_{k=0}^{N-1}a_k
+ \qquad(N\to\infty).
+\]
+\end{theorem}
+
+\begin{proof}
+Taking $k=0$ in the ratio bound gives $a_h\le Ca_0(1+h)^\kappa$, so every moment
+converges. Heine's expansion, as in
+Section~\ref{long1049:sec:sharp}, writes
+\[
+ D_N=\sum_{k_0<\cdots<k_{N-1}}
+ \prod_{i<N}\bigl(a_{k_i}q^{k_i}\bigr)
+ \prod_{i<j<N}(q^{k_i}-q^{k_j})^2,
+\]
+a sum of positive terms. Write $k_i=i+\lambda_i$ with
+$0\le\lambda_0\le\cdots\le\lambda_{N-1}$. The tuple $\lambda=0$ contributes
+\[
+ q^{B_N}\prod_{i<N}a_i\cdot\Delta_N,
+ \qquad
+ \Delta_N=\prod_{d=1}^{N-1}(1-q^d)^{2(N-d)}.
+\]
+Reverse the shifts by setting $\mu_j=\lambda_{N-j}$ for $1\le j\le N$, so that
+$\mu_1\ge\mu_2\ge\cdots\ge\mu_N\ge0$ is a partition. Dividing the general
+summand by the displayed contribution leaves
+\[
+ W_N(\mu)=
+ q^{\sum_{j\le N}(2j-1)\mu_j}
+ \prod_{j\le N}\frac{a_{N-j+\mu_j}}{a_{N-j}}
+ \prod_{1\le j<k\le N}
+ \left(\frac{1-q^{k-j+\mu_j-\mu_k}}{1-q^{k-j}}\right)^2,
+\]
+because the summand indexed by $(k_i)$ has $q$-exponent
+$B_N+\sum_i(2N-1-2i)\lambda_i$ and the weight $2N-1-2i$ becomes $2j-1$ under
+$i=N-j$. Thus $D_N/(q^{B_N}\Delta_N\prod_{i<N}a_i)=\sum_\mu W_N(\mu)$.
+
+Let $\ell$ be the length of $\mu$, that is, the number of positive parts. Only
+the indices $j\le\ell$ contribute a ratio different from $1$. For fixed
+$j\le\ell$ the partition is decreasing, so $k-j+\mu_j-\mu_k\ge k-j$ for every
+$k>j$; the numerators are at most $1$ and the denominators multiply to at least
+$P$. Each of the $\ell$ squared factors is therefore at most $P^{-2}$, and the
+weight ratios contribute at most $\prod_{j\le\ell}C(1+\mu_j)^\kappa$. Hence
+\[
+ W_N(\mu)\le(CP^{-2})^{\ell}
+ \prod_{j=1}^{\ell}(1+\mu_j)^\kappa q^{(2j-1)\mu_j}
+ \qquad\text{for every }N.
+\]
+Summing this majorant over all partitions of length exactly $\ell$, after
+dropping the ordering constraint on the positive parts, factorises it into
+\[
+ (CP^{-2})^{\ell}\prod_{j=1}^{\ell}
+ \sum_{u\ge1}(1+u)^\kappa q^{(2j-1)u}
+ \le C_q^{\ell}q^{\ell^2},
+ \qquad
+ C_q=CP^{-2}\sum_{u\ge1}(1+u)^\kappa q^{u-1},
+\]
+using $q^{(2j-1)u}\le q^{2j-1}q^{u-1}$ and $\sum_{j\le\ell}(2j-1)=\ell^2$. The
+resulting bound is summable in $\ell$, and it does not depend on $N$.
+
+For each fixed partition $\mu$, the weight ratios tend to $1$ as $N\to\infty$
+by the first hypothesis, and the Vandermonde quotient converges to the
+corresponding infinite product. The limit of $W_N(\mu)$ is therefore the same
+function of $\mu$ that the weights $a_k\equiv1$ produce, since those weights
+give ratio $1$ identically and leave the Vandermonde quotient unchanged.
+Dominated convergence over partitions now identifies
+$\lim_N\sum_\mu W_N(\mu)$ with the corresponding limit in the unit-weight case.
+
+For $a_k\equiv1$ the moments are $M_m=(1-q^{m+1})^{-1}$, and Cauchy's
+determinant evaluates
+\[
+ D_N=\frac{q^{B_N}\Delta_N}{\prod_{0\le i,j<N}(1-q^{i+j+1})}.
+\]
+The exponent of $1-q^m$ in that denominator is $\min(m,N,2N-m)$, which
+increases to $m$, so the denominator tends to $\mathcal M(q)^{-1}$ and the
+quotient $\sum_\mu W_N(\mu)$ tends to $\mathcal M(q)$. Finally
+\[
+ \frac{\Delta_N}{P^{2N}}
+ =\prod_{d<N}(1-q^d)^{-2d}\prod_{d\ge N}(1-q^d)^{-2N}
+ \longrightarrow\mathcal M(q)^2,
+\]
+because the logarithm of the second product is $O_q(Nq^N)$. Multiplying the two
+limits proves the theorem.
+\end{proof}
+
+The hypotheses hold for the actual weights $a_k=P^4\gamma_k$, and the reason is
+an exact algebraic identity. It also sharpens the comparison
+$(Q/3)c_k\le\gamma_k\le T(P^{-4}+P^{-6})c_k$ of the previous subsection to two
+explicit powers of $P$.
+
+\begin{proposition}[the moment weights as a product of two finite sums]
+\label{long1049:prop:rogers-factorisation}
+For $r\ge1$ and $k\ge0$ set
+\[
+ R_k^{(r)}(q)=\sum_{n_1+\cdots+n_r=k}
+ \frac{(q;q)_k}{\prod_{j\le r}(q;q)_{n_j}},
+\]
+the sum being over compositions into $r$ nonnegative parts, so that
+$R_k^{(r)}$ is the sum of all $q$-multinomial coefficients of degree $k$ and
+length $r$, equivalently the multivariate Rogers--Szeg\H{o} polynomial at unit
+arguments~\cite{vinroot2010}. These are polynomial identities in the
+indeterminate $q$; at a prime power, $r=2$ gives the Galois number counting
+the subspaces of a $k$-dimensional space over the field of that order, and
+$r=3$ counts the flags $V_1\subseteq V_2$ in that space. The source is cited
+for those identifications; the factorisation below is proved here. Then
+\[
+ \gamma_k(q)=\frac{R_k^{(2)}(q)R_k^{(3)}(q)}{(q;q)_k}.
+\]
+The product $R_k^{(2)}R_k^{(3)}$ lies in $\Z_{\ge0}[q]$, has degree
+$\lfloor k^2/4\rfloor+\lfloor k^2/3\rfloor$, and has coefficient sum $6^k$.
+Consequently $(q;q)_k\gamma_k\in\Z[q]$, and the weights
+$a_k=P^4\gamma_k$ satisfy
+\[
+ P^5c_k\le a_k\le P^{-1}c_k
+ \qquad(k\ge0),
+\]
+together with $a_{k+h}/a_k\le P^{-6}(1+h)^3$, so the hypotheses of
+Theorem~\ref{long1049:thm:geometric-universality} hold with $\kappa=3$.
+\end{proposition}
+
+\begin{proof}
+Write $\mathcal E(z)=(z;q)_\infty^{-1}$ and
+$\partial_qf(z)=(f(z)-f(qz))/z$, so that $\partial_q\mathcal E=\mathcal E$ and
+$\mathcal E(z)^r=\sum_{n\ge0}R_n^{(r)}z^n/(q;q)_n$ by Euler's expansion. The
+$q$-Leibniz rule, which follows by induction from the product rule, is
+\[
+ \partial_q^n(fg)(z)=\sum_{j=0}^n\genfrac{[}{]}{0pt}{}{n}{j}_q
+ (\partial_q^jf)(q^{n-j}z)\,(\partial_q^{n-j}g)(z).
+\]
+Write $h_k(z)=\sum_{j=0}^k\genfrac{[}{]}{0pt}{}{k}{j}_q(z;q)_j$. Applying the
+rule to $\mathcal E\cdot\mathcal E$ and using
+$\mathcal E(q^mz)=(z;q)_m\mathcal E(z)$ gives
+$\partial_q^k\mathcal E(z)^2=\mathcal E(z)^2h_k(z)$; at $k=1$ both sides are
+$\mathcal E(z)^2(2-z)$. Applying it once more, to
+$\mathcal E\cdot\mathcal E^2$, gives
+\[
+ \partial_q^n\mathcal E(z)^3
+ =\mathcal E(z)^3\sum_{k=0}^n\genfrac{[}{]}{0pt}{}{n}{k}_q(z;q)_kh_k(z),
+\]
+the power of $\mathcal E$ being $3$ and not $2$ here. Hence
+\[
+ \sum_{n\ge0}\frac{w^n}{(q;q)_n}\partial_q^n\mathcal E(z)^3
+ =\mathcal E(w)\mathcal E(z)^3
+  \sum_{k\ge0}\frac{w^k(z;q)_k}{(q;q)_k}h_k(z).
+\]
+Put $z=w$. On the left the coefficient of $w^n$ is
+$R_n^{(3)}\sum_{j\le n}\bigl((q;q)_j(q;q)_{n-j}\bigr)^{-1}
+=R_n^{(2)}R_n^{(3)}/(q;q)_n$. On the right, expand $h_k$ and set $k=j+t$; the
+inner sum is evaluated by the $q$-binomial theorem as
+\[
+ \sum_{t\ge0}\frac{(wq^j;q)_t}{(q;q)_t}w^t
+ =\frac{(w^2q^j;q)_\infty}{(w;q)_\infty},
+\]
+and the result is exactly $G_q(w)$. Every step holds coefficientwise, and
+absolutely for $|w|$ small.
+
+A $q$-multinomial coefficient has nonnegative integral coefficients, degree
+$\sum_{i<j}n_in_j$, and value $1$ at $q=1$ after division by the corresponding
+multinomial. Summing over compositions gives coefficient sum $r^k$ for
+$R_k^{(r)}$ and hence $6^k$ for the product. The degree is maximised by
+balanced parts, which gives $\lfloor k^2/4\rfloor$ for $r=2$ and
+$\lfloor k^2/3\rfloor$ for $r=3$; no leading cancellation occurs because all
+coefficients are nonnegative.
+
+For the bounds, write $b_k^{(r)}=[z^k](z;q)_\infty^{-r}$, so that
+$R_k^{(r)}=(q;q)_kb_k^{(r)}$ and
+$\gamma_k=(q;q)_kb_k^{(2)}b_k^{(3)}$. Euler's expansion exhibits $b_k^{(r)}$ as
+an $r$-fold convolution of the sequence $1/(q;q)_n$, whose terms lie in
+$[1,P^{-1}]$; the number of compositions of $k$ into $r$ nonnegative parts is
+$\binom{k+r-1}{r-1}$, so
+\[
+ \binom{k+r-1}{r-1}\le b_k^{(r)}\le P^{-r}\binom{k+r-1}{r-1}.
+\]
+Combining these at $r=2,3$ with $P\le(q;q)_k\le1$ and
+$c_k=(k+1)\binom{k+2}2$ gives $P^5c_k\le a_k\le P^{-1}c_k$. The shift bound
+follows from $c_{k+h}/c_k\le(1+h)^3$.
+\end{proof}
+
+Only one analytic input is still missing, namely the behaviour of $a_k/c_k$ to
+second order. It is supplied by the two leading coefficients of $G_q$ at its
+singularity $w=1$.
+
+\begin{theorem}[the size of $V_N^*$ at a fixed base]
+\label{long1049:thm:sharp-fixed-base}
+Let $\gamma_{\!E}$ be Euler's constant. The product
+\[
+ \mathcal A(q)=e^{-8\gamma_{\!E}L}
+ \prod_{k\ge0}\left(\frac{a_k}{c_k}\,e^{8L/(k+1)}\right)
+\]
+converges to a positive finite value. With $K(q)=\mathcal A(q)\mathcal M(q)^3$,
+\[
+ V_N^*(q)\sim K(q)\,C_Nq^{B_N}P^{2N}N^{-8L},
+\]
+equivalently
+\[
+ \log V_N^*(q)=B_N\log q+\log C_N+2N\log P-8L\log N+\log K(q)+o(1).
+\]
+\end{theorem}
+
+\begin{proof}
+Write $\Pi(w)=(qw;q)_\infty$, so that $(w;q)_\infty=(1-w)\Pi(w)$, and for
+$t\ge1$ put
+\[
+ f_t(w)=\frac{(q^tw^2;q)_\infty}{(q;q)_t(q^tw;q)_\infty^2},
+ \qquad
+ \mathcal S(w)=\sum_{t\ge1}w^t\bigl(f_t(w)-P^{-1}\bigr).
+\]
+On each compact subset of $|w|<q^{-1}$ the bracket is $O_q(q^t)$ uniformly, so
+$\mathcal S$ is analytic there. Separating the summand $t=0$, whose
+denominator carries the factor $(1-w)^2$, and subtracting the constant part of
+the remaining summands gives
+\[
+ \mathcal D(w):=P^4(1-w)^4G_q(w)
+ =\frac{P^4}{\Pi(w)^3}
+ \left((1+w)\frac{(qw^2;q)_\infty}{\Pi(w)^2}+\frac wP
+       +(1-w)\mathcal S(w)\right).
+\]
+Hence $\mathcal D$ is analytic on a disc of radius greater than $1$.
+
+At $w=1$ one has $\Pi(1)=P$ and $\Pi'(1)/\Pi(1)=-L$, since
+$\Pi'/\Pi=-\sum_{j\ge1}q^j/(1-q^jw)$. Also $(qw^2;q)_\infty$ equals $P$ at
+$w=1$, and the logarithmic derivative of $(qw^2;q)_\infty/\Pi(w)^2$ at $w=1$ is
+$-2L+2L=0$. Therefore the bracket has value $3/P$ and derivative $(2-L)/P$
+at $w=1$; here $\mathcal S(1)=L/P$, because
+$f_t(1)=\bigl(P(1-q^t)\bigr)^{-1}$ and
+$\sum_{t\ge1}\bigl((1-q^t)^{-1}-1\bigr)=L$. Combining with the factor
+$P^4\Pi^{-3}$, whose logarithmic derivative at $1$ is $3L$, gives
+\[
+ \mathcal D(1)=3,\qquad
+ \mathcal D'(1)=3\left(3L+\frac{2-L}3\right)=2+8L.
+\]
+Subtracting the principal part of $\mathcal D(w)(1-w)^{-4}$ at $w=1$ leaves a
+function analytic on a larger disc, so
+\[
+ a_k=3\binom{k+3}3-(2+8L)\binom{k+2}2+O_q(k),
+ \qquad
+ \frac{a_k}{c_k}=1-\frac{8L}{k+1}+O_q\bigl((k+1)^{-2}\bigr),
+\]
+the second line because $3\binom{k+3}3=c_k(k+3)/(k+1)$ and
+$\binom{k+2}2=c_k/(k+1)$.
+
+Consequently $\log(a_k/c_k)+8L/(k+1)=O_q((k+1)^{-2})$, which is summable, so
+$\mathcal A(q)$ converges; it is positive because every factor is. Since
+$\sum_{k<N}(k+1)^{-1}=\log N+\gamma_{\!E}+o(1)$,
+\[
+ \prod_{k<N}a_k\sim\mathcal A(q)\,C_NN^{-8L}.
+\]
+Proposition~\ref{long1049:prop:rogers-factorisation} supplies the uniform shift
+bound and the last expansion supplies the fixed-shift limit, so
+Theorem~\ref{long1049:thm:geometric-universality} applies to $(a_k)$ and gives
+$V_N^*\sim\mathcal M(q)^3q^{B_N}P^{2N}\prod_{k<N}a_k$. Substituting the product
+asymptotic proves both displays.
+\end{proof}
+
+\paragraph{What the sharp estimate settles, and what it leaves.}
+The positive-measure argument of the previous subsection had recorded this
+shape as a candidate without its constant. The proof, the limiting Gram factor
+$\mathcal M(q)^3$ and the convergent expression for the constant are supplied
+here. The estimate replaces the band $O_q(N)$ by the explicit terms
+$2N\log P$, $-8F(1/q)\log N$ and the constant $\log K(q)$, with an $o(1)$
+error, and the weights now have an exact finite description rather than an
+infinite-product representation alone.
+
+The cubic exponent of $q$ is untouched, and so is every prime-power valuation.
+At $3/2$ the deficit is unchanged and is exactly
+\[
+ \frac{39}{41}\bigl(4N^3-3N^2\bigr)-\bigl(2N^3-N\bigr)
+ =\frac{N(74N^2-117N+41)}{41}>0\qquad(N\ge2),
+\]
+the positivity being immediate from
+$74N^2-117N+41=74(N-2)^2+179(N-2)+103$. Its leading size is $(74/41)N^3$, so no
+estimate that leaves the cubic coefficient alone can close it. The finite
+factorisation describes the same weights in a new way; it does not license
+substituting their denominator for the denominator of a cleared linear form.
 
 
 \subsection{Coefficient moments and cyclotomic content}
@@ -1892,13 +2220,33 @@ The degree argument below shows that each denominator is nonzero.
 The computation checks that every division has zero remainder, then
 substitutes $p=1+t$ and tests every coefficient. All $8824$ coefficients
 in the sixteen polynomials are strictly positive. The full lists are in
-\path{computations/certificates/}, one file per rank and shift, and
-\path{computations/reproduce.py} reproduces them.
+\path{computations/finite_coefficients.json}, computed by
+\path{computations/finite_coefficients_generate.py}.
+An independent program, \path{computations/check_finite_coefficients.py},
+evaluates each stored polynomial at more integer bases than its degree and
+compares the values with fraction-free determinants of the integer Hankel
+matrices, which identifies the stored list with $D_{N,h}(1+t)$ in $\Z[t]$.
 As a separate check of the normalisation, direct integer determinants
 at $p=1,2,3,5,11$ agree with evaluations of all sixteen polynomials.
 Those evaluations are checks, not the proof of polynomial positivity.
-This is a finite computer-algebra calculation, not a Lean theorem or
-an all-rank result.
+This is a finite computer-algebra calculation and gives no all-rank result.
+
+For the eight unshifted determinants, positivity is also a
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean\#L458}{Lean theorem},
+proved by a different certificate. Put $T=2^{2929}$. An explicit bound
+shows that every coefficient of $D_{N,0}(1+t)$, $N\le8$, has absolute
+value less than $T/2$. An integer polynomial with this property is
+determined by its value at $t=T$, and its coefficients are the base-$T$
+digits of that value whenever every digit is less than $T/2$. The Lean
+kernel computes the eight integers $D_{N,0}(1+T)$ exactly and checks this
+digit condition and that the lowest digit is nonzero. Every coefficient
+of $D_{N,0}(1+t)$ is therefore nonnegative and the constant term is
+positive, so $D_{N,0}(p)>0$ for every real $p\ge1$. This is the positivity
+used in Proposition~\ref{long1049:res:finite-pencil}. The strict
+positivity of every coefficient, and the shifted determinants $D_{N,1}$,
+rest on the computation above.
+Neither the finite computation nor the Lean proof yields an all-rank
+coefficient-positivity theorem.
 
 The degrees admit a separate all-rank proof. The Gaussian binomial
 $\genfrac{[}{]}{0pt}{}{u}{v}_p$ is monic of degree $v(u-v)$. In the signed sum for $R_m$,
@@ -1963,6 +2311,7 @@ For every real $p>1$ and $1\le N\le8$, $A_N$ is positive definite and
 all roots of $\det(YA_N-B_N)$ are real and strictly less than $F(p)$.
 The roots at consecutive ranks $N,N+1\le8$ interlace non-strictly.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean}{43}{coefficientPencil_finitePencil}. All three conclusions are checked through rank eight; see the \hyperref[long1049:sec:coverage]{coverage section}.}
 \begin{proof}
 The leading principal minors of $(s_{i+j})_{i,j<N}$ are exactly
 $D_{k,0}(p)$ for $1\le k\le N$; their coefficient positivity proved above, together with
@@ -2265,6 +2614,7 @@ In particular \(c_nc_m\) divides the scaled determinant. Multiplication
 by these scalars therefore introduces a divisor whose absolute value is
 exactly the factor multiplying the determinant's absolute value.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{59}{integer_scalar_content}.}
 
 \begin{proof}
 Expand the linear form and use the bilinearity of the determinant.
@@ -2344,6 +2694,7 @@ Let \(P=\sum_ip_iX^i\in\Z[X]\) and let \(W\ge0\).  Then
 Consequently a unit constant coefficient prevents divisibility by \(3\), and
 a unit coefficient at index \(W\) prevents divisibility by \(2\).
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{74}{endpoint_residues}.}
 
 \begin{proof}
 Modulo \(3\), every summand with \(i>0\) vanishes; modulo \(2\), every summand
@@ -2402,6 +2753,7 @@ has unit constant endpoint, and an integer
  2\nmid c\qquad\text{and}\qquad 3\nmid c.
 \]
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean}{398}{commonMultiplier_not_two_not_three_of_endpoint_units}.}
 \begin{proof}
 If $2\mid c$, then $2\mid H_W(U)$, contrary to the unit coefficient
 at index $W$ and Theorem~\ref{long1049:res:endpoints}. Similarly,
@@ -2434,6 +2786,7 @@ value by $|c_nc_m|$. Cancelling this introduced scalar factor therefore
 leaves the original comparison between divisor and determinant size
 unchanged.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{220}{endpoint_scalar_content_exclusion}.}
 
 \begin{proof}
 The common-divisor assertion is Proposition~\ref{long1049:res:commonmult}.
@@ -2456,6 +2809,7 @@ homogenisation, with exponent $\varphi(m)=\deg\Phi_m$.
 Let $a>b\ge1$ with $\gcd(a,b)=1$ and let $m\ge1$.  Then
 $\gcd(\Phi_m(a,b),ab)=1$.  In particular $\gcd(\Phi_m(3,2),6)=1$ for every $m$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean}{302}{cyclotomicHomEval_isCoprime_mul}.}
 
 \begin{proof}
 The polynomial $\Phi_m$ is monic and $\Phi_m(0)=\pm1$. The endpoint
@@ -2547,6 +2901,7 @@ indicator vectors gives a nonzero coefficient vector in
 \]
 In particular, if \(R>0\) and \(4R+2S\le M\), such a collision exists.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{248}{fourJet_paper_statement}.}
 
 \begin{proof}
 Send each subset to the sum of the residue vectors of its members.
@@ -2574,6 +2929,7 @@ this counting argument:
 \]
 No exact-optimality assertion is made here for $T>1$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{149}{rank_fortyone}.}
 
 \begin{proof}
 The upper power inequality gives
@@ -2587,9 +2943,9 @@ displayed reverse count at $129+2S$.
 \end{proof}
 
 \noindent The formal statements check the
-\lword{Erdos1049/AdelicHeightBridge.lean}{279}{exists_distinct_binary_selectors_same_fourJet_of_rank_41}{sufficient count $130T+2S$}
+\lword{Erdos1049/AdelicHeightBridge.lean}{1800}{exists_distinct_binary_selectors_same_fourJet_of_rank_41}{sufficient count $130T+2S$}
 and, when $T=1$, the
-\lword{Erdos1049/AdelicHeightBridge.lean}{292}{fourJet_card_gt_two_pow_of_rank_41}{failure of the count at $129+2S$}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{1813}{fourJet_card_gt_two_pow_of_rank_41}{failure of the count at $129+2S$}.
 
 For all depths at once the ambient-cardinality inequality $2^{M}>3^{2R}2^{2S}$
 holds exactly when
@@ -2622,6 +2978,7 @@ Thus, when $f$ records the four residues and $g$ records the real
 remainder, a bound on the multiplicities of equal remainders guarantees
 a pair with equal residues and different remainders.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/AdelicHeightBridge.lean}{1832}{exists_ne_map_eq_map_ne_of_card_mul_lt}.}
 
 \begin{proof}
 If every pair in a common $f$-fibre also had the same $g$-value, each
@@ -2630,7 +2987,7 @@ Summing over the at most $|B|$ fibres of $f$ would give
 $|A|\le |B|k$, contrary to the hypothesis.
 \end{proof}
 
-\noindent The \lword{Erdos1049/AdelicHeightBridge.lean}{311}{exists_ne_map_eq_map_ne_of_card_mul_lt}{finite-set counting statement} is formalised.
+\noindent The \lword{Erdos1049/AdelicHeightBridge.lean}{1832}{exists_ne_map_eq_map_ne_of_card_mul_lt}{finite-set counting statement} is formalised.
 
 If $g$ is injective, the hypothesis holds with $k=1$. It need not hold
 with a useful small $k$ for subset sums: repeated input rows produce
@@ -2665,6 +3022,7 @@ binary selectors $s,t\in\{0,1\}^{k}$ such that
 Thus $S+2R$ rows suffice. The ambient two-coordinate argument gives
 the sufficient bound $2S+4R$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{269}{plucker_paper_statement}.}
 
 \begin{proof}
 If $(a,b)$ is unimodular, say $ua+vb=1$, and $ay-bx=0$, then
@@ -2749,6 +3107,7 @@ In the positive branch $C_0>0$ and $2C_0\le C_1$, the stronger estimate is
  C_0\log3-C_1\log2< -\frac{17}{41}C_0\log2.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{177}{scalar_margin}.}
 
 \begin{proof}
 If $C_0\le0$, then $C_0\log3-C_1\log2\le-C_1\log2<0$.
@@ -2764,7 +3123,7 @@ If $C_0>0$ and $2C_0\le C_1$, use $3^{41}<2^{65}$ to obtain
 The inequality is the checked
 \lword{Erdos1049/ZudilinConeArithmetic.lean}{428}{three_two_scalar_margin_neg}{three-halves
 scalar margin}.  The positive-branch deficit is the checked
-\lword{Erdos1049/AdelicHeightBridge.lean}{242}{three_two_scalar_margin_lt_explicit}{$17/41$ margin}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{1763}{three_two_scalar_margin_lt_explicit}{$17/41$ margin}.
 The scope of this elementary inequality matters.  The primary Zudilin
 theorem~\cite[Theorem~1, p.~154; Sec.~5, pp.~161--162]{zudilin2004} supplies an integer-base
 irrationality-exponent estimate on its parameter cone, and the elementary
@@ -2854,6 +3213,7 @@ If $(a,b,N,K,Q,D)$ satisfies the clearing conditions, then
  b^{\,N+K+1}<a\,(N+K).
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/RationalBaseLambert.lean}{121}{coordinatewiseCorridor_implies_pow_lt_linear}.}
 
 \begin{proof}
 Since $QD>0$ and $a^{K}\mid QD$, we have
@@ -2903,6 +3263,7 @@ for the full remainder.
 \begin{proposition}\label{long1049:res:exp}
 For every natural number $x\ge2$ we have $3x<2^{\,x+1}$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/RationalBaseLambert.lean}{142}{three_mul_lt_two_pow_succ}.}
 
 \begin{proof}
 Induct on $x$, starting from $6<8$ at $x=2$.  For the step, $2^{x+1}\ge2^{2}>3$ when
@@ -2917,6 +3278,7 @@ comparison}.
 For all $N\ge1$ and $K\ge1$ and all natural $Q,D$, the tuple
 $(3,2,N,K,Q,D)$ does not satisfy the clearing conditions.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/RationalBaseLambert.lean}{155}{threeHalves_no_coordinatewiseCorridor}.}
 
 \begin{proof}
 The clearing conditions would give $2^{\,N+K+1}<3(N+K)$ by
@@ -2960,6 +3322,7 @@ in~\eqref{long1049:eq:tailstate}.  Then for every $N$,
  U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/RationalBaseLambert.lean}{187}{rationalBaseClearedTailQ_succ}.}
 
 \begin{proof}
 Expanding
@@ -2984,6 +3347,7 @@ $2^{\,N+1}\le B\,c(N+1)\,s^{\,N+1}$.
 \item If $s=1$, then $B\,c(N+1)\,s^{\,N+1}=B\,c(N+1)$.
 \end{enumerate}
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{186}{forcing_term}.}
 
 \begin{proof}
 For the first part,
@@ -3051,6 +3415,7 @@ strict inequality is checked.
  \left(\frac12+\frac1{\pi^2}\right)^{-1}.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/RationalBaseLambert.lean}{83}{sevenHalves_archimedean_height_condition}.}
 \begin{proof}
 Since $2^{18}=262144<823543=7^7$, we have
 $\log2/\log7<7/18$. Also $\pi>3$ gives
@@ -3180,6 +3545,7 @@ $\widetilde{E}_n-\widetilde{P}(n,k)=(n-k)(3n-k-1)$;
 \item if $n\ge0$ and $m\ge1$, then $\widetilde{Q}(n,m)\le\widetilde{E}_n$.
 \end{enumerate}
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{201}{pade_summand_bound_and_gap}.}
 
 \noindent Part~(1) is the
 \lword{Erdos1049/RationalPadeArithmetic.lean}{30}{rationalPadePSummandDenExpTwice_le}{summand
@@ -3526,6 +3892,69 @@ They follow by applying the one-dimensional calculation to each summand
 $d_i\Z$. Polynomial coefficient content alone does not determine either
 integer Smith invariant after specialisation.
 
+\paragraph{The lattice spanned by the actual tails.}
+The formulas above apply to any rank-two lattice. For the rows that the
+approximation problem actually supplies, the invariant can be computed
+outright, and it is the smallest one compatible with the base. Let $a>b\ge1$ be
+coprime, write the partial sum $S_m(b/a)=\sum_{r\le m}(b/a)^r/(1-(b/a)^r)$ in
+lowest terms as $P_m/Q_m$ with $Q_m>0$, and set $P_0=0$, $Q_0=1$. The primitive
+integer row of the $m$th tail is $(Q_m,P_m)$, which represents
+$Q_mF(a/b)-P_m$.
+
+\begin{proposition}[the prefix lattice of the tails]
+\label{long1049:res:tail-lattice}
+Every $Q_m$ is coprime to $ab$, and $b$ divides every $P_m$. For every prefix
+containing $m=0$ and $m=1$,
+\[
+ \operatorname{span}_{\Z}\{(Q_m,P_m):0\le m<M\}=\Z\times b\Z
+ \qquad(M\ge2),
+\]
+so the Smith invariants are $1,b$, the gcd of the $2\times2$ minors is $b$, and
+the image modulo $D$ has cardinality $D^2/\gcd(b,D)$. Multiplying an individual
+tail by a nonzero rational weight leaves its primitive row unchanged up to
+sign.
+\end{proposition}
+
+\begin{proof}
+A common denominator of $S_m(b/a)$ is a product of the integers $a^r-b^r$ for
+$r\le m$, each coprime to $ab$; over that denominator every summand has
+numerator divisible by $b^r$. Reduction to lowest terms removes no prime factor
+of $b$, which gives the first two assertions. The rows at $m=0,1$ are $(1,0)$
+and $(a-b,b)$, and subtracting $a-b$ copies of the first from the second gives
+$(0,b)$; every later row already lies in $\Z\times b\Z$ by the first
+assertions. The Smith and image statements are the specialisation of the
+formulas above at $g=b$. Finally the rational line through a primitive pair
+meets $\Z^2$ in exactly the multiples of that pair, so clearing denominators in
+a nonzero rational multiple and dividing by the coordinate gcd returns the same
+pair up to sign.
+\end{proof}
+
+At $3/2$ the first three partial sums are $0$, $2$ and $14/5$, with rows
+$(1,0)$, $(1,2)$ and $(5,14)$. Their span is already $\Z\times2\Z$. There is no
+three-adic collapse, and the only local saving is the single factor of two that
+the image formula displays. For a window beginning at $m=s$ the corresponding
+statement is that every pairwise minor is divisible by $b^{s+1}$, with the
+valuation of the gcd equal to $(s+1)v_p(b)$ at each prime $p\mid b$ and equal
+to zero at each prime $p\mid a$. The adjacent-row identity
+\[
+ Q_sP_{s+1}-P_sQ_{s+1}
+ =\frac{Q_sQ_{s+1}b^{s+1}}{a^{s+1}-b^{s+1}}
+\]
+attains both, since its denominator is a unit at every prime dividing $ab$.
+
+The consequence for the construction problem is a restriction on one
+operation, and only on that one. Rescaling the individual tails and then taking
+integer combinations stays inside $\Z\times b\Z$, so it leaves the minor gcd
+and the endpoint valuations exactly as above. Rational combinations are a
+different matter and do leave that lattice: at $3/2$ the half-sum of the rows
+$(1,0)$ and $(1,2)$ is the primitive row $(1,1)$, whose minor against $(1,0)$
+is $1$. What such a combination costs is a denominator in the coefficients,
+which the proposition does not measure, so escaping the lattice this way is not
+by itself a saving. A genuinely improved system needs primitive rows of a
+different provenance, whose minors carry extra valuation and whose divided
+remainders are still nonzero and small.
+
+
 
 \subsection{Estimating the divided remainder}
 
@@ -3599,6 +4028,7 @@ Let
 There is no finite-dimensional $\Q(z)$-vector space that contains $\mathcal L$
 and is stable under both $z\mapsto z^2$ and $z\mapsto z^3$.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean}{298}{no_finite_simultaneous_two_three_system_unconditional}.}
 
 \begin{proof}
 Suppose $V$ were such a space, of dimension $d$.  Stability under $z\mapsto z^2$
@@ -3640,6 +4070,21 @@ those functions and its closure conditions; the single-base statement is not
 an obstruction to every approximation method. The classification and the
 Adamczewski--Bell theorem are cited, not proved here; the needed
 nonrationality has the elementary proof given earlier.
+
+The Lean proof of Proposition~\ref{long1049:res:nomahler}
+(\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean\#L298}{no finite simultaneous $2/3$-system})
+uses neither cited theorem, and it uses only stability under
+$z\mapsto z^2$. As in the first step of the proof above, that stability
+gives polynomials $P_0,\dots,P_d$, not all zero, with
+$\sum_{i=0}^{d}P_i(z)\mathcal L(z^{2^i})=0$, and this relation also holds
+between the values of these functions on the open unit disc. If $\zeta$ is
+a primitive $n$th root of unity, then
+$(1-r)\mathcal L(r\zeta)/\log(1/(1-r))\to1/n$ as $r\uparrow1$.
+These limits, taken at roots of unity of suitable orders, force every
+$P_i$ to vanish. The same argument excludes, for every $k\ge2$, a
+finite-dimensional space containing $\mathcal L$ and stable under
+$z\mapsto z^k$ alone
+(\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean\#L263}{single-base statement}).
 
 \subsection{A limitation of the rectangular exponent model}
 
@@ -3955,6 +4400,91 @@ mathematical review or endorsement of the results here.
 \appendix
 \section{Guide to the formal sources}\label{long1049:app:index}
 
+\subsection*{Formalisation coverage and remaining dependencies}
+\label{long1049:sec:coverage}
+\papersectiontarget{coverage}
+
+Every theorem, lemma, proposition and corollary of this record other than the
+six named here has a Lean statement of the same assertion, with the same
+hypotheses, checked by the Lean kernel using only the axioms
+\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
+development at the formal-source checkpoint \texttt{7380b7871687}. Two of the six,
+Propositions~\ref{long1049:res:nomahler} and~\ref{long1049:res:finite-pencil},
+have Lean statements of the same assertions, checked by the Lean kernel
+using only those three axioms, as described below. The other four are proved by
+ordinary arguments and have no Lean statement at that revision:
+Theorem~\ref{long1049:thm:geometric-universality},
+Proposition~\ref{long1049:prop:rogers-factorisation} and
+Theorem~\ref{long1049:thm:sharp-fixed-base} in
+Section~\ref{long1049:sec:sharp-fixed-base}, and
+Proposition~\ref{long1049:res:tail-lattice}.
+
+Proposition~\ref{long1049:res:nomahler} is
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean\#L298}{checked in Lean}
+with no additional hypothesis.  Its Lean proof uses stability under
+$z\mapsto z^2$ alone, without the theorem of Adamczewski and
+Bell~\cite[Thm.~1.1, p.~6]{adamczewskibell2013} cited in the printed proof,
+as explained after that proof.
+
+Proposition~\ref{long1049:res:finite-pencil} is
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean\#L43}{checked in Lean}
+for every real $p>1$ and every rank $N\le8$.  The positivity of the eight
+unshifted determinants $D_{k,0}$ is proved in Lean by the certificate
+described in Section~\ref{long1049:sec:coefficient-questions}.  The identity
+$F(p)A_N-B_N=(v^*_{i+j})$ and the positive definiteness of this matrix, the
+reality of the pencil roots, their position below $F(p)$ and their
+interlacing are formalised as well.
+The result has no all-rank coefficient-positivity or root-convergence
+conclusion. The historical sixteen-polynomial computation remains separate
+evidence for the shifted eight certificates.
+
+% BEGIN GENERATED CONCORDANCE (generated from the coverage ledger; do not edit by hand)
+\paragraph{Concordance of statements and Lean declarations.}
+Each result of this record that has a kernel-checked Lean statement of the same assertion is listed
+below with the declarations that jointly state it.  Each name links to its declaration at revision
+\texttt{a25cb360bef8}.  Where the Lean statement is stronger than the printed one and implies it by
+an immediate specialisation, the entry says so.  An entry marked \emph{compared} was also checked
+independently: a restatement of the same declarations against Mathlib alone, together with its
+proof, was verified by Comparator (\texttt{leanprover/comparator}) in a clean continuous
+integration environment, in the run named by its number.  Comparator trusts the restated
+statement, so the correspondence between the printed result and that statement is the one this
+concordance records.
+
+\begingroup\small\raggedright
+\par\noindent\hangindent=1.5em Lemma~\ref{long1049:res:omega-indicator}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperOmegaIndicatorR7.lean\#L1297}{\nolinkurl{omega_indicator}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171}{\texttt{35624228171}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:region}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean\#L418}{\nolinkurl{printed_contour}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean\#L487}{\nolinkurl{contour_enclosure}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean\#L334}{\nolinkurl{zudilinJ_enclosure}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean\#L383}{\nolinkurl{zudilinC0_enclosure}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L96}{\nolinkurl{zudilin_rpow_lt_iff_contourRegion}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L109}{\nolinkurl{rational_base_threshold}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L116}{\nolinkurl{rational_base_threshold_log}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171}{\texttt{35624228171}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:31over4}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean\#L118}{\nolinkurl{printed_log_ratio}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean\#L195}{\nolinkurl{printed_bv_cutoff}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean\#L218}{\nolinkurl{printed_bvMu}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean\#L308}{\nolinkurl{printed_four_rpow_bvMu}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedLogConstants.lean\#L212}{\nolinkurl{paperBvMu_eq}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean\#L625}{\nolinkurl{printed_four_rpow_mu}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean\#L658}{\nolinkurl{four_rpow_mu_lt_thirtyOne}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L125}{\nolinkurl{thirtyoneFour_irrational}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L129}{\nolinkurl{thirtyoneFour_pow_irrational}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L134}{\nolinkurl{thirtyoneFour_ratio_chain}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L153}{\nolinkurl{inv_bvMu_eq}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L169}{\nolinkurl{thirtyoneFour_between_rpow}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L182}{\nolinkurl{thirtyoneFour_outside_bv_inside_contour}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171}{\texttt{35624228171}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long1049:cor:rational-base-measure}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L194}{\nolinkurl{rational_base_measure_uniform}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean\#L205}{\nolinkurl{thirtyoneFour_power_measure_lt_301}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean\#L167}{\nolinkurl{rational_base_power_measure}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean\#L176}{\nolinkurl{thirtyone_four_power_measure_lt_301}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:archcap} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperLongCapR9.lean\#L411}{\nolinkurl{long_record_archcap}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long1049:cor:no-decay-below-square} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperNoDecayR9.lean\#L69}{\nolinkurl{cleared_below_square_not_tendsto_zero}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long1049:res:sourceheight}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SourceCoefficientHeights.lean\#L49}{\nolinkurl{exists_quadratic_source_height_bound}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SourceCoefficientHeights.lean\#L40}{\nolinkurl{maxPairHeight_source_eq}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:powerbracket}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L24}{\nolinkurl{power_bracket}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long1049:res:sharpgaps}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L34}{\nolinkurl{height_and_hankel_deficits}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:chargeceilings}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L44}{\nolinkurl{charge_ceilings}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:zudilin-sharp-qorder}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean\#L173}{\nolinkurl{order_zudilinNormalizedHankelDet_all}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean\#L199}{\nolinkurl{coeff_zudilinNormalizedHankelDet_all_rat}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Lemma~\ref{long1049:res:allrowinitial}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean\#L213}{\nolinkurl{all_row_initial}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean\#L242}{\nolinkurl{all_row_initial_reciprocal}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean\#L255}{\nolinkurl{all_row_initial_dvd}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean\#L116}{\nolinkurl{paperE_eq_rowExponent}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean\#L165}{\nolinkurl{paperReciprocal_zero}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean\#L171}{\nolinkurl{paperReciprocal_rec}}, \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean\#L73}{\nolinkurl{paperRatio_agree}}.  \emph{Compared}, runs \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171}{\texttt{35624228171}}, \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long1049:res:finite-pencil} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean\#L43}{\nolinkurl{coefficientPencil_finitePencil}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:content}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L59}{\nolinkurl{integer_scalar_content}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:endpoints}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L74}{\nolinkurl{endpoint_residues}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long1049:res:commonmult}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean\#L398}{\nolinkurl{commonMultiplier_not_two_not_three_of_endpoint_units}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long1049:res:nomult}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L220}{\nolinkurl{endpoint_scalar_content_exclusion}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long1049:res:cyclounit}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean\#L302}{\nolinkurl{cyclotomicHomEval_isCoprime_mul}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:jetkernel}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L248}{\nolinkurl{fourJet_paper_statement}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Corollary~\ref{long1049:res:rankfortyone}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L149}{\nolinkurl{rank_fortyone}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:boundedfibre}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/AdelicHeightBridge.lean\#L1832}{\nolinkurl{exists_ne_map_eq_map_ne_of_card_mul_lt}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:plucker-collapse}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L269}{\nolinkurl{plucker_paper_statement}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:scalar} (the Lean statement is stronger): \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L177}{\nolinkurl{scalar_margin}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:corridorbound}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean\#L121}{\nolinkurl{coordinatewiseCorridor_implies_pow_lt_linear}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171}{\texttt{35624228171}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long1049:res:exp}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean\#L142}{\nolinkurl{three_mul_lt_two_pow_succ}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171}{\texttt{35624228171}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:nocorridor}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean\#L155}{\nolinkurl{threeHalves_no_coordinatewiseCorridor}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:tailrec}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean\#L187}{\nolinkurl{rationalBaseClearedTailQ_succ}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35544127144}{\texttt{35544127144}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:forcing}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L186}{\nolinkurl{forcing_term}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Theorem~\ref{long1049:res:sevenhalves}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean\#L83}{\nolinkurl{sevenHalves_archimedean_height_condition}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35624228171}{\texttt{35624228171}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long1049:res:pade}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean\#L201}{\nolinkurl{pade_summand_bound_and_gap}}.  \emph{Compared}, run \href{https://github.com/wcook04/plectis-erdos-lean/actions/runs/35674034595}{\texttt{35674034595}}.
+\par\noindent\hangindent=1.5em Proposition~\ref{long1049:res:nomahler}: \href{https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean\#L298}{\nolinkurl{no_finite_simultaneous_two_three_system_unconditional}}.
+\par\endgroup
+% END GENERATED CONCORDANCE
+
 \paragraph{The Lambert identity and the integer case.}
 The cited \emph{Formal Conjectures} file contains unproved declarations
 for the conjecture and the integer-base irrationality theorem, as well
@@ -4001,11 +4531,13 @@ Section~\ref{long1049:sec:receipts} and the finite coefficient-moment
 tests in Section~\ref{long1049:sec:coefficient-questions}. The five complete polynomial contents and seventy-six cyclotomic
 residue witnesses are also supplied with exact reproduction scripts
 and direct polynomial determinant checks. None of these computations
-is a Lean declaration.
+is a Lean declaration. The positivity of the eight unshifted determinants
+used in Proposition~\ref{long1049:res:finite-pencil} also has a separate
+Lean proof, described in Section~\ref{long1049:sec:coefficient-questions}.
 
-The supplied index reports earlier build results. The present prose
-revision includes inspection of the attached sources, not a new Lean
-build or an audit of every axiom. The build status in that index and
+The supplied index reports earlier build results. The kernel checks and
+axioms stated in the coverage subsection above belong to the revisions
+named there. The build status in that index and
 the scope of a theorem's hypotheses are separate matters. Historical
 links remain unchanged and should be read at their own pinned revisions.
 
@@ -4255,6 +4787,13 @@ separately. The introduction locates the principal arguments.
   \emph{Calculation of Gauss Quadrature Rules}, Math. Comp. \textbf{23}
   (1969), no.~106, 221--230,
   doi:\href{https://doi.org/10.1090/S0025-5718-69-99647-1}{10.1090/S0025-5718-69-99647-1}.
+\bibitem{vinroot2010} C.~R. Vinroot,
+  \href{https://arxiv.org/abs/1011.0984}{\emph{Multivariate Rogers--Szeg\H{o}
+  polynomials and flags in finite vector spaces}}, arXiv:1011.0984v1,
+  3 November 2010, abstract accessed 20 September 2026.  Cited for the
+  identification of the sum of all $q$-multinomial coefficients of fixed
+  degree and length with a flag count, and for its recursion generalising the
+  Galois numbers.  The factorisation of the moment weights is proved here.
 \end{thebibliography}
 % ---- part family_catalogue ----
 % ---- part back ----

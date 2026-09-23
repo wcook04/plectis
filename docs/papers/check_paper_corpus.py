@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Check that this repository's paper corpus still matches its manuscripts.
 
-Generated file. This script is copied verbatim into each public repository by
-``export_paper_corpus.py`` in the private system repository; edit it there.
-
-Native text can be regenerated with ``refresh_paper_corpus.py`` and Pandoc.
+Native text and its corpus metadata can be regenerated in this checkout with
+``refresh_paper_corpus.py`` and Pandoc. Companion records retain their imported
+bytes and provenance and are refreshed from their named public home repository.
 This inexpensive check does not regenerate anything. It verifies locally that
 cheaply: every manuscript and every shipped PDF recorded in ``corpus.json``
 still hashes to the value the corpus was built from, and every recommended

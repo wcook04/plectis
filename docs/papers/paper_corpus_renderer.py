@@ -326,6 +326,80 @@ def _preserve_declaration_macros(tex: str) -> str:
     )
 
 
+_LEDGER_COMMIT_RE = re.compile(r"\\newcommand\{\\ledgercommit\}\{([0-9a-f]{40})\}")
+_LPROOF_RE = re.compile(r"\\lproof\{([^{}]+)\}\{(\d+)\}\{([^{}]+)\}")
+_LEANNOTE_RE = re.compile(r"\\leannote\{")
+_PAPERSECTIONLINK_RE = re.compile(
+    r"\\papersectionlink\{([^{}]+)\}\{([^{}]+)\}\{([^{}]+)\}"
+)
+_LEDGER_REPO = "https://github.com/wcook04/plectis-erdos/blob"
+
+
+def _ledger_commit(tex: str, tex_path: Path) -> str | None:
+    """The pin the manuscript's generated statement notes resolve at.
+
+    The problem notes reach it through the shared preamble, which Pandoc never
+    reads, so the shared file is consulted when the manuscript does not declare
+    one itself.
+    """
+
+    match = _LEDGER_COMMIT_RE.search(tex)
+    if match is not None:
+        return match.group(1)
+    for parent in tex_path.resolve().parents:
+        shared = parent / "problem-note-preamble.tex"
+        if shared.is_file():
+            match = _LEDGER_COMMIT_RE.search(shared.read_text(encoding="utf-8"))
+            return None if match is None else match.group(1)
+    return None
+
+
+def _preserve_generated_note_macros(tex: str, tex_path: Path) -> str:
+    """Expand the generated statement note into links Pandoc can read.
+
+    ``\\leannote`` and ``\\lproof`` are defined in a preamble Pandoc does not
+    see, so without this the Markdown mirror would silently lose the line that
+    carries each statement's Lean proof.  The rendered text matches the PDF:
+    monospace declaration names in the two reasoning records, and the shared
+    spaced reading everywhere else.
+    """
+
+    commit = _ledger_commit(tex, tex_path)
+    monospace = "\\texttt{#3}" in tex
+
+    def link(match: re.Match[str]) -> str:
+        source, line, declaration = match.groups()
+        label = (
+            rf"\texttt{{{declaration}}}" if monospace
+            else _readable_lean_label(declaration)
+        )
+        if commit is None:
+            return label
+        url = f"{_LEDGER_REPO}/{commit}/lean/{source}\\#L{line}"
+        return rf"\href{{{url}}}{{{label}}}"
+
+    tex = _LPROOF_RE.sub(link, tex)
+    tex = _PAPERSECTIONLINK_RE.sub(
+        lambda match: (
+            rf"\href{{{match.group(1)}\#nameddest={match.group(2)}}}{{{match.group(3)}}}"
+        ),
+        tex,
+    )
+    chunks: list[str] = []
+    cursor = 0
+    while True:
+        match = _LEANNOTE_RE.search(tex, cursor)
+        if match is None:
+            chunks.append(tex[cursor:])
+            return "".join(chunks)
+        open_index = match.end() - 1
+        close_index = _matching_brace(tex, open_index)
+        chunks.extend(
+            (tex[cursor : match.start()], "\n\n", tex[open_index + 1 : close_index], "\n\n")
+        )
+        cursor = close_index + 1
+
+
 def _remove_immediate_duplicate_gfm_table_headers(markdown: str) -> str:
     """Remove the repeated header row emitted for a LaTeX ``longtable``.
 
@@ -671,6 +745,7 @@ def _convert(tex_path: Path, stem: str) -> dict[str, Any]:
     source = _preserve_path_macros(tex_path.read_text())
     source = _fold_custom_verbatim_environments(source)
     source = _preserve_declaration_macros(source)
+    source = _preserve_generated_note_macros(source, tex_path)
     source, inlined = _inline_long_defs(source)
     ast = json.loads(
         _pandoc(

@@ -38,6 +38,8 @@ implies that $`X_A(b)`$ is irrational for every integer $`b\ge2`$. Both conclusi
 
 </div>
 
+Lean: [divisibility weighted claim](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L120), [finite prime weighted fixed base hereditary](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedHereditaryClaim.lean#L31).
+
 For $`P=\{2\}`$, the summand in <a href="#eq:weighted-fixed-base" data-reference-type="eqref" data-reference="eq:weighted-fixed-base">[eq:weighted-fixed-base]</a> is $`1/[m(b^{2^k}-1)]`$ when $`a=2^km`$ and $`m`$ is odd. Large powers of $`2`$ can therefore compensate for large reciprocal mass among the odd factors. The example following the proof in Section <a href="#sec:eight-return-extensions" data-reference-type="ref" data-reference="sec:eight-return-extensions">3</a> makes this precise. The reciprocal mass at each fixed $`P`$-part must be finite, and its weighted sum over the parts must converge; the first requirement alone is insufficient. Section 1.2 of the companion, *Reciprocal Mersenne Subseries*, gives the decomposition and a separating example.
 
 For every finite $`P`$, full support and all odd exponents fail the condition: the integers coprime to $`2\prod_{p\in P}p`$ have $`h(a)=1`$ and divergent reciprocal sum, by inclusion–exclusion. The full set of primes fails too, since the primes outside $`P`$ contribute $`1/[a(b-1)]`$. These are limitations of this criterion, not assertions of rationality. By contrast, $`h/(2^h-1)\le1`$ shows that it includes every reciprocal-summable support.
@@ -51,6 +53,8 @@ For every finite $`P`$, full support and all odd exponents fail the condition: t
 then $`X_A(b)`$ is irrational for every integer $`b\ge2`$.*
 
 </div>
+
+Lean: [irrational erdos support series of summable reciprocal](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/AllBaseReciprocalSupportIrrationality.lean#L395).
 
 Erdős stated Theorem <a href="#res:reciprocal-support" data-reference-type="ref" data-reference="res:reciprocal-support">2</a>, including the all-base conclusion, after proving its pairwise-coprime case \[erdos1968, p. 222\]. We give a complete averaging proof of that stated extension. Erdős also discussed weakening reciprocal summability \[erdos1968, pp. 222, 226\]; no identification of the weighted condition with his suggested conditions is asserted.
 
@@ -290,6 +294,8 @@ then $`X_A(b)`$ is irrational for every infinite $`A\subseteq\bigcup_jF_j`$ and 
 
 </div>
 
+Lean: [strengthened positive cover claim](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/PositiveCoverReturn.lean#L241).
+
 Every finite set admits a majorant of the required kind: take $`\alpha_j=1`$ and $`c_{j,d}=\mathbf1_{F_j}(d)`$. The restriction is that the costs of the whole sequence satisfy <a href="#eq:strengthened-cover" data-reference-type="eqref" data-reference="eq:strengthened-cover">[eq:strengthened-cover]</a>. For a simple admissible family, take $`F_j=\{4^j\}`$, $`\alpha_j=1`$, and $`c_{j,4^j}=1`$, with all other coefficients zero. Then $`C_j=4^{-j}`$ and the series in <a href="#eq:strengthened-cover" data-reference-type="eqref" data-reference="eq:strengthened-cover">[eq:strengthened-cover]</a> is $`\sum_j2^{-j}`$. The logarithmic obstruction below gives a necessary condition for such a cover.
 
 <div class="proof">
@@ -380,6 +386,8 @@ Separate small-displacement witnesses need not occur at the same index. For exam
 
 </div>
 
+Lean: [mixed support claim](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean#L126), [arbitrary weight mixed support all base hereditary](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR8/ArbitraryWeightMixedClaim.lean#L101).
+
 <div class="proof">
 
 *Proof.* Fix $`\varepsilon>0`$ and an integer $`N_0\ge1`$, and put $`\rho=\varepsilon/3`$. Use the cover notation $`B_j,U_j,V_j`$ above, with $`\eta_j=2^{-j}`$ in the case <a href="#eq:strengthened-cover" data-reference-type="eqref" data-reference="eq:strengthened-cover">[eq:strengthened-cover]</a>. Set $`t_j=\rho\eta_j`$ and choose $`J`$ so that
@@ -430,6 +438,8 @@ For a finite nonempty $`F\subseteq\mathbb{N}_{>0}`$, let $`D_F`$ be the positive
 If moreover $`\operatorname{lcm}(F)\ge2`$, then $`\operatorname{lcm}(F)<D_F`$. We use $`\operatorname{ord}_1(b)=1`$, so the statement includes $`F=\{1\}`$ at $`b=2`$.*
 
 </div>
+
+Lean: [coprime base den finite erdos sum](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5221), [finite period noncollapse rat den](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5246), [lcm lt den finite erdos sum](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/CertificateKernel.lean#L5260).
 
 Coprimality is [coprimality of the base and finite-sum denominator](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5221), the order statement is [noncollapse for the reduced rational denominator](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5246), and the size bound is [the lower bound for the finite-sum denominator](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/CertificateKernel.lean#L5260). The three clauses are the CertificateKernel declarations just cited; `PaperCompleteR7/Assemblies.lean` is not in this checkout.
 
@@ -523,6 +533,8 @@ Thus $`P_N=\sum_{j=1}^N2^{N-j}c_x(j)`$ is the integer truncation of the Lambert 
 
 </div>
 
+Lean: [paper general repair criteria](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR20/GeneralRepairCorrespondence.lean#L15).
+
 The following is an ordinary proof. The supplied solution wrapper `Solutions/PalomarCorpus/E257/GeneralRepairCriterion.lean` contains the two named equivalences, with explicit bridges to the challenge definitions and the same square-root window. Its provenance is the separate release `52f29ad173b0`. This static comparison is not a new replay; a challenge declaration alone is not cited as a proof.
 
 <div class="proof">
@@ -612,6 +624,8 @@ Some of these clauses follow from others once the eventual all-selected behaviou
 
 </div>
 
+Lean: [one div twenty one mem iff not fatal aligned branch](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TwentyOneQuotientGreedy.lean#L3507), [twenty one cofinal even quotient greedy decay of closed rows](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TwentyOneQuotientGreedy.lean#L5554), [one div twenty one mem mersenne achievement set of cofinal greedy decay](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TwentyOneQuotientGreedy.lean#L5458), [twenty one fatal aligned branch eventually strict supercapacity](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/TwentyOneQuotientGreedy.lean#L5625), and 1 further declaration in the [coverage section of the companion record](../mirror/erdos257-mersenne-reasoning-surface.pdf#nameddest=coverage).
+
 The equivalence is [the equivalence with failure of $`\mathcal F_{21}`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L3507); the closed-row compactness step is [vanishing scaled error from unbounded closed rows](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5554); and the eventual affine regime is [the eventual affine recurrence on $`\mathcal F_{21}`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5658). The finite uniqueness statement is also explicit: if $`D\subseteq\{2,\ldots,R\}`$ and an integer $`s`$ satisfy $`\sum_{d\in D}q_{2R}(d)+s=T_{2R}`$ with $`0\le s\le2^R`$, then $`D=D_R`$ and $`s=s_R`$. This is the denominator-specific separation theorem ([uniqueness of a finite representation with the stated remainder bound](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L231)). The cited finite crossing lemmas give additional consequences under their alignment hypotheses: an earlier finite prefix cannot occur, and a real greedy exponent must be skipped ([the missing-prefix consequence of an aligned crossing](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5179), [the real greedy skip forced by that crossing](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/Erdos249257/TwentyOneQuotientGreedy.lean#L5223)).
 
 <a id="approximation-to-12-by-finite-supports."></a>
@@ -633,6 +647,8 @@ It measures the error in the truncated divisor-coefficient sum, after multiplica
 Then $`X_A(2)=1/2`$ for some infinite set $`A\subseteq\mathbb{N}_{>0}`$.*
 
 </div>
+
+Lean: [paper terminalhalf](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos257/PaperCompleteR20/TerminalSetCorrespondence.lean#L51).
 
 No agreement between different $`A_j`$ is assumed, and no bound is imposed on their earlier carries. Producing such finite approximants would refute Problem <a href="#res:problem" data-reference-type="ref" data-reference="res:problem">3</a>; their existence is not established here. The implication follows from the estimate
 ``` math
@@ -674,6 +690,8 @@ Thus the binary suffixes have consecutive values $`E-k`$, while the terminal car
 **Theorem 10** (unbounded shared-prefix families imply a half-support). *Suppose that for every $`N`$ there are $`M,K`$ with $`\max\{N,1\}\le M`$, $`0\le K\le M`$, and a family satisfying all the conditions in the preceding paragraph. Then $`X_A(2)=1/2`$ for some infinite set $`A\subseteq\mathbb{N}_{>0}`$.*
 
 </div>
+
+Lean: [exists infinite positive support half of cofinal cylinder stages](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L287).
 
 Choosing one member from each family gives the terminal bound in Theorem <a href="#res:terminalhalf" data-reference-type="ref" data-reference="res:terminalhalf">9</a>, proving the conclusion. The shared-prefix conditions are needed for the proposed construction of the families, not for this final compactness step. Such a construction at unbounded depths would refute Problem #257; none is proved here.
 

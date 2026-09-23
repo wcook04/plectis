@@ -6,8 +6,12 @@
 % `tectonic erdos-1049-rational-base-lambert.tex` or `make`.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-\renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
-\renewcommand{\commitshort}{99f4bf47422a}
+\renewcommand{\commit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
+\renewcommand{\commitshort}{7380b7871687}
+\renewcommand{\PX}{lean/ErdosProblems}
+% Exact proof links below resolve at the same formal-source checkpoint.
+\newcommand{\latecommit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
+\newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Zudilin's forms at rational bases and the exact normalised Hankel order (Erdos Problem 1049)},
   pdfsubject={Erdos Problem Notes: Problem 1049},
@@ -42,8 +46,15 @@ construction, with auxiliary parameters $x=z=1$, we prove
 \]
 The order is the least exponent with nonzero coefficient; a unique
 least-order term in the moment expansion gives both formulas.
-The rational-base criterion does not include $3/2$; neither argument
-settles irrationality at that base.
+For fixed $0<q<1$ we prove that, as $N\to\infty$,
+$V_N^*(q)\sim K(q)C_Nq^{B_N}(q;q)_\infty^{2N}N^{-8F(1/q)}$, where $B_N$ and
+$C_N$ are the order and coefficient above and $K(q)>0$ is given by a
+convergent product. We also factor the moment weights into two finite
+$q$-multinomial sums. For every real $p>1$, a separate Lean-checked finite
+coefficient pencil has positive definite first matrix and real roots below
+$F(p)$ through rank eight; roots at adjacent ranks interlace non-strictly.
+The rational-base criterion does not include $3/2$; none of these finite
+spectral facts settles irrationality at that base.
 \end{abstract}
 
 \section{Introduction}\label{sec:problem}
@@ -143,6 +154,7 @@ Let $a>b\ge1$ be coprime integers with
 \]
 Then $F(a/b)$ is irrational.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{440}{printed_contour_short}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{461}{printed_mu}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{334}{zudilinJ_enclosure}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean}{383}{zudilinC0_enclosure}, and 7 further declarations in the \papersectionlink{erdos1049-rational-base-lambert-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
 
 \noindent The condition holds for every integer base, since $b=1$ gives
 $\log b/\log a=0$. For a fixed denominator $b>1$, it requires
@@ -373,6 +385,7 @@ The separation bound for a nonzero integral form at a rational target is
 \begin{corollary}\label{res:thirtyone-four}
 $F\bigl((31/4)^r\bigr)$ is irrational for every integer $r\ge1$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean}{117}{thirtyone_four_powers}.}
 \begin{proof}
 The exact inequalities $31^2<4^5$ and $4^{200}<31^{81}$ give
 $2/5<\log4/\log31<81/200$.
@@ -402,6 +415,7 @@ Here $\mu_{\rm irr}(\xi)$ is the supremum of the exponents $\nu$ for which
 $|\xi-p/q|<q^{-\nu}$ has infinitely many reduced rational solutions.
 In particular, $\mu_{\rm irr}(F((31/4)^r))<301$ for every $r\ge1$.
 \end{corollary}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean}{194}{rational_base_measure_uniform}, \lproof{ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean}{205}{thirtyoneFour_power_measure_lt_301}, \lproof{ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean}{167}{rational_base_power_measure}, \lproof{ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean}{176}{thirtyone_four_power_measure_lt_301}.}
 \begin{proof}
 The passage from the forms to an exponent bound is the standard one that
 Zudilin uses at integer bases \cite[p.~162]{zudilin2004}; the estimates below
@@ -547,6 +561,7 @@ $d_n=\max(\deg U_n,\deg V_n)$, the homogenised forms
 $b^{d_n}\Lambda_n(a/b)$ tend to zero whenever
 $\log b/\log a<\sigma/(\sigma+\delta)$, and $\sigma/(\sigma+\delta)\le1/2$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperShortCapR9.lean}{162}{short_note_archimedean_cap}.}
 \end{sloppypar}
 
 \begin{proof}
@@ -639,6 +654,7 @@ and the coefficient of the first nonzero monomial is
    =\frac{(N!)^2(N+1)!}{2^N}.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/AllRow/Producer.lean}{173}{order_zudilinNormalizedHankelDet_all}, \lproof{ErdosProblems/Erdos1049/AllRow/Producer.lean}{199}{coeff_zudilinNormalizedHankelDet_all_rat}.}
 
 \begin{proof}
 To obtain moments at the nodes $q^k$, collect the dependence on $m$ into
@@ -703,21 +719,72 @@ moment expansion above. It checks both identities at every rank as
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173}{the exact order} and
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199}{the leading coefficient}.
 
-\paragraph{What the order calculation does not imply.}
+\paragraph{From formal order to size at a fixed base.}
 Formal order alone does not bound the value at a fixed $q$: multiplication
 by $(1-q)^{N^3}$ leaves the first term unchanged but changes its logarithm
-by a cubic quantity. The long record, Section~3.1, separately proves
-$V_N^*(q)>0$ and
+by a cubic quantity. The long record, Section~3.1, proves separately that
+$V_N^*(q)>0$ and that $\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)$ for fixed
+$0<q<1$. The same positive-measure argument, carried further, settles the
+size within that band. The theorem below and its proof are ordinary
+mathematics; neither is formalised in Lean.
+
+\begin{theorem}[the size of $V_N^*$ at a fixed base]\label{res:sharp-fixed-base}
+Fix $0<q<1$ and write $P=(q;q)_\infty$, $B_N=N(N-1)(2N-1)/6$ and
+$C_N=(N!)^2(N+1)!/2^N$. There is a $K(q)>0$ with
 \[
- \log\!\left(
- \frac{V_N^*(q)}{\bigl((N!)^2(N+1)!/2^N\bigr)
- q^{N(N-1)(2N-1)/6}}\right)=O_q(N)
- \qquad(0<q<1\text{ fixed}).
+ V_N^*(q)\sim K(q)\,C_Nq^{B_N}P^{2N}N^{-8F(1/q)}
+ \qquad(N\to\infty).
 \]
-Neither assertion supplies the cyclotomic divisibility proved for a
-different recurrence in \cite[Prop.~4, pp.~14--15]{krvz2009}.
+\end{theorem}
+
+\begin{proof}[Outline; the full proof is in the long record]
+Collecting the moment dependence in $w=q^{m+1}$ as above writes
+$v_m^*=\sum_{k\ge0}a_kq^{(m+1)k}$ with $a_k=[w^k]P^4G_q(w)$. Two facts about
+these weights suffice. First, they factor exactly as
+\[
+ a_k=P^4\frac{R_k^{(2)}R_k^{(3)}}{(q;q)_k},
+ \qquad
+ R_k^{(r)}=\sum_{n_1+\cdots+n_r=k}\frac{(q;q)_k}{\prod_j(q;q)_{n_j}},
+\]
+which gives $P^5c_k\le a_k\le P^{-1}c_k$ and a polynomial bound on the ratios
+$a_{k+h}/a_k$. Second, $P^4(1-w)^4G_q(w)$ is analytic past the unit circle with
+value $3$ and derivative $2+8F(1/q)$ at $w=1$, so
+$a_k/c_k=1-8F(1/q)/(k+1)+O_q((k+1)^{-2})$ and
+$\prod_{k<N}a_k\sim\mathcal A(q)C_NN^{-8F(1/q)}$ for a convergent product
+$\mathcal A(q)$.
+
+In Heine's expansion of the determinant, write each increasing tuple as
+$k_i=i+\lambda_i$ and reverse the shifts to obtain a partition. The least tuple
+contributes $q^{B_N}\prod_{k<N}a_k$ times its own Vandermonde product
+$\Delta_N=\prod_{d<N}(1-q^d)^{2(N-d)}$; the first bound on the weights
+majorises every other tuple by a summand that is summable over partitions and
+independent of $N$. Dominated convergence then reduces the normalised sum to
+the case $a_k\equiv1$, where Cauchy's determinant evaluates it, and that sum
+tends to $\mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d}$. Separately
+$\Delta_N/P^{2N}\to\mathcal M(q)^2$. Writing $\mathcal A(q)$ for the
+convergent product above, the constant is
+$K(q)=\mathcal A(q)\mathcal M(q)^3$.
+\end{proof}
+
+One of those three factors of $\mathcal M(q)$ comes from the tuples other than
+the least one, and is therefore invisible to the order calculation; the other
+two come from comparing the least tuple's own Vandermonde product with
+$P^{2N}$. The long record proves both ingredients in full, including the degree
+$\lfloor k^2/4\rfloor+\lfloor k^2/3\rfloor$ and coefficient sum $6^k$ of the
+product $R_k^{(2)}R_k^{(3)}$.
+
+\paragraph{What neither calculation implies.}
+Theorem~\ref{res:sharp-fixed-base} replaces that band by explicit linear
+and logarithmic terms and a constant. It changes no cubic coefficient and no
+prime-power valuation, so it supplies no divisor for the 2004 polynomial forms.
+Against the two proposed degree savings of long Section~3, the shortfall at
+$3/2$ is exactly $N(74N^2-117N+41)/41>0$ for $N\ge2$, and the new estimate
+closes no part of it. Neither assertion supplies the cyclotomic divisibility proved
+for a different recurrence in \cite[Prop.~4, pp.~14--15]{krvz2009}.
 The separate coefficient and content calculations are in long
-Section~3.2; Appendix~\ref{app:index} records their sources and finite scope.
+Section~3.3. Its finite pencil proposition is now Lean-checked through
+rank eight, including positivity, root location and non-strict interlacing;
+Appendix~\ref{app:index} records the precise source and finite scope.
 
 \section{Supplementary arithmetic at \texorpdfstring{$3/2$}{3/2}}
 \label{sec:open}
@@ -785,6 +852,7 @@ $2^{\,N+1}\le B\,c(N+1)\,s^{\,N+1}$.
 \item If $s=1$, then $B\,c(N+1)\,s^{\,N+1}=B\,c(N+1)$.
 \end{enumerate}
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{186}{forcing_term}.}
 \begin{proof}
 In the first case, $2^{N+1}\le s^{N+1}\le Bc(N+1)s^{N+1}$.
 The second case follows by substituting $s=1$.
@@ -843,6 +911,7 @@ indicator vectors gives a nonzero coefficient vector in
 \]
 In particular, if \(R>0\) and \(4R+2S\le M\), such a collision exists.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{248}{fourJet_paper_statement}.}
 
 \begin{proof}
 Send each subset to the sum of the residue vectors of its members.
@@ -875,6 +944,7 @@ binary selectors $s,t\in\{0,1\}^{k}$ such that
 Thus $S+2R$ rows suffice, in place of the sufficient bound $2S+4R$
 from the ambient two-coordinate count.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{269}{plucker_paper_statement}.}
 
 \begin{proof}
 If $uA+vB=1$ and $AB'-BA'=0$, then
@@ -929,6 +999,7 @@ $\widetilde{E}_n-\widetilde{P}(n,k)=(n-k)(3n-k-1)$;
 is $\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)$.
 \end{enumerate}
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{201}{pade_summand_bound_and_gap}.}
 
 For the first inequality the gap is zero at $n=k=0$; otherwise both
 factors are nonnegative. Substituting $j=n-m-1$ gives the second
@@ -944,6 +1015,7 @@ and its
 show that the added divisibility is accompanied by exactly the same
 factor in the real absolute value.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean}{59}{integer_scalar_content}.}
 
 For nonzero row contents $c_1,c_2$, write $r_i=c_ir_i^{\rm prim}$.
 Then $\det(r_1,r_2)=c_1c_2\det(r_1^{\rm prim},r_2^{\rm prim})$ and
@@ -1005,6 +1077,7 @@ If $|B||J|k<|A|$, then some distinct $x,y\in A$ satisfy
  f(x)=f(y),\qquad 0<|g(x)-g(y)|<\delta.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/QuantitativeSelectorEscape.lean}{79}{exists_small_real_escape_of_conditional_multiplicity}.}
 \begin{proof}
 Partition $A$ by $(f,\iota)$.  Some cell has more than $k$ elements, so its
 $g$-values cannot all agree.  Two unequal values in that cell have the same
@@ -1126,9 +1199,16 @@ section; they are not inputs to the rational specialisation in Section~2.
 \paragraph{Coefficient moments.}
 The coefficient polynomials in \cite[Sec.~3, p.~5]{zudilin2016} give a
 moment problem different from the remainder moments in Section~3.
-Long Section~3.2 checks the two leading Hankel families through rank eight,
+Long Section~3.3 checks the two leading Hankel families through rank eight,
 not the all-rank criterion in \cite[Lemma~2.1, p.~4]{wangzhu2016}.
-It proves a finite moment representation and discusses $(m!)^3$ at the
+For the unshifted family, positivity through rank eight at every real
+$p\ge1$ is also a
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean\#L458}{Lean theorem}.
+The \href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean\#L43}{finite-pencil proposition} proves that for real $p>1$ and every rank $N\le8$,
+$A_N$ is positive definite, all roots of $\det(YA_N-B_N)$ are real and
+less than $F(p)$, and roots at adjacent ranks interlace non-strictly.
+The shifted eight certificates remain separately computed in this account.
+Long Section~3.3 also proves a finite moment representation and discusses $(m!)^3$ at the
 endpoint \cite[Thm.~5.1]{berg2007}, formal continued fractions and finite
 quadrature \cite{sw2024,golubwelsch1969}. It also gives complete polynomial
 contents through rank five and specified cyclotomic residue tests through
@@ -1141,6 +1221,10 @@ Bell and Smertnig's classification
 excludes $k$-Mahler equations for $L(z)=\sum_{n\ge1}\tau(n)z^n$ when
 $k\ge2$: there is no polynomial-coefficient relation among
 $L(z),L(z^k),\ldots,L(z^{k^d})$ with a nonzero coefficient of $L(z)$.
+The single-base exclusion is also a Lean theorem, in the form that for
+every $k\ge2$ no finite-dimensional $\Q(z)$-subspace of $\Q((z))$
+containing $L$ is stable under $z\mapsto z^k$
+(\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean\#L263}{single-base statement}).
 Long Section~10.3 explains this functional obstruction; it gives no
 irrationality statement for $L(2/3)=F(3/2)$.
 
@@ -1153,11 +1237,15 @@ and proves the irrationality and measure results;
 \texttt{AllRow/Producer.lean} constructs the transformed rows and
 proves the all-rank determinant formulas.
 
-The index distinguishes reported public, parallel-release and unbuilt
-material; no new Lean run is claimed. The linked invertible-coordinate
+The historical index distinguishes reported public, parallel-release and
+unbuilt material at its pinned snapshot; no new Lean run is claimed by that
+index. The later finite-pencil declaration is linked separately above.
+The linked invertible-coordinate
 theorem is weaker than the ordinary unimodular-row theorem.
-The finite computations described above are not Lean proofs; their
-certificates and reproduction scripts are in the long record.
+The sixteen historical certificate lists and reproduction scripts remain
+in the long record. The unshifted rank-eight positivity and finite pencil
+proposition have separate Lean proofs at the source checkpoint; this does not
+promote the shifted certificates or any all-rank coefficient claim.
 Historical links retain their original revisions and line numbers,
 which have not been revalidated. Long Appendix~A records the snapshot
 identifiers and gives the full source guide.

@@ -16,7 +16,7 @@ For the distinct normalised Hankel determinants $`V_N^*`$ in his 2016 constructi
  \qquad [q^{\operatorname{ord}_q V_N^*}]V_N^*
        =\frac{(N!)^2(N+1)!}{2^N}.
 ```
-The order is the least exponent with nonzero coefficient; a unique least-order term in the moment expansion gives both formulas. The rational-base criterion does not include $`3/2`$; neither argument settles irrationality at that base.
+The order is the least exponent with nonzero coefficient; a unique least-order term in the moment expansion gives both formulas. For fixed $`0<q<1`$ we prove that, as $`N\to\infty`$, $`V_N^*(q)\sim K(q)C_Nq^{B_N}(q;q)_\infty^{2N}N^{-8F(1/q)}`$, where $`B_N`$ and $`C_N`$ are the order and coefficient above and $`K(q)>0`$ is given by a convergent product. We also factor the moment weights into two finite $`q`$-multinomial sums. For every real $`p>1`$, a separate Lean-checked finite coefficient pencil has positive definite first matrix and real roots below $`F(p)`$ through rank eight; roots at adjacent ranks interlace non-strictly. The rational-base criterion does not include $`3/2`$; none of these finite spectral facts settles irrationality at that base.
 
 <a id="sec:problem"></a>
 
@@ -72,6 +72,8 @@ The intervals are disjoint and lie in $`[1/14,1)`$, so $`0\le J\le\psi_1(1/14)-\
 Then $`F(a/b)`$ is irrational.*
 
 </div>
+
+Lean: [printed contour short](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L440), [printed mu](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L461), [zudilin j enclosure](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L334), [zudilin c0 enclosure](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean#L383), and 7 further declarations in the [coverage section of the companion record](../mirror/erdos1049-rational-base-lambert-reasoning-surface.pdf#nameddest=coverage).
 
 The condition holds for every integer base, since $`b=1`$ gives $`\log b/\log a=0`$. For a fixed denominator $`b>1`$, it requires $`a>b^{2.46497868\ldots}`$, much more than $`a>b`$; nevertheless it gives infinitely many reduced noninteger rational bases for each such $`b`$. The base $`31/4`$ satisfies the condition, and taking a common positive integer power of the numerator and denominator leaves their logarithmic ratio unchanged. The base $`3/2`$ is excluded since $`\theta^*<1/2<\log2/\log3`$. At equality $`\log b/\log a=\theta^*`$ the quadratic exponent vanishes, so the estimates below give no conclusion.
 
@@ -220,6 +222,8 @@ The coefficient is negative under the theorem’s hypothesis. The positive value
 
 </div>
 
+Lean: [thirtyone four powers](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L117).
+
 <div class="proof">
 
 *Proof.* The exact inequalities $`31^2<4^5`$ and $`4^{200}<31^{81}`$ give $`2/5<\log4/\log31<81/200`$. The first term of each trigamma difference yields
@@ -246,6 +250,8 @@ Finally, the logarithmic ratio and coprimality are preserved by a common positiv
 Here $`\mu_{\rm irr}(\xi)`$ is the supremum of the exponents $`\nu`$ for which $`|\xi-p/q|<q^{-\nu}`$ has infinitely many reduced rational solutions. In particular, $`\mu_{\rm irr}(F((31/4)^r))<301`$ for every $`r\ge1`$.*
 
 </div>
+
+Lean: [rational base measure uniform](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L194), [thirtyone four power measure lt 301](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean#L205), [rational base power measure](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L167), [thirtyone four power measure lt 301](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean#L176).
 
 <div class="proof">
 
@@ -300,7 +306,7 @@ Bundschuh and Väänänen’s Theorem 2 at $`\alpha=-1`$ \[bv1994, p. 177\] gi
 
 <div id="res:sevenhalves" class="theorem">
 
-**Theorem 4** (the $`7/2`$ height condition). *The [integer power certificate](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32) $`2^{18}<7^7`$ yields the [Archimedean height condition](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83)
+**Theorem 4** (the $`7/2`$ height condition). *The [integer power certificate](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L32) $`2^{18}<7^7`$ yields the [Archimedean height condition](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L83)
 ``` math
 \frac{\log 7}{\log(7/2)}
  <
@@ -336,6 +342,8 @@ The next restriction requires one polynomial family and common leading degree, h
 **Theorem 5** (a degree restriction for estimates valid at every base). *Let $`(U_n,V_n)`$ be pairs in $`\mathbb Z[X]^2`$ satisfying $`\Lambda_n(x)=U_n(x)F(x)-V_n(x)\ne0`$, $`\deg U_n,\deg V_n\le\delta n^2(1+o(1))`$, $`\log\max(H(U_n),H(V_n))\le h n^2(1+o(1))`$ with $`H`$ the $`\ell^1`$ coefficient norm, and $`\log|\Lambda_n(x)|=-\sigma n^2\log x\,(1+o(1))`$ for every real $`x>1`$, with $`\sigma,\delta>0`$ and $`h\ge0`$ independent of $`x`$. Then with $`d_n=\max(\deg U_n,\deg V_n)`$, the homogenised forms $`b^{d_n}\Lambda_n(a/b)`$ tend to zero whenever $`\log b/\log a<\sigma/(\sigma+\delta)`$, and $`\sigma/(\sigma+\delta)\le1/2`$.*
 
 </div>
+
+Lean: [short note archimedean cap](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperShortCapR9.lean#L162).
 
 <div class="proof">
 
@@ -390,6 +398,8 @@ and the coefficient of the first nonzero monomial is
 
 </div>
 
+Lean: [order zudilin normalized hankel det all](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173), [coeff zudilin normalized hankel det all rat](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199).
+
 <div class="proof">
 
 *Proof.* To obtain moments at the nodes $`q^k`$, collect the dependence on $`m`$ into $`w=q^{m+1}`$. Write $`P=(q;q)_\infty`$ and set
@@ -434,18 +444,43 @@ No other tuple can cancel this coefficient. ◻
 
 The Lean proof uses transformed rows rather than the moment expansion above. It checks both identities at every rank as [the exact order](https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L173) and [the leading coefficient](https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L199).
 
-<a id="what-the-order-calculation-does-not-imply."></a>
+<a id="from-formal-order-to-size-at-a-fixed-base."></a>
 
-#### What the order calculation does not imply.
+#### From formal order to size at a fixed base.
 
-Formal order alone does not bound the value at a fixed $`q`$: multiplication by $`(1-q)^{N^3}`$ leaves the first term unchanged but changes its logarithm by a cubic quantity. The long record, Section 3.1, separately proves $`V_N^*(q)>0`$ and
+Formal order alone does not bound the value at a fixed $`q`$: multiplication by $`(1-q)^{N^3}`$ leaves the first term unchanged but changes its logarithm by a cubic quantity. The long record, Section 3.1, proves separately that $`V_N^*(q)>0`$ and that $`\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)`$ for fixed $`0<q<1`$. The same positive-measure argument, carried further, settles the size within that band. The theorem below and its proof are ordinary mathematics; neither is formalised in Lean.
+
+<div id="res:sharp-fixed-base" class="theorem">
+
+**Theorem 7** (the size of $`V_N^*`$ at a fixed base). *Fix $`0<q<1`$ and write $`P=(q;q)_\infty`$, $`B_N=N(N-1)(2N-1)/6`$ and $`C_N=(N!)^2(N+1)!/2^N`$. There is a $`K(q)>0`$ with
 ``` math
-\log\!\left(
- \frac{V_N^*(q)}{\bigl((N!)^2(N+1)!/2^N\bigr)
- q^{N(N-1)(2N-1)/6}}\right)=O_q(N)
- \qquad(0<q<1\text{ fixed}).
+V_N^*(q)\sim K(q)\,C_Nq^{B_N}P^{2N}N^{-8F(1/q)}
+ \qquad(N\to\infty).
+```*
+
+</div>
+
+<div class="proof">
+
+*Outline; the full proof is in the long record.* Collecting the moment dependence in $`w=q^{m+1}`$ as above writes $`v_m^*=\sum_{k\ge0}a_kq^{(m+1)k}`$ with $`a_k=[w^k]P^4G_q(w)`$. Two facts about these weights suffice. First, they factor exactly as
+``` math
+a_k=P^4\frac{R_k^{(2)}R_k^{(3)}}{(q;q)_k},
+ \qquad
+ R_k^{(r)}=\sum_{n_1+\cdots+n_r=k}\frac{(q;q)_k}{\prod_j(q;q)_{n_j}},
 ```
-Neither assertion supplies the cyclotomic divisibility proved for a different recurrence in \[krvz2009, Prop. 4, pp. 14–15\]. The separate coefficient and content calculations are in long Section 3.2; Appendix <a href="#app:index" data-reference-type="ref" data-reference="app:index">5</a> records their sources and finite scope.
+which gives $`P^5c_k\le a_k\le P^{-1}c_k`$ and a polynomial bound on the ratios $`a_{k+h}/a_k`$. Second, $`P^4(1-w)^4G_q(w)`$ is analytic past the unit circle with value $`3`$ and derivative $`2+8F(1/q)`$ at $`w=1`$, so $`a_k/c_k=1-8F(1/q)/(k+1)+O_q((k+1)^{-2})`$ and $`\prod_{k<N}a_k\sim\mathcal A(q)C_NN^{-8F(1/q)}`$ for a convergent product $`\mathcal A(q)`$.
+
+In Heine’s expansion of the determinant, write each increasing tuple as $`k_i=i+\lambda_i`$ and reverse the shifts to obtain a partition. The least tuple contributes $`q^{B_N}\prod_{k<N}a_k`$ times its own Vandermonde product $`\Delta_N=\prod_{d<N}(1-q^d)^{2(N-d)}`$; the first bound on the weights majorises every other tuple by a summand that is summable over partitions and independent of $`N`$. Dominated convergence then reduces the normalised sum to the case $`a_k\equiv1`$, where Cauchy’s determinant evaluates it, and that sum tends to $`\mathcal M(q)=\prod_{d\ge1}(1-q^d)^{-d}`$. Separately $`\Delta_N/P^{2N}\to\mathcal M(q)^2`$. Writing $`\mathcal A(q)`$ for the convergent product above, the constant is $`K(q)=\mathcal A(q)\mathcal M(q)^3`$. ◻
+
+</div>
+
+One of those three factors of $`\mathcal M(q)`$ comes from the tuples other than the least one, and is therefore invisible to the order calculation; the other two come from comparing the least tuple’s own Vandermonde product with $`P^{2N}`$. The long record proves both ingredients in full, including the degree $`\lfloor k^2/4\rfloor+\lfloor k^2/3\rfloor`$ and coefficient sum $`6^k`$ of the product $`R_k^{(2)}R_k^{(3)}`$.
+
+<a id="what-neither-calculation-implies."></a>
+
+#### What neither calculation implies.
+
+Theorem <a href="#res:sharp-fixed-base" data-reference-type="ref" data-reference="res:sharp-fixed-base">7</a> replaces that band by explicit linear and logarithmic terms and a constant. It changes no cubic coefficient and no prime-power valuation, so it supplies no divisor for the 2004 polynomial forms. Against the two proposed degree savings of long Section 3, the shortfall at $`3/2`$ is exactly $`N(74N^2-117N+41)/41>0`$ for $`N\ge2`$, and the new estimate closes no part of it. Neither assertion supplies the cyclotomic divisibility proved for a different recurrence in \[krvz2009, Prop. 4, pp. 14–15\]. The separate coefficient and content calculations are in long Section 3.3. Its finite pencil proposition is now Lean-checked through rank eight, including positivity, root location and non-strict interlacing; Appendix <a href="#app:index" data-reference-type="ref" data-reference="app:index">5</a> records the precise source and finite scope.
 
 <a id="sec:open"></a>
 
@@ -467,7 +502,7 @@ Thus it is necessary for the scaled tail to be less than $`1`$, not sufficient. 
 
 <div id="res:nocorridor" class="theorem">
 
-**Theorem 7** (failure of the stated clearing conditions at $`3/2`$). *For all $`N\ge1`$ and $`K\ge1`$ and all natural $`Q,D`$, the tuple $`(3,2,N,K,Q,D)`$ does not satisfy the [clearing conditions above](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155).*
+**Theorem 8** (failure of the stated clearing conditions at $`3/2`$). *For all $`N\ge1`$ and $`K\ge1`$ and all natural $`Q,D`$, the tuple $`(3,2,N,K,Q,D)`$ does not satisfy the [clearing conditions above](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L155).*
 
 </div>
 
@@ -480,7 +515,7 @@ The rational $`\xi`$ is arbitrary; in an irrationality argument it would be a hy
 
 <div id="res:tailrec" class="theorem">
 
-**Theorem 8** (recurrence for the scaled remainder). *Let $`r,s,B,\xi\in\mathbb{Q}`$ with $`r\ne0`$, let $`c:\mathbb{N}\to\mathbb{Q}`$, and define $`U_N`$ as above. Then for every $`N`$ the [recurrence for the scaled remainder](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187) is
+**Theorem 9** (recurrence for the scaled remainder). *Let $`r,s,B,\xi\in\mathbb{Q}`$ with $`r\ne0`$, let $`c:\mathbb{N}\to\mathbb{Q}`$, and define $`U_N`$ as above. Then for every $`N`$ the [recurrence for the scaled remainder](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L187) is
 ``` math
 U_{N+1}=r\,U_N-B\,c(N+1)\,s^{\,N+1}.
 ```*
@@ -491,13 +526,15 @@ Subtracting successive partial sums proves the identity. Neither convergence nor
 
 <div id="res:forcing" class="theorem">
 
-**Theorem 9** (the forcing term). *Let $`s,B`$ be natural numbers and $`c:\mathbb{N}\to\mathbb{N}`$.*
+**Theorem 10** (the forcing term). *Let $`s,B`$ be natural numbers and $`c:\mathbb{N}\to\mathbb{N}`$.*
 
 1.  *If $`s\ge2`$, $`B\ge1`$ and $`c(N+1)\ge1`$, then $`2^{\,N+1}\le B\,c(N+1)\,s^{\,N+1}`$.*
 
 2.  *If $`s=1`$, then $`B\,c(N+1)\,s^{\,N+1}=B\,c(N+1)`$.*
 
 </div>
+
+Lean: [forcing term](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L186).
 
 <div class="proof">
 
@@ -519,7 +556,7 @@ J_{3,R}(P)=H_W(P)\pmod{3^R},\qquad
 
 <div id="res:bottomjet" class="lemma">
 
-**Lemma 10** (a residue and divisibility by $`3^R`$). *Vanishing of the [residue modulo $`3^R`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191) is exactly divisibility by the corresponding power of three: $`J_{3,R}(P)=0`$ if and only if $`3^R\mid H_W(P)`$.*
+**Lemma 11** (a residue and divisibility by $`3^R`$). *Vanishing of the [residue modulo $`3^R`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L191) is exactly divisibility by the corresponding power of three: $`J_{3,R}(P)=0`$ if and only if $`3^R\mid H_W(P)`$.*
 
 </div>
 
@@ -527,7 +564,7 @@ All four residues of $`(U,V)`$ vanish precisely when $`D=3^R2^S`$ divides both i
 
 <div id="res:jetkernel" class="theorem">
 
-**Theorem 11** (equal residues for two subset sums). *Fix a truncation index $`W`$ and depths $`R,S`$, and let $`(U_j,V_j)_{j<M}`$ be any $`M`$ pairs of integral polynomials. Represent each subset of $`\{0,\dots,M-1\}`$ by its indicator vector in $`\{0,1\}^M`$. If the $`2^M`$ subsets outnumber the possible residue vectors in
+**Theorem 12** (equal residues for two subset sums). *Fix a truncation index $`W`$ and depths $`R,S`$, and let $`(U_j,V_j)_{j<M}`$ be any $`M`$ pairs of integral polynomials. Represent each subset of $`\{0,\dots,M-1\}`$ by its indicator vector in $`\{0,1\}^M`$. If the $`2^M`$ subsets outnumber the possible residue vectors in
 ``` math
 (\mathbb{Z}/3^R\mathbb{Z})^2\times(\mathbb{Z}/2^S\mathbb{Z})^2,
 ```
@@ -538,6 +575,8 @@ then two distinct subsets have the same residue vector. Subtracting their indica
 In particular, if $`R>0`$ and $`4R+2S\le M`$, such a collision exists.*
 
 </div>
+
+Lean: [four jet paper statement](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L248).
 
 <div class="proof">
 
@@ -553,7 +592,7 @@ The ambient count does not use relations between the two residue coordinates. Va
 
 <div id="res:plucker-collapse" class="theorem">
 
-**Theorem 12** (vanishing minors and a residue count). *Let $`R_0`$ be a commutative ring and let $`w_n=(A_n,B_n)\in R_0^2`$. Suppose that every row is unimodular ($`u_n A_n+v_n B_n=1`$ for some $`u_n,v_n`$) and every adjacent minor vanishes:
+**Theorem 13** (vanishing minors and a residue count). *Let $`R_0`$ be a commutative ring and let $`w_n=(A_n,B_n)\in R_0^2`$. Suppose that every row is unimodular ($`u_n A_n+v_n B_n=1`$ for some $`u_n,v_n`$) and every adjacent minor vanishes:
 ``` math
 A_nB_{n+1}-B_nA_{n+1}=0\qquad(n\ge0).
 ```
@@ -564,6 +603,8 @@ Then every pairwise minor $`A_iB_j-B_iA_j`$ vanishes. In particular, take $`R_0=
 Thus $`S+2R`$ rows suffice, in place of the sufficient bound $`2S+4R`$ from the ambient two-coordinate count.*
 
 </div>
+
+Lean: [plucker paper statement](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L269).
 
 <div class="proof">
 
@@ -589,7 +630,7 @@ The next proposition checks an exponent model, not an approximation construction
 
 <div id="res:pade" class="proposition">
 
-**Proposition 13** (exponent model: summand bound and exact gap). *Let $`\widetilde{E}_n=3n^{2}-n`$ and put
+**Proposition 14** (exponent model: summand bound and exact gap). *Let $`\widetilde{E}_n=3n^{2}-n`$ and put
 ``` math
 \widetilde{P}(n,k)=2\bigl(k(n-k)+nk\bigr)+k(k-1),
 ```
@@ -599,19 +640,23 @@ The next proposition checks an exponent model, not an approximation construction
 ```
 Then, for integers $`n,k,m`$:*
 
-1.  *if $`0\le k\le n`$, the [summand exponent bound](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30) is $`\widetilde{P}(n,k)\le\widetilde{E}_n`$, and the gap factors as $`\widetilde{E}_n-\widetilde{P}(n,k)=(n-k)(3n-k-1)`$;*
+1.  *if $`0\le k\le n`$, the [summand exponent bound](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L30) is $`\widetilde{P}(n,k)\le\widetilde{E}_n`$, and the gap factors as $`\widetilde{E}_n-\widetilde{P}(n,k)=(n-k)(3n-k-1)`$;*
 
-2.  *the [exact gap identity](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52) is $`\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)`$.*
+2.  *the [exact gap identity](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L52) is $`\widetilde{E}_n-\widetilde{Q}(n,m)=2\bigl(n+m(m-1)\bigr)`$.*
 
 </div>
+
+Lean: [pade summand bound and gap](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L201).
 
 For the first inequality the gap is zero at $`n=k=0`$; otherwise both factors are nonnegative. Substituting $`j=n-m-1`$ gives the second identity for every integer $`m`$.
 
 <div id="res:content" class="proposition">
 
-**Proposition 14** (rescaling two integer rows). *Multiplying two integer rows by $`c_1`$ and $`c_2`$ multiplies their [determinant](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124) by $`c_1c_2`$. The [integer identity](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94) and its [absolute-value form](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104) show that the added divisibility is accompanied by exactly the same factor in the real absolute value.*
+**Proposition 15** (rescaling two integer rows). *Multiplying two integer rows by $`c_1`$ and $`c_2`$ multiplies their [determinant](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L124) by $`c_1c_2`$. The [integer identity](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L94) and its [absolute-value form](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L104) show that the added divisibility is accompanied by exactly the same factor in the real absolute value.*
 
 </div>
+
+Lean: [integer scalar content](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/PaperFiniteAssembliesR7.lean#L59).
 
 For nonzero row contents $`c_1,c_2`$, write $`r_i=c_ir_i^{\rm prim}`$. Then $`\det(r_1,r_2)=c_1c_2\det(r_1^{\rm prim},r_2^{\rm prim})`$ and $`r_i\cdot(\xi,-1)=c_i r_i^{\rm prim}\cdot(\xi,-1)`$. These identities concern multiplication or division of whole integer rows, not cancellation of a polynomial factor before specialisation. Nor does dividing different rows by different contents preserve a fixed residue relation: $`(1,1)+(5,5)`$ is zero modulo $`6`$, but the sum of the primitive rows is $`(2,2)`$. Even contents coprime to the modulus require the residue map to be formed again after row-by-row normalisation.
 
@@ -644,7 +689,7 @@ Counting residues within short intervals gives small differences. To keep a diff
 
 <div id="res:boundedfibre" class="theorem">
 
-**Theorem 15** (equal residues with close, distinct values). *Let $`A,B,J`$ be finite sets and let $`f:A\to B`$, $`g:A\to\mathbb R`$ and $`\iota:A\to J`$. Suppose that each simultaneous fibre of $`(f,g)`$ has at most $`k`$ elements and that, for some $`\delta>0`$,
+**Theorem 16** (equal residues with close, distinct values). *Let $`A,B,J`$ be finite sets and let $`f:A\to B`$, $`g:A\to\mathbb R`$ and $`\iota:A\to J`$. Suppose that each simultaneous fibre of $`(f,g)`$ has at most $`k`$ elements and that, for some $`\delta>0`$,
 ``` math
 \iota(x)=\iota(y)\quad\Longrightarrow\quad |g(x)-g(y)|<\delta.
 ```
@@ -655,6 +700,8 @@ f(x)=f(y),\qquad 0<|g(x)-g(y)|<\delta.
 
 </div>
 
+Lean: [exists small real escape of conditional multiplicity](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos1049/QuantitativeSelectorEscape.lean#L79).
+
 <div class="proof">
 
 *Proof.* Partition $`A`$ by $`(f,\iota)`$. Some cell has more than $`k`$ elements, so its $`g`$-values cannot all agree. Two unequal values in that cell have the same residue vector and differ by less than $`\delta`$. ◻
@@ -663,7 +710,7 @@ f(x)=f(y),\qquad 0<|g(x)-g(y)|<\delta.
 
 Primitivity gives no useful bound on $`k`$: repeated rows $`(1,0)`$ produce the same sum and remainder for every subset of a given size. The application below therefore needs a separate multiplicity estimate.
 
-Fix positive integers $`n,D`$ and $`M`$ primitive integer rows $`(A_j,B_j)`$, indexed by $`0\le j<M`$. Put $`e_j=A_jF(3/2)-B_j`$ and apply Theorem <a href="#res:boundedfibre" data-reference-type="ref" data-reference="res:boundedfibre">15</a> to binary selectors, with
+Fix positive integers $`n,D`$ and $`M`$ primitive integer rows $`(A_j,B_j)`$, indexed by $`0\le j<M`$. Put $`e_j=A_jF(3/2)-B_j`$ and apply Theorem <a href="#res:boundedfibre" data-reference-type="ref" data-reference="res:boundedfibre">16</a> to binary selectors, with
 ``` math
 f(\varepsilon)=\sum_j\varepsilon_j(A_j,B_j)\pmod D,
  \qquad g(\varepsilon)=\sum_j\varepsilon_j e_j.
@@ -685,7 +732,7 @@ The next question specifies the required integer forms, not an approximation fam
 
 <div id="prob:kernel" class="problem">
 
-**Problem 16** (a divided linear form with small nonzero remainder). Exhibit an integer constant $`C\ge1`$ and, for every sufficiently large positive integer $`n`$, positive integers $`W_n,R_n,S_n,M_n`$ such that
+**Problem 17** (a divided linear form with small nonzero remainder). Exhibit an integer constant $`C\ge1`$ and, for every sufficiently large positive integer $`n`$, positive integers $`W_n,R_n,S_n,M_n`$ such that
 ``` math
 n^2\le W_n,R_n,S_n\le Cn^2,
  \qquad 4R_n+2S_n\le M_n\le Cn^2,
@@ -729,7 +776,7 @@ The residues make $`A_n,B_n`$ integers. If $`F(3/2)=a/b`$, then $`|\rho_n|\ge1/|
 
 #### Artefact and data availability.
 
-The [pinned formal-source revision](https://github.com/wcook04/plectis-erdos/tree/99f4bf47422abbd8757cbb22b50ba079d764d3a7) contains the Lean sources, the fixed toolchain, and the library manifest used in the verification. The ordinary proofs used here are printed with their hypotheses.
+The [pinned formal-source revision](https://github.com/wcook04/plectis-erdos/tree/7380b7871687b6bcc41ca0143c61f232e8af6500) contains the Lean sources, the fixed toolchain, and the library manifest used in the verification. The ordinary proofs used here are printed with their hypotheses.
 
 <a id="funding-and-competing-interests."></a>
 
@@ -757,13 +804,13 @@ Vandehey treats signed coefficients in the digit argument \[vandehey2013, Thms.�
 
 #### Coefficient moments.
 
-The coefficient polynomials in \[zudilin2016, Sec. 3, p. 5\] give a moment problem different from the remainder moments in Section 3. Long Section 3.2 checks the two leading Hankel families through rank eight, not the all-rank criterion in \[wangzhu2016, Lemma 2.1, p. 4\]. It proves a finite moment representation and discusses $`(m!)^3`$ at the endpoint \[berg2007, Thm. 5.1\], formal continued fractions and finite quadrature \[sw2024; golubwelsch1969\]. It also gives complete polynomial contents through rank five and specified cyclotomic residue tests through rank eight. These finite results do not assert all-rank coefficient positivity or divisibility.
+The coefficient polynomials in \[zudilin2016, Sec. 3, p. 5\] give a moment problem different from the remainder moments in Section 3. Long Section 3.3 checks the two leading Hankel families through rank eight, not the all-rank criterion in \[wangzhu2016, Lemma 2.1, p. 4\]. For the unshifted family, positivity through rank eight at every real $`p\ge1`$ is also a [Lean theorem](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458). The [finite-pencil proposition](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43) proves that for real $`p>1`$ and every rank $`N\le8`$, $`A_N`$ is positive definite, all roots of $`\det(YA_N-B_N)`$ are real and less than $`F(p)`$, and roots at adjacent ranks interlace non-strictly. The shifted eight certificates remain separately computed in this account. Long Section 3.3 also proves a finite moment representation and discusses $`(m!)^3`$ at the endpoint \[berg2007, Thm. 5.1\], formal continued fractions and finite quadrature \[sw2024; golubwelsch1969\]. It also gives complete polynomial contents through rank five and specified cyclotomic residue tests through rank eight. These finite results do not assert all-rank coefficient positivity or divisibility.
 
 <a id="functional-equations."></a>
 
 #### Functional equations.
 
-Bell and Smertnig’s classification \[bellsmertnig2026, Thm. 1.3 and the consequences on p. 3\] excludes $`k`$-Mahler equations for $`L(z)=\sum_{n\ge1}\tau(n)z^n`$ when $`k\ge2`$: there is no polynomial-coefficient relation among $`L(z),L(z^k),\ldots,L(z^{k^d})`$ with a nonzero coefficient of $`L(z)`$. Long Section 10.3 explains this functional obstruction; it gives no irrationality statement for $`L(2/3)=F(3/2)`$.
+Bell and Smertnig’s classification \[bellsmertnig2026, Thm. 1.3 and the consequences on p. 3\] excludes $`k`$-Mahler equations for $`L(z)=\sum_{n\ge1}\tau(n)z^n`$ when $`k\ge2`$: there is no polynomial-coefficient relation among $`L(z),L(z^k),\ldots,L(z^{k^d})`$ with a nonzero coefficient of $`L(z)`$. The single-base exclusion is also a Lean theorem, in the form that for every $`k\ge2`$ no finite-dimensional $`\mathbb{Q}(z)`$-subspace of $`\mathbb{Q}((z))`$ containing $`L`$ is stable under $`z\mapsto z^k`$ ([single-base statement](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263)). Long Section 10.3 explains this functional obstruction; it gives no irrationality statement for $`L(2/3)=F(3/2)`$.
 
 <a id="formal-sources-and-finite-computations."></a>
 
@@ -771,7 +818,7 @@ Bell and Smertnig’s classification \[bellsmertnig2026, Thm. 1.3 and the conse
 
 In the supplied snapshot, `PaperR17/SourceConsumers.lean` constructs the cancelled forms and proves the irrationality and measure results; `AllRow/Producer.lean` constructs the transformed rows and proves the all-rank determinant formulas.
 
-The index distinguishes reported public, parallel-release and unbuilt material; no new Lean run is claimed. The linked invertible-coordinate theorem is weaker than the ordinary unimodular-row theorem. The finite computations described above are not Lean proofs; their certificates and reproduction scripts are in the long record. Historical links retain their original revisions and line numbers, which have not been revalidated. Long Appendix A records the snapshot identifiers and gives the full source guide.
+The historical index distinguishes reported public, parallel-release and unbuilt material at its pinned snapshot; no new Lean run is claimed by that index. The later finite-pencil declaration is linked separately above. The linked invertible-coordinate theorem is weaker than the ordinary unimodular-row theorem. The sixteen historical certificate lists and reproduction scripts remain in the long record. The unshifted rank-eight positivity and finite pencil proposition have separate Lean proofs at the source checkpoint; this does not promote the shifted certificates or any all-rank coefficient claim. Historical links retain their original revisions and line numbers, which have not been revalidated. Long Appendix A records the snapshot identifiers and gives the full source guide.
 
 <a id="sec:pinned-lean-sources"></a>
 
@@ -783,43 +830,43 @@ Each link below retains its original revision and line number. Appendix <a href
 
 #### Comparison of the two diagonals
 
-[initial values of Van Assche’s diagonal](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L33); [residual of the other diagonal’s recurrence](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67); [nonzero residual for $`p>1`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L94).
+[initial values of Van Assche’s diagonal](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L33); [residual of the other diagonal’s recurrence](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L67); [nonzero residual for $`p>1`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/QAperyDiagonalNonEquivalence.lean#L94).
 
 <a id="clearing-partial-sums-and-their-remainders"></a>
 
 #### Clearing partial sums and their remainders
 
-[six conditions for clearing a window](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L113); [necessary power-versus-linear inequality](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L121); [$`3x<2^{x+1}`$ for $`x\ge 2`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L142); [rational-base partial sum](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L168); [one-term extension of the partial sum](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L173); [scaled remainder](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L181); [subtracted term in the recurrence](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L198); [exponential lower bound for that term](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L204); [integer-base special case](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L218); [rational comparison for $`7/2`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L36).
+[six conditions for clearing a window](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L113); [necessary power-versus-linear inequality](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L121); [$`3x<2^{x+1}`$ for $`x\ge 2`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L142); [rational-base partial sum](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L168); [one-term extension of the partial sum](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L173); [scaled remainder](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L181); [subtracted term in the recurrence](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L198); [exponential lower bound for that term](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L204); [integer-base special case](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L218); [rational comparison for $`7/2`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean#L36).
 
 <a id="proposed-denominator-exponents-and-scalar-rescaling"></a>
 
 #### Proposed denominator exponents and scalar rescaling
 
-[doubled proposed denominator exponent](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L19); [first summand exponent](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L24); [second summand exponent](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L46); [bound for the second exponent](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L60); [linear-form error under scalar rescaling](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L84); [divisor introduced by rescaling rows](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L116).
+[doubled proposed denominator exponent](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L19); [first summand exponent](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L24); [second summand exponent](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L46); [bound for the second exponent](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L60); [linear-form error under scalar rescaling](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L84); [divisor introduced by rescaling rows](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/RationalPadeArithmetic.lean#L116).
 
 <a id="residues-at-32"></a>
 
 #### Residues at $`3/2`$
 
-[denominator-cleared evaluation at $`3/2`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L98); [number of possible residue vectors](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L131); [equal residues for two subsets](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L142); [sufficient row count for equal residues](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L161); [divisibility by $`2^S`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L197); [evaluation modulo $`3`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L203).
+[denominator-cleared evaluation at $`3/2`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L98); [number of possible residue vectors](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L131); [equal residues for two subsets](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L142); [sufficient row count for equal residues](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L161); [divisibility by $`2^S`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L197); [evaluation modulo $`3`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L203).
 
 <a id="evaluation-at-a-general-rational-base"></a>
 
 #### Evaluation at a general rational base
 
-[homogeneous evaluation at a rational base](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L221); [reduction modulo the numerator](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L226); [reduction modulo the denominator](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L238); [coprimality with the numerator from the constant coefficient](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L254); [coprimality with the denominator from the top coefficient](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L270); [combined coprimality criterion](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286); [coprimality of homogeneous cyclotomic values](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L302).
+[homogeneous evaluation at a rational base](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L221); [reduction modulo the numerator](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L226); [reduction modulo the denominator](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L238); [coprimality with the numerator from the constant coefficient](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L254); [coprimality with the denominator from the top coefficient](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L270); [combined coprimality criterion](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L286); [coprimality of homogeneous cyclotomic values](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L302).
 
 <a id="restrictions-on-common-divisors"></a>
 
 #### Restrictions on common divisors
 
-[evaluation modulo $`2`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L320); [exclusion of the factor $`3`$ by the constant coefficient](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L338); [exclusion of the factor $`2`$ by the coefficient of $`X^W`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L356); [restriction on a common evaluated divisor](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L398).
+[evaluation modulo $`2`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L320); [exclusion of the factor $`3`$ by the constant coefficient](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L338); [exclusion of the factor $`2`$ by the coefficient of $`X^W`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L356); [restriction on a common evaluated divisor](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L398).
 
 <a id="sufficient-regions-and-comparison-bounds"></a>
 
 #### Sufficient regions and comparison bounds
 
-[comparison $`2C_0\le C_1`$ from exponent bounds](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L416); [sign of the scalar exponent at $`3/2`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L428); [$`31/4`$ satisfies the $`81/200`$ condition](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L45); [the same condition for positive powers of $`31/4`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L59); [$`31/4`$ lies outside the earlier region](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91); [$`81/200<\log 2/\log 3`$](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L105); [$`3/2`$ fails the $`81/200`$ condition](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L122); [bound for the rectangular exponent expression](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103); [equality case for that bound](https://github.com/wcook04/plectis-erdos/blob/99f4bf47422abbd8757cbb22b50ba079d764d3a7/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L126).
+[comparison $`2C_0\le C_1`$ from exponent bounds](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L416); [sign of the scalar exponent at $`3/2`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean#L428); [$`31/4`$ satisfies the $`81/200`$ condition](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L45); [the same condition for positive powers of $`31/4`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L59); [$`31/4`$ lies outside the earlier region](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L91); [$`81/200<\log 2/\log 3`$](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L105); [$`3/2`$ fails the $`81/200`$ condition](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/ZudilinHeightRegion.lean#L122); [bound for the rectangular exponent expression](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L103); [equality case for that bound](https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos1049/HermitePadeNoGo.lean#L126).
 
 <div class="thebibliography">
 

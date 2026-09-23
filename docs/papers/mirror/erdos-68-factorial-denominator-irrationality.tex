@@ -148,6 +148,7 @@ In particular,
 equivalently, the original problem is the
 \lword{Erdos68/FactorialZeroPlateau.lean}{1090}{irrational_factorialGapSeries_iff_cofinal_strictFacTopRat_misses}{criterion using the next integer}.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{45}{carry_characterisation}.}
 
 \begin{proof}
 Rationality forces eventual unit carries by
@@ -239,6 +240,7 @@ has the unique finite expansion
 \label{eq:channel-basis-expansion}
 \end{equation}
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteDivisorCoordinates.lean}{260}{divisor_channel_coordinates}.}
 
 \begin{proof}
 The moment of $T_n$ is zero.  The floor in $W_{d,n}$ changes between
@@ -342,6 +344,7 @@ Then
 g_D=\gcd(u_{D+1},\ldots,u_H),\qquad H<2D^2.
 \]
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean}{252}{finite_channel_moment_certificate}, \lproof{ErdosProblems/Erdos68/PaperCompleteMomentHorizon.lean}{260}{finite_channel_moment_certificate_eq}.}
 
 \begin{proof}
 Since $D<2\ell\le D(2\ell-1)=H$, the finite interval includes the nonzero
@@ -374,6 +377,7 @@ In particular, support in $[d,2d)$ and $V_d(\lambda)=0$ force
 $M(\lambda)=0$.  If all supported indices are at least $d$,
 $V_d(\lambda)=0$ and $M(\lambda)\ne0$, some supported index is at least $2d$.
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean}{24}{supported_quotient_band}, \lproof{ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean}{42}{supported_first_band_cancellation}, \lproof{ErdosProblems/Erdos68/PaperCompleteSupportedBands.lean}{51}{supported_breakpoint_escape}.}
 \begin{proof}
 On the stated interval $\lfloor n/d\rfloor=k$, so
 $n!=(d!)^kW_{d,n}$.  Sum against $\lambda_n$; the final assertion follows
@@ -576,6 +580,7 @@ R_p>1,\qquad
 \end{equation}
 then $S$ is irrational.
 \end{proposition}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{154}{global_complementary_criterion_nat}.}
 
 \begin{proof}
 Suppose $S=a/q$ with $q>0$, and choose a parameter in the hypothesis
@@ -758,6 +763,7 @@ Consequently,
  \label{eq:companion-cofinal}
 \end{equation}
 \end{theorem}
+\leannote{Lean: \lproof{ErdosProblems/Erdos68/PaperCompleteExisting.lean}{27}{companion_orbit_boundary}.}
 
 \begin{proof}
 First suppose $\Ser=a/q$ with $q>0$, and take $m$ so large that

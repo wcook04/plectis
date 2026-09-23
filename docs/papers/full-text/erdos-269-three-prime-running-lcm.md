@@ -45,6 +45,8 @@ Consequently, for no finite $`d`$ do there exist rational-valued functions $`f_\
 
 </div>
 
+Lean: [paper uniform rank and nonseparation](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L22).
+
 <div class="proof">
 
 *Proof.* For fixed $`k`$, we rescale rows and columns to obtain a matrix independent of $`k`$. Put $`c=r^{-1}`$, $`x_i=\{i\log_r p\}`$ and $`y_j=\{j\log_r q\}`$, where braces denote fractional parts. Splitting the floor exponents gives
@@ -97,6 +99,8 @@ No continuity or boundedness is assumed for the separated factors.
 
 </div>
 
+Lean: [admissible modular minors](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7ModularMinors.lean#L133).
+
 <div class="proof">
 
 *Proof.* Choose the maps from Theorem <a href="#res:infinite-rank" data-reference-type="ref" data-reference="res:infinite-rank">1</a>. Every row and column factor is a unit modulo $`B`$. The normalised determinant is $`5^{-1}(-4/5)^{n-1}`$, also a unit. ◻
@@ -126,6 +130,8 @@ These equalities follow by evaluating the height at $`3^j`$ and $`8\cdot3^j`$. B
 **Proposition 4** (rank of a matrix of threshold columns). *Let $`m\ge1`$ and let $`c`$ lie in a field with $`c\ne 0,1`$. For $`0\le k\le m`$ write $`v_k`$ for the length-$`m`$ column with a $`1`$ in each of the first $`k`$ coordinates and $`c`$ thereafter. A matrix whose distinct columns are $`v_k`$ for $`k`$ in a nonempty set $`E`$ has rank $`|E|-\mathbf 1_{\{0,m\}\subseteq E}`$.*
 
 </div>
+
+Lean: [rank cut matrix](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7FiniteCutRank.lean#L182).
 
 The correction accounts for the two constant columns: $`v_0=c v_m`$. There is no other dependence among distinct threshold columns.
 
@@ -162,6 +168,8 @@ Fan’s post of 26 June 2026 gives the repeated two-prime factorisation, its qua
 Both numbers are transcendental.*
 
 </div>
+
+Lean: [two prime affine and quadratic](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L841), [two prime sums transcendental](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L872), [running lcm eq two prime height](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L88), [two prime height smooth](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR21/TwoPrimeSums.lean#L159), and 9 further declarations. Conditional on the transcendence theorem of Bugeaud and Laurent; see the [coverage section of the companion record](../mirror/erdos269-running-lcm-reasoning-surface.pdf#nameddest=coverage).
 
 <div class="proof">
 
@@ -207,6 +215,8 @@ The three-prime tail argument starts again from the running LCM, retaining every
 
 </div>
 
+Lean: [running lcm real cutoff exact](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L49).
+
 <div class="proof">
 
 *Proof.* Every smooth $`n\le x`$ has prime exponents bounded by the corresponding integer logarithms, so $`n\mid\operatorname{H}(x)`$. Conversely the three maximal pure powers occur among those smooth numbers; their product divides the running LCM because they are pairwise coprime. ◻
@@ -227,6 +237,8 @@ The inequalities $`x/p<p^{\lfloor\log_p x\rfloor}\le x`$ for each of the three p
 
 </div>
 
+Lean: [real prefix lcm eq of same log cell](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L65), [real prefix lcm jump first](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L87), [real prefix lcm jump second](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L117), [real prefix lcm jump third](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/RealCutoffs.lean#L129), and 1 further declaration in the [coverage section of the companion record](../mirror/erdos269-running-lcm-reasoning-surface.pdf#nameddest=coverage).
+
 <div class="proof">
 
 *Proof.* The first two claims follow from the height formula. Positive powers of different primes cannot coincide, by unique factorisation, and none is $`1`$. ◻
@@ -246,6 +258,8 @@ For $`(p,q,r)=(2,3,5)`$, the smooth numbers $`5`$ and $`6`$ have the same runnin
 ```*
 
 </div>
+
+Lean: [finite smooth kernel sum grouped by height](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean#L407).
 
 <div class="proof">
 
@@ -275,6 +289,8 @@ The half-height $`h_a`$ clears the finite prefix: for $`a\ge1`$ and smooth $`x<2
 
 </div>
 
+Lean: [dyadic alphabet whole](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperCompleteR20/DyadicAlphabetWhole.lean#L19).
+
 <div class="proof">
 
 *Proof.* If $`x<2^{a+1}`$, the exponent of $`2`$ in $`\operatorname{H}(x)`$ is at most $`a`$, while the other exponents are bounded by those of $`\operatorname{H}(2^{a+1})`$. Hence $`2\operatorname{H}(x)\mid\operatorname{H}(2^{a+1})`$. Each summand is an integer, and the shell contains $`2^a`$. Between consecutive powers of $`2`$ there is at most one power of $`3`$ and at most one power of $`5`$: successive powers of either odd prime have ratio greater than two. These factors, when present, and the factor $`2`$ at the right endpoint give the four possible bases. ◻
@@ -293,6 +309,8 @@ X_{a+1}=b_aX_a-m_a,\qquad
 For every integer $`B\ge1`$, either some $`BX_a`$ is integral and all later states are integral, or $`\operatorname{dist}(BX_a,\mathbb Z)\ge1/31`$ at arbitrarily large indices.*
 
 </div>
+
+Lean: [short actual orbit](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7SeriesIdentification.lean#L168).
 
 <div class="proof">
 
@@ -316,6 +334,8 @@ d_a=BX_a\in\mathbb Z_{>0},\qquad
 ```*
 
 </div>
+
+Lean: [short fixed split bridge](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7RationalBridge.lean#L80).
 
 <div class="proof">
 
@@ -345,6 +365,8 @@ Every positive denominator splits in the required way: $`B`$ is what remains aft
 Consequently $`BX_a`$ is integral exactly when $`2^a\ge\max(2^{u+1},3^v,5^w)`$. The first such $`a`$ can be found by integer comparisons, without logarithmic rounding.*
 
 </div>
+
+Lean: [exact denominators and minimal clearing](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L334), [scaled state is integer iff first clearing index le](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L309), [clearing condition iff max](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperExactDenominatorR13.lean#L166).
 
 <div class="proof">
 
@@ -390,6 +412,8 @@ For integers $`W\ge1`$ and $`t`$, define $`\operatorname{lpr}_W(t)=1+((t-1)\bmod
 
 </div>
 
+Lean: [paper finite endpoint obstruction](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7BasicAssembly.lean#L138).
+
 <div class="proof">
 
 *Proof.* Every positive representative of the residue is at least its least positive representative, so $`\operatorname{lpr}_W(-BF)\le d\le K`$. ◻
@@ -414,6 +438,8 @@ For example, the window starting at $`\ell=1`$ with length $`6`$ has $`W_{1,6}=6
 ```*
 
 </div>
+
+Lean: [short window equivalence](https://github.com/wcook04/plectis-erdos/blob/a25cb360bef8dd818dde14b5fb752244304af354/lean/ErdosProblems/Erdos269/PaperR7WindowResults.lean#L51).
 
 <div class="proof">
 
