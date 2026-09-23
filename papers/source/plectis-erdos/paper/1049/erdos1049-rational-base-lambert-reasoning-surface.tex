@@ -10,7 +10,7 @@
 \renewcommand{\commitshort}{92b88dc1bbe0}
 % Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
 % whose tree keeps the Lean roots under lean/.
-\newcommand{\latecommit}{e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8}
+\newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Zudilin forms at rational bases: proofs and research record for Erdos Problem 1049},
@@ -1846,9 +1846,12 @@ Throughout this subsection $0<q<1$ is fixed and
 with $B_N=\sum_{j<N}j^2$ and $C_N=\prod_{k<N}c_k=(N!)^2(N+1)!/2^N$ as above.
 Both products converge to positive finite values, and the abbreviation $L$ is
 used only in this subsection; it is the value at $q$ of the divisor series
-$\mathcal L$ of Section~\ref{long1049:sec:open}. Everything in this subsection
-is an ordinary proof. None of it is formalised in Lean, and none of it changes
-a denominator valuation or supplies a divisor for the 2004 polynomial forms.
+$\mathcal L$ of Section~\ref{long1049:sec:open}.
+Proposition~\ref{long1049:prop:rogers-factorisation} below is a
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{Lean theorem};
+the two theorems of this subsection have ordinary proofs and no Lean
+statement. Nothing in this subsection changes a denominator valuation or
+supplies a divisor for the 2004 polynomial forms.
 
 The first step isolates what a Hankel determinant needs from its weights. The
 hypotheses are two ratio conditions on the weights, so the theorem covers
@@ -2039,6 +2042,35 @@ $\binom{k+r-1}{r-1}$, so
 Combining these at $r=2,3$ with $P\le(q;q)_k\le1$ and
 $c_k=(k+1)\binom{k+2}2$ gives $P^5c_k\le a_k\le P^{-1}c_k$. The shift bound
 follows from $c_{k+h}/c_k\le(1+h)^3$.
+
+It remains to show that $a_{k+h}/a_k\to1$ for each fixed $h$. Put
+$e_n=1/(q;q)_n$. Since $(q;q)_{n+1}=(1-q^{n+1})(q;q)_n$, these terms satisfy
+$1=e_0\le e_1\le\cdots\le P^{-1}$, and the convolutions read
+$b_k^{(2)}=\sum_{i\le k}e_ie_{k-i}$ and
+$b_k^{(3)}=\sum_{i\le k}e_ib_{k-i}^{(2)}$. Hence
+\[
+ \begin{aligned}
+ b_{k+1}^{(2)}-b_k^{(2)}
+ &=\sum_{i\le k}e_i\bigl(e_{k+1-i}-e_{k-i}\bigr)+e_{k+1},\\
+ b_{k+1}^{(3)}-b_k^{(3)}
+ &=\sum_{i\le k}e_i\bigl(b_{k+1-i}^{(2)}-b_{k-i}^{(2)}\bigr)+e_{k+1}.
+ \end{aligned}
+\]
+Every bracket is nonnegative. In the first line the brackets add up to
+$e_{k+1}-1<P^{-1}$ and each $e_i\le P^{-1}$, so
+$0\le b_{k+1}^{(2)}-b_k^{(2)}\le P^{-2}+P^{-1}\le2P^{-2}$. Inserting this
+bound into the $k+1$ terms of the second line gives
+$0\le b_{k+1}^{(3)}-b_k^{(3)}\le2(k+1)P^{-3}+P^{-1}\le3(k+1)P^{-3}$.
+Against the lower bounds $b_k^{(2)}\ge k+1$ and
+$b_k^{(3)}\ge(k+1)(k+2)/2$ displayed above, the ratio
+$b_{k+1}^{(r)}/b_k^{(r)}$ lies in $[1,1+2P^{-2}/(k+1)]$ for $r=2$ and in
+$[1,1+6P^{-3}/(k+2)]$ for $r=3$. Both ratios tend to $1$, and therefore so
+does $b_{k+h}^{(r)}/b_k^{(r)}$, a product of $h$ consecutive ratios.
+Finally $(q;q)_{k+h}/(q;q)_k=\prod_{j=1}^h(1-q^{k+j})\to1$, and
+$a_{k+h}/a_k=\gamma_{k+h}/\gamma_k$ is the product of these three ratios.
+The Lean proof obtains the
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1097}{fixed-shift limit}
+by the same steps.
 \end{proof}
 
 Only one analytic input is still missing, namely the behaviour of $a_k/c_k$ to
@@ -2111,7 +2143,7 @@ $\sum_{k<N}(k+1)^{-1}=\log N+\gamma_{\!E}+o(1)$,
  \prod_{k<N}a_k\sim\mathcal A(q)\,C_NN^{-8L}.
 \]
 Proposition~\ref{long1049:prop:rogers-factorisation} supplies the uniform shift
-bound and the last expansion supplies the fixed-shift limit, so
+bound and the fixed-shift limit, so
 Theorem~\ref{long1049:thm:geometric-universality} applies to $(a_k)$ and gives
 $V_N^*\sim\mathcal M(q)^3q^{B_N}P^{2N}\prod_{k<N}a_k$. Substituting the product
 asymptotic proves both displays.
@@ -4405,17 +4437,19 @@ Every theorem, lemma, proposition and corollary of this record other than the
 six named here has a Lean statement of the same assertion, with the same
 hypotheses, checked by the Lean kernel using only the axioms
 \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
-development at revision \texttt{181078b6b009}.  Two of the six,
-Propositions~\ref{long1049:res:nomahler} and~\ref{long1049:res:finite-pencil},
-were proved later: each has a Lean statement of the same assertion, checked
-by the Lean kernel using only those three axioms, at revision
-\texttt{e4ba6841dfdb}, as described below.  The other four are proved by
-ordinary arguments and have no Lean statement at that revision:
-Theorem~\ref{long1049:thm:geometric-universality},
-Proposition~\ref{long1049:prop:rogers-factorisation} and
-Theorem~\ref{long1049:thm:sharp-fixed-base} in
-Section~\ref{long1049:sec:sharp-fixed-base}, and
-Proposition~\ref{long1049:res:tail-lattice}.
+development at revision \texttt{181078b6b009}.  Four of the six have a
+Lean statement of the same assertion, checked by the Lean kernel using only
+those three axioms, at a later revision:
+Propositions~\ref{long1049:res:nomahler} and~\ref{long1049:res:finite-pencil}
+at \texttt{e4ba6841dfdb}, as described below, and
+Propositions~\ref{long1049:prop:rogers-factorisation}
+and~\ref{long1049:res:tail-lattice} at \texttt{168bf6727758}
+(\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{factorisation of the moment weights},
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/TailPrefixLattice.lean\#L475}{prefix lattice of the tails}).
+The remaining two, Theorems~\ref{long1049:thm:geometric-universality}
+and~\ref{long1049:thm:sharp-fixed-base} in
+Section~\ref{long1049:sec:sharp-fixed-base}, are proved by ordinary
+arguments and have no Lean statement at either revision.
 
 Proposition~\ref{long1049:res:nomahler} is
 \href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean\#L298}{checked in Lean}

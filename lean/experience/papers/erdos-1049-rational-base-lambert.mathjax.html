@@ -894,8 +894,11 @@ class="math inline" data-term-auto="off">\(V_N^*(q)&gt;0\)</span> and that <span
 class="math inline" data-term-auto="off">\(\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)\)</span> for
 fixed <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. The same
 positive-measure argument, carried further, settles the size within that
-band. The theorem below and its proof are ordinary mathematics; neither
-is formalised in Lean.</p>
+band. The first of the two facts about the moment weights used in the
+proof below, their exact factorisation with the bounds it gives, is a <a
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">Lean
+theorem</a>. The theorem itself and the rest of its proof are ordinary
+mathematics, with no Lean statement.</p>
 <div class="theorem" id="res:sharp-fixed-base">
 <p><strong>Theorem 3.2</strong> (the size of <span
 class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed base). <em> Fix <span
@@ -1519,13 +1522,13 @@ leading Hankel families through rank eight, not the all-rank criterion
 in <span class="citation" data-cites="wangzhu2016"><a href="#ref-15">[15]</a></span>. For the
 unshifted family, positivity through rank eight at every real <span
 class="math inline" data-term-auto="off">\(p\ge1\)</span> is also a <a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458">Lean
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458">Lean
 theorem</a>. So is the consequence the long record draws from it: at
 each rank up to eight, the roots of a determinant polynomial built from
 Zudilin’s coefficients are real and lie below <span
 class="math inline" data-term-auto="off">\(F(p)\)</span> for every real <span
 class="math inline" data-term-auto="off">\(p&gt;1\)</span> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43">finite
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43">finite
 coefficient positivity and pencil roots</a>). Long Section 3.3 also
 proves a finite moment representation and discusses <span
 class="math inline" data-term-auto="off">\((m!)^3\)</span> at the endpoint <span
@@ -1552,7 +1555,7 @@ class="math inline" data-term-auto="off">\(\Q(z)\)</span>-subspace of <span
 class="math inline" data-term-auto="off">\(\Q((z))\)</span> containing <span
 class="math inline" data-term-auto="off">\(L\)</span> is stable under <span
 class="math inline" data-term-auto="off">\(z\mapsto z^k\)</span> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263">single-base
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263">single-base
 statement</a>). Long Section 10.3 explains this functional obstruction;
 it gives no irrationality statement for <span
 class="math inline" data-term-auto="off">\(L(2/3)=F(3/2)\)</span>.</p>

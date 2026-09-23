@@ -1169,7 +1169,7 @@ data-cites="stevenhagenlenstra1996"><a href="#ref-9">[9]</a></span> for that cla
 This paragraph is a proof by a stated companion result. ◻</p>
 </div>
 <p>Theorem  is also a Lean theorem, <a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70">cubic-rate
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70">cubic-rate
 irrationality</a>, with no hypothesis beyond those printed above. In the
 Lean proof, the field step uses the simple pole of the Dedekind zeta
 function at
@@ -1206,15 +1206,16 @@ diverge.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>n</mi></msub><annotation encoding="application/x-tex">C_n</annotation></semantics></math>
 is an integer linear form in the reciprocal sum, it grows. The argument
 uses an exact polynomial formula, not a small-linear-form criterion.</p>
-<p>There is also a quantitative extension, whose two steps are Lean
-theorems; only the final step combining them is not a Lean declaration.
-Under the hypotheses of Theorem  other than (5), the companion proves
+<p>There is also a quantitative extension. Under the hypotheses of
+Theorem  other than (5),
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">limsup</mi><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow></munder><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>−</mi><msub><mi>E</mi><mi>n</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msub></mrow><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo>,</mo><msub><mi>C</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>≤</mo><mn>1</mn><mspace width="1.0em"></mspace><mo>⇒</mo><mspace width="1.0em"></mspace><msub><mi>E</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> eventually</mtext></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\limsup_{n\to\infty}
  \frac{(-E_n)_+}{\log_2\log_2\max(4,C_n)}\le1
  \quad\Longrightarrow\quad E_n=0\text{ eventually}.</annotation></semantics></math>
-The companion’s Theorem 7.3 and Corollary 7.4 prove this inclusive bound
-by controlling the height of a CRT block. A fixed bound satisfies it on
-a nonzero tail, where
+This implication is a Lean theorem, <a
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean#L45">double-logarithmic
+bound</a>, with no hypothesis beyond these. The companion’s Theorem 7.3
+and Corollary 7.4 prove this inclusive bound by controlling the height
+of a CRT block. A fixed bound satisfies it on a nonzero tail, where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>n</mi></msub><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">C_n\to\infty</annotation></semantics></math>;
 a bound of order
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><msub><mi>C</mi><mi>n</mi></msub></msqrt><annotation encoding="application/x-tex">\sqrt{C_n}</annotation></semantics></math>
@@ -1228,16 +1229,15 @@ scales this limit superior by
 The proof and the running-maximum estimates are in the companion’s
 Section 7, not in the elementary bounded-increment argument above. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>n</mi></msub><mo>=</mo><msub><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mrow><mi>j</mi><mo>≤</mo><mi>n</mi></mrow></msub><msub><mi>C</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">H_n=\max_{j\le n}C_j</annotation></semantics></math>.
-For an orbit satisfying these hypotheses, the first step is the Lean
-theorem that
+The Lean proof combines two Lean theorems about such an orbit: that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">limsup</mi><mo>&#8289;</mo></mrow><mi>n</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>H</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo>,</mo><msub><mi>H</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\limsup_n(H_{n+1}-H_n)/\log_2\log_2\max(4,H_n)&gt;1</annotation></semantics></math>
 whenever
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>n</mi></msub><annotation encoding="application/x-tex">E_n</annotation></semantics></math>
 is not eventually zero (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L363">strict
-record bound</a>), and the second is the Lean theorem that this limit
-superior is at most the one displayed above (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L100">comparison
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L363">strict
+record bound</a>), and that this limit superior is at most the one
+displayed above (<a
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L100">comparison
 with the negative part</a>). The displayed implication is the
 contrapositive of the two combined, which also uses
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mn>0</mn></msub><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D_0\ge1</annotation></semantics></math>,
@@ -1448,19 +1448,20 @@ merely an interpretation of an abstract recurrence. The <a
 href="https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean#L87">weighted
 criterion is checked in both directions</a>, with the real cutoff used
 in Lemma . The cubic-rate theorem has an assembled Lean proof, <a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70">cubic-rate
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70">cubic-rate
 irrationality</a>, with no hypothesis beyond those of Theorem . The
 companion’s double-logarithmic results, its Theorem 7.3 and
 Corollary 7.4, are Lean theorems for the integer tails of a rational
 reciprocal sum (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean#L340">record
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean#L340">record
 dichotomy</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L129">double-logarithmic
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L129">double-logarithmic
 criterion</a>). For an orbit satisfying the hypotheses of Theorem  other
-than (5), both steps of the double-logarithmic bound are Lean theorems
-and only their final combination, described in Section , is not a Lean
-declaration. The companion supplies the written proofs of both
-arguments, including the growth and modulus-counting arguments.</p>
+than (5), the double-logarithmic bound of Section  is a Lean theorem as
+well (<a
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean#L45">double-logarithmic
+bound</a>). The companion supplies the written proofs of both arguments,
+including the growth and modulus-counting arguments.</p>
 <p>The recorded main build is at <code>6b78209ab63a</code>; links retain
 their original pins, including <code>3d6d938d696f</code>. The linked
 weighted criterion also has a fresh Lean check; this does not certify

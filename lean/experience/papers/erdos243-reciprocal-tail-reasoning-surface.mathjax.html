@@ -460,7 +460,7 @@ at a root of the reduction of <span class="math inline" data-term-auto="off">\(f
 against the hypothesis. ◻</p>
 </div>
 <p>The Lean proof of Lemma <a class="math-ref" href="#long243:res:squarespec">2.6</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationDedekind.lean#L184">square
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationDedekind.lean#L184">square
 specialisation</a>) avoids the Chebotarev density theorem. It uses only
 the fact that an algebraic integer <span
 class="math inline" data-term-auto="off">\(b\)</span> of a number field <span
@@ -478,7 +478,7 @@ class="math inline" data-term-auto="off">\(r\in\mathbb{F}_\ell\)</span> of the r
 <span class="math inline" data-term-auto="off">\(f\)</span> at which <span
 class="math inline" data-term-auto="off">\(H(r)\)</span> is not a nonzero square. That fact
 (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Shared/NonsquareModuloPrimes.lean#L40">nonsquares
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Shared/NonsquareModuloPrimes.lean#L40">nonsquares
 modulo primes</a>) is proved from the simple pole of the Dedekind zeta
 function at <span class="math inline" data-term-auto="off">\(s=1\)</span>, which is in
 Mathlib. If <span class="math inline" data-term-auto="off">\(b\)</span> were a nonzero square
@@ -1030,7 +1030,7 @@ href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a1
 primitive-shape theorem</a>. These are components of the proof of
 Theorem <a class="math-ref" href="#long243:res:cubicrate">2.1</a>. The complete
 irrationality implication is also a Lean theorem, <a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70">cubic-rate
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70">cubic-rate
 irrationality</a>, whose only hypotheses are those of Theorem <a class="math-ref" href="#long243:res:cubicrate">2.1</a>. Lemma <a class="math-ref" href="#long243:res:squarespec">2.6</a> is proved
 above from the classical finite-Galois Chebotarev theorem, and its Lean
 proof uses the simple pole of the Dedekind zeta function instead.</p>
@@ -2752,18 +2752,27 @@ corollary. ◻</p>
 Corollary <a class="math-ref" href="#long243:res:loglogboundary">7.4</a> are Lean
 theorems for the integer tails of a rational reciprocal sum under the
 standing hypotheses (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean#L340">record
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean#L340">record
 dichotomy</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L129">double-logarithmic
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean#L129">double-logarithmic
 criterion</a>). The strict bound <span
 class="math inline" data-term-auto="off">\(\Theta&gt;1\)</span> is also a Lean theorem for
 any exact orbit with <span class="math inline" data-term-auto="off">\(a_n&gt;1\)</span>,
 <span class="math inline" data-term-auto="off">\(C_n&gt;0\)</span>, <span
 class="math inline" data-term-auto="off">\(D_0\ge1\)</span> and vanishing relative error
 whose error is not eventually zero (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L363">strict
-record bound</a>). The supplied formal sources also contain persistence
-and pointwise-rise versions of the arithmetic steps: <a
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L363">strict
+record bound</a>). The implication of Corollary <a class="math-ref" href="#long243:res:loglogboundary">7.4</a>, that
+<span class="math inline" data-term-auto="off">\(\limsup_n(-E_n)_+/\ell(C_n)\le1\)</span>
+forces <span class="math inline" data-term-auto="off">\(E_n=0\)</span> eventually, is a Lean
+theorem for any exact orbit with <span
+class="math inline" data-term-auto="off">\(a_n&gt;1\)</span>, <span
+class="math inline" data-term-auto="off">\(C_n&gt;0\)</span> and vanishing relative error (<a
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean#L45">double-logarithmic
+bound for an exact orbit</a>); there <span
+class="math inline" data-term-auto="off">\(D_0\ge1\)</span> follows from the vanishing
+relative error. The supplied formal sources also contain persistence and
+pointwise-rise versions of the arithmetic steps: <a
 href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L111">persistence
 of a common divisor</a>, the <a
 href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L51">bounded
@@ -3293,7 +3302,7 @@ Sylvester recurrence. ◻</p>
 <h5>Formalisation.</h5>
 <p>Theorem <a class="math-ref" href="#long243:res:slownegative">7.11</a> is a Lean
 theorem with the hypotheses printed above (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L559">slow
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean#L559">slow
 negative part</a>). The corresponding pointwise-rise argument also has
 formalised arithmetic lemmas: <a
 href="https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/SlowRiseBarrier.lean#L111">persistence
@@ -5370,7 +5379,7 @@ Theorem <a class="math-ref" href="#long243:res:cubicrate">2.1</a>, one chain of
 results proved later. Each has a Lean statement of the same assertion,
 checked by the Lean kernel using only those three axioms, at revision
 <code>e4ba6841dfdb</code> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L35">the
+href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L35">the
 four statements</a>). The Lean proof of Lemma <a class="math-ref" href="#long243:res:squarespec">2.6</a> replaces the
 Chebotarev density theorem, used in the proof printed here, by the
 simple pole of the Dedekind zeta function at <span

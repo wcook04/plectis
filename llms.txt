@@ -99,7 +99,7 @@ A separate generated subsite. It is not in the software-site page list above.
 - [erdos1041-lemniscate-reasoning-surface (Reasoning surface, 78 pp.)](maths/papers/erdos1041-lemniscate-reasoning-surface.html)
 - [Erdős #1049](maths/problems/erdos_1049.html)
 - [erdos-1049-rational-base-lambert (Problem note, 21 pp.)](maths/papers/erdos-1049-rational-base-lambert.html)
-- [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 72 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
+- [erdos1049-rational-base-lambert-reasoning-surface (Reasoning surface, 73 pp.)](maths/papers/erdos1049-rational-base-lambert-reasoning-surface.html)
 - [optimal-sparse-perturbations (Cross-problem paper, 28 pp.)](maths/papers/optimal-sparse-perturbations.html)
 - [claim-faithful-publication-systems (Research architecture, 21 pp.)](maths/papers/claim-faithful-publication-systems.html)
 - [cold-clone-to-proof-receipt (Agent navigation, 12 pp.)](maths/papers/cold-clone-to-proof-receipt.html)

@@ -13,7 +13,7 @@
 \renewcommand{\PX}{lean/ErdosProblems}
 % Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
 % whose tree keeps the Lean roots under lean/.
-\newcommand{\latecommit}{e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8}
+\newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Bounded increments and rational reciprocal sums: a sufficient condition for Erdős Problem 243},
@@ -777,15 +777,16 @@ Although $C_n$ is an integer linear form in the reciprocal sum, it grows.
 The argument uses an exact polynomial formula, not a small-linear-form
 criterion.
 
-There is also a quantitative extension, whose two steps are Lean
-theorems; only the final step combining them is not a Lean declaration.
-Under the hypotheses of
-Theorem~\ref{res:bounded} other than (5), the companion proves
+There is also a quantitative extension. Under the hypotheses of
+Theorem~\ref{res:bounded} other than (5),
 \[
  \limsup_{n\to\infty}
  \frac{(-E_n)_+}{\log_2\log_2\max(4,C_n)}\le1
  \quad\Longrightarrow\quad E_n=0\text{ eventually}.
 \]
+This implication is a Lean theorem,
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean\#L45}{double-logarithmic bound},
+with no hypothesis beyond these.
 The companion's Theorem~7.3 and Corollary~7.4 prove this inclusive
 bound by controlling the height of a CRT block. A fixed bound satisfies
 it on a nonzero tail, where $C_n\to\infty$; a bound of order
@@ -793,13 +794,12 @@ $\sqrt{C_n}$ need not. Unlike boundedness, the coefficient depends on
 the integer normalisation: scaling $(C_n,D_n,E_n)$ by $k\in\N_{>0}$
 scales this limit superior by $k$. The proof and the running-maximum
 estimates are in the companion's Section~7, not in the elementary
-bounded-increment argument above. Put $H_n=\max_{j\le n}C_j$. For an
-orbit satisfying these hypotheses, the first step is the Lean theorem that
+bounded-increment argument above. Put $H_n=\max_{j\le n}C_j$. The Lean
+proof combines two Lean theorems about such an orbit: that
 $\limsup_n(H_{n+1}-H_n)/\log_2\log_2\max(4,H_n)>1$ whenever $E_n$ is not
 eventually zero
 (\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L363}{strict record bound}),
-and the second is the Lean theorem that this limit superior is at most the
-one displayed above
+and that this limit superior is at most the one displayed above
 (\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L100}{comparison with the negative part}).
 The displayed implication is the contrapositive of the two combined, which
 also uses $D_0\ge1$, a consequence of~(6). Subcritical versions are given in
@@ -953,9 +953,10 @@ reciprocal sum
 (\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean\#L340}{record dichotomy},
 \href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L129}{double-logarithmic criterion}).
 For an orbit satisfying the hypotheses of Theorem~\ref{res:bounded} other
-than (5), both steps of the double-logarithmic bound are Lean theorems and
-only their final combination, described in Section~\ref{sec:secondaryrate},
-is not a Lean declaration. The companion supplies the written proofs of
+than (5), the double-logarithmic bound of Section~\ref{sec:secondaryrate}
+is a Lean theorem as well
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean\#L45}{double-logarithmic bound}).
+The companion supplies the written proofs of
 both arguments, including the growth and modulus-counting arguments.
 
 The recorded main build is at \texttt{6b78209ab63a}; links retain their

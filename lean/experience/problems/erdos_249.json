@@ -553,7 +553,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 30,
       "renderer_fingerprint": "d383526533396f6a",
-      "source_sha256": "84d906451cb1e3d868a33ba534300f180ac0eac1be0c74907785da6b95c61353",
+      "source_sha256": "b1f44a81d1e5e4eda4f6c4ee8955bc2e22779fc10e2d370581356aaed668a8fe",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 540,
@@ -562,8 +562,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "771e4c7579dcca00b7d95c2e45035b0b66744064befb8c9dc37579b200c15225",
-      "html_exact_tex_sha256": "e7f96b1d40fb6ef99590f3ea53e313c2b84eda957ff9e7683ea3d255d9b5cf0a"
+      "html_mathml_sha256": "07fb6499273d2368bab4eddc3b997f3cee91b589301583b03a0bcc11dc1a8092",
+      "html_exact_tex_sha256": "0ab88eec8b875a286d4188d4a1975d4ecba85671b9746cf4954dd2ceb705ced4"
     },
     "sections": [
       {
@@ -722,7 +722,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "84d906451cb1e3d868a33ba534300f180ac0eac1be0c74907785da6b95c61353",
+        "source_sha256": "b1f44a81d1e5e4eda4f6c4ee8955bc2e22779fc10e2d370581356aaed668a8fe",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 540,
@@ -731,8 +731,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "771e4c7579dcca00b7d95c2e45035b0b66744064befb8c9dc37579b200c15225",
-        "html_exact_tex_sha256": "e7f96b1d40fb6ef99590f3ea53e313c2b84eda957ff9e7683ea3d255d9b5cf0a"
+        "html_mathml_sha256": "07fb6499273d2368bab4eddc3b997f3cee91b589301583b03a0bcc11dc1a8092",
+        "html_exact_tex_sha256": "0ab88eec8b875a286d4188d4a1975d4ecba85671b9746cf4954dd2ceb705ced4"
       },
       "sections": [
         {
@@ -891,7 +891,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "6edd7c49581ea56bfb275584d6c6bc42598c4a23472abe4a7c73d9a5d0efe55c",
+        "source_sha256": "8e35779332d1eb61f6f745b9c7d49613ceb654f2dc92262d62563941c683b7bc",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 4468,

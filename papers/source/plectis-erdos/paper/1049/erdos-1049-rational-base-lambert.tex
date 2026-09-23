@@ -10,7 +10,7 @@
 \renewcommand{\commitshort}{99f4bf47422a}
 % Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
 % whose tree keeps the Lean roots under lean/.
-\newcommand{\latecommit}{e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8}
+\newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Zudilin's forms at rational bases and the exact normalised Hankel order (Erdos Problem 1049)},
@@ -723,8 +723,12 @@ by $(1-q)^{N^3}$ leaves the first term unchanged but changes its logarithm
 by a cubic quantity. The long record, Section~3.1, proves separately that
 $V_N^*(q)>0$ and that $\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)$ for fixed
 $0<q<1$. The same positive-measure argument, carried further, settles the
-size within that band. The theorem below and its proof are ordinary
-mathematics; neither is formalised in Lean.
+size within that band. The first of the two facts about the moment weights
+used in the proof below, their exact factorisation with the bounds it gives,
+is a
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{Lean theorem}.
+The theorem itself and the rest of its proof are ordinary mathematics, with
+no Lean statement.
 
 \begin{theorem}[the size of $V_N^*$ at a fixed base]\label{res:sharp-fixed-base}
 Fix $0<q<1$ and write $P=(q;q)_\infty$, $B_N=N(N-1)(2N-1)/6$ and
