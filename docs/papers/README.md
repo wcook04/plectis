@@ -46,7 +46,7 @@ Start here (selected for this guide): [Rationality and the next integer above a 
 
 ### If a reciprocal sum is rational and a_{n+1}/a_n^2→1, what increment bound forces the Sylvester recurrence, and why does that not settle Erdős #243?
 
-**Cubic-Rate Irrationality and Reciprocal-Tail Rigidity**
+**Bounded Increments and Rational Reciprocal Sums**
 
 [full text](full-text/erdos-243-reciprocal-tail-rigidity.md) · [PDF](mirror/erdos-243-reciprocal-tail-rigidity.pdf) · [LaTeX source](mirror/erdos-243-reciprocal-tail-rigidity.tex) · 20 sections · `erdos-243-reciprocal-tail-rigidity` · mirror to this repository
 

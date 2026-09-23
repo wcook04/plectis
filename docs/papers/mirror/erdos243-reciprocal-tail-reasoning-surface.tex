@@ -4,15 +4,14 @@
 % Companion paper with full arguments and a guide to the formal sources.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-% Pinned revision includes the checked cubic-rate theorem.
-\renewcommand{\commit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
-\renewcommand{\commitshort}{7380b7871687}
+% Pinned Lean revision. Retained without retargeting in the prose revision.
+\renewcommand{\commit}{3d6d938d696fed0fb71dd55115a18a73738ff223}
+\renewcommand{\commitshort}{3d6d938d696f}
 % That revision keeps the Lean roots under lean/, so the links name it.
 \renewcommand{\PX}{lean/ErdosProblems}
-% Explicit proof URLs below resolve at the pinned checkpoint, whose tree
-% keeps the Lean roots under lean/. The duplicate macro lets the source-link
-% checker resolve these URLs.
-\newcommand{\latecommit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
+% Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
+% whose tree keeps the Lean roots under lean/.
+\newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Reciprocal-tail rigidity: theorems, proofs and questions for Erdős Problem 243},
@@ -30,7 +29,7 @@
 \title{Reciprocal-Tail Rigidity: Theorems, Proofs and Questions}
 \subtitle{Erd\H{o}s Problem~\#243}
 \author{Will Cook}
-\date{September 2026}
+\date{July 2026; prose revised 18 September 2026}
 
 \setlength{\emergencystretch}{2em}
 % Permit breaks inside long declaration names in the generated catalogue.
@@ -149,31 +148,7 @@ below; it cannot simply be replaced there by $O(n^{-3})$.
 If strictly increasing positive integers satisfy
 $a_n^2/a_{n+1}=1+3/n+o(n^{-3})$, then $\sum_n1/a_n$ is irrational.
 \end{theorem}
-\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L70}{\nolinkurl{cubic_rate_irrationality_unconditional}}. No Chebotarev premise in the zero-indexed theorem; the one-based
-finite-prefix bridge below is ordinary. See the \hyperref[long243:sec:coverage]{coverage section}.}
-
-
-\noindent\emph{Index translation for formal coverage.} The Lean declaration
-uses $b:\N\to\N$, including a positive $b_0$, whereas the theorem above
-starts at $a_1$. A simple shift would change $3/n$ by order $n^{-2}$,
-so it would lose the stated $o(n^{-3})$ precision. Instead choose a
-large $N$ with $a_N>N$. Such an $N$ exists: strict increase gives
-$a_n\ge n$ and the rate gives $a_n^2/a_{n+1}<2$ eventually, hence
-$a_{n+1}>a_n^2/2\ge n^2/2>n+1$ for large $n$. Define
-\[
- b_n=\begin{cases}n+1,&0\le n<N,\\a_n,&n\ge N.\end{cases}
-\]
-Then $b$ is positive and strictly increasing, with the same indexed rate
-for every $n\ge N$. Moreover
-\[
- \sum_{n\ge0}\frac1{b_n}-\sum_{n\ge1}\frac1{a_n}
- =\sum_{n=0}^{N-1}\frac1{n+1}-\sum_{n=1}^{N-1}\frac1{a_n}\in\Q.
-\]
-The series converge by the stated rapid-growth rate. If the original
-sum were rational, so would be the sum for $b$, contradicting the
-zero-indexed Lean theorem. This finite-prefix implication is proved
-here in ordinary mathematics; the linked Lean declaration checks the
-zero-indexed theorem itself.
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{70}{cubic_rate_irrationality_unconditional}.}
 
 For a concrete sequence satisfying the hypothesis, take
 \[
@@ -203,7 +178,7 @@ Then for every $A\in\Q_{>0}$ and every $B\in\Q$,
 In particular no such orbit satisfies $C_n=A\,n(n+1)(n+2)+B$ for all
 large $n$.
 \end{theorem}
-\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L54}{\nolinkurl{cubic_exclusion_unconditional}}. No Chebotarev premise; see the \hyperref[long243:sec:coverage]{coverage section}.}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{54}{cubic_exclusion_unconditional}.}
 
 The irrationality theorem needs only exclusion of eventual equality.
 Theorem~\ref{long243:res:cubicexclusion} proves more: disagreement with
@@ -216,10 +191,8 @@ numerator and denominator. Dividing out its eventual value reduces the
 proposed cubic to
 $m\,n(n+1)(n+2)/6+c$, with $m$ a positive integer and $c=\pm1$.
 Next, the two-step numerator recurrence forces a square condition at
-primes dividing the middle of three consecutive numerators. The
-square-specialisation lemma turns this into a square in a cubic number field;
-the ordinary proof below uses Chebotarev, while the Lean proof uses a
-Dedekind-zeta pole comparison. A trace
+primes dividing the middle of three consecutive numerators. Chebotarev's
+theorem turns this into a square in a cubic number field, and a trace
 calculation forces $m=12$. Finally, the two remaining cubics fail the
 exact recurrence modulo seven, at different specified residue classes of
 the index. The lemmas below carry out these steps in that order.
@@ -377,7 +350,7 @@ $H(\alpha)\ne0$.  If for all but finitely many primes $\ell$ every root
 $r\in\Fp_\ell$ of the reduction of $f$ has $H(r)$ a square in $\Fp_\ell^\times$,
 then $H(\alpha)$ is a square in $\Q(\alpha)^\times$.
 \end{lemma}
-\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationDedekind.lean\#L184}{\nolinkurl{squareSpecialisation_holds}}; the polynomial reduction is at line~156. No Chebotarev premise.} The unconditional wrapper is \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{35}{squareSpecialisation}.
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{35}{squareSpecialisation}.}
 
 \begin{proof}
 Suppose not.  Put $K=\Q(\alpha)$ and choose $\beta$ with $\beta^2=H(\alpha)$,
@@ -418,14 +391,14 @@ constant times the square of the zeta function of $K$, which the two simple
 poles forbid.
 
 The hypothesis is needed at every root and at all but finitely many primes.  A
-favourable finite set of tested primes would not suffice. The ordinary Chebotarev proof above remains a valid proof of the same lemma.
+favourable finite set of tested primes would not suffice.
 
 \begin{proposition}[the square forced by the numerator recurrence]\label{long243:res:transportsquare}
 Write $\kappa=m/6$ and $\eta=6c/m$, so that $Q_{m,c}(n)=\kappa f(n+1)$ for
 $f(T)=T^3-T+\eta$.  Then $\alpha^2-1$ is a square in $\Q(\alpha)^\times$ for a
 root $\alpha$ of $f$.
 \end{proposition}
-\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/7380b7871687b6bcc41ca0143c61f232e8af6500/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L39}{\nolinkurl{transport_square_unconditional}}. No Chebotarev premise.}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{39}{transport_square_unconditional}.}
 
 \begin{proof}
 Eliminating $v_n$ from \eqref{long243:eq:primitivetail} gives
@@ -752,14 +725,13 @@ $(r^2+s^2)^2\mid48$ have been calculated above. The public checkpoint
 also contains formalised polynomial extraction, primitive cubic
 normalisation and finite transport results, including
 \href{https://github.com/wcook04/plectis-erdos/blob/3d6d938d696fed0fb71dd55115a18a73738ff223/lean/ErdosProblems/Erdos243/PaperCompleteR11/CubicZeroDensityShape.lean\#L112}{the primitive-shape theorem}. These are components of the proof of
-Theorem~\ref{long243:res:cubicrate}. The zero-indexed irrationality
-implication is also a Lean theorem,
+Theorem~\ref{long243:res:cubicrate}. The complete irrationality implication
+is also a Lean theorem,
 \href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L70}{cubic-rate irrationality},
-with the stated rate and no Chebotarev premise; the one-based conclusion
-uses the finite-prefix argument above. The ordinary proof of
-Lemma~\ref{long243:res:squarespec} uses the classical finite-Galois
-Chebotarev theorem, and its Lean proof uses the simple pole of the Dedekind
-zeta function instead.
+whose only hypotheses are those of Theorem~\ref{long243:res:cubicrate}.
+Lemma~\ref{long243:res:squarespec} is proved above from the classical
+finite-Galois Chebotarev theorem, and its Lean proof uses the simple pole of
+the Dedekind zeta function instead.
 
 Theorem~\ref{long243:res:cubicrate} assumes neither rationality nor an
 integer orbit: these enter only under the supposition that the reciprocal
@@ -2028,6 +2000,12 @@ The strict bound $\Theta>1$ is also a Lean theorem for any exact orbit
 with $a_n>1$, $C_n>0$, $D_0\ge1$ and vanishing relative error whose error
 is not eventually zero
 (\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L363}{strict record bound}).
+The implication of Corollary~\ref{long243:res:loglogboundary}, that
+$\limsup_n(-E_n)_+/\ell(C_n)\le1$ forces $E_n=0$ eventually, is a Lean
+theorem for any exact orbit with $a_n>1$, $C_n>0$ and vanishing relative
+error
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/DoubleLogOrbitBound.lean\#L45}{double-logarithmic bound for an exact orbit});
+there $D_0\ge1$ follows from the vanishing relative error.
 The supplied formal sources also contain persistence and pointwise-rise
 versions of the arithmetic steps:
 \lword{Erdos243/SlowRiseBarrier.lean}{111}{commonDivisor_persists}{persistence of
@@ -3885,45 +3863,26 @@ construction from a rational reciprocal sum.
 \label{long243:sec:coverage}
 \papersectiontarget{coverage}
 
-In an earlier formal version, the square-specialisation lemma and its
-three consumers were formalised only under a named Chebotarev input.
-At the pinned revision, the lemma has an unconditional
-statement in \texttt{SquareSpecialisationDedekind.lean}, and the transport,
-cubic-exclusion and cubic-rate theorems have unconditional statements in
-\texttt{SquareSpecialisationUnconditional.lean}. Their shared analytic input
-is Mathlib's simple pole for the Dedekind zeta function. The proof compares
-ideal-counting Dirichlet series in a quadratic extension to produce a prime
-at which a nonsquare has zero or nonsquare reduction; it then contradicts
-the lemma's hypothesis at every modular root. The four Lean theorem
-statements have no Chebotarev premise. The cubic-rate Lean statement is
-indexed from zero; the one-based paper theorem follows by
-the ordinary finite-prefix construction above. The ordinary Chebotarev proof
-printed above is retained as a second mathematical proof, not as a formal
-dependency.
+Every theorem, lemma, proposition and corollary of this record other than the
+four listed below has a Lean statement of the same assertion, with the same
+hypotheses, checked by the Lean kernel using only the axioms
+\texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
+development at revision \texttt{181078b6b009}.
 
 The four are Lemma~\ref{long243:res:squarespec},
 Proposition~\ref{long243:res:transportsquare},
 Theorem~\ref{long243:res:cubicexclusion} and
 Theorem~\ref{long243:res:cubicrate}, one chain of results proved later.
 Each has a Lean statement of the same assertion, checked by the Lean kernel
-using only \texttt{propext}, \texttt{Classical.choice} and
-\texttt{Quot.sound}, at revision \texttt{7380b7871687}
+using only those three axioms, at revision \texttt{e4ba6841dfdb}
 (\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L35}{the four statements}).
 The Lean proof of Lemma~\ref{long243:res:squarespec} replaces the Chebotarev
 density theorem, used in the proof printed here, by the simple pole of the
-Dedekind zeta function at $s=1$, as described after that proof. The other
+Dedekind zeta function at $s=1$, as described after that proof.  The other
 three are deduced from the lemma in Lean through the square forced modulo a
 prime dividing a middle numerator, the passage from that congruence to a
 square in the cubic field, the exclusion of the proposed cubic orbit, and the
-irrationality conclusion. The one-based paper theorem uses the ordinary
-finite-prefix bridge above.
-
-The historical source links in the generated concordance below remain a
-record of the older snapshot. The theorem notes identify the later
-unconditional declarations at the pinned revision. The original Erd\H{o}s
-problem remains open: the cubic rate is a specific irrational subclass, not
-a proof of eventual Sylvester recurrence under the unrestricted growth and
-rationality hypotheses.
+irrationality conclusion.
 
 % The exhaustive source manifest is retained in the authored TeX for automated
 % validation, and kept outside the printed note.
@@ -4184,12 +4143,12 @@ only their stated conclusions.
 
 \paragraph{Cubic rate.}
 The tail estimate and finite differences of the Gamma ratio force an
-eventual cubic polynomial for the integer numerator. The recurrence forces a modular square condition, which the square-specialisation
-lemma lifts to the cubic field. The ordinary proof uses Chebotarev; the Lean
-proof obtains the same implication from a Dedekind-zeta pole comparison.
-The trace calculation leaves $m=12$, and both possible signs are excluded
-modulo seven. The full cubic-rate implication has an unconditional Lean
-declaration at the pinned revision.
+eventual cubic polynomial for the integer numerator. The recurrence and
+Chebotar\"ev then force a square in the cubic field. The trace calculation
+leaves $m=12$, and both possible signs are excluded modulo seven.
+The complete cubic-rate theorem is also checked in Lean, where the square in
+the cubic field comes from the simple pole of the Dedekind zeta function in
+place of Chebotar\"ev's theorem.
 
 \paragraph{Static barriers.}
 For sufficiently sparse prime moduli, a coprime integer sequence can

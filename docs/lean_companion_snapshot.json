@@ -6,18 +6,18 @@
     "repository": "https://github.com/wcook04/plectis-erdos",
     "tracked_branch": "refs/heads/main",
     "remote_tracking_ref": "refs/remotes/origin/main",
-    "public_ref": "4b323117eb8226fd0e8caf8c01e4c0165a21dc33",
+    "public_ref": "a08529a329578d172a9a2e602bacba4a8cc760cd",
     "orientation_path": "docs/orientation.json",
-    "orientation_sha256": "e34579d38a23df0e3b526631aa05989a749ccfe56028912ae6819677a6e180ad",
+    "orientation_sha256": "6afb561a5a598d4fcfc03d197b35535fa5436ccf132ee9e15c3e97b400e01a1e",
     "latest_tag": "v0.10.0",
     "release_tag_object": "d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e",
     "release_commit": "d788dd4b8c59f2246000f2ed98fffb8a5e8ac72e",
     "problems_path": "docs/problems.json"
   },
   "scale": {
-    "module_count": 1812,
-    "declaration_count": 163066,
-    "theorem_like_count": 159253,
+    "module_count": 1816,
+    "declaration_count": 163345,
+    "theorem_like_count": 159482,
     "generated_certificate_declaration_count": 8171,
     "principal_claim_link_count": 463
   },

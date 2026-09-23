@@ -6,11 +6,11 @@
 % This flat manuscript is generated from reviewable parts below.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
-\renewcommand{\commit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
-\renewcommand{\commitshort}{7380b7871687}
-\renewcommand{\PX}{lean/ErdosProblems}
-% Exact proof links in this record resolve at the same formal-source checkpoint.
-\newcommand{\latecommit}{7380b7871687b6bcc41ca0143c61f232e8af6500}
+\renewcommand{\commit}{92b88dc1bbe099aa73bcc900c3c405e9ba5c2334}
+\renewcommand{\commitshort}{92b88dc1bbe0}
+% Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
+% whose tree keeps the Lean roots under lean/.
+\newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Zudilin forms at rational bases: proofs and research record for Erdos Problem 1049},
@@ -57,8 +57,7 @@ the first nonzero term of the normalised determinant at every rank:
 A separate positive-measure argument proves positivity and a size
 estimate for each fixed real $0<q<1$. We give the full proofs,
 compare the two constructions with earlier work, and distinguish
-these all-rank results from the kernel-checked rank-eight coefficient
-pencil and the separate finite computations about shifted coefficient
+these all-rank results from finite computations about coefficient
 matrices and common factors. The final sections explain the limits
 of the stated clearing and congruence arguments at $3/2$. No small
 nonzero sequence of divided remainders is constructed at that base,
@@ -1363,9 +1362,9 @@ gives the two stated logarithmic bounds; both divisors are positive.
 \end{proof}
 
 \noindent The integer sides are checked as
-\lword{Erdos1049/AdelicHeightBridge.lean}{61}{threePow_fortyOne_lt_twoPow_sixtyFive}{the upper certificate}
+\lword{Erdos1049/AdelicHeightBridge.lean}{42}{threePow_fortyOne_lt_twoPow_sixtyFive}{the upper certificate}
 and
-\lword{Erdos1049/AdelicHeightBridge.lean}{64}{twoPow_sixtyFour_lt_threePow_fortyOne}{the sharp lower certificate}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{45}{twoPow_sixtyFour_lt_threePow_fortyOne}{the sharp lower certificate}.
 
 The upper power bound gives $\log2/\log3>41/65$, a sharper lower
 bound than $81/200$. In particular,
@@ -1407,9 +1406,9 @@ rearrangement of $\log3/\log2<65/41$.
 \end{proof}
 
 \noindent Separate formal statements check the
-\lword{Erdos1049/AdelicHeightBridge.lean}{103}{threeHalves_rectangular_hp_gap_gt_threeThirteenths}{bound for the rectangular expression}
+\lword{Erdos1049/AdelicHeightBridge.lean}{86}{threeHalves_rectangular_hp_gap_gt_threeThirteenths}{bound for the rectangular expression}
 and the
-\lword{Erdos1049/AdelicHeightBridge.lean}{114}{threeHalves_hankelChargeThreshold_lt_eightFortyOne}{logarithmic bound $8/41$}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{97}{threeHalves_hankelChargeThreshold_lt_eightFortyOne}{logarithmic bound $8/41$}.
 
 The next inequalities compare two proposed savings in the denominator
 exponent with the exponent $4N^3-3N^2$ before division. Here $E$ denotes
@@ -1447,9 +1446,9 @@ $N\ge2$. The assertions for $E$ follow by monotonicity.
 \end{proof}
 
 \noindent The inequalities under an upper bound on the saving are
-\lword{Erdos1049/AdelicHeightBridge.lean}{140}{zudilinScalarContent_cannot_meet_required_charge}{the first degree bound}
+\lword{Erdos1049/AdelicHeightBridge.lean}{123}{zudilinScalarContent_cannot_meet_required_charge}{the first degree bound}
 and
-\lword{Erdos1049/AdelicHeightBridge.lean}{170}{zudilinScalarPlusBorder_cannot_meet_required_charge}{the second degree bound}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{153}{zudilinScalarPlusBorder_cannot_meet_required_charge}{the second degree bound}.
 
 Lean checks the displayed integer and real inequalities in
 Theorem~\ref{long1049:res:powerbracket},
@@ -1808,7 +1807,7 @@ exact asymptotic with an explicit positive constant, using the same weights.
 The positive-measure argument, including its generating-function
 identification and infinite determinant expansion, is an ordinary proof,
 not a Lean result. The separate formal-series argument has a checked
-\lword{Erdos1049/AdelicHeightBridge.lean}{200}{hankelAssociatedCoeff_eq_reciprocal}{recurrence for the leading coefficients}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{183}{hankelAssociatedCoeff_eq_reciprocal}{recurrence for the leading coefficients}.
 The constructed determinant also has all-rank formal proofs of its
 order and leading coefficient, recorded together in
 \href{https://github.com/wcook04/plectis-erdos/blob/0b500c7cf8e8bb7ae343484378df02f277fb8194/lean/ErdosProblems/Erdos1049/AllRow/Producer.lean#L163}{the exact-order theorem},
@@ -1847,9 +1846,12 @@ Throughout this subsection $0<q<1$ is fixed and
 with $B_N=\sum_{j<N}j^2$ and $C_N=\prod_{k<N}c_k=(N!)^2(N+1)!/2^N$ as above.
 Both products converge to positive finite values, and the abbreviation $L$ is
 used only in this subsection; it is the value at $q$ of the divisor series
-$\mathcal L$ of Section~\ref{long1049:sec:open}. Everything in this subsection
-is an ordinary proof. None of it is formalised in Lean, and none of it changes
-a denominator valuation or supplies a divisor for the 2004 polynomial forms.
+$\mathcal L$ of Section~\ref{long1049:sec:open}.
+Proposition~\ref{long1049:prop:rogers-factorisation} below is a
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{Lean theorem};
+the two theorems of this subsection have ordinary proofs and no Lean
+statement. Nothing in this subsection changes a denominator valuation or
+supplies a divisor for the 2004 polynomial forms.
 
 The first step isolates what a Hankel determinant needs from its weights. The
 hypotheses are two ratio conditions on the weights, so the theorem covers
@@ -2040,6 +2042,35 @@ $\binom{k+r-1}{r-1}$, so
 Combining these at $r=2,3$ with $P\le(q;q)_k\le1$ and
 $c_k=(k+1)\binom{k+2}2$ gives $P^5c_k\le a_k\le P^{-1}c_k$. The shift bound
 follows from $c_{k+h}/c_k\le(1+h)^3$.
+
+It remains to show that $a_{k+h}/a_k\to1$ for each fixed $h$. Put
+$e_n=1/(q;q)_n$. Since $(q;q)_{n+1}=(1-q^{n+1})(q;q)_n$, these terms satisfy
+$1=e_0\le e_1\le\cdots\le P^{-1}$, and the convolutions read
+$b_k^{(2)}=\sum_{i\le k}e_ie_{k-i}$ and
+$b_k^{(3)}=\sum_{i\le k}e_ib_{k-i}^{(2)}$. Hence
+\[
+ \begin{aligned}
+ b_{k+1}^{(2)}-b_k^{(2)}
+ &=\sum_{i\le k}e_i\bigl(e_{k+1-i}-e_{k-i}\bigr)+e_{k+1},\\
+ b_{k+1}^{(3)}-b_k^{(3)}
+ &=\sum_{i\le k}e_i\bigl(b_{k+1-i}^{(2)}-b_{k-i}^{(2)}\bigr)+e_{k+1}.
+ \end{aligned}
+\]
+Every bracket is nonnegative. In the first line the brackets add up to
+$e_{k+1}-1<P^{-1}$ and each $e_i\le P^{-1}$, so
+$0\le b_{k+1}^{(2)}-b_k^{(2)}\le P^{-2}+P^{-1}\le2P^{-2}$. Inserting this
+bound into the $k+1$ terms of the second line gives
+$0\le b_{k+1}^{(3)}-b_k^{(3)}\le2(k+1)P^{-3}+P^{-1}\le3(k+1)P^{-3}$.
+Against the lower bounds $b_k^{(2)}\ge k+1$ and
+$b_k^{(3)}\ge(k+1)(k+2)/2$ displayed above, the ratio
+$b_{k+1}^{(r)}/b_k^{(r)}$ lies in $[1,1+2P^{-2}/(k+1)]$ for $r=2$ and in
+$[1,1+6P^{-3}/(k+2)]$ for $r=3$. Both ratios tend to $1$, and therefore so
+does $b_{k+h}^{(r)}/b_k^{(r)}$, a product of $h$ consecutive ratios.
+Finally $(q;q)_{k+h}/(q;q)_k=\prod_{j=1}^h(1-q^{k+j})\to1$, and
+$a_{k+h}/a_k=\gamma_{k+h}/\gamma_k$ is the product of these three ratios.
+The Lean proof obtains the
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1097}{fixed-shift limit}
+by the same steps.
 \end{proof}
 
 Only one analytic input is still missing, namely the behaviour of $a_k/c_k$ to
@@ -2112,7 +2143,7 @@ $\sum_{k<N}(k+1)^{-1}=\log N+\gamma_{\!E}+o(1)$,
  \prod_{k<N}a_k\sim\mathcal A(q)\,C_NN^{-8L}.
 \]
 Proposition~\ref{long1049:prop:rogers-factorisation} supplies the uniform shift
-bound and the last expansion supplies the fixed-shift limit, so
+bound and the fixed-shift limit, so
 Theorem~\ref{long1049:thm:geometric-universality} applies to $(a_k)$ and gives
 $V_N^*\sim\mathcal M(q)^3q^{B_N}P^{2N}\prod_{k<N}a_k$. Substituting the product
 asymptotic proves both displays.
@@ -2245,8 +2276,6 @@ positive, so $D_{N,0}(p)>0$ for every real $p\ge1$. This is the positivity
 used in Proposition~\ref{long1049:res:finite-pencil}. The strict
 positivity of every coefficient, and the shifted determinants $D_{N,1}$,
 rest on the computation above.
-Neither the finite computation nor the Lean proof yields an all-rank
-coefficient-positivity theorem.
 
 The degrees admit a separate all-rank proof. The Gaussian binomial
 $\genfrac{[}{]}{0pt}{}{u}{v}_p$ is monic of degree $v(u-v)$. In the signed sum for $R_m$,
@@ -2311,7 +2340,7 @@ For every real $p>1$ and $1\le N\le8$, $A_N$ is positive definite and
 all roots of $\det(YA_N-B_N)$ are real and strictly less than $F(p)$.
 The roots at consecutive ranks $N,N+1\le8$ interlace non-strictly.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean}{43}{coefficientPencil_finitePencil}. All three conclusions are checked through rank eight; see the \hyperref[long1049:sec:coverage]{coverage section}.}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean}{43}{coefficientPencil_finitePencil}.}
 \begin{proof}
 The leading principal minors of $(s_{i+j})_{i,j<N}$ are exactly
 $D_{k,0}(p)$ for $1\le k\le N$; their coefficient positivity proved above, together with
@@ -2943,9 +2972,9 @@ displayed reverse count at $129+2S$.
 \end{proof}
 
 \noindent The formal statements check the
-\lword{Erdos1049/AdelicHeightBridge.lean}{1800}{exists_distinct_binary_selectors_same_fourJet_of_rank_41}{sufficient count $130T+2S$}
+\lword{Erdos1049/AdelicHeightBridge.lean}{279}{exists_distinct_binary_selectors_same_fourJet_of_rank_41}{sufficient count $130T+2S$}
 and, when $T=1$, the
-\lword{Erdos1049/AdelicHeightBridge.lean}{1813}{fourJet_card_gt_two_pow_of_rank_41}{failure of the count at $129+2S$}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{292}{fourJet_card_gt_two_pow_of_rank_41}{failure of the count at $129+2S$}.
 
 For all depths at once the ambient-cardinality inequality $2^{M}>3^{2R}2^{2S}$
 holds exactly when
@@ -2987,7 +3016,7 @@ Summing over the at most $|B|$ fibres of $f$ would give
 $|A|\le |B|k$, contrary to the hypothesis.
 \end{proof}
 
-\noindent The \lword{Erdos1049/AdelicHeightBridge.lean}{1832}{exists_ne_map_eq_map_ne_of_card_mul_lt}{finite-set counting statement} is formalised.
+\noindent The \lword{Erdos1049/AdelicHeightBridge.lean}{311}{exists_ne_map_eq_map_ne_of_card_mul_lt}{finite-set counting statement} is formalised.
 
 If $g$ is injective, the hypothesis holds with $k=1$. It need not hold
 with a useful small $k$ for subset sums: repeated input rows produce
@@ -3123,7 +3152,7 @@ If $C_0>0$ and $2C_0\le C_1$, use $3^{41}<2^{65}$ to obtain
 The inequality is the checked
 \lword{Erdos1049/ZudilinConeArithmetic.lean}{428}{three_two_scalar_margin_neg}{three-halves
 scalar margin}.  The positive-branch deficit is the checked
-\lword{Erdos1049/AdelicHeightBridge.lean}{1763}{three_two_scalar_margin_lt_explicit}{$17/41$ margin}.
+\lword{Erdos1049/AdelicHeightBridge.lean}{242}{three_two_scalar_margin_lt_explicit}{$17/41$ margin}.
 The scope of this elementary inequality matters.  The primary Zudilin
 theorem~\cite[Theorem~1, p.~154; Sec.~5, pp.~161--162]{zudilin2004} supplies an integer-base
 irrationality-exponent estimate on its parameter cone, and the elementary
@@ -4408,16 +4437,19 @@ Every theorem, lemma, proposition and corollary of this record other than the
 six named here has a Lean statement of the same assertion, with the same
 hypotheses, checked by the Lean kernel using only the axioms
 \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
-development at the formal-source checkpoint \texttt{7380b7871687}. Two of the six,
-Propositions~\ref{long1049:res:nomahler} and~\ref{long1049:res:finite-pencil},
-have Lean statements of the same assertions, checked by the Lean kernel
-using only those three axioms, as described below. The other four are proved by
-ordinary arguments and have no Lean statement at that revision:
-Theorem~\ref{long1049:thm:geometric-universality},
-Proposition~\ref{long1049:prop:rogers-factorisation} and
-Theorem~\ref{long1049:thm:sharp-fixed-base} in
-Section~\ref{long1049:sec:sharp-fixed-base}, and
-Proposition~\ref{long1049:res:tail-lattice}.
+development at revision \texttt{181078b6b009}.  Four of the six have a
+Lean statement of the same assertion, checked by the Lean kernel using only
+those three axioms, at a later revision:
+Propositions~\ref{long1049:res:nomahler} and~\ref{long1049:res:finite-pencil}
+at \texttt{e4ba6841dfdb}, as described below, and
+Propositions~\ref{long1049:prop:rogers-factorisation}
+and~\ref{long1049:res:tail-lattice} at \texttt{168bf6727758}
+(\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{factorisation of the moment weights},
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/TailPrefixLattice.lean\#L475}{prefix lattice of the tails}).
+The remaining two, Theorems~\ref{long1049:thm:geometric-universality}
+and~\ref{long1049:thm:sharp-fixed-base} in
+Section~\ref{long1049:sec:sharp-fixed-base}, are proved by ordinary
+arguments and have no Lean statement at either revision.
 
 Proposition~\ref{long1049:res:nomahler} is
 \href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean\#L298}{checked in Lean}
@@ -4434,9 +4466,6 @@ described in Section~\ref{long1049:sec:coefficient-questions}.  The identity
 $F(p)A_N-B_N=(v^*_{i+j})$ and the positive definiteness of this matrix, the
 reality of the pencil roots, their position below $F(p)$ and their
 interlacing are formalised as well.
-The result has no all-rank coefficient-positivity or root-convergence
-conclusion. The historical sixteen-polynomial computation remains separate
-evidence for the shifted eight certificates.
 
 % BEGIN GENERATED CONCORDANCE (generated from the coverage ledger; do not edit by hand)
 \paragraph{Concordance of statements and Lean declarations.}
