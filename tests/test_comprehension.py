@@ -1057,7 +1057,6 @@ def test_first_action_contract_for_named_organ(tmp_path: Path) -> None:
     "experiment with a Lean proof of an Erdős problem",
     "prove an Erdos #257 theorem",
     "explore an Erdős paper and its open problem",
-    "propose an infrastructure change to the Erdős Lean corpus",
 ])
 def test_erdos_research_first_action_uses_companion(goal: str) -> None:
     pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)
@@ -1067,6 +1066,50 @@ def test_erdos_research_first_action_uses_companion(goal: str) -> None:
     assert "lean_proof_search_lab_runtime" not in pack["first_action"]["command"]
     assert pack["owner"]["repository"] == C.LEAN_COMPANION_REPOSITORY["repository"]
     assert C._first_action_contract_complete(pack)
+
+
+@pytest.mark.parametrize("goal,guide_fragment,scope", [
+    (
+        "I want to propose a public infrastructure change to the proof workflow",
+        "plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md",
+        "public_mathematics_companion",
+    ),
+    (
+        "propose an infrastructure change to the Erdős Lean corpus",
+        "plectis-erdos/blob/main/docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md",
+        "public_mathematics_companion",
+    ),
+    (
+        "I have an idea for the toolkit infrastructure",
+        "plectis/blob/main/CONTRIBUTING.md",
+        "public_toolkit",
+    ),
+    (
+        "Can I propose infra changes?",
+        "plectis/blob/main/CONTRIBUTING.md",
+        "public_toolkit",
+    ),
+])
+def test_public_infrastructure_proposal_first_action_opens_guide(
+    goal: str, guide_fragment: str, scope: str
+) -> None:
+    pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)
+    assert pack["routing"]["basis"] == "public_infrastructure_proposal"
+    assert pack["first_action"]["command"] == "cat CONTRIBUTING.md"
+    assert guide_fragment in pack["owner"]["contribution_guide"]
+    assert pack["owner"]["scope"] == scope
+    assert C._first_action_contract_complete(pack)
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+def test_implementing_infrastructure_still_gets_mutation_route() -> None:
+    pack = C.comprehend(
+        root=C.default_root(), mode="first_action",
+        target="change the toolkit infrastructure code",
+    )
+    assert pack["routing"]["basis"] != "public_infrastructure_proposal"
+    assert "--mutation" in pack["first_action"]["command"]
+    assert not C._is_cold_runnable_source_command("cat private-notes.md")
 
 
 def test_explicit_toy_lean_organ_stays_local_when_erdos_is_context() -> None:

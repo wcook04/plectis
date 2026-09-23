@@ -2717,6 +2717,14 @@ def _companion_erdos_goal(text: str) -> bool:
     )
 
 
+def _public_infrastructure_proposal_goal(text: str) -> bool:
+    """Distinguish a public idea submission from a request to edit source."""
+    tokens = set(_goal_tokens(text))
+    return bool(tokens & {"propose", "proposal", "suggest", "suggestion", "idea"}) and bool(
+        tokens & {"infra", "infrastructure", "architecture", "workflow", "workflows"}
+    )
+
+
 def _tokens_overlap(a: str, b: str) -> bool:
     """
     Return whether tokens overlap holds for the comprehension flow.
@@ -3226,6 +3234,62 @@ def _compile_first_action(
         pack["do_not_edit"] = {
             "paths": [],
             "note": "no edit, deletion, or publication is authorized by this contract",
+        }
+        return pack
+
+    if _public_infrastructure_proposal_goal(text):
+        math_proposal = bool(
+            set(_goal_tokens(text))
+            & {"erdos", "erdős", "math", "mathematics", "lean", "proof", "theorem", "corpus"}
+        )
+        guide = (
+            "https://github.com/wcook04/plectis-erdos/blob/main/"
+            "docs/research-commons/ARCHITECTURE_CONTRIBUTIONS.md"
+            if math_proposal
+            else "https://github.com/wcook04/plectis/blob/main/CONTRIBUTING.md"
+        )
+        command = "cat CONTRIBUTING.md"
+        pack["routing"] = {"basis": "public_infrastructure_proposal"}
+        pack["summary"]["what_this_is"] = (
+            "A public infrastructure idea starts with the contribution guide. "
+            f"Read {guide}."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_document",
+            "command": command,
+            "why": (
+                "The toolkit guide links both the toolkit issue route and the "
+                "separate mathematics architecture proposal route."
+            ),
+            "committed_receipts": [],
+        }
+        pack["owner"] = {
+            "scope": "public_mathematics_companion" if math_proposal else "public_toolkit",
+            "repository": (
+                LEAN_COMPANION_REPOSITORY["repository"]
+                if math_proposal else "https://github.com/wcook04/plectis"
+            ),
+            "contribution_guide": guide,
+        }
+        pack["proof_path"] = {
+            "validation_commands": [command],
+            "receipt_refs": [],
+            "note": "The committed guide describes a proposal route; it is not an acceptance receipt.",
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop at the public guide and its stated issue or pull-request route; "
+                "a proposal does not require private workbench access."
+            ),
+            "task_classes": ["public_infrastructure_proposal"],
+            "source": "CONTRIBUTING.md::Propose a public infrastructure change",
+        }
+        pack["do_not_claim"] = (
+            "A proposal is not an accepted change, independent evaluation, or proof."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "Reading a contribution route does not authorize source mutation.",
         }
         return pack
 
@@ -5250,6 +5314,9 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("what should I fix in this repo?",
      {"action_kind": "inspect_mutation_target", "command_has": "--mutation",
       "routing_basis": "improvement_goal"}),
+    ("propose an infrastructure change to the proof workflow",
+     {"action_kind": "open_document", "command_has": "cat CONTRIBUTING.md",
+      "routing_basis": "public_infrastructure_proposal"}),
     ("inspect src/microcosm_core/cli.py",
      {"action_kind": "open_packet", "command_has": "--path src/microcosm_core/cli.py",
       "routing_basis": "path_reference_goal"}),
@@ -5314,6 +5381,8 @@ def _is_cold_runnable_source_command(command: str) -> bool:
     failing evidence is returned or raised exactly where the body says so.
     """
     parts = shlex.split(str(command or ""))
+    if parts == ["cat", "CONTRIBUTING.md"]:
+        return True
     if len(parts) >= 3 and parts[0] == sys.executable and parts[1] == "-m":
         return parts[2] == "microcosm_core" or parts[2].startswith("microcosm_core.")
     if not parts or parts[0] != "PYTHONPATH=src":
