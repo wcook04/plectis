@@ -1386,12 +1386,21 @@ the roots themselves do not move. A component containing two roots just
 after the first merger can acquire a third root before level
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>μ</mi></mrow><annotation encoding="application/x-tex">2\mu</annotation></semantics></math>.
 Consider the component at that later level containing the first pair.
-For this monic cubic, its normalised capacity is its logarithmic
-capacity divided by
+For this monic cubic, its normalised capacity is its capacity divided by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>μ</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(2\mu)^{1/3}</annotation></semantics></math>.
+Here the capacity of a compact set is its transfinite diameter, the
+limit as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>→</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">N\to\infty</annotation></semantics></math>
+of the largest geometric mean of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N(N-1)/2</annotation></semantics></math>
+distances between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+of its points; by the Fekete–Szegő theorem <span class="citation"
+data-cites="ransford1995"><a href="#ref-23">[23]</a></span> it equals the logarithmic capacity.
 The whole filled lemniscate has capacity
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>μ</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(2\mu)^{1/3}</annotation></semantics></math>,
-so a normalised value of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>μ</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mn>1</mn><mi>/</mi><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(2\mu)^{1/3}</annotation></semantics></math>
+<span class="citation" data-cites="ransford1995"><a href="#ref-23">[23]</a></span>, so a
+normalised value of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
 gives no improvement over the whole set.</p>
 <div class="proposition">
@@ -1407,18 +1416,21 @@ but the component at level
 containing that pair has normalised capacity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Not formalised: the location of the roots in
-the open unit disc and the value
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>187</mn><mi>/</mi><mn>2000</mn><mo>≤</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu=187/2000\le1/2</annotation></semantics></math>
-are checked, and the root count
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mn>0</mn></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k_0=2</annotation></semantics></math>
-and the capacity clause are not; the root count, taken in the component
-of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>μ</mi></msub><annotation encoding="application/x-tex">K_\mu</annotation></semantics></math>
-containing the critical point at level
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>,
-can be stated in the pinned library, and the capacity clause needs a
-logarithmic capacity, which that library does not define. See the <a
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ArityNotCapacity.lean#L677"><code>arity_not_capacity</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ArityNotCapacity.lean#L568"><code>arity_first_merger</code></a>,
+<a
+href="https://github.com/wcook04/plectis-erdos/blob/c91562bd574a387cde904481e609c7b4cacebb14/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ArityNotCapacity.lean#L660"><code>closure_doubleLevelComponent</code></a>.
+Conditional on the classical value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>t</mi><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow></msup><annotation encoding="application/x-tex">t^{1/n}</annotation></semantics></math>
+of the transfinite diameter of the filled lemniscate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mo stretchy="false" form="prefix">|</mo><mi>p</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mi>t</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{|p|\le t\}</annotation></semantics></math>
+of a monic polynomial
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+of degree
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+used only in the capacity clause; see the <a
 href="../../../papers/erdos1041-lemniscate-reasoning-surface.pdf#nameddest=coverage">coverage
 section of the companion record</a>.</small></p>
 </section>
@@ -2903,6 +2915,10 @@ logarithmic capacities of continua</em>, Mat. Zametki
 <strong>80</strong> (2006), no. 1, 33–37; English translation, Math.
 Notes <strong>80</strong> (2006), no. 1, 31–35, doi:<a
 href="https://doi.org/10.1007/s11006-006-0105-8">10.1007/s11006-006-0105-8</a>.</p></li>
+<li id="ref-23"><p>T. Ransford, <em>Potential Theory in the Complex Plane</em>,
+London Mathematical Society Student Texts 28, Cambridge University
+Press, Cambridge, 1995, doi:<a
+href="https://doi.org/10.1017/CBO9780511623776">10.1017/CBO9780511623776</a>.</p></li>
 </ol>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document"

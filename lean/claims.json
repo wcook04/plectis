@@ -8741,6 +8741,7 @@
           "path": "lean/ErdosProblems/EightPaperR21Audit.lean",
           "role": "Lean proof module",
           "imports": [
+            "ErdosProblems.Erdos1041.PaperCompleteR21.ArityNotCapacity",
             "ErdosProblems.Erdos1041.PaperCompleteR21.BinomialChords",
             "ErdosProblems.Erdos1041.PaperCompleteR21.CollinearDiameterWhole",
             "ErdosProblems.Erdos1041.PaperCompleteR21.ConstantFactorAreaCriteria",
@@ -9509,6 +9510,14 @@
           "imports": [
             "ErdosProblems.Erdos1041.CriticalTwoRootProximity",
             "ErdosProblems.Erdos1041.PaperReflectedBoundary"
+          ]
+        },
+        {
+          "id": "ErdosProblems.Erdos1041.PaperCompleteR21.ArityNotCapacity",
+          "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/ArityNotCapacity.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos1041.PaperCompleteR21.LobeAndArity"
           ]
         },
         {
@@ -19171,7 +19180,7 @@
     "lean_toolchain": "leanprover/lean4:v4.29.1",
     "repository": "https://github.com/wcook04/plectis-erdos",
     "formal_source": {
-      "ref": "e6c2d8f77ac24753c5216a49f4daf7f7388b309f",
+      "ref": "c91562bd574a387cde904481e609c7b4cacebb14",
       "ref_kind": "commit",
       "publication_state": "committed_checkpoint_pending_remote_publication",
       "relationship_to_last_tag": "post_tag_checkpoint",

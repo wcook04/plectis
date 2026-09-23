@@ -219,17 +219,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 34,
       "renderer_fingerprint": "832c62a7a87ab6fd",
-      "source_sha256": "d7fd2856ce070f661f4ba9e81df3f53f6689a1c5da798a7411bd745a2ee7fd49",
+      "source_sha256": "a3ee862f03e19aeff31926a797d8908429a772d0b1468c036108c6f6c28df37e",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 795,
+      "mathml_node_count": 798,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "58f63d5c9ef782d337f2cdd1f1641f1c50515a15adfe0da60469fa1f545010ab",
-      "html_exact_tex_sha256": "53ac251fc53bea0932e10434ed302f57abbf3cd5b1dfe8a657f915cb45577e88"
+      "html_mathml_sha256": "d011adb4d9535d50fe860b7fb224daed826ee23c9607aa2dc5ce44922c439352",
+      "html_exact_tex_sha256": "eb871e616b90e41c8d4be63734ce08b094325b7228176f304ec4f8c61e7b0976"
     },
     "sections": [
       {
@@ -493,17 +493,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 34,
         "renderer_fingerprint": "832c62a7a87ab6fd",
-        "source_sha256": "d7fd2856ce070f661f4ba9e81df3f53f6689a1c5da798a7411bd745a2ee7fd49",
+        "source_sha256": "a3ee862f03e19aeff31926a797d8908429a772d0b1468c036108c6f6c28df37e",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 795,
+        "mathml_node_count": 798,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "58f63d5c9ef782d337f2cdd1f1641f1c50515a15adfe0da60469fa1f545010ab",
-        "html_exact_tex_sha256": "53ac251fc53bea0932e10434ed302f57abbf3cd5b1dfe8a657f915cb45577e88"
+        "html_mathml_sha256": "d011adb4d9535d50fe860b7fb224daed826ee23c9607aa2dc5ce44922c439352",
+        "html_exact_tex_sha256": "eb871e616b90e41c8d4be63734ce08b094325b7228176f304ec4f8c61e7b0976"
       },
       "sections": [
         {
@@ -1650,6 +1650,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.ArityNotCapacity",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.ArityNotCapacity",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/ArityNotCapacity.lean",
+        "direct": true,
+        "content_digest": "sha256:2d939e51248df7577994708cb2cecccd545d9a84eff8f863c66c09507a86f630",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/ArityNotCapacity.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.BinomialChords",
         "label": "ErdosProblems.Erdos1041.PaperCompleteR21.BinomialChords",
         "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/BinomialChords.lean",
@@ -1735,7 +1744,7 @@
         "label": "ErdosProblems.Erdos1041.PaperCompleteR21.LobeAndArity",
         "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean",
         "direct": true,
-        "content_digest": "sha256:299dfa93c130d1db09a2dbb167b31667923e5d8b49c9d9aa88eb481ca45313a2",
+        "content_digest": "sha256:66d2cb3f57eafb56cc52692be4e825c32e68eef61493431209523b69fe5f833b",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean",
         "role": "Lean proof module"
       },
@@ -1798,7 +1807,7 @@
         "label": "ErdosProblems.Erdos1041.PaperCompleteR21.StoppingTimeCertificate",
         "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/StoppingTimeCertificate.lean",
         "direct": true,
-        "content_digest": "sha256:ea2318d09ac732efc39abcf3b7952a5f965ebb429e21b4abd76fd1f9442f74d1",
+        "content_digest": "sha256:a070860948ce609efc83b1dca9bfc72a0e1f28d0043d500717f3858479b3d318",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/StoppingTimeCertificate.lean",
         "role": "Lean proof module"
       },
@@ -2620,6 +2629,10 @@
       {
         "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR20.TwoNearestWhole",
         "target": "lean-module:ErdosProblems.Erdos1041.PaperReflectedBoundary"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.ArityNotCapacity",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LobeAndArity"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.BinomialChords",
