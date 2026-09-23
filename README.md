@@ -71,9 +71,10 @@ show the private interface; they do not establish its reliability.
   [agent reliability and safety replays](ORGANS.md#agent-reliability--safety-replays).
   These include examples of prompt injection and poisoned memory. The examples
   use supplied data; passing them does not establish that a live agent is safe.
-- **Read the mathematics:** the
-  [Lean companion](https://github.com/wcook04/plectis-erdos), with its own
-  problem papers and reading guide.
+- **Try a mathematics experiment:** start at the
+  [Lean companion's reader path](https://github.com/wcook04/plectis-erdos#where-to-start).
+  Its exact-rational #257 probe runs with Python 3; the short papers, longer
+  records and Lean source show what the probe does and does not establish.
 - **Find a command, paper or source file:** the [documentation index](docs/README.md)
   or the [links below](#choose-a-route).
 
