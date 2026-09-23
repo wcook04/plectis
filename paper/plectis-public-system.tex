@@ -81,10 +81,10 @@ manuscript, and is responsible for its contents. The agents are production
 tools, not authors. See \emph{Statements and declarations}.}
 
 \begin{abstract}
-This paper treats one named version of Plectis as a single case in a bounded
-descriptive analysis of testing public claims about software that cannot itself
-be published.  The author releases selected code, fixed inputs, expected
-results, decision rules, and run records while the larger system remains
+This paper treats one named version of the public Plectis software toolkit as
+a single case in a bounded descriptive analysis of tests for claims about a
+larger private workbench. The author releases selected code, fixed inputs,
+expected results, decision rules, and run records while the larger system remains
 private.  What can a stranger conclude after rerunning those tests?  The answer
 is narrow.  The repository lets a reader inspect and rerun its published
 procedures.  A matching result shows repeatability for a stated public case; it
@@ -150,6 +150,15 @@ history, but each supports different conclusions and must be assessed from its
 own evidence. The audio example below does not test any mathematical result.
 Readers interested in the breadth of the private system should start from the
 architecture documentation rather than from that small example.
+
+As a current public companion to this dated software case, the mathematics
+repository's \href{https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf}{\#257 short paper}
+and \href{https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf}{longer record}
+give a Lean-checked conditional result: when an explicit base-two weighted sum
+over an infinite exponent set converges for a finite nonempty prime set,
+$\sum_{a\in B}(b^a-1)^{-1}$ is irrational for every infinite subset $B$ and
+integer $b\ge2$. The question for arbitrary infinite supports remains open.
+The audio example below does not test this theorem.
 
 The main result is a boundary, not a score. Public code, inputs, rules, and
 run records can make a selected claim easier to challenge. They cannot by
