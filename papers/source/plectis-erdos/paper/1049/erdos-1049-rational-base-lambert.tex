@@ -11,7 +11,7 @@
 \renewcommand{\PX}{lean/ErdosProblems}
 % Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
 % whose tree keeps the Lean roots under lean/.
-\newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
+\newcommand{\latecommit}{035c414b25fda09ae0d2e56358b8716d321ebd99}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Zudilin's forms at rational bases and the exact normalised Hankel order (Erdos Problem 1049)},
@@ -726,12 +726,15 @@ by $(1-q)^{N^3}$ leaves the first term unchanged but changes its logarithm
 by a cubic quantity. The long record, Section~3.1, proves separately that
 $V_N^*(q)>0$ and that $\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)$ for fixed
 $0<q<1$. The same positive-measure argument, carried further, settles the
-size within that band. The first of the two facts about the moment weights
-used in the proof below, their exact factorisation with the bounds it gives,
-is a
-\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{Lean theorem}.
-The theorem itself and the rest of its proof are ordinary mathematics, with
-no Lean statement.
+size within that band. The theorem below is a
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean\#L990}{Lean theorem},
+proved there with the explicit constant $K(q)=\mathcal A(q)\mathcal M(q)^3$
+of the long record. Its Lean proof uses the
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{exact factorisation}
+of the moment weights, from which it also obtains the second-order
+behaviour of $a_k/c_k$, and the
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean\#L1324}{determinant limit}
+for weights of this shape.
 
 \begin{theorem}[the size of $V_N^*$ at a fixed base]\label{res:sharp-fixed-base}
 Fix $0<q<1$ and write $P=(q;q)_\infty$, $B_N=N(N-1)(2N-1)/6$ and

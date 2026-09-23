@@ -11,7 +11,7 @@
 \renewcommand{\PX}{lean/ErdosProblems}
 % Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
 % whose tree keeps the Lean roots under lean/.
-\newcommand{\latecommit}{168bf6727758f918a430ef056a1c93d3160b53a6}
+\newcommand{\latecommit}{035c414b25fda09ae0d2e56358b8716d321ebd99}
 \newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Zudilin forms at rational bases: proofs and research record for Erdos Problem 1049},
@@ -1849,10 +1849,14 @@ with $B_N=\sum_{j<N}j^2$ and $C_N=\prod_{k<N}c_k=(N!)^2(N+1)!/2^N$ as above.
 Both products converge to positive finite values, and the abbreviation $L$ is
 used only in this subsection; it is the value at $q$ of the divisor series
 $\mathcal L$ of Section~\ref{long1049:sec:open}.
-Proposition~\ref{long1049:prop:rogers-factorisation} below is a
-\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{Lean theorem};
-the two theorems of this subsection have ordinary proofs and no Lean
-statement. Nothing in this subsection changes a denominator valuation or
+Both theorems of this subsection and
+Proposition~\ref{long1049:prop:rogers-factorisation} below are Lean
+theorems:
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean\#L1324}{determinants of geometric moments},
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{the moment weights as a product}
+and
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean\#L990}{the size of $V_N^*$ at a fixed base}.
+Nothing in this subsection changes a denominator valuation or
 supplies a divisor for the 2004 polynomial forms.
 
 The first step isolates what a Hankel determinant needs from its weights. The
@@ -1874,6 +1878,7 @@ Put $M_m=\sum_{k\ge0}a_kq^{(m+1)k}$ and $D_N=\det(M_{i+j})_{0\le i,j<N}$. Then
  \qquad(N\to\infty).
 \]
 \end{theorem}
+\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean\#L1324}{\nolinkurl{geometric_universality}}.}
 
 \begin{proof}
 Taking $k=0$ in the ratio bound gives $a_h\le Ca_0(1+h)^\kappa$, so every moment
@@ -2096,6 +2101,7 @@ equivalently
  \log V_N^*(q)=B_N\log q+\log C_N+2N\log P-8L\log N+\log K(q)+o(1).
 \]
 \end{theorem}
+\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean\#L990}{\nolinkurl{sharp_fixed_base}}.}
 
 \begin{proof}
 Write $\Pi(w)=(qw;q)_\infty$, so that $(w;q)_\infty=(1-w)\Pi(w)$, and for
@@ -2150,6 +2156,12 @@ bound and the fixed-shift limit, so
 Theorem~\ref{long1049:thm:geometric-universality} applies to $(a_k)$ and gives
 $V_N^*\sim\mathcal M(q)^3q^{B_N}P^{2N}\prod_{k<N}a_k$. Substituting the product
 asymptotic proves both displays.
+
+The Lean proof reaches the same expansion of $a_k/c_k$ from the factorisation
+$\gamma_k=(q;q)_kb_k^{(2)}b_k^{(3)}$ of
+Proposition~\ref{long1049:prop:rogers-factorisation}, through the identity
+$\sum_{n\ge0}\bigl(P^{-1}-1/(q;q)_n\bigr)=L/P$, which it proves from the
+$q$-difference equations of $\sum_nx^n/(q;q)_n$ and $\sum_nnx^n/(q;q)_n$.
 \end{proof}
 
 \paragraph{What the sharp estimate settles, and what it leaves.}
@@ -4444,19 +4456,20 @@ six named here has a Lean statement of the same assertion, with the same
 hypotheses, checked by the Lean kernel using only the axioms
 \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
 development at the formal-source checkpoint \texttt{7380b7871687} and its
-later extension \texttt{168bf6727758}. Four of the six have Lean statements
-of the same assertions, checked by the Lean kernel using only those three
-axioms:
+later extensions \texttt{168bf6727758} and \texttt{035c414b25fd}. The six have
+Lean statements of the same assertions, checked by the Lean kernel using only
+those three axioms:
 Propositions~\ref{long1049:res:nomahler} and~\ref{long1049:res:finite-pencil}
-at \texttt{7380b7871687}, as described below, and
+at \texttt{7380b7871687}, as described below,
 Propositions~\ref{long1049:prop:rogers-factorisation}
 and~\ref{long1049:res:tail-lattice} at \texttt{168bf6727758}
 (\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean\#L1312}{factorisation of the moment weights},
-\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/TailPrefixLattice.lean\#L475}{prefix lattice of the tails}).
-The remaining two, Theorems~\ref{long1049:thm:geometric-universality}
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/TailPrefixLattice.lean\#L475}{prefix lattice of the tails}),
+and Theorems~\ref{long1049:thm:geometric-universality}
 and~\ref{long1049:thm:sharp-fixed-base} in
-Section~\ref{long1049:sec:sharp-fixed-base}, are proved by ordinary
-arguments and have no Lean statement at either checkpoint.
+Section~\ref{long1049:sec:sharp-fixed-base} at \texttt{035c414b25fd}
+(\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean\#L1324}{determinants of geometric moments},
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean\#L990}{size of $V_N^*$ at a fixed base}).
 
 Proposition~\ref{long1049:res:nomahler} is
 \href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean\#L298}{checked in Lean}

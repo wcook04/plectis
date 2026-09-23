@@ -3026,10 +3026,16 @@ is used only in this subsection; it is the value at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
 of the divisor series
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℒ</mi><annotation encoding="application/x-tex">\mathcal L</annotation></semantics></math>
-of Section 10. Proposition 3.7 below is a <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">Lean
-theorem</a>; the two theorems of this subsection have ordinary proofs
-and no Lean statement. Nothing in this subsection changes a denominator
+of Section 10. Both theorems of this subsection and Proposition 3.7
+below are Lean theorems: <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">determinants
+of geometric moments</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">the
+moment weights as a product</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990">the
+size of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>V</mi><mi>N</mi><mo>*</mo></msubsup><annotation encoding="application/x-tex">V_N^*</annotation></semantics></math>
+at a fixed base</a>. Nothing in this subsection changes a denominator
 valuation or supplies a divisor for the 2004 polynomial forms.</p>
 <p>The first step isolates what a Hankel determinant needs from its
 weights. The hypotheses are two ratio conditions on the weights, so the
@@ -3055,6 +3061,8 @@ Then
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>N</mi></msub><mo>∼</mo><mi mathvariant="script">ℳ</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>3</mn></msup><mspace width="0.167em"></mspace><msup><mi>q</mi><msub><mi>B</mi><mi>N</mi></msub></msup><msup><mi>P</mi><mrow><mn>2</mn><mi>N</mi></mrow></msup><munderover><mo>∏</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>a</mi><mi>k</mi></msub><mspace width="2.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>→</mo><mi>∞</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">D_N\sim\mathcal M(q)^3\,q^{B_N}P^{2N}\prod_{k=0}^{N-1}a_k
  \qquad(N\to\infty).</annotation></semantics></math></em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324"><code>geometric_universality</code></a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Taking
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k=0</annotation></semantics></math>
@@ -3427,7 +3435,7 @@ consecutive ratios. Finally
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>k</mi><mo>+</mo><mi>h</mi></mrow></msub><mi>/</mi><msub><mi>a</mi><mi>k</mi></msub><mo>=</mo><msub><mi>γ</mi><mrow><mi>k</mi><mo>+</mo><mi>h</mi></mrow></msub><mi>/</mi><msub><mi>γ</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">a_{k+h}/a_k=\gamma_{k+h}/\gamma_k</annotation></semantics></math>
 is the product of these three ratios. The Lean proof obtains the <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1097">fixed-shift
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1097">fixed-shift
 limit</a> by the same steps. ◻</p>
 </div>
 <p>Only one analytic input is still missing, namely the behaviour of
@@ -3450,6 +3458,8 @@ converges to a positive finite value. With
 equivalently
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msubsup><mi>V</mi><mi>N</mi><mo>*</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>B</mi><mi>N</mi></msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>q</mi><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><msub><mi>C</mi><mi>N</mi></msub><mo>+</mo><mn>2</mn><mi>N</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>P</mi><mo>−</mo><mn>8</mn><mi>L</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>K</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>o</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\log V_N^*(q)=B_N\log q+\log C_N+2N\log P-8L\log N+\log K(q)+o(1).</annotation></semantics></math></em></p>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990"><code>sharp_fixed_base</code></a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Write
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Π</mi><mo stretchy="false" form="prefix">(</mo><mi>w</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mi>w</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>∞</mi></msub></mrow><annotation encoding="application/x-tex">\Pi(w)=(qw;q)_\infty</annotation></semantics></math>,
@@ -3544,7 +3554,19 @@ limit, so Theorem 3.6 applies to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_k)</annotation></semantics></math>
 and gives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>V</mi><mi>N</mi><mo>*</mo></msubsup><mo>∼</mo><mi mathvariant="script">ℳ</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>3</mn></msup><msup><mi>q</mi><msub><mi>B</mi><mi>N</mi></msub></msup><msup><mi>P</mi><mrow><mn>2</mn><mi>N</mi></mrow></msup><msub><mo>∏</mo><mrow><mi>k</mi><mo>&lt;</mo><mi>N</mi></mrow></msub><msub><mi>a</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">V_N^*\sim\mathcal M(q)^3q^{B_N}P^{2N}\prod_{k&lt;N}a_k</annotation></semantics></math>.
-Substituting the product asymptotic proves both displays. ◻</p>
+Substituting the product asymptotic proves both displays.</p>
+<p>The Lean proof reaches the same expansion of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>k</mi></msub><mi>/</mi><msub><mi>c</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">a_k/c_k</annotation></semantics></math>
+from the factorisation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>k</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>k</mi></msub><msubsup><mi>b</mi><mi>k</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><msubsup><mi>b</mi><mi>k</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">\gamma_k=(q;q)_kb_k^{(2)}b_k^{(3)}</annotation></semantics></math>
+of Proposition 3.7, through the identity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mrow><mi>n</mi><mo>≥</mo><mn>0</mn></mrow></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msup><mi>P</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mo>=</mo><mi>L</mi><mi>/</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">\sum_{n\ge0}\bigl(P^{-1}-1/(q;q)_n\bigr)=L/P</annotation></semantics></math>,
+which it proves from the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>-difference
+equations of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_nx^n/(q;q)_n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>n</mi></msub><mi>n</mi><msup><mi>x</mi><mi>n</mi></msup><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><mo>;</mo><mi>q</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\sum_nnx^n/(q;q)_n</annotation></semantics></math>. ◻</p>
 </div>
 <section id="what-the-sharp-estimate-settles-and-what-it-leaves."
 class="level5">
@@ -3728,7 +3750,7 @@ agree with evaluations of all sixteen polynomials. Those evaluations are
 checks, not the proof of polynomial positivity. This is a finite
 computer-algebra calculation and gives no all-rank result.</p>
 <p>For the eight unshifted determinants, positivity is also a <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458">Lean
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458">Lean
 theorem</a>, proved by a different certificate. Put
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msup><mn>2</mn><mn>2929</mn></msup></mrow><annotation encoding="application/x-tex">T=2^{2929}</annotation></semantics></math>.
 An explicit bound shows that every coefficient of
@@ -6835,7 +6857,7 @@ method. The classification and the Adamczewski–Bell theorem are cited,
 not proved here; the needed nonrationality has the elementary proof
 given earlier.</p>
 <p>The Lean proof of Proposition 10.5 (<a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L298">no
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L298">no
 finite simultaneous
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">2/3</annotation></semantics></math>-system</a>)
 uses neither cited theorem, and it uses only stability under
@@ -6863,7 +6885,7 @@ a finite-dimensional space containing
 and stable under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><msup><mi>z</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">z\mapsto z^k</annotation></semantics></math>
 alone (<a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263">single-base
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263">single-base
 statement</a>).</p>
 </section>
 <section id="a-limitation-of-the-rectangular-exponent-model"
@@ -7331,20 +7353,25 @@ than the six named here has a Lean statement of the same assertion, with
 the same hypotheses, checked by the Lean kernel using only the axioms
 <code>propext</code>, <code>Classical.choice</code> and
 <code>Quot.sound</code>, in the development at the formal-source
-checkpoint <code>7380b7871687</code> and its later extension
-<code>168bf6727758</code>. Four of the six have Lean statements of the
-same assertions, checked by the Lean kernel using only those three
-axioms: Propositions 10.5 and 3.9 at <code>7380b7871687</code>, as
-described below, and Propositions 3.7 and 10.3 at
-<code>168bf6727758</code> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">factorisation
+checkpoint <code>7380b7871687</code> and its later extensions
+<code>168bf6727758</code> and <code>035c414b25fd</code>. The six have
+Lean statements of the same assertions, checked by the Lean kernel using
+only those three axioms: Propositions 10.5 and 3.9 at
+<code>7380b7871687</code>, as described below, Propositions 3.7 and 10.3
+at <code>168bf6727758</code> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">factorisation
 of the moment weights</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/TailPrefixLattice.lean#L475">prefix
-lattice of the tails</a>). The remaining two, Theorems 3.6 and 3.8 in
-Section 3.2, are proved by ordinary arguments and have no Lean statement
-at either checkpoint.</p>
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/TailPrefixLattice.lean#L475">prefix
+lattice of the tails</a>), and Theorems 3.6 and 3.8 in Section 3.2 at
+<code>035c414b25fd</code> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">determinants
+of geometric moments</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990">size
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>V</mi><mi>N</mi><mo>*</mo></msubsup><annotation encoding="application/x-tex">V_N^*</annotation></semantics></math>
+at a fixed base</a>).</p>
 <p>Proposition 10.5 is <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L298">checked
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L298">checked
 in Lean</a> with no additional hypothesis. Its Lean proof uses stability
 under
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><msup><mi>z</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">z\mapsto z^2</annotation></semantics></math>
@@ -7352,7 +7379,7 @@ alone, without the theorem of Adamczewski and Bell <span
 class="citation" data-cites="adamczewskibell2013"></span> cited in the
 printed proof, as explained after that proof.</p>
 <p>Proposition 3.9 is <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43">checked
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43">checked
 in Lean</a> for every real
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p&gt;1</annotation></semantics></math>
 and every rank

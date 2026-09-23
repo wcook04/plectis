@@ -258,17 +258,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 32,
       "renderer_fingerprint": "f255c6c37cc97729",
-      "source_sha256": "330172cff7ad691440144905e20a9773fac8ad3d6f2c62460ee4e39284b47c19",
+      "source_sha256": "28e8ae284ed1067bd088f8c8e229186f51cd3f5fc78e57b2e6d117f0f5162320",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 738,
+      "mathml_node_count": 740,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "ab6209ec9e31743e048569396fb7c08389dafa47f0fc2162dd5efd69e4777cc6",
-      "html_exact_tex_sha256": "a36d4b3e0c93fb2ad6994f8860b44d95f2f3511468a92e7a1b3eec12986834da"
+      "html_mathml_sha256": "d9d4fae646d5492c845a96fcdf130bc067d25f8a929fc5b49a231257ac3fa537",
+      "html_exact_tex_sha256": "99d68239e1e3296c560b0196c45b5794579addf38e3eee96cc6c9ffe3cff4870"
     },
     "sections": [
       {
@@ -517,17 +517,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 32,
         "renderer_fingerprint": "f255c6c37cc97729",
-        "source_sha256": "330172cff7ad691440144905e20a9773fac8ad3d6f2c62460ee4e39284b47c19",
+        "source_sha256": "28e8ae284ed1067bd088f8c8e229186f51cd3f5fc78e57b2e6d117f0f5162320",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 738,
+        "mathml_node_count": 740,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "ab6209ec9e31743e048569396fb7c08389dafa47f0fc2162dd5efd69e4777cc6",
-        "html_exact_tex_sha256": "a36d4b3e0c93fb2ad6994f8860b44d95f2f3511468a92e7a1b3eec12986834da"
+        "html_mathml_sha256": "d9d4fae646d5492c845a96fcdf130bc067d25f8a929fc5b49a231257ac3fa537",
+        "html_exact_tex_sha256": "99d68239e1e3296c560b0196c45b5794579addf38e3eee96cc6c9ffe3cff4870"
       },
       "sections": [
         {
@@ -776,10 +776,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 32,
         "renderer_fingerprint": "f255c6c37cc97729",
-        "source_sha256": "a3aadb660376ef5a79703a227bf5b74c47e4af66429c6defdab7bdb0b380529e",
+        "source_sha256": "3c72aca20194cfae8d4f410255a5cb262e185eaad27204b31ed898e2d5bb507f",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2681,
+        "mathml_node_count": 2689,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -804,8 +804,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "124ee9aeee846c74080d83242facd00341593ef0a7c1c0e99e25770f74d61944",
-        "html_exact_tex_sha256": "696cd73de41fb323848999dcbb9b8ce85ede351b1fb93bf7bf279069f9956721"
+        "html_mathml_sha256": "8d2d8bb18de75dea9fa7b801ac41bf2c54608daee9ac6a32e40af94a75df24ae",
+        "html_exact_tex_sha256": "60ad2ec20661f6d0cac5d41e9bc62d33698084113d840a28f17bd8e6c6362295"
       },
       "sections": [
         {
@@ -1476,6 +1476,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality",
+        "label": "ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality",
+        "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean",
+        "direct": true,
+        "content_digest": "sha256:ba55c146385ac9855927d45015f65d50a438cd59a4e4f1d9a92ad12e265f5a02",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants",
         "label": "ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants",
         "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean",
@@ -1518,6 +1527,15 @@
         "direct": true,
         "content_digest": "sha256:50b6707dc4587ae58c5ccf9b05de57a934b17d41f14b074890d57b8f2d853034",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+        "label": "ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+        "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean",
+        "direct": true,
+        "content_digest": "sha256:c949a4ecc840eac2c5f802f61cef047f71b96aa573bd269dcb969472be6aeb98",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean",
         "role": "Lean proof module"
       },
       {
@@ -2484,6 +2502,10 @@
         "target": "lean-module:ErdosProblems.Erdos1049.AllRow.Producer"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality",
+        "target": "lean-module:ErdosProblems.Erdos1049.QProductBoundsR10"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants",
         "target": "lean-module:ErdosProblems.Erdos1049.MeasureConstantsR10"
       },
@@ -2522,6 +2544,18 @@
       {
         "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic",
         "target": "lean-module:ErdosProblems.Erdos1049.PositiveSeriesR16"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+        "target": "lean-module:ErdosProblems.Erdos1049.ActualPositiveMeasureR16"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+        "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+        "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystemUnconditional",

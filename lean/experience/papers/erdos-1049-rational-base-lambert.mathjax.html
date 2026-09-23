@@ -894,11 +894,17 @@ class="math inline" data-term-auto="off">\(V_N^*(q)&gt;0\)</span> and that <span
 class="math inline" data-term-auto="off">\(\log(V_N^*(q)/(C_Nq^{B_N}))=O_q(N)\)</span> for
 fixed <span class="math inline" data-term-auto="off">\(0&lt;q&lt;1\)</span>. The same
 positive-measure argument, carried further, settles the size within that
-band. The first of the two facts about the moment weights used in the
-proof below, their exact factorisation with the bounds it gives, is a <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">Lean
-theorem</a>. The theorem itself and the rest of its proof are ordinary
-mathematics, with no Lean statement.</p>
+band. The theorem below is a <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990">Lean
+theorem</a>, proved there with the explicit constant <span
+class="math inline" data-term-auto="off">\(K(q)=\mathcal A(q)\mathcal M(q)^3\)</span> of the
+long record. Its Lean proof uses the <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">exact
+factorisation</a> of the moment weights, from which it also obtains the
+second-order behaviour of <span class="math inline" data-term-auto="off">\(a_k/c_k\)</span>,
+and the <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">determinant
+limit</a> for weights of this shape.</p>
 <div class="theorem" id="res:sharp-fixed-base">
 <p><strong>Theorem 3.2</strong> (the size of <span
 class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed base). <em> Fix <span
@@ -1524,9 +1530,9 @@ leading Hankel families through rank eight, not the all-rank criterion
 in <span class="citation" data-cites="wangzhu2016"><a href="#ref-15">[15]</a></span>. For the
 unshifted family, positivity through rank eight at every real <span
 class="math inline" data-term-auto="off">\(p\ge1\)</span> is also a <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458">Lean
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458">Lean
 theorem</a>. The <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43">finite-pencil
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43">finite-pencil
 proposition</a> proves that for real <span
 class="math inline" data-term-auto="off">\(p&gt;1\)</span> and every rank <span
 class="math inline" data-term-auto="off">\(N\le8\)</span>, <span
@@ -1560,7 +1566,7 @@ class="math inline" data-term-auto="off">\(\Q(z)\)</span>-subspace of <span
 class="math inline" data-term-auto="off">\(\Q((z))\)</span> containing <span
 class="math inline" data-term-auto="off">\(L\)</span> is stable under <span
 class="math inline" data-term-auto="off">\(z\mapsto z^k\)</span> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263">single-base
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263">single-base
 statement</a>). Long Section 10.3 explains this functional obstruction;
 it gives no irrationality statement for <span
 class="math inline" data-term-auto="off">\(L(2/3)=F(3/2)\)</span>.</p>

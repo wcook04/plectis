@@ -3,13 +3,13 @@
   "authority_posture": "generated_navigation_projection_not_Lean_proof_authority",
   "root_node_id": "universe:plectis-lean",
   "counts": {
-    "nodes": 2189,
-    "edges": 5922,
+    "nodes": 2191,
+    "edges": 5930,
     "node_kinds": {
       "comparator_review_family": 71,
       "human_document": 16,
       "integration_surface": 2,
-      "lean_module": 1814,
+      "lean_module": 1816,
       "mathematical_object": 105,
       "paper": 21,
       "problem": 8,
@@ -20,14 +20,14 @@
     "relations": {
       "advances_open_target": 40,
       "builds_on": 64,
-      "contains": 1822,
+      "contains": 1824,
       "corollary_of": 1,
       "eliminates_case": 1,
       "explained_by": 21,
       "formalized_in": 43,
       "has_registry_review_unit": 1,
       "has_review_family": 71,
-      "imports": 3427,
+      "imports": 3433,
       "instantiates": 2,
       "interpreted_by": 16,
       "makes_exact": 1,
@@ -9472,6 +9472,15 @@
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/AllRowInitialCoefficient.lean"
     },
     {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality",
+      "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean"
+    },
+    {
       "id": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants",
       "kind": "lean_module",
       "label": "ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants",
@@ -9515,6 +9524,15 @@
       "role": "Lean proof module",
       "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean",
       "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean"
+    },
+    {
+      "id": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+      "kind": "lean_module",
+      "label": "ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+      "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean",
+      "role": "Lean proof module",
+      "href": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean",
+      "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean"
     },
     {
       "id": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystem",
@@ -28195,6 +28213,11 @@
     {
       "source": "lean-module:ErdosProblems.EightPaperR21Audit",
       "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality"
+    },
+    {
+      "source": "lean-module:ErdosProblems.EightPaperR21Audit",
+      "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants"
     },
     {
@@ -28216,6 +28239,11 @@
       "source": "lean-module:ErdosProblems.EightPaperR21Audit",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic"
+    },
+    {
+      "source": "lean-module:ErdosProblems.EightPaperR21Audit",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase"
     },
     {
       "source": "lean-module:ErdosProblems.EightPaperR21Audit",
@@ -31023,6 +31051,11 @@
       "target": "lean-module:ErdosProblems.Erdos1049.AllRow.Producer"
     },
     {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.QProductBoundsR10"
+    },
+    {
       "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.MeasureConstantsR10"
@@ -31071,6 +31104,21 @@
       "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic",
       "relation": "imports",
       "target": "lean-module:ErdosProblems.Erdos1049.PositiveSeriesR16"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.ActualPositiveMeasureR16"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality"
+    },
+    {
+      "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+      "relation": "imports",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic"
     },
     {
       "source": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystemUnconditional",
@@ -43920,6 +43968,11 @@
     {
       "source": "universe:plectis-lean",
       "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants"
     },
     {
@@ -43941,6 +43994,11 @@
       "source": "universe:plectis-lean",
       "relation": "contains",
       "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic"
+    },
+    {
+      "source": "universe:plectis-lean",
+      "relation": "contains",
+      "target": "lean-module:ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase"
     },
     {
       "source": "universe:plectis-lean",

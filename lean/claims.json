@@ -8760,11 +8760,13 @@
             "ErdosProblems.Erdos1041.PaperCompleteR21.StoppingTimeCertificate",
             "ErdosProblems.Erdos1041.PaperCompleteR21.SubcriticalPerimeterPath",
             "ErdosProblems.Erdos1049.PaperCompleteR21.AllRowInitialCoefficient",
+            "ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality",
             "ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants",
             "ErdosProblems.Erdos1049.PaperCompleteR21.PrintedLogConstants",
             "ErdosProblems.Erdos1049.PaperCompleteR21.RationalBaseThreshold",
             "ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisation",
             "ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic",
+            "ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
             "ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystem",
             "ErdosProblems.Erdos1049.PaperCompleteR21.SimultaneousMahlerSystemUnconditional",
             "ErdosProblems.Erdos1049.PaperCompleteR21.SourceCoefficientHeights",
@@ -10464,6 +10466,14 @@
           ]
         },
         {
+          "id": "ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality",
+          "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos1049.QProductBoundsR10"
+          ]
+        },
+        {
           "id": "ErdosProblems.Erdos1049.PaperCompleteR21.PrintedContourConstants",
           "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/PrintedContourConstants.lean",
           "role": "Lean proof module",
@@ -10506,6 +10516,16 @@
             "ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisation",
             "ErdosProblems.Erdos1049.ActualMomentGeneratingR12",
             "ErdosProblems.Erdos1049.PositiveSeriesR16"
+          ]
+        },
+        {
+          "id": "ErdosProblems.Erdos1049.PaperCompleteR21.SharpFixedBase",
+          "path": "lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean",
+          "role": "Lean proof module",
+          "imports": [
+            "ErdosProblems.Erdos1049.ActualPositiveMeasureR16",
+            "ErdosProblems.Erdos1049.PaperCompleteR21.RogersFactorisationAnalytic",
+            "ErdosProblems.Erdos1049.PaperCompleteR21.GeometricUniversality"
           ]
         },
         {
@@ -19123,7 +19143,7 @@
     "lean_toolchain": "leanprover/lean4:v4.29.1",
     "repository": "https://github.com/wcook04/plectis-erdos",
     "formal_source": {
-      "ref": "168bf6727758f918a430ef056a1c93d3160b53a6",
+      "ref": "035c414b25fda09ae0d2e56358b8716d321ebd99",
       "ref_kind": "commit",
       "publication_state": "committed_checkpoint_pending_remote_publication",
       "relationship_to_last_tag": "post_tag_checkpoint",

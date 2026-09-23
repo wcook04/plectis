@@ -2444,12 +2444,16 @@ abbreviation <span class="math inline" data-term-auto="off">\(L\)</span> is used
 subsection; it is the value at <span class="math inline" data-term-auto="off">\(q\)</span> of
 the divisor series <span class="math inline" data-term-auto="off">\(\mathcal L\)</span> of
 Section <a class="math-ref" href="#long1049:sec:open">10</a>.
-Proposition <a class="math-ref" href="#long1049:prop:rogers-factorisation">3.7</a>
-below is a <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">Lean
-theorem</a>; the two theorems of this subsection have ordinary proofs
-and no Lean statement. Nothing in this subsection changes a denominator
-valuation or supplies a divisor for the 2004 polynomial forms.</p>
+Both theorems of this subsection and Proposition <a class="math-ref" href="#long1049:prop:rogers-factorisation">3.7</a>
+below are Lean theorems: <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">determinants
+of geometric moments</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">the
+moment weights as a product</a> and <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990">the
+size of <span class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed base</a>.
+Nothing in this subsection changes a denominator valuation or supplies a
+divisor for the 2004 polynomial forms.</p>
 <p>The first step isolates what a Hankel determinant needs from its
 weights. The hypotheses are two ratio conditions on the weights, so the
 theorem covers other moment families of the same geometric shape as
@@ -2472,6 +2476,8 @@ class="math inline" data-term-auto="off">\(D_N=\det(M_{i+j})_{0\le i,j&lt;N}\)</
 M(q)^3\,q^{B_N}P^{2N}\prod_{k=0}^{N-1}a_k
 \qquad(N\to\infty).\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324"><code>geometric_universality</code></a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Taking <span class="math inline" data-term-auto="off">\(k=0\)</span> in
 the ratio bound gives <span class="math inline" data-term-auto="off">\(a_h\le
@@ -2751,7 +2757,7 @@ class="math inline" data-term-auto="off">\((q;q)_{k+h}/(q;q)_k=\prod_{j=1}^h(1-q
 and <span
 class="math inline" data-term-auto="off">\(a_{k+h}/a_k=\gamma_{k+h}/\gamma_k\)</span> is the
 product of these three ratios. The Lean proof obtains the <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1097">fixed-shift
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1097">fixed-shift
 limit</a> by the same steps. ◻</p>
 </div>
 <p>Only one analytic input is still missing, namely the behaviour of
@@ -2777,6 +2783,8 @@ K(q)\,C_Nq^{B_N}P^{2N}N^{-8L},\]</span></div>
 class="math display" data-term-auto="off">\[\log V_N^*(q)=B_N\log q+\log C_N+2N\log P-8L\log
 N+\log K(q)+o(1).\]</span></div>
 </div>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990"><code>sharp_fixed_base</code></a>.</small></p>
 <div class="proof">
 <p><em>Proof.</em> Write <span
 class="math inline" data-term-auto="off">\(\Pi(w)=(qw;q)_\infty\)</span>, so that <span
@@ -2852,7 +2860,17 @@ Theorem <a class="math-ref" href="#long1049:thm:geometric-universality">3.6</a>
 applies to <span class="math inline" data-term-auto="off">\((a_k)\)</span> and gives <span
 class="math inline" data-term-auto="off">\(V_N^*\sim\mathcal
 M(q)^3q^{B_N}P^{2N}\prod_{k&lt;N}a_k\)</span>. Substituting the product
-asymptotic proves both displays. ◻</p>
+asymptotic proves both displays.</p>
+<p>The Lean proof reaches the same expansion of <span
+class="math inline" data-term-auto="off">\(a_k/c_k\)</span> from the factorisation <span
+class="math inline" data-term-auto="off">\(\gamma_k=(q;q)_kb_k^{(2)}b_k^{(3)}\)</span> of
+Proposition <a class="math-ref" href="#long1049:prop:rogers-factorisation">3.7</a>,
+through the identity <span
+class="math inline" data-term-auto="off">\(\sum_{n\ge0}\bigl(P^{-1}-1/(q;q)_n\bigr)=L/P\)</span>,
+which it proves from the <span
+class="math inline" data-term-auto="off">\(q\)</span>-difference equations of <span
+class="math inline" data-term-auto="off">\(\sum_nx^n/(q;q)_n\)</span> and <span
+class="math inline" data-term-auto="off">\(\sum_nnx^n/(q;q)_n\)</span>. ◻</p>
 </div>
 <section id="what-the-sharp-estimate-settles-and-what-it-leaves."
 class="level5">
@@ -3007,7 +3025,7 @@ all sixteen polynomials. Those evaluations are checks, not the proof of
 polynomial positivity. This is a finite computer-algebra calculation and
 gives no all-rank result.</p>
 <p>For the eight unshifted determinants, positivity is also a <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458">Lean
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean#L458">Lean
 theorem</a>, proved by a different certificate. Put <span
 class="math inline" data-term-auto="off">\(T=2^{2929}\)</span>. An explicit bound shows that
 every coefficient of <span class="math inline" data-term-auto="off">\(D_{N,0}(1+t)\)</span>,
@@ -5451,7 +5469,7 @@ classification and the Adamczewski–Bell theorem are cited, not proved
 here; the needed nonrationality has the elementary proof given
 earlier.</p>
 <p>The Lean proof of Proposition <a class="math-ref" href="#long1049:res:nomahler">10.5</a> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L298">no
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L298">no
 finite simultaneous <span class="math inline" data-term-auto="off">\(2/3\)</span>-system</a>)
 uses neither cited theorem, and it uses only stability under <span
 class="math inline" data-term-auto="off">\(z\mapsto z^2\)</span>. As in the first step of the
@@ -5471,7 +5489,7 @@ excludes, for every <span class="math inline" data-term-auto="off">\(k\ge2\)</sp
 finite-dimensional space containing <span class="math inline" data-term-auto="off">\(\mathcal
 L\)</span> and stable under <span class="math inline" data-term-auto="off">\(z\mapsto
 z^k\)</span> alone (<a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263">single-base
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L263">single-base
 statement</a>).</p>
 </section>
 <section id="a-limitation-of-the-rectangular-exponent-model"
@@ -5877,30 +5895,33 @@ than the six named here has a Lean statement of the same assertion, with
 the same hypotheses, checked by the Lean kernel using only the axioms
 <code>propext</code>, <code>Classical.choice</code> and
 <code>Quot.sound</code>, in the development at the formal-source
-checkpoint <code>7380b7871687</code> and its later extension
-<code>168bf6727758</code>. Four of the six have Lean statements of the
-same assertions, checked by the Lean kernel using only those three
-axioms: Propositions <a class="math-ref" href="#long1049:res:nomahler">10.5</a> and <a class="math-ref" href="#long1049:res:finite-pencil">3.9</a> at
-<code>7380b7871687</code>, as described below, and Propositions <a class="math-ref" href="#long1049:prop:rogers-factorisation">3.7</a>
+checkpoint <code>7380b7871687</code> and its later extensions
+<code>168bf6727758</code> and <code>035c414b25fd</code>. The six have
+Lean statements of the same assertions, checked by the Lean kernel using
+only those three axioms: Propositions <a class="math-ref" href="#long1049:res:nomahler">10.5</a> and <a class="math-ref" href="#long1049:res:finite-pencil">3.9</a> at
+<code>7380b7871687</code>, as described below, Propositions <a class="math-ref" href="#long1049:prop:rogers-factorisation">3.7</a>
 and <a class="math-ref" href="#long1049:res:tail-lattice">10.3</a>
 at <code>168bf6727758</code> (<a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">factorisation
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/RogersFactorisationAnalytic.lean#L1312">factorisation
 of the moment weights</a>, <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/TailPrefixLattice.lean#L475">prefix
-lattice of the tails</a>). The remaining two, Theorems <a class="math-ref" href="#long1049:thm:geometric-universality">3.6</a>
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/TailPrefixLattice.lean#L475">prefix
+lattice of the tails</a>), and Theorems <a class="math-ref" href="#long1049:thm:geometric-universality">3.6</a>
 and <a class="math-ref" href="#long1049:thm:sharp-fixed-base">3.8</a> in
-Section <a class="math-ref" href="#long1049:sec:sharp-fixed-base">3.2</a>, are
-proved by ordinary arguments and have no Lean statement at either
-checkpoint.</p>
+Section <a class="math-ref" href="#long1049:sec:sharp-fixed-base">3.2</a> at
+<code>035c414b25fd</code> (<a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/GeometricUniversality.lean#L1324">determinants
+of geometric moments</a>, <a
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SharpFixedBase.lean#L990">size
+of <span class="math inline" data-term-auto="off">\(V_N^*\)</span> at a fixed base</a>).</p>
 <p>Proposition <a class="math-ref" href="#long1049:res:nomahler">10.5</a> is <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L298">checked
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean#L298">checked
 in Lean</a> with no additional hypothesis. Its Lean proof uses stability
 under <span class="math inline" data-term-auto="off">\(z\mapsto z^2\)</span> alone, without
 the theorem of Adamczewski and Bell <span class="citation"
 data-cites="adamczewskibell2013"><a href="#ref-15">[15]</a></span> cited in the printed proof, as
 explained after that proof.</p>
 <p>Proposition <a class="math-ref" href="#long1049:res:finite-pencil">3.9</a> is <a
-href="https://github.com/wcook04/plectis-erdos/blob/168bf6727758f918a430ef056a1c93d3160b53a6/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43">checked
+href="https://github.com/wcook04/plectis-erdos/blob/035c414b25fda09ae0d2e56358b8716d321ebd99/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43">checked
 in Lean</a> for every real <span class="math inline" data-term-auto="off">\(p&gt;1\)</span>
 and every rank <span class="math inline" data-term-auto="off">\(N\le8\)</span>. The
 positivity of the eight unshifted determinants <span
