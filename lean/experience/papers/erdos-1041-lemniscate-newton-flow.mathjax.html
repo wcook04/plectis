@@ -291,8 +291,9 @@ circle-intersection bound alone does not yield the stated cutoff.</p>
 class="math inline" data-term-auto="off">\(\mu\le13/25\)</span>. Its recorded stopping time
 also supports <span class="math inline" data-term-auto="off">\(\mu\le529/1000\)</span>; the
 <a href="#certificate-stopping-time">supplement</a> gives that
-calculation. The certificate has not been rerun for this revision, and
-no optimality of either cutoff is asserted.</p>
+calculation. A rerun of the certificate on 23 September 2026 reproduced
+the recorded stopping time exactly. No optimality of either cutoff is
+asserted.</p>
 <div id="supplementary-results">
 
 </div>
@@ -364,9 +365,14 @@ class="math display" data-term-auto="off">\[(529/1000)e^X&lt;0.998996547&lt;1,\]
 <p class="display-continue">so
 the same recorded output also covers <span
 class="math inline" data-term-auto="off">\(\mu\le529/1000\)</span>; <span
-class="math inline" data-term-auto="off">\(13/25\)</span> is the simpler stated constant. The
-certificate has not been rerun for this revision, and no optimality of
-either cutoff is asserted.</p>
+class="math inline" data-term-auto="off">\(13/25\)</span> is the simpler stated constant. On
+23 September 2026 the full-mode certificate, unchanged since the
+recorded run, was rerun and returned <span
+class="math inline" data-term-auto="off">\(X=635762889599/10^{12}\)</span> exactly. Its dual
+weights come from a SciPy linear program; without SciPy the uniform
+fallback weights certify <span
+class="math inline" data-term-auto="off">\(\mu\le51/100\)</span>. No optimality of either
+cutoff is asserted.</p>
 </section>
 <section id="an-independent-area-proof." class="level5">
 <h5>An independent area proof.</h5>

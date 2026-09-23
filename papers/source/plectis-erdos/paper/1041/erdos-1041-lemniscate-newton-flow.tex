@@ -273,8 +273,8 @@ The circle-intersection bound alone does not yield the stated cutoff.
 The rational comparison reaches this contradiction when $\mu\le13/25$.
 Its recorded stopping time also supports $\mu\le529/1000$; the
 \hyperlink{certificate-stopping-time}{supplement} gives that calculation.
-The certificate has not been rerun for this revision, and no optimality
-of either cutoff is asserted.
+A rerun of the certificate on 23 September 2026 reproduced the recorded
+stopping time exactly. No optimality of either cutoff is asserted.
 
 \clearpage
 \hypertarget{supplementary-results}{}
@@ -324,8 +324,11 @@ The companion's rational exponential estimate gives
  (529/1000)e^X<0.998996547<1,
 \]
 so the same recorded output also covers $\mu\le529/1000$; $13/25$ is
-the simpler stated constant. The certificate has not been rerun for this
-revision, and no optimality of either cutoff is asserted.
+the simpler stated constant. On 23 September 2026 the full-mode
+certificate, unchanged since the recorded run, was rerun and returned
+$X=635762889599/10^{12}$ exactly. Its dual weights come from a SciPy
+linear program; without SciPy the uniform fallback weights certify
+$\mu\le51/100$. No optimality of either cutoff is asserted.
 
 \paragraph{An independent area proof.}
 The next theorem gives a weaker numerical bound through an argument that
