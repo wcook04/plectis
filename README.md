@@ -75,6 +75,10 @@ show the private interface; they do not establish its reliability.
   [Lean companion's reader path](https://github.com/wcook04/plectis-erdos#where-to-start).
   Its exact-rational #257 probe runs with Python 3; the short papers, longer
   records and Lean source show what the probe does and does not establish.
+- **Improve the toolkit's first-use path:**
+  [try an entry-route experiment](CONTRIBUTING.md#try-an-entry-route-experiment).
+  Check whether a plain-language software task leads to a relevant, runnable
+  first step, then report one reproducible mismatch.
 - **Find a command, paper or source file:** the [documentation index](docs/README.md)
   or the [links below](#choose-a-route).
 
