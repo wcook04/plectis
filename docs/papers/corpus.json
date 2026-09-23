@@ -7815,11 +7815,11 @@
         "year": "2026",
         "title": "Plectis: What a Stranger Can Check",
         "repository": "plectis",
-        "canonical_source_commit": "c4bc700a26d2062b322cffe9abab7cb5963b817e",
-        "canonical_source_url": "https://github.com/wcook04/plectis/blob/c4bc700a26d2062b322cffe9abab7cb5963b817e/paper/plectis-public-system.tex",
+        "canonical_source_commit": null,
+        "canonical_source_url": null,
         "licence": "CC-BY-4.0",
-        "identifier_kind": "commit_pinned_source",
-        "text": "Will Cook (2026). Plectis: What a Stranger Can Check. plectis, commit c4bc700a26d2062b322cffe9abab7cb5963b817e. CC-BY-4.0. https://github.com/wcook04/plectis/blob/c4bc700a26d2062b322cffe9abab7cb5963b817e/paper/plectis-public-system.tex",
+        "identifier_kind": "unversioned_source",
+        "text": "Will Cook (2026). Plectis: What a Stranger Can Check. plectis. CC-BY-4.0.",
         "derived_from": [
           "docs/papers/corpus.json: title, copyright, home_repository, canonical_source_commit, canonical_source_url, licence"
         ]
@@ -7830,11 +7830,11 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
-      "source_sha256": "sha256:6010857594762edba452ac8a5d016277136f6938c657fa4ff4bb3c4351140fca",
-      "canonical_source_commit": "c4bc700a26d2062b322cffe9abab7cb5963b817e",
-      "canonical_source_pin_status": "immutable_commit",
-      "canonical_source_url": "https://github.com/wcook04/plectis/blob/c4bc700a26d2062b322cffe9abab7cb5963b817e/paper/plectis-public-system.tex",
-      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/c4bc700a26d2062b322cffe9abab7cb5963b817e/paper/plectis-public-system.tex",
+      "source_sha256": "sha256:37ee2835f40f117cf459c49c765c4bf50221cb1830408ca220ca5e6e0f9a9df2",
+      "canonical_source_commit": null,
+      "canonical_source_pin_status": "local_unpublished",
+      "canonical_source_url": null,
+      "canonical_source_raw_url": null,
       "section_count": 32,
       "sections": [
         {
@@ -8032,8 +8032,8 @@
       ],
       "citations_rendered": 20,
       "local_pdf": "plectis-public-system.pdf",
-      "pdf_sha256": "sha256:76f144e169db2af543cbbcf81f8e8557ee23b14a8a818fc36ff728abab35eb74",
-      "pdf_byte_count": 133117,
+      "pdf_sha256": "sha256:a83bce41d88a0f919bc4e252f75f1be7902c5994411da7816dfb965742935178",
+      "pdf_byte_count": 133358,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection for this guide",
@@ -8062,9 +8062,9 @@
         "unresolved_count": 0
       },
       "previous_published_source": {
-        "canonical_source_commit": "c2fe48bf0b29cb322f1f7b172369e2967379fa1e",
-        "canonical_source_url": "https://github.com/wcook04/plectis/blob/c2fe48bf0b29cb322f1f7b172369e2967379fa1e/paper/plectis-public-system.tex",
-        "source_sha256": "sha256:87609af9991c90a62db3c8788ef9d6f72f057441d37f7e27d6eb651652a60dd1"
+        "canonical_source_commit": "c4bc700a26d2062b322cffe9abab7cb5963b817e",
+        "canonical_source_url": "https://github.com/wcook04/plectis/blob/c4bc700a26d2062b322cffe9abab7cb5963b817e/paper/plectis-public-system.tex",
+        "source_sha256": "sha256:6010857594762edba452ac8a5d016277136f6938c657fa4ff4bb3c4351140fca"
       }
     }
   ]

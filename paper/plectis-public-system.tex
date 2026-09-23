@@ -155,7 +155,8 @@ As a current public companion to this dated software case, the mathematics
 repository's \href{https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos-257-mersenne-support-subseries.pdf}{\#257 short paper}
 and \href{https://github.com/wcook04/plectis-erdos/blob/main/paper/257/erdos257-mersenne-reasoning-surface.pdf}{longer record}
 prove a Lean-checked theorem for an infinite exponent set $A$ and a finite
-nonempty prime set $P$. Write $h_P(a)=\prod_{p\in P}p^{v_p(a)}$. If
+nonempty prime set $P$. Write $h_P(a)=\prod_{p\in P}p^{v_p(a)}$, where
+$v_p(a)$ counts factors of $p$ in $a$. If
 $\sum_{a\in A}h_P(a)/[a(2^{h_P(a)}-1)]<\infty$, then
 $\sum_{a\in A}(b^a-1)^{-1}$ is irrational at every integer base $b\ge2$.
 The condition holds for some supports with divergent $\sum_{a\in A}1/a$
