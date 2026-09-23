@@ -70,10 +70,10 @@ the gap series.  The complete tails
 $T_N=\sum_{j\ge1}g_{N+j}2^{-j}$ satisfy $T_{N+1}=2T_N-g_{N+1}$;
 we use this recurrence to characterise rationality and to derive finite
 tests with explicit remainder bounds.  Counterexamples show why several
-weaker coefficient conditions do not suffice.  An exact finite certificate
-shows that a rational value of the prime series would have denominator
-at least $2^{39998}>10^{12040}$.  This denominator bound does not establish
-irrationality.
+weaker coefficient conditions do not suffice.  An exact finite certificate,
+checked by the Lean kernel, shows that a rational value of the prime series
+would have denominator at least $2^{40062}>10^{12059}$.  This denominator bound
+does not establish irrationality.
 \end{abstract}
 
 \section{Introduction}\label{long251:sec:problem}
@@ -1279,41 +1279,83 @@ The four Farey literals have $177$ and $178$ digits.
 Every rational equal to $\Pi$, and hence every rational equal to $S$, has
 reduced denominator $q\ge2^{39997}$, and therefore $q>10^{12040}$.
 \end{theorem}
-\leannote{Not formalised: the deduction from the four integer comparisons is checked in general form, and the certificate they are applied to is too large for the Lean kernel to evaluate, so the exclusion rests on the separate exact-arithmetic verifier described in the proof. See the \hyperref[long251:sec:coverage]{coverage section}.}
+\leannote{Lean: \href{https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean\#L29}{\nolinkurl{denominator_floor_both}}.}
 
 \begin{proof}
-The accompanying integer-arithmetic verifier constructs an $80000$-bit
-enclosure with $23369$ common partial quotients and checks the following
-certificate.  It uses neither floating-point arithmetic nor a Lean build.
-
-Let $c=80128$ and $A=\sum_{i=0}^{c-1}p_i2^{c-i-1}$, with the primes
-obtained by a sieve below $1200000$.  The polynomial bound and the
-quartic identity of Proposition~\ref{long251:res:explicit-remainder} give
+Put $c=80200$, the number of primes below $1\,023\,068$, and
+$A=\sum_{i=0}^{c-1}p_i2^{\,c-i-1}$.  The estimate in the proof of
+Theorem~\ref{long251:res:denominatorfloor} holds for every $c\ge9$ and gives
 \[
- \frac{A}{2^c}\le\Pi\le\frac{A+1250P(c)}{2^c}.
+ \frac{A}{2^{c}}\;\le\;\Pi\;\le\;\frac{2A+5000(c+1)^4}{2^{\,c+1}} .
 \]
-Round the lower endpoint down and the upper endpoint up to multiples of
-$2^{-80000}$.  The resulting integers $L,U$ satisfy $U-L=1$ and
-$\Pi\in[L2^{-80000},U2^{-80000}]$.  This is the width reported as $1$
-in the scaled receipt.  The verifier computes the common continued-fraction
-prefix of these two rational endpoints by integer division and inversion.
-
-Its last two convergents, ordered as $u/v<u'/v'$, satisfy
+Four positive integers $u,v,u',v'$, described after this proof, satisfy
 \[
  u'v-uv'=1,\qquad
- u\,2^{80000}<Lv,\qquad Uv'<u'\,2^{80000},\qquad
- v+v'\ge2^{39998}.
+ \frac uv<\frac{A}{2^{c}},\qquad
+ \frac{2A+5000(c+1)^4}{2^{\,c+1}}<\frac{u'}{v'},\qquad
+ v+v'\ge2^{40062},
 \]
-Thus the entire enclosure lies strictly between two Farey neighbours.
-The same determinant calculation as in
-Theorem~\ref{long251:res:denominatorfloor} gives $q\ge v+v'$ for every
-rational value of $\Pi$.  It proves the stated bound and, in fact, the
-slightly stronger dyadic bound $q\ge2^{39998}$; the strict decimal bound
-remains $10^{12040}$.  The continued fractions used in the computation
-are those of the rational enclosure endpoints, not an assumed infinite
-continued fraction for $\Pi$.  Once the neighbours are found, only the
-four displayed integer comparisons are needed.
+all four being integer comparisons after clearing the positive denominators.
+If $\Pi=a/b$ with $a\in\Z$ and $b$ a positive integer, the determinant
+calculation in the proof of Theorem~\ref{long251:res:denominatorfloor} gives
+\[
+ b\;\ge\;v+v'\;\ge\;2^{40062}\;>\;10^{12059}.
+\]
+The last inequality holds because $10^{12059}=(10^{59})^{204}\,10^{23}$ and
+$2^{40062}=(2^{196})^{204}\,2^{78}$, with $10^{59}<2^{196}$ and
+$10^{23}<2^{78}$.  The reduced denominator $q$ is one such $b$, so
+$q\ge2^{40062}>2^{39997}$ and $q>10^{12059}>10^{12040}$.  If $S=a/b$, apply
+the same argument to $\Pi=(a+2b)/b$.
 \end{proof}
+
+\noindent The integers $u,v,u',v'$ come from the continued fractions of the
+two endpoints $A/2^{c}$ and $(2A+5000(c+1)^4)/2^{\,c+1}$, which agree in their
+first $23407$ partial quotients.  The fraction $u/v$ is the convergent formed by
+those partial quotients, and $u'/v'$ is the mediant of $u/v$ and the convergent
+before it.  Only the four comparisons enter the proof.  The numerators $u,u'$
+have $12061$ decimal digits and the denominators $v,v'$ have $12060$.
+
+The Lean kernel checks every step of this proof.  The computations are decided
+by \texttt{decide +kernel}, with no \texttt{native\_decide}.  The kernel
+recomputes $c$ and $A$ from the definition of primality.  It scans the integers
+below $1\,023\,068$ in $250$ consecutive blocks and checks the prime count and
+partial numerator at the end of each block, starting from their values at the
+end of the block before.  It decides primality by trial division below $1012$.
+On $[1012,1013^2)$, which contains the rest of the scan because
+$1013^2=1\,026\,169$, it uses the
+\href{https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/GcdPrimality.lean\#L72}{fact}
+that such an integer is prime exactly when it is coprime to the product of the
+primes below $1012$, and it recomputes that product by trial division.  Lean
+proves that the two primality tests agree at every natural number.  The kernel
+decides the four comparisons on the same literals, together with
+$10^{59}<2^{196}$ and $10^{23}<2^{78}$.  The enclosure and the determinant step
+are proved in general form.  The result is the
+\href{https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeStreamingV5.lean\#L76}{bound $b\ge2^{40062}$ and $b>10^{12059}$ for both series},
+from which Lean derives the
+\href{https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean\#L29}{theorem as stated}.
+Both use only the axioms \texttt{propext}, \texttt{Classical.choice} and
+\texttt{Quot.sound}.
+
+A second certificate was checked outside Lean by the accompanying
+integer-arithmetic verifier, which uses no floating-point arithmetic.  It
+encloses $\Pi$ between the sum of its first $80128$ terms and that sum plus
+$1250P(80128)/2^{80128}$, with the primes taken from a sieve below
+$1\,200\,000$.  The added term is a bound for the omitted terms, obtained from
+$p_n\le1250(n+1)^4$ and the identity $2P(x)=(x+1)^4+P(x+1)$ in the proof of
+Proposition~\ref{long251:res:explicit-remainder}.  Rounding the lower endpoint down and the upper
+endpoint up to multiples of $2^{-80000}$ gives integers $L$ and $U=L+1$ with
+$L2^{-80000}\le\Pi\le U2^{-80000}$; this is the width reported as $1$ in the
+scaled receipt.  The continued fractions of the two rounded endpoints agree in
+their first $23369$ partial quotients, and their last two common convergents,
+ordered as $s/t<s'/t'$, satisfy
+\[
+ s't-st'=1,\qquad
+ s\,2^{80000}<Lt,\qquad Ut'<s'\,2^{80000},\qquad
+ t+t'\ge2^{39998}.
+\]
+The same determinant calculation gives $q\ge2^{39998}$.  In both certificates
+the continued fractions are those of the two rational endpoints of an enclosure
+of $\Pi$.
 
 The original receipt uses the best-approximation property of convergents
 \cite[\S6, Theorems~16 and~17]{khinchin1964}; Short gives an accessible
@@ -1326,8 +1368,8 @@ and an arithmetic self-check of the same routine against the known expansions
 of $e$ and $\pi$.  Those bit and digit counts describe the original routine's last
 convergent, not an arbitrary rational in the enclosure.  Bit length
 $39998$ implies a denominator at least $2^{39997}$, and $12041$ decimal
-digits imply only a non-strict lower bound $10^{12040}$.  The bound for
-$q$ instead uses the checked sum $v+v'\ge2^{39998}$.  The strict decimal
+digits imply only a non-strict lower bound $10^{12040}$.  The bounds for
+$q$ above use the checked sums $v+v'$ and $t+t'$.  The strict decimal
 inequality follows from the separate integer comparison
 $2^{39997}>10^{12040}$.
 
@@ -2082,10 +2124,10 @@ consecutive primes, so they do not rule out arguments that combine those
 properties with further information about primes.
 
 \paragraph{Verification boundary.}
-The smaller denominator bound has a recorded kernel-decided integer
-certificate.  The larger bound is supported by the archived computation
-and the independent integer-arithmetic replay described above.  Neither
-is an irrationality theorem, and the replay is not a Lean kernel check.  The older $4096$-bit calculation and the separate
+The Lean kernel checks the integer certificates of both denominator bounds.
+The larger bound is also supported by the archived computation and by the
+independent integer-arithmetic replay described after its proof.  Neither
+bound is an irrationality theorem.  The older $4096$-bit calculation and the separate
 justification of its tail bound are discussed in
 Section~\ref{long251:sec:xr-corrections}.  Declaration-level build status is recorded below,
 separately from the ordinary proofs and numerical receipts.
@@ -2096,7 +2138,8 @@ separately from the ordinary proofs and numerical receipts.
 \paragraph{Artefact and data availability.}
 Declaration links identify immutable revisions, not a live branch.  The
 main source links in this manuscript retain revision \texttt{3d6d938d696f}; release-only declarations
-are linked to \texttt{52f29ad173b0}.  The supplied declaration index
+are linked to \texttt{52f29ad173b0}.  The certificate of
+Theorem~\ref{long251:res:cfexclusion} is linked at \texttt{e6c2d8f77ac2}.  The supplied declaration index
 distinguishes \texttt{ci\_checked}, \texttt{outside\_checked\_build}, and
 \texttt{release\_only}; presence of a file or link alone is not evidence
 that its proof was checked.  The recorded CI receipt is
@@ -2124,7 +2167,8 @@ It reproduces the common-prefix length and the receipt's denominator
 threshold, and checks the stronger neighbouring-denominator sum stated
 above.  It does not rerun the original program's floating-point statistics
 or its self-tests on $e$ and $\pi$.  The prime-gap frequency scans were not
-rerun, and neither verifier is a new Lean build.
+rerun, and neither verifier is a new Lean build.  The Lean kernel checks the
+certificate given in the proof of Theorem~\ref{long251:res:cfexclusion}.
 
 \paragraph{Funding and competing interests.} This work received no external
 funding.  The author declares no competing interests.
@@ -2269,12 +2313,16 @@ not a construction of new primes.  The complete link inventory is also retained 
 \papersectiontarget{coverage}
 
 Every theorem, lemma, proposition and corollary of this record other than the
-four listed below has a Lean statement of the same assertion, with the same
+three listed below has a Lean statement of the same assertion, with the same
 hypotheses, checked by the Lean kernel using only the axioms
 \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, in the
-development at revision \texttt{181078b6b009}.
+development at revision \texttt{181078b6b009}.  For
+Theorem~\ref{long251:res:cfexclusion} the revision is the later
+\texttt{e6c2d8f77ac2}.  It adds a primality test that the kernel evaluates with
+one gcd per integer, which makes the certificate in the proof of that theorem
+feasible to check.
 
-Three of the exceptions share cited inputs.  The development verifies the
+The three exceptions share cited inputs.  The development verifies the
 reduction of Theorem~\ref{long251:res:sparse} to Schlage-Puchta's lemma that,
 for a fixed nonzero integer polynomial in a fixed block of consecutive prime
 gaps, the set of indices where it vanishes has density
@@ -2289,17 +2337,9 @@ sequence of Corollary~\ref{long251:res:jointcountermodel} differs from the
 prime gaps at $O_\varepsilon(n/\log\log n)$ indices below $n$, which uses no
 information about the distribution of primes.
 
-Theorem~\ref{long251:res:cfexclusion} is a different case.  Its deduction from
-the four integer comparisons between the enclosure and its Farey neighbours is
-checked in general form, and the certificate those comparisons are applied to
-is too large for the Lean kernel to evaluate at present.  The exclusion
-therefore rests on the separate exact-arithmetic verifier described in its
-proof.
-
 A theorem whose own statement is conditional is formalised exactly as stated.
-The four results above are asserted unconditionally here, and their Lean
-counterparts either carry a named input or rest on a computation the kernel
-does not perform.
+The three results above are asserted unconditionally here, and their Lean
+counterparts carry a named input.
 
 % BEGIN GENERATED CONCORDANCE (generated from the coverage ledger; do not edit by hand)
 \paragraph{Concordance of statements and Lean declarations.}
@@ -2920,9 +2960,10 @@ $2^{39997}>10^{12040}$ of Theorem~\ref{long251:res:cfexclusion} is the larger
 numerical bound.  The bound has $12041$ decimal digits; the corresponding strict power-of-ten
 lower bound is $10^{12040}$, not $10^{12041}$.  The earlier manuscript reports a separate interval and Farey-neighbour
 replay.  Independently of that report, this edition regenerates an
-$80000$-bit enclosure and its Farey certificate, as described in
-Theorem~\ref{long251:res:cfexclusion}.  The original program was not executed,
-and the new verification is not a Lean check.
+$80000$-bit enclosure and its Farey certificate, as described after the proof of
+Theorem~\ref{long251:res:cfexclusion}.  The original program was not executed.
+The Lean kernel checks the certificate given in that proof, which yields the
+stronger bound $2^{40062}>10^{12059}$.
 
 \paragraph{An insufficient proposed condition.}  An earlier record named
 Hardy-Littlewood $k$-tuple correlation of consecutive gaps at a fixed offset as

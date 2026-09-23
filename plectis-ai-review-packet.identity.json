@@ -2,20 +2,20 @@
   "schema": "plectis_packet_identity_sidecar_v1",
   "describes": "plectis-ai-review-packet.json",
   "how_to_use": "Run sha256 over your downloaded file and compare it with exact_byte_sha256 below. Equal means you hold this build. Different means you hold another one, and its own numbers are the ones that apply to it -- not these.",
-  "exact_byte_sha256": "sha256:24bca3238da69d1a7b05d36b37b865a1423bc4ec0fd5e2e28cd77dc07662478f",
-  "byte_count": 18511268,
-  "payload_sha256_excluding_identity": "sha256:6dfb7a0300ac92bbacae37c8163a840f16792331592085eff6d7eef11ac6def3",
+  "exact_byte_sha256": "sha256:ef4329d86f75ff4326bb1d994b2d120295bcb6c38d862afc28735032059b8e3e",
+  "byte_count": 18521102,
+  "payload_sha256_excluding_identity": "sha256:6a9389f56444ed25d8c4cabb2406eb5ec8d2ad39423d4419da47e16013b4b7bd",
   "source_fingerprint": "b3cd770524cbb9159e9e9ab24fe554b1",
   "packet_schema": "microcosm_ai_review_packet_v2",
   "lean_release_version": "0.10.0",
-  "formal_source_ref": "76f44c5329c0e207f5376062c7d79125485fbceb",
+  "formal_source_ref": "e6c2d8f77ac24753c5216a49f4daf7f7388b309f",
   "formal_source_public_tag": null,
   "repository_heads_at_build": {
     "plectis": "6b279150b815d446cb6382bb4ffac2a00cb5c24f",
-    "plectis-erdos": "d86fe7c164f4d33012380b794107d7227ac86b9a"
+    "plectis-erdos": "336d2c9b3d9317522af21ad7b953c21ff9488b49"
   },
   "source_integrity": null,
-  "suggested_local_filename": "plectis-ai-review-packet-0.10.0-76f44c5.json",
+  "suggested_local_filename": "plectis-ai-review-packet-0.10.0-e6c2d8f.json",
   "why_a_sidecar_and_not_a_second_copy": "Publishing the packet again under a versioned name would cost 14 MB to answer a question a digest answers in a kilobyte, and would put two large files on the host that must never drift apart. The versioned name is a convention for saving it locally, which is where copies actually get confused.",
   "stable_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json"
 }

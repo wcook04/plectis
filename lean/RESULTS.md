@@ -3,7 +3,7 @@
 
 # Results and limits
 
-This repository formalises finite results, reductions, equivalences, and
+This repository formalises theorems, reductions, equivalences, and
 obstructions related to eight Erdős problem programmes —
 [#68](https://www.erdosproblems.com/68),
 [#243](https://www.erdosproblems.com/243),
@@ -308,10 +308,11 @@ unshifted determinant certificates are kernel checked; the shifted eight and
 give no all-rank coefficient positivity or irrationality at `3/2`, which lies
 outside the contour region. The universal rational-base question remains open.
 
-This guide is not a new result ranking. The canonical order of mathematical
-attention is maintained in
-[`PALOMAR_RESULT_SHOWCASE.json`](PALOMAR_RESULT_SHOWCASE.json), and exact public
-statuses and open propositions live in [`claims.json`](claims.json).
+This guide is not a new result ranking.
+[`PALOMAR_RESULT_SHOWCASE.json`](PALOMAR_RESULT_SHOWCASE.json) records a scoped
+candidate ranking for a possible Palomar submission; it does not rank
+mathematical importance across the whole corpus. Exact public statuses and
+open propositions live in [`claims.json`](claims.json).
 
 For a narrative account, open the relevant item in the
 [eight-paper portfolio](../README.md#problem-papers). For exact
@@ -371,14 +372,29 @@ a claim to settle the seven unresolved targets or the unadjudicated historical
   `ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean:397`). This is
   consequential global geometry, not a classification of rational points or
   a universal irrationality theorem.
+- **#1049, irrationality throughout a rational-base region.** The Lean-checked
+  `rational_base_region` theorem constructs the required polynomial forms and
+  analytic estimates for bases in the stated Zudilin contour region. It proves
+  irrationality of `F(a/b)` there and an irrationality-exponent bound; in
+  particular, `F((31/4)^r)` is irrational for every positive integer `r`.
+  This formalises a stated region, not the universal rational-base claim.
+  The base `3/2` lies outside that region and remains unresolved here.
+- **#1041, ani's degree-seven counterexample.** For ani's explicit polynomial,
+  the checked `erdos1041_counterexample_hausdorff` theorem shows that every
+  preconnected strict-lemniscate set joining distinct roots has
+  one-dimensional Hausdorff measure greater than two. It refutes the exact
+  Formal Conjectures path-image-length statement; a separate total-variation
+  bound is checked. Ani supplied the polynomial. The reported family is not
+  formalised, and correspondence with the 1958 wording awaits independent
+  human review.
 - A second-layer Boolean–Möbius normal form is now an executable rationality
   equivalence: any `p/q` support value (`q>0`) is represented by a positive,
   square-root-bounded integer carry orbit whose quotient reconstructs the
   support. This is a change of coordinates for hypothetical rational support,
   not a contradiction or a universal #257 proof; arbitrary infinite support
   and the `1/2` membership boundary remain open.
-- **#1041's highest-value open socket is hub selection, not the old argmin
-  shortcut.** The source frontier identifies `min_c L(c) ≤ 2` over admissible
+- **A separate #1041 positive route remains open.** The source frontier identifies
+  `min_c L(c) ≤ 2` over admissible
   hubs on the ray-separated locus as the surviving parent carrier; lower
   semicontinuity would turn it into the theorem. Its degree-five `SPOKE-5`
   instance would settle that degree. This is source-only research evidence,
@@ -421,7 +437,7 @@ a claim to settle the seven unresolved targets or the unadjudicated historical
   shift. Its companion normal form says, for a `RealDyadicTailRecurrence`,
   irrationality is equivalent to every positive tail shift being nonintegral;
   neither classification supplies the prime-specific producer.
-- **#269 and #1049, structurally useful route checks.** Running-LCM height and
+- **#269 structural checks and further #1049 diagnostics.** Running-LCM height and
   rank-two obstructions, plus a distinct weighted-phase observer that separates
   a finite residue digit from an uncontrolled integral coboundary, isolate the
   #269 mechanism without claiming its endpoint. For #1049, the growing-rank
@@ -1135,9 +1151,12 @@ core)**
   (`ErdosProblems/Erdos1049/ZudilinConeArithmetic.lean:293`). Claims registry:
   `three_halves_coordinatewise_corridor_no_go` (`res:nocorridor`) and
   `rational_base_cleared_tail_recurrence` (`res:tailrec`); both are exact
-  formal boundaries. They sit beside the ordinary `F(31/4)` specialization
-  of Zudilin, whose consequence Lean checks in
-  `ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean`.
+  formal boundaries. Separately, Lean constructs the polynomial forms and
+  analytic estimates for the stated Zudilin contour region, then proves
+  irrationality and an irrationality-exponent bound there, including
+  `F((31/4)^r)` for every positive integer `r`
+  (`ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean`). This formalises
+  a known region; `3/2` lies outside it.
 - The elementary height inequality used by Bundschuh–Väänänen's external
   irrationality criterion at `7/2` is checked
   (`ErdosProblems/Erdos1049/RationalBaseLambert.lean:83`);
@@ -1184,9 +1203,12 @@ core)**
   theorem. Claims registry: `van_assche_qapery_diagonal_no_go`; its source-bound
   ceiling is recurrence non-transfer at `n=0`, not an endpoint or irrationality
   result.
-- Open: irrationality at `3/2`; the primitive noncollapsed construction;
-  analytic remainder control. The note proves no irrationality result and
-  says so.
+- Open beyond the proved contour region: irrationality at `3/2`; the primitive
+  noncollapsed construction; and analytic remainder control for that route.
+  The short paper proves irrationality in Zudilin's rational-base region, and
+  the pinned Lean source checks `rational_base_region`,
+  `thirtyone_four_powers`, and `rational_base_measure`. Those theorems do not
+  cover `3/2`.
 
 The semantic corpus marks exactly eight statements `candidate_new_statement` —
 the only machine novelty marks in this release, against 5,505 of 6,089

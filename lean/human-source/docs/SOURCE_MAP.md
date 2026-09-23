@@ -28,28 +28,36 @@ authored navigation: it does not strengthen a claim, replace
 `docs/claims.json`, or close an exact remaining-open proposition. Erdős #249
 and the universal form of #257 remain open.
 
-## Signal-first reviewed spine
+## Source result and Comparator spines
 
-Use the current [Palomar result showcase](PALOMAR_RESULT_SHOWCASE.json) for the
-source-reviewed family universe and its selected, represented, subordinate,
-deferred, rejected, and long-tail dispositions. It is a selection projection,
-not a claim count or proof authority. The generated [verification dossier](EXTERNAL_VERIFICATION.md#mathematical-signal-spine)
-expands the same spine with exact declarations, hard mechanisms, evidence
-classes, and surviving boundaries. Its ranked path starts with the completed
-full-support #257 result, then the conditional actual-LCM and first-harmonic
-#249 routes, followed by the actual-prime-gap #251 and local-window #269
-reductions; use the matrix below to return to #68, #243, #1041, or #1049.
-Support lemmas remain subordinate to their family, and every conditional
-producer or bridge remains explicit.
+Use the repository-local [result selection record](PALOMAR_RESULT_SHOWCASE.json)
+for two related reading orders. It records a possible Palomar submission, not
+an external service decision, claim count, or proof authority. Its
+`source_result_spine` leads with the checked finite-prime weighted #257
+irrationality criterion, then the formalised Zudilin-region #1049
+irrationality theorem (including powers of 31/4), then ani's degree-seven
+#1041 counterexample to the exact Formal Conjectures path-image statement.
+Universal arbitrary-support #257 and rational-base #1049 remain open;
+correspondence between the #1041 formal statement and the 1958 wording awaits
+independent human review. The separate `candidate_ranking` orders
+Comparator-qualified declarations. The generated [verification dossier](EXTERNAL_VERIFICATION.md#mathematical-signal-spine)
+expands that Comparator spine with exact declarations, mechanisms, and
+boundaries. These selections are navigation and appraisal, not proof authority
+or novelty judgements; `docs/claims.json` and the named Lean sources own the
+exact claims. Support lemmas and conditional producers stay subordinate.
 
 ## #1041 / source-current frontier
 
-The current #1041 paper covers the registered total-variation counterexample
-and Newton-flow results. Its [CatalogueAdapter](../lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean)
-is the source entry for `ani_degree_seven_total_variation_counterexample`;
-`docs/claims.json` records the exact statement, attribution and unreviewed
-correspondence with the historical curve-length question. For the separate
-source-only research corpus, start with the dated [frontier delta](../research_corpus/Erdos1041/FRONTIER.md),
+The current #1041 paper covers the exact Formal Conjectures path-image
+Hausdorff refutation using ani's degree-seven polynomial, a separate
+total-variation counterexample, and Newton-flow results.
+[HausdorffLength](../lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean)
+is the Lean source for the path-image statement;
+[CatalogueAdapter](../lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean)
+is the source entry for `ani_degree_seven_total_variation_counterexample`.
+`docs/claims.json` records the exact statements and attribution. Independent
+review of correspondence with the 1958 wording remains outstanding. For the
+separate source-only research corpus, start with the dated [frontier delta](../research_corpus/Erdos1041/FRONTIER.md),
 then use the [strongest-result map](../research_corpus/Erdos1041/STRONGEST_RESULTS.json)
 and the [corpus manifest](../research_corpus/Erdos1041/CORPUS_MANIFEST.json).
 The frontier delta is the authority for rows refuted after the activation map
@@ -79,8 +87,10 @@ The [current paper](papers/full-text/erdos-1041-lemniscate-newton-flow.md)
 links its statements to their Lean declarations. The separate research corpus is
 not part of `docs/claims.json`'s reviewed claim authority: its files preserve
 source-level premises, computations, no-go results, and open boundaries.
-Nothing in this route settles #1041; the exact continuation boundary is in
-`FRONTIER.md` and must be read before any new proof search.
+The exact Formal Conjectures path-image statement is refuted; the historical
+wording has not been independently adjudicated. The separate research corpus
+still records open geometric continuations in `FRONTIER.md`, which must be read
+before new proof search.
 
 ## Complete eight-problem return matrix
 
@@ -105,10 +115,10 @@ and #257, follow the reviewed core routes as well as the problem-owned index.
 | #243 | `python3 scripts/query_corpus.py --route erdos_243` | [`ReciprocalTailRigidity.lean`](../lean/ErdosProblems/Erdos243/ReciprocalTailRigidity.lean) · [`SquareSpecialisationUnconditional.lean`](../lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean#L70) | [paper note](papers/full-text/erdos-243-reciprocal-tail-rigidity.md) · [TeX source](../paper/243/erdos-243-reciprocal-tail-rigidity.tex) |
 | #249 | `python3 scripts/query_corpus.py --route erdos_249` · reviewed return: `python3 scripts/query_corpus.py --route erdos249_certificate_story` · family return: `python3 scripts/query_corpus.py --route probabilistic_gcd_geometry` | [`TotientStrictPrimeEscape.lean`](../lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean) · [`GcdMomentCalculus.lean`](../lean/Erdos249257/GcdMomentCalculus.lean#L235) · [`SternBrocotRunGeometry.lean`](../lean/Erdos249257/SternBrocotRunGeometry.lean#L343) | [paper note](papers/full-text/erdos-249-binary-totient-series.md) · [TeX source](../paper/249/erdos-249-binary-totient-series.tex) · [probability/cylinder explanation](papers/full-text/erdos-249-binary-totient-series.md#exact-identities-and-representations.) |
 | #251 | `python3 scripts/query_corpus.py --route erdos_251`<br>Palomar family spine (run `python3 scripts/query_semantic.py family-relations <family_id>`): `prime_gap_reformulation` → `small_mismatch_criterion` → `dyadic_tail_integrality_classification` → `integral_shift_classification` → `totient_shift_propagation` → `coefficient_only_no_go` | [`PrimeGapDyadicTail.lean`](../lean/ErdosProblems/Erdos251/PrimeGapDyadicTail.lean) | [paper note](papers/full-text/erdos-251-prime-gap-dyadic-series.md) · [TeX source](../paper/251/erdos-251-prime-gap-dyadic-series.tex) |
-| #257 | `python3 scripts/query_corpus.py --route erdos_257` · reviewed return: `python3 scripts/query_corpus.py --route erdos257_half_story` | [`MersenneSubseriesRigidity.lean`](../lean/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean) | [paper note](papers/full-text/erdos-257-mersenne-support-subseries.md) · [TeX source](../paper/257/erdos-257-mersenne-support-subseries.tex) |
+| #257 | `python3 scripts/query_corpus.py --route erdos_257` · reviewed return: `python3 scripts/query_corpus.py --route erdos257_half_story` | [`WeightedReturn.lean`](../lean/ErdosProblems/Erdos257/PaperCompleteR8/WeightedReturn.lean) · [`MersenneSubseriesRigidity.lean`](../lean/ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean) | [paper note](papers/full-text/erdos-257-mersenne-support-subseries.md) · [TeX source](../paper/257/erdos-257-mersenne-support-subseries.tex) |
 | #269 | `python3 scripts/query_corpus.py --route erdos_269`<br>Palomar family spine (run `python3 scripts/query_semantic.py family-relations <family_id>`): `conditional_carry_escape` → `weighted_phase_carry_observer` → `rank_two_kernel_no_go` → `height_fibre_and_shell` → `dyadic_block_alphabet` → `three_prime_lcm_cells` | [`RestrictedFloorSum.lean`](../lean/ErdosProblems/Erdos269/RestrictedFloorSum.lean) · [`WeightedPhaseCarry.lean`](../lean/ErdosProblems/Erdos269/WeightedPhaseCarry.lean) · [`ThreePrimeRunningLcm.lean`](../lean/ErdosProblems/Erdos269/ThreePrimeRunningLcm.lean) | [paper note](papers/full-text/erdos-269-three-prime-running-lcm.md) · [TeX source](../paper/269/erdos-269-three-prime-running-lcm.tex) |
-| #1041 | `python3 scripts/query_corpus.py --route erdos_1041` | [`CatalogueAdapter.lean`](../lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean) · [`NewtonFlowRaySeparation.lean`](../lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean) | [dated frontier](../research_corpus/Erdos1041/FRONTIER.md) → [paper note](papers/full-text/erdos-1041-lemniscate-newton-flow.md) · [TeX source](../paper/1041/erdos-1041-lemniscate-newton-flow.tex) |
-| #1049 | `python3 scripts/query_corpus.py --route erdos_1049` | [`RationalBaseLambert.lean`](../lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean) · [`FinitePencilProposition.lean`](../lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43) | [paper note](papers/full-text/erdos-1049-rational-base-lambert.md) · [TeX source](../paper/1049/erdos-1049-rational-base-lambert.tex) |
+| #1041 | `python3 scripts/query_corpus.py --route erdos_1041` | [`HausdorffLength.lean`](../lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean) · [`CatalogueAdapter.lean`](../lean/ErdosProblems/Erdos1041/Counterexample/CatalogueAdapter.lean) · [`NewtonFlowRaySeparation.lean`](../lean/ErdosProblems/Erdos1041/NewtonFlowRaySeparation.lean) | [dated frontier](../research_corpus/Erdos1041/FRONTIER.md) → [paper note](papers/full-text/erdos-1041-lemniscate-newton-flow.md) · [TeX source](../paper/1041/erdos-1041-lemniscate-newton-flow.tex) |
+| #1049 | `python3 scripts/query_corpus.py --route erdos_1049` | [`RationalBaseThreshold.lean`](../lean/ErdosProblems/Erdos1049/PaperCompleteR21/RationalBaseThreshold.lean) · [`RationalBaseLambert.lean`](../lean/ErdosProblems/Erdos1049/RationalBaseLambert.lean) · [`FinitePencilProposition.lean`](../lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean#L43) | [paper note](papers/full-text/erdos-1049-rational-base-lambert.md) · [TeX source](../paper/1049/erdos-1049-rational-base-lambert.tex) |
 
 The exact open boundary each row stops at, as machine handles. A five-column
 table put these sentences 354px past the rendered column, so they read here:

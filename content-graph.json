@@ -131426,7 +131426,7 @@
             "page": "paper-module-verifier-lab-kernel.html"
           }
         ],
-        "total_occurrences": 2005
+        "total_occurrences": 2006
       },
       "visible_text_byte_count": 1230
     },
@@ -167512,7 +167512,7 @@
             "page": "introduction.html"
           },
           {
-            "count": 5,
+            "count": 4,
             "page": "source.html"
           },
           {
@@ -167532,7 +167532,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 42
+        "total_occurrences": 41
       },
       "visible_text_byte_count": 789
     },
@@ -275965,12 +275965,12 @@
         "paper-modules.html": 47,
         "reference.html": 8,
         "rules-and-ideas.html": 175,
-        "source.html": 5,
+        "source.html": 6,
         "tour.html": 8
       },
       "page_count": 212,
       "top_page": "rules-and-ideas.html",
-      "total_occurrences": 2005
+      "total_occurrences": 2006
     },
     "compression": {
       "by_page": {
@@ -286668,13 +286668,13 @@
         "paper-module-pattern-binding-contract.html": 2,
         "paper-module-routing-anti-patterns-registry.html": 1,
         "paper-module-self-ignorance-coverage-ledger.html": 2,
-        "source.html": 5,
+        "source.html": 4,
         "tour.html": 1,
         "updates.html": 1
       },
       "page_count": 24,
       "top_page": "introduction.html",
-      "total_occurrences": 42
+      "total_occurrences": 41
     },
     "source": {
       "by_page": {

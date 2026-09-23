@@ -2082,64 +2082,157 @@ has reduced denominator
 and therefore
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><msup><mn>10</mn><mn>12040</mn></msup></mrow><annotation encoding="application/x-tex">q&gt;10^{12040}</annotation></semantics></math>.</em></p>
 </div>
-<p class="lean-note"><small>Not formalised: the deduction from the four
-integer comparisons is checked in general form, and the certificate they
-are applied to is too large for the Lean kernel to evaluate, so the
-exclusion rests on the separate exact-arithmetic verifier described in
-the proof. See the <a href="#long251:sec:coverage">coverage
-section</a>.</small></p>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean#L29"><code>denominator_floor_both</code></a>.</small></p>
 <div class="proof">
-<p><em>Proof.</em> The accompanying integer-arithmetic verifier
-constructs an
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>80000</mn><annotation encoding="application/x-tex">80000</annotation></semantics></math>-bit
-enclosure with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23369</mn><annotation encoding="application/x-tex">23369</annotation></semantics></math>
-common partial quotients and checks the following certificate. It uses
-neither floating-point arithmetic nor a Lean build.</p>
-<p>Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>80128</mn></mrow><annotation encoding="application/x-tex">c=80128</annotation></semantics></math>
+<p><em>Proof.</em> Put
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>80200</mn></mrow><annotation encoding="application/x-tex">c=80200</annotation></semantics></math>,
+the number of primes below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mspace width="0.167em"></mspace><mn>023</mn><mspace width="0.167em"></mspace><mn>068</mn></mrow><annotation encoding="application/x-tex">1\,023\,068</annotation></semantics></math>,
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow></msubsup><msub><mi>p</mi><mi>i</mi></msub><msup><mn>2</mn><mrow><mi>c</mi><mo>−</mo><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">A=\sum_{i=0}^{c-1}p_i2^{c-i-1}</annotation></semantics></math>,
-with the primes obtained by a sieve below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1200000</mn><annotation encoding="application/x-tex">1200000</annotation></semantics></math>.
-The polynomial bound and the quartic identity of Proposition 6.5 give
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>A</mi><msup><mn>2</mn><mi>c</mi></msup></mfrac><mo>≤</mo><mi mathvariant="normal">Π</mi><mo>≤</mo><mfrac><mrow><mi>A</mi><mo>+</mo><mn>1250</mn><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><msup><mn>2</mn><mi>c</mi></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{A}{2^c}\le\Pi\le\frac{A+1250P(c)}{2^c}.</annotation></semantics></math>
-Round the lower endpoint down and the upper endpoint up to multiples of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mn>80000</mn></mrow></msup><annotation encoding="application/x-tex">2^{-80000}</annotation></semantics></math>.
-The resulting integers
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>,</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">L,U</annotation></semantics></math>
-satisfy
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>−</mo><mi>L</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">U-L=1</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow></msubsup><msub><mi>p</mi><mi>i</mi></msub><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>c</mi><mo>−</mo><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">A=\sum_{i=0}^{c-1}p_i2^{\,c-i-1}</annotation></semantics></math>.
+The estimate in the proof of Theorem 7.1 holds for every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≥</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">c\ge9</annotation></semantics></math>
+and gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>A</mi><msup><mn>2</mn><mi>c</mi></msup></mfrac><mspace width="0.278em"></mspace><mo>≤</mo><mspace width="0.278em"></mspace><mi mathvariant="normal">Π</mi><mspace width="0.278em"></mspace><mo>≤</mo><mspace width="0.278em"></mspace><mfrac><mrow><mn>2</mn><mi>A</mi><mo>+</mo><mn>5000</mn><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>4</mn></msup></mrow><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>c</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{A}{2^{c}}\;\le\;\Pi\;\le\;\frac{2A+5000(c+1)^4}{2^{\,c+1}} .</annotation></semantics></math>
+Four positive integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mi>v</mi><mo>,</mo><msup><mi>u</mi><mo>′</mo></msup><mo>,</mo><msup><mi>v</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">u,v,u&#39;,v&#39;</annotation></semantics></math>,
+described after this proof, satisfy
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>u</mi><mo>′</mo></msup><mi>v</mi><mo>−</mo><mi>u</mi><msup><mi>v</mi><mo>′</mo></msup><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mfrac><mi>u</mi><mi>v</mi></mfrac><mo>&lt;</mo><mfrac><mi>A</mi><msup><mn>2</mn><mi>c</mi></msup></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mfrac><mrow><mn>2</mn><mi>A</mi><mo>+</mo><mn>5000</mn><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>4</mn></msup></mrow><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>c</mi><mo>+</mo><mn>1</mn></mrow></msup></mfrac><mo>&lt;</mo><mfrac><msup><mi>u</mi><mo>′</mo></msup><msup><mi>v</mi><mo>′</mo></msup></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>v</mi><mo>+</mo><msup><mi>v</mi><mo>′</mo></msup><mo>≥</mo><msup><mn>2</mn><mn>40062</mn></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">u&#39;v-uv&#39;=1,\qquad
+ \frac uv&lt;\frac{A}{2^{c}},\qquad
+ \frac{2A+5000(c+1)^4}{2^{\,c+1}}&lt;\frac{u&#39;}{v&#39;},\qquad
+ v+v&#39;\ge2^{40062},</annotation></semantics></math> all four being
+integer comparisons after clearing the positive denominators. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Π</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">\Pi=a/b</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">a\in\mathbb{Z}</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Π</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>L</mi><msup><mn>2</mn><mrow><mi>−</mi><mn>80000</mn></mrow></msup><mo>,</mo><mi>U</mi><msup><mn>2</mn><mrow><mi>−</mi><mn>80000</mn></mrow></msup><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\Pi\in[L2^{-80000},U2^{-80000}]</annotation></semantics></math>.
-This is the width reported as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-in the scaled receipt. The verifier computes the common
-continued-fraction prefix of these two rational endpoints by integer
-division and inversion.</p>
-<p>Its last two convergents, ordered as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mi>/</mi><mi>v</mi><mo>&lt;</mo><msup><mi>u</mi><mo>′</mo></msup><mi>/</mi><msup><mi>v</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">u/v&lt;u&#39;/v&#39;</annotation></semantics></math>,
-satisfy
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>u</mi><mo>′</mo></msup><mi>v</mi><mo>−</mo><mi>u</mi><msup><mi>v</mi><mo>′</mo></msup><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>u</mi><mspace width="0.167em"></mspace><msup><mn>2</mn><mn>80000</mn></msup><mo>&lt;</mo><mi>L</mi><mi>v</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>U</mi><msup><mi>v</mi><mo>′</mo></msup><mo>&lt;</mo><msup><mi>u</mi><mo>′</mo></msup><mspace width="0.167em"></mspace><msup><mn>2</mn><mn>80000</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>v</mi><mo>+</mo><msup><mi>v</mi><mo>′</mo></msup><mo>≥</mo><msup><mn>2</mn><mn>39998</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">u&#39;v-uv&#39;=1,\qquad
- u\,2^{80000}&lt;Lv,\qquad Uv&#39;&lt;u&#39;\,2^{80000},\qquad
- v+v&#39;\ge2^{39998}.</annotation></semantics></math> Thus the entire
-enclosure lies strictly between two Farey neighbours. The same
-determinant calculation as in Theorem 7.1 gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><mi>v</mi><mo>+</mo><msup><mi>v</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">q\ge v+v&#39;</annotation></semantics></math>
-for every rational value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Π</mi><annotation encoding="application/x-tex">\Pi</annotation></semantics></math>.
-It proves the stated bound and, in fact, the slightly stronger dyadic
-bound
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><msup><mn>2</mn><mn>39998</mn></msup></mrow><annotation encoding="application/x-tex">q\ge2^{39998}</annotation></semantics></math>;
-the strict decimal bound remains
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>12040</mn></msup><annotation encoding="application/x-tex">10^{12040}</annotation></semantics></math>.
-The continued fractions used in the computation are those of the
-rational enclosure endpoints, not an assumed infinite continued fraction
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Π</mi><annotation encoding="application/x-tex">\Pi</annotation></semantics></math>.
-Once the neighbours are found, only the four displayed integer
-comparisons are needed. ◻</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
+a positive integer, the determinant calculation in the proof of
+Theorem 7.1 gives
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mspace width="0.278em"></mspace><mo>≥</mo><mspace width="0.278em"></mspace><mi>v</mi><mo>+</mo><msup><mi>v</mi><mo>′</mo></msup><mspace width="0.278em"></mspace><mo>≥</mo><mspace width="0.278em"></mspace><msup><mn>2</mn><mn>40062</mn></msup><mspace width="0.278em"></mspace><mo>&gt;</mo><mspace width="0.278em"></mspace><msup><mn>10</mn><mn>12059</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">b\;\ge\;v+v&#39;\;\ge\;2^{40062}\;&gt;\;10^{12059}.</annotation></semantics></math>
+The last inequality holds because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>12059</mn></msup><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mn>10</mn><mn>59</mn></msup><msup><mo stretchy="false" form="postfix">)</mo><mn>204</mn></msup><mspace width="0.167em"></mspace><msup><mn>10</mn><mn>23</mn></msup></mrow><annotation encoding="application/x-tex">10^{12059}=(10^{59})^{204}\,10^{23}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>40062</mn></msup><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msup><mn>2</mn><mn>196</mn></msup><msup><mo stretchy="false" form="postfix">)</mo><mn>204</mn></msup><mspace width="0.167em"></mspace><msup><mn>2</mn><mn>78</mn></msup></mrow><annotation encoding="application/x-tex">2^{40062}=(2^{196})^{204}\,2^{78}</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>59</mn></msup><mo>&lt;</mo><msup><mn>2</mn><mn>196</mn></msup></mrow><annotation encoding="application/x-tex">10^{59}&lt;2^{196}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>23</mn></msup><mo>&lt;</mo><msup><mn>2</mn><mn>78</mn></msup></mrow><annotation encoding="application/x-tex">10^{23}&lt;2^{78}</annotation></semantics></math>.
+The reduced denominator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+is one such
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><msup><mn>2</mn><mn>40062</mn></msup><mo>&gt;</mo><msup><mn>2</mn><mn>39997</mn></msup></mrow><annotation encoding="application/x-tex">q\ge2^{40062}&gt;2^{39997}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>&gt;</mo><msup><mn>10</mn><mn>12059</mn></msup><mo>&gt;</mo><msup><mn>10</mn><mn>12040</mn></msup></mrow><annotation encoding="application/x-tex">q&gt;10^{12059}&gt;10^{12040}</annotation></semantics></math>.
+If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>a</mi><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">S=a/b</annotation></semantics></math>,
+apply the same argument to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Π</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mn>2</mn><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">\Pi=(a+2b)/b</annotation></semantics></math>. ◻</p>
 </div>
+<p>The integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mi>v</mi><mo>,</mo><msup><mi>u</mi><mo>′</mo></msup><mo>,</mo><msup><mi>v</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">u,v,u&#39;,v&#39;</annotation></semantics></math>
+come from the continued fractions of the two endpoints
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>/</mi><msup><mn>2</mn><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">A/2^{c}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>A</mi><mo>+</mo><mn>5000</mn><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>4</mn></msup><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mrow><mspace width="0.167em"></mspace><mi>c</mi><mo>+</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(2A+5000(c+1)^4)/2^{\,c+1}</annotation></semantics></math>,
+which agree in their first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23407</mn><annotation encoding="application/x-tex">23407</annotation></semantics></math>
+partial quotients. The fraction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mi>/</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">u/v</annotation></semantics></math>
+is the convergent formed by those partial quotients, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>u</mi><mo>′</mo></msup><mi>/</mi><msup><mi>v</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">u&#39;/v&#39;</annotation></semantics></math>
+is the mediant of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mi>/</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">u/v</annotation></semantics></math>
+and the convergent before it. Only the four comparisons enter the proof.
+The numerators
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><msup><mi>u</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">u,u&#39;</annotation></semantics></math>
+have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12061</mn><annotation encoding="application/x-tex">12061</annotation></semantics></math>
+decimal digits and the denominators
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>,</mo><msup><mi>v</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">v,v&#39;</annotation></semantics></math>
+have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12060</mn><annotation encoding="application/x-tex">12060</annotation></semantics></math>.</p>
+<p>The Lean kernel checks every step of this proof. The computations are
+decided by <code>decide +kernel</code>, with no
+<code>native_decide</code>. The kernel recomputes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+from the definition of primality. It scans the integers below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mspace width="0.167em"></mspace><mn>023</mn><mspace width="0.167em"></mspace><mn>068</mn></mrow><annotation encoding="application/x-tex">1\,023\,068</annotation></semantics></math>
+in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>250</mn><annotation encoding="application/x-tex">250</annotation></semantics></math>
+consecutive blocks and checks the prime count and partial numerator at
+the end of each block, starting from their values at the end of the
+block before. It decides primality by trial division below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1012</mn><annotation encoding="application/x-tex">1012</annotation></semantics></math>.
+On
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>1012</mn><mo>,</mo><msup><mn>1013</mn><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[1012,1013^2)</annotation></semantics></math>,
+which contains the rest of the scan because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>1013</mn><mn>2</mn></msup><mo>=</mo><mn>1</mn><mspace width="0.167em"></mspace><mn>026</mn><mspace width="0.167em"></mspace><mn>169</mn></mrow><annotation encoding="application/x-tex">1013^2=1\,026\,169</annotation></semantics></math>,
+it uses the <a
+href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/GcdPrimality.lean#L72">fact</a>
+that such an integer is prime exactly when it is coprime to the product
+of the primes below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1012</mn><annotation encoding="application/x-tex">1012</annotation></semantics></math>,
+and it recomputes that product by trial division. Lean proves that the
+two primality tests agree at every natural number. The kernel decides
+the four comparisons on the same literals, together with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>59</mn></msup><mo>&lt;</mo><msup><mn>2</mn><mn>196</mn></msup></mrow><annotation encoding="application/x-tex">10^{59}&lt;2^{196}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>23</mn></msup><mo>&lt;</mo><msup><mn>2</mn><mn>78</mn></msup></mrow><annotation encoding="application/x-tex">10^{23}&lt;2^{78}</annotation></semantics></math>.
+The enclosure and the determinant step are proved in general form. The
+result is the <a
+href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeStreamingV5.lean#L76">bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≥</mo><msup><mn>2</mn><mn>40062</mn></msup></mrow><annotation encoding="application/x-tex">b\ge2^{40062}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&gt;</mo><msup><mn>10</mn><mn>12059</mn></msup></mrow><annotation encoding="application/x-tex">b&gt;10^{12059}</annotation></semantics></math>
+for both series</a>, from which Lean derives the <a
+href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean#L29">theorem
+as stated</a>. Both use only the axioms <code>propext</code>,
+<code>Classical.choice</code> and <code>Quot.sound</code>.</p>
+<p>A second certificate was checked outside Lean by the accompanying
+integer-arithmetic verifier, which uses no floating-point arithmetic. It
+encloses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Π</mi><annotation encoding="application/x-tex">\Pi</annotation></semantics></math>
+between the sum of its first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>80128</mn><annotation encoding="application/x-tex">80128</annotation></semantics></math>
+terms and that sum plus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1250</mn><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mn>80128</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msup><mn>2</mn><mn>80128</mn></msup></mrow><annotation encoding="application/x-tex">1250P(80128)/2^{80128}</annotation></semantics></math>,
+with the primes taken from a sieve below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mspace width="0.167em"></mspace><mn>200</mn><mspace width="0.167em"></mspace><mn>000</mn></mrow><annotation encoding="application/x-tex">1\,200\,000</annotation></semantics></math>.
+The added term is a bound for the omitted terms, obtained from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>n</mi></msub><mo>≤</mo><mn>1250</mn><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">p_n\le1250(n+1)^4</annotation></semantics></math>
+and the identity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>4</mn></msup><mo>+</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">2P(x)=(x+1)^4+P(x+1)</annotation></semantics></math>
+in the proof of Proposition 6.5. Rounding the lower endpoint down and
+the upper endpoint up to multiples of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mrow><mi>−</mi><mn>80000</mn></mrow></msup><annotation encoding="application/x-tex">2^{-80000}</annotation></semantics></math>
+gives integers
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mi>L</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">U=L+1</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><msup><mn>2</mn><mrow><mi>−</mi><mn>80000</mn></mrow></msup><mo>≤</mo><mi mathvariant="normal">Π</mi><mo>≤</mo><mi>U</mi><msup><mn>2</mn><mrow><mi>−</mi><mn>80000</mn></mrow></msup></mrow><annotation encoding="application/x-tex">L2^{-80000}\le\Pi\le U2^{-80000}</annotation></semantics></math>;
+this is the width reported as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
+in the scaled receipt. The continued fractions of the two rounded
+endpoints agree in their first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>23369</mn><annotation encoding="application/x-tex">23369</annotation></semantics></math>
+partial quotients, and their last two common convergents, ordered as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>/</mi><mi>t</mi><mo>&lt;</mo><msup><mi>s</mi><mo>′</mo></msup><mi>/</mi><msup><mi>t</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">s/t&lt;s&#39;/t&#39;</annotation></semantics></math>,
+satisfy
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mo>′</mo></msup><mi>t</mi><mo>−</mo><mi>s</mi><msup><mi>t</mi><mo>′</mo></msup><mo>=</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>s</mi><mspace width="0.167em"></mspace><msup><mn>2</mn><mn>80000</mn></msup><mo>&lt;</mo><mi>L</mi><mi>t</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>U</mi><msup><mi>t</mi><mo>′</mo></msup><mo>&lt;</mo><msup><mi>s</mi><mo>′</mo></msup><mspace width="0.167em"></mspace><msup><mn>2</mn><mn>80000</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>t</mi><mo>+</mo><msup><mi>t</mi><mo>′</mo></msup><mo>≥</mo><msup><mn>2</mn><mn>39998</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">s&#39;t-st&#39;=1,\qquad
+ s\,2^{80000}&lt;Lt,\qquad Ut&#39;&lt;s&#39;\,2^{80000},\qquad
+ t+t&#39;\ge2^{39998}.</annotation></semantics></math> The same
+determinant calculation gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≥</mo><msup><mn>2</mn><mn>39998</mn></msup></mrow><annotation encoding="application/x-tex">q\ge2^{39998}</annotation></semantics></math>.
+In both certificates the continued fractions are those of the two
+rational endpoints of an enclosure of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Π</mi><annotation encoding="application/x-tex">\Pi</annotation></semantics></math>.</p>
 <p>The original receipt uses the best-approximation property of
 convergents <span class="citation" data-cites="khinchin1964"><a href="#ref-10">[10]</a></span>;
 Short gives an accessible statement and proof <span class="citation"
@@ -2172,10 +2265,12 @@ and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12041</mn><annotation encoding="application/x-tex">12041</annotation></semantics></math>
 decimal digits imply only a non-strict lower bound
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>12040</mn></msup><annotation encoding="application/x-tex">10^{12040}</annotation></semantics></math>.
-The bound for
+The bounds for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
-instead uses the checked sum
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>+</mo><msup><mi>v</mi><mo>′</mo></msup><mo>≥</mo><msup><mn>2</mn><mn>39998</mn></msup></mrow><annotation encoding="application/x-tex">v+v&#39;\ge2^{39998}</annotation></semantics></math>.
+above use the checked sums
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>+</mo><msup><mi>v</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">v+v&#39;</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>+</mo><msup><mi>t</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">t+t&#39;</annotation></semantics></math>.
 The strict decimal inequality follows from the separate integer
 comparison
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>39997</mn></msup><mo>&gt;</mo><msup><mn>10</mn><mn>12040</mn></msup></mrow><annotation encoding="application/x-tex">2^{39997}&gt;10^{12040}</annotation></semantics></math>.</p>
@@ -3566,11 +3661,10 @@ arguments that combine those properties with further information about
 primes.</p>
 <section id="verification-boundary." class="level5">
 <h5>Verification boundary.</h5>
-<p>The smaller denominator bound has a recorded kernel-decided integer
-certificate. The larger bound is supported by the archived computation
-and the independent integer-arithmetic replay described above. Neither
-is an irrationality theorem, and the replay is not a Lean kernel check.
-The older
+<p>The Lean kernel checks the integer certificates of both denominator
+bounds. The larger bound is also supported by the archived computation
+and by the independent integer-arithmetic replay described after its
+proof. Neither bound is an irrationality theorem. The older
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4096</mn><annotation encoding="application/x-tex">4096</annotation></semantics></math>-bit
 calculation and the separate justification of its tail bound are
 discussed in Section D.7. Declaration-level build status is recorded
@@ -3583,7 +3677,8 @@ below, separately from the ordinary proofs and numerical receipts.</p>
 <p>Declaration links identify immutable revisions, not a live branch.
 The main source links in this manuscript retain revision
 <code>3d6d938d696f</code>; release-only declarations are linked to
-<code>52f29ad173b0</code>. The supplied declaration index distinguishes
+<code>52f29ad173b0</code>. The certificate of Theorem 7.2 is linked at
+<code>e6c2d8f77ac2</code>. The supplied declaration index distinguishes
 <code>ci_checked</code>, <code>outside_checked_build</code>, and
 <code>release_only</code>; presence of a file or link alone is not
 evidence that its proof was checked. The recorded CI receipt is <a
@@ -3617,7 +3712,8 @@ statistics or its self-tests on
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>.
 The prime-gap frequency scans were not rerun, and neither verifier is a
-new Lean build.</p>
+new Lean build. The Lean kernel checks the certificate given in the
+proof of Theorem 7.2.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -3802,13 +3898,16 @@ is also retained in the TeX source.</p>
 <h3 class="unnumbered">Formalisation coverage and remaining
 dependencies</h3>
 <p>Every theorem, lemma, proposition and corollary of this record other
-than the four listed below has a Lean statement of the same assertion,
+than the three listed below has a Lean statement of the same assertion,
 with the same hypotheses, checked by the Lean kernel using only the
 axioms <code>propext</code>, <code>Classical.choice</code> and
 <code>Quot.sound</code>, in the development at revision
-<code>181078b6b009</code>.</p>
-<p>Three of the exceptions share cited inputs. The development verifies
-the reduction of Theorem 8.7 to Schlage-Puchta’s lemma that, for a fixed
+<code>181078b6b009</code>. For Theorem 7.2 the revision is the later
+<code>e6c2d8f77ac2</code>. It adds a primality test that the kernel
+evaluates with one gcd per integer, which makes the certificate in the
+proof of that theorem feasible to check.</p>
+<p>The three exceptions share cited inputs. The development verifies the
+reduction of Theorem 8.7 to Schlage-Puchta’s lemma that, for a fixed
 nonzero integer polynomial in a fixed block of consecutive prime gaps,
 the set of indices where it vanishes has density zero <span
 class="citation" data-cites="schlagepuchta2011"></span>, and the
@@ -3824,16 +3923,9 @@ Corollary 8.6 differs from the prime gaps at
 indices below
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
 which uses no information about the distribution of primes.</p>
-<p>Theorem 7.2 is a different case. Its deduction from the four integer
-comparisons between the enclosure and its Farey neighbours is checked in
-general form, and the certificate those comparisons are applied to is
-too large for the Lean kernel to evaluate at present. The exclusion
-therefore rests on the separate exact-arithmetic verifier described in
-its proof.</p>
 <p>A theorem whose own statement is conditional is formalised exactly as
-stated. The four results above are asserted unconditionally here, and
-their Lean counterparts either carry a named input or rest on a
-computation the kernel does not perform.</p>
+stated. The three results above are asserted unconditionally here, and
+their Lean counterparts carry a named input.</p>
 <section id="concordance-of-statements-and-lean-declarations."
 class="level5">
 <h5>Concordance of statements and Lean declarations.</h5>
@@ -4836,9 +4928,11 @@ not
 The earlier manuscript reports a separate interval and Farey-neighbour
 replay. Independently of that report, this edition regenerates an
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>80000</mn><annotation encoding="application/x-tex">80000</annotation></semantics></math>-bit
-enclosure and its Farey certificate, as described in Theorem 7.2. The
-original program was not executed, and the new verification is not a
-Lean check.</p>
+enclosure and its Farey certificate, as described after the proof of
+Theorem 7.2. The original program was not executed. The Lean kernel
+checks the certificate given in that proof, which yields the stronger
+bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>40062</mn></msup><mo>&gt;</mo><msup><mn>10</mn><mn>12059</mn></msup></mrow><annotation encoding="application/x-tex">2^{40062}&gt;10^{12059}</annotation></semantics></math>.</p>
 </section>
 <section id="an-insufficient-proposed-condition." class="level5">
 <h5>An insufficient proposed condition.</h5>

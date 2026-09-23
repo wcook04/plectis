@@ -3,12 +3,18 @@
 
 # A reader's way in
 
-This repository follows eight problem programmes associated with Paul Erdős.
-For each one it holds a short paper, a longer research record, Lean proofs of
-selected statements, finite computations, and a written account of the
-approaches that stopped and why. Plectis is a prototype for making this work
-understandable, reusable and open to further insight. The website brings the
-collection together; you do not need Lean to read the papers.
+This repository studies eight Erdős problem programmes through short papers,
+longer research records, Lean proofs of selected statements, finite
+computations, and accounts of approaches that stopped. Plectis keeps the work
+open to further insight. The website brings the collection together; you do
+not need Lean to read it.
+
+Start with the [#257 paper](../paper/257/erdos-257-mersenne-support-subseries.pdf):
+its checked weighted criterion covers named infinite supports, while arbitrary
+support remains open. Then read [#1049](../paper/1049/erdos-1049-rational-base-lambert.pdf):
+irrationality holds in the stated region, including powers of `31/4`; `3/2`
+remains open. The [#1041 paper](../paper/1041/erdos-1041-lemniscate-newton-flow.pdf)
+examines ani's counterexample.
 
 Using the degree-seven polynomial constructed by the erdosproblems.com
 contributor ani, Lean proves that every preconnected strict-lemniscate set
@@ -18,9 +24,7 @@ statement; the separate total-variation bound is also checked. The other
 seven targets remain open. Independent human review of correspondence with
 the 1958 wording has not been recorded. Comparator checks only selected exact
 statements, axioms and kernel acceptance; it does not assess novelty or
-historical correspondence. The work also proves intermediate theorems, writes
-out proofs of results that were stated but not printed in the literature, checks exact
-finite cases, and records obstructions to tempting shortcuts.
+historical correspondence.
 
 ## Two ways to begin
 

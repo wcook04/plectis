@@ -1662,53 +1662,118 @@ class="math inline" data-term-auto="off">\(S\)</span>, has reduced denominator <
 class="math inline" data-term-auto="off">\(q\ge2^{39997}\)</span>, and therefore <span
 class="math inline" data-term-auto="off">\(q&gt;10^{12040}\)</span>.</em></p>
 </div>
-<p class="lean-note"><small>Not formalised: the deduction from the four
-integer comparisons is checked in general form, and the certificate they
-are applied to is too large for the Lean kernel to evaluate, so the
-exclusion rests on the separate exact-arithmetic verifier described in
-the proof. See the <a href="#long251:sec:coverage">coverage
-section</a>.</small></p>
+<p class="lean-note"><small>Lean: <a
+href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean#L29"><code>denominator_floor_both</code></a>.</small></p>
 <div class="proof">
-<p><em>Proof.</em> The accompanying integer-arithmetic verifier
-constructs an <span class="math inline" data-term-auto="off">\(80000\)</span>-bit enclosure
-with <span class="math inline" data-term-auto="off">\(23369\)</span> common partial quotients
-and checks the following certificate. It uses neither floating-point
-arithmetic nor a Lean build.</p>
-<p>Let <span class="math inline" data-term-auto="off">\(c=80128\)</span> and <span
-class="math inline" data-term-auto="off">\(A=\sum_{i=0}^{c-1}p_i2^{c-i-1}\)</span>, with the
-primes obtained by a sieve below <span
-class="math inline" data-term-auto="off">\(1200000\)</span>. The polynomial bound and the
-quartic identity of Proposition <a class="math-ref" href="#long251:res:explicit-remainder">6.5</a> give</p>
+<p><em>Proof.</em> Put <span class="math inline" data-term-auto="off">\(c=80200\)</span>, the
+number of primes below <span class="math inline" data-term-auto="off">\(1\,023\,068\)</span>,
+and <span
+class="math inline" data-term-auto="off">\(A=\sum_{i=0}^{c-1}p_i2^{\,c-i-1}\)</span>. The
+estimate in the proof of Theorem <a class="math-ref" href="#long251:res:denominatorfloor">7.1</a> holds
+for every <span class="math inline" data-term-auto="off">\(c\ge9\)</span> and gives</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[\frac{A}{2^c}\le\Pi\le\frac{A+1250P(c)}{2^c}.\]</span></div>
-<p>Round the lower endpoint down and the upper endpoint up to multiples of
-<span class="math inline" data-term-auto="off">\(2^{-80000}\)</span>. The resulting integers
-<span class="math inline" data-term-auto="off">\(L,U\)</span> satisfy <span
-class="math inline" data-term-auto="off">\(U-L=1\)</span> and <span
-class="math inline" data-term-auto="off">\(\Pi\in[L2^{-80000},U2^{-80000}]\)</span>. This is
-the width reported as <span class="math inline" data-term-auto="off">\(1\)</span> in the
-scaled receipt. The verifier computes the common continued-fraction
-prefix of these two rational endpoints by integer division and
-inversion.</p>
-<p>Its last two convergents, ordered as <span
-class="math inline" data-term-auto="off">\(u/v&lt;u&#39;/v&#39;\)</span>, satisfy</p>
+class="math display" data-term-auto="off">\[\frac{A}{2^{c}}\;\le\;\Pi\;\le\;\frac{2A+5000(c+1)^4}{2^{\,c+1}}
+.\]</span></div>
+<p>Four positive integers <span
+class="math inline" data-term-auto="off">\(u,v,u&#39;,v&#39;\)</span>, described after this
+proof, satisfy</p>
+<div class="math-display" data-term-auto="off"><span class="math display" data-term-auto="off">\[u&#39;v-uv&#39;=1,\qquad
+\frac uv&lt;\frac{A}{2^{c}},\qquad
+\frac{2A+5000(c+1)^4}{2^{\,c+1}}&lt;\frac{u&#39;}{v&#39;},\qquad
+v+v&#39;\ge2^{40062},\]</span></div>
+<p class="display-continue">all four being integer comparisons after
+clearing the positive denominators. If <span
+class="math inline" data-term-auto="off">\(\Pi=a/b\)</span> with <span
+class="math inline" data-term-auto="off">\(a\in\Z\)</span> and <span
+class="math inline" data-term-auto="off">\(b\)</span> a positive integer, the determinant
+calculation in the proof of Theorem <a class="math-ref" href="#long251:res:denominatorfloor">7.1</a> gives</p>
 <div class="math-display" data-term-auto="off"><span
-class="math display" data-term-auto="off">\[u&#39;v-uv&#39;=1,\qquad
-u\,2^{80000}&lt;Lv,\qquad Uv&#39;&lt;u&#39;\,2^{80000},\qquad
-v+v&#39;\ge2^{39998}.\]</span></div>
-<p>Thus the entire enclosure lies strictly
-between two Farey neighbours. The same determinant calculation as in
-Theorem <a class="math-ref" href="#long251:res:denominatorfloor">7.1</a> gives
-<span class="math inline" data-term-auto="off">\(q\ge v+v&#39;\)</span> for every rational
-value of <span class="math inline" data-term-auto="off">\(\Pi\)</span>. It proves the stated
-bound and, in fact, the slightly stronger dyadic bound <span
-class="math inline" data-term-auto="off">\(q\ge2^{39998}\)</span>; the strict decimal bound
-remains <span class="math inline" data-term-auto="off">\(10^{12040}\)</span>. The continued
-fractions used in the computation are those of the rational enclosure
-endpoints, not an assumed infinite continued fraction for <span
-class="math inline" data-term-auto="off">\(\Pi\)</span>. Once the neighbours are found, only
-the four displayed integer comparisons are needed. ◻</p>
+class="math display" data-term-auto="off">\[b\;\ge\;v+v&#39;\;\ge\;2^{40062}\;&gt;\;10^{12059}.\]</span></div>
+<p>The last inequality holds because <span
+class="math inline" data-term-auto="off">\(10^{12059}=(10^{59})^{204}\,10^{23}\)</span> and
+<span class="math inline" data-term-auto="off">\(2^{40062}=(2^{196})^{204}\,2^{78}\)</span>,
+with <span class="math inline" data-term-auto="off">\(10^{59}&lt;2^{196}\)</span> and <span
+class="math inline" data-term-auto="off">\(10^{23}&lt;2^{78}\)</span>. The reduced
+denominator <span class="math inline" data-term-auto="off">\(q\)</span> is one such <span
+class="math inline" data-term-auto="off">\(b\)</span>, so <span
+class="math inline" data-term-auto="off">\(q\ge2^{40062}&gt;2^{39997}\)</span> and <span
+class="math inline" data-term-auto="off">\(q&gt;10^{12059}&gt;10^{12040}\)</span>. If <span
+class="math inline" data-term-auto="off">\(S=a/b\)</span>, apply the same argument to <span
+class="math inline" data-term-auto="off">\(\Pi=(a+2b)/b\)</span>. ◻</p>
 </div>
+<p>The integers <span class="math inline" data-term-auto="off">\(u,v,u&#39;,v&#39;\)</span>
+come from the continued fractions of the two endpoints <span
+class="math inline" data-term-auto="off">\(A/2^{c}\)</span> and <span
+class="math inline" data-term-auto="off">\((2A+5000(c+1)^4)/2^{\,c+1}\)</span>, which agree
+in their first <span class="math inline" data-term-auto="off">\(23407\)</span> partial
+quotients. The fraction <span class="math inline" data-term-auto="off">\(u/v\)</span> is the
+convergent formed by those partial quotients, and <span
+class="math inline" data-term-auto="off">\(u&#39;/v&#39;\)</span> is the mediant of <span
+class="math inline" data-term-auto="off">\(u/v\)</span> and the convergent before it. Only
+the four comparisons enter the proof. The numerators <span
+class="math inline" data-term-auto="off">\(u,u&#39;\)</span> have <span
+class="math inline" data-term-auto="off">\(12061\)</span> decimal digits and the denominators
+<span class="math inline" data-term-auto="off">\(v,v&#39;\)</span> have <span
+class="math inline" data-term-auto="off">\(12060\)</span>.</p>
+<p>The Lean kernel checks every step of this proof. The computations are
+decided by <code>decide +kernel</code>, with no
+<code>native_decide</code>. The kernel recomputes <span
+class="math inline" data-term-auto="off">\(c\)</span> and <span
+class="math inline" data-term-auto="off">\(A\)</span> from the definition of primality. It
+scans the integers below <span
+class="math inline" data-term-auto="off">\(1\,023\,068\)</span> in <span
+class="math inline" data-term-auto="off">\(250\)</span> consecutive blocks and checks the
+prime count and partial numerator at the end of each block, starting
+from their values at the end of the block before. It decides primality
+by trial division below <span class="math inline" data-term-auto="off">\(1012\)</span>. On
+<span class="math inline" data-term-auto="off">\([1012,1013^2)\)</span>, which contains the
+rest of the scan because <span
+class="math inline" data-term-auto="off">\(1013^2=1\,026\,169\)</span>, it uses the <a
+href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/GcdPrimality.lean#L72">fact</a>
+that such an integer is prime exactly when it is coprime to the product
+of the primes below <span class="math inline" data-term-auto="off">\(1012\)</span>, and it
+recomputes that product by trial division. Lean proves that the two
+primality tests agree at every natural number. The kernel decides the
+four comparisons on the same literals, together with <span
+class="math inline" data-term-auto="off">\(10^{59}&lt;2^{196}\)</span> and <span
+class="math inline" data-term-auto="off">\(10^{23}&lt;2^{78}\)</span>. The enclosure and the
+determinant step are proved in general form. The result is the <a
+href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeStreamingV5.lean#L76">bound
+<span class="math inline" data-term-auto="off">\(b\ge2^{40062}\)</span> and <span
+class="math inline" data-term-auto="off">\(b&gt;10^{12059}\)</span> for both series</a>, from
+which Lean derives the <a
+href="https://github.com/wcook04/plectis-erdos/blob/e6c2d8f77ac24753c5216a49f4daf7f7388b309f/verification/Erdos251LargeCertificate/ErdosProblems/Erdos251/PaperLargeCertificateR7.lean#L29">theorem
+as stated</a>. Both use only the axioms <code>propext</code>,
+<code>Classical.choice</code> and <code>Quot.sound</code>.</p>
+<p>A second certificate was checked outside Lean by the accompanying
+integer-arithmetic verifier, which uses no floating-point arithmetic. It
+encloses <span class="math inline" data-term-auto="off">\(\Pi\)</span> between the sum of its
+first <span class="math inline" data-term-auto="off">\(80128\)</span> terms and that sum plus
+<span class="math inline" data-term-auto="off">\(1250P(80128)/2^{80128}\)</span>, with the
+primes taken from a sieve below <span
+class="math inline" data-term-auto="off">\(1\,200\,000\)</span>. The added term is a bound
+for the omitted terms, obtained from <span
+class="math inline" data-term-auto="off">\(p_n\le1250(n+1)^4\)</span> and the identity <span
+class="math inline" data-term-auto="off">\(2P(x)=(x+1)^4+P(x+1)\)</span> in the proof of
+Proposition <a class="math-ref" href="#long251:res:explicit-remainder">6.5</a>.
+Rounding the lower endpoint down and the upper endpoint up to multiples
+of <span class="math inline" data-term-auto="off">\(2^{-80000}\)</span> gives integers <span
+class="math inline" data-term-auto="off">\(L\)</span> and <span
+class="math inline" data-term-auto="off">\(U=L+1\)</span> with <span
+class="math inline" data-term-auto="off">\(L2^{-80000}\le\Pi\le U2^{-80000}\)</span>; this is
+the width reported as <span class="math inline" data-term-auto="off">\(1\)</span> in the
+scaled receipt. The continued fractions of the two rounded endpoints
+agree in their first <span class="math inline" data-term-auto="off">\(23369\)</span> partial
+quotients, and their last two common convergents, ordered as <span
+class="math inline" data-term-auto="off">\(s/t&lt;s&#39;/t&#39;\)</span>, satisfy</p>
+<div class="math-display" data-term-auto="off"><span
+class="math display" data-term-auto="off">\[s&#39;t-st&#39;=1,\qquad
+s\,2^{80000}&lt;Lt,\qquad Ut&#39;&lt;s&#39;\,2^{80000},\qquad
+t+t&#39;\ge2^{39998}.\]</span></div>
+<p>The same determinant calculation gives
+<span class="math inline" data-term-auto="off">\(q\ge2^{39998}\)</span>. In both certificates
+the continued fractions are those of the two rational endpoints of an
+enclosure of <span class="math inline" data-term-auto="off">\(\Pi\)</span>.</p>
 <p>The original receipt uses the best-approximation property of
 convergents <span class="citation" data-cites="khinchin1964"><a href="#ref-10">[10]</a></span>;
 Short gives an accessible statement and proof <span class="citation"
@@ -1730,10 +1795,11 @@ enclosure. Bit length <span class="math inline" data-term-auto="off">\(39998\)</
 a denominator at least <span class="math inline" data-term-auto="off">\(2^{39997}\)</span>,
 and <span class="math inline" data-term-auto="off">\(12041\)</span> decimal digits imply only
 a non-strict lower bound <span
-class="math inline" data-term-auto="off">\(10^{12040}\)</span>. The bound for <span
-class="math inline" data-term-auto="off">\(q\)</span> instead uses the checked sum <span
-class="math inline" data-term-auto="off">\(v+v&#39;\ge2^{39998}\)</span>. The strict decimal
-inequality follows from the separate integer comparison <span
+class="math inline" data-term-auto="off">\(10^{12040}\)</span>. The bounds for <span
+class="math inline" data-term-auto="off">\(q\)</span> above use the checked sums <span
+class="math inline" data-term-auto="off">\(v+v&#39;\)</span> and <span
+class="math inline" data-term-auto="off">\(t+t&#39;\)</span>. The strict decimal inequality
+follows from the separate integer comparison <span
 class="math inline" data-term-auto="off">\(2^{39997}&gt;10^{12040}\)</span>.</p>
 <p>A rational number may have a denominator beyond either bound.
 Extending the computation can exclude a larger finite range, but a
@@ -2784,13 +2850,12 @@ the consecutive primes, so they do not rule out arguments that combine
 those properties with further information about primes.</p>
 <section id="verification-boundary." class="level5">
 <h5>Verification boundary.</h5>
-<p>The smaller denominator bound has a recorded kernel-decided integer
-certificate. The larger bound is supported by the archived computation
-and the independent integer-arithmetic replay described above. Neither
-is an irrationality theorem, and the replay is not a Lean kernel check.
-The older <span class="math inline" data-term-auto="off">\(4096\)</span>-bit calculation and
-the separate justification of its tail bound are discussed in
-Section <a class="math-ref" href="#long251:sec:xr-corrections">D.7</a>.
+<p>The Lean kernel checks the integer certificates of both denominator
+bounds. The larger bound is also supported by the archived computation
+and by the independent integer-arithmetic replay described after its
+proof. Neither bound is an irrationality theorem. The older <span
+class="math inline" data-term-auto="off">\(4096\)</span>-bit calculation and the separate
+justification of its tail bound are discussed in Section <a class="math-ref" href="#long251:sec:xr-corrections">D.7</a>.
 Declaration-level build status is recorded below, separately from the
 ordinary proofs and numerical receipts.</p>
 </section>
@@ -2801,10 +2866,12 @@ ordinary proofs and numerical receipts.</p>
 <p>Declaration links identify immutable revisions, not a live branch.
 The main source links in this manuscript retain revision
 <code>3d6d938d696f</code>; release-only declarations are linked to
-<code>52f29ad173b0</code>. The supplied declaration index distinguishes
-<code>ci_checked</code>, <code>outside_checked_build</code>, and
-<code>release_only</code>; presence of a file or link alone is not
-evidence that its proof was checked. The recorded CI receipt is <a
+<code>52f29ad173b0</code>. The certificate of Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a> is linked
+at <code>e6c2d8f77ac2</code>. The supplied declaration index
+distinguishes <code>ci_checked</code>,
+<code>outside_checked_build</code>, and <code>release_only</code>;
+presence of a file or link alone is not evidence that its proof was
+checked. The recorded CI receipt is <a
 href="https://github.com/wcook04/plectis-erdos/actions/runs/35073961520">run
 35073961520</a>. The declaration index records the status of each
 result. The build record reports
@@ -2832,7 +2899,8 @@ neighbouring-denominator sum stated above. It does not rerun the
 original program’s floating-point statistics or its self-tests on <span
 class="math inline" data-term-auto="off">\(e\)</span> and <span
 class="math inline" data-term-auto="off">\(\pi\)</span>. The prime-gap frequency scans were
-not rerun, and neither verifier is a new Lean build.</p>
+not rerun, and neither verifier is a new Lean build. The Lean kernel
+checks the certificate given in the proof of Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a>.</p>
 </section>
 <section id="funding-and-competing-interests." class="level5">
 <h5>Funding and competing interests.</h5>
@@ -2997,13 +3065,16 @@ is also retained in the TeX source.</p>
 <h3 class="unnumbered">Formalisation coverage and remaining
 dependencies</h3>
 <p>Every theorem, lemma, proposition and corollary of this record other
-than the four listed below has a Lean statement of the same assertion,
+than the three listed below has a Lean statement of the same assertion,
 with the same hypotheses, checked by the Lean kernel using only the
 axioms <code>propext</code>, <code>Classical.choice</code> and
 <code>Quot.sound</code>, in the development at revision
-<code>181078b6b009</code>.</p>
-<p>Three of the exceptions share cited inputs. The development verifies
-the reduction of Theorem <a class="math-ref" href="#long251:res:sparse">8.7</a> to
+<code>181078b6b009</code>. For Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a> the
+revision is the later <code>e6c2d8f77ac2</code>. It adds a primality
+test that the kernel evaluates with one gcd per integer, which makes the
+certificate in the proof of that theorem feasible to check.</p>
+<p>The three exceptions share cited inputs. The development verifies the
+reduction of Theorem <a class="math-ref" href="#long251:res:sparse">8.7</a> to
 Schlage-Puchta’s lemma that, for a fixed nonzero integer polynomial in a
 fixed block of consecutive prime gaps, the set of indices where it
 vanishes has density zero <span class="citation"
@@ -3020,16 +3091,9 @@ differs from the prime gaps at <span
 class="math inline" data-term-auto="off">\(O_\varepsilon(n/\log\log n)\)</span> indices below
 <span class="math inline" data-term-auto="off">\(n\)</span>, which uses no information about
 the distribution of primes.</p>
-<p>Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a> is a
-different case. Its deduction from the four integer comparisons between
-the enclosure and its Farey neighbours is checked in general form, and
-the certificate those comparisons are applied to is too large for the
-Lean kernel to evaluate at present. The exclusion therefore rests on the
-separate exact-arithmetic verifier described in its proof.</p>
 <p>A theorem whose own statement is conditional is formalised exactly as
-stated. The four results above are asserted unconditionally here, and
-their Lean counterparts either carry a named input or rest on a
-computation the kernel does not perform.</p>
+stated. The three results above are asserted unconditionally here, and
+their Lean counterparts carry a named input.</p>
 <section id="concordance-of-statements-and-lean-declarations."
 class="level5">
 <h5>Concordance of statements and Lean declarations.</h5>
@@ -3894,9 +3958,10 @@ class="math inline" data-term-auto="off">\(10^{12041}\)</span>. The earlier manu
 reports a separate interval and Farey-neighbour replay. Independently of
 that report, this edition regenerates an <span
 class="math inline" data-term-auto="off">\(80000\)</span>-bit enclosure and its Farey
-certificate, as described in Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a>. The
-original program was not executed, and the new verification is not a
-Lean check.</p>
+certificate, as described after the proof of Theorem <a class="math-ref" href="#long251:res:cfexclusion">7.2</a>. The
+original program was not executed. The Lean kernel checks the
+certificate given in that proof, which yields the stronger bound <span
+class="math inline" data-term-auto="off">\(2^{40062}&gt;10^{12059}\)</span>.</p>
 </section>
 <section id="an-insufficient-proposed-condition." class="level5">
 <h5>An insufficient proposed condition.</h5>

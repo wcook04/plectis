@@ -16,7 +16,7 @@
     "fallback": "html_exact_tex",
     "fallback_renderer": "MathJax or a TeX-compatible KaTeX configuration",
     "frontend_math_dependency": null,
-    "source_sha256": "e5d89aafcacb89bf4f9bb603bec4aba87a6be56e8fcf26fdd20194b960aaf986",
+    "source_sha256": "4517cccdb94275a3da9c483447b8e04c0dfa40c95e0ceb44cf1bd81eda9187da",
     "pandoc": "pandoc 3.9.0.2",
     "renderer_contract_version": 32,
     "renderer_fingerprint": "f255c6c37cc97729",
@@ -31,8 +31,8 @@
       "mathjax": []
     },
     "executable_scripts_embedded": false,
-    "html_mathml_sha256": "7b0a1f6b8468f8fee94b7da9e5bee90cc03b5765b1133d03c02a9a2de7abeb91",
-    "html_exact_tex_sha256": "81fdc3eed3e875ba7b4ce5ffac844bb4b74bc0a17147f0238542b1a2d2e5f0a7"
+    "html_mathml_sha256": "29c40d273e4eedc6cd5b36aee59817e67723e122c43cc2f91f9f3375c6302a6e",
+    "html_exact_tex_sha256": "f42f5cdc4d58196abc7ab7d46a15cdaf0dc1ff3c7b4db1e2cafa6b0fdaff94f6"
   },
   "sections": [
     {
@@ -42,8 +42,8 @@
     },
     {
       "level": 2,
-      "anchor": "signal-first-reviewed-spine",
-      "label": "Signal-first reviewed spine"
+      "anchor": "source-result-and-comparator-spines",
+      "label": "Source result and Comparator spines"
     },
     {
       "level": 2,

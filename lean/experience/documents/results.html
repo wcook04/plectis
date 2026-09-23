@@ -8,8 +8,8 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <section id="results-and-limits" class="level1">
 <h1>Results and limits</h1>
-<p>This repository formalises finite results, reductions, equivalences,
-and obstructions related to eight Erdős problem programmes — <a
+<p>This repository formalises theorems, reductions, equivalences, and
+obstructions related to eight Erdős problem programmes — <a
 href="https://www.erdosproblems.com/68">#68</a>, <a
 href="https://www.erdosproblems.com/243">#243</a>, <a
 href="https://www.erdosproblems.com/249">#249</a>, <a
@@ -349,10 +349,11 @@ the shifted eight and 76 cyclotomic residue witnesses remain finite
 computations. These results give no all-rank coefficient positivity or
 irrationality at <code>3/2</code>, which lies outside the contour
 region. The universal rational-base question remains open.</p>
-<p>This guide is not a new result ranking. The canonical order of
-mathematical attention is maintained in <a
-href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>,
-and exact public statuses and open propositions live in <a
+<p>This guide is not a new result ranking. <a
+href="https://github.com/wcook04/plectis-erdos/blob/main/docs/PALOMAR_RESULT_SHOWCASE.json"><code>PALOMAR_RESULT_SHOWCASE.json</code></a>
+records a scoped candidate ranking for a possible Palomar submission; it
+does not rank mathematical importance across the whole corpus. Exact
+public statuses and open propositions live in <a
 href="https://github.com/wcook04/plectis-erdos/blob/main/docs/claims.json"><code>claims.json</code></a>.</p>
 <p>For a narrative account, open the relevant item in the <a
 href="readme.html#problem-papers">eight-paper portfolio</a>. For exact
@@ -420,6 +421,24 @@ finite-complement measure or zero for an infinite complement
 <code>ErdosProblems/Erdos257/MersenneSubseriesRigidity.lean:397</code>).
 This is consequential global geometry, not a classification of rational
 points or a universal irrationality theorem.</li>
+<li><strong>#1049, irrationality throughout a rational-base
+region.</strong> The Lean-checked <code>rational_base_region</code>
+theorem constructs the required polynomial forms and analytic estimates
+for bases in the stated Zudilin contour region. It proves irrationality
+of <code>F(a/b)</code> there and an irrationality-exponent bound; in
+particular, <code>F((31/4)^r)</code> is irrational for every positive
+integer <code>r</code>. This formalises a stated region, not the
+universal rational-base claim. The base <code>3/2</code> lies outside
+that region and remains unresolved here.</li>
+<li><strong>#1041, ani’s degree-seven counterexample.</strong> For ani’s
+explicit polynomial, the checked
+<code>erdos1041_counterexample_hausdorff</code> theorem shows that every
+preconnected strict-lemniscate set joining distinct roots has
+one-dimensional Hausdorff measure greater than two. It refutes the exact
+Formal Conjectures path-image-length statement; a separate
+total-variation bound is checked. Ani supplied the polynomial. The
+reported family is not formalised, and correspondence with the 1958
+wording awaits independent human review.</li>
 <li>A second-layer Boolean–Möbius normal form is now an executable
 rationality equivalence: any <code>p/q</code> support value
 (<code>q&gt;0</code>) is represented by a positive, square-root-bounded
@@ -427,15 +446,14 @@ integer carry orbit whose quotient reconstructs the support. This is a
 change of coordinates for hypothetical rational support, not a
 contradiction or a universal #257 proof; arbitrary infinite support and
 the <code>1/2</code> membership boundary remain open.</li>
-<li><strong>#1041’s highest-value open socket is hub selection, not the
-old argmin shortcut.</strong> The source frontier identifies
-<code>min_c L(c) ≤ 2</code> over admissible hubs on the ray-separated
-locus as the surviving parent carrier; lower semicontinuity would turn
-it into the theorem. Its degree-five <code>SPOKE-5</code> instance would
-settle that degree. This is source-only research evidence, not a Lean
-theorem: hub choice, path containment, and the <code>SPOKE-5</code>
-supply remain open, while the earlier minimum-critical and aggregate
-shortcuts are explicitly refuted
+<li><strong>A separate #1041 positive route remains open.</strong> The
+source frontier identifies <code>min_c L(c) ≤ 2</code> over admissible
+hubs on the ray-separated locus as the surviving parent carrier; lower
+semicontinuity would turn it into the theorem. Its degree-five
+<code>SPOKE-5</code> instance would settle that degree. This is
+source-only research evidence, not a Lean theorem: hub choice, path
+containment, and the <code>SPOKE-5</code> supply remain open, while the
+earlier minimum-critical and aggregate shortcuts are explicitly refuted
 (<code>research_corpus/Erdos1041/FRONTIER.md</code>).</li>
 <li><strong>#249, an endpoint-facing conditional route plus a
 finite-level rank spine.</strong> The actual-LCM orbit route gives a
@@ -478,18 +496,18 @@ eventual integrality of one positive shift. Its companion normal form
 says, for a <code>RealDyadicTailRecurrence</code>, irrationality is
 equivalent to every positive tail shift being nonintegral; neither
 classification supplies the prime-specific producer.</li>
-<li><strong>#269 and #1049, structurally useful route checks.</strong>
-Running-LCM height and rank-two obstructions, plus a distinct
-weighted-phase observer that separates a finite residue digit from an
-uncontrolled integral coboundary, isolate the #269 mechanism without
-claiming its endpoint. For #1049, the growing-rank four-jet/Padé kernel
-says that when <code>0 &lt; R</code> and <code>4R + 2S ≤ n</code>, fewer
-finite endpoint signatures than binary selectors force a collision;
-row-content divisors remain as a second barrier. A separate explicit
-rectangular two-function Hermite–Padé model has a sharp no-go under
-<code>0 ≤ ρ</code> and <code>1 + ρ ≤ σ</code>, but neither route
-constructs approximants/remainders or proves irrationality at
-<code>3/2</code>.</li>
+<li><strong>#269 structural checks and further #1049
+diagnostics.</strong> Running-LCM height and rank-two obstructions, plus
+a distinct weighted-phase observer that separates a finite residue digit
+from an uncontrolled integral coboundary, isolate the #269 mechanism
+without claiming its endpoint. For #1049, the growing-rank four-jet/Padé
+kernel says that when <code>0 &lt; R</code> and
+<code>4R + 2S ≤ n</code>, fewer finite endpoint signatures than binary
+selectors force a collision; row-content divisors remain as a second
+barrier. A separate explicit rectangular two-function Hermite–Padé model
+has a sharp no-go under <code>0 ≤ ρ</code> and <code>1 + ρ ≤ σ</code>,
+but neither route constructs approximants/remainders or proves
+irrationality at <code>3/2</code>.</li>
 </ul>
 <p>The finite #249 certificate band, Stern–Brocot and gcd-moment
 identities, #257 measure/noncollapse geometry, and the cited-only
@@ -1515,10 +1533,13 @@ divisor
 Claims registry: <code>three_halves_coordinatewise_corridor_no_go</code>
 (<code>res:nocorridor</code>) and
 <code>rational_base_cleared_tail_recurrence</code>
-(<code>res:tailrec</code>); both are exact formal boundaries. They sit
-beside the ordinary <code>F(31/4)</code> specialization of Zudilin,
-whose consequence Lean checks in
-<code>ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean</code>.</li>
+(<code>res:tailrec</code>); both are exact formal boundaries.
+Separately, Lean constructs the polynomial forms and analytic estimates
+for the stated Zudilin contour region, then proves irrationality and an
+irrationality-exponent bound there, including <code>F((31/4)^r)</code>
+for every positive integer <code>r</code>
+(<code>ErdosProblems/Erdos1049/PaperR17/SourceConsumers.lean</code>).
+This formalises a known region; <code>3/2</code> lies outside it.</li>
 <li>The elementary height inequality used by Bundschuh–Väänänen’s
 external irrationality criterion at <code>7/2</code> is checked
 (<code>ErdosProblems/Erdos1049/RationalBaseLambert.lean:83</code>); the
@@ -1574,9 +1595,13 @@ denominator, or irrationality theorem. Claims registry:
 <code>van_assche_qapery_diagonal_no_go</code>; its source-bound ceiling
 is recurrence non-transfer at <code>n=0</code>, not an endpoint or
 irrationality result.</li>
-<li>Open: irrationality at <code>3/2</code>; the primitive noncollapsed
-construction; analytic remainder control. The note proves no
-irrationality result and says so.</li>
+<li>Open beyond the proved contour region: irrationality at
+<code>3/2</code>; the primitive noncollapsed construction; and analytic
+remainder control for that route. The short paper proves irrationality
+in Zudilin’s rational-base region, and the pinned Lean source checks
+<code>rational_base_region</code>, <code>thirtyone_four_powers</code>,
+and <code>rational_base_measure</code>. Those theorems do not cover
+<code>3/2</code>.</li>
 </ul>
 <p>The semantic corpus marks exactly eight statements
 <code>candidate_new_statement</code> — the only machine novelty marks in

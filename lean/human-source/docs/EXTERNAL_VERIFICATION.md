@@ -11,7 +11,7 @@
 
 ## Mathematical signal spine
 
-This order projects Palomar's mathematical `candidate_ranking`; it is independent of Comparator roster order, programme number, insertion time, theorem count, and qualification convenience. Comparator coverage is the exhaustive evidence inventory, not a significance ranking. Checked propositions are therefore given unequal reader attention: each promoted result keeps its hard step and surviving boundary adjacent.
+This order projects the repository's authored `candidate_ranking` for a possible Palomar submission; it is independent of Comparator roster order, programme number, insertion time, theorem count, and qualification convenience. Comparator coverage is the exhaustive evidence inventory, not a significance ranking. Checked propositions are therefore given unequal reader attention: each promoted result keeps its hard step and surviving boundary adjacent.
 
 ### Reader tiers
 
@@ -64,14 +64,14 @@ This order projects Palomar's mathematical `candidate_ranking`; it is independen
    - **Boundary.** The cofinal separation supply is an open premise, stronger than mere non-integrality; this sufficient route is not an equivalence and leaves the punctured/top-edge boundary and the Erdős #249 endpoint open. **Overclaim risk.** High unless the two cofinal supply clauses stay attached: the implication is source-faithful and checked, but the supply itself is not proved here.
 
 7. **First harmonic pivot decomposition** (<code>Erdos249257.ExternalVerification.irrational_totient_series_of_pivotResidualDecorrelation</code>; `represented`)
-   - **Reader tier.** completed direct result
+   - **Reader tier.** conditional endpoint route
    - **Consequence.** It points directly at Erdős #249 irrationality from an explicit cofinal analytic producer, independently of the actual-LCM orbit route; that producer remains unproved.
    - **Load-bearing mechanism.** Supplier fibres, pivot correlation, bad and non-supplier contributions, and the controlled remainder are kept separate. The finite counterexample to global isolation and the missing DTWPivotResidualDecorrelation supply are the natural friction.
    - **Source and evidence.** [Lean source](../lean/Erdos249257/FirstHarmonicPivot.lean); The source theorem, canonical review family, and exact Comparator endpoint wrapper are committed; the cofinal decorrelation producer is explicitly absent.
    - **Boundary.** The four-term decomposition and 9X/10 gap remain conditional on the explicit dyadic-room and PivotBudgetAt hypotheses; the cofinal decorrelation producer is unproved. The fibre/image lemmas do not give global supplier-prime isolation or a prime-distribution estimate, and no Erdős #249 irrationality conclusion is claimed. **Overclaim risk.** High unless DTWPivotResidualDecorrelation remains attached as an unproved cofinal premise; this is not an unconditional #249 result.
 
 8. **Strict prime tail orbit gap** (<code>Erdos249257.ExternalVerification.irrational_totient_series_of_naturalPrimeTailOrbitStrictGap</code>; `represented`)
-   - **Reader tier.** completed direct result
+   - **Reader tier.** conditional endpoint route
    - **Consequence.** It reaches the Erdős #249 irrationality consumer conditionally and is more than a finite normal form, but neither phase-density nor cofinal-prime producer is proved.
    - **Load-bearing mechanism.** Unit norm and the complement estimate give the exact 89/100 block bound; a 1/100 truncation budget yields the 9/10 finite gap, while the prime branch uses an adaptive positive margin and exact pivot-fibre membership. The two global producer predicates are the natural friction.
    - **Source and evidence.** [Lean source](../lean/ErdosProblems/Erdos249/TotientStrictPrimeEscape.lean); The exact source declarations, canonical strict_prime_tail_orbit_gap family, and Comparator representative are committed at Claims ddbe2870 and transport e7a58bb3.
@@ -92,14 +92,14 @@ This order projects Palomar's mathematical `candidate_ranking`; it is independen
    - **Boundary.** The equivalence does not prove irrationality of either series. **Overclaim risk.** High if equivalence is read as irrationality.
 
 11. **Totient carry anti compression** (<code>Erdos249257.ExternalVerification.not_irrational_totientSeries_implies_mod_period_and_unbounded_rank</code>; `represented`)
-   - **Reader tier.** completed direct result
+   - **Reader tier.** exact reduction or structural result
    - **Consequence.** This is an orbit-level necessary consequence of the #249 rational branch, closer to the endpoint than coefficient-side kernel rank alone, but it derives no contradiction.
    - **Load-bearing mechanism.** The theorem couples modular orbit regularity with exponential finite-level anti-compression. Its natural friction is exact: modulo a divisor of the multiplier the forcing can vanish and the carry can become geometric, so periodicity supplies no finite-Q-rank upper bound.
    - **Source and evidence.** [Lean source](../lean/Erdos249257/TotientTailCarryPeriod.lean); The exact source theorem, canonical review family, and Comparator representative are committed; the missing finite-rank contradiction is explicit.
    - **Boundary.** This is a necessary consequence of rationality only: it gives no contradiction, no finite-rank upper bound for a rationality-supplied carry, and no irrationality proof for Erdős #249. Modulo a divisor of the multiplier, the forcing disappears and the carry becomes geometric, so quotient periodicity alone supplies no finite-ℚ-rank upper bound. The coefficient-side kernel-rank and certificate-equivalence families are not duplicated, and #249 remains open. **Overclaim risk.** High if modular periodicity and unbounded canonical-kernel rank are reported as incompatible; the source proves no such upper bound and no #249 irrationality.
 
 12. **Half membership seam classification** (<code>Erdos249257.ExternalVerification.half_mem_mersenneAchievementSet_iff_unboundedTerminalFalse</code>; `represented`)
-   - **Reader tier.** completed direct result
+   - **Reader tier.** exact reduction or structural result
    - **Consequence.** It classifies the concrete #257 half-membership endpoint exactly, closer to a usable target than an analytic recovery criterion or source-only certificate normal form, but supplies no occurrence witness.
    - **Load-bearing mechanism.** Finite integer seam construction and terminal-bit normalization expose the global supply condition in interchangeable forms. The natural friction is decisive: none of those forms is proved to occur unboundedly.
    - **Source and evidence.** [Lean source](../lean/Erdos249257/HalfCylinderHalfMembershipClassification.lean); The exact source iff, canonical claims family, and committed Comparator representative are available; the absent occurrence producer is explicit.
