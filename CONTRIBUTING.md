@@ -15,6 +15,18 @@ names three JSON-field comparisons in the prompt-injection example. The README's
 [Choose a route](README.md#choose-a-route) table helps you find another area.
 Pick one concrete discrepancy or improvement and keep the change focused on it.
 
+## Propose a public infrastructure change
+
+An idea does not need a patch. Open a [toolkit issue](https://github.com/wcook04/plectis/issues)
+with one observable problem, the change you suggest, and how another reader
+could tell whether it helped. Name a public command or file when you can, and
+say how you would like your idea, code, test, or review credited if adopted.
+
+For the Lean corpus, proof workflow, or mathematics contributor path, use the
+separate [architecture proposal form](https://github.com/wcook04/plectis-erdos/issues/new?template=architecture_proposal.yml).
+It accepts a plain-language idea and asks for an observable stop condition and
+credit preference. Neither route requires access to the private workbench.
+
 ## Try an entry-route experiment
 
 Can a new reader ask for a first example and get a relevant, runnable step?

@@ -1057,6 +1057,7 @@ def test_first_action_contract_for_named_organ(tmp_path: Path) -> None:
     "experiment with a Lean proof of an Erdős problem",
     "prove an Erdos #257 theorem",
     "explore an Erdős paper and its open problem",
+    "propose an infrastructure change to the Erdős Lean corpus",
 ])
 def test_erdos_research_first_action_uses_companion(goal: str) -> None:
     pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)

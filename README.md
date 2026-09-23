@@ -79,6 +79,10 @@ show the private interface; they do not establish its reliability.
   [try an entry-route experiment](CONTRIBUTING.md#try-an-entry-route-experiment).
   Check whether a plain-language software task leads to a relevant, runnable
   first step, then report one reproducible mismatch.
+- **Propose public infrastructure:**
+  [describe a toolkit change](CONTRIBUTING.md#propose-a-public-infrastructure-change),
+  or use the [Lean companion's architecture proposal](https://github.com/wcook04/plectis-erdos/issues/new?template=architecture_proposal.yml)
+  for its proof corpus and research workflow. An idea can start without code.
 - **Find a command, paper or source file:** the [documentation index](docs/README.md)
   or the [links below](#choose-a-route).
 
