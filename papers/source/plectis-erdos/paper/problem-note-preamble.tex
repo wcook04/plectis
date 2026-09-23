@@ -1,11 +1,11 @@
 % SPDX-FileCopyrightText: 2026 Will Cook
 % SPDX-License-Identifier: CC-BY-4.0
 %
-% PROVENANCE: superseded local copy.  The published successor is
-% paper/problem-note-preamble.tex in the public release repository
-% wcook04/plectis-erdos at 8df0dda280 (release/final-20260905),
-% which additionally loads longtable.  Builds in this directory use the public
-% copy through the tectonic search path; do not export or promote from here.
+% This is the only copy of the shared preamble.  The eight short notes, the
+% long records assembled from paper/reasoning-parts other than #249 and #257
+% (which carry their own preambles), and the synthesis paper include it with
+% \input{problem-note-preamble}; paper/Makefile builds from this directory
+% with the directory on the tectonic search path.
 %
 % Shared preamble for the Erdős Problem Notes: the short, standalone,
 % problem-owned manuscripts covering the expansion library `ErdosProblems`.
@@ -75,15 +75,12 @@
 
 % ---------------------------------------------------------------------------
 % Statement-level proof links.  \commit above predates the move of the Lean
-% roots under lean/, and the exact endpoints the coverage ledger binds were
-% written after it, so a second immutable pin carries them.  \ledgercommit is
-% the public revision whose Lean sources the ledger resolved its declarations
-% against; every file it names is byte-identical to that revision.  The note
-% printed under each statement is generated from that ledger and verified by
-% scripts/check_generated_lean_notes.py.  Do not edit a \leannote by hand:
-% regenerate it.
+% roots under lean/, and the declarations cited under the statements were
+% written after it, so a second immutable pin, \ledgercommit, carries them.
+% The note printed under each statement is generated.  Do not edit a
+% \leannote by hand.
 % ---------------------------------------------------------------------------
-\newcommand{\ledgercommit}{181078b6b009d905809cf2e007ad309386a3d1e0}
+\newcommand{\ledgercommit}{a25cb360bef8dd818dde14b5fb752244304af354}
 \newcommand{\ledgerbase}{https://github.com/wcook04/plectis-erdos/blob/\ledgercommit}
 \newcommand{\lproof}[3]{\href{\ledgerbase/lean/#1\#L#2}{\leanlabel{#3}}}
 \newcommand{\leannote}[1]{%

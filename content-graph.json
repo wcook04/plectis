@@ -136937,7 +136937,7 @@
             "page": "paper-module-generated-projection-drift-runtime.html"
           }
         ],
-        "total_occurrences": 2138
+        "total_occurrences": 2139
       },
       "visible_text_byte_count": 754
     },
@@ -139822,15 +139822,19 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 1,
+        "page_count": 2,
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 1,
+            "count": 3,
             "page": "papers.html"
+          },
+          {
+            "count": 1,
+            "page": "introduction.html"
           }
         ],
-        "total_occurrences": 1
+        "total_occurrences": 4
       },
       "visible_text_byte_count": 833
     },
@@ -140828,19 +140832,15 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 2,
-        "top_page": "introduction.html",
+        "page_count": 1,
+        "top_page": "papers.html",
         "top_pages": [
-          {
-            "count": 1,
-            "page": "introduction.html"
-          },
           {
             "count": 1,
             "page": "papers.html"
           }
         ],
-        "total_occurrences": 2
+        "total_occurrences": 1
       },
       "visible_text_byte_count": 942
     },
@@ -144562,7 +144562,7 @@
             "page": "architecture.html"
           }
         ],
-        "total_occurrences": 70
+        "total_occurrences": 71
       },
       "visible_text_byte_count": 829
     },
@@ -144623,7 +144623,7 @@
             "page": "paper-module-finite-erdos-denominator-certificate-strike.html"
           },
           {
-            "count": 5,
+            "count": 4,
             "page": "area-formal-math.html"
           },
           {
@@ -144635,7 +144635,7 @@
             "page": "paper-modules.html"
           }
         ],
-        "total_occurrences": 106
+        "total_occurrences": 105
       },
       "visible_text_byte_count": 1002
     },
@@ -147005,7 +147005,7 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 52,
+        "page_count": 54,
         "top_page": "doctrine.html",
         "top_pages": [
           {
@@ -147033,7 +147033,7 @@
             "page": "paper-module-formal-math-readiness-gate.html"
           }
         ],
-        "total_occurrences": 327
+        "total_occurrences": 330
       },
       "visible_text_byte_count": 837
     },
@@ -147278,22 +147278,22 @@
       "term_kind": "public_projection",
       "used_in": {
         "page_count": 3,
-        "top_page": "introduction.html",
+        "top_page": "papers.html",
         "top_pages": [
           {
             "count": 3,
-            "page": "introduction.html"
+            "page": "papers.html"
           },
           {
-            "count": 3,
-            "page": "papers.html"
+            "count": 2,
+            "page": "introduction.html"
           },
           {
             "count": 1,
             "page": "area-formal-math.html"
           }
         ],
-        "total_occurrences": 7
+        "total_occurrences": 6
       },
       "visible_text_byte_count": 1064
     },
@@ -152846,15 +152846,19 @@
       "status": "active",
       "term_kind": "public_projection",
       "used_in": {
-        "page_count": 1,
+        "page_count": 2,
         "top_page": "papers.html",
         "top_pages": [
           {
             "count": 3,
             "page": "papers.html"
+          },
+          {
+            "count": 1,
+            "page": "introduction.html"
           }
         ],
-        "total_occurrences": 3
+        "total_occurrences": 4
       },
       "visible_text_byte_count": 819
     },
@@ -160118,15 +160122,19 @@
       "status": "active",
       "term_kind": "mathematical_concept",
       "used_in": {
-        "page_count": 1,
+        "page_count": 2,
         "top_page": "papers.html",
         "top_pages": [
           {
-            "count": 2,
+            "count": 4,
             "page": "papers.html"
+          },
+          {
+            "count": 1,
+            "page": "introduction.html"
           }
         ],
-        "total_occurrences": 2
+        "total_occurrences": 5
       },
       "visible_text_byte_count": 924
     },
@@ -274773,7 +274781,7 @@
         "doctrine.html": 155,
         "evidence.html": 16,
         "index.html": 2,
-        "introduction.html": 6,
+        "introduction.html": 7,
         "lineage.html": 1,
         "open-questions.html": 15,
         "paper-module-agent-benchmark-integrity-anti-gaming-replay.html": 13,
@@ -274889,7 +274897,7 @@
       },
       "page_count": 180,
       "top_page": "doctrine.html",
-      "total_occurrences": 2138
+      "total_occurrences": 2139
     },
     "checker": {
       "by_page": {
@@ -276043,11 +276051,12 @@
     },
     "conjecture": {
       "by_page": {
-        "papers.html": 1
+        "introduction.html": 1,
+        "papers.html": 3
       },
-      "page_count": 1,
+      "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 1
+      "total_occurrences": 4
     },
     "context_packet": {
       "by_page": {
@@ -276219,12 +276228,11 @@
     },
     "counterexample": {
       "by_page": {
-        "introduction.html": 1,
         "papers.html": 1
       },
-      "page_count": 2,
-      "top_page": "introduction.html",
-      "total_occurrences": 2
+      "page_count": 1,
+      "top_page": "papers.html",
+      "total_occurrences": 1
     },
     "coverage": {
       "by_page": {
@@ -277466,7 +277474,7 @@
     "erdos": {
       "by_page": {
         "architecture.html": 3,
-        "area-formal-math.html": 2,
+        "area-formal-math.html": 3,
         "coding-agents.html": 1,
         "component-finite-erdos-denominator-certificate-strike.html": 7,
         "components.html": 1,
@@ -277481,11 +277489,11 @@
       },
       "page_count": 13,
       "top_page": "papers.html",
-      "total_occurrences": 70
+      "total_occurrences": 71
     },
     "erdos_problem": {
       "by_page": {
-        "area-formal-math.html": 5,
+        "area-formal-math.html": 4,
         "component-batch4-proof-authority-runtime.html": 1,
         "component-finite-erdos-denominator-certificate-strike.html": 3,
         "components.html": 4,
@@ -277500,7 +277508,7 @@
       },
       "page_count": 12,
       "top_page": "papers.html",
-      "total_occurrences": 106
+      "total_occurrences": 105
     },
     "evaluator": {
       "by_page": {
@@ -278565,6 +278573,7 @@
         "components.html": 26,
         "doctrine.html": 52,
         "evidence.html": 1,
+        "introduction.html": 1,
         "paper-module-batch4-proof-authority-runtime.html": 3,
         "paper-module-belief-state-process-reward-replay.html": 1,
         "paper-module-certificate-kernel-execution-lab.html": 1,
@@ -278588,13 +278597,14 @@
         "paper-module-verifier-lab-execution-spine.html": 2,
         "paper-module-verifier-lab-kernel.html": 10,
         "paper-modules.html": 34,
+        "papers.html": 2,
         "reference.html": 3,
         "rules-and-ideas.html": 28,
         "source.html": 1
       },
-      "page_count": 52,
+      "page_count": 54,
       "top_page": "doctrine.html",
-      "total_occurrences": 327
+      "total_occurrences": 330
     },
     "formal_mathematics": {
       "by_page": {
@@ -278679,12 +278689,12 @@
     "formalisation": {
       "by_page": {
         "area-formal-math.html": 1,
-        "introduction.html": 3,
+        "introduction.html": 2,
         "papers.html": 3
       },
       "page_count": 3,
-      "top_page": "introduction.html",
-      "total_occurrences": 7
+      "top_page": "papers.html",
+      "total_occurrences": 6
     },
     "fraction": {
       "by_page": {
@@ -280632,11 +280642,12 @@
     },
     "lemniscate": {
       "by_page": {
+        "introduction.html": 1,
         "papers.html": 3
       },
-      "page_count": 1,
+      "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 3
+      "total_occurrences": 4
     },
     "library": {
       "by_page": {
@@ -283054,11 +283065,12 @@
     },
     "polynomial": {
       "by_page": {
-        "papers.html": 2
+        "introduction.html": 1,
+        "papers.html": 4
       },
-      "page_count": 1,
+      "page_count": 2,
       "top_page": "papers.html",
-      "total_occurrences": 2
+      "total_occurrences": 5
     },
     "positive_integer": {
       "by_page": {

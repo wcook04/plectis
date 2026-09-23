@@ -292,17 +292,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 30,
       "renderer_fingerprint": "d383526533396f6a",
-      "source_sha256": "1d077267ac3b9950ea8a3954f8ffd930b895a3a55eaabd0e7ca7758f86729fd0",
+      "source_sha256": "eee85375bd1cc12e837d4865502e38035ee5b483341e878d3c0fcd26b1a079be",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 505,
+      "mathml_node_count": 510,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "d0d17ff9751a4aa49f2f95013becaf582e9d12175f97ce80dd6ca38023aff047",
-      "html_exact_tex_sha256": "373d3545512a06a82aaa797f2dc2ec8ed17dd6e420c389b1cf93d0d67693bfbe"
+      "html_mathml_sha256": "39ecdac144bb64f6da88e196801d96a08538abd4e908274d64a09bca8fbe9381",
+      "html_exact_tex_sha256": "5c3cd8b0dec4c1c2ef27622c378cf2f4dfa3356fd4605b3d22a83d992ff20a85"
     },
     "sections": [
       {
@@ -471,17 +471,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "1d077267ac3b9950ea8a3954f8ffd930b895a3a55eaabd0e7ca7758f86729fd0",
+        "source_sha256": "eee85375bd1cc12e837d4865502e38035ee5b483341e878d3c0fcd26b1a079be",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 505,
+        "mathml_node_count": 510,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "d0d17ff9751a4aa49f2f95013becaf582e9d12175f97ce80dd6ca38023aff047",
-        "html_exact_tex_sha256": "373d3545512a06a82aaa797f2dc2ec8ed17dd6e420c389b1cf93d0d67693bfbe"
+        "html_mathml_sha256": "39ecdac144bb64f6da88e196801d96a08538abd4e908274d64a09bca8fbe9381",
+        "html_exact_tex_sha256": "5c3cd8b0dec4c1c2ef27622c378cf2f4dfa3356fd4605b3d22a83d992ff20a85"
       },
       "sections": [
         {
@@ -650,10 +650,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "22dd3e97ecd46216686e76daec2f328f38cfe3d51a6c86adb7435ed0597e507e",
+        "source_sha256": "2d240c0deedc74cc33171f08f66159cc9ef43491e2fc494604f226b311d1441c",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 2408,
+        "mathml_node_count": 2431,
         "raw_math_fallback_count": 1,
         "warnings": {
           "mathml": [
@@ -669,8 +669,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "28ccf64917344b967345e56b62987062f3b869e72f5053cd4212df773e04cf50",
-        "html_exact_tex_sha256": "45ffafc4d618eb7a263950196e3e101c515578af54ec20834827988d0d2d623a"
+        "html_mathml_sha256": "6599b2dcb1cf35f3042d93ecb8d388b726b46e6b3bc3bf3ba5ff31c5f7c771ba",
+        "html_exact_tex_sha256": "55345e72059786967adba6c77cbde67e817aae31e10e0c937c56903d3145c80e"
       },
       "sections": [
         {
@@ -1840,7 +1840,7 @@
         "label": "ErdosProblems.Erdos243.PaperCompleteR21.ChebotarevSquareSpecialisation",
         "path": "lean/ErdosProblems/Erdos243/PaperCompleteR21/ChebotarevSquareSpecialisation.lean",
         "direct": true,
-        "content_digest": "sha256:e0df5fcb4614bb39b5aeb0ce8a2d0cce04c34e657f908f07eb3ddc5ab8534817",
+        "content_digest": "sha256:7a9af50469c04875f95ff746a963ab26e1c902393edbcd5ed5b5e973e1469a97",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR21/ChebotarevSquareSpecialisation.lean",
         "role": "Lean proof module"
       },
@@ -1903,7 +1903,7 @@
         "label": "ErdosProblems.Erdos243.PaperCompleteR21.GaloisSignFlipClosure",
         "path": "lean/ErdosProblems/Erdos243/PaperCompleteR21/GaloisSignFlipClosure.lean",
         "direct": true,
-        "content_digest": "sha256:464d421af22731dfd9765ae8765649d1b8520142f66e2236276f4a1410a3a072",
+        "content_digest": "sha256:1c4982257bed4785dfda635f1b23cc718adde799370fcba8aa128608b950e384",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR21/GaloisSignFlipClosure.lean",
         "role": "Lean proof module"
       },
@@ -2004,6 +2004,24 @@
         "direct": true,
         "content_digest": "sha256:d41751abf167f3b267231dd6e7aa24a9546f658532d3cc6a79b3cbff5883a59f",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR21/SlowNegativePartRecord.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR21.SquareSpecialisationDedekind",
+        "label": "ErdosProblems.Erdos243.PaperCompleteR21.SquareSpecialisationDedekind",
+        "path": "lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationDedekind.lean",
+        "direct": true,
+        "content_digest": "sha256:f7a3e7c36a0729db26573f0174d4f7989c3f9efd0a536064a141f025a1e163c2",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationDedekind.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos243.PaperCompleteR21.SquareSpecialisationUnconditional",
+        "label": "ErdosProblems.Erdos243.PaperCompleteR21.SquareSpecialisationUnconditional",
+        "path": "lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean",
+        "direct": true,
+        "content_digest": "sha256:4c3da44d71fa6e8abf4ddf8b891ec36d6d5795be801dd4b0111577591af7187e",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean",
         "role": "Lean proof module"
       },
       {
@@ -2319,6 +2337,42 @@
         "direct": true,
         "content_digest": "sha256:7bd0b18c719d15929bcee8039eb56cc7692853e917853f25e5f74065f603a763",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos243/WeightedCRTRepair.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Shared.DirichletPoleComparison",
+        "label": "ErdosProblems.Shared.DirichletPoleComparison",
+        "path": "lean/ErdosProblems/Shared/DirichletPoleComparison.lean",
+        "direct": false,
+        "content_digest": "sha256:f8c168b953a000950c5668e3245fc951448bfaa9605ac9b7e8d667f12fed0b62",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Shared/DirichletPoleComparison.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Shared.IdealCountingEuler",
+        "label": "ErdosProblems.Shared.IdealCountingEuler",
+        "path": "lean/ErdosProblems/Shared/IdealCountingEuler.lean",
+        "direct": false,
+        "content_digest": "sha256:0aabe588e0b8a76fe31b4ac5692824876268ecce65e8e19f60060ea8736d5111",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Shared/IdealCountingEuler.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Shared.NonsquareModuloPrimes",
+        "label": "ErdosProblems.Shared.NonsquareModuloPrimes",
+        "path": "lean/ErdosProblems/Shared/NonsquareModuloPrimes.lean",
+        "direct": false,
+        "content_digest": "sha256:d1039f371720b3d845fc5d580051fbfd8d07ba851c69441aef0d236644ed7962",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Shared/NonsquareModuloPrimes.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Shared.QuadraticSplitPrimes",
+        "label": "ErdosProblems.Shared.QuadraticSplitPrimes",
+        "path": "lean/ErdosProblems/Shared/QuadraticSplitPrimes.lean",
+        "direct": false,
+        "content_digest": "sha256:282d48a483761f5292c178b0398cc7ba000d3ab102dfc44406638c673fdb184d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Shared/QuadraticSplitPrimes.lean",
         "role": "Lean proof module"
       }
     ],
@@ -2936,6 +2990,18 @@
         "target": "lean-module:ErdosProblems.Erdos243.ReciprocalTailRigidity"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR21.SquareSpecialisationDedekind",
+        "target": "lean-module:ErdosProblems.Shared.NonsquareModuloPrimes"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR21.SquareSpecialisationUnconditional",
+        "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR21.CubicRateExclusionChain"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR21.SquareSpecialisationUnconditional",
+        "target": "lean-module:ErdosProblems.Erdos243.PaperCompleteR21.SquareSpecialisationDedekind"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos243.PaperCompleteR7.Arithmetic",
         "target": "lean-module:ErdosProblems.Erdos243.DynamicCancellation"
       },
@@ -3206,6 +3272,18 @@
       {
         "source": "lean-module:ErdosProblems.Erdos243.WeightedCRTRepair",
         "target": "lean-module:ErdosProblems.Erdos243.DynamicCancellation"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Shared.NonsquareModuloPrimes",
+        "target": "lean-module:ErdosProblems.Shared.DirichletPoleComparison"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Shared.NonsquareModuloPrimes",
+        "target": "lean-module:ErdosProblems.Shared.IdealCountingEuler"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Shared.NonsquareModuloPrimes",
+        "target": "lean-module:ErdosProblems.Shared.QuadraticSplitPrimes"
       }
     ]
   },

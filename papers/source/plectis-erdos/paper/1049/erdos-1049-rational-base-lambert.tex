@@ -8,6 +8,10 @@
 \input{problem-note-preamble}
 \renewcommand{\commit}{99f4bf47422abbd8757cbb22b50ba079d764d3a7}
 \renewcommand{\commitshort}{99f4bf47422a}
+% Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
+% whose tree keeps the Lean roots under lean/.
+\newcommand{\latecommit}{e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8}
+\newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Zudilin's forms at rational bases and the exact normalised Hankel order (Erdos Problem 1049)},
   pdfsubject={Erdos Problem Notes: Problem 1049},
@@ -1193,7 +1197,14 @@ The coefficient polynomials in \cite[Sec.~3, p.~5]{zudilin2016} give a
 moment problem different from the remainder moments in Section~3.
 Long Section~3.3 checks the two leading Hankel families through rank eight,
 not the all-rank criterion in \cite[Lemma~2.1, p.~4]{wangzhu2016}.
-It proves a finite moment representation and discusses $(m!)^3$ at the
+For the unshifted family, positivity through rank eight at every real
+$p\ge1$ is also a
+\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperR20/HankelKroneckerCertificate.lean\#L458}{Lean theorem}.
+So is the consequence the long record draws from it: at each rank up to
+eight, the roots of a determinant polynomial built from Zudilin's
+coefficients are real and lie below $F(p)$ for every real $p>1$
+(\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperR20/FinitePencilProposition.lean\#L43}{finite coefficient positivity and pencil roots}).
+Long Section~3.3 also proves a finite moment representation and discusses $(m!)^3$ at the
 endpoint \cite[Thm.~5.1]{berg2007}, formal continued fractions and finite
 quadrature \cite{sw2024,golubwelsch1969}. It also gives complete polynomial
 contents through rank five and specified cyclotomic residue tests through
@@ -1206,6 +1217,10 @@ Bell and Smertnig's classification
 excludes $k$-Mahler equations for $L(z)=\sum_{n\ge1}\tau(n)z^n$ when
 $k\ge2$: there is no polynomial-coefficient relation among
 $L(z),L(z^k),\ldots,L(z^{k^d})$ with a nonzero coefficient of $L(z)$.
+The single-base exclusion is also a Lean theorem, in the form that for
+every $k\ge2$ no finite-dimensional $\Q(z)$-subspace of $\Q((z))$
+containing $L$ is stable under $z\mapsto z^k$
+(\href{\laterepobase/lean/ErdosProblems/Erdos1049/PaperCompleteR21/SimultaneousMahlerSystemUnconditional.lean\#L263}{single-base statement}).
 Long Section~10.3 explains this functional obstruction; it gives no
 irrationality statement for $L(2/3)=F(3/2)$.
 
@@ -1219,10 +1234,11 @@ and proves the irrationality and measure results;
 proves the all-rank determinant formulas.
 
 The index distinguishes reported public, parallel-release and unbuilt
-material; no new Lean run is claimed. The linked invertible-coordinate
+material; no new Lean run is claimed for the indexed material. The linked invertible-coordinate
 theorem is weaker than the ordinary unimodular-row theorem.
-The finite computations described above are not Lean proofs; their
-certificates and reproduction scripts are in the long record.
+Apart from the rank-eight positivity of the unshifted family, the finite
+computations described above are not Lean proofs; their certificates and
+reproduction scripts are in the long record.
 Historical links retain their original revisions and line numbers,
 which have not been revalidated. Long Appendix~A records the snapshot
 identifiers and gives the full source guide.

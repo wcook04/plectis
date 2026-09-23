@@ -202,12 +202,12 @@ explains that design.
 
 The reviewed layer a mathematician should judge: 148 curated claim records in 33 contribution families, reaching Lean source through 463 principal declaration links. `docs/SCOPE.md` gives its shape and `docs/RESULTS.md` gives the strongest checked result per problem. The website and the papers are the human reading path.
 
-The rest is engineering inventory. About 88% of the 162,543 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
+The rest is engineering inventory. About 87% of the 163,066 declarations (142,668 across 695 modules) are machine-emitted certificate shards: one integer checked prime, one position excluded. The remainder is not all hand-written either.
 
 | Engineering inventory | Current size |
 |---|---:|
-| Lean modules (the two library roots) | 1,770 |
-| Formal results and supporting lemmas | 158,837 |
+| Lean modules (the two library roots) | 1,812 |
+| Formal results and supporting lemmas | 159,253 |
 | Curated claim records | 148 |
 | Contribution families | 33 |
 

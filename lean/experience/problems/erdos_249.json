@@ -553,7 +553,7 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 30,
       "renderer_fingerprint": "d383526533396f6a",
-      "source_sha256": "833cb57cc394f07ae36e58dec6ce7587bc82b6054065d8fec406848b4c36bd03",
+      "source_sha256": "84d906451cb1e3d868a33ba534300f180ac0eac1be0c74907785da6b95c61353",
       "source_manifest_match": true,
       "publication_manifest_match": true,
       "mathml_node_count": 540,
@@ -562,8 +562,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "70c88a5f825a929499cd6cd80dfef4c31e7bf87ab45fbd18513392c1a914bf0a",
-      "html_exact_tex_sha256": "620c55cc1d476685d708ed1a2660b2e63425dc97c095d448ca8a8fd8008e4708"
+      "html_mathml_sha256": "771e4c7579dcca00b7d95c2e45035b0b66744064befb8c9dc37579b200c15225",
+      "html_exact_tex_sha256": "e7f96b1d40fb6ef99590f3ea53e313c2b84eda957ff9e7683ea3d255d9b5cf0a"
     },
     "sections": [
       {
@@ -722,7 +722,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "833cb57cc394f07ae36e58dec6ce7587bc82b6054065d8fec406848b4c36bd03",
+        "source_sha256": "84d906451cb1e3d868a33ba534300f180ac0eac1be0c74907785da6b95c61353",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 540,
@@ -731,8 +731,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "70c88a5f825a929499cd6cd80dfef4c31e7bf87ab45fbd18513392c1a914bf0a",
-        "html_exact_tex_sha256": "620c55cc1d476685d708ed1a2660b2e63425dc97c095d448ca8a8fd8008e4708"
+        "html_mathml_sha256": "771e4c7579dcca00b7d95c2e45035b0b66744064befb8c9dc37579b200c15225",
+        "html_exact_tex_sha256": "e7f96b1d40fb6ef99590f3ea53e313c2b84eda957ff9e7683ea3d255d9b5cf0a"
       },
       "sections": [
         {
@@ -867,7 +867,7 @@
       "subject": "Erdős #249",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 163,
+      "pages": 165,
       "question": "What can the totient-kernel basis and residue tests say about Erdős #249, and which hypotheses still block irrationality?",
       "precis": "The dyadic totient sections through level e≥1 have an explicit rational basis of size 2^e+1. Truncating a scaled tail difference produces an integer whose residue certifies nonintegrality when its distances from both endpoints of the residue interval exceed an explicit error bound. The record develops the resulting finite denominator exclusions, equivalent residue criteria, and sufficient exponential-sum estimates. Rational comparison sequences identify the limitations of particular size, parity, rank, and finite-prefix arguments. The short paper supplies the all-base basis theorem; here each conditional result carries the arithmetic hypothesis still needed to apply it. Those hypotheses are not established in the form required to prove irrationality of S=∑ φ(n)2^{-n}.",
       "owns": "a claim-bounded problem-specific reasoning surface for Erdős #249: selected checked premises, finite certificates, closed routes, surviving obligations, and their exact evidence bands",
@@ -891,10 +891,10 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "07e1bd58979d51a60f36ff9c9349661b1456a48d21268631384dd9ce759bc92c",
+        "source_sha256": "6edd7c49581ea56bfb275584d6c6bc42598c4a23472abe4a7c73d9a5d0efe55c",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 4462,
+        "mathml_node_count": 4468,
         "raw_math_fallback_count": 2,
         "warnings": {
           "mathml": [
@@ -919,8 +919,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "5d1842d8234054024ab60ae2c32553db1ff4b1b8d5078b3ed193414171d85860",
-        "html_exact_tex_sha256": "6aaf3b286b3d5f32a365b444618a936c21bae6bb441e67046956764d5ea45d0e"
+        "html_mathml_sha256": "c5e63eb59e004c41546ab9c171dc0691af822d82a514492548d564d21419f02f",
+        "html_exact_tex_sha256": "a23f3abe3191f95811f81e21b8910f43bc4cf16134866ec675b3ec3a2e0c59e6"
       },
       "sections": [
         {
@@ -8769,6 +8769,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCount",
+        "label": "ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCount",
+        "path": "lean/ErdosProblems/Erdos249/PaperCompleteR21/UnassignedSmoothCount.lean",
+        "direct": true,
+        "content_digest": "sha256:995db97311942fab98e2b19bccc378b8f68ede55c060915e683fc9e9049bf45d",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos249/PaperCompleteR21/UnassignedSmoothCount.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCut",
         "label": "ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCut",
         "path": "lean/ErdosProblems/Erdos249/PaperCompleteR21/UnassignedSmoothCut.lean",
@@ -9018,6 +9027,15 @@
         "direct": false,
         "content_digest": "sha256:92c581c6329bf9de30ef66c2d8a82bbe15d035142073aa0093dc5f4d973d5c8d",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Lift/Recon67.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Shared.MertensSecond",
+        "label": "ErdosProblems.Shared.MertensSecond",
+        "path": "lean/ErdosProblems/Shared/MertensSecond.lean",
+        "direct": false,
+        "content_digest": "sha256:671226de47d8a026502e00433b92e855a5f2f2ac9d918cc62176cddb21aca532",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Shared/MertensSecond.lean",
         "role": "Lean proof module"
       },
       {
@@ -15498,6 +15516,14 @@
       {
         "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.TwoAdicPulseCertificateFailure",
         "target": "lean-module:Erdos249257.TotientTwoAdicPulseBlock"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCount",
+        "target": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCut"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCount",
+        "target": "lean-module:ErdosProblems.Shared.MertensSecond"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos249.PaperCompleteR21.UnassignedSmoothCut",

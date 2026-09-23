@@ -189,7 +189,7 @@
     "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and which hypotheses do they require?",
     "precis": "For a monic trinomial f(z)=z^n+a z^m+b, 1≤m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.",
     "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
-    "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041 and the correspondence between its historical curve-length formulation and the checked total-variation formulation; those distinctions belong to docs/claims.json in the mathematics repository",
+    "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository",
     "problem_id": "erdos_1041",
     "routes": {
       "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
@@ -209,17 +209,17 @@
       "pandoc": "pandoc 3.9.0.2",
       "renderer_contract_version": 30,
       "renderer_fingerprint": "d383526533396f6a",
-      "source_sha256": "5efa47dffa36b2733bbf14057e6e72b56faa10d603c6dc480af95017165f174a",
+      "source_sha256": "a5a6f75b996d2d8b6751e064414516d42c6ded18ac8c0818431bfd715fab1744",
       "source_manifest_match": true,
       "publication_manifest_match": true,
-      "mathml_node_count": 788,
+      "mathml_node_count": 787,
       "raw_math_fallback_count": 0,
       "warnings": {
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "8ef40cf9c686ccf326fce94debd7452cb965daf70739c22757bbc49d54d9224a",
-      "html_exact_tex_sha256": "29bc180d79ffa955fcb85ad98241293287a032e3d4a6f4f6827b87a0f48fd32d"
+      "html_mathml_sha256": "285440f30ca0b77dea5e32ec51fae5c66fc6db45d2188891bce82346e45102ca",
+      "html_exact_tex_sha256": "574f93be84acabd99b260acfe252b73238b4eea92882425c9fd674a73f051ab9"
     },
     "sections": [
       {
@@ -463,7 +463,7 @@
       "question": "Which explicit short paths and critical-value bounds are proved for Erdős #1041, and which hypotheses do they require?",
       "precis": "For a monic trinomial f(z)=z^n+a z^m+b, 1≤m<n, with roots in the open unit disc, the root equation controls f on every root-to-origin segment. Any two distinct roots are consequently joined inside {|f|<1} by an explicit two-segment path of length less than 2. Abel summation explains the role of the missing coefficients, and a sextic example shows why root locations alone do not control these segments. A squarefree monic polynomial has such a contained path when its least critical-value modulus is at most 13/25, without a root-location hypothesis; a scale-free consequence completes the main note. Independent estimates and limitations of other constructions are collected in the supplementary sections.",
       "owns": "the problem-specific exposition for Erdős #1041: ordinary all-degree trinomial paths, bounded-radius concyclic chords, a sharp critical-value mean, subsidiary Lean and Comparator checks, and exact obstructions that prevent promoting those estimates to a general connector theorem",
-      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041 and the correspondence between its historical curve-length formulation and the checked total-variation formulation; those distinctions belong to docs/claims.json in the mathematics repository",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository",
       "problem_id": "erdos_1041",
       "routes": {
         "html_mathml": "papers/erdos-1041-lemniscate-newton-flow.html",
@@ -483,17 +483,17 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "5efa47dffa36b2733bbf14057e6e72b56faa10d603c6dc480af95017165f174a",
+        "source_sha256": "a5a6f75b996d2d8b6751e064414516d42c6ded18ac8c0818431bfd715fab1744",
         "source_manifest_match": true,
         "publication_manifest_match": true,
-        "mathml_node_count": 788,
+        "mathml_node_count": 787,
         "raw_math_fallback_count": 0,
         "warnings": {
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "8ef40cf9c686ccf326fce94debd7452cb965daf70739c22757bbc49d54d9224a",
-        "html_exact_tex_sha256": "29bc180d79ffa955fcb85ad98241293287a032e3d4a6f4f6827b87a0f48fd32d"
+        "html_mathml_sha256": "285440f30ca0b77dea5e32ec51fae5c66fc6db45d2188891bce82346e45102ca",
+        "html_exact_tex_sha256": "574f93be84acabd99b260acfe252b73238b4eea92882425c9fd674a73f051ab9"
       },
       "sections": [
         {
@@ -737,7 +737,7 @@
       "question": "What path-length, critical-value, and coefficient-family results are proved for polynomial lemniscates, and what remains of the unrestricted length-2 problem?",
       "precis": "For a monic trinomial with roots in the open unit disc, any two distinct roots are joined inside {|f|<1} by a path of length less than 2. For any squarefree monic polynomial of degree n≥2, an area-growth argument gives such a path when the least critical-value modulus μ is at most 13/25; scaling gives length less than (5/2)μ^{1/n} inside {|f|<(25/13)μ}. The record develops this argument, an inverse-ray averaging estimate, and a construction using an isolated simple critical value, together with results for collinear roots and several coefficient families. A weighted Poisson identity gives a sharp mean bound on critical values; examples distinguish that bound from path-length control. The final sections examine inverse-sheet topology and refute an earlier spanning-tree estimate. These results do not prove the unrestricted length-2 assertion.",
       "owns": "the complete problem-specific reasoning surface for Erdős #1041, including all registered result families and their boundaries",
-      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041 and the correspondence between its historical curve-length formulation and the checked total-variation formulation; those distinctions belong to docs/claims.json in the mathematics repository",
+      "not_authority_for": "the validity of claims tagged Lean, which belongs to the cited kernel-checked source, or the current status of Erdős #1041, including the later one-polynomial Formal Conjectures path-image Hausdorff-length check and its unreviewed historical curve-length correspondence; those distinctions belong to docs/claims.json in the mathematics repository",
       "problem_id": "erdos_1041",
       "routes": {
         "html_mathml": "papers/erdos1041-lemniscate-reasoning-surface.html",
@@ -757,7 +757,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "b7942e5f2de8fe40acd7b60b8e16fd242a5a1cc6551912028fa3830e871993ed",
+        "source_sha256": "91cac94ec9296e643a61bd89580a294c44fbae5cf17afd6975682a3b2522f76b",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 2553,
@@ -785,8 +785,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "7900c7da0984dfa08cd8e00f0d36107c27f51c6c4acbe079bf5f8975b28d454c",
-        "html_exact_tex_sha256": "f6dbda4a01cceed7ff323beda4eb4f8abe59b8ea532d4d389f3bbb1ed3190f37"
+        "html_mathml_sha256": "5c4f15591e77d444170763238548ea1e13c69227593fa616b9be89b85cd8bfb3",
+        "html_exact_tex_sha256": "9581697898b1948fa42942a87f12d5883451152418b500b42562157f210523a4"
       },
       "sections": [
         {
@@ -1388,6 +1388,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.HausdorffLength",
+        "label": "ErdosProblems.Erdos1041.Counterexample.HausdorffLength",
+        "path": "lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean",
+        "direct": true,
+        "content_digest": "sha256:069ea76e27304bd34e020cf8aab0fcc9200c495ff892127612e8afe571e3fcb4",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/Counterexample/HausdorffLength.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceBarriers",
         "label": "ErdosProblems.Erdos1041.Counterexample.InstanceBarriers",
         "path": "lean/ErdosProblems/Erdos1041/Counterexample/InstanceBarriers.lean",
@@ -1676,6 +1685,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.GammaQuarterBound",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.GammaQuarterBound",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/GammaQuarterBound.lean",
+        "direct": true,
+        "content_digest": "sha256:8b48fbabb0f72d904e153b79a23dad222c358459ea78d5dbff58c9bee54a5ad1",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/GammaQuarterBound.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.HyperbolicCirclePacking",
         "label": "ErdosProblems.Erdos1041.PaperCompleteR21.HyperbolicCirclePacking",
         "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/HyperbolicCirclePacking.lean",
@@ -1712,6 +1730,15 @@
         "role": "Lean proof module"
       },
       {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LobeUnconditional",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.LobeUnconditional",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/LobeUnconditional.lean",
+        "direct": true,
+        "content_digest": "sha256:a8fab1be5946867b63bfb611f48e3e62aaaf6b3e9a324ee334c51901b3679f8f",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/LobeUnconditional.lean",
+        "role": "Lean proof module"
+      },
+      {
         "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LowCriticalScaleTransport",
         "label": "ErdosProblems.Erdos1041.PaperCompleteR21.LowCriticalScaleTransport",
         "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/LowCriticalScaleTransport.lean",
@@ -1727,6 +1754,15 @@
         "direct": true,
         "content_digest": "sha256:618dde649bf10f7d00fe8c525aac52ca04076cb4e189e9f87b2a108cefb0ec3c",
         "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/MergerScaleOrlicz.lean",
+        "role": "Lean proof module"
+      },
+      {
+        "id": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.PlanePerimeterBound",
+        "label": "ErdosProblems.Erdos1041.PaperCompleteR21.PlanePerimeterBound",
+        "path": "lean/ErdosProblems/Erdos1041/PaperCompleteR21/PlanePerimeterBound.lean",
+        "direct": true,
+        "content_digest": "sha256:45106f003a2c325a7262219a4000b129143a3daa5fc324e86f42de8ffc653d81",
+        "source_github": "https://github.com/wcook04/plectis-erdos/blob/main/lean/ErdosProblems/Erdos1041/PaperCompleteR21/PlanePerimeterBound.lean",
         "role": "Lean proof module"
       },
       {
@@ -2488,6 +2524,10 @@
         "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Defs"
       },
       {
+        "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.HausdorffLength",
+        "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.Assembly"
+      },
+      {
         "source": "lean-module:ErdosProblems.Erdos1041.Counterexample.InstanceBarriers",
         "target": "lean-module:ErdosProblems.Erdos1041.Counterexample.BarrierSigns"
       },
@@ -2594,6 +2634,18 @@
       {
         "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LobeAndArity",
         "target": "lean-module:ErdosProblems.Erdos1041.PaperAnalyticTargets"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LobeUnconditional",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.GammaQuarterBound"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LobeUnconditional",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LobeAndArity"
+      },
+      {
+        "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LobeUnconditional",
+        "target": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.PlanePerimeterBound"
       },
       {
         "source": "lean-module:ErdosProblems.Erdos1041.PaperCompleteR21.LowCriticalScaleTransport",

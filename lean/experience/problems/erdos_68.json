@@ -318,8 +318,8 @@
         "mathml": [],
         "mathjax": []
       },
-      "html_mathml_sha256": "b3c59e51f00d22be2b3fc8a1fd5bd6e72b82f8ac44629196b372a86b79ba65dc",
-      "html_exact_tex_sha256": "4f8ee453f9b4073eb1e2baeaec4af2d7eb4f25698a796fb81679a4cb6fd4e20b"
+      "html_mathml_sha256": "c2b92c2ae715760e7dc6a6e564428b20697fb7afdaf8c8b923ff0207074b81ae",
+      "html_exact_tex_sha256": "f2fd192fa1dacfb9ec32964e343e7e41ff1b33831fa9f9e5aa6536b591549b96"
     },
     "sections": [
       {
@@ -542,8 +542,8 @@
           "mathml": [],
           "mathjax": []
         },
-        "html_mathml_sha256": "b3c59e51f00d22be2b3fc8a1fd5bd6e72b82f8ac44629196b372a86b79ba65dc",
-        "html_exact_tex_sha256": "4f8ee453f9b4073eb1e2baeaec4af2d7eb4f25698a796fb81679a4cb6fd4e20b"
+        "html_mathml_sha256": "c2b92c2ae715760e7dc6a6e564428b20697fb7afdaf8c8b923ff0207074b81ae",
+        "html_exact_tex_sha256": "f2fd192fa1dacfb9ec32964e343e7e41ff1b33831fa9f9e5aa6536b591549b96"
       },
       "sections": [
         {
@@ -733,7 +733,7 @@
       "subject": "Erdős #68",
       "subject_kind": "problem",
       "form": "Reasoning surface",
-      "pages": 48,
+      "pages": 49,
       "question": "What growth, valuation, and finite-denominator facts are proved for ∑_{n≥2}(n!−1)^{-1}, and which tail inequalities remain?",
       "precis": "The record proves liminf (log L_N)/(N^{3/2} log N) ≥ 2√2/3 for L_N=lcm(2!−1,…,N!−1), by comparing a terminal block of denominators with pairwise gcds rather than an external multiplicity theorem. Specialising a Louwsma–Martino valuation, it exhibits primes 139 and 2593 absent from all later reduced denominators. Coefficient constructions give integer forms MS+k; at fixed moment the remainder changes only by an integer. Rationality criteria use factorial digits and the next integer above a scaled partial sum; the digit argument also recovers the irrationality of e. Two exact calculations give q∤299999! and q≥2^39990>10^12038. These exclusions do not prove irrationality.",
       "owns": "the complete problem-specific reasoning surface for Erdős #68, including all registered result families and their boundaries",
@@ -757,7 +757,7 @@
         "pandoc": "pandoc 3.9.0.2",
         "renderer_contract_version": 30,
         "renderer_fingerprint": "d383526533396f6a",
-        "source_sha256": "8bfe679e05d3b2bc16aa9bcb5ad8032a19000ba549745a84b3b5593beadc02e3",
+        "source_sha256": "a1e8e011af99f3c74e9facc32be9c5cebcb8f5977652e5c47b57a1de4d0e7169",
         "source_manifest_match": true,
         "publication_manifest_match": true,
         "mathml_node_count": 1848,
@@ -773,8 +773,8 @@
           ],
           "mathjax": []
         },
-        "html_mathml_sha256": "af5a0a860aa43ddc329f00a02db070ac9d30188cc6e221b8480fd19789bc3597",
-        "html_exact_tex_sha256": "2a8d7eb708c2bb984be698c0bfdf7afcdf72072258e5e8898c33ec91ca9c0c7b"
+        "html_mathml_sha256": "210a1ff0cebcf65a6f4a98cd23ab135094f447955b9c39d182a7ceb3e6bf4323",
+        "html_exact_tex_sha256": "edcacd2fe9a4c1f055f3066f2ced9dbdc665d7ce57543d10f628b800569f0dd4"
       },
       "sections": [
         {

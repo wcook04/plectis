@@ -424,7 +424,7 @@ then there are distinct indices $i,j$ such that
   |c-z_i|+|c-z_j|\le2r.
 \]
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean}{289}{exists_two_roots_dist_sum_le_two_mul_geomMean}.}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/CriticalTwoRootProximity.lean}{291}{exists_two_roots_dist_sum_le_two_mul_geomMean}.}
 
 \noindent The proof chooses the two smallest distances $d_i\le d_j$.
 The reciprocal balance gives $d_j\le(n-1)d_i$, while minimality and the
@@ -832,7 +832,7 @@ neighbourhood of the closed disc of radius $5/8$, so
 $\mathcal H^1(\partial C)>5\pi/4$.  The constant
 $\Gamma(1/4)^2/(2\sqrt{\pi})$ is at most $(\pi/2)(1+\sqrt2)<5\pi/4$.
 \end{proposition}
-\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean}{253}{one_root_gamma_false}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean}{177}{lobe_unique_zero}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean}{139}{lobe_nhd_of_closed_disc}, \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LobeAndArity.lean}{212}{lobe_perimeter_gt}, and 3 further declarations. Conditional on a perimeter lower bound for a bounded plane set containing a disc, and a numerical bound on the gamma function at $1/4$; see the \papersectionlink{erdos1041-lemniscate-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
+\leannote{Lean: \lproof{ErdosProblems/Erdos1041/PaperCompleteR21/LobeUnconditional.lean}{41}{one_root_gamma_false_unconditional}.}
 
 This example also lies below every critical-value modulus: its critical
 points satisfy $c^7=3/16$ and $p(c)=-(21/16)c$, so
@@ -1740,9 +1740,9 @@ category here.
 only in the release sources, and ordinary analytic arguments. None of these
 categories is interchangeable with a complete formal path theorem.
 \end{itemize}
-No source-link reachability check or fresh kernel build is implied by these
-snapshot links.  The original paper-wide commit macro is retained for legacy
-links; newer target links name their own snapshot explicitly.
+A snapshot link is not a build receipt.  The original paper-wide commit
+macro is retained for legacy links; newer target links name their own
+snapshot explicitly.
 
 % BEGIN pin-faithful-source-inventory
 \section{Pinned Lean sources}

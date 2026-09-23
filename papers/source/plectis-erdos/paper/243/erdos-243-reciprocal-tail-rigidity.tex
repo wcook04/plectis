@@ -11,6 +11,10 @@
 \renewcommand{\commitshort}{3d6d938d696f}
 % That revision keeps the Lean roots under lean/, so the links name it.
 \renewcommand{\PX}{lean/ErdosProblems}
+% Sources that postdate \commit are cited with their lean/ path and resolve at \latecommit,
+% whose tree keeps the Lean roots under lean/.
+\newcommand{\latecommit}{e4ba6841dfdbf3a025c2a3a8c5cb98bcc0457ce8}
+\newcommand{\laterepobase}{https://github.com/wcook04/plectis-erdos/blob/\latecommit}
 \hypersetup{
   pdftitle={Bounded increments and rational reciprocal sums: a sufficient condition for Erdős Problem 243},
   pdfsubject={Erdős Problem Notes: Problem 243},
@@ -732,7 +736,7 @@ A strictly increasing sequence of positive integers with
 \]
 has irrational reciprocal sum.
 \end{theorem}
-\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/GaloisSignFlipClosure.lean}{270}{cubic_rate_irrationality_of_chebotarev}. Conditional on Chebotarev's density theorem; see the \papersectionlink{erdos243-reciprocal-tail-reasoning-surface.pdf}{coverage}{coverage section of the companion record}.}
+\leannote{Lean: \lproof{ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean}{70}{cubic_rate_irrationality_unconditional}.}
 \begin{proof}[Proof by the polynomial exclusion]
 Under rationality, Section~\ref{sec:transfer} gives
 $C_{n+1}/C_n=1+3/n+o(n^{-3})$. Integer finite differences then give
@@ -741,11 +745,16 @@ The fixed-cubic exclusion contradicts this profile. The complete ordinary
 argument, including the finite-difference extraction and the cubic-field
 step, is in Section~2 of the
 \href{https://wcook04.github.io/plectis/papers/erdos243-reciprocal-tail-reasoning-surface.pdf}{companion reasoning paper}.
-The field step uses Chebotarev; see
+The field step in that argument uses Chebotarev's theorem; see
 \cite[Section~3, author version]{stevenhagenlenstra1996} for that classical
-input. This paragraph is a proof by a stated companion result, not a
-standalone finite-congruence proof and not an assembled Lean proof.
+input. This paragraph is a proof by a stated companion result.
 \end{proof}
+
+\noindent Theorem~\ref{res:cubicrate} is also a Lean theorem,
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L70}{cubic-rate irrationality},
+with no hypothesis beyond those printed above. In the Lean proof, the field
+step uses the simple pole of the Dedekind zeta function at $s=1$, which
+Mathlib provides, in place of Chebotarev's theorem.
 
 For example, $a_1=8$ and $a_{n+1}=\lceil n a_n^2/(n+3)\rceil$
 give this rate and product-ratio increments of order $n^2$. Thus the
@@ -768,8 +777,9 @@ Although $C_n$ is an integer linear form in the reciprocal sum, it grows.
 The argument uses an exact polynomial formula, not a small-linear-form
 criterion.
 
-There is also an ordinary quantitative extension, not an end-to-end
-Lean-checked theorem. Under the hypotheses of
+There is also a quantitative extension, whose two steps are Lean
+theorems; only the final step combining them is not a Lean declaration.
+Under the hypotheses of
 Theorem~\ref{res:bounded} other than (5), the companion proves
 \[
  \limsup_{n\to\infty}
@@ -783,7 +793,16 @@ $\sqrt{C_n}$ need not. Unlike boundedness, the coefficient depends on
 the integer normalisation: scaling $(C_n,D_n,E_n)$ by $k\in\N_{>0}$
 scales this limit superior by $k$. The proof and the running-maximum
 estimates are in the companion's Section~7, not in the elementary
-bounded-increment argument above. Subcritical versions are given in
+bounded-increment argument above. Put $H_n=\max_{j\le n}C_j$. For an
+orbit satisfying these hypotheses, the first step is the Lean theorem that
+$\limsup_n(H_{n+1}-H_n)/\log_2\log_2\max(4,H_n)>1$ whenever $E_n$ is not
+eventually zero
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/ExactOrbitRecordDichotomy.lean\#L363}{strict record bound}),
+and the second is the Lean theorem that this limit superior is at most the
+one displayed above
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L100}{comparison with the negative part}).
+The displayed implication is the contrapositive of the two combined, which
+also uses $D_0\ge1$, a consequence of~(6). Subcritical versions are given in
 \href{https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/SlowNegativePartRigidity.md}{the slow-negative proof}
 and \href{https://github.com/wcook04/plectis-erdos/blob/eccd8afc6db3c02a2265d0601b727d6c5e4467d5/lean/ErdosProblems/Erdos243/LcmRecordExcess.md\#5-record-only-subcritical-log-log-bound}
 {the record-only extension}, the latter for LCM numerators with the bound
@@ -917,17 +936,27 @@ terminology and notation.
 The mathematical arguments above are independent of the source code.
 Each linked phrase below opens its declaration at an immutable revision;
 the checkpoint is \texttt{\commitshort} unless the destination identifies
-a separate release or older research note.
+a separate release, an older research note or a later revision.
 
 \paragraph{Recorded coverage.}
 The supplied index records checked proofs of the bounded-negative theorem,
 its product and LCM consequences, the scalar convergence criterion and
 necessary conditions on a counterexample. The rational-tail construction
 has its own formalised estimates; it is not merely an interpretation of
-an abstract recurrence. The \href{https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean\#L87}{weighted criterion is checked in both directions}, with the real cutoff used in Lemma~\ref{res:weights}. The cubic and double-logarithmic
-arguments have checked components, not assembled Lean proofs identified
-here; the companion supplies their written proofs, including the growth
-and modulus-counting arguments.
+an abstract recurrence. The \href{https://github.com/wcook04/plectis-erdos/blob/52d6c45ad203ba619cb5fe6ba485c0b5400519ea/lean/ErdosProblems/Erdos243/PaperCompleteR20/RealCutoffCriterion.lean\#L87}{weighted criterion is checked in both directions}, with the real cutoff used in Lemma~\ref{res:weights}. The cubic-rate
+theorem has an assembled Lean proof,
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR21/SquareSpecialisationUnconditional.lean\#L70}{cubic-rate irrationality},
+with no hypothesis beyond those of Theorem~\ref{res:cubicrate}. The
+companion's double-logarithmic results, its Theorem~7.3 and
+Corollary~7.4, are Lean theorems for the integer tails of a rational
+reciprocal sum
+(\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/QuantitativeRecordDichotomy.lean\#L340}{record dichotomy},
+\href{\laterepobase/lean/ErdosProblems/Erdos243/PaperCompleteR11/InclusiveLimsup.lean\#L129}{double-logarithmic criterion}).
+For an orbit satisfying the hypotheses of Theorem~\ref{res:bounded} other
+than (5), both steps of the double-logarithmic bound are Lean theorems and
+only their final combination, described in Section~\ref{sec:secondaryrate},
+is not a Lean declaration. The companion supplies the written proofs of
+both arguments, including the growth and modulus-counting arguments.
 
 The recorded main build is at \texttt{6b78209ab63a}; links retain their
 original pins, including \texttt{\commitshort}. The linked weighted criterion also has a fresh Lean check; this does not
